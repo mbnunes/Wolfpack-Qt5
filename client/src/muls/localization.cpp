@@ -110,7 +110,7 @@ QString cLocalization::get(unsigned int id, QString language) {
 	return tr("ERROR: Unknown Cliloc ID %1").arg(id);
 }
 
-void cLocalization::export(const QString &filename, QString language) {
+void cLocalization::exportData(const QString &filename, QString language) {
 	QStringList lines;
 
 	LanguageMap::iterator it = languages.find(language.toLower());

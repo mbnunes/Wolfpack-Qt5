@@ -275,7 +275,7 @@ void cMainWindow::menuGameClicked(QAction *action) {
 		QString filename = QFileDialog::getSaveFileName(this, "Save localization as", QDir::current().absolutePath(), tr("Text Files (*.txt)"));
 
 		if (!filename.isEmpty()) {
-			Localization->export(filename, "ENU");
+			Localization->exportData(filename, "ENU");
 		}		
 	}
 }
@@ -670,7 +670,7 @@ void cGLWidget::mousePressEvent(QMouseEvent *e) {
 			}
 
 			// Get the next control with the gui as its parent above it
-			cContainer *parent = control->isContainer() ? (cContainer*)control : control->parent();
+			cContainer *parent = (control->isContainer() ? (cContainer*)control : control->parent());
 			while (parent && parent->parent() != Gui) {
 				parent = parent->parent();
 			}

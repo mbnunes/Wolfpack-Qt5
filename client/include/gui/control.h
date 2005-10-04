@@ -62,6 +62,7 @@ public slots:
 	bool isVisibleOnScreen();
 	cWindow *getTopWindow();
 	cContainer *parent() const;
+	cContainer *parent();
 	
 	// Map a QPoint from the global coordinate space to local
 	QPoint mapFromGlobal(const QPoint &point);
@@ -270,6 +271,10 @@ inline float cControl::alpha() const {
 }
 
 inline cContainer *cControl::parent() const {
+	return parent_;
+}
+
+inline cContainer *cControl::parent() {
 	return parent_;
 }
 

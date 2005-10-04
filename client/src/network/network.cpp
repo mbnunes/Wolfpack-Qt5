@@ -63,4 +63,8 @@ void cNetwork::showLargeStatus() {
 	requestStatus(Player);
 }
 
+void cNetwork::setStatLock(uchar stat, uchar lock) {
+	UoSocket->send(cSetStatLockPacket(stat, lock));
+}
+
 cNetwork *Network = 0;

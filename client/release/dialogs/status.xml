@@ -1,7 +1,7 @@
 <?xml version="1.1" encoding="UTF-8" ?>
 <dialogs>
 	<!-- Big Paperdoll Dialog -->
-	<dialog class="statuswindow" id="PlayerStatusAos" name="PlayerStatus" closable="true" movable="true">
+	<dialog class="statuswindow" id="PlayerStatusAos" name="PlayerStatus" closable="true" movable="true" module="dialogs.Status">
 		<bounds x="0" y="0" width="427" height="184" />
 	
 		<!-- <tag name="Aos" value="1" />  --> <!-- Flag it as the Aos Status -->
@@ -45,34 +45,34 @@
 			</asciilabel>
 			
 			<!-- Health, Stamina, Mana Labels -->
-			<asciilabel movehandle="true" hue="0x386" font="1" name="HealthLabel" textalign="center">
-				<position x="148" y="70" />
+			<asciilabel movehandle="true" hue="0x386" font="1" name="HealthLabel" textalign="center" autosize="0">
+				<bounds x="148" y="70" width="30" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" text="___">
-				<position x="148" y="73" />
+			<asciilabel movehandle="true" hue="0x386" font="1" text="___" textalign="center" autosize="0">
+				<bounds x="148" y="73" width="30" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxHealthLabel" textalign="center">
-				<position x="148" y="83" />
+			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxHealthLabel" textalign="center" autosize="0">
+				<bounds x="148" y="83" width="30" />
 			</asciilabel>			
 
-			<asciilabel movehandle="true" hue="0x386" font="1" name="StaminaLabel" textalign="center">
-				<position x="148" y="98" />
+			<asciilabel movehandle="true" hue="0x386" font="1" name="StaminaLabel" textalign="center" autosize="0">
+				<bounds x="148" y="98" width="30" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" text="___">
-				<position x="148" y="101" />
+			<asciilabel movehandle="true" hue="0x386" font="1" text="___" textalign="center" autosize="0">
+				<bounds x="148" y="101" width="30" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxStaminaLabel" textalign="center">
-				<position x="148" y="111" />
+			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxStaminaLabel" textalign="center" autosize="0">
+				<bounds x="148" y="111" width="30" />
 			</asciilabel>
 			
-			<asciilabel movehandle="true" hue="0x386" font="1" name="ManaLabel" textalign="center">
-				<position x="148" y="126" />
+			<asciilabel movehandle="true" hue="0x386" font="1" name="ManaLabel" textalign="center" autosize="0">
+				<bounds x="148" y="126" width="30" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" text="___">
-				<position x="148" y="129" />
+			<asciilabel movehandle="true" hue="0x386" font="1" text="___" textalign="center" autosize="0">
+				<bounds x="148" y="129" width="30" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxManaLabel" textalign="center">
-				<position x="148" y="139" />
+			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxManaLabel" textalign="center" autosize="0">
+				<bounds x="148" y="139" width="30" />
 			</asciilabel>			
 
 			<!-- Stats Cap, Luck, Weight -->
@@ -82,14 +82,14 @@
 			<asciilabel movehandle="true" hue="0x386" font="1" name="LuckLabel">
 				<position x="220" y="105" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" name="WeightLabel" textalign="center">
-				<position x="220" y="126" />
+			<asciilabel movehandle="true" hue="0x386" font="1" name="WeightLabel" textalign="center" autosize="0">
+				<bounds x="217" y="126" width="30" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" text="___">
-				<position x="220" y="129" />
+			<asciilabel movehandle="true" hue="0x386" font="1" text="___" textalign="center" autosize="0">
+				<bounds x="217" y="129" width="30" />
 			</asciilabel>
-			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxWeightLabel" textalign="center">
-				<position x="220" y="139" />
+			<asciilabel movehandle="true" hue="0x386" font="1" name="MaxWeightLabel" textalign="center" autosize="0">
+				<bounds x="217" y="139" width="30" />
 			</asciilabel>
 			
 			<!-- Min-Maxdamage, Gold, Followers/MaxFollowers -->
@@ -122,7 +122,7 @@
 			
 			<!-- Player Name -->
 			<asciilabel movehandle="true" hue="0x386" font="1" name="NameLabel" textalign="center" autosize="0">
-				<bounds x="55" y="62" width="353" height="18" />
+				<bounds x="39" y="49" width="353" height="18" />
 			</asciilabel>
 		</children>
 	</dialog>

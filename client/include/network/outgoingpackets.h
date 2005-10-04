@@ -190,4 +190,10 @@ public:
 	cRequestSkillsPacket(uint serial);
 };
 
+// Set the lock of a given stat
+class cSetStatLockPacket : public cOutgoingPacket {
+public:
+	cSetStatLockPacket(uchar stat, uchar lock);
+};
+
 #endif

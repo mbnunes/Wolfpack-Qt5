@@ -13,6 +13,25 @@ class cDynamicItem;
 
 class cExtendedStatus : public QObject {
 Q_OBJECT
+Q_PROPERTY(ushort strength READ strength)
+Q_PROPERTY(ushort dexterity READ dexterity)
+Q_PROPERTY(ushort intelligence READ intelligence)
+Q_PROPERTY(ushort statscap READ statsCap)
+Q_PROPERTY(uint gold READ gold)
+Q_PROPERTY(ushort weight READ weight)
+Q_PROPERTY(ushort luck READ luck)
+Q_PROPERTY(uchar followers READ followers)
+Q_PROPERTY(uchar maxfollowers READ maxFollowers)
+Q_PROPERTY(ushort mindamage READ minDamage)
+Q_PROPERTY(ushort maxdamage READ maxDamage)
+Q_PROPERTY(ushort physicalresist READ physicalResist)
+Q_PROPERTY(ushort fireresist READ fireResist)
+Q_PROPERTY(ushort coldresist READ coldResist)
+Q_PROPERTY(ushort poisonresist READ poisonResist)
+Q_PROPERTY(ushort energyresist READ energyResist)
+Q_PROPERTY(uchar strengthlock READ strengthLock)
+Q_PROPERTY(uchar dexteritylock READ dexterityLock)
+Q_PROPERTY(uchar intelligencelock READ intelligenceLock)
 protected:
 	ushort strength_;
 	ushort dexterity_;
@@ -33,7 +52,7 @@ protected:
 	uchar strengthLock_;
 	uchar dexterityLock_;
 	uchar intelligenceLock_;
-public:
+public slots:
 	ushort strength() const {
 		return strength_;
 	}
@@ -178,6 +197,7 @@ Q_PROPERTY(ushort maxstamina READ maxStamina WRITE setMaxStamina)
 Q_PROPERTY(ushort maxmana READ maxMana WRITE setMaxMana)
 Q_PROPERTY(QString name READ name WRITE setName)
 Q_PROPERTY(bool renameable READ renameable WRITE setRenameable)
+Q_PROPERTY(const cExtendedStatus *status READ status)
 Q_ENUMS(Notoriety)
 public:
 	enum Notoriety {

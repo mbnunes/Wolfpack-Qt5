@@ -304,3 +304,8 @@ cRequestStatusPacket::cRequestStatusPacket(uint serial) : cOutgoingPacket(0x34, 
 cRequestSkillsPacket::cRequestSkillsPacket(uint serial) : cOutgoingPacket(0x34, 10) {
 	m_Stream << 0xedededed << (uchar)0x05 << serial;
 }
+
+cSetStatLockPacket::cSetStatLockPacket(uchar stat, uchar lock) : cOutgoingPacket(0xbf, 7) {
+	m_Stream << (ushort)0x1a << stat << lock;
+	writeDynamicSize();
+}

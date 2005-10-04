@@ -1,6 +1,5 @@
 
 from client import *
-import Status
 
 ### Weapon ability button doubleclicked
 def abilityButtonClicked(button):
