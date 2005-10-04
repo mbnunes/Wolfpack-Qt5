@@ -65,6 +65,26 @@ void cNetwork::showLargeStatus() {
 
 void cNetwork::setStatLock(uchar stat, uchar lock) {
 	UoSocket->send(cSetStatLockPacket(stat, lock));
+	
+	const cExtendedStatus *status = Player->status();
+
+	if (!status) {
+		Player->setStatus(new cExtendedStatus);
+		status = Player->status();
+	}
+
+	switch (stat) {
+		default:
+		case 0:
+			Player->setStatLocks(lock, status->dexterityLock(), status->intelligenceLock());
+			break;
+		case 1:
+			Player->setStatLocks(status->strengthLock(), lock, status->intelligenceLock());
+			break;
+		case 2:
+			Player->setStatLocks(status->dexterityLock(), status->dexterityLock(), lock);
+			break;
+	}
 }
 
 cNetwork *Network = 0;

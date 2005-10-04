@@ -3,16 +3,15 @@ from client import *
 
 def strengthLockClicked(button):
 	status = Player.status
-	print status.strengthlock
-	print status.dexteritylock
-	print status.intelligencelock
-	Network.setStatLock(0, 2)
+	Network.setStatLock(0, (status.strengthlock + 1) % 3)
 	
 def dexterityLockClicked(button):
-	pass
+	status = Player.status
+	Network.setStatLock(1, (status.dexteritylock + 1) % 3)
 	
 def intelligenceLockClicked(button):
-	pass		
+	status = Player.status
+	Network.setStatLock(2, (status.intelligencelock + 1) % 3)
 
 def initialize(dialog):
 	# Connect to the statlock buttons
