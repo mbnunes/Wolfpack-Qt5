@@ -4297,12 +4297,12 @@ Interval: %s to %s minutes</source>
     <message>
         <source>You have entered %s.</source>
         <comment>../release/scripts/system/regionchange.py</comment>
-        <translation>Du betrittst %1.</translation>
+        <translation>Du betrittst %s.</translation>
     </message>
     <message>
         <source>You have left %s.</source>
         <comment>../release/scripts/system/regionchange.py</comment>
-        <translation>Du verlässt %1.</translation>
+        <translation>Du verlässt %s.</translation>
     </message>
     <message>
         <source>You have left the protection of %s guards.</source>
