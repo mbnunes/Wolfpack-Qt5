@@ -1,7 +1,7 @@
 
 import random
 from wolfpack.consts import *
-from wolfpack import console
+from wolfpack import console, tr
 
 #
 # The monster speechbuilder class
@@ -138,11 +138,11 @@ def onDamage(char, type, amount, source):
 
 	if char.health - amount > 0:	
 		if amount < 5:
-			sentence = random.choice([ "Ouch!", "Me not hurt bad!", "Thou fight bad.", "Thy blows soft!", "You bad with weapon!" ])				
+			sentence = random.choice([ tr("Ouch!"), tr("Me not hurt bad!"), tr("Thou fight bad."), tr("Thy blows soft!"), tr("You bad with weapon!") ])				
 		else:
-			sentence = random.choice([ "Ouch! Me hurt!", "No, kill me not!", "Me hurt!", "Away with thee!", "Oof! That hurt!", "Aaah! That hurt...", "Good blow!" ])
+			sentence = random.choice([ tr("Ouch! Me hurt!"), tr("No, kill me not!"), tr("Me hurt!"), tr("Away with thee!"), tr("Oof! That hurt!"), tr("Aaah! That hurt..."), tr("Good blow!") ])
 	else:
-		sentence = random.choice(["Revenge!", "NOOooo!", "I... I...", "Me no die!", "Me die!", "Must... not die...", "Oooh, me hurt...", "Me dying?"])
+		sentence = random.choice([ tr("Revenge!"), tr("NOOooo!"), tr("I... I..."), tr("Me no die!"), tr("Me die!"), tr("Must... not die..."), tr("Oooh, me hurt..."), tr("Me dying?")])
 
 	speech = char.getstrproperty('monsterspeech', '')
 	global speechbuilders
