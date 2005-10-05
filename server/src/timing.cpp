@@ -381,15 +381,18 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 				character->setRegenManaTime( Server::instance()->time() + RegTemp );
 
 				P_PLAYER player = dynamic_cast<P_PLAYER>( character );
-				if ( player->socket() )
+				if ( player )
 				{
-					player->socket()->updateMana();
-				}
+					if ( player->socket() )
+					{
+						player->socket()->updateMana();
+					}
 
-				if ( player->isMeditating() && character->mana() >= character->maxMana() )
-				{
-					player->setMeditating( false );
-					player->sysmessage( 501846 );
+					if ( player->isMeditating() && character->mana() >= character->maxMana() )
+					{
+						player->setMeditating( false );
+						player->sysmessage( 501846 );
+					}
 				}
 			}
 		}
