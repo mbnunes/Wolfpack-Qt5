@@ -104,7 +104,7 @@ static void lookForDefinitions( const QString& dir, const QString& filter, MetaT
         if ( fi->isDir() && ( fi->fileName() == "." || fi->fileName() == ".." ) )
             continue;
         else if ( fi->isDir() )
-            lookForDefinitions( d.absPath() + "/" + fi->fileName(), filter, tor, fetchtr );
+            lookForDefinitions( dir + "/" + fi->fileName(), filter, tor, fetchtr );
         else 
 		{
 			fetchtr( dir + "/" + fi->fileName(), tor, 0, true );  
