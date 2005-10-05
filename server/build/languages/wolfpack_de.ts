@@ -130,10 +130,6 @@
         <translation>Du befindest dich in der Wildnis</translation>
     </message>
     <message>
-        <source>You seem to be unable to track the traces of creatures who have been here.</source>
-        <translation>Du scheinst unfähig zu sein, die Spuren der Kreaturen, die hier waren, zu lesen.</translation>
-    </message>
-    <message>
         <source>Compiled: %1 %2
 </source>
         <translation>Kompiliert: %1 %2
@@ -2008,11 +2004,6 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
         <translation>(Unverschlossen)</translation>
     </message>
     <message>
-        <source>Not yet implemented.</source>
-        <comment>../release/scripts/magic/chivalry.py</comment>
-        <translation>Nicht implementiert.</translation>
-    </message>
-    <message>
         <source>a recall rune for %s</source>
         <comment>../release/scripts/magic/rune.py</comment>
         <translation type="unfinished"></translation>
@@ -2135,7 +2126,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>You must be standing in front of or behind the dummy to use it.</source>
         <comment>../release/scripts/pickpocket_dip.py</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Du musst vor oder hinter einer Trainingspuppe stehen.</translation>
     </message>
     <message>
         <source>Empty the bowl?</source>
@@ -3543,6 +3534,791 @@ Interval: %s to %s minutes</source>
         <comment>../release/scripts/wolfpack/utilities.py</comment>
         <translation>Du musst Ultima Online: Age of Shadows oder eine neuere Version installieren um dieses Tor zu nutzen.</translation>
     </message>
+    <message>
+        <source>Only a Grandmaster Alchemist can learn from this book.</source>
+        <comment>../release/scripts/books/glassblowing.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have already learned this information.</source>
+        <comment>../release/scripts/books/glassblowing.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have learned to make items from glass. You will need to find miners to mine find sand for you to make these items.</source>
+        <comment>../release/scripts/books/glassblowing.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only a Grandmaster Carpenter can learn from this book.</source>
+        <comment>../release/scripts/books/masonry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have already learned this information.</source>
+        <comment>../release/scripts/books/masonry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have learned to make items from stone. You will need miners to gather stones for you to make these items.</source>
+        <comment>../release/scripts/books/masonry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only a Grandmaster Miner can learn from this book.</source>
+        <comment>../release/scripts/books/sandmining.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have already learned this information.</source>
+        <comment>../release/scripts/books/sandmining.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have learned how to mine fine sand. Target sand areas when mining to look for fine sand.</source>
+        <comment>../release/scripts/books/sandmining.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Only a Grandmaster Miner can learn from this book.</source>
+        <comment>../release/scripts/books/stonemining.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have already learned this knowledge.</source>
+        <comment>../release/scripts/books/stonemining.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have learned to mine for stones. Target mountains when mining to find stones.</source>
+        <comment>../release/scripts/books/stonemining.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are out of ammo.</source>
+        <comment>../release/scripts/combat/aos.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Item definition by the name &apos;%s&apos; found.</source>
+        <comment>../release/scripts/commands/tile.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select the second corner.</source>
+        <comment>../release/scripts/commands/tile.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not allowed to tile more than 250 items at once.</source>
+        <comment>../release/scripts/commands/tile.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select the first corner.</source>
+        <comment>../release/scripts/commands/tile.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Target the object you would like to turn.</source>
+        <comment>../release/scripts/commands/turnitem.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must target an item!</source>
+        <comment>../release/scripts/commands/turnitem.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This object is not movable by you!</source>
+        <comment>../release/scripts/commands/turnitem.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You rotate the object.</source>
+        <comment>../release/scripts/commands/turnitem.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This deed needs to be in your backpack to turn it!</source>
+        <comment>../release/scripts/commands/turnitem.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You rotate the deed&apos;s placement direction.</source>
+        <comment>../release/scripts/commands/turnitem.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This item is not turnable.</source>
+        <comment>../release/scripts/commands/turnitem.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For less I shall teach thee less.</source>
+        <comment>../release/scripts/contextmenus/trainmenu.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>That is not ripe yet.</source>
+        <comment>../release/scripts/crops/growing.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is someone blocking the door!</source>
+        <comment>../release/scripts/door.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need something you can fill the milk in.</source>
+        <comment>../release/scripts/farming.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You melk the cow and fill the milk in an empty pitcher.</source>
+        <comment>../release/scripts/farming.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You get some eggs</source>
+        <comment>../release/scripts/farming.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There&apos;s nothing you can get from it.</source>
+        <comment>../release/scripts/farming.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The figurine needs to be in your posession to use it.</source>
+        <comment>../release/scripts/figurine.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don</source>
+        <comment>../release/scripts/food.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s&apos;s Guild</source>
+        <comment>../release/scripts/guilds/deed.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have to leave your guild before founding a new one.</source>
+        <comment>../release/scripts/guilds/deed.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You place the guildstone and your deed vanishes.</source>
+        <comment>../release/scripts/guilds/deed.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have to leave your current guild before you found a new one.</source>
+        <comment>../release/scripts/guilds/deed.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Where do you want to place the guildstone?</source>
+        <comment>../release/scripts/guilds/deed.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&apos;%s&apos; has left the game because the character was deleted.</source>
+        <comment>../release/scripts/guilds/member.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are %u other members of your guild logged on.</source>
+        <comment>../release/scripts/guilds/member.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is one other member of your guild logged on.</source>
+        <comment>../release/scripts/guilds/member.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is no other member of your guild logged on.</source>
+        <comment>../release/scripts/guilds/member.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Not yet fully implemented.</source>
+        <comment>../release/scripts/magic/chivalry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The book has to be in your belongings to be used.</source>
+        <comment>../release/scripts/magic/chivalryspellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This spell only works on players.</source>
+        <comment>../release/scripts/magic/circle1.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You already have nightsight.</source>
+        <comment>../release/scripts/magic/circle1.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>They already have nightsight.</source>
+        <comment>../release/scripts/magic/circle1.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Teleport is not allowed in that Region</source>
+        <comment>../release/scripts/magic/circle3.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The book has to be in your belongings to be used.</source>
+        <comment>../release/scripts/magic/necrospellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your nightsight is wearing out.</source>
+        <comment>../release/scripts/magic/nightsight.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select Last</source>
+        <comment>../release/scripts/magic/polymorph.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This rune is not marked.</source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The rune needs to be in your posession to rename it.</source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You cannot rename this rune.</source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have to enter a name for this rune.</source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name has to be shorter than 30 characters.</source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>a Blank recall rune</source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rune to: </source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont size=&quot;7&quot; color=&quot;#336699&quot;&gt;&lt;center&gt;Rename rune&lt;/center&gt;&lt;/basefont&gt;</source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>How do you like to name the rune?</source>
+        <comment>../release/scripts/magic/rune.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charges: %i</source>
+        <comment>../release/scripts/magic/runebook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Max Charges: %i</source>
+        <comment>../release/scripts/magic/runebook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: addspell &lt;spell&gt; or addspell all</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Values between 0 and 63 are valid.</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the spellbook you want to add the spell to.</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: removespell &lt;spell&gt; or removespell all</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to target a spellbook.</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Added all spells to the spellbook.</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Added spell %d of circle %d (Id %d) to the spellbook.</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removed all spells from the spellbook.</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Removed spell %d of circle %d (Id %d)from the spellbook.</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The book has to be in your belongings to be used.</source>
+        <comment>../release/scripts/magic/spellbook.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have nothing I would be interested in.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I would not presume to charge thee anything.  Here are the goods you requested.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The total of thy purchase is %u gold, which has been withdrawn from your bank account.  My thanks for the patronage.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The total of thy purchase is %u gold.  My thanks for the patronage.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I would not presume to charge thee anything.  Unfortunately, I could not sell you all the goods you requested.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The total of thy purchase is %u gold, which has been withdrawn from your bank account.  My thanks for the patronage.  Unfortunately, I could not sell you all the goods you requested.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The total of thy purchase is %u gold.  My thanks for the patronage.  Unfortunately, I could not sell you all the goods you requested.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I bought %u items from you. I sent a check for %u gold to your bank account.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I bought %u items from you. Here are your %u gold.</source>
+        <comment>../release/scripts/npc/vendor/__init__.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beech Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apple Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Peach Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pear Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cedar Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Willow Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cypress Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oak Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Walnut Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yew Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tropical Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wood</source>
+        <comment>../release/scripts/skills/bowcraft.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beech Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apple Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Peach Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pear Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cedar Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Willow Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cypress Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Oak Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Walnut Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yew Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tropical Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wood</source>
+        <comment>../release/scripts/skills/carpentry.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not skilled enough to gather wood from this tree.</source>
+        <comment>../release/scripts/skills/lumberjacking.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ouch!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Autsch!</translation>
+    </message>
+    <message>
+        <source>Me not hurt bad!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Ich nicht verwundet schlimm!</translation>
+    </message>
+    <message>
+        <source>Thou fight bad.</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Du kämpfst schlecht.</translation>
+    </message>
+    <message>
+        <source>Thy blows soft!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Du schlägst schach!</translation>
+    </message>
+    <message>
+        <source>You bad with weapon!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Du schlecht mit Waffe!</translation>
+    </message>
+    <message>
+        <source>Ouch! Me hurt!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Autsch! Ich verletzt!</translation>
+    </message>
+    <message>
+        <source>No, kill me not!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Nein, töte mich nicht!</translation>
+    </message>
+    <message>
+        <source>Me hurt!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Ich verletzt!</translation>
+    </message>
+    <message>
+        <source>Away with thee!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Weg mit dir!</translation>
+    </message>
+    <message>
+        <source>Oof! That hurt!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Arg! Das weh!</translation>
+    </message>
+    <message>
+        <source>Aaah! That hurt...</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Aaah! Das tat weh...</translation>
+    </message>
+    <message>
+        <source>Good blow!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Guter Schlag!</translation>
+    </message>
+    <message>
+        <source>Revenge!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Rache!</translation>
+    </message>
+    <message>
+        <source>NOOooo!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Neeiiiin!</translation>
+    </message>
+    <message>
+        <source>I... I...</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Ich.... I...</translation>
+    </message>
+    <message>
+        <source>Me no die!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Ich nicht sterben!</translation>
+    </message>
+    <message>
+        <source>Me die!</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Ich sterbe!</translation>
+    </message>
+    <message>
+        <source>Must... not die...</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Darf... nicht sterben....</translation>
+    </message>
+    <message>
+        <source>Oooh, me hurt...</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Oooh, ich verletzt...</translation>
+    </message>
+    <message>
+        <source>Me dying?</source>
+        <comment>../release/scripts/speech/monster.py</comment>
+        <translation>Ich sterben?</translation>
+    </message>
+    <message>
+        <source>Please select a destination.</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your pets cannot attack that.</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your pet refuses to kill itself.</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please select an attack target.</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your target already controls too many pets.</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You transfer your pet to %s.</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Who do you want to transfer your pet to?</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your pets can only follow characters.</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Who do you want your pets to follow?</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Who do you want your pet to follow?</source>
+        <comment>../release/scripts/speech/pets.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May I help thee?</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I can&apos;t sell this from over there!</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can&apos;t reach the vendor.</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bye!</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>That is not shrinkable...</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>That is not tamed...</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>That is not rideable...</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You don&apos;t have enough gold!</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>That is %i gold.</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont size=&quot;7&quot; color=&quot;#336699&quot;&gt;&lt;center&gt;Stablemaster shop&lt;/center&gt;&lt;/basefont&gt;</source>
+        <comment>../release/scripts/speech/stablemaster.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You see %s is breaking the item while trying to enhance it.</source>
+        <comment>../release/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have to target a character.</source>
+        <comment>../release/scripts/system/poison.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allowed levels: 0 to 4.</source>
+        <comment>../release/scripts/system/poison.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select the character you want to poison.</source>
+        <comment>../release/scripts/system/poison.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Usage: poison &lt;level&gt;</source>
+        <comment>../release/scripts/system/poison.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have entered %s.</source>
+        <comment>../release/scripts/system/regionchange.py</comment>
+        <translation>Du betrittst %1.</translation>
+    </message>
+    <message>
+        <source>You have left %s.</source>
+        <comment>../release/scripts/system/regionchange.py</comment>
+        <translation>Du verlässt %1.</translation>
+    </message>
+    <message>
+        <source>You have left the protection of %s guards.</source>
+        <comment>../release/scripts/system/regionchange.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are now under protection by %s guards.</source>
+        <comment>../release/scripts/system/regionchange.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You use some of the wheat and make a sack of flour.</source>
+        <comment>../release/scripts/wheat.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AbstractAI</name>
@@ -3604,34 +4380,6 @@ Interval: %s to %s minutes</source>
     <message>
         <source>You cannot put that into the belongings of another player</source>
         <translation>Du kannst das nicht in den Besitz anderer Spieler geben</translation>
-    </message>
-    <message>
-        <source>*cough* Thank thee!</source>
-        <translation>*hust* Danke euch!</translation>
-    </message>
-    <message>
-        <source>*You see %1 eating %2*</source>
-        <translation>*Du siehst wie %1 %2 isst*</translation>
-    </message>
-    <message>
-        <source>Sorry, but i can only use gold.</source>
-        <translation>Entschuldigt, aber ich kann nur Gold gebrauchen.</translation>
-    </message>
-    <message>
-        <source>Thank you %1 for the %2 gold!</source>
-        <translation>Danke %1 für die %2 Goldmünzen!</translation>
-    </message>
-    <message>
-        <source>You have gained some karma!</source>
-        <translation>Du hast etwas an Karma gewonnen!</translation>
-    </message>
-    <message>
-        <source>I can only accept deeds with value!</source>
-        <translation>Ich akzeptiere nur Urkunden von Wert!</translation>
-    </message>
-    <message>
-        <source>Here you have your %1 gold, %2</source>
-        <translation>Hier habt ihr eure %1 Goldmünzen, %2</translation>
     </message>
     <message>
         <source>You cannot grab items in locked containers.</source>
@@ -4113,6 +4861,10 @@ Interval: %s to %s minutes</source>
         <source>You are too far away!</source>
         <translation>Du bist zu weit entfernt!</translation>
     </message>
+    <message>
+        <source>Rejected putting an item (%1) into a freed character (%2)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cBaseDef</name>
@@ -4454,6 +5206,10 @@ This is very usefull for new shards without account policy
     </message>
     <message>
         <source>Content element lacking id, list, or randomlist attribute in item definition &apos;%1&apos;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rejected putting an item (%1) into a freed container (%2)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
