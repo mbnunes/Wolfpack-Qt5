@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/stat.h>
 
 // The pattern to look for. This rounded to the next 4 byte boundary is the offset to the version info
 char *pattern = (char*)L"VS_VERSION_INFO";
@@ -54,6 +55,7 @@ void grabVersion(char *filename) {
 	size_t dataSize = 0; // file size
 	size_t readSize; // how much was read into the buffer
 	char buffer[4096]; // read buffer
+	struct stat fileStats; // file statistics
 
 	// Open the file
 	fp = fopen(filename, "rb");
@@ -63,13 +65,13 @@ void grabVersion(char *filename) {
 		return;
 	}
 
-	data = malloc(0); // Allocate (?)
+	// Retrieve file stats
+	fstat(fp, &fileStats);
+
+	data = malloc(fileStats.st_size); // Allocate (?)
 
 	// Slurp the file into a character array
 	while ((readSize = fread(&buffer, 1, 4096, fp)) > 0) {
-		// Reallocate memory
-		data = realloc(data, dataSize + readSize);
-
 		// Append read data
 		memcpy(data + dataSize, buffer, readSize);
 		dataSize += readSize;
