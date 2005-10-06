@@ -19,6 +19,8 @@ int main( int argc, char** argv )
 	delete Client; // Free UoClient Instance
 }
 
+#if defined(Q_OS_WIN32)
+
 /****************************************************************************
 **
 ** Copyright (C) 1992-2005 Trolltech AS. All rights reserved.
@@ -117,3 +119,5 @@ int APIENTRY WinMain(HINSTANCE instance, HINSTANCE prevInstance, LPSTR /*cmdPara
     int result = main(argc, argv.data());
     return result;
 }
+
+#endif

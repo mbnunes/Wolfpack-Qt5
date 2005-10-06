@@ -200,7 +200,8 @@ static void allocPythonToQt(void **ptr, uint index, QString qtType, PyObject *py
 /*
 	Function managing the call ability of our method wrapper.
 */
-static PyObject *methodwrapper_call(pyMethodWrapperObject *obj, PyObject *args, PyObject *kws) {
+
+PyObject *methodwrapper_call(pyMethodWrapperObject *obj, PyObject *args, PyObject *kws) {
 	QObject *wrapped = obj->wrapped;
 
 	// Error checking for deleted objects
@@ -436,7 +437,7 @@ PyObject *generateWrapper(QObject *object) {
 /*
 	Compare two wrapped objects.
 */
-static int wrapper_compare(PyObject *a, PyObject *b) {
+int wrapper_compare(PyObject *a, PyObject *b) {
 	if (a->ob_type != &pyWrapperType || b->ob_type != &pyWrapperType) {
 		return -1;
 	}
@@ -451,7 +452,7 @@ static int wrapper_compare(PyObject *a, PyObject *b) {
 /*
 	Attribute getter for the generic wrapper class.
 */
-static PyObject* wrapper_get(pyWrapperObject* self, char* name) {
+PyObject* wrapper_get(pyWrapperObject* self, char* name) {
 	QObject *wrapped = self->wrapped;
 
 	// Error checking for deleted objects
@@ -530,7 +531,7 @@ static PyObject* wrapper_get(pyWrapperObject* self, char* name) {
 /*
 	Attribute setter for the generic wrapper class.
 */
-static int wrapper_set(pyWrapperObject* self, char* name, PyObject* value) {
+int wrapper_set(pyWrapperObject* self, char* name, PyObject* value) {
 	QObject *wrapped = self->wrapped;
 
 	// Error checking for deleted objects

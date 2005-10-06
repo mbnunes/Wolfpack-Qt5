@@ -49,7 +49,20 @@ cScripts::~cScripts() {
 	Setup the search path for python modules
 */
 void cScripts::initializeSearchPath() {
-	putenv("PYTHONPATH=./scripts/;.");
+	// Modify our search-path
+	PyObject* searchpath = PySys_GetObject( "path" );
+	
+	QStringList elements;
+	elements << "./scripts/" << "./";
+	
+	// Prepend our items to the searchpath
+	for (int i = elements.count() - 1; i >= 0; --i) {
+		PyList_Insert( searchpath, 0, PyString_FromString( elements[i].toLatin1() ) );
+	}
+	
+	// Import site now
+	PyObject* m = PyImport_ImportModule("site");
+	Py_XDECREF( m );
 }
 
 void cScripts::load() {
@@ -72,11 +85,13 @@ void cScripts::load() {
 
 	Py_SetProgramName(QApplication::instance()->argv()[0]);
 	Py_OptimizeFlag = 1; // Release only
-	
-	initializeSearchPath();
+	Py_NoSiteFlag = 1; // No import because we need to set the search path first	
 
 	Py_Initialize(); // Start the python interpreter
 	PySys_SetArgv( QApplication::instance()->argc(), QApplication::instance()->argv() );
+
+	initializeSearchPath();
+
 // Only install this is we're not being built for console (simulated by only enabling it in debug mode)
 #if defined(NDEBUG)
 	initializeLogInterface();

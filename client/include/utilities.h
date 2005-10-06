@@ -27,9 +27,8 @@ namespace Utilities {
 
 	void launchBrowser(const QString &url);
 
-	inline unsigned int getTicks() {
-		return (unsigned int)clock();
-	}
+	uint getTicks();
+
 
 	/*
 		Return the direction from point a to point b.

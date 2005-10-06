@@ -4,7 +4,22 @@
 #include "log.h"
 #include <QString>
 
-PyMethodDef methods[]; // Forward declaration (?)
+static PyObject* logInterface_write(PyObject* self, PyObject* args) {
+	PyObject *line;
+	if (!PyArg_ParseTuple(args, "O", &line)) {
+		return 0;
+	}
+
+	Log->print(LOG_MESSAGE, fromPythonToString(line), false);
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+static PyMethodDef methods[] = {
+	{"write", logInterface_write, METH_VARARGS, 0},
+	{0, 0, 0, 0} // Terminator
+};
 
 static void logInterfaceDealloc(PyObject *v) {
 	PyObject_DEL(v);
@@ -66,19 +81,3 @@ void initializeLogInterface() {
 	Py_DECREF(logInterface);
 }
 
-static PyObject* logInterface_write(PyObject* self, PyObject* args) {
-	PyObject *line;
-	if (!PyArg_ParseTuple(args, "O", &line)) {
-		return 0;
-	}
-
-	Log->print(LOG_MESSAGE, fromPythonToString(line), false);
-
-	Py_INCREF(Py_None);
-	return Py_None;
-}
-
-static PyMethodDef methods[] = {
-	{"write", logInterface_write, METH_VARARGS, 0},
-	{0, 0, 0, 0} // Terminator
-};

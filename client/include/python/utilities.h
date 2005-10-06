@@ -117,7 +117,7 @@ Convert a QString into a python object.
 */
 inline PyObject *toPython(const QString &str) {
 	if (str.isEmpty()) {
-		return PyUnicode_FromWideChar((ushort*)"\x00\x00", 0);
+		return PyUnicode_FromWideChar((wchar_t*)"\x00\x00", 0);
 	} else {
 #if defined(Py_UNICODE_WIDE)
 		QByteArray utf = str.toUtf8();

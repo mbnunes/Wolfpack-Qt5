@@ -21,4 +21,8 @@ namespace Utilities {
             ShellExecuteA(MainWindow->winId(), 0, realUrl.toLocal8Bit(), 0, 0, SW_SHOWNORMAL);
         });		
 	}
+
+	uint getTicks() {
+		return GetTickCount();
+	}
 };

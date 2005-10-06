@@ -1,9 +1,9 @@
 
 // OpenAL Includes
 // Include first to get the real functionality
-#include "al\al.h"
-#include "al\alc.h"
-#include "alut\alut.h"
+#include "AL/al.h"
+#include "AL/alc.h"
+#include "AL/alut.h"
 
 #include "exceptions.h"
 #include "sound.h"
@@ -40,14 +40,14 @@ void cSound::load() {
 	}
 
 	// Print the used device name to the logfile
-	const char *deviceName = alcGetString(device, ALC_DEVICE_SPECIFIER);
+	const char *deviceName = (char*)alcGetString(device, ALC_DEVICE_SPECIFIER);
 	if (deviceName) {
 		Log->print(LOG_NOTICE, tr("Using OpenAL device '%1' for sound output.\n").arg(deviceName));
 	} else {
 		Log->print(LOG_NOTICE, tr("Unable to obtain OpenAL device name for sound output.\n"));
 	}
 
-	const char *extensionString = alcGetString(device, ALC_EXTENSIONS);
+	const char *extensionString = (char*)alcGetString(device, ALC_EXTENSIONS);
 	if (extensionString) {
 		Log->print(LOG_NOTICE, tr("Supported OpenAL extensions: %1\n").arg(extensionString));
 	} else {

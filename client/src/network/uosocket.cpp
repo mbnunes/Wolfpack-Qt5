@@ -153,7 +153,7 @@ void cUoSocket::disconnect() {
 	outgoingQueue.clear();
 	socket->abort();
 
-	if (!qApp->closingDown() && WorldView->isVisible()) {
+	if (!qApp->closingDown() && WorldView && WorldView->isVisible()) {
 		Player->clearEquipment();
 		World->clearEntities();
 		WorldView->setVisible(false);

@@ -13,6 +13,7 @@
 class cDynamicItem;
 class cGui;
 class cWindow;
+class cContainer;
 
 /*
 	Base class for all gui controls.

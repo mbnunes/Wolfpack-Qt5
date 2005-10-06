@@ -4,7 +4,8 @@ TEMPLATE = app
 OBJECTS_DIR = obj
 
 QT += core gui network  xml opengl
-CONFIG += qt thread exceptions release flat
+CONFIG += qt thread exceptions flat
+CONFIG += debug
 
 win32:CONFIG += windows
 unix:CONFIG += x11 
@@ -25,7 +26,7 @@ win32:DEFINES -= UNICODE
 #win32:LIBS += advapi32.lib shell32.lib openal32.lib
 win32:LIBS += -ladvapi32 -lshell32 -lopenal32
 
-unix:LIBS += -lGL -lGLU -lpython24
+unix:LIBS += -lGL -lGLU -lpython2.4 -lopenal
 
 DEPENDPATH += src
 INCLUDEPATH += include;libs/include
@@ -60,6 +61,7 @@ HEADERS += \
 	include/game/entity.h \
 	include/game/groundtile.h \
 	include/game/mobile.h \
+	include/game/multi.h \
 	include/game/statictile.h \
 	include/game/world.h \
 	include/game/tooltips.h \
@@ -91,6 +93,7 @@ HEADERS += \
 	include/gui/stripeimage.h \
 	include/gui/combobox.h \
 	include/gui/radiobutton.h \
+	include/gui/statuswindow.h \
 	include/gui/checkbox.h \
 	include/gui/colorpicker.h \
 	include/gui/paperdoll.h
@@ -98,6 +101,7 @@ HEADERS += \
 # MUL INCLUDES
 HEADERS += \
 	include/muls/animations.h \
+	include/muls/multis.h \
 	include/muls/art.h \
 	include/muls/asciifonts.h \
 	include/muls/gumpart.h \
@@ -160,6 +164,7 @@ SOURCES += \
 	src/gui/checkertrans.cpp \
 	src/gui/genericgump.cpp \
 	src/gui/asciilabel.cpp \
+	src/gui/statuswindow.cpp \
 	src/gui/bordergump.cpp \
 	src/gui/container.cpp \
 	src/gui/contextmenu.cpp \
@@ -203,13 +208,14 @@ SOURCES += \
 	src/game/entity.cpp \
 	src/game/groundtile.cpp \
 	src/game/mobile.cpp \
+	src/game/multi.cpp \
 	src/game/statictile.cpp \
 	src/game/world.cpp \
 	src/game/tooltips.cpp \
 	src/game/targetrequest.cpp
 	
 # Python includes
-HEADERS += \
+SOURCES += \
 	src/python/clientmodule.cpp \
 	src/python/genericwrapper.cpp \
 	src/python/loginterface.cpp \
@@ -219,6 +225,7 @@ HEADERS += \
 # MUL srcS
 SOURCES += \
 	src/muls/animations.cpp \
+	src/muls/multis.cpp \
 	src/muls/art.cpp \
 	src/muls/asciifonts.cpp \
 	src/muls/gumpart.cpp \
