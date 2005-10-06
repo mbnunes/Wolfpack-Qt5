@@ -3559,7 +3559,7 @@ double cBaseChar::getStaminaRate()
 {
 	if ( !isDead() )
 	{
-		double chance = ( double ) stamina() / ( double ) maxStamina();
+		double chance = ( double ) ( stamina() + 1 ) / ( double ) maxStamina();
 		double value = sqrt( skillValue( FOCUS ) * 0.0005 );
 		chance *= ( 1.0 - value );
 		chance += value;
@@ -3583,7 +3583,7 @@ double cBaseChar::getManaRate()
 {
 	if ( !isDead() )
 	{
-		double chance = ( double ) mana() / maxMana();
+		double chance = ( double ) ( mana() + 1 ) / maxMana();
 		double value = sqrt( skillValue( FOCUS ) * 0.0005 );
 		chance *= ( 1.0 - value );
 		chance += value;
@@ -3592,7 +3592,7 @@ double cBaseChar::getManaRate()
 
 	if ( !isMeditating() )
 	{
-		double chance = ( double ) mana() / maxMana();
+		double chance = ( double ) ( mana() + 1 ) / maxMana();
 		double value = sqrt( skillValue( MEDITATION ) * 0.0005 );
 		chance *= ( 1.0 - value );
 		chance += value;

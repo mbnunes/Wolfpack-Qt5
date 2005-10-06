@@ -265,7 +265,7 @@ void cSkills::Meditation( cUOSocket* socket )
 	{
 		socket->clilocMessage( 502626 );
 	}
-	else if ( pc_currchar->mana() >= pc_currchar->intelligence() )
+	else if ( pc_currchar->mana() >= pc_currchar->maxMana() )
 	{
 		socket->clilocMessage( 501846 );
 	}
