@@ -579,7 +579,7 @@ void cGLWidget::keyPressEvent(QKeyEvent *e) {
 			}
 		} else {
 			// Forward it to the control with the input focus. Otherwise go trough all controls.
-			if (Gui->inputFocus()) {
+			if (Gui->inputFocus() && (Gui->inputFocus()->wantReturns() || (e->key() != Qt::Key_Enter && e->key() != Qt::Key_Return))) {
 				Gui->inputFocus()->onKeyDown(e);
 				ignoreReturn = true;
 			}
@@ -604,7 +604,7 @@ void cGLWidget::keyReleaseEvent(QKeyEvent *e) {
 		} else {
 			Gui->currentCombolist()->onKeyUp(e);
 		}
-	} else if (Gui->inputFocus()) {
+	} else if (Gui->inputFocus() && (Gui->inputFocus()->wantReturns() || (e->key() != Qt::Key_Enter && e->key() != Qt::Key_Return))) {
 		Gui->inputFocus()->onKeyUp(e);
 	} else {
 		if (!ignoreReturn && WorldView && WorldView->isVisible() && e->modifiers() == Qt::NoModifier && (e->key() == Qt::Key_Return || e->key() == Qt::Key_Enter)) {

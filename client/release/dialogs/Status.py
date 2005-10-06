@@ -13,6 +13,12 @@ def intelligenceLockClicked(button):
 	status = Player.status
 	Network.setStatLock(2, (status.intelligencelock + 1) % 3)
 
+def toggleStatusSize(dialog):
+	if dialog.objectName == "PlayerStatus":		
+		Network.showSmallStatus()
+	else:
+		Network.showLargeStatus()
+
 def initialize(dialog):
 	# Connect to the statlock buttons
 	lock = dialog.findByName("StrengthLock")
@@ -24,3 +30,6 @@ def initialize(dialog):
 	lock = dialog.findByName("IntelligenceLock")
 	if lock:
 		connect(lock, "onButtonPress(cControl*)", intelligenceLockClicked)
+
+	if dialog.objectName == "PlayerStatus" or dialog.objectName == "SmallPlayerStatus":
+		connect(dialog, "onDoubleClick(cControl*)", toggleStatusSize)

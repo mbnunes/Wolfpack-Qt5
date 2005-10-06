@@ -492,7 +492,7 @@ inline void cMobile::setStats(ushort health, ushort maxHealth, ushort stamina, u
 
 inline ushort cMobile::healthPercent() const {
 	if (maxStamina_) {
-		return qMin<ushort>(100, (health_ / maxHealth_) * 100);
+		return qMin<ushort>(100, (health_ / (float)maxHealth_) * 100);
 	} else {
 		return 0;
 	}
@@ -500,7 +500,7 @@ inline ushort cMobile::healthPercent() const {
 
 inline ushort cMobile::manaPercent() const {
 	if (maxStamina_) {
-		return qMin<ushort>(100, (mana_ / maxMana_) * 100);
+		return qMin<ushort>(100, (mana_ / (float)maxMana_) * 100);
 	} else {
 		return 0;
 	}
@@ -508,7 +508,7 @@ inline ushort cMobile::manaPercent() const {
 
 inline ushort cMobile::staminaPercent() const {
 	if (maxStamina_) {
-		return qMin<ushort>(100, (stamina_ / maxStamina_) * 100);
+		return qMin<ushort>(100, (stamina_ / (float)maxStamina_) * 100);
 	} else {
 		return 0;
 	}

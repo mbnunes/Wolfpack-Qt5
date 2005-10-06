@@ -30,6 +30,7 @@ cTextField::cTextField() {
 	dirty = true;
 	unicodeMode_ = true;
 	textBorder_ = true;
+	wantReturns_ = true;
 	
 	for (int i = 0; i < 3; ++i) {
 		surfaces[i] = 0;
@@ -59,6 +60,7 @@ cTextField::cTextField(int x, int y, int width, int height, unsigned char font, 
 	password_ = false;
 	dirty = true;
 	unicodeMode_ = unicodeMode;
+	wantReturns_ = true;
 	
 	for (int i = 0; i < 3; ++i) {
 		surfaces[i] = 0;

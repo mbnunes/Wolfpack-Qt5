@@ -39,7 +39,39 @@ void cNetwork::requestStatus(cMobile *mobile) {
 	UoSocket->send(cRequestStatusPacket(mobile->serial()));
 }
 
+void cNetwork::showSmallStatus() {
+	// Close the large one if it's open
+	cControl *other = Gui->findByName("PlayerStatus");
+	if (other) {
+		Gui->queueDelete(other);
+	}
+
+	// This is called "SmallPlayerStatus"
+	cStatusWindow *dialog = dynamic_cast<cStatusWindow*>(Gui->findByName("SmallPlayerStatus"));
+
+	if (!dialog) {
+		dialog = dynamic_cast<cStatusWindow*>(Gui->createDialog("SmallPlayerStatus"));
+
+		if (!dialog) {
+			Log->print(LOG_ERROR, tr("Unable to create status window from SmallPlayerStatus template.\n"));
+			return;
+		}
+
+		dialog->setObjectName("SmallPlayerStatus");
+		Gui->addControl(dialog);
+	}
+
+	dialog->setMobile(Player);
+	requestStatus(Player);
+}
+
 void cNetwork::showLargeStatus() {
+	// Close the large one if it's open
+	cControl *other = Gui->findByName("SmallPlayerStatus");
+	if (other) {
+		Gui->queueDelete(other);
+	}
+
 	// This is called "PlayerStatus"
 	cStatusWindow *dialog = dynamic_cast<cStatusWindow*>(Gui->findByName("PlayerStatus"));
 

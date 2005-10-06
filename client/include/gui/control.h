@@ -58,6 +58,7 @@ protected:
 	float alpha_;
 	bool ignoreDoubleClicks_;
 	QMap<QString, QString> tags; // Custom properties for this control
+	bool wantReturns_; // ONLY if this is true, the return key will be sent to this control if it has the focus
 
 public slots:
 	bool isVisibleOnScreen();
@@ -79,6 +80,7 @@ public:
 
 	// Input focus
 	inline bool canHaveFocus() const { return canHaveFocus_; }
+	inline bool wantReturns() const { return wantReturns_; }
 	inline bool wantTabs() const { return wantTabs_; }
 
 	// Draw the control using OpenGL

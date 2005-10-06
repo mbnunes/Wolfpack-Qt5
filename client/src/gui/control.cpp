@@ -27,6 +27,7 @@ cControl::cControl() {
 	tabIndex_ = 0;
 	alpha_ = 1.0f;
 	ignoreDoubleClicks_ = false;
+	wantReturns_ = false;
 }
 
 cControl::~cControl() {
@@ -337,6 +338,8 @@ void cControl::processDefinitionAttribute(QString name, QString value) {
 		setAlpha(value.toFloat());
 	} else if (name == "name") {
 		setObjectName(value);
+	} else if (name == "focusable") {
+		canHaveFocus_ = Utilities::stringToBool(value);
 	}
 }
 
