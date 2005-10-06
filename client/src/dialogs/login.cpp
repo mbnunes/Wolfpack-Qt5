@@ -25,7 +25,7 @@
 #include "network/uosocket.h"
 #include "network/outgoingpackets.h"
 #include "mainwindow.h"
-#include "version.h"
+#include "../version.h"
 
 #include <QMenuBar>
 
@@ -309,7 +309,7 @@ void cLoginDialog::show(enMenuPage page) {
 		// Show the current client version
 		cAsciiLabel *clientVersion = dynamic_cast<cAsciiLabel*>(accountLoginGump->findByName("ClientVersionLabel"));
 		if (clientVersion) {
-			clientVersion->setText(tr("Wolfpack UO Client Version " CLIENT_VERSION));
+			clientVersion->setText(UOFILEVERSION_STR);
 		}
 
 		// Set default text for the account input field

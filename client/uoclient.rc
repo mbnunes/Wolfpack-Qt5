@@ -1,6 +1,8 @@
 // Microsoft Visual C++ generated resource script.
 //
+#include <winresrc.h>
 #include "resource.h"
+#include "version.h"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -8,8 +10,8 @@
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION UOFILEVERSION
+ PRODUCTVERSION 1,0,0,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -25,13 +27,14 @@ BEGIN
         BLOCK "040704b0"
         BEGIN
             VALUE "Comments", "sebastian@hartte.de"
-            VALUE "FileDescription", "UoClient Application"
-            VALUE "FileVersion", "1, 0, 0, 1"
-            VALUE "InternalName", "UoClient"
+			VALUE "CompanyName", "Sebastian Hartte"
+            VALUE "FileDescription", "Wolfpack Client"
+            VALUE "FileVersion", UOFILEVERSION_STR
+            VALUE "InternalName", "uoclient"
             VALUE "LegalCopyright", "Copyright (C) 2005 Sebastian Hartte"
-            VALUE "OriginalFilename", "UoClient.exe"
-            VALUE "ProductName", " UoClient Application"
-            VALUE "ProductVersion", "1, 0, 0, 1"
+            VALUE "OriginalFilename", "uoclient.exe"
+            VALUE "ProductName", "Wolfpack Client"
+            VALUE "ProductVersion", "1, 0, 0, 0"
         END
     END
     BLOCK "VarFileInfo"
