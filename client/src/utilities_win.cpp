@@ -3,12 +3,53 @@
 #include <windows.h>
 #include <shellapi.h>
 
+#include <QDir.h>
+
 #include "mainwindow.h"
 #include "utilities.h"
+#include "config.h"
 
 #include <QString>
 
 namespace Utilities {
+	// This is case insensitive
+	QString getUoFilename(const QString &filename) {
+		QString basePath = Config->uoPath();
+
+		// Translate Filename
+		basePath.append(Config->getString("Filenames", filename.toLower(), filename.toLower()));
+
+		return basePath;
+	}
+
+	QString agetUoFilename(const QString &filename) {
+		QString basePath = Config->uoPath();
+
+		// Translate Filename
+		basePath.append(Config->getString("Filenames", filename.toLower(), filename.toLower()));
+
+		// Check if the file exists and if it doesn't, search the
+		// directory for similar names.
+		QDir dir = QFileInfo(basePath).absoluteDir();
+		QString fileName = QFileInfo(basePath).fileName().toLower();
+
+		// search the directory
+		if (!dir.exists(fileName)) {
+			// This is inherently not case sensitive
+			QStringList files = dir.entryList(QStringList(fileName), QDir::Files|QDir::Readable);
+
+			// Check every entry
+			foreach (QString file, files) {
+				if (file.toLower() == fileName) {
+					basePath = dir.absoluteFilePath(file);
+					return basePath;
+				}
+			}
+		}
+
+		return basePath;
+	}
+
 	void launchBrowser(const QString &url) {
 		QString realUrl = url;
 		if (!realUrl.startsWith("http://")) {

@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/stat.h>
 
 // The pattern to look for. This rounded to the next 4 byte boundary is the offset to the version info
+// NOTE: This wont work on linux if wchar_t is 4 bytes long!
 char *pattern = (char*)L"VS_VERSION_INFO";
 size_t patternLength = 30;
 
@@ -31,7 +31,8 @@ void processMemory(char *memory, size_t size) {
 	size_t offset = size - (34 + sizeof(struct VS_FIXEDFILEINFO));
 	struct VS_FIXEDFILEINFO *fileinfo;
 
-	while (offset >= 0) {
+	// Note that offset is unsigned and should not get less than zero
+	while (offset > 0) {
 		if (!memcmp(memory + offset, pattern, patternLength)) {
 			// Use the offset and add 32. 
 			fileinfo = (struct VS_FIXEDFILEINFO*)(memory + offset + 34);
@@ -53,9 +54,9 @@ void grabVersion(char *filename) {
 	FILE *fp; // File pointer
 	char *data; // file data
 	size_t dataSize = 0; // file size
+	size_t allocSize = 1024 * 1024;
 	size_t readSize; // how much was read into the buffer
 	char buffer[4096]; // read buffer
-	struct stat fileStats; // file statistics
 
 	// Open the file
 	fp = fopen(filename, "rb");
@@ -65,13 +66,15 @@ void grabVersion(char *filename) {
 		return;
 	}
 
-	// Retrieve file stats
-	fstat(fp, &fileStats);
-
-	data = malloc(fileStats.st_size); // Allocate (?)
+	data = malloc(allocSize); // Preallocate one meg
 
 	// Slurp the file into a character array
 	while ((readSize = fread(&buffer, 1, 4096, fp)) > 0) {
+		if (dataSize + readSize > allocSize) {
+			data = realloc(data, allocSize * 2);
+			allocSize *= 2;
+		}
+
 		// Append read data
 		memcpy(data + dataSize, buffer, readSize);
 		dataSize += readSize;
@@ -93,7 +96,7 @@ int main(int argc, char **argv) {
 		fprintf(stderr, "Usage: fetchversion <filename>\n");
 		return -1;
 	}
-
+    
 	grabVersion(argv[1]);
 	return 0;
 }

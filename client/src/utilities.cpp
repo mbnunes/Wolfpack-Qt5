@@ -10,15 +10,6 @@
 #include "muls/localization.h"
 
 namespace Utilities {
-	QString getUoFilename(const QString &filename) {
-		QString basePath = Config->uoPath();
-
-		// Translate Filename
-		basePath.append(Config->getString("Filenames", filename.toLower(), filename.toLower()));
-
-		return basePath;
-	}
-
 	void messageBox(QString message, QString caption, bool error) {
 		//MessageBox(0, message.toLatin1(), caption.toLatin1(), MB_OK | (error ? MB_ICONERROR : MB_ICONINFORMATION));
 		QMessageBox box(caption, message, ( error ? QMessageBox::Critical : QMessageBox::Information ), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton, MainWindow);
