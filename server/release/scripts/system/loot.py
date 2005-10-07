@@ -431,7 +431,6 @@ PACKS = {
 	'necroregs_high': [
 		[1.0, DEF_NECROREGS, "1d8+2", 0]
 	],
-	# Scroll Packs
 
 	# Monster Specific
 	'mummy_pack': [

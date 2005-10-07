@@ -16,8 +16,8 @@ from wolfpack.utilities import changeResistance
 import wolfpack.time
 
 def transformed(char):
-	if target.hasscript('magic.horrificbeast') or target.hasscript('magic.lichform') or target.hasscript('magic.wraithform') \
-	or target.hasscript('magic.vampiricembrace'):
+	if char.hasscript('magic.horrificbeast') or char.hasscript('magic.lichform') or char.hasscript('magic.wraithform') \
+	or char.hasscript('magic.vampiricembrace'):
 		return True
 	return False
 
@@ -232,8 +232,10 @@ class LichForm(CharEffectSpell):
 				char.settag('regenmana', char.gettag('regenmana') + 3)
 			else:
 				char.settag('regenmana', 3)
+			char.addscript('magic.lichform')
 
 			char.addtimer( 2500, magic.lichform.expire, [], True, False, 'LICHFORM', magic.lichform.dispel )
+		char.update()
 
 class MindRot(CharEffectSpell):
 	def __init__(self):

@@ -261,7 +261,7 @@ class MassDispel (Spell):
 			if not mayAreaHarm(char, target):
 				continue
 
-			dispelChance = 50.0 + (100 * ((char.magery / 10.0 - (target.getintproperty('dispeldifficulty', 0) / 10)) / ((target.getintproperty('dispelfocus', 1) / 10) * 2))) / 100.0
+			dispelChance = 50.0 + (100 * ((char.magery / 10.0 - (target.getintproperty('dispeldifficulty', 1) / 10)) / ((target.getintproperty('dispelfocus', 1) / 10) * 2))) / 100.0
 
 			if dispelChance > random.random():
 				target.effect(0x3779, 10, 20)

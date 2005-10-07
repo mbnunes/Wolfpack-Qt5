@@ -201,7 +201,7 @@ class DispelEvil(Spell):
 			if not target == char:
 				dispellable = target.summoned # and not target.IsAnimatedDead
 				if dispellable:
-					dispelChance = (50.0 + ((100 * (chiv - (target.getintproperty('dispeldifficulty', 0) / 10))) / ((target.getintproperty('dispelfocus', 0) / 10)*2))) / 10
+					dispelChance = (50.0 + ((100 * (chiv - (target.getintproperty('dispeldifficulty', 1) / 10))) / ((target.getintproperty('dispelfocus', 1) / 10)*2))) / 10
 					dispelChance *= dispelSkill / 100.0
 
 					if dispelChance > random.random():

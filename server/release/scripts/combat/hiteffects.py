@@ -76,7 +76,7 @@ def hitdispel(attacker, defender):
 	if not defender.npc or not defender.summoned:
 		return
 	
-	dispelChance = 50.0 + (100 * ((attacker.magery / 10.0 - (attacker.getintproperty('dispeldifficulty', 0) / 10)) / ((attacker.getintproperty('dispelfocus', 1) / 10) * 2))) / 100.0
+	dispelChance = 50.0 + (100 * ((attacker.magery / 10.0 - (attacker.getintproperty('dispeldifficulty', 1) / 10)) / ((attacker.getintproperty('dispelfocus', 1) / 10) * 2))) / 100.0
 	
 	if dispelChance > random.randint(0, 99):
 		defender.pos.effect(0x3728, 8, 20)
