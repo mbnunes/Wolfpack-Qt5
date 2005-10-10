@@ -952,7 +952,10 @@ float Action_MoveToTarget::postCondition()
 	}
 
 	if ( m_npc->inRange( currentVictim, range ) )
+	{
+		m_npc->clearPath();
 		return 1.0f;
+	}
 
 	// 1.0 = Full Health, 0.0 = Dead
 	float diff = 1.0 - wpMax<float>( 0, ( m_npc->maxHitpoints() - m_npc->hitpoints() ) / ( float ) m_npc->maxHitpoints() );
@@ -1117,7 +1120,6 @@ float Action_Defend::preCondition()
 	 * Fuzzy: The nearer we get to the critical health, the chance
 	 *		  increases to flee.
 	 */
-
 	P_CHAR pAttacker = findAttacker();
 	if ( !pAttacker )
 	{
@@ -1165,8 +1167,8 @@ float Action_Defend::postCondition()
 	 *  	  the higher is the chance to end the defend action.
 	 */
 
-	P_CHAR pAttacker = m_npc->attackTarget();
-	if ( !pAttacker || pAttacker->isDead() )
+	P_CHAR pAttacker = findAttacker();
+	if ( !pAttacker )
 		return 1.0f;
 
 	Q_UINT8 range = 1;
@@ -1223,6 +1225,11 @@ P_CHAR Action_Defend::findAttacker()
 	if ( !attacker )
 	{
 		m_ai->setcurrentVictimSer( INVALID_SERIAL );
+	}
+	else if ( validTarget( m_npc, attacker ) )
+	{
+		m_npc->fight( attacker );
+		return attacker;
 	}
 
 	// is it still valid?

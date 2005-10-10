@@ -1691,7 +1691,7 @@ bool cPlayer::sysmessage( unsigned int message, const QString& params, unsigned 
 cBaseChar::FightStatus cPlayer::fight( P_CHAR enemy )
 {
 	// Jailed players cannot fight.
-	if (isJailed()) {
+	if ( isJailed() ) {
 		return FightDenied;
 	}
 
