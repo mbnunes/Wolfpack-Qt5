@@ -49,6 +49,7 @@
 
 #if defined(Q_OS_WIN32)
 #include "windows/gmtoolwnd.h"
+#include "../updater/updater.h"
 #endif
 
 void myMessageOutput( QtMsgType type, const char *msg )
@@ -248,7 +249,15 @@ void cUoClient::run()
 	Config->load(); // Load configuration (has to come first)
 
 	qInstallMsgHandler(myMessageOutput); // Install handler
-	
+
+	// Check for updates here (before we load)
+#if defined(Q_OS_WIN32)
+	if (cUpdater::checkForUpdates()) {
+		Config->save();
+		return;
+	}
+#endif
+
 	Log->print("-----------------------------------------------------------------------------\n", false);
 	Log->print(tr("Starting Session (%1)\n").arg(QDateTime::currentDateTime().toString()), false);
 	Log->print("-----------------------------------------------------------------------------\n\n", false);

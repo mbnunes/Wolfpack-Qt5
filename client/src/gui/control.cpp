@@ -37,10 +37,10 @@ cControl::~cControl() {
 	if (Gui->inputFocus() == this) {
 		Gui->setInputFocus(0);
 	}
-	if (GLWidget->lastMouseMovement() == this) {
+	if (GLWidget && GLWidget->lastMouseMovement() == this) {
 		GLWidget->setLastMouseMovement(0);
 	}
-	if (GLWidget->mouseCapture() == this) {
+	if (GLWidget && GLWidget->mouseCapture() == this) {
 		GLWidget->setMouseCapture(0);
 	}
 	if (parent_) {

@@ -27,7 +27,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForProcessor="3"
-				AdditionalIncludeDirectories="include;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtSql&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\Qt&quot;"
+				AdditionalIncludeDirectories="include;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtSql&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\Qt&quot;;."
 				PreprocessorDefinitions="QT_NO_DEBUG;NDEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_OPENGL_LIB"
 				GeneratePreprocessedFile="0"
 				StringPooling="TRUE"
@@ -99,7 +99,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm200 -EHsc -GX"
 				Optimization="0"
-				AdditionalIncludeDirectories="include;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtSql&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\Qt&quot;"
+				AdditionalIncludeDirectories="include;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtSql&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\Qt&quot;;."
 				PreprocessorDefinitions="_WINDOWS;QT_LARGEFILE_SUPPORT;QT_THREAD_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_OPENGL_LIB"
 				GeneratePreprocessedFile="0"
 				ExceptionHandling="TRUE"
@@ -823,6 +823,9 @@
 			</File>
 			<File
 				RelativePath=".\obj\moc_uosocket.cpp">
+			</File>
+			<File
+				RelativePath=".\obj\moc_updater.cpp">
 			</File>
 			<File
 				RelativePath=".\obj\moc_window.cpp">
@@ -2002,6 +2005,98 @@
 				RelativePath=".\release\dialogs\status.xml">
 			</File>
 		</Filter>
+		<Filter
+			Name="updater"
+			Filter="">
+			<File
+				RelativePath=".\updater\extract.ui">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"
+						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"
+						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\7zip\Windows\PropVariant.cpp">
+			</File>
+			<File
+				RelativePath=".\updater\question.ui">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;
+"
+						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;
+"
+						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\updater\rc_updater.cpp">
+			</File>
+			<File
+				RelativePath=".\updater\ui_extract.h">
+			</File>
+			<File
+				RelativePath=".\updater\updater.cpp">
+			</File>
+			<File
+				RelativePath=".\updater\updater.h">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\updater\updater.qrc">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Compiling Updater Resources"
+						CommandLine="$(QTDIR)\bin\rcc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\rc_$(InputName).cpp&quot;
+"
+						Outputs="$(ProjectDir)\updater\rc_$(InputName).cpp"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Compiling Updater Resources"
+						CommandLine="$(QTDIR)\bin\rcc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\rc_$(InputName).cpp&quot;
+"
+						Outputs="$(ProjectDir)\updater\rc_$(InputName).cpp"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\version.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\icon.ico">
 		</File>
@@ -2013,9 +2108,6 @@
 		</File>
 		<File
 			RelativePath=".\updateversion.py">
-		</File>
-		<File
-			RelativePath=".\version.h">
 		</File>
 		<File
 			RelativePath=".\WindowsXP.manifest">

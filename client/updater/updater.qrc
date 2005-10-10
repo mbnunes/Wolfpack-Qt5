@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/updater" >
+        <file>resources\icon.xpm</file>
+    </qresource>
+</RCC>
