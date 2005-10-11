@@ -28,7 +28,7 @@
 #include "profile.h"
 #include "console.h"
 
-#if defined(ENABLE_PROFILING)
+#ifdef ENABLE_PROFILING
 
 const char *profileNames[PF_COUNT] = {
 "Niceness/PythonThreads",
