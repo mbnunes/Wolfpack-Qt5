@@ -232,5 +232,10 @@ def potiondamage( cserial, target, iserial, dmgbonus, potiontype ):
 	if damage >= ( target.maxhitpoints / 2 ):
 		target.effect(0x3709, 10, 30)
 	target.effect( explosions[randint(0,2)], 20, 10)
+
+	# Let the target defend himself if he isn't fighting yet
+	if not target.attacktarget:
+		target.fight(char)
+
 	energydamage(target, char, damage, fire=100 )
 	return
