@@ -24,6 +24,8 @@
 				<item id="ff9"><amount>10</amount></item>
 				<item id="9f0"><amount>10</amount></item>
 				<item id="9d6"><amount>10</amount></item>
+				<item id="103e"><amount>10</amount></item>
+				<item id="1043"><amount>10</amount></item>
 			</restockable>
 			<sellable>
 				<item id="98c"/>
@@ -38,6 +40,8 @@
 				<item id="ff9"/>
 				<item id="9f0"/>
 				<item id="9d6"/>
+				<item id="103e"/>
+				<item id="1043"/>
 			</sellable>
 		</shopkeeper>
 		<skill id="cooking"><random min="750" max="980" /></skill>

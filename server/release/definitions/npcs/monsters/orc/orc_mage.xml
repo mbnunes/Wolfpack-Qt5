@@ -13,6 +13,7 @@
 		<name>orc mage</name>
 		<basescript>speech.monster</basescript>
 		<strproperty name="monsterspeech" value="orc" />
+		<ai>Monster_Mage</ai>
 		<id>140</id>
 		<inherit id="KARMA_L3" />
 		<inherit id="FAME_L3" />

@@ -72,6 +72,9 @@
 	<item id="97f">
 		<name>#1044567</name>
 		<id>0x97f</id>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
 		<category>Professions\Cook\Tools\Skillet</category>
 		<basescripts>equipment,skills.cooking</basescripts>
 		<tag name="remaining_uses" type="int" value="50" />

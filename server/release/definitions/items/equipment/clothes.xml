@@ -290,7 +290,7 @@
 		<id>0x1086</id>
 		<buyprice>31</buyprice>
 		<sellprice>15</sellprice>
-		<weight>1</weight>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
@@ -337,36 +337,54 @@
 	<item id="1f05">
 		<id>0x1f05</id>
 		<category>Clothes\Accessories\Bead Necklace</category>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f06">
 		<id>0x1f06</id>
 		<category>Clothes\Accessories\Bracelet 2</category>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f07">
 		<id>0x1f07</id>
 		<category>Clothes\Accessories\Earrings 2</category>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f08">
 		<id>0x1f08</id>
 		<category>Clothes\Accessories\Necklace 4</category>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f09">
 		<id>0x1f09</id>
 		<category>Clothes\Accessories\Ring 2</category>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 
 	<item id="1f0a">
 		<id>0x1f0a</id>
 		<category>Clothes\Accessories\Necklace 5</category>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>1.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
 

@@ -174,6 +174,7 @@
 		<sellprice>7</sellprice>
 		<category>Equipment\Containers\Big Crate (W/E)</category>
 		<basescripts>furniture</basescripts>
+		<weight>4.0</weight>
 	</item>
 
 	<item id="e3d" inherit="e3c">
@@ -188,6 +189,7 @@
 		<sellprice>6</sellprice>
 		<category>Equipment\Containers\Medium Crate (W/E)</category>
 		<basescripts>furniture</basescripts>
+		<weight>3.0</weight>
 	</item>
 
 	<item id="e3f" inherit="e3e">
@@ -202,6 +204,7 @@
 		<type>1</type>
 		<category>Equipment\Containers\Small Crate (N/S)</category>
 		<basescripts>furniture</basescripts>
+		<weight>2.0</weight>
 	</item>
 
 	<item id="e7e" inherit="9a9">
@@ -230,6 +233,7 @@
 		<sellprice>15</sellprice>
 		<category>Equipment\Containers\Wooden Metal Chest (W/E)</category>
 		<basescripts>furniture</basescripts>
+		<weight>4.0</weight>
 	</item>
 
 	<item id="e43" inherit="e42">

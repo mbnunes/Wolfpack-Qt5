@@ -42,6 +42,8 @@ Food subtypes:
 		<id>0x976</id>
 		<category>Equipment\Food\Slab of Bacon (N/S)</category>
 		<basescripts>food</basescripts>
+		<buyprice>10</buyprice>
+		<sellprice>5</sellprice>
 		<weight>0.2</weight>
 		<intproperty name="fillfactor" value="1" />
 	</item>
@@ -84,6 +86,8 @@ Food subtypes:
 	<!-- Dough -->
 	<item id="103d">
 		<id>0x103d</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<weight>1.0</weight>
 		<basescripts>skills.cooking</basescripts>
 		<category>Equipment\Food\Dough</category>
@@ -93,6 +97,8 @@ Food subtypes:
 		<name>#1041340</name>
 		<color>150</color>
 		<id>0x103d</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<weight>1.0</weight>
 		<basescripts>skills.cooking</basescripts>
 		<category>Equipment\Food\Sweet Dough</category>
@@ -102,6 +108,8 @@ Food subtypes:
 	<item id="97b">
 		<id>0x97b</id>
 		<basescripts>food</basescripts>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Fish Steak</category>
 		<intproperty name="fillfactor" value="3" />
@@ -112,6 +120,8 @@ Food subtypes:
 		<id>0x97c</id>
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<category>Equipment\Food\Wedge of Cheese (small)</category>
 		<intproperty name="fillfactor" value="1" />
 	</item>
@@ -121,6 +131,8 @@ Food subtypes:
 		<id>0x97d</id>
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
 		<category>Equipment\Food\Wedge of Cheese (big)</category>
 		<intproperty name="fillfactor" value="3" />
 	</item>
@@ -152,6 +164,8 @@ Food subtypes:
 		<category>Equipment\Food\Fruit Basket</category>
 		<id>0x993</id>
 		<basescripts>food</basescripts>
+		<buyprice>10</buyprice>
+		<sellprice>5</sellprice>
 		<weight>1.5</weight>
 		<intproperty name="fillfactor" value="5" />
 	</item>
@@ -463,6 +477,8 @@ Food subtypes:
 	<item id="9f2">
 		<category>Equipment\Food\Cut of Ribs</category>
 		<id>0x9f2</id>
+		<buyprice>11</buyprice>
+		<sellprice>5</sellprice>
 		<basescripts>food</basescripts>
 		<weight>0.1</weight>
 		<intproperty name="fillfactor" value="5" />
@@ -847,6 +863,7 @@ Food subtypes:
 		<weight>0.2</weight>
 		<category>Equipment\Food\Leg of Lamb</category>
 		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
 		<intproperty name="fillfactor" value="5" />
 	</item>
 
@@ -935,6 +952,8 @@ Food subtypes:
 		<id>0x1727</id>
 		<weight>0.1</weight>
 		<basescripts>food</basescripts>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
 		<category>Equipment\Food\Bunch of Dates</category>
 		<intproperty name="fillfactor" value="1" />
 	</item>
@@ -974,6 +993,8 @@ Food subtypes:
 	<item id="1ad3">
 		<id>0x1ad3</id>
 		<basescripts>food</basescripts>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Donuts</category>
 		<intproperty name="fillfactor" value="2" />
@@ -982,6 +1003,8 @@ Food subtypes:
 	<item id="1e1c">
 		<id>0x1e1c</id>
 		<basescripts>food</basescripts>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Cooked Fish 1</category>
 		<intproperty name="fillfactor" value="3" />
@@ -1002,6 +1025,8 @@ Food subtypes:
 	<item id="1e1f">
 		<id>0x1e1f</id>
 		<basescripts>food</basescripts>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Sliced Ham</category>
 		<intproperty name="fillfactor" value="1" />
