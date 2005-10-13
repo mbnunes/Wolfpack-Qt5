@@ -359,59 +359,65 @@ def absorbdamage(defender, damage):
 
 	# Only players can parry using a shield or a weapon
 	if defender.player or defender.skill[PARRYING] > 0:
-		shield = defender.itemonlayer(LAYER_LEFTHAND)
-		weapon = defender.getweapon()
-		blocked = 0
-
-		if not properties.itemcheck(shield, ITEM_SHIELD):
-			shield = None
-
-		if not properties.itemcheck(weapon, ITEM_MELEE):
-			weapon = None
-
-		# If we have a shield determine if we blocked the blow by
-		# really checking the parry skill
-		if shield:
-			# There is a 0.3% chance to block for each skill point
-			chance = defender.skill[PARRYING] * 0.0003
-			defender.checkskill(PARRYING, 0, 1200)
-			blocked = chance >= random.random()
-
-		# Otherwise just use the parry skill as a chance value
-		# we can't gain it using a weapon as a shield.
-		# Note: no ranged weapons
-		elif weapon and weapon.twohanded:
-			# There is a 0.15% chance to block for each skill point
-			chance = defender.skill[PARRYING] * 0.00015
-			blocked = chance >= random.random()
-
-		# If we blocked the blow. Show it, absorb the damage
-		# and damage the shield if there is any
-		if blocked:
-			defender.effect(0x37B9, 10, 16)
-			damage = 0
-
-			# This is as lame as above
-			if shield and shield.health > 0:
-				# 4% chance for losing one hitpoint				
-				if 0.04 >= random.random():
-					selfrepair = properties.fromitem(shield, SELFREPAIR)
-					if selfrepair > 0 and shield.health < shield.maxhealth - 1:
-						if selfrepair > random.randint(0, 9):
-							shield.health += 2
-							shield.resendtooltip()
-					else:							
-						shield.health -= 1
-						shield.resendtooltip()
-
-			if shield and shield.health <= 0:
-				tobackpack(shield, defender)
-				shield.update()
-				if defender.socket:
-					defender.socket.clilocmessage(500645)
+		damage = blockdamage(defender, damage)
 
 	return damage
 
+#
+# Checks if the damage can be blocked using a shield.
+# Called by absorbdamage
+# This returns the new damage value.
+#
+def blockdamage(defender, damage):
+	shield = defender.itemonlayer(LAYER_LEFTHAND)
+	weapon = defender.getweapon()
+	blocked = 0
+
+	if not properties.itemcheck(shield, ITEM_SHIELD):
+		shield = None
+
+	if not properties.itemcheck(weapon, ITEM_MELEE):
+		weapon = None
+
+	if shield:
+		# There is a 0.3% chance to block for each skill point
+		chance = defender.skill[PARRYING] * 0.0003
+		defender.checkskill(PARRYING, 0, 1200)
+		blocked = chance >= random.random()
+
+	# we can't gain parrying using a weapon as a shield.
+	# Note: no ranged weapons
+	elif weapon and weapon.twohanded:
+		# There is a 0.15% chance to block for each skill point
+		chance = defender.skill[PARRYING] * 0.00015
+		blocked = chance >= random.random()
+
+	# If we blocked the blow. Show it, absorb the damage
+	# and damage the shield if there is any
+	if blocked:
+		defender.effect(0x37B9, 10, 16)
+		damage = 0
+
+		# This is as lame as above
+		if shield and shield.health > 0:
+			# 4% chance for losing one hitpoint				
+			if 0.04 >= random.random():
+				selfrepair = properties.fromitem(shield, SELFREPAIR)
+				if selfrepair > 0 and shield.health < shield.maxhealth - 1:
+					if selfrepair > random.randint(0, 9):
+						shield.health += 2
+						shield.resendtooltip()
+				else:							
+					shield.health -= 1
+					shield.resendtooltip()
+
+		if shield and shield.health <= 0:
+			tobackpack(shield, defender)
+			shield.update()
+			if defender.socket:
+				defender.socket.clilocmessage(500645)
+
+	return damage
 #
 # Deal a splashdamage attack
 #
