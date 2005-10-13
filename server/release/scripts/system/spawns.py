@@ -7,6 +7,10 @@ import time
 import random
 from system.debugging import DEBUG_SPAWNS
 
+
+SpawnGemsCheckAmount = int(wolfpack.settings.getnumber("Game Speed", "Spawngems Checked Per Cycle", 50, 1))
+SpawnGemsCheckTime = float(wolfpack.settings.getnumber("Game Speed", "Spawngems Check Time", 15, 1))
+
 #
 # Triggers the spawn of an object
 #
@@ -51,7 +55,7 @@ def processSpawns(process):
 			valid = False
 	
 		if not valid:
-			if DEBUG_SPAWNS == 1:
+			if DEBUG_SPAWNS:
 				console.log(LOG_WARNING, "Invalid spawn item: 0x%x.\n" % item.serial)
 			pass
 		else:
@@ -123,7 +127,7 @@ def processSpawns(process):
 			if nextspawn == 0 and current < maximum:
 				delay = random.randint(mininterval, maxinterval) * 60 * 1000
 				item.settag('nextspawn', currenttime + delay)
-				if DEBUG_SPAWNS == 1:
+				if DEBUG_SPAWNS:
 					console.log(LOG_MESSAGE, "Set spawntime for spawngem 0x%x to %u miliseconds in the future.\n" % (item.serial, delay))
 				continue
 	
@@ -136,7 +140,7 @@ def processSpawns(process):
 				#console.log(LOG_MESSAGE, "SPAWNTIME REACHED!")
 				item.deltag('nextspawn')
 	
-			if DEBUG_SPAWNS == 1:
+			if DEBUG_SPAWNS:
 				console.log(LOG_MESSAGE, "Valid Spawnpoint: %x, Cur/Max: %u/%u, Def: %s, Type: %u, Interval: %u,%u, Time: %d/%d" % \
 					(item.serial, current, maximum, spawndef, spawntype, mininterval, maxinterval, currenttime, nextspawn))
 
@@ -179,10 +183,10 @@ class SpawnThread(Thread):
 		while not self.stopped.isSet():
 			self.lock()
 
-			process = self.unprocessed[:50]
-			self.unprocessed = self.unprocessed[50:]
+			process = self.unprocessed[:SpawnGemsCheckAmount]
+			self.unprocessed = self.unprocessed[SpawnGemsCheckAmount:]
 
-			if DEBUG_SPAWNS == 1:
+			if DEBUG_SPAWNS:
 				console.log(LOG_MESSAGE, "Found %u spawn items." % len(process))
 
 			wolfpack.queuecode(processSpawns, (process, ))
@@ -194,7 +198,7 @@ class SpawnThread(Thread):
 				self.processed = []
 
 			self.unlock()
-			self.stopped.wait(15.0) # Every 15 seconds.
+			self.stopped.wait(SpawnGemsCheckTime) # Every 15 seconds default.
 
 #
 # Our global thread object.
