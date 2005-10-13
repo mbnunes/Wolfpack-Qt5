@@ -186,7 +186,10 @@ def callback( char, args ):
 			if totame.hunger < 3:
 				totame.hunger = 3 # Otherwise they go wild again
 			totame.owner = char
-			
+
+			# tamed npc should go to tamer
+			totame.follow( char )
+
 			# Remove the tamed npc from the spawngem system too
 			if totame.hasscript('system.spawns'):
 				if totame.hastag('spawner'):
