@@ -217,7 +217,7 @@ def getFish( fishSkill, deepwater ):
 
 		# Calculate the min+max values on our scala (out of 120)
 		# M * SKILL + I
-		value = fishItem[ 1 ] * skill + fishItem[ 2 ]
+		value = int( fishItem[ 1 ] * skill + fishItem[ 2 ] )
 
 		if value > 0:
 			# Debug
