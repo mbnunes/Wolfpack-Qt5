@@ -8,9 +8,10 @@ import random
 from math import floor, ceil, sqrt
 from system.debugging import DEBUG_COMBAT_INFO
 import system.slayer
-from combat.specialmoves import getability
+from combat.specialmoves import getability, clearability
 import combat.hiteffects
 import magic.chivalry
+import magic.necromancy
 import system.poison
 
 #
@@ -337,8 +338,8 @@ def absorbdamage(defender, damage):
 	# it should be damaged. This implementation is so crappy because
 	# we lack the required properties for armors yet.
 	if armor and armor.health > 0:
-		# 4% chance for losing one hitpoint
-		if 0.04 >= random.random():
+		# 25% chance for losing one hitpoint
+		if 0.25 >= random.random():
 			# If it's a self repairing item, grant health instead of reducing it
 			selfrepair = properties.fromitem(armor, SELFREPAIR)
 			if selfrepair > 0 and armor.health < armor.maxhealth - 1:
@@ -400,22 +401,41 @@ def blockdamage(defender, damage):
 
 		# This is as lame as above
 		if shield and shield.health > 0:
-			# 4% chance for losing one hitpoint				
-			if 0.04 >= random.random():
-				selfrepair = properties.fromitem(shield, SELFREPAIR)
-				if selfrepair > 0 and shield.health < shield.maxhealth - 1:
-					if selfrepair > random.randint(0, 9):
-						shield.health += 2
-						shield.resendtooltip()
-				else:							
-					shield.health -= 1
-					shield.resendtooltip()
+			if random.randint(0, 2) == 0:
+				wear = random.randint(0, 1)
+				if wear > 0 and shield.maxhealth > 0:
+					if shield.health >= wear:
+						shield.health -= wear
+						wear = 0
+					else:
+						wear -= shield.hitpoints
+						shield.hitpoints = 0
 
-		if shield and shield.health <= 0:
-			tobackpack(shield, defender)
-			shield.update()
-			if defender.socket:
-				defender.socket.clilocmessage(500645)
+					if wear > 0:
+						if shield.maxhitpoints > wear:
+							shield.maxhitpoints -= wear
+							defender.message(1061121, '') # Your equipment is severely damaged.
+						else:
+							shield.delete()
+					if shield:
+						shield.resendtooltip()
+
+			# 4% chance for losing one hitpoint
+			#if 0.04 >= random.random():
+			#	selfrepair = properties.fromitem(shield, SELFREPAIR)
+			#	if selfrepair > 0 and shield.health < shield.maxhealth - 1:
+			#		if selfrepair > random.randint(0, 9):
+			#			shield.health += 2
+			#			shield.resendtooltip()
+			#	else:							
+			#		shield.health -= 1
+			#		shield.resendtooltip()
+
+		#if shield and shield.health <= 0:
+		#	tobackpack(shield, defender)
+		#	shield.update()
+		#	if defender.socket:
+		#		defender.socket.clilocmessage(500645)
 
 	return damage
 #
@@ -498,10 +518,6 @@ def hit(attacker, defender, weapon, time):
 	if ability:
 		damage = ability.scaledamage(attacker, defender, damage)
 
-	# Give the defender a chance to absorb damage
-	damage = absorbdamage(defender, damage)
-	blocked = damage <= 0
-
 	# Enemy of One (chivalry)
 	if attacker.npc:
 		if defender.player:
@@ -516,12 +532,19 @@ def hit(attacker, defender, weapon, time):
 				defender.effect( 0x37B9, 10, 5 )
 				damage += scaledamage(attacker, 50 )
 
+	slayer = properties.fromitem(weapon, SLAYER)
+	if slayer and slayer == "silver" and magic.necromancy.transformed(defender) and not defender.hasscript("magic.horrificbeast"):
+		damage += scaledamage(attacker, 25 ) # Every necromancer transformation other than horrific beast takes an additional 25% damage
+
+	# Give the defender a chance to absorb damage
+	damage = absorbdamage(defender, damage)
+	blocked = damage <= 0
+
 	# If the attack was parried, the ability was wasted
-	#if damage == 0 and ability:
-	#	#ability.use(attacker)
-	#	if attacker.socket:
-	#		attacker.socket.clilocmessage(1061140) # Your attack was parried
-	#	ability = None # Reset ability
+	if AGEOFSHADOWS and blocked:
+		if attacker.socket:
+			attacker.socket.clilocmessage(1061140) # Your attack was parried
+		clearability(player)
 
 	ignorephysical = False
 	if ability:
@@ -594,22 +617,33 @@ def hit(attacker, defender, weapon, time):
 				if effect and effect > random.randint(0, 99):
 					callback(attacker, defender)
 
-		# 4% chance for losing one hitpoint
-		if 0.04 >= random.random():
+		# Slime or Toxic Elemental, 4% chance for losing one hitpoint
+		if weapon.maxhealth > 0 and ( (weapon.getintproperty( 'range', 1 ) <= 1 and (defender.id == 51 or defender.id == 158)) or 0.04 >= random.random() ):
+			if (weapon.getintproperty( 'range', 1 ) <= 1 and (defender.id == 51 or defender.id == 158)):
+				attacker.message( 500263, '' ) # *Acid blood scars your weapon!*
+
 			# If it's a self repairing item, grant health instead of reducing it
 			selfrepair = properties.fromitem(weapon, SELFREPAIR)
-			if selfrepair > 0 and weapon.health < weapon.maxhealth - 1:
+			if AGEOFSHADOWS and selfrepair > 0:
 				if selfrepair > random.randint(0, 9):
 					weapon.health += 2
 					weapon.resendtooltip()
-			elif weapon.health > 0:
-				weapon.health -= 1
-				weapon.resendtooltip()
-		if weapon.health <= 0:
-			tobackpack(weapon, attacker)
-			weapon.update()
-			if attacker.socket:
-				attacker.socket.clilocmessage(500645)
+			else:
+				if weapon.health > 0:
+					weapon.health -= 1
+				elif weapon.maxhealth > 1:
+					weapon.maxhealth -= 1
+					attacker.message( 1061121, '' ) # Your equipment is severely damaged.
+				else:
+					weapon.delete()
+				if weapon:
+					weapon.resendtooltip()
+
+		#if weapon.health <= 0:
+		#	tobackpack(weapon, attacker)
+		#	weapon.update()
+		#	if attacker.socket:
+		#		attacker.socket.clilocmessage(500645)
 
 	# Notify the weapon ability
 	if not blocked and ability:
