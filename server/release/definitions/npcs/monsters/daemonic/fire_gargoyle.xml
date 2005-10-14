@@ -41,6 +41,7 @@
 		<!-- Missing: Level 1 Map -->
 		<lootpacks>lootpack_rich;gems</lootpacks>
 		<category>Monsters\Daemonic\Fire Gargoyle</category>
+		<strproperty name="slayer_group" value="gargoyles" />
 
 		<intproperty name="carve_meat" value="1" />
 		<ai>Monster_Mage</ai>
