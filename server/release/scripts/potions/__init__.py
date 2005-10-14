@@ -45,12 +45,21 @@ def onUse( char, item ):
 		# Explosion Potion
 		if potiontype in [ 11, 12, 13 ] and not item.hastag('exploding'):
 			# char, potion, counter value
-			if item.amount == 1:
-				potions.explosion.potion( char.serial, item.serial )
-				socket.sysmessage( tr('You should throw this now!'), RED )
-				socket.attachtarget( "potions.utilities.targetpotion", [ item.serial ] )
-			else:
-				socket.sysmessage( tr('You can only throw one potion at a time!') )
+			# if amount is > 1, use one explosion potion
+			if item.amount > 1:
+				item.amount -= 1
+				item.update()
+				# we must add a new one...
+				item_new = wolfpack.additem(item.baseid)
+				if item.getoutmostitem():
+					item.getoutmostitem().additem(item_new, True, True, False)
+				item_new.pos = item.pos
+				item_new.update()
+				item = item_new
+
+			potions.explosion.potion( char.serial, item.serial )
+			socket.sysmessage( tr('You should throw this now!'), RED )
+			socket.attachtarget( "potions.utilities.targetpotion", [ item.serial ] )
 		# Shrink Potion
 		elif potiontype == 25:
 			socket.sysmessage( tr('What do you want to shrink?') )
