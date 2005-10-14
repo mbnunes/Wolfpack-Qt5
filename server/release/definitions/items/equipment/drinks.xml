@@ -401,13 +401,13 @@
 		<weight>1.0</weight>
 		<tag name="fluid" value="water" />
 		<tag name="quantity" value="5" type="int" />
-		<category>Equipment\Food\Pitcher of Water 1</category>
+		<category>Equipment\Drinks\Pitcher of Water 1</category>
 	</item>
 
 	<!-- Pitcher of Water 2 -->
 	<item id="ff9" inherit="ff8">
 		<id>0xff9</id>
-		<category>Equipment\Food\Pitcher of Water 2</category>
+		<category>Equipment\Drinks\Pitcher of Water 2</category>
 	</item>
 
 	<!-- Pitcher of Water 3 -->
