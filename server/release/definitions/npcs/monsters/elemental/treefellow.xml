@@ -37,6 +37,7 @@
 		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Treefellow</category>
+		<strproperty name="slayer_group" value="feys" />
 	</npc>
 
 </definitions>

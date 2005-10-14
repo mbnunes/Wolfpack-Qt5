@@ -48,6 +48,7 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Lord Oaks</category>
+		<strproperty name="slayer_group" value="feys" />
 		<inherit id="speed_fast" />
 	</npc>
 

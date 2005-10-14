@@ -38,6 +38,7 @@
 		<!-- Missing: 60 Arrow -->
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Animals\Clockwork\Centaur</category>
+		<strproperty name="slayer_group" value="feys" />
 		<mintaming>1100</mintaming>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
