@@ -33,10 +33,10 @@
 		<!-- Resists -->
 		<tag name="res_physical" value="5,10" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
+		<!-- Lootpacks  -->
+		<lootpacks>lootpack_poor;gems</lootpacks>
 		<!-- Misc. -->
 		<desc>Slimes are creatures of pure instinct, lacking even the intelligence of a fish or tiny vermin. They live by dissolving anything that comes into contact with them, living or dead. Gold is one of the few things their acids cannot touch, and they are often found in its presence. Perhaps over the centuries they have come to dimly recognize that gold will lure their prey to them.</desc>
-		<!-- Missing:  -->
-		<lootpacks>lootpack_poor</lootpacks>
 		<mintaming>231</mintaming>
 		<category>Monsters\Common\Slime</category>
 		<inherit id="speed_slow" />

@@ -30,13 +30,6 @@
 		<!-- Damage -->
 		<mindamage>66</mindamage>
 		<maxdamage>104</maxdamage>
-		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="25,40" type="int" />
 		<tag name="res_fire" value="35,45" type="int" />
@@ -44,7 +37,7 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Skull of Death -->
+		<!-- Missing: Level 5 Treasure Map -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich;lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Neira</category>

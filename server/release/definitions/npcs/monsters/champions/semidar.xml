@@ -31,12 +31,7 @@
 		<mindamage>92</mindamage>
 		<maxdamage>123</maxdamage>
 		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
+		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="20,30" type="int" />
 		<tag name="res_fire" value="50,60" type="int" />
@@ -44,8 +39,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Skull of Pain -->
-		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems;lootpack_filthy_rich</lootpacks>
+		<!-- Missing: Level 5 Treasure Map -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Semidar</category>
 		<strproperty name="slayer_group" value="daemons" />

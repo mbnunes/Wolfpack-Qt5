@@ -31,6 +31,8 @@
 		<maxdamage>2</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="5,10" type="int" />
+		<!-- Lootpacks -->
+		<lootpack>lootpack_poor;gold_poor;gold_very_poor</lootpack>
 		<!-- Misc. -->
 		<category>Monsters\Common\Sewer Rat</category>
 		<intproperty name="carve_meat" value="1" />

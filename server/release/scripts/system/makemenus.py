@@ -134,6 +134,80 @@ class MakeAction:
 		pass
 
 #
+# This action creates an NPC and shows a
+# detail page for it.
+# Only needed for Addmenu
+#
+class MakeNPCAction(MakeAction):
+	#
+	# Creates a MakeItemAction instance.
+	#
+	def __init__(self, parent, title, itemid, definition, amount = 1):
+		MakeAction.__init__(self, parent, title)
+		self.itemid = itemid
+		self.definition = str(definition)
+		self.amount = amount
+		self.otherhtml = ''
+		self.materialshtml = ''
+		self.skillshtml = ''
+		self.hasdetails = 1
+
+	#
+	# Process a response from the details gump.
+	#
+	def response(self, player, response, arguments):
+		if response.button == 0:
+			self.parent.send(player, arguments)
+		elif response.button == 1:
+			self.make(player, arguments)
+
+	#
+	# Shows a detail page for this action.
+	#
+	def details(self, player, arguments):
+		if self.parent.gumptype != 0:
+			player.socket.closegump(self.parent.gumptype, 0xFFFF)
+
+		gump = cGump()
+		gump.setType(self.parent.gumptype)
+		gump.setArgs(['%s:%u' % (self.parent.id, self.parent.subactions.index(self))] + arguments)
+		gump.setCallback(MakeActionResponse)
+		
+		gump.addResizeGump(0, 0, 5054, 530, 417)
+		gump.addTiledGump(10, 10, 510, 22, 2624) # Top
+
+		gump.addTiledGump(165, 130, 355, 22, 2624) # "DESCRIPTION" background
+		gump.addTiledGump(165, 160, 355, 220, 2624) # Description Content background
+		gump.addTiledGump(165,	37, 355, 88, 2624) # NPC Name background
+		gump.addTiledGump(10,	37, 150, 343, 2624) # Figurine background
+		gump.addCheckerTrans(10, 10, 510, 397)
+
+		if self.title.isdigit():
+			gump.addXmfHtmlGump(180, 12, 510, 20, int(self.title), False, False, enabledcolor)
+		else:
+			gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
+
+		if self.itemid != 0:
+			gump.addTilePic(15, 42, self.itemid)
+		gump.addHtmlGump(165, 132, 355, 20, centerhtml % tr("DESCRIPTION"))
+		gump.addHtmlGump(170, 39, 80, 20, whitehtml % tr("NPC"))
+		gump.addButton(15, 387, 0xFAE, 0xFB0, 0) # Back to the parent menu of this node
+		gump.addText(50, 389, tr("Back"), enabledhue)
+		gump.addButton(375, 387, 4005, 4007, 1) # Make the item
+		gump.addText(410, 389, tr("Make Now"), enabledhue)
+
+		# Item Name
+		if self.title.isdigit():
+			gump.addXmfHtmlGump(260, 39, 285, 20, int(self.title), False, False, enabledcolor)
+		else:
+			gump.addText(260, 39, self.title, enabledhue)
+
+		# Description
+		gump.addHtmlGump(170, 160, 350, 220, whitehtml % self.otherhtml, 0, 1)
+
+		gump.send(player)
+
+#
 # This action creates an item and shows a
 # detail page for it.
 #

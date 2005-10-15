@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- Mound of Maggots; only summoned -->
 	<npc id="mound_of_maggots" inherit="monster_base">
 		<name>mound of maggots</name>
 		<id>319</id>
@@ -33,8 +33,6 @@
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="90" type="int" />
 		<tag name="res_poison" value="100" type="int" />
-		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
 		<category>Monsters\Common\Mound of Maggots</category>
 		<inherit id="speed_slow" />

@@ -28,17 +28,18 @@
 		<!-- Damage -->
 		<mindamage>1</mindamage>
 		<maxdamage>1</maxdamage>
-		<!-- Misc. -->
-		<!-- Missing: Brightly Colored Eggs -->
+		<!-- Lootpacks -->
 		<lootpacks>lootpack_filthy_rich;lootpack_rich;lootpack_rich;lootpack_rich;vorpal_bunny</lootpacks>
-		<category>Monsters\Common\Vorpal Bunny</category>
-		<inherit id="speed_veryfast" />
-
 		<backpack>
 			<content>
-				<item id="c77"><amount><random min="6" max="10" /></amount></item>
+				<item id="c77"> <!-- carrots -->
+					<amount><random min="5" max="10" /></amount>
+				</item>
 			</content>
 		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Common\Vorpal Bunny</category>
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

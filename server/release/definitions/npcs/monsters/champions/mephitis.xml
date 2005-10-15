@@ -26,15 +26,10 @@
 		<skill id="magicresistance"><random min="707" max="1400"/></skill>
 		<skill id="poisoning">0</skill>
 		<!-- Damage -->
-		<mindamage>1</mindamage>
-		<maxdamage>2</maxdamage>
+		<mindamage>68</mindamage>
+		<maxdamage>154</maxdamage>
 		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
+		<tag name="dmg_poison" value="50" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="75,80" type="int" />
 		<tag name="res_fire" value="60,70" type="int" />
@@ -42,7 +37,7 @@
 		<tag name="res_poison" value="100,100" type="int" />
 		<tag name="res_energy" value="60,70" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Skull of Venom -->
+		<!-- Missing: Level 5 Treasure Map -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Mephitis</category>

@@ -33,9 +33,9 @@
 		<tag name="res_fire" value="45,55" type="int" />
 		<tag name="res_physical" value="65,70" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
+		<!-- Missing: Clockwork Assembly, 2 Power Crystal -->
+		<!-- <lootpacks></lootpacks> -->
 		<!-- Misc. -->
-		<!-- Missing: Arcane Gem, Clockwork Assembly, 2 Power Crystal -->
-		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
 		<category>Monsters\Clockwork\Exodus Minion Lord</category>
 	</npc>
 

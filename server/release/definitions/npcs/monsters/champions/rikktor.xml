@@ -29,12 +29,8 @@
 		<mindamage>124</mindamage>
 		<maxdamage>272</maxdamage>
 		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
+		<tag name="dmg_fire" value="50" type="int" />
+		<tag name="dmg_energy" value="25" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="80,90" type="int" />
 		<tag name="res_fire" value="80,90" type="int" />
@@ -42,8 +38,8 @@
 		<tag name="res_poison" value="80,90" type="int" />
 		<tag name="res_energy" value="80,90" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Skull of Power -->
-		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems</lootpacks>
+		<!-- Missing: Level 5 Treasure Map -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Rikktor</category>
 		<!-- Carve -->

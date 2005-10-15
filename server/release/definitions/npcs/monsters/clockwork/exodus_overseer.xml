@@ -34,9 +34,18 @@
 		<tag name="res_fire" value="40,60" type="int" />
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />
-		<!-- Misc. -->
-		<!-- Missing: Arcane Gem, CLockwork Assembly, Power Crystal -->
+		<!-- Lootpacks -->
+		<!-- Missing: Clockwork Assembly, Power Crystal -->
 		<lootpacks>lootpack_rich</lootpacks>
+		<backpack>
+			<content>
+				<item id="arcanegem" />
+				<item id="iron_ingot">
+					<amount><random min="13" max="21"/></amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
 		<category>Monsters\Clockwork\Exodus Overseer</category>
 	</npc>
 

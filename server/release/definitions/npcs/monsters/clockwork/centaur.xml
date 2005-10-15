@@ -34,9 +34,18 @@
 		<tag name="res_fire" value="35,45" type="int" />
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="45,55" type="int" />
-		<!-- Misc. -->
-		<!-- Missing: 60 Arrow -->
+		<!-- Lootpacks -->
+		<!-- Missing: 80-90 Arrows -->
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
+		<backpack>
+			<content>
+				<item id="f3f"> <!-- arrow -->
+					<amount><random min="80" max="90"/></amount>
+				</item>
+				<item id="13b1" /> <!-- bow -->
+			</content>
+		</backpack>
+		<!-- Misc. -->
 		<category>Animals\Clockwork\Centaur</category>
 		<strproperty name="slayer_group" value="feys" />
 		<mintaming>1100</mintaming>

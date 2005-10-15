@@ -32,7 +32,7 @@
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<lootpacks>gold_meager;gold_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Common\Skittering Hopper</category>
 	</npc>

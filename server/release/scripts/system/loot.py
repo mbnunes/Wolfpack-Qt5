@@ -116,6 +116,9 @@ PACKS = {
 	],
 
 	# Scroll Packs
+	'scroll_low': [
+		[1.0, SCROLLS_C1 + SCROLLS_C2 + SCROLLS_C3, 1, 1] # 1 Scroll of Circle 4 - 7	
+	],
 	'scroll_medium': [
 		[1.0, SCROLLS_C4 + SCROLLS_C5 + SCROLLS_C6 + SCROLLS_C7, 1, 1] # 1 Scroll of Circle 4 - 7	
 	],
@@ -459,6 +462,16 @@ PACKS = {
 	'vorpal_bunny' : [
 		[1.0, DEF_STATUE, 1, 0], # Statue
 		[0.2, 'brightly_colored_eggs', 1, 0] # Brightly Colored Eggs
+	],
+
+	# Statue
+	'statue' : [
+		[1.0, DEF_STATUE, 1, 0], # Statue
+	],
+
+	# Potion
+	'potion' : [
+		[1.0, DEF_ALLPOTIONS, 1, 0], # Potion
 	]
 }
 

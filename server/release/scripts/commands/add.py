@@ -1,8 +1,9 @@
 
 import wolfpack
 from wolfpack.consts import *
-from system.makemenus import MakeItemAction, MakeMenu, MakeAction, findmenu
+from system.makemenus import MakeItemAction, MakeNPCAction, MakeMenu, MakeAction, findmenu
 from wolfpack.utilities import hex2dec
+from wolfpack import tr
 
 generated = 0
 
@@ -156,11 +157,11 @@ def add(socket, command, arguments):
 #
 # This action creates a npc.
 #
-class AddNpcAction(MakeAction):
-	def __init__(self, parent, title, definition):
-		MakeAction.__init__(self, parent, title)
+class AddNpcAction(MakeNPCAction):
+	def __init__(self, parent, title, itemid, definition):
+		MakeNPCAction.__init__(self, parent, title, itemid, definition)
 		self.definition = definition
-		self.description = ''
+		self.description = title
 		self.other = ''
 		self.materials = ''
 		self.skills = ''
@@ -269,7 +270,7 @@ def generateAddMenu(serial = 0, items = None):
 			additem = AddItemAction(addmenu, description, id, definition)
 		else:
 			additem = AddItemAction(submenus['\\'.join(categories) + '\\'], description, id, definition)
-		additem.description = 'Definition: ' + definition
+		additem.otherhtml = 'Definition: ' + definition
 		item = definitions.next
 
 	for menu in submenus.values():
@@ -289,8 +290,26 @@ def generateAddMenu(serial = 0, items = None):
 			npc = npcs.next
 			continue
 
+		id = npc.findchild('id')
+		if id:
+			try:
+				if id.value.startswith('0x'):
+					id = wolfpack.bodyinfo(hex2dec(id.value))['figurine']
+				else:
+					id = wolfpack.bodyinfo(int(id.value))['figurine']
+			except:
+				id = 0
+		else:
+			id = 0
+
+		description = npc.findchild('desc')
+		if description:
+			description = description.value
+		else:
+			description = tr('No description available.')
+
 		categories = ['NPCs'] + child.text.split('\\')
-		description = categories[len(categories)-1] # Name of the action
+		title = categories[len(categories)-1] # Name of the action
 		categories = categories[:len(categories)-1]
 
 		# Iterate trough the categories and see if they're all there
@@ -315,10 +334,10 @@ def generateAddMenu(serial = 0, items = None):
 
 		# Parse the position of this makemenu entry
 		if len(categories) == 0:
-			addnpc = AddNpcAction(addmenu, description, definition)
+			addnpc = AddNpcAction(addmenu, title , definition, definition)
 		else:
-			addnpc = AddNpcAction(submenus['\\'.join(categories) + '\\'], description, definition)
-		addnpc.description = 'Definition: ' + definition
+			addnpc = AddNpcAction(submenus['\\'.join(categories) + '\\'], title, id, definition)
+		addnpc.otherhtml = str(description)
 		npc = npcs.next
 
 	for menu in submenus.values():
@@ -374,7 +393,7 @@ def generateAddMenu(serial = 0, items = None):
 			addmulti = AddMultiAction(addmenu, description, id, multi)
 		else:
 			addmulti = AddMultiAction(submenus['\\'.join(categories) + '\\'], description, id, multi)
-		addmulti.description = 'Definition: ' + multi
+		addmulti.otherhtml = 'Definition: ' + multi
 		multi = multis.next
 
 	for menu in submenus.values():
