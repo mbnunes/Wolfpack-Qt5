@@ -166,7 +166,9 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 		{
 			//			pChar->karma -= 5;
 			pChar->setKarma( pChar->karma() - 5 );
-			pChar->makeCriminal();
+			// Calling Become Criminal Event
+			if (pChar->onBecomeCriminal(3, NULL, outmostCont ))
+				pChar->makeCriminal();
 			socket->sysMessage( tr( "You lost some karma." ) );
 		}
 	}

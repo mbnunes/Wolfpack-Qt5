@@ -1981,7 +1981,10 @@ static PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
 	if ( player )
-		player->makeCriminal();
+	{
+		if (player->onBecomeCriminal(0, NULL, NULL ))
+			player->makeCriminal();
+	}
 
 	Py_RETURN_NONE;
 }

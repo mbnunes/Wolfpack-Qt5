@@ -61,6 +61,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added "advance" parameter to char.skillcheck, that allows skillchecks without the possibility of skillgains.
   - Fixed summontime property. If it's 0, the NPC will never disappear.
   - Fixed having no LoS on floor tiles (that do not block sight) build on black map (dirt e.g.)
+  - Implemented onRegenHitpoints, onRegenMana, onRegenStamina events.
+  - Added "Factor for MaxHitPoints Calculation", "Factor for MaxMana Calculation", "Factor for MaxStamina Calculation".
+  - Implemented onBecomeCriminal event.
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

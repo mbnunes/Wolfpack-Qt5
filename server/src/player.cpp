@@ -1125,6 +1125,20 @@ bool cPlayer::onCastSpell( unsigned int spell )
 	return result;
 }
 
+bool cPlayer::onBecomeCriminal( unsigned int reason, P_CHAR sourcechar, P_ITEM sourceitem )
+{
+	bool result = true;
+
+	if ( canHandleEvent( EVENT_BECOMECRIMINAL ) )
+	{
+		PyObject* args = Py_BuildValue( "(O&iO&O&)", PyGetCharObject, this, reason, PyGetCharObject, sourcechar, PyGetItemObject, sourceitem );
+		result = callEventHandler( EVENT_BECOMECRIMINAL, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
 void cPlayer::setStamina( Q_INT16 data, bool notify /* = true */ )
 {
 	bool update = false;
@@ -1708,7 +1722,10 @@ cBaseChar::FightStatus cPlayer::fight( P_CHAR enemy )
 			if ( fight && fight->attacker() == this && !fight->legitimate() )
 			{
 				if (!inNoCriminalCombatArea())
-					makeCriminal();
+				{
+					if (onBecomeCriminal(2, enemy, NULL ))
+						makeCriminal();
+				}
 				log(LOG_TRACE, tr("Started fight with character %1 (0x%2).\n").arg(enemy->orgName()).arg(enemy->serial(), 0, 16));
 			}
 		}

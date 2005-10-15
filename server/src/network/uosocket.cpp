@@ -3618,7 +3618,8 @@ bool cUOSocket::useItem( P_ITEM item )
 
 				if ( !allowed )
 				{
-					_player->makeCriminal();
+					if (_player->onBecomeCriminal(3, NULL, item ))
+						_player->makeCriminal();
 				}
 			}
 		}

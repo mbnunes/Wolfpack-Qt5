@@ -2921,7 +2921,10 @@ bool cBaseChar::kill( cUObject* source )
 			if ( isInnocent() && ( this->body_ == 0x190 || this->body_ == 0x191 || this->body_ == 0x25d  || this->body_ == 0x25e  ) )
 			{
 				if (!pPlayer->inNoCriminalCombatArea())
-					pPlayer->makeCriminal();
+				{
+					if (pPlayer->onBecomeCriminal(1, this, NULL ))
+						pPlayer->makeCriminal();
+				}
 
 				if (!inNoKillCountArea())
 					pPlayer->setKills( pPlayer->kills() + 1 );
