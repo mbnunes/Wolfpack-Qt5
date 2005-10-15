@@ -125,7 +125,7 @@ PACKS = {
 		[1.0, DEF_BASEGEMS, 1, 1]
 	],
 	'gems_poor': [
-		[1.0, DEF_BASEGEMS, '1d2', 1] # 100%, 1 - 2
+		[1.0, DEF_BASEGEMS, '1d3', 1] # 100%, 1 - 3
 	],
 	'gems_low': [
 		[1.0, DEF_BASEGEMS, '1d4+1', 1], # 100%, 2 - 5
