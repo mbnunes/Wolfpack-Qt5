@@ -3497,10 +3497,10 @@ void cBaseChar::refreshMaximumValues()
 	if ( Config::instance()->refreshMaxValues() )
 	{
 		if ( objectType() == enPlayer )
-			maxHitpoints_ = wpMax<ushort>( 1, ( ( strength_ ) / 2 ) + hitpointsBonus_ + 50 );
+			maxHitpoints_ = wpMax<ushort>( 1, ( ( strength_ * Config::instance()->factorMaxHits() ) / 2 ) + hitpointsBonus_ + 50 );
 
-		maxStamina_ = wpMax<ushort>( 1, dexterity_ + staminaBonus_ );
-		maxMana_ = wpMax<ushort>( 1, intelligence_ + manaBonus_ );
+		maxStamina_ = wpMax<ushort>( 1, dexterity_ * Config::instance()->factorMaxStam() + staminaBonus_ );
+		maxMana_ = wpMax<ushort>( 1, (intelligence_ * Config::instance()->factorMaxMana()) + manaBonus_ );
 	}
 }
 

@@ -210,6 +210,9 @@ void cConfig::readData()
 	logRotate_ = getBool( "General", "LogRotate", true, true );
 	mountRange_ = getNumber( "General", "Mount Range", 2, true );
 	newTooltipPackets_ = getBool( "General", "New Tooltip Packets", true, true );
+	factorMaxHits_ = getDouble( "General", "Factor for MaxHitPoints Calculation", 1.0, true );
+	factorMaxMana_ = getDouble( "General", "Factor for MaxMana Calculation", 1.0, true );
+	factorMaxStam_ = getDouble( "General", "Factor for MaxStamina Calculation", 1.0, true );
 
 	// Network
 	loginPort_ = getNumber( "Network", "Loginserver Port", 2593, true );

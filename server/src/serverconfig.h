@@ -143,6 +143,9 @@ protected:
 	unsigned int percentStaminaAfterRess_;
 	bool disableKarma_;
 	bool disableFame_;
+	float factorMaxHits_;
+	float factorMaxMana_;
+	float factorMaxStam_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -207,6 +210,9 @@ public:
 	unsigned int animalWildFleeRange() const;
 	float checkFollowTime() const;
 	float checkTamedTime() const;
+	float factorMaxHits() const;
+	float factorMaxMana() const;
+	float factorMaxStam() const;
 	bool refreshMaxValues() const
 	{
 		return refreshMaxValues_;
@@ -716,6 +722,18 @@ inline bool cConfig::instalogoutfromguarded() const
 inline unsigned int cConfig::maxCharsPerAccount() const
 {
 	return ( unsigned int ) maxCharsPerAccount_;
+}
+inline float cConfig::factorMaxHits() const
+{
+	return factorMaxHits_;
+}
+inline float cConfig::factorMaxMana() const
+{
+	return factorMaxMana_;
+}
+inline float cConfig::factorMaxStam() const
+{
+	return factorMaxStam_;
 }
 
 typedef Singleton<cConfig> Config;
