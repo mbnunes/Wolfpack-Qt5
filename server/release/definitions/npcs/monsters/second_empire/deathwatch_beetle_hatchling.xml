@@ -55,7 +55,7 @@
 		<intproperty name="carve_hides" value="8" />
 
 		<!-- Misc. -->
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<category>Monsters\SE\Deathwatch Beetle Hatchling</category>
 	</npc>
 

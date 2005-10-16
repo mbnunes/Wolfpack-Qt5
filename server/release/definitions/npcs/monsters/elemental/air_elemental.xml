@@ -44,8 +44,8 @@
 		<!-- Dispel Difficulty -->
 		<intproperty name="dispeldifficulty" value="1175" />
 		<intproperty name="dispelfocus" value="450" />
-		<!-- Missing: 1-7CS, MNS, Potion, Level 2 Map -->
-		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
+		<!-- Missing: 2 Low/medium level scrolls, Level 1 Treasure Map -->
+		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Elementals\Air Elemental</category>
 		<strproperty name="slayer_group" value="airelementals" />
 		<inherit id="speed_fast" />

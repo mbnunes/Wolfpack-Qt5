@@ -32,14 +32,21 @@
 		<tag name="res_fire" value="15,25" type="int" />
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_poison" value="15,25" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Level 1 Map -->
+		<lootpacks>lootpack_average</lootpacks>
+		<backpack>
+			<content>
+				<item id="13b4" /> <!-- Club -->
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<desc>These brutes are akin to orcs, but larger. They are fiercely stupid, but do possess some faculty of reason. Like all the intelligent races, they have a great greed for gold. Ogres are bullies, but also cowards, and will run if a fight turns against them.</desc>
-		<!-- Missing: Potion, Club -->
-		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Giants\Ogre</category>
 		<strproperty name="slayer_group" value="ogres" />
-		<intproperty name="carve_meat" value="2" />
 		<inherit id="speed_slow" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 </definitions>

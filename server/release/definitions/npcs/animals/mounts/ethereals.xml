@@ -39,7 +39,6 @@
 		<skill id="magicresistance">1000</skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<food>0</food>
 		<mintaming>0</mintaming>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<basescript>npc.mount</basescript>

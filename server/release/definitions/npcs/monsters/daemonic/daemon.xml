@@ -29,19 +29,17 @@
 		<!-- Damage -->
 		<mindamage>21</mindamage>
 		<maxdamage>39</maxdamage>
-		<tag name="dmg_energy" value="25" type="int" />
-		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_physical" value="45,60" type="int" />
 		<tag name="res_fire" value="50,60" type="int" />
 		<tag name="res_cold" value="30,40" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
+		<!-- Missing: level 4 map -->
+		<lootpacks>lootpack_rich;lootpack_average;scroll_medium;scroll_medium</lootpacks>
 		<!-- Misc -->
 		<desc>No purer manifestation of primal evil exists than the hideous daemon, a denizen of the dark and infernal planes brought to these shores bythe most vile wizardries. Only the greatest of heroes have ever vanquished a daemon in single combat, and even a group of valiant warriors must be mighty indeed to survive an encounter with such a fiend.</desc>
-		<!-- Missing: level 4 map, medium necro scroll -->
 		<controlslots>5</controlslots>
-		<lootpacks>lootpack_rich;lootpack_average;scroll_medium;scroll_medium</lootpacks>
 		<category>Monsters\Daemonic\Daemon (Random)</category>
 		<strproperty name="slayer_group" value="daemons" />
 		<intproperty name="carve_meat" value="1" />

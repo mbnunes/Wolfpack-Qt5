@@ -33,12 +33,19 @@
 		<tag name="res_fire" value="30,40" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
+		<backpack>
+			<content>
+				<item id="f8c"> <!-- Sulfurous Ash -->
+					<amount>5</amount>
+				</item>
+
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<desc>What so ever raiment a daemon adorns, doubt not that their power remains beneath the garb. Truer words could not be spoken of the hounds from hell. Vicious and hungry, these hounds are pack animals whose sole desire is to relieve wanderers of their mortal coil.</desc>
-		<!-- Missing: 5 Sulfurous Ash, Rib -->
-		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Daemonic\Hell Hound</category>
-
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

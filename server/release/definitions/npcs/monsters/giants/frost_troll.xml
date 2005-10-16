@@ -32,14 +32,16 @@
 		<tag name="res_energy" value="5,10" type="int" />
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Level 1 Map -->
+		<lootpacks>lootpack_average;gems;weapons_all</lootpacks>
 		<!-- Misc. -->
 		<desc>A Troll of the northern wastes has but two goals. Hunt and eat. Not surprisingly, they are good at both. They resemble normal Trolls in many aspects, except the troll of the frozen wastes tend to have less around to eat. This means that they are more aggressive and much hungrier than a normal troll.</desc>
-		<!-- Missing: Weapon, Level 1 Map -->
-		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Giants\Frost Troll</category>
 		<strproperty name="slayer_group" value="trolls" />
-		<intproperty name="carve_meat" value="2" />
 		<inherit id="speed_slow" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 </definitions>

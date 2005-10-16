@@ -30,8 +30,7 @@
 		<!-- Damage -->
 		<mindamage>15</mindamage>
 		<maxdamage>24</maxdamage>
-		<tag name="dmg_energy" value="20" type="int" />
-		<tag name="dmg_fire" value="30" type="int" />
+		<tag name="dmg_fire" value="50" type="int" />
 		<tag name="dmg_poison" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="35,45" type="int" />
@@ -39,10 +38,10 @@
 		<tag name="res_fire" value="35,45" type="int" />
 		<tag name="res_physical" value="15,25" type="int" />
 		<tag name="res_poison" value="45,55" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager;scroll_low</lootpacks>
 		<!-- Misc. -->
 		<desc>Whatever Fate granted the Imp wings was clearly not gifted with foresight. The Imp is quite capable of causing enough mischief on the ground; being airborne only doubles the threat. Gifted with small magic and a temperament for causing trouble, these annoying beasts prey upon all who cross their path. It is rumored that Imps will steal from the strange (you) and give to the familiar (themselves). *Ware your health and holdings should you cross the path of the Imp.</desc>
-		<!-- Missing: 1-7CS, LNS, Reagents -->
-		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Daemonic\Imp</category>
 		<strproperty name="slayer_group" value="daemons" />
 		<!-- Carve -->

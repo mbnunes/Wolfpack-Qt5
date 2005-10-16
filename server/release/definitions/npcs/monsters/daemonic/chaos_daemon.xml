@@ -26,7 +26,6 @@
 		<!-- Damage -->
 		<mindamage>22</mindamage>
 		<maxdamage>32</maxdamage>
-		<!-- Damage Properties -->
 		<tag name="dmg_fire" value="15" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="50,60" type="int" />
@@ -35,7 +34,6 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing:  -->
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Chaos Daemon</category>

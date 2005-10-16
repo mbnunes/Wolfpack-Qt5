@@ -56,7 +56,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>411</mintaming>
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Monsters\SE\Deathwatch Beetle</category>
 	</npc>

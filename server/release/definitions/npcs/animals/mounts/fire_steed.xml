@@ -39,7 +39,7 @@
 		<controlslots>2</controlslots>
 		<lootpacks>gems</lootpacks>
 		<mintaming>1060</mintaming>
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Fire Steed</category>
 		<basescript>npc.mount</basescript>

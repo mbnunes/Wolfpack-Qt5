@@ -24,8 +24,6 @@
 		<skill id="wrestling">50</skill>
 		<skill id="tactics">50</skill>
 		<skill id="magicresistance">50</skill>
-		<mintaming>0</mintaming>
-		<food>1</food>
 		<!-- Damage -->
 		<mindamage>1</mindamage>
 		<maxdamage>2</maxdamage>
@@ -35,8 +33,11 @@
 		<lootpack>lootpack_poor;gold_poor;gold_very_poor</lootpack>
 		<!-- Misc. -->
 		<category>Monsters\Common\Sewer Rat</category>
-		<intproperty name="carve_meat" value="1" />
+		<mintaming>0</mintaming>
+		<intproperty name="food" value="1" />
 		<inherit id="speed_slow" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -51,7 +51,7 @@
 		<lootpacks>gems;gems</lootpacks>
 
 		<!-- Misc. -->
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<category>Monsters\SE\Fan Dancer</category>
 	</npc>
 

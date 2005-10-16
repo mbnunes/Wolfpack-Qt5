@@ -37,7 +37,7 @@
 		<!-- Misc -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
-		<food>5</food>
+		<intproperty name="food" value="3" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Boar</category>
 		<intproperty name="carve_meat" value="2" />
@@ -69,7 +69,7 @@
 		<!-- Misc -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
-		<food>5</food>
+		<intproperty name="food" value="3" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Pig</category>
 		<intproperty name="carve_meat" value="1" />

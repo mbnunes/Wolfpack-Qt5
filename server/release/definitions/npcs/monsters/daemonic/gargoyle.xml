@@ -33,10 +33,11 @@
 		<tag name="res_fire" value="25,35" type="int" />
 		<tag name="res_cold" value="5,10" type="int" />
 		<tag name="res_poison" value="15,25" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Gargoyle Pickaxe, Level 1 Map -->
+		<lootpacks>lootpack_average;scroll_medium;gems_poor</lootpacks>
 		<!-- Misc. -->
 		<desc>These strange creatures are believed by many to be daemonic in nature, but in truth this is a slander. They are an Intelligent and civilized race. They have no love for humanity (nor is their mistrust unjustified) but they are honorable in their own, alien way. Their ways are mysterious, and it may be that they are too different from us to ever live in peace with humanity. If that proves to be so, somewould call it a great tragedy.</desc>
-		<!-- Missing: MNS, Gargoyle Pickaxe, Level 1 Map -->
-		<lootpacks>lootpack_average;scroll_medium;gems;gems;gems;gems</lootpacks>
 		<category>Monsters\Daemonic\Gargoyle</category>
 		<strproperty name="slayer_group" value="gargoyles" />
 		<intproperty name="carve_meat" value="1" />

@@ -23,8 +23,6 @@
 		<skill id="wrestling"><random min="501" max="650" /></skill>
 		<skill id="tactics"><random min="501" max="650" /></skill>
 		<skill id="magicresistance"><random min="751" max="900" /></skill>
-		<mintaming>891</mintaming>
-		<food>1</food>
 		<!-- Damage -->
 		<mindamage>10</mindamage>
 		<maxdamage>32</maxdamage>
@@ -33,11 +31,12 @@
 		<tag name="res_physical" value="30,45" type="int" />
 		<tag name="res_fire" value="85,95" type="int" />
 		<tag name="res_energy" value="25,40" type="int" />
-		<!-- Misc. -->
-		<!-- Missing:  -->
+		<!-- Loot Packs -->
 		<lootpacks>lootpack_average</lootpacks>
+		<!-- Misc. -->
 		<category>Monsters\Daemonic\Hellcat (Large)</category>
-
+		<mintaming>891</mintaming>
+		<intproperty name="food" value="1" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_hides_type" value="spined" />

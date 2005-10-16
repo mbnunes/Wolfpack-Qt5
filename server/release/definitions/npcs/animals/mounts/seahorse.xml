@@ -38,7 +38,7 @@
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>291</mintaming>
-		<food>2</food>
+		<intproperty name="food" value="2" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Seahorse</category>
 		<basescript>npc.mount</basescript>

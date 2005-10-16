@@ -37,9 +37,10 @@
 		<tag name="res_cold" value="-10,0" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
-		<!-- Misc -->
+		<!-- Loot Packs -->
 		<!-- Missing: Level 1 Map -->
-		<lootpacks>lootpack_rich;gems</lootpacks>
+		<lootpacks>lootpack_rich;gems;scroll_medium</lootpacks>
+		<!-- Misc -->
 		<category>Monsters\Daemonic\Fire Gargoyle</category>
 		<strproperty name="slayer_group" value="gargoyles" />
 

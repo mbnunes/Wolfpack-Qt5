@@ -33,16 +33,17 @@
 		<skill id="wrestling">40</skill>
 		<skill id="tactics">40</skill>
 		<skill id="magicresistance">40</skill>
-		<!-- Misc. -->
-		<!-- Missing:  -->
-		<controlslots>1</controlslots>
+		<!-- Loot Packs  -->
 		<lootpacks>lootpack_poor</lootpacks>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Rats\Rat</category>
-		<intproperty name="carve_meat" value="1" />
 		<inherit id="speed_slow" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

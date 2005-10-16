@@ -38,9 +38,10 @@
 		<tag name="res_fire" value="60,80" type="int" />
 		<tag name="res_physical" value="65,80" type="int" />
 		<tag name="res_poison" value="100" type="int" />
+		<!-- Lott Packs -->
+		<!-- Missing: Level 5 Treasure Map -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;scroll_medium;scroll_medium</lootpacks>
 		<!-- Misc. -->
-		<!-- Missing: 1-7 Scroll, Medium Necro Scroll -->
-		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Daemonic\Balron</category>
 		<intproperty name="carve_meat" value="1" />
 		<strproperty name="slayer_group" value="balron" />

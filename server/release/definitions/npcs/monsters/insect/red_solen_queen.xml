@@ -33,9 +33,10 @@
 		<tag name="res_fire" value="30,35" type="int" />
 		<tag name="res_physical" value="30,40" type="int" />
 		<tag name="res_poison" value="35,40" type="int" />
-		<!-- Misc. -->
+		<!-- Loot Packs -->
 		<!-- Missing: 5 or 25 Zoogi fungus, Picnic Basket, Crystal Ball of Pet Summoning -->
-		<lootpacks>gold_rich;gems</lootpacks>
+		<lootpacks>gold_rich</lootpacks>
+		<!-- Misc. -->
 		<category>Monsters\Solen\Red Solen Queen</category>
 	</npc>
 

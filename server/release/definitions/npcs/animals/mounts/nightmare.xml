@@ -36,20 +36,21 @@
 		<skill id="magery"><random min="104" max="500" /></skill>
 		<skill id="evaluatingintelligence"><random min="104" max="500" /></skill>
 		<skill id="meditation">0</skill>
-		<!-- Misc. -->
+		<!-- Loot Packs -->
 		<!-- Missing: 1-7CS, LNS, Potion, 3 Sulfurous Ash -->
-		<controlslots>2</controlslots>
 		<lootpacks>lootpack_rich</lootpacks>
+		<!-- Misc. -->
+		<controlslots>2</controlslots>
 		<mintaming>951</mintaming>
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Nightmare (Random)</category>
+		<inherit id="speed_fast" />
+		<basescript>npc.mount</basescript>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<strproperty name="carve_hides_type" value="barbed" />
 		<intproperty name="carve_meat" value="5" />
-		<inherit id="speed_fast" />
-		<basescript>npc.mount</basescript>
 	</npc>
 
 	<!-- Nightmares 1 -->

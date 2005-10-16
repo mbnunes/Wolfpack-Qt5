@@ -32,9 +32,18 @@
 		<tag name="res_fire" value="20,30" type="int" />
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
+		<!-- Lootpacks -->
+		<!-- Missing: Gargoyle Pickaxe, Level 2 Map -->
+		<lootpacks>lootpack_average;lootpack_average;gems_poor</lootpacks>
+		<backpack>
+			<content>
+				<item id="arcanegem" />
+				<item id="iron_ore">
+					<amount><random min="6" max="20"/></amount>
+				</item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
-		<!-- Missing: Jewel, Iron Ore, Gargoyle Pickaxe, Level 2 Map -->
-		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Daemonic\Stone Gargoyle</category>
 		<strproperty name="slayer_group" value="gargoyles" />
 	</npc>

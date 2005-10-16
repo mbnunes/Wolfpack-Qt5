@@ -43,7 +43,7 @@
 		<controlslots>2</controlslots>
 		<lootpacks>lootpack_rich</lootpacks>
 		<mintaming>951</mintaming>
-		<food>5</food>
+		<intproperty name="food" value="3" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Unicorn</category>
 		<strproperty name="slayer_group" value="feys" />

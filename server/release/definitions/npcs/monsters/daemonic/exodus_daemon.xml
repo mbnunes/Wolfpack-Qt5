@@ -39,6 +39,7 @@
 		<tag name="res_poison" value="100" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Exodus Daemon</category>
+		<!-- Loot Packs -->
 		<lootpacks>lootpack_filthy_rich;gold_super_boss;gold_super_boss</lootpacks>
 	</npc>
 

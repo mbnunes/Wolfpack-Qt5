@@ -37,14 +37,20 @@
 		<tag name="res_fire" value="20,30" type="int" />
 		<tag name="res_physical" value="40,50" type="int" />
 		<tag name="res_poison" value="90,100" type="int" />
-		<!-- Misc. -->
-		<!-- Missing: 8 Spider Silk -->
+		<!-- Loot Packs -->
 		<lootpacks>lootpack_filthy_rich</lootpacks>
+		<backpack>
+			<content>
+				<item id="f8d"> <!-- Spiders Silk -->
+					<amount>8</amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
 		<category>Monsters\Insects\Dread Spider</category>
 		<strproperty name="slayer_group" value="spiders" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
-
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 	</npc>

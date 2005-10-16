@@ -19,7 +19,6 @@
 		<str><random min="126" max="155" /></str>
 		<dex><random min="81" max="105" /></dex>
 		<int><random min="16" max="40" /></int>
-		<!-- Status -->
 		<maxhitpoints><random min="76" max="93" /></maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Damage -->
@@ -34,10 +33,10 @@
 		<skill id="wrestling"><random min="451" max="700" /></skill>
 		<skill id="tactics"><random min="701" max="1000" /></skill>
 		<skill id="magicresistance"><random min="251" max="400" /></skill>
-		<!-- MIsc. -->
+		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>591</mintaming>
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Bears\Grizzly Bear</category>
 		<!-- Carve -->

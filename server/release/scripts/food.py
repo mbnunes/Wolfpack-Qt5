@@ -19,6 +19,7 @@ animalsonly = [ "f36", "100c", "100d" ]
 #
 # TODO: favorite food of animals:
 # FruitsAndVegies | GrainsAndHay | Meat | Eggs | Gold | Fish
+# intproperties: 1=meat; 2=fish; 3=FruitAndVegies; 4=Eggs
 #
 
 #

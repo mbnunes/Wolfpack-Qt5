@@ -62,7 +62,7 @@
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>807</mintaming>
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Monsters\SE\Bake Kitsune</category>
 	</npc>

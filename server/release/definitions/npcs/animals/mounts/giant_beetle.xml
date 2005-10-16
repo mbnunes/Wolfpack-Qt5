@@ -36,7 +36,7 @@
 		<!-- Misc. -->
 		<controlslots>3</controlslots>
 		<mintaming>291</mintaming>
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Giant Beetle</category>
 		<basescript>npc.mount</basescript>

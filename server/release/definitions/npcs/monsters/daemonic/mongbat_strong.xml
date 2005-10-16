@@ -27,9 +27,9 @@
 		<maxdamage>10</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="10,20" type="int" />
-		<!-- Misc. -->
-		<!-- Missing: -->
+		<!-- Lootpacks -->
 		<lootpacks>lootpack_poor</lootpacks>
+		<!-- Misc. -->
 		<category>Monsters\Daemonic\Mongbat (Strong)</category>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />

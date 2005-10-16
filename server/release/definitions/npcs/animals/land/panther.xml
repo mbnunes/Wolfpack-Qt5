@@ -19,7 +19,6 @@
 		<str><random min="61" max="85" /></str>
 		<dex><random min="86" max="105" /></dex>
 		<int><random min="26" max="50" /></int>
-		<!-- Status -->
 		<maxhitpoints><random min="37" max="51" /></maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Damage -->
@@ -37,7 +36,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>531</mintaming>
-		<food>1</food>
+		<intproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Feline\Panther</category>
 		<!-- Carve -->
