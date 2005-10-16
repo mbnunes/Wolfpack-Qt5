@@ -241,6 +241,9 @@ void cConfig::readData()
 	binarySavepath_ = getString( "Binary Save Driver", "Save Path", "world.bin", true );
 	binaryBackups_ = getNumber( "Binary Save Driver", "Number Of Backups", 5, true );
 	binaryCompressBackups_ = getBool( "Binary Save Driver", "Compress Backups", false, true );
+
+	// Racial Features
+	elffullnightsight_ = getBool( "Racial Features", "Elfs always have full nightsight", true, true );
 }
 
 void cConfig::load()

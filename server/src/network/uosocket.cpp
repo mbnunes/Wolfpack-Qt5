@@ -3312,6 +3312,15 @@ void cUOSocket::updateLightLevel()
 		{
 			level = wpMin<int>( 0x1f, wpMax<int>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) ) );
 		}
+
+		// Elves are always with Full NightSight. True?
+		if (Config::instance()->elffullnightsight())
+		{
+			if ( _player->isElf() )
+				level = 0;
+		}
+
+		// Sending LightLevel
 		pLight.setLevel( level );
 		send( &pLight );
 	}

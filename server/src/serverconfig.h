@@ -146,6 +146,7 @@ protected:
 	float factorMaxHits_;
 	float factorMaxMana_;
 	float factorMaxStam_;
+	bool elffullnightsight_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -350,6 +351,9 @@ public:
 
 	// AI
 	unsigned int guardDispelTime() const;
+
+	// Racial Features
+	bool elffullnightsight() const;
 
 private:
 	void setDefaultStartLocation();
@@ -734,6 +738,11 @@ inline float cConfig::factorMaxMana() const
 inline float cConfig::factorMaxStam() const
 {
 	return factorMaxStam_;
+}
+// Racial features
+inline bool cConfig::elffullnightsight() const
+{
+	return elffullnightsight_;
 }
 
 typedef Singleton<cConfig> Config;
