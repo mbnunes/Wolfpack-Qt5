@@ -12,7 +12,8 @@
 import wolfpack
 import wolfpack.time
 import skills
-from wolfpack.consts import TRACKING
+import random
+from wolfpack.consts import TRACKING, CHANCES_TO_TRACK
 from wolfpack.gumps import cGump
 from wolfpack.consts import GRAY
 from wolfpack import tr
@@ -115,8 +116,12 @@ def trackWhatResponse( char, args, target ):
 		# NEVER track invisible staff members
 		if not charcible.invisible and not charcible.dead:
 			if target.button == 4 : #have to exit non-players and exit self
-				if charcible.player and char.serial != charcible.serial :
-					liste.append(charcible)
+				if charcible.player :
+					if charcible.elf:
+						if random.randint(1,100) < CHANCES_TO_TRACK:
+							liste.append(charcible)
+					else:
+						liste.append(charcible)
 			if target.button == 3 : #have to exit non-PNJ humans
 				if charcible.bodytype==4 and charcible.npc:
 					liste.append(charcible)

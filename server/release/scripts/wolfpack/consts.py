@@ -852,3 +852,4 @@ PLAYER_BODIES_ALIVE_FEMALE = [ 0x191, 0x25e ]
 
 # Constants for Racial Features
 KNOWLEDGE_OF_NATURE_FACTOR = 2.0
+CHANCES_TO_TRACK = 50	# Its a percentage of chances to Track Elf Players
