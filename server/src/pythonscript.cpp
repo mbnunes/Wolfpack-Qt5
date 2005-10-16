@@ -678,12 +678,12 @@ container that is being snooped into.
 /*
 \event onBecomeCriminal
 \param char The character who will becomes Criminal
-\param reason A indexed table for reasons
-\param sourcechar The Character source (or target) for criminal act (May be none)
-\param sourceitem The Item source (or target) for criminal act (May be none)
-\return True if you want to player becomes criminal os False to not
+\param reason The number of the Reason (See the Indexed table in notes)
+\param sourcechar The Character source (or target) for criminal act (may be none)
+\param sourceitem The Item source (or target) for criminal act (may be none)
+\return True if you want to player becomes criminal or False to block player becomes criminal
 \condition Triggered when a character will be flagged as a Criminal.
-\notes The List of reason is: 0 when called by scripts, 1 when called for killed someone, 2 when called for begin a fight against a Innocent, 3 for Looting and derivateds
+\notes The List of reason is: 0 when called by scripts (.criminal), 1 when called because player killed someone, 2 when called because player begin a fight against a Innocent target, 3 for Looting and related things
 */
 "onBecomeCriminal",
 
