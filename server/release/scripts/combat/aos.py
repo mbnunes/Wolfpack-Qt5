@@ -544,7 +544,7 @@ def hit(attacker, defender, weapon, time):
 	if AGEOFSHADOWS and blocked:
 		if attacker.socket:
 			attacker.socket.clilocmessage(1061140) # Your attack was parried
-		clearability(player)
+		clearability(attacker)
 
 	ignorephysical = False
 	if ability:
