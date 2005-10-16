@@ -64,6 +64,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Implemented onRegenHitpoints, onRegenMana, onRegenStamina events.
   - Added "Factor for MaxHitPoints Calculation", "Factor for MaxMana Calculation", "Factor for MaxStamina Calculation".
   - Implemented onBecomeCriminal event.
+  - Implemented some Racial Features for Elves from Mondain's Legacy
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -188,6 +189,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added an optional extended carpentry system that uses different wood types. This has to be enabled in wolfpack.xml
   - Disabled animal taming gain for creatures a character had already tamed.
   - Fixed gates with invalid positions crashing the server when used.
+  - Implemented some Racial Features for Elves from Mondain's Legacy
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
@@ -197,6 +199,7 @@ Wolfpack 12.9.14 Beta (SVN)
     We welcome donated OSI-like region scripts!
   - Possible that a few monsters are missing and/or incomplete.
   - Multis (Houses/Boats) are not completly supported.
+  - "Infused with Magic" and "Perception" (Elves Features from Mondain's Legacy) are not implemented yet
   - For latest information check out: http://bugs.wpdev.org
 
 Wolfpack 12.9.13 Beta (25. December 2004)

@@ -244,6 +244,7 @@ void cConfig::readData()
 
 	// Racial Features
 	elffullnightsight_ = getBool( "Racial Features", "Elfs always have full nightsight", true, true );
+	elfwisdombonus_ = getDouble( "Racial Features", "Elven Wisdom Bonus", 1.2, true );
 }
 
 void cConfig::load()
