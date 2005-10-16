@@ -3,11 +3,11 @@
     <name>@default</name>
     <message>
         <source>Usage: set &lt;key&gt; &lt;value&gt;</source>
-        <translation></translation>
+        <translation>Uso: set &lt;key&gt; &lt;value&gt;</translation>
     </message>
     <message>
         <source>Please select a target to &apos;set %1 %2&apos; </source>
-        <translation>Selecione um alvo &apos;set %1 %2&apos; </translation>
+        <translation>Selecione um alvo para &apos;set %1 %2&apos; </translation>
     </message>
     <message>
         <source>Server time: %1</source>
@@ -19,11 +19,11 @@
     </message>
     <message>
         <source>Usage: spawnregion &lt;respawn|clear|fill&gt;</source>
-        <translation></translation>
+        <translation>Uso: spawnregion &lt;respawn|clear|fill&gt;</translation>
     </message>
     <message>
         <source>Usage: spawnregion respawn &lt;region_name&gt;</source>
-        <translation></translation>
+        <translation>Uso: spawnregion respawn &lt;region_name&gt;</translation>
     </message>
     <message>
         <source>Spawnregion %1 does not exist</source>
@@ -31,15 +31,15 @@
     </message>
     <message>
         <source>Usage: spawnregion clear &lt;region_name&gt;</source>
-        <translation></translation>
+        <translation>Uso: spawnregion clear &lt;region_name&gt;</translation>
     </message>
     <message>
         <source>Usage: spawnregion fill &lt;region_name&gt;</source>
-        <translation></translation>
+        <translation>Uso: spawnregion fill &lt;region_name&gt;</translation>
     </message>
     <message>
         <source>Usage: spawnregion info &lt;region_name&gt;</source>
-        <translation></translation>
+        <translation>Uso: spawnregion info &lt;region_name&gt;</translation>
     </message>
     <message>
         <source>Spawnregion Global Info</source>
@@ -51,43 +51,43 @@
     </message>
     <message>
         <source>NPCs: %1 of %2</source>
-        <translation></translation>
+        <translation>NPCs: %1 de %2</translation>
     </message>
     <message>
         <source>Items: %1 of %2</source>
-        <translation></translation>
+        <translation>NPCs: %1 de %2</translation>
     </message>
     <message>
         <source>Staff is now &apos;0&apos;.</source>
-        <translation>Staff agora &apos;0&apos;.</translation>
+        <translation>Staff agora em &apos;0&apos;.</translation>
     </message>
     <message>
         <source>Staff is now &apos;1&apos;.</source>
-        <translation>Staff agora &apos;1&apos;.</translation>
+        <translation>Staff agora em &apos;1&apos;.</translation>
     </message>
     <message>
         <source>Usage: reload &lt;accounts|scripts|python|all&gt;</source>
-        <translation></translation>
+        <translation>Uso: reload &lt;accounts|scripts|python|all&gt;</translation>
     </message>
     <message>
         <source>AllMove is [enabled]</source>
-        <translation></translation>
+        <translation>AllMove esta [Habilitado]</translation>
     </message>
     <message>
         <source>AllMove is [disabled]</source>
-        <translation></translation>
+        <translation>AllMove esta [desabilitado]</translation>
     </message>
     <message>
         <source>PageNotify is now &apos;0&apos;.</source>
-        <translation>PageNotify esta agora &apos;0&apos;.</translation>
+        <translation>PageNotify esta agora em &apos;0&apos;.</translation>
     </message>
     <message>
         <source>PageNotify is now &apos;1&apos;.</source>
-        <translation>PageNotify esta agora &apos;1&apos;.</translation>
+        <translation>PageNotify esta agora em &apos;1&apos;.</translation>
     </message>
     <message>
         <source>Usage: gmtalk &lt;message&gt;</source>
-        <translation></translation>
+        <translation>Uso: gmtalk &lt;message&gt;</translation>
     </message>
     <message>
         <source>Doors so far: %1</source>
@@ -95,11 +95,11 @@
     </message>
     <message>
         <source>You cannot wear that item.</source>
-        <translation>Voce nao pode desgastar este item.</translation>
+        <translation>Voce nao pode usar este item.</translation>
     </message>
     <message>
         <source>Enter a description for this item.</source>
-        <translation>Entre com a descriçao para o item.</translation>
+        <translation>Entre com a descriçao para este item.</translation>
     </message>
     <message>
         <source>This item is now described as %1.</source>
@@ -119,7 +119,7 @@
     </message>
     <message>
         <source>It is now %1 hours and %2 minutes.</source>
-        <translation>Agora e: %1 hora e %2 minutos.</translation>
+        <translation>Agora sao %1 hora(s) e %2 minutos.</translation>
     </message>
     <message>
         <source>You are in %1</source>
@@ -127,7 +127,7 @@
     </message>
     <message>
         <source>You are in the wilderness</source>
-        <translation>Voce esta numa regiao selvagem</translation>
+        <translation>Voce esta na selva</translation>
     </message>
     <message>
         <source>Compiled: %1 %2
@@ -174,7 +174,7 @@
 This is an unsorted and not neccesarily complete list of people who contributed to Wolfpack:
 
 </source>
-        <translation>Esta e uma lista completa nao necessaria para as pessoas contribuirem com o projeto WolfPack:</translation>
+        <translation>Esta e uma lista completa e nao necessaria de pessoas que contribuiram com o WolfPack:</translation>
     </message>
     <message>
         <source>Spawnregion %1 does not exist.</source>
@@ -182,15 +182,15 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Spawnregion group &apos;%1&apos; has respawned.</source>
-        <translation>Spawnregion grupo &apos;%1&apos; esta respawned.</translation>
+        <translation>Spawnregion grupo &apos;%1&apos; foi repovoado.</translation>
     </message>
     <message>
         <source>Spawnregion &apos;%1&apos; has respawned.</source>
-        <translation>Spawnregion &apos;%1&apos; esta respawned.</translation>
+        <translation>Spawnregion &apos;%1&apos; foi repovoada.</translation>
     </message>
     <message>
         <source>All spawnregions have respawned.</source>
-        <translation>All spawnregions have respawned.</translation>
+        <translation>Todas as spawnregions foram repovoadas.</translation>
     </message>
     <message>
         <source>Spawnregion group &apos;%1&apos; has been cleared.</source>
@@ -202,7 +202,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>All spawnregions have been cleared.</source>
-        <translation>All spawnregions have been cleared.</translation>
+        <translation>Todas as spawnregions foram limpas.</translation>
     </message>
     <message>
         <source>Spawnregion group &apos;%1&apos; has been filled.</source>
@@ -219,7 +219,8 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Total Users Online: %1
 </source>
-        <translation></translation>
+        <translation>Total de Usuarios Online: %1
+</translation>
     </message>
     <message>
         <source>the Pirate</source>
@@ -231,7 +232,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>the piper</source>
-        <translation></translation>
+        <translation>O Flautista</translation>
     </message>
     <message>
         <source>the Spider</source>
@@ -247,11 +248,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>the Succubus</source>
-        <translation></translation>
+        <translation>O Succubus</translation>
     </message>
     <message>
         <source>the Sprite Queen</source>
-        <translation></translation>
+        <translation>A Rainha Duende</translation>
     </message>
     <message>
         <source>Alchemist</source>
@@ -303,7 +304,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Scout</source>
-        <translation></translation>
+        <translation>Explorador</translation>
     </message>
     <message>
         <source>Scholar</source>
@@ -327,7 +328,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Scribe</source>
-        <translation>Scriba</translation>
+        <translation>Escriturario</translation>
     </message>
     <message>
         <source>Mage</source>
@@ -335,7 +336,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Pickpocket</source>
-        <translation></translation>
+        <translation>Batedor de Carteiras</translation>
     </message>
     <message>
         <source>Assassin</source>
@@ -367,15 +368,15 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Swordsman</source>
-        <translation>Espadachin</translation>
+        <translation>Espadachim</translation>
     </message>
     <message>
         <source>Armsman</source>
-        <translation></translation>
+        <translation>Homem de Armas</translation>
     </message>
     <message>
         <source>Fencer</source>
-        <translation>Lanceiro</translation>
+        <translation>Esgrimista</translation>
     </message>
     <message>
         <source>Wrestler</source>
@@ -391,11 +392,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Stoic</source>
-        <translation></translation>
+        <translation>Estoico</translation>
     </message>
     <message>
         <source>Necromancer</source>
-        <translation>Necromancer</translation>
+        <translation>Necromante</translation>
     </message>
     <message>
         <source>Paladin</source>
@@ -408,71 +409,71 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>An error occured while compiling &quot;%1&quot;: %2</source>
-        <translation></translation>
+        <translation>Um erro ocorreu enquanto se compilava &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>An error occured: %1</source>
-        <translation></translation>
+        <translation>Ocorreu um erro: %1</translation>
     </message>
     <message>
         <source>An error occured in &quot;%1&quot;: %2</source>
-        <translation></translation>
+        <translation>Um erro ocorreu em &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>File &apos;%1&apos;,%2 in &apos;%3&apos;</source>
-        <translation></translation>
+        <translation>Arquivo &apos;%1&apos;,%2 em &apos;%3&apos;</translation>
     </message>
     <message>
         <source>Reloading python scripts.</source>
-        <translation>Reloading python scripts.</translation>
+        <translation>Relendo os scripts python.</translation>
     </message>
     <message>
         <source>Finished reloading python scripts.</source>
-        <translation>Finalizando o reloading python scripts.</translation>
+        <translation>Finalizada a releitura dos scripts python.</translation>
     </message>
     <message>
         <source>Reloading definitions.</source>
-        <translation>Reloading definições.</translation>
+        <translation>Relendo definições.</translation>
     </message>
     <message>
         <source>Finished reloading definitions.</source>
-        <translation>Finalizando o  reloading das definições.</translation>
+        <translation>Finalizada a  releitura das definições.</translation>
     </message>
     <message>
         <source>Reloading mul files.</source>
-        <translation>Reloading arquivos mul.</translation>
+        <translation>Relendo os arquivos mul.</translation>
     </message>
     <message>
         <source>Finished reloading mul files.</source>
-        <translation>Finalizando o reloading mul files.</translation>
+        <translation>Finalizada a releitura dos arquivos mul.</translation>
     </message>
     <message>
         <source>Reloading server configuration.</source>
-        <translation>Reloading na configuração do server.</translation>
+        <translation>Relendo a configuraçao do servidor.</translation>
     </message>
     <message>
         <source>Finished reloading server configuration.</source>
-        <translation>Finalizando o reloading da configuração do server.</translation>
+        <translation>Finalizada a releitura da configuração do servidor.</translation>
     </message>
     <message>
         <source>The offline characters on your screen have been revealed.</source>
-        <translation>Os char dos jogadores offline aparecerão na sua tela.</translation>
+        <translation>Os personagens offline dos jogadores aparecerão na sua tela.</translation>
     </message>
     <message>
         <source>You may not walk in that direction.</source>
-        <translation>Vonce nao consegue andar nesta direção.</translation>
+        <translation>Voce nao pode andar nesta direção.</translation>
     </message>
     <message>
         <source>You may walk in that direction. (New Z: %1)</source>
-        <translation></translation>
+        <translation>Voce pode andar nesta direcao (New Z: %1)</translation>
     </message>
     <message>
         <source>Usage: exportplayer &lt;serial&gt;</source>
-        <translation></translation>
+        <translation>Uso: exportplayer &lt;serial&gt;</translation>
     </message>
     <message>
         <source>No player with the given serial could be found.</source>
-        <translation>Nenhum jogador com o serial dado não foi encontrado.</translation>
+        <translation>Nenhum jogador com o serial dado foi encontrado.</translation>
     </message>
     <message>
         <source>Saving player 0x%1 to player-%2.bin</source>
@@ -486,38 +487,38 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Failed to export the player data.
 </source>
-        <translation>Não exportou o jogador data.</translation>
+        <translation>Falha para exportar os dados do jogador.</translation>
     </message>
     <message>
         <source>Usage: importplayer &lt;filename&gt;</source>
-        <translation></translation>
+        <translation>Uso: importplayer &lt;filename&gt;</translation>
     </message>
     <message>
         <source>No flat file with the given name could be found.</source>
-        <translation>Nenhum jogador com a série dada não poderia ser encontrado.</translation>
+        <translation>Nenhum arquivo &quot;flat&quot; com o nome dado foi encontrado.</translation>
     </message>
     <message>
         <source>Loading player from %1.</source>
-        <translation>Loading player from %1.</translation>
+        <translation>Lendo player de %1.</translation>
     </message>
     <message>
         <source>Loading player from %1.
 </source>
-        <translation>Loading player from %1.</translation>
+        <translation>Lendo player de %1.</translation>
     </message>
     <message>
         <source>Loading %1 objects from %2.</source>
-        <translation>Loading %1 objects from %2.</translation>
+        <translation>Lendo %1 objetos de %2.</translation>
     </message>
     <message>
         <source>Invalid worldfile, unknown and unskippable type %1.
 </source>
-        <translation>Invalid worldfile, unknown and unskippable type %1.</translation>
+        <translation>Worldfile invalido, desconhecido e nao &quot;pulavel&quot; type %1.</translation>
     </message>
     <message>
         <source>Failed to import the player data.
 </source>
-        <translation>Não importou o jogador data.</translation>
+        <translation>Falha ao importar os dados do jogador.</translation>
     </message>
     <message>
         <source>Samurai</source>
@@ -539,11 +540,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>ShowSerials is [enabled]</source>
-        <translation type="unfinished"></translation>
+        <translation>ShowSerials esta (habilitado)</translation>
     </message>
     <message>
         <source>ShowSerials is [disabled]</source>
-        <translation type="unfinished"></translation>
+        <translation>ShowSerials esta (desabilitado)</translation>
     </message>
 </context>
 <context>
@@ -551,7 +552,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>You can only shrink characters.</source>
         <comment>../release/scripts/figurine.py</comment>
-        <translation>Voce so pode shrinkar somente NPCs.</translation>
+        <translation>Voce so pode shrinkar somente Chars.</translation>
     </message>
     <message>
         <source>You cannot shrink other players.</source>
@@ -566,24 +567,24 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>You renamed the key to &apos;%s&apos;</source>
         <comment>../release/scripts/key.py</comment>
-        <translation>Voce renomeou sua key para &apos;%s&apos;</translation>
+        <translation>Voce renomeou a chave para &apos;%s&apos;</translation>
     </message>
     <message>
         <source>Changing lock of key 0x%x from &apos;%s&apos; to &apos;%s&apos;.
 </source>
         <comment>../release/scripts/key.py</comment>
-        <translation>Mudança de fechadura e chave 0x%x para &apos;%s&apos; ate &apos;%s&apos;.
+        <translation>Mudança de fechadura da chave 0x%x de &apos;%s&apos; para &apos;%s&apos;.
 </translation>
     </message>
     <message>
         <source>Unlocks: </source>
         <comment>../release/scripts/key.py</comment>
-        <translation>Destrava:</translation>
+        <translation>Destravados:</translation>
     </message>
     <message>
         <source>Lock: </source>
         <comment>../release/scripts/key.py</comment>
-        <translation>Travada:</translation>
+        <translation>Travado:</translation>
     </message>
     <message>
         <source>This key is blank</source>
@@ -593,17 +594,17 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>This key now unlocks: </source>
         <comment>../release/scripts/key.py</comment>
-        <translation>Esta chave agora destrava:</translation>
+        <translation>Esta chave agora destranca:</translation>
     </message>
     <message>
         <source>You erase the lock information from the key.</source>
         <comment>../release/scripts/key.py</comment>
-        <translation>Você apagou a informação do fechamento da chave.</translation>
+        <translation>Você apagou a informação de tranca da chave.</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Manage Key&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to manage or rename this key.</source>
         <comment>../release/scripts/key.py</comment>
-        <translation>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Controle de Chaves&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;Este diálogo ajudará a controlar ou rebatizar esta chave.</translation>
+        <translation>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Controle de Chaves&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;Este diálogo ajudará a controlar ou renomear esta chave.</translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Manage Key&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to rename this key.</source>
@@ -618,7 +619,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>The lock id of this key:</source>
         <comment>../release/scripts/key.py</comment>
-        <translation>A id da fechadura desta chave:</translation>
+        <translation>O id da fechadura desta chave:</translation>
     </message>
     <message>
         <source>Modify key</source>
@@ -634,20 +635,20 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <source>Accessed locked object 0x%x.
 </source>
         <comment>../release/scripts/lock.py</comment>
-        <translation>Acessando objeto fechado 0x%x.
+        <translation>Acessando objeto trancado 0x%x.
 </translation>
     </message>
     <message>
         <source>Accessed locked door 0x%x using key 0x%x.
 </source>
         <comment>../release/scripts/lock.py</comment>
-        <translation>Porta fechada aberta 0x%x usando chave 0x%x.
+        <translation>Acessando porta trancada 0x%x usando chave 0x%x.
 </translation>
     </message>
     <message>
         <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Manage Lock&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to manage the lock and status of this item.</source>
         <comment>../release/scripts/lock.py</comment>
-        <translation>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Controle de Chaves&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;Este diálogo ajudará a controlar o fechamento e o status deste item.</translation>
+        <translation>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Controle de Chaves&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;Este diálogo ajudará a controlar o trancamento e o status deste item.</translation>
     </message>
     <message>
         <source>The id for this lock:</source>
@@ -657,7 +658,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Locked</source>
         <comment>../release/scripts/lock.py</comment>
-        <translation>Fechado</translation>
+        <translation>Trancado</translation>
     </message>
     <message>
         <source>Modify lock</source>
@@ -707,22 +708,22 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>Tithe:</source>
         <comment>../release/scripts/ankh.py</comment>
-        <translation>Tithe:</translation>
+        <translation>Dizimo:</translation>
     </message>
     <message>
         <source>You cannot equip another so soon after being disarmed.</source>
         <comment>../release/scripts/equipment.py</comment>
-        <translation>Voce nao pode se equipar após ser desarmado.</translation>
+        <translation>Voce nao pode se equipar tao rapido após ser desarmado.</translation>
     </message>
     <message>
         <source>They cannot equip another so soon after being disarmed.</source>
         <comment>../release/scripts/equipment.py</comment>
-        <translation>Não pode equipar outros proximos após serem desarmados.</translation>
+        <translation>Eles não podem equipar outros tao rapido após serem desarmados.</translation>
     </message>
     <message>
         <source>Only potions may be added to a potion keg!</source>
         <comment>../release/scripts/potionkeg.py</comment>
-        <translation>Somente poções podem se adicionadas a keg!</translation>
+        <translation>Somente poções podem se adicionadas ao keg!</translation>
     </message>
     <message>
         <source>the head of %s</source>
@@ -738,85 +739,85 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <source>Accessed locked object 0x%x using key 0x%x.
 </source>
         <comment>../release/scripts/key.py</comment>
-        <translation>Objeto fechado alcançado 0x%x usando a chave 0x%x.
+        <translation>Acessado objeto trancado 0x%x usando a chave 0x%x.
 </translation>
     </message>
     <message>
         <source>Locked object 0x%x using key 0x%x.
 </source>
         <comment>../release/scripts/key.py</comment>
-        <translation>Objeto fechado 0x%x usando chave 0x%x.
+        <translation>Trancado objeto 0x%x usando chave 0x%x.
 </translation>
     </message>
     <message>
         <source>What do you wish to use the gem on?</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Em que voce deseja usar a gema?</translation>
     </message>
     <message>
         <source>That item is already fully charged.</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>O item ja esta totalmente carregado.</translation>
     </message>
     <message>
         <source>You recharge the item.</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Voce recarregou o item.</translation>
     </message>
     <message>
         <source>You enhance the item with your gem.</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Voce melhorou o item com sua gema.</translation>
     </message>
     <message>
         <source>Only exceptional items can be enhanced with the gem.</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Apenas itens excepcionais podem ser melhorados com a gema.</translation>
     </message>
     <message>
         <source>You do not have enough skill in tailoring to enhance the item.</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Voce nao tem Skill suficiente em Tailoring para melhorar o item.</translation>
     </message>
     <message>
         <source>You cannot use the gem on that.</source>
         <comment>../release/scripts/arcanegem.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Voce nao pode usar a gema nisto.</translation>
     </message>
     <message>
         <source>shot is well off target.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>O tiro foi acertou bem no alvo.</translation>
     </message>
     <message>
         <source>shot is wide of the mark.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>O tiro foi ao redor da marca.</translation>
     </message>
     <message>
         <source>shot misses terribly.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>O tiro foi terrivelmente errado.</translation>
     </message>
     <message>
         <source>shot nearly misses the archery butte.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>O tiro errou o alvo por pouco.</translation>
     </message>
     <message>
         <source>hit the outer ring.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Acertou o anel exterior.</translation>
     </message>
     <message>
         <source>hit the middle ring.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Acertou o anel mediano.</translation>
     </message>
     <message>
         <source>hit the inner ring.</source>
         <comment>../release/scripts/archery_butte.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Acertou o anel interno.</translation>
     </message>
     <message>
         <source>hit the bullseye!.</source>
@@ -901,192 +902,192 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>You cannot use this ability with that weapon.</source>
         <comment>../release/scripts/combat/specialmoves.py</comment>
-        <translation type="unfinished">Voce não pode usar esta skill com esta arma.</translation>
+        <translation>Voce não pode usar esta habilidade com esta arma.</translation>
     </message>
     <message>
         <source>This ability has not been implemented yet.</source>
         <comment>../release/scripts/combat/specialmoves.py</comment>
-        <translation type="unfinished">Esta skill não foi implementada ainda.</translation>
+        <translation>Esta habilidade não foi implementada ainda.</translation>
     </message>
     <message>
         <source>Sorting items, please wait...</source>
         <comment>../release/scripts/commands/decoration.py</comment>
-        <translation type="unfinished">Sorteando items. por favor espere...</translation>
+        <translation>Ordenando os items. por favor espere...</translation>
     </message>
     <message>
         <source>Writing file...</source>
         <comment>../release/scripts/commands/decoration.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Escrevendo arquivo...</translation>
     </message>
     <message>
         <source>Decorating map %i, please wait...</source>
         <comment>../release/scripts/commands/decoration.py</comment>
-        <translation type="unfinished">Decorando mapa %i, por favor espere...</translation>
+        <translation>Decorando mapa %i, por favor espere...</translation>
     </message>
     <message>
         <source>Stopped following 0x%x.</source>
         <comment>../release/scripts/commands/follow.py</comment>
-        <translation type="unfinished">Parado depois de  0x%x.</translation>
+        <translation>Parou de seguir  0x%x.</translation>
     </message>
     <message>
         <source>You chose an invalid follow target.</source>
         <comment>../release/scripts/commands/follow.py</comment>
-        <translation type="unfinished">Voce escolheu seguir um alvo invalido.</translation>
+        <translation>Voce escolheu um alvo invalido para seguir.</translation>
     </message>
     <message>
         <source>You better don</source>
         <comment>../release/scripts/commands/follow.py</comment>
-        <translation type="unfinished">You better don</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Started following 0x%x.</source>
         <comment>../release/scripts/commands/follow.py</comment>
-        <translation type="unfinished">Começou a seguir 0x%x.</translation>
+        <translation>Começou a seguir 0x%x.</translation>
     </message>
     <message>
         <source>Choose a new character to follow.</source>
         <comment>../release/scripts/commands/follow.py</comment>
-        <translation type="unfinished">Escolha um novo char para segui-lo.</translation>
+        <translation>Escolha um novo char para seguir.</translation>
     </message>
     <message>
         <source>That player has been released from jail already.</source>
         <comment>../release/scripts/commands/jail.py</comment>
-        <translation type="unfinished">Este jogado já esta liberto da cadeia.</translation>
+        <translation>Este jogado já esta liberto da cadeia.</translation>
     </message>
     <message>
         <source>That player is in jail already.</source>
         <comment>../release/scripts/commands/jail.py</comment>
-        <translation type="unfinished">Este jogador esta na cadeia.</translation>
+        <translation>Este jogador ja esta na cadeia.</translation>
     </message>
     <message>
         <source>The targetted player has been jailed.</source>
         <comment>../release/scripts/commands/jail.py</comment>
-        <translation type="unfinished">Escolha o jogador a ser preso.</translation>
+        <translation>O jogador alvo foi preso.</translation>
     </message>
     <message>
         <source>The targetted player has been unjailed.</source>
         <comment>../release/scripts/commands/jail.py</comment>
-        <translation type="unfinished">Escolha o jogador que tem que ser libertado.</translation>
+        <translation>O jogador alvo foi libertado da Jail.</translation>
     </message>
     <message>
         <source>You have to target a player character.</source>
         <comment>../release/scripts/commands/jail.py</comment>
-        <translation type="unfinished">Você tem que escolher o char do jogador.</translation>
+        <translation>Você tem que escolher um personagem de jogador.</translation>
     </message>
     <message>
         <source>You burn your fingers.</source>
         <comment>../release/scripts/commands/jail.py</comment>
-        <translation type="unfinished">Você queimou seus dedos.</translation>
+        <translation>Você queimou seus dedos.</translation>
     </message>
     <message>
         <source>Target the player you want to send to jail.</source>
         <comment>../release/scripts/commands/jail.py</comment>
-        <translation type="unfinished">Selecione o jogador que voce queira mandar para a cadeia.</translation>
+        <translation>Selecione o jogador que voce quer mandar para a cadeia.</translation>
     </message>
     <message>
         <source>Target the player you want to release from jail.</source>
         <comment>../release/scripts/commands/jail.py</comment>
-        <translation type="unfinished">Selecione o jogador que voce queira tirar da cadeia.</translation>
+        <translation>Selecione o jogador que voce quer tirar da cadeia.</translation>
     </message>
     <message>
         <source>You have to target a player character.</source>
         <comment>../release/scripts/commands/mute.py</comment>
-        <translation type="unfinished">Você tem que escolher o char do jogador.</translation>
+        <translation>Você tem que escolher um personagem de jogador.</translation>
     </message>
     <message>
         <source>You burn your fingers.</source>
         <comment>../release/scripts/commands/mute.py</comment>
-        <translation type="unfinished">Você queimou seus dedos.</translation>
+        <translation>Você queimou seus dedos.</translation>
     </message>
     <message>
         <source>The targetted player can no longer talk.</source>
         <comment>../release/scripts/commands/mute.py</comment>
-        <translation type="unfinished">The targetted player can no longer talk.</translation>
+        <translation>O jogador selecionado nao pode mais falar.</translation>
     </message>
     <message>
         <source>The targetted player can now talk again.</source>
         <comment>../release/scripts/commands/mute.py</comment>
-        <translation type="unfinished">O jogador alvo não falam novamente agora.</translation>
+        <translation>O jogador selecionado pode falar denovo agora.</translation>
     </message>
     <message>
         <source>Target the player you want to mute.</source>
         <comment>../release/scripts/commands/mute.py</comment>
-        <translation type="unfinished">Escolha o jogador que você o quer mudo.</translation>
+        <translation>Escolha o jogador que você quer deixar mudo.</translation>
     </message>
     <message>
         <source>Target the player you want to unmute.</source>
         <comment>../release/scripts/commands/mute.py</comment>
-        <translation type="unfinished">Escolha o jogador que você o quer deixar falar novamente.</translation>
+        <translation>Escolha o jogador que você o quer deixar falar novamente.</translation>
     </message>
     <message>
         <source>The position (%s) you targetted is more than 30 tiles away. Are you sure to add a spawn there?</source>
         <comment>../release/scripts/commands/spawn.py</comment>
-        <translation type="unfinished">A posição (%s) que você escolheu é mais de 30 tiles afastado.  Você está certo em adicionar um spawn?</translation>
+        <translation>A posição (%s) que você escolheu é mais de 30 tiles afastado.  Você está certo em adicionar um spawn nela?</translation>
     </message>
     <message>
         <source>Adding %s spawn at %s.</source>
         <comment>../release/scripts/commands/spawn.py</comment>
-        <translation type="unfinished">Adicionando %s spawn em %s.</translation>
+        <translation>Adicionando %s spawn em %s.</translation>
     </message>
     <message>
         <source>a %s spawn</source>
         <comment>../release/scripts/commands/spawn.py</comment>
-        <translation type="unfinished">a %s spawn</translation>
+        <translation>a %s spawn</translation>
     </message>
     <message>
         <source>Usage: spawn npc radius mintime maxtime</source>
         <comment>../release/scripts/commands/spawn.py</comment>
-        <translation type="unfinished">Uso: Spawn npc raio mintempo maxtempo</translation>
+        <translation>Uso: Spawn npc raio mintempo maxtempo</translation>
     </message>
     <message>
         <source>Usage: npc spawn radius mintime maxtime</source>
         <comment>../release/scripts/commands/spawn.py</comment>
-        <translation type="unfinished">Uso: npc spawn raio mintempo maxtempo</translation>
+        <translation>Uso: npc spawn raio mintempo maxtempo</translation>
     </message>
     <message>
         <source>Where do you want to spawn npc %s.</source>
         <comment>../release/scripts/commands/spawn.py</comment>
-        <translation type="unfinished">Onde você quer spawn do npc %s.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>A private message from %s: %s</source>
         <comment>../release/scripts/commands/sysmessage.py</comment>
-        <translation type="unfinished">Mensagem privada para %s: %s</translation>
+        <translation>Mensagem privada de %s: %s</translation>
     </message>
     <message>
         <source>The maximum width or height of a pattern is 10. The minimum width or height of a pattern is 1.</source>
         <comment>../release/scripts/commands/tilepattern.py</comment>
-        <translation type="unfinished">A largura ou a altura máxima de um teste padrão são 10.  A largura ou a altura mínima de um teste padrão são 1.</translation>
+        <translation>A largura ou a altura máxima de um pattern eh 10.  A largura ou a altura mínima de um pattern eh 1.</translation>
     </message>
     <message>
         <source>You have to specify a valid width and height.</source>
         <comment>../release/scripts/commands/tilepattern.py</comment>
-        <translation type="unfinished">Você tem que especificar uma largura e um altura  válidas.</translation>
+        <translation>Você tem que especificar uma largura e altura válidas.</translation>
     </message>
     <message>
         <source>The tile pattern has been cleared.</source>
         <comment>../release/scripts/commands/tilepattern.py</comment>
-        <translation type="unfinished">O teste padrão de tile foi limpo.</translation>
+        <translation>O Pattern do tile foi limpo.</translation>
     </message>
     <message>
         <source>Who Menu</source>
         <comment>../release/scripts/commands/who.py</comment>
-        <translation type="unfinished">Who Menu</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Close</source>
         <comment>../release/scripts/commands/who.py</comment>
-        <translation type="unfinished">Fechar</translation>
+        <translation>Fechar</translation>
     </message>
     <message>
         <source>Players: %u</source>
         <comment>../release/scripts/commands/who.py</comment>
-        <translation type="unfinished">Jogadores: %u</translation>
+        <translation>Jogadores: %u</translation>
     </message>
     <message>
         <source>Page %i of %i</source>
         <comment>../release/scripts/commands/who.py</comment>
-        <translation type="unfinished">Page %i de %</translation>
+        <translation>Page %i de %</translation>
     </message>
     <message>
         <source>%s [%s]</source>
@@ -1096,27 +1097,27 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <message>
         <source>A private message from %s: %s</source>
         <comment>../release/scripts/commands/who.py</comment>
-        <translation type="unfinished">Mensagem privada para %s: %s</translation>
+        <translation>Uma mensagem privada de %s: %s</translation>
     </message>
     <message>
         <source>Here is your bank box, %s.</source>
         <comment>../release/scripts/contextmenus/bankermenu.py</comment>
-        <translation type="unfinished">Está aqui sua caixa do banco, %s.</translation>
+        <translation>Aqui está sua caixa do banco, %s.</translation>
     </message>
     <message>
         <source>Alas you don&apos;t have any money in your bank.</source>
         <comment>../release/scripts/contextmenus/bankermenu.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Voce nao tem nenhum dinheiro em seu banco.</translation>
     </message>
     <message>
         <source>You have %i gold in your bank.</source>
         <comment>../release/scripts/contextmenus/bankermenu.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Voce tem %i de dinheiro em seu banco.</translation>
     </message>
     <message>
         <source>rolls a </source>
         <comment>../release/scripts/dicecup.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>rola um</translation>
     </message>
     <message>
         <source> and a </source>
@@ -3075,7 +3076,7 @@ Interval: %s to %s minutes</source>
     <message>
         <source>Last Ten</source>
         <comment>../release/scripts/system/makemenus.py</comment>
-        <translation type="unfinished">Últimos Dez</translation>
+        <translation type="unfinished">�ltimos Dez</translation>
     </message>
     <message>
         <source>Dont Mark Item</source>
@@ -4337,7 +4338,7 @@ Interval: %s to %s minutes</source>
     <name>AbstractAI</name>
     <message>
         <source>You can&apos;t have pets attack in town!</source>
-        <translation>Você nao pode atacar animas nesta cidade!</translation>
+        <translation>Você nao pode atacar animas na cidade!</translation>
     </message>
     <message>
         <source>Sorry, not implemented yet :(</source>
@@ -4352,7 +4353,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>You can&apos;t equip on that layer.</source>
-        <translation>Você não pode equipa-se nessa camada.</translation>
+        <translation>Você não pode equipar neste layer.</translation>
     </message>
     <message>
         <source>You can&apos;t equip dead players.</source>
@@ -4372,7 +4373,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>You can&apos;t wear another item there!</source>
-        <translation>Você não pode utilizar um item aqui!</translation>
+        <translation>Você não pode utilizar outro item aqui!</translation>
     </message>
     <message>
         <source>You can&apos;t hold another item while wearing a twohanded item!</source>
@@ -4380,7 +4381,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>The character does not seem to want the item.</source>
-        <translation>Este char parece não querer o item.</translation>
+        <translation>O personagem parece não querer o item.</translation>
     </message>
     <message>
         <source>You cannot put houses in containers</source>
@@ -4388,7 +4389,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>You fail to put that into %1&apos;s pack</source>
-        <translation>Você falhou em colocar o %1&apos;s na bolsa</translation>
+        <translation>Você falhou em colocar isto na bolsa de %1</translation>
     </message>
     <message>
         <source>You cannot put that into the belongings of another player</source>
@@ -4396,46 +4397,46 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>You cannot grab items in locked containers.</source>
-        <translation>Você não pode tirar items de containers fechados.</translation>
+        <translation>Você não pode tirar itens de containers trancados.</translation>
     </message>
     <message>
         <source>While you are jailed, you cannot pick up items.</source>
-        <translation>Enquanto estiver preso, você nao pode escolher os items.</translation>
+        <translation>Enquanto estiver preso, você nao pode pegar itens.</translation>
     </message>
     <message>
         <source>Picking up item &apos;%1&apos; (0x%2, %3) from player &apos;%4&apos; (&apos;%5&apos;, 0x%6)
 </source>
-        <translation>Picking up item &apos;%1&apos; (0x%2, %3) from player &apos;%4&apos; (&apos;%5&apos;, 0x%6)
+        <translation>Pegando item &apos;%1&apos; (0x%2, %3) do jogador &apos;%4&apos; (&apos;%5&apos;, 0x%6)
 </translation>
     </message>
     <message>
         <source>Grabbing item &apos;%1&apos; (0x%2, %3) out of container 0x%4 (Outmost: 0x%5)
 </source>
-        <translation>Grabbing item &apos;%1&apos; (0x%2, %3) out of container 0x%4 (Outmost: 0x%5)
+        <translation>Retirando item &apos;%1&apos; (0x%2, %3) do container 0x%4 (Outmost: 0x%5)
 </translation>
     </message>
     <message>
         <source>Picking up item &apos;%1&apos; (0x%2, %3) from corpse of player &apos;%4&apos; (&apos;%5&apos;, 0x%6)
 </source>
-        <translation>Picking up item &apos;%1&apos; (0x%2, %3) from corpse of player &apos;%4&apos; (&apos;%5&apos;, 0x%6)
+        <translation>Pegando item &apos;%1&apos; (0x%2, %3) do corpo do jogador &apos;%4&apos; (&apos;%5&apos;, 0x%6)
 </translation>
     </message>
     <message>
         <source>Dropping item &apos;%1&apos; (0x%2, %3) onto corpse of player &apos;%4&apos; (&apos;%5&apos;, 0x%6)
 </source>
-        <translation>Dropping item &apos;%1&apos; (0x%2, %3) onto corpse of player &apos;%4&apos; (&apos;%5&apos;, 0x%6)
+        <translation>Colocando item &apos;%1&apos; (0x%2, %3) dentro do corpo do jogador &apos;%4&apos; (&apos;%5&apos;, 0x%6)
 </translation>
     </message>
     <message>
         <source>Dropping item &apos;%1&apos; (0x%2, %3) to player &apos;%4&apos; (&apos;%5&apos;, 0x%6)
 </source>
-        <translation>Dropping item &apos;%1&apos; (0x%2, %3) to player &apos;%4&apos; (&apos;%5&apos;, 0x%6)
+        <translation>Dando item &apos;%1&apos; (0x%2, %3) ao jogador &apos;%4&apos; (&apos;%5&apos;, 0x%6)
 </translation>
     </message>
     <message>
         <source>Dropping item &apos;%1&apos; (0x%2, %3) into container 0x%4 (Outmost: 0x%5)
 </source>
-        <translation>Dropping item &apos;%1&apos; (0x%2, %3) into container 0x%4 (Outmost: 0x%5)
+        <translation>Colocando item &apos;%1&apos; (0x%2, %3) no container 0x%4 (Outmost: 0x%5)
 </translation>
     </message>
 </context>
@@ -4443,36 +4444,36 @@ Interval: %s to %s minutes</source>
     <name>Human_Guard_Called_Fight</name>
     <message>
         <source>Thou shalt regret thine actions, swine!</source>
-        <translation>Thou shalt regret thine actions, swine!</translation>
+        <translation>Voce ira se lamentar de suas acoes, suino!</translation>
     </message>
     <message>
         <source>Death to all Evil!</source>
-        <translation>Morte para todos os seres Más!</translation>
+        <translation>Morte para todos os Maus!</translation>
     </message>
 </context>
 <context>
     <name>Human_Guard_Fight</name>
     <message>
         <source>Thou shalt regret thine actions, swine!</source>
-        <translation>Thou shalt regret thine actions, swine!</translation>
+        <translation>Voce ira se lamentar de suas acoes, suino!</translation>
     </message>
     <message>
         <source>Death to all Evil!</source>
-        <translation>Morte a todos os seres Más!</translation>
+        <translation>Morte a todos os Maus!</translation>
     </message>
 </context>
 <context>
     <name>Human_Stablemaster</name>
     <message>
         <source>petitem: %1</source>
-        <translation>petitem: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MapObjects</name>
     <message>
         <source>updateOnlineStatus() failed to remove the player 0x%1 from the %2 characters structure.</source>
-        <translation>updateOnlineStatus() failed to remove the player 0x%1 from the %2 characters structure.</translation>
+        <translation>updateOnlineStatus() falhou em remover o jogador 0x%1 da %2 estrutura de personagens.</translation>
     </message>
 </context>
 <context>
@@ -4480,7 +4481,7 @@ Interval: %s to %s minutes</source>
     <message>
         <source>Action tag in ai definition must contain attributes for pre-,postcondition and execute at least
 </source>
-        <translation>Action tag in ai definition must contain attributes for pre-,postcondition and execute at least
+        <translation>Tag de acao na definicao de AI deve, ao menos, conter atributos: pre-,postcondition and execute
 </translation>
     </message>
 </context>
@@ -4489,7 +4490,7 @@ Interval: %s to %s minutes</source>
     <message>
         <source>Saying &apos;%1&apos; (%2, 0x%3).
 </source>
-        <translation>Saying &apos;%1&apos; (%2, 0x%3).
+        <translation>Dizendo &apos;%1&apos; (%2, 0x%3).
 </translation>
     </message>
 </context>
@@ -4497,7 +4498,7 @@ Interval: %s to %s minutes</source>
     <name>Trade::Trade</name>
     <message>
         <source>You can&apos;t reach the vendor</source>
-        <translation>Você não está a alcance do vendedor</translation>
+        <translation>Você não pode alcancar o vendedor</translation>
     </message>
     <message>
         <source>Invalid item bought.</source>
@@ -4509,19 +4510,19 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>Thank you %1, here are your %2 gold</source>
-        <translation>Obrigado voce %1, aqui esta seu ouro %2</translation>
+        <translation>Obrigado %1, aqui estao suas %2 moedas</translation>
     </message>
     <message>
         <source>The total of thy purchase is %1 gold, which has been withdrawn from your bank account. My thanks for the patronage.</source>
-        <translation type="unfinished"></translation>
+        <translation>O total desta negociacao sao %1 moedas, que serao retiradas da sua conta no banco. Obrigado pelo patrocinio.</translation>
     </message>
     <message>
         <source>The total of thy purchase is %1 gold. My thanks for the patronage.</source>
-        <translation type="unfinished"></translation>
+        <translation>O total desta negociacao foi de %1 moedas. Meus agradecimentos pelo patrocinio.</translation>
     </message>
     <message>
         <source>The total of thy purchase is %1 gold, which has been withdrawn from your bag and from your bank account. My thanks for the patronage.</source>
-        <translation type="unfinished"></translation>
+        <translation>O total desta transacao foi de %1 moedas, que serao retiradas diretamente de sua bolsa e de sua conta no banco. Meus agradecimentos pelo patrocinio.</translation>
     </message>
 </context>
 <context>
@@ -4552,7 +4553,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>the Herbalist</source>
-        <translation></translation>
+        <translation>A Vendedora de Ervas</translation>
     </message>
     <message>
         <source>the Innkeeper</source>
@@ -4564,7 +4565,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>the Leatherworker</source>
-        <translation>A Curtumeira</translation>
+        <translation>A Coureira</translation>
     </message>
     <message>
         <source>the Mage</source>
@@ -4572,7 +4573,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>the Provisioner</source>
-        <translation>A Provissora</translation>
+        <translation>A Provisionadora</translation>
     </message>
     <message>
         <source>the Shipwright</source>
@@ -4580,7 +4581,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>the Spinner</source>
-        <translation></translation>
+        <translation>A Fiandeira</translation>
     </message>
     <message>
         <source>the Stablemaster</source>
@@ -4592,7 +4593,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>the Tanner</source>
-        <translation></translation>
+        <translation>A Cortumeira</translation>
     </message>
     <message>
         <source>the Tavernkeeper</source>
@@ -4612,11 +4613,11 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>the Weaver</source>
-        <translation></translation>
+        <translation>A Tecela</translation>
     </message>
     <message>
         <source>the Mapmaker</source>
-        <translation></translation>
+        <translation>A Cartografa</translation>
     </message>
 </context>
 <context>
