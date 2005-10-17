@@ -32,7 +32,7 @@
 
 	<item id="2d2b" inherit="0x2d1f">
 		<id>0x2d2b</id>
-		<baseid>0x2d1f</baseid>
+		<baseid>2d1f</baseid>
 		<category>Base Weapons\Bows\Magical Shortbow (E/W)</category>
 	</item>
 
