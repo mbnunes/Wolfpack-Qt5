@@ -445,7 +445,7 @@ class VengefulSpirit(CharEffectSpell):
 		self.mantra = 'Kal Xen Bal Beh'
 
 	def affectchar(self, char, mode, target, args=[]):
-		if (len(char.followers) + 3) > char.maxcontrolslots:
+		if char.controlslots + 3 > char.maxcontrolslots:
 			char.socket.clilocmessage(1049645) # You have too many followers to summon that creature.
 			return False
 		elif target == char:
