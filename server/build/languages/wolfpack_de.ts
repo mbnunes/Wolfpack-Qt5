@@ -2214,11 +2214,6 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can only throw one potion at a time!</source>
-        <comment>../release/scripts/potions/__init__.py</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>What do you want to shrink?</source>
         <comment>../release/scripts/potions/__init__.py</comment>
         <translation>Was möchtest du schrumpfen?</translation>
@@ -4319,6 +4314,21 @@ Interval: %s to %s minutes</source>
         <comment>../release/scripts/wheat.py</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No description available.</source>
+        <comment>../release/scripts/commands/add.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DESCRIPTION</source>
+        <comment>../release/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NPC</source>
+        <comment>../release/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AbstractAI</name>
@@ -5284,16 +5294,16 @@ This is very usefull for new shards without account policy
     <name>cNPC</name>
     <message>
         <source> [frozen]</source>
-        <translation>[eingefroren]
+        <translation> [eingefroren]
 </translation>
     </message>
     <message>
         <source> [guarded]</source>
-        <translation>[bewacht]</translation>
+        <translation> [bewacht]</translation>
     </message>
     <message>
         <source> [guarding]</source>
-        <translation>[bewachend]</translation>
+        <translation> [bewachend]</translation>
     </message>
     <message>
         <source>Sorry but i have no goods to sell</source>
@@ -5301,7 +5311,7 @@ This is very usefull for new shards without account policy
     </message>
     <message>
         <source> (frozen)</source>
-        <translation>(eingefroren)</translation>
+        <translation> (eingefroren)</translation>
     </message>
     <message>
         <source>Unable to create unscripted npc: %1
@@ -5490,6 +5500,10 @@ GameServer läuft auf Port %1
     <message>
         <source>Lord <byte value="x9"/>%1<byte value="x9"/>%2</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (frozen)</source>
+        <translation> (eingefroren)</translation>
     </message>
 </context>
 <context>

@@ -2223,11 +2223,6 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation type="unfinished">Você deve jogar este agora!</translation>
     </message>
     <message>
-        <source>You can only throw one potion at a time!</source>
-        <comment>../release/scripts/potions/__init__.py</comment>
-        <translation type="unfinished">Você pode somente jogar um poção de cada vez!</translation>
-    </message>
-    <message>
         <source>What do you want to shrink?</source>
         <comment>../release/scripts/potions/__init__.py</comment>
         <translation type="unfinished">O que você quer encolher?</translation>
@@ -2961,12 +2956,12 @@ Interval: %s to %s minutes</source>
     <message>
         <source>Alas you don&apos;t have any money in your bank.</source>
         <comment>../release/scripts/speech/banker.py</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Voce nao tem nenhum dinheiro em seu banco.</translation>
     </message>
     <message>
         <source>You have %i gold in your bank.</source>
         <comment>../release/scripts/speech/banker.py</comment>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Voce tem %i de dinheiro em seu banco.</translation>
     </message>
     <message>
         <source>Here is your bank box, %s.</source>
@@ -4333,6 +4328,21 @@ Interval: %s to %s minutes</source>
         <comment>../release/scripts/wheat.py</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No description available.</source>
+        <comment>../release/scripts/commands/add.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DESCRIPTION</source>
+        <comment>../release/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NPC</source>
+        <comment>../release/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AbstractAI</name>
@@ -5564,6 +5574,10 @@ GameServer rodando na porta %1
     <message>
         <source>Lord <byte value="x9"/>%1<byte value="x9"/>%2</source>
         <translation></translation>
+    </message>
+    <message>
+        <source> (frozen)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

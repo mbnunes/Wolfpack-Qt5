@@ -2210,11 +2210,6 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can only throw one potion at a time!</source>
-        <comment>../release/scripts/potions/__init__.py</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>What do you want to shrink?</source>
         <comment>../release/scripts/potions/__init__.py</comment>
         <translation type="unfinished"></translation>
@@ -4315,6 +4310,21 @@ Interval: %s to %s minutes</source>
         <comment>../release/scripts/wheat.py</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>No description available.</source>
+        <comment>../release/scripts/commands/add.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>DESCRIPTION</source>
+        <comment>../release/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>NPC</source>
+        <comment>../release/scripts/system/makemenus.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AbstractAI</name>
@@ -5475,6 +5485,10 @@ GameServer running on port %1
     </message>
     <message>
         <source>Lord <byte value="x9"/>%1<byte value="x9"/>%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (frozen)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
