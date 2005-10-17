@@ -1746,7 +1746,7 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	// Append the (frozen) tag
 	if ( isFrozen() )
 	{
-		affix = " (frozen)";
+		affix = tr( " (frozen)" );
 	}
 
 	if ( player->account()->isShowSerials() )
