@@ -78,7 +78,7 @@ def dotame(char, totame):
 		return
 
 	# Too Many Followers
-	if len(char.followers) + totame.controlslots > char.maxcontrolslots:
+	if char.controlslots + totame.controlslots > char.maxcontrolslots:
 		socket.clilocmessage( 1049611, "", 0x3b2, 3, totame )
 		return
 
