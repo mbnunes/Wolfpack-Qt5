@@ -3558,6 +3558,12 @@ double cBaseChar::getHitpointRate()
 		points = wpMax<int>( 0, getTag( "regenhitpoints" ).toInt() );
 	}
 
+	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( this );
+
+	// See if its a NPC
+	if ( !pPlayer )
+		return 1.0 / ( 0.1 * ( 1 + points ) );
+
 	// Tough for Humans
 
 	if ( isElf() )
