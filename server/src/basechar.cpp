@@ -3558,7 +3558,12 @@ double cBaseChar::getHitpointRate()
 		points = wpMax<int>( 0, getTag( "regenhitpoints" ).toInt() );
 	}
 
-	return 1.0 / ( 0.1 * ( 1 + points ) );
+	// Tough for Humans
+
+	if ( isElf() )
+		return 1.0 / ( 0.1 * ( 1 + points ) );
+	else
+		return ( 1.0 / ( 0.1 * ( 1 + points ) ) ) * Config::instance()->humantough();
 }
 
 double cBaseChar::getStaminaRate()

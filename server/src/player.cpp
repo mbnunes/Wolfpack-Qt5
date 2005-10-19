@@ -1950,5 +1950,9 @@ bool cPlayer::isOverloaded()
 
 unsigned int cPlayer::maxWeight()
 {
-	return ( unsigned int ) ( 40 + strength_ * 3.5 );
+	// Racial "Strong Back" for Humans
+	if ( isElf() )
+		return ( unsigned int ) ( 40 + strength_ * 3.5 );
+	else
+		return ( unsigned int ) ( ( 40 + strength_ * 3.5 ) * Config::instance()->humanstrongback() );
 }

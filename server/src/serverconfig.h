@@ -148,6 +148,8 @@ protected:
 	float factorMaxStam_;
 	bool elffullnightsight_;
 	float elfwisdombonus_;
+	float humanstrongback_;
+	float humantough_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -356,6 +358,8 @@ public:
 	// Racial Features
 	bool elffullnightsight() const;
 	float elfwisdombonus() const;
+	float humanstrongback() const;
+	float humantough() const;
 
 private:
 	void setDefaultStartLocation();
@@ -749,6 +753,14 @@ inline bool cConfig::elffullnightsight() const
 inline float cConfig::elfwisdombonus() const
 {
 	return elfwisdombonus_;
+}
+inline float cConfig::humanstrongback() const
+{
+	return humanstrongback_;
+}
+inline float cConfig::humantough() const
+{
+	return humantough_;
 }
 
 typedef Singleton<cConfig> Config;
