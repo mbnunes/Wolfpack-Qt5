@@ -17,7 +17,7 @@
 		<!-- Stats -->
 		<str><random min="171" max="200"/></str>
 		<dex><random min="126" max="145"/></dex>
-		<int>1000</int>
+		<int><random min="276" max="305"/></int>
 		<maxhitpoints><random min="103" max="120"/></maxhitpoints>
 		<!-- Skills -->
 		<skill id="evaluatingintelligence">1000</skill>
