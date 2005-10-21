@@ -1980,6 +1980,46 @@
 
 	<!-- End Futons -->
 
+	<!-- Begin Soulstone Fragments -->
+
+	<item id="2aa1">
+		<id>0x2aa1</id>
+	</item>
+
+	<item id="2aa2">
+		<id>0x2aa2</id>
+	</item>
+
+	<item id="2aa3">
+		<id>0x2aa3</id>
+	</item>
+
+	<item id="2aa4">
+		<id>0x2aa4</id>
+	</item>
+
+	<item id="2aa5">
+		<id>0x2aa5</id>
+	</item>
+
+	<item id="2aa6">
+		<id>0x2aa6</id>
+	</item>
+
+	<item id="2aa7">
+		<id>0x2aa7</id>
+	</item>
+
+	<item id="2aa8">
+		<id>0x2aa8</id>
+	</item>
+
+	<item id="2aa9">
+		<id>0x2aa9</id>
+	</item>
+
+	<!-- End Soulstone Fragments -->
+
 	<!-- Begin Soulstones -->
 
 	<item id="2a93">
@@ -1999,7 +2039,47 @@
 	</item>
 
 	<item id="2a97">
-		<id>0x29a7</id>
+		<id>0x2a97</id>
+	</item>
+
+	<item id="2adc">
+		<id>0x2adc</id>
+	</item>
+
+	<item id="2add">
+		<id>0x2add</id>
+	</item>
+
+	<item id="2ade">
+		<id>0x2ade</id>
+	</item>
+
+	<item id="2adf">
+		<id>0x2adf</id>
+	</item>
+
+	<item id="2ae0">
+		<id>0x2ae0</id>
+	</item>
+
+	<item id="2aec">
+		<id>0x2aec</id>
+	</item>
+
+	<item id="2aed">
+		<id>0x2aed</id>
+	</item>
+
+	<item id="2aee">
+		<id>0x2aee</id>
+	</item>
+
+	<item id="2aef">
+		<id>0x2aef</id>
+	</item>
+
+	<item id="2af0">
+		<id>0x2af0</id>
 	</item>
 
 	<!-- End Soulstones -->
