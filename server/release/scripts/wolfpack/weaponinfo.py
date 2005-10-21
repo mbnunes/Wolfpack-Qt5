@@ -496,13 +496,13 @@ SAMURAIWEAPONINFO = {
 	# Bokuto
 	'27a8': {
 		SWING: [0x9],
-		HITSOUND: [0x233, 0x232],
+		HITSOUND: [0x536, 0x537],
 		MISSSOUND: [ 0x23a, 0x239 ]
 	},
 	# Daisho
 	'27a9': {
 		SWING: [0x9],
-		HITSOUND: [0x233, 0x232],
+		HITSOUND: [0x23b, 0x23c],
 		MISSSOUND: [ 0x23a, 0x239 ]
 	},
 	# Fukiya
@@ -513,32 +513,32 @@ SAMURAIWEAPONINFO = {
 	},
 	# Kama
 	'27ad': {
-		SWING: [0x9],
+		SWING: [0x9, 0xa],
 		HITSOUND: [0x233, 0x232],
-		MISSSOUND: [ 0x23a, 0x239 ]
+		MISSSOUND: [ 0x23a, 0x239, 0x238 ]
 	},
 	# Lajatang
 	'27a7': {
-		SWING: [0x9],
+		SWING: [0x9, 0xa, 0xb, 0xc],
 		HITSOUND: [0x233, 0x232],
-		MISSSOUND: [ 0x23a, 0x239 ]
+		MISSSOUND: [ 0x23a, 0x239, 0x238 ]
 	},
 	# No-Dachi
 	'27a2': {
 		SWING: [0x9],
-		HITSOUND: [0x233, 0x232],
+		HITSOUND: [0x23b, 0x23c],
 		MISSSOUND: [ 0x23a, 0x239 ]
 	},
 	# Nunchaku
 	'27ae': {
-		SWING: [0x9],
-		HITSOUND: [0x233, 0x232],
+		SWING: [0x9, 0xb],
+		HITSOUND: [0x535],
 		MISSSOUND: [ 0x23a, 0x239 ]
 	},
 	# Sai
 	'27af': {
 		SWING: [0x9],
-		HITSOUND: [0x233, 0x232],
+		HITSOUND: [0x23b, 0x23c],
 		MISSSOUND: [ 0x23a, 0x239 ]
 	},
 	# Shuriken
@@ -568,15 +568,91 @@ SAMURAIWEAPONINFO = {
 	# Wakizashi
 	'27a4': {
 		SWING: [0x9],
-		HITSOUND: [0x233, 0x232],
+		HITSOUND: [0x23b, 0x23c],
 		MISSSOUND: [ 0x23a, 0x239 ]
 	},
 	# Yumi
 	'27a5': {
+		SWING: [ 0x12 ],
+		HITSOUND: [ 0x234 ],
+		MISSSOUND: [ 0x238 ]
+	}
+}
+
+MONDAINSLEGACYWEAPONINFO = {
+	# Elven Composite Longbow
+	'2d1e': {
+		SWING: [ 0x12 ],
+		HITSOUND: [ 0x234 ],
+		MISSSOUND: [ 0x238 ]
+	},
+	# Magical Shortbow
+	'2d1f': {
+		SWING: [ 0x12 ],
+		HITSOUND: [ 0x234 ],
+		MISSSOUND: [ 0x238 ]
+	},
+	# Elven Spellblade
+	'2d20': {
+		SWING: [0xa],
+		HITSOUND: [0x23b, 0x23c],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Assassin Spike
+	'2d21': {
+		SWING: [0xa],
+		HITSOUND: [0x23b, 0x23c],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Leafblade
+	'2d22': {
+		SWING: [0xa],
+		HITSOUND: [0x23b, 0x23c],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# War Cleaver
+	'2d23': {
+		SWING: [0x9, 0xa],
+		HITSOUND: [0x23b, 0x23c],
+		MISSSOUND: [ 0x23a, 0x238, 0x239 ]
+	},
+	# Diamond Mace
+	'2d24': {
 		SWING: [0x9],
 		HITSOUND: [0x233, 0x232],
 		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Wild Staff
+	'2d25': {
+		SWING: [0xc],
+		HITSOUND: [0x233, 0x232],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Rune Blade
+	'2d26': {
+		SWING: [0xc, 0xd],
+		HITSOUND: [0x23b, 0x23c],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Radiant Scimitar
+	'2d27': {
+		SWING: [0x9],
+		HITSOUND: [0x23b, 0x23c],
+		MISSSOUND: [ 0x23a, 0x238, 0x239 ]
+	},
+	# Ornate Axe
+	'2d28': {
+		SWING: [0x9, 0xb],
+		HITSOUND: [0x233, 0x232, 0x237],
+		MISSSOUND: [ 0x23a, 0x239 ]
+	},
+	# Elven Machete
+	'2d29': {
+		SWING: [0x9],
+		HITSOUND: [0x23b, 0x23c],
+		MISSSOUND: [ 0x23a, 0x238, 0x239 ]
 	}
 }
 
 WEAPONINFO.update( SAMURAIWEAPONINFO )
+WEAPONINFO.update( MONDAINSLEGACYWEAPONINFO )
