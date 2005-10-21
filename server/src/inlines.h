@@ -174,33 +174,33 @@ inline QString makeAscii( const QString& input )
 		QChar c = input.at( i );
 
 		// German umlauts can be represented differently
-		switch ( c )
+		switch ( c.latin1() )
 		{
-		case 129:
+		case -4:
 			// ü
 			result.append( "ue" );
 			continue;
-		case 132:
+		case -28:
 			// ä
 			result.append( "ae" );
 			continue;
-		case 148:
+		case -10:
 			// ö
 			result.append( "oe" );
 			continue;
-		case 225:
+		case -33:
 			// ß
 			result.append( "ss" );
 			continue;
-		case 154:
+		case -36:
 			// Ü
 			result.append( "Ue" );
 			continue;
-		case 142:
+		case -60:
 			// Ä
 			result.append( "Ae" );
 			continue;
-		case 153:
+		case -42:
 			// Ö
 			result.append( "Oe" );
 			continue;
