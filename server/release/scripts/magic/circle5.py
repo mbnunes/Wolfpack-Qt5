@@ -119,13 +119,18 @@ class Incognito (Spell):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
+		char.orgid = char.id
+		if char.id in PLAYER_BODIES_ALIVE_HUMAN:
+			char.id = random.choice( PLAYER_BODIES_ALIVE_HUMAN )
+		elif char.id in PLAYER_BODIES_ALIVE_ELVEN:
+			char.id = random.choice( PLAYER_BODIES_ALIVE_ELVEN )
+		else:
+			return
+
 		duration = int(1 + (6 * char.skill[MAGERY]) / 50.0) * 1000
 
 		char.orgskin = char.skin
 		char.skin = random.randint(1002, 1059)
-
-		char.orgid = char.id
-		char.id = random.choice( PLAYER_BODIES_ALIVE )
 
 		char.orgname = char.name
 
@@ -133,15 +138,30 @@ class Incognito (Spell):
 		newhair = ''
 		newhaircolor = random.randint(1102, 1150)
 
-		if char.id == 0x190:
+		if char.id in PLAYER_BODIES_ALIVE_MALE:
 			char.name = random.choice( wolfpack.list( "NAMES_MALE" ) )
 
 			# Create new hair
-			newhair = random.choice(['2044', '2045', '2046', '203c', '203b', '203d', '2047', '2048', '2049', '204a', ''])
-			newbeard = random.choice(['203e', '203f', '2040', '2041', '204b', '204c', '204d', ''])
+			if char.id in PLAYER_BODIES_ALIVE_ELVEN:
+				# All Elven get hair
+				newhair = random.choice( wolfpack.list( "HAIR_ELF" ) )
+			else:
+				# Most Humans get hair
+				if random.random() > 0.1:		
+					newhair = random.choice( wolfpack.list( "HAIR" ) )
+				# Some Humans get a beard
+				if random.random() > 0.5:		
+					newbeard = random.choice( wolfpack.list( "FACIAL_HAIR" ) )
 		else:
 			char.name = random.choice( wolfpack.list( "NAMES_FEMALE" ) )
-			newhair = random.choice(['2044', '2045', '2046', '203c', '203b', '203d', '2047', '2048', '2049', '204a', ''])
+
+			# Create new hair
+			if char.id in PLAYER_BODIES_ALIVE_ELVEN:
+				# All Elven get hair
+				newhair = random.choice( wolfpack.list( "HAIR_ELF" ) )
+			else:
+				# All Human Females get hair
+				newhair = random.choice( wolfpack.list( "HAIR_FEMALE" ) )
 
 		hair = char.itemonlayer(LAYER_HAIR)
 		if hair:
