@@ -12,8 +12,8 @@
 	<npc id="juka_mage" inherit="monster_base">
 		<name>juka mage</name>
 		<id>765</id>
-		<karma>-15000</karma>
-		<fame>15000</fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="201" max="300"/></str>
 		<dex><random min="71" max="90"/></dex>
@@ -32,13 +32,6 @@
 		<!-- Damage -->
 		<mindamage>11</mindamage>
 		<maxdamage>27</maxdamage>
-		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="20,30" type="int" />
 		<tag name="res_fire" value="35,45" type="int" />
@@ -46,8 +39,40 @@
 		<tag name="res_poison" value="10,20" type="int" />
 		<tag name="res_energy" value="35,45" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: 2 Medium Level Scrolls, Bag with 2-6 of each reagent, 1 Arcane Gem -->
-		<lootpacks>gold_filthy_rich;gems</lootpacks>
+		<lootpacks>gold_filthy_rich;gems;scroll_medium;scroll_medium</lootpacks>
+		<backpack>
+			<content>
+				<item id="arcanegem" />
+				<item id="e76"> <!-- Bag -->
+					<content> <!--2-6 of each reagent -->
+						<item id="f7a"> <!-- black pearl -->
+							<amount><random min="2" max="6"/></amount>
+						</item>
+						<item id="f7b"> <!-- blood moss -->
+							<amount><random min="2" max="6"/></amount>
+						</item>
+						<item id="f84"> <!-- garlic -->
+							<amount><random min="2" max="6"/></amount>
+						</item>
+						<item id="f85"> <!-- ginseng -->
+							<amount><random min="2" max="6"/></amount>
+						</item>
+						<item id="f86"> <!-- mandrake root -->
+							<amount><random min="2" max="6"/></amount>
+						</item>
+						<item id="f88"> <!-- nightshade -->
+							<amount><random min="2" max="6"/></amount>
+						</item>
+						<item id="f8d"> <!-- spider's silk -->
+							<amount><random min="2" max="6"/></amount>
+						</item>
+						<item id="f8c"> <!-- sulphurous ash -->
+							<amount><random min="2" max="6"/></amount>
+						</item>
+					</content>
+				</item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Juka\Juka Mage</category>
 	</npc>

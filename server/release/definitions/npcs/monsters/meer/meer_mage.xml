@@ -12,8 +12,8 @@
 	<npc id="meer_mage" inherit="monster_base">
 		<name>meer mage</name>
 		<id>770</id>
-		<karma>-8000</karma>
-		<fame>8000</fame>
+		<inherit id="KARMA_NL4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="171" max="200"/></str>
 		<dex><random min="126" max="145"/></dex>
@@ -32,13 +32,6 @@
 		<!-- Damage -->
 		<mindamage>51</mindamage>
 		<maxdamage>55</maxdamage>
-		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_fire" value="15,25" type="int" />
@@ -46,8 +39,8 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<tag name="res_energy" value="25,35" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: 2 Medium Level Scrolls, Magic Items, Daemon Bone Armor, Level 3 Treasure Map -->
-		<lootpacks>gold_filthy_rich</lootpacks>
+		<!-- Missing: Daemon Bone Armor, Level 3 Treasure Map -->
+		<lootpacks>gold_filthy_rich;scroll_medium;scroll_medium;</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Mage</category>
 	</npc>

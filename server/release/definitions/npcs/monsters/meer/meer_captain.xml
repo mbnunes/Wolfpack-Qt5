@@ -12,8 +12,8 @@
 	<npc id="meer_captain" inherit="monster_base">
 		<name>meer captain</name>
 		<id>773</id>
-		<karma>-5000</karma>
-		<fame>2000</fame>
+		<inherit id="KARMA_NL4" />
+		<inherit id="FAME_L2" />
 		<!-- Stats -->
 		<str><random min="96" max="110"/></str>
 		<dex><random min="186" max="200"/></dex>
@@ -30,31 +30,26 @@
 		<!-- Damage -->
 		<mindamage>34</mindamage>
 		<maxdamage>39</maxdamage>
-		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_fire" value="10,20" type="int" />
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_poison" value="35,45" type="int" />
 		<tag name="res_energy" value="35,45" type="int" />
-		<!-- Equiped -->
+		<!-- Equipped -->
 		<equipped>
 			<item id="f50" /> <!-- Crossbow -->
-			<item id="e75"> <!-- Backpack -->
-				<content>
-					<item id="1bfb"><amount><random min="40" max="60"/></amount></item> <!-- Bolts -->
-				</content>
-			</item>
 		</equipped>
 		<!-- Loot Packs -->
-		<!-- Missing: 10-20 Reagents, Longsword -->
-		<lootpacks>gold_meager</lootpacks>
+		<lootpacks>gold_meager;regs_med;regs_high</lootpacks>
+		<backpack>
+			<content>
+				<item id="1bfb"> <!-- Bolts -->
+					<amount><random min="40" max="60"/></amount>
+				</item>
+				<item id="f61" /> <!-- Longsword -->
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Captain</category>
 	</npc>

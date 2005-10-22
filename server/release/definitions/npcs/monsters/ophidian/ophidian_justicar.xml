@@ -35,15 +35,16 @@
 		<tag name="res_fire" value="20,30" type="int" />
 		<tag name="res_physical" value="40,45" type="int" />
 		<tag name="res_poison" value="35,40" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_rich;scroll_medium;scroll_medium;regs_high;regs_high;necroregs_high;necroregs_high</lootpacks>
 		<!-- Misc. -->
 		<desc>Magi who ascend to the top of their order may one day become Arch Mage. An Ophidian Arch Mage has access to the rarest of spells, and will use them freely in battle. Arch Magi are 12 warrior mages who seek out intruders into the land of the Ophidian. An Ophidian Arch Mage attacks on sight, and gives no warning. It is said that a chill in the air is the only thing that heralds such an attack, and few enough have lived to tell such tales.</desc>
-		<!-- Missing: 1-7CS, MNS, Reagent -->
-		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ophidians\Ophidian Justicar</category>
 		<strproperty name="slayer_group" value="ophidians" />
-		<intproperty name="carve_meat" value="1" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -14,8 +14,8 @@
 		<strproperty name="monsterspeech" value="orc" />
 		<basescript>speech.monster</basescript>
 		<id>182</id>
-		<inherit id="KARMA_L2" />
-		<inherit id="FAME_L2" />
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
 		<!-- Stats -->
 		<str><random min="147" max="215"/></str>
 		<dex><random min="91" max="115"/></dex>
@@ -36,10 +36,29 @@
 		<tag name="res_fire" value="30,40" type="int" />
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_poison" value="15,20" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_average;lootpack_average</lootpacks>
+		<backpack>
+			<content>
+				<item id="bola_ball" />
+				<item id="potion_lesserexplosion" />
+				<item id="e9b" /> <!-- Mortar and Pestle -->
+				<item id="f8c"> <!-- Sulfurous Ash -->
+					<amount><random min="6" max="10"/></amount>
+				</item>
+				<item id="f7a"> <!-- Black Pearl -->
+					<amount><random min="6" max="10"/></amount>
+				</item>
+				<item id="f86"> <!-- Mandrake Root -->
+					<amount><random min="6" max="10"/></amount>
+				</item>
+				<item id="f86"> <!-- Mandrake Root -->
+					<amount><random min="6" max="10"/></amount>
+				</item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<desc>These industrious orcs have mastered the fine art of tinkering, and have shown themselves to be both clever and aggressive. Watch carefully when near an orc bomber, for they give little warning before hurling powerful explosives into the midst of unwary adventurers.</desc>
-		<!-- Missing: Lesser Explotion Potion, Bola Ball, Reagent -->
-		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Orcs\Orc Bomber</category>
 		<strproperty name="slayer_group" value="orcs" />
 	</npc>

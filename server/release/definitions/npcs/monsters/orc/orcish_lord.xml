@@ -35,12 +35,19 @@
 		<tag name="res_fire" value="30,40" type="int" />
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
+		<!-- Missing: Evil Orc Helm, Level 1 Map -->
+		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
+		<backpack>
+			<content>
+				<item id="13ec" /> <!-- Ringmail Tunic -->
+				<item id="bola_ball" />
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<desc>As Marshall to the orc horde, these leaders are vicious killers who crave only battle. They hurl their armies and their very selves at anything that approaches. Skulls of the orcish lord are prime trophies for veteran warriors, probably because they are so hard won.</desc>
-		<!-- Missing: Bola Ball, Evil Orc Helm -->
-		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Orcs\Orcish Lord</category>
 		<strproperty name="slayer_group" value="orcs" />
+		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

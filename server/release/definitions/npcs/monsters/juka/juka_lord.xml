@@ -12,8 +12,8 @@
 	<npc id="juka_lord" inherit="monster_base">
 		<name>juka lord</name>
 		<id>766</id>
-		<karma>-15000</karma>
-		<fame>15000</fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="401" max="500"/></str>
 		<dex><random min="81" max="100"/></dex>
@@ -30,30 +30,29 @@
 		<!-- Damage -->
 		<mindamage>52</mindamage>
 		<maxdamage>63</maxdamage>
-		<!-- Damage Properties -->
-		<!--
-		<tag name="dmg_fire" value="0" type="int" />
-		<tag name="dmg_cold" value="0" type="int" />
-		<tag name="dmg_poison" value="0" type="int" />
-		<tag name="dmg_energy" value="0" type="int" />
-		-->
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="40,50" type="int" />
 		<tag name="res_fire" value="45,50" type="int" />
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_poison" value="20,25" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
-		<!-- Equiped -->
+		<!-- Equipped -->
 		<equipped>
 			<item id="13b1" /> <!-- Bow -->
 			<item id="e75"> <!-- Backpack -->
 				<content>
-					<item id="f3f"><amount><random min="50" max="70"/></amount></item> <!-- Arrows -->
+					<item id="f3f"> <!-- Arrows -->
+						<amount><random min="50" max="70"/></amount>
+					</item>
+					<item id="e21"> <!-- Bandages -->
+						<amount><random min="10" max="30"/></amount>
+					</item>
+					<item id="arcanegem" />
 				</content>
 			</item>
 		</equipped>
 		<!-- Loot Packs -->
-		<!-- Missing: 10-30 Bandages, Magic Items, Juka Slayer Bow, 1 Arcane Gem -->
+		<!-- Missing: Juka Slayer Bow -->
 		<lootpacks>gems;gold_rich;gold_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Juka\Juka Lord</category>

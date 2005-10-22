@@ -117,10 +117,13 @@ PACKS = {
 
 	# Scroll Packs
 	'scroll_low': [
-		[1.0, SCROLLS_C1 + SCROLLS_C2 + SCROLLS_C3, 1, 1] # 1 Scroll of Circle 4 - 7	
+		[1.0, SCROLLS_C1 + SCROLLS_C2 + SCROLLS_C3, 1, 1] # 1 Scroll of Circle 1 - 3	
 	],
 	'scroll_medium': [
 		[1.0, SCROLLS_C4 + SCROLLS_C5 + SCROLLS_C6 + SCROLLS_C7, 1, 1] # 1 Scroll of Circle 4 - 7	
+	],
+	'scroll_high': [
+		[1.0, SCROLLS_C7 + SCROLLS_C8, 1, 1] # 1 Scroll of Circle 7 - 8	
 	],
 
 	# Gem Packs
