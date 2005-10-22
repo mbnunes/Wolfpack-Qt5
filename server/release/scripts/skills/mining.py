@@ -4,18 +4,18 @@
 #   )).-' {{ ;'`   # Revised by: Dreoth
 #  ( (  ;._ \\ ctr # Last Modification: Jan 26 2004
 #################################################################
+#mining called from pickaxe.py
 
 import wolfpack
 import wolfpack.time
 import skills
 import random
 from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
-	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN, MINING_SAND, KNOWLEDGE_OF_NATURE_FACTOR
+	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN, MINING_SAND
 from wolfpack import tr
 from wolfpack.utilities import ismountainorcave, issand, tobackpack
 
-
-#mining called from pickaxe.py
+KNOWLEDGE_OF_NATURE_FACTOR =  int( wolfpack.settings.getnumber("Racial Features", "Elves Knowledge of Nature factor", 2, True) )
 
 MININGDELAY = 1000 #ms
 

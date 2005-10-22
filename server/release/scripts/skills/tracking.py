@@ -8,15 +8,16 @@
 #can fail
 #use a gump instead of sysmessage to answer
 
-
 import wolfpack
 import wolfpack.time
 import skills
 import random
-from wolfpack.consts import TRACKING, CHANCES_TO_TRACK
+from wolfpack.consts import TRACKING
 from wolfpack.gumps import cGump
 from wolfpack.consts import GRAY
 from wolfpack import tr
+
+elves_tracking_chance = int( wolfpack.settings.getnumber("Racial Features", "Elves evade tracking chance", 50, True) )
 
 #cliloc
 #502989 tracking failed
@@ -33,9 +34,7 @@ from wolfpack import tr
 #1002166 The tracking skill will allow you to track animals, monsters, and people. Use the skill by clicking the jewel on your skill list. You will be presented with a window, which will allow you to choose what you wish to track. Double-click the category you wish to track (animal, human, or monster), and you will be presented with a second window listing the specific PCs or NPC's that you can track. If you are successful, and an appropriate creature can be tracked, you will be told in what direction that creature can be found. The higher your skill level
 #1005645 I did not find a nearby track piece
 
-STEALTH_DELAY = 5000
-# the hiding skill before you can use the stealth skill
-MIN_HIDING = 800
+TRACKING_DELAY = 5000
 
 def tracking( char, skill ):
 	socket = char.socket
@@ -77,7 +76,7 @@ def tracking( char, skill ):
 
 	gump.send( char )
 
-	socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + STEALTH_DELAY ) )
+	socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + TRACKING_DELAY ) )
 
 	if skills.skilltable[ TRACKING ][ skills.UNHIDE ] and char.hidden:
 		char.reveal()
@@ -118,7 +117,7 @@ def trackWhatResponse( char, args, target ):
 			if target.button == 4 : #have to exit non-players and exit self
 				if charcible.player :
 					if charcible.elf:
-						if random.randint(1,100) < CHANCES_TO_TRACK:
+						if random.randint(1,100) > elves_tracking_chance:
 							liste.append(charcible)
 					else:
 						liste.append(charcible)

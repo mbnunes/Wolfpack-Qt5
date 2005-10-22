@@ -1122,7 +1122,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	pChar->setSkin( packet->skinColor() );
 	pChar->setOrgSkin( packet->skinColor() );
 
-	// Now... lets check the bodies for Humans and Elfs
+	// Now... lets check the bodies for Humans and Elves
 	if ( !tRace )	// Its a Human
 	{
 		pChar->setBody( ( tGender ) ? 0x191 : 0x190 );
