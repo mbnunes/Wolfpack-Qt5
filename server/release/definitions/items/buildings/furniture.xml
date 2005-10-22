@@ -2461,4 +2461,16 @@
 		<category>Decoration\Furniture\Elven Dresser (W/E)(2/2)</category>
 	</item>
 
+	<!-- Elven Bookstand -->
+
+	<item id="2ddd" inherit="2d09">
+		<id>0x2ddd</id>
+		<category>Decoration\Furniture\Elven Bookstand (W/E)</category>
+	</item>
+
+	<item id="2dde" inherit="2d09">
+		<id>0x2dde</id>
+		<category>Decoration\Furniture\Elven Bookstand (N/S)</category>
+	</item>
+
 </definitions>
