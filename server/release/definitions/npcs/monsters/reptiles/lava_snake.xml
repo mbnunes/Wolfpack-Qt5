@@ -40,7 +40,7 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Reptiles\Lava Snake</category>
-		<strproperty name="slayer_group" value="snakes" /><
+		<strproperty name="slayer_group" value="snakes" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>
