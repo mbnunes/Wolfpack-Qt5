@@ -159,6 +159,10 @@ public:
 	{
 		return rainchance_;
 	}
+	int fixedlight( void ) const
+	{
+		return fixedlight_;
+	}
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
 
@@ -319,6 +323,8 @@ private:
 	QString guardowner_;
 	UI08 snowchance_;
 	UI08 rainchance_;
+
+	int fixedlight_;	// The fixed Light Level for this place
 
 	QStringList guardSections_;
 

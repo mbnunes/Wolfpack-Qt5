@@ -3313,6 +3313,10 @@ void cUOSocket::updateLightLevel()
 			level = wpMin<int>( 0x1f, wpMax<int>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) ) );
 		}
 
+		// If Region have a Default Light Level, then let's Override
+		if (region->fixedlight() > -1)
+			level = wpMin<int>( 0x1f, wpMax<int>( 0, region->fixedlight() - static_cast<int>( _player->fixedLightLevel() ) ) );
+
 		// Elves are always with Full NightSight. True?
 		if (Config::instance()->elffullnightsight())
 		{

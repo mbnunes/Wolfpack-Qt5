@@ -148,6 +148,11 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "guardowner" ) )
 		return QString2Python( self->pRegion->guardOwner() );
+	/*
+		\rproperty region.fixedlight The Fixed LightLevel for this Region (Will return -1 to no fixed light level)
+	*/
+	else if ( !strcmp( name, "fixedlight" ) )
+		return PyInt_FromLong( self->pRegion->fixedlight() );
 
 	// Flags
 	/*

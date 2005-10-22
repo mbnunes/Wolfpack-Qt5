@@ -75,6 +75,7 @@ void cTerritory::init( void )
 	resores_ = "";
 	flags_ = 0;
 	guardowner_ = QString();
+	fixedlight_ = -1;
 	snowchance_ = 50;
 	rainchance_ = 50;
 	guardSections_ = QStringList();
@@ -115,6 +116,10 @@ void cTerritory::processNode( const cElement* Tag )
 			}
 		}
 	}
+
+	// <fixedlight>number</fixedlight>
+	else if ( TagName == "fixedlight" )
+		this->fixedlight_ = Value.toShort();
 
 	// <guardowner>text</guardowner>
 	else if ( TagName == "guardowner" )
@@ -453,6 +458,11 @@ void cTerritories::check( P_CHAR pc )
 			// If the last region was a cave or if the new region is a cave,
 			// update the lightlevel.
 			if ( ( currRegion->isCave() && !lastRegion->isCave() ) || ( !currRegion->isCave() && lastRegion->isCave() ) )
+			{
+				socket->updateLightLevel();
+			}
+			// Added the Fixed Light Level for a Region
+			if ( ( ( !currRegion->fixedlight() < 0 ) && ( lastRegion->fixedlight() < 0 ) ) || ( ( currRegion->fixedlight() < 0 ) && ( !lastRegion->fixedlight() < 0 ) ) )
 			{
 				socket->updateLightLevel();
 			}
