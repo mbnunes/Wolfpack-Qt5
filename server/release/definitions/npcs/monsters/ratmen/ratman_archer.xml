@@ -36,19 +36,21 @@
 		<tag name="res_fire" value="10,20" type="int" />
 		<tag name="res_physical" value="40,55" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
-		<!-- Misc. -->
 		<!-- Equiped -->
 		<equipped>
 			<item id="13b1" /> <!-- Bow -->
-			<item id="e75"> <!-- Backpack -->
-				<content>
-					<item id="f3f"><amount><random min="50" max="70"/></amount></item> <!-- Arrows -->
-				</content>
-			</item>
 		</equipped>
+		<!-- Loot Packs -->
 		<lootpacks>lootpack_rich</lootpacks>
+		<backpack>
+			<content>
+				<item id="f3f"> <!-- Arrows -->
+					<amount><random min="50" max="70"/></amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
 		<category>Monsters\Ratmen\Ratman Archer</category>
-
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />

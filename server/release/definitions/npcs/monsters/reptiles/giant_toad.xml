@@ -12,7 +12,7 @@
 	<npc id="giant_toad" inherit="monster_base">
 		<name>giant toad</name>
 		<id>80</id>
-		<inherit id="KARMA_L0" />
+		<inherit id="KARMA_L1" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
@@ -31,13 +31,12 @@
 		<tag name="res_energy" value="5,10" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_physical" value="20,25" type="int" />
+		<!-- Loot Packs  -->
+		<lootpacks>lootpack_poor</lootpacks>
 		<!-- Misc. -->
 		<desc>These toads are nine feet in length and they are very aggressive. Able to secrete a lethal poison, these toads can kill a healthy adult. Normally they do not attack such a large opponent, but they will defend if attacked.</desc>
-		<!-- Missing:  -->
-		<lootpacks>lootpack_poor</lootpacks>
 		<mintaming>771</mintaming>
 		<category>Monsters\Reptiles\Giant Toad</category>
-
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<strproperty name="carve_hides_type" value="spined" />

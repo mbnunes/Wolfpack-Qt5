@@ -37,17 +37,16 @@
 		<tag name="res_fire" value="10,20" type="int" />
 		<tag name="res_physical" value="40,45" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Level 2 Map -->
+		<lootpacks>lootpack_rich;scroll_low;regs_high;statue</lootpacks>
 		<!-- Misc. -->
-		<!-- Missing: 1-7CS, LNS, Reagent, Statue -->
-		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ratmen\Ratman Mage</category>
-
+		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />
 		<intproperty name="carve_meat" value="1" />
-
-		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

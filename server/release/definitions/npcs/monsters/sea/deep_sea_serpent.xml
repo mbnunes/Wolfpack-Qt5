@@ -35,16 +35,28 @@
 		<tag name="res_fire" value="70,80" type="int" />
 		<tag name="res_physical" value="30,40" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
-		<!-- Misc. -->
-		<!-- Missing: Reagent, Level 1 Map (Fishing only), Special Fishing Net (Fishing only), MIB (Fishing only) -->
+		<!-- Missing: Level 2 Map (Fishing only), Special Fishing Net (Fishing only), MIB (Fishing only) -->
 		<lootpacks>lootpack_meager</lootpacks>
+		<backpack>
+			<content>
+				<item id="f7a"> <!-- Black Pearl -->
+					<amount>4</amount>
+				</item>
+				<item id="f8c"> <!-- Sulphurous Ash -->
+					<amount>4</amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
 		<category>Monsters\Sea Monsters\Deep Sea Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
+		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="8" />
 		<strproperty name="carve_scales_type" value="blue" />
-		<intproperty name="carve_meat" value="1" />
-		<ai>Monster_Mage</ai>
+		<intproperty name="carve_hides" value="10" />
+		<strproperty name="carve_hides_type" value="horned" />
+		<intproperty name="carve_meat" value="10" />
 	</npc>
 
 </definitions>

@@ -35,10 +35,10 @@
 		<tag name="res_fire" value="10,20" type="int" />
 		<tag name="res_physical" value="25,30" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<desc>Surely the product of some foul sorcery, the rat man truly has the features of a rat, but walks about like a man. Rat men wear garments, wield weapons and give every sign of possessing intelligence. They arevicious, thieving creatures, and cowards if pressed in battle.</desc>
-		<!-- Missing: Weapon, Misc -->
-		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Ratmen\Ratman (Random)</category>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />

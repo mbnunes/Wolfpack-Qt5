@@ -35,15 +35,15 @@
 		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_cold" value="5,10" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />
+		<!-- Loot Packs  -->
+		<lootpacks>lootpack_average;gems;gems</lootpacks>
 		<!-- Misc. -->
-		<!-- Missing:  -->
-		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Reptiles\Silver Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
-		<intproperty name="carve_meat" value="1" />
-
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>
