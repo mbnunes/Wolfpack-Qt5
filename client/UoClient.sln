@@ -11,6 +11,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "7zip", "7zip\7zip.vcproj", 
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "update", "update\update.vcproj", "{674B9420-484E-45C1-9CBD-7105B41D72A6}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
@@ -32,6 +36,10 @@ Global
 		{44B19E5A-1B74-4F77-8B62-10780FF50D00}.Debug.Build.0 = Debug|Win32
 		{44B19E5A-1B74-4F77-8B62-10780FF50D00}.Release.ActiveCfg = Release|Win32
 		{44B19E5A-1B74-4F77-8B62-10780FF50D00}.Release.Build.0 = Release|Win32
+		{674B9420-484E-45C1-9CBD-7105B41D72A6}.Debug.ActiveCfg = Debug|Win32
+		{674B9420-484E-45C1-9CBD-7105B41D72A6}.Debug.Build.0 = Debug|Win32
+		{674B9420-484E-45C1-9CBD-7105B41D72A6}.Release.ActiveCfg = Release|Win32
+		{674B9420-484E-45C1-9CBD-7105B41D72A6}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

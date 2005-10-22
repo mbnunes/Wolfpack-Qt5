@@ -2009,7 +2009,7 @@
 			Name="updater"
 			Filter="">
 			<File
-				RelativePath=".\updater\extract.ui">
+				RelativePath=".\updater\download.ui">
 				<FileConfiguration
 					Name="Release|Win32">
 					<Tool
@@ -2026,6 +2026,33 @@
 						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"
 						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\updater\downloader.cpp">
+			</File>
+			<File
+				RelativePath=".\updater\extract.ui">
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;
+"
+						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="uic&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;
+"
+						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\updater\extracter.cpp">
 			</File>
 			<File
 				RelativePath=".\7zip\Windows\PropVariant.cpp">
@@ -2055,6 +2082,9 @@
 				RelativePath=".\updater\rc_updater.cpp">
 			</File>
 			<File
+				RelativePath=".\updater\ui_download.h">
+			</File>
+			<File
 				RelativePath=".\updater\ui_extract.h">
 			</File>
 			<File
@@ -2067,8 +2097,15 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
-"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -2094,7 +2131,16 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\updater\updateversion.php">
+			</File>
+			<File
 				RelativePath=".\version.h">
+			</File>
+			<File
+				RelativePath=".\updater\versioninfo.cpp">
+			</File>
+			<File
+				RelativePath=".\updater\versioninfo.h">
 			</File>
 		</Filter>
 		<File
