@@ -55,12 +55,12 @@ Name: {group}\Client Forums; Filename: http://www.wpdev.org/phpBB2/viewforum.php
 Name: {userappdata}\Microsoft\Internet Explorer\Quick Launch\Wolfpack Client; WorkingDir: {app}; Filename: {app}\uoclient.exe; Tasks: quicklaunchicon
 
 [UninstallDelete]
-Name: {app}\logs\*.log; Type: filesandordirs
+Name: {app}\logs\*.log; Type: filesandordirs; Tasks: 
 Name: {app}\config.xml; Type: files
 Name: {app}\dialogs\*.pyo; Type: filesandordirs
 Name: {app}\downloads\*.*; Type: filesandordirs
-Name: {app}\downloads; Type: dirifempty
-Name: {app}\logs; Type: dirifempty
+Name: {app}\downloads\; Type: dirifempty
+Name: {app}\logs\; Type: dirifempty
 [Tasks]
 Name: quicklaunchicon; Description: Create a &Quick Launch icon; GroupDescription: Icons:; Flags: checkedonce
 [Run]
