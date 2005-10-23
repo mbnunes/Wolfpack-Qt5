@@ -118,10 +118,10 @@ bool cUpdater::checkForUpdates() {
 			QDateTime timestamp1 = lastModification;
 			QDateTime timestamp2 = component.lastModified();
 			if (timestamp1.time().second() % 2 != 0) {
-				timestamp1.addSecs(-1);
+				timestamp1 = timestamp1.addSecs(-1);
 			}
 			if (timestamp2.time().second() % 2 != 0) {
-				timestamp2.addSecs(-1);
+				timestamp2 = timestamp2.addSecs(-1);
 			}
 
 			if (timestamp1 < timestamp2) {
