@@ -21,7 +21,7 @@
 class cQuestionDialog : public QDialog, private Ui::UpdaterQuestion {
     Q_OBJECT
 public:
-    cQuestionDialog(uint localBuild, uint remoteBuild, uint fileSize, QWidget *parent = 0);
+    cQuestionDialog(QDateTime lastModification, uint fileSize, QWidget *parent = 0);
 };
 
 /*
@@ -52,18 +52,24 @@ protected:
 	uint currentProgressSlice;
 	uint currentFile;
 	uint currentProgressStart;
-	QString currentName;	
+	QString currentName;
+	bool sucessful_;
 public:
 	cDownloadDialog(QWidget *parent = 0);
 	void startDownload(const Modules &downloadModules);
 	void rollback();
 	void setDestination(QDir destination);
+	bool sucessful() const;
 public slots:
 	void dataReadProgress(int done, int total);
 	void done(bool error);
 	void requestFinished(int id, bool error);
 	void requestStarted(int id);
 };
+
+inline bool cDownloadDialog::sucessful() const {
+	return sucessful_;
+}
 
 inline void cDownloadDialog::setDestination(QDir destination) {
 	this->destination = destination;

@@ -18,6 +18,8 @@ cDownloadDialog::cDownloadDialog(QWidget *parent) {
 	connect(http, SIGNAL(done(bool)), SLOT(done(bool)));
 	connect(http, SIGNAL(requestFinished(int, bool)), SLOT(requestFinished(int, bool)));
 	connect(http, SIGNAL(requestStarted(int)), SLOT(requestStarted(int)));
+
+	sucessful_ = false;
 }
 
 void cDownloadDialog::startDownload(const Modules &downloadModules) {
@@ -55,6 +57,7 @@ void cDownloadDialog::done(bool error) {
 	if (error) {
         reject(); // An error occured
 	} else {
+		sucessful_ = true;
 		accept();
 	}
 }
@@ -122,7 +125,6 @@ void cDownloadDialog::requestStarted(int id) {
 		currentName = it->name();
 		currentProgressSlice = it->size();
 		currentProgressStart = progressBar->value();
-		label->setText(tr("Downloading %1... (%2 of %3)").arg(currentName).arg(currentFile).arg(requests.count()));
+		label->setText(tr("Downloading %1... (%4, file %2 of %3)").arg(currentName).arg(currentFile).arg(requests.count()).arg(Utilities::formatFileSize(it->size())));
 	}
 }
-

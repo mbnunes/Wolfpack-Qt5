@@ -11,16 +11,17 @@
 #include <QByteArray>
 #include <QBuffer>
 #include <QProgressBar>
+#include <QProcess>
 #include <QDateTime>
 
 // LZMA Includes
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-cQuestionDialog::cQuestionDialog(uint localBuild, uint remoteBuild, uint fileSize, QWidget *parent) : QDialog(parent) {
+cQuestionDialog::cQuestionDialog(QDateTime lastModification, uint fileSize, QWidget *parent) : QDialog(parent) {
 	setupUi(this);
 
-	InfoLabel->setText(InfoLabel->text().arg(localBuild).arg(remoteBuild).arg(fileSize));
+	InfoLabel->setText(InfoLabel->text().arg(lastModification.toString()).arg(Utilities::formatFileSize(fileSize)));
 }
 
 uint cUpdater::getLocalVersion() {
@@ -85,8 +86,6 @@ bool cUpdater::checkForUpdates() {
 	// Create the Mutex responsible for making this program unique
 	CreateMutex(0, TRUE, "UOCLIENT_MUTEX");
 
-	return false;
-
 	cVersionInfo *version = getRemoteVersion();
 	
 	// If no version could be retrieved, warn the user but continue anyway
@@ -103,6 +102,7 @@ bool cUpdater::checkForUpdates() {
 	
 	uint totalDownloadSize = 0;
 	Modules downloadModules;
+	QDateTime latestModification;
 
 	foreach (const cModuleVersion &module, modules) {
 		Log->print(LOG_DEBUG, tr("Checking module %1.\n").arg(module.name()));
@@ -112,8 +112,13 @@ bool cUpdater::checkForUpdates() {
 			QFileInfo fileinfo(destination.absoluteFilePath(component.path()));
 			QDateTime lastModification = fileinfo.lastModified();
 			if (lastModification < component.lastModified()) {
+				if (latestModification.isNull() || latestModification < component.lastModified()) {
+					latestModification = component.lastModified();
+				}
+
 				Log->print(LOG_MESSAGE, tr("File %1 needs update: %2 is less than %3.\n").arg(component.path()).arg(lastModification.toString()).arg(component.lastModified().toString()));
 				downloadModules.append(module);
+				totalDownloadSize += module.size();
 				break;
 			}
 		}
@@ -122,6 +127,24 @@ bool cUpdater::checkForUpdates() {
 	// No updates available
 	if (downloadModules.isEmpty()) {
 		Log->print(LOG_NOTICE, tr("No updates available.\n"));
+		return false;
+	}
+
+	// Ask the user if he wants to upgrade
+	cQuestionDialog *qdialog = new cQuestionDialog(latestModification, totalDownloadSize);
+	qdialog->show();
+
+	qApp->setQuitOnLastWindowClosed(false);
+	while (qdialog->isVisible()) {
+		QApplication::instance()->processEvents();
+	}
+	qApp->setQuitOnLastWindowClosed(true);
+
+	int result = qdialog->result();
+	delete qdialog;
+
+	// If the user chose not to update, return without taking any action
+	if (result == QDialog::Rejected) {
 		return false;
 	}
 
@@ -145,6 +168,10 @@ bool cUpdater::checkForUpdates() {
 			QApplication::instance()->processEvents();
 		}
 		qApp->setQuitOnLastWindowClosed(true);
+
+		if (!dialog->sucessful()) {
+			return false;
+		}
 	} else {
 		QMessageBox::critical(0, tr("Download Error"), tr("Unable to change to download directory at %1.").arg(destination.absoluteFilePath("downloads")), QMessageBox::Ok, QMessageBox::NoButton);
 		return false;
@@ -162,29 +189,12 @@ bool cUpdater::checkForUpdates() {
 			extractData(downloads.absoluteFilePath(module.name()), destination);
 		}
 	}
-	return true;
 
-	// If we already have the latest version, skip the question
-	//if (localBuild >= remoteBuild) {
-		return false; // No update available
-	//}
-
-	cQuestionDialog *dialog = new cQuestionDialog(0, 0, 0);
-	dialog->show();
-
-	qApp->setQuitOnLastWindowClosed(false);
-	while (dialog->isVisible()) {
-		QApplication::instance()->processEvents();
-	}
-
-	int result = dialog->result();
-	delete dialog;
-
-	// If the user chose not to update, return without taking any action
-	if (result == QDialog::Rejected) {
+	// Run the updater and exit
+	if (QProcess::startDetached("update.exe")) {
+		return true;
+	} else {
+		QMessageBox::critical(0, tr("Update Error"), tr("Unable to run update program update.exe. Please run it manually to complete the update."), QMessageBox::Ok, QMessageBox::NoButton);
 		return false;
 	}
-
-	qApp->setQuitOnLastWindowClosed(true);
-	return true;
 }

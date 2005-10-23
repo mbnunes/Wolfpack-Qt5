@@ -2015,7 +2015,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="uic&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"
+						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;
+"
 						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -2023,7 +2024,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="uic&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"
+						CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;
+"
 						Outputs="&quot;$(ProjectDir)\updater\ui_$(InputName).h&quot;"/>
 				</FileConfiguration>
 			</File>
@@ -2097,7 +2099,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -2105,7 +2108,8 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="moc&apos;ing $(InputFileName)"
-						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;
+"
 						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"/>
 				</FileConfiguration>
 			</File>

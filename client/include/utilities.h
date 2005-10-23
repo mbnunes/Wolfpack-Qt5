@@ -162,6 +162,14 @@ namespace Utilities {
 		};
 	}
 
+	inline QString formatFileSize(unsigned int size) {
+		if (size < 1024 * 1024) {
+			return QString("%1 KiB").arg(size / 1024.0, 0, 'f', 2, '0');
+		} else {
+			return QString("%1 MiB").arg(size / 1048576.0, 0, 'f', 2, '0');
+		}
+	}
+
 	inline uint stringToUInt(QString value) {
 		bool hex = value.startsWith("0x", Qt::CaseInsensitive);
 		if (hex) {

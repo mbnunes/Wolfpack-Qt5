@@ -27,7 +27,7 @@ void cAsciiFonts::load() {
 	QFile data(Utilities::getUoFilename("fonts.mul"));
 
 	// Open files
-	if (!data.open(QIODevice::ReadWrite)) {
+	if (!data.open(QIODevice::ReadOnly)) {
 		throw Exception(tr("Unable to open ascii font data at %1.").arg(data.fileName()));
 	}
 

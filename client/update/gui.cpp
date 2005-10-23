@@ -72,7 +72,7 @@ bool cGui::initialize() {
 	int x = (rect.right - width_) / 2;
 	int y = (rect.bottom - height_) / 2;
 
-	window_ = CreateWindow(CLASS_NAME, "Client Update", styles, x, y, width_, height_, 0, 0, instance_, this);
+	window_ = CreateWindow(CLASS_NAME, "Installing Client Updates", styles, x, y, width_, height_, 0, 0, instance_, this);
 
 	return window_ != 0;
 }
