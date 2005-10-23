@@ -111,12 +111,25 @@ bool cUpdater::checkForUpdates() {
 		foreach (const cComponentVersion &component, module.components()) {
 			QFileInfo fileinfo(destination.absoluteFilePath(component.path()));
 			QDateTime lastModification = fileinfo.lastModified();
-			if (lastModification < component.lastModified()) {
+
+			// Round the timestamp second to the nearest 2 second interval
+			// The installer does this because FAT32 has a resolution limit.
+			// We always round down.
+			QDateTime timestamp1 = lastModification;
+			QDateTime timestamp2 = component.lastModified();
+			if (timestamp1.time().second() % 2 != 0) {
+				timestamp1.addSecs(-1);
+			}
+			if (timestamp2.time().second() % 2 != 0) {
+				timestamp2.addSecs(-1);
+			}
+
+			if (timestamp1 < timestamp2) {
 				if (latestModification.isNull() || latestModification < component.lastModified()) {
 					latestModification = component.lastModified();
 				}
 
-				Log->print(LOG_MESSAGE, tr("File %1 needs update: %2 is less than %3.\n").arg(component.path()).arg(lastModification.toString()).arg(component.lastModified().toString()));
+				Log->print(LOG_MESSAGE, tr("File %1 needs update: %2 is less than %3.\n").arg(component.path()).arg(timestamp1.toString()).arg(timestamp2.toString()));
 				downloadModules.append(module);
 				totalDownloadSize += module.size();
 				break;
