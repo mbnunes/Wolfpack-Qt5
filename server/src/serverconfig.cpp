@@ -213,6 +213,7 @@ void cConfig::readData()
 	factorMaxHits_ = getDouble( "General", "Factor for MaxHitPoints Calculation", 1.0, true );
 	factorMaxMana_ = getDouble( "General", "Factor for MaxMana Calculation", 1.0, true );
 	factorMaxStam_ = getDouble( "General", "Factor for MaxStamina Calculation", 1.0, true );
+	simpleMaxHitsCalculation_ = getBool( "General", "Simple MaxHitPoints Calculation", false, true );
 
 	// Network
 	loginPort_ = getNumber( "Network", "Loginserver Port", 2593, true );

@@ -3500,7 +3500,12 @@ void cBaseChar::refreshMaximumValues()
 	if ( Config::instance()->refreshMaxValues() )
 	{
 		if ( objectType() == enPlayer )
-			maxHitpoints_ = wpMax<ushort>( 1, ( ( strength_ * Config::instance()->factorMaxHits() ) / 2 ) + hitpointsBonus_ + 50 );
+		{
+			if ( Config::instance()->simpleMaxHitsCalculation() )
+				maxHitpoints_ = wpMax<ushort>( 1, (strength_ * Config::instance()->factorMaxHits()) + hitpointsBonus_ );
+			else
+				maxHitpoints_ = wpMax<ushort>( 1, ( ( strength_ * Config::instance()->factorMaxHits() ) / 2 ) + hitpointsBonus_ + 50 );
+		}
 
 		maxStamina_ = wpMax<ushort>( 1, dexterity_ * Config::instance()->factorMaxStam() + staminaBonus_ );
 		if ( isElf() )
