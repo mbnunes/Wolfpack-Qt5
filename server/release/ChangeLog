@@ -66,6 +66,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Implemented onBecomeCriminal event.
   - Implemented some Racial Features for Elves from Mondain's Legacy
   - Implemented some Racial Features for Humans from Mondain's Legacy
+  - Added "name.prefix" and "name.suffix" tags to prefix and suffix for names, like in Sphere revisions.
+  - Added "Simple MaxHitPoints Calculation", to enable the MaxHits Calculation = Str * Factor and not Str/2 * Factor + 50
+  - Added tags "modmaxhitsfactor", "modmaxstamfactor" and "modmaxmanafactor" as a modification for these Factors
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

@@ -3497,21 +3497,37 @@ bool cBaseChar::isInnocent()
 
 void cBaseChar::refreshMaximumValues()
 {
+	// Lets try the Factors
+	float maxHitsFactor = Config::instance()->factorMaxHits();
+	float maxStaminaFactor = Config::instance()->factorMaxStam();
+	float maxManaFactor = Config::instance()->factorMaxMana();
+
+	// And now, lets see for modifications
+	if ( hasTag( "modmaxhitsfactor" ) )
+		maxHitsFactor += ( getTag( "modmaxhitsfactor" ).toDouble() );
+
+	if ( hasTag( "modmaxstamfactor" ) )
+		maxStaminaFactor += ( getTag( "modmaxstamfactor" ).toDouble() );
+
+	if ( hasTag( "modmaxmanafactor" ) )
+		maxManaFactor += ( getTag( "modmaxmanafactor" ).toDouble() );
+	
+	// Finally, lets start to refresh values
 	if ( Config::instance()->refreshMaxValues() )
 	{
 		if ( objectType() == enPlayer )
 		{
 			if ( Config::instance()->simpleMaxHitsCalculation() )
-				maxHitpoints_ = wpMax<ushort>( 1, (strength_ * Config::instance()->factorMaxHits()) + hitpointsBonus_ );
+				maxHitpoints_ = wpMax<ushort>( 1, (strength_ * maxHitsFactor) + hitpointsBonus_ );
 			else
-				maxHitpoints_ = wpMax<ushort>( 1, ( ( strength_ * Config::instance()->factorMaxHits() ) / 2 ) + hitpointsBonus_ + 50 );
+				maxHitpoints_ = wpMax<ushort>( 1, ( ( strength_ * maxHitsFactor ) / 2 ) + hitpointsBonus_ + 50 );
 		}
 
-		maxStamina_ = wpMax<ushort>( 1, dexterity_ * Config::instance()->factorMaxStam() + staminaBonus_ );
+		maxStamina_ = wpMax<ushort>( 1, dexterity_ * maxStaminaFactor + staminaBonus_ );
 		if ( isElf() )
-			maxMana_ = wpMax<ushort>( 1, (intelligence_ * Config::instance()->factorMaxMana() * Config::instance()->elfwisdombonus()) + manaBonus_ );
+			maxMana_ = wpMax<ushort>( 1, (intelligence_ * maxManaFactor * Config::instance()->elfwisdombonus()) + manaBonus_ );
 		else
-			maxMana_ = wpMax<ushort>( 1, (intelligence_ * Config::instance()->factorMaxMana()) + manaBonus_ );
+			maxMana_ = wpMax<ushort>( 1, (intelligence_ * maxManaFactor) + manaBonus_ );
 	}
 }
 
