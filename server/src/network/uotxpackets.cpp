@@ -614,11 +614,20 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 				prefix.append( " " );
 			}
 
-			// Lord/Lady Title
-			if ( pChar->fame() >= 10000 )
+
+			// Tag for Prefix or Lord and Lady
+			if ( !pChar->isIncognito() && !pChar->isPolymorphed() )
 			{
-				prefix.append( pChar->gender() ? tr( "Lady" ) : tr( "Lord" ) );
-				prefix.append( " " );
+				if ( pChar->hasTag( "name.prefix" ) )
+				{
+					prefix.append( pChar->getTag( "name.prefix" ).toString() );
+					prefix.append( " " );
+				}
+				else if ( pChar->fame() >= 10000 && !pChar->isReputationHidden() )
+				{
+					prefix.append( pChar->gender() ? tr( "Lady" ) : tr( "Lord" ) );
+					prefix.append( " " );
+				}
 			}
 
 			setName( makeAscii( prefix + pChar->name() + ( title.isEmpty() ? QString( "" ) : ", " + title ) ) );

@@ -538,11 +538,34 @@ void cPlayer::showName( cUOSocket* socket )
 
 	QString charName = name();
 
-	// Lord & Lady Title
-	if ( !isIncognito() && fame_ >= 10000 && !isReputationHidden() )
-		charName.prepend( gender_ ? tr( "Lady " ) : tr( "Lord " ) );
+	// Prefix
+	QString prefix( " " );
 
-	QString affix( "" );
+	// Tag for Prefix
+	if ( !isIncognito() && !isPolymorphed() )
+	{
+		if ( hasTag( "name.prefix" ) )
+		{
+			prefix.append( getTag( "name.prefix" ).toString() );
+		}
+		else if ( fame_ >= 10000 && !isReputationHidden() )
+		{
+			prefix.append( gender_ ? tr( "Lady" ) : tr( "Lord" ) );
+		}
+	}
+
+	// Suffix
+	QString affix( " " );
+
+	// Tag for Suffix
+	if ( !isIncognito() && !isPolymorphed() )
+	{
+		if ( hasTag( "name.suffix" ) )
+		{
+			affix.append( getTag( "name.suffix" ).toString() );
+			affix.append( " " );
+		}
+	}
 
 	if ( !isIncognito() && guild_ && !guild_->abbreviation().isEmpty() )
 	{
@@ -599,7 +622,7 @@ void cPlayer::showName( cUOSocket* socket )
 		cUOTxAsciiSpeech speech;
 		speech.setId(body_);
 		speech.setSerial(serial_);
-		speech.setMessage(charName + " " + affix);
+		speech.setMessage(prefix + " " + charName + " " + affix);
 		speech.setColor(speechColor);
 		speech.setFont(3);
 		speech.setType(6); // Object Speech
@@ -634,7 +657,7 @@ void cPlayer::showName( cUOSocket* socket )
 		// Show it to the socket
 		// socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 		// Names are presented in ASCII speech, Guild titles are not
-		socket->clilocMessage( 1050045, " \t" + charName + "\t " + affix, speechColor, 3, this, true );
+		socket->clilocMessage( 1050045, prefix + " \t" + charName + "\t " + affix, speechColor, 3, this, true );
 	}
 }
 
@@ -1741,12 +1764,23 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 {
 	cUObject::createTooltip( tooltip, player );
 
+	// Suffix
 	QString affix( " " );
+
+	// Tag for Suffix
+	if ( !isIncognito() && !isPolymorphed() )
+	{
+		if ( hasTag( "name.suffix" ) )
+		{
+			affix.append( getTag( "name.suffix" ).toString() );
+			affix.append( " " );
+		}
+	}
 
 	// Append the (frozen) tag
 	if ( isFrozen() )
 	{
-		affix = tr( " (frozen)" );
+		affix.append( tr( " (frozen)" ) );
 	}
 
 	if ( player->account()->isShowSerials() )
@@ -1771,22 +1805,25 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 		}
 	}
 
+	// Prefix
+	QString prefix( " " );
+
+	// Tag for Prefix
+	if ( !isIncognito() && !isPolymorphed() )
+	{
+		if ( hasTag( "name.prefix" ) )
+		{
+			prefix.append( getTag( "name.prefix" ).toString() );
+			prefix.append( " " );
+		}
+		else if ( fame_ >= 10000 && !isReputationHidden() )
+		{
+			prefix.append( gender_ ? tr( "Lady " ) : tr( "Lord " ) );
+		}
+	}
+
 	// Don't miss lord and lady titles
-	if ( !isIncognito() && !isPolymorphed() && fame_ >= 10000 && !isReputationHidden() )
-	{
-		if ( gender() )
-		{
-			tooltip.addLine( 1050045, tr( "Lady \t%1\t%2" ).arg( name_ ).arg( affix ) );
-		}
-		else
-		{
-			tooltip.addLine( 1050045, tr( "Lord \t%1\t%2" ).arg( name_ ).arg( affix ) );
-		}
-	}
-	else
-	{
-		tooltip.addLine( 1050045, QString( " \t%1\t%2" ).arg( name_ ).arg( affix ) );
-	}
+	tooltip.addLine( 1050045, tr( "%3\t%1\t%2" ).arg( name_ ).arg( affix ).arg( prefix ) );
 
 	// Append guild title and name
 	if ( !isIncognito() && !isPolymorphed() && guild_ )
