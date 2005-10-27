@@ -36,7 +36,7 @@ def onUse(char, item):
 	if menu:
 		menu.send(char, [item.serial])
 	return True
-	
+
 #
 # Craft an item.
 #
@@ -44,10 +44,10 @@ class StonecrafterItemAction(CraftItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		CraftItemAction.__init__(self, parent, title, itemid, definition)
 		self.markable = 0 # All masonry items are not markable
-		
+
 	def visible(self, player, arguments):
 		return True
-		
+
 	def checkskills(self, player, arguments, check = 0):
 		success = 1
 		percent = self.percentage
@@ -87,7 +87,7 @@ class SeStonecrafterItemAction(StonecrafterItemAction):
 			return False
 		else:
 			return StonecrafterItemAction.visible(self, char, arguments)
-			
+
 	def checkmaterial(self, player, arguments, silent = 0):
 		if player.socket and player.socket.flags & 0x10 == 0:
 			return False
