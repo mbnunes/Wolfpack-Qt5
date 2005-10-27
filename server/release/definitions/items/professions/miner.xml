@@ -568,6 +568,8 @@
 		<id>0x1779</id>
 		<name>#1044607</name>
 		<weight>10.0</weight>
+		<movable />
+		<decay />
 	</item>
 
 	<item id="iron_granite" inherit="granite_base">
