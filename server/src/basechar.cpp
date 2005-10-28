@@ -3061,7 +3061,7 @@ bool cBaseChar::kill( cUObject* source )
 					P_ITEM pNewItem = item->dupe();
 					corpse->addItem( pNewItem );
 					corpse->addEquipment( layer, pNewItem->serial() );
-				} else if (layer != Backpack) {
+				} else if ( (layer != Backpack) && !(item->hasTag("dontremoveondeath")) ) {
 					// Put into the backpack
 					if (item->newbie() || item->movable() > 1) {
 						backpack->addItem( item );
