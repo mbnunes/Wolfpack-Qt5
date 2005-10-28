@@ -87,7 +87,7 @@ def onUse( char, item ):
 		elif potiontype in [ 9, 10 ]:
 			potions.strength.potion( char, item, potiontype )
 		# Poison Potions
-		elif potiontype in [ 14, 15, 16, 17 ]:
+		elif potiontype in [ 14, 15, 16, 17, 34, 35 ]:
 			potions.poison.potion( char, item, potiontype )
 		# Refresh Potions
 		elif potiontype in [ 18, 19 ]:

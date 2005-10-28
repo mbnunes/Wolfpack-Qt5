@@ -461,4 +461,76 @@
 		<color>0x763</color>
 	</item>
 
+<!-- IDs/colors of potions are wrong! -->
+
+	<!-- Confusion Blast -->
+	<item id="potion_confusionblast" inherit="potion_base">
+		<id>0xf0b</id>
+		<color>0x763</color>
+		<name>#1072105</name>
+		<category>Equipment\Potions\Confusion Blast</category>
+		<intproperty name="potiontype" value="30" />
+		<!-- Pricing information -->
+	</item>
+
+	<!-- Greater Confusion Blast -->
+	<item id="potion_greaterconfusionblast" inherit="potion_base">
+		<id>0xf0b</id>
+		<color>0x763</color>
+		<name>#1072108</name>
+		<category>Equipment\Potions\Greater Confusion Blast</category>
+		<intproperty name="potiontype" value="31" />
+		<!-- Pricing information -->
+	</item>
+
+	<!-- Conflagration Potion -->
+	<item id="potion_conflagration" inherit="potion_base">
+		<id>0xf0b</id>
+		<color>0x763</color>
+		<name>#1072095</name>
+		<category>Equipment\Potions\Conflagration</category>
+		<intproperty name="potiontype" value="32" />
+		<!-- Pricing information -->
+	</item>
+
+	<!-- Greater Conflagration Potion -->
+	<item id="potion_greaterconflagration" inherit="potion_base">
+		<id>0xf0b</id>
+		<color>0x763</color>
+		<name>#1072098</name>
+		<category>Equipment\Potions\Greater Conflagration</category>
+		<intproperty name="potiontype" value="33" />
+		<!-- Pricing information -->
+	</item>
+
+	<!-- Parasitic Poison -->
+	<item id="potion_parasiticpoison" inherit="potion_base">
+		<id>0xf0b</id>
+		<color>0x763</color>
+		<name>#1072848</name>
+		<category>Equipment\Potions\Parasitic Poison</category>
+		<intproperty name="potiontype" value="34" />
+		<!-- Pricing information -->
+	</item>
+
+	<!-- Darkglow Poison -->
+	<item id="potion_darkglowpoison" inherit="potion_base">
+		<id>0xf0b</id>
+		<color>0x763</color>
+		<name>#1072849</name>
+		<category>Equipment\Potions\Darkglow Potion</category>
+		<intproperty name="potiontype" value="35" />
+		<!-- Pricing information -->
+	</item>
+
+	<!-- Invisibility -->
+	<item id="potion_invisibility" inherit="potion_base">
+		<id>0xf0b</id>
+		<color>0x763</color>
+		<name>#1072941</name>
+		<category>Equipment\Potions\Invisibility</category>
+		<intproperty name="potiontype" value="36" />
+		<!-- Pricing information -->
+	</item>
+
 </definitions>

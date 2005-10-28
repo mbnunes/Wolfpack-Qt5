@@ -12,14 +12,14 @@ def potion( char, potion, poisontype ):
 		return False
 
 	# Weakest to strongest
-	levels = [14, 15, 16, 17]
+	levels = [14, 15, 16, 17, 34, 35]
 	if poisontype == levels[0]:
 		poison.poison( char, 0 )
 	elif poisontype == levels[1]:
 		poison.poison( char, 1 )
-	elif poisontype == levels[2]:
+	elif poisontype == levels[2] or poisontype == levels[5]: # darkglow poison has the same effect as greater poison
 		poison.poison( char, 2 )
-	elif poisontype == levels[3]:
+	elif poisontype == levels[3] or poisontype == levels[4]: # parasitic poison has the same effect as deadly poison
 		poison.poison( char, 3 )
 	else:
 		return False
