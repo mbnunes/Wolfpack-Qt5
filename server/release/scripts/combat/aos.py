@@ -560,24 +560,28 @@ def hit(attacker, defender, weapon, time):
 		if not blocked:
 			leech = properties.fromitem(weapon, LIFELEECH)
 			if leech and leech > random.randint(0, 99) and attacker.maxhitpoints > attacker.hitpoints:
-				amount = (damagedone * 30) / 100 # Leech 30% Health
-				if amount > 0:
-					attacker.hitpoints = min(attacker.maxhitpoints, attacker.hitpoints + amount)
-					attacker.updatehealth()
+				lifeleech = (damagedone * 30) / 100 # Leech 30% Health
 
 			leech = properties.fromitem(weapon, STAMINALEECH)
 			if leech and leech > random.randint(0, 99) and attacker.maxhitpoints > attacker.stamina:
-				amount = (damagedone * 100) / 100 # Leech 100% Stamina
-				if amount > 0:
-					attacker.stamina = min(attacker.maxstamina, attacker.stamina + amount)
-					attacker.updatehealth()
+				staminaleech = (damagedone * 100) / 100 # Leech 100% Stamina
 
 			leech = properties.fromitem(weapon, MANALEECH)
 			if leech and leech > random.randint(0, 99) and attacker.maxmana > attacker.mana:
-				amount = (damagedone * 40) / 100 # Leech 40% Mana
-				if amount > 0:
-					attacker.mana = min(attacker.maxmana, attacker.mana + amount)
-					attacker.updatemana()
+				manaleech = (damagedone * 40) / 100 # Leech 40% Mana
+
+			# Now leech life, stamina and mana
+			if lifeleech > 0:
+				attacker.hitpoints = min(attacker.maxhitpoints, attacker.hitpoints + lifeleech)
+				attacker.updatehealth()
+
+			if staminaleech > 0:
+				attacker.stamina = min(attacker.maxstamina, attacker.stamina + staminaleech)
+				attacker.updatehealth()
+
+			if manaleech > 0:
+				attacker.mana = min(attacker.maxmana, attacker.mana + manaleech)
+				attacker.updatemana()
 
 			# Poisoning (50% chance)
 			if weapon.hastag('poisoning_uses'):

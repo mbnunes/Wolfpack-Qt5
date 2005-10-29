@@ -9,7 +9,7 @@
 
 # http://uo.stratics.com/content/guides/necromancy1.shtml
 
-from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
+from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell, TransformationSpell
 from wolfpack.consts import *
 from magic.utilities import *
 from wolfpack.utilities import changeResistance
@@ -178,15 +178,20 @@ class EvilOmen(CharEffectSpell):
 		char.socket.sysmessage(str(duration))
 		target.addtimer( duration, magic.evilomen.expire, [], True, False, 'CORPSESKIN', magic.evilomen.dispel )
 
-class HorrificBeast(Spell):
+class HorrificBeast(TransformationSpell):
 	def __init__(self):
-		Spell.__init__(self, 6)
+		TransformationSpell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 40
 		self.damageskill = SPIRITSPEAK
 		self.mana = 11
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'Rel Xen Vas Bal'
+
+	#def precast(self, char, mode=0, args=[], target = None, item = None):	
+	#	if polymorphed(char):
+	##		return False
+	#	return Spell.precast(self, char, mode, args, target, item)
 
 	def cast(self, char, mode, args=[], target=None, item=None):
 		char.soundeffect( 0x165 )
@@ -199,9 +204,9 @@ class HorrificBeast(Spell):
 			char.addscript('magic.horrificbeast')
 		char.update()
 
-class LichForm(CharEffectSpell):
+class LichForm(TransformationSpell):
 	def __init__(self):
-		CharEffectSpell.__init__(self, 6)
+		TransformationSpell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 70
 		self.damageskill = SPIRITSPEAK
@@ -368,9 +373,9 @@ class SummonFamiliar(Spell):
 		self.reagents = {REAGENT_BATWING: 1, REAGENT_GRAVEDUST: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'Kal Xen Bal'
 
-class VampiricEmbrace(CharEffectSpell):
+class VampiricEmbrace(TransformationSpell):
 	def __init__(self):
-		CharEffectSpell.__init__(self, 6)
+		TransformationSpell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 99
 		self.damageskill = SPIRITSPEAK
@@ -503,15 +508,37 @@ class Wither(Spell):
 
 			energydamage(target, char, damage, 0, 0, 100, 0, 0, 0, DAMAGE_COLD)
 
-class WraithForm(Spell):
+class WraithForm(TransformationSpell):
 	def __init__(self):
-		Spell.__init__(self, 6)
+		TransformationSpell.__init__(self, 6)
 		self.skill = NECROMANCY
 		self.requiredskill = 20
 		self.damageskill = SPIRITSPEAK
 		self.mana = 17
 		self.reagents = {REAGENT_NOXCRYSTAL: 1, REAGENT_PIGIRON: 1}
 		self.mantra = 'Rel Xen Um'
+
+	def cast(self, char, mode, args=[], target=None, item=None):
+		char.soundeffect( 0x17f )
+		char.effect( 0x374a, 1, 15, 1108, 4 )
+		if char.hasscript('magic.wraithform'):
+			if char.gender: # female
+				char.id = 747
+				char.skin = 0
+			else: # male
+				char.id = 748
+				char.skin = 0x4001
+		else:
+			char.id = char.orgid
+			char.skin = char.orgskin
+		char.update()
+
+		# ToDo
+		#public override int PhysResistOffset{ get{ return +10; } }
+		#public override int FireResistOffset{ get{ return -25; } }
+		#public override int ColdResistOffset{ get{ return -05; } }
+		#public override int PoisResistOffset{ get{ return -05; } }
+		#public override int NrgyResistOffset{ get{ return -05; } }
 
 class Exorzism(Spell):
 	def __init__(self):

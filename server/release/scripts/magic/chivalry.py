@@ -188,6 +188,8 @@ class DispelEvil(Spell):
 		self.harmful = 1
 
 	def cast(self, char, mode, args=[], target=None, item=None):
+		if not self.consumerequirements(char, mode, args, target, item):
+			return False
 		char.effect( 0x37c4, 10, 7, 4, 3 )
 		char.soundeffect( 0x299 );
 		char.effect( 0x37c4, 1, 25, 14, 3 )

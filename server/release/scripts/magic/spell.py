@@ -566,6 +566,17 @@ class CharEffectSpell (Spell):
 
 		self.effect(char, target, mode, args, item)
 
+# for necromancers
+class TransformationSpell (Spell):
+	def __init__(self, circle):
+		Spell.__init__(self, circle)
+
+	def precast(self, char, mode=0, args=[], target = None, item = None):	
+		if char.polymorph:
+			char.socket.clilocmessage( 1061628 ) # You can't do that while polymorphed.
+			return False
+		return Spell.precast(self, char, mode, args, target, item)
+
 #
 # A damage spell. It can be delayed but doesnt need
 # to be.
