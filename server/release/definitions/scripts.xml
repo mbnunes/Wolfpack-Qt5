@@ -206,6 +206,7 @@
 	<script>magic.horrificbeast</script>
 	<script>magic.divinefury</script>
 	<script>magic.lichform</script>
+	<script>magic.wraithform</script>
 
 	<!-- NPC -->
 	<script>npc.healer</script>
