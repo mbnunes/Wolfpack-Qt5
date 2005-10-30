@@ -52,3 +52,6 @@ def onGuildButton(player):
 		player.socket.sysmessage(tr('You aren\'t in a guild.'))
 	else:
 		guilds.stone.mainMenu(player, player.guild)
+
+def onQuestButton(player):
+	player.socket.sysmessage("Quest System is not yet implemented")

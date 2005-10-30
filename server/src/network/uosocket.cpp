@@ -1488,6 +1488,13 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 				Py_DECREF( args );
 			}
 			break;
+		case cUORxAosMultiPurpose::QuestButton:
+			{
+				PyObject *args = Py_BuildValue( "(N)", _player->getPyObject() );
+				_player->callEventHandler( EVENT_QUESTBUTTON, args );
+				Py_DECREF( args );
+			}
+			break;
 		case cUORxAosMultiPurpose::AbilitySelect:
 			{
 				PyObject *args = Py_BuildValue( "(Ni)", _player->getPyObject(), packet->getInt(10) );

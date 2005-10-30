@@ -687,6 +687,13 @@ container that is being snooped into.
 */
 "onBecomeCriminal",
 
+/*
+\event onQuestButton
+\param player The player who pressed the button.
+\condition Triggered when a player presses the quest button on his client.
+*/
+"onQuestButton",
+
 0
 };
 
