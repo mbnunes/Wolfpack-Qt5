@@ -15,32 +15,27 @@
 		<id>247</id>
 		<inherit id="KARMA_L4" />
 		<inherit id="FAME_L4" />
-
 		<!-- Stats -->
 		<str><random min="315" max="375" /></str>
 		<dex><random min="200" max="255" /></dex>
 		<int><random min="20" max="25" /></int>
-
 		<!-- Status -->
 		<maxhitpoints><random min="350" max="420" /></maxhitpoints>
-
 		<!-- Damage -->
 		<mindamage>24</mindamage>
 		<maxdamage>44</maxdamage>
-
 		<!-- Defense -->
 		<tag name="res_physical" value="40,60" type="int" />
 		<tag name="res_fire" value="50,70" type="int" />
 		<tag name="res_cold" value="50,70" type="int" />
 		<tag name="res_poison" value="50,70" type="int" />
 		<tag name="res_energy" value="40,60" type="int" />
-
 		<!-- Skills -->
 		<skill id="wrestling"><random min="850" max="950"/></skill>
 		<skill id="tactics"><random min="850" max="950"/></skill>
 		<skill id="magicresistance"><random min="1000" max="1100"/></skill>
 		<skill id="anatomy"><random min="850" max="950"/></skill>
-
+		<!-- Loot Packs -->
 		<!-- Needs Bonsai Seed -->
 		<backpack>
 			<content>
@@ -49,9 +44,8 @@
 			</content>
 		</backpack>
 		<lootpacks>gems;gems</lootpacks>
-
 		<!-- Misc. -->
-		<intproperty name="food" value="1" />
+		<strproperty name="food" value="1" />
 		<category>Monsters\SE\Fan Dancer</category>
 	</npc>
 

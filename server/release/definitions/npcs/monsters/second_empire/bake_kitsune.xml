@@ -12,31 +12,24 @@
 	<npc id="bake_kitsune" inherit="monster_base">
 		<name>A Bake Kitsune</name>
 		<ai>Monster_Mage</ai>
-		<!-- <ai>Monster_Aggressive_L1</ai> -->
 		<id>246</id>
 		<inherit id="KARMA_L4" />
 		<inherit id="FAME_L4" />
-
 		<!-- Stats -->
 		<str><random min="170" max="220" /></str>
 		<dex><random min="125" max="145" /></dex>
 		<int><random min="375" max="425" /></int>
-
-		<!-- Status -->
 		<maxhitpoints><random min="310" max="350" /></maxhitpoints>
-
 		<!-- Damage -->
 		<mindamage>32</mindamage>
 		<maxdamage>45</maxdamage>
 		<tag name="dmg_energy" value="30" type="int" />
-
 		<!-- Defense -->
 		<tag name="res_physical" value="40,60" type="int" />
 		<tag name="res_fire" value="70,90" type="int" />
 		<tag name="res_cold" value="40,60" type="int" />
 		<tag name="res_poison" value="40,60" type="int" />
 		<tag name="res_energy" value="40,60" type="int" />
-
 		<!-- Skills -->
 		<skill id="wrestling"><random min="500" max="550"/></skill>
 		<skill id="tactics"><random min="700" max="900"/></skill>
@@ -45,7 +38,7 @@
 		<skill id="magery"><random min="800" max="900"/></skill>
 		<skill id="evaluatingintelligence"><random min="800" max="900"/></skill>
 		<skill id="meditation"><random min="850" max="950"/></skill>
-
+		<!-- Loot Packs -->
 		<!-- Needs Bonsai Seed -->
 		<backpack>
 			<content>
@@ -54,17 +47,15 @@
 			</content>
 		</backpack>
 		<lootpacks>scroll_medium;scroll_medium</lootpacks>
-
-		<!-- Carve -->
-		<intproperty name="carve_hides" value="30" />
-		<intproperty name="carve_meat" value="3" />
-
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>807</mintaming>
-		<intproperty name="food" value="1" />
+		<strproperty name="food" value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Monsters\SE\Bake Kitsune</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="30" />
+		<intproperty name="carve_meat" value="3" />
 	</npc>
 
 </definitions>

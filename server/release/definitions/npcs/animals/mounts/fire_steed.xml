@@ -34,12 +34,14 @@
 		<skill id="wrestling">1000</skill>
 		<skill id="tactics">1000</skill>
 		<skill id="magicresistance"><random min="1000" max="1200" /></skill>
-		<!-- Misc. -->
+		<!-- Loot Packs -->
 		<!-- Missing: Sulfurous Ash -->
-		<controlslots>2</controlslots>
 		<lootpacks>gems</lootpacks>
+		<!-- Misc. -->
+		<controlslots>2</controlslots>
 		<mintaming>1060</mintaming>
-		<intproperty name="food" value="1" />
+		<strproperty name="food" value="1" />
+		<strproperty name="packinstinct" value="equine" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Fire Steed</category>
 		<basescript>npc.mount</basescript>

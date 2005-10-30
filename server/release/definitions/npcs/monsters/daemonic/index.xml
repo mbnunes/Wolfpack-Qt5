@@ -23,7 +23,7 @@
 	<include file="definitions/npcs/monsters/daemonic/gargoyle_enforcer.xml" />
 	<include file="definitions/npcs/monsters/daemonic/harpy.xml" />
 	<include file="definitions/npcs/monsters/daemonic/hell_cat.xml" />
-	<include file="definitions/npcs/monsters/daemonic/hell_cat_preditor.xml" />
+	<include file="definitions/npcs/monsters/daemonic/hell_cat_predator.xml" />
 	<include file="definitions/npcs/monsters/daemonic/hell_hound.xml" />
 	<include file="definitions/npcs/monsters/daemonic/horde_minion.xml" />
 	<include file="definitions/npcs/monsters/daemonic/ice_fiend.xml" />

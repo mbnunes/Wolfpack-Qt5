@@ -37,7 +37,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>471</mintaming>
-		<intproperty name="food" value="2" />
+		<strproperty name="food" value="1,2" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Alligator</category>
 		<!-- Carve -->

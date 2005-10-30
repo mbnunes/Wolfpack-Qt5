@@ -38,7 +38,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>831</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="3,5" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Ridgeback</category>
 		<!-- Carve -->
@@ -78,7 +78,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>831</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="3,5" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Ridgeback (Savage)</category>
 		<!-- Carve -->

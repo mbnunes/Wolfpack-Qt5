@@ -34,7 +34,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Common\Sewer Rat</category>
 		<mintaming>0</mintaming>
-		<intproperty name="food" value="1" />
+		<strproperty name="food" value="1,4,3" />
 		<inherit id="speed_slow" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />

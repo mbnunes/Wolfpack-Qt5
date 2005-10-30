@@ -35,7 +35,8 @@
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>711</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="5" />
+		<strproperty name="packinstinct" value="bull" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Bull (Random)</category>
 		<!-- Carve -->

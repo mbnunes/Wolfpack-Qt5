@@ -36,6 +36,7 @@
 		<!-- Misc. -->
 		<desc>These toads are nine feet in length and they are very aggressive. Able to secrete a lethal poison, these toads can kill a healthy adult. Normally they do not attack such a large opponent, but they will defend if attacked.</desc>
 		<mintaming>771</mintaming>
+		<strproperty name="food" value="2,1" />
 		<category>Monsters\Reptiles\Giant Toad</category>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />

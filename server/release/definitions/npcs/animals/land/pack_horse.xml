@@ -39,7 +39,7 @@
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>291</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="3,5" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Pack\Pack Horse</category>
 		<!-- Carve -->

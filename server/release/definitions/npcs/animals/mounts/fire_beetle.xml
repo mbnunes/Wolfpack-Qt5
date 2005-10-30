@@ -44,7 +44,7 @@
 	</backpack>
 	<controlslots>3</controlslots>
 	<mintaming>939</mintaming>
-	<intproperty name="food" value="1" />
+	<strproperty name="food" value="1" />
 	<bindmenu>tame_menu,pet_menu</bindmenu>
 	<category>Animals\Mounts\Fire Beetle</category>
 	<basescript>npc.mount</basescript>

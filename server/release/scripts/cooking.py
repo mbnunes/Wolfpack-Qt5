@@ -43,8 +43,10 @@ ids = {
 	0x1042 : [ "1041", "" ],
 
 	# uncooked pizza : pizza
-	0x1083 : [ "1040", "" ]
+	0x1083 : [ "1040", "" ],
 
+	# eggs : fried eggs
+	0x9b5 : [ "9b6", "" ]
 	}
 
 def onUse( char, item ):

@@ -42,16 +42,17 @@
 		<controlslots>3</controlslots>
 		<desc>Unlikely as it may seem, some dragons do not hold to the strict canons of their society. Though a drake criminal is rare, punishment must exist for such malcontents. Wyrms are forbidden from killing one another, and thus no death sentence exists, even for the most evil oftheir kind. It was once believed by the Elder Wyrms that the frozen wastes would either kill or forever weaken those draconians banished there. The contrary was, of course, the result. Known among their kind as Anflaustrailious, or the dispossessed that lack warmth, the dragons that now reside in the regions of cold are those, or descended from those, who were banished for crimes among their kind. The Draconians of the Frost are a cruel and savage branch of their race. They blame all creatures for their torment and seek out revenge on any in their path. Such is the terror inspired by these foul drakes that the Elder Wyrms have forever stricken banishment to the ice regions from their doctrine. What becomes of draconian criminals now is known only to dragon kind, and they are loath to share their secrets.</desc>
 		<mintaming>963</mintaming>
+		<strproperty name="food" value="1,6" />
 		<category>Monsters\Dragons\White Wyrm (Random)</category>
 		<strproperty name="slayer_group" value="dragons" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="9" />
 		<strproperty name="carve_scales_type" value="white" />
 		<intproperty name="carve_hides" value="20" />
 		<strproperty name="carve_hides_type" value="barbed" />
 		<intproperty name="carve_meat" value="19" />
-		<inherit id="speed_fast" />
-		<ai>Monster_Mage</ai>
 	</npc>
 
 	<!-- white wyrm (Plain) -->

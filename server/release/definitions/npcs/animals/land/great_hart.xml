@@ -35,7 +35,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>591</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="3,5" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Great Hart</category>
 		<!-- Carve -->

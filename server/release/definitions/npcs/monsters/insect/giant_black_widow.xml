@@ -48,6 +48,7 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Insects\Giant Black Widow</category>
+		<strproperty name="food" value="1" />
 		<strproperty name="slayer_group" value="spiders" />
 		<inherit id="speed_fast" />
 		<basescript>npc.poison</basescript>

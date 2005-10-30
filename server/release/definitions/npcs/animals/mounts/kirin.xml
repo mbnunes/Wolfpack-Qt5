@@ -44,7 +44,7 @@
 		<controlslots>2</controlslots>
 		<lootpacks>lootpack_rich</lootpacks>
 		<mintaming>951</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="3,5" />
 		<category>Animals\Mounts\Kirin</category>
 		<strproperty name="slayer_group" value="feys" />
 		<!-- Carve -->

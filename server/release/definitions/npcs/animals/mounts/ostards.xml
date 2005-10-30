@@ -35,7 +35,8 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="3,5" />
+		<strproperty name="packinstinct" value="ostard" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Desert Ostard</category>
 		<intproperty name="carve_meat" value="3" />
@@ -69,7 +70,8 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="3,5" />
+		<strproperty name="packinstinct" value="ostard" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Forest Ostard</category>
 		<intproperty name="carve_meat" value="3" />
@@ -105,7 +107,8 @@
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>771</mintaming>
-		<intproperty name="food" value="1" />
+		<strproperty name="food" value="1,2,4,3" />
+		<strproperty name="packinstinct" value="ostard" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Frenzied Ostard</category>
 		<intproperty name="carve_meat" value="3" />

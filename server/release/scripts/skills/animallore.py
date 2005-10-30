@@ -11,7 +11,10 @@ import wolfpack.time
 import skills
 from wolfpack.gumps import cGump
 from wolfpack.consts import ANIMALLORE, MAGERY, TACTICS, ANATOMY, \
-	EVALUATINGINTEL, POISONING, MAGICRESISTANCE, WRESTLING, MEDITATION
+	EVALUATINGINTEL, POISONING, MAGICRESISTANCE, WRESTLING, MEDITATION, AGEOFSHADOWS, \
+	RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_COLD, RESISTANCE_POISON, RESISTANCE_ENERGY, \
+	DAMAGE_PHYSICAL, DAMAGE_FIRE, DAMAGE_COLD, DAMAGE_POISON, DAMAGE_ENERGY
+from wolfpack.properties import fromchar
 
 ANIMALLORE_DELAY = 1000
 
@@ -67,9 +70,14 @@ def sendGump( char, args, target ):
 
 	char.socket.closegump( 0x10101010 )
 
+	pages = 3
+	page = 1
+	if AGEOFSHADOWS:
+		pages = 5
+
 	loreGump = cGump ( 0, 0, 0, 250, 50 )
 	#page 1
-	loreGump.startPage( 1 )
+	loreGump.startPage( page )
 	loreGump.addGump( 100, 100, 2080 )
 	loreGump.addGump( 118, 137, 2081 )
 	loreGump.addGump( 118, 207, 2081 )
@@ -77,8 +85,6 @@ def sendGump( char, args, target ):
 	loreGump.addGump( 118, 347, 2083 )
 	loreGump.addGump( 140, 137, 2091 )
 	loreGump.addGump( 140, 334, 2091 )
-	loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, 2 )
-	loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, 1 )
 
 	loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></div>" % target.char.name, 0, 0 )
 
@@ -105,13 +111,116 @@ def sendGump( char, args, target ):
 
 	loreGump.addGump( 128, 278, 2086 )
 
-	loreGump.addXmfHtmlGump( 147, 276, 160, 18, 0x2DCAB8, 0, 0, 200 ) # Miscellaneous
+	if AGEOFSHADOWS:
+		loreGump.addXmfHtmlGump( 147, 276, 160, 18, 1049594, 0, 0, 200 ) # Loyalty Rating
 
-	#loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003ED, 0, 0, 16000229 ) # Armor Rating
-	#loreGump.addHtmlGump( 320, 294, 35, 18, "<div align=right>%i</div>" % target.char.defense, 0, 0 )
+		loyalty = 0
+		if char.hastag("loyalty"):
+			try:
+				loyalty = int(char.gettag("loaylty"))
+			except:
+				loyalty = 0
 
-	#page 2
-	loreGump.startPage( 2 )
+		if not target.char.tamed:
+			loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+		else:
+			if target.char.hunger >= 20:
+				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x100405, 0, 0, 16000229 ) # Wonderfully happy
+			elif target.char.hunger > 16:
+				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x100403, 0, 0, 16000229 ) # Very Happy
+			elif target.char.hunger > 13:
+				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x100402, 0, 0, 16000229 ) # Rather Happy
+			elif target.char.hunger >= 10:
+				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x100400, 0, 0, 16000229 ) # Content
+			elif target.char.hunger > 7:
+				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003FE, 0, 0, 16000229 ) # Unhappy
+			elif target.char.hunger > 4:
+				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003FD, 0, 0, 16000229 ) # Rather Unhappy
+			elif target.char.hunger >= 0:
+				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003FC, 0, 0, 16000229 ) # Extremely Unhappy
+
+	else:
+		loreGump.addXmfHtmlGump( 147, 276, 160, 18, 0x2DCAB8, 0, 0, 200 ) # Miscellaneous
+
+		#loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003ED, 0, 0, 16000229 ) # Armor Rating
+		#loreGump.addHtmlGump( 320, 294, 35, 18, "<div align=right>%i</div>" % target.char.defense, 0, 0 )
+
+	loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, page + 1 )
+	loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, pages )
+
+	# Resistances
+	if AGEOFSHADOWS:
+		page += 1
+		loreGump.startPage( page )
+		loreGump.addGump( 100, 100, 2080 )
+		loreGump.addGump( 118, 137, 2081 )
+		loreGump.addGump( 118, 207, 2081 )
+		loreGump.addGump( 118, 277, 2081 )
+		loreGump.addGump( 118, 347, 2083 )
+		loreGump.addGump( 140, 137, 2091 )
+		loreGump.addGump( 140, 334, 2091 )
+
+		loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></center>" % target.char.name, 0, 0 )
+
+		loreGump.addGump( 128, 152, 2086 )
+		loreGump.addXmfHtmlGump( 147, 150, 160, 18, 1061645, 0, 0, 200 ) # Resistances
+
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 1061646, 0, 0, 16000229 ) # Physical
+		loreGump.addHtmlGump( 280, 168, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, RESISTANCE_PHYSICAL), 0, 0 )
+
+		loreGump.addXmfHtmlGump( 153, 186, 160, 18, 1061647, 0, 0, 16000229 ) # Fire
+		loreGump.addHtmlGump( 280, 186, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, RESISTANCE_FIRE), 0, 0 )
+
+		loreGump.addXmfHtmlGump( 153, 204, 160, 18, 1061648, 0, 0, 16000229 ) # Cold
+		loreGump.addHtmlGump( 280, 204, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, RESISTANCE_COLD), 0, 0 )
+
+		loreGump.addXmfHtmlGump( 153, 222, 160, 18, 1061649, 0, 0, 16000229 ) # Poison
+		loreGump.addHtmlGump( 280, 222, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, RESISTANCE_POISON), 0, 0 )
+
+		loreGump.addXmfHtmlGump( 153, 240, 160, 18, 1061650, 0, 0, 16000229 ) # Energy
+		loreGump.addHtmlGump( 280, 240, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, RESISTANCE_ENERGY), 0, 0 )
+
+		loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, page + 1 )
+		loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, page - 1 )
+
+	# Damage
+	if AGEOFSHADOWS:
+		page += 1
+		loreGump.startPage( page )
+		loreGump.addGump( 100, 100, 2080 )
+		loreGump.addGump( 118, 137, 2081 )
+		loreGump.addGump( 118, 207, 2081 )
+		loreGump.addGump( 118, 277, 2081 )
+		loreGump.addGump( 118, 347, 2083 )
+		loreGump.addGump( 140, 137, 2091 )
+		loreGump.addGump( 140, 334, 2091 )
+
+		loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></center>" % target.char.name, 0, 0 )
+
+		loreGump.addGump( 128, 152, 2086 )
+		loreGump.addXmfHtmlGump( 147, 150, 160, 18, 1017319, 0, 0, 200 ) # Damage
+
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 1061646, 0, 0, 16000229 ) # Physical
+		loreGump.addHtmlGump( 280, 168, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, DAMAGE_PHYSICAL), 0, 0 )
+
+		loreGump.addXmfHtmlGump( 153, 186, 160, 18, 1061647, 0, 0, 16000229 ) # Fire
+		loreGump.addHtmlGump( 280, 186, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, DAMAGE_FIRE), 0, 0 )
+
+		loreGump.addXmfHtmlGump( 153, 204, 160, 18, 1061648, 0, 0, 16000229 ) # Cold
+		loreGump.addHtmlGump( 280, 204, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, DAMAGE_COLD), 0, 0 )
+
+		loreGump.addXmfHtmlGump( 153, 222, 160, 18, 1061649, 0, 0, 16000229 ) # Poison
+		loreGump.addHtmlGump( 280, 222, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, DAMAGE_POISON), 0, 0 )
+
+		loreGump.addXmfHtmlGump( 153, 240, 160, 18, 1061650, 0, 0, 16000229 ) # Energy
+		loreGump.addHtmlGump( 280, 240, 75, 18, "<div align=right>%s</div>" % fromchar(target.char, DAMAGE_ENERGY), 0, 0 )
+
+		loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, page + 1 )
+		loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, page - 1 )
+
+	# Skills
+	page += 1
+	loreGump.startPage( page )
 	loreGump.addGump( 100, 100, 2080 )
 	loreGump.addGump( 118, 137, 2081 )
 	loreGump.addGump( 118, 207, 2081 )
@@ -119,13 +228,11 @@ def sendGump( char, args, target ):
 	loreGump.addGump( 118, 347, 2083 )
 	loreGump.addGump( 140, 137, 2091 )
 	loreGump.addGump( 140, 334, 2091 )
-	loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, 3 )
-	loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, 1 )
 
 	loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></center>" % target.char.name, 0, 0 )
 
 	loreGump.addGump( 128,152, 2086 )
-	loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x2DCAC6, 0, 0, 200 ) # Combat Skills
+	loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x2DCAC6, 0, 0, 200 ) # Combat Ratings
 
 	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0xFEE87, 0, 0, 16000229 ) # Wrestling
 	loreGump.addHtmlGump( 280, 168, 75, 18, "<div align=right>%.1f</div>" %( target.char.skill[ WRESTLING ] / 10.0 ), 0, 0 )
@@ -158,8 +265,12 @@ def sendGump( char, args, target ):
 	loreGump.addXmfHtmlGump( 153, 312, 160, 18, 0xFEE8A, 0, 0, 16000229 ) # Meditation
 	loreGump.addHtmlGump( 280, 312, 75, 18, "<div align=right>%.1f</div>" % ( target.char.skill[ MEDITATION ] / 10.0 ), 0, 0 )
 
-	#page 3
-	loreGump.startPage( 3 )
+	loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, page + 1 )
+	loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, page - 1 )
+
+	# Misc
+	page += 1
+	loreGump.startPage( page )
 	loreGump.addGump( 100, 100, 2080 )
 	loreGump.addGump( 118, 137, 2081 )
 	loreGump.addGump( 118, 207, 2081 )
@@ -167,52 +278,90 @@ def sendGump( char, args, target ):
 	loreGump.addGump( 118, 347, 2083 )
 	loreGump.addGump( 140, 137, 2091 )
 	loreGump.addGump( 140, 334, 2091 )
-	loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, 3 )
-	loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, 2 )
 
 	loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></center>" % target.char.name, 0, 0 )
 
-	#loreGump.addGump( 128, 152, 2086 )
-	#loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003DB, 0, 0, 200 ) # Preferred Foods
-	#if target.char.food == 1 or target.char.food == 8:
-	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DC, 0, 0, 16000229 ) # Meat
-	#elif target.char.food == 2 or target.char.food == 9:
-	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003E0, 0, 0, 16000229 ) # Fish
-	#elif target.char.food == 4 or target.char.food == 5:
-	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DD, 0, 0, 16000229 ) # Fruits and Vegetables
-	#elif target.char.food == 6 or target.char.food == 7:
-	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DE, 0, 0, 16000229 ) # Grains and Hay
+	loreGump.addGump( 128, 152, 2086 )
+	loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003DB, 0, 0, 200 ) # Preferred Foods
+	foodtype = target.char.getstrproperty("food", "")
+	foodtype = foodtype.split(",")
+	if '3' in foodtype:
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DD, 0, 0, 16000229 ) # Fruits and Vegetables
+	elif '5' in foodtype:
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DE, 0, 0, 16000229 ) # Grains and Hay
+	elif '2' in foodtype:
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003E0, 0, 0, 16000229 ) # Fish
+	elif '1' in foodtype:
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DC, 0, 0, 16000229 ) # Meat
+	#elif '4' in foodtype:
+	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DD, 0, 0, 16000229 ) # Eggs
 	#elif target.food == 13:
 	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DF, 0, 0, 16000229 ) # Metal
-	#else:
-	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+	else:
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
 
 	loreGump.addGump( 128, 188, 2086 )
 
 	loreGump.addXmfHtmlGump( 147, 186, 160, 18, 0x1003E1, 0, 0, 200 ) # Pack Instinct
-	loreGump.addXmfHtmlGump( 153, 204, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+	packinstinct = target.char.getstrproperty("packinstinct", "").lower()
+	packInstinct = 3000340 # None
+	if packinstinct == "canine":
+		packInstinct = 1049570 # Canine
+	elif packinstinct == "ostard":
+		packInstinct = 1049571 # Ostard
+	elif packinstinct == "feline":
+		packInstinct = 1049572 # Feline
+	elif packinstinct == "arachnid":
+		packInstinct = 1049573 # Arachnid
+	elif packinstinct == "daemon":
+		packInstinct = 1049574 # Daemon
+	elif packinstinct == "bear":
+		packInstinct = 1049575 # Bear
+	elif packinstinct == "equine":
+		packInstinct = 1049576 # Equine
+	elif packinstinct == "bull":
+		packInstinct = 1049577 # Bull
+	loreGump.addXmfHtmlGump( 153, 204, 160, 18, packInstinct, 0, 0, 16000229 )
 
-	loreGump.addGump( 128, 224, 2086 )
+	loreGump.addGump( 128, 226, 2086 )
 
-	loreGump.addXmfHtmlGump( 147, 222, 160, 18, 0x1003FA, 0, 0, 200 ) # Loyalty
+	loreGump.addXmfHtmlGump( 153, 222, 160, 18, 1049594, 0, 0, 200 ) # Loyalty Rating
+
+	loyalty = 0
+	if char.hastag("loyalty"):
+		try:
+			loyalty = int(char.gettag("loaylty"))
+		except:
+			loyalty = 0
 
 	if not target.char.tamed:
-		loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+		loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
 	else:
-		if target.char.hunger == 6:
+		if loyalty == 11:
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100405, 0, 0, 16000229 ) # Wonderfully happy
-		elif target.char.hunger == 5:
+		elif loyalty == 10:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100404, 0, 0, 16000229 ) # Extremely happy
+		elif loyalty == 9:
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100403, 0, 0, 16000229 ) # Very Happy
-		elif target.char.hunger == 4:
+		elif loyalty == 8:
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100402, 0, 0, 16000229 ) # Rather Happy
-		elif target.char.hunger == 3:
+		elif loyalty == 7:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100401, 0, 0, 16000229 ) # Happy
+		elif loyalty == 6:
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100400, 0, 0, 16000229 ) # Content
-		elif target.char.hunger == 2:
+		elif loyalty == 5:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FF, 0, 0, 16000229 ) # Somewhat Content
+		elif loyalty == 4:
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FE, 0, 0, 16000229 ) # Unhappy
-		elif target.char.hunger == 1:
+		elif loyalty == 3:
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FD, 0, 0, 16000229 ) # Rather Unhappy
-		elif target.char.hunger == 0:
+		elif loyalty == 2:
 			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FC, 0, 0, 16000229 ) # Extremely Unhappy
+		elif loyalty == 1:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FB, 0, 0, 16000229 ) # Confused
+
+	loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, 1 )
+	loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, page - 1 )
 
 	loreGump.setArgs( [target] )
 	loreGump.setType( 0x10101010 )

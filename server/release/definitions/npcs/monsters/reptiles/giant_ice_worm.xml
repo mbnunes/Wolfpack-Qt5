@@ -38,7 +38,7 @@
 		<category>Monsters\Reptiles\Giant Ice Worm</category>
 		<strproperty name="slayer_group" value="snakes" />
 		<mintaming>711</mintaming>
-		<intproperty name="food" value="1" />
+		<strproperty name="food" value="1" />
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="3" />
 		<!-- Carve -->

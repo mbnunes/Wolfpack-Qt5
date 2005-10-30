@@ -43,6 +43,8 @@
 		<desc>Nearly the size of a man, the great spiders are nearly as clever as man as well. I do not know what may pass among them as language, but they lay their traps and defenses with great cunning. As well they might, for the silk of their webs is necessary for the casting of certain spells, and despite their formidable nature, they are earnestly sought for their silk.</desc>
 		<controlslots>1</controlslots>
 		<mintaming>591</mintaming>
+		<strproperty name="food" value="1" />
+		<strproperty name="packinstinct" value="arachnid" />
 		<category>Monsters\Insects\Giant Spider</category>
 		<strproperty name="slayer_group" value="spiders" />
 		<basescript>npc.poison</basescript>

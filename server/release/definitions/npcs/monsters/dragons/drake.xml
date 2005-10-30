@@ -38,6 +38,7 @@
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>843</mintaming>
+		<strproperty name="food" value="1,2" />
 		<strproperty name="slayer_group" value="dragons" />
 		<intproperty name="carve_hides" value="20" />
 		<strproperty name="carve_hides_type" value="horned" />

@@ -55,11 +55,11 @@
 		</backpack>
 		<lootpacks>scroll_medium;scroll_medium;bodypart;bones</lootpacks>
 
+		<!-- Misc. -->
+		<category>Monsters\SE\Revenant Lion</category>
 		<intproperty name="hit_poison_level" value="2" />
 		<intproperty name="hit_poison_chance" value="30" />
 		<basescript>npc.poison</basescript>
-
-		<category>Monsters\SE\Revenant Lion</category>
 		<strproperty name="slayer_group" value="undead" />
 		<ai>Monster_Mage</ai>
 	</npc>

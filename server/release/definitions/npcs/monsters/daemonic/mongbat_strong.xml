@@ -31,6 +31,7 @@
 		<lootpacks>lootpack_poor</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Mongbat (Strong)</category>
+		<strproperty name="food" value="1" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />

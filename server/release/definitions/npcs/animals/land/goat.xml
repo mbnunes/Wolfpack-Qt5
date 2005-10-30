@@ -34,10 +34,9 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>111</mintaming>
-		<intproperty name="food" value="3" />
+		<strproperty name="food" value="5,3" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Goat</category>
-
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<intproperty name="carve_meat" value="2" />
@@ -72,7 +71,7 @@
 		<skill id="magicresistance"><random min="251" max="300" /></skill>
 		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>
-		<intproperty name="food" value="1" />
+		<strproperty name="food" value="5,3" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Mountain Goat</category>
 		<!-- Carve -->

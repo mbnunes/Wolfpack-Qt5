@@ -43,9 +43,6 @@
 		<tag name="res_poison" value="50,70" type="int" />
 		<tag name="res_energy" value="60,80" type="int" />
 
-		<!-- Misc. -->
-		<desc>no desc yet</desc>
-
 		<!-- Loot -->
 		<backpack>
 			<content>
@@ -54,6 +51,7 @@
 		</backpack>
 		<lootpacks>gems;gems</lootpacks>
 
+		<!-- Misc. -->
 		<category>Monsters\SE\Rai-Ju</category>
 		<strproperty name="slayer_group" value="elementals" />
 	</npc>

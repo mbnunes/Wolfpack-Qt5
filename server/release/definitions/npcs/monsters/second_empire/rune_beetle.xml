@@ -44,11 +44,8 @@
 		<tag name="res_poison" value="75,95" type="int" />
 		<tag name="res_energy" value="40,60" type="int" />
 
-		<!-- Misc. -->
-		<desc></desc>
-
 		<!-- Loot -->
-		<!-- Missing: Jewel, Level 4 Map -->
+		<!-- Missing: Bonsai Seed, Reagents, Level 4 Map -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="1000" max="1200" /></amount></item>
@@ -57,10 +54,10 @@
 		</backpack>
 		<lootpacks>scroll_medium;bodypart;bones</lootpacks>
 
+		<!-- Misc. -->
 		<mintaming>939</mintaming>
 		<controlslots>3</controlslots>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
-
 		<intproperty name="hit_poison_level" value="3" />
 		<intproperty name="hit_poison_chance" value="35" />
 		<basescript>npc.poison</basescript>

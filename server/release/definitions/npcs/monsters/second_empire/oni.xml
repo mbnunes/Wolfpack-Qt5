@@ -49,7 +49,7 @@
 			</content>
 		</backpack>
 		<!-- Misc. -->
-		<intproperty name="food" value="1" />
+		<strproperty name="food" value="1" />
 		<category>Monsters\SE\Oni</category>
 	</npc>
 
