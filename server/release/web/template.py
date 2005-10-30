@@ -15,6 +15,7 @@ def output( navigation, username, navbar, content, session_id ):
 		&nbsp;&nbsp;&nbsp; <a href="console.py?session=%(session)s">Console</a><br />
 		&nbsp;&nbsp;&nbsp; <a href="accounts.py?session=%(session)s">Accounts</a><br />
 		&nbsp;&nbsp;&nbsp; <a href="pythonlog.py?session=%(session)s">Python Log</a><br />
+		&nbsp;&nbsp;&nbsp; <a href="map.py?session=%(session)s">Map with Players</a><br />
 		<br />
 		&nbsp;&nbsp;&nbsp; <a href="logout.py?session=%(session)s">Logout</a>""" % { 'session': session_id }
 	else:
