@@ -581,7 +581,25 @@ void cNPC::showName( cUOSocket* socket )
 	if ( !socket->player() )
 		return;
 
-	QString charName = name();
+	// Prefix
+	QString charName( "" );
+
+	// Tag for Prefix
+	if ( this->hasTag( "name.prefix" ) )
+	{
+		charName.append( this->getTag( "name.prefix" ).toString() );
+		charName.append( " " );
+	}
+
+	// Adding the Name
+	charName.append( name() );
+
+	// Tag for Suffix
+	if ( this->hasTag( "name.suffix" ) )
+	{
+		charName.append( " " );
+		charName.append( this->getTag( "name.suffix" ).toString() );
+	}
 
 	// apply titles
 	if ( Config::instance()->showNpcTitles() && !title_.isEmpty() ) {
@@ -1336,11 +1354,30 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 {
 	cUObject::createTooltip( tooltip, player );
 
-	QString affix( " " );
+	// Prefix
+	QString prefix( "" );
+
+	// Tag for Prefix
+	if ( this->hasTag( "name.prefix" ) )
+	{
+		prefix.append( " " );
+		prefix.append( this->getTag( "name.prefix" ).toString() );
+		prefix.append( " " );
+	}
+
+	// Suffix
+	QString affix( "" );
+
+	// Tag for Suffix
+	if ( this->hasTag( "name.suffix" ) )
+	{
+		affix.append( " " );
+		affix.append( this->getTag( "name.suffix" ).toString() );
+	}
 
 	if ( !title_.isEmpty() )
 	{
-		affix = ", " + title_;
+		affix.append( ", " + title_ );
 	}
 
 	// Append the (frozen) tag
@@ -1352,7 +1389,7 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	{
 		affix.append( QString( " [0x%1]" ).arg( serial(), 3, 16 ) );
 	}
-	tooltip.addLine( 1050045, QString( " \t%1\t%2" ).arg( name_ ).arg( affix ) );
+	tooltip.addLine( 1050045, QString( "%3\t%1\t%2" ).arg( name_ ).arg( affix ).arg( prefix ) );
 	onShowTooltip( player, &tooltip );
 }
 
