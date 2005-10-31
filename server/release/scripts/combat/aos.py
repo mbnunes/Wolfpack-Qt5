@@ -558,6 +558,12 @@ def hit(attacker, defender, weapon, time):
 	if weapon:
 		# Leeching
 		if not blocked:
+			# Making default Leechs to prevent errors
+
+			lifeleech = 0
+			staminaleech = 0
+			manaleech = 0
+
 			leech = properties.fromitem(weapon, LIFELEECH)
 			if leech and leech > random.randint(0, 99) and attacker.maxhitpoints > attacker.hitpoints:
 				lifeleech = (damagedone * 30) / 100 # Leech 30% Health
