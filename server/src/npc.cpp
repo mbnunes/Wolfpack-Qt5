@@ -1379,6 +1379,8 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	{
 		affix.append( ", " + title_ );
 	}
+	else
+		affix.append( " " );
 
 	// Append the (frozen) tag
 	if ( isFrozen() )
