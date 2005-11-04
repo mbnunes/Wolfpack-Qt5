@@ -359,25 +359,32 @@ int cItem::deleteAmount( int amount, unsigned short _id, unsigned short _color )
 
 void cItem::save( cBufferedWriter& writer, unsigned int version )
 {
-	if ( free || ( container_ && container_->free ) )
+	if ( free )
 	{
-		Console::instance()->log( LOG_ERROR, tr( "Saving item 0x%1 although it's already freed.\n" ).arg( serial_, 0, 16 ) );
+		Console::instance()->log( LOG_WARNING, tr( "Skipping item 0x%1 during save process because it's already freed.\n" ).arg( serial_, 0, 16 ) );
 	}
+	else if ( container_ && container_->free )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Skipping item 0x%1 during save process because it's in a freed container.\n" ).arg( serial_, 0, 16 ) );
+	}
+	else
+	{
 
-	cUObject::save( writer, version );
+		cUObject::save( writer, version );
 
-	writer.writeShort( id_ );
-	writer.writeShort( color_ );
-	writer.writeInt( container_ ? container_->serial() : INVALID_SERIAL );
-	writer.writeByte( layer_ );
-	writer.writeShort( amount_ );
-	writer.writeShort( hp_ );
-	writer.writeShort( maxhp_ );
-	writer.writeByte( movable_ );
-	writer.writeInt( ownserial_ );
-	writer.writeByte( visible_ );
-	writer.writeByte( priv_ );
-	writer.writeAscii( baseid() );
+		writer.writeShort( id_ );
+		writer.writeShort( color_ );
+		writer.writeInt( container_ ? container_->serial() : INVALID_SERIAL );
+		writer.writeByte( layer_ );
+		writer.writeShort( amount_ );
+		writer.writeShort( hp_ );
+		writer.writeShort( maxhp_ );
+		writer.writeByte( movable_ );
+		writer.writeInt( ownserial_ );
+		writer.writeByte( visible_ );
+		writer.writeByte( priv_ );
+		writer.writeAscii( baseid() );
+	}
 }
 
 void cItem::postload( unsigned int /*version*/ )
