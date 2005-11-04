@@ -346,7 +346,7 @@ def onSpeech(pet, char, text, keywords):
 	return False
 
 
-def onTimeChange( char )
+def onTimeChange( char ):
 	#if char.hasscript('npc.mount') and char.owner:
 	if char.tamed and char.hastag('loyalty'):
 		release = False
@@ -360,7 +360,6 @@ def onTimeChange( char )
 		if loyalty_new == 1: # Confused
 			char.say(1043270, char.name ) # * ~1_NAME~ looks around desperately *
 			char.soundeffect(char.basesound + 1)
-
 		if release:
 			char.say( 1043255, char.name ) # ~1_NAME~ appears to have decided that is better off without a master!
 			char.settag('loyalty', 11) # Wonderfully happy
