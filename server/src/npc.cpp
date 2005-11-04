@@ -1439,6 +1439,7 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord& pos )
 	pChar->setOrgBody( pChar->body() );
 	pChar->setOrgSkin( pChar->skin() );
 	pChar->setOrgName( pChar->name() );
+	pChar->setBody( pChar->body() );
 
 	// Now we call onCreate
 	cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( pChar, section );
