@@ -65,10 +65,6 @@ def sextant_parts( char, item ):
 
 	return 1
 
-def sextant( char, item ):
-	char.message( tr("Sorry but this feature is not implemented yet!") )
-	return 1
-
 hairdye_groups = 	[
 						#  Starting Hue, Count
 						[ 1601, 26 ],
@@ -212,10 +208,6 @@ actions =	{
 			0x0c52: cotton,
 			0x0c53: cotton,
 			0x0c54: cotton,
-
-			# Sextant
-			0x1057: sextant,
-			0x1058: sextant,
 
 			# Sextant Parts
 			0x1059: sextant_parts,

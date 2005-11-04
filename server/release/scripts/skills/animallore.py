@@ -330,7 +330,7 @@ def sendGump( char, args, target ):
 	loyalty = 0
 	if char.hastag("loyalty"):
 		try:
-			loyalty = int(char.gettag("loaylty"))
+			loyalty = int(char.gettag("loyalty"))
 		except:
 			loyalty = 0
 

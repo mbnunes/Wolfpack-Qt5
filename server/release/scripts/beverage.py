@@ -130,7 +130,7 @@ def onUse(char, item):
 	quantity = 0
 	if item.hastag('quantity'):
 		quantity = int(item.gettag('quantity'))
-
+	cprops = CONTAINERS[item.id]
 	if quantity == 0:
 		if CONTAINERS.has_key(item.id):
 			cprops = CONTAINERS[item.id]
@@ -142,30 +142,35 @@ def onUse(char, item):
 		return False
 	# pitcher filled with water
 	elif item.id in [0xff8, 0xff9, 0x1f9d, 0x1f9e] and CONTAINERS[item.id][4] == 'water':
-		char.socket.attachtarget('beverage.water', [item.serial])
+		char.socket.attachtarget('beverage.water', [item.serial, cprops, quantity])
 	else:
 		return drink(char, item)
 	return True
 
 def water(char, args, target):
 	item = wolfpack.finditem( args[0] )
+	cprops = args[1]
+	quantity = args[2]
 	if not item:
 		return False
 	if target.char and target.char == char:
 		return drink(char, item)
 	# Bowl Flour -> make dough
-	elif target.item and target.item.baseid == 'a1e':
-		if not target.item.getoutmostchar() == char:
-			char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
-			return True
-		dough = wolfpack.additem( "103d" )
-		if not tobackpack( dough, char ):
-			dough.update()
-		wooden_bowl = wolfpack.additem( "15f8" )
-		if not tobackpack( wooden_bowl, char ):
-			wooden_bowl.update()
-		target.item.delete()
-		consume(item)
+	elif target.item:
+		if target.item.baseid == 'a1e':
+			if not target.item.getoutmostchar() == char:
+				char.socket.clilocmessage( 1042001 ) # That must be in your pack for you to use it.
+				return True
+			dough = wolfpack.additem( "103d" )
+			if not tobackpack( dough, char ):
+				dough.update()
+			wooden_bowl = wolfpack.additem( "15f8" )
+			if not tobackpack( wooden_bowl, char ):
+				wooden_bowl.update()
+			target.item.delete()
+			consume(item)
+		elif quantity < cprops[1]:
+			fillfromitem( target, item, cprops )
 	return True
 
 #
@@ -205,42 +210,36 @@ def refill_target(char, args, target):
 		return
 
 	if target.item:
-		fillfromitem( target, item, cprops )
-		return # We refilled
-
 		# A watersource
 		if target.item.watersource:
 			fillfromwatersource(target, item, cprops)
-		return
+		else:
+			fillfromitem( target, item, cprops )
+		return # We refilled
 
 	# Check map if its a water source
 	elif not target.char:
 		fillfrommap(target, item, cprops)
 
 def fillfromitem( target, item, cprops ):
+	if target.item == item:
+		return False
+
 	if CONTAINERS.has_key(target.item.id):
+
 		quantity = 0
 		if target.item.hastag('quantity'):
 			quantity = int(target.item.gettag('quantity'))
 
-		fluid = ''			
+		fluid = ''
 		if target.item.hastag('fluid'):
 			fluid = str(target.item.gettag('fluid'))
 
 		if quantity > 0 and FLUIDS.has_key(fluid):
-			item.settag('fluid', fluid)
 
-			# How much can we refill?
-			if quantity > cprops[1]:
-				quantity -= cprops[1]
-				target.item.settag('quantity', quantity)
-				target.item.resendtooltip()
-				item.settag('quantity', cprops[1])					
-				updateItemIdFromFluid(item, 'water')
-				item.resendtooltip()
-
-			# The source will be depleted
-			else:
+			# completely refill the empty pitcher
+			if not item.hastag('quantity'):	
+				item.settag('fluid', fluid)
 				item.settag('quantity', quantity)
 				item.resendtooltip()
 
@@ -248,11 +247,38 @@ def fillfromitem( target, item, cprops ):
 				if cprop[2] == 0:
 					target.item.delete()
 				else:
+					updateItemIdFromFluid(item, fluid)
 					target.item.id = cprop[2]
 					target.item.update()
 					target.item.deltag('quantity')
 					target.item.deltag('fluid')
 					target.item.resendtooltip()
+
+			# How much can we refill?
+			elif int(item.gettag('quantity')) < cprops[1]:
+				if fluid != item.gettag('fluid'):
+					return False
+				item_quant = int(item.gettag('quantity'))
+				tofill = cprops[1] - item_quant
+				if (quantity - tofill) <= 0:
+					consume_all(target.item, cprops)
+					item.settag('quantity', item_quant + quantity)
+					#updateItemIdFromFluid(item, fluid)
+				else:
+					item.settag('quantity', item_quant + tofill)
+					target.item.settag('quantity', quantity - tofill)
+					target.item.resendtooltip()
+				item.resendtooltip()
+
+def consume_all(item, cprops):
+	if cprops[2] == 0:
+		item.delete()
+	else:
+		item.id = cprops[2]
+		item.update()
+		item.deltag('quantity')
+		item.deltag('fluid')
+		item.resendtooltip()
 
 def fillfromwatersource(target, item, cprops):
 	# Check if its depletable
@@ -334,21 +360,14 @@ def consume(item):
 	if not CONTAINERS.has_key(item.id):
 		return False
 
-	cprop = CONTAINERS[item.id]
+	cprops = CONTAINERS[item.id]
 	fprop = FLUIDS[btype]
 
 	quantity -= 1
 
 	# Empty
 	if quantity <= 0:
-		if cprop[2] == 0:
-			item.delete()
-		else:
-			item.id = cprop[2]
-			item.update()
-			item.deltag('quantity')
-			item.deltag('fluid')
-			item.resendtooltip()
+		consume_all(item, cprops)
 	else:
 		item.settag('quantity', int(quantity))
 		item.resendtooltip()
@@ -373,7 +392,7 @@ def drink(char, item):
 	if not CONTAINERS.has_key(item.id):
 		return False
 
-	cprop = CONTAINERS[item.id]
+	cprops = CONTAINERS[item.id]
 	fprop = FLUIDS[btype]
 
 	if quantity > 0:
@@ -397,19 +416,12 @@ def drink(char, item):
 
 	# Empty
 	if quantity == 0:
-		if cprop[2] == 0:
-			item.delete()
-		else:
-			item.id = cprop[2]
-			item.update()
-			item.deltag('quantity')
-			item.deltag('fluid')
-			item.resendtooltip()
+		consume_all(item, cprops)
 	else:
 		item.settag('quantity', int(quantity))
 		item.resendtooltip()
 
-	return True	
+	return True
 
 #
 # Show the tooltip for the item
