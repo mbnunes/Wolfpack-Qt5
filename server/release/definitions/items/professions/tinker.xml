@@ -89,7 +89,7 @@
 	<item id="1057">
 		<id>0x1057</id>
 		<category>Professions\Tinker\Sextant (W/E)</category>
-		<basescripts>environment</basescripts>
+		<basescripts>sextant</basescripts>
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
 		<weight>2.0</weight>

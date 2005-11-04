@@ -369,87 +369,86 @@ def onTimeChange( char )
 			#c.OwnerAbandonTime = DateTime.MinValue;
 			release(char)
 
-			foreach ( Mobile m in World.Mobiles.Values )
-			{
-				if ( m is BaseMount && ((BaseMount)m).Rider != null )
-				{
-					((BaseCreature)m).OwnerAbandonTime = DateTime.MinValue;
-					continue;
-				}
-
-				if ( m is BaseCreature )
-				{
-					BaseCreature c = (BaseCreature)m;
-
-					if ( c.IsDeadPet )
-					{
-						Mobile owner = c.ControlMaster;
-
-						if ( owner == null || owner.Deleted || owner.Map != c.Map || !owner.InRange( c, 12 ) || !c.CanSee( owner ) || !c.InLOS( owner ) )
-						{
-							if ( c.OwnerAbandonTime == DateTime.MinValue )
-								c.OwnerAbandonTime = DateTime.Now;
-							else if ( (c.OwnerAbandonTime + c.BondingAbandonDelay) <= DateTime.Now )
-								toRemove.Add( c );
-						}
-						else
-						{
-							c.OwnerAbandonTime = DateTime.MinValue;
-						}
-					}
-					else if ( c.Controled && c.Commandable && c.Loyalty > PetLoyalty.None && c.Map != Map.Internal )
-					{
-						Mobile owner = c.ControlMaster;
-
-						// changed loyalty decrement
-						if ( hasHourElapsed )
-						{
-							--c.Loyalty;
-
-							if ( c.Loyalty == PetLoyalty.Confused )
-							{
-								c.Say( 1043270, c.Name ); // * ~1_NAME~ looks around desperately *
-								c.PlaySound( c.GetIdleSound() );
-							}
-						}
-
-						c.OwnerAbandonTime = DateTime.MinValue;
-
-						if ( c.Loyalty == PetLoyalty.None )
-							toRelease.Add( c );
-					}
-
-					// added lines to check if a wild creature in a house region has to be removed or not
-					if ( !c.Controled && c.Region is HouseRegion && c.CanBeDamaged() )
-					{
-						c.RemoveStep++;
-
-						if ( c.RemoveStep >= 20 )
-							toRemove.Add( c );
-					}
-					else
-					{
-						c.RemoveStep = 0;
-					}
-				}
-			}
-
-			foreach ( BaseCreature c in toRelease )
-			{
-				c.Say( 1043255, c.Name ); // ~1_NAME~ appears to have decided that is better off without a master!
-				c.Loyalty = PetLoyalty.WonderfullyHappy;
-				c.IsBonded = false;
-				c.BondingBegin = DateTime.MinValue;
-				c.OwnerAbandonTime = DateTime.MinValue;
-				c.ControlTarget = null;
-				//c.ControlOrder = OrderType.Release;
-				c.AIObject.DoOrderRelease(); // this will prevent no release of creatures left alone with AI disabled (and consequent bug of Followers)
-			}
-
-			// added code to handle removing of wild creatures in house regions
-			foreach ( BaseCreature c in toRemove )
-			{
-				c.Delete();
-			}
-		}
-
+#			foreach ( Mobile m in World.Mobiles.Values )
+#			{
+#				if ( m is BaseMount && ((BaseMount)m).Rider != null )
+#				{
+#					((BaseCreature)m).OwnerAbandonTime = DateTime.MinValue;
+#					continue;
+#				}
+#
+#				if ( m is BaseCreature )
+#				{
+#					BaseCreature c = (BaseCreature)m;
+#
+#					if ( c.IsDeadPet )
+#					{
+#						Mobile owner = c.ControlMaster;
+#
+#						if ( owner == null || owner.Deleted || owner.Map != c.Map || !owner.InRange( c, 12 ) || !c.CanSee( owner ) || !c.InLOS( owner ) )
+#						{
+#							if ( c.OwnerAbandonTime == DateTime.MinValue )
+#								c.OwnerAbandonTime = DateTime.Now;
+#							else if ( (c.OwnerAbandonTime + c.BondingAbandonDelay) <= DateTime.Now )
+#								toRemove.Add( c );
+#						}
+#						else
+#						{
+#							c.OwnerAbandonTime = DateTime.MinValue;
+#						}
+#					}
+#					else if ( c.Controled && c.Commandable && c.Loyalty > PetLoyalty.None && c.Map != Map.Internal )
+#					{
+#						Mobile owner = c.ControlMaster;
+#
+#						// changed loyalty decrement
+#						if ( hasHourElapsed )
+#						{
+#							--c.Loyalty;
+#
+#							if ( c.Loyalty == PetLoyalty.Confused )
+#							{
+#								c.Say( 1043270, c.Name ); // * ~1_NAME~ looks around desperately *
+#								c.PlaySound( c.GetIdleSound() );
+#							}
+#						}
+#
+#						c.OwnerAbandonTime = DateTime.MinValue;
+#
+#						if ( c.Loyalty == PetLoyalty.None )
+#							toRelease.Add( c );
+#					}
+#
+#					// added lines to check if a wild creature in a house region has to be removed or not
+#					if ( !c.Controled && c.Region is HouseRegion && c.CanBeDamaged() )
+#					{
+#						c.RemoveStep++;
+#
+#						if ( c.RemoveStep >= 20 )
+#							toRemove.Add( c );
+#					}
+#					else
+#					{
+#						c.RemoveStep = 0;
+#					}
+#				}
+#			}
+#
+#			foreach ( BaseCreature c in toRelease )
+#			{
+#				c.Say( 1043255, c.Name ); // ~1_NAME~ appears to have decided that is better off without a master!
+#				c.Loyalty = PetLoyalty.WonderfullyHappy;
+#				c.IsBonded = false;
+#				c.BondingBegin = DateTime.MinValue;
+#				c.OwnerAbandonTime = DateTime.MinValue;
+#				c.ControlTarget = null;
+#				//c.ControlOrder = OrderType.Release;
+#				c.AIObject.DoOrderRelease(); // this will prevent no release of creatures left alone with AI disabled (and consequent bug of Followers)
+#			}
+#
+#			// added code to handle removing of wild creatures in house regions
+#			foreach ( BaseCreature c in toRemove )
+#			{
+#				c.Delete();
+#			}
+#		}
