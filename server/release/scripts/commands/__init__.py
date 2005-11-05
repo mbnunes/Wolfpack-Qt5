@@ -328,7 +328,7 @@ def gouid(socket, command, arguments):
 				container = container.container
 
 			# Going to container
-			socket.sysmessage('Going to item 0x%x [Top: 0x%x].' % (uid, container.serial))
+			socket.sysmessage('Going to item 0x%x (%s) [Top: 0x%x]. %s' % (uid, item.getname(), container.serial))
 			pos = container.pos
 			socket.player.removefromview()
 			socket.player.moveto(pos)
@@ -345,7 +345,7 @@ def gouid(socket, command, arguments):
 	elif uid > 0:
 		char = wolfpack.findchar(uid)
 		if char and char.rank <= socket.player.rank:
-			socket.sysmessage('Going to char 0x%x.' % (uid))
+			socket.sysmessage('Going to char 0x%x (%s).' % (uid, char.name))
 			pos = char.pos
 			socket.player.removefromview()
 			socket.player.moveto(pos)
