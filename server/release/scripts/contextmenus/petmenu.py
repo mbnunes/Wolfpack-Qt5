@@ -36,7 +36,7 @@ def onContextEntry(char, target, tag):
 	elif tag == 7: # Transfer
 		transfer(char, target)
 	elif tag == 8: # Release
-		release(char, target)
+		release(target)
 
 	# Disabled for now
 	#elif ( tag == 3 ): # Command: Guard
