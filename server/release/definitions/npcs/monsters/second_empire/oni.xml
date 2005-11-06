@@ -12,10 +12,9 @@
 	<npc id="oni" inherit="monster_base">
 		<name>an Oni</name>
 		<ai>Monster_Mage</ai>
-		<!-- <ai>Monster_Aggressive_L1</ai> -->
 		<id>241</id>
-		<inherit id="KARMA_L4" />
-		<inherit id="FAME_L4" />
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="800" max="905" /></str>
 		<dex><random min="150" max="200" /></dex>
@@ -42,7 +41,7 @@
 		<skill id="evaluatingintelligence"><random min="1000" max="1250"/></skill>
 		<skill id="meditation"><random min="275" max="425"/></skill>
 		<!-- Loot Packs -->
-		<!-- <lootpacks></lootpacks> -->
+		<!-- Missing: Level 4 Map, Bonsai Seed, Magic Items, Random Items -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="1600" max="1850" /></amount></item>
@@ -51,6 +50,7 @@
 		<!-- Misc. -->
 		<strproperty name="food" value="1" />
 		<category>Monsters\SE\Oni</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

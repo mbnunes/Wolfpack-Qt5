@@ -19,6 +19,7 @@
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<basescripts>speech.pets</basescripts>
 		<ai>Animal_Wild</ai>
+		<inherit id="speed_medium" />
 		<!-- Animals should at least have 0 skill and be able to gain. -->
 		<skill id="wrestling">0</skill>
 		<skill id="tactics">0</skill>

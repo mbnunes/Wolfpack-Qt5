@@ -1,19 +1,28 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: idget
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
 <definitions>
 
+	<!-- Hiryu -->
 	<npc id="hiryu" inherit="animal_base">
 		<name>Hiryu</name>
 		<id>243</id>
-		<mintaming>987</mintaming>
-		<controlslots>4</controlslots>
-		<inherit id="speed_medium" />
-		<mindamage>125</mindamage>
-		<maxdamage>181</maxdamage>
-		<bindmenu>tame_menu,pet_menu</bindmenu>
-		<category>Animals\Mounts\Hiryu</category>
-		<maxhitpoints><random min="900" max="1100" /></maxhitpoints>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
 		<str><random min="1200" max="1400" /></str>
 		<dex><random min="170" max="270" /></dex>
 		<int><random min="300" max="325" /></int>
+		<maxhitpoints><random min="900" max="1100" /></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>125</mindamage>
+		<maxdamage>181</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="55,70" type="int" />
 		<tag name="res_fire" value="70,90" type="int" />
@@ -28,6 +37,12 @@
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="60" />
 		<intproperty name="carve_meat" value="16" />
+		<!-- Misc. -->
+		<mintaming>987</mintaming>
+		<controlslots>4</controlslots>
+		<strproperty name="food" value="1" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Hiryu</category>
 		<basescript>npc.mount</basescript>
 	</npc>
 

@@ -40,16 +40,17 @@
 		<skill id="evaluatingintelligence"><random min="0" max="0"/></skill>
 		<skill id="meditation"><random min="850" max="900"/></skill>
 		<!-- Loot Packs -->
+		<!-- Missing: Magic Items -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="800" max="1000" /></amount></item>
 				<item list="REAGENTS"><amount>3</amount></item>
 			</content>
 		</backpack>
-		<lootpacks></lootpacks>
 		<!-- Misc. -->
-		<strproperty name="food" value="1" />
 		<category>Monsters\SE\Lady of the Snow</category>
+		<inherit id="speed_slow" />
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

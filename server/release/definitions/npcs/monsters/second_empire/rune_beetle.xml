@@ -14,13 +14,11 @@
 		<name>a rune beetle</name>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
-
 		<!-- Stats -->
 		<str><random min="400" max="465"/></str>
 		<dex><random min="125" max="170"/></dex>
 		<int><random min="375" max="450"/></int>
 		<maxhitpoints><random min="310" max="360" /></maxhitpoints>
-
 		<!-- Skills -->
 		<skill id="wrestling"><random min="700" max="800"/></skill>
 		<skill id="tactics"><random min="800" max="950"/></skill>
@@ -30,20 +28,17 @@
 		<skill id="magery"><random min="1000" max="1100"/></skill>
 		<skill id="evaluatingintelligence"><random min="1000" max="1250"/></skill>
 		<skill id="meditation"><random min="950" max="1100"/></skill>
-
 		<!-- Damage -->
 		<mindamage>42</mindamage>
 		<maxdamage>60</maxdamage>
 		<tag name="dmg_poison" value="10" type="int" />
 		<tag name="dmg_energy" value="70" type="int" />
-
 		<!-- Resists -->
 		<tag name="res_physical" value="40,65" type="int" />
 		<tag name="res_fire" value="35,50" type="int" />
 		<tag name="res_cold" value="35,50" type="int" />
 		<tag name="res_poison" value="75,95" type="int" />
 		<tag name="res_energy" value="40,60" type="int" />
-
 		<!-- Loot -->
 		<!-- Missing: Bonsai Seed, Reagents, Level 4 Map -->
 		<backpack>
@@ -53,7 +48,6 @@
 			</content>
 		</backpack>
 		<lootpacks>scroll_medium;bodypart;bones</lootpacks>
-
 		<!-- Misc. -->
 		<mintaming>939</mintaming>
 		<controlslots>3</controlslots>

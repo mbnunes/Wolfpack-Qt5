@@ -50,7 +50,7 @@
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>807</mintaming>
-		<strproperty name="food" value="1" />
+		<strproperty name="food" value="1,2" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Monsters\SE\Bake Kitsune</category>
 		<!-- Carve -->

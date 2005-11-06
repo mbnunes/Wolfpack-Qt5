@@ -14,17 +14,14 @@
 		<id>245</id>
 		<inherit id="KARMA_L3" />
 		<inherit id="FAME_L3" />
-
 		<!-- Stats -->
 		<str><random min="480" max="530"/></str>
 		<dex><random min="150" max="165"/></dex>
 		<int><random min="15" max="35"/></int>
 		<maxhitpoints><random min="480" max="530" /></maxhitpoints>
-
 		<!-- Damage -->
 		<mindamage>55</mindamage>
 		<maxdamage>65</maxdamage>
-
 		<!-- Skills -->
 		<skill id="wrestling"><random min="980" max="1080"/></skill>
 		<skill id="tactics"><random min="950" max="1050"/></skill>
@@ -34,14 +31,12 @@
 		<!-- <skill id="magery"><random min="1050" max="1150"/></skill> -->
 		<!-- <skill id="evaluatingintelligence"><random min="930" max="1080"/></skill> -->
 		<!-- <skill id="meditation"><random min="950" max="110"/></skill> -->
-
 		<!-- Resists -->
 		<tag name="res_physical" value="65,85" type="int" />
 		<tag name="res_fire" value="30,50" type="int" />
 		<tag name="res_cold" value="45,65" type="int" />
 		<tag name="res_poison" value="40,55" type="int" />
 		<tag name="res_energy" value="30,50" type="int" />
-
 		<!-- Loot -->
 		<backpack>
 			<content>
@@ -53,10 +48,8 @@
 			</content>
 		</backpack>
 		<lootpacks>gems;gems</lootpacks>
-
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
-
 		<!-- Misc -->
 		<category>Monsters\SE\Yomotsu Warrior</category>
 	</npc>

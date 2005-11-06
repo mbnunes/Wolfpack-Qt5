@@ -121,6 +121,28 @@
 		<item>f8c</item>
 		<item>f8d</item>
 	</list>
+	
+	<!-- IDs of Necro Reagents -->
+	<list id="NECRO_REAGENTS">
+		<item>f78</item>
+		<item>f79</item>
+		<item>f7c</item>
+		<item>f7d</item>
+		<item>f7e</item>
+		<item>f7f</item>
+		<item>f80</item>
+		<item>f81</item>
+		<item>f82</item>
+		<item>f83</item>
+		<item>f87</item>
+		<item>f89</item>
+		<item>f8a</item>
+		<item>f8b</item>
+		<item>f8e</item>
+		<item>f8f</item>
+		<item>f90</item>
+		<item>f91</item>
+	</list>
 
 	<!-- IDs of Instruments -->
 	<list id="INSTRUMENTS">

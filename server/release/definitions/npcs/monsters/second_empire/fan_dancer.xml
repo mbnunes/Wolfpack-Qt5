@@ -36,17 +36,18 @@
 		<skill id="magicresistance"><random min="1000" max="1100"/></skill>
 		<skill id="anatomy"><random min="850" max="950"/></skill>
 		<!-- Loot Packs -->
-		<!-- Needs Bonsai Seed -->
+		<!-- Needs Bonsai Seed, Origami Paper -->
 		<backpack>
 			<content>
-				<item id="eed"><amount><random min="700" max="1000" /></amount></item>
-				<item id="27a3"><amount>1</amount></item>
+				<item id="27a3" /> <!-- Tessen -->
 			</content>
 		</backpack>
-		<lootpacks>gems;gems</lootpacks>
+		<lootpacks>lootpack_ultra_rich;gems;gems</lootpacks>
 		<!-- Misc. -->
 		<strproperty name="food" value="1" />
 		<category>Monsters\SE\Fan Dancer</category>
+		<inherit id="speed_fast" />
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

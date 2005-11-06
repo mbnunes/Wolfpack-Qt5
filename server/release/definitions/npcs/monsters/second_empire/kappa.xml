@@ -37,13 +37,11 @@
 		<skill id="magicresistance"><random min="600" max="700"/></skill>
 		<skill id="anatomy"><random min="0" max="0"/></skill>
 		<!-- Loot Packs -->
-		<!-- Needs Bonsai Seed -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="175" max="225" /></amount></item>
 			</content>
 		</backpack>
-		<lootpacks></lootpacks>
 		<!-- Misc. -->
 		<strproperty name="food" value="1" />
 		<category>Monsters\SE\Kappa</category>

@@ -11,7 +11,7 @@
 	<!-- Deathwatch beetle -->
 	<npc id="deathwatch_beetle" inherit="animal_base">
 		<name>A Deathwatch Beetle</name>
-		<!-- <ai>Animal_Wild</ai> -->
+		<ai>Animal_Wild</ai>
 		<id>242</id>
 		<inherit id="KARMA_L2" />
 		<inherit id="FAME_L2" />
@@ -19,7 +19,6 @@
 		<str><random min="135" max="160" /></str>
 		<dex><random min="40" max="55" /></dex>
 		<int><random min="30" max="40" /></int>
-		<!-- Status -->
 		<maxhitpoints><random min="120" max="130" /></maxhitpoints>
 		<maxmana>20</maxmana>
 		<!-- Damage -->
@@ -37,19 +36,21 @@
 		<skill id="magicresistance"><random min="500" max="600"/></skill>
 		<skill id="anatomy"><random min="300" max="350"/></skill>
 		<!-- Loot Packs -->
-		<!-- Needs Bonsai Seed -->
+		<!-- Needs Bonsai Seed
 		<backpack>
 			<content>
-				<item list="POTIONS"><amount>1</amount></item>
 			</content>
 		</backpack>
-		<lootpacks>scroll_low</lootpacks>
+		-->
+		<lootpacks>scroll_low;potion;armor_all_high</lootpacks>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>411</mintaming>
-		<strproperty name="food" value="1" />
+		<strproperty name="food" value="3" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Monsters\SE\Deathwatch Beetle</category>
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="2" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 	</npc>
