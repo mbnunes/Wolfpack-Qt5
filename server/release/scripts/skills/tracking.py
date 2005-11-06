@@ -22,13 +22,13 @@ elves_tracking_chance = int( wolfpack.settings.getnumber("Racial Features", "Elv
 #cliloc
 #502989 tracking failed
 #502990 This area is too crowded to track any individual animal.
-##502991 You see no evidence of animals in the area.
-#502992 This area is too crowded to track any individual creature.Il y a trop de monde pour pouvoir pister une créature en particulier.
-##502993 You see no evidence of creatures in the area.#Vous ne décelez nulle trace d'une créature dans cette zone.
-#502994 This area is too crowded to track any individual.#Il y a trop de monde pour pouvoir pister quelqu'un.
-##502995 You see no evidence of people in the area. #Vous ne décelez nulle trace de qui que ce soit dans cette zone.
-#1011350 ) # What do you wish to track?
-##1018086What do you wish to track?
+#502991 You see no evidence of animals in the area.
+#502992 This area is too crowded to track any individual creature.
+#502993 You see no evidence of creatures in the area.
+#502994 This area is too crowded to track any individual.
+#502995 You see no evidence of people in the area.
+#1011350 What do you wish to track?
+#1018086 What do you wish to track?
 #1018093 Select the one you would like to track.
 #1002165 tracking
 #1002166 The tracking skill will allow you to track animals, monsters, and people. Use the skill by clicking the jewel on your skill list. You will be presented with a window, which will allow you to choose what you wish to track. Double-click the category you wish to track (animal, human, or monster), and you will be presented with a second window listing the specific PCs or NPC's that you can track. If you are successful, and an appropriate creature can be tracked, you will be told in what direction that creature can be found. The higher your skill level
