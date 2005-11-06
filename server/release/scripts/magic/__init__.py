@@ -138,11 +138,14 @@ def target_response( char, args, target ):
 	elif (target.item or target.char or target.pos) and (spell.validtarget == TARGET_IGNORE or spell.validtarget == TARGET_GROUND):
 		pos = target.pos
 		if target.item:
-			item = target.item.getoutmostitem()
-			if not item.container:
-				pos = item.pos
+			if target.item.getoutmostchar():
+				pos = target.item.getoutmostchar().pos
 			else:
-				pos = item.container.pos
+				item = target.item.getoutmostitem()
+				if not item.container:
+					pos = item.pos
+				else:
+					pos = item.container.pos
 		elif target.char:
 			pos = target.char.pos
 
