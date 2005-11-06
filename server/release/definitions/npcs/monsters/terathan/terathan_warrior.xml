@@ -34,12 +34,14 @@
 		<tag name="res_fire" value="20,30" type="int" />
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
-		<!-- Misc. -->
-		<desc>The warrior caste of the community, plans and carries out assaults on their enemies. Though martially trained, the warrior is better able towin a battle through strategy. Terathan warriors never waver in battle, and are certain to fight to the death.</desc>
+		<!-- Loot Packs -->
 		<!-- Missing: Level 1 Map -->
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
+		<!-- Misc. -->
+		<desc>The warrior caste of the community, plans and carries out assaults on their enemies. Though martially trained, the warrior is better able towin a battle through strategy. Terathan warriors never waver in battle, and are certain to fight to the death.</desc>
 		<category>Monsters\Terathan\Terathan Warrior</category>
-		<strproperty name="slayer_group" value="terathans" />
+		<strproperty name="slayer_group" value="tarathans,terathans" />
+		<!-- Carving -->
 		<intproperty name="carve_meat" value="4" />
 	</npc>
 

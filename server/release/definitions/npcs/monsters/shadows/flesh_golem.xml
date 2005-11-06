@@ -13,7 +13,7 @@
 		<name>flesh golem</name>
 		<id>304</id>
 		<inherit id="KARMA_L2" />
-		<inherit id="FAME_L2" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="176" max="200"/></str>
 		<dex><random min="51" max="75"/></dex>
@@ -34,7 +34,6 @@
 		<tag name="res_poison" value="60,70" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: -->
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Flesh Golem</category>

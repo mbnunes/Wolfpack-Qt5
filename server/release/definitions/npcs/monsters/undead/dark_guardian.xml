@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- dark guardian -->
 	<npc id="dark_guardian" inherit="monster_base">
 		<name>dark guardian</name>
 		<id>79</id>
@@ -40,10 +40,25 @@
 		<tag name="res_poison" value="20,45" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing: Level 1 Map, Level 2 Map, Level 3 Map -->
+		<lootpacks>scroll_medium;scroll_medium</lootpacks>
+		<backpack>
+			<content>
+				<item id="eed">
+					<amount><random min="400" max="500"/></amount>
+				</item>
+				<item list="NECRO_REAGENTS">
+					<amount><random min="15" max="25"/></amount>
+				</item>
+				<item id="f80"> <!-- Daemon Bones -->
+					<amount>30</amount>
+				</item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Dark Guardian</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

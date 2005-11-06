@@ -10,7 +10,7 @@
 
 	<!-- Impaler -->
 	<npc id="impaler" inherit="monster_base">
-		<name>impaler</name>
+		<name><random list="NAMES_SHADOW_IMPALER" /></name>
 		<id>306</id>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
@@ -35,11 +35,11 @@
 		<tag name="res_poison" value="60" type="int" />
 		<tag name="res_energy" value="100" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing:  -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Impaler</category>
 		<strproperty name="slayer_group" value="daemons" />
+		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="5" />
 	</npc>

@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- Gore Fiend -->
 	<npc id="gore_fiend" inherit="monster_base">
 		<name>gore fiend</name>
 		<id>305</id>
@@ -27,7 +27,6 @@
 		<!-- Damage -->
 		<mindamage>30</mindamage>
 		<maxdamage>41</maxdamage>
-		<!-- Damage Properties -->
 		<tag name="dmg_poison" value="15" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="35,45" type="int" />
@@ -36,7 +35,6 @@
 		<tag name="res_poison" value="5,15" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: -->
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Gore Fiend</category>

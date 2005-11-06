@@ -10,7 +10,7 @@
 
 	<!-- Darknight Creeper -->
 	<npc id="darknight_creeper" inherit="monster_base">
-		<name>darknight creeper</name>
+		<name><random list="NAMES_SHADOW_CREEPER" /></name>
 		<id>313</id>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
@@ -31,7 +31,6 @@
 		<!-- Damage -->
 		<mindamage>59</mindamage>
 		<maxdamage>69</maxdamage>
-		<!-- Damage Properties -->
 		<tag name="dmg_poison" value="15" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="60" type="int" />
@@ -40,12 +39,12 @@
 		<tag name="res_poison" value="90" type="int" />
 		<tag name="res_energy" value="75" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing:  -->
 		<lootpacks>lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<strproperty name="slayer_group" value="undeads" />
 		<category>Monsters\Shadows\Darknight Creeper</category>
-
+		<ai>Monster_Mage</ai>
+		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 	</npc>

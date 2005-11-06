@@ -27,7 +27,6 @@
 		<!-- Damage -->
 		<mindamage>48</mindamage>
 		<maxdamage>61</maxdamage>
-		<!-- Damage Properties -->
 		<tag name="dmg_poison" value="20" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="80,90" type="int" />
@@ -36,7 +35,6 @@
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="70,80" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing:  -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Flesh Renderer</category>

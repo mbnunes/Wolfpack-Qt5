@@ -26,8 +26,7 @@
 		<skill id="wrestling"><random min="480" max="580"/></skill>
 		<skill id="tactics"><random min="550" max="600"/></skill>
 		<skill id="magicresistance"><random min="1120" max="1220"/></skill>
-		<skill id="anatomy"><random min="0" max="0"/></skill>
-		<!-- <skill id="poisoning"><random min="1200" max="1300"/></skill> -->
+		<skill id="anatomy">0</skill>
 		<skill id="magery"><random min="1050" max="1150"/></skill>
 		<skill id="evaluatingintelligence"><random min="930" max="1080"/></skill>
 		<skill id="meditation"><random min="950" max="110"/></skill>
@@ -38,21 +37,23 @@
 		<tag name="res_poison" value="35,55" type="int" />
 		<tag name="res_energy" value="25,50" type="int" />
 		<!-- Loot -->
+		<!-- Missing: Bonsai Seed, Magic Items, Random Item -->
 		<backpack>
 			<content>
-				<item id="eed"><amount><random min="700" max="1000" /></amount></item>
-				<item id="f46"><amount>1</amount></item> <!-- executioners axe -->
-				<item id="c64"><amount>1</amount></item> <!-- Gourd -->
-				<item list="PANTS"><amount>1</amount></item>
-				<item list="SHOES"><amount>1</amount></item>
+				<item id="eed">
+					<amount><random min="700" max="1000" /></amount>
+				</item>
+				<item id="f46" /> <!-- executioners axe -->
+				<item id="c64" /> <!-- Gourd -->
+				<item list="PANTS" />
+				<item list="SHOES" />
 			</content>
 		</backpack>
 		<lootpacks>gems;gems;gems;gems</lootpacks>
-
-		<!-- Carve -->
-
 		<!-- Misc -->
 		<category>Monsters\SE\Yomotsu Priest</category>
+		<strproperty name="food" value="1,2" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

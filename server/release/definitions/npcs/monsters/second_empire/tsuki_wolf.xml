@@ -22,7 +22,7 @@
 		<maxhitpoints><random min="380" max="440" /></maxhitpoints>
 		<maxmana>40</maxmana>
 		<!-- Damage -->
-		<mindamage>47</mindamage>
+		<mindamage>48</mindamage>
 		<maxdamage>73</maxdamage>
 		<tag name="dmg_cold" value="5" type="int" />
 		<tag name="dmg_energy" value="5" type="int" />
@@ -38,17 +38,19 @@
 		<tag name="res_poison" value="50,70" type="int" />
 		<tag name="res_energy" value="50,70" type="int" />
 		<!-- Loot -->
+		<!-- Missing: Magic Items -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="400" max="500" /></amount></item>
 			</content>
 		</backpack>
-		<lootpacks>bodypart;bones</lootpacks>
+		<lootpacks>bodypart;bones;armor_all_high</lootpacks>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="25" />
 		<intproperty name="carve_meat" value="4" />
 		<!-- Misc -->
 		<category>Monsters\SE\Tsuki Wolf</category>
+		<strproperty name="food" value="1" />
 		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 

@@ -34,12 +34,18 @@
 		<tag name="res_fire" value="10,20" type="int" />
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager</lootpacks>
+		<backpack>
+			<content>
+				<item id="f8d"><amount>2</amount></item> <!-- Spider's Silk -->
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<desc>The workers of the Terathan community. Drones perform the dual role of builder and shock trooper. In times of peace, drones are used to gather materials for temples and homes. Working together, these drones can build an entire community in months. In times of war, drones attack the front lines of any opposing enemy force. Using muscles built from years of labor, drones should not have their fighting ability underestimated.</desc>
-		<!-- Missing: Weapon, 2 Spider Silk -->
-		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Terathan\Terathan Drone</category>
-		<strproperty name="slayer_group" value="terathans" />
+		<strproperty name="slayer_group" value="tarathans,terathans" />
+		<!-- Carving -->
 		<intproperty name="carve_meat" value="4" />
 	</npc>
 

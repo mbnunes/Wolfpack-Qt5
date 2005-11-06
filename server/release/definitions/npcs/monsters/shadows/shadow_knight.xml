@@ -10,7 +10,8 @@
 
 	<!-- Shadow Knight -->
 	<npc id="shadow_knight" inherit="monster_base">
-		<name>shadow knight</name>
+		<name><random list="NAMES_SHADOW_KNIGHT" /></name>
+		<title>the Shadow Knight</title>
 		<id>311</id>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
@@ -26,7 +27,6 @@
 		<!-- Damage -->
 		<mindamage>51</mindamage>
 		<maxdamage>73</maxdamage>
-		<!-- Damage Properties -->
 		<tag name="dmg_cold" value="40" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="90" type="int" />
@@ -35,10 +35,10 @@
 		<tag name="res_poison" value="75" type="int" />
 		<tag name="res_energy" value="55" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing:  -->
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Shadow Knight</category>
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

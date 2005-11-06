@@ -100,8 +100,9 @@ SCROLLS_C1_8 = SCROLLS_C1_7 + SCROLLS_C8
 SCROLLS_NECRO_LOW = ['2263', '2268', '2261', '2264', '2262', '226f', '2267', '2265', '2260', '226b']
 # Poison Strike, Wither, Strangle, Lich Form, Vengeful Spirit, Vampiric Embrace
 SCROLLS_NECRO_MED = ['2269', '226e', '226a', '2266', '226d', '226c']
-SCROLLS_NECRO_ALL = SCROLLS_NECRO_LOW + SCROLLS_NECRO_MED
-
+# Exorzism
+SCROLLS_NECRO_HIGH = ['2270']
+SCROLLS_NECRO_ALL = SCROLLS_NECRO_LOW + SCROLLS_NECRO_MED + SCROLLS_NECRO_HIGH
 
 # Misc Stuff
 DEF_ORES = ['19b7', '19b8', '19ba', '19b9'] # Smallest -> Largest

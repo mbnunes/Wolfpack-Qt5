@@ -23,7 +23,7 @@
 		<skill id="wrestling"><random min="700" max="800"/></skill>
 		<skill id="tactics"><random min="800" max="950"/></skill>
 		<skill id="magicresistance"><random min="950" max="1100"/></skill>
-		<skill id="anatomy"><random min="0" max="0"/></skill>
+		<skill id="anatomy">0</skill>
 		<skill id="poisoning"><random min="1200" max="1400"/></skill>
 		<skill id="magery"><random min="1000" max="1100"/></skill>
 		<skill id="evaluatingintelligence"><random min="1000" max="1250"/></skill>
@@ -40,7 +40,7 @@
 		<tag name="res_poison" value="75,95" type="int" />
 		<tag name="res_energy" value="40,60" type="int" />
 		<!-- Loot -->
-		<!-- Missing: Bonsai Seed, Reagents, Level 4 Map -->
+		<!-- Missing: Bonsai Seed, Magic Items -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="1000" max="1200" /></amount></item>
@@ -51,12 +51,14 @@
 		<!-- Misc. -->
 		<mintaming>939</mintaming>
 		<controlslots>3</controlslots>
+		<strproperty name="food" value="3" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<ai>Monster_Mage</ai>
+		<category>Monsters\SE\Rune Beetle</category>
+		<!-- Poisoning -->
 		<intproperty name="hit_poison_level" value="3" />
 		<intproperty name="hit_poison_chance" value="35" />
 		<basescript>npc.poison</basescript>
-		<ai>Monster_Mage</ai>
-		<category>Monsters\SE\Rune Beetle</category>
 	</npc>
 
 </definitions>

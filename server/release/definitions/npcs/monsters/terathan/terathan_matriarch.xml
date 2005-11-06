@@ -12,8 +12,8 @@
 	<npc id="terathan_matriarch" inherit="monster_base">
 		<name>terathan matriarch</name>
 		<id>72</id>
-		<inherit id="KARMA_L4" />
-		<inherit id="FAME_L4" />
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="316" max="405"/></str>
 		<dex><random min="96" max="115"/></dex>
@@ -35,12 +35,22 @@
 		<tag name="res_fire" value="30,40" type="int" />
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="40,50" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Level 4 Map -->
+		<lootpacks>lootpack_rich;lootpack_average;scroll_medium;scroll_medium;potion</lootpacks>
+		<backpack>
+			<content>
+				<item id="f8d"><amount>5</amount></item> <!-- Spider's Silk -->
+				<item list="NECRO_REAGENTS">
+					<amount><random min="4" max="10"/></amount>
+				</item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<desc>The matriarchs are the leaders of the Terathan people. Many matriarchs exist in Terathan cultures, and they are the weavers of the history tapestries. In battle they are vicious spell casters, fighting with the knowledge that they are the last bulwark against the theft of their history.</desc>
-		<!-- Missing: 1-7CS, MNS, 5 Spider Silk, Necromancy Reagent, Level 4 Map -->
-		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Monsters\Terathan\Terathan Matriarch</category>
-		<strproperty name="slayer_group" value="terathans" />
+		<strproperty name="slayer_group" value="tarathans,terathans" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

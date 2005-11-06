@@ -15,38 +15,31 @@
 		<skin>0x455</skin>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
-
 		<!-- Stats -->
 		<str><random min="26" max="40"/></str>
 		<dex><random min="26" max="40"/></dex>
 		<int><random min="26" max="40"/></int>
 		<maxhitpoints><random min="16" max="24"/></maxhitpoints>
-
 		<!-- Skills -->
 		<skill id="wrestling"><random min="201" max="300"/></skill>
 		<skill id="tactics"><random min="201" max="300"/></skill>
 		<skill id="magicresistance"><random min="201" max="300"/></skill>
 		<skill id="anatomy">0</skill>
-
 		<!-- Damage -->
 		<mindamage>1</mindamage>
 		<maxdamage>12</maxdamage>
-
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="15,25" type="int" />
 		<tag name="res_fire" value="5,15" type="int" />
 		<tag name="res_cold" value="25,40" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />
-
 		<!-- Loot -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="25" max="50" /></amount></item>
 			</content>
 		</backpack>
-		<lootpacks></lootpacks>
-
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Restless Soul</category>
 		<inherit id="speed_slow" />

@@ -8,12 +8,12 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- Sphynx -->
 	<npc id="sphynx" inherit="monster_base">
 		<name>Sphynx</name>
 		<id>788</id>
 		<inherit id="KARMA_L0" />
-		<inherit id="FAME_L3" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="1001" max="1200"/></str>
 		<dex><random min="176" max="195"/></dex>
@@ -39,10 +39,10 @@
 		<tag name="res_poison" value="40,50" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: 1-7CS, MNS -->
-		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;scroll_medium;scroll_medium</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Sphynx</category>
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

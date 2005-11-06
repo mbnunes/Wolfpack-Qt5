@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- a zombie-->
+	<!-- a zombie -->
 	<npc id="zombie" inherit="undead_base">
 		<name>zombie</name>
 		<id>3</id>
@@ -31,7 +31,7 @@
 		<tag name="res_cold" value="20,30" type="int" />
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
-		<!-- Loot / Carve -->
+		<!-- Loot Packs -->
 		<lootpacks>lootpack_meager;bodypart;bones</lootpacks>
 		<!-- Misc. -->
 		<desc>Zombies are naught but rotting corpses, restored to a mockery of life through vile sorcery. Utterly devoid of any will save that which created them, they do share with the other undead an unnatural appetite for the gold and the flesh of the living. Shambling, slow creatures, they are easily destroyed or evaded by an experienced warrior, unless encountered in overwhelming number.</desc>

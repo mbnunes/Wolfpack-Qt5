@@ -37,10 +37,13 @@
 		<tag name="res_poison" value="50,70" type="int" />
 		<tag name="res_energy" value="50,70" type="int" />
 		<!-- Loot -->
+		<!-- Missing: Magic Items, Level 5 Map, Bonsai Seed -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="2000" max="2500" /></amount></item>
-				<item id="9b5"><amount>2</amount></item>
+				<item id="9b5"> <!-- Eggs -->
+					<amount>2</amount>
+				</item>
 			</content>
 		</backpack>
 		<lootpacks>gems;gems;gems;gems;gems;gems</lootpacks>
@@ -52,6 +55,7 @@
 		<intproperty name="carve_hides" value="20" />
 		<!-- Misc. -->
 		<desc>no desc yet</desc>
+		<strproperty name="food" value="1,2" />
 		<category>Monsters\SE\Yamandon</category>
 		<strproperty name="slayer_group" value="reptile,snake" />
 		<inherit id="speed_fast" />

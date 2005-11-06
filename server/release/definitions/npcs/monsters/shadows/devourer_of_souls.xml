@@ -12,8 +12,8 @@
 	<npc id="devourer_of_souls" inherit="monster_base">
 		<name>devourer of souls</name>
 		<id>303</id>
-		<inherit id="KARMA_L5" />
-		<inherit id="FAME_L5" />
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="801" max="950"/></str>
 		<dex><random min="126" max="175"/></dex>
@@ -30,7 +30,6 @@
 		<!-- Damage -->
 		<mindamage>89</mindamage>
 		<maxdamage>114</maxdamage>
-		<!-- Damage Properties -->
 		<tag name="dmg_cold" value="20" type="int" />
 		<tag name="dmg_energy" value="20" type="int" />
 		<!-- Resist Properties -->
@@ -40,12 +39,22 @@
 		<tag name="res_poison" value="60,70" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Necromancy Reagents -->
+		<!-- Missing: Level 4 Map -->
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
+		<backpack>
+			<content>
+				<item id="f80"> <!-- Daemon Bones -->
+					<amount><random min="10" max="20"/></amount>
+				</item>
+				<item list="NECRO_REAGENTS">
+					<amount><random min="30" max="60"/></amount>
+				</item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Devourer of Souls</category>
 		<strproperty name="slayer_group" value="daemons" />
-		<intproperty name="carve_meat" value="3" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

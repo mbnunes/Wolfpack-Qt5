@@ -12,8 +12,8 @@
 	<npc id="shade" inherit="undead_base">
 		<name>shade</name>
 		<id>153</id>
-		<inherit id="KARMA_L2" />
-		<inherit id="FAME_L2" />
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
 		<dex><random min="76" max="95"/></dex>
@@ -33,8 +33,17 @@
 		<tag name="dmg_cold" value="50" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="25,30" type="int" />
-		<!-- Missing: Reagent -->
+		<tag name="res_cold" value="15,25" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<!-- Loot Packs -->
 		<lootpacks>lootpack_meager</lootpacks>
+		<backpack>
+			<content>
+				<item list="REAGENTS">
+					<amount>10</amount>
+				</item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Shade</category>
 		<strproperty name="slayer_group" value="undeads" />

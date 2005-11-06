@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- patchwork skeleton -->
 	<npc id="patchwork_skeleton" inherit="monster_base">
 		<name>patchwork skeleton</name>
 		<id>309</id>
@@ -36,7 +36,6 @@
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Patchwork Skeleton</category>
