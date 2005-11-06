@@ -4,6 +4,8 @@ from wolfpack import tr
 import guilds.stone
 from commands.jail import jailPlayer
 
+from system.quest import *
+
 def onLogin( player ):
 	socket = player.socket
 	socket.sysmessage( tr("Welcome to %s") % ( wolfpack.serverversion() )  )
@@ -54,4 +56,4 @@ def onGuildButton(player):
 		guilds.stone.mainMenu(player, player.guild)
 
 def onQuestButton(player):
-	player.socket.sysmessage("Quest System is not yet implemented")
+	openquestplayer(player)
