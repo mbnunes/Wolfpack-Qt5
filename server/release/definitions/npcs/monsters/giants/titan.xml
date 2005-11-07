@@ -41,6 +41,7 @@
 		<desc>Titans are the progenitors of the Cyclopsian race. They are immortal and cannot be killed permanently; though it is rumored they can befelled in combat. Adventurers foolish enough to face a Titan willl earn what an eternity of experience can grant. There is no weapon a Titan cannot wield, and no magic they do not know. It is believed that a Titan does not tire in battle nor do their spells require mana. Indeed, they lift their magic from the heart of the world and call it down on their opponents.</desc>
 		<category>Monsters\Giants\Titan</category>
 		<ai>Monster_Mage</ai>
+		<strproperty name="slayer_group" value="giants" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="4" />
 	</npc>
