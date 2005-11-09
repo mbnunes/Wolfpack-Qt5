@@ -41,6 +41,7 @@
 		<desc>The Ice Serpent is a terrifying beast. Their bite injects a poison into the recipient that slowly drains them of all warmth. This warmth is magically transferred to the Ice Serpent. In this way, the cold-blooded serpents have been able to survive the frozen tundra. Itis rumored that Ice Fiends have been known to adopt Ice Serpents aspets.</desc>
 		<category>Monsters\Reptiles\Giant Ice Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
+		<intproperty name="barddifficulty" value="531" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="15" />
 		<strproperty name="carve_hides_type" value="spined" />

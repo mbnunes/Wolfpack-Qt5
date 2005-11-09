@@ -61,6 +61,8 @@
 		<desc>Orc scouts are clever in battle. They can not only hide from their foes, when they feel their life is in danger, but they can detect hidden foes as well. The orc scout uses the common scout weapon of an orc bow, and their arrows cause large damage to those they hunt.</desc>
 		<category>Monsters\Orcs\Orc Scout</category>
 		<strproperty name="slayer_group" value="orcs" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="579" />
 	</npc>
 
 </definitions>

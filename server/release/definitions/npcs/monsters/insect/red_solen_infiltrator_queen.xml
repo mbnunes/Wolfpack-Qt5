@@ -38,6 +38,7 @@
 		<lootpacks>gold_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Solen\Red Solen Infiltrator (Queen)</category>
+		<intproperty name="barddifficulty" value="831" />
 	</npc>
 
 </definitions>

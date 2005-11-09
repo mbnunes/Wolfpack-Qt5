@@ -47,6 +47,8 @@
 		<desc>As Marshall to the orc horde, these leaders are vicious killers who crave only battle. They hurl their armies and their very selves at anything that approaches. Skulls of the orcish lord are prime trophies for veteran warriors, probably because they are so hard won.</desc>
 		<category>Monsters\Orcs\Orcish Lord</category>
 		<strproperty name="slayer_group" value="orcs" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="726" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>

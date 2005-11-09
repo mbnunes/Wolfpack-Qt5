@@ -37,6 +37,7 @@
 		<category>Monsters\Daemonic\Hellcat (Large)</category>
 		<mintaming>891</mintaming>
 		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="712" />
 		<strproperty name="packinstinct" value="feline" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />

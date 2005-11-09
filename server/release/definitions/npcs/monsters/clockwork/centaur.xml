@@ -35,7 +35,6 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="45,55" type="int" />
 		<!-- Lootpacks -->
-		<!-- Missing: 80-90 Arrows -->
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<backpack>
 			<content>
@@ -49,6 +48,7 @@
 		<category>Animals\Clockwork\Centaur</category>
 		<strproperty name="slayer_group" value="feys" />
 		<mintaming>1100</mintaming>
+		<intproperty name="barddifficulty" value="797" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />

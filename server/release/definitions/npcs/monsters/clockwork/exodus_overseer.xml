@@ -47,6 +47,7 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Exodus Overseer</category>
+		<intproperty name="barddifficulty" value="821" />
 	</npc>
 
 </definitions>

@@ -13,8 +13,8 @@
 		<name>Mephitis</name>
 		<title>the Spider</title>
 		<id>173</id>
-		<karma>-25000</karma>
-		<fame>25000</fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="505" max="1000"/></str>
 		<dex><random min="102" max="300"/></dex>
@@ -43,7 +43,8 @@
 		<category>Monsters\Champions\Mephitis</category>
 		<strproperty name="slayer_group" value="spiders" />
 		<inherit id="speed_veryfast" />
-
+		<intproperty name="barddifficulty" value="1600" />
+		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 	</npc>

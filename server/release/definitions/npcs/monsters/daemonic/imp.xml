@@ -44,13 +44,14 @@
 		<desc>Whatever Fate granted the Imp wings was clearly not gifted with foresight. The Imp is quite capable of causing enough mischief on the ground; being airborne only doubles the threat. Gifted with small magic and a temperament for causing trouble, these annoying beasts prey upon all who cross their path. It is rumored that Imps will steal from the strange (you) and give to the familiar (themselves). *Ware your health and holdings should you cross the path of the Imp.</desc>
 		<category>Monsters\Daemonic\Imp</category>
 		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="700" />
 		<strproperty name="packinstinct" value="daemon" />
 		<strproperty name="slayer_group" value="daemons" />
+		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<strproperty name="carve_hides_type" value="spined" />
 		<intproperty name="carve_meat" value="1" />
-		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

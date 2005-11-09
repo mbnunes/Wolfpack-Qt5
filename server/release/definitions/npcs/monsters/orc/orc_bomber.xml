@@ -61,6 +61,8 @@
 		<desc>These industrious orcs have mastered the fine art of tinkering, and have shown themselves to be both clever and aggressive. Watch carefully when near an orc bomber, for they give little warning before hurling powerful explosives into the midst of unwary adventurers.</desc>
 		<category>Monsters\Orcs\Orc Bomber</category>
 		<strproperty name="slayer_group" value="orcs" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="709" />
 	</npc>
 
 </definitions>

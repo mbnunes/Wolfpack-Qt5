@@ -13,8 +13,8 @@
 		<name>Neira</name>
 		<title>The Necromancer</title>
 		<id>401</id>
-		<karma>-25000</karma>
-		<fame>25000</fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="305" max="425"/></str>
 		<dex><random min="72" max="150"/></dex>
@@ -42,6 +42,8 @@
 		<!-- Misc. -->
 		<category>Monsters\Champions\Neira</category>
 		<inherit id="speed_veryfast" />
+		<intproperty name="barddifficulty" value="1600" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

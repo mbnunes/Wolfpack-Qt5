@@ -42,7 +42,10 @@
 		<desc>The Ophidian monarch is rumored to be a fair and just ruler to all ofher subjects. She alone holds the secret of the Ophidians, and it is she that passes it to her successors. With all the abilities of an arch mage, the queen of the Ophidians is an able keeper of her people*s secret.</desc>
 		<category>Monsters\Ophidians\Ophidian Matriarch</category>
 		<strproperty name="slayer_group" value="ophidians" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="971" />
 		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>

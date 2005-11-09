@@ -47,6 +47,8 @@
 		<desc>Orc Brutes are much larger and stronger than any of the other orc types, and have almost as little respect for their smaller kin as they do for humans. Orc brutes are a fearsome foe, as they deal massive blows, and have no qualms about lobbing smaller orc relatives at you in battle.</desc>
 		<category>Monsters\Orcs\Orc Brute</category>
 		<strproperty name="slayer_group" value="orcs" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="943" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="2" />
 	</npc>

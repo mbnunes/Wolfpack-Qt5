@@ -46,6 +46,8 @@
 		<desc>Though once common, lava serpents are now rare. They make their homes in lakes of lava, occasionally venturing to land for a quick meal. It is believed that the lava serpent was the progenitor of the dragon. Dragons are not fond of this theory, and have been known to kill at the mention of such blasphemy.</desc>
 		<category>Monsters\Reptiles\Lava Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="755" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="15" />
 		<strproperty name="carve_hides_type" value="spined" />

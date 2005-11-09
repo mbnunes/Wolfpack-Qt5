@@ -33,8 +33,8 @@
 		<tag name="res_fire" value="45,55" type="int" />
 		<tag name="res_physical" value="65,70" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
+		<!-- Loot Packs -->
 		<!-- Missing: Clockwork Assembly, 2 Power Crystal -->
-		<!-- <lootpacks></lootpacks> -->
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Exodus Minion Lord</category>
 	</npc>

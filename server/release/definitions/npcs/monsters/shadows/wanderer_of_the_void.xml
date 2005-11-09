@@ -48,6 +48,7 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Wanderer of the Void</category>
+		<intproperty name="barddifficulty" value="993" />
 		<ai>Monster_Mage</ai>
 	</npc>
 

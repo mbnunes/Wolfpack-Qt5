@@ -43,6 +43,8 @@
 		<desc>The eldest of the Draconian race are rarely seen by any other than drake eyes. Ancient in origin, the wizened Elder is said to long for the days when the reptile was the guardian of the land now known as Britannia. Patience is not a virtue of the Elder Wyrm, and disturbing one may lead to a quick death. Death, of course, being the quickest way for these ancient ones to be rid of the intruder and get back to their studies.</desc>
 		<category>Monsters\Dragons\Ancient Wyrm</category>
 		<strproperty name="slayer_group" value="dragons" />
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="1314" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
 		<intproperty name="poison_immunity" value="2" />

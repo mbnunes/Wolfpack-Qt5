@@ -43,12 +43,12 @@
 		<desc>Wisps have no corporeal bodies, yet I am assured by the wise that they are not spirits, but are somehow formed of living light. I am also told that they are wise creatures, perhaps wiser than humans. Certainly it lies beyond my wisdom to comprehend the nature of such alien creatures. They seem curious about the affairs of humans, but I have never known a wisp to harm anyone who did not first threaten it somehow.</desc>
 		<category>Monsters\Common\Pixie</category>
 		<strproperty name="slayer_group" value="feys" />
+		<inherit id="speed_veryfast" />
+		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="5" />
 		<strproperty name="carve_hides_type" value="spined" />
 		<intproperty name="carve_meat" value="1" />
-		<inherit id="speed_veryfast" />
-		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

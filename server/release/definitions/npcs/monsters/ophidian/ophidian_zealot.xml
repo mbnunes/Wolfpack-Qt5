@@ -41,6 +41,8 @@
 		<!-- Misc. -->
 		<category>Monsters\Ophidians\Ophidian Zealot</category>
 		<strproperty name="slayer_group" value="ophidians" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="818" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
 		<!-- Carve -->

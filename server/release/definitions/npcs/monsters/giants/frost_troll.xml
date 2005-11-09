@@ -39,6 +39,8 @@
 		<desc>A Troll of the northern wastes has but two goals. Hunt and eat. Not surprisingly, they are good at both. They resemble normal Trolls in many aspects, except the troll of the frozen wastes tend to have less around to eat. This means that they are more aggressive and much hungrier than a normal troll.</desc>
 		<category>Monsters\Giants\Frost Troll</category>
 		<strproperty name="slayer_group" value="trolls" />
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="677" />
 		<inherit id="speed_slow" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="2" />

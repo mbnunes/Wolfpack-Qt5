@@ -45,6 +45,7 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Exodus Minion</category>
+		<intproperty name="barddifficulty" value="920" />
 	</npc>
 
 </definitions>

@@ -43,10 +43,12 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;scroll_medium;scroll_medium</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Balron</category>
-		<intproperty name="carve_meat" value="1" />
 		<strproperty name="slayer_group" value="balron" />
 		<inherit id="speed_fast" />
+		<intproperty name="barddifficulty" value="1145" />
 		<ai>Monster_Mage</ai>
+		<!-- Carving -->
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -41,6 +41,8 @@
 		<desc>The warrior caste of the community, plans and carries out assaults on their enemies. Though martially trained, the warrior is better able towin a battle through strategy. Terathan warriors never waver in battle, and are certain to fight to the death.</desc>
 		<category>Monsters\Terathan\Terathan Warrior</category>
 		<strproperty name="slayer_group" value="tarathans,terathans" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="706" />
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="4" />
 	</npc>

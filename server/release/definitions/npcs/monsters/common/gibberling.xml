@@ -41,6 +41,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Common\Gibberling</category>
 		<strproperty name="slayer_group" value="daemons" />
+		<intproperty name="barddifficulty" value="587" />
 	</npc>
 
 </definitions>

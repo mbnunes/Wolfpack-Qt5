@@ -52,6 +52,9 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Captain</category>
+		<strproperty name="slayer_group" value="meers" />
+		<intproperty name="barddifficulty" value="775" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -37,6 +37,8 @@
 		<!-- Misc. -->
 		<desc>Stone Harpy is a misnomer. Harpies living in excess of a century willdevelop a very tough outer layer of skin. Almost chitinous, this skinacts as a primary defense of the older harpies. Though movement isdecreased, their armor and hardened talons make them more dangerous. The feathers covering a stone harpy, are hard as steel and areexcellent for fletching.</desc>
 		<category>Monsters\Daemonic\Stone Harpy</category>
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="703" />
 		<!-- Carve -->
 		<intproperty name="carve_feathers" value="50" />
 		<intproperty name="carve_meat" value="1" />

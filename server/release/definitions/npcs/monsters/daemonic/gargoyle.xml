@@ -40,8 +40,11 @@
 		<desc>These strange creatures are believed by many to be daemonic in nature, but in truth this is a slander. They are an Intelligent and civilized race. They have no love for humanity (nor is their mistrust unjustified) but they are honorable in their own, alien way. Their ways are mysterious, and it may be that they are too different from us to ever live in peace with humanity. If that proves to be so, somewould call it a great tragedy.</desc>
 		<category>Monsters\Daemonic\Gargoyle</category>
 		<strproperty name="slayer_group" value="gargoyles" />
-		<intproperty name="carve_meat" value="1" />
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="720" />
 		<ai>Monster_Mage</ai>
+		<!-- Carving -->
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -13,8 +13,8 @@
 		<name>Semidar</name>
 		<title>the Succubus</title>
 		<id>174</id>
-		<karma>-25000</karma>
-		<fame>25000</fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="502" max="600"/></str>
 		<dex><random min="102" max="200"/></dex>
@@ -45,6 +45,7 @@
 		<category>Monsters\Champions\Semidar</category>
 		<strproperty name="slayer_group" value="daemons" />
 		<inherit id="speed_veryfast" />
+		<intproperty name="barddifficulty" value="1600" />
 	</npc>
 
 </definitions>

@@ -38,6 +38,8 @@
 		<desc>Perhaps the greatest of all Britannia's creatures, the sea serpent can enwrap and crush a warship whole. Despite these serpents' terrible size, they are actively hunted for their scales, which are needed in the performance of certain Magical spells.</desc>
 		<category>Monsters\Sea Monsters\Sea Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="732" />
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="8" />
 		<strproperty name="carve_scales_type" value="blue" />

@@ -34,8 +34,10 @@
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Misc. -->
+		<basescripts>npc.mount</basescripts>
 		<category>Monsters\Undead\Skeletal Steed</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<intproperty name="barddifficulty" value="491" />
 	</npc>
 
 </definitions>

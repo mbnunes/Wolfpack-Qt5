@@ -39,6 +39,8 @@
 		<lootpacks>gold_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Warrior</category>
+		<strproperty name="slayer_group" value="meers" />
+		<intproperty name="barddifficulty" value="659" />
 	</npc>
 
 </definitions>

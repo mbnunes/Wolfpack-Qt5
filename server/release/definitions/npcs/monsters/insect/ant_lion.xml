@@ -46,6 +46,8 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Insects\Ant Lion</category>
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="778" />
 	</npc>
 
 </definitions>

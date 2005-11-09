@@ -39,6 +39,8 @@
 		<!-- Misc. -->
 		<category>Monsters\Ophidians\Ophidian Enforcer</category>
 		<strproperty name="slayer_group" value="ophidians" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="736" />
 		<inherit id="speed_fast" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />

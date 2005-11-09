@@ -11,7 +11,6 @@
 	<!-- Lady of the Snow -->
 	<npc id="lady_of_the_snow" inherit="monster_base">
 		<name>Lady of the Snow</name>
-		<ai>Monster_Mage</ai>
 		<id>252</id>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
@@ -51,6 +50,8 @@
 		<category>Monsters\SE\Lady of the Snow</category>
 		<inherit id="speed_slow" />
 		<strproperty name="slayer_group" value="undeads" />
+		<intproperty name="barddifficulty" value="1114" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -53,6 +53,7 @@
 		<!-- Misc -->
 		<category>Monsters\SE\Yomotsu Priest</category>
 		<strproperty name="food" value="1,2" />
+		<intproperty name="barddifficulty" value="1174" />
 		<ai>Monster_Mage</ai>
 	</npc>
 

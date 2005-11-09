@@ -39,6 +39,7 @@
 		<desc>These cats hail from another plane. Why they were brought to ours is a mystery. The hellcat does not make a good pet, as they are likely to immolate at inopportune times. Balls of yarn are nothing more than a waiting fuse.</desc>
 		<category>Monsters\Daemonic\Hellcat (Small)</category>
 		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="502" />
 		<strproperty name="packinstinct" value="feline" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />

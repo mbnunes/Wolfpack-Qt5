@@ -39,6 +39,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Impaler</category>
 		<strproperty name="slayer_group" value="daemons" />
+		<intproperty name="barddifficulty" value="1600" />
 		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="5" />

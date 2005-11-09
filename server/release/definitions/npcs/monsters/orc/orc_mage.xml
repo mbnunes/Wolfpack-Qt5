@@ -13,7 +13,6 @@
 		<name>orc mage</name>
 		<basescript>speech.monster</basescript>
 		<strproperty name="monsterspeech" value="orc" />
-		<ai>Monster_Mage</ai>
 		<id>140</id>
 		<inherit id="KARMA_L3" />
 		<inherit id="FAME_L3" />
@@ -41,10 +40,18 @@
 		<!-- Loot Packs -->
 		<!-- Missing: Mask of Orcish Kin, Level 1 Map -->
 		<lootpacks>lootpack_average;scroll_low;regs_high</lootpacks>
+		<backpack>
+			<content>
+				<item list="REAGENTS"><amount>10</amount></item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<desc>An orcish mage is an abomination to those who study the arcane. Like all things orcish, they leave a taint on all things they touch. Orcs obey no rules but their own, and as such force magic to obey their whims. The energies released by the orcish mage are almost always offensive in nature. It should be the sworn duty of all mages to seek out and eradicate the orcish mage.</desc>
 		<category>Monsters\Orcs\Orc Mage</category>
 		<strproperty name="slayer_group" value="orcs" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="732" />
+		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>

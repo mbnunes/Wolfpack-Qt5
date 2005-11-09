@@ -28,7 +28,6 @@
 		<!-- Damage -->
 		<mindamage>4</mindamage>
 		<maxdamage>14</maxdamage>
-		<!-- Damage Properties -->
 		<tag name="dmg_poison" value="50" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="90" type="int" />
@@ -36,6 +35,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Common\Mound of Maggots</category>
 		<inherit id="speed_slow" />
+		<intproperty name="barddifficulty" value="1086" />
 	</npc>
 
 </definitions>

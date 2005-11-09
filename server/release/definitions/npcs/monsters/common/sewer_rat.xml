@@ -36,6 +36,7 @@
 		<mintaming>0</mintaming>
 		<strproperty name="food" value="1,4,3" />
 		<inherit id="speed_slow" />
+		<intproperty name="barddifficulty" value="55" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>

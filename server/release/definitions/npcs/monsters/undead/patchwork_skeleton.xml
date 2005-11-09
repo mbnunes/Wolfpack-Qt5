@@ -39,6 +39,7 @@
 		<lootpacks>lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Patchwork Skeleton</category>
+		<intproperty name="barddifficulty" value="597" />
 	</npc>
 
 </definitions>

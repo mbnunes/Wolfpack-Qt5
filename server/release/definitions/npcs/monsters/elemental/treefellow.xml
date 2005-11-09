@@ -33,11 +33,18 @@
 		<tag name="res_poison" value="30,35" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: 23-34 Log -->
 		<lootpacks>lootpack_average;lootpack_average</lootpacks>
+		<backpack>
+			<content>
+				<item id="1bdd" > <!-- Log -->
+					<amount><random min="20" max="35"/></amount>
+				</item>
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Treefellow</category>
 		<strproperty name="slayer_group" value="feys" />
+		<intproperty name="barddifficulty" value="589" />
 	</npc>
 
 </definitions>

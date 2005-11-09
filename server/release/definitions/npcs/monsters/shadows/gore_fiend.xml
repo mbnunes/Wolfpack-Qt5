@@ -39,6 +39,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Gore Fiend</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<intproperty name="barddifficulty" value="488" />
 	</npc>
 
 </definitions>

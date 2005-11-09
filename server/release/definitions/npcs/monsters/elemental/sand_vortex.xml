@@ -33,11 +33,13 @@
 		<tag name="res_fire" value="60,70" type="int" />
 		<tag name="res_physical" value="80,90" type="int" />
 		<tag name="res_poison" value="60,70" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Level 4 Map -->
+		<lootpacks>lootpack_rich;bones</lootpacks>
 		<!-- Misc. -->
-		<!-- Missing: Bone, Level 4 Map -->
-		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Elementals\Sand Vortex</category>
 		<inherit id="speed_fast" />
+		<intproperty name="barddifficulty" value="756" />
 	</npc>
 
 </definitions>

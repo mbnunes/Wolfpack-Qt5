@@ -37,6 +37,8 @@
 		<lootpacks>gold_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Solen\Red Solen Worker</category>
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="538" />
 	</npc>
 
 </definitions>

@@ -40,6 +40,8 @@
 		<!-- Misc. -->
 		<category>Monsters\Reptiles\Silver Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
+		<intproperty name="barddifficulty" value="801" />
+		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />
 		<!-- Carve -->

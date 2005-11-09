@@ -38,6 +38,7 @@
 		<lootpacks>lootpack_filthy_rich;gems_poor;armor_platemail_high</lootpacks>
 		<category>Monsters\Beasts\Plague Beast</category>
 		<inherit id="speed_slow" />
+		<intproperty name="barddifficulty" value="815" />
 	</npc>
 
 </definitions>

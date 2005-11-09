@@ -51,6 +51,7 @@
 		<!-- Misc -->
 		<category>Monsters\SE\Tsuki Wolf</category>
 		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="874" />
 		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 

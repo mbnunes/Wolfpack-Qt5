@@ -12,7 +12,7 @@
 	<npc id="spider_giant" inherit="monster_base">
 		<name>giant spider</name>
 		<id>28</id>
-		<inherit id="KARMA_L1" />
+		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>
@@ -47,6 +47,8 @@
 		<strproperty name="packinstinct" value="arachnid" />
 		<category>Monsters\Insects\Giant Spider</category>
 		<strproperty name="slayer_group" value="spiders" />
+		<intproperty name="barddifficulty" value="575" />
+		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="1" />
 	</npc>

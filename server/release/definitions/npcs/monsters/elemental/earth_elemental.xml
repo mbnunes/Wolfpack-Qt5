@@ -32,15 +32,22 @@
 		<tag name="res_fire" value="10,20" type="int" />
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_poison" value="15,25" type="int" />
-		<!-- Misc. -->
-		<desc>These beings embody the element of Earth, and as the Air Elementals dwell naturally on a plane devoid of solidity, the Earth Elementals are native to a world devoid of air. They are mighty engines of destruction indeed, possessing both the crushing power of the avalanche and the steadfast endurance of the mountain. Furthermore, they command magicks allowing them to twist the earth to their will.</desc>
 		<!-- Dispel Difficulty -->
 		<intproperty name="dispeldifficulty" value="1175" />
 		<intproperty name="dispelfocus" value="450" />
-		<!-- Missing: 5 Iron Ore, Mandrake Root, Fertile Dirt, Level 1 Map -->
-		<lootpacks>lootpack_average;lootpack_average;gems_poor</lootpacks>
+		<!-- Missing: 5 Iron Ore, Level 1 Map -->
+		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
+		<backpack>
+			<content>
+				<item id="f81"><amount><random min="1" max="4"/></amount></item> <!-- fertile death -->
+				<item id="f86" /> <!-- mandrake root -->
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<desc>These beings embody the element of Earth, and as the Air Elementals dwell naturally on a plane devoid of solidity, the Earth Elementals are native to a world devoid of air. They are mighty engines of destruction indeed, possessing both the crushing power of the avalanche and the steadfast endurance of the mountain. Furthermore, they command magicks allowing them to twist the earth to their will.</desc>
 		<category>Monsters\Elementals\Earth Elemental</category>
 		<strproperty name="slayer_group" value="earthelementals" />
+		<intproperty name="barddifficulty" value="650" />
 		<inherit id="speed_slow" />
 	</npc>
 

@@ -31,17 +31,19 @@
 		<tag name="res_fire" value="10,20" type="int" />
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_poison" value="15,25" type="int" />
-		<!-- Misc -->
+		<!-- Loot Packs -->
 		<lootpacks>lootpack_meager;gold_meager</lootpacks>
 		<backpack>
 			<content>
 				<item id="seed" />
-				<item id="1bdd">
+				<item id="1bdd"> <!-- logs -->
 					<amount>4</amount>
 				</item>
 			</content>
 		</backpack>
+		<!-- Misc -->
 		<category>Monsters\Beasts\Bogling</category>
+		<intproperty name="barddifficulty" value="615" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />

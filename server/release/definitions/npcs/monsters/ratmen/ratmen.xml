@@ -40,6 +40,9 @@
 		<!-- Misc. -->
 		<desc>Surely the product of some foul sorcery, the rat man truly has the features of a rat, but walks about like a man. Rat men wear garments, wield weapons and give every sign of possessing intelligence. They arevicious, thieving creatures, and cowards if pressed in battle.</desc>
 		<category>Monsters\Ratmen\Ratman (Random)</category>
+		<strproperty name="slayer_group" value="ratmen" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="499" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />

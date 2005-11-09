@@ -40,6 +40,7 @@
 		<lootpacks>lootpack_rich;lootpack_rich;gems</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Blackthorn Juggernaut</category>
+		<intproperty name="barddifficulty" value="822" />
 	</npc>
 
 </definitions>

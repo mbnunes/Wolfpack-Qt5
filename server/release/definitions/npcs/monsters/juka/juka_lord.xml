@@ -39,23 +39,26 @@
 		<!-- Equipped -->
 		<equipped>
 			<item id="13b1" /> <!-- Bow -->
-			<item id="e75"> <!-- Backpack -->
-				<content>
-					<item id="f3f"> <!-- Arrows -->
-						<amount><random min="50" max="70"/></amount>
-					</item>
-					<item id="e21"> <!-- Bandages -->
-						<amount><random min="10" max="30"/></amount>
-					</item>
-					<item id="arcanegem" />
-				</content>
-			</item>
 		</equipped>
 		<!-- Loot Packs -->
 		<!-- Missing: Juka Slayer Bow -->
 		<lootpacks>gems;gold_rich;gold_meager</lootpacks>
+		<backpack>
+			<content>
+				<item id="f3f"> <!-- Arrows -->
+					<amount><random min="50" max="70"/></amount>
+				</item>
+				<item id="e21"> <!-- Bandages -->
+					<amount><random min="10" max="30"/></amount>
+				</item>
+				<item id="arcanegem" />
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Juka\Juka Lord</category>
+		<strproperty name="slayer_group" value="jukas" />
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="890" />
 	</npc>
 
 </definitions>

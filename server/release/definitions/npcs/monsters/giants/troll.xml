@@ -39,6 +39,8 @@
 		<desc>These creatures are perhaps the least human of all the humanoid races of the land. They are treacherously clever, but utterly devoid of civilized impulse. It is said that they can heal themselves from wounds at an unnatural rate.</desc>
 		<category>Monsters\Giants\Troll (Random)</category>
 		<strproperty name="slayer_group" value="trolls" />
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="545" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="2" />
 	</npc>

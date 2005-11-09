@@ -38,6 +38,8 @@
 		<lootpacks>gold_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Solen\Black Solen Infiltrator (Queen)</category>
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="826" />
 	</npc>
 
 </definitions>

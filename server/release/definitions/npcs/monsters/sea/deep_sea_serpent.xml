@@ -50,6 +50,8 @@
 		<!-- Misc. -->
 		<category>Monsters\Sea Monsters\Deep Sea Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="770" />
 		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="8" />

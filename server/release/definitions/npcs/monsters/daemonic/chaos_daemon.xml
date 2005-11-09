@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- chaos daemon -->
 	<npc id="chaos_daemon" inherit="monster_base">
 		<name>chaos daemon</name>
 		<id>792</id>
@@ -38,6 +38,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Chaos Daemon</category>
 		<strproperty name="slayer_group" value="daemons" />
+		<intproperty name="barddifficulty" value="715" />
 	</npc>
 
 </definitions>

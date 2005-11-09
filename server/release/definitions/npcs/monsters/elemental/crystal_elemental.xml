@@ -8,12 +8,12 @@
 -->
 <definitions>
 
-	<!--  -->
+	<!-- Crystal Elemental -->
 	<npc id="crystal_elemental" inherit="monster_base">
 		<name>crystal elemental</name>
 		<id>300</id>
-		<karma>-10000</karma>
-		<fame>10000</fame>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="136" max="160"/></str>
 		<dex><random min="51" max="65"/></dex>
@@ -39,13 +39,12 @@
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="55,70" type="int" />
 		<!-- Loot Packs -->
-		<lootpacks>lootpack_average</lootpacks>
+		<lootpacks>lootpack_average;gems;gems;gems;gems</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Crystal Elemental</category>
 		<inherit id="speed_slow" />
 		<ai>Monster_Mage</ai>
-
-		<!-- Lvl 5 poison immunity -->
+		<intproperty name="barddifficulty" value="836" />
 		<intproperty name="poison_immunity" value="5" />
 	</npc>
 

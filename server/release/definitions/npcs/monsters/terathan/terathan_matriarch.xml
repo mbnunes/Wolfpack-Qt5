@@ -50,6 +50,8 @@
 		<desc>The matriarchs are the leaders of the Terathan people. Many matriarchs exist in Terathan cultures, and they are the weavers of the history tapestries. In battle they are vicious spell casters, fighting with the knowledge that they are the last bulwark against the theft of their history.</desc>
 		<category>Monsters\Terathan\Terathan Matriarch</category>
 		<strproperty name="slayer_group" value="tarathans,terathans" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="912" />
 		<ai>Monster_Mage</ai>
 	</npc>
 

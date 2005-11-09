@@ -12,8 +12,8 @@
 	<npc id="ophidian_avenger" inherit="monster_base">
 		<name>ophidian avenger</name>
 		<id>86</id>
-		<inherit id="KARMA_L4" />
-		<inherit id="FAME_L4" />
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="417" max="595"/></str>
 		<dex><random min="166" max="175"/></dex>
@@ -44,6 +44,8 @@
 		<!-- Misc. -->
 		<category>Monsters\Ophidians\Ophidian Avenger</category>
 		<strproperty name="slayer_group" value="ophidians" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="866" />
 		<inherit id="speed_fast" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />

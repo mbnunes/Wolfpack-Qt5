@@ -47,6 +47,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Dark Father</category>
 		<strproperty name="slayer_group" value="daemons" />
+		<intproperty name="barddifficulty" value="1600" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
 	</npc>

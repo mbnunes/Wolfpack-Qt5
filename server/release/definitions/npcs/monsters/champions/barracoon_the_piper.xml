@@ -13,8 +13,8 @@
 		<name>Baracoon</name>
 		<title>the piper</title>
 		<id>400</id>
-		<karma>-25000</karma>
-		<fame>25000</fame>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="305" max="425"/></str>
 		<dex><random min="72" max="150"/></dex>
@@ -35,11 +35,12 @@
 		<tag name="res_poison" value="40,50" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 5 Treasure Map, Clothes -->
-		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich;gems</lootpacks>
+		<!-- Missing: Level 5 Treasure Map, Clothes, Jewelry -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Baracoon The Piper</category>
 		<inherit id="speed_veryfast" />
+		<intproperty name="barddifficulty" value="1600" />
 	</npc>
 
 </definitions>

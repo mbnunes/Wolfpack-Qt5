@@ -44,12 +44,14 @@
 				<item id="1bdd" > <!-- Log -->
 					<amount>10</amount>
 				</item>
+				<item id="f90"><amount>2</amount></item> <!-- dead wood -->
 			</content>
 		</backpack>
 		<!-- Misc. -->
 		<desc>Although it is a beast and not a plant, the Reaper is rooted to the ground, from whence it lashes about itself with long, vine like tentacles. Any man or beast unfortunate enough to be caught in the reaper's grasp is drawn into the thing's maw. Reapers root themselves in shadowy areas for conceal ment purposes, so that they may lash out at their prey unseen.</desc>
 		<category>Monsters\Common\Reaper</category>
 		<ai>Monster_Mage</ai>
+		<intproperty name="barddifficulty" value="741" />
 	</npc>
 
 </definitions>

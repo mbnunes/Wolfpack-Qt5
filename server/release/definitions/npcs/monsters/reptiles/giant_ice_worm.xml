@@ -39,6 +39,8 @@
 		<strproperty name="slayer_group" value="snakes" />
 		<mintaming>711</mintaming>
 		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="750" />
+		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="3" />
 		<!-- Carve -->

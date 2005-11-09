@@ -36,6 +36,7 @@
 		<mintaming>291</mintaming>
 		<strproperty name="food" value="2,1,3,4" />
 		<category>Monsters\Common\Giant Rat</category>
+		<intproperty name="barddifficulty" value="258" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />

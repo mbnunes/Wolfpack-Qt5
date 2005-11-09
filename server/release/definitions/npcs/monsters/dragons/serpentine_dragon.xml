@@ -43,6 +43,8 @@
 		<category>Monsters\Dragons\Serpentine Dragon</category>
 		<strproperty name="slayer_group" value="dragons" />
 		<ai>Monster_Mage</ai>
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="1288" />
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="6" />
 		<strproperty name="carve_scales_type" value="white,black" />

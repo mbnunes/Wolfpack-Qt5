@@ -12,8 +12,8 @@
 	<npc id="lord_oaks" inherit="monster_base_magi">
 		<name>Lord Oaks</name>
 		<id>175</id>
-		<karma>25000</karma>
-		<fame>25000</fame>
+		<inherit id="KARMA_NL5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="403" max="850"/></str>
 		<dex><random min="101" max="150"/></dex>
@@ -45,6 +45,7 @@
 		<category>Monsters\Champions\Lord Oaks</category>
 		<strproperty name="slayer_group" value="feys" />
 		<inherit id="speed_fast" />
+		<intproperty name="barddifficulty" value="1600" />
 	</npc>
 
 </definitions>

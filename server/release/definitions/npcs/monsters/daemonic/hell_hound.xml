@@ -47,6 +47,7 @@
 		<desc>What so ever raiment a daemon adorns, doubt not that their power remains beneath the garb. Truer words could not be spoken of the hounds from hell. Vicious and hungry, these hounds are pack animals whose sole desire is to relieve wanderers of their mortal coil.</desc>
 		<category>Monsters\Daemonic\Hell Hound</category>
 		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="628" />
 		<strproperty name="packinstinct" value="canine" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />

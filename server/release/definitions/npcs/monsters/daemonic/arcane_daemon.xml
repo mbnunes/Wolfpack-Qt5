@@ -42,6 +42,8 @@
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Arcane Daemon</category>
 		<strproperty name="slayer_group" value="daemons" />
+		<intproperty name="barddifficulty" value="880" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

@@ -42,6 +42,7 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Restless Soul</category>
+		<intproperty name="barddifficulty" value="198" />
 		<inherit id="speed_slow" />
 	</npc>
 

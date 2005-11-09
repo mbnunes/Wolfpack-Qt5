@@ -13,8 +13,8 @@
 		<name>Silvani</name>
 		<title>the Sprite Queen</title>
 		<id>176</id>
-		<karma>25000</karma>
-		<fame>25000</fame>
+		<inherit id="KARMA_NL5" />
+		<inherit id="FAME_L5" />
 		<!-- Stats -->
 		<str><random min="253" max="400"/></str>
 		<dex><random min="157" max="850"/></dex>
@@ -45,6 +45,7 @@
 		<category>Monsters\Champions\Silvani</category>
 		<strproperty name="slayer_group" value="feys" />
 		<inherit id="speed_fast" />
+		<intproperty name="barddifficulty" value="1281" />
 	</npc>
 
 </definitions>

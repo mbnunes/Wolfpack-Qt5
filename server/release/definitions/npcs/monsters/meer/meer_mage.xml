@@ -43,6 +43,9 @@
 		<lootpacks>gold_filthy_rich;scroll_medium;scroll_medium;</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Mage</category>
+		<strproperty name="slayer_group" value="meers" />
+		<intproperty name="barddifficulty" value="659" />
+		<ai>Monster_Mage</ai>
 	</npc>
 
 </definitions>

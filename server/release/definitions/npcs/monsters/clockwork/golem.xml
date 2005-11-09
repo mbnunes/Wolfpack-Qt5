@@ -12,7 +12,7 @@
 	<npc id="golem" inherit="monster_base">
 		<name>golem</name>
 		<id>752</id>
-		<karma><random list="FAME_NL3" /></karma>
+		<inherit id="KARMA_L3" />
 		<inherit id="FAME_L3" />
 		<!-- Stats -->
 		<str><random min="251" max="350"/></str>
@@ -33,9 +33,8 @@
 		<tag name="res_fire" value="100" type="int" />
 		<tag name="res_physical" value="35,55" type="int" />
 		<tag name="res_poison" value="10,25" type="int" />
-		<!-- Misc. -->
-		<desc>Built from metal, these hulking brutes are the resulting abomination of a marriage between machination and magic. Initially created forsinister purposes, these iron men are formidable foes, able to deliver stunning blows that can render their victims immobile. Their hard, metallic exterior protects them from most magic spells, andprovides a stalwart barrier against weapons. They are not invincible, but they are certainly a challenge to defeat. Only the hardiest of adventurers should even attempt to cross a golems path.</desc>
-		<!-- Missing: Clockwork Assembly, Power Crystal -->
+		<!-- Loot Packs -->
+		<!-- Missing: 11-25 Ingots, Clockwork Assembly, Power Crystal -->
 		<backpack>
 			<content>
 				<item id="arcanegem" />
@@ -44,8 +43,11 @@
 				</item>
 			</content>
 		</backpack>
+		<!-- Misc. -->
+		<desc>Built from metal, these hulking brutes are the resulting abomination of a marriage between machination and magic. Initially created forsinister purposes, these iron men are formidable foes, able to deliver stunning blows that can render their victims immobile. Their hard, metallic exterior protects them from most magic spells, andprovides a stalwart barrier against weapons. They are not invincible, but they are certainly a challenge to defeat. Only the hardiest of adventurers should even attempt to cross a golems path.</desc>
 		<category>Monsters\Clockwork\Golem</category>
 		<inherit id="speed_slow" />
+		<intproperty name="barddifficulty" value="784" />
 	</npc>
 
 </definitions>

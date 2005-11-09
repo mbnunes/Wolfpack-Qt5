@@ -45,6 +45,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Undead\Rotting Corpse</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<intproperty name="barddifficulty" value="1288" />
 		<inherit id="speed_slow" />
 		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>

@@ -38,6 +38,8 @@
 		<lootpacks>gold_rich;gems;gems_poor</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Solen\Black Solen Warrior</category>
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="729" />
 	</npc>
 
 </definitions>

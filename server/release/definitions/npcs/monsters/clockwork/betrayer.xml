@@ -41,6 +41,8 @@
 		<lootpacks>lootpack_rich;gems</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Betrayer</category>
+		<intproperty name="barddifficulty" value="965" />
+		<!-- Carving -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

@@ -7,6 +7,10 @@
 =================================================================
 -->
 <definitions>
+	<npc id="speed_frozen">
+		<speed action="500" wander="800" />
+	</npc>
+
 	<npc id="speed_slow">
 		<speed action="300" wander="600" />
 	</npc>

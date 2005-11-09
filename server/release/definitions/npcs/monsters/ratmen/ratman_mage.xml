@@ -42,6 +42,9 @@
 		<lootpacks>lootpack_rich;scroll_low;regs_high;statue</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Ratmen\Ratman Mage</category>
+		<strproperty name="slayer_group" value="ratmen" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="793" />
 		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />

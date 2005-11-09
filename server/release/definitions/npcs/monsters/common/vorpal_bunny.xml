@@ -29,7 +29,7 @@
 		<mindamage>1</mindamage>
 		<maxdamage>1</maxdamage>
 		<!-- Lootpacks -->
-		<lootpacks>lootpack_filthy_rich;lootpack_rich;lootpack_rich;lootpack_rich;vorpal_bunny</lootpacks>
+		<lootpacks>lootpack_filthy_rich;lootpack_rich;lootpack_rich;lootpack_rich;vorpal_bunny;statue</lootpacks>
 		<backpack>
 			<content>
 				<item id="c77"> <!-- carrots -->
@@ -40,6 +40,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Common\Vorpal Bunny</category>
 		<inherit id="speed_veryfast" />
+		<intproperty name="barddifficulty" value="1582" />
 	</npc>
 
 </definitions>

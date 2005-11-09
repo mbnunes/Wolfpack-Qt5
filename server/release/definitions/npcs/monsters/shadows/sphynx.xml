@@ -42,6 +42,7 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;scroll_medium;scroll_medium</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Sphynx</category>
+		<intproperty name="barddifficulty" value="1353" />
 		<ai>Monster_Mage</ai>
 	</npc>
 

@@ -38,6 +38,8 @@
 		<lootpacks>gold_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Solen\Black Solen Queen</category>
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="796" />
 	</npc>
 
 </definitions>

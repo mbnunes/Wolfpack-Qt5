@@ -44,6 +44,8 @@
 		<desc>The harbinger of vengeance among the Terathans. Their very touch poisons the body as well as the mind. The Avengers are unleashed bythe Matriarch only on the deepest infiltrators of their homeland. It is said Avengers possess the most arcane of weapons, but those are won only by removing them from the hands of a dead Avenger.</desc>
 		<category>Monsters\Terathan\Terathan Avenger</category>
 		<strproperty name="slayer_group" value="tarathans,terathans" />
+		<intproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="915" />
 		<ai>Monster_Mage</ai>
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="2" />

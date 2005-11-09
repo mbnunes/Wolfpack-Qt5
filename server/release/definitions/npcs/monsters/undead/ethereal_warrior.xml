@@ -12,7 +12,7 @@
 	<npc id="ethereal_warrior" inherit="undead_base">
 		<name>ethereal warrior</name>
 		<id>123</id>
-		<inherit id="KARMA_L4" />
+		<inherit id="KARMA_NL4" />
 		<inherit id="FAME_L4" />
 		<!-- Stats -->
 		<str><random min="586" max="785" /></str>
@@ -40,6 +40,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Undead\Ethereal Warrior</category>
 		<strproperty name="slayer_group" value="feys" />
+		<intproperty name="barddifficulty" value="1076" />
 		<hitsound>757,758</hitsound>
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>

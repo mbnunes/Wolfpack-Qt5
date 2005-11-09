@@ -44,6 +44,8 @@
 		<desc>Although ogres have no true martial order, the largest and meanest call themselves lords. If they differ from normal ogres, it is only in their size and strength. Given that they are ogres, this is no small worry. Ogre lords have been known to kill with one swipe of their massive club.</desc>
 		<category>Monsters\Giants\Ogre Lord</category>
 		<strproperty name="slayer_group" value="ogres" />
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="900" />
 		<inherit id="speed_slow" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />

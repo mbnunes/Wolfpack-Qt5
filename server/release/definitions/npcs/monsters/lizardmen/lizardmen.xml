@@ -41,6 +41,7 @@
 		<desc>These reptilian creatures are savage, but very Intelligent - perhaps equal in intellect to humanity, though without the moderating influences of civilization. They love gold, and will play the brigandon parties that are insufficiently protected.</desc>
 		<category>Monsters\Lizardmen\Lizardman (Random)</category>
 		<strproperty name="slayer_group" value="lizards" />
+		<intproperty name="barddifficulty" value="503" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<strproperty name="carve_hides_type" value="spined" />

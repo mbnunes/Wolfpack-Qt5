@@ -51,9 +51,13 @@
 		<desc>The dragon scorpion, as it is known to humans, is more than a scorpion, but less than a dragon. Lacking the spells and fearsome fire hurling abilities of the dragon, a wyvern retains the power of flight and adds a scorpion sting. Their poison can kill a hearty person inminutes.</desc>
 		<category>Monsters\Dragons\Wyrvern</category>
 		<strproperty name="slayer_group" value="dragons" />
+		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="782" />
+		<!-- Carving -->
 		<intproperty name="carve_hides" value="20" />
 		<strproperty name="carve_hides_type" value="horned" />
 		<intproperty name="carve_meat" value="10" />
+		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="3" />
 	</npc>
