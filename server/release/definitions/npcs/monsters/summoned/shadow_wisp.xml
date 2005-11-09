@@ -36,11 +36,12 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="95,100" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<lootpacks></lootpacks>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Summoned\Shadow Wisp</category>
+		<intproperty name="barddifficulty" value="0" />
 	</npc>
 
 </definitions>

@@ -15,6 +15,10 @@
 		<controlslots>3</controlslots>
 		<category>Summoned\Hellsteed</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<!-- Loot Packs -->
+		<lootpacks></lootpacks>
+		<!-- Misc. -->
+		<intproperty name="barddifficulty" value="784" />
 	</npc>
 
 </definitions>

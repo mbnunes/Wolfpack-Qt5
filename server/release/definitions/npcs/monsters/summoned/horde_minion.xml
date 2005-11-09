@@ -34,10 +34,11 @@
 		<tag name="res_poison" value="25,30" type="int" />
 		<tag name="res_energy" value="25,30" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<lootpacks></lootpacks>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<category>Summoned\Horde Minion</category>
+		<intproperty name="barddifficulty" value="0" />
 	</npc>
 
 </definitions>

@@ -33,10 +33,11 @@
 		<tag name="res_poison" value="50,60" type="int" />
 		<tag name="res_energy" value="50,60" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<lootpacks></lootpacks>
 		<!-- Misc. -->
 		<controlslots>4</controlslots>
 		<category>Summoned\Fire Elemental</category>
+		<intproperty name="barddifficulty" value="831" />
 	</npc>
 
 </definitions>

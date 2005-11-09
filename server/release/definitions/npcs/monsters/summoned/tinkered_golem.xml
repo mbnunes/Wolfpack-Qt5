@@ -21,6 +21,8 @@
 		<skill id="tactics"><random min="601" max="1000" /></skill>
 		<skill id="magicresistance"><random min="1501" max="1900" /></skill>
 		<skill id="anatomy">0</skill>
+		<!-- Loot Packs -->
+		<lootpacks></lootpacks>
 		<!-- Misc. -->
 		<controlslots>4</controlslots>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

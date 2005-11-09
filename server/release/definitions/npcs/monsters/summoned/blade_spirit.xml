@@ -43,6 +43,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<category>Summoned\Blade Spirit</category>
+		<intproperty name="barddifficulty" value="745" />
 		<inherit id="speed_fast" />
 		<!-- Dispel Difficulty -->
 		<intproperty name="dispelfocus" value="200" />
