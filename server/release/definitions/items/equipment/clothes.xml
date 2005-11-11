@@ -714,6 +714,8 @@
 	<item id="2799">
 		<category>Clothes\Samurai\Kamishimo</category>
 		<id>0x2799</id>
+		<dye />
+		<basescripts>equipment</basescripts>
 	</item>
 	<item id="27e4" inherit="2799">
 		<id>0x27e4</id>
@@ -724,6 +726,8 @@
 	<item id="279a">
 		<category>Clothes\Samurai\Hakama</category>
 		<id>0x279a</id>
+		<dye />
+		<basescripts>equipment</basescripts>
 	</item>
 	<item id="27e5" inherit="279a">
 		<id>0x27e5</id>
@@ -734,6 +738,8 @@
 	<item id="279b">
 		<category>Clothes\Samurai\Tattsuke-Hakama</category>
 		<id>0x279b</id>
+		<dye />
+		<basescripts>equipment</basescripts>
 	</item>
 	<item id="27e6" inherit="279b">
 		<id>0x27e6</id>
@@ -744,6 +750,8 @@
 	<item id="279c">
 		<category>Clothes\Samurai\Tattsuke-Shita</category>
 		<id>0x279c</id>
+		<dye />
+		<basescripts>equipment</basescripts>
 	</item>
 	<item id="27e7" inherit="279c">
 		<id>0x27e7</id>
@@ -754,6 +762,8 @@
 	<item id="27a0">
 		<category>Clothes\Samurai\Obi</category>
 		<id>0x27a0</id>
+		<dye />
+		<basescripts>equipment</basescripts>
 	</item>
 	<item id="27eb" inherit="27a0">
 		<id>0x27eb</id>
@@ -764,6 +774,8 @@
 	<item id="27a1">
 		<category>Clothes\Samurai\Jin-Baori</category>
 		<id>0x27a1</id>
+		<dye />
+		<basescripts>equipment</basescripts>
 	</item>
 	<item id="27ec" inherit="27a1">
 		<id>0x27ec</id>
