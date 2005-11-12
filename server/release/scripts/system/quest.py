@@ -10,6 +10,7 @@
 from wolfpack import tr
 import wolfpack
 from wolfpack.gumps import cGump
+from wolfpack.consts import WPDT_QUEST
 
 def openquestplayer(player):
 	
@@ -116,3 +117,10 @@ def questplayerresponse( char, args, target ):
 
 		char.socket.sysmessage("Quest System is not yet implemented.")
 		return True
+
+
+def givequestname(id):
+	quest = wolfpack.getdefinition(WPDT_QUEST, str(id))
+	quest = quest.getchild(0)
+
+	return quest.text

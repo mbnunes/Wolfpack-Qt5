@@ -48,6 +48,8 @@ void cDefinable::applyDefinition( const cElement* sectionNode )
 			wpType = WPDT_REGION;
 		else if ( sectionNode->name() == "spawnregion" )
 			wpType = WPDT_SPAWNREGION;
+		else if ( sectionNode->name() == "quest" )
+			wpType = WPDT_QUEST;
 
 		const cElement* tInherit = Definitions::instance()->getDefinition( wpType, sectionNode->getAttribute( "inherit", "" ) );
 

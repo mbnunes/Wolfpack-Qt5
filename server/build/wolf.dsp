@@ -287,6 +287,10 @@ SOURCE=..\src\pythonscript.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\src\quests.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\src\scriptmanager.cpp
 # End Source File
 # Begin Source File
@@ -568,6 +572,10 @@ SOURCE=..\src\progress.h
 # Begin Source File
 
 SOURCE=..\src\pythonscript.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\quests.h
 # End Source File
 # Begin Source File
 

@@ -68,4 +68,7 @@
 	<!-- Spawn Regions -->
 	<include file="definitions/spawnregions/index.xml" />
 
+	<!-- Quests -->
+	<include file="definitions/quests/index.xml" />
+
 </definitions>
