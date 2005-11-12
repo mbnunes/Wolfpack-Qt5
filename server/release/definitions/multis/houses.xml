@@ -19,7 +19,7 @@
 		<basescripts>housing.security,door</basescripts>
 		<bindmenu>security_menu</bindmenu>
 	</item>
-	
+
 	<item id="housesign">
 		<id>0xbd2</id>
 		<nodecay />
@@ -32,13 +32,13 @@
 		<id>0x4064</id>
 		<nodecay />
 	</multi>
-	
+
 	<!-- Base for small houses -->
 	<multi id="smallhouse_items">
 		<door x="0" y="3" z="7" id="0x6a5" /> <!-- Wooden door facing south -->
 		<sign x="2" y="4" z="5" />
 	</multi>
-	
+
 	<multi id="small_stone_and_plaster_house">
 		<inherit id="smallhouse_items" />
 		<name>Small Stone and Plaster House</name>
@@ -412,7 +412,6 @@
 		<nodecay />
 		<category>Empty\Log Cabin</category>
 	</multi>
-	
 
 	<multi id="log_cabin">
 		<name>Log Cabin</name>

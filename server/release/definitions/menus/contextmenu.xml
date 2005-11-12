@@ -123,5 +123,11 @@
 		<scripts>comcrystals</scripts>
 		<option tag="400" msgid="5117" checkvisible="true" /> <!-- active -->
 		<option tag="401" msgid="5118" checkvisible="true" /> <!-- inactive -->
+	</contextmenu>
+
+	<contextmenu id="scroll_menu">
+		<scripts>magic.scroll</scripts>
+		<option tag="500" msgid="6144" checkvisible="true" /> <!-- Add To Spellbook -->
 	</contextmenu>	
+
 </definitions>

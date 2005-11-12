@@ -544,7 +544,7 @@ class Exorzism(Spell):
 	def __init__(self):
 		Spell.__init__(self, 6)
 		self.skill = NECROMANCY
-		self.requiredskill = 80
+		self.requiredskill = 1000
 		self.damageskill = SPIRITSPEAK
 		self.mana = 40
 		self.reagents = {REAGENT_GRAVEDUST: 1, REAGENT_NOXCRYSTAL: 1}

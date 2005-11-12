@@ -44,10 +44,7 @@
 	<item id="boat_small">
 		<id>0x14F0</id>
 		<name>boat</name>
-		<tag type="string">
-			<key>multisection</key>
-			<value>boat_small</value>
-		</tag>
+		<tag name="multisection" value="boat_small" />
 	</item>
 
 	<multi id="dragonboat_small" type="boat">
@@ -87,10 +84,7 @@
 	<item id="dragonboat_small">
 		<id>0x14F0</id>
 		<name>dragon boat</name>
-		<tag type="string">
-			<key>multisection</key>
-			<value>dragonboat_small</value>
-		</tag>
+		<tag name="multisection" value="dragonboat_small" />
 	</item>
 
 	<multi id="boat_medium" type="boat">
@@ -130,10 +124,7 @@
 	<item id="boat_medium">
 		<id>0x14F0</id>
 		<name>ship</name>
-		<tag type="string">
-			<key>multisection</key>
-			<value>boat_medium</value>
-		</tag>
+		<tag name="multisection" value="boat_medium" />
 	</item>
 
 	<multi id="dragonboat_medium" type="boat">
@@ -173,10 +164,7 @@
 	<item id="dragonboat_medium">
 		<id>0x14F0</id>
 		<name>dragon ship</name>
-		<tag type="string">
-			<key>multisection</key>
-			<value>dragonboat_medium</value>
-		</tag>
+		<tag name="multisection" value="dragonboat_medium" />
 	</item>
 
 	<multi id="boat_large" type="boat">
@@ -216,10 +204,7 @@
 	<item id="boat_large">
 		<id>0x14F0</id>
 		<name>galley</name>
-		<tag type="string">
-			<key>multisection</key>
-			<value>boat_large</value>
-		</tag>
+		<tag name="multisection" value="boat_large" />
 	</item>
 
 	<multi id="dragonboat_large" type="boat">
@@ -259,10 +244,7 @@
 	<item id="dragonboat_large">
 		<id>0x14F0</id>
 		<name>dragon galley</name>
-		<tag type="string">
-			<key>multisection</key>
-			<value>dragonboat_large</value>
-		</tag>
+		<tag name="multisection" value="dragonboat_large" />
 	</item>
 
 </definitions>
