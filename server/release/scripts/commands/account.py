@@ -385,8 +385,7 @@ def accountSet( socket, username, key, value ):
 					socket.sysmessage( "Error: The account.multigems property must be boolean!" )
 					return False
 			elif key == 'block':
-				socket.sysmessage(str(value))
-				if value.lower() == "true" or int(value) == 1:
+				if value.lower() == "true" or (type(value) == int and int(value) == 1):
 					if account.flags & 0x00000001:
 						socket.sysmessage( "Account already blocked!" )
 						return False
@@ -395,8 +394,7 @@ def accountSet( socket, username, key, value ):
 						socket.sysmessage( "Account '%s' blocked!" % account.name )
 						char.log( LOG_MESSAGE, "Blocked account '%s'.\n" % account.name  )
 						return True
-				elif value.lower() == "false" or int(value) == 0:
-					socket.sysmessage( "sfsf")
+				elif value.lower() == "false" or (type(value) == int and int(value) == 0):
 					if account.flags & 0x00000001:
 						account.flags &= ~ 0x00000001
 						socket.sysmessage( "Unblocked account '%s'!" % account.name )
@@ -404,6 +402,9 @@ def accountSet( socket, username, key, value ):
 					else:
 						socket.sysmessage( "Account is not blocked!" )
 						return False
+				else:
+					socket.sysmessage( "Value must be false or 0, true or 1" )
+					return False
 			# Password
 			elif key == 'password':
 				if len( value ) > 16 or len( value ) == 0:

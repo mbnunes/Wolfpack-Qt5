@@ -59,10 +59,6 @@ class EnergyVortex(Spell):
 		self.reagents = {REAGENT_BLACKPEARL: 1, REAGENT_MANDRAKE: 1, REAGENT_BLOODMOSS: 1, REAGENT_NIGHTSHADE: 1}
 		self.mantra = 'Vas Corp Por'
 		self.validtarget = TARGET_GROUND
-	
-	# Takes 5 times the normal time to cast
-	def calcdelay(self, char, mode):
-		return Spell.calcdelay(self, char, mode) * 5
 
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)

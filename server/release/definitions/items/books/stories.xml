@@ -8,5 +8,616 @@
 =================================================================
 -->
 <definitions>
-	<!-- Feed Me! -->
+	<item id="blackthorne_welcome_book" inherit="base_book">
+		<category>Equipment\Books\Book 1</category>
+		<id>0xff1</id>
+		<color>0x89b</color>
+		<tag name="page0" value="  Greetings to you,
+					new member of the
+					Trusted.
+					  You now read these
+					words because you
+					have been deemed
+					worthy to join the
+					ranks of" />
+		<tag name="page1" value="Britannia's defenders.
+					Some will call you a
+					betrayer of mankind, I
+					say they are
+					misguided.  I call you
+					a defender for Sosaria
+					needs saving from
+					itself." />
+		<tag name="page2" value="  The forces of order
+					once ruled our world.
+					Like a great
+					darkness over our
+					lives we lived under
+					the oppressive watch
+					of a king who
+					dictated our actions" />
+		<tag name="page3" value="and passed judgement
+					on our character.  He
+					suppressed our way of
+					life by denying our
+					freedom and the
+					ability to determine
+					who we are and what
+					we stand for.  Even" />
+		<tag name="page4" value="today in the absense
+					of this man we still
+					see the symbol of his
+					tyranny, we watch his
+					personal guards patrol
+					the cities to
+					intimidate us, and we
+					feel his laws like a" />
+		<tag name="page5" value="vice on our lives.
+					  You are here
+					because you choose to
+					be free.  Like many
+					Britannians you have
+					felt the opression of
+					one man's ideas
+					weighing down upon" />
+		<tag name="page6" value="you like chains.  You
+					have felt the embrace
+					of fear, wondering if
+					you face consequence
+					for simply having
+					ideas not in harmony
+					with those forced upon
+					you.  You have seen" />
+		<tag name="page7" value="men fight and die for
+					the principles of a
+					zealot and wondered,
+					'Who will fight for
+					my principles should
+					they be opposed?'
+					You tire of living
+					under the shadow of" />
+		<tag name="page8" value="dreams that do not
+					belong to you.  And
+					most of all, you have
+					wondered what you
+					can do to live free.
+					  Your journey to
+					freedom begins here.
+					  I, like you, once" />
+		<tag name="page9" value="desired my freedom
+					from the limits placed
+					on me.  I watched in
+					disgust as this world
+					became engrossed with
+					the preaching of
+					virtue and none of the
+					practice.  I held my" />
+		<tag name="page10" value="convictions in check,
+					fearful of the reaction
+					of men blinded by
+					belief.  I forced
+					myself to bury the
+					very idealogy that
+					made me an individual.
+					I was fortunate that" />
+		<tag name="page11" value="a being of unique
+					power and
+					unimaginable
+					intelligence saw
+					through to the true
+					person I was, the
+					person I was meant to
+					be.  Exodus found" />
+		<tag name="page12" value="within me a man of
+					free will,
+					determination, and
+					incomprehension for
+					the plight of
+					oppression forced on so
+					many Britannians.
+					  Exodus has also" />
+		<tag name="page13" value="chosen you because of
+					the strength of your
+					character.
+					  Many of the men
+					who were once my
+					peers look upon me
+					and see a betrayer of
+					humanity.  They" />
+		<tag name="page14" value="claim my newfound
+					form is unnatural and
+					wrong.  Because they
+					see the unknown in
+					me, they show fear.
+					They disapprove of
+					my choices and in
+					their ignorance see" />
+		<tag name="page15" value="evil.  Yet I hide my
+					true self no longer
+					from these men.  My
+					thoughts and my
+					personal morality have
+					been liberated in the
+					face of the oppression
+					that once consumed me." />
+		<tag name="page16" value="Where they see a
+					man no longer human.
+					I see a man that has
+					not betrayed his
+					humanity but has been
+					freed from it.  This
+					is the power that has
+					been granted to me by" />
+		<tag name="page17" value="Exodus.  I have been
+					given my freedom.  I
+					have been released
+					from my fears.
+					  Exodus will give
+					you the power to
+					conquer your fears as
+					well." />
+		<tag name="page18" value="  When your fear
+					of this world is gone,
+					then the world truly
+					belongs to you in a
+					way it never has
+					before.  You, trusted
+					one, will soon be given
+					a gift.  Your body," />
+		<tag name="page19" value="like mine, will be
+					enlightened and raised
+					to a level no mortal
+					can know.  The power
+					to control your own
+					destiny will belong to
+					you for the first time
+					in your life." />
+		<tag name="page20" value="  You will, at long
+					last, be cleansed of
+					fear.
+					  Together, with the
+					power of Exodus
+					behind us, we shall
+					finally wage war on
+					the oppression that" />
+		<tag name="page21" value="once held us back
+					from our full
+					potential.  We shall
+					claim this world, and
+					reshape it in an image
+					of freedom for all of
+					us.  Those who once
+					told you who you are" />
+		<tag name="page22" value="and how you should
+					live will no longer be
+					able to stand in the
+					way of your free will.
+					Many say you will
+					be abandoning your
+					humanity but in truth,
+					you will be more than" />
+		<tag name="page23" value="human.
+					  You will be freed." />
+	</item>
+
+	<item id="drakovs_journal" inherit="base_book">
+		<category>Equipment\Books\Book 1</category>
+		<id>0xff2</id>
+		<tag name="page0" value="My Master
+					
+					This journal was
+					found on one of
+					our controllers.  It
+					seems he has lost
+					faith in you.  Know
+					that he has been" />
+		<tag name="page1" value="dealth with and will
+					never again speak
+					ill of you or our
+					cause.
+					          -Galzon" />
+		<tag name="page2" value="We have completted
+					construction of the
+					devices needed to
+					build the clockwork
+					overseers and minions
+					as per the request of
+					the Master.  The
+					gargoyles have been" />
+		<tag name="page3" value="most useful and their
+					knowledge of the
+					techniques for the
+					construction of these
+					creatures will serve
+					us well.
+					        -----
+					I am not one to" />
+		<tag name="page4" value="criticize the Master,
+					but I believe he may
+					have erred in his
+					decision to destroy
+					the wingless ones.
+					Already our forces
+					are weakened by the
+					constant attacks of" />
+		<tag name="page5" value="the humans  Their
+					strength and
+					unquestioning
+					compliance would
+					have made them very
+					useful in the fight
+					against the humans.
+					But the Master felt" />
+		<tag name="page6" value="their presence to be
+					an annoyance and
+					a distraction to the
+					winged ones.  It was
+					not difficult at all
+					to remove them from
+					this world.  But now
+					I fear without more" />
+		<tag name="page7" value="allies, willing or
+					not, we stand
+					little chance of
+					defeating the foul
+					humans from our
+					lands.  Perhaps if
+					the Master had
+					shown a little" />
+		<tag name="page8" value="mercy and forsight
+					we would not be
+					in such dire peril." />
+		
+	</item>
+
+	<item id="fropoz_journal" inherit="base_book">
+		<category>Equipment\Books\Book 1</category>
+		<id>0xff1</id>
+		<tag name="page0" value="I have done as my
+					Master has
+					instructed me.
+					
+					The painted humans
+					have been driven into
+					Britannia and are even
+					now wreaking havoc" />
+		<tag name="page1" value="across the land,
+					providing us with the
+					distraction my Master
+					requested.  We
+					have provided them
+					with the masks
+					necessary to defeat
+					the orcs, thus" />
+		<tag name="page2" value="causing even more
+					distress for the people
+					of Britannia.  The
+					unsuspecting fools
+					are too busy dealing
+					with the orc hordes to
+					continue their
+					exploration of our" />
+		<tag name="page3" value="lands.  We are
+					safe...for now.
+					     ----
+					The attacks
+					continue exactly as
+					planned.  My Master
+					is pleased with my
+					work and we are" />
+		<tag name="page4" value="closer to our goals than
+					ever before.  The
+					gargoyles have proven
+					to be more troublesome
+					than we first
+					anticipated, but I
+					believe we can
+					subjugate them fully" />
+		<tag name="page5" value="given enough time.  It's
+					unfortunate that we
+					did not discover their
+					knowledge sooner.
+					Even now they
+					prepare our armies
+					for battle, but not
+					without resistance." />
+		<tag name="page6" value="Now that some of
+					them know of the
+					other lands and of
+					humans, they will
+					double their efforts to
+					seek help.  This
+					cannot be allowed.
+					    -----" />
+		<tag name="page7" value="Damn them!!  The
+					humans proved
+					more resourcefull than
+					we thought them
+					capable of.  Already
+					their homes are free
+					of orcs and savages
+					and they once again" />
+		<tag name="page8" value="are treading in our
+					lands.  We may have to
+					move sooner than we
+					thought.  I will
+					prepar my brethern
+					and our golems.
+					Hopefully, we can
+					buy our Master some" />
+		<tag name="page9" value="more time before the
+					humans discover us.
+					     -----
+					It's too late.  The
+					gargoyles whom have
+					evaded our capture
+					have opened the doors
+					to our land." />
+		<tag name="page10" value="They pray the
+					humans will help
+					them, despite the
+					actions of their
+					cousins in Britannia.  I
+					fear they are right.
+					I must go to warn
+					the MastKai Hohiro," />
+		<tag name="page11" value="" />
+		<tag name="page12" value="10.11.2001
+					first one to be here
+					
+					Congrats. I didn't really
+					care to log on earlier,
+					nor did I come straight
+					here. 2pm, Magus" />
+	</item>
+
+	<item id="kabur_journal" inherit="base_book">
+		<category>Equipment\Books\Book 1</category>
+		<id>0xff1</id>
+		<tag name="page0" value="The campaign to slaughter
+					the Meer goes well.
+					Although they seem to
+					oppose the forces of
+					ours at every turn, we
+					still defeat them in
+					combat.  Spies of the
+					Meer have been found and" />
+		<tag name="page1" value="slain outside of the
+					fortress of ours.  The
+					fools underestimate us.
+					We have the power of
+					Lord Exodus behind us.
+					Soon they will learn to
+					serve the Juka and I
+					shall carry the head of" />
+		<tag name="page2" value="the wench, Dasha, on a
+					spike for all the warriors
+					of ours to share triumph
+					under.
+					
+					One of the warriors of
+					the Juka died today.
+					During the training" />
+		<tag name="page3" value="exercises of ours he
+					spoke out in favor of
+					the warriors of the
+					Meer, saying that they
+					were indeed powerful and
+					would provide a challenge
+					to the Juka.  A Juka in
+					fear is no Juka.  I gave" />
+		<tag name="page4" value="him the death of a
+					coward, outside of battle.
+					
+					More spies of the Meer
+					have been found around
+					the fortress of ours.
+					Many have been seen and
+					escaped the wrath of the" />
+		<tag name="page5" value="warriors of ours.  Those
+					who have been captured
+					and tortured have
+					revealed nothing to us,
+					even when subjected to
+					the spells of the females.
+					 I know the Meer must
+					have plans against us if" />
+		<tag name="page6" value="they send so many spies.
+					 I may send the troops
+					of the Juka to invade
+					the camps of theirs as a
+					warning.
+					
+					I have met Dasha in
+					battle this day.  The" />
+		<tag name="page7" value="efforts of hers to draw
+					me into a Black Duel
+					were foolish.   Had we
+					not been interrupted in
+					the cave I would have
+					ended the life of hers
+					but I will have to wait
+					for another battle.  Lord" />
+		<tag name="page8" value="Exodus has ordered more
+					patrols around the
+					fortress of ours.  If
+					Dasha is any indication,
+					the Meer will strike soon.
+					
+					More Meer stand outside
+					of the fortress of ours" />
+		<tag name="page9" value="than I have ever seen at
+					once.  They must seek
+					vengeance for the
+					destruction of their
+					forest.  Many Juka stand
+					ready at the base of the
+					mountain to face the
+					forces of theirs but" />
+		<tag name="page10" value="today may be the final
+					battle.  Exodus has
+					summoned me, I must
+					prepare.
+					
+					Dusk has passed and the
+					Juka now live in a new
+					age, a later time.  I have" />
+		<tag name="page11" value="just returned from
+					exploring the new world
+					that surrounds the
+					fortress of the Juka.
+					During the attack of the
+					Meer the madman
+					Adranath tried to destroy
+					the fortress of ours" />
+		<tag name="page12" value="with great magic.  At
+					once he was still and
+					light surrounded the
+					fortress.  Everything
+					faded from view.  When I
+					regained the senses of
+					mine I saw no sign of
+					the Meer but Dasha." />
+		<tag name="page13" value="She has not been found
+					since this new being,
+					Blackthorn, blasted her
+					from the top of the
+					fortress.
+					The forest was gone, now
+					replaced by grasslands.
+					In the far distance I" />
+		<tag name="page14" value="could see humans that
+					had covered the bodies of
+					theirs in marks.  Even
+					Gargoyles populate this
+					place.  Exodus has
+					explained to me that the
+					Juka and the fortress of
+					ours have been pulled" />
+		<tag name="page15" value="forward in time.  The
+					world we knew is now
+					thousands of years in the
+					past.  Lord Exodus say
+					he has has saved the
+					Juka from extinction.  I
+					do not want to believe
+					him.  I asked this" />
+		<tag name="page16" value="stranger about the Meer,
+					but he tells me a new
+					enemy remains to be
+					destroyed.  It seems the
+					enemies of ours have
+					passed away to dust like
+					the forest." />
+		<tag name="page17" value="I have spoken with other
+					Juka and I suspect I have
+					been told the truth.  All
+					the Juka had powerful
+					dreams.  In the dreams
+					of ours the Meer invaded
+					the fortress of ours and
+					a great battle took place." />
+		<tag name="page18" value=" All the Juka and all the
+					Meer perished and the
+					fortress was destroyed
+					from Adranath's spells.  I
+					would not like to believe
+					that the Meer could ever
+					destroy us, but now it
+					seems we have seen a" />
+		<tag name="page19" value="vision of the fate of
+					ours now lost in time.  I
+					must now wonder if the
+					Meer did not die in the
+					battle with the Juka, how
+					did they die?  And more
+					importantly, where is
+					Dasha?" />
+	</item>
+
+	<item id="translated_gargoyle_journal" inherit="base_book">
+		<category>Equipment\Books\Book 1</category>
+		<id>0xff2</id>
+		<tag name="page0" value="This text has been
+					translated from a
+					gargoyle's journal
+					following his capture
+					and subsequent
+					reeducation.
+					
+					          -Velis" />
+		<tag name="page1" value="I write this in the
+					hopes that someday a
+					soul of pure heart and
+					mind will read it.  We
+					are not the evil beings
+					that our cousin
+					gargoyles have made
+					us out to be.  We" />
+		<tag name="page2" value="consider them
+					uncivilized and they
+					have no concept of the
+					Principles.  To you
+					who reads this, I beg
+					for your help in
+					saving my brethern
+					and preserving my" />
+		<tag name="page3" value="race.  We stand at the
+					edge of destruction as
+					does the rest of the
+					world.  Once it was
+					written law that we
+					would not allow the
+					knowledge of our
+					civilization to spread" />
+		<tag name="page4" value="into the world, no we
+					are left with little
+					choice...contact the
+					outside world in the hopes
+					of finding help to save
+					it or becoming the
+					unwilling bringers of
+					its damnation." />
+		<tag name="page5" value="   I fear my capture is
+					certain, the
+					controllers grow ever
+					closer to my hiding
+					place and I know if
+					they discover me, my
+					fate will be as that of
+					my brothers." />
+		<tag name="page6" value="Although we resisted
+					with all our strength
+					it is now clear that we
+					must have assistance
+					or our people will be
+					gone.  And if our
+					oppressor achieves
+					his goals our race will" />
+		<tag name="page7" value="surely be joined buy
+					others.
+					   Those of us who
+					have not yet been
+					taken hope to open a
+					path from the outside
+					world into the city.
+					We believe we have" />
+		<tag name="page8" value="found weak areas in
+					the mountains that we
+					can successfully
+					knock through with
+					our limited supplies.
+					We will have to work
+					quickly and the risk
+					of being discovered is" />
+		<tag name="page9" value="great, but no choice
+					remains..." />
+		<tag name="page10" value="" />
+		<tag name="page11" value="" />
+		<tag name="page12" value="Kai Hohiro, 12pm.
+					10.11.2001
+					first one to be here" />
+		
+	</item>
+
 </definitions>

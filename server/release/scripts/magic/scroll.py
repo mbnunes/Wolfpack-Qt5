@@ -62,8 +62,8 @@ def onDropOnItem( cont, item ):
 
 				else:
 					item.delete() # Consume the scroll
-				return True # Do nothing else.
 			else:
+				char.socket.clilocmessage( 500179 ) # That spell is already present in that spellbook.
 				return False
 
 	elif cont.hasscript( 'magic.chivalryspellbook' ):
@@ -80,8 +80,8 @@ def onDropOnItem( cont, item ):
 
 				else:
 					item.delete() # Consume the scroll
-				return True # Do nothing else.
 			else:
+				char.socket.clilocmessage( 500179 ) # That spell is already present in that spellbook.
 				return False
 
 	elif cont.hasscript( 'magic.necrospellbook' ):
@@ -98,11 +98,13 @@ def onDropOnItem( cont, item ):
 
 				else:
 					item.delete() # Consume the scroll
-				return True # Do nothing else.
 			else:
+				char.socket.clilocmessage( 500179 ) # That spell is already present in that spellbook.
 				return False
 
 	else:
 		return False
 
-	return False
+	char.soundeffect(0x249)
+
+	return True
