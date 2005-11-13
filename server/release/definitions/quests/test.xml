@@ -6,26 +6,26 @@
 |  ( (  ;._ \\ ctr | Last Modification: Created
 =================================================================
 -->
+
 <definitions>
 	
 	<quest id="0">
 		<name>Quest Test 0</name>
 		<description>Test Quest Description 0</description>
+		<npctargets>efreet,doppleganger</npctargets>
+		<npctargetsamounts>10,10</npctargetsamounts>
+		<rewarditems>eed</rewarditems>
+		<rewardsamount>100</rewardsamount>
 	</quest>
 
 	<quest id="1">
 		<name>Quest Test 1</name>
 		<description>Test Quest Description 1</description>
-	</quest>
-
-	<quest id="2">
-		<name>Quest Test 2</name>
-		<description>Test Quest Description 2</description>
-	</quest>
-
-	<quest id="3">
-		<name>Quest Test 3</name>
-		<description>Test Quest Description 3</description>
+		<requiredquests>0</requiredquests>
+		<npctargets>efreet,doppleganger</npctargets>
+		<npctargetsamounts>10,10</npctargetsamounts>
+		<rewarditems>eed</rewarditems>
+		<rewardsamount>100</rewardsamount>
 	</quest>
 
 </definitions>

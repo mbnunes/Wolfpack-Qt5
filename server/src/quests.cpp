@@ -62,6 +62,16 @@ void cQuests::load()
 				nQuest.name = node->text();
 			else if ( node->name() == "description" )
 				nQuest.description = node->text();
+			else if ( node->name() == "requiredquests" )
+				nQuest.requiredquests = node->text();
+			else if ( node->name() == "npctargets" )
+				nQuest.npctargets = node->text();
+			else if ( node->name() == "npctargetsamounts" )
+				nQuest.npcamounts = node->text();
+			else if ( node->name() == "rewarditems" )
+				nQuest.rewards = node->text();
+			else if ( node->name() == "rewardsamount" )
+				nQuest.rewardamounts = node->text();
 		}
 
 		quests.push_back( nQuest );

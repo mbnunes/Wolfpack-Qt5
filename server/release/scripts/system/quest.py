@@ -120,7 +120,61 @@ def questplayerresponse( char, args, target ):
 
 
 def givequestname(id):
-	quest = wolfpack.getdefinition(WPDT_QUEST, str(id))
-	quest = quest.getchild(0)
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
-	return quest.text
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'name':
+			quest = subnode.text
+
+	return quest
+
+def givequestdescription(id):
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'description':
+			quest = subnode.text
+
+	return quest
+
+def givequestrequiredquests(id):
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'requiredquests':
+			quest = subnode.text
+
+	return quest
+
+def givequestnpctargets(id):
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'npctargets':
+			quest = subnode.text
+
+	return quest
+
+def givequestrewards(id):
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'rewarditems':
+			quest = subnode.text
+
+	return quest
