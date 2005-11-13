@@ -125,6 +125,7 @@ public:
 	virtual bool isInnocent();
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );
+	void poll( unsigned int time, unsigned int events );
 
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );

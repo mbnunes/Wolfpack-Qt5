@@ -1395,6 +1395,21 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	onShowTooltip( player, &tooltip );
 }
 
+void cNPC::poll( unsigned int time, unsigned int events )
+{
+	cBaseChar::poll( time, events );
+
+	if ( events & EventTime )
+	{
+		if ( canHandleEvent( EVENT_TIMECHANGE ) )
+		{
+			PyObject* args = Py_BuildValue( "(N)", getPyObject() );
+			callEventHandler( EVENT_TIMECHANGE, args );
+			Py_DECREF( args );
+		}
+	}
+}
+
 void cNPC::setStablemasterSerial( SERIAL data )
 {
 	if ( stablemasterSerial_ == data )

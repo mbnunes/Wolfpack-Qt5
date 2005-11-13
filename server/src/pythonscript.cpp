@@ -452,8 +452,8 @@ for scripts in the objects basescripts list.
 
 /*
 \event onTimeChange
-\param player The player.
-\condition This event is called for every connected client once an ingame hour has elapsed.
+\param char The char.
+\condition This event is called for every connected client (or npcs) once an ingame hour has elapsed.
 */
 "onTimeChange",
 

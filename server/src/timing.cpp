@@ -254,8 +254,8 @@ void cTiming::poll()
 		positions.append( socket->player()->pos() );
 	}
 
-	// Check all other characters
-	if ( nextNpcCheck <= time )
+	// Check all other characters (Implementation of OnTimeChange Event too for NPCs)
+	if ( ( nextNpcCheck <= time ) || ( events & cBaseChar::EventTime ) )
 	{
 		cCharIterator chariter;
 		for ( P_CHAR character = chariter.first(); character; character = chariter.next() )
@@ -294,11 +294,14 @@ void cTiming::poll()
 			}
 		}
 
-		if ( nextTamedCheck <= time )
-			nextTamedCheck = ( uint ) ( time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC );
-
 		if ( nextNpcCheck <= time )
-			nextNpcCheck = ( uint ) ( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
+		{
+			if ( nextTamedCheck <= time )
+				nextTamedCheck = ( uint ) ( time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC );
+
+			if ( nextNpcCheck <= time )
+				nextNpcCheck = ( uint ) ( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
+		}
 	}
 
 	// Check the Timers
