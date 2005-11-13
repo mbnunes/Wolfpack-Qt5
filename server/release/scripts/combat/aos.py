@@ -58,27 +58,8 @@ def fireweapon(attacker, defender, weapon):
 				tobackpack(weapon, attacker)
 			return False
 
-		if random.random() >= 0.50:
-			if defender.player:
-				item = wolfpack.additem(ammo)
-				if not tobackpack(item, defender):
-					item.update()
-			else:
-				# Search for items at the same position
-				items = wolfpack.items(defender.pos.x, defender.pos.y, defender.pos.map)
-				handled = 0
-
-				for item in items:
-					if item.baseid == ammo:
-						item.amount += 1
-						item.update()
-						handled = 1
-						break
-
-				if not handled:
-					item = wolfpack.additem(ammo)
-					item.moveto(defender.pos)
-					item.update()
+		# The ammo is created and packed into the defenders backpack/put on the ground
+		createammo(defender, ammo)
 
 	projectile = properties.fromitem(weapon, PROJECTILE)
 
@@ -88,6 +69,29 @@ def fireweapon(attacker, defender, weapon):
 		attacker.movingeffect(projectile, defender, 0, 0, 14, hue)
 
 	return True
+
+def createammo(defender, ammo):
+	if random.random() >= 0.50:
+		if defender.player:
+			item = wolfpack.additem(ammo)
+			if not tobackpack(item, defender):
+				item.update()
+		else:
+			# Search for items at the same position
+			items = wolfpack.items(defender.pos.x, defender.pos.y, defender.pos.map)
+			handled = 0
+
+			for item in items:
+				if item.baseid == ammo:
+					item.amount += 1
+					item.update()
+					handled = 1
+					break
+
+			if not handled:
+				item = wolfpack.additem(ammo)
+				item.moveto(defender.pos)
+				item.update()
 
 #
 # Checks if the character hits his target or misses instead
