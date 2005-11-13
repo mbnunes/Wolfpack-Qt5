@@ -17,7 +17,6 @@
 		<durability><random min="26" max="30" /></durability>
 		<restock>10</restock>
 		<weight>6.0</weight>
-		<value>0</value>
 		<type>1009</type>
 		<sellprice>15</sellprice>
 		<basescripts>equipment</basescripts>

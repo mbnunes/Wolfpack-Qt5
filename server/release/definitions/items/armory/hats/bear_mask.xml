@@ -16,7 +16,6 @@
 		<nodye />
 		<durability><random min="20" max="25" /></durability>
 		<decay />
-		<value>40</value>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->

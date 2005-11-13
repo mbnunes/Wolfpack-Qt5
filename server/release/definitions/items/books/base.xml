@@ -11,7 +11,6 @@
 
 	<!-- Dont create this as a normal item -->
 	<item id="base_book">
-		<value>130</value>
 		<decay />
 		<weight>1.0</weight> <!-- A bit low i think -->
 		<type>11</type>

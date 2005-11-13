@@ -2193,49 +2193,51 @@
 	<!-- Gozas -->
 	<item id="28a4">
 		<id>0x28a4</id>
+		<nodecay />
+		<basescripts>furniture</basescripts>
 	</item>
 
-	<item id="28a5">
+	<item id="28a5" inherit="28a4">
 		<id>0x28a5</id>
 	</item>
 
-	<item id="28a6">
+	<item id="28a6" inherit="28a4">
 		<id>0x28a6</id>
 	</item>
 
-	<item id="28a7">
+	<item id="28a7" inherit="28a4">
 		<id>0x28a7</id>
 	</item>
 
-	<item id="28a8">
+	<item id="28a8" inherit="28a4">
 		<id>0x28a8</id>
 	</item>
 
-	<item id="28a9">
+	<item id="28a9" inherit="28a4">
 		<id>0x28a9</id>
 	</item>
 
-	<item id="28aa">
+	<item id="28aa" inherit="28a4">
 		<id>0x28aa</id>
 	</item>
 
-	<item id="28ab">
+	<item id="28ab" inherit="28a4">
 		<id>0x28ab</id>
 	</item>
 
-	<item id="28ac">
+	<item id="28ac" inherit="28a4">
 		<id>0x28ac</id>
 	</item>
 
-	<item id="28ad">
+	<item id="28ad" inherit="28a4">
 		<id>0x28ad</id>
 	</item>
 
-	<item id="28ae">
+	<item id="28ae" inherit="28a4">
 		<id>0x28ae</id>
 	</item>
 
-	<item id="28af">
+	<item id="28af" inherit="28a4">
 		<id>0x28af</id>
 	</item>
 

@@ -18,7 +18,6 @@
 		<decay />
 		<buyprice>18</buyprice>
 		<sellprice>9</sellprice>
-		<value>30</value>
 		<category>Professions\Necromancer\Spellbook</category>
 		<basescripts>magic.necrospellbook</basescripts>
 	</item>

@@ -170,7 +170,6 @@
 	<item id="dbf">
 		<id>0xdbf</id>
 		<decay />
-		<value>120</value>
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
 		<category>Professions\Fisher\Tools\Fishing Pole (N/S)</category>

@@ -81,7 +81,6 @@
 		<decay/>
 		<buyprice>50</buyprice>
 		<sellprice>25</sellprice>
-		<value>25</value>
 		<category>Professions\Musician\Instruments\Drum</category>
 		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
@@ -93,7 +92,6 @@
 		<decay/>
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
-		<value>25</value>
 		<category>Professions\Musician\Instruments\Tambourine</category>
 		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
@@ -105,7 +103,6 @@
 		<decay/>
 		<buyprice>60</buyprice>
 		<sellprice>30</sellprice>
-		<value>25</value>
 		<category>Professions\Musician\Instruments\Fancy Tambourine</category>
 		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
@@ -117,7 +114,6 @@
 		<decay/>
 		<buyprice>90</buyprice>
 		<sellprice>45</sellprice>
-		<value>25</value>
 		<category>Professions\Musician\Instruments\Standing Harp</category>
 		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
@@ -129,7 +125,6 @@
 		<decay/>
 		<buyprice>30</buyprice>
 		<sellprice>15</sellprice>
-		<value>25</value>
 		<category>Professions\Musician\Instruments\Harp</category>
 		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
@@ -141,7 +136,6 @@
 		<decay/>
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
-		<value>25</value>
 		<category>Professions\Musician\Instruments\Lute (N/S)</category>
 		<basescripts>equipment,skills.musicianship</basescripts>
 		<tag name="remaining_uses" type="int" value="35" />
