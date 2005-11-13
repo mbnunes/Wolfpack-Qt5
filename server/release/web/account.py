@@ -60,10 +60,13 @@ if save == 1:
 			record.block()
 		else:
 			record.unblock()
-		
+
 		if form.getvalue( 'blockuntil', '' ) != '':
 			record.blockuntil = form.getvalue( 'blockuntil', '' )
-			
+
+		if form.getvalue( 'email', '' ) != '':
+			record.email = form.getvalue( 'email', '' )
+
 		message = "The record has been updated successfully."
 
 content = """
@@ -81,6 +84,9 @@ content += '<tr><td colspan="2" height="1"><img src="line_green.png" height="1" 
 
 # Username
 content += '<tr><td>Username</td><td>%s</td></tr>' % account
+
+# E-Mail
+content += '<tr><td>E-Mail</td><td><input type="text" name="email" value="%s" /></td></tr>' % record.email
 
 # Change Password
 content += '<tr><td>Password</td><td><input type="password" name="password1" /></td></tr>'
