@@ -139,6 +139,21 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	else if ( !strcmp( name, "resores" ) )
 		return QString2Python( self->pRegion->resores() );
 	/*
+		\rproperty region.firstcoin The Definition of the First Coin for this Region (From New Monetary).
+	*/
+	else if ( !strcmp( name, "firstcoin" ) )
+		return QString2Python( self->pRegion->firstcoin() );
+	/*
+		\rproperty region.secondcoin The Definition of the Second Coin for this Region (From New Monetary).
+	*/
+	else if ( !strcmp( name, "secondcoin" ) )
+		return QString2Python( self->pRegion->secondcoin() );
+	/*
+		\rproperty region.thirdcoin The Definition of the Third Coin for this Region (From New Monetary).
+	*/
+	else if ( !strcmp( name, "thirdcoin" ) )
+		return QString2Python( self->pRegion->thirdcoin() );
+	/*
 		\rproperty region.midilist A list of midi sounds to be played for this region.
 	*/
 	else if ( !strcmp( name, "midilist" ) )
