@@ -25,7 +25,7 @@ def onContextEntry(char, target, tag):
 
 	#check if can be controlled
 	if not checkPetControl(target, char, "", ""):
-		return True
+		return False
 
 	if tag == 1: # Command: Kill
 		attack(char, target, 0)
