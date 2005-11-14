@@ -73,6 +73,9 @@ void cTerritory::init( void )
 	cBaseRegion::init();
 	midilist_ = "";
 	resores_ = "";
+	firstcoin_ = "eed";
+	secondcoin_ = "ef0";
+	thirdcoin_ = "eea";
 	flags_ = 0;
 	guardowner_ = QString();
 	fixedlight_ = -1;
@@ -131,6 +134,18 @@ void cTerritory::processNode( const cElement* Tag )
 	// <resores>ORES</resores>
 	else if ( TagName == "resores" )
 		this->resores_ = Value;
+
+	// <firstcoin>IDofCOIN</firstcoin>
+	else if ( TagName == "firstcoin" )
+		this->firstcoin_ = Value;
+
+	// <secondcoin>IDofCOIN</secondcoin>
+	else if ( TagName == "secondcoin" )
+		this->secondcoin_ = Value;
+
+	// <thirdcoin>IDofCOIN</thirdcoin>
+	else if ( TagName == "thirdcoin" )
+		this->thirdcoin_ = Value;
 
 	// <midilist>MIDI_COMBAT</midilist>
 	else if ( TagName == "midilist" )

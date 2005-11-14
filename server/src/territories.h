@@ -163,6 +163,18 @@ public:
 	{
 		return fixedlight_;
 	}
+	QString firstcoin( void ) const
+	{
+		return firstcoin_;
+	}
+	QString secondcoin( void ) const
+	{
+		return secondcoin_;
+	}
+	QString thirdcoin( void ) const
+	{
+		return thirdcoin_;
+	}
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
 
@@ -317,6 +329,10 @@ private:
 	QString midilist_; // midilist to play
 
 	QString resores_; // Resources Ores (Mining)
+
+	QString firstcoin_; // First Coin for this Region
+	QString secondcoin_; // Second Coin for this Region
+	QString thirdcoin_; // Third Coin for this Region
 
 	Q_UINT32 flags_; // flags like guarded, mark allowed, etc. (see getters)
 

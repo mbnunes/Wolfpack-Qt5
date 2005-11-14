@@ -162,26 +162,46 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		if (Config::instance()->usenewmonetary()) {
 			if (Config::instance()->payfrompackonly()) {
 
+				// Get the BackPack
+				P_ITEM backpack = pChar->getBackpack(); //My BackPack
+
+				// Lets Assign Region
+				cTerritory* Region = pVendor->region();
+
+				// Lets Assign the IDs
+				QString idfirst = "eed";
+				QString idsecond = "ef0";
+				QString idthird = "eea";
+
+				// Lets try to find the IDs ahn?
+				if ( Region )
+				{
+					idfirst = Region->firstcoin();
+					idsecond = Region->secondcoin();
+					idthird = Region->thirdcoin();
+				}				
+
 				// Get our total gold at once
-				Q_UINT32 packFirst = pChar->countItems( 0x0EED );
-				Q_UINT32 packSecond = pChar->countItems( 0x0EF0 );
-				Q_UINT32 packThird = pChar->countItems( 0x0EEA );
+				Q_UINT32 packFirst = backpack->countItems( idfirst );
+				Q_UINT32 packSecond = backpack->countItems( idsecond );
+				Q_UINT32 packThird = backpack->countItems( idthird );
+
 
 				if ( packFirst >= totalValue )
 				{
-					pChar->getBackpack()->removeItems( "eed", totalValue );
+					pChar->getBackpack()->removeItems( idfirst, totalValue );
 				}
 				else if ( (packFirst + packSecond/10) >= totalValue )
 				{
-					pChar->getBackpack()->removeItems( "eed", packFirst );
-					pChar->getBackpack()->removeItems( "ef0", ((totalValue - packFirst)*10) );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
+					pChar->getBackpack()->removeItems( idsecond, ((totalValue - packFirst)*10) );
 					socket->sendStatWindow();
 				}
 				else if ( (packFirst + packSecond/10 + packThird/100) >= totalValue )
 				{
-					pChar->getBackpack()->removeItems( "eed", packFirst );
-					pChar->getBackpack()->removeItems( "ef0", packSecond );
-					pChar->getBackpack()->removeItems( "eea", ( (totalValue * 100) - (packFirst * 100) ) - (packSecond * 10) );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
+					pChar->getBackpack()->removeItems( idsecond, packSecond );
+					pChar->getBackpack()->removeItems( idthird, ( (totalValue * 100) - (packFirst * 100) ) - (packSecond * 10) );
 					socket->sendStatWindow();
 				}
 				else
@@ -192,58 +212,77 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 			}
 			else
 			{
+				// Lets Assign Region
+				cTerritory* Region = pVendor->region();
+
+				// Lets Assign the IDs
+				QString idfirst = "eed";
+				QString idsecond = "ef0";
+				QString idthird = "eea";
+
+				// Lets try to find the IDs ahn?
+				if ( Region )
+				{
+					idfirst = Region->firstcoin();
+					idsecond = Region->secondcoin();
+					idthird = Region->thirdcoin();
+				}
+
 				// Get the BankBox
 				P_ITEM bank = pChar->getBankbox(); //My BankBox
-				// Get our total gold at once
-				Q_UINT32 bankFirst = bank->countItems( 0x0EED );
-				Q_UINT32 bankSecond = bank->countItems( 0x0EF0 );
-				Q_UINT32 bankThird = bank->countItems( 0x0EEA );
+				// Get the BackPack
+				P_ITEM backpack = pChar->getBackpack(); //My BackPack
 
-				Q_UINT32 packFirst = pChar->countItems( 0x0EED );
-				Q_UINT32 packSecond = pChar->countItems( 0x0EF0 );
-				Q_UINT32 packThird = pChar->countItems( 0x0EEA );
+				// Get our total gold at once
+				Q_UINT32 bankFirst = bank->countItems( idfirst );
+				Q_UINT32 bankSecond = bank->countItems( idsecond );
+				Q_UINT32 bankThird = bank->countItems( idthird );
+
+				Q_UINT32 packFirst = backpack->countItems( idfirst );
+				Q_UINT32 packSecond = backpack->countItems( idsecond );
+				Q_UINT32 packThird = backpack->countItems( idthird );
 
 				// Lets go... First Money Section
 				if ( packFirst >= totalValue )
 				{
-					pChar->getBackpack()->removeItems( "eed", totalValue );
+					pChar->getBackpack()->removeItems( idfirst, totalValue );
 				}
 				else if ( bankFirst >= totalValue )
 				{
 					fromWhere = 1;
-					pChar->getBankbox()->removeItems( "eed", totalValue );
+					pChar->getBankbox()->removeItems( idfirst, totalValue );
 				}
 				else if ( (bankFirst + packFirst) >= totalValue )
 				{
 					fromWhere = 2;
 					// From Pack the Max
-					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
 					// From Bank the rest
-					pChar->getBankbox()->removeItems( "eed", (totalValue - packFirst) );
+					pChar->getBankbox()->removeItems( idfirst, (totalValue - packFirst) );
 				}
 				// First + Second Money Session
 				else if ( (packFirst + packSecond/10) >= totalValue )
 				{
-					pChar->getBackpack()->removeItems( "eed", packFirst );
-					pChar->getBackpack()->removeItems( "ef0", ((totalValue - packFirst)*10) );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
+					pChar->getBackpack()->removeItems( idsecond, ((totalValue - packFirst)*10) );
 					socket->sendStatWindow();
 				}
 				else if ( (bankFirst + bankSecond/10) >= totalValue )
 				{
 					fromWhere = 1;
-					pChar->getBankbox()->removeItems( "eed", bankFirst );
-					pChar->getBankbox()->removeItems( "ef0", ((totalValue - bankFirst)*10) );
+					pChar->getBankbox()->removeItems( idfirst, bankFirst );
+					pChar->getBankbox()->removeItems( idsecond, ((totalValue - bankFirst)*10) );
 					socket->sendStatWindow();
 				}
 				else if ( (bankFirst + packFirst + packSecond/10) >= totalValue )
 				{
 					fromWhere = 2;
 					// From Pack the Max
-					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
 					// From Bank more things
-					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					pChar->getBankbox()->removeItems( idfirst, bankFirst );
 					// And now, from Pack the Silver
-					pChar->getBackpack()->removeItems( "ef0", ((totalValue - packFirst - bankFirst)*10) );
+					pChar->getBackpack()->removeItems( idsecond, ((totalValue - packFirst - bankFirst)*10) );
 					// Socket
 					socket->sendStatWindow();
 				}
@@ -251,44 +290,44 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 				{
 					fromWhere = 2;
 					// From Pack the Max
-					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
 					// From Bank more things
-					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					pChar->getBankbox()->removeItems( idfirst, bankFirst );
 					// Now, from Pack the Silver
-					pChar->getBackpack()->removeItems( "ef0", packSecond );
+					pChar->getBackpack()->removeItems( idsecond, packSecond );
 					// and finally, from Bank
-					pChar->getBankbox()->removeItems( "ef0", ((totalValue - packFirst - bankFirst - (packSecond/10))*10) );
+					pChar->getBankbox()->removeItems( idsecond, ((totalValue - packFirst - bankFirst - (packSecond/10))*10) );
 					// Socket
 					socket->sendStatWindow();
 				}
 				// First + Second + Third Money session (The Pain)
 				else if ( (packFirst + packSecond/10 + packThird/100) >= totalValue )
 				{
-					pChar->getBackpack()->removeItems( "eed", packFirst );
-					pChar->getBackpack()->removeItems( "ef0", packSecond );
-					pChar->getBackpack()->removeItems( "eea", ( (totalValue * 100) - (packFirst * 100) ) - (packSecond * 10) );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
+					pChar->getBackpack()->removeItems( idsecond, packSecond );
+					pChar->getBackpack()->removeItems( idthird, ( (totalValue * 100) - (packFirst * 100) ) - (packSecond * 10) );
 					socket->sendStatWindow();
 				}
 				else if ( (bankFirst + bankSecond/10 + bankThird/100) >= totalValue )
 				{
-					pChar->getBankbox()->removeItems( "eed", bankFirst );
-					pChar->getBankbox()->removeItems( "ef0", bankSecond );
-					pChar->getBankbox()->removeItems( "eea", ( (totalValue * 100) - (bankFirst * 100) ) - (bankSecond * 10) );
+					pChar->getBankbox()->removeItems( idfirst, bankFirst );
+					pChar->getBankbox()->removeItems( idsecond, bankSecond );
+					pChar->getBankbox()->removeItems( idthird, ( (totalValue * 100) - (bankFirst * 100) ) - (bankSecond * 10) );
 					socket->sendStatWindow();
 				}
 				else if ( (bankFirst + packFirst + packSecond/10 + bankSecond/10 + packThird/100) >= totalValue )
 				{
 					fromWhere = 2;
 					// From Pack the Max
-					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
 					// From Bank more things
-					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					pChar->getBankbox()->removeItems( idfirst, bankFirst );
 					// From Pack, the Silver
-					pChar->getBackpack()->removeItems( "ef0", packSecond );
+					pChar->getBackpack()->removeItems( idsecond, packSecond );
 					// From Bank, the Silver Too
-					pChar->getBankbox()->removeItems( "ef0", bankSecond );
+					pChar->getBankbox()->removeItems( idsecond, bankSecond );
 					// And, now, from the Pack, the Copper
-					pChar->getBackpack()->removeItems( "eea", ( (totalValue * 100) - (packFirst * 100) - (bankFirst * 100) ) - (packSecond * 10) - (bankSecond * 10) );
+					pChar->getBackpack()->removeItems( idthird, ( (totalValue * 100) - (packFirst * 100) - (bankFirst * 100) ) - (packSecond * 10) - (bankSecond * 10) );
 					// Socket
 					socket->sendStatWindow();
 				}
@@ -296,17 +335,17 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 				{
 					fromWhere = 2;
 					// From Pack the Max
-					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( idfirst, packFirst );
 					// From Bank more things
-					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					pChar->getBankbox()->removeItems( idfirst, bankFirst );
 					// From Pack, the Silver
-					pChar->getBackpack()->removeItems( "ef0", packSecond );
+					pChar->getBackpack()->removeItems( idsecond, packSecond );
 					// From Bank, the Silver Too
-					pChar->getBankbox()->removeItems( "ef0", bankSecond );
+					pChar->getBankbox()->removeItems( idsecond, bankSecond );
 					// From Pack, all the Copper
-					pChar->getBackpack()->removeItems( "eea", packThird );
+					pChar->getBackpack()->removeItems( idthird, packThird );
 					// And, now, from the Bank, the Copper
-					pChar->getBankbox()->removeItems( "eea", ( (totalValue * 100) - (packFirst * 100) - (bankFirst * 100) ) - (packSecond * 10) - (bankSecond * 10) - packThird );
+					pChar->getBankbox()->removeItems( idthird, ( (totalValue * 100) - (packFirst * 100) - (bankFirst * 100) ) - (packSecond * 10) - (bankSecond * 10) - packThird );
 					// Socket
 					socket->sendStatWindow();
 				}
