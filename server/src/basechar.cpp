@@ -2774,73 +2774,79 @@ bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned s
 
 // Regen Things (OnRegenStamina, OnRegenHitpoints, OnRegenMana)
 
-unsigned int cBaseChar::onRegenHitpoints( unsigned int timer )
+unsigned int cBaseChar::onRegenHitpoints( unsigned int points )
 {
 	if ( canHandleEvent( EVENT_REGENHITS ) )
 	{
-		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, points );
 		PyObject* result = callEvent( EVENT_REGENHITS, args );
 
 		if ( result )
 		{
 			if ( PyInt_Check( result ) )
-				timer = PyInt_AsLong( result );
+				points = PyInt_AsLong( result );
 
 			Py_DECREF( result );
 		}
 		else
-			timer = 0;
+			points = 0;
 
 		Py_DECREF( args );
 	}
+	else
+		points = 0;
 
-	return timer;
+	return points;
 }
 
-unsigned int cBaseChar::onRegenMana( unsigned int timer )
+unsigned int cBaseChar::onRegenMana( unsigned int points )
 {
 	if ( canHandleEvent( EVENT_REGENMANA ) )
 	{
-		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, points );
 		PyObject* result = callEvent( EVENT_REGENMANA, args );
 
 		if ( result )
 		{
 			if ( PyInt_Check( result ) )
-				timer = PyInt_AsLong( result );
+				points = PyInt_AsLong( result );
 
 			Py_DECREF( result );
 		}
 		else
-			timer = 0;
+			points = 0;
 
 		Py_DECREF( args );
 	}
+	else
+		points = 0;
 
-	return timer;
+	return points;
 }
 
-unsigned int cBaseChar::onRegenStamina( unsigned int timer )
+unsigned int cBaseChar::onRegenStamina( unsigned int points )
 {
 	if ( canHandleEvent( EVENT_REGENSTAMINA ) )
 	{
-		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, points );
 		PyObject* result = callEvent( EVENT_REGENSTAMINA, args );
 
 		if ( result )
 		{
 			if ( PyInt_Check( result ) )
-				timer = PyInt_AsLong( result );
+				points = PyInt_AsLong( result );
 
 			Py_DECREF( result );
 		}
 		else
-			timer = 0;
+			points = 0;
 
 		Py_DECREF( args );
 	}
+	else
+		points = 0;
 
-	return timer;
+	return points;
 }
 
 bool cBaseChar::kill( cUObject* source )
@@ -3585,6 +3591,9 @@ double cBaseChar::getHitpointRate()
 	if ( !pPlayer )
 		return 1.0 / ( 0.1 * ( 1 + points ) );
 
+	// Bonus from Regen Events
+	points += ( onRegenHitpoints(( uint ) ( floor( points ) )) );
+
 	// Tough for Humans
 
 	if ( isElf() )
@@ -3613,6 +3622,9 @@ double cBaseChar::getStaminaRate()
 
 	points += static_cast<int>( skillValue( FOCUS ) * 0.01 );
 	points = wpMax<int>( -1, points );
+
+	// Bonus from Regen Events
+	points += ( onRegenStamina(( uint ) ( floor( points ) )) );
 
 	return 1.0 / ( 0.1 * ( 2 + points ) );
 }
@@ -3662,6 +3674,9 @@ double cBaseChar::getManaRate()
 	{
 		points += getTag( "regenmana" ).toInt();
 	}
+
+	// Bonus from Regen Events
+	points += ( onRegenMana(( uint ) ( floor( points ) )) );
 
 	return 1.0 / ( 0.1 * points );
 }

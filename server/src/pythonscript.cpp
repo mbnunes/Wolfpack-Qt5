@@ -651,8 +651,8 @@ container that is being snooped into.
 /*
 \event onRegenHitpoints
 \param char The character who will recover Hitpoints
-\param timer The timer for the next Hitpoints recover.
-\return Return the new timer for next Hitpoints Recover. If 0, Default Regen will be canceled
+\param points The points for timer calculation to next Hitpoints recover.
+\return Return how many points have to be added to calculations for the next Hitpoints recover
 \condition Triggered when a character Recover Hitpoints from Regen time.
 */
 "onRegenHitpoints",
@@ -660,8 +660,8 @@ container that is being snooped into.
 /*
 \event onRegenMana
 \param char The character who will recover Mana
-\param timer The timer for the next Mana recover.
-\return Return the new timer for next Mana Recover. If 0, Default Regen will be canceled
+\param points The points for timer calculation to next Mana recover.
+\return Return how many points have to be added to calculations for the next Mana recover
 \condition Triggered when a character Recover Mana from Regen time.
 */
 "onRegenMana",
@@ -669,8 +669,8 @@ container that is being snooped into.
 /*
 \event onRegenStamina
 \param char The character who will recover Stamina
-\param timer The timer for the next Stamina recover.
-\return Return the new timer for next Stamina Recover. If 0, Default Regen will be canceled
+\param points The points for timer calculation to next Stamina recover.
+\return Return how many points have to be added to calculations for the next Stamina recover
 \condition Triggered when a character Recover Stamina from Regen time.
 */
 "onRegenStamina",

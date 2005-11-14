@@ -331,8 +331,9 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 			if ( !Config::instance()->hungerRate() || character->hunger() > 10 )
 			{
 				// get next health regeneration time
-				unsigned int hitsRegenTime = character->onRegenHitpoints(( uint ) ( floor( character->getHitpointRate() * 1000 ) ));
-			
+				//unsigned int hitsRegenTime = character->onRegenHitpoints(( uint ) ( floor( character->getHitpointRate() * 1000 ) ));
+				unsigned int hitsRegenTime = character->getHitpointRate() * 1000;
+
 				if ( hitsRegenTime )
 				{
 					character->setHitpoints( character->hitpoints() + 1 );
@@ -348,8 +349,9 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		if ( character->stamina() < character->maxStamina() )
 		{
 			// get next stamina regeneration time
-			unsigned int stamRegenTime = character->onRegenStamina(( uint ) ( floor( character->getStaminaRate() * 1000 ) ));
-			
+			//unsigned int stamRegenTime = character->onRegenStamina(( uint ) ( floor( character->getStaminaRate() * 1000 ) ));
+			unsigned int stamRegenTime = character->getStaminaRate() * 1000;
+
 			if ( stamRegenTime )
 			{
 
@@ -370,8 +372,9 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		if ( character->mana() < character->maxMana() )
 		{
 			// get next mana regeneration time
-			unsigned int manaRegenTime = character->onRegenMana(( uint ) ( floor( character->getManaRate() * 1000 ) ));
-			
+			//unsigned int manaRegenTime = character->onRegenMana(( uint ) ( floor( character->getManaRate() * 1000 ) ));
+			unsigned int manaRegenTime = character->getManaRate() * 1000;
+
 			if ( manaRegenTime )
 			{
 				character->setMana( character->mana() + 1 );
