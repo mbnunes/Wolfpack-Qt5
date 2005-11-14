@@ -183,6 +183,9 @@ protected:
 	int pathfindFollowRadius_;
 	int pathfindFleeRadius_;
 
+	// New Monetary
+	bool usenewmonetary_;
+
 public:
 	cConfig();
 
@@ -363,6 +366,9 @@ public:
 	float elfwisdombonus() const;
 	float humanstrongback() const;
 	float humantough() const;
+
+	// New Monetary system
+	bool usenewmonetary() const;
 
 private:
 	void setDefaultStartLocation();
@@ -768,6 +774,11 @@ inline float cConfig::humanstrongback() const
 inline float cConfig::humantough() const
 {
 	return humantough_;
+}
+// Monetary System
+inline bool cConfig::usenewmonetary() const
+{
+	return usenewmonetary_;
 }
 
 typedef Singleton<cConfig> Config;

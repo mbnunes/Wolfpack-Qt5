@@ -249,6 +249,9 @@ void cConfig::readData()
 	humanstrongback_ = getDouble( "Racial Features", "Human Strong Back", 1.5, true );
 	humantough_ = getDouble( "Racial Features", "Human Tough", 0.6, true );
 
+	// Monetary System
+	usenewmonetary_ = getBool( "Monetary", "Use New Monetary", false, true );
+
 }
 
 void cConfig::load()

@@ -158,48 +158,211 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 
 	if ( !pChar->isGM() )
 	{
-		if (Config::instance()->payfrompackonly()) {
+		// Oh yeah, the new monetary
+		if (Config::instance()->usenewmonetary()) {
+			if (Config::instance()->payfrompackonly()) {
 
-			// Get our total gold at once
-			Q_UINT32 packGold = pChar->countGold();
+				// Get our total gold at once
+				Q_UINT32 packFirst = pChar->countItems( 0x0EED );
+				Q_UINT32 packSecond = pChar->countItems( 0x0EF0 );
+				Q_UINT32 packThird = pChar->countItems( 0x0EEA );
 
-			if ( packGold >= totalValue )
-			{
-				pChar->getBackpack()->removeItems( "eed", totalValue );
+				if ( packFirst >= totalValue )
+				{
+					pChar->getBackpack()->removeItems( "eed", totalValue );
+				}
+				else if ( (packFirst + packSecond/10) >= totalValue )
+				{
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( "ef0", ((totalValue - packFirst)*10) );
+					socket->sendStatWindow();
+				}
+				else if ( (packFirst + packSecond/10 + packThird/100) >= totalValue )
+				{
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( "ef0", packSecond );
+					pChar->getBackpack()->removeItems( "eea", ( (totalValue * 100) - (packFirst * 100) ) - (packSecond * 10) );
+					socket->sendStatWindow();
+				}
+				else
+				{
+					pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+					return;
+				}
 			}
 			else
 			{
-				pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
-				return;
+				// Get the BankBox
+				P_ITEM bank = pChar->getBankbox(); //My BankBox
+				// Get our total gold at once
+				Q_UINT32 bankFirst = bank->countItems( 0x0EED );
+				Q_UINT32 bankSecond = bank->countItems( 0x0EF0 );
+				Q_UINT32 bankThird = bank->countItems( 0x0EEA );
+
+				Q_UINT32 packFirst = pChar->countItems( 0x0EED );
+				Q_UINT32 packSecond = pChar->countItems( 0x0EF0 );
+				Q_UINT32 packThird = pChar->countItems( 0x0EEA );
+
+				// Lets go... First Money Section
+				if ( packFirst >= totalValue )
+				{
+					pChar->getBackpack()->removeItems( "eed", totalValue );
+				}
+				else if ( bankFirst >= totalValue )
+				{
+					fromWhere = 1;
+					pChar->getBankbox()->removeItems( "eed", totalValue );
+				}
+				else if ( (bankFirst + packFirst) >= totalValue )
+				{
+					fromWhere = 2;
+					// From Pack the Max
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					// From Bank the rest
+					pChar->getBankbox()->removeItems( "eed", (totalValue - packFirst) );
+				}
+				// First + Second Money Session
+				else if ( (packFirst + packSecond/10) >= totalValue )
+				{
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( "ef0", ((totalValue - packFirst)*10) );
+					socket->sendStatWindow();
+				}
+				else if ( (bankFirst + bankSecond/10) >= totalValue )
+				{
+					fromWhere = 1;
+					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					pChar->getBankbox()->removeItems( "ef0", ((totalValue - bankFirst)*10) );
+					socket->sendStatWindow();
+				}
+				else if ( (bankFirst + packFirst + packSecond/10) >= totalValue )
+				{
+					fromWhere = 2;
+					// From Pack the Max
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					// From Bank more things
+					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					// And now, from Pack the Silver
+					pChar->getBackpack()->removeItems( "ef0", ((totalValue - packFirst - bankFirst)*10) );
+					// Socket
+					socket->sendStatWindow();
+				}
+				else if ( (bankFirst + packFirst + packSecond/10 + bankSecond/10) >= totalValue )
+				{
+					fromWhere = 2;
+					// From Pack the Max
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					// From Bank more things
+					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					// Now, from Pack the Silver
+					pChar->getBackpack()->removeItems( "ef0", packSecond );
+					// and finally, from Bank
+					pChar->getBankbox()->removeItems( "ef0", ((totalValue - packFirst - bankFirst - (packSecond/10))*10) );
+					// Socket
+					socket->sendStatWindow();
+				}
+				// First + Second + Third Money session (The Pain)
+				else if ( (packFirst + packSecond/10 + packThird/100) >= totalValue )
+				{
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					pChar->getBackpack()->removeItems( "ef0", packSecond );
+					pChar->getBackpack()->removeItems( "eea", ( (totalValue * 100) - (packFirst * 100) ) - (packSecond * 10) );
+					socket->sendStatWindow();
+				}
+				else if ( (bankFirst + bankSecond/10 + bankThird/100) >= totalValue )
+				{
+					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					pChar->getBankbox()->removeItems( "ef0", bankSecond );
+					pChar->getBankbox()->removeItems( "eea", ( (totalValue * 100) - (bankFirst * 100) ) - (bankSecond * 10) );
+					socket->sendStatWindow();
+				}
+				else if ( (bankFirst + packFirst + packSecond/10 + bankSecond/10 + packThird/100) >= totalValue )
+				{
+					fromWhere = 2;
+					// From Pack the Max
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					// From Bank more things
+					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					// From Pack, the Silver
+					pChar->getBackpack()->removeItems( "ef0", packSecond );
+					// From Bank, the Silver Too
+					pChar->getBankbox()->removeItems( "ef0", bankSecond );
+					// And, now, from the Pack, the Copper
+					pChar->getBackpack()->removeItems( "eea", ( (totalValue * 100) - (packFirst * 100) - (bankFirst * 100) ) - (packSecond * 10) - (bankSecond * 10) );
+					// Socket
+					socket->sendStatWindow();
+				}
+				else if ( (bankFirst + packFirst + packSecond/10 + bankSecond/10 + packThird/100 + bankThird/100) >= totalValue )
+				{
+					fromWhere = 2;
+					// From Pack the Max
+					pChar->getBackpack()->removeItems( "eed", packFirst );
+					// From Bank more things
+					pChar->getBankbox()->removeItems( "eed", bankFirst );
+					// From Pack, the Silver
+					pChar->getBackpack()->removeItems( "ef0", packSecond );
+					// From Bank, the Silver Too
+					pChar->getBankbox()->removeItems( "ef0", bankSecond );
+					// From Pack, all the Copper
+					pChar->getBackpack()->removeItems( "eea", packThird );
+					// And, now, from the Bank, the Copper
+					pChar->getBankbox()->removeItems( "eea", ( (totalValue * 100) - (packFirst * 100) - (bankFirst * 100) ) - (packSecond * 10) - (bankSecond * 10) - packThird );
+					// Socket
+					socket->sendStatWindow();
+				}
+				else
+				{
+					pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+					return;
+				}
 			}
 		}
+		// Oh no, the normal way
 		else
 		{
-			// Get our total gold at once
-			Q_UINT32 bankGold = pChar->countBankGold();
-			Q_UINT32 packGold = pChar->countGold();
+			if (Config::instance()->payfrompackonly()) {
 
-			if ( packGold >= totalValue )
-			{
-				pChar->getBackpack()->removeItems( "eed", totalValue );
-			}
-			else if ( bankGold >= totalValue )
-			{
-				fromWhere = 1;
-				pChar->getBankbox()->removeItems( "eed", totalValue );
-			}
-			else if ( (bankGold + packGold) >= totalValue )
-			{
-				fromWhere = 2;
-				// From Pack the Max
-				pChar->getBackpack()->removeItems( "eed", packGold );
-				// From Bank the rest
-				pChar->getBankbox()->removeItems( "eed", (totalValue - packGold) );
+				// Get our total gold at once
+				Q_UINT32 packGold = pChar->countGold();
+
+				if ( packGold >= totalValue )
+				{
+					pChar->getBackpack()->removeItems( "eed", totalValue );
+				}
+				else
+				{
+					pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+					return;
+				}
 			}
 			else
 			{
-				pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
-				return;
+				// Get our total gold at once
+				Q_UINT32 bankGold = pChar->countBankGold();
+				Q_UINT32 packGold = pChar->countGold();
+
+				if ( packGold >= totalValue )
+				{
+					pChar->getBackpack()->removeItems( "eed", totalValue );
+				}
+				else if ( bankGold >= totalValue )
+				{
+					fromWhere = 1;
+					pChar->getBankbox()->removeItems( "eed", totalValue );
+				}
+				else if ( (bankGold + packGold) >= totalValue )
+				{
+					fromWhere = 2;
+					// From Pack the Max
+					pChar->getBackpack()->removeItems( "eed", packGold );
+					// From Bank the rest
+					pChar->getBankbox()->removeItems( "eed", (totalValue - packGold) );
+				}
+				else
+				{
+					pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+					return;
+				}
 			}
 		}
 	}
