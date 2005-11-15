@@ -3592,7 +3592,7 @@ double cBaseChar::getHitpointRate()
 		return 1.0 / ( 0.1 * ( 1 + points ) );
 
 	// Bonus from Regen Events
-	points += ( onRegenHitpoints(( uint ) ( floor( points ) )) );
+	points += ( onRegenHitpoints(( uint ) ( float( points ) )) );
 
 	// Tough for Humans
 
@@ -3624,7 +3624,7 @@ double cBaseChar::getStaminaRate()
 	points = wpMax<int>( -1, points );
 
 	// Bonus from Regen Events
-	points += ( onRegenStamina(( uint ) ( floor( points ) )) );
+	points += ( onRegenStamina(( uint ) ( float( points ) )) );
 
 	return 1.0 / ( 0.1 * ( 2 + points ) );
 }
@@ -3676,7 +3676,7 @@ double cBaseChar::getManaRate()
 	}
 
 	// Bonus from Regen Events
-	points += ( onRegenMana(( uint ) ( floor( points ) )) );
+	points += ( onRegenMana(( uint ) ( float( points ) )) );
 
 	return 1.0 / ( 0.1 * points );
 }
