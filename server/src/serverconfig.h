@@ -185,6 +185,7 @@ protected:
 
 	// New Monetary
 	bool usenewmonetary_;
+	bool usereversedvaluable_;
 
 public:
 	cConfig();
@@ -369,6 +370,7 @@ public:
 
 	// New Monetary system
 	bool usenewmonetary() const;
+	bool usereversedvaluable() const;
 
 private:
 	void setDefaultStartLocation();
@@ -779,6 +781,10 @@ inline float cConfig::humantough() const
 inline bool cConfig::usenewmonetary() const
 {
 	return usenewmonetary_;
+}
+inline bool cConfig::usereversedvaluable() const
+{
+	return usereversedvaluable_;
 }
 
 typedef Singleton<cConfig> Config;

@@ -160,6 +160,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 	{
 		// Oh yeah, the new monetary
 		if (Config::instance()->usenewmonetary()) {
+			// Pay just from Pack
 			if (Config::instance()->payfrompackonly()) {
 
 				// Get the BackPack
@@ -186,30 +187,151 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				Q_UINT32 packSecond = backpack->countItems( idsecond );
 				Q_UINT32 packThird = backpack->countItems( idthird );
 
-
-				if ( packFirst >= totalValue )
-				{
-					pChar->getBackpack()->removeItems( idfirst, totalValue );
+				// Use Reversed Monetary?
+				if (Config::instance()->usereversedvaluable()) {
+					if ( packThird >= totalValue )
+					{
+						pChar->getBackpack()->removeItems( idthird, totalValue );
+						socket->sendStatWindow();
+					}
+					else if ( ( packThird + packSecond*10 ) >= totalValue)
+					{
+						// Oh! We Cant Pay just with Silver
+						if (totalValue % 10)
+						{
+							if (packSecond*10 >= totalValue)
+							{
+								pChar->getBackpack()->removeItems( idsecond, ( totalValue/10 ) + 1 );
+								// Creating Money Back
+								P_ITEM pTroco = cItem::createFromScript( idthird );
+								pTroco->setAmount( 10 - (totalValue % 10) );
+								pTroco->toBackpack( pChar );
+							}
+							else
+							{
+								pChar->getBackpack()->removeItems( idsecond, packSecond );
+								pChar->getBackpack()->removeItems( idthird, totalValue - ( packSecond * 10 ) );
+							}
+						}
+						// Oh! We can pay maybe just with Silver
+						else
+						{
+							if (packSecond*10 >= totalValue)
+							{
+								pChar->getBackpack()->removeItems( idsecond, totalValue/10 );
+							}
+							else
+							{
+								pChar->getBackpack()->removeItems( idsecond, packSecond );
+								pChar->getBackpack()->removeItems( idthird, totalValue - ( packSecond * 10 ) );
+							}
+						}
+						// Update Gold
+						socket->sendStatWindow();
+					}
+					else if ( ( packThird + packSecond*10 + packFirst*100 ) >= totalValue)
+					{
+						// Oh! We cant pay just with Gold
+						if (totalValue % 100)
+						{
+							if (packFirst*100 >= totalValue)
+							{
+								pChar->getBackpack()->removeItems( idfirst, ( totalValue/100 ) + 1 );
+								// Creating Money Back
+								if ( (totalValue % 100) > 10 )
+								{
+									// First, Silver
+									P_ITEM pTroco = cItem::createFromScript( idsecond );
+									pTroco->setAmount( ( 100 - (totalValue % 100) ) / 10 );
+									pTroco->toBackpack( pChar );
+									// Now, Copper
+									pTroco = cItem::createFromScript( idthird );
+									pTroco->setAmount( ( 100 - (totalValue % 100) ) % 10 );
+									pTroco->toBackpack( pChar );
+								}
+								else
+								{
+									P_ITEM pTroco = cItem::createFromScript( idthird );
+									pTroco->setAmount( 10 - (totalValue % 100) );
+									backpack->addItem( pTroco );
+								}
+							}
+							else
+							{
+								pChar->getBackpack()->removeItems( idfirst, packFirst );
+								// The rest of Money
+								if (packSecond*10 >= ( totalValue - packFirst * 100) )
+								{
+									pChar->getBackpack()->removeItems( idsecond, totalValue/10 );
+								}
+								else
+								{
+									pChar->getBackpack()->removeItems( idsecond, packSecond );
+									pChar->getBackpack()->removeItems( idthird, totalValue - ( packSecond * 10 ) - ( packFirst * 100 ) );
+								}
+							}
+						}
+						// Oh! We can pay maybe just with Gold
+						else
+						{
+							if (packFirst*100 >= totalValue)
+							{
+								pChar->getBackpack()->removeItems( idfirst, totalValue/100 );
+							}
+							else
+							{
+								pChar->getBackpack()->removeItems( idfirst, packFirst );
+								// The rest of Money
+								if (packSecond*10 >= ( totalValue - packFirst * 100) )
+								{
+									pChar->getBackpack()->removeItems( idsecond, totalValue/10 );
+								}
+								else
+								{
+									pChar->getBackpack()->removeItems( idsecond, packSecond );
+									pChar->getBackpack()->removeItems( idthird, totalValue - ( packSecond * 10 ) - ( packFirst * 100 ) );
+								}
+							}
+						}
+						// Update Gold
+						socket->sendStatWindow();
+					}
+					else
+					{
+						pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+						return;
+					}
 				}
-				else if ( (packFirst + packSecond/10) >= totalValue )
-				{
-					pChar->getBackpack()->removeItems( idfirst, packFirst );
-					pChar->getBackpack()->removeItems( idsecond, ((totalValue - packFirst)*10) );
-					socket->sendStatWindow();
-				}
-				else if ( (packFirst + packSecond/10 + packThird/100) >= totalValue )
-				{
-					pChar->getBackpack()->removeItems( idfirst, packFirst );
-					pChar->getBackpack()->removeItems( idsecond, packSecond );
-					pChar->getBackpack()->removeItems( idthird, ( (totalValue * 100) - (packFirst * 100) ) - (packSecond * 10) );
-					socket->sendStatWindow();
-				}
+				// No, Use Normal Base
 				else
 				{
-					pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
-					return;
+					if ( packFirst >= totalValue )
+					{
+						pChar->getBackpack()->removeItems( idfirst, totalValue );
+						socket->sendStatWindow();
+					}
+					else if ( (packFirst + packSecond/10) >= totalValue )
+					{
+						pChar->getBackpack()->removeItems( idfirst, packFirst );
+						pChar->getBackpack()->removeItems( idsecond, ((totalValue - packFirst)*10) );
+						socket->sendStatWindow();
+					}
+					else if ( (packFirst + packSecond/10 + packThird/100) >= totalValue )
+					{
+						pChar->getBackpack()->removeItems( idfirst, packFirst );
+						pChar->getBackpack()->removeItems( idsecond, packSecond );
+						pChar->getBackpack()->removeItems( idthird, ( (totalValue * 100) - (packFirst * 100) ) - (packSecond * 10) );
+						socket->sendStatWindow();
+					}
+					else
+					{
+						pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+						return;
+					}
 				}
+				// End of Reversed / Normal Base for New Monetary
 			}
+			// No, We Can Pay from Pack or Bank
 			else
 			{
 				// Lets Assign Region
@@ -246,11 +368,13 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				if ( packFirst >= totalValue )
 				{
 					pChar->getBackpack()->removeItems( idfirst, totalValue );
+					socket->sendStatWindow();
 				}
 				else if ( bankFirst >= totalValue )
 				{
 					fromWhere = 1;
 					pChar->getBankbox()->removeItems( idfirst, totalValue );
+					socket->sendStatWindow();
 				}
 				else if ( (bankFirst + packFirst) >= totalValue )
 				{
@@ -259,6 +383,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 					pChar->getBackpack()->removeItems( idfirst, packFirst );
 					// From Bank the rest
 					pChar->getBankbox()->removeItems( idfirst, (totalValue - packFirst) );
+					socket->sendStatWindow();
 				}
 				// First + Second Money Session
 				else if ( (packFirst + packSecond/10) >= totalValue )
@@ -355,10 +480,12 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 					return;
 				}
 			}
+			// End of Pay From Pack / Pay from Pack and Bank
 		}
-		// Oh no, the normal way
+		// Oh no, the normal way (No New Monetary)
 		else
 		{
+			// Pay just from Pack?
 			if (Config::instance()->payfrompackonly()) {
 
 				// Get our total gold at once
@@ -367,6 +494,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				if ( packGold >= totalValue )
 				{
 					pChar->getBackpack()->removeItems( "eed", totalValue );
+					socket->sendStatWindow();
 				}
 				else
 				{
@@ -374,6 +502,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 					return;
 				}
 			}
+			// No, Pay from Pack and Bank
 			else
 			{
 				// Get our total gold at once
@@ -383,11 +512,13 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				if ( packGold >= totalValue )
 				{
 					pChar->getBackpack()->removeItems( "eed", totalValue );
+					socket->sendStatWindow();
 				}
 				else if ( bankGold >= totalValue )
 				{
 					fromWhere = 1;
 					pChar->getBankbox()->removeItems( "eed", totalValue );
+					socket->sendStatWindow();
 				}
 				else if ( (bankGold + packGold) >= totalValue )
 				{
@@ -396,6 +527,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 					pChar->getBackpack()->removeItems( "eed", packGold );
 					// From Bank the rest
 					pChar->getBankbox()->removeItems( "eed", (totalValue - packGold) );
+					socket->sendStatWindow();
 				}
 				else
 				{
@@ -403,8 +535,11 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 					return;
 				}
 			}
+			// End of "Pay from Pack only or from pack and from bank?"
 		}
+		// End of "New or Normal Monetary System"
 	}
+	// End of "Char is a GM or Not?"
 
 	// Sanity checks all passed here
 	for ( map<SERIAL, Q_UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
@@ -640,7 +775,86 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 	socket->send( &clearBuy );
 	pVendor->talk( tr( "Thank you %1, here are your %2 gold" ).arg( pChar->name() ).arg( totalValue ) );
 
-	pChar->giveGold( totalValue, false );
+	// New Monetary?
+	if (Config::instance()->usenewmonetary()) {
+
+		// Lets Assign Region
+		cTerritory* Region = pVendor->region();
+
+		// Lets Assign the IDs
+		QString idfirst = "eed";
+		QString idsecond = "ef0";
+		QString idthird = "eea";
+
+		// Lets try to find the IDs ahn?
+		if ( Region )
+		{
+			idfirst = Region->firstcoin();
+			idsecond = Region->secondcoin();
+			idthird = Region->thirdcoin();
+		}				
+
+		// Use Reversed Monetary?
+		if (Config::instance()->usereversedvaluable()) {
+			if ( totalValue < 10)
+			{
+				P_ITEM pMoney = cItem::createFromScript( idthird );
+				pMoney->setAmount( totalValue );
+				pMoney->toBackpack( pChar );
+			}
+			else if ( totalValue < 100)
+			{
+				// Silver First
+				P_ITEM pMoney = cItem::createFromScript( idsecond );
+				pMoney->setAmount( totalValue / 10 );
+				pMoney->toBackpack( pChar );
+				// Now, Copper
+				if ( totalValue % 10 )
+				{
+					P_ITEM pMoney = cItem::createFromScript( idthird );
+					pMoney->setAmount( totalValue % 10 );
+					pMoney->toBackpack( pChar );
+				}
+			}
+			else
+			{
+				// Gold First
+				P_ITEM pMoney = cItem::createFromScript( idfirst );
+				pMoney->setAmount( totalValue / 100 );
+				pMoney->toBackpack( pChar );
+				// Now, Silver
+				if ( totalValue % 100 )
+				{
+					P_ITEM pMoney = cItem::createFromScript( idsecond );
+					pMoney->setAmount( ( totalValue % 100 ) / 10 );
+					pMoney->toBackpack( pChar );
+				}
+				// Finally Copper
+				if ( totalValue % 10 )
+				{
+					P_ITEM pMoney = cItem::createFromScript( idthird );
+					pMoney->setAmount( totalValue % 10 );
+					pMoney->toBackpack( pChar );
+				}
+			}
+		}
+		// No... use normal Base
+		else
+		{
+			P_ITEM pMoney = cItem::createFromScript( idfirst );
+			pMoney->setAmount( totalValue );
+			pMoney->toBackpack( pChar );
+		}
+		// Sound
+		pChar->goldSound( totalValue, false );
+	}
+	// No, old Monetary
+	else
+	{
+		pChar->giveGold( totalValue, false );
+	}
+
+
 	socket->sendStatWindow(); // Update Gold
 }
 }
