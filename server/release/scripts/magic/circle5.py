@@ -130,7 +130,7 @@ class Incognito (Spell):
 		duration = int(1 + (6 * char.skill[MAGERY]) / 50.0) * 1000
 
 		char.orgskin = char.skin
-		char.skin = random.randint(1002, 1059)
+		char.skin = random.randint(1002, 1058)
 
 		char.orgname = char.name
 

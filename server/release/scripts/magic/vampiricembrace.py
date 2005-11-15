@@ -18,3 +18,11 @@ def onCastSpell(char, spell):
 # TODO: silver weapons do +25% damage
 #def onDamage(char, type, amount, source):
 #	pass
+
+def onRegenMana(char, points):
+	points += 3
+	return points
+
+def onRegenStamina(char, points):
+	points += 3
+	return points
