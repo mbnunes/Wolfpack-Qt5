@@ -55,7 +55,7 @@ struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 	}
 };
 
-void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
+void buyAction( cUOSocket* socket, cUORxBuy* packet )
 {
 	cUOTxClearBuy clearBuy;
 	clearBuy.setSerial( packet->serial() );
@@ -462,7 +462,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 	pChar->socket()->soundEffect( 0x32 );
 }
 
-void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
+void sellAction( cUOSocket* socket, cUORxSell* packet )
 {
 	P_PLAYER pChar = socket->player();
 	P_CHAR pVendor = FindCharBySerial( packet->serial() );
