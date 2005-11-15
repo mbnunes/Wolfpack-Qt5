@@ -211,8 +211,8 @@ REMOVETRAPS = 48
 NECROMANCY = 49
 FOCUS = 50
 CHIVALRY = 51
-NINJITSU = 52
-BUSHIDO = 53
+BUSHIDO = 52
+NINJITSU = 53
 SPELLWEAVING = 54
 ALLSKILLS = 55 # skills + 1
 """
@@ -227,7 +227,7 @@ SKILLNAMES = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'musicianship', 'poisoning', 'archery', 'spiritspeak', 'stealing', 'tailoring',
 	'taming', 'tasteid', 'tinkering', 'tracking', 'veterinary', 'swordsmanship',
 	'macefighting', 'fencing', 'wrestling', 'lumberjacking', 'mining', 'meditation',
-	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry', 'ninjitsu', 'bushido', 'spellweaving' ]
+	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry', 'bushido', 'ninjitsu', 'spellweaving' ]
 
 skillnamesids = {
 	'alchemy' : ALCHEMY,
@@ -282,8 +282,8 @@ skillnamesids = {
 	'necromancy' : NECROMANCY,
 	'focus' : FOCUS,
 	'chivalry' : CHIVALRY,
-	'ninjitsu' : NINJITSU,
 	'bushido' : BUSHIDO,
+	'ninjitsu' : NINJITSU,
 	'spellweaving' : SPELLWEAVING
 }
 
