@@ -328,7 +328,7 @@ def gouid(socket, command, arguments):
 				container = container.container
 
 			# Going to container
-			socket.sysmessage('Going to item 0x%x (%s) [Top: 0x%x]. %s' % (uid, item.getname(), container.serial))
+			socket.sysmessage('Going to item 0x%x (%s) [Top: 0x%x].' % (uid, item.getname(), container.serial))
 			pos = container.pos
 			socket.player.removefromview()
 			socket.player.moveto(pos)
