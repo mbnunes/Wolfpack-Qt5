@@ -222,6 +222,11 @@ void cBaseChar::load( cBufferedReader& reader, unsigned int version )
 		count = CHIVALRY + 1; // Before version 9 the highest skill was chivalry
 	}
 
+	if ( version < 11 )
+	{
+		count = BUSHIDO + 2;
+	}
+
 	for ( unsigned int s = 0; s < count; ++s )
 	{
 		// Read value, cap, lock
@@ -3517,7 +3522,7 @@ void cBaseChar::refreshMaximumValues()
 
 	if ( hasTag( "modmaxmanafactor" ) )
 		maxManaFactor += ( getTag( "modmaxmanafactor" ).toDouble() );
-	
+
 	// Finally, lets start to refresh values
 	if ( Config::instance()->refreshMaxValues() )
 	{

@@ -84,8 +84,8 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 // Don't forget to change the version number before changing tableInfo!
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
-#define DATABASE_VERSION 10
-#define WP_DATABASE_VERSION "10"
+#define DATABASE_VERSION 11
+#define WP_DATABASE_VERSION "11"
 
 unsigned int cWorld::getDatabaseVersion() const {
 	return DATABASE_VERSION;
