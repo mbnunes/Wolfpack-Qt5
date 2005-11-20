@@ -38,7 +38,7 @@ def onDropOnItem( cont, item ):
 
 	if not char.ischar():
 		return False
-	addtobook(char, cont, item)
+	return addtobook(char, cont, item)
 
 def addtobook(char, cont, item):
 	if cont == char.getbackpack() or cont == item.container:
