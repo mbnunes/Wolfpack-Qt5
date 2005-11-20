@@ -68,6 +68,11 @@ class DispelField (Spell):
 			return
 
 		wolfpack.effect(0x376a, target.pos, 9, 20)
+		# remove other gate
+		if item and item.hastag('dispellable_field'):
+			wolfpack.effect(0x376a, item.pos, 9, 20)
+			target.soundeffect(0x201)
+			item.delete()
 		target.soundeffect(0x201)
 		target.delete()
 

@@ -104,6 +104,10 @@ def poison(char, level):
 	if not POISONS.has_key(level):
 		return False
 
+	if char.hasscript('magic.evilomen'):
+		if POISONS.has_key(level + 1): # check if it's possible to increase the poison
+			level += 1
+
 	# Level is smaller than old poison
 	if level <= char.poison:
 		return False
