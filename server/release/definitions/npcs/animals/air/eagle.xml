@@ -40,6 +40,17 @@
 		<strproperty name="food" value="1,2" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Eagle</category>
+		<!-- Loot Packs -->
+		<backpack>
+			<content>
+				<item id="f7a"> <!-- black pearl -->
+					<amount>4</amount>
+				</item>
+				<item id="eed">
+					<amount><random min="50" max="100" /></amount>
+				</item>
+			</content>
+		</backpack>	
 		<!-- Carve -->
 		<intproperty name="carve_feathers" value="36" />
 		<intproperty name="carve_meat" value="1" />

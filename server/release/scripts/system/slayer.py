@@ -47,7 +47,7 @@ reptilian = SlayerGroup()
 
 # HUMANOID SLAYER GROUP
 humanoid.opposition = undead
-humanoid.addsuper( SlayerEntry('repond', 1017388, ['orcs', 'ogres', 'trolls', 'giants', 'meers', 'ratmen'] ) )
+humanoid.addsuper( SlayerEntry('repond', 1017388, ['orcs', 'ogres', 'trolls', 'giants', 'meers', 'ratmen', 'mages'] ) )
 humanoid.add( SlayerEntry('ogretrashing', 1017387, ['ogres']) )
 humanoid.add( SlayerEntry('orcslaying', 1017385, ['orcs']) )
 humanoid.add( SlayerEntry('trollslaying', 1017386, ['trolls']) )

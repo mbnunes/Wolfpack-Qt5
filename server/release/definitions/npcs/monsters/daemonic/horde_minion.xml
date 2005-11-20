@@ -12,8 +12,8 @@
 	<npc id="horde_minion" inherit="monster_base">
 		<name>horde minion</name>
 		<id>776</id>
-		<karma>-500</karma>
-		<fame>500</fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="16" max="40"/></str>
 		<dex><random min="31" max="60"/></dex>

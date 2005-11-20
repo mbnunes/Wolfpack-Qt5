@@ -34,16 +34,20 @@
 		<skill id="tactics"><random min="1000" max="1100" /></skill>
 		<skill id="magicresistance"><random min="850" max="1000" /></skill>
 		<skill id="anatomy"><random min="750" max="800" /></skill>
-		<!-- Carve -->
-		<intproperty name="carve_hides" value="60" />
-		<intproperty name="carve_meat" value="16" />
+		<!-- Lootpacks -->
+		<!-- Missing: Bonsai Seed -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;gems;gems;gems;gems</lootpacks>
 		<!-- Misc. -->
 		<mintaming>987</mintaming>
 		<controlslots>4</controlslots>
 		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="1153" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Hiryu</category>
 		<basescript>npc.mount</basescript>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="60" />
+		<intproperty name="carve_meat" value="16" />
 	</npc>
 
 </definitions>

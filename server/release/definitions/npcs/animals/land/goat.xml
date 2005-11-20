@@ -35,6 +35,7 @@
 		<controlslots>1</controlslots>
 		<mintaming>111</mintaming>
 		<strproperty name="food" value="5,3" />
+		<intproperty name="barddifficulty" value="54" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Goat</category>
 		<!-- Carve -->

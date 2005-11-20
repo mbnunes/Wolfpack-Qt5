@@ -12,7 +12,7 @@
 	<npc id="gazer_larva" inherit="monster_base">
 		<name>gazer larva</name>
 		<id>778</id>
-		<karma>0</karma>
+		<inherit id="KARMA_L1" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="76" max="100"/></str>

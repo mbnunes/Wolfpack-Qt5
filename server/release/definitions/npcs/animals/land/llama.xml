@@ -35,6 +35,7 @@
 		<controlslots>1</controlslots>
 		<mintaming>351</mintaming>
 		<strproperty name="food" value="3,5" />
+		<intproperty name="barddifficulty" value="170" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Llama</category>
 		<!-- Carve -->

@@ -257,6 +257,8 @@ def carve_meat( char, corpse, tool, meat_type, meat ):
 		item = wolfpack.additem('9b9') # Raw Bird
 	elif meat_type == 'lambleg':
 		item = wolfpack.additem('1609') # Raw Lamb Leg
+	elif meat_type == 'fishsteak':
+		item = wolfpack.additem('97a') # Raw Fish Steak
 	else:		
 		item = wolfpack.additem('9f1') # Raw Ribs
 

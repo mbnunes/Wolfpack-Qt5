@@ -39,13 +39,14 @@
 		<controlslots>1</controlslots>
 		<mintaming>831</mintaming>
 		<strproperty name="food" value="3,5" />
+		<intproperty name="barddifficulty" value="291" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Ridgeback</category>
+		<basescript>npc.mount</basescript>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<strproperty name="carve_hides_type" value="spined" />
 		<intproperty name="carve_meat" value="1" />
-		<basescript>npc.mount</basescript>
 	</npc>
 
 	<!-- Savage Ridgebacks -->
@@ -53,8 +54,8 @@
 		<name>savage ridgeback</name>
 		<id>188</id>
 		<ai>Animal_Wild</ai>
-		<karma>0</karma>
-		<fame>300</fame>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
 		<!-- Stats -->
 		<str><random min="58" max="100" /></str>
 		<dex><random min="56" max="75" /></dex>
@@ -79,6 +80,7 @@
 		<controlslots>1</controlslots>
 		<mintaming>831</mintaming>
 		<strproperty name="food" value="3,5" />
+		<intproperty name="barddifficulty" value="291" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Ridgeback (Savage)</category>
 		<!-- Carve -->

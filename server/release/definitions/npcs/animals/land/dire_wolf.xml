@@ -39,6 +39,7 @@
 		<controlslots>2</controlslots>
 		<mintaming>831</mintaming>
 		<strproperty name="food" value="1" />
+		<intproperty name="barddifficulty" value="503" />
 		<strproperty name="packinstinct" value="canine" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Dire Wolf</category>

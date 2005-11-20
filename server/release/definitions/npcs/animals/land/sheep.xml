@@ -36,9 +36,10 @@
 		<controlslots>1</controlslots>
 		<mintaming>111</mintaming>
 		<strproperty name="food" value="3,5" />
+		<intproperty name="barddifficulty" value="65" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Farm\Sheep (Sheered)</category>
-		<intproperty name="carve_meat" value="4" />
+		<intproperty name="carve_meat" value="3" />
 		<strproperty name="carve_meat_type" value="lambleg" />
 	</npc>
 

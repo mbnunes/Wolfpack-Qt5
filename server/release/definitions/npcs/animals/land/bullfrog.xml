@@ -36,8 +36,17 @@
 		<controlslots>1</controlslots>
 		<mintaming>231</mintaming>
 		<strproperty name="food" value="2,1" />
+		<intproperty name="barddifficulty" value="292" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Bullfrog</category>
+		<!-- Lootpacks -->
+		<backpack>
+			<content>
+				<item id="eed">
+					<amount><random min="25" max="50" /></amount>
+				</item>
+			</content>
+		</backpack>	
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="4" />
 		<intproperty name="carve_meat" value="1" />
