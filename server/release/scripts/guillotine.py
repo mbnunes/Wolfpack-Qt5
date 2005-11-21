@@ -7,6 +7,7 @@
 
 import wolfpack
 from wolfpack.consts import ITEMID
+from wolfpack import tr
 
 def onUse( char, item ):
 	if( not char.socket ):
