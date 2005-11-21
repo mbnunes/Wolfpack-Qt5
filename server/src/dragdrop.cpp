@@ -716,6 +716,11 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 		return;
 	}
 
+	//It is possible that a script deletes the item, but do not return a value
+	//if this is not checked, the function adds a deleted item to a container
+	if ( pItem->free )
+			return;
+
 	// If the target belongs to another character
 	// It needs to be our vendor or else it's denied
 	P_CHAR packOwner = pCont->getOutmostChar();
