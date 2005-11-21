@@ -130,4 +130,9 @@
 		<option tag="500" msgid="6144" checkvisible="true" /> <!-- Add To Spellbook -->
 	</contextmenu>	
 
+	<contextmenu id="quests_menu">
+		<scripts>contextmenus.questmenu</scripts>
+		<option tag="1" msgid="1024" checkvisible="true" />
+	</contextmenu>
+
 </definitions>

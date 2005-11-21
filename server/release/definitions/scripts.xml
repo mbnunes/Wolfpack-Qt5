@@ -226,6 +226,7 @@
 	<script>contextmenus.stablermenu</script>
 	<script>contextmenus.trainmenu</script>
 	<script>contextmenus.vendormenu</script>
+	<script>contextmenus.questmenu</script>
 
 	<!-- Speech Scripts -->
 	<script>speech.barber</script>
