@@ -1392,6 +1392,13 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 		affix.append( QString( " [0x%1]" ).arg( serial(), 3, 16 ) );
 	}
 	tooltip.addLine( 1050045, QString( "%3\t%1\t%2" ).arg( name_ ).arg( affix ).arg( prefix ) );
+	
+	// Add Quest Quest Giver title
+	if ( this->hasTag( "quests" ) )
+	{
+		tooltip.addLine( 1072269, "" );
+	}
+	
 	onShowTooltip( player, &tooltip );
 }
 
