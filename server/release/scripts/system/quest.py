@@ -16,7 +16,7 @@
 from wolfpack import tr
 import wolfpack
 from wolfpack.gumps import cGump
-from wolfpack.consts import WPDT_QUEST
+from wolfpack.consts import *
 
 #######################################################################################
 ##############   Open the Quest Menu for Players   ####################################
@@ -75,59 +75,175 @@ def openquestplayer(player):
 # Response for Quest Menu
 #######################################################################################
 
-def questplayerresponse( char, args, target ):
+def questplayerresponse( player, args, target ):
 
 	button = target.button
 
+	if not button == 0:
+
+		# We have this Quest?
+		if player.hastag('Quest.'+ str(button) +'.ID'):
+			questid = player.gettag('Quest.'+ str(button) +'.ID')
+			showquestdescription(player, questid, button)
+
+
+	return True
+
+#######################################################################################
+##############   Showing the Menu with Quest for Player   #############################
+#######################################################################################
+
+def showquestdescription(player, id, slot):
+
+	socket = player.socket
+
+	dialog = cGump( nomove=1, x=100, y=30 )
+
+	dialog.addResizeGump(37, 14, 9260, 445, 422)
+	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
+	dialog.addTiledGump(55, 32, 30, 391, 10460, 0)
+	dialog.addTiledGump(439, 32, 30, 391, 10460, 0)
+	dialog.addGump(-12, 290, 10402, 0)
+	dialog.addGump(53, 137, 10411, 0)
+	dialog.addGump(95, 39, 9005, 0)
+	dialog.addTiledGump(40, 421, 440, 17, 10100, 0)
+	dialog.addTiledGump(39, 15, 440, 17, 10100, 0)
+	dialog.addGump(4, 16, 10421, 0)
+	dialog.addGump(21, 4, 10420, 0)
+	dialog.addGump(449, 162, 10411, 0)
+	dialog.addGump(449, 323, 10412, 0)
+	dialog.addGump(394, 52, 1417, 0)
+	dialog.addGump(449, 3, 10410, 0)
+	dialog.addGump(402, 61, 9012, 0)
+	dialog.addText(135, 49, "Quest Log", 1149)
+	dialog.addTiledGump(139, 69, 161, 2, 2432, 0)
+	dialog.addText(167, 105, givequestname(id), 175)
+	dialog.addText(103, 139, "Description (quest chain)", 175)
+	dialog.addButton(340, 395, 12012, 12013, 0)		# Okay
+	dialog.addButton(105, 395, 12021, 12022, 1)		# Resign
+	dialog.addButton(302, 365, 12009, 12010, 2)		# Continue
+	dialog.addButton(145, 365, 12015, 12016, 3)		# Previous
+
+	dialog.addHtmlGump(104, 165, 329, 173, '<basefont color="#C7D32C">' + givequestdescription(id), 0, 1)
+
+	dialog.setArgs( [id, slot] )
+	dialog.setCallback( questdescriptionresponse )
+
+	dialog.send( player.socket )
+
+#######################################################################################
+# Response for Menu with Quest
+#######################################################################################
+
+def questdescriptionresponse( char, args, target ):
+
+	button = target.button
+
+	id = args[0]
+	slot = args[1]
+
 	if button == 1:
+		resignquest(char, id, slot)
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+	elif button == 2:
+		showquestdetails(char, id, slot, 0)
 
-	if button == 2:
+	elif button == 3:
+		openquestplayer(char)
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+	return
 
-	if button == 3:
+#######################################################################################
+##############   Showing Quest Details for Player   ###################################
+#######################################################################################
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+def showquestdetails(player, id, slot, page):
 
-	if button == 4:
+	socket = player.socket
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+	dialog = cGump( nomove=1, x=100, y=30 )
 
-	if button == 5:
+	dialog.addResizeGump(37, 14, 9260, 445, 422)
+	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
+	dialog.addTiledGump(55, 32, 30, 391, 10460, 0)
+	dialog.addTiledGump(439, 32, 30, 391, 10460, 0)
+	dialog.addGump(-12, 290, 10402, 0)
+	dialog.addGump(53, 137, 10411, 0)
+	dialog.addGump(95, 39, 9005, 0)
+	dialog.addTiledGump(40, 421, 440, 17, 10100, 0)
+	dialog.addTiledGump(39, 15, 440, 17, 10100, 0)
+	dialog.addGump(4, 16, 10421, 0)
+	dialog.addGump(21, 4, 10420, 0)
+	dialog.addGump(449, 162, 10411, 0)
+	dialog.addGump(449, 323, 10412, 0)
+	dialog.addGump(394, 52, 1417, 0)
+	dialog.addGump(449, 3, 10410, 0)
+	dialog.addGump(402, 61, 9012, 0)
+	dialog.addTiledGump(139, 69, 161, 2, 2432, 0)
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+	dialog.addText(135, 49, "Quest Log", 1149)
+	dialog.addText(167, 105, givequestname(id), 175)
+	dialog.addText(103, 140, "Objective:", 175)
+	dialog.addText(103, 160, "All of the following", 175)
 
-	if button == 6:
+	# Data
+	npcdest = wolfpack.findchar( int( player.gettag('Quest.'+ str(slot) +'.NPCDest') ) )	# NPC to report Quest Back
+	npcamount = givequestnpcamounts(id)						# Amount of NPCs to be killed (Different types)
+	npclist = givequestnpctargets(id)						# Required NPCs
+	eachnpcamount = givequestnpceachamount(id)					# Amount of each Required NPC
+	killedlist = player.gettag('Quest.'+ str(slot) +'.ReqNPC').split(',')
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+	# Construct dialog
+	dialog.addText(103, 180, "Slay", 55)
+	dialog.addText(145, 180, eachnpcamount[page], 90)
+	dialog.addText(180, 180, givenpcname(npclist[page]), 1149)
 
-	if button == 7:
+	dialog.addText(145, 200, "Location", 55)
+	dialog.addText(260, 200, " --- ", 1149)
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+	dialog.addText(145, 220, "Total", 55)
+	dialog.addText(260, 220, killedlist[page], 90)	
+	
+	dialog.addText(145, 240, "Return To", 55)
+	dialog.addText(260, 240, npcdest.name + " (" + npcdest.region.name + ")", 90)
+	
+	dialog.addButton(340, 395, 12012, 12013, 0)		# Okay
+	dialog.addButton(105, 395, 12021, 12022, 1)		# Resign
+	dialog.addButton(145, 365, 12015, 12016, 2)		# Previous
 
-	if button == 8:
+	if (page + 1) < npcamount:
+		dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+	dialog.setArgs( [id, slot, page] )
+	dialog.setCallback( questdetailsresponse )
 
-	if button == 9:
+	dialog.send( player.socket )
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+#######################################################################################
+# Response for Menu with Quest
+#######################################################################################
 
-	if button == 10:
+def questdetailsresponse( char, args, target ):
 
-		char.socket.sysmessage("Quest System is not yet implemented.")
-		return True
+	button = target.button
+
+	id = args[0]
+	slot = args[1]
+	page = args[2]
+
+	if button == 1:
+		resignquest(char, id, slot)
+
+	elif button == 2:
+		if page == 0:
+			showquestdescription(char, id, slot)
+		else:
+			showquestdetails(char, id, slot, page - 1)
+
+	elif button == 3:
+		showquestdetails(char, id, slot, page + 1)
+
+	return
 
 #######################################################################################
 ##############   Main Function for Context Menu Option   ##############################
@@ -241,11 +357,12 @@ def showmenuquest(player, id, npc):
 	dialog.addText(135, 49, "Quest Offer", 1149)
 	dialog.addTiledGump(139, 69, 161, 2, 2432, 0)
 
-	dialog.addButton(340, 395, 12018, 12019, 0)
 	dialog.addText(167, 105, givequestname(id), 175)
 	dialog.addText(103, 139, "Description (quest chain)", 175)
-	dialog.addButton(105, 395, 12000, 12001, 1)
-	dialog.addButton(302, 365, 12009, 12010, 2)
+
+	dialog.addButton(340, 395, 12018, 12019, 0)		# Refuse
+	dialog.addButton(105, 395, 12000, 12001, 1)		# Accept
+	dialog.addButton(302, 365, 12009, 12010, 2)		# Continue
 
 	dialog.addHtmlGump(104, 165, 329, 173, '<basefont color="#C7D32C">' + givequestdescription(id), 0, 1)
 
@@ -271,7 +388,96 @@ def questshowresponse( char, args, target ):
 
 	if button == 2:
 
-		return
+		showquestdetailsnpc(char, id, npc, 0)
+
+	return
+
+#######################################################################################
+##############   Showing Quest Details from NPC   #####################################
+#######################################################################################
+
+def showquestdetailsnpc(player, id, npc, page):
+
+	socket = player.socket
+
+	dialog = cGump( nomove=1, x=100, y=30 )
+
+	dialog.addResizeGump(37, 14, 9260, 445, 422)
+	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
+	dialog.addTiledGump(55, 32, 30, 391, 10460, 0)
+	dialog.addTiledGump(439, 32, 30, 391, 10460, 0)
+	dialog.addGump(-12, 290, 10402, 0)
+	dialog.addGump(53, 137, 10411, 0)
+	dialog.addGump(95, 39, 9005, 0)
+	dialog.addTiledGump(40, 421, 440, 17, 10100, 0)
+	dialog.addTiledGump(39, 15, 440, 17, 10100, 0)
+	dialog.addGump(4, 16, 10421, 0)
+	dialog.addGump(21, 4, 10420, 0)
+	dialog.addGump(449, 162, 10411, 0)
+	dialog.addGump(449, 323, 10412, 0)
+	dialog.addGump(394, 52, 1417, 0)
+	dialog.addGump(449, 3, 10410, 0)
+	dialog.addGump(402, 61, 9012, 0)
+	dialog.addTiledGump(139, 69, 161, 2, 2432, 0)
+
+	dialog.addText(135, 49, "Quest Offer", 1149)
+	dialog.addText(167, 105, givequestname(id), 175)
+	dialog.addText(103, 140, "Objective:", 175)
+	dialog.addText(103, 160, "All of the following", 175)
+
+	# Data
+	npcamount = givequestnpcamounts(id)						# Amount of NPCs to be killed (Different types)
+	npclist = givequestnpctargets(id)						# Required NPCs
+	eachnpcamount = givequestnpceachamount(id)					# Amount of each Required NPC
+	
+	# Construct dialog
+	dialog.addText(103, 180, "Slay", 55)
+	dialog.addText(145, 180, eachnpcamount[page], 90)
+	dialog.addText(180, 180, givenpcname(npclist[page]), 1149)
+
+	dialog.addText(145, 200, "Location", 55)
+	dialog.addText(260, 200, " --- ", 1149)	
+	
+	dialog.addText(145, 240, "Return To", 55)
+	dialog.addText(260, 240, npc.name + " (" + npc.region.name + ")", 90)
+	
+	dialog.addButton(340, 395, 12018, 12019, 0)		# Refuse
+	dialog.addButton(105, 395, 12000, 12001, 1)		# Accept
+	dialog.addButton(145, 365, 12015, 12016, 2)		# Previous
+
+	if (page + 1) < npcamount:
+		dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
+
+	dialog.setArgs( [id, npc, page] )
+	dialog.setCallback( questdetailsresponsenpc )
+
+	dialog.send( player.socket )
+
+#######################################################################################
+# Response for Menu with Quest Details from NPC
+#######################################################################################
+
+def questdetailsresponsenpc( char, args, target ):
+
+	button = target.button
+
+	id = args[0]
+	npc = args[1]
+	page = args[2]
+
+	if button == 1:
+		givequesttoplayer(char, id, npc)
+
+	elif button == 2:
+		if page == 0:
+			showmenuquest(char, id, npc)
+		else:
+			showquestdetailsnpc(char, id, npc, page - 1)
+
+	elif button == 3:
+		showquestdetailsnpc(char, id, npc, page + 1)
+
+	return
 
 #######################################################################################
 ##############   Return a List with quests for this NPC   #############################
@@ -376,6 +582,40 @@ def givequestnpctargets(id):
 	return quest
 
 #######################################################################################
+##############   Give amount of each Required NPC in a list   #########################
+#######################################################################################
+
+def givequestnpceachamount(id):
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'npctargetsamounts':
+			quest = subnode.text.split(',')
+
+	# Returning the list
+	return quest
+
+#######################################################################################
+##############   Give amount of Required NPCs   #######################################
+#######################################################################################
+
+def givequestnpcamounts(id):
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'npctargets':
+			quest = subnode.text.split(',')
+
+	# Returning the Amount
+	return len( quest )
+
+#######################################################################################
 ##############   Give Rewards for Quest in a List   ###################################
 #######################################################################################
 
@@ -433,10 +673,10 @@ def givequesttoplayer(player, id, npc):
 
 			# Just lets assign if Cont is Higher than 0
 			if cont > 0:
-				questlist = [0]			# Assign the First 0
+				questlist = "0"			# Assign the First 0
 
-				for i in range(1, cont):
-					questlist.append( 0 )
+				for j in range(1, cont):
+					questlist += ",0"
 
 			
 				player.settag('Quest.'+ str(i) +'.ReqNPC', str(questlist))
@@ -446,6 +686,20 @@ def givequesttoplayer(player, id, npc):
 	
 	if freeslot == 0:
 		player.socket.sysmessage("You have no Free Slots for this Quest")
+
+#######################################################################################
+##############   Resign a Quest   #####################################################
+#######################################################################################
+
+def resignquest(player, id, slot):
+
+	if not player.hastag('Quest.'+ str(slot) +'.ID'):
+		player.socket.sysmessage("We have an error in quest system. You resign a Quest that you dont own")
+	else:
+		player.deltag('Quest.'+ str(slot) +'.ID')
+		player.deltag('Quest.'+ str(slot) +'.NPCDest')
+		player.deltag('Quest.'+ str(slot) +'.ReqNPC')
+		player.socket.sysmessage("You resigned the selected quest...")
 
 #######################################################################################
 #############   Check if a Dead NPC is a NPC required for a Quest   ###################
@@ -476,3 +730,25 @@ def checknpcforquest(player, dead):
 					npcamount[j] += 1			# Increase 1
 
 					player.settag('Quest.'+ str(i) +'.ReqNPC', npcamount)	# Save Tag again
+
+#######################################################################################
+##############   Return a NPC Name   ##################################################
+#######################################################################################
+
+def givenpcname(id):
+	npc = 'NULL'
+
+	node = wolfpack.getdefinition(WPDT_NPC, str(id))
+
+	if node:
+		count = node.childcount
+		for i in range(0, count):
+			subnode = node.getchild(i)
+			if subnode.name == 'name':
+				npc = subnode.text
+
+		return npc
+
+	else:
+
+		return "Error"
