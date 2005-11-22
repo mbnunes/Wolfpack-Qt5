@@ -17,7 +17,7 @@
 		<maxdamage>3</maxdamage>
 		<mintaming>2000</mintaming>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
-		<basescripts>speech.pets</basescripts>
+		<basescripts>speech.pets,quests.events</basescripts>
 		<ai>Animal_Wild</ai>
 		<inherit id="speed_medium" />
 		<!-- Animals should at least have 0 skill and be able to gain. -->

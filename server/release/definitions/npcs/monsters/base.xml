@@ -30,7 +30,7 @@
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7"/></direction>
 		<mintaming>2000</mintaming>
-		<basescripts>speech.pets</basescripts>
+		<basescripts>speech.pets,quests.events</basescripts>
 	</npc>
 
 	<npc id="monster_base_magi" inherit="monster_base">

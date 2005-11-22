@@ -61,7 +61,7 @@
 		<skill id="anatomy">0</skill>
 		<skill id="necromancy">0</skill>
 		<skill id="focus">0</skill>
-		<basescripts>speech.pets</basescripts>
+		<basescripts>speech.pets,quests.events</basescripts>
 		<mintaming>2000</mintaming>
 	</npc>
 
@@ -103,7 +103,7 @@
 		<skill id="anatomy">0</skill>
 		<skill id="necromancy">0</skill>
 		<skill id="focus">0</skill>
-		<basescripts>speech.pets</basescripts>
+		<basescripts>speech.pets,quests.events</basescripts>
 		<mintaming>2000</mintaming>
 	</npc>
 

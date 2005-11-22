@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr # Last Modification:                         #
 #################################################################
 import speech
-from system.quest import *
+from quests.npcs import npcquestmain
 
 def onContextEntry( char, target, tag  ):
 
