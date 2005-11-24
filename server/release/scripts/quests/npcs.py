@@ -28,7 +28,14 @@ def npcquestmain(npc, player):
 	else:
 		if not questamount > 1:
 			id = npc.gettag('quests')
-			showmenuquest(player, id, npc)
+
+			if checkhaverequiredquests(player, id):
+				if not checkifquestcompleted(player, id):
+					showmenuquest(player, id, npc)
+				else:
+					npc.say("You already completed all my tasks. Thanks!")
+			else:
+				npc.say("Sorry, I have no Quests that you can handle yet")
 		else:
 			npcquestmenu(npc, player, questamount)
 
@@ -99,11 +106,17 @@ def npcquestmenu(npc, player, questamount):
 	for i in range( 0, questamount ):
 
 		id = str( quests[i] )
-	
-		dialog.addButton(391, int(tempy), 9904, 9905, i + 1)
-		dialog.addText(106, int(tempy), givequestname( id ), 1149)
 
-		tempy += 21
+		if checkhaverequiredquests(player, id):
+
+			if not checkifquestcompleted(player, id):
+				dialog.addText(106, int(tempy), givequestname( id ), 1149)
+				dialog.addButton(391, int(tempy), 9904, 9905, i + 1)
+			else:
+				dialog.addText(106, int(tempy), givequestname( id ), 908)
+				dialog.addGump(391, int(tempy), 9903, 0)
+
+			tempy += 21
 
 	dialog.setArgs( [quests, npc] )
 	dialog.setCallback( questlistresponse )

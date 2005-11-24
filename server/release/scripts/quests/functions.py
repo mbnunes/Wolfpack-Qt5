@@ -7,6 +7,16 @@
 # Quest System - Default Functions
 #===============================================================#
 
+#######################################################################################
+##############   Constants   ##########################################################
+#######################################################################################
+
+MAXQUESTSPERTAG = 100			# The Max amount of quests saved per tag. It for faster checks (Could you imagine a list with 560 completed quests to be checked frequently?)
+
+#######################################################################################
+##############   Imports   ############################################################
+#######################################################################################
+
 from wolfpack import tr
 import wolfpack
 from wolfpack.gumps import cGump
@@ -29,7 +39,12 @@ def givequesttoplayer(player, id, npc):
 			if playerid == id:
 				alreadyhave = 1
 				break
+
+	# Checking if Player never completed this Quest
+	if checkifquestcompleted(player, id):
+		alreadyhave = 1
 	
+	# So... lets assign Quest
 	if not alreadyhave:
 	
 		# Now checking for free slots
@@ -72,7 +87,7 @@ def givequesttoplayer(player, id, npc):
 			player.socket.sysmessage("You have no Free Slots for this Quest")
 
 	else:
-		player.socket.sysmessage("You already have this Quest")
+		player.socket.sysmessage("You already have or already completed this Quest")
 
 #######################################################################################
 ##############   Resign a Quest   #####################################################
@@ -198,3 +213,16 @@ def completequest(player, slot, id):
 			item.amount = int(rewardamounts[i])
 			backpack.additem( item )
 			item.update()
+
+	# Lets save this Quest in a Tag to player never try this again with same character
+	tagsection = int ( id / MAXQUESTSPERTAG )
+
+	if player.hastag('quest.'+ str(tagsection) +'.complete'):
+		
+		quests = str(player.gettag('quest.'+ str(tagsection) +'.complete'))
+		quests += ',' + str(id)
+
+		player.settag('quest.'+ str(tagsection) +'.complete', quests)
+
+	else:
+		player.settag('quest.'+ str(tagsection) +'.complete', id)

@@ -12,6 +12,8 @@ import wolfpack
 from wolfpack.gumps import cGump
 from wolfpack.consts import *
 
+from quests.functions import MAXQUESTSPERTAG
+
 #######################################################################################
 ##############   Return a Quest Name   ################################################
 #######################################################################################
@@ -67,6 +69,22 @@ def givequestrequiredquests(id):
 	return quest
 
 #######################################################################################
+##############   Give the number of required quests   #################################
+#######################################################################################
+
+def giveamountofrequiredquests(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'requiredquests':
+			quest = subnode.text.split(',')
+
+	return len(quest)
+
+#######################################################################################
 ##############   Give Required NPCs in a list   #######################################
 #######################################################################################
 
@@ -104,7 +122,7 @@ def givequestnpceachamount(id):
 #######################################################################################
 
 def givequestnpcamounts(id):
-	quest = 'NULL'
+	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
@@ -176,6 +194,56 @@ def givequestnameplayer(char, id):
 	else:
 		questid = char.gettag('Quest.'+ str(id) +'.ID')
 		return givequestname(questid)
+
+#######################################################################################
+##############   Check if a Player have the Required Quests   #########################
+#######################################################################################
+
+def checkhaverequiredquests(player, id):
+	
+	# Get Required Quests for this quest and Amount of requireds
+	requiredquests = givequestrequiredquests(id)
+	amountofrequired = giveamountofrequiredquests(id)
+	# Just a Flag
+	requiredok = 0
+
+	if amountofrequired:
+		# Player things
+		tagsection = int( int(id) / int(MAXQUESTSPERTAG) )
+		if player.hastag('quest.'+ str(tagsection) +'.complete'):
+			# Assign Quests from player
+			quests = str(player.gettag('quest.'+ str(tagsection) +'.complete')).split(',')
+			# Loop
+			for i in range(0, amountofrequired):
+				for j in range(0, len(quests)):
+					if str(requiredquests[i]) == str(quests[j]):
+						requiredok += 1
+
+		if not requiredok == amountofrequired:
+			return False
+		else:
+			return True
+	else:
+		return True
+
+#######################################################################################
+##############   Check if a Player already completed a quest   ########################
+#######################################################################################
+
+def checkifquestcompleted(player, id):
+
+	tagsection = int( int(id) / int(MAXQUESTSPERTAG) )
+	
+	if player.hastag('quest.'+ str(tagsection) +'.complete'):
+		quests = str(player.gettag('quest.'+ str(tagsection) +'.complete')).split(',')
+
+		for i in range(0, len(quests)):
+			if int(quests[i]) == int(id):
+				return True
+			else:
+				return False
+	else:
+		return False
 
 ##########################################################################################################
 ###################   Now things for other systems and not for Quest object   ############################
