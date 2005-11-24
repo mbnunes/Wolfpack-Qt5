@@ -134,3 +134,67 @@ def checknpcforquest(player, dead):
 						player.settag('Quest.'+ str(i) +'.ReqNPC', tempstorage)	# Save Tag again
 
 						player.socket.sysmessage("You killed " + str(tempamount) + " of " + str(eachamount[j]) + " npcs for a Quest")
+
+#######################################################################################
+##############   Report a Quest to a NPC   ############################################
+#######################################################################################
+
+def reportquestnpc(player, npc, slot):
+
+	# Lets find ID of this quest
+	id = player.gettag('Quest.'+ str(slot) +'.ID')
+
+	# Lets try the lists huh?
+	eachnpcamount = givequestnpceachamount(id)					
+	killedlist = player.gettag('Quest.'+ str(slot) +'.ReqNPC').split(',')
+
+	# Now the amount of NPCs
+	npcamount = givequestnpcamounts(id)
+
+	# The Flag to check things
+	flag = 0
+
+	# The Looping to check things
+	for i in range( 0, npcamount ):
+
+		# Checking if we killed less NPCs than necessay
+		if int(killedlist[i]) < int(eachnpcamount[i]):
+			flag = 1
+
+	# Check if we completed the quest or not
+	if flag:
+		npc.say("You not completed all required things for this quest. Come back when you complete all tasks.")
+	else:
+		npc.say("You completed all tasks for this quest! Now let me give to you your reward.")
+		completequest(player, slot, id)
+
+#######################################################################################
+##############   Complete the Quest and give rewards   ################################
+#######################################################################################
+
+def completequest(player, slot, id):
+
+	# Get Backpack
+	backpack = player.getbackpack()
+	
+	# Let's delete the tags
+	player.deltag('Quest.'+ str(slot) +'.ID')
+	player.deltag('Quest.'+ str(slot) +'.NPCDest')
+	player.deltag('Quest.'+ str(slot) +'.ReqNPC')
+
+	# Now, rewards time. First, lists. After, amount of rewards
+	rewards = givequestrewards(id)
+	rewardamounts = givequesteachrewardsamount(id)
+	amountofrewards = givequestrewardsamount(id)
+
+	# Lets see if reward is not an empty list
+	if amountofrewards:
+
+		# Loop giving the amounts
+		for i in range( 0, amountofrewards ):
+
+			# Add item, set amount, send to backpack
+			item = wolfpack.additem( rewards[i] )
+			item.amount = int(rewardamounts[i])
+			backpack.additem( item )
+			item.update()

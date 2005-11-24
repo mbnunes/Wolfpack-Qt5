@@ -33,6 +33,33 @@ def npcquestmain(npc, player):
 			npcquestmenu(npc, player, questamount)
 
 #######################################################################################
+##############   Function for Quest Report   ##########################################
+#######################################################################################
+
+def npcquestreport(npc, player):
+
+	# Amount of Quests of this NPC
+	questamount = 0
+
+	# Loop for Quests
+	for i in range(1, 11):
+
+		if player.hastag('Quest.'+ str(i) +'.NPCDest'):
+
+			serialdest = player.gettag('Quest.'+ str(i) +'.NPCDest')
+
+			if str(npc.serial) == str(serialdest):
+
+				questamount += 1
+
+	# Message
+	if not questamount:
+		player.socket.sysmessage("You have no assigned quests from this NPC")
+
+	else:
+		npcreportlist(npc, player)
+
+#######################################################################################
 ##############   Quest list from a NPC   ##############################################
 #######################################################################################
 
@@ -248,6 +275,75 @@ def questdetailsresponsenpc( char, args, target ):
 		showquestdetailsnpc(char, id, npc, page + 1)
 
 	return
+
+#######################################################################################
+##############   Quest list from a NPC   ##############################################
+#######################################################################################
+
+def npcreportlist(npc, player):
+	
+	socket = player.socket
+
+	dialog = cGump( nomove=1, x=100, y=30 )
+
+	dialog.addResizeGump(37, 14, 9260, 445, 422)
+	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
+	dialog.addTiledGump(55, 32, 30, 391, 10460, 0)
+	dialog.addTiledGump(439, 32, 30, 391, 10460, 0)
+	dialog.addGump(-12, 290, 10402, 0)
+	dialog.addGump(53, 137, 10411, 0)
+	dialog.addGump(95, 39, 9005, 0)
+	dialog.addTiledGump(40, 421, 440, 17, 10100, 0)
+	dialog.addTiledGump(39, 15, 440, 17, 10100, 0)
+	dialog.addGump(4, 16, 10421, 0)
+	dialog.addGump(21, 4, 10420, 0)
+	dialog.addGump(449, 162, 10411, 0)
+	dialog.addGump(449, 323, 10412, 0)
+	dialog.addGump(394, 52, 1417, 0)
+	dialog.addGump(449, 3, 10410, 0)
+	dialog.addGump(402, 61, 9012, 0)
+	dialog.addText(135, 49, "Quest Report", 1149)
+	dialog.addText(136, 79, npc.name + ", from: " + npc.region.name, 1149)
+	dialog.addTiledGump(139, 69, 161, 2, 2432, 0)
+	dialog.addButton(338, 394, 12012, 12013, 0)
+
+	# Temporary storage
+	tempy = 142
+
+	# Loop for Quests
+	for i in range(1, 11):
+
+		if player.hastag('Quest.'+ str(i) +'.NPCDest'):
+
+			serialdest = player.gettag('Quest.'+ str(i) +'.NPCDest')
+
+			if str(npc.serial) == str(serialdest):
+
+				id = player.gettag('Quest.'+ str(i) +'.ID')
+	
+				dialog.addButton(391, int(tempy), 9904, 9905, i)
+				dialog.addText(106, int(tempy), givequestname( id ), 1149)
+
+		tempy += 21
+
+	dialog.setArgs( [npc] )
+	dialog.setCallback( npcreportresponse )
+
+	dialog.send( player.socket )
+
+#######################################################################################
+# Response for Quest List from a NPC
+#######################################################################################
+
+def npcreportresponse( char, args, target ):
+
+	button = target.button
+
+	npc = args[0]
+
+	if not button == 0:
+
+		reportquestnpc(char, npc, button)
 
 #######################################################################################
 ##############   Return a List with quests for this NPC   #############################

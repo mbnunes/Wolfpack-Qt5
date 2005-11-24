@@ -133,6 +133,39 @@ def givequestrewards(id):
 	return quest
 
 #######################################################################################
+##############   Give amount of each Rewards for Quest in a List   ####################
+#######################################################################################
+
+def givequesteachrewardsamount(id):
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'rewardsamount':
+			quest = subnode.text.split(',')
+
+	return quest
+
+#######################################################################################
+##############   Give amount of Rewards for Quest   ###################################
+#######################################################################################
+
+def givequestrewardsamount(id):
+	quest = 'NULL'
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'rewarditems':
+			quest = subnode.text.split(',')
+
+	# Returning the amount
+	return len( quest )
+
+#######################################################################################
 ##############   Return a Quest name by an ID Slot of a player   ######################
 #######################################################################################
 

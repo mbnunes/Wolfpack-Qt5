@@ -5,11 +5,14 @@
 #  ( (  ;._ \\ ctr # Last Modification:                         #
 #################################################################
 import speech
-from quests.npcs import npcquestmain
+from quests.npcs import npcquestmain, npcquestreport
 
 def onContextEntry( char, target, tag  ):
 
 	if ( tag == 1 ):
 		npcquestmain(target, char)
+
+	if ( tag == 2 ):
+		npcquestreport(target, char)
 
 	return 1
