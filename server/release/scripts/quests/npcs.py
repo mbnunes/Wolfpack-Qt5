@@ -15,6 +15,46 @@ from quests.utils import *
 from quests.functions import *
 
 #######################################################################################
+##############   Open the Choice Menu for Quest Action   ##############################
+#######################################################################################
+
+def openchoicequestmenu(char, player):
+
+	socket = player.socket
+
+	dialog = cGump( nomove=1, x=100, y=30 )
+
+	dialog.addResizeGump(7, 6, 9400, 253, 122)
+	dialog.addText(81, 17, "Quest System", 1149)
+	dialog.addButton(30, 55, 1209, 1210, 1)
+	dialog.addButton(30, 90, 1209, 1210, 2)
+	dialog.addText(56, 50, "List Quests", 1149)
+	dialog.addText(56, 85, "Report Completed Quest", 1149)
+
+	dialog.setArgs( [char] )
+	dialog.setCallback( questchoiceresponse )
+
+	dialog.send( player.socket )
+
+#######################################################################################
+# Response for Quest List from a NPC
+#######################################################################################
+
+def questchoiceresponse( char, args, target ):
+
+	button = target.button
+
+	npc = args[0]
+
+	if button == 1:
+
+		npcquestmain(npc, char)
+
+	elif button == 2:
+
+		npcquestreport(npc, char)
+
+#######################################################################################
 ##############   Main Function for Context Menu Option   ##############################
 #######################################################################################
 

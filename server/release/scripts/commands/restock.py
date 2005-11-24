@@ -26,7 +26,7 @@ def commandRestock(socket, cmd, args):
 		socket.sysmessage('Usage: restock <baseid> OR restock all')
 		return
 
-	baseid = hash(args.lower())
+	baseid = args.lower()
 
 	counter = 0
 
@@ -34,7 +34,7 @@ def commandRestock(socket, cmd, args):
 	char = chars.first
 
 	# Now lets check the args. I think is better to check here than check in NPC Loop
-	if baseid == "all":
+	if baseid == 'all':
 
 		while char:
 			if char.hastag( "spawner" ):
@@ -46,7 +46,7 @@ def commandRestock(socket, cmd, args):
 	else:
 
 		while char:
-			if hash(char.baseid.lower()) == baseid:
+			if char.baseid.lower() == baseid:
 				if char.hastag( "spawner" ):
 					char.delete()
 					counter += 1

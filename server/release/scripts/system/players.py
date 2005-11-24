@@ -4,7 +4,7 @@ from wolfpack import tr
 import guilds.stone
 from commands.jail import jailPlayer
 
-from system.quest import *
+from quests.players import openquestplayer
 
 def onLogin( player ):
 	socket = player.socket
