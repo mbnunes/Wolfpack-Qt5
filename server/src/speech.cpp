@@ -181,6 +181,34 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 
 	QString speechUpr = comm.upper();
 
+	// Lets try a small circle to prevent lag
+	MapItemsIterator ti = MapObjects::instance()->listItemsInCircle( pPlayer->pos(), 9 );
+	for ( P_ITEM pItem = ti.first(); pItem; pItem = ti.next() )
+	{
+		// Lets make it straight for 9 tiles
+		if ( pPlayer->dist( pItem ) > 9 )
+			continue;
+
+		if ( pItem->canHandleEvent( EVENT_SPEECH ) )
+		{
+			PyObject* pkeywords = PyTuple_New( keywords.size() );
+
+			// Set Items
+			for ( unsigned int i = 0; i < keywords.size(); ++i )
+				PyTuple_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
+
+			PyObject* args = Py_BuildValue( "(NNNO)", pItem->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
+
+			bool result = pItem->callEventHandler( EVENT_SPEECH, args );
+
+			Py_DECREF( args );
+			Py_DECREF( pkeywords );
+
+			if ( result )
+				return true;
+		}
+	}
+
 	MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( pPlayer->pos(), 18 );
 	for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 	{
