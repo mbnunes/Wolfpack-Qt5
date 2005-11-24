@@ -19,7 +19,7 @@ from quests.functions import MAXQUESTSPERTAG
 #######################################################################################
 
 def givequestname(id):
-	quest = 'NULL'
+	quest = ''
 
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
@@ -41,7 +41,7 @@ def givequestname(id):
 #######################################################################################
 
 def givequestdescription(id):
-	quest = 'NULL'
+	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
@@ -57,7 +57,7 @@ def givequestdescription(id):
 #######################################################################################
 
 def givequestrequiredquests(id):
-	quest = 'NULL'
+	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
@@ -89,7 +89,7 @@ def giveamountofrequiredquests(id):
 #######################################################################################
 
 def givequestnpctargets(id):
-	quest = 'NULL'
+	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
@@ -105,7 +105,7 @@ def givequestnpctargets(id):
 #######################################################################################
 
 def givequestnpceachamount(id):
-	quest = 'NULL'
+	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
@@ -135,11 +135,61 @@ def givequestnpcamounts(id):
 	return len( quest )
 
 #######################################################################################
+##############   Give Required Items in a list   ######################################
+#######################################################################################
+
+def givequestitemtargets(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'itemtargets':
+			quest = subnode.text.split(',')
+
+	return quest
+
+#######################################################################################
+##############   Give amount of each Required Item in a list   ########################
+#######################################################################################
+
+def givequestitemeachamount(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'itemtargetsamounts':
+			quest = subnode.text.split(',')
+
+	# Returning the list
+	return quest
+
+#######################################################################################
+##############   Give amount of Required Items   ######################################
+#######################################################################################
+
+def givequestitemamounts(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'itemtargets':
+			quest = subnode.text.split(',')
+
+	# Returning the Amount
+	return len( quest )
+
+#######################################################################################
 ##############   Give Rewards for Quest in a List   ###################################
 #######################################################################################
 
 def givequestrewards(id):
-	quest = 'NULL'
+	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
@@ -155,7 +205,7 @@ def givequestrewards(id):
 #######################################################################################
 
 def givequesteachrewardsamount(id):
-	quest = 'NULL'
+	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
@@ -171,7 +221,7 @@ def givequesteachrewardsamount(id):
 #######################################################################################
 
 def givequestrewardsamount(id):
-	quest = 'NULL'
+	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
@@ -237,11 +287,17 @@ def checkifquestcompleted(player, id):
 	if player.hastag('quest.'+ str(tagsection) +'.complete'):
 		quests = str(player.gettag('quest.'+ str(tagsection) +'.complete')).split(',')
 
+		flag = 0
+
 		for i in range(0, len(quests)):
 			if int(quests[i]) == int(id):
-				return True
-			else:
-				return False
+				flag = 1
+				break
+
+		if flag == 0:
+			return False
+		else:
+			return True
 	else:
 		return False
 
@@ -254,7 +310,7 @@ def checkifquestcompleted(player, id):
 #######################################################################################
 
 def givenpcname(id):
-	npc = 'NULL'
+	npc = ''
 
 	node = wolfpack.getdefinition(WPDT_NPC, str(id))
 
@@ -266,6 +322,28 @@ def givenpcname(id):
 				npc = subnode.text
 
 		return npc
+
+	else:
+
+		return "Error"
+
+#######################################################################################
+##############   Return a Item Name   #################################################
+#######################################################################################
+
+def giveitemname(id):
+	item = ''
+
+	node = wolfpack.getdefinition(WPDT_ITEM, str(id))
+
+	if node:
+		count = node.childcount
+		for i in range(0, count):
+			subnode = node.getchild(i)
+			if subnode.name == 'name':
+				item = subnode.text
+
+		return item
 
 	else:
 

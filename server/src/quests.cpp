@@ -49,7 +49,7 @@ void cQuests::load()
 
 		if ( !quest )
 		{
-			Console::instance()->log( LOG_NOTICE, tr( "QUESTS: %1 Quests Found.\n" ).arg( i - 1 ) );
+			Console::instance()->send( tr( "QUESTS: %1 Quests Found.\n" ).arg( i - 1 ) );
 			break;
 		}
 
@@ -68,6 +68,10 @@ void cQuests::load()
 				nQuest.npctargets = node->text();
 			else if ( node->name() == "npctargetsamounts" )
 				nQuest.npcamounts = node->text();
+			else if ( node->name() == "itemtargets" )
+				nQuest.itemtargets = node->text();
+			else if ( node->name() == "itemtargetsamounts" )
+				nQuest.itemamounts = node->text();
 			else if ( node->name() == "rewarditems" )
 				nQuest.rewards = node->text();
 			else if ( node->name() == "rewardsamount" )

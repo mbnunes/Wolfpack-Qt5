@@ -22,8 +22,19 @@
 		<name>The new Test</name>
 		<description>So... I have to make another description to a test quest. Man... I have no idea about a good description so... I was thinking... why not simple kill some efreets and dopplegangers? 10 of each creature could be enough. Accept this poor quest?</description>
 		<requiredquests>1</requiredquests>
-		<npctargets>efreet,doppleganger</npctargets>
+		<npctargets>doppleganger,efreet</npctargets>
 		<npctargetsamounts>10,10</npctargetsamounts>
+		<itemtargets>potion_heal</itemtargets>
+		<itemtargetsamounts>10</itemtargetsamounts>
+		<rewarditems>eed</rewarditems>
+		<rewardsamount>100</rewardsamount>
+	</quest>
+
+	<quest id="3">
+		<name>The Module Items test</name>
+		<description>Now, lets try this. Just give me 10 Heal potions and everything is fine. Ok?</description>
+		<itemtargets>potion_heal</itemtargets>
+		<itemtargetsamounts>10</itemtargetsamounts>
 		<rewarditems>eed</rewarditems>
 		<rewardsamount>100</rewardsamount>
 	</quest>

@@ -189,26 +189,51 @@ def showquestdetails(player, id, slot, page):
 	eachnpcamount = givequestnpceachamount(id)					# Amount of each Required NPC
 	killedlist = player.gettag('Quest.'+ str(slot) +'.ReqNPC').split(',')
 
+	itemamount = givequestitemamounts(id)						# Amount of Items to be killed (Different types)
+	itemlist = givequestitemtargets(id)						# Required Items
+	eachitemamount = givequestitemeachamount(id)					# Amount of each Required Item
+	
 	# Construct dialog
-	dialog.addText(103, 180, "Slay", 55)
-	dialog.addText(145, 180, eachnpcamount[page], 90)
-	dialog.addText(180, 180, givenpcname(npclist[page]), 1149)
-
-	dialog.addText(145, 200, "Location", 55)
-	dialog.addText(260, 200, " --- ", 1149)
-
-	dialog.addText(145, 220, "Total", 55)
-	dialog.addText(260, 220, killedlist[page], 90)	
+	if page < npcamount:
 	
-	dialog.addText(145, 240, "Return To", 55)
-	dialog.addText(260, 240, npcdest.name + " (" + npcdest.region.name + ")", 90)
+		dialog.addText(103, 180, "Slay", 55)
+		dialog.addText(145, 180, eachnpcamount[page], 90)
+		dialog.addText(180, 180, givenpcname(npclist[page]), 1149)
+
+		dialog.addText(145, 200, "Location", 55)
+		dialog.addText(260, 200, " --- ", 1149)
+
+		dialog.addText(145, 220, "Total", 55)
+		dialog.addText(260, 220, killedlist[page], 90)	
 	
+		dialog.addText(145, 240, "Return To", 55)
+		dialog.addText(260, 240, npcdest.name + " (" + npcdest.region.name + ")", 90)
+	
+		if (page + 1) < npcamount:
+			dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
+		elif itemamount:
+			dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
+
+	elif (page - npcamount) < itemamount:
+		dialog.addText(103, 180, "Get", 55)
+		dialog.addText(145, 180, eachitemamount[page - npcamount], 90)
+		dialog.addText(180, 180, giveitemname(itemlist[page - npcamount]), 1149)
+
+		dialog.addText(145, 220, "Total", 55)
+		# Trying amount
+		backpack = player.getbackpack()
+		itemcount = backpack.countitems( [itemlist[page - npcamount]] )
+		dialog.addText(260, 220, str(itemcount), 90)
+	
+		dialog.addText(145, 240, "Return To", 55)
+		dialog.addText(260, 240, npcdest.name + " (" + npcdest.region.name + ")", 90)
+
+		if ((page - npcamount) + 1) < itemamount:
+			dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
+
 	dialog.addButton(340, 395, 12012, 12013, 0)		# Okay
 	dialog.addButton(105, 395, 12021, 12022, 1)		# Resign
 	dialog.addButton(145, 365, 12015, 12016, 2)		# Previous
-
-	if (page + 1) < npcamount:
-		dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
 
 	dialog.setArgs( [id, slot, page] )
 	dialog.setCallback( questdetailsresponse )

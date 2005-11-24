@@ -100,7 +100,10 @@ def resignquest(player, id, slot):
 	else:
 		player.deltag('Quest.'+ str(slot) +'.ID')
 		player.deltag('Quest.'+ str(slot) +'.NPCDest')
-		player.deltag('Quest.'+ str(slot) +'.ReqNPC')
+
+		if player.hastag('Quest.'+ str(slot) +'.ReqNPC'):
+			player.deltag('Quest.'+ str(slot) +'.ReqNPC')
+
 		player.socket.sysmessage("You resigned the selected quest...")
 
 #######################################################################################
@@ -160,21 +163,39 @@ def reportquestnpc(player, npc, slot):
 	id = player.gettag('Quest.'+ str(slot) +'.ID')
 
 	# Lets try the lists huh?
-	eachnpcamount = givequestnpceachamount(id)					
-	killedlist = player.gettag('Quest.'+ str(slot) +'.ReqNPC').split(',')
+	eachnpcamount = givequestnpceachamount(id)
+	if player.hastag('Quest.'+ str(slot) +'.ReqNPC'):
+		killedlist = player.gettag('Quest.'+ str(slot) +'.ReqNPC').split(',')
+
+	eachitemamount = givequestitemeachamount(id)
+	itemtargets = givequestitemtargets(id)
 
 	# Now the amount of NPCs
 	npcamount = givequestnpcamounts(id)
+	itemamount = givequestitemamounts(id)
 
 	# The Flag to check things
 	flag = 0
 
-	# The Looping to check things
-	for i in range( 0, npcamount ):
+	# The Looping to check NPCs
+	if npcamount:
+		for i in range( 0, npcamount ):
 
-		# Checking if we killed less NPCs than necessay
-		if int(killedlist[i]) < int(eachnpcamount[i]):
-			flag = 1
+			# Checking if we killed less NPCs than necessay
+			if int(killedlist[i]) < int(eachnpcamount[i]):
+				flag = 1
+
+	# Now, the Loop to check items
+	if itemamount:
+		for i in range( 0, itemamount ):
+
+			# Checking if we have less Items than necessay
+			backpack = player.getbackpack()
+			itemcount = backpack.countitems( [itemtargets[i]] )
+
+			if itemcount < int(eachitemamount[i]):
+				flag = 1
+
 
 	# Check if we completed the quest or not
 	if flag:
@@ -196,6 +217,19 @@ def completequest(player, slot, id):
 	player.deltag('Quest.'+ str(slot) +'.ID')
 	player.deltag('Quest.'+ str(slot) +'.NPCDest')
 	player.deltag('Quest.'+ str(slot) +'.ReqNPC')
+
+	# Let's Consume required items
+	itemamount = givequestitemamounts(id)
+	itemtargets = givequestitemtargets(id)
+	eachitemamount = givequestitemeachamount(id)
+
+	if itemamount:
+		for i in range( 0, itemamount ):
+
+			# Checking if we have less Items than necessay
+			backpack = player.getbackpack()
+			itemcount = backpack.countitems( [itemtargets[i]] )
+			backpack.removeitems( [itemtargets[i]], int(eachitemamount[i]) )
 
 	# Now, rewards time. First, lists. After, amount of rewards
 	rewards = givequestrewards(id)

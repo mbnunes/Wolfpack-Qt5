@@ -41,7 +41,7 @@ class cUOSocket;
 
 struct stQuest
 {
-	QString name, description, requiredquests, npctargets, npcamounts, rewards, rewardamounts;
+	QString name, description, requiredquests, npctargets, npcamounts, itemtargets, itemamounts, rewards, rewardamounts;
 };
 
 class cQuests
