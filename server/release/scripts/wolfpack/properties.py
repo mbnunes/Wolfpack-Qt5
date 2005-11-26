@@ -189,7 +189,27 @@ def fromitem(item, property):
 			resname = str(item.gettag('resname2'))
 			if resboni.has_key(resname) and resboni[resname].has_key(property):
 				value += resboni[resname][property]
-
+		
+		# Special Treatment for Damagetypes, if item hast 2 restypes (they are not cumulative)
+		damagetypes = [DAMAGE_PHYSICAL,DAMAGE_FIRE,DAMAGE_COLD,DAMAGE_POISON,DAMAGE_ENERGY]
+		if property in damagetypes and item.hastag('resname') and item.hastag('resname2') and resboni:
+			#check if both weaponinfos for the resources include a custom damagetype distribution
+			res1_has_damagetypes = False
+			res2_has_damagetypes = False
+			res1name = str(item.gettag('resname'))
+			res2name = str(item.gettag('resname2'))
+			for dtype in damagetypes:
+				if resboni.has_key(res1name) and resboni[res1name].has_key(dtype):
+					res1_has_damagetypes = True
+				if resboni.has_key(res2name) and resboni[res2name].has_key(dtype):
+					res2_has_damagetypes = True
+			#if both resources have a own damagedistribution use the average
+			if 	res1_has_damagetypes and res2_has_damagetypes:
+				#the value already contains the sum of the 2, so here it must only be divided by 2
+				value = value/2
+			#if only one resource contains a damagedistribution use only this and this is already done
+			#so there is nothing left to do
+		
 		return value
 
 	return info[1]

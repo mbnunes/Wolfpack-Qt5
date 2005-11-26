@@ -264,22 +264,13 @@ def damagetypes(char, defender):
 			(physical, fire, cold, poison, energy) = consecratedweapon( defender )
 
 		else:
-			# Physical Damage Distribution
-			fire = weapon.getintproperty( 'dmg_fire', 0 )
-			if weapon.hastag( 'dmg_fire' ):
-				fire = int( weapon.gettag( 'dmg_fire' ) )
+			fire = properties.fromitem(weapon, DAMAGE_FIRE)
 
-			cold = weapon.getintproperty( 'dmg_cold', 0 )
-			if weapon.hastag( 'dmg_cold' ):
-				cold = int( weapon.gettag( 'dmg_cold' ) )
+			cold = properties.fromitem(weapon, DAMAGE_COLD)
 
-			poison = weapon.getintproperty( 'dmg_poison', 0 )
-			if weapon.hastag( 'dmg_poison' ):
-				poison = int( weapon.gettag( 'dmg_poison' ) )
+			poison = properties.fromitem(weapon, DAMAGE_POISON)
 
-			energy = weapon.getintproperty( 'dmg_energy', 0 )
-			if weapon.hastag( 'dmg_energy' ):
-				energy = int( weapon.gettag( 'dmg_energy' ) )
+			energy = properties.fromitem(weapon, DAMAGE_ENERGY)
 
 	# See if the energy distribution is correct
 	if fire + cold + poison + energy > 100:

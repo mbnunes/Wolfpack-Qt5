@@ -194,6 +194,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Disabled animal taming gain for creatures a character had already tamed.
   - Fixed gates with invalid positions crashing the server when used.
   - Implemented some Racial Features for Elves from Mondain's Legacy
+  - Fixed: Combat ignored DamageTypes from Weapons (only dealing physical damage from weapons)
+  - Changed how damagetypes are treated for weapons with 2 resources, that each have a damagetypedistribution
+    (before the values were just added, sometimes resulting in negative physical damage, now the average is used)
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
