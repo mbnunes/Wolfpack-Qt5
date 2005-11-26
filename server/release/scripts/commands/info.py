@@ -400,9 +400,9 @@ def charinfo( socket, char ):
 		gump.addResizeGump( 280, 380, 0xBB8, 215, 20 )
 		gump.addInputField( 284, 380, 200, 16, 0x834, 38, unicode( char.owner ) )
 		# 39
-		#gump.addText( 113, 400, "Spawn Region:", 0x834 )
+		gump.addText( 113, 400, "Spawn Region:", 0x834 )
 		#gump.addResizeGump( 280, 400, 0xBB8, 215, 20 )
-		#gump.addInputField( 284, 400, 200, 16, 0x834, 39, unicode( char.spawnregion ) )
+		gump.addInputField( 284, 400, 200, 16, 0x834, 39, unicode( char.spawnregion ) )
 
 	if not char.npc:
 		gump.addText( 415, 450, "Page 3 of 4", 0x834 )
@@ -468,9 +468,9 @@ def charinfo( socket, char ):
 		#gump.addResizeGump( 280, 160, 0xBB8, 215, 20 )
 		#gump.addInputField( 284, 160, 200, 16, 0x834, 40, char.carve)
 		# 41
-		#gump.addText( 113, 180, "Loot List:", 0x834 )
-		#gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )
-		#gump.addInputField( 284, 180, 200, 16, 0x834, 41, char.lootpacks)
+		gump.addText( 113, 160, "Lootpacks:", 0x834 )
+		#gump.addResizeGump( 280, 160, 0xBB8, 215, 20 )
+		gump.addInputField( 284, 160, 200, 16, 0x834, 41, char.lootpacks)
 		# 43
 		gump.addText( 113, 180, "Mindamage:", 0x834 )
 		#gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )

@@ -1,4 +1,5 @@
 import wolfpack
+from wolfpack import tr
 
 recharges = {
 "citrine" : [['f15', 'f23', 'f24', 'f2c'], 500],
@@ -36,11 +37,11 @@ def charges( item ):
 	return charge
 
 def receivers( item ):
-	amount = 0
+	receiver = []
 	for tag in item.tags:
 		if tag.startswith( "receiver_" ):
-			amount += 1
-	return amount
+			receiver.append(tag)
+	return receiver
 
 def activate_sender( item ):
 	item.settag( "active", 0 )
@@ -109,7 +110,7 @@ def response_sender( char, args, target ):
 				char.socket.clilocmessage( 500676 ) # This crystal is out of charges.
 
 	elif target.item and target.item.baseid == "comcrystal_receiver":
-		if receivers(item) >= 10:
+		if len(receivers(item)) >= 10:
 			char.socket.cliloc( 1010042 ) # This broadcast crystal is already linked to 10 receivers.
 			return False
 		elif target.item.gettag( "sender" ) == item.serial:
@@ -187,8 +188,8 @@ def onShowTooltip(player, object, tooltip):
 		tooltip.add( 1060744,"" )
 	if object.baseid == "comcrystal_sender":
 		tooltip.add( 1060741, str(charges(object)) )
-	if receivers(object) > 0:
-		tooltip.add(1060746, str(receivers(object)) )
+	if len(receivers(object)) > 0:
+		tooltip.add(1060746, str(len(receivers(object))) )
 	return
 
 def onContextEntry(player, object, entry):
@@ -209,3 +210,33 @@ def onContextCheckVisible(player, object, tag):
 		if object.hastag( "active" ):
 			return True
 	return False
+
+def onSpeech(item, player, text, keywords):
+	if not item.baseid == "comcrystal_sender" and not active(item) and not charges( item ):
+		return False
+	if text.startswith("*"):
+		player.socket.sysmessage("emote")
+		return False
+	for crystal in receivers(item):
+		if charges(item) > 0:
+			transmitmessage(crystal, player, text)
+			item.settag("charges", charges(item) - 1)
+			item.resendtooltip()
+		else:
+			deactivate( item )
+			break
+
+def transmitmessage(crystal, player, text):
+	crystal = wolfpack.finditem(int(crystal.split("_")[1]))
+	if not crystal:
+		return False
+	if not active(crystal):
+		return False
+	text = tr("%s says %s") % (player.name, text)
+	if crystal.getoutmostchar():
+		crystal.getoutmostchar().message( tr("Crystal: ") + text, 0x2b2)
+	elif crystal.getoutmostitem():
+		crystal.getoutmostitem().say(tr("Crystal: ") + text, 0x2b2)
+	else:
+		crystal.say(tr("Crystal: ") + text, 0x2b2)
+	return True
