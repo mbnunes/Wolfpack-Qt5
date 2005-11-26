@@ -69,6 +69,14 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added "name.prefix" and "name.suffix" tags to prefix and suffix for names, like in Sphere revisions.
   - Added "Simple MaxHitPoints Calculation", to enable the MaxHits Calculation = Str * Factor and not Str/2 * Factor + 50
   - Added tags "modmaxhitsfactor", "modmaxstamfactor" and "modmaxmanafactor" as a modification for these Factors
+  - Added tag "dontremoveondeath" for items to have a permanent item on char (Not removed on death)
+  - Added "onQuestButton"
+  - Fixed: Gender was not working on npcs
+  - OnTimeChange now works for NPCs too
+  - Added an optional new monetary system (Copper, Silver and gold)
+  - Added support for regional monetary with new monetary system (Every region could have your own money)
+  - Added new parameters in XML regions for new monetary: <firstcoin>,<secondcoin> and <thirdcoin>
+  - onSpeech event will work for items too
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
@@ -95,6 +103,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Grapevines got the farming script.
   - Misc. id typos fixed.
   - Added Mondain's Legacy Weapons
+  - Implemented "Quest Definitions", for Quest System
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.
@@ -195,6 +204,9 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed gates with invalid positions crashing the server when used.
   - Implemented some Racial Features for Elves from Mondain's Legacy
   - Fixed: Combat ignored DamageTypes from Weapons (only dealing physical damage from weapons)
+  - Added a system in Remote Administration to show all the players on a map (Via browser)
+  - Added restock command
+  - Implemented modules for Kill NPCs and have certain items to quest system from UO:ML
   - Changed how damagetypes are treated for weapons with 2 resources, that each have a damagetypedistribution
     (before the values were just added, sometimes resulting in negative physical damage, now the average is used)
  * Misc. Changes:
