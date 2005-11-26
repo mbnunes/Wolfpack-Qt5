@@ -415,19 +415,22 @@ void cTiming::checkPlayer( P_PLAYER player, unsigned int time )
 	}
 
 	// Murder Decay
-	if ( player->murdererTime() > 0 && player->murdererTime() < time )
+	if ( Config::instance()->murderdecay() > 0 )
 	{
-		if ( player->kills() > 0 )
-			player->setKills( player->kills() - 1 );
-
-		if ( player->kills() == Config::instance()->maxkills() && Config::instance()->maxkills() > 0 )
+		if ( player->murdererTime() > 0 && player->murdererTime() < time )
 		{
-			socket->sysMessage( tr( "You are no longer a murderer." ) );
-			player->setMurdererTime( time + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC );
-		} else if ( player->kills() == 0 ) {
-			player->setMurdererTime( 0 );
-		} else {
-			player->setMurdererTime( time + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC );
+			if ( player->kills() > 0 )
+				player->setKills( player->kills() - 1 );
+
+			if ( player->kills() == Config::instance()->maxkills() && Config::instance()->maxkills() > 0 )
+			{
+				socket->sysMessage( tr( "You are no longer a murderer." ) );
+				player->setMurdererTime( time + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC );
+			} else if ( player->kills() == 0 ) {
+				player->setMurdererTime( 0 );
+			} else {
+				player->setMurdererTime( time + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC );
+			}
 		}
 	}
 
