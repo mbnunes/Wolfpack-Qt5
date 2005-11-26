@@ -67,10 +67,8 @@
 
 	<contextmenu id="banker_menu">
 	    <scripts>contextmenus.bankermenu</scripts>
-		<option tag="4" msgid="6091"/>
 		<option tag="1" msgid="6105"/>
 		<option tag="2" msgid="6124"/>
-		<option tag="3" msgid="6090"/>
 	</contextmenu>
 
 
