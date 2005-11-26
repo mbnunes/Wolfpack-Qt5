@@ -311,14 +311,6 @@ def getPoison(plant):
 def setPoison(plant, level):
 	plant.settag('poison', max(0, min(2, level)))
 
-def getPoison(plant):
-	if plant.hastag('poison'):
-		return int(plant.gettag('poison'))
-	else:
-		return 0
-def setPoison(plant, level):
-	plant.settag('poison', max(0, min(2, level)))
-
 def getDisease(plant):
 	if plant.hastag('disease'):
 		return int(plant.gettag('disease'))
