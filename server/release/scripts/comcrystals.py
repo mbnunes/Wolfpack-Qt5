@@ -212,10 +212,9 @@ def onContextCheckVisible(player, object, tag):
 	return False
 
 def onSpeech(item, player, text, keywords):
-	if not item.baseid == "comcrystal_sender" and not active(item) and not charges( item ):
+	if not item.baseid == "comcrystal_sender" or not active(item) or not charges( item ):
 		return False
 	if text.startswith("*"):
-		player.socket.sysmessage("emote")
 		return False
 	for crystal in receivers(item):
 		if charges(item) > 0:
