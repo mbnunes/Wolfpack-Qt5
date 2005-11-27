@@ -17,12 +17,12 @@ def addBackground(dialog):
 	dialog.addTilePic(45, 45, 0xcef)
 	dialog.addTilePic(45, 118, 0xcf0)
 	dialog.addTilePic(211, 45, 0xceb)
-	dialog.addTilePic(211, 118, 0xcec)	
+	dialog.addTilePic(211, 118, 0xcec)
 
 def addPicture(dialog, plant):
 	dialog.addTilePic(90, 100, 0x1602)
 	dialog.addGump(140, 102, 0x15e1)
-	dialog.addTilePic(160, 100, 0x15fd)	
+	dialog.addTilePic(160, 100, 0x15fd)
 
 	status = plants.plant.getStatus(plant)
 

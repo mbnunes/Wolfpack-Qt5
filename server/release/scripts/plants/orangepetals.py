@@ -37,5 +37,5 @@ def callback(player, args):
 	if player.gettag('orangepetals') != args[0]:
 		return
 
-	player.deltag('orangepetals')	
+	player.deltag('orangepetals')
 	player.message(tr('* You feel the effects of your poison resistance wearing off *'), 0x3f)

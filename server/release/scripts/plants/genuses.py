@@ -30,7 +30,7 @@ def getById(id):
 	if len(GENUSES) > 0:
 		return GENUSES[0]
 	else:
-		raise RuntimeError, 'Empty GENUSES array.'		
+		raise RuntimeError, 'Empty GENUSES array.'
 
 #
 # Very lightweight class that stores information about a genus

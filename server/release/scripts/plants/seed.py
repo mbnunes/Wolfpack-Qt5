@@ -124,7 +124,7 @@ def plant_target(player, arguments, target):
 #
 def onCreate(seed, definition):
 	if not seed.hastag('genus'):
-		seed.settag('genus', random.choice([0, 8, 16])) # Campion, Fern, Tribarrel		
+		seed.settag('genus', random.choice([0, 8, 16])) # Campion, Fern, Tribarrel
 	if not seed.hastag('hue'):
 		seed.settag('hue', random.choice([COLOR_PLAIN, COLOR_RED, COLOR_BLUE, COLOR_YELLOW]))
 		hue = getHue(seed)

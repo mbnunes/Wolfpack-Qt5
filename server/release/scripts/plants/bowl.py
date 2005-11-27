@@ -39,7 +39,7 @@ def makePlant(player, bowl, fertile = False):
 	plants.plant.updatePlant(plant) # Update the plant
 
 	if not wolfpack.utilities.tobackpack(plant, player):
-		plant.update()	
+		plant.update()
 
 	return True
 
@@ -77,7 +77,7 @@ def target(player, arguments, target):
 				target.item.delete()
 			else:
 				target.item.amount -= 40
-				target.item.update()		
+				target.item.update()
 
 	# Check if we targetted a dynamic/static dirt patch
 	elif target.item and target.item.id in STATIC_DIRT and not player.canpickup(target.item):

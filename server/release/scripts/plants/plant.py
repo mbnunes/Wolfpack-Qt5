@@ -233,7 +233,7 @@ def applyPotion(player, plant, potiontype, simulate = False):
 		if getCurePotion(plant) >= 2:
 			full = True
 		elif not simulate:
-			setCurePotion(plant, getCurePotion(plant) + 1)		
+			setCurePotion(plant, getCurePotion(plant) + 1)
 
 	# Greater Heal
 	elif potiontype == 3:
@@ -341,7 +341,7 @@ def getCurePotion(plant):
 	else:
 		return 0
 def setCurePotion(plant, level):
-	plant.settag('curepotion', max(0, min(2, level)))	
+	plant.settag('curepotion', max(0, min(2, level)))
 
 def getHealPotion(plant):
 	if plant.hastag('healpotion'):
@@ -357,7 +357,7 @@ def getStrengthPotion(plant):
 	else:
 		return 0
 def setStrengthPotion(plant, level):
-	plant.settag('strengthpotion', max(0, min(2, level)))	
+	plant.settag('strengthpotion', max(0, min(2, level)))
 
 #
 # Manage the HealthStatus
@@ -427,7 +427,7 @@ def setHue(plant, hue):
 	if type(hue) == int:
 		plant.settag('hue', hue)
 	else:
-		plant.settag('hue', hue.id)		
+		plant.settag('hue', hue.id)
 
 #
 # Manage the seed genus
@@ -663,7 +663,7 @@ def applyMali(plant):
 	# Damage from disease
 	disease = getDisease(plant)
 	if disease > 0:
-		damage += disease * random.randint(3, 6)				
+		damage += disease * random.randint(3, 6)
 
 	# Damage from over oder underwatering the plant
 	water = getWater(plant)

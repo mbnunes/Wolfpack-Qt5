@@ -23,7 +23,7 @@ def addBackground(dialog):
 	dialog.addTilePic(45, 45, 0xcef)
 	dialog.addTilePic(45, 118, 0xcf0)
 	dialog.addTilePic(211, 45, 0xceb)
-	dialog.addTilePic(211, 118, 0xcec)	
+	dialog.addTilePic(211, 118, 0xcec)
 
 	dialog.addGump(60, 90, 0xe17)
 	dialog.addGump(120, 90, 0xe17)
@@ -95,11 +95,11 @@ def send(player, plant):
 
 	dialog.addButton(128, 116, 0xd4, 0xd4, 4) # Resources
 	dialog.addTilePic(113, 120, 0x1021)
-	addResourcesState(dialog, 149, 116, plant)	
+	addResourcesState(dialog, 149, 116, plant)
 
 	dialog.addButton(177, 116, 0xd4, 0xd4, 5) # Seeds
 	dialog.addTilePic(160, 121, 0xdcf)
-	addSeedsState(dialog, 199, 116, plant)		
+	addSeedsState(dialog, 199, 116, plant)	
 
 	dialog.addButton(70, 163, 0xd2, 0xd2, 6) # Gather pollen
 	dialog.addTilePic(56, 164, 0x1aa2)
@@ -108,7 +108,7 @@ def send(player, plant):
 	dialog.addTilePic(123, 167, 0x1021)
 
 	dialog.addButton(212, 163, 0xd2, 0xd2, 8) # Gather seeds
-	dialog.addTilePic(195, 168, 0xdcf)		
+	dialog.addTilePic(195, 168, 0xdcf)
 
 	dialog.setCallback(response)
 	dialog.setArgs([plant.serial])
@@ -150,7 +150,7 @@ def response(player, arguments, response):
 	# Seed Help
 	elif response.button == 5:
 		send(player, plant)
-		plants.sendCodexOfWisdom(player.socket, 68)		
+		plants.sendCodexOfWisdom(player.socket, 68)
 
 	# Gather Pollen
 	elif response.button == 6:
@@ -198,7 +198,7 @@ def response(player, arguments, response):
 		else:
 			res = plants.resources.create(genus, hue)
 			if not wolfpack.utilities.tobackpack(res, player):
-				res.update()					
+				res.update()
 
 			plants.plant.setAvailableResources(plant, available - 1) # Reduce available resources
 			plant.say(1053059, '', '', False, 0x3b2, player.socket) # You gather resources from the plant.

@@ -136,11 +136,11 @@ def send(player, plant):
 
 	dialog.addButton(71, 139, 0xd4, 0xd4, 4) # Poison
 	dialog.addTilePic(59, 143, 0x1ae4)
-	addPlus(dialog, 95, 140, plants.plant.getPoison(plant))		
+	addPlus(dialog, 95, 140, plants.plant.getPoison(plant))
 
 	dialog.addButton(71, 163, 0xd4, 0xd4, 5) # Disease
 	dialog.addTilePic(55, 167, 0x1727)
-	addPlus(dialog, 95, 164, plants.plant.getDisease(plant))	
+	addPlus(dialog, 95, 164, plants.plant.getDisease(plant))
 
 	dialog.addButton(209, 67, 0xd2, 0xd2, 6) # Water
 	dialog.addTilePic(193, 67, 0x1f9d)
@@ -272,7 +272,7 @@ def addWater(player, plant):
 	else:
 		plants.plant.pour(player, plant, potion)
 
-	send(player, plant) # Resend the main gump		
+	send(player, plant) # Resend the main gump
 
 def addPotion(player, plant, potiontypes):
 	# Try to find an item to pour into the plant

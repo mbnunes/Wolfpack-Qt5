@@ -55,9 +55,9 @@ def response(player, arguments, response):
 	# Help
 	elif response.button == 2:
 		send(player, plant)
-		plants.sendCodexOfWisdom(player.socket, 70)		
+		plants.sendCodexOfWisdom(player.socket, 70)
 
 	# Turn into a decorative plant
-	elif response.button == 3:		
+	elif response.button == 3:
 		plants.plant.setStatus(plant, STATUS_DECORATIVE)
 		plant.say(1053077, '', '', False, 0x3b2, player.socket) # You prune the plant. This plant will no longer produce resources or seeds, but will require no upkeep.
