@@ -1,6 +1,7 @@
 import wolfpack
 from wolfpack.consts import *
 from wolfpack import tr
+from math import ceil
 
 DefaultArcaneHue = 2117
 
@@ -20,11 +21,7 @@ def possible():
 	return p
 
 def getCharges( char ):
-	charges = char.skill[TAILORING] / 5
-	if charges < 16:
-		charges = 16
-	elif charges > 24:
-		charges = 24
+	charges = int(char.skill[TAILORING] / 50)
 	return charges
 
 def onUse( char, item ):
@@ -95,7 +92,15 @@ def response( char, args, target ):
 		char.socket.sysmessage( tr("You cannot use the gem on that.") )
 	return
 
-def ConsumeCharges( char, amount ):
+def canConsumeCharges( char ):
+	avail = 0
+	for i in range( 1, 25 ):
+		item = char.itemonlayer( i )
+		if item and item.hastag( "arcane" ):
+			avail += CurArcaneCharges(item)
+	return avail
+
+def ConsumeCharges( char, amount = 1 ):
 	avail = 0
 	for i in range( 1, 25 ):
 		item = char.itemonlayer( i )

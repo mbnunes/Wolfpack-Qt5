@@ -331,13 +331,10 @@ class Spell:
 	def checkreagents(self, char, mode, args=[]):
 		if not char.npc and len(self.reagents) > 0:
 			items = countReagents(char.getbackpack(), self.reagents.copy())
-
-			for item in items.keys():
-				if items[item] > 0:
-					if arcanegem.ConsumeCharges( char, items[item] ):
-						return True
-					char.message(502630)
-					return False
+			if arcanegem.canConsumeCharges( char ):
+				return True
+			char.message(502630)
+			return False
 
 		return True
 
@@ -356,7 +353,9 @@ class Spell:
 			lowerreagentcost = properties.fromchar(char, LOWERREAGENTCOST)
 
 			if lowerreagentcost == 0 or lowerreagentcost < random.randint(0, 99):
-				consumeReagents(char.getbackpack(), self.reagents.copy())
+				char.socket.sysmessage(str(consumeReagents(char.getbackpack(), self.reagents.copy())))
+				if consumeReagents(char.getbackpack(), self.reagents.copy()):
+					arcanegem.ConsumeCharges( char )
 
 	# Consume Tithing Points (Paladins)
 	def consumetithingpoints(self, char, mode, args=[]):
