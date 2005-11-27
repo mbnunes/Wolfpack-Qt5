@@ -7,6 +7,7 @@ import time
 import random
 from system.debugging import DEBUG_SPAWNS
 
+SHOWNPCICON = 0
 
 SpawnGemsCheckAmount = int(wolfpack.settings.getnumber("Game Speed", "Spawngems Checked Per Cycle", 50, 1))
 SpawnGemsCheckTime = float(wolfpack.settings.getnumber("Game Speed", "Spawngems Check Time", 15, 1))
@@ -25,6 +26,11 @@ def spawn(spawner, spawntype, spawndef, current, area):
 			npc.wanderradius = area
 			npc.addscript( 'system.spawns' )
 			npc.update()
+			# Updating visual of Spawn
+			if SHOWNPCICON:
+				bodyinfo = wolfpack.bodyinfo(npc.id)
+				spawner.id = bodyinfo['figurine']
+				spawner.update()
 		elif spawntype == 0:
 			newitem = wolfpack.additem(spawndef)
 			newitem.pos = spawner.pos
