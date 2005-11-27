@@ -147,6 +147,7 @@ protected:
 	float factorMaxMana_;
 	float factorMaxStam_;
 	bool simpleMaxHitsCalculation_;
+	bool enableTimeChangeForItems_;
 	bool elffullnightsight_;
 	float elfwisdombonus_;
 	float humanstrongback_;
@@ -223,6 +224,7 @@ public:
 	float factorMaxMana() const;
 	float factorMaxStam() const;
 	bool simpleMaxHitsCalculation() const;
+	bool enableTimeChangeForItems() const;
 
 	bool refreshMaxValues() const
 	{
@@ -759,6 +761,10 @@ inline float cConfig::factorMaxStam() const
 inline bool cConfig::simpleMaxHitsCalculation() const
 {
 	return simpleMaxHitsCalculation_;
+}
+inline bool cConfig::enableTimeChangeForItems() const
+{
+	return enableTimeChangeForItems_;
 }
 // Racial features
 inline bool cConfig::elffullnightsight() const

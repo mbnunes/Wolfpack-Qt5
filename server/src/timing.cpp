@@ -140,6 +140,7 @@ void cTiming::poll()
 	}
 
 	unsigned int events = 0;
+	bool loopitems = false;
 
 	// Check lightlevel and time
 	if ( nextUOTimeTick <= time )
@@ -161,6 +162,8 @@ void cTiming::poll()
 		if ( hour != oldhour )
 		{
 			events |= cBaseChar::EventTime;
+			if ( Config::instance()->enableTimeChangeForItems() )
+				loopitems = true;
 		}
 
 		// 11 to 18 = Day
@@ -301,6 +304,22 @@ void cTiming::poll()
 
 			if ( nextNpcCheck <= time )
 				nextNpcCheck = ( uint ) ( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
+		}
+	}
+
+	// Check items with onTimeChange event if a hour passed
+	if ( loopitems )
+	{
+		cItemIterator itemIterator;
+		P_ITEM item;
+		for ( item = itemIterator.first(); item; item = itemIterator.next() )
+		{
+			if ( item->canHandleEvent( EVENT_TIMECHANGE ) )
+			{
+				PyObject* args = Py_BuildValue( "(N)", item->getPyObject() );
+				item->callEventHandler( EVENT_TIMECHANGE, args );
+				Py_DECREF( args );
+			}
 		}
 	}
 
