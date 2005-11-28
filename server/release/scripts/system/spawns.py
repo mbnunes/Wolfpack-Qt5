@@ -7,7 +7,7 @@ import time
 import random
 from system.debugging import DEBUG_SPAWNS
 
-SHOWNPCICON = 0
+SHOWNPCICON = 1
 
 SpawnGemsCheckAmount = int(wolfpack.settings.getnumber("Game Speed", "Spawngems Checked Per Cycle", 50, 1))
 SpawnGemsCheckTime = float(wolfpack.settings.getnumber("Game Speed", "Spawngems Check Time", 15, 1))
@@ -25,7 +25,40 @@ def spawn(spawner, spawntype, spawndef, current, area):
 			npc.wandery1 = spawner.pos.y
 			npc.wanderradius = area
 			npc.addscript( 'system.spawns' )
+
+			# Now Adv. Settings
+			if spawner.hastag('color'):
+				npc.skin = int(spawner.gettag('color'))
+
+			if spawner.hastag('modstr'):
+				npc.strength = npc.strength * float(spawner.gettag('modstr'))
+
+			if spawner.hastag('moddex'):
+				npc.dexterity = npc.dexterity * float(spawner.gettag('moddex'))
+
+			if spawner.hastag('modint'):
+				npc.intelligence = npc.intelligence * float(spawner.gettag('modint'))
+
+			if spawner.hastag('modmaxhits'):
+				npc.maxhitpoints = npc.maxhitpoints * float(spawner.gettag('modmaxhits'))
+
+			if spawner.hastag('modmaxstam'):
+				npc.maxstamina = npc.maxstamina * float(spawner.gettag('modmaxstam'))
+
+			if spawner.hastag('modmaxmana'):
+				npc.maxmana = npc.maxmana * float(spawner.gettag('modmaxmana'))
+
+			if spawner.hastag('name'):
+				npc.name = spawner.gettag('name')
+
+			if spawner.hastag('nameprefix'):
+				npc.settag('name.prefix', spawner.gettag('nameprefix'))
+
+			if spawner.hastag('namesuffix'):
+				npc.settag('name.suffix', spawner.gettag('namesuffix'))
+
 			npc.update()
+
 			# Updating visual of Spawn
 			if SHOWNPCICON:
 				bodyinfo = wolfpack.bodyinfo(npc.id)
