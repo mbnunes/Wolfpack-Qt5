@@ -12,7 +12,7 @@ import wolfpack
 from wolfpack.gumps import cGump
 from wolfpack.consts import *
 
-from quests.functions import MAXQUESTSPERTAG
+from quests import MAXQUESTSPERTAG
 
 #######################################################################################
 ##############   Return a Quest Name   ################################################

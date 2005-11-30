@@ -13,6 +13,7 @@
 	<item id="def">
 		<id>0xdef</id>
 		<category>Professions\Tailorer\Resources\Raw Cotton 1</category>
+		<basescripts>cotton</basescripts>
 		<weight>3.0</weight>
 	</item>
 
@@ -242,6 +243,7 @@
 		<category>Professions\Tailorer\Resources\Flax</category>
 		<buyprice>102</buyprice>
 		<sellprice>51</sellprice>
+		<basescripts>cotton</basescripts>
 		<weight>1.0</weight>
 	</item>
 
@@ -251,6 +253,7 @@
 		<category>Professions\Tailorer\Resources\Raw Cotton 2</category>
 		<buyprice>102</buyprice>
 		<sellprice>51</sellprice>
+		<basescripts>cotton</basescripts>
 		<weight>3.0</weight>
 	</item>
 
