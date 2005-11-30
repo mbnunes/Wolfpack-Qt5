@@ -254,6 +254,9 @@ void cConfig::readData()
 	usenewmonetary_ = getBool( "Monetary", "Use New Monetary", false, true );
 	usereversedvaluable_ = getBool( "Monetary", "Use Reversed Valuable Base", false, true );
 
+	// Weather System
+	enableWheater_ = getBool( "Wheater", "Enable Wheater System", false, true );
+
 }
 
 void cConfig::load()

@@ -188,6 +188,9 @@ protected:
 	bool usenewmonetary_;
 	bool usereversedvaluable_;
 
+	// Wheater System
+	bool enableWheater_;
+
 public:
 	cConfig();
 
@@ -373,6 +376,9 @@ public:
 	// New Monetary system
 	bool usenewmonetary() const;
 	bool usereversedvaluable() const;
+
+	// Wheater System
+	bool enableWheater() const;
 
 private:
 	void setDefaultStartLocation();
@@ -791,6 +797,11 @@ inline bool cConfig::usenewmonetary() const
 inline bool cConfig::usereversedvaluable() const
 {
 	return usereversedvaluable_;
+}
+// Wheater System
+inline bool cConfig::enableWheater() const
+{
+	return enableWheater_;
 }
 
 typedef Singleton<cConfig> Config;

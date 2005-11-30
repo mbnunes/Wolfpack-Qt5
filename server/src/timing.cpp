@@ -34,6 +34,7 @@
 #include "basics.h"
 #include "timers.h"
 #include "combat.h"
+#include "console.h"
 #include "mapobjects.h"
 #include "serverconfig.h"
 #include "network/network.h"
@@ -141,6 +142,7 @@ void cTiming::poll()
 
 	unsigned int events = 0;
 	bool loopitems = false;
+	bool loopregions = false;
 
 	// Check lightlevel and time
 	if ( nextUOTimeTick <= time )
@@ -162,8 +164,14 @@ void cTiming::poll()
 		if ( hour != oldhour )
 		{
 			events |= cBaseChar::EventTime;
+
+			// OnTimeChange for Items
 			if ( Config::instance()->enableTimeChangeForItems() )
 				loopitems = true;
+
+			// Wheater System
+			if ( Config::instance()->enableWheater() )
+				loopregions = true;		
 		}
 
 		// 11 to 18 = Day
@@ -320,6 +328,35 @@ void cTiming::poll()
 				item->callEventHandler( EVENT_TIMECHANGE, args );
 				Py_DECREF( args );
 			}
+		}
+	}
+
+	// Loop Regions to try to change Wheater
+	if ( loopregions )
+	{
+		const QValueVector<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
+
+		QValueVector<cElement*>::const_iterator it( elements.begin() );
+		while ( it != elements.end() )
+		{
+			cTerritory* territory = new cTerritory( *it, 0 );
+
+			// Assign Rain Chance
+			int rainChance = territory->rainChance();
+
+			// Random Chance
+			int randomChance = RandomNum( 1, 100 );
+
+			// Checking if we have to change something
+			if ( randomChance <= rainChance )
+			{
+				territory->setIsRaining( true );
+				Console::instance()->log( LOG_NOTICE, "Start Raining on " + territory->name() );
+			}
+			else
+				territory->setIsRaining( false );
+
+			++it;
 		}
 	}
 

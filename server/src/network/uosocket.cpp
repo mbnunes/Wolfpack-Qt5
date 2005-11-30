@@ -1769,6 +1769,7 @@ void cUOSocket::resendPlayer( bool quick )
 	changeMap.setMap( pChar->pos().map );
 	send( &changeMap );
 
+	// Send Season
 	cUOTxChangeSeason season;
 	if ( Config::instance()->enableFeluccaSeason() && _player->pos().map == 0 )
 	{
@@ -2341,6 +2342,53 @@ void cUOSocket::updatePlayer()
 		send( &playerupdate );
 
 		updateLightLevel();
+
+		updateWeather( _player );
+	}
+}
+
+void cUOSocket::updateWeather( P_PLAYER pChar )
+{
+	if ( pChar )
+	{
+		cTerritory* region = Territories::instance()->region( pChar->pos() );
+
+		// If its a Region and not a Cave...
+		if ( ( region ) && !( region->isCave() ) )
+		{
+			// Assign weather
+			if ( region->isRaining() ) 
+			{
+				cUOTxWeather weather;
+				weather.setType( WT_RAINING );
+				weather.setAmount( RandomNum( 0x10, 0x70 ) );
+				weather.setTemperature( 0x10 );
+
+				send( &weather );
+			}
+			else
+			{
+				cUOTxWeather weather;
+
+				weather.setType( WT_NONE );
+				weather.setAmount( 0x00 );
+				weather.setTemperature( 0x10 );
+
+				send( &weather );
+			}
+		}
+		// Its not a Region or its a cave... so no weather
+		else
+		{
+			cUOTxWeather weather;
+
+			weather.setType( WT_NONE );
+			weather.setAmount( 0x00 );
+			weather.setTemperature( 0x10 );
+
+			send( &weather );
+		}
+
 	}
 }
 

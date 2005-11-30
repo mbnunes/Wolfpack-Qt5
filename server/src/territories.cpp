@@ -83,6 +83,8 @@ void cTerritory::init( void )
 	rainchance_ = 50;
 	guardSections_ = QStringList();
 	//	guardSections_.push_back( "standard_guard" );
+	isRaining_ = false;
+	isSnowing_ = false;
 }
 
 void cTerritory::processNode( const cElement* Tag )

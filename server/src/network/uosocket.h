@@ -248,6 +248,7 @@ public:
 	void bounceItem( P_ITEM pItem, Q_UINT8 reason );
 	void updatePlayer();
 	void resendPlayer( bool quick = true );
+	void updateWeather( P_PLAYER pChar );
 	void poll();
 	void soundEffect( Q_UINT16 soundId, cUObject* source = NULL );
 	void attachTarget( cTargetRequest* request );

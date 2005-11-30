@@ -175,6 +175,30 @@ public:
 	{
 		return thirdcoin_;
 	}
+	bool isRaining( void ) const
+	{
+		return isRaining_;
+	}
+	bool isSnowing( void ) const
+	{
+		return isSnowing_;
+	}
+
+	void setIsRaining( bool data )
+	{
+		if ( data )
+			isRaining_ = true;
+		else
+			isRaining_ = false;
+	}
+	void setIsSnowing( bool data )
+	{
+		if ( data )
+			isSnowing_ = true;
+		else
+			isSnowing_ = false;
+	}
+
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
 
@@ -341,6 +365,9 @@ private:
 	UI08 rainchance_;
 
 	int fixedlight_;	// The fixed Light Level for this place
+
+	bool isRaining_;	// Is Raining
+	bool isSnowing_;	// Is Snowing
 
 	QStringList guardSections_;
 

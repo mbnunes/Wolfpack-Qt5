@@ -309,19 +309,19 @@ public:
 
 enum eWeatherType
 {
-	WT_RAINING			= 0,
-	WT_FIERCESTORM,
-	WT_SNOWING,
-	WT_STORM,
+	WT_RAINING			= 0x00,
+	WT_FIERCESTORM		= 0x01,
+	WT_SNOWING			= 0x02,
+	WT_STORM			= 0x03,
 	WT_TEMPERATURE		= 0xFE,
-	WT_NONE
+	WT_NONE				= 0xFF
 };
 
 // 0x65 Weather
 class cUOTxWeather : public cUOPacket
 {
 public:
-	enum eWeatherType
+	/*enum eWeatherType
 	{
 		Raining			= 0,
 		Fiercestorm,
@@ -329,7 +329,7 @@ public:
 		Storm,
 		Temperature		= 0xFE,
 		None
-	};
+	};*/
 
 	cUOTxWeather() : cUOPacket( 0x65, 4 )
 	{
