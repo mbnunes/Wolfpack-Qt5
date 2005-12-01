@@ -33,21 +33,20 @@
 #include "../log.h"
 
 #include <qapplication.h>
-#include <q3valuevector.h>
-#include <q3valuelist.h>
+#include <QList>
 
 // Python Functions
-Q3ValueList<PythonFunction*> PythonFunction::instances;
+QList<PythonFunction*> PythonFunction::instances;
 
 class cCleanupHandlers
 {
 private:
-	Q3ValueVector<fnCleanupHandler> cleanupHandler;
+	QList<fnCleanupHandler> cleanupHandler;
 
 public:
 	void call()
 	{
-		Q3ValueVector<fnCleanupHandler>::iterator it;
+		QList<fnCleanupHandler>::iterator it;
 		for ( it = cleanupHandler.begin(); it != cleanupHandler.end(); ++it )
 		{
 			( *it ) ();

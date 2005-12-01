@@ -184,8 +184,7 @@ void AbstractAI::check()
 		std::vector<stActionNode> actions;
 		std::vector<stActionNode>::iterator it;
 
-		AbstractAction* action = NULL;
-		for ( action = m_actions.first(); action; action = m_actions.next() )
+		foreach( AbstractAction* action, m_actions )
 		{
 			actions.push_back( stActionNode( action->preCondition(), action ) );
 		}

@@ -82,7 +82,7 @@ public:
 	uint width;
 	uint height;
 	Q3IntCache<mapblock> mapCache;
-	Q3IntCache<Q3ValueVector<staticrecord> > staticsCache;
+	Q3IntCache<QList<staticrecord> > staticsCache;
 
 	QFile mapfile;
 	QFile idxfile;
@@ -703,7 +703,7 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exact )
 {
 	uint indexPos = ( baseX * mapRecord->height + baseY ) * 12;
-	Q3ValueVector<staticrecord>* p = mapRecord->staticsCache.find(indexPos);
+	QList<staticrecord>* p = mapRecord->staticsCache.find(indexPos);
 
 	// The block is not cached yet.
 	if (!p) {
@@ -751,7 +751,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		}
 
 		// update cache;
-		Q3ValueVector<staticrecord>* temp = new Q3ValueVector<staticrecord>( staticArray );
+		QList<staticrecord>* temp = new QList<staticrecord>( staticArray );
 		if ( !mapRecord->staticsCache.insert( indexPos, temp ) ) {
 			delete temp;
 			p = 0;

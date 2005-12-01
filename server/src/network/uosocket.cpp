@@ -1788,9 +1788,9 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection* packet )
 		return;
 
 	Q_UINT16 Tag = packet->entryTag();
-	cContextMenu* menu = 0;
 	bool found = false;
-	for ( menu = contextMenu_.first(); menu; menu = contextMenu_.next() )
+	cContextMenu* menu;
+	foreach( menu, contextMenu_ )
 	{
 		if ( Tag >= menu->count() )
 			Tag -= menu->count();

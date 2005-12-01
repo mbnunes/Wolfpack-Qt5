@@ -114,18 +114,20 @@ class AbstractAI
 protected:
 	AbstractAI() : m_npc( NULL ), m_currentAction( NULL ), notorietyOverride_( 0 ), m_currentVictimSer( INVALID_SERIAL )
 	{
-		m_actions.setAutoDelete( true );
 		nextVictimCheck = 0;
 	}
 
 public:
 	AbstractAI( P_NPC npc ) : m_npc( npc ), m_currentAction( NULL ), notorietyOverride_( 0 ), m_currentVictimSer( INVALID_SERIAL )
 	{
-		m_actions.setAutoDelete( true );
 		nextVictimCheck = 0;
 	}
 	virtual ~AbstractAI()
 	{
+		foreach(AbstractAction* a, m_actions )
+		{
+			delete a;
+		}
 	} // virtual destructor.
 
 	// some events that can be triggered from outside
@@ -163,8 +165,7 @@ public:
 	virtual void init( P_NPC npc )
 	{
 		m_npc = npc;
-		AbstractAction* action = NULL;
-		for ( action = m_actions.first(); action ; action = m_actions.next() )
+		foreach( AbstractAction* action, m_actions )
 		{
 			action->setNPC( npc );
 		}
@@ -193,7 +194,7 @@ public:
 protected:
 	P_NPC m_npc;
 	AbstractAction* m_currentAction;
-	Q3PtrList<AbstractAction> m_actions;
+	QList<AbstractAction*> m_actions;
 	unsigned char notorietyOverride_;
 	unsigned int nextVictimCheck;
 	SERIAL m_currentVictimSer;

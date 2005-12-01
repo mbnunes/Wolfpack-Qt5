@@ -31,10 +31,8 @@
 #include "engine.h"
 #include "pyerrors.h"
 #include <QString>
-#include <q3valuevector.h>
-//Added by qt3to4:
-#include <Q3ValueList>
-#include <Q3CString>
+#include <QList>
+#include <QByteArray>
 
 #include "../typedefs.h"
 
@@ -145,7 +143,7 @@ inline PyObject* QString2Python( const QString& string )
 	else
 	{
 #if defined(Py_UNICODE_WIDE)
-		Q3CString utf = string.utf8();
+		QByteArray utf = string.utf8();
 		PyObject *obj = PyUnicode_DecodeUTF8( utf.data(), utf.length(), "" );
 		return obj;
 #else
@@ -195,7 +193,7 @@ class PythonFunction
 	QString sModule;
 	QString sFunc;
 
-	static Q3ValueList<PythonFunction*> instances; // list of all known instances
+	static QList<PythonFunction*> instances; // list of all known instances
 public:
 	explicit PythonFunction( PyObject* function ) : pModule( 0 ), pFunc( 0 )
 	{
@@ -246,7 +244,7 @@ public:
 
 	// Clean up all instances
 	static void cleanUpAll() {
-		Q3ValueList<PythonFunction*>::iterator it;
+		QList<PythonFunction*>::iterator it;
 		for (it = instances.begin(); it != instances.end(); ++it) {
 			(*it)->cleanUp();
 		}
@@ -254,7 +252,7 @@ public:
 
 	// Recreate all pythonfunction instances
 	static void recreateAll() {
-		Q3ValueList<PythonFunction*>::iterator it;
+		QList<PythonFunction*>::iterator it;
 		for (it = instances.begin(); it != instances.end(); ++it) {
 			(*it)->recreate();
 		}

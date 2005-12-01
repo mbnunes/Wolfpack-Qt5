@@ -32,7 +32,7 @@
 
 #include <stdexcept>
 //Added by qt3to4:
-#include <Q3PtrList>
+#include <QList>
 
 template <class T, unsigned int MAXSIZE>
 class FixedSizePtrStack
@@ -85,15 +85,14 @@ template <class T, unsigned int MAXSIZE>
 class cObjectCache
 {
 private:
-	Q3PtrList<PyObject> objects;
+	QList<PyObject*> objects;
 
 	// Search for an object for which only we
 	// hold a reference count. The reference count
 	// is increased for the object.
 	PyObject* findFreeObject()
 	{
-		PyObject* obj;
-		for ( obj = objects.first(); obj; obj = objects.next() )
+		foreach ( PyObject* obj, objects )
 		{
 			if ( obj->ob_refcnt == 1 )
 			{
@@ -112,17 +111,11 @@ public:
 
 	void clear()
 	{
-		PyObject* obj;
-		for ( obj = objects.first(); obj; obj = objects.next() )
+		foreach ( PyObject* obj, objects )
 		{
 			Py_DECREF( obj );
 		}
 		objects.clear();
-	}
-
-	cObjectCache()
-	{
-		objects.setAutoDelete( false );
 	}
 
 	T* allocObj( PyTypeObject* type )

@@ -35,7 +35,7 @@
 #include <qbitarray.h>
 #include <QObject>
 #include <QQueue>
-#include <Q3PtrList>
+#include <QList>
 #include <vector>
 
 // Forward Declarations
@@ -321,7 +321,7 @@ private:
 	cCustomTags tags_;
 	QString _ip; // IP used to connect
 	QBitArray* tooltipscache_;
-	Q3PtrList<cContextMenu> contextMenu_;
+	QList<cContextMenu*> contextMenu_;
 	QMap<SERIAL, cGump*> gumps;
 	bool skippedUOHeader;
 	qint32 seed;
