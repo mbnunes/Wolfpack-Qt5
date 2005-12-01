@@ -42,6 +42,8 @@
 #include <qapplication.h>
 #include <qfileinfo.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 using namespace std;
 
@@ -56,7 +58,7 @@ cScriptManager::~cScriptManager()
 	unload();
 }
 
-cPythonScript* cScriptManager::find( const QCString& name )
+cPythonScript* cScriptManager::find( const Q3CString& name )
 {
 	cScriptManager::iterator it = scripts.find( name );
 
@@ -115,7 +117,7 @@ void cScriptManager::unload()
 		hooks[i] = 0;
 	}
 
-	QMap<QCString, PyObject*>::iterator itc;
+	QMap<Q3CString, PyObject*>::iterator itc;
 
 	for ( itc = commandhooks.begin(); itc != commandhooks.end(); ++itc )
 	{
@@ -140,7 +142,7 @@ void cScriptManager::unload()
 void cScriptManager::load()
 {
 	// Each Section is a Script identifier
-	const QValueVector<cElement*>& sections = Definitions::instance()->getDefinitions( WPDT_SCRIPT );
+	const Q3ValueVector<cElement*>& sections = Definitions::instance()->getDefinitions( WPDT_SCRIPT );
 
 	unsigned int loaded = 0;
 	unsigned int i;
@@ -187,7 +189,7 @@ void cScriptManager::onServerStop()
 	}
 }
 
-PyObject* cScriptManager::getCommandHook( const QCString& command )
+PyObject* cScriptManager::getCommandHook( const Q3CString& command )
 {
 	PyObject* result = 0;
 
@@ -211,7 +213,7 @@ cPythonScript* cScriptManager::getGlobalHook( ePythonEvent event )
 	return result;
 }
 
-void cScriptManager::setCommandHook( const QCString& command, PyObject* object )
+void cScriptManager::setCommandHook( const Q3CString& command, PyObject* object )
 {
 	if ( commandhooks.contains( command.lower() ) )
 	{

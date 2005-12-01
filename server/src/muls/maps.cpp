@@ -37,7 +37,7 @@
 
 // Library Includes
 #include <qstring.h>
-#include <qintcache.h>
+#include <q3intcache.h>
 #include <qfile.h>
 #include <qdatastream.h>
 #include <qdir.h>
@@ -81,8 +81,8 @@ public:
 
 	uint width;
 	uint height;
-	QIntCache<mapblock> mapCache;
-	QIntCache<QValueVector<staticrecord> > staticsCache;
+	Q3IntCache<mapblock> mapCache;
+	Q3IntCache<Q3ValueVector<staticrecord> > staticsCache;
 
 	QFile mapfile;
 	QFile idxfile;
@@ -107,15 +107,15 @@ public:
 MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw( wpFileNotFoundException )
 {
 	idxfile.setName( index );
-	if ( !idxfile.open( IO_ReadOnly ) )
+	if ( !idxfile.open( QIODevice::ReadOnly ) )
 		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( index ) );
 
 	mapfile.setName( map );
-	if ( !mapfile.open( IO_ReadOnly ) )
+	if ( !mapfile.open( QIODevice::ReadOnly ) )
 		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( map ) );
 
 	staticsfile.setName( statics );
-	if ( !staticsfile.open( IO_ReadOnly ) )
+	if ( !staticsfile.open( QIODevice::ReadOnly ) )
 		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( statics ) );
 
 	staticsCache.setAutoDelete( true );
@@ -150,7 +150,7 @@ void MapsPrivate::loadDiffs( const QString& basePath, unsigned int id )
 	mapdifdata.setName( basePath + mapDiffFileName );
 
 	// Try to read a list of ids
-	if ( mapdifdata.open( IO_ReadOnly ) && mapdiflist.open( IO_ReadOnly ) )
+	if ( mapdifdata.open( QIODevice::ReadOnly ) && mapdiflist.open( QIODevice::ReadOnly ) )
 	{
 		QDataStream listinput( &mapdiflist );
 		listinput.setByteOrder( QDataStream::LittleEndian );
@@ -166,12 +166,12 @@ void MapsPrivate::loadDiffs( const QString& basePath, unsigned int id )
 	}
 
 	stadifdata.setName( basePath + statDiffFileName );
-	stadifdata.open( IO_ReadOnly );
+	stadifdata.open( QIODevice::ReadOnly );
 
 	QFile stadiflist( basePath + statDiffListName );
 	QFile stadifindex( basePath + statDiffIndexName );
 
-	if ( stadifindex.open( IO_ReadOnly ) && stadiflist.open( IO_ReadOnly ) )
+	if ( stadifindex.open( QIODevice::ReadOnly ) && stadiflist.open( QIODevice::ReadOnly ) )
 	{
 		QDataStream listinput( &stadiflist );
 		QDataStream indexinput( &stadifindex );
@@ -703,7 +703,7 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exact )
 {
 	uint indexPos = ( baseX * mapRecord->height + baseY ) * 12;
-	QValueVector<staticrecord>* p = mapRecord->staticsCache.find(indexPos);
+	Q3ValueVector<staticrecord>* p = mapRecord->staticsCache.find(indexPos);
 
 	// The block is not cached yet.
 	if (!p) {
@@ -751,7 +751,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		}
 
 		// update cache;
-		QValueVector<staticrecord>* temp = new QValueVector<staticrecord>( staticArray );
+		Q3ValueVector<staticrecord>* temp = new Q3ValueVector<staticrecord>( staticArray );
 		if ( !mapRecord->staticsCache.insert( indexPos, temp ) ) {
 			delete temp;
 			p = 0;

@@ -43,6 +43,8 @@
 #include "scriptmanager.h"
 #include "python/pyspawnregion.h"
 #include <math.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 using namespace std;
 
@@ -831,8 +833,8 @@ void cSpawnRegion::reSpawnToMax( void )
 // delete all spawns and reset the timer
 void cSpawnRegion::deSpawn( void )
 {
-	QPtrList<cUObject> items = items_; // Copy
-	QPtrList<cUObject> npcs = npcs_; // Copy
+	Q3PtrList<cUObject> items = items_; // Copy
+	Q3PtrList<cUObject> npcs = npcs_; // Copy
 	cUObject *object;
 
 	for ( object = items.first(); object; object = items.next() )
@@ -1002,7 +1004,7 @@ void cAllSpawnRegions::reload()
 {
 	// Save a list of all objects and their spawnregions
 	// So the references can be recreated later.
-	QMap<QString, QPtrList<cUObject> > objects;
+	QMap<QString, Q3PtrList<cUObject> > objects;
 
 	cItemIterator iItems;
 	for ( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
@@ -1039,14 +1041,14 @@ void cAllSpawnRegions::reload()
 	unload();
 	load();
 
-	QMap<QString, QPtrList<cUObject> >::iterator it;
+	QMap<QString, Q3PtrList<cUObject> >::iterator it;
 	for ( it = objects.begin(); it != objects.end(); ++it )
 	{
 		cSpawnRegion *region = this->region( it.key() );
 		if ( region )
 		{
 			cUObject *object;
-			QPtrList<cUObject> &list = it.data();
+			Q3PtrList<cUObject> &list = it.data();
 			for ( object = list.first(); object; object = list.next() )
 			{
 				object->setSpawnregion( region );
@@ -1055,7 +1057,7 @@ void cAllSpawnRegions::reload()
 		else
 		{
 			cUObject *object;
-			QPtrList<cUObject> &list = it.data();
+			Q3PtrList<cUObject> &list = it.data();
 			for ( object = list.first(); object; object = list.next() )
 			{
 				object->remove();

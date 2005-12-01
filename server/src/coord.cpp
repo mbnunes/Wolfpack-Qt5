@@ -44,12 +44,14 @@
 // System Includes
 #include <math.h>
 #include <set>
+//Added by qt3to4:
+#include <Q3ValueList>
 
-inline QValueList<Coord> getPointList( const Coord& origin, const Coord& target )
+inline Q3ValueList<Coord> getPointList( const Coord& origin, const Coord& target )
 {
 	// Create a list of coordinates we are going to "touch" when looking
 	// from point a to point b
-	QValueList<Coord> pointList;
+	Q3ValueList<Coord> pointList;
 
 	int xDiff = target.x - origin.x;
 	int yDiff = target.y - origin.y;
@@ -121,7 +123,7 @@ struct stBlockingItem
 // Get blocking tiles at the given x,y,map coordinate
 // Get floor tiles, that are not blocking, too
 // we need these floor tiles to know, if the 'black map' tile is the only floor here
-void getBlockingTiles( const Coord& pos, QValueList<stBlockingItem>& items )
+void getBlockingTiles( const Coord& pos, Q3ValueList<stBlockingItem>& items )
 {
 	stBlockingItem item;
 
@@ -211,8 +213,8 @@ void getBlockingTiles( const Coord& pos, QValueList<stBlockingItem>& items )
 		MultiDefinition *data = MultiCache::instance()->getMulti( pMulti->id() - 0x4000 );
 		if ( data )
 		{
-			QValueVector<multiItem_st> mitems = data->getEntries();
-			QValueVector<multiItem_st>::iterator it;
+			Q3ValueVector<multiItem_st> mitems = data->getEntries();
+			Q3ValueVector<multiItem_st>::iterator it;
 
 			for ( it = mitems.begin(); it != mitems.end(); ++it )
 			{
@@ -250,10 +252,10 @@ void getBlockingTiles( const Coord& pos, QValueList<stBlockingItem>& items )
 }
 
 // Check for blocking tiles at the given position
-inline bool checkBlockingTiles( const QValueList<stBlockingItem>& items, const Coord& pos, const Coord& target )
+inline bool checkBlockingTiles( const Q3ValueList<stBlockingItem>& items, const Coord& pos, const Coord& target )
 {
 	// Iterate trough all blocking tiles
-	QValueList<stBlockingItem>::const_iterator it;
+	Q3ValueList<stBlockingItem>::const_iterator it;
 	for ( it = items.begin(); it != items.end(); ++it )
 	{
 		stBlockingItem item = *it;
@@ -303,12 +305,12 @@ bool Coord::lineOfSight( const Coord& target, bool debug ) const
 		return true;
 	}
 
-	QValueList<Coord> pointList = getPointList( *this, target );
+	Q3ValueList<Coord> pointList = getPointList( *this, target );
 
 	int lastX = -1, lastY = -1;
-	QValueList<stBlockingItem> blockingItems;
+	Q3ValueList<stBlockingItem> blockingItems;
 
-	QValueList<Coord>::const_iterator it;
+	Q3ValueList<Coord>::const_iterator it;
 	for ( it = pointList.begin(); it != pointList.end(); ++it )
 	{
 		Coord point = *it;

@@ -122,21 +122,17 @@
 #if OS_WIN
 #include <windows.h>
 #include <winbase.h>
+# include <sys/types.h>
   typedef struct OsFile OsFile;
   struct OsFile {
     HANDLE h;               /* Handle for accessing the file */
     int locked;             /* 0: unlocked, <0: write lock, >0: read lock */
   };
-# if defined(_MSC_VER) || defined(__BORLANDC__)
-    typedef __int64 off_t;
-# else
-#  if !defined(_CYGWIN_TYPES_H)
-     typedef long long off_t;
-#    if defined(__MINGW32__)
-#      define	_OFF_T_
-#    endif
-#  endif
-# endif
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+#define OFF_T __int64
+#else
+#define OFF_T long long
+#endif
 # define SQLITE_TEMPNAME_SIZE (MAX_PATH+50)
 # define SQLITE_MIN_SLEEP_MS 1
 #endif
@@ -161,6 +157,10 @@
 # define SQLITE_MIN_SLEEP_MS 17
 #endif
 
+#ifndef OFF_T
+#define OFF_T off_t
+#endif
+
 int sqliteOsDelete(const char*);
 int sqliteOsFileExists(const char*);
 int sqliteOsFileRename(const char*, const char*);
@@ -172,10 +172,10 @@ int sqliteOsTempFileName(char*);
 int sqliteOsClose(OsFile*);
 int sqliteOsRead(OsFile*, void*, int amt);
 int sqliteOsWrite(OsFile*, const void*, int amt);
-int sqliteOsSeek(OsFile*, off_t offset);
+int sqliteOsSeek(OsFile*, OFF_T offset);
 int sqliteOsSync(OsFile*);
-int sqliteOsTruncate(OsFile*, off_t size);
-int sqliteOsFileSize(OsFile*, off_t *pSize);
+int sqliteOsTruncate(OsFile*, OFF_T size);
+int sqliteOsFileSize(OsFile*, OFF_T *pSize);
 int sqliteOsReadLock(OsFile*);
 int sqliteOsWriteLock(OsFile*);
 int sqliteOsUnlock(OsFile*);

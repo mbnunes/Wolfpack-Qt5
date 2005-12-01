@@ -33,7 +33,7 @@
 #include "objectdef.h"
 
 #include <qpair.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 class cTiming
 {
@@ -56,7 +56,7 @@ protected:
 	void checkNpc( P_NPC npc, unsigned int time );
 
 	typedef QPair<unsigned int, SERIAL> DecayPair;
-	typedef QValueList<DecayPair> DecayContainer;
+	typedef Q3ValueList<DecayPair> DecayContainer;
 	typedef DecayContainer::iterator DecayIterator;
 
 	DecayContainer decayitems;

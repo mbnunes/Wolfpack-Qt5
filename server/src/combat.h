@@ -30,7 +30,7 @@
 
 #include "singleton.h"
 #include "typedefs.h"
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 
 class Coord;
 class cUOSocket;
@@ -159,13 +159,13 @@ protected:
 	/*!
 		\brief This member saves all ongoing fights and is used to time out fights.
 	*/
-	QPtrList<cFightInfo> fights_;
+	Q3PtrList<cFightInfo> fights_;
 
 public:
 	/*!
 		\returns A reference to the list containing all ongoing fights.
 	*/
-	inline QPtrList<cFightInfo>& fights()
+	inline Q3PtrList<cFightInfo>& fights()
 	{
 		return fights_;
 	}

@@ -54,6 +54,8 @@
 
 // Library Includes
 #include <qdatetime.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 #include <math.h>
 #include <time.h>
 
@@ -89,7 +91,7 @@ void cTiming::poll()
 	if ( nextItemCheck <= time )
 	{
 		startProfiling( PF_DECAYCHECK );
-		QValueVector<SERIAL> toRemove;
+		Q3ValueVector<SERIAL> toRemove;
 		DecayIterator it = decayitems.begin();
 
 		while ( it != decayitems.end() )
@@ -101,7 +103,7 @@ void cTiming::poll()
 			++it;
 		}
 
-		QValueVector<SERIAL>::iterator sit;
+		Q3ValueVector<SERIAL>::iterator sit;
 
 		for ( sit = toRemove.begin(); sit != toRemove.end(); ++sit )
 		{
@@ -216,9 +218,9 @@ void cTiming::poll()
 		nextCombatCheck = time + 250;
 
 		// Check for timed out fights
-		QPtrList<cFightInfo> fights = Combat::instance()->fights();
+		Q3PtrList<cFightInfo> fights = Combat::instance()->fights();
 		fights.setAutoDelete( false );
-		QPtrList<cFightInfo> todelete;
+		Q3PtrList<cFightInfo> todelete;
 		todelete.setAutoDelete( true );
 		cFightInfo* info;
 		for ( info = fights.first(); info; info = fights.next() )
@@ -246,7 +248,7 @@ void cTiming::poll()
 	}
 
 	// Save the positions of connected players
-	QValueVector<Coord> positions;
+	Q3ValueVector<Coord> positions;
 
 	// Periodic checks for connected players
 	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
@@ -279,7 +281,7 @@ void cTiming::poll()
 				{
 					// Check if we are anywhere near a player
 					// all other npcs are accounted as inactive
-					for ( QValueVector<Coord>::const_iterator it = positions.begin(); it != positions.end(); ++it )
+					for ( Q3ValueVector<Coord>::const_iterator it = positions.begin(); it != positions.end(); ++it )
 					{
 						if ( ( *it ).distance( npc->pos() ) <= 24 && !npc->pos().isInternalMap() )
 						{
@@ -334,9 +336,9 @@ void cTiming::poll()
 	// Loop Regions to try to change Wheater
 	if ( loopregions )
 	{
-		const QValueVector<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
+		const Q3ValueVector<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
 
-		QValueVector<cElement*>::const_iterator it( elements.begin() );
+		Q3ValueVector<cElement*>::const_iterator it( elements.begin() );
 		while ( it != elements.end() )
 		{
 			cTerritory* territory = new cTerritory( *it, 0 );

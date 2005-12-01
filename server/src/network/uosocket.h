@@ -29,14 +29,17 @@
 #define __UOSOCKET__
 
 // Library Includes
-#include <qcstring.h>
-#include <qsocketdevice.h>
-#include <qobject.h>
+#include <q3cstring.h>
+#include <QTcpSocket>
 #include <qmap.h>
 #include <qbitarray.h>
+#include <QObject>
+#include <QQueue>
+#include <Q3PtrList>
 #include <vector>
 
 // Forward Declarations
+class cClientEncryption;
 class cUOPacket;
 class cAccount;
 class cTargetRequest;
@@ -63,9 +66,9 @@ struct stTargetItem
 	Q_UINT16 hue;
 };
 
-class cUOSocket
+class cUOSocket : public QObject
 {
-	OBJECTDEF( cUOSocket )
+	Q_OBJECT
 
 public:
 	enum eSocketState
@@ -78,7 +81,7 @@ public:
 
 public:
 
-	cUOSocket( QSocketDevice* sDevice );
+	cUOSocket( QTcpSocket* s );
 	virtual ~cUOSocket( void );
 
 
@@ -142,8 +145,8 @@ public:
 	void setWalkSequence( Q_UINT8 data );
 
 
-	QSocketDevice* socket( void ) const;
-	void setSocket( QSocketDevice* data );
+	QTcpSocket* socket( void ) const;
+	void setSocket( QTcpSocket* data );
 
 	eSocketState state( void ) const;
 	void setState( eSocketState data );
@@ -177,7 +180,6 @@ public:
 
 	Q_UINT32 uniqueId( void ) const;
 
-	void recieve(); // Tries to recieve one packet and process it
 	void send( cUOPacket* packet );
 	void send( cGump* gump );
 
@@ -287,9 +289,16 @@ private:
 	void updateCharList();
 	void setPlayer( P_PLAYER player );
 	void playChar( P_PLAYER player );
+	void buildPackets();
+
+private slots:
+	void receive(); // Tries to recieve one packet and process it
+
+signals:
+	void disconnected();
 
 private:
-	QValueVector<cUORxWalkRequest> packetQueue;
+	Q3ValueVector<cUORxWalkRequest> packetQueue;
 	unsigned int _uniqueId;
 	unsigned int _lastActivity;
 	Q_UINT8 _walkSequence;
@@ -302,7 +311,9 @@ private:
 	unsigned int _rxBytes;
 	unsigned int _txBytes;
 	unsigned int _txBytesRaw;
-	QSocketDevice* _socket;
+	QTcpSocket* _socket;
+	QByteArray incomingBuffer;
+	QQueue<cUOPacket*> incomingQueue;
 	unsigned short _screenWidth;
 	unsigned short _screenHeight;
 	Q_UINT8 _viewRange;
@@ -310,9 +321,12 @@ private:
 	cCustomTags tags_;
 	QString _ip; // IP used to connect
 	QBitArray* tooltipscache_;
-	QPtrList<cContextMenu> contextMenu_;
+	Q3PtrList<cContextMenu> contextMenu_;
 	QMap<SERIAL, cGump*> gumps;
+	bool skippedUOHeader;
+	qint32 seed;
 	unsigned int flags_;
+	cClientEncryption *encryption;
 
 	bool authenticate( const QString& username, const QString& password );
 
@@ -334,12 +348,12 @@ inline void cUOSocket::setWalkSequence( Q_UINT8 data )
 	_walkSequence = data;
 }
 
-inline QSocketDevice* cUOSocket::socket( void ) const
+inline QTcpSocket* cUOSocket::socket( void ) const
 {
 	return _socket;
 }
 
-inline void cUOSocket::setSocket( QSocketDevice* data )
+inline void cUOSocket::setSocket( QTcpSocket* data )
 {
 	_socket = data;
 }

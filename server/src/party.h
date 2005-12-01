@@ -30,7 +30,7 @@
 
 #include "pythonscript.h"
 #include "typedefs.h"
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qstring.h>
 
 /*!
@@ -40,9 +40,9 @@ class cParty : public cPythonScriptable
 {
 protected:
 	P_PLAYER leader_;
-	QPtrList<cPlayer> members_;
-	QPtrList<cPlayer> canidates_;
-	QPtrList<cPlayer> lootingAllowed_;
+	Q3PtrList<cPlayer> members_;
+	Q3PtrList<cPlayer> canidates_;
+	Q3PtrList<cPlayer> lootingAllowed_;
 
 public:
 	/*!
@@ -86,7 +86,7 @@ public:
 	/*!
 		\returns The members of this party.
 	*/
-	inline QPtrList<cPlayer> members() const
+	inline Q3PtrList<cPlayer> members() const
 	{
 		return members_;
 	}
@@ -94,7 +94,7 @@ public:
 	/*!
 		\returns The canidates for this party.
 	*/
-	inline QPtrList<cPlayer> canidates() const
+	inline Q3PtrList<cPlayer> canidates() const
 	{
 		return canidates_;
 	}
@@ -102,7 +102,7 @@ public:
 	/*!
 		\returns A list of players whose corpses may be looted.
 	*/
-	inline QPtrList<cPlayer> lootingAllowed() const
+	inline Q3PtrList<cPlayer> lootingAllowed() const
 	{
 		return lootingAllowed_;
 	}

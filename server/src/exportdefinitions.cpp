@@ -35,7 +35,7 @@
 #include "network/network.h"
 #include "muls/tilecache.h"
 
-#include <qdict.h>
+#include <q3dict.h>
 #include <qfile.h>
 
 cDefinitionExporter::cDefinitionExporter() {
@@ -189,7 +189,7 @@ struct stCategory {
 	at the same time ensuring that the entire category
 	is in the dictionary.
 */
-static int getCategoryId(QDict<stCategory> &categories, QString &name, cSQLiteDriver &driver, const char *table) {
+static int getCategoryId(Q3Dict<stCategory> &categories, QString &name, cSQLiteDriver &driver, const char *table) {
 	stCategory *category = categories.find(name);
 
 	// name is an unknown category
@@ -229,7 +229,7 @@ void cDefinitionExporter::exportItems() {
 	cDefinitions::Iterator end = Definitions::instance()->end(WPDT_ITEM);
 
 	// This QMap maps category names to their respective ids
-	QDict<stCategory> categories(9973);
+	Q3Dict<stCategory> categories(9973);
 	categories.setAutoDelete(true);
 
 	// Iterate over the item definitions
@@ -268,7 +268,7 @@ void cDefinitionExporter::exportLocations() {
 	cDefinitions::Iterator end = Definitions::instance()->end(WPDT_LOCATION);
 
 	// This QMap maps category names to their respective ids
-	QDict<stCategory> categories(257);
+	Q3Dict<stCategory> categories(257);
 	categories.setAutoDelete(true);
 
 	// Iterate over the location definitions
@@ -414,7 +414,7 @@ void cDefinitionExporter::exportNpcs() {
 	cDefinitions::Iterator end = Definitions::instance()->end(WPDT_NPC);
 
 	// This QMap maps category names to their respective ids
-	QDict<stCategory> categories(9973);
+	Q3Dict<stCategory> categories(9973);
 	categories.setAutoDelete(true);
 
 	// Iterate over the npc definitions

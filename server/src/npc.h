@@ -32,7 +32,7 @@
 #include "platform.h"
 
 // library includes
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 // wolfpack includes
 #include "basechar.h"
@@ -263,7 +263,7 @@ protected:
 	SERIAL stablemasterSerial_;
 
 	// A* calculated path which the NPC walks on.
-	QValueList<Coord> path_;
+	Q3ValueList<Coord> path_;
 
 	// NPC AI interface
 	AbstractAI* ai_;

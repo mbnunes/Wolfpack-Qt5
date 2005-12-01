@@ -36,7 +36,7 @@
 #include "objectdef.h"
 
 // System Includes
-#include <qstringlist.h>
+#include <QStringList>
 #include <qstring.h>
 #include <qmutex.h>
 

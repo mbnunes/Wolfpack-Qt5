@@ -29,7 +29,8 @@
 #define __NETWORK_H__
 
 // Library Includes
-#include <qptrlist.h>
+#include <q3ptrlist.h>
+#include <QObject>
 
 // Wolfpack Includes
 #include "../platform.h"
@@ -43,9 +44,9 @@ class cAsyncNetIO;
 class cListener;
 class QHostAddress;
 
-class cNetwork : public cComponent
+class cNetwork : public QObject, public cComponent
 {
-	OBJECTDEF( cNetwork )
+	Q_OBJECT
 	class cNetworkPrivate;
 	cNetworkPrivate* d;
 public:
@@ -58,17 +59,20 @@ public:
 
 	bool CheckForBlockedIP( const QHostAddress& ip_address );
 
-	void poll( void ); // called by the main loop
-
 	void lock();
 	void unlock();
-	cAsyncNetIO* netIo();
 	cUOSocket* first();
 	cUOSocket* next();
 	Q_UINT32 count();
-	QPtrListIterator<cUOSocket> getIterator();
+	Q3PtrListIterator<cUOSocket> getIterator();
 
 	void broadcast( const QString& message, Q_UINT16 color = 0x84d, Q_UINT16 font = 0 );
+
+private slots:
+	void incomingLoginServerConnection();
+	void incomingGameServerConnection();
+	void partingLoginServerConnection();
+	void partingGameServerConnection();
 };
 
 typedef Singleton<cNetwork> Network;

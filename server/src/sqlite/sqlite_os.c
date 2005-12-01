@@ -1076,7 +1076,7 @@ int sqliteOsWrite(OsFile *id, const void *pBuf, int amt){
 /*
 ** Move the read/write pointer in a file.
 */
-int sqliteOsSeek(OsFile *id, off_t offset){
+int sqliteOsSeek(OsFile *id, OFF_T offset){
   SEEK(offset/1024 + 1);
 #if OS_UNIX
   lseek(id->fd, offset, SEEK_SET);
@@ -1094,7 +1094,7 @@ int sqliteOsSeek(OsFile *id, off_t offset){
 #endif
 #if OS_MAC
   {
-    off_t curSize;
+    OFF_T curSize;
     if( sqliteOsFileSize(id, &curSize) != SQLITE_OK ){
       return SQLITE_IOERR;
     }
@@ -1169,7 +1169,7 @@ int sqliteOsSync(OsFile *id){
 /*
 ** Truncate an open file to a specified size
 */
-int sqliteOsTruncate(OsFile *id, off_t nByte){
+int sqliteOsTruncate(OsFile *id, OFF_T nByte){
   SimulateIOError(SQLITE_IOERR);
 #if OS_UNIX
   return ftruncate(id->fd, nByte)==0 ? SQLITE_OK : SQLITE_IOERR;
@@ -1198,7 +1198,7 @@ int sqliteOsTruncate(OsFile *id, off_t nByte){
 /*
 ** Determine the current size of a file in bytes
 */
-int sqliteOsFileSize(OsFile *id, off_t *pSize){
+int sqliteOsFileSize(OsFile *id, OFF_T *pSize){
 #if OS_UNIX
   struct stat buf;
   SimulateIOError(SQLITE_IOERR);
@@ -1212,7 +1212,7 @@ int sqliteOsFileSize(OsFile *id, off_t *pSize){
   DWORD upperBits, lowerBits;
   SimulateIOError(SQLITE_IOERR);
   lowerBits = GetFileSize(id->h, &upperBits);
-  *pSize = (((off_t)upperBits)<<32) + lowerBits;
+  *pSize = (((OFF_T)upperBits)<<32) + lowerBits;
   return SQLITE_OK;
 #endif
 #if OS_MAC

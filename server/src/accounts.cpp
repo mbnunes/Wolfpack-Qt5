@@ -99,7 +99,7 @@ bool cAccount::addCharacter( P_PLAYER d )
 
 bool cAccount::removeCharacter( P_PLAYER d )
 {
-	QValueVector<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
+	Q3ValueVector<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
 	if ( it != characters_.end() )
 	{
 		characters_.erase( it );
@@ -138,7 +138,7 @@ bool cAccount::authorized( const QString& group, const QString& value ) const
 
 void cAccount::remove()
 {
-	QValueVector<P_PLAYER>::iterator it;
+	Q3ValueVector<P_PLAYER>::iterator it;
 	for ( it = characters_.begin(); it != characters_.end(); ++it )
 	{
 		( *it )->setAccount( 0, false );
@@ -437,7 +437,6 @@ void cAccounts::load()
 			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
 			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
-			account->setAcl( "admin" );
 			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
 		}
 

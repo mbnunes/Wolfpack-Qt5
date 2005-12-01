@@ -229,7 +229,7 @@ void Preferences::readData()
 {
 	// open file
 	QFile datafile( d->file_ );
-	if ( !datafile.open( IO_ReadOnly ) )
+	if ( !datafile.open( QIODevice::ReadOnly ) )
 	{
 		// error opening file
 		qWarning( "Error: cannot open preferences file " + d->file_ );
@@ -356,7 +356,7 @@ void Preferences::writeData()
 
 	// open file
 	QFile datafile( d->file_ );
-	if ( !datafile.open( IO_WriteOnly ) )
+	if ( !datafile.open( QIODevice::WriteOnly ) )
 	{
 		// error opening file
 		qWarning( "Error: Cannot open preferences file " + d->file_ );

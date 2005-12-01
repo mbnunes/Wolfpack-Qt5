@@ -31,7 +31,7 @@
 #include "uobject.h"
 #include "items.h"
 #include <qstring.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 
 class cMulti : public cItem
 {
@@ -42,7 +42,7 @@ protected:
 	// Objects in the Multi.
 	// Items that are in the Multi
 	// are removed along with it.
-	QPtrList<cUObject> objects;
+	Q3PtrList<cUObject> objects;
 
 public:
 	static void setClassid( unsigned char id )
@@ -64,7 +64,7 @@ public:
 	virtual ~cMulti();
 
 	// This static function can be used to check if the given multi can be placed at the given position
-	static bool canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObject>& moveOut, unsigned short yard = 5 );
+	static bool canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObject>& moveOut, unsigned short yard = 5 );
 
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 	/*
@@ -87,7 +87,7 @@ public:
 	// Object List
 	void addObject( cUObject* object );
 	void removeObject( cUObject* object );
-	inline const QPtrList<cUObject>& getObjects()
+	inline const Q3PtrList<cUObject>& getObjects()
 	{
 		return objects;
 	}

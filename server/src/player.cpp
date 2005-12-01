@@ -332,8 +332,8 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 	{
 		for ( Q_UINT32 gI = 0; gI < message.length(); ++gI )
 		{
-			if ( message.at( gI ) == " " )
-				ghostSpeech.append( " " );
+			if ( message[gI].isSpace() )
+				ghostSpeech.append( message[gI] );
 			else
 				ghostSpeech.append( ( RandomNum( 0, 1 ) == 0 ) ? "o" : "O" );
 		}
@@ -899,7 +899,7 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 				else
 				{
 					pItem->remove();
-					Console::instance()->log( LOG_ERROR, tr( "Unrecognized startitem tag '%1' in definition '%2'." ).arg( node->name() ).arg( element->getAttribute( "id" ) ) );
+					Console::instance()->log( LOG_ERROR, tr( "Unrecognized startitem tag '%1' in definition '%2'." ).arg( QString(node->name()) ).arg( element->getAttribute( "id" ) ) );
 				}
 			}
 		}

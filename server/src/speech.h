@@ -36,7 +36,7 @@
 #include <vector>
 
 // QT
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 
 //Wolfpack Includes
 #include "speech.h"
@@ -46,8 +46,8 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm );
 
 namespace Speech
 {
-bool response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm, QValueVector<Q_UINT16>& keywords );
-void talking( P_PLAYER pChar, const QString& lang, const QString& speech, QValueVector<Q_UINT16>& keywords, Q_UINT16 color, Q_UINT16 font, Q_UINT8 type );
+bool response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm, Q3ValueVector<Q_UINT16>& keywords );
+void talking( P_PLAYER pChar, const QString& lang, const QString& speech, Q3ValueVector<Q_UINT16>& keywords, Q_UINT16 color, Q_UINT16 font, Q_UINT8 type );
 };
 
 #endif

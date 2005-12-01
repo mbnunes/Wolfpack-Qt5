@@ -32,7 +32,7 @@
 #include "basics.h"
 
 // Qt Includes
-#include <qstringlist.h>
+#include <QStringList>
 
 void cDefinable::applyDefinition( const cElement* sectionNode )
 {

@@ -34,7 +34,7 @@
 #include <qglobal.h>
 #include <qstring.h>
 #include <qmap.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 #include <iterator>
 
 // Forward definitions
@@ -70,7 +70,7 @@ public:
 	typedef ptrdiff_t difference_type;
 
 private:
-	QValueVector<staticrecord> staticArray;
+	Q3ValueVector<staticrecord> staticArray;
 	uint baseX, baseY;
 	uint pos;
 

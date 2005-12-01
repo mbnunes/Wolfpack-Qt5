@@ -32,6 +32,8 @@
 #include "../inlines.h"
 #include "../walking.h"
 #include "../serverconfig.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 /*
 	The additional mage code does:
@@ -177,7 +179,7 @@ public:
 			return 0; // No dispelling below 95 int or if the NPC is summoned itself.
 		}
 
-		QPtrList<cFightInfo> &fights = m_npc->fights();
+		Q3PtrList<cFightInfo> &fights = m_npc->fights();
 		Monster_Aggressive *ai = static_cast<Monster_Aggressive*>( m_ai );
 
 		P_NPC currentTarget = 0;

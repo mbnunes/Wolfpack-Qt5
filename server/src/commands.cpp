@@ -52,6 +52,9 @@
 
 // System Includes
 #include <functional>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 
 // Main Command processing function
 void cCommands::process( cUOSocket* socket, const QString& command )
@@ -162,7 +165,7 @@ void cCommands::loadACLs( void )
 		}
 
 		QMap<QString, bool> group;
-		QCString groupName;
+		Q3CString groupName;
 
 
 		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
@@ -1043,8 +1046,8 @@ void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 		socket->sysMessage(tr("Loading %1 objects from %2.").arg(reader.objectCount()).arg(filename));
 
 		unsigned char type;
-		const QMap<unsigned char, QCString> &typemap = reader.typemap();
-		QPtrList<PersistentObject> objects;
+		const QMap<unsigned char, Q3CString> &typemap = reader.typemap();
+		Q3PtrList<PersistentObject> objects;
 
 		do {
 			type = reader.readByte();
@@ -1143,7 +1146,7 @@ void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 		reader.close();
 
 		// post process all loaded objects
-		QPtrList<PersistentObject>::const_iterator cit( objects.begin() );
+		Q3PtrList<PersistentObject>::const_iterator cit( objects.begin() );
 		while ( cit != objects.end() )
 		{
 			( *cit )->postload( reader.version() );
@@ -1174,7 +1177,7 @@ public:
 		}
 
         Coord to(target->x(), target->y(), target->z(), socket->player()->pos().map);
-		QValueVector<unsigned char> path = Pathfinding::instance()->find(socket->player(), socket->player()->pos(), to);
+		Q3ValueVector<unsigned char> path = Pathfinding::instance()->find(socket->player(), socket->player()->pos(), to);
 
 		socket->sysMessage(QString("Found path with %1 nodes.").arg(path.size()));
 		QStringList dirs;

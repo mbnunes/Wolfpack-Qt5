@@ -31,7 +31,7 @@
 #include "coord.h"
 #include "server.h"
 #include "singleton.h"
-#include <qptrvector.h>
+#include <q3ptrvector.h>
 
 class Coord;
 class cItem;
@@ -237,7 +237,7 @@ private:
 	static void releaseIterator( void* state );
 
 private:
-	QPtrVector<GridSet> mMaps;
+	Q3PtrVector<GridSet> mMaps;
 };
 
 

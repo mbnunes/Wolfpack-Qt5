@@ -34,9 +34,11 @@
 
 #include <map>
 #include <qmap.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 
 #include <qobject.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 struct good_st
 {
@@ -359,7 +361,7 @@ private:
 		Coord destination;
 	};
 
-	QValueList<teleporters_st> teleporters;
+	Q3ValueList<teleporters_st> teleporters;
 public:
 	std::map<UI32, good_st> tradesystem_;
 
@@ -401,7 +403,7 @@ class cTerritories : public cComponent
 {
 	OBJECTDEF( cTerritories )
 private:
-	QMap<uint, QPtrList<cTerritory> > topregions;
+	QMap<uint, Q3PtrList<cTerritory> > topregions;
 public:
 	void reload();
 	void load();

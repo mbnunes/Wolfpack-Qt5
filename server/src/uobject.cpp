@@ -52,6 +52,8 @@
 #include "serverconfig.h"
 #include "basics.h"
 #include "world.h"
+//Added by qt3to4:
+#include <Q3CString>
 
 // Library Includes
 
@@ -69,7 +71,7 @@ cUObject::~cUObject()
 			size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 			for ( size_t i = 1; i <= count; ++i )
 			{
-				QCString* str = reinterpret_cast<QCString*>( scriptChain[i] );
+				Q3CString* str = reinterpret_cast<Q3CString*>( scriptChain[i] );
 				delete str;
 			}
 		}
@@ -186,7 +188,7 @@ void cUObject::load( char** result, Q_UINT16& offset )
 	pos_.y = atoi( result[offset++] );
 	pos_.z = atoi( result[offset++] );
 	pos_.map = atoi( result[offset++] );
-	QCString scriptList = result[offset];
+	Q3CString scriptList = result[offset];
 	offset++;
 	bool havetags_ = atoi( result[offset++] );
 
@@ -324,7 +326,7 @@ void cUObject::clearScripts()
 			size_t count = reinterpret_cast<size_t>( myChain[0] );
 			for ( size_t i = 1; i <= count; ++i )
 			{
-				QCString* str = reinterpret_cast<QCString*>( myChain[i] );
+				Q3CString* str = reinterpret_cast<Q3CString*>( myChain[i] );
 				delete str;
 			}
 		}
@@ -345,7 +347,7 @@ void cUObject::clearScripts()
 	Checks if the object has a specific event \a name
 	\sa addEvent
 */
-bool cUObject::hasScript( const QCString& name )
+bool cUObject::hasScript( const Q3CString& name )
 {
 	if ( scriptChain )
 	{
@@ -418,7 +420,7 @@ void cUObject::addScript( cPythonScript* event, bool append )
 /*!
 	Removes an event handler from the object
 */
-void cUObject::removeScript( const QCString& name )
+void cUObject::removeScript( const Q3CString& name )
 {
 	if ( isScriptChainFrozen() )
 	{
@@ -1051,7 +1053,7 @@ void cUObject::freezeScriptChain()
 	size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 	for ( size_t i = 1; i <= count; ++i )
 	{
-		QCString* name = new QCString( scriptChain[i]->name() );
+		Q3CString* name = new Q3CString( scriptChain[i]->name() );
 		scriptChain[i] = reinterpret_cast<cPythonScript*>( name );
 	}
 	scriptChain[0] = reinterpret_cast<cPythonScript*>( count | 0x80000000 );
@@ -1070,7 +1072,7 @@ void cUObject::unfreezeScriptChain()
 	scriptChain[0] = 0;
 	for ( size_t i = 1; i <= count; ++i )
 	{
-		QCString* name = reinterpret_cast<QCString*>( scriptChain[i] );
+		Q3CString* name = reinterpret_cast<Q3CString*>( scriptChain[i] );
 		cPythonScript* script = ScriptManager::instance()->find( *name );
 		if ( script )
 		{
@@ -1099,14 +1101,14 @@ bool cUObject::isScriptChainFrozen()
 	return ( count & 0x80000000 ) != 0;
 }
 
-QCString cUObject::scriptList() const
+Q3CString cUObject::scriptList() const
 {
 	if ( !scriptChain )
 	{
-		return QCString();
+		return Q3CString();
 	}
 
-	QCString result;
+	Q3CString result;
 	size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 	for ( size_t i = 1; i <= count; ++i )
 	{
@@ -1124,7 +1126,7 @@ QCString cUObject::scriptList() const
 	return result;
 }
 
-void cUObject::setScriptList( const QCString& eventlist )
+void cUObject::setScriptList( const Q3CString& eventlist )
 {
 	if ( isScriptChainFrozen() )
 	{

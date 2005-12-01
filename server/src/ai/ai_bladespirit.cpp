@@ -34,6 +34,8 @@
 #include "../inlines.h"
 #include "../walking.h"
 #include "../serverconfig.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 static P_CHAR findBestTarget( P_NPC npc )
 {
@@ -41,7 +43,7 @@ static P_CHAR findBestTarget( P_NPC npc )
 	P_CHAR target = 0;
 
 	// Search for targets in our list of current targets first
-	QPtrList<cFightInfo> fights = npc->fights();
+	Q3PtrList<cFightInfo> fights = npc->fights();
 	for ( cFightInfo*info = fights.first(); info; info = fights.next() )
 	{
 		P_CHAR victim = info->victim();

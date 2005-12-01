@@ -34,8 +34,10 @@
 // Library Includes
 #include <qmap.h>
 #include <qstring.h>
-#include <qvaluevector.h>
-#include <qvaluelist.h>
+#include <q3valuevector.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 // Includes for cPythonScriptable
 #include "pythonscript.h"
@@ -80,11 +82,11 @@ class cElement : public cPythonScriptable
 private:
 	struct stAttribute
 	{
-		QCString name;
+		Q3CString name;
 		QString value;
 	};
 
-	QCString name_; // Tag Name spell for <spell i.e.
+	QString name_; // Tag Name spell for <spell i.e.
 	QString text_; // This is not really a well implemented approach. this is subject to change
 
 	cElement* parent_;
@@ -109,11 +111,11 @@ public:
 	const cElement* findChild( const QString& name ) const;
 	const cElement* getChild( unsigned int index ) const;
 	unsigned int childCount() const;
-	bool hasAttribute( const QCString& name ) const;
-	const QString& getAttribute( const QCString& name, const QString& def = QString::null ) const;
+	bool hasAttribute( const Q3CString& name ) const;
+	const QString& getAttribute( const Q3CString& name, const QString& def = QString::null ) const;
 
-	void setName( const QCString& data );
-	const QCString& name() const;
+	void setName( const Q3CString& data );
+	const QString& name() const;
 
 	void setText( const QString& data );
 	const QString& text() const;
@@ -134,7 +136,7 @@ class cDefinitions : public cComponent
 {
 protected:
 	cDefManagerPrivate* impl;
-	QValueList<cElement*> elements; // Instances of cElement without a parent.
+	Q3ValueList<cElement*> elements; // Instances of cElement without a parent.
 	QMap<QString, QStringList> listcache_;
 
 public:
@@ -156,7 +158,7 @@ public:
 	void unload( void );
 
 	const cElement* getDefinition( eDefCategory Type, const QString& id ) const;
-	const QValueVector<cElement*>& getDefinitions( eDefCategory Type ) const;
+	const Q3ValueVector<cElement*>& getDefinitions( eDefCategory Type ) const;
 
 	QStringList getSections( eDefCategory Type ) const;
 	QString getRandomListEntry( const QString& ListSection );

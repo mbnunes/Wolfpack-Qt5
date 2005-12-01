@@ -82,7 +82,7 @@ void cTileCache::load()
 
 	QFile input( path + "tiledata.mul" );
 
-	if ( !input.open( IO_ReadOnly ) )
+	if ( !input.open( QIODevice::ReadOnly ) )
 		throw wpException( QString( "Error opening file %1 for reading." ).arg( path + "tiledata.mul" ) );
 
 	// Begin reading in the Land-Tiles

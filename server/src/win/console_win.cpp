@@ -61,6 +61,8 @@
 #include <mysql.h>
 #endif
 
+#include <Q3MemArray>
+
 #if !defined(CFM_WEIGHT)
 # define CFM_WEIGHT 0x00400000
 #endif
@@ -588,7 +590,7 @@ protected:
 
 	void run()
 	{
-		QMemArray<pchar> argv( 8 );
+		Q3MemArray<char*> argv( 8 );
 		/*
 				Since Windows programs don't get passed the command name as the
 				first argument, we need to fetch it explicitly.
@@ -641,24 +643,11 @@ protected:
 		}
 		argv[argc] = 0;
 
-		if ( Server::instance()->run( argc, argv.data() ) )
-		{
-			returnValue_ = 0;
-		}
-		else
-		{
-			returnValue_ = 1;
-		}
+		QApplication app(argc, argv.data());
 
-		if ( returnValue_ != 0 )
-		{
-			Console::instance()->send( tr( "\nThe server has been shut down. You can close this window now.\n" ) );
-			canClose = true;
-		}
-		else
-		{
-			PostMessage( mainWindow, WM_QUIT, 0, 0 );
-		}
+		Server::instance()->run();
+		Console::instance()->send( tr( "\nThe server has been shut down. You can close this window now.\n" ) );
+		canClose = true;
 	}
 };
 

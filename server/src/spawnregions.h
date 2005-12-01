@@ -34,6 +34,9 @@
 #include "objectdef.h"
 
 #include <map>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PtrList>
 
 // Abstract class for spawn position
 class cSpawnPosition
@@ -96,12 +99,12 @@ public:
 		return maxItemAmt_;
 	}
 
-	QPtrList<cUObject> spawnedItems() const
+	Q3PtrList<cUObject> spawnedItems() const
 	{
 		return items_;
 	}
 
-	QPtrList<cUObject> spawnedNpcs() const
+	Q3PtrList<cUObject> spawnedNpcs() const
 	{
 		return npcs_;
 	}
@@ -147,18 +150,18 @@ private:
 	QStringList groups_; // Spawngroups
 	bool active_; // Is this spawnregion active?
 
-	QPtrList<cSpawnPosition> positions_; // Spawn positions
-	QPtrList<cSpawnPosition> exceptions_; // Spawn positions (doesnt reduce point count (beware))
+	Q3PtrList<cSpawnPosition> positions_; // Spawn positions
+	Q3PtrList<cSpawnPosition> exceptions_; // Spawn positions (doesnt reduce point count (beware))
 
 	bool checkFreeSpot_; // The target spot has to be free.
 
-	QPtrList<cUObject> items_; // List of spawned items
-	QPtrList<cUObject> npcs_; // List of spawned npcs
+	Q3PtrList<cUObject> items_; // List of spawned items
+	Q3PtrList<cUObject> npcs_; // List of spawned npcs
 
-	QPtrList<cElement> itemNodes_; // Pointers to definition elements for NPCs
-	QPtrList<cElement> npcNodes_; // Pointers to definition elements for Items
-	QValueList<unsigned int> itemNodeFrequencies_; // Frequencies for item nodes
-	QValueList<unsigned int> npcNodeFrequencies_; // Frequencies for npc nodes
+	Q3PtrList<cElement> itemNodes_; // Pointers to definition elements for NPCs
+	Q3PtrList<cElement> npcNodes_; // Pointers to definition elements for Items
+	Q3ValueList<unsigned int> itemNodeFrequencies_; // Frequencies for item nodes
+	Q3ValueList<unsigned int> npcNodeFrequencies_; // Frequencies for npc nodes
 	unsigned int npcNodesTotal_; // The total spawn frequency value. Speedup property.
 	unsigned int itemNodesTotal_; // The total spawn frequency value. Speedup property.
 

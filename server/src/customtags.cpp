@@ -36,6 +36,8 @@
 
 #include <math.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3ValueList>
 
 /*!
 	\class cVariant customtags.h
@@ -965,14 +967,14 @@ QStringList cCustomTags::getKeys( void ) const
 	return QStringList();
 }
 
-QValueList< cVariant > cCustomTags::getValues( void )
+Q3ValueList< cVariant > cCustomTags::getValues( void )
 {
 	if ( tags_ )
 	{
 		return tags_->values();
 	}
 
-	return QValueList<cVariant>();
+	return Q3ValueList<cVariant>();
 }
 
 bool cCustomTags::operator==( const cCustomTags& cmp ) const

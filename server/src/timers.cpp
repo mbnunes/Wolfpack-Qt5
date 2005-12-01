@@ -52,6 +52,9 @@
 #include <algorithm>
 #include <typeinfo>
 #include <math.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 
 int cTimer::getDest()
 {
@@ -291,7 +294,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 	}*/
 
 	std::vector<cTimer*>::iterator it = teffects.begin();
-	QPtrList<cTimer> eraselist;
+	Q3PtrList<cTimer> eraselist;
 
 	/*
 		Note: Erasing iterators would invalidate our iterator and crash.
@@ -339,7 +342,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 		}
 	}
 
-	QPtrList<cTimer> eraselist;
+	Q3PtrList<cTimer> eraselist;
 	std::vector<cTimer*>::iterator i = teffects.begin();
 	for ( i = teffects.begin(); i != teffects.end(); i++ )
 		if ( ( *i ) != NULL && ( *i )->dispellable && ( uint ) ( *i )->getDest() == ( uint ) pc_dest->serial() )
@@ -508,7 +511,7 @@ void cTimers::save( cBufferedWriter& writer )
 
 void cTimers::load( cBufferedReader& reader )
 {
-	QCString objectId = reader.readAscii();
+	QString objectId = reader.readAscii();
 
 	cTimer *timer = 0;
 

@@ -29,8 +29,9 @@
 #define __SERVER_H__
 
 #include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluevector.h>
+#include <QStringList>
+#include <q3valuevector.h>
+#include <QThread>
 #include "singleton.h"
 #include "objectdef.h"
 
@@ -120,9 +121,9 @@ public:
 	}
 };
 
-class cServer
+class cServer : public QThread
 {
-	OBJECTDEF( cServer )
+	Q_OBJECT
 private:
 	class Private;
 	Private* d;
@@ -168,8 +169,7 @@ public:
 	// Refresh current server time
 	void refreshTime();
 
-	// Returns false if an error occured
-	bool run( int argc, char** argv );
+	void run();
 
 	// Reload a specific component
 	void reload( const QString& name );

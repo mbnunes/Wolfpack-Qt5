@@ -28,11 +28,13 @@
 // Library Includes
 #include <qxml.h>
 #include <qfile.h>
-#include <qptrstack.h>
+#include <q3ptrstack.h>
 #include <qregexp.h>
-#include <qstringlist.h>
-#include <qvaluevector.h>
-#include <qvaluelist.h>
+#include <QStringList>
+#include <q3valuevector.h>
+#include <q3valuelist.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 // Reloading
 #include "ai/ai.h"
@@ -99,7 +101,7 @@ class cDefManagerPrivate
 {
 public:
 	QMap<QString, cElement*> unique[WPDT_COUNT];
-	QMap<unsigned int, QValueVector<cElement*> > nonunique;
+	QMap<unsigned int, Q3ValueVector<cElement*> > nonunique;
 	QStringList imports;
 };
 
@@ -116,13 +118,13 @@ class cXmlHandler : public QXmlDefaultHandler
 private:
 	cDefManagerPrivate* impl;
 	// Element level within the current file
-	QValueVector<int> levels;
+	Q3ValueVector<int> levels;
 	// Holds all read elements.
-	QPtrStack<cElement> elements;
+	Q3PtrStack<cElement> elements;
 	// Files stack (each <include> pushes a file)
-	QValueVector<QString> filenames;
+	Q3ValueVector<QString> filenames;
 	// Locators associated to each document
-	QPtrStack<QXmlLocator> locators;
+	Q3PtrStack<QXmlLocator> locators;
 
 public:
 	cXmlHandler( cDefManagerPrivate* impl )
@@ -152,7 +154,7 @@ public:
 	{
 		QFile file( filename );
 
-		if ( !file.open( IO_ReadOnly ) )
+		if ( !file.open( QIODevice::ReadOnly ) )
 		{
 			Console::instance()->send( tr( "Unable to open %1!\n" ).arg( filename ) );
 			return;
@@ -272,7 +274,7 @@ public:
 						if ( impl->unique[categories[i].key].contains( tagId ) && !Config::instance()->overwriteDefinitions() )
 						{
 							Console::instance()->log( LOG_WARNING, tr( "Duplicate %1: %2\n[File: %3, Line: %4]\n" )
-								.arg( element->name() ).arg( tagId ).arg( filenames.back() ).arg( locators.current()->lineNumber() ) );
+								.arg( QString( element->name() ) ).arg( tagId ).arg( filenames.back() ).arg( locators.current()->lineNumber() ) );
 							delete element;
 						}
 						else
@@ -291,7 +293,7 @@ public:
 			}
 
 			Console::instance()->log( LOG_WARNING, tr( "Unknown element: %1\n[File: %2, Line: %3]\n" )
-				.arg( element->name() ).arg( filenames.back() ).arg( locators.current()->lineNumber() ) );
+				.arg( QString( element->name() ) ).arg( filenames.back() ).arg( locators.current()->lineNumber() ) );
 			delete element;
 		}
 
@@ -354,7 +356,7 @@ void cDefinitions::unload()
 	listcache_.clear();
 
 	// Free the memory allocated by our nodes.
-	QValueList<cElement*>::iterator eit;
+	Q3ValueList<cElement*>::iterator eit;
 	for (eit = elements.begin(); eit != elements.end(); ++eit) {
 		delete *eit;
 	}
@@ -525,7 +527,7 @@ const cElement* cDefinitions::getDefinition( eDefCategory type, const QString& i
 		return it.data();
 }
 
-const QValueVector<cElement*>& cDefinitions::getDefinitions( eDefCategory type ) const
+const Q3ValueVector<cElement*>& cDefinitions::getDefinitions( eDefCategory type ) const
 {
 	return impl->nonunique[type];
 }
@@ -650,7 +652,7 @@ void cElement::removeChild( cElement* element )
 	}
 }
 
-bool cElement::hasAttribute( const QCString& name ) const
+bool cElement::hasAttribute( const Q3CString& name ) const
 {
 	for ( unsigned int i = 0; i < attrCount_; ++i )
 		if ( attributes[i]->name == name )
@@ -659,7 +661,7 @@ bool cElement::hasAttribute( const QCString& name ) const
 	return false;
 }
 
-const QString& cElement::getAttribute( const QCString& name, const QString& def ) const
+const QString& cElement::getAttribute( const Q3CString& name, const QString& def ) const
 {
 	for ( unsigned int i = 0; i < attrCount_; ++i )
 		if ( attributes[i]->name == name )
@@ -668,12 +670,12 @@ const QString& cElement::getAttribute( const QCString& name, const QString& def 
 	return def;
 }
 
-void cElement::setName( const QCString& data )
+void cElement::setName( const Q3CString& data )
 {
 	name_ = data;
 }
 
-const QCString& cElement::name() const
+const QString& cElement::name() const
 {
 	return name_;
 }
@@ -944,7 +946,7 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name )
 	// \rproperty element.name A string containing the name of the element.
 	if ( !strcmp( name, "name" ) )
 	{
-		return PyString_FromString( element->name().data() );
+		return QString2Python( element->name() );
 	}
 	/*
 		\rproperty element.parent An <object id="element">element</object> object for the parent of this element.

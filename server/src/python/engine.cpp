@@ -33,21 +33,21 @@
 #include "../log.h"
 
 #include <qapplication.h>
-#include <qvaluevector.h>
-#include <qvaluelist.h>
+#include <q3valuevector.h>
+#include <q3valuelist.h>
 
 // Python Functions
-QValueList<PythonFunction*> PythonFunction::instances;
+Q3ValueList<PythonFunction*> PythonFunction::instances;
 
 class cCleanupHandlers
 {
 private:
-	QValueVector<fnCleanupHandler> cleanupHandler;
+	Q3ValueVector<fnCleanupHandler> cleanupHandler;
 
 public:
 	void call()
 	{
-		QValueVector<fnCleanupHandler>::iterator it;
+		Q3ValueVector<fnCleanupHandler>::iterator it;
 		for ( it = cleanupHandler.begin(); it != cleanupHandler.end(); ++it )
 		{
 			( *it ) ();
@@ -88,8 +88,10 @@ void stopPython()
 {
 	// Give the Python Threads time to finalize
 	Py_BEGIN_ALLOW_THREADS
+	QMutex m;
+	m.lock();
 	QWaitCondition waitCondition;
-	waitCondition.wait( 500 );
+	waitCondition.wait( &m, 500 );
 	Py_END_ALLOW_THREADS
 
 	// We have to be sure that all memory

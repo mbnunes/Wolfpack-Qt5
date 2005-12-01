@@ -28,7 +28,7 @@
 #if !defined(__UOPACKET_H__)
 #define __UOPACKET_H__
 
-#include <qcstring.h>
+#include <q3cstring.h>
 
 #include <iosfwd>
 
@@ -66,13 +66,13 @@ public:
 	void resize( uint );
 	int getInt( uint ) const;
 	short getShort( uint ) const;
-	QCString getAsciiString( uint, uint = 0 ) const;
+	Q3CString getAsciiString( uint, uint = 0 ) const;
 	QString getUnicodeString( uint, uint ) const;
 	void setInt( uint, uint );
 	void setShort( uint, ushort );
 	void setUnicodeString( uint, const QString&, uint, bool swapbytes = false );
 	void setAsciiString( uint, const char*, uint );
-	static	 QCString dump( const QByteArray& );
+	static	 Q3CString dump( const QByteArray& );
 
 	// Operators
 	char& operator []( uint );

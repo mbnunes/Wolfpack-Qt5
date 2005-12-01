@@ -47,6 +47,8 @@
 #include "tempeffect.h"
 #include "objectcache.h"
 #include "skills.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 /*
 	\object char
@@ -2706,7 +2708,7 @@ static PyObject* wpChar_walk( wpChar* self, PyObject* args )
 static PyObject* wpChar_getopponents( wpChar* self, PyObject* args )
 {
 	Q_UNUSED( args ); // Warning Fix
-	QPtrList<cFightInfo> &fights = self->pChar->fights();
+	Q3PtrList<cFightInfo> &fights = self->pChar->fights();
 	PyObject *list = PyTuple_New( fights.count() );
 	unsigned int i = 0;
 
@@ -3074,8 +3076,8 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		QStringList scripts = QStringList::split( ",", self->pChar->scriptList() );
 		if ( self->pChar->basedef() )
 		{
-			const QPtrList<cPythonScript> &list = self->pChar->basedef()->baseScripts();
-			QPtrList<cPythonScript>::const_iterator it( list.begin() );
+			const Q3PtrList<cPythonScript> &list = self->pChar->basedef()->baseScripts();
+			Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
 			while ( it != list.end() )
 			{
 				scripts.append( ( *it )->name() );

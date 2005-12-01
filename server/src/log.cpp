@@ -38,6 +38,8 @@
 // QT Includes
 #include <qdatetime.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 cLog::cLog()
 {
@@ -87,7 +89,7 @@ bool cLog::checkLogFile()
 
 		logfile.setName( path + filename );
 
-		if ( !logfile.open( IO_WriteOnly | IO_Append | IO_Translate ) )
+		if ( !logfile.open( QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text ) )
 		{
 			Console::instance()->send( tr( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
 			return false;
@@ -125,8 +127,8 @@ void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool
 	// Timestamp the data
 	QTime now = QTime::currentTime();
 
-	QCString utfdata = string.utf8();
-	QCString prelude;
+	Q3CString utfdata = string.utf8();
+	Q3CString prelude;
 
 	if ( timestamp || loglevel == LOG_PYTHON )
 	{
@@ -176,7 +178,7 @@ void cLog::print( eLogLevel loglevel, cUOSocket* sock, const QString& string, bo
 	// Timestamp the data
 	QTime now = QTime::currentTime();
 
-	QCString prelude;
+	Q3CString prelude;
 
 	if ( timestamp )
 	{

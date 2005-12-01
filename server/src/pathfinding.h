@@ -32,7 +32,7 @@
 #include "singleton.h"
 #include "basechar.h"
 
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 
 /*
 	Using ints wherever possible for optimization purposes.
@@ -86,7 +86,7 @@ public:
 	cPathfinding();
 	virtual ~cPathfinding();
 
-	QValueVector<unsigned char> find(P_CHAR pChar, const Coord &from, const Coord &to);
+	Q3ValueVector<unsigned char> find(P_CHAR pChar, const Coord &from, const Coord &to);
 };
 
 /*

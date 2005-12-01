@@ -36,8 +36,8 @@
 
 // Library includes
 #include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluevector.h>
+#include <QStringList>
+#include <q3valuevector.h>
 #include <qmap.h>
 
 // Forward Definitions
@@ -68,7 +68,7 @@ public:
 
 	virtual ~cBaseRegion()
 	{
-		QValueVector<cBaseRegion*>::iterator it = this->subregions_.begin();
+		Q3ValueVector<cBaseRegion*>::iterator it = this->subregions_.begin();
 		while ( it != this->subregions_.end() )
 		{
 			delete ( *it );
@@ -83,7 +83,7 @@ public:
 
 	bool contains( UI16 posx, UI16 posy, UI08 map ) const
 	{
-		QValueVector<rect_st>::const_iterator it = this->rectangles_.begin();
+		Q3ValueVector<rect_st>::const_iterator it = this->rectangles_.begin();
 
 		while ( it != this->rectangles_.end() )
 		{
@@ -100,7 +100,7 @@ public:
 			return this;
 		else
 		{
-			QValueVector<cBaseRegion*>::const_iterator it = this->subregions_.begin();
+			Q3ValueVector<cBaseRegion*>::const_iterator it = this->subregions_.begin();
 			while ( it != this->subregions_.end() )
 			{
 				cBaseRegion* currRegion = 0;
@@ -122,7 +122,7 @@ public:
 		else
 			return 0;
 
-		QValueVector<cBaseRegion*>::iterator it = this->subregions_.begin();
+		Q3ValueVector<cBaseRegion*>::iterator it = this->subregions_.begin();
 		while ( it != this->subregions_.end() )
 		{
 			cBaseRegion* currRegion = 0;
@@ -138,7 +138,7 @@ public:
 	UI32 count( void ) const
 	{
 		UI32 result = 1;
-		QValueVector<cBaseRegion*>::const_iterator it( this->subregions_.begin() );
+		Q3ValueVector<cBaseRegion*>::const_iterator it( this->subregions_.begin() );
 		while ( it != this->subregions_.end() )
 		{
 			if ( *it != NULL )
@@ -182,8 +182,8 @@ protected:
 
 protected:
 	QString name_;			// name of the region (section's name)
-	QValueVector<rect_st> rectangles_;	// vector of rectangles
-	QValueVector<cBaseRegion*> subregions_;	// list of region object references of included regions
+	Q3ValueVector<rect_st> rectangles_;	// vector of rectangles
+	Q3ValueVector<cBaseRegion*> subregions_;	// list of region object references of included regions
 	cBaseRegion* parent_;		// the region directly above this region
 public:
 	// Only getters, no setters
@@ -191,11 +191,11 @@ public:
 	{
 		return parent_;
 	}
-	QValueVector<cBaseRegion*>& children()
+	Q3ValueVector<cBaseRegion*>& children()
 	{
 		return subregions_;
 	}
-	QValueVector<rect_st>& rectangles()
+	Q3ValueVector<rect_st>& rectangles()
 	{
 		return rectangles_;
 	}

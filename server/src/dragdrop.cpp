@@ -185,13 +185,13 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	if ( pChar->isGM() && itemOwner && itemOwner != pChar ) {
 		P_PLAYER owner = dynamic_cast<P_PLAYER>(itemOwner);
 		if (owner) {
-			pChar->log(LOG_TRACE, tr("Picking up item '%1' (0x%2, %3) from player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
+			pChar->log(LOG_TRACE, tr("Picking up item '%1' (0x%2, %3) from player '%4' ('%5', 0x%6)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 		}
 	}
 	if ( pChar->isGM() && !itemOwner && pItem->container() ) {
 		P_ITEM pCont = dynamic_cast<P_ITEM>(pItem->container());
 		if (pCont) {
-			pChar->log(LOG_TRACE, tr("Grabbing item '%1' (0x%2, %3) out of container 0x%4 (Outmost: 0x%5)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( pCont->serial(), 0, 16 ).arg( outmostCont->serial(), 0, 16 ));
+			pChar->log(LOG_TRACE, tr("Grabbing item '%1' (0x%2, %3) out of container 0x%4 (Outmost: 0x%5)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( pCont->serial(), 0, 16 ).arg( outmostCont->serial(), 0, 16 ));
 		}
 	}
 
@@ -255,7 +255,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 			cCorpse *corpse = static_cast<cCorpse*>(outmostCont);
 			P_PLAYER owner = dynamic_cast<P_PLAYER>(corpse->owner());
 			if (owner && owner != pChar) {
-				pChar->log(LOG_TRACE, tr("Picking up item '%1' (0x%2, %3) from corpse of player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
+				pChar->log(LOG_TRACE, tr("Picking up item '%1' (0x%2, %3) from corpse of player '%4' ('%5', 0x%6)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 			}
 		}
 	}
@@ -831,7 +831,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 				P_PLAYER owner = dynamic_cast<P_PLAYER>(corpse->owner());
 				if (owner && owner != pChar)
 				{
-					pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) onto corpse of player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->name() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
+					pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) onto corpse of player '%4' ('%5', 0x%6)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->name() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 				}
 			}
 		}
@@ -840,12 +840,12 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 			P_PLAYER owner = dynamic_cast<P_PLAYER>(packOwner);
 			if (owner)
 			{
-				pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) to player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
+				pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) to player '%4' ('%5', 0x%6)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 			}
 		}
 		if ( pChar->isGM() && !packOwner )
 		{
-			pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) into container 0x%4 (Outmost: 0x%5)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( pCont->serial(), 0, 16 ).arg( outmostCont->serial(), 0, 16 ));
+			pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) into container 0x%4 (Outmost: 0x%5)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( pCont->serial(), 0, 16 ).arg( outmostCont->serial(), 0, 16 ));
 		}
 		return;
 	}
@@ -894,7 +894,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 					P_PLAYER owner = dynamic_cast<P_PLAYER>(corpse->owner());
 					if (owner && owner != pChar)
 					{
-						pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) onto corpse of player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->name() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
+						pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) onto corpse of player '%4' ('%5', 0x%6)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->name() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 					}
 				}
 			}
@@ -903,11 +903,11 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 				P_PLAYER owner = dynamic_cast<P_PLAYER>(packOwner);
 				if (owner)
 				{
-					pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) to player '%4' ('%5', 0x%6)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
+					pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) to player '%4' ('%5', 0x%6)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( owner->orgName() ).arg( owner->account() ? owner->account()->login() : QString( "unknown" ) ).arg( owner->serial(), 0, 16 ));
 				}
 			}
 			if ( pChar->isGM() && !packOwner ) {
-				pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) into container 0x%4 (Outmost: 0x%5)\n").arg(pItem->baseid()).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( pNewCont->serial(), 0, 16 ).arg( outmostCont->serial(), 0, 16 ));
+				pChar->log(LOG_TRACE, tr("Dropping item '%1' (0x%2, %3) into container 0x%4 (Outmost: 0x%5)\n").arg(QString(pItem->baseid())).arg(pItem->serial(), 0, 16).arg(pItem->amount()).arg( pNewCont->serial(), 0, 16 ).arg( outmostCont->serial(), 0, 16 ));
 			}
 		}
 		else

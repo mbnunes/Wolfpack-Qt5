@@ -31,7 +31,7 @@
 #include "typedefs.h"
 #include "objectdef.h"
 
-#include <qstringlist.h>
+#include <QStringList>
 #include <qobject.h>
 #include <vector>
 #include <map>

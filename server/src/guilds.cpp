@@ -32,6 +32,9 @@
 #include "dbdriver.h"
 #include "world.h"
 #include "items.h"
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PtrList>
 
 cGuilds::~cGuilds()
 {
@@ -207,7 +210,7 @@ void cGuild::save()
 		PersistentBroker::instance()->executeQuery( QString( "INSERT INTO guilds_canidates VALUES(%1,%2);" ).arg( serial_ ).arg( player->serial() ) );
 	}
 
-	QValueList<unsigned int>::iterator it;
+	Q3ValueList<unsigned int>::iterator it;
 
 	for (it = allies_.begin(); it != allies_.end(); ++it) {
 		unsigned int serial = *it;
@@ -266,7 +269,7 @@ cGuild::~cGuild()
 		memberinfo_.remove( player );
 	}
 
-	QValueList<unsigned int>::iterator it;
+	Q3ValueList<unsigned int>::iterator it;
 
 	for (it = allies_.begin(); it != allies_.end(); ++it) {
 		unsigned int serial = *it;
@@ -812,7 +815,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	if ( !strcmp( name, "members" ) )
 	{
-		QPtrList<cPlayer>& members = self->guild->members();
+		Q3PtrList<cPlayer>& members = self->guild->members();
 		PyObject* list = PyTuple_New( members.count() );
 		unsigned int i = 0;
 
@@ -828,7 +831,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "canidates" ) )
 	{
-		QPtrList<cPlayer>& canidates = self->guild->canidates();
+		Q3PtrList<cPlayer>& canidates = self->guild->canidates();
 		PyObject* list = PyTuple_New( canidates.count() );
 		unsigned int i = 0;
 
@@ -916,8 +919,8 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "allies" ) )
 	{
-		const QValueList<unsigned int> &allies = self->guild->allies();
-		QValueList<unsigned int>::const_iterator it;
+		const Q3ValueList<unsigned int> &allies = self->guild->allies();
+		Q3ValueList<unsigned int>::const_iterator it;
 
 		PyObject *result = PyTuple_New( allies.size() );
 		unsigned int i = 0;
@@ -941,8 +944,8 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "enemies" ) )
 	{
-		const QValueList<unsigned int> &enemies = self->guild->enemies();
-		QValueList<unsigned int>::const_iterator it;
+		const Q3ValueList<unsigned int> &enemies = self->guild->enemies();
+		Q3ValueList<unsigned int>::const_iterator it;
 
 		PyObject *result = PyTuple_New( enemies.size() );
 		unsigned int i = 0;
@@ -1146,7 +1149,7 @@ void cGuild::save( cBufferedWriter& writer, unsigned int version )
 	}
 
 	if (version >= 10) {
-		QValueList<unsigned int>::iterator it;
+		Q3ValueList<unsigned int>::iterator it;
 
 		writer.writeInt(allies_.count());
 		for (it = allies_.begin(); it != allies_.end(); ++it) {

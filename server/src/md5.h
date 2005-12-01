@@ -32,6 +32,8 @@
 
 #include <string.h>
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 /*!
   \brief This class implements the Md5 digest context.
@@ -105,8 +107,8 @@ public:
 	*/
 	inline static QString fastDigest( const QString& text )
 	{
-		QCString data = text.utf8();
-		QCString result( 33 );
+		Q3CString data = text.utf8();
+		Q3CString result( 33 );
 		fastDigest( result.data(), data.data() );
 		return QString( result );
 	}

@@ -49,7 +49,7 @@ typedef unsigned char Bool;
 ** loop over all entries of the Btree.  You can also insert new BTree
 ** entries or retrieve the key or data from the entry that the cursor
 ** is currently pointing to.
-** 
+**
 ** Every cursor that the virtual machine has open is represented by an
 ** instance of the following structure.
 **
@@ -138,8 +138,8 @@ struct Sorter {
   Sorter *pNext;      /* Next in the list */
 };
 
-/* 
-** Number of buckets used for merge-sort.  
+/*
+** Number of buckets used for merge-sort.
 */
 #define NSORT 30
 
@@ -152,7 +152,7 @@ struct Sorter {
 ** If the MEM_Str flag is set then Mem.z points at a string representation.
 ** Usually this is encoded in the same unicode encoding as the main
 ** database (see below for exceptions). If the MEM_Term flag is also
-** set, then the string is nul terminated. The MEM_Int and MEM_Real 
+** set, then the string is nul terminated. The MEM_Int and MEM_Real
 ** flags may coexist with the MEM_Str flag.
 **
 ** Multiple of these values can appear in Mem.flags.  But only one
@@ -337,7 +337,7 @@ struct Vdbe {
   int returnStack[100];   /* Return address stack for OP_Gosub & OP_Return */
   int returnDepth;        /* Next unused element in returnStack[] */
   int nResColumn;         /* Number of columns in one row of the result set */
-  char **azResColumn;     /* Values for one row of result */ 
+  char **azResColumn;     /* Values for one row of result */
   int popStack;           /* Pop the stack this much on entry to VdbeExec() */
   char *zErrMsg;          /* Error message written here */
   u8 resOnStack;          /* True if there are result values on the stack */

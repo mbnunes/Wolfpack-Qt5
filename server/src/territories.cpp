@@ -43,6 +43,9 @@
 
 // needed for object Config
 #include "pythonscript.h"
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PtrList>
 
 // cTerritories
 
@@ -328,8 +331,8 @@ bool cTerritory::haveTeleporters() const
 
 bool cTerritory::findTeleporterSpot( Coord& d ) const
 {
-	QValueList<teleporters_st>::const_iterator it( teleporters.begin() );
-	QValueList<teleporters_st>::const_iterator end( teleporters.end() );
+	Q3ValueList<teleporters_st>::const_iterator it( teleporters.begin() );
+	Q3ValueList<teleporters_st>::const_iterator end( teleporters.end() );
 	for ( ; it != end; ++it )
 	{
 		if ( d == ( *it ).source )
@@ -370,9 +373,9 @@ void cTerritories::load()
 		}
 	}
 
-	const QValueVector<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
+	const Q3ValueVector<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
 
-	QValueVector<cElement*>::const_iterator it( elements.begin() );
+	Q3ValueVector<cElement*>::const_iterator it( elements.begin() );
 	while ( it != elements.end() )
 	{
 		cTerritory* territory = new cTerritory( *it, 0 );
@@ -397,8 +400,8 @@ void cTerritories::load()
 	}
 
 	// Get the toplevel teleporters and insert them
-	const QValueVector<cElement*> &teleporters = Definitions::instance()->getDefinitions( WPDT_TELEPORTER );
-	QValueVector<cElement*>::const_iterator tit;
+	const Q3ValueVector<cElement*> &teleporters = Definitions::instance()->getDefinitions( WPDT_TELEPORTER );
+	Q3ValueVector<cElement*>::const_iterator tit;
 	for ( tit = teleporters.begin(); tit != teleporters.end(); ++tit )
 	{
 		cElement *element = *tit;
@@ -539,7 +542,7 @@ void cTerritories::check( P_CHAR pc )
 cTerritory* cTerritories::region( const QString& regName )
 {
 	cTerritory* result = 0;
-	QMap<uint, QPtrList<cTerritory> >::iterator it( topregions.begin() );
+	QMap<uint, Q3PtrList<cTerritory> >::iterator it( topregions.begin() );
 	for ( ; it != topregions.end(); ++it )
 	{
 		// search all topregions of that map
@@ -557,7 +560,7 @@ cTerritory* cTerritories::region( const QString& regName )
 
 cTerritory* cTerritories::region( UI16 posx, UI16 posy, UI08 map )
 {
-	QMap<uint, QPtrList<cTerritory> >::iterator it( topregions.find( map ) );
+	QMap<uint, Q3PtrList<cTerritory> >::iterator it( topregions.find( map ) );
 	cTerritory* result = 0;
 
 	if ( it != topregions.end() )

@@ -77,17 +77,16 @@ def buildLibLine( path, file ):
 	if path == "" or file == "":
 		return ""
 
-	if sys.platform == "win32":
-		return path + os.path.sep + file
-	else:
-		if file[0:3] == "lib":
-			file = file[3:]
-		if file[-3:] == ".so":
-			file = file[0:-3]
-		if file[-2:] == ".a":
-			file = file[0:-2]
-		result = "-L%s -l%s" % ( path, file )
-		return result
+	if file[0:3] == "lib":
+		file = file[3:]
+	if file[-3:] == ".so":
+		file = file[0:-3]
+	if file[-2:] == ".a":
+		file = file[0:-2]
+	if file[-4:] == ".lib":
+                file = file[0:-4]
+	result = "-L\"%s\" -l%s" % ( path, file )
+	return result
 
 def findFile( searchpath ):
 	path = ""

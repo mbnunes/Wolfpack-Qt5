@@ -38,6 +38,8 @@
 #include "pycontent.h"
 #include "tempeffect.h"
 #include "objectcache.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 /*
 	\object item
@@ -1336,9 +1338,9 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 			Py_RETURN_NONE;
 		}
 
-		const QPtrList<cUObject>& objects = multi->getObjects();
+		const Q3PtrList<cUObject>& objects = multi->getObjects();
 		PyObject* tuple = PyTuple_New( objects.count() );
-		QPtrList<cUObject>::const_iterator it( objects.begin() );
+		Q3PtrList<cUObject>::const_iterator it( objects.begin() );
 		unsigned int i = 0;
 		for ( ; it != objects.end(); ++it )
 		{
@@ -1354,8 +1356,8 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		QStringList events = QStringList::split( ",", self->pItem->scriptList() );
 		if ( self->pItem->basedef() )
 		{
-			const QPtrList<cPythonScript> &list = self->pItem->basedef()->baseScripts();
-			QPtrList<cPythonScript>::const_iterator it( list.begin() );
+			const Q3PtrList<cPythonScript> &list = self->pItem->basedef()->baseScripts();
+			Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
 			while ( it != list.end() )
 			{
 				events.append( ( *it )->name() );

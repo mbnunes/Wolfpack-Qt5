@@ -31,7 +31,7 @@
 #include "../serverconfig.h"
 
 // Library Includes
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 #include <qfile.h>
 #include <qdatastream.h>
 #include <qdir.h>
@@ -42,7 +42,7 @@ MultiDefinition::MultiDefinition() : width( 0 ), height( 0 ), left( 0 ), top( 0 
 {
 }
 
-void MultiDefinition::setItems( const QValueVector<multiItem_st>& items )
+void MultiDefinition::setItems( const Q3ValueVector<multiItem_st>& items )
 {
 	// try to sort
 	if ( items.empty() )
@@ -79,10 +79,10 @@ void MultiDefinition::setItems( const QValueVector<multiItem_st>& items )
 	entries = items;
 }
 
-const QValueVector<multiItem_st>& MultiDefinition::itemsAt( int x, int y )
+const Q3ValueVector<multiItem_st>& MultiDefinition::itemsAt( int x, int y )
 {
 	unsigned int index = ( x - left ) + ( y - top ) * width;
-	static QValueVector<multiItem_st> emptyGrid;
+	static Q3ValueVector<multiItem_st> emptyGrid;
 	if ( index >= grid.size() )
 	{
 		return emptyGrid;
@@ -130,7 +130,7 @@ signed char MultiDefinition::multiHeight( short x, short y, short z ) const
 /*!
 	Returns this Multi's entries as found in the multis.mul file
 */
-QValueVector<multiItem_st> MultiDefinition::getEntries() const
+Q3ValueVector<multiItem_st> MultiDefinition::getEntries() const
 {
 	return entries;
 }
@@ -185,14 +185,14 @@ void cMultiCache::load()
 	QString basePath = Config::instance()->mulPath();
 
 	QFile indexFile( basePath + "multi.idx" );
-	if ( !indexFile.open( IO_ReadOnly ) )
+	if ( !indexFile.open( QIODevice::ReadOnly ) )
 		throw wpException( QString( "Error opening file %1 for reading." ).arg( basePath + "multi.idx" ) );
 
 	QDataStream indexStream( &indexFile );
 	indexStream.setByteOrder( QDataStream::LittleEndian );
 
 	QFile multiFile( basePath + "multi.mul" );
-	if ( !multiFile.open( IO_ReadOnly ) )
+	if ( !multiFile.open( QIODevice::ReadOnly ) )
 		throw wpException( QString( "Error opening file %1 for reading." ).arg( basePath + "multi.mul" ) );
 
 	struct
@@ -215,7 +215,7 @@ void cMultiCache::load()
 			continue;
 		}
 
-		QValueVector<multiItem_st> items;
+		Q3ValueVector<multiItem_st> items;
 		items.reserve( indexData.length / 12 );
 
 		multiFile.at( indexData.start );

@@ -28,7 +28,6 @@
 #include "uosocket.h"
 #include "uopacket.h"
 #include "uotxpackets.h"
-#include "asyncnetio.h"
 #include "network.h"
 
 // Wolfpack Includes
@@ -65,14 +64,62 @@
 #include "../ai/ai.h"
 #include "../python/pypacket.h"
 
+#include "encryption.h"
+
 #include <stdlib.h>
 #include <qhostaddress.h>
+#include <QTimer>
+#include <Q3PtrList>
 
 #include <vector>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 #include <functional>
 
 using namespace std;
+
+/*!
+\internal
+Table of packet lengths, automatically generated from
+Client Version: UO: LBR (Thrid Dawn) 3.0.8d
+
+0xFFFF - Packet not used
+0x0000 - Packet has dynamic length
+*/
+const Q_UINT16 packetLengths[256] =
+{
+		0x0068, 0x0005, 0x0007, 0x0000, 0x0002, 0x0005, 0x0005, 0x0007, // 0x00
+		0x000e, 0x0005, 0x0007, 0x010a, 0x0000, 0x0003, 0x0000, 0x003d, // 0x08
+		0x00d7, 0x0000, 0x0000, 0x000a, 0x0006, 0x0009, 0x0001, 0x0000, // 0x10
+		0x0000, 0x0000, 0x0000, 0x0025, 0x0000, 0x0005, 0x0004, 0x0008, // 0x18
+		0x0013, 0x0008, 0x0003, 0x001a, 0x0007, 0x0014, 0x0005, 0x0002, // 0x20
+		0x0005, 0x0001, 0x0005, 0x0002, 0x0002, 0x0011, 0x000f, 0x000a, // 0x28
+		0x0005, 0x0001, 0x0002, 0x0002, 0x000a, 0x028d, 0x0000, 0x0008, // 0x30
+		0x0007, 0x0009, 0x0000, 0x0000, 0x0000, 0x0002, 0x0025, 0x0000, // 0x38
+		0x00c9, 0x0000, 0x0000, 0x0229, 0x02c9, 0x0005, 0x0000, 0x000b, // 0x40
+		0x0049, 0x005d, 0x0005, 0x0009, 0x0000, 0x0000, 0x0006, 0x0002, // 0x48
+		0x0000, 0x0000, 0x0000, 0x0002, 0x000c, 0x0001, 0x000b, 0x006e, // 0x50
+		0x006a, 0x0000, 0x0000, 0x0004, 0x0002, 0x0049, 0x0000, 0x0031, // 0x58
+		0x0005, 0x0009, 0x000f, 0x000d, 0x0001, 0x0004, 0x0000, 0x0015, // 0x60
+		0x0000, 0x0000, 0x0003, 0x0009, 0x0013, 0x0003, 0x000e, 0x0000, // 0x68
+		0x001c, 0x0000, 0x0005, 0x0002, 0x0000, 0x0023, 0x0010, 0x0011, // 0x70
+		0x0000, 0x0009, 0x0000, 0x0002, 0x0000, 0x000d, 0x0002, 0x0000, // 0x78
+		0x003e, 0x0000, 0x0002, 0x0027, 0x0045, 0x0002, 0x0000, 0x0000, // 0x80
+		0x0042, 0x0000, 0x0000, 0x0000, 0x000b, 0x0000, 0x0000, 0x0000, // 0x88
+		0x0013, 0x0041, 0x0000, 0x0063, 0x0000, 0x0009, 0x0000, 0x0002, // 0x90
+		0x0000, 0x001a, 0x0000, 0x0102, 0x0135, 0x0033, 0x0000, 0x0000, // 0x98
+		0x0003, 0x0009, 0x0009, 0x0009, 0x0095, 0x0000, 0x0000, 0x0004, // 0xA0
+		0x0000, 0x0000, 0x0005, 0x0000, 0x0000, 0x0000, 0x0000, 0x000d, // 0xA8
+		0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0040, 0x0009, 0x0000, // 0xB0
+		0x0000, 0x0003, 0x0006, 0x0009, 0x0003, 0x0000, 0x0000, 0x0000, // 0xB8
+		0x0024, 0x0000, 0x0000, 0x0000, 0x0006, 0x00cb, 0x0001, 0x0031, // 0xC0
+		0x0002, 0x0006, 0x0006, 0x0007, 0x0000, 0x0001, 0x0000, 0x004e, // 0xC8
+		0x0000, 0x0002, 0x0019, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, // 0xD0
+		0x0000, 0x010C, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xD8
+		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xE0
+		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xE8
+		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF0
+		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8
+};
 
 /*****************************************************************************
   cUOSocket member functions
@@ -89,21 +136,43 @@ using namespace std;
 */
 
 /*!
-  Constructs a cUOSocket attached to \a sDevice system socket.
-  Ownership of \a sDevice will be transfered to cUOSocket, that is,
+  Constructs a cUOSocket attached to \a s system socket.
+  Ownership of \a s will be transfered to cUOSocket, that is,
   cUOSocket will call delete on the given pointer when it's destructed.
 */
-cUOSocket::cUOSocket( QSocketDevice* sDevice ) : _walkSequence( 0 ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ), targetRequest( 0 ), _account( 0 ), _player( 0 ), _rxBytes( 0 ), _txBytes( 0 ), _socket( sDevice ), _screenWidth( 640 ), _screenHeight( 480 )
+cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( s ), _walkSequence( 0 ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ), targetRequest( 0 ), _account( 0 ), _player( 0 ), _rxBytes( 0 ), _txBytes( 0 ), _screenWidth( 640 ), _screenHeight( 480 )
 {
+	encryption = 0;
 	_txBytesRaw = 0;
 	flags_ = 0;
-	_socket->resetStatus();
-	_ip = _socket->peerAddress().toString();
-	_uniqueId = sDevice->socket();
+	_ip = s->peerAddress().toString();
+	_socket = s;
+	_uniqueId = s->socket();
 	tooltipscache_ = new QBitArray;
+	skippedUOHeader = false;
 
+	connect( _socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::QueuedConnection);
+	connect( _socket, SIGNAL(readyRead()), this, SLOT(receive()), Qt::QueuedConnection);
 	// Creation of a new socket counts as activity
 	_lastActivity = getNormalizedTime();
+}
+
+/*!
+Destructs the cUOSocket instance.
+*/
+cUOSocket::~cUOSocket( void )
+{
+	delete _socket;
+	delete targetRequest;
+	delete tooltipscache_;
+	delete encryption;
+
+	QMap<SERIAL, cGump*>::iterator it( gumps.begin() );
+	while ( it != gumps.end() )
+	{
+		delete it.data();
+		++it;
+	}
 }
 
 // Initialize all packet handlers to zero
@@ -146,23 +215,6 @@ void cUOSocket::clearPacketHandlers()
 }
 
 /*!
-  Destructs the cUOSocket instance.
-*/
-cUOSocket::~cUOSocket( void )
-{
-	delete _socket;
-	delete targetRequest;
-	delete tooltipscache_;
-
-	QMap<SERIAL, cGump*>::iterator it( gumps.begin() );
-	while ( it != gumps.end() )
-	{
-		delete it.data();
-		++it;
-	}
-}
-
-/*!
   Sends \a packet to client.
 */
 void cUOSocket::send( cUOPacket* packet )
@@ -176,15 +228,28 @@ void cUOSocket::send( cUOPacket* packet )
 	_txBytesRaw += packet->size();
 	if ( _state != LoggingIn ) {
 		_txBytes += packet->compressed().size();
+
+		if (encryption) {
+			QByteArray encrypted = packet->compressed();
+			encryption->serverEncrypt(encrypted.data(), encrypted.size());
+			_socket->write( encrypted );
+		} else {
+			_socket->write( packet->compressed() );
+		}
 	} else {
 		_txBytes += packet->size();
+		if (encryption) {
+			QByteArray encrypted = packet->uncompressed();
+			encryption->serverEncrypt(encrypted.data(), encrypted.size());
+			_socket->write( encrypted );
+		} else {
+			_socket->write( packet->uncompressed() );
+		}
 	}
-
-	Network::instance()->netIo()->sendPacket( _socket, packet, ( _state != LoggingIn ) );
 
 	// Once send, flush if in Debug mode
 #if defined(_DEBUG)
-	//Network::instance()->netIo()->flush( _socket );
+	_socket->flush();
 #endif
 }
 
@@ -244,228 +309,367 @@ void cUOSocket::send( cGump* gump )
 	send( &uoPacket );
 }
 
+void cUOSocket::buildPackets()
+{
+	// Process the incoming buffer and split it into packets
+	while (incomingBuffer.size() != 0) 
+	{
+		unsigned char packetId = incomingBuffer[0];
+		unsigned short size = packetLengths[packetId];
+
+		if (size == 0xFFFF) {
+			// Be so nice to tell the client that it has been disconnected
+			cUOTxDenyLogin deny;
+			deny.setReason(cUOTxDenyLogin::DL_BADCOMMUNICATION);
+			send(&deny);
+
+			disconnect();
+		} else if (size == 0 && incomingBuffer.size() >= 3) {
+			unsigned short dynamicSize = ((incomingBuffer[1] & 0xFF) << 8) | (unsigned char)incomingBuffer[2];
+			if (dynamicSize <= incomingBuffer.size()) {				
+				QByteArray packetData(dynamicSize);
+				memcpy(packetData.data(), incomingBuffer.data(), dynamicSize);
+				incomingBuffer = QByteArray(incomingBuffer.data() + dynamicSize, incomingBuffer.size() - dynamicSize);
+
+				cUOPacket* packet = getUORxPacket( packetData );
+				if (packet)
+					incomingQueue.append(packet);						
+
+				continue; // See if there's another packet
+			}
+		} else if (size <= incomingBuffer.size()) {
+			// Completed a packet
+			QByteArray packetData(size);
+			memcpy(packetData.data(), incomingBuffer.data(), size);
+			memcpy(incomingBuffer.data(), incomingBuffer.data() + size, incomingBuffer.size() - size);
+			incomingBuffer.resize(incomingBuffer.size() - size);
+
+			cUOPacket* packet = getUORxPacket( packetData );
+			if (packet)
+				incomingQueue.append(packet);						
+			continue; // See if there's another packet waiting
+		}
+
+		break; // Didn't receive a complete packet yet
+	}
+}
+
 /*!
   Tries to receive and dispatch a packet.
 */
-void cUOSocket::recieve()
+void cUOSocket::receive()
 {
-	cUOPacket* packet = Network::instance()->netIo()->recvPacket( _socket );
-
-	if ( !packet )
-		return;
-
-	// Increase rx counter
-	_rxBytes += packet->size();
-
-	unsigned char packetId = ( *packet )[0];
-
-	// Disconnect harmful clients
-	if ( ( _account == 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
+	if ( !skippedUOHeader )
 	{
-		log( tr( "Communication error: 0x%1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
-
-		cUOTxDenyLogin denyLogin;
-		denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
-		send( &denyLogin );
-
-		disconnect();
-
-		return;
-	}
-
-	// Switch to encrypted mode if one of the advanced packets is recieved
-	if ( packetId == 0x91 )
-		_state = LoggedIn;
-
-	// Check for a list of packets that may be sent while no player has been selected
-	if ( !_player )
-	{
-		if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xD9 )
-		{
+		if (_socket->bytesAvailable() >= 4) {
+			_socket->read( (char*)&seed, 4 );			
+			seed = B_BENDIAN_TO_HOST_INT32(seed);
+			skippedUOHeader = true;
+		} else {
 			return;
 		}
 	}
 
-	// This is always checked before anything else
-	if ( packetId == 0x02 && Config::instance()->antiSpeedHack() )
-	{
-		if ( _player && !_player->isGM() )
-		{
-			// There are two different delays for mounted and unmounted players
-			unsigned int delay;
-			if ( !_player->atLayer( cBaseChar::Mount ) )
-			{
-				delay = Config::instance()->antiSpeedHackDelay();
-			}
-			else
-			{
-				delay = Config::instance()->antiSpeedHackDelayMounted();
+	// Check for possible encryption
+	if (!encryption) {
+		// Login Server
+		if (Config::instance()->loginPort() == _socket->localPort()) {
+			if (_socket->bytesAvailable() < 62) {
+				return; // Not enough data for the login packet
 			}
 
-			// If the last movement of our player was not X ms in the past,
-			// requeue the walk request until we can fullfil it.
-			//unsigned int time = getNormalizedTime();
-			unsigned int time = Server::instance()->time();
-			if ( _player->lastMovement() + delay > time )
+			// The 0x80 packet is 62 byte, but we want to have everything
+			QByteArray buf = _socket->readAll();
+
+			// Check if it could be *not* encrypted
+			if ( buf[0] == '\x80' && buf[30] == '\x00' && buf[60] == '\x00' ) {
+				// Is no Encryption allowed?
+				if ( !Config::instance()->allowUnencryptedClients() )
+				{
+					// Send a communication problem message to this socket
+					_socket->writeBlock( "\x82\x04", 2 );
+					disconnect();
+					return;
+				}
+
+				encryption = new cNoEncryption;
+			} else {
+				cLoginEncryption* crypt = new cLoginEncryption;
+				if ( !crypt->init(seed, buf.data(), buf.size())) {
+					delete crypt;
+
+					// Send a communication problem message to this socket
+					_socket->writeBlock( "\x82\x04", 2 );
+					disconnect();
+					return;
+				}
+
+				encryption = crypt;
+			}
+
+			// Append to the buffer decrypted
+			encryption->clientDecrypt(buf.data(), buf.size());
+			incomingBuffer.append(buf);
+		// Game Server
+		} else if (Config::instance()->gamePort() == _socket->localPort()) {
+			if (_socket->bytesAvailable() < 65) {
+				return; // Not enough data for the login packet
+			}
+
+			QByteArray buf = _socket->readAll();
+
+			// The 0x91 packet is 65 byte
+			// This should be no encryption
+			if ( buf[0] == '\x91' && buf[1] == '\xFF' && buf[2] == '\xFF' && buf[3] == '\xFF' && buf[4] == '\xFF' )
 			{
-				//sysMessage(QString("Delayed Walk Request, Last WalkRequest was %1 ms ago.").arg(time - _player->lastMovement()));
-				Network::instance()->netIo()->pushfrontPacket( _socket, packet );
+				// Is no Encryption allowed?
+				if ( !Config::instance()->allowUnencryptedClients() )
+				{
+					// Send a communication problem message to this socket
+					_socket->writeBlock( "\x82\x04", 2 );
+					disconnect();
+					return;
+				}
+
+				encryption = new cNoEncryption;
+			} else {
+				cGameEncryption* crypt = new cGameEncryption;
+				crypt->init( 0xFFFFFFFF );
+				encryption = crypt;
+			}
+
+			// Append to the buffer decrypted
+			encryption->clientDecrypt(buf.data(), buf.size());
+			incomingBuffer.append(buf);
+		}
+	} else {
+		// Decrypt incoming bytes
+		QByteArray temp = _socket->readAll();
+		encryption->clientDecrypt(temp.data(), temp.size());
+		incomingBuffer.append(temp);
+	}
+	
+	buildPackets();
+	while ( !incomingQueue.isEmpty() ) {
+		cUOPacket* packet = incomingQueue.dequeue();
+
+		if ( !packet )
+			return;
+
+		// Increase rx counter
+		_rxBytes += packet->size();
+
+		unsigned char packetId = ( *packet )[0];
+
+		// Disconnect harmful clients
+		if ( ( _account == 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
+		{
+			log( tr( "Communication error: 0x%1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
+
+			cUOTxDenyLogin denyLogin;
+			denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
+			send( &denyLogin );
+
+			disconnect();
+
+			return;
+		}
+
+		// Switch to encrypted mode if one of the advanced packets is received
+		if ( packetId == 0x91 )
+			_state = LoggedIn;
+
+		// Check for a list of packets that may be sent while no player has been selected
+		if ( !_player )
+		{
+			if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xD9 )
+			{
 				return;
 			}
 		}
-	}
 
-	if ( handlers[packetId] )
-	{
-		PyObject* args = Py_BuildValue( "(NN)", PyGetSocketObject( this ), CreatePyPacket( packet ) );
-		PyObject* result = PyObject_CallObject( handlers[packetId], args );
-		Py_DECREF( args );
-
-		bool handled = result && PyObject_IsTrue( result );
-		Py_XDECREF( result );
-		reportPythonError();
-
-		// Override the internal packet handler.
-		if ( handled )
+		// This is always checked before anything else
+		if ( packetId == 0x02 && Config::instance()->antiSpeedHack() )
 		{
-			_lastActivity = getNormalizedTime();
-			delete packet;
-			return;
+			if ( _player && !_player->isGM() )
+			{
+				// There are two different delays for mounted and unmounted players
+				unsigned int delay;
+				if ( !_player->atLayer( cBaseChar::Mount ) )
+				{
+					delay = Config::instance()->antiSpeedHackDelay();
+				}
+				else
+				{
+					delay = Config::instance()->antiSpeedHackDelayMounted();
+				}
+
+				// If the last movement of our player was not X ms in the past,
+				// requeue the walk request until we can fullfil it.
+				//unsigned int time = getNormalizedTime();
+				unsigned int time = Server::instance()->time();
+				if ( _player->lastMovement() + delay > time )
+				{
+					//log( tr("Delayed Walk Request, Last WalkRequest was %1 ms ago, max delay: %2").arg(time - _player->lastMovement()).arg(delay) );
+					incomingQueue.prepend( packet );
+					QTimer::singleShot( _player->lastMovement() + delay - time, this, SLOT( receive() ) );
+					return;
+				}
+			}
 		}
+
+		if ( handlers[packetId] )
+		{
+			PyObject* args = Py_BuildValue( "(NN)", PyGetSocketObject( this ), CreatePyPacket( packet ) );
+			PyObject* result = PyObject_CallObject( handlers[packetId], args );
+			Py_DECREF( args );
+
+			bool handled = result && PyObject_IsTrue( result );
+			Py_XDECREF( result );
+			reportPythonError();
+
+			// Override the internal packet handler.
+			if ( handled )
+			{
+				_lastActivity = getNormalizedTime();
+				delete packet;
+				return;
+			}
+		}
+
+		// Relay it to the handler functions
+		switch ( packetId )
+		{
+			case 0x00:
+				handleCreateChar( static_cast<cUORxCreateChar*>( packet ) );
+				break;
+			case 0x01:
+				// Disconnect Notification received, should NEVER happen as it's unused now
+				disconnect();
+				break;
+			case 0x02:
+				// just want to walk a little.
+				handleWalkRequest( static_cast<cUORxWalkRequest*>( packet ) );
+				break;
+			case 0x05:
+				handleRequestAttack( static_cast<cUORxRequestAttack*>( packet ) );
+				break;
+			case 0x06:
+				handleDoubleClick( static_cast<cUORxDoubleClick*>( packet ) );
+				break;
+			case 0x07:
+				DragAndDrop::grabItem( this, static_cast<cUORxDragItem*>( packet ) );
+				break;
+			case 0x08:
+				DragAndDrop::dropItem( this, static_cast<cUORxDropItem*>( packet ) );
+				break;
+			case 0x09:
+				handleRequestLook( static_cast<cUORxRequestLook*>( packet ) );
+				break;
+			case 0x12:
+				handleAction( static_cast<cUORxAction*>( packet ) );
+				break;
+			case 0x13:
+				DragAndDrop::equipItem( this, static_cast<cUORxWearItem*>( packet ) );
+				break;
+			case 0x22:
+				resync();
+				break;
+			case 0x2C:
+				handleResurrectionMenu( static_cast<cUORxResurrectionMenu*>( packet ) ); break;
+			case 0x34:
+				handleQuery( static_cast<cUORxQuery*>( packet ) );
+				break;
+			case 0x3A:
+				handleSkillLock( static_cast<cUORxSkillLock*>( packet ) );
+				break;
+			case 0x3B:
+				handleBuy( static_cast<cUORxBuy*>( packet ) );
+				break;
+			case 0x5D:
+				handlePlayCharacter( static_cast<cUORxPlayCharacter*>( packet ) );
+				break;
+			case 0x6c:
+				handleTarget( static_cast<cUORxTarget*>( packet ) );
+				break;
+			case 0x6F:
+				handleSecureTrading( static_cast<cUORxSecureTrading*>( packet ) );
+				break;
+			case 0x72:
+				handleChangeWarmode( static_cast<cUORxChangeWarmode*>( packet ) );
+				break;
+			case 0x73:
+				break; // Pings are handeled
+			case 0x75:
+				handleRename( static_cast<cUORxRename*>( packet ) );
+				break;
+			case 0x80:
+				handleLoginRequest( static_cast<cUORxLoginRequest*>( packet ) );
+				break;
+			case 0x83:
+				handleDeleteCharacter( static_cast<cUORxDeleteCharacter*>( packet ) );
+				break;
+			case 0x91:
+				handleServerAttach( static_cast<cUORxServerAttach*>( packet ) );
+				break;
+			case 0x98:
+				handleAllNames( static_cast<cUORxAllNames*>( packet ) );
+				break;
+			case 0x9B:
+				handleHelpRequest( static_cast<cUORxHelpRequest*>( packet ) );
+				break;
+			case 0x9F:
+				handleSell( static_cast<cUORxSell*>( packet ) ); break;
+			case 0xA0:
+				handleSelectShard( static_cast<cUORxSelectShard*>( packet ) );
+				break;
+			case 0xA4:
+				handleHardwareInfo( static_cast<cUORxHardwareInfo*>( packet ) );
+				break;
+			case 0xA7:
+				handleGetTip( static_cast<cUORxGetTip*>( packet ) );
+				break;
+			case 0xAD:
+				handleSpeechRequest( static_cast<cUORxSpeechRequest*>( packet ) );
+				break;
+			case 0xB1:
+				handleGumpResponse( static_cast<cUORxGumpResponse*>( packet ) );
+				break;
+			case 0xB5:
+				handleChat( packet ); break;
+			case 0xB8:
+				handleProfile( static_cast<cUORxProfile*>( packet ) );
+				break;
+			case 0xBD:
+				_version = static_cast<cUORxSetVersion*>( packet )->version();
+				break;
+			case 0xBF:
+				handleMultiPurpose( static_cast<cUORxMultiPurpose*>( packet ) );
+				break;
+			case 0xC8:
+				handleUpdateRange( static_cast<cUORxUpdateRange*>( packet ) );
+				break;
+			case 0xD6:
+				handleRequestTooltips( static_cast<cUORxRequestTooltips*>( packet ) );
+				break;
+			case 0xD7:
+				handleAosMultiPurpose( static_cast<cUORxAosMultiPurpose*>( packet ) );
+				break;
+			case 0xB6:
+				break; // Completely ignore the packet.
+			case 0xBB:
+				break; // Completely ignore the packet.
+			default:
+				Console::instance()->send( packet->dump( packet->uncompressed() ) );
+				delete packet;
+				return;
+		}
+
+		// We received a packet we know
+		_lastActivity = getNormalizedTime();
+
+		delete packet;
 	}
-
-	// Relay it to the handler functions
-	switch ( packetId )
-	{
-		case 0x00:
-			handleCreateChar( static_cast<cUORxCreateChar*>( packet ) );
-			break;
-		case 0x01:
-			// Disconnect Notification recieved, should NEVER happen as it's unused now
-			disconnect();
-			break;
-		case 0x02:
-			// just want to walk a little.
-			handleWalkRequest( static_cast<cUORxWalkRequest*>( packet ) );
-			break;
-		case 0x05:
-			handleRequestAttack( static_cast<cUORxRequestAttack*>( packet ) );
-			break;
-		case 0x06:
-			handleDoubleClick( static_cast<cUORxDoubleClick*>( packet ) );
-			break;
-		case 0x07:
-			DragAndDrop::grabItem( this, static_cast<cUORxDragItem*>( packet ) );
-			break;
-		case 0x08:
-			DragAndDrop::dropItem( this, static_cast<cUORxDropItem*>( packet ) );
-			break;
-		case 0x09:
-			handleRequestLook( static_cast<cUORxRequestLook*>( packet ) );
-			break;
-		case 0x12:
-			handleAction( static_cast<cUORxAction*>( packet ) );
-			break;
-		case 0x13:
-			DragAndDrop::equipItem( this, static_cast<cUORxWearItem*>( packet ) );
-			break;
-		case 0x22:
-			resync();
-			break;
-		case 0x2C:
-			handleResurrectionMenu( static_cast<cUORxResurrectionMenu*>( packet ) ); break;
-		case 0x34:
-			handleQuery( static_cast<cUORxQuery*>( packet ) );
-			break;
-		case 0x3A:
-			handleSkillLock( static_cast<cUORxSkillLock*>( packet ) );
-			break;
-		case 0x3B:
-			handleBuy( static_cast<cUORxBuy*>( packet ) );
-			break;
-		case 0x5D:
-			handlePlayCharacter( static_cast<cUORxPlayCharacter*>( packet ) );
-			break;
-		case 0x6c:
-			handleTarget( static_cast<cUORxTarget*>( packet ) );
-			break;
-		case 0x6F:
-			handleSecureTrading( static_cast<cUORxSecureTrading*>( packet ) );
-			break;
-		case 0x72:
-			handleChangeWarmode( static_cast<cUORxChangeWarmode*>( packet ) );
-			break;
-		case 0x73:
-			break; // Pings are handeled
-		case 0x75:
-			handleRename( static_cast<cUORxRename*>( packet ) );
-			break;
-		case 0x80:
-			handleLoginRequest( static_cast<cUORxLoginRequest*>( packet ) );
-			break;
-		case 0x83:
-			handleDeleteCharacter( static_cast<cUORxDeleteCharacter*>( packet ) );
-			break;
-		case 0x91:
-			handleServerAttach( static_cast<cUORxServerAttach*>( packet ) );
-			break;
-		case 0x98:
-			handleAllNames( static_cast<cUORxAllNames*>( packet ) );
-			break;
-		case 0x9B:
-			handleHelpRequest( static_cast<cUORxHelpRequest*>( packet ) );
-			break;
-		case 0x9F:
-			handleSell( static_cast<cUORxSell*>( packet ) ); break;
-		case 0xA0:
-			handleSelectShard( static_cast<cUORxSelectShard*>( packet ) );
-			break;
-		case 0xA4:
-			handleHardwareInfo( static_cast<cUORxHardwareInfo*>( packet ) );
-			break;
-		case 0xA7:
-			handleGetTip( static_cast<cUORxGetTip*>( packet ) );
-			break;
-		case 0xAD:
-			handleSpeechRequest( static_cast<cUORxSpeechRequest*>( packet ) );
-			break;
-		case 0xB1:
-			handleGumpResponse( static_cast<cUORxGumpResponse*>( packet ) );
-			break;
-		case 0xB5:
-			handleChat( packet ); break;
-		case 0xB8:
-			handleProfile( static_cast<cUORxProfile*>( packet ) );
-			break;
-		case 0xBD:
-			_version = static_cast<cUORxSetVersion*>( packet )->version();
-			break;
-		case 0xBF:
-			handleMultiPurpose( static_cast<cUORxMultiPurpose*>( packet ) );
-			break;
-		case 0xC8:
-			handleUpdateRange( static_cast<cUORxUpdateRange*>( packet ) );
-			break;
-		case 0xD6:
-			handleRequestTooltips( static_cast<cUORxRequestTooltips*>( packet ) );
-			break;
-		case 0xD7:
-			handleAosMultiPurpose( static_cast<cUORxAosMultiPurpose*>( packet ) );
-			break;
-		case 0xB6:
-			break; // Completely ignore the packet.
-		case 0xBB:
-			break; // Completely ignore the packet.
-		default:
-			Console::instance()->send( packet->dump( packet->uncompressed() ) );
-			delete packet;
-			return;
-	}
-
-	// We received a packet we know
-	_lastActivity = getNormalizedTime();
-
-	delete packet;
 }
 
 /*!
@@ -497,7 +701,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 	// Otherwise build the shard-list
 	cUOTxShardList shardList;
 
-	QValueVector<ServerList_st> shards = Config::instance()->serverList();
+	QList<ServerList_st> shards = Config::instance()->serverList();
 
 	for ( Q_UINT8 i = 0; i < shards.size(); ++i )
 	{
@@ -554,7 +758,6 @@ void cUOSocket::disconnect()
 		}
 	}
 
-	Network::instance()->netIo()->flush( _socket );
 	_socket->close();
 
 	if ( _player )
@@ -600,7 +803,7 @@ void cUOSocket::disconnect()
 void cUOSocket::handleSelectShard( cUORxSelectShard* packet )
 {
 	// Relay him - save an auth-id so we recog. him when he relays locally
-	QValueVector<ServerList_st> shards = Config::instance()->serverList();
+	QList<ServerList_st> shards = Config::instance()->serverList();
 
 	if ( packet->shardId() >= shards.size() )
 	{
@@ -655,7 +858,7 @@ void cUOSocket::sendCharList()
 
 	cUOTxCharTownList charList;
 	charList.setCharLimit(maxChars);
-	QValueVector<P_PLAYER> characters = _account->caracterList();
+	Q3ValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// Add the characters
 	Q_UINT8 i = 0;
@@ -683,7 +886,7 @@ void cUOSocket::sendCharList()
 */
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter* packet )
 {
-	QValueVector<P_PLAYER> charList = _account->caracterList();
+	Q3ValueVector<P_PLAYER> charList = _account->caracterList();
 
 	if ( packet->index() >= charList.size() )
 	{
@@ -711,7 +914,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter* packet )
 void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 {
 	// Check the character the user wants to play
-	QValueVector<P_PLAYER> characters = _account->caracterList();
+	Q3ValueVector<P_PLAYER> characters = _account->caracterList();
 
 	if ( packet->slot() >= characters.size() )
 	{
@@ -736,7 +939,7 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	P_PLAYER pChar = characters.at( packet->slot() );
 
 	// check if any other account character is still online (lingering)
-	for ( QValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
+	for ( Q3ValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
 	{
 		P_PLAYER otherChar = *it;
 		if ( pChar == otherChar )
@@ -998,7 +1201,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 		return;
 	}
 
-	QValueVector<P_PLAYER> characters = _account->caracterList();
+	Q3ValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// If we have more than 6 characters
 	const uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
@@ -1008,7 +1211,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	}
 
 	// If another character in the account is still online (lingering)
-	for ( QValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
+	for ( Q3ValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
 	{
 		P_PLAYER otherChar = *it;
 		if ( otherChar->isOnline() )
@@ -1273,7 +1476,7 @@ void cUOSocket::sysMessage( const QString& message, Q_UINT16 color, Q_UINT16 fon
 void cUOSocket::updateCharList()
 {
 	cUOTxUpdateCharList charList;
-	QValueVector<P_PLAYER> characters = _account->caracterList();
+	Q3ValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// Add the characters
 	for ( Q_UINT8 i = 0; i < characters.size(); ++i )
@@ -1934,7 +2137,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	// Check if it's a command, then dispatch it to the command system
 	// if it's normal speech send it to the normal speech dispatcher
 	QString speech = packet->message();
-	QValueVector<Q_UINT16> keywords;
+	Q3ValueVector<Q_UINT16> keywords;
 	if ( packet->type() & 0xc0 )
 		keywords = packet->keywords();
 	Q_UINT16 color = packet->color();
@@ -2296,7 +2499,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	cUOTxItemContent itemContent;
 	Q_INT32 count = 0;
 
-	QPtrList<cItem> tooltipItems;
+	Q3PtrList<cItem> tooltipItems;
 
 	for ( ContainerIterator it( pCont ); !it.atEnd(); ++it )
 	{
@@ -2790,7 +2993,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		// Send the packet to our party members too
 		if ( _player->party() )
 		{
-			QPtrList<cPlayer> members = _player->party()->members();
+			Q3PtrList<cPlayer> members = _player->party()->members();
 
 			for ( P_PLAYER member = members.first(); member; member = members.next() )
 			{
@@ -2914,10 +3117,10 @@ struct buyitem_st
 	QString name;
 };
 
-class SortedSerialList : public QPtrList<cItem>
+class SortedSerialList : public Q3PtrList<cItem>
 {
 protected:
-	virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 )
+	virtual int compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 )
 	{
 		return ( ( P_ITEM ) item1 )->serial() - ( ( P_ITEM ) item2 )->serial();
 	}
@@ -2933,9 +3136,9 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	vendorBuy.setSerial( pItem->serial() );
 
 	/* dont ask me, but the order of the items for vendorbuy is reversed */
-	QValueList<buyitem_st> buyitems;
-	QValueList<buyitem_st>::const_iterator bit;
-	QPtrList<cItem> items;
+	Q3ValueList<buyitem_st> buyitems;
+	Q3ValueList<buyitem_st>::const_iterator bit;
+	Q3PtrList<cItem> items;
 
 	SortedSerialList sortedList;
 	for ( ContainerIterator it( pItem ); !it.atEnd(); ++it )
@@ -3160,7 +3363,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	sendStatWindow();
 }
 
-static void walkSellItems( P_ITEM pCont, P_ITEM pPurchase, QPtrList<cItem>& items )
+static void walkSellItems( P_ITEM pCont, P_ITEM pPurchase, Q3PtrList<cItem>& items )
 {
 	// For every pack item search for an equivalent sellitem
 	for ( ContainerIterator pit( pCont ); !pit.atEnd(); ++pit )
@@ -3195,7 +3398,7 @@ void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 
 	if ( pPurchase && pBackpack )
 	{
-		QPtrList<cItem> items;
+		Q3PtrList<cItem> items;
 		cUOTxSellList itemContent;
 		itemContent.setSerial( pVendor->serial() );
 

@@ -35,9 +35,11 @@
 #include "typedefs.h"
 
 // Qt Includes
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 #include <qmap.h>
-#include <qstringlist.h>
+#include <QStringList>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 // Forward Definitions
 class cUObject;
@@ -97,7 +99,7 @@ public:
 class cContextMenu : public cDefinable
 {
 public:
-	typedef QValueVector<cContextMenuEntry*> Entries;
+	typedef Q3ValueVector<cContextMenuEntry*> Entries;
 	typedef Entries::const_iterator const_iterator;
 	typedef Entries::iterator iterator;
 
@@ -123,7 +125,7 @@ public:
 
 private:
 	Entries entries_;
-	QPtrList<cPythonScript> scriptChain_;
+	Q3PtrList<cPythonScript> scriptChain_;
 	QString scripts_;
 };
 

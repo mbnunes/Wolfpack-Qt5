@@ -35,6 +35,8 @@
 
 // System Includes
 #include <qmap.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 // Forward declarations
 class cUOSocket;
@@ -50,7 +52,7 @@ protected:
 	unsigned char direction_; // Direction the corpse is facing.
 	uint murdertime_; // When the people has been killed
 	SERIAL murderer_; // Who was the murderer
-	QCString charbaseid_;
+	Q3CString charbaseid_;
 
 	QMap<Q_UINT8, SERIAL> equipment_; // Serials of the old equipment
 	// The meaning of this is that even if the items are inside of the corpse
@@ -74,7 +76,7 @@ public:
 	void setMurderTime( uint data );
 
 	void setDirection( unsigned char data );
-	void setCharBaseid( const QCString& data );
+	void setCharBaseid( const Q3CString& data );
 	bool corpse() const
 	{
 		return true;
@@ -84,7 +86,7 @@ public:
 
 	Q_UINT16 bodyId() const;
 	unsigned char direction() const;
-	const QCString& charBaseid() const;
+	const Q3CString& charBaseid() const;
 	SERIAL murderer() const;
 	unsigned int murderTime() const;
 
@@ -140,7 +142,7 @@ inline void cCorpse::setDirection( unsigned char data )
 	direction_ = data;
 }
 
-inline void cCorpse::setCharBaseid( const QCString& baseid )
+inline void cCorpse::setCharBaseid( const Q3CString& baseid )
 {
 	charbaseid_ = baseid;
 }
@@ -150,7 +152,7 @@ inline Q_UINT16 cCorpse::bodyId() const
 	return bodyId_;
 }
 
-inline const QCString& cCorpse::charBaseid() const
+inline const Q3CString& cCorpse::charBaseid() const
 {
 	return charbaseid_;
 }

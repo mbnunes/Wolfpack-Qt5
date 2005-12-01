@@ -34,6 +34,8 @@
 // Library Includes
 #include <qfile.h>
 #include <qglobal.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 // Extension includes
 #include "python/utilities.h"
@@ -744,7 +746,7 @@ void cPythonScript::unload( void )
 	\condition Triggered when the script is loaded.
 */
 // Find our module name
-bool cPythonScript::load( const QCString& name )
+bool cPythonScript::load( const Q3CString& name )
 {
 	if ( name.isEmpty() )
 	{
@@ -777,7 +779,7 @@ bool cPythonScript::load( const QCString& name )
 		events[i] = PyDict_GetItemString( pDict, eventNames[i] );
 
 		if (events[i] && !PyCallable_Check(events[i])) {
-			Console::instance()->log( LOG_ERROR, tr( "Script %1 has non callable event: %1.\n" ).arg(name_).arg( eventNames[i] ) );
+			Console::instance()->log( LOG_ERROR, tr( "Script %1 has non callable event: %1.\n" ).arg(QString(name_)).arg( eventNames[i] ) );
 			Py_DECREF(events[i]);
 			events[i] = 0;
 		}
@@ -1033,7 +1035,7 @@ bool cPythonScriptable::convertPyObject( PyObject* /*object*/, QString& /*string
 	return false;
 }
 
-bool cPythonScriptable::convertPyObject( PyObject* /*object*/, QCString& /*string*/ )
+bool cPythonScriptable::convertPyObject( PyObject* /*object*/, Q3CString& /*string*/ )
 {
 	return false;
 }

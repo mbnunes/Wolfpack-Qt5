@@ -68,7 +68,7 @@ typedef struct VdbeOpList VdbeOpList;
 
 /*
 ** The following macro converts a relative address in the p2 field
-** of a VdbeOp structure into a negative number so that 
+** of a VdbeOp structure into a negative number so that
 ** sqliteVdbeAddOpList() knows that the address is relative.  Calling
 ** the macro again restores the address.
 */

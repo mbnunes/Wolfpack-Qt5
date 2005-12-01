@@ -49,6 +49,9 @@
 #include <sqlite.h>
 #include <qfileinfo.h>
 #include <qdir.h>
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 
 // Postprocessing stuff, can be deleted later on
 #include "muls/maps.h"
@@ -433,7 +436,7 @@ void cWorld::loadTag( cBufferedReader& reader, unsigned int version )
 	}
 }
 
-void cWorld::loadBinary( QPtrList<PersistentObject>& objects )
+void cWorld::loadBinary( Q3PtrList<PersistentObject>& objects )
 {
 	QString filename = Config::instance()->binarySavepath();
 
@@ -447,12 +450,12 @@ void cWorld::loadBinary( QPtrList<PersistentObject>& objects )
 		Console::instance()->setProgress( "0%" );
 
 		unsigned char type;
-		const QMap<unsigned char, QCString> &typemap = reader.typemap();
+		const QMap<unsigned char, Q3CString> &typemap = reader.typemap();
 		unsigned int loaded = 0;
 		unsigned int count = reader.objectCount();
 		unsigned int lastpercent = 0;
 		unsigned int percent = 0;
-		QPtrList<cUObject> invalidSpawnregion;
+		Q3PtrList<cUObject> invalidSpawnregion;
 		invalidSpawnregion.setAutoDelete( false );
 
 		do
@@ -590,7 +593,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject>& objects )
 		Console::instance()->rollbackChars( revert );
 
 		// post process all loaded objects
-		QPtrList<PersistentObject>::const_iterator cit( objects.begin() );
+		Q3PtrList<PersistentObject>::const_iterator cit( objects.begin() );
 		while ( cit != objects.end() )
 		{
 			( *cit )->postload( reader.version() );
@@ -598,7 +601,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject>& objects )
 		}
 
 		// Delete all objects with an invalid spawnregion
-		QPtrList<cUObject>::const_iterator sit( invalidSpawnregion.begin() );
+		Q3PtrList<cUObject>::const_iterator sit( invalidSpawnregion.begin() );
 		while ( sit != invalidSpawnregion.end() )
 		{
 			( *sit )->remove();
@@ -616,7 +619,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject>& objects )
 	UoTime::instance()->setMinutes( db_time.toInt() );
 }
 
-void cWorld::loadSQL( QPtrList<PersistentObject>& objects )
+void cWorld::loadSQL( Q3PtrList<PersistentObject>& objects )
 {
 	if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 	{
@@ -742,7 +745,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject>& objects )
 
 	// It's not possible to use cItemIterator during postprocessing because it skips lingering items
 	ItemMap::iterator iter;
-	QPtrList<cItem> deleteItems;
+	Q3PtrList<cItem> deleteItems;
 
 	for ( iter = p->items.begin(); iter != p->items.end(); ++iter )
 	{
@@ -854,7 +857,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject>& objects )
 	// Note from DarkStorm: I THINK it's important to do this before
 	// the deletion of objects, otherwise you might have items in this
 	// list that are already deleted.
-	QPtrList<PersistentObject>::const_iterator cit( objects.begin() );
+	Q3PtrList<PersistentObject>::const_iterator cit( objects.begin() );
 
 	while ( cit != objects.end() )
 	{
@@ -908,7 +911,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject>& objects )
 void cWorld::load()
 {
 	unsigned int loadStart = getNormalizedTime();
-	QPtrList<PersistentObject> objects;
+	Q3PtrList<PersistentObject> objects;
 
 	if ( Config::instance()->databaseDriver() == "binary" )
 	{
@@ -1493,7 +1496,7 @@ void cWorld::backupWorld( const QString& filename, unsigned int count, bool comp
 
 	// Rename the old worldfile
 	QDir dir = QDir::current();
-	dir.rename( filename, backupName, true );
+	dir.rename( filename, backupName );
 
 	// Start the compression thread if requested by the user
 	cBackupThread *backupThread = new cBackupThread();
@@ -1517,7 +1520,7 @@ void cBackupThread::run()
 	QFile input( filename );
 	QString outputName = filename + ".gz";
 
-	if ( !input.open( IO_ReadOnly ) )
+	if ( !input.open( QIODevice::ReadOnly ) )
 	{
 		return;
 	}

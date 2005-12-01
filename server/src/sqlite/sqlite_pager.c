@@ -158,7 +158,7 @@ struct Pager {
   int dbSize;                 /* Number of pages in the file */
   int origDbSize;             /* dbSize before the current change */
   int ckptSize;               /* Size of database (in pages) at ckpt_begin() */
-  off_t ckptJSize;            /* Size of journal at ckpt_begin() */
+  OFF_T ckptJSize;            /* Size of journal at ckpt_begin() */
   int nRec;                   /* Number of pages written to the journal */
   u32 cksumInit;              /* Quasi-random value added to every checksum */
   int ckptNRec;               /* Number of records in the checkpoint journal */
@@ -560,7 +560,7 @@ static int pager_playback_one_page(Pager *pPager, OsFile *jfd, int format){
   */
   pPg = pager_lookup(pPager, pgRec.pgno);
   TRACE2("PLAYBACK %d\n", pgRec.pgno);
-  sqliteOsSeek(&pPager->fd, (pgRec.pgno-1)*(off_t)SQLITE_PAGE_SIZE);
+  sqliteOsSeek(&pPager->fd, (pgRec.pgno-1)*(OFF_T)SQLITE_PAGE_SIZE);
   rc = sqliteOsWrite(&pPager->fd, pgRec.aData, SQLITE_PAGE_SIZE);
   if( pPg ){
     /* No page should ever be rolled back that is in use, except for page
@@ -630,7 +630,7 @@ static int pager_playback_one_page(Pager *pPager, OsFile *jfd, int format){
 ** returns SQLITE_OK.
 */
 static int pager_playback(Pager *pPager, int useJournalSize){
-  off_t szJ;               /* Size of the journal file in bytes */
+  OFF_T szJ;               /* Size of the journal file in bytes */
   int nRec;                /* Number of Records in the journal */
   int i;                   /* Loop counter */
   Pgno mxPg = 0;           /* Size of the original file in pages */
@@ -702,7 +702,7 @@ static int pager_playback(Pager *pPager, int useJournalSize){
     goto end_playback;
   }
   assert( pPager->origDbSize==0 || pPager->origDbSize==mxPg );
-  rc = sqliteOsTruncate(&pPager->fd, SQLITE_PAGE_SIZE*(off_t)mxPg);
+  rc = sqliteOsTruncate(&pPager->fd, SQLITE_PAGE_SIZE*(OFF_T)mxPg);
   if( rc!=SQLITE_OK ){
     goto end_playback;
   }
@@ -730,7 +730,7 @@ static int pager_playback(Pager *pPager, int useJournalSize){
       char zBuf[SQLITE_PAGE_SIZE];
       if( !pPg->dirty ) continue;
       if( (int)pPg->pgno <= pPager->origDbSize ){
-        sqliteOsSeek(&pPager->fd, SQLITE_PAGE_SIZE*(off_t)(pPg->pgno-1));
+        sqliteOsSeek(&pPager->fd, SQLITE_PAGE_SIZE*(OFF_T)(pPg->pgno-1));
         rc = sqliteOsRead(&pPager->fd, zBuf, SQLITE_PAGE_SIZE);
         TRACE2("REFETCH %d\n", pPg->pgno);
         CODEC(pPager, zBuf, pPg->pgno, 2);
@@ -773,14 +773,14 @@ end_playback:
 **         at offset pPager->ckptJSize.
 */
 static int pager_ckpt_playback(Pager *pPager){
-  off_t szJ;               /* Size of the full journal */
+  OFF_T szJ;               /* Size of the full journal */
   int nRec;                /* Number of Records */
   int i;                   /* Loop counter */
   int rc;
 
   /* Truncate the database back to its original size.
   */
-  rc = sqliteOsTruncate(&pPager->fd, SQLITE_PAGE_SIZE*(off_t)pPager->ckptSize);
+  rc = sqliteOsTruncate(&pPager->fd, SQLITE_PAGE_SIZE*(OFF_T)pPager->ckptSize);
   pPager->dbSize = pPager->ckptSize;
 
   /* Figure out how many records are in the checkpoint journal.
@@ -1011,7 +1011,7 @@ void sqlitepager_set_destructor(Pager *pPager, void (*xDesc)(void*)){
 ** pPager.
 */
 int sqlitepager_pagecount(Pager *pPager){
-  off_t n;
+  OFF_T n;
   assert( pPager!=0 );
   if( pPager->dbSize>=0 ){
     return pPager->dbSize;
@@ -1048,7 +1048,7 @@ int sqlitepager_truncate(Pager *pPager, Pgno nPage){
     return SQLITE_OK;
   }
   syncJournal(pPager);
-  rc = sqliteOsTruncate(&pPager->fd, SQLITE_PAGE_SIZE*(off_t)nPage);
+  rc = sqliteOsTruncate(&pPager->fd, SQLITE_PAGE_SIZE*(OFF_T)nPage);
   if( rc==SQLITE_OK ){
     pPager->dbSize = nPage;
   }
@@ -1189,7 +1189,7 @@ static int syncJournal(Pager *pPager){
         /* Make sure the pPager->nRec counter we are keeping agrees
         ** with the nRec computed from the size of the journal file.
         */
-        off_t hdrSz, pgSz, jSz;
+        OFF_T hdrSz, pgSz, jSz;
         hdrSz = JOURNAL_HDR_SZ(journal_format);
         pgSz = JOURNAL_PG_SZ(journal_format);
         rc = sqliteOsFileSize(&pPager->jfd, &jSz);
@@ -1199,7 +1199,7 @@ static int syncJournal(Pager *pPager){
 #endif
       if( journal_format>=3 ){
         /* Write the nRec value into the journal file header */
-        off_t szJ;
+        OFF_T szJ;
         if( pPager->fullSync ){
           TRACE1("SYNC\n");
           rc = sqliteOsSync(&pPager->jfd);
@@ -1256,7 +1256,7 @@ static int pager_write_pagelist(PgHdr *pList){
   pPager = pList->pPager;
   while( pList ){
     assert( pList->dirty );
-    sqliteOsSeek(&pPager->fd, (pList->pgno-1)*(off_t)SQLITE_PAGE_SIZE);
+    sqliteOsSeek(&pPager->fd, (pList->pgno-1)*(OFF_T)SQLITE_PAGE_SIZE);
     CODEC(pPager, PGHDR_TO_DATA(pList), pList->pgno, 6);
     TRACE2("STORE %d\n", pList->pgno);
     rc = sqliteOsWrite(&pPager->fd, PGHDR_TO_DATA(pList), SQLITE_PAGE_SIZE);
@@ -1519,12 +1519,12 @@ int sqlitepager_get(Pager *pPager, Pgno pgno, void **ppPage){
       memset(PGHDR_TO_DATA(pPg), 0, SQLITE_PAGE_SIZE);
     }else{
       int rc;
-      sqliteOsSeek(&pPager->fd, (pgno-1)*(off_t)SQLITE_PAGE_SIZE);
+      sqliteOsSeek(&pPager->fd, (pgno-1)*(OFF_T)SQLITE_PAGE_SIZE);
       rc = sqliteOsRead(&pPager->fd, PGHDR_TO_DATA(pPg), SQLITE_PAGE_SIZE);
       TRACE2("FETCH %d\n", pPg->pgno);
       CODEC(pPager, PGHDR_TO_DATA(pPg), pPg->pgno, 3);
       if( rc!=SQLITE_OK ){
-        off_t fileSize;
+        OFF_T fileSize;
         if( sqliteOsFileSize(&pPager->fd,&fileSize)!=SQLITE_OK
                || fileSize>=pgno*SQLITE_PAGE_SIZE ){
           sqlitepager_unref(PGHDR_TO_DATA(pPg));

@@ -36,6 +36,8 @@
 
 // Library Includes
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 // Script Based Events
 enum ePythonEvent
@@ -113,7 +115,7 @@ class cAccount;
 class cPythonScript
 {
 protected:
-	QCString name_; // Important!
+	Q3CString name_; // Important!
 	bool loaded;
 	PyObject* codeModule; // This object stores the compiled Python Module
 	PyObject* events[EVENT_COUNT];
@@ -123,16 +125,16 @@ public:
 	~cPythonScript();
 
 	// We need an identification value for the scripts
-	void setName( const QCString& value )
+	void setName( const Q3CString& value )
 	{
 		name_ = value;
 	}
-	const QCString& name() const
+	const Q3CString& name() const
 	{
 		return name_;
 	}
 
-	bool load( const QCString& name );
+	bool load( const Q3CString& name );
 	void unload( void );
 	bool isLoaded() const;
 
@@ -324,7 +326,7 @@ public:
 		return PyInt_FromLong( value );
 	}
 
-	inline PyObject* createPyObject( const QCString& value )
+	inline PyObject* createPyObject( const Q3CString& value )
 	{
 		return QString2Python( value.data() );
 	}
@@ -345,7 +347,7 @@ public:
 	bool convertPyObject( PyObject* object, P_ITEM& pItem );
 	bool convertPyObject( PyObject* object, Coord& pos );
 	bool convertPyObject( PyObject* object, QString& string );
-	bool convertPyObject( PyObject* object, QCString& string );
+	bool convertPyObject( PyObject* object, Q3CString& string );
 	bool convertPyObject( PyObject* object, unsigned int& data );
 	bool convertPyObject( PyObject* object, int& data );
 

@@ -33,8 +33,8 @@
 #include "singleton.h"
 #include "pythonscript.h"
 #include <qmap.h>
-#include <qptrlist.h>
-#include <qcstring.h>
+#include <q3ptrlist.h>
+#include <q3cstring.h>
 #include <qstring.h>
 
 class cElement;
@@ -44,14 +44,14 @@ class cBaseDef : public cDefinable, public cPythonScriptable
 {
 protected:
 	// Our id
-	QCString id_;
+	Q3CString id_;
 
 	QMap<QString, unsigned int> intproperties;
 	QMap<QString, QString> properties;
 
-	QPtrList<cPythonScript> baseScripts_;
-	QCString baseScriptList_;
-	QCString bindmenu_;
+	Q3PtrList<cPythonScript> baseScripts_;
+	Q3CString baseScriptList_;
+	Q3CString bindmenu_;
 
 	bool loaded;
 	virtual void reset();
@@ -102,24 +102,24 @@ public:
 		return properties.contains( name );
 	}
 
-	inline const QCString& id() const
+	inline const Q3CString& id() const
 	{
 		return id_;
 	}
 
-	inline const QCString& baseScriptList()
+	inline const Q3CString& baseScriptList()
 	{
 		load();
 		return baseScriptList_;
 	}
 
-	inline const QPtrList<cPythonScript>& baseScripts()
+	inline const Q3PtrList<cPythonScript>& baseScripts()
 	{
 		load();
 		return baseScripts_;
 	}
 
-	inline const QCString& bindmenu()
+	inline const Q3CString& bindmenu()
 	{
 		load();
 		return bindmenu_;
@@ -143,25 +143,25 @@ protected:
 	unsigned short minDamage_;
 	unsigned short maxDamage_;
 	short minTaming_;
-	QCString carve_;
-	QCString lootPacks_;
+	Q3CString carve_;
+	Q3CString lootPacks_;
 	unsigned char controlSlots_;
 	unsigned char criticalHealth_;
 	unsigned int actionSpeed_; // ms between moves
 	unsigned int wanderSpeed_; // ms between moves
 
 	// Override the override... ;)
-	QValueVector<unsigned short> attackSound_;
-	QValueVector<unsigned short> idleSound_;
-	QValueVector<unsigned short> hitSound_;
-	QValueVector<unsigned short> gethitSound_;
-	QValueVector<unsigned short> deathSound_;
+	Q3ValueVector<unsigned short> attackSound_;
+	Q3ValueVector<unsigned short> idleSound_;
+	Q3ValueVector<unsigned short> hitSound_;
+	Q3ValueVector<unsigned short> gethitSound_;
+	Q3ValueVector<unsigned short> deathSound_;
 
 	// Misc Properties
 	void load();
 	void reset();
 public:
-	cCharBaseDef( const QCString& id );
+	cCharBaseDef( const Q3CString& id );
 	~cCharBaseDef();
 
 	void processNode( const cElement* node );
@@ -172,31 +172,31 @@ public:
 		return controlSlots_;
 	}
 
-	inline const QValueVector<unsigned short>& attackSound()
+	inline const Q3ValueVector<unsigned short>& attackSound()
 	{
 		load();
 		return attackSound_;
 	}
 
-	inline const QValueVector<unsigned short>& idleSound()
+	inline const Q3ValueVector<unsigned short>& idleSound()
 	{
 		load();
 		return idleSound_;
 	}
 
-	inline const QValueVector<unsigned short>& hitSound()
+	inline const Q3ValueVector<unsigned short>& hitSound()
 	{
 		load();
 		return hitSound_;
 	}
 
-	inline const QValueVector<unsigned short>& gethitSound()
+	inline const Q3ValueVector<unsigned short>& gethitSound()
 	{
 		load();
 		return gethitSound_;
 	}
 
-	inline const QValueVector<unsigned short>& deathSound()
+	inline const Q3ValueVector<unsigned short>& deathSound()
 	{
 		load();
 		return deathSound_;
@@ -250,13 +250,13 @@ public:
 		return minTaming_;
 	}
 
-	inline const QCString& carve()
+	inline const Q3CString& carve()
 	{
 		load();
 		return carve_;
 	}
 
-	inline const QCString& lootPacks()
+	inline const Q3CString& lootPacks()
 	{
 		load();
 		return lootPacks_;
@@ -294,7 +294,7 @@ class cCharBaseDefs
 	friend class cCharBaseDef;
 
 protected:
-	typedef QMap<QCString, cCharBaseDef*> Container;
+	typedef QMap<Q3CString, cCharBaseDef*> Container;
 	typedef Container::iterator Iterator;
 	Container definitions;
 	stBodyInfo bodyinfo[0x400];
@@ -305,7 +305,7 @@ public:
 
 	// Get a base definition
 	// This is guaranteed to return a basedef. Even if uninitialized.
-	cCharBaseDef* get( const QCString& id );
+	cCharBaseDef* get( const Q3CString& id );
 
 	inline const stBodyInfo& getBodyInfo( unsigned short body )
 	{
@@ -360,7 +360,7 @@ protected:
 		}
 	}
 public:
-	cItemBaseDef( const QCString& id );
+	cItemBaseDef( const Q3CString& id );
 	~cItemBaseDef();
 
 	void processNode( const cElement* node );
@@ -419,7 +419,7 @@ public:
 class cItemBaseDefs
 {
 protected:
-	typedef QMap<QCString, cItemBaseDef*> Container;
+	typedef QMap<Q3CString, cItemBaseDef*> Container;
 	typedef Container::iterator Iterator;
 	Container definitions;
 public:
@@ -428,7 +428,7 @@ public:
 
 	// Get a base definition
 	// This is guaranteed to return a basedef. Even if uninitialized.
-	cItemBaseDef* get( const QCString& id );
+	cItemBaseDef* get( const Q3CString& id );
 
 	// When reset is called, all loaded basedefs are unflagged.
 	void reset();
@@ -438,7 +438,7 @@ public:
 class cMultiBaseDef : public cItemBaseDef
 {
 public:
-	cMultiBaseDef( const QCString& id );
+	cMultiBaseDef( const Q3CString& id );
 };
 
 typedef Singleton<cItemBaseDefs> ItemBaseDefs;

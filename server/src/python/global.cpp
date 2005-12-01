@@ -68,6 +68,8 @@
 // Library Includes
 #include <qdatetime.h>
 #include <qmutex.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 PyObject* PyGetObjectObject( cUObject* object )
 {
@@ -822,7 +824,7 @@ static PyObject* wpCanPlace( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	QPtrList<cUObject> moveOut; // List of objects to move out
+	Q3PtrList<cUObject> moveOut; // List of objects to move out
 
 	PyObject *result = PyTuple_New( 2 );
 
@@ -1651,7 +1653,7 @@ static PyObject* wpGetDefinitions( PyObject* /*self*/, PyObject* args )
 		return 0;
 	}
 
-	const QValueVector<cElement*> elements = Definitions::instance()->getDefinitions( ( eDefCategory ) type );
+	const Q3ValueVector<cElement*> elements = Definitions::instance()->getDefinitions( ( eDefCategory ) type );
 	QStringList sections = Definitions::instance()->getSections( ( eDefCategory ) type );
 
 	PyObject* result = PyTuple_New( elements.size() + sections.size() );

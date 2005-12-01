@@ -30,6 +30,8 @@
 
 // Library Includes
 #include <qstring.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include <ctype.h>
 
@@ -61,7 +63,8 @@
 cUOPacket::cUOPacket( const QByteArray& d ) : haveCompressed( false )
 {
 	init();
-	rawPacket = d.copy();
+	rawPacket = d;
+	rawPacket.detach();
 }
 
 cUOPacket::~cUOPacket()
@@ -118,10 +121,14 @@ void cUOPacket::init()
 */
 void cUOPacket::assign( cUOPacket& p )
 {
-	rawPacket = p.rawPacket.copy();
+	rawPacket = p.rawPacket;
+	rawPacket.detach();
 	haveCompressed = p.haveCompressed;
 	if ( p.haveCompressed )
-		compressedBuffer = p.compressedBuffer.copy();
+	{
+		compressedBuffer = p.compressedBuffer;
+		compressedBuffer.detach();
+	}
 }
 
 /*!
@@ -252,7 +259,7 @@ int cUOPacket::getInt( uint pos ) const
 	}
 #endif
 	int value;
-	wpCopyIn( value, &rawPacket[( int ) pos] );
+	wpCopyIn( value, &(*(rawPacket.data() + pos)) );
 	value = B_BENDIAN_TO_HOST_INT32( value );
 	return value;
 }
@@ -270,7 +277,7 @@ short cUOPacket::getShort( uint pos ) const
 	}
 #endif
 	short value;
-	wpCopyIn( value, &rawPacket[( int ) pos] );
+	wpCopyIn( value, &(*(rawPacket.data() + pos)) );
 	value = B_BENDIAN_TO_HOST_INT16( value );
 	return value;
 }
@@ -307,13 +314,13 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
   \a fieldLength can be 0, in which case, no size check is performed the string
   is read until a \0 is found.
 */
-QCString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
+Q3CString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 {
 #if defined(_DEBUG)
 	if ( rawPacket.size() < fieldLength + pos )
 	{
 		qWarning( "Warning: cUOPacket::getAsciiString() called with params out of bounds" );
-		return QCString(); //#better return empty ?
+		return Q3CString(); //#better return empty ?
 	}
 #endif
 	if ( fieldLength )
@@ -321,7 +328,7 @@ QCString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 		char* buffer = new char[fieldLength + 1];
 		qstrncpy( buffer, rawPacket.data() + pos, fieldLength );
 		buffer[fieldLength] = 0; // truncate if larger
-		QCString result( buffer );
+		Q3CString result( buffer );
 		delete[] buffer;
 		return result;
 	}
@@ -338,7 +345,7 @@ void cUOPacket::setInt( unsigned int pos, unsigned int value )
 {
 	haveCompressed = false; // changed
 	value = B_HOST_TO_BENDIAN_INT32( value );
-	wpCopyOut( &rawPacket[( int ) pos], value );
+	wpCopyOut( rawPacket.data() + pos, value );
 }
 
 /*!
@@ -348,7 +355,7 @@ void cUOPacket::setShort( unsigned int pos, unsigned short value )
 {
 	haveCompressed = false; // changed
 	value = B_HOST_TO_BENDIAN_INT16( value );
-	wpCopyOut( &rawPacket[( int ) pos], value );
+	wpCopyOut( rawPacket.data() + pos, value );
 }
 
 /*!
@@ -393,7 +400,7 @@ void cUOPacket::setAsciiString( uint pos, const char* data, uint maxlen )
 char& cUOPacket::operator[]( unsigned int index )
 {
 	haveCompressed = false; // better safe than sorry
-	return rawPacket.at( index );
+	return *(rawPacket.data() + index);
 }
 
 /*!
@@ -437,10 +444,10 @@ cUOPacket& cUOPacket::operator=( cUOPacket& p )
 	0100: 00 00 -- -- -- -- -- -- -- -- -- -- -- -- -- -- : ..
   \endverbatim
 */
-QCString cUOPacket::dump( const QByteArray& data )
+Q3CString cUOPacket::dump( const QByteArray& data )
 {
 	Q_INT32 length = data.count();
-	QCString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( Q_UINT8 ) data[0], 2, 16 ).arg( data.count() ).latin1();
+	Q3CString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( Q_UINT8 ) data[0], 2, 16 ).arg( data.count() ).latin1();
 
 	int lines = length / 16;
 	if ( length % 16 ) // always round up.
@@ -448,14 +455,14 @@ QCString cUOPacket::dump( const QByteArray& data )
 
 	for ( int actLine = 0; actLine < lines; ++actLine )
 	{
-		QCString line; //= QString("%1: ").arg(actLine*16, 4, 16); // Faster, but doesn't look so good
+		Q3CString line; //= QString("%1: ").arg(actLine*16, 4, 16); // Faster, but doesn't look so good
 		line.sprintf( "%04x: ", actLine * 16 );
 		int actRow = 0;
 		for ( ; actRow < 16; ++actRow )
 		{
 			if ( actLine * 16 + actRow < length )
 			{
-				QCString number = QString::number( static_cast<uint>( static_cast<Q_UINT8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + QCString( " " );
+				Q3CString number = QString::number( static_cast<uint>( static_cast<Q_UINT8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + Q3CString( " " );
 				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
 				if ( number.length() < 3 )
 					number.prepend( "0" );

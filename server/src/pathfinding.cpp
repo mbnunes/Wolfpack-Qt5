@@ -131,8 +131,8 @@ int cPathfinding::getSuccessors(int node, P_CHAR pChar, int *successors) {
 	return count;
 }
 
-QValueVector<unsigned char> cPathfinding::find(P_CHAR pChar, const Coord &from, const Coord &to) {
-	QValueVector<unsigned char> result;
+Q3ValueVector<unsigned char> cPathfinding::find(P_CHAR pChar, const Coord &from, const Coord &to) {
+	Q3ValueVector<unsigned char> result;
 	int i;
 
 	// We can only calculate a path on the normal maps and if the destination is not out of range

@@ -30,9 +30,9 @@
 
 // Library Includes
 #include <qstring.h>
-#include <qcstring.h>
+#include <q3cstring.h>
 #include <qdatetime.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 #include <qmap.h>
 
 // Wolfpack includes
@@ -54,10 +54,10 @@ private:
 	QString password_;
 	cAcl* acl_;
 	QString aclName_;
-	QValueVector<P_PLAYER> characters_;
+	Q3ValueVector<P_PLAYER> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;
-	QCString email_;
+	Q3CString email_;
 
 	// Flags for this Account
 	// 0x00000001 blocked
@@ -77,10 +77,10 @@ public:
 
 	QString login() const;
 	QString password() const;
-	const QCString& email() const;
+	const Q3CString& email() const;
 	unsigned int rank() const;
 	void remove();
-	QValueVector<P_PLAYER> caracterList() const;
+	Q3ValueVector<P_PLAYER> caracterList() const;
 	bool authorized( const QString& action, const QString& value ) const;
 	bool addCharacter( P_PLAYER );
 	bool removeCharacter( P_PLAYER );
@@ -103,7 +103,7 @@ public:
 	QString acl() const;
 	QDateTime lastLogin() const;
 	void setLastLogin( const QDateTime& );
-	void setEmail( const QCString& email );
+	void setEmail( const Q3CString& email );
 	void setBlockUntil( const QDateTime& d );
 	void refreshAcl();
 	void setInUse( bool data );
@@ -201,7 +201,7 @@ inline QString cAccount::password() const
 	return password_;
 }
 
-inline QValueVector<P_PLAYER> cAccount::caracterList() const
+inline Q3ValueVector<P_PLAYER> cAccount::caracterList() const
 {
 	return characters_;
 }
@@ -221,12 +221,12 @@ inline Q_UINT32 cAccount::flags() const
 	return flags_;
 }
 
-inline const QCString& cAccount::email() const
+inline const Q3CString& cAccount::email() const
 {
 	return email_;
 }
 
-inline void cAccount::setEmail( const QCString& email )
+inline void cAccount::setEmail( const Q3CString& email )
 {
 	email_ = email;
 }

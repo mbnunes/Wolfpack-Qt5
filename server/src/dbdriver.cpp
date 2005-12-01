@@ -36,7 +36,7 @@
 #endif
 
 #include <qstring.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <stdlib.h>
 #include <sqlite.h>
 #include "../sqlite3/sqlite3.h"

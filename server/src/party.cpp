@@ -31,6 +31,8 @@
 #include "world.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 cParty::cParty( P_PLAYER leader )
 {
@@ -551,7 +553,7 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 	*/
 	else if ( !strcmp( name, "members" ) )
 	{
-		QPtrList<cPlayer> members = party->members();
+		Q3PtrList<cPlayer> members = party->members();
 		PyObject* list = PyTuple_New( members.count() );
 		unsigned int i = 0;
 		for ( P_PLAYER member = members.first(); member; member = members.next() )
@@ -563,7 +565,7 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 	*/
 	else if ( !strcmp( name, "canidates" ) )
 	{
-		QPtrList<cPlayer> canidates = party->canidates();
+		Q3PtrList<cPlayer> canidates = party->canidates();
 		PyObject* list = PyList_New( 0 );
 		unsigned int i = 0;
 		for ( P_PLAYER canidate = canidates.first(); canidate; canidate = canidates.next() )
@@ -575,7 +577,7 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 	*/
 	else if ( !strcmp( name, "lootingallowed" ) )
 	{
-		QPtrList<cPlayer> lootlist = party->lootingAllowed();
+		Q3PtrList<cPlayer> lootlist = party->lootingAllowed();
 		PyObject* list = PyList_New( 0 );
 		unsigned int i = 0;
 		for ( P_PLAYER member = lootlist.first(); member; member = lootlist.next() )

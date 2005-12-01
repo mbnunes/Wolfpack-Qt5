@@ -37,8 +37,10 @@
 #include "../skills.h"
 
 // Library Includes
-#include <qstringlist.h>
+#include <QStringList>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, unsigned char serverFull, char serverTimeZone, unsigned int serverIp )
 {
@@ -509,7 +511,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	//void setFlags( unsigned char data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 9 = invul,0x40=attack, 0x80=hidden CHARMODE_WAR
 }
 
-void cUOTxTipWindow::setMessage( const QCString& m )
+void cUOTxTipWindow::setMessage( const Q3CString& m )
 {
 	unsigned short length = m.length();
 	resize( length + 11 );

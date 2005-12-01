@@ -37,6 +37,9 @@
 #include "basechar.h"
 #include "mapobjects.h"
 #include "timers.h"
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3PtrList>
 
 void cMulti::remove()
 {
@@ -138,8 +141,8 @@ bool cMulti::inMulti( const Coord& pos )
 
 	bool itemunder = false;
 	bool itemabove = false;
-	QValueVector<multiItem_st> items = multi->getEntries();
-	QValueVector<multiItem_st>::iterator it;
+	Q3ValueVector<multiItem_st> items = multi->getEntries();
+	Q3ValueVector<multiItem_st>::iterator it;
 	for ( it = items.begin(); it != items.end(); ++it )
 	{
 		if ( !it->visible )
@@ -204,7 +207,7 @@ void cMulti::save( cBufferedWriter& writer )
 	}
 }
 
-bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObject>& moveOut, unsigned short yard )
+bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObject>& moveOut, unsigned short yard )
 {
 	MultiDefinition *multi = MultiCache::instance()->getMulti( multiid );
 
@@ -225,8 +228,8 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObje
 
 	Q_UNUSED( bottom );
 
-	QValueList<Coord> borderList; // a list of points around the foundation that need to be clear of impassables
-	QValueList<Coord> yardList; // a list of points in the yard (front/back of the house that needs to be clear)
+	Q3ValueList<Coord> borderList; // a list of points around the foundation that need to be clear of impassables
+	Q3ValueList<Coord> yardList; // a list of points in the yard (front/back of the house that needs to be clear)
 
 	for ( int x = 0; x < width; ++x )
 	{
@@ -236,7 +239,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObje
 			bool hasBase = false; // Has this multi tile a base below the floor?
 
 			// See if there are any tiles at that position
-			const QValueVector<multiItem_st> &multiItems = multi->itemsAt( x + left, y + top );
+			const Q3ValueVector<multiItem_st> &multiItems = multi->itemsAt( x + left, y + top );
 
 			if ( multiItems.size() == 0 )
 			{
@@ -405,8 +408,8 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObje
 								if ( multiX >= 0 && multiY >= 0 && multiX < width && multiY < height )
 								{
 									// Get the multi tiles at the to-check position
-									const QValueVector<multiItem_st> &tiles = multi->itemsAt( multiX + left, multiY + right );
-									QValueVector<multiItem_st>::const_iterator it;
+									const Q3ValueVector<multiItem_st> &tiles = multi->itemsAt( multiX + left, multiY + right );
+									Q3ValueVector<multiItem_st>::const_iterator it;
 									for ( it = tiles.begin(); it != tiles.end(); ++it )
 									{
 										if ( it->z > 8 )
@@ -446,7 +449,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QPtrList<cUObje
 		}
 	}
 
-	QValueList<Coord>::const_iterator it;
+	Q3ValueList<Coord>::const_iterator it;
 
 	// Now check all the accumulated border tiles
 	for ( it = borderList.begin(); it != borderList.end(); ++it )

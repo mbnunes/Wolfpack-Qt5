@@ -43,6 +43,8 @@
 
 // library includes
 #include <math.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 void Human_Vendor::registerInFactory()
 {
@@ -112,7 +114,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 		{
 			P_ITEM pPack = m_npc->getBankbox();
 
-			QPtrList<cItem> stableitems;
+			Q3PtrList<cItem> stableitems;
 			if ( pPack )
 			{
 				for ( ContainerIterator it( pPack ); !it.atEnd(); ++it )

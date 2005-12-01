@@ -31,6 +31,8 @@
 #include "engine.h"
 
 #include <stdexcept>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 template <class T, unsigned int MAXSIZE>
 class FixedSizePtrStack
@@ -83,7 +85,7 @@ template <class T, unsigned int MAXSIZE>
 class cObjectCache
 {
 private:
-	QPtrList<PyObject> objects;
+	Q3PtrList<PyObject> objects;
 
 	// Search for an object for which only we
 	// hold a reference count. The reference count

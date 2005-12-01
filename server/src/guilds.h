@@ -32,10 +32,10 @@
 #include "pythonscript.h"
 #include "singleton.h"
 #include <qmap.h>
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qstring.h>
 #include <qdatetime.h>
-#include <qvaluelist.h>
+#include <q3valuelist.h>
 
 /*!
 	\brief This class represents a guild and all associated information.
@@ -127,11 +127,11 @@ private:
 	P_ITEM guildstone_;
 
 	P_PLAYER leader_;
-	QPtrList<cPlayer> members_;
-	QPtrList<cPlayer> canidates_;
+	Q3PtrList<cPlayer> members_;
+	Q3PtrList<cPlayer> canidates_;
 	QMap<P_PLAYER, MemberInfo*> memberinfo_;
-	QValueList<unsigned int> allies_;
-	QValueList<unsigned int> enemies_;
+	Q3ValueList<unsigned int> allies_;
+	Q3ValueList<unsigned int> enemies_;
 
 public:
 	const char* objectID() const
@@ -166,7 +166,7 @@ public:
 	/*
 		\returns A constant reference to the list of enemy guilds.
 	*/
-	const QValueList<unsigned int> &enemies()
+	const Q3ValueList<unsigned int> &enemies()
 	{
 		return enemies_;
 	}
@@ -174,7 +174,7 @@ public:
 	/*
 		\returns A constant reference to the list of allies guilds.
 	*/
-	const QValueList<unsigned int> &allies()
+	const Q3ValueList<unsigned int> &allies()
 	{
 		return allies_;
 	}
@@ -333,7 +333,7 @@ public:
 	/*!
 		\returns A QPtrList containing all members of this guild.
 	*/
-	inline QPtrList<cPlayer>& members()
+	inline Q3PtrList<cPlayer>& members()
 	{
 		return members_;
 	}
@@ -341,7 +341,7 @@ public:
 	/*!
 		\returns A QPtrList of canidates for this guild.
 	*/
-	inline QPtrList<cPlayer>& canidates()
+	inline Q3PtrList<cPlayer>& canidates()
 	{
 		return canidates_;
 	}

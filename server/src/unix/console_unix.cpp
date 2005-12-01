@@ -38,15 +38,11 @@
 #include <signal.h>
 
 // Qt Includes
-#include <qthread.h>
+#include <QThread>
+#include <QCoreApplication>
 
 using namespace std;
 
-int main( int argc, char** argv )
-{
-	Server::instance()->run( argc, argv );
-	return 0;
-}
 
 void resetNonBlockingIo()
 {
@@ -136,7 +132,7 @@ protected:
 
 						if ( c > 0 && Server::instance()->getState() == RUNNING )
 						{
-							Console::instance()->queueCommand( QChar( c ) );
+							Console::instance()->queueCommand( QString( c ) );
 						}
 					}
 					else
@@ -283,4 +279,12 @@ void cConsole::setAttributes( bool bold, bool italic, bool, unsigned char r, uns
 void cConsole::notifyServerState( enServerState newstate )
 {
 	Q_UNUSED( newstate );
+}
+
+
+int main( int argc, char** argv )
+{
+	QCoreApplication app( argc, argv );
+	Server::instance()->start();
+	return app.exec();
 }

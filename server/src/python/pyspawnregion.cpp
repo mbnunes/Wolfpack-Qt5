@@ -29,6 +29,8 @@
 #include "utilities.h"
 #include "../spawnregions.h"
 #include "../uobject.h"
+//Added by qt3to4:
+#include <Q3PtrList>
 
 /*
 \object spawnregion
@@ -93,7 +95,7 @@ static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 		return 0;
 	}
 
-	QPtrList<cUObject> objects;
+	Q3PtrList<cUObject> objects;
 	if ( isItemSerial( serial ) )
 	{
 		objects = self->pRegion->spawnedItems(); // Copy
@@ -185,7 +187,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "items" ) )
 	{
-		QPtrList<cUObject> objects = self->pRegion->spawnedItems();
+		Q3PtrList<cUObject> objects = self->pRegion->spawnedItems();
 		PyObject* list = PyTuple_New( objects.count() );
 		cUObject *object;
 		int offset = 0;
@@ -199,7 +201,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "npcs" ) )
 	{
-		QPtrList<cUObject> objects = self->pRegion->spawnedNpcs();
+		Q3PtrList<cUObject> objects = self->pRegion->spawnedNpcs();
 		PyObject* list = PyTuple_New( objects.count() );
 		cUObject *object;
 		int offset = 0;

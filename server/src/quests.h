@@ -34,7 +34,7 @@
 // Library Includes
 #include <qmap.h>
 #include <qstringlist.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
 
 // Forward Declaration
 class cUOSocket;
@@ -48,7 +48,7 @@ class cQuests
 {
 	OBJECTDEF( cQuests )
 private:
-	QValueVector<stQuest> quests;
+	Q3ValueVector<stQuest> quests;
 public:
 	// Skill management methods
 	void load();

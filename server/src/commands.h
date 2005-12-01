@@ -33,8 +33,8 @@
 // Library Includes
 #include <qmap.h>
 #include <qstring.h>
-#include <qcstring.h>
-#include <qstringlist.h>
+#include <q3cstring.h>
+#include <QStringList>
 #include <qobject.h>
 
 class cUOSocket;

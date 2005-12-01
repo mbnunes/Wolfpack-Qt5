@@ -47,8 +47,9 @@
 
 // Library includes
 #include <qstring.h>
-#include <qstringlist.h>
+#include <QStringList>
 #include <qmap.h>
+#include <Q3CString>
 
 // Forward class declarations
 class Coord;
@@ -90,14 +91,14 @@ public:
 	// Event Management Methods
 	void clearScripts();
 	void addScript( cPythonScript* script, bool append = false );
-	void removeScript( const QCString& name );
-	virtual bool hasScript( const QCString& name );
+	void removeScript( const Q3CString& name );
+	virtual bool hasScript( const Q3CString& name );
 
 	void freezeScriptChain();
 	void unfreezeScriptChain();
 	bool isScriptChainFrozen();
-	void setScriptList( const QCString& scripts );
-	QCString scriptList() const;
+	void setScriptList( const Q3CString& scripts );
+	Q3CString scriptList() const;
 	inline cPythonScript** getScripts()
 	{
 		return scriptChain;
@@ -155,7 +156,7 @@ public:
 	virtual ~cUObject();
 
 	// Getter Methods
-	virtual QCString bindmenu() = 0;
+	virtual Q3CString bindmenu() = 0;
 	virtual unsigned char getClassid() = 0;
 
 	QString name() const

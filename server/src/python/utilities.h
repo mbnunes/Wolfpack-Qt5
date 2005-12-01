@@ -31,7 +31,10 @@
 #include "engine.h"
 #include "pyerrors.h"
 #include <qstring.h>
-#include <qvaluevector.h>
+#include <q3valuevector.h>
+//Added by qt3to4:
+#include <Q3ValueList>
+#include <Q3CString>
 
 #include "../typedefs.h"
 
@@ -142,7 +145,7 @@ inline PyObject* QString2Python( const QString& string )
 	else
 	{
 #if defined(Py_UNICODE_WIDE)
-		QCString utf = string.utf8();
+		Q3CString utf = string.utf8();
 		PyObject *obj = PyUnicode_DecodeUTF8( utf.data(), utf.length(), "" );
 		return obj;
 #else
@@ -192,9 +195,9 @@ class PythonFunction
 	QString sModule;
 	QString sFunc;
 
-	static QValueList<PythonFunction*> instances; // list of all known instances
+	static Q3ValueList<PythonFunction*> instances; // list of all known instances
 public:
-	Q_EXPLICIT PythonFunction( PyObject* function ) : pModule( 0 ), pFunc( 0 )
+	explicit PythonFunction( PyObject* function ) : pModule( 0 ), pFunc( 0 )
 	{
 		// No lambdas!
 		if ( function ) {
@@ -212,7 +215,7 @@ public:
 		instances.push_back(this); // Add this to the static list of instances
 	}
 
-	Q_EXPLICIT PythonFunction( const QString& path ) : pModule( 0 ), pFunc( 0 )
+	explicit PythonFunction( const QString& path ) : pModule( 0 ), pFunc( 0 )
 	{
 		int position = path.findRev( "." );
 		sModule = path.left( position );
@@ -243,7 +246,7 @@ public:
 
 	// Clean up all instances
 	static void cleanUpAll() {
-		QValueList<PythonFunction*>::iterator it;
+		Q3ValueList<PythonFunction*>::iterator it;
 		for (it = instances.begin(); it != instances.end(); ++it) {
 			(*it)->cleanUp();
 		}
@@ -251,7 +254,7 @@ public:
 
 	// Recreate all pythonfunction instances
 	static void recreateAll() {
-		QValueList<PythonFunction*>::iterator it;
+		Q3ValueList<PythonFunction*>::iterator it;
 		for (it = instances.begin(); it != instances.end(); ++it) {
 			(*it)->recreate();
 		}

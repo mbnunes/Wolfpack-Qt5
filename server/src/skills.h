@@ -36,8 +36,8 @@
 
 // Library Includes
 #include <qmap.h>
-#include <qstringlist.h>
-#include <qvaluevector.h>
+#include <QStringList>
+#include <q3valuevector.h>
 
 // Forward Declaration
 class cUOSocket;
@@ -52,7 +52,7 @@ class cSkills
 	OBJECTDEF( cSkills )
 private:
 	QStringList skillRanks;
-	QValueVector<stSkill> skills;
+	Q3ValueVector<stSkill> skills;
 public:
 	// Skill management methods
 	void load();

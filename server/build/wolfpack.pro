@@ -12,6 +12,16 @@ TEMPLATE = app
 CONFIG += qt thread exceptions rtti 
 QT += network xml qt3support
 
+CONFIG -= flat
+DESTDIR = ../release
+
+VERSION = 12.9.14
+QMAKE_TARGET_COMPANY = Wolfpack Development Team
+QMAKE_TARGET_PRODUCT = Wolfpack
+QMAKE_TARGET_DESCRIPTION = Ultima Online(tm) Server Software
+QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2005 Wolfpack Development Team
+
+
 unix {
 	CONFIG += console
 
@@ -19,13 +29,13 @@ unix {
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 }
 
-DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
 
 RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
 win32:DEFINES -= UNICODE
+win32:LIBS += -lws2_32 -lcomctl32 -lwininet -lkernel32 -luser32 -lgdi32 -lwinspool -lcomdlg32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lodbc32 -lodbccp32
 
 # make confclean
 unix {
@@ -45,8 +55,6 @@ precompile_header {
 	INCLUDEPATH += obj
 }
 
-SQLITE_CPP = ../src/sqlite
-SQLITE_H = ../src/sqlite
 SQLITE3_CPP = ../src/sqlite3
 SQLITE3_H = ../src/sqlite3
 PYTHON_CPP = ../src/python
@@ -58,13 +66,13 @@ AI_CPP = ../src/ai
 MULS_H = ../src/muls
 MULS_CPP = ../src/muls
 
-DEPENDPATH += ;$$SQLITE_H;$$SQLITE3_H;$$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
-INCLUDEPATH += $$SQLITE_H;$$SQLITE3_H;$$SQLITE3_H;../src
+DEPENDPATH += $$SQLITE3_H;$$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
+INCLUDEPATH += $$SQLITE3_H;$$SQLITE3_H;../src
 
 
 #modules
 include($$PYTHON_CPP/python.pri)
-include($$SQLITE_CPP/sqlite.pri)
+include(../src/sqlite/sqlite.pri)
 include($$SQLITE3_CPP/sqlite3.pri)
 include($$NETWORK_CPP/network.pri)
 include($$AI_CPP/ai.pri)
@@ -189,7 +197,6 @@ SOURCES += \
 # Twofish Module
 SOURCES += ../src/twofish/twofish2.cpp
 
-INTERFACES =
 TRANSLATIONS = \
 	languages/wolfpack_pt_br.ts \
 	languages/wolfpack_it.ts \
@@ -200,13 +207,13 @@ TRANSLATIONS = \
 	languages/wolfpack_ge.ts
 
 unix:SOURCES  += \
-	../src/unix/config_unix.cpp \
 	../src/unix/console_unix.cpp \
+	../src/unix/config_unix.cpp \
 	../src/unix/getopts_unix.cpp
 
 win32:SOURCES += \
-	../src/win/config_win.cpp \
 	../src/win/console_win.cpp \
+	../src/win/config_win.cpp \
 	../src/win/getopts_win.cpp
 
 DISTFILES += \

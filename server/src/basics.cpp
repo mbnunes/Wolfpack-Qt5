@@ -34,8 +34,10 @@
 
 // Library Includes
 #include <qstring.h>
-#include <qstringlist.h>
+#include <QStringList>
 #include <qfile.h>
+//Added by qt3to4:
+#include <Q3CString>
 
 #include <math.h>
 #include <stdlib.h>
@@ -189,7 +191,7 @@ unsigned int getNormalizedTime()
 	return getPlatformTime() - startTime;
 }
 
-cBufferedWriter::cBufferedWriter( const QCString& magic, unsigned int version )
+cBufferedWriter::cBufferedWriter( const Q3CString& magic, unsigned int version )
 {
 	buffersize = 4096;
 
@@ -200,7 +202,7 @@ cBufferedWriter::cBufferedWriter( const QCString& magic, unsigned int version )
 	d->bufferpos = 0;
 	d->lastStringId = 0;
 	d->objectCount = 0;
-	d->dictionary.insert( QCString(), 0 ); // Empty String
+	d->dictionary.insert( Q3CString(), 0 ); // Empty String
 
 	// Check Endianess
 	int wordSize;
@@ -229,7 +231,7 @@ void cBufferedWriter::open( const QString& filename )
 	close();
 
 	d->file.setName( filename );
-	if ( !d->file.open( IO_Raw | IO_WriteOnly | IO_Truncate ) )
+	if ( !d->file.open( QIODevice::WriteOnly | QIODevice::Truncate ) )
 	{
 		throw wpException( QString( "Couldn't open file %1 for writing." ).arg( filename ) );
 	}
@@ -241,8 +243,8 @@ void cBufferedWriter::open( const QString& filename )
 	d->file.writeBlock( header );
 
 	// Start writing the object type list
-	const QMap<unsigned char, QCString> &typemap = BinaryTypemap::instance()->getTypemap();
-	QMap<unsigned char, QCString>::const_iterator it;
+	const QMap<unsigned char, QString> &typemap = BinaryTypemap::instance()->getTypemap();
+	QMap<unsigned char, QString>::const_iterator it;
 
 	d->skipmap.clear();
 	writeByte( typemap.size() );
@@ -250,7 +252,7 @@ void cBufferedWriter::open( const QString& filename )
 	{
 		writeByte( it.key() );
 		writeInt( 0 ); // SkipSize
-		writeAscii( it.data() ); // Preinsert into the dictionary
+		writeAscii( qPrintable( it.data() ) ); // Preinsert into the dictionary
 		d->skipmap.insert( it.key(), 0 );
 		d->typemap.insert( it.key(), it.data() );
 	}
@@ -265,7 +267,7 @@ void cBufferedWriter::close()
 		// Flush the string dictionary at the end of the save
 		writeInt( d->dictionary.count() );
 
-		QMap<QCString, unsigned int>::iterator it;
+		QMap<Q3CString, unsigned int>::iterator it;
 		for ( it = d->dictionary.begin(); it != d->dictionary.end(); ++it )
 		{
 			writeInt( it.data() );
@@ -306,7 +308,7 @@ void cBufferedWriter::close()
 
 			writeInt( size, true ); // SkipSize
 
-			QCString type = tit.data().latin1();
+			Q3CString type = tit.data().latin1();
 			writeInt( d->dictionary[type], true );
 		}
 
@@ -343,18 +345,18 @@ class cBufferedReaderPrivate
 public:
 	QFile file;
 	unsigned int version;
-	QCString magic;
+	Q3CString magic;
 	bool needswap;
 	QByteArray buffer;
 	unsigned int bufferpos;
 	unsigned int buffersize;
-	QMap<unsigned char, QCString> typemap;
+	QMap<unsigned char, Q3CString> typemap;
 	QMap<unsigned char, unsigned int> sizemap;
-	QMap<unsigned int, QCString> dictionary;
+	QMap<unsigned int, Q3CString> dictionary;
 	unsigned int objectCount;
 };
 
-cBufferedReader::cBufferedReader( const QCString& magic, unsigned int version )
+cBufferedReader::cBufferedReader( const Q3CString& magic, unsigned int version )
 {
 	error_ = QString::null;
 	d = new cBufferedReaderPrivate;
@@ -366,8 +368,7 @@ cBufferedReader::cBufferedReader( const QCString& magic, unsigned int version )
 	d->objectCount = 0;
 
 	// Check Endianess
-	int wordSize;
-	qSysInfo( &wordSize, &d->needswap );
+	d->needswap = QSysInfo::ByteOrder == QSysInfo::BigEndian;
 }
 
 cBufferedReader::~cBufferedReader()
@@ -386,7 +387,7 @@ void cBufferedReader::open( const QString& filename )
 	close();
 
 	d->file.setName( filename );
-	if ( !d->file.open( IO_Raw | IO_ReadOnly ) )
+	if ( !d->file.open( QIODevice::ReadOnly ) )
 	{
 		throw wpException( QString( "Couldn't open file %1 for reading." ).arg( filename ) );
 	}
@@ -400,10 +401,10 @@ void cBufferedReader::open( const QString& filename )
 	}
 
 	// Check the file magic
-	QCString magic = readAscii( true );
+	Q3CString magic = readAscii( true );
 	if ( magic != d->magic )
 	{
-		throw wpException( QString( "File had unexpected magic '%1'. Expected: '%2'." ).arg( magic ).arg( d->magic ) );
+		throw wpException( QString( "File had unexpected magic '%1'. Expected: '%2'." ).arg( QString( magic ) ).arg( QString( d->magic ) ) );
 	}
 
 	// Check if the file has been truncated or garbage has been appended
@@ -446,11 +447,11 @@ void cBufferedReader::open( const QString& filename )
 		if ( size <= 1 )
 		{
 			readByte();
-			d->dictionary.insert( id, QCString() );
+			d->dictionary.insert( id, Q3CString() );
 		}
 		else
 		{
-			QCString data( size );
+			Q3CString data( size );
 			readRaw( data.data(), size );
 			d->dictionary.insert( id, data );
 		}
@@ -467,7 +468,7 @@ void cBufferedReader::open( const QString& filename )
 	{
 		unsigned char id = readByte();
 		unsigned int size = readInt();
-		QCString type = readAscii();
+		Q3CString type = readAscii();
 
 		d->typemap.insert( id, type );
 		d->sizemap.insert( id, size );
@@ -535,7 +536,7 @@ unsigned char cBufferedReader::readByte()
 
 QString cBufferedReader::readUtf8()
 {
-	QCString data = readAscii();
+	Q3CString data = readAscii();
 
 	if ( data.length() == 0 || data.data() == 0 || *( data.data() ) == 0 )
 	{
@@ -547,12 +548,12 @@ QString cBufferedReader::readUtf8()
 	}
 }
 
-QCString cBufferedReader::readAscii( bool nodictionary )
+Q3CString cBufferedReader::readAscii( bool nodictionary )
 {
 	if ( nodictionary )
 	{
 		unsigned char c;
-		QCString result;
+		Q3CString result;
 		do
 		{
 			c = readByte();
@@ -568,7 +569,7 @@ QCString cBufferedReader::readAscii( bool nodictionary )
 	{
 		unsigned int id = readInt();
 
-		QMap<unsigned int, QCString>::iterator it = d->dictionary.find( id );
+		QMap<unsigned int, Q3CString>::iterator it = d->dictionary.find( id );
 
 		if ( it != d->dictionary.end() )
 		{
@@ -576,7 +577,7 @@ QCString cBufferedReader::readAscii( bool nodictionary )
 		}
 		else
 		{
-			return QCString();
+			return Q3CString();
 		}
 	}
 }
@@ -624,7 +625,7 @@ unsigned int cBufferedReader::position()
 	return ( d->file.at() - d->buffersize ) + d->bufferpos;
 }
 
-const QMap<unsigned char, QCString>& cBufferedReader::typemap()
+const QMap<unsigned char, Q3CString>& cBufferedReader::typemap()
 {
 	return d->typemap;
 }

@@ -40,9 +40,9 @@
 #include "../world.h"
 
 // library includes
-#include <qptrlist.h>
+#include <q3ptrlist.h>
 #include <qstring.h>
-#include <qstringlist.h>
+#include <QStringList>
 
 // forward declarations
 class Coord;
@@ -193,7 +193,7 @@ public:
 protected:
 	P_NPC m_npc;
 	AbstractAction* m_currentAction;
-	QPtrList<AbstractAction> m_actions;
+	Q3PtrList<AbstractAction> m_actions;
 	unsigned char notorietyOverride_;
 	unsigned int nextVictimCheck;
 	SERIAL m_currentVictimSer;

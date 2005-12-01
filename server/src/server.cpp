@@ -68,9 +68,12 @@
 
 // Qt Includes
 #include <qwaitcondition.h>
-#include <qptrvector.h>
+#include <q3ptrvector.h>
 #include <qapplication.h>
 #include <qtextcodec.h>
+//Added by qt3to4:
+#include <QTranslator>
+#include <Q3PtrList>
 
 #if defined(MYSQL_DRIVER)
 #if defined(Q_OS_WIN32)
@@ -113,14 +116,13 @@ void cComponent::unload()
 class cServer::Private
 {
 public:
-	QPtrList<cComponent> components;
+	Q3PtrList<cComponent> components;
 	bool running;
 	enServerState state;
 	bool secure;
 	QMutex actionMutex;
 	unsigned int time;
-	QValueVector<cAction*> actionQueue;
-	QApplication *app;
+	Q3ValueVector<cAction*> actionQueue;
 
 	Private() : running( true ), state( STARTUP ), secure( true ), time( 0 )
 	{
@@ -220,35 +222,10 @@ cServer::cServer()
 #endif
 
 	d = new Private;
-	d->app = 0;
-
-	// Register Components
-	registerComponent( Config::instance(), QT_TR_NOOP( "configuration" ), true, false );
-
-	// We want to start this independently
-	//registerComponent(PythonEngine::instance(), "python", false, true, "configuration");
-
-	registerComponent( Maps::instance(), QT_TR_NOOP( "maps" ), true, false, "configuration" );
-	registerComponent( MapObjects::instance(), QT_TR_NOOP( "sectormaps" ), false, true, "maps" );
-	registerComponent( TileCache::instance(), QT_TR_NOOP( "tiledata" ), true, false, "configuration" );
-	registerComponent( MultiCache::instance(), QT_TR_NOOP( "multis" ), true, false, "configuration" );
-
-	registerComponent( Definitions::instance(), QT_TR_NOOP( "definitions" ), true, false, "configuration" );
-	registerComponent( ScriptManager::instance(), QT_TR_NOOP( "scripts" ), true, false, "definitions" );
-	registerComponent( ContextMenus::instance(), QT_TR_NOOP( "contextmenus" ), true, false, "scripts" );
-	registerComponent( SpawnRegions::instance(), QT_TR_NOOP( "spawnregions" ), true, false, "definitions" );
-	registerComponent( Territories::instance(), QT_TR_NOOP( "territories" ), true, false, "definitions" );
-
-	// Accounts come before world
-	registerComponent( Accounts::instance(), QT_TR_NOOP( "accounts" ), true, false );
-	registerComponent( World::instance(), QT_TR_NOOP( "world" ), false, true );
-
-	registerComponent( Network::instance(), QT_TR_NOOP( "network" ), true, false );
 }
 
 cServer::~cServer()
 {
-	delete d->app;
 	delete d;
 }
 
@@ -272,8 +249,30 @@ bool cServer::getSecure()
 	return d->secure;
 }
 
-bool cServer::run( int argc, char** argv )
+void myMessageOutput( QtMsgType type, const char *msg )
 {
+    switch ( type ) {
+        case QtDebugMsg:
+			// This is crazy...
+			// Log->print(LOG_DEBUG, tr("QT Debug: %1\n").arg(msg));
+            break;
+        case QtWarningMsg:			
+			Console::instance()->log(LOG_WARNING, msg);
+            break;
+        case QtFatalMsg:
+			Console::instance()->log(LOG_ERROR, msg);
+			break;
+		default:
+			Console::instance()->log(LOG_ERROR, msg);
+			break;
+    }
+}
+
+void cServer::run()
+{
+#if !defined( DEBUG )
+	qInstallMsgHandler(myMessageOutput);
+#endif
 	// If have no idea where i should put this otherwise
 #if defined(Q_OS_UNIX)
 	signal( SIGPIPE, SIG_IGN );
@@ -281,9 +280,30 @@ bool cServer::run( int argc, char** argv )
 
 	bool error = false;
 
-	setState( STARTUP );
+	// Register Components
+	registerComponent( Config::instance(), QT_TR_NOOP( "configuration" ), true, false );
 
-	d->app = new QApplication( argc, argv, false );
+	// We want to start this independently
+	//registerComponent(PythonEngine::instance(), "python", false, true, "configuration");
+
+	registerComponent( Maps::instance(), QT_TR_NOOP( "maps" ), true, false, "configuration" );
+	registerComponent( MapObjects::instance(), QT_TR_NOOP( "sectormaps" ), false, true, "maps" );
+	registerComponent( TileCache::instance(), QT_TR_NOOP( "tiledata" ), true, false, "configuration" );
+	registerComponent( MultiCache::instance(), QT_TR_NOOP( "multis" ), true, false, "configuration" );
+
+	registerComponent( Definitions::instance(), QT_TR_NOOP( "definitions" ), true, false, "configuration" );
+	registerComponent( ScriptManager::instance(), QT_TR_NOOP( "scripts" ), true, false, "definitions" );
+	registerComponent( ContextMenus::instance(), QT_TR_NOOP( "contextmenus" ), true, false, "scripts" );
+	registerComponent( SpawnRegions::instance(), QT_TR_NOOP( "spawnregions" ), true, false, "definitions" );
+	registerComponent( Territories::instance(), QT_TR_NOOP( "territories" ), true, false, "definitions" );
+
+	// Accounts come before world
+	registerComponent( Accounts::instance(), QT_TR_NOOP( "accounts" ), true, false );
+	registerComponent( World::instance(), QT_TR_NOOP( "world" ), false, true );
+
+	registerComponent( Network::instance(), QT_TR_NOOP( "network" ), true, false );
+
+	setState( STARTUP );
 
 	// Set the default conversion codec (This is what OSI is using)
 	// ISO-8859-15 (MIB: 111)
@@ -326,9 +346,6 @@ bool cServer::run( int argc, char** argv )
 	// Start Python
 	PythonEngine::instance()->load();
 
-	// Parse the parameters.
-	Getopts::instance()->parse_options( argc, argv );
-
 	// Print a header and useful version informations
 	setupConsole();
 
@@ -340,7 +357,7 @@ bool cServer::run( int argc, char** argv )
 	catch ( wpException& e )
 	{
 		Console::instance()->log( LOG_ERROR, e.error() + "\n" );
-		return false;
+		return;
 	}
 
 
@@ -350,13 +367,13 @@ bool cServer::run( int argc, char** argv )
 		if ( Config::instance()->databaseDriver() != "binary" && !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 		{
 			Console::instance()->log( LOG_ERROR, tr( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
-			return 1;
+			return;
 		}
 
 		if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 		{
 			Console::instance()->log( LOG_ERROR, tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
-			return 1;
+			return;
 		}
 
 		setState( RUNNING );
@@ -365,7 +382,6 @@ bool cServer::run( int argc, char** argv )
 		Console::instance()->start(); // Notify the console about the server startup
 
 		PyThreadState* _save;
-		QWaitCondition niceLevel;
 		unsigned char cycles = 0;
 
 		clearProfilingInfo();
@@ -385,28 +401,28 @@ bool cServer::run( int argc, char** argv )
 					break;	// very unnice - hog all cpu time
 				case 1:
 					if ( Network::instance()->count() != 0 )
-						niceLevel.wait( 10 );
+						msleep( 10 );
 					else
-						niceLevel.wait( 100 ); break;
+						msleep( 100 ); break;
 				case 2:
-					niceLevel.wait( 10 ); break;
+					msleep( 10 ); break;
 				case 3:
-					niceLevel.wait( 40 ); break;// very nice
+					msleep( 40 ); break;// very nice
 				case 4:
 					if ( Network::instance()->count() != 0 )
-						niceLevel.wait( 10 );
+						msleep( 10 );
 					else
-						niceLevel.wait( 4000 ); break; // anti busy waiting
+						msleep( 4000 ); break; // anti busy waiting
 				case 5:
 					if ( Network::instance()->count() != 0 )
-						niceLevel.wait( 40 );
+						msleep( 40 );
 					else
-						niceLevel.wait( 5000 ); break;
+						msleep( 5000 ); break;
 				default:
-					niceLevel.wait( 10 ); break;
+					msleep( 10 ); break;
 				}
-				qApp->processEvents( 40 );
 				PyEval_RestoreThread( _save ); // Python threading - end
+				qApp->processEvents();
 
 				stopProfiling( PF_NICENESS );
 			}
@@ -417,7 +433,6 @@ bool cServer::run( int argc, char** argv )
 
 			try
 			{
-				Network::instance()->poll();
 				Timing::instance()->poll();
 				Console::instance()->poll();
 			}
@@ -446,7 +461,7 @@ bool cServer::run( int argc, char** argv )
 	// Stop Python
 	PythonEngine::instance()->unload();
 
-	return !error;
+	return;
 }
 
 void cServer::setupConsole()
@@ -513,7 +528,7 @@ void cServer::load()
 		ScriptAI::registerInFactory( *aiit );
 	}
 
-	QPtrList<cComponent>::iterator it( d->components.begin() );
+	Q3PtrList<cComponent>::iterator it( d->components.begin() );
 	for ( ; it != d->components.end(); ++it )
 	{
 		cComponent* component = *it;
@@ -525,7 +540,7 @@ void cServer::load()
 
 void cServer::unload()
 {
-	QPtrVector<cComponent> vector;
+	Q3PtrVector<cComponent> vector;
 	d->components.toVector( &vector );
 	int i;
 
@@ -537,7 +552,7 @@ void cServer::unload()
 
 cComponent* cServer::findComponent( const QString& name )
 {
-	QPtrList<cComponent>::iterator it( d->components.begin() );
+	Q3PtrList<cComponent>::iterator it( d->components.begin() );
 	for ( ; it != d->components.end(); ++it )
 	{
 		cComponent* component = *it;
@@ -597,7 +612,7 @@ void cServer::load( const QString& name )
 	}
 
 	// Find all components depending on this one and load them.
-	QPtrList<cComponent>::iterator it( d->components.begin() );
+	Q3PtrList<cComponent>::iterator it( d->components.begin() );
 	for ( ; it != d->components.end(); ++it )
 	{
 		cComponent* subcomponent = *it;
@@ -623,7 +638,7 @@ void cServer::unload( const QString& name )
 	}
 
 	// Find all components depending on this one and unload them.
-	QPtrList<cComponent>::iterator it( d->components.begin() );
+	Q3PtrList<cComponent>::iterator it( d->components.begin() );
 	for ( ; it != d->components.end(); ++it )
 	{
 		cComponent* subcomponent = *it;
@@ -673,7 +688,7 @@ void cServer::reload( const QString& name )
 	}
 
 	// Find all components depending on this one and reload them.
-	QPtrList<cComponent>::iterator it( d->components.begin() );
+	Q3PtrList<cComponent>::iterator it( d->components.begin() );
 	for ( ; it != d->components.end(); ++it )
 	{
 		cComponent* subcomponent = *it;

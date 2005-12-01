@@ -37,6 +37,8 @@
 
 // library includes
 #include <math.h>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 // Is this an invalid target?
 bool invalidTarget( P_NPC npc, P_CHAR victim, int dist )
@@ -111,7 +113,7 @@ P_CHAR findBestTarget( P_NPC npc )
 	P_CHAR target = 0;
 
 	// Search for targets in our list of current targets first
-	QPtrList<cFightInfo> fights = npc->fights();
+	Q3PtrList<cFightInfo> fights = npc->fights();
 	for ( cFightInfo*info = fights.first(); info; info = fights.next() )
 	{
 		P_CHAR victim = info->victim();

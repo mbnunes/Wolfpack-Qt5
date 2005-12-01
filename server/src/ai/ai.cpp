@@ -46,6 +46,8 @@
 // library includes
 #include <math.h>
 #include <vector>
+//Added by qt3to4:
+#include <Q3PtrList>
 
 /*****************************************************************************
   cAIFactory member functions
@@ -1247,7 +1249,7 @@ P_CHAR Action_Defend::findAttacker()
 		{
 
 			// Search for attackers in our list of current fights
-			QPtrList<cFightInfo> fights = m_npc->fights();
+			Q3PtrList<cFightInfo> fights = m_npc->fights();
 			for ( cFightInfo*info = fights.first(); info; info = fights.next() )
 			{
 

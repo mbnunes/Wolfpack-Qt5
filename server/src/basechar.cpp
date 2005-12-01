@@ -54,6 +54,9 @@
 #include "skills.h"
 #include "definitions.h"
 #include "serverconfig.h"
+//Added by qt3to4:
+#include <Q3CString>
+#include <Q3PtrList>
 
 cBaseChar::cBaseChar()
 {
@@ -467,10 +470,10 @@ void cBaseChar::save()
 		saveFields;
 	}
 
-	QValueVector<stSkillValue>::iterator it;
+	Q3ValueVector<stSkillValue>::iterator it;
 	PersistentBroker::instance()->lockTable( "skills" );
 	int i = 0;
-	QCString query( 256 ); // 256 byte should be enough
+	Q3CString query( 256 ); // 256 byte should be enough
 	for ( it = skills_.begin(); it != skills_.end(); ++it, ++i )
 	{
 		if ( ( *it ).changed )
@@ -1063,7 +1066,7 @@ unsigned int cBaseChar::getSkillSum() const
 {
 	unsigned int sum = 0;
 
-	QValueVector<stSkillValue>::const_iterator it = skills_.begin();
+	Q3ValueVector<stSkillValue>::const_iterator it = skills_.begin();
 	for ( ; it != skills_.end(); ++it )
 		sum += ( *it ).value;
 
@@ -1432,7 +1435,7 @@ void cBaseChar::processNode( const cElement* Tag )
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, tr( "Invalid equipped element '%1' in npc definition '%2'." ).arg( element->name() ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "Invalid equipped element '%1' in npc definition '%2'." ).arg( QString( element->name() ) ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 			}
 		}
 	}
@@ -1526,8 +1529,9 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 	if ( !noRemove )
 	{
 		// Dragging doesnt count as Equipping
-		if ( layer != Dragging )
+		if ( layer != Dragging ) {
 			pi->onEquip( this, layer );
+		}
 	}
 }
 
@@ -2914,7 +2918,7 @@ bool cBaseChar::kill( cUObject* source )
 			// Award fame and karma to the party members of this player if they can see the victim
 			if ( pPlayer->party() )
 			{
-				QPtrList<cPlayer> members = pPlayer->party()->members();
+				Q3PtrList<cPlayer> members = pPlayer->party()->members();
 
 				for ( P_PLAYER member = members.first(); member; member = members.next() )
 				{
@@ -2982,11 +2986,11 @@ bool cBaseChar::kill( cUObject* source )
 	{
 		if ( summoned )
 		{
-			logName = tr( "Summoned npc '%1' ('%2', 0x%3)" ).arg( name() ).arg( baseid() ).arg( serial_, 0, 16 );
+			logName = tr( "Summoned npc '%1' ('%2', 0x%3)" ).arg( name() ).arg( QString( baseid() ) ).arg( serial_, 0, 16 );
 		}
 		else
 		{
-			logName = tr( "Npc '%1' ('%2', 0x%3)" ).arg( name() ).arg( baseid() ).arg( serial_, 0, 16 );
+			logName = tr( "Npc '%1' ('%2', 0x%3)" ).arg( name() ).arg( QString( baseid() ) ).arg( serial_, 0, 16 );
 		}
 	}
 	else if ( player )
@@ -3004,11 +3008,11 @@ bool cBaseChar::kill( cUObject* source )
 		{
 			if ( pKillerNpc->summoned() )
 			{
-				killerName = tr( "summoned npc '%1' ('%2', 0x%3)" ).arg( pKiller->name() ).arg( pKiller->baseid() ).arg( pKiller->serial(), 0, 16 );
+				killerName = tr( "summoned npc '%1' ('%2', 0x%3)" ).arg( pKiller->name() ).arg( QString( pKiller->baseid() ) ).arg( pKiller->serial(), 0, 16 );
 			}
 			else
 			{
-				killerName = tr( "npc '%1' ('%2', 0x%3)" ).arg( pKiller->name() ).arg( pKiller->baseid() ).arg( pKiller->serial(), 0, 16 );
+				killerName = tr( "npc '%1' ('%2', 0x%3)" ).arg( pKiller->name() ).arg( QString( pKiller->baseid() ) ).arg( pKiller->serial(), 0, 16 );
 			}
 		}
 		else if ( pKillerPlayer )
@@ -3706,7 +3710,7 @@ void cBaseChar::moveTo( const Coord& pos )
 void cBaseChar::remove()
 {
 	// Cancel any ongoing fight.
-	QPtrList<cFightInfo> fights( this->fights() );
+	Q3PtrList<cFightInfo> fights( this->fights() );
 	fights.setAutoDelete( false );
 	for ( cFightInfo*info = fights.first(); info; info = fights.next() )
 	{
@@ -3784,8 +3788,8 @@ PyObject* cBaseChar::callEvent( ePythonEvent event, PyObject* args, bool ignoreE
 	// call the basescripts
 	if ( basedef_ )
 	{
-		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
+		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			result = ( *it )->callEvent( event, args, ignoreErrors );
@@ -3825,8 +3829,8 @@ bool cBaseChar::canHandleEvent( ePythonEvent event )
 
 	if ( basedef_ )
 	{
-		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
+		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			if ( ( *it )->canHandleEvent( event ) )
@@ -3858,12 +3862,12 @@ bool cBaseChar::callEventHandler( ePythonEvent event, PyObject* args, bool ignor
 	return false;
 }
 
-bool cBaseChar::hasScript( const QCString& name )
+bool cBaseChar::hasScript( const Q3CString& name )
 {
 	if ( basedef_ )
 	{
-		const QPtrList<cPythonScript> &list = basedef_->baseScripts();
-		QPtrList<cPythonScript>::const_iterator it( list.begin() );
+		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
+		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			if ( ( *it )->name() == name )
