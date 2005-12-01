@@ -54,9 +54,6 @@ public:
 
 	void init( void );
 
-	void setIsRaining( bool data );
-	void setIsSnowing( bool data );
-
 	// Getters
 	QString name( void ) const
 	{
@@ -178,19 +175,19 @@ public:
 	{
 		return thirdcoin_;
 	}
-	bool isRaining( void ) const
-	{
-		return isRaining_;
-	}
-	bool isSnowing( void ) const
-	{
-		return isSnowing_;
-	}
 
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
 
+	bool isSnowing() const;
+	bool isRaining() const;
+
 	QString getGuardSect( void ) const;
+
+	// Setters
+	void setIsRaining( bool data );
+	void setIsSnowing( bool data );
+
 private:
 	// Setters to ease up the flag meanings
 	void setGuarded( bool data )
@@ -354,9 +351,6 @@ private:
 
 	int fixedlight_;	// The fixed Light Level for this place
 
-	bool isRaining_;	// Is Raining
-	bool isSnowing_;	// Is Snowing
-
 	QStringList guardSections_;
 
 	struct teleporters_st
@@ -376,7 +370,32 @@ public:
 		t.destination = to;
 		teleporters.append( t );
 	}
+
+protected:
+
+	bool isRaining_;	// Is Raining
+	bool isSnowing_;	// Is Snowing
 };
+
+inline bool cTerritory::isRaining() const
+{
+	return isRaining_;
+}
+
+inline bool cTerritory::isSnowing() const
+{
+	return isSnowing_;
+}
+
+inline void cTerritory::setIsRaining( bool data )
+{
+	isRaining_ = data;
+}
+
+inline void cTerritory::setIsSnowing( bool data )
+{
+	isSnowing_ = data;
+}
 
 class cTerritories : public cComponent
 {
