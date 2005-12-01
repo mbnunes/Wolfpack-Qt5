@@ -698,6 +698,13 @@ container that is being snooped into.
 */
 "onQuestButton",
 
+/*
+\event onRealDayChange
+\condition Called when server detects the day on machine changed.
+\notes Please note that this event is only called as a global hook. Its called when server restarts too.
+*/
+"onRealDayChange",
+
 0
 };
 

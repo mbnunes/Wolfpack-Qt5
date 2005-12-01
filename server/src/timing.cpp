@@ -51,6 +51,7 @@
 #include "walking.h"
 #include "world.h"
 #include "uotime.h"
+#include "scriptmanager.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -72,11 +73,23 @@ cTiming::cTiming()
 	nextHungerCheck = time + Config::instance()->hungerDamageRate();
 	nextCombatCheck = time + 100; // Every 100 ms
 	nextUOTimeTick = 0;
+
+	currentday = 0xFF;
 }
 
 void cTiming::poll()
 {
 	unsigned int time = getNormalizedTime();
+
+	// Check if Day is the same or not
+	QDate today = QDate::currentDate();
+	if ( currentday != today.day() )
+	{
+		currentday = today.day();
+		cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_REALDAYCHANGE );
+		if ( global )
+			global->callEventHandler( EVENT_REALDAYCHANGE );
+	}
 
 	// Check for spawn regions
 	if ( nextSpawnRegionCheck <= time )

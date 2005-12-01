@@ -49,6 +49,8 @@ private:
 	unsigned int nextCombatCheck;
 	unsigned int nextUOTimeTick;
 
+	unsigned char currentday;
+
 protected:
 	unsigned int lastWorldsave_;
 	void checkRegeneration( P_CHAR character, unsigned int time );
