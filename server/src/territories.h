@@ -54,6 +54,9 @@ public:
 
 	void init( void );
 
+	void setIsRaining( bool data );
+	void setIsSnowing( bool data );
+
 	// Getters
 	QString name( void ) const
 	{
@@ -182,21 +185,6 @@ public:
 	bool isSnowing( void ) const
 	{
 		return isSnowing_;
-	}
-
-	void setIsRaining( bool data )
-	{
-		if ( data )
-			isRaining_ = true;
-		else
-			isRaining_ = false;
-	}
-	void setIsSnowing( bool data )
-	{
-		if ( data )
-			isSnowing_ = true;
-		else
-			isSnowing_ = false;
 	}
 
 	bool haveTeleporters() const;

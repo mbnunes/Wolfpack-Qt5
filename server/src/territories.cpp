@@ -87,6 +87,22 @@ void cTerritory::init( void )
 	isSnowing_ = false;
 }
 
+void cTerritory::setIsRaining( bool data )
+{
+	if ( data )
+		isRaining_ = true;
+	else
+		isRaining_ = false;
+}
+
+void cTerritory::setIsSnowing( bool data )
+{
+	if ( data )
+		isSnowing_ = true;
+	else
+		isSnowing_ = false;
+}
+
 void cTerritory::processNode( const cElement* Tag )
 {
 	QString TagName( Tag->name() );

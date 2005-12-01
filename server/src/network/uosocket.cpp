@@ -2351,7 +2351,8 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 {
 	if ( pChar )
 	{
-		cTerritory* region = Territories::instance()->region( pChar->pos() );
+		cTerritory* subregion = Territories::instance()->region( pChar->pos() );
+		cTerritory* region = dynamic_cast<cTerritory*>( subregion->parent() );
 
 		// If its a Region and not a Cave...
 		if ( ( region ) && !( region->isCave() ) )
