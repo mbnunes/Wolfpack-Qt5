@@ -37,7 +37,7 @@
 
 // System Includes
 #include <QStringList>
-#include <qstring.h>
+#include <QString>
 #include <qmutex.h>
 
 /*!

@@ -37,11 +37,11 @@
 #include "network/uosocket.h"
 
 // Library Includes
-#include <qstring.h>
+#include <QString>
 #include <qregexp.h>
 #include <qapplication.h>
 #include <qfileinfo.h>
-#include <qdir.h>
+#include <QDir>
 //Added by qt3to4:
 #include <Q3CString>
 

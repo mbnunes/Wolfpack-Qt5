@@ -34,7 +34,7 @@
 #include <q3valuevector.h>
 #include <qfile.h>
 #include <qdatastream.h>
-#include <qdir.h>
+#include <QDir>
 
 #include <algorithm>
 

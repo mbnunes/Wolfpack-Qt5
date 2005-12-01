@@ -34,9 +34,9 @@
 #include "preferences.h"
 
 // Library Includes
-#include <qstring.h>
+#include <QString>
 #include <QStringList>
-#include <qdir.h>
+#include <QDir>
 #include <qhostaddress.h>
 #include <qdatetime.h>
 

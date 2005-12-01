@@ -31,7 +31,7 @@
 #include "npc.h"
 #include "basics.h"
 #include "serverconfig.h"
-#include <qstring.h>
+#include <QString>
 
 /*!
 	Play the soundeffect for getting hit.

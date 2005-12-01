@@ -48,7 +48,7 @@
 #include "basics.h"
 #include <sqlite.h>
 #include <qfileinfo.h>
-#include <qdir.h>
+#include <QDir>
 //Added by qt3to4:
 #include <Q3CString>
 #include <Q3PtrList>

@@ -34,7 +34,7 @@
 #define __PYTHON_ENGINE_H__
 
 #include <qglobal.h>
-#include <qstring.h>
+#include <QString>
 
 // Stupid Python developers
 #if defined(_POSIX_C_SOURCE)

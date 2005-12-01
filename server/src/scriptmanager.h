@@ -31,7 +31,7 @@
 // System Includes
 #include <qmap.h>
 #include <q3valuevector.h>
-#include <qstring.h>
+#include <QString>
 //Added by qt3to4:
 #include <Q3CString>
 

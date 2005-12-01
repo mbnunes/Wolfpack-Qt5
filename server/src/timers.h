@@ -47,7 +47,7 @@ class cBufferedWriter;
 #include "typedefs.h"
 #include "singleton.h"
 
-#include <qstring.h>
+#include <QString>
 
 class cDBResult;
 

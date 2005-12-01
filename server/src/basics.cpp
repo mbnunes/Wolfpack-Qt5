@@ -33,7 +33,7 @@
 #include "persistentobject.h"
 
 // Library Includes
-#include <qstring.h>
+#include <QString>
 #include <QStringList>
 #include <qfile.h>
 //Added by qt3to4:

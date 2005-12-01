@@ -32,7 +32,7 @@
 #include "platform.h"
 
 // System Includes
-#include <qstring.h>
+#include <QString>
 
 // Wolfpack Includes
 #include "singleton.h"

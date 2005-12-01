@@ -30,7 +30,7 @@
 
 #include "engine.h"
 #include "pyerrors.h"
-#include <qstring.h>
+#include <QString>
 #include <q3valuevector.h>
 //Added by qt3to4:
 #include <Q3ValueList>

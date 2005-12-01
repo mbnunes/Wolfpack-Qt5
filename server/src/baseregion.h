@@ -35,7 +35,7 @@
 #include "definitions.h"
 
 // Library includes
-#include <qstring.h>
+#include <QString>
 #include <QStringList>
 #include <q3valuevector.h>
 #include <qmap.h>

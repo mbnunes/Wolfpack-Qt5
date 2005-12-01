@@ -35,7 +35,7 @@
 #include "log.h"
 
 // Qt Includes
-#include <qstring.h>
+#include <QString>
 
 #include <list>
 

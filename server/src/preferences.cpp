@@ -29,7 +29,7 @@
 #include <qfile.h>
 #include <qtextstream.h>
 #include <qmap.h>
-#include <qstring.h>
+#include <QString>
 
 #include "preferences.h"
 

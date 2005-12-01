@@ -31,8 +31,8 @@
 #include "../log.h"
 
 // Qt Includes
-#include <qdir.h>
-#include <qstring.h>
+#include <QDir>
+#include <QString>
 #include <qhostaddress.h>
 
 // System Includes

@@ -31,7 +31,7 @@
 #define __CMD5_H__
 
 #include <string.h>
-#include <qstring.h>
+#include <QString>
 //Added by qt3to4:
 #include <Q3CString>
 

@@ -29,7 +29,7 @@
 #define __ENCRYPTION_H__
 
 #include <vector>
-#include <qstring.h>
+#include <QString>
 #include "../singleton.h"
 
 #include "../twofish/aes.h"

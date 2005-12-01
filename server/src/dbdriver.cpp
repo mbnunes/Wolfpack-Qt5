@@ -35,7 +35,7 @@
 # include <winsock.h>
 #endif
 
-#include <qstring.h>
+#include <QString>
 #include <q3ptrlist.h>
 #include <stdlib.h>
 #include <sqlite.h>

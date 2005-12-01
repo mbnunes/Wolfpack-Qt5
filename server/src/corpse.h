@@ -31,7 +31,7 @@
 #include "items.h"
 
 // Library Includes
-#include <qstring.h>
+#include <QString>
 
 // System Includes
 #include <qmap.h>

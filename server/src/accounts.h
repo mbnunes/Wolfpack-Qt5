@@ -29,7 +29,7 @@
 #define __ACCOUNTS_H__
 
 // Library Includes
-#include <qstring.h>
+#include <QString>
 #include <q3cstring.h>
 #include <qdatetime.h>
 #include <q3valuevector.h>

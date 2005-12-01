@@ -33,7 +33,7 @@
 
 // Library Includes
 #include <qmap.h>
-#include <qstring.h>
+#include <QString>
 #include <q3valuevector.h>
 #include <q3valuelist.h>
 //Added by qt3to4:

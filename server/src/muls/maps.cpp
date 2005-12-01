@@ -36,11 +36,11 @@
 #include "../serverconfig.h"
 
 // Library Includes
-#include <qstring.h>
+#include <QString>
 #include <q3intcache.h>
 #include <qfile.h>
 #include <qdatastream.h>
-#include <qdir.h>
+#include <QDir>
 
 // System includes
 #include <algorithm>

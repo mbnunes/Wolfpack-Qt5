@@ -37,7 +37,7 @@
 // Library Includes
 #include <q3valuevector.h>
 #include <qmap.h>
-#include <qthread.h>
+#include <QThread>
 //Added by qt3to4:
 #include <Q3PtrList>
 #include "server.h"

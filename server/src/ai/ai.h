@@ -41,7 +41,7 @@
 
 // library includes
 #include <q3ptrlist.h>
-#include <qstring.h>
+#include <QString>
 #include <QStringList>
 
 // forward declarations

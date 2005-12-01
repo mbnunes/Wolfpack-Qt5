@@ -32,7 +32,7 @@
 #include "../exceptions.h"
 #include "../singleton.h"
 #include <qglobal.h>
-#include <qstring.h>
+#include <QString>
 #include <qmap.h>
 #include <q3valuevector.h>
 #include <iterator>

@@ -28,7 +28,7 @@
 #if !defined(__SERVER_H__)
 #define __SERVER_H__
 
-#include <qstring.h>
+#include <QString>
 #include <QStringList>
 #include <q3valuevector.h>
 #include <QThread>

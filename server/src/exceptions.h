@@ -34,7 +34,7 @@
 #include <exception>
 
 // Library Includes
-#include <qstring.h>
+#include <QString>
 
 class WPEXPORT wpException : public std::exception
 {

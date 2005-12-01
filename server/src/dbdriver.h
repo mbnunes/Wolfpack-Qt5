@@ -35,7 +35,7 @@ struct sqlite_vm;
 struct sqlite3;
 struct sqlite3_stmt;
 
-#include <qstring.h>
+#include <QString>
 #include <map>
 #include "defines.h"
 #include "pythonscript.h"

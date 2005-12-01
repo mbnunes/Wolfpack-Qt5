@@ -38,7 +38,7 @@
 #include "coord.h"
 
 // Library Headers
-#include <qstring.h>
+#include <QString>
 #include <QStringList>
 #include <QList>
 #include <qhostaddress.h>

@@ -33,7 +33,7 @@
 #include "../server.h"
 
 // System Includes
-#include <qstring.h>
+#include <QString>
 #include <map>
 
 // Third Party includes

@@ -25,7 +25,7 @@
  * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
-#include <qstring.h>
+#include <QString>
 
 #include "content.h"
 #include "items.h"

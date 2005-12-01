@@ -36,7 +36,7 @@
 
 // Qt Includes
 #include <q3cstring.h>
-#include <qstring.h>
+#include <QString>
 #include <QStringList>
 #include <q3valuevector.h>
 

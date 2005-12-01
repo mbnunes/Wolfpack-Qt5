@@ -30,7 +30,7 @@
 
 #include "uobject.h"
 #include "items.h"
-#include <qstring.h>
+#include <QString>
 #include <q3ptrlist.h>
 
 class cMulti : public cItem

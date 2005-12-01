@@ -28,7 +28,7 @@
 #if !defined(__EXPORTDEFINITIONS_H__)
 #define __EXPORTDEFINITIONS_H__
 
-#include <qstring.h>
+#include <QString>
 
 #include "dbdriver.h"
 

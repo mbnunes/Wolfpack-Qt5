@@ -31,7 +31,7 @@
 #include "pythonscript.h"
 #include "typedefs.h"
 #include <q3ptrlist.h>
-#include <qstring.h>
+#include <QString>
 
 /*!
 	\brief This class encapsulates a party.

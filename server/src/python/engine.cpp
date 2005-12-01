@@ -74,7 +74,7 @@ CleanupAutoRegister::CleanupAutoRegister( fnCleanupHandler handler )
 
 // Library includes
 #include <qdom.h>
-#include <qstring.h>
+#include <QString>
 #include <qfile.h>
 #include <qwaitcondition.h>
 

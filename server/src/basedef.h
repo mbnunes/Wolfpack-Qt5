@@ -35,7 +35,7 @@
 #include <qmap.h>
 #include <q3ptrlist.h>
 #include <q3cstring.h>
-#include <qstring.h>
+#include <QString>
 
 class cElement;
 class cPythonScript;

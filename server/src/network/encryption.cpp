@@ -30,7 +30,7 @@
  * injection.sf.net
  */
 
-#include <qstring.h>
+#include <QString>
 #include <qdatastream.h>
 
 #include "encryption.h"

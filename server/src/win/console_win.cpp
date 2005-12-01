@@ -49,7 +49,7 @@
 #include <shellapi.h>
 #include <richedit.h>
 #include <commctrl.h>
-#include <qthread.h>
+#include <QThread>
 #include "../verinfo.h"
 
 #include "../sqlite/sqlite.h"
@@ -442,7 +442,10 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		if ( !font )
 		{
 			ZeroMemory( &lfont, sizeof( LOGFONT ) );
-			qstrcpy( lfont.lfFaceName, "Courier" );
+			//qstrcpy( lfont.lfFaceName, "Courier" );
+			lfont.lfQuality = ANTIALIASED_QUALITY;
+			lfont.lfPitchAndFamily = FF_MODERN;
+			//lfont.lfHeight = -MulDiv( 10, GetDeviceCaps( GetWindowDC( hwnd ), LOGPIXELSY ), 72 );
 			font = CreateFontIndirect( &lfont );
 		}
 
@@ -455,6 +458,8 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		cf.cbSize = sizeof( CHARFORMAT );
 		cf.dwMask = CFM_COLOR;
 		cf.crTextColor = RGB( 0xAF, 0xAF, 0xAF );
+		cf.dwMask |= CFM_SIZE;
+		cf.yHeight = 10 * 20;
 
 		SendMessage( logWindow, EM_SETCHARFORMAT, SCF_DEFAULT, ( LPARAM ) & cf );
 		SendMessage( logWindow, EM_AUTOURLDETECT, TRUE, 0 );
@@ -534,12 +539,12 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 			else if ( notify->code == EN_MSGFILTER )
 			{
 				/*MSGFILTER *msg = (MSGFILTER*)notify;
-												// Append to the Input Control
-												if( msg->msg == WM_CHAR )
-												{
-													SendMessage( inputWindow, WM_SETFOCUS, 0, 0 );
-													SendMessage( inputWindow, WM_CHAR, msg->wParam, msg->lParam );
-												}*/
+				// Append to the Input Control
+				if( msg->msg == WM_CHAR )
+				{
+					SendMessage( inputWindow, WM_SETFOCUS, 0, 0 );
+					SendMessage( inputWindow, WM_CHAR, msg->wParam, msg->lParam );
+				}*/
 			}
 		}
 		return 0;

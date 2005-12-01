@@ -40,9 +40,9 @@
 #include "inlines.h"
 
 // Library Includes
-#include <qstring.h>
+#include <QString>
 #include <qglobal.h>
-#include <qthread.h>
+#include <QThread>
 #include <qmutex.h>
 
 using namespace std;

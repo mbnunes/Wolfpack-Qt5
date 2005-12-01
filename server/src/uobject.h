@@ -46,7 +46,7 @@
 #include <map>
 
 // Library includes
-#include <qstring.h>
+#include <QString>
 #include <QStringList>
 #include <qmap.h>
 #include <Q3CString>
