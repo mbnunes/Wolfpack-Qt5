@@ -99,7 +99,7 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "children" ) )
 	{
-		Q3ValueVector<cBaseRegion*> children = self->pRegion->children();
+		QList<cBaseRegion*> children = self->pRegion->children();
 		PyObject* tuple = PyTuple_New( children.size() );
 		for ( uint i = 0; i < children.size(); ++i )
 		{
@@ -114,7 +114,7 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "rectangles" ) )
 	{
-		Q3ValueVector<cBaseRegion::rect_st> rectangles = self->pRegion->rectangles();
+		QList<cBaseRegion::rect_st> rectangles = self->pRegion->rectangles();
 		PyObject* tuple = PyTuple_New( rectangles.size() );
 		for ( uint i = 0; i < rectangles.size(); ++i )
 		{

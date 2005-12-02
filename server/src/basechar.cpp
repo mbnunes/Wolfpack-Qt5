@@ -60,7 +60,6 @@
 
 cBaseChar::cBaseChar()
 {
-	fights_.setAutoDelete( false );
 	basedef_ = 0;
 	stepsTaken_ = 0;
 	lastMovement_ = 0;
@@ -3291,7 +3290,7 @@ cFightInfo* cBaseChar::findFight( P_CHAR enemy )
 {
 	if ( enemy )
 	{
-		for ( cFightInfo*fight = fights_.first(); fight; fight = fights_.next() )
+		foreach ( cFightInfo*fight, fights_ )
 		{
 			// We are only searching the fights we participate in, thats why we only
 			// have to check for our enemy
@@ -3710,9 +3709,8 @@ void cBaseChar::moveTo( const Coord& pos )
 void cBaseChar::remove()
 {
 	// Cancel any ongoing fight.
-	Q3PtrList<cFightInfo> fights( this->fights() );
-	fights.setAutoDelete( false );
-	for ( cFightInfo*info = fights.first(); info; info = fights.next() )
+	QList<cFightInfo*> fights( this->fights() );
+	foreach ( cFightInfo*info, fights )
 	{
 		info->clear(); // Queue this structure to be deleted
 	}

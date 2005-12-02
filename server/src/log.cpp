@@ -36,7 +36,7 @@
 #include "console.h"
 
 // QT Includes
-#include <qdatetime.h>
+#include <QDateTime>
 #include <QDir>
 //Added by qt3to4:
 #include <Q3CString>

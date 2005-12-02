@@ -31,10 +31,10 @@
 #include "player.h"
 #include "pythonscript.h"
 #include "singleton.h"
-#include <qmap.h>
+#include <QMap>
 #include <q3ptrlist.h>
 #include <QString>
-#include <qdatetime.h>
+#include <QDateTime>
 #include <q3valuelist.h>
 
 /*!

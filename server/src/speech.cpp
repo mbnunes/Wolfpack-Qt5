@@ -49,7 +49,7 @@
 #include "console.h"
 
 // Library Includes
-#include <qdatetime.h>
+#include <QDateTime>
 #include <qfile.h>
 #include <vector>
 

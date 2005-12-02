@@ -113,8 +113,8 @@ P_CHAR findBestTarget( P_NPC npc )
 	P_CHAR target = 0;
 
 	// Search for targets in our list of current targets first
-	Q3PtrList<cFightInfo> fights = npc->fights();
-	for ( cFightInfo*info = fights.first(); info; info = fights.next() )
+	QList<cFightInfo*> fights( npc->fights() );
+	foreach ( cFightInfo* info, fights )
 	{
 		P_CHAR victim = info->victim();
 		if ( victim == npc )

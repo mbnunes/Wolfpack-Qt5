@@ -54,7 +54,7 @@
 #include "scriptmanager.h"
 
 // Library Includes
-#include <qdatetime.h>
+#include <QDateTime>
 //Added by qt3to4:
 #include <Q3PtrList>
 #include <math.h>
@@ -231,12 +231,9 @@ void cTiming::poll()
 		nextCombatCheck = time + 250;
 
 		// Check for timed out fights
-		Q3PtrList<cFightInfo> fights = Combat::instance()->fights();
-		fights.setAutoDelete( false );
-		Q3PtrList<cFightInfo> todelete;
-		todelete.setAutoDelete( true );
-		cFightInfo* info;
-		for ( info = fights.first(); info; info = fights.next() )
+		QList<cFightInfo*> fights = Combat::instance()->fights();
+		QList<cFightInfo*> todelete;
+		foreach ( cFightInfo* info, fights )
 		{
 			P_CHAR attacker = info->attacker();
 			P_CHAR victim = info->victim();
@@ -255,6 +252,11 @@ void cTiming::poll()
 			{
 				victim->poll( time, cBaseChar::EventCombat );
 			}
+		}
+
+		foreach ( cFightInfo* info, todelete )
+		{
+			delete info;
 		}
 
 		stopProfiling( PF_COMBATCHECK );

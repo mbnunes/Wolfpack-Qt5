@@ -858,7 +858,7 @@ void cUOSocket::sendCharList()
 
 	cUOTxCharTownList charList;
 	charList.setCharLimit(maxChars);
-	Q3ValueVector<P_PLAYER> characters = _account->caracterList();
+	QList<P_PLAYER> characters = _account->caracterList();
 
 	// Add the characters
 	Q_UINT8 i = 0;
@@ -886,7 +886,7 @@ void cUOSocket::sendCharList()
 */
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter* packet )
 {
-	Q3ValueVector<P_PLAYER> charList = _account->caracterList();
+	QList<P_PLAYER> charList = _account->caracterList();
 
 	if ( packet->index() >= charList.size() )
 	{
@@ -914,7 +914,7 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter* packet )
 void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 {
 	// Check the character the user wants to play
-	Q3ValueVector<P_PLAYER> characters = _account->caracterList();
+	QList<P_PLAYER> characters = _account->caracterList();
 
 	if ( packet->slot() >= characters.size() )
 	{
@@ -939,9 +939,8 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	P_PLAYER pChar = characters.at( packet->slot() );
 
 	// check if any other account character is still online (lingering)
-	for ( Q3ValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
+	foreach ( P_PLAYER otherChar, characters )
 	{
-		P_PLAYER otherChar = *it;
 		if ( pChar == otherChar )
 			continue;
 
@@ -1201,7 +1200,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 		return;
 	}
 
-	Q3ValueVector<P_PLAYER> characters = _account->caracterList();
+	QList<P_PLAYER> characters = _account->caracterList();
 
 	// If we have more than 6 characters
 	const uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
@@ -1211,9 +1210,8 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	}
 
 	// If another character in the account is still online (lingering)
-	for ( Q3ValueVector<P_PLAYER>::const_iterator it = characters.begin(); it != characters.end(); ++it )
+	foreach ( P_PLAYER otherChar, characters )
 	{
-		P_PLAYER otherChar = *it;
 		if ( otherChar->isOnline() )
 		{
 			cUOTxMessageWarning message;
@@ -1476,7 +1474,7 @@ void cUOSocket::sysMessage( const QString& message, Q_UINT16 color, Q_UINT16 fon
 void cUOSocket::updateCharList()
 {
 	cUOTxUpdateCharList charList;
-	Q3ValueVector<P_PLAYER> characters = _account->caracterList();
+	QList<P_PLAYER> characters = _account->caracterList();
 
 	// Add the characters
 	for ( Q_UINT8 i = 0; i < characters.size(); ++i )

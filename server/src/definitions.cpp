@@ -356,7 +356,7 @@ void cDefinitions::unload()
 	listcache_.clear();
 
 	// Free the memory allocated by our nodes.
-	Q3ValueList<cElement*>::iterator eit;
+	QList<cElement*>::iterator eit;
 	for (eit = elements.begin(); eit != elements.end(); ++eit) {
 		delete *eit;
 	}

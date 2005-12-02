@@ -179,7 +179,7 @@ public:
 			return 0; // No dispelling below 95 int or if the NPC is summoned itself.
 		}
 
-		Q3PtrList<cFightInfo> &fights = m_npc->fights();
+		QList<cFightInfo*> &fights = m_npc->fights();
 		Monster_Aggressive *ai = static_cast<Monster_Aggressive*>( m_ai );
 
 		P_NPC currentTarget = 0;
@@ -200,9 +200,9 @@ public:
 		}
 
 		/*
-				Now check everyone who is fighting us
-			*/
-		for ( cFightInfo*info = fights.first(); info; info = fights.next() )
+			Now check everyone who is fighting us
+		*/
+		foreach ( cFightInfo* info, fights )
 		{
 			P_NPC checkTarget;
 			if ( info->victim() == m_npc )

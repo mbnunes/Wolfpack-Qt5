@@ -32,9 +32,9 @@
 #include "platform.h"
 
 // library includes
-#include <qmap.h>
+#include <QMap>
 #include <q3valuevector.h>
-#include <qdatetime.h>
+#include <QDateTime>
 //Added by qt3to4:
 #include <Q3CString>
 #include <Q3PtrList>
@@ -75,8 +75,8 @@ public:
 
 	// type definitions
 	typedef QMap<ushort, cItem*> ItemContainer;
-	typedef Q3ValueVector<cBaseChar*> CharContainer;
-	typedef Q3ValueVector<cTimer*> TimerContainer;
+	typedef QList<cBaseChar*> CharContainer;
+	typedef QList<cTimer*> TimerContainer;
 	enum enLayer
 	{
 		TradeWindow					= 0,
@@ -309,7 +309,7 @@ public:
 	bool inSafeArea();
 	bool inNoCriminalCombatArea();
 	bool inNoKillCountArea();
-	void emote( const QString& emote, UI16 color = 0xFFFF );
+	void emote( const QString& emote, ushort color = 0xFFFF );
 	P_ITEM rightHandItem() const;
 	P_ITEM leftHandItem() const;
 	void bark( enBark );	// Play a body dependant sound
@@ -564,7 +564,7 @@ public:
 	/*!
 		Return a reference to the list of ongoing fights.
 	*/
-	Q3PtrList<cFightInfo>& fights()
+	QList<cFightInfo*>& fights()
 	{
 		return fights_;
 	}
@@ -697,7 +697,7 @@ protected:
 	/*!
 		\brief Collection of information about ongoing fights.
 	*/
-	Q3PtrList<cFightInfo> fights_;
+	QList<cFightInfo*> fights_;
 
 	// type definitions
 	struct stSkillValue

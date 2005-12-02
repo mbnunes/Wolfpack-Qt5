@@ -33,7 +33,7 @@
 #include "objectdef.h"
 
 #include <map>
-#include <qmap.h>
+#include <QMap>
 #include <q3ptrlist.h>
 
 #include <qobject.h>

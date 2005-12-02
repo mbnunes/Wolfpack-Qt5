@@ -1248,8 +1248,8 @@ P_CHAR Action_Defend::findAttacker()
 		{
 
 			// Search for attackers in our list of current fights
-			Q3PtrList<cFightInfo> fights = m_npc->fights();
-			for ( cFightInfo*info = fights.first(); info; info = fights.next() )
+			QList<cFightInfo*> fights = m_npc->fights();
+			foreach ( cFightInfo* info, fights )
 			{
 
 				//are they attacking us?

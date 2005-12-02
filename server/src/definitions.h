@@ -32,7 +32,7 @@
 #include "server.h"
 
 // Library Includes
-#include <qmap.h>
+#include <QMap>
 #include <QString>
 #include <q3valuevector.h>
 #include <q3valuelist.h>
@@ -136,7 +136,7 @@ class cDefinitions : public cComponent
 {
 protected:
 	cDefManagerPrivate* impl;
-	Q3ValueList<cElement*> elements; // Instances of cElement without a parent.
+	QList<cElement*> elements; // Instances of cElement without a parent.
 	QMap<QString, QStringList> listcache_;
 
 public:

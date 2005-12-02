@@ -38,7 +38,7 @@
 #include <QString>
 #include <QStringList>
 #include <q3valuevector.h>
-#include <qmap.h>
+#include <QMap>
 
 // Forward Definitions
 
@@ -68,7 +68,7 @@ public:
 
 	virtual ~cBaseRegion()
 	{
-		Q3ValueVector<cBaseRegion*>::iterator it = this->subregions_.begin();
+		QList<cBaseRegion*>::iterator it = this->subregions_.begin();
 		while ( it != this->subregions_.end() )
 		{
 			delete ( *it );
@@ -83,7 +83,7 @@ public:
 
 	bool contains( UI16 posx, UI16 posy, UI08 map ) const
 	{
-		Q3ValueVector<rect_st>::const_iterator it = this->rectangles_.begin();
+		QList<rect_st>::const_iterator it = this->rectangles_.begin();
 
 		while ( it != this->rectangles_.end() )
 		{
@@ -100,7 +100,7 @@ public:
 			return this;
 		else
 		{
-			Q3ValueVector<cBaseRegion*>::const_iterator it = this->subregions_.begin();
+			QList<cBaseRegion*>::const_iterator it = this->subregions_.begin();
 			while ( it != this->subregions_.end() )
 			{
 				cBaseRegion* currRegion = 0;
@@ -122,7 +122,7 @@ public:
 		else
 			return 0;
 
-		Q3ValueVector<cBaseRegion*>::iterator it = this->subregions_.begin();
+		QList<cBaseRegion*>::iterator it = this->subregions_.begin();
 		while ( it != this->subregions_.end() )
 		{
 			cBaseRegion* currRegion = 0;
@@ -138,7 +138,7 @@ public:
 	UI32 count( void ) const
 	{
 		UI32 result = 1;
-		Q3ValueVector<cBaseRegion*>::const_iterator it( this->subregions_.begin() );
+		QList<cBaseRegion*>::const_iterator it( this->subregions_.begin() );
 		while ( it != this->subregions_.end() )
 		{
 			if ( *it != NULL )
@@ -182,8 +182,8 @@ protected:
 
 protected:
 	QString name_;			// name of the region (section's name)
-	Q3ValueVector<rect_st> rectangles_;	// vector of rectangles
-	Q3ValueVector<cBaseRegion*> subregions_;	// list of region object references of included regions
+	QList<rect_st> rectangles_;	// vector of rectangles
+	QList<cBaseRegion*> subregions_;	// list of region object references of included regions
 	cBaseRegion* parent_;		// the region directly above this region
 public:
 	// Only getters, no setters
@@ -191,11 +191,11 @@ public:
 	{
 		return parent_;
 	}
-	Q3ValueVector<cBaseRegion*>& children()
+	QList<cBaseRegion*>& children()
 	{
 		return subregions_;
 	}
-	Q3ValueVector<rect_st>& rectangles()
+	QList<rect_st>& rectangles()
 	{
 		return rectangles_;
 	}

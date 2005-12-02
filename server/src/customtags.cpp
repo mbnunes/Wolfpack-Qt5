@@ -967,14 +967,14 @@ QStringList cCustomTags::getKeys( void ) const
 	return QStringList();
 }
 
-Q3ValueList< cVariant > cCustomTags::getValues( void )
+QList< cVariant > cCustomTags::getValues( void )
 {
 	if ( tags_ )
 	{
 		return tags_->values();
 	}
 
-	return Q3ValueList<cVariant>();
+	return QList<cVariant>();
 }
 
 bool cCustomTags::operator==( const cCustomTags& cmp ) const

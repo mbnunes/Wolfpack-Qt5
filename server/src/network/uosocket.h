@@ -31,7 +31,7 @@
 // Library Includes
 #include <q3cstring.h>
 #include <QTcpSocket>
-#include <qmap.h>
+#include <QMap>
 #include <qbitarray.h>
 #include <QObject>
 #include <QQueue>

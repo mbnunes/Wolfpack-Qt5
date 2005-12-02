@@ -33,7 +33,7 @@
 #include "../singleton.h"
 #include <qglobal.h>
 #include <QString>
-#include <qmap.h>
+#include <QMap>
 #include <QList>
 #include <iterator>
 

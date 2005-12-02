@@ -31,7 +31,7 @@
 #include "singleton.h"
 
 // Library Includes
-#include <qmap.h>
+#include <QMap>
 #include <QString>
 #include <q3cstring.h>
 #include <QStringList>

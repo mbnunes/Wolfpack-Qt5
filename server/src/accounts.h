@@ -31,9 +31,9 @@
 // Library Includes
 #include <QString>
 #include <q3cstring.h>
-#include <qdatetime.h>
-#include <q3valuevector.h>
-#include <qmap.h>
+#include <QDateTime>
+#include <QList>
+#include <QMap>
 
 // Wolfpack includes
 #include "server.h"
@@ -54,7 +54,7 @@ private:
 	QString password_;
 	cAcl* acl_;
 	QString aclName_;
-	Q3ValueVector<P_PLAYER> characters_;
+	QList<P_PLAYER> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;
 	Q3CString email_;
@@ -80,7 +80,7 @@ public:
 	const Q3CString& email() const;
 	unsigned int rank() const;
 	void remove();
-	Q3ValueVector<P_PLAYER> caracterList() const;
+	QList<P_PLAYER> caracterList() const;
 	bool authorized( const QString& action, const QString& value ) const;
 	bool addCharacter( P_PLAYER );
 	bool removeCharacter( P_PLAYER );
@@ -201,7 +201,7 @@ inline QString cAccount::password() const
 	return password_;
 }
 
-inline Q3ValueVector<P_PLAYER> cAccount::caracterList() const
+inline QList<P_PLAYER> cAccount::caracterList() const
 {
 	return characters_;
 }

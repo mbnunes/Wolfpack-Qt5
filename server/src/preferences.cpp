@@ -28,7 +28,7 @@
 #include <qdom.h>
 #include <qfile.h>
 #include <qtextstream.h>
-#include <qmap.h>
+#include <QMap>
 #include <QString>
 
 #include "preferences.h"

@@ -99,7 +99,7 @@ bool cAccount::addCharacter( P_PLAYER d )
 
 bool cAccount::removeCharacter( P_PLAYER d )
 {
-	Q3ValueVector<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
+	QList<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
 	if ( it != characters_.end() )
 	{
 		characters_.erase( it );
@@ -138,7 +138,7 @@ bool cAccount::authorized( const QString& group, const QString& value ) const
 
 void cAccount::remove()
 {
-	Q3ValueVector<P_PLAYER>::iterator it;
+	QList<P_PLAYER>::iterator it;
 	for ( it = characters_.begin(); it != characters_.end(); ++it )
 	{
 		( *it )->setAccount( 0, false );

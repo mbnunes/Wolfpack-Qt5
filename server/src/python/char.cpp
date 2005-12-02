@@ -2708,11 +2708,11 @@ static PyObject* wpChar_walk( wpChar* self, PyObject* args )
 static PyObject* wpChar_getopponents( wpChar* self, PyObject* args )
 {
 	Q_UNUSED( args ); // Warning Fix
-	Q3PtrList<cFightInfo> &fights = self->pChar->fights();
+	QList<cFightInfo*> &fights = self->pChar->fights();
 	PyObject *list = PyTuple_New( fights.count() );
 	unsigned int i = 0;
 
-	for ( cFightInfo*fight = fights.first(); fight; fight = fights.next() )
+	foreach ( cFightInfo* fight, fights )
 	{
 		if ( fight->attacker() == self->pChar )
 		{

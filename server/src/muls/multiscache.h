@@ -29,7 +29,7 @@
 #define __MULTISCACHE_H__
 
 #include <q3valuevector.h>
-#include <qmap.h>
+#include <QMap>
 #include "../singleton.h"
 #include "../server.h"
 

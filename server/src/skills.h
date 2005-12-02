@@ -35,7 +35,7 @@
 #include "objectdef.h"
 
 // Library Includes
-#include <qmap.h>
+#include <QMap>
 #include <QStringList>
 #include <q3valuevector.h>
 

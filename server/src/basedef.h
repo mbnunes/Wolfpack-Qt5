@@ -32,7 +32,7 @@
 #include "definable.h"
 #include "singleton.h"
 #include "pythonscript.h"
-#include <qmap.h>
+#include <QMap>
 #include <q3ptrlist.h>
 #include <q3cstring.h>
 #include <QString>
@@ -151,11 +151,11 @@ protected:
 	unsigned int wanderSpeed_; // ms between moves
 
 	// Override the override... ;)
-	Q3ValueVector<unsigned short> attackSound_;
-	Q3ValueVector<unsigned short> idleSound_;
-	Q3ValueVector<unsigned short> hitSound_;
-	Q3ValueVector<unsigned short> gethitSound_;
-	Q3ValueVector<unsigned short> deathSound_;
+	QList<unsigned short> attackSound_;
+	QList<unsigned short> idleSound_;
+	QList<unsigned short> hitSound_;
+	QList<unsigned short> gethitSound_;
+	QList<unsigned short> deathSound_;
 
 	// Misc Properties
 	void load();
@@ -172,31 +172,31 @@ public:
 		return controlSlots_;
 	}
 
-	inline const Q3ValueVector<unsigned short>& attackSound()
+	inline const QList<unsigned short>& attackSound()
 	{
 		load();
 		return attackSound_;
 	}
 
-	inline const Q3ValueVector<unsigned short>& idleSound()
+	inline const QList<unsigned short>& idleSound()
 	{
 		load();
 		return idleSound_;
 	}
 
-	inline const Q3ValueVector<unsigned short>& hitSound()
+	inline const QList<unsigned short>& hitSound()
 	{
 		load();
 		return hitSound_;
 	}
 
-	inline const Q3ValueVector<unsigned short>& gethitSound()
+	inline const QList<unsigned short>& gethitSound()
 	{
 		load();
 		return gethitSound_;
 	}
 
-	inline const Q3ValueVector<unsigned short>& deathSound()
+	inline const QList<unsigned short>& deathSound()
 	{
 		load();
 		return deathSound_;

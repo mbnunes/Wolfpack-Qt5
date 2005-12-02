@@ -38,7 +38,7 @@
 #include <QStringList>
 #include <QDir>
 #include <qhostaddress.h>
-#include <qdatetime.h>
+#include <QDateTime>
 
 #include <qglobal.h>
 #if defined( Q_OS_WIN32 )

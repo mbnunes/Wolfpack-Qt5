@@ -34,7 +34,7 @@
 
 #include <functional>
 #include <algorithm>
-#include <qmap.h>
+#include <QMap>
 #include <qfile.h>
 //Added by qt3to4:
 #include <Q3CString>

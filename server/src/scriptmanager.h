@@ -29,7 +29,7 @@
 #define __WPSCRIPTMANAGER_H__
 
 // System Includes
-#include <qmap.h>
+#include <QMap>
 #include <q3valuevector.h>
 #include <QString>
 //Added by qt3to4:

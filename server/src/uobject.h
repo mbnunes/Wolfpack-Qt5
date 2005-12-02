@@ -48,7 +48,7 @@
 // Library includes
 #include <QString>
 #include <QStringList>
-#include <qmap.h>
+#include <QMap>
 #include <Q3CString>
 
 // Forward class declarations

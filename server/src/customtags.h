@@ -36,9 +36,8 @@
 // Library include
 #include <QString>
 #include <QStringList>
-#include <qmap.h>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QMap>
+#include <QList>
 
 // Forward Declarations
 class cItem;
@@ -160,7 +159,7 @@ public:
 
 	QStringList getKeys() const;
 
-	Q3ValueList<cVariant> getValues();
+	QList<cVariant> getValues();
 
 	void save( SERIAL serial, cBufferedWriter& writer );
 
