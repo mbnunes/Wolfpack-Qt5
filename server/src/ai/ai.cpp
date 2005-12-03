@@ -651,7 +651,7 @@ void Action_Wander::execute()
 
 		case enFreely:
 		{
-			Q_UINT8 dir = m_npc->direction();
+			quint8 dir = m_npc->direction();
 			if ( RandomNum( 0, 100 ) < 20 )
 				dir = RandomNum( 0, 7 );
 
@@ -669,7 +669,7 @@ void Action_Wander::execute()
 			Q_UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
 			Q_UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
 
-			Q_UINT8 dir = m_npc->pos().direction( Coord( rndx, rndy ) );
+			quint8 dir = m_npc->pos().direction( Coord( rndx, rndy ) );
 
 			if ( m_npc->direction() != dir )
 			{
@@ -692,7 +692,7 @@ void Action_Wander::execute()
 			pos.x = pos.x + ( Q_INT16 ) floor( cos( rndphi ) * rnddist );
 			pos.y = pos.y + ( Q_INT16 ) floor( sin( rndphi ) * rnddist );
 
-			Q_UINT8 dir = m_npc->pos().direction( pos );
+			quint8 dir = m_npc->pos().direction( pos );
 
 			if ( m_npc->direction() != dir )
 			{
@@ -753,7 +753,7 @@ void Action_Wander::execute()
 bool Action_Wander::moveTo( const Coord& pos, bool run )
 {
 	// simply move towards the target
-	Q_UINT8 dir = m_npc->pos().direction( pos );
+	quint8 dir = m_npc->pos().direction( pos );
 	Coord newPos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
 
 	if ( !mayWalk( m_npc, newPos ) )
@@ -833,7 +833,7 @@ bool Action_Wander::movePath( const Coord& pos, bool run )
 	{
 		waitForPathCalculation = 0;
 		Coord nextmove = m_npc->nextMove();
-		Q_UINT8 dir = m_npc->pos().direction( nextmove );
+		quint8 dir = m_npc->pos().direction( nextmove );
 
 		// Make sure we face the direction...
 		if ( m_npc->direction() != dir )
@@ -890,7 +890,7 @@ float Action_MoveToTarget::preCondition()
 		return 0.0f;
 	}
 
-	Q_UINT8 range = 1;
+	quint8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 
 	if ( weapon )
@@ -938,7 +938,7 @@ float Action_MoveToTarget::postCondition()
 	if ( !currentVictim || !validTarget( m_npc, currentVictim ) )
 		return 1.0f;
 
-	Q_UINT8 range = 1;
+	quint8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon )
 	{
@@ -1130,7 +1130,7 @@ float Action_Defend::preCondition()
 	if ( m_npc->hitpoints() < m_npc->criticalHealth() )
 		return 0.0f;
 
-	Q_UINT8 range = 1;
+	quint8 range = 1;
 	if ( m_npc->rightHandItem() )
 	{
 		unsigned int type = m_npc->rightHandItem()->type();
@@ -1172,7 +1172,7 @@ float Action_Defend::postCondition()
 	if ( !pAttacker )
 		return 1.0f;
 
-	Q_UINT8 range = 1;
+	quint8 range = 1;
 	if ( m_npc->rightHandItem() )
 	{
 		unsigned int type = m_npc->rightHandItem()->type();

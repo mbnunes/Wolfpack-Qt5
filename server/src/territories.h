@@ -345,7 +345,7 @@ private:
 	QString secondcoin_; // Second Coin for this Region
 	QString thirdcoin_; // Third Coin for this Region
 
-	Q_UINT32 flags_; // flags like guarded, mark allowed, etc. (see getters)
+	quint32 flags_; // flags like guarded, mark allowed, etc. (see getters)
 
 	QString guardowner_;
 	UI08 snowchance_;

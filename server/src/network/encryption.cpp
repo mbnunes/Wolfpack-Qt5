@@ -105,10 +105,10 @@ void cLoginEncryption::serverEncrypt( char* buffer, unsigned int length )
 */
 void cLoginEncryption::clientDecrypt( char* buffer, unsigned int length )
 {
-	register Q_UINT32 eax, ecx, edx, esi;
-	for ( Q_UINT32 i = 0; i < length; ++i )
+	register quint32 eax, ecx, edx, esi;
+	for ( quint32 i = 0; i < length; ++i )
 	{
-		buffer[i] = buffer[i] ^ ( Q_UINT8 ) ( table1 & 0xFF );
+		buffer[i] = buffer[i] ^ ( quint8 ) ( table1 & 0xFF );
 		edx = table2;
 		esi = table1 << 31;
 		eax = table2 >> 1;

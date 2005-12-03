@@ -49,7 +49,7 @@ protected:
 	QMap<QString, unsigned int> intproperties;
 	QMap<QString, QString> properties;
 
-	Q3PtrList<cPythonScript> baseScripts_;
+	QList<cPythonScript*> baseScripts_;
 	Q3CString baseScriptList_;
 	Q3CString bindmenu_;
 
@@ -113,7 +113,7 @@ public:
 		return baseScriptList_;
 	}
 
-	inline const Q3PtrList<cPythonScript>& baseScripts()
+	inline const QList<cPythonScript*>& baseScripts()
 	{
 		load();
 		return baseScripts_;

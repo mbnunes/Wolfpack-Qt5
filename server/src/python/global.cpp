@@ -518,7 +518,7 @@ static PyObject* wpFindmulti( PyObject* /*self*/, PyObject* args )
 static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	Q_UINT32 expiretime;
+	quint32 expiretime;
 	PyObject* function;
 	PyObject* arguments;
 	uchar persistent = 0;
@@ -670,8 +670,8 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 	StaticsIterator iter = Maps::instance()->staticsIterator( Coord( x, y, 0, map ), exact );
 
 	PyObject* tuple = PyTuple_New( iter.count() ); // Create a tuple instead of a list (faster)!
-	const Q_UINT32 xBlockStart = (x / 8) * 8;
-	const Q_UINT32 yBlockStart = (y / 8) * 8;
+	const quint32 xBlockStart = (x / 8) * 8;
+	const quint32 yBlockStart = (y / 8) * 8;
 
 	unsigned int i = 0; // The offset within the tuple
 	unsigned int count = iter.count();
@@ -1653,7 +1653,7 @@ static PyObject* wpGetDefinitions( PyObject* /*self*/, PyObject* args )
 		return 0;
 	}
 
-	const Q3ValueVector<cElement*> elements = Definitions::instance()->getDefinitions( ( eDefCategory ) type );
+	const QList<cElement*> elements = Definitions::instance()->getDefinitions( ( eDefCategory ) type );
 	QStringList sections = Definitions::instance()->getSections( ( eDefCategory ) type );
 
 	PyObject* result = PyTuple_New( elements.size() + sections.size() );

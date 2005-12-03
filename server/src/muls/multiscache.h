@@ -28,7 +28,7 @@
 #if !defined(__MULTISCACHE_H__)
 #define __MULTISCACHE_H__
 
-#include <q3valuevector.h>
+#include <QVector>
 #include <QMap>
 #include "../singleton.h"
 #include "../server.h"
@@ -47,7 +47,7 @@ class MultiDefinition
 public:
 	MultiDefinition();
 
-	const Q3ValueVector<multiItem_st>& itemsAt( int x, int y );
+	const QList<multiItem_st>& itemsAt( int x, int y );
 
 	unsigned int getHeight()
 	{
@@ -79,10 +79,10 @@ public:
 		return top;
 	}
 
-	void setItems( const Q3ValueVector<multiItem_st>& items );
+	void setItems( const QList<multiItem_st>& items );
 	bool inMulti( short x, short y );
 	signed char multiHeight( short x, short y, short z ) const;
-	Q3ValueVector<multiItem_st> getEntries() const;
+	QList<multiItem_st> getEntries() const;
 protected:
 	unsigned int width;
 	unsigned int height;
@@ -91,8 +91,8 @@ protected:
 	int right;
 	int bottom;
 
-	Q3ValueVector<multiItem_st> entries; // sorted list of items
-	Q3ValueVector< Q3ValueVector<multiItem_st> > grid;
+	QList<multiItem_st> entries; // sorted list of items
+	QVector< QList<multiItem_st> > grid;
 
 };
 

@@ -101,7 +101,7 @@ class cDefManagerPrivate
 {
 public:
 	QMap<QString, cElement*> unique[WPDT_COUNT];
-	QMap<unsigned int, Q3ValueVector<cElement*> > nonunique;
+	QMap<unsigned int, QList<cElement*> > nonunique;
 	QStringList imports;
 };
 
@@ -527,7 +527,7 @@ const cElement* cDefinitions::getDefinition( eDefCategory type, const QString& i
 		return it.data();
 }
 
-const Q3ValueVector<cElement*>& cDefinitions::getDefinitions( eDefCategory type ) const
+const QList<cElement*>& cDefinitions::getDefinitions( eDefCategory type ) const
 {
 	return impl->nonunique[type];
 }

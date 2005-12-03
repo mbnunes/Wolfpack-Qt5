@@ -84,8 +84,8 @@ public:
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false );
 	virtual void resend( bool clean = true );
-	virtual void talk( const QString& message, UI16 color = 0xFFFF, Q_UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	virtual Q_UINT8 notoriety( P_CHAR pChar );
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, quint8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
+	virtual quint8 notoriety( P_CHAR pChar );
 	virtual void showName( cUOSocket* socket );
 	virtual void soundEffect( ushort soundId, bool hearAll = true );
 	virtual void giveGold( uint amount, bool inBank = false );
@@ -115,7 +115,7 @@ public:
 	int countBankGold();
 	bool canPickUp( cItem* pi );
 	virtual bool inWorld();
-	void giveNewbieItems( Q_UINT8 skill = 0xFF );
+	void giveNewbieItems( quint8 skill = 0xFF );
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true ); // override
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	unsigned char controlslots() const;
@@ -144,20 +144,20 @@ public:
 
 	// getters
 	cAccount* account() const;
-	Q_UINT32 additionalFlags() const;
-	Q_UINT32 logoutTime() const;
-	Q_UINT32 objectDelay() const;
-	Q_UINT32 trackingTime() const;
+	quint32 additionalFlags() const;
+	quint32 logoutTime() const;
+	quint32 objectDelay() const;
+	quint32 trackingTime() const;
 	cUOSocket* socket() const;
 	enInputMode inputMode() const
 	{
 		return inputMode_;
 	}
 	SERIAL inputItem() const;
-	Q_UINT8 visualRange() const;
+	quint8 visualRange() const;
 	QString profile() const;
-	Q_UINT8 fixedLightLevel() const;
-	Q_UINT8 maxControlSlots() const;
+	quint8 fixedLightLevel() const;
+	quint8 maxControlSlots() const;
 
 	// bit flag getters
 	bool maySnoop() const;
@@ -175,19 +175,19 @@ public:
 	// setters
 	void setMaxControlSlots( unsigned char data );
 	void setAccount( cAccount* data, bool moveFromAccToAcc = true );
-	void setAdditionalFlags( Q_UINT32 data );
-	void setLogoutTime( Q_UINT32 data );
-	void setObjectDelay( Q_UINT32 data );
-	void setTrackingTime( Q_UINT32 data );
+	void setAdditionalFlags( quint32 data );
+	void setLogoutTime( quint32 data );
+	void setObjectDelay( quint32 data );
+	void setTrackingTime( quint32 data );
 	void setSocket( cUOSocket* data );
 	void setInputMode( enInputMode data )
 	{
 		inputMode_ = data;
 	}
 	void setInputItem( SERIAL data );
-	void setVisualRange( Q_UINT8 data );
+	void setVisualRange( quint8 data );
 	void setProfile( const QString& data );
-	void setFixedLightLevel( Q_UINT8 data );
+	void setFixedLightLevel( quint8 data );
 	// bit flag setters
 	void setMaySnoop( bool data );
 	void setMayBroadcast( bool data );
@@ -259,10 +259,10 @@ protected:
 
 	// time till char will be logged out
 	// cOldChar::logout_
-	Q_UINT32 logoutTime_;
+	quint32 logoutTime_;
 
 	// Time till the player can use another object.
-	Q_UINT32 objectDelay_;
+	quint32 objectDelay_;
 
 	// Additional property flags.
 	//
@@ -273,7 +273,7 @@ protected:
 	// 05 - lock karma (0x10)
 	// 06 - jailed (0x20)
 	// 07 - squelched (0x40)
-	Q_UINT32 additionalFlags_;
+	quint32 additionalFlags_;
 
 	// The pets that follow the char.
 	CharContainer pets_;
@@ -283,7 +283,7 @@ protected:
 	unsigned char intelligenceLock_;
 
 	// Time till the quest arrow for tracking disappears.
-	Q_UINT32 trackingTime_;
+	quint32 trackingTime_;
 
 	// Network socket of the player.
 	cUOSocket* socket_;
@@ -297,14 +297,14 @@ protected:
 	SERIAL inputItem_;
 
 	// Visual range of the player
-	Q_UINT8 visualRange_;
+	quint8 visualRange_;
 
 	// Paperdoll profile of the char
 	QString profile_;
 
 	// Fixed light level. is used in dungeons or for nightsight spell.
 	// cOldChar:fixedlight_
-	Q_UINT8 fixedLightLevel_;
+	quint8 fixedLightLevel_;
 };
 
 inline cAccount* cPlayer::account() const
@@ -342,33 +342,33 @@ inline void cPlayer::setAdditionalFlags( uint data )
 	changed_ = true;
 }
 
-inline Q_UINT32 cPlayer::logoutTime() const
+inline quint32 cPlayer::logoutTime() const
 {
 	return logoutTime_;
 }
 
-inline void cPlayer::setLogoutTime( Q_UINT32 data )
+inline void cPlayer::setLogoutTime( quint32 data )
 {
 	logoutTime_ = data;
 	changed_ = true;
 }
 
-inline Q_UINT32 cPlayer::objectDelay() const
+inline quint32 cPlayer::objectDelay() const
 {
 	return objectDelay_;
 }
 
-inline void cPlayer::setObjectDelay( Q_UINT32 data )
+inline void cPlayer::setObjectDelay( quint32 data )
 {
 	objectDelay_ = data;
 }
 
-inline Q_UINT32 cPlayer::trackingTime() const
+inline quint32 cPlayer::trackingTime() const
 {
 	return trackingTime_;
 }
 
-inline void cPlayer::setTrackingTime( Q_UINT32 data )
+inline void cPlayer::setTrackingTime( quint32 data )
 {
 	trackingTime_ = data;
 }
@@ -394,12 +394,12 @@ inline void cPlayer::setInputItem( SERIAL data )
 	inputItem_ = data;
 }
 
-inline Q_UINT8 cPlayer::visualRange() const
+inline quint8 cPlayer::visualRange() const
 {
 	return visualRange_;
 }
 
-inline void cPlayer::setVisualRange( Q_UINT8 data )
+inline void cPlayer::setVisualRange( quint8 data )
 {
 	visualRange_ = data;
 	changed_ = true;
@@ -416,23 +416,23 @@ inline void cPlayer::setProfile( const QString& data )
 	changed_ = true;
 }
 
-inline Q_UINT8 cPlayer::fixedLightLevel() const
+inline quint8 cPlayer::fixedLightLevel() const
 {
 	return fixedLightLevel_;
 }
 
-inline void cPlayer::setFixedLightLevel( Q_UINT8 data )
+inline void cPlayer::setFixedLightLevel( quint8 data )
 {
 	fixedLightLevel_ = data;
 	changed_ = true;
 }
 
-inline Q_UINT8 cPlayer::maxControlSlots() const
+inline quint8 cPlayer::maxControlSlots() const
 {
 	return maxControlSlots_;
 }
 
-inline void cPlayer::setMaxControlSlots( Q_UINT8 data )
+inline void cPlayer::setMaxControlSlots( quint8 data )
 {
 	maxControlSlots_ = data;
 	changed_ = true;

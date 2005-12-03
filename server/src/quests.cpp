@@ -41,7 +41,7 @@ void cQuests::load()
 	quests.clear();
 
 	// Try to get all Quests (Max 10.000 quests)
-	Q_UINT32 i;
+	quint32 i;
 
 	for ( i = 1; i < 10000; ++i )
 	{

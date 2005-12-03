@@ -101,14 +101,14 @@ public:
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false );
 	virtual void resend( bool clean = true );
-	virtual void talk( const QString& message, UI16 color = 0xFFFF, Q_UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	void talk( const Q_UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
-	virtual Q_UINT8 notoriety( P_CHAR pChar = 0 );
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, quint8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
+	void talk( const quint32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
+	virtual quint8 notoriety( P_CHAR pChar = 0 );
 	virtual void showName( cUOSocket* socket );
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
 	virtual bool inWorld();
-	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
-	virtual Q_UINT32 takeGold( Q_UINT32 amount, bool inBank = false );
+	virtual void giveGold( quint32 amount, bool inBank = false );
+	virtual quint32 takeGold( quint32 amount, bool inBank = false );
 	virtual void applyDefinition( const cElement* );
 	virtual void flagUnchanged()
 	{
@@ -137,16 +137,16 @@ public:
 	virtual void moveTo( const Coord& pos );
 
 	// getters
-	Q_UINT32 additionalFlags() const;
-	Q_UINT32 nextBeggingTime() const;
-	Q_UINT32 nextGuardCallTime() const;
-	Q_UINT32 nextMoveTime() const;
-	Q_UINT32 nextMsgTime() const;
-	Q_UINT32 summonTime() const;
+	quint32 additionalFlags() const;
+	quint32 nextBeggingTime() const;
+	quint32 nextGuardCallTime() const;
+	quint32 nextMoveTime() const;
+	quint32 nextMsgTime() const;
+	quint32 summonTime() const;
 	P_PLAYER owner() const;
 	SERIAL stablemasterSerial() const;
 	AbstractAI* ai() const;
-	Q_UINT32 aiCheckTime() const;
+	quint32 aiCheckTime() const;
 	Q_UINT16 aiCheckInterval() const;
 	bool summoned() const;
 	// advanced getters for data structures
@@ -166,18 +166,18 @@ public:
 	Coord wanderDestination() const;
 
 	// setters
-	void setAdditionalFlags( Q_UINT32 data );
-	void setNextBeggingTime( Q_UINT32 data );
-	void setNextGuardCallTime( Q_UINT32 data );
-	void setNextMoveTime( Q_UINT32 data );
-	void setNextMsgTime( Q_UINT32 data );
-	void setSummonTime( Q_UINT32 data );
+	void setAdditionalFlags( quint32 data );
+	void setNextBeggingTime( quint32 data );
+	void setNextGuardCallTime( quint32 data );
+	void setNextMoveTime( quint32 data );
+	void setNextMsgTime( quint32 data );
+	void setSummonTime( quint32 data );
 	void setOwner( P_PLAYER data, bool nochecks = false );
 	void setSummoned( bool data );
 	void setStablemasterSerial( SERIAL data );
 	void setGuarding( P_PLAYER data );
 	void setAI( AbstractAI* ai );
-	void setAICheckTime( Q_UINT32 data );
+	void setAICheckTime( quint32 data );
 	void setAICheckInterval( Q_UINT16 data );
 
 	// advanced setters for data structures
@@ -225,19 +225,19 @@ protected:
 
 	// Time till NPC talks again.
 	// cOldChar::antispamtimer_
-	Q_UINT32 nextMsgTime_;
+	quint32 nextMsgTime_;
 
 	// Time till the NPC calls another guard.
 	// cOldChar::antiguardstimer_
-	Q_UINT32 nextGuardCallTime_;
+	quint32 nextGuardCallTime_;
 
 	// Time till the NPC handles another begging attempt.
 	// cOldChar::begging_timer_
-	Q_UINT32 nextBeggingTime_;
+	quint32 nextBeggingTime_;
 
 	// Time till npc moves next.
 	// cOldChar::npcmovetime_
-	Q_UINT32 nextMoveTime_;
+	quint32 nextMoveTime_;
 
 	// Stores information about how the npc wanders. uses the struct
 	// stWanderType with attributes for rectangles, circles and more...
@@ -248,13 +248,13 @@ protected:
 
 	// Time till summoned creature disappears.
 	// cOldChar::summontimer_
-	Q_UINT32 summonTime_;
+	quint32 summonTime_;
 
 	// Additional property flags
 	//
 	// Bits:
 	// 0x00000001 Creature is summoned
-	Q_UINT32 additionalFlags_;
+	quint32 additionalFlags_;
 
 	// Owner of this NPC.
 	P_PLAYER owner_;
@@ -272,71 +272,71 @@ protected:
 	QString aiid_;
 
 	// NPC AI check timer
-	Q_UINT32 aiCheckTime_;
+	quint32 aiCheckTime_;
 
 	// NPC AI check time intervall in msec
 	Q_UINT16 aiCheckInterval_;
 };
 
-inline Q_UINT32 cNPC::additionalFlags() const
+inline quint32 cNPC::additionalFlags() const
 {
 	return additionalFlags_;
 }
 
-inline void cNPC::setAdditionalFlags( Q_UINT32 data )
+inline void cNPC::setAdditionalFlags( quint32 data )
 {
 	additionalFlags_ = data;
 	changed_ = true;
 }
 
-inline Q_UINT32 cNPC::nextBeggingTime() const
+inline quint32 cNPC::nextBeggingTime() const
 {
 	return nextBeggingTime_;
 }
 
-inline void cNPC::setNextBeggingTime( Q_UINT32 data )
+inline void cNPC::setNextBeggingTime( quint32 data )
 {
 	nextBeggingTime_ = data;
 	changed_ = true;
 }
 
-inline Q_UINT32 cNPC::nextGuardCallTime() const
+inline quint32 cNPC::nextGuardCallTime() const
 {
 	return nextGuardCallTime_;
 }
 
-inline void cNPC::setNextGuardCallTime( Q_UINT32 data )
+inline void cNPC::setNextGuardCallTime( quint32 data )
 {
 	nextGuardCallTime_ = data;
 	changed_ = true;
 }
 
-inline Q_UINT32 cNPC::nextMoveTime() const
+inline quint32 cNPC::nextMoveTime() const
 {
 	return nextMoveTime_;
 }
 
-inline void cNPC::setNextMoveTime( Q_UINT32 data )
+inline void cNPC::setNextMoveTime( quint32 data )
 {
 	nextMoveTime_ = data;
 }
 
-inline Q_UINT32 cNPC::nextMsgTime() const
+inline quint32 cNPC::nextMsgTime() const
 {
 	return nextMsgTime_;
 }
 
-inline void cNPC::setNextMsgTime( Q_UINT32 data )
+inline void cNPC::setNextMsgTime( quint32 data )
 {
 	nextMsgTime_ = data;
 }
 
-inline Q_UINT32 cNPC::summonTime() const
+inline quint32 cNPC::summonTime() const
 {
 	return summonTime_;
 }
 
-inline void cNPC::setSummonTime( Q_UINT32 data )
+inline void cNPC::setSummonTime( quint32 data )
 {
 	summonTime_ = data;
 	changed_ = true;
@@ -363,12 +363,12 @@ inline void cNPC::setAI( AbstractAI* ai )
 	changed_ = true;
 }
 
-inline Q_UINT32 cNPC::aiCheckTime() const
+inline quint32 cNPC::aiCheckTime() const
 {
 	return aiCheckTime_;
 }
 
-inline void cNPC::setAICheckTime( Q_UINT32 data )
+inline void cNPC::setAICheckTime( quint32 data )
 {
 	aiCheckTime_ = data;
 }

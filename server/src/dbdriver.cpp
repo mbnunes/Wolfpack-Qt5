@@ -96,7 +96,7 @@ char** cDBResult::data() const
 }
 
 // Get an integer with a specific offset
-Q_INT32 cDBResult::getInt( Q_UINT32 offset ) const
+Q_INT32 cDBResult::getInt( quint32 offset ) const
 {
 	if ( !_row )
 		throw QString( "Trying to access a non valid result!" );
@@ -105,7 +105,7 @@ Q_INT32 cDBResult::getInt( Q_UINT32 offset ) const
 }
 
 // Get a string with a specific offset
-QString cDBResult::getString( Q_UINT32 offset ) const
+QString cDBResult::getString( quint32 offset ) const
 {
 	if ( !_row )
 		throw QString( "Trying to access a non valid result!" );

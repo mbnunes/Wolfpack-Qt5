@@ -700,7 +700,7 @@ void cWorld::loadSQL( Q3PtrList<PersistentObject>& objects )
 			throw PersistentBroker::instance()->lastError();
 
 		res.fetchrow();
-		Q_UINT32 count = res.getInt( 0 );
+		quint32 count = res.getInt( 0 );
 		res.free();
 
 		if ( count == 0 )
@@ -714,7 +714,7 @@ void cWorld::loadSQL( Q3PtrList<PersistentObject>& objects )
 		if ( !res.isValid() )
 			throw PersistentBroker::instance()->lastError();
 
-		//Q_UINT32 sTime = getNormalizedTime();
+		//quint32 sTime = getNormalizedTime();
 		PersistentObject* object;
 		progress_display progress( count );
 

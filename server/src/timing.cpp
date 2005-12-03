@@ -351,9 +351,9 @@ void cTiming::poll()
 	// Loop Regions to try to change Wheater
 	if ( loopregions )
 	{
-		const Q3ValueVector<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
+		const QList<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
 
-		Q3ValueVector<cElement*>::const_iterator it( elements.begin() );
+		QList<cElement*>::const_iterator it( elements.begin() );
 		while ( it != elements.end() )
 		{
 			cTerritory* territory = new cTerritory( *it, 0 );

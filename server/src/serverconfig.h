@@ -55,8 +55,8 @@ struct ServerList_st
 {
 	Q_UINT16 uiIndex;
 	QString sServer;
-	Q_UINT8 uiFull;
-	Q_UINT8 uiTime;
+	quint8 uiFull;
+	quint8 uiTime;
 	QHostAddress address;
 	Q_UINT16 uiPort;
 };

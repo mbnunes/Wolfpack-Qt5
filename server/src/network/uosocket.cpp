@@ -283,7 +283,7 @@ void cUOSocket::send( cGump* gump )
 	if ( gump->noDispose() )
 		layout.prepend( "{nodispose}" );
 
-	Q_UINT32 gumpsize = 24 + layout.length();
+	quint32 gumpsize = 24 + layout.length();
 	QStringList text = gump->text();
 	QStringList::const_iterator it = text.begin();
 	while ( it != text.end() )
@@ -703,7 +703,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 
 	QList<ServerList_st> shards = Config::instance()->serverList();
 
-	for ( Q_UINT8 i = 0; i < shards.size(); ++i )
+	for ( quint8 i = 0; i < shards.size(); ++i )
 	{
 		ServerList_st server = shards[i];
 		// we are connecting from the same ip, send 127.0.0.1 as the ip
@@ -861,7 +861,7 @@ void cUOSocket::sendCharList()
 	QList<P_PLAYER> characters = _account->caracterList();
 
 	// Add the characters
-	Q_UINT8 i = 0;
+	quint8 i = 0;
 	for ( ; i < characters.size(); ++i )
 		charList.addCharacter( characters.at( i )->name() );
 
@@ -1477,7 +1477,7 @@ void cUOSocket::updateCharList()
 	QList<P_PLAYER> characters = _account->caracterList();
 
 	// Add the characters
-	for ( Q_UINT8 i = 0; i < characters.size(); ++i )
+	for ( quint8 i = 0; i < characters.size(); ++i )
 		charList.setCharacter( i, characters.at( i )->name() );
 
 	send( &charList );
@@ -1905,7 +1905,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
   This method prints \a message on top of \a object using the given \a color and \a speechType
   \sa cUObject, cUOTxUnicodeSpeech, cUOTxUnicodeSpeech::eSpeechType
 */
-void cUOSocket::showSpeech( const cUObject* object, const QString& message, Q_UINT16 color, Q_UINT16 font, Q_UINT8 speechType )
+void cUOSocket::showSpeech( const cUObject* object, const QString& message, Q_UINT16 color, Q_UINT16 font, quint8 speechType )
 {
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( object->serial() );
@@ -1921,7 +1921,7 @@ void cUOSocket::showSpeech( const cUObject* object, const QString& message, Q_UI
   This method sends an moviment acknowleadge allowing the client to move.
   \sa cUOTxAcceptMove.
 */
-void cUOSocket::allowMove( Q_UINT8 sequence )
+void cUOSocket::allowMove( quint8 sequence )
 {
 	cUOTxAcceptMove acceptMove;
 	acceptMove.setSequence( sequence );
@@ -1942,7 +1942,7 @@ void cUOSocket::allowMove( Q_UINT8 sequence )
   This method informs the client that the requested movement is not permited.
   \sa cUOTxDenyMove.
 */
-void cUOSocket::denyMove( Q_UINT8 sequence )
+void cUOSocket::denyMove( quint8 sequence )
 {
 	cUOTxDenyMove deny;
 	deny.fromChar( _player );
@@ -2135,7 +2135,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	// Check if it's a command, then dispatch it to the command system
 	// if it's normal speech send it to the normal speech dispatcher
 	QString speech = packet->message();
-	Q3ValueVector<Q_UINT16> keywords;
+	QList<ushort> keywords;
 	if ( packet->type() & 0xc0 )
 		keywords = packet->keywords();
 	Q_UINT16 color = packet->color();
@@ -2248,7 +2248,7 @@ void cUOSocket::playMusic()
 		return;
 
 	cTerritory* Region = _player->region();
-	Q_UINT32 midi = 0;
+	quint32 midi = 0;
 
 	if ( _player->isAtWar() )
 		midi = Definitions::instance()->getRandomListEntry( "MIDI_COMBAT" ).toInt();
@@ -2790,7 +2790,7 @@ P_ITEM cUOSocket::dragging() const
 	return _player->atLayer( cBaseChar::Dragging );
 }
 
-void cUOSocket::bounceItem( P_ITEM pItem, Q_UINT8 reason )
+void cUOSocket::bounceItem( P_ITEM pItem, quint8 reason )
 {
 	cUOTxBounceItem bounce;
 	bounce.setReason( ( eBounceReason ) reason );
@@ -3027,7 +3027,7 @@ void cUOSocket::sendSkill( Q_UINT16 skill )
 	pUpdate.setValue( _player->skillValue( skill ) );
 	pUpdate.setRealValue( _player->skillValue( skill ) );
 
-	Q_UINT8 lock = _player->skillLock( skill );
+	quint8 lock = _player->skillLock( skill );
 
 	if ( lock == 0 )
 		pUpdate.setStatus( cUOTxUpdateSkill::Up );
@@ -3454,7 +3454,7 @@ void cUOSocket::handleSell( cUORxSell* packet )
 /*
 thanks to codex
 */
-void cUOSocket::clilocMessage( const Q_UINT32 MsgID, const QString& params, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool system )
+void cUOSocket::clilocMessage( const quint32 MsgID, const QString& params, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool system )
 {
 	cUOTxClilocMsg msg;
 
@@ -3500,7 +3500,7 @@ void cUOSocket::clilocMessage( const Q_UINT32 MsgID, const QString& params, cons
 	send( &msg );
 }
 
-void cUOSocket::clilocMessageAffix( const Q_UINT32 MsgID, const QString& params, const QString& affix, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool dontMove, bool prepend, bool system )
+void cUOSocket::clilocMessageAffix( const quint32 MsgID, const QString& params, const QString& affix, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool dontMove, bool prepend, bool system )
 {
 	cUOTxClilocMsgAffix msg;
 
@@ -3523,7 +3523,7 @@ void cUOSocket::clilocMessageAffix( const Q_UINT32 MsgID, const QString& params,
 	msg.setHue( color );
 	msg.setFont( font );
 
-	Q_UINT8 flags = 0;
+	quint8 flags = 0;
 	if ( prepend )
 		flags |= cUOTxClilocMsgAffix::Prepend;
 	if ( dontMove )
@@ -3662,7 +3662,7 @@ void cUOSocket::sendWeblink( const QString& url )
 	send( &weblink );
 }
 
-void cUOSocket::closeGump( Q_UINT32 type, Q_UINT32 returnCode )
+void cUOSocket::closeGump( quint32 type, quint32 returnCode )
 {
 	cUOTxCloseGump closegump;
 	closegump.setButton( returnCode );
@@ -3670,7 +3670,7 @@ void cUOSocket::closeGump( Q_UINT32 type, Q_UINT32 returnCode )
 	send( &closegump );
 }
 
-void cUOSocket::addTooltip( Q_UINT32 data )
+void cUOSocket::addTooltip( quint32 data )
 {
 	if ( data >= tooltipscache_->size() )
 		tooltipscache_->resize( data + 2 );

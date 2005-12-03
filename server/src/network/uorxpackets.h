@@ -675,7 +675,7 @@ public:
 	{
 	}
 
-	Q_UINT32 serial( void ) const
+	quint32 serial( void ) const
 	{
 		return getInt( 5 );
 	}
@@ -783,7 +783,7 @@ public:
 	{
 		return getShort( 12 ) >> 4;
 	}
-	Q3ValueVector< ushort > keywords();
+	QList< ushort > keywords();
 	QString language() const
 	{
 		return this->getAsciiString( 12, 4 );

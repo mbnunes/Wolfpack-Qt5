@@ -213,8 +213,8 @@ void getBlockingTiles( const Coord& pos, Q3ValueList<stBlockingItem>& items )
 		MultiDefinition *data = MultiCache::instance()->getMulti( pMulti->id() - 0x4000 );
 		if ( data )
 		{
-			Q3ValueVector<multiItem_st> mitems = data->getEntries();
-			Q3ValueVector<multiItem_st>::iterator it;
+			QList<multiItem_st> mitems = data->getEntries();
+			QList<multiItem_st>::iterator it;
 
 			for ( it = mitems.begin(); it != mitems.end(); ++it )
 			{
@@ -422,7 +422,7 @@ Coord Coord::operator-( const Coord& src ) const
 	return Coord( this->x - src.x, this->y - src.y, this->z - src.z, this->map );
 }
 
-void Coord::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode ) const
+void Coord::effect( Q_UINT16 id, quint8 speed, quint8 duration, Q_UINT16 hue, Q_UINT16 renderMode ) const
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCEPOS );

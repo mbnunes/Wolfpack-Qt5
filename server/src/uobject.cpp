@@ -618,7 +618,7 @@ void cUObject::removeFromView( bool clean )
 /*!
 	Checks if the specified object is in given range
 */
-bool cUObject::inRange( cUObject* object, Q_UINT32 range ) const
+bool cUObject::inRange( cUObject* object, quint32 range ) const
 {
 	if ( !object )
 		return false;
@@ -668,7 +668,7 @@ void cUObject::lightning( unsigned short hue )
 /*!
 	Displays an effect emitting from this object toward another item or character
 */
-void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool explodes, Q_UINT8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool explodes, quint8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
 {
 	if ( !target )
 		return;
@@ -702,7 +702,7 @@ void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool 
 /*!
 	Displays an effect emitting from this object and moving towards a specific location.
 */
-void cUObject::effect( Q_UINT16 id, const Coord& target, bool fixedDirection, bool explodes, Q_UINT8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( Q_UINT16 id, const Coord& target, bool fixedDirection, bool explodes, quint8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
 {
 	cUOTxEffect effect;
 	effect.setType( ET_MOVING );
@@ -732,7 +732,7 @@ void cUObject::effect( Q_UINT16 id, const Coord& target, bool fixedDirection, bo
 /*!
 	Displays an effect moving with this object.
 */
-void cUObject::effect( Q_UINT16 id, Q_UINT8 speed, Q_UINT8 duration, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( Q_UINT16 id, quint8 speed, quint8 duration, Q_UINT16 hue, Q_UINT16 renderMode )
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCESER );

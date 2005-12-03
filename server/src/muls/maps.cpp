@@ -739,7 +739,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 
 		const uint remainX = x % 8;
 		const uint remainY = y % 8;
-		for ( Q_UINT32 i = 0; i < blockLength / 7; ++i )
+		for ( quint32 i = 0; i < blockLength / 7; ++i )
 		{
 			staticrecord r;
 			staticStream >> r.itemid;
@@ -765,7 +765,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 			// Copy only the ones we need
 			const uint remainX = x % 8;
 			const uint remainY = y % 8;
-			for (Q_UINT32 i = 0; i < p->size(); ++i ) {
+			for (quint32 i = 0; i < p->size(); ++i ) {
 				const staticrecord &r = p->at(i);
 				if (r.xoff == remainX && r.yoff == remainY) {
 					staticArray.append(r);

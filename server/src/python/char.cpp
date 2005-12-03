@@ -1634,8 +1634,8 @@ static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 	Q_UINT16 id = getArgInt( 0 );
 
 	// Optional Arguments
-	Q_UINT8 speed = 5;
-	Q_UINT8 duration = 10;
+	quint8 speed = 5;
+	quint8 duration = 10;
 	Q_UINT16 hue = 0;
 	Q_UINT16 renderMode = 0;
 
@@ -1801,7 +1801,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	if ( !self->pChar || self->pChar->free )
 		Py_RETURN_FALSE;
 
-	Q_UINT32 expiretime;
+	quint32 expiretime;
 	PyObject* expireFunction = 0;
 	PyObject* arguments = 0;
 	uchar persistent = 0;
@@ -3076,8 +3076,8 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		QStringList scripts = QStringList::split( ",", self->pChar->scriptList() );
 		if ( self->pChar->basedef() )
 		{
-			const Q3PtrList<cPythonScript> &list = self->pChar->basedef()->baseScripts();
-			Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
+			const QList<cPythonScript*> &list = self->pChar->basedef()->baseScripts();
+			QList<cPythonScript*>::const_iterator it( list.begin() );
 			while ( it != list.end() )
 			{
 				scripts.append( ( *it )->name() );

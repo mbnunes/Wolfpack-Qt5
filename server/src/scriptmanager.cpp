@@ -142,7 +142,7 @@ void cScriptManager::unload()
 void cScriptManager::load()
 {
 	// Each Section is a Script identifier
-	const Q3ValueVector<cElement*>& sections = Definitions::instance()->getDefinitions( WPDT_SCRIPT );
+	const QList<cElement*>& sections = Definitions::instance()->getDefinitions( WPDT_SCRIPT );
 
 	unsigned int loaded = 0;
 	unsigned int i;

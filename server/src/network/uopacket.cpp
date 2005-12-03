@@ -83,7 +83,7 @@ cUOPacket::cUOPacket( cUOPacket& p ) : haveCompressed( false )
 /*!
   Constructs a packet of size \a size and filled with 0's.
 */
-cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size ), haveCompressed( false )
+cUOPacket::cUOPacket( quint32 size ) : rawPacket( size ), haveCompressed( false )
 {
 	init();
 	rawPacket.fill( ( char ) 0 );
@@ -94,7 +94,7 @@ cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size ), haveCompressed( false
   with 0's in all positions except for the first byte which contains
   the packet type.
 */
-cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size ), haveCompressed( false )
+cUOPacket::cUOPacket( quint8 packetId, quint32 size ) : rawPacket( size ), haveCompressed( false )
 {
 	init();
 	rawPacket.fill( ( char ) 0 );
@@ -204,7 +204,7 @@ void cUOPacket::compress( void )
 	const uint packetSize = rawPacket.size(); // small optimization
 	while ( packetPos < packetSize )
 	{
-		Q_UINT8 packetByte = static_cast<Q_UINT8>( rawPacket.at( packetPos++ ) );
+		quint8 packetByte = static_cast<quint8>( rawPacket.at( packetPos++ ) );
 		codeSize = bitTable[packetByte].size;
 		code = bitTable[packetByte].code;
 		buffer32 <<= codeSize;
@@ -447,7 +447,7 @@ cUOPacket& cUOPacket::operator=( cUOPacket& p )
 Q3CString cUOPacket::dump( const QByteArray& data )
 {
 	Q_INT32 length = data.count();
-	Q3CString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( Q_UINT8 ) data[0], 2, 16 ).arg( data.count() ).latin1();
+	Q3CString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( quint8 ) data[0], 2, 16 ).arg( data.count() ).latin1();
 
 	int lines = length / 16;
 	if ( length % 16 ) // always round up.
@@ -462,7 +462,7 @@ Q3CString cUOPacket::dump( const QByteArray& data )
 		{
 			if ( actLine * 16 + actRow < length )
 			{
-				Q3CString number = QString::number( static_cast<uint>( static_cast<Q_UINT8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + Q3CString( " " );
+				Q3CString number = QString::number( static_cast<uint>( static_cast<quint8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + Q3CString( " " );
 				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
 				if ( number.length() < 3 )
 					number.prepend( "0" );
@@ -477,7 +477,7 @@ Q3CString cUOPacket::dump( const QByteArray& data )
 		for ( actRow = 0; actRow < 16; ++actRow )
 		{
 			if ( actLine * 16 + actRow < length )
-				line += ( isprint( static_cast<Q_UINT8>( data[actLine * 16 + actRow] ) ) ) ? data[actLine * 16 + actRow] : '.' ;
+				line += ( isprint( static_cast<quint8>( data[actLine * 16 + actRow] ) ) ) ? data[actLine * 16 + actRow] : '.' ;
 		}
 
 		line += "\n";

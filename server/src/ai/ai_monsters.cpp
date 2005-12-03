@@ -264,7 +264,7 @@ float Monster_Aggr_Fight::preCondition()
 	if ( !pAI || !pAI->currentVictim() || pAI->currentVictim()->isDead() )
 		return 0.0f;
 
-	Q_UINT8 range = 1;
+	quint8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon )
 	{
@@ -306,7 +306,7 @@ float Monster_Aggr_Fight::postCondition()
 	if ( !pAI || !pAI->currentVictim() || pAI->currentVictim()->isDead() )
 		return 1.0f;
 
-	Q_UINT8 range = 1;
+	quint8 range = 1;
 	P_ITEM weapon = m_npc->getWeapon();
 	if ( weapon )
 	{

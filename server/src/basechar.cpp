@@ -382,7 +382,7 @@ void cBaseChar::load( char** result, Q_UINT16& offset )
 		// row[3] = cap (unused!)
 		Q_UINT16 skill = res.getInt( 0 );
 		Q_UINT16 value = res.getInt( 1 );
-		Q_UINT8 lockType = res.getInt( 2 );
+		quint8 lockType = res.getInt( 2 );
 		Q_UINT16 cap = res.getInt( 3 );
 
 		if ( lockType > 2 )
@@ -469,7 +469,7 @@ void cBaseChar::save()
 		saveFields;
 	}
 
-	Q3ValueVector<stSkillValue>::iterator it;
+	QVector<stSkillValue>::iterator it;
 	PersistentBroker::instance()->lockTable( "skills" );
 	int i = 0;
 	Q3CString query( 256 ); // 256 byte should be enough
@@ -893,7 +893,7 @@ void cBaseChar::turnTo( const Coord& pos )
 {
 	Q_INT16 xdif = ( Q_INT16 ) ( pos.x - this->pos().x );
 	Q_INT16 ydif = ( Q_INT16 ) ( pos.y - this->pos().y );
-	Q_UINT8 nDir;
+	quint8 nDir;
 
 	if ( xdif == 0 && ydif < 0 )
 		nDir = 0;
@@ -931,7 +931,7 @@ void cBaseChar::turnTo( cUObject* object )
 */
 void cBaseChar::wear( P_ITEM pi )
 {
-	Q_UINT8 layer = pi->layer();
+	quint8 layer = pi->layer();
 
 	if ( !pi->container() )
 	{
@@ -972,7 +972,7 @@ void cBaseChar::unhide()
 int cBaseChar::countItems( short ID, short col )
 {
 	// Dont you think it's better to search the char's equipment as well?
-	Q_UINT32 number = 0;
+	quint32 number = 0;
 	ItemContainer::const_iterator it( content_.begin() );
 	ItemContainer::const_iterator end( content_.end() );
 
@@ -1065,7 +1065,7 @@ unsigned int cBaseChar::getSkillSum() const
 {
 	unsigned int sum = 0;
 
-	Q3ValueVector<stSkillValue>::const_iterator it = skills_.begin();
+	QVector<stSkillValue>::const_iterator it = skills_.begin();
 	for ( ; it != skills_.end(); ++it )
 		sum += ( *it ).value;
 
@@ -2294,7 +2294,7 @@ void cBaseChar::setSkillCap( Q_UINT16 skill, Q_UINT16 cap )
 	skills_[skill].changed = true;
 }
 
-void cBaseChar::setSkillLock( Q_UINT16 skill, Q_UINT8 lock )
+void cBaseChar::setSkillLock( Q_UINT16 skill, quint8 lock )
 {
 	if ( lock > 2 )
 		lock = 0;
@@ -2313,7 +2313,7 @@ Q_UINT16 cBaseChar::skillCap( Q_UINT16 skill ) const
 	return skills_[skill].cap;
 }
 
-Q_UINT8 cBaseChar::skillLock( Q_UINT16 skill ) const
+quint8 cBaseChar::skillLock( Q_UINT16 skill ) const
 {
 	return skills_[skill].lock;
 }
@@ -3786,8 +3786,8 @@ PyObject* cBaseChar::callEvent( ePythonEvent event, PyObject* args, bool ignoreE
 	// call the basescripts
 	if ( basedef_ )
 	{
-		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
-		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
+		const QList<cPythonScript*> &list = basedef_->baseScripts();
+		QList<cPythonScript*>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			result = ( *it )->callEvent( event, args, ignoreErrors );
@@ -3827,8 +3827,8 @@ bool cBaseChar::canHandleEvent( ePythonEvent event )
 
 	if ( basedef_ )
 	{
-		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
-		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
+		const QList<cPythonScript*> &list = basedef_->baseScripts();
+		QList<cPythonScript*>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			if ( ( *it )->canHandleEvent( event ) )
@@ -3864,8 +3864,8 @@ bool cBaseChar::hasScript( const Q3CString& name )
 {
 	if ( basedef_ )
 	{
-		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
-		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
+		const QList<cPythonScript*> &list = basedef_->baseScripts();
+		QList<cPythonScript*>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			if ( ( *it )->name() == name )

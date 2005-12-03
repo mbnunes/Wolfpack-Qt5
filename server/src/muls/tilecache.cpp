@@ -86,7 +86,7 @@ void cTileCache::load()
 		throw wpException( QString( "Error opening file %1 for reading." ).arg( path + "tiledata.mul" ) );
 
 	// Begin reading in the Land-Tiles
-	Q_UINT32 i, j;
+	quint32 i, j;
 
 	for ( i = 0; i < 512; ++i )
 	{
@@ -104,7 +104,7 @@ void cTileCache::load()
 	// Repeat the same procedure for static tiles
 	// NOTE: We are only interested in the REAL static tiles, nothing of
 	// that ALHPA crap above it
-	Q_UINT32 skipLand = 512 * ( 4 + ( 32 * 26 ) );
+	quint32 skipLand = 512 * ( 4 + ( 32 * 26 ) );
 
 	for ( i = 0; i < 512; ++i )
 	{
@@ -128,19 +128,19 @@ void cTileCache::load()
 	input.setName( path + "verdata.mul" );
 	if ( input.open( IO_ReadOnly ) )
 	{
-		Q_UINT32 patches;
+		quint32 patches;
 		QDataStream verdata( &input );
 		verdata.setByteOrder( QDataStream::LittleEndian );
 
 		verdata >> patches;
 
 		// Seek trough all patches
-		for ( Q_UINT32 patchId = 0; patchId < patches; ++patchId )
+		for ( quint32 patchId = 0; patchId < patches; ++patchId )
 		{
 			verdata.device()->at( 4 + ( patchId * 21 ) );
 
 			// Read the patch
-			Q_UINT32 fileId, blockId, offset, length, extra;
+			quint32 fileId, blockId, offset, length, extra;
 			verdata >> fileId >> blockId >> offset >> length >> extra;
 
 			if ( fileId != VERFILE_TILEDATA )

@@ -48,7 +48,7 @@ cGump::cGump() : serial_( INVALID_SERIAL ), type_( 1 ), x_( 50 ), y_( 50 ), noMo
 }
 
 // New Single gump implementation, written by darkstorm
-Q_UINT32 cGump::addRawText( const QString& data )
+quint32 cGump::addRawText( const QString& data )
 {
 	// Do we already have the text?
 	if ( !text_.contains( data ) )
@@ -87,7 +87,7 @@ void cGump::addHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, co
 	layout_.push_back( layout );
 }
 
-void cGump::addXmfHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, Q_UINT32 clilocid, bool hasBack, bool canScroll )
+void cGump::addXmfHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, quint32 clilocid, bool hasBack, bool canScroll )
 {
 	QString layout( "{xmfhtmlgump %1 %2 %3 %4 %5 %6 %7}" );
 	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
@@ -102,7 +102,7 @@ void cGump::addCheckertrans( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height
 	layout_.push_back( layout );
 }
 
-void cGump::addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, const QString& data, Q_UINT16 hue )
+void cGump::addCroppedText( Q_INT32 textX, Q_INT32 textY, quint32 width, quint32 height, const QString& data, Q_UINT16 hue )
 {
 	QString layout( "{croppedtext %1 %2 %3 %4 %5 %6}" );
 	layout = layout.arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( addRawText( data ) );

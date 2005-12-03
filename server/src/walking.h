@@ -55,14 +55,14 @@ private:
 	signed char z;
 
 public:
-	bool Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );
+	bool Walking( P_CHAR pChar, quint8 dir, quint8 sequence );
 	void CombatWalk( P_CHAR pc );
 	void NpcMovement( unsigned int currenttime, P_NPC pc_i );
 	bool canLandMonsterMoveHere( Coord& ) const;
-	Coord calcCoordFromDir( Q_UINT8 dir, const Coord& oldCoords );
+	Coord calcCoordFromDir( quint8 dir, const Coord& oldCoords );
 private:
 	bool consumeStamina( P_PLAYER pChar, bool running );
-	bool verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw();
+	bool verifySequence( cUOSocket* socket, quint8 sequence ) throw();
 	void checkStealth( P_CHAR );
 	void sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord& oldpos );
 

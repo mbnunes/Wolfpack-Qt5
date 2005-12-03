@@ -344,14 +344,14 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	Q_UINT32 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	quint32 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 	Q_UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 	Q_UINT16 color = 0;
 
 	if ( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 
-	Q_UINT32 deleted = 0;
+	quint32 deleted = 0;
 	deleted = self->pItem->deleteAmount( amount, id, color );
 
 	return PyInt_FromLong( deleted );
@@ -574,7 +574,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	// Optional Arguments
 	bool fixedDirection = true;
 	bool explodes = false;
-	Q_UINT8 speed = 10;
+	quint8 speed = 10;
 	Q_UINT16 hue = 0;
 	Q_UINT16 renderMode = 0;
 
@@ -625,7 +625,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 {
-	Q_UINT32 expiretime;
+	quint32 expiretime;
 	PyObject* function;
 	PyObject* arguments;
 	uchar persistent = 0;
@@ -1102,8 +1102,8 @@ static PyObject* wpItem_effect( wpItem* self, PyObject* args )
 {
 	Q_UINT16 id;
 	// Optional Arguments
-	Q_UINT8 speed = 5;
-	Q_UINT8 duration = 10;
+	quint8 speed = 5;
+	quint8 duration = 10;
 	Q_UINT16 hue = 0;
 	Q_UINT16 renderMode = 0;
 
@@ -1356,8 +1356,8 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		QStringList events = QStringList::split( ",", self->pItem->scriptList() );
 		if ( self->pItem->basedef() )
 		{
-			const Q3PtrList<cPythonScript> &list = self->pItem->basedef()->baseScripts();
-			Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
+			const QList<cPythonScript*> &list = self->pItem->basedef()->baseScripts();
+			QList<cPythonScript*>::const_iterator it( list.begin() );
 			while ( it != list.end() )
 			{
 				events.append( ( *it )->name() );

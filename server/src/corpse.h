@@ -54,7 +54,7 @@ protected:
 	SERIAL murderer_; // Who was the murderer
 	Q3CString charbaseid_;
 
-	QMap<Q_UINT8, SERIAL> equipment_; // Serials of the old equipment
+	QMap<quint8, SERIAL> equipment_; // Serials of the old equipment
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
 public:
@@ -90,8 +90,8 @@ public:
 	SERIAL murderer() const;
 	unsigned int murderTime() const;
 
-	void addEquipment( Q_UINT8 layer, SERIAL serial );
-	SERIAL getEquipment( Q_UINT8 layer );
+	void addEquipment( quint8 layer, SERIAL serial );
+	SERIAL getEquipment( quint8 layer );
 
 	const char* objectID() const
 	{

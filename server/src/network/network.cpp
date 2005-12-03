@@ -209,7 +209,7 @@ cUOSocket* cNetwork::next()
 	return d->uoSockets.next();
 }
 
-Q_UINT32 cNetwork::count()
+quint32 cNetwork::count()
 {
 	return d->uoSockets.count();
 }

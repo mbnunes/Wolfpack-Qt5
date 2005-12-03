@@ -373,9 +373,9 @@ void cTerritories::load()
 		}
 	}
 
-	const Q3ValueVector<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
+	const QList<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
 
-	Q3ValueVector<cElement*>::const_iterator it( elements.begin() );
+	QList<cElement*>::const_iterator it( elements.begin() );
 	while ( it != elements.end() )
 	{
 		cTerritory* territory = new cTerritory( *it, 0 );
@@ -400,8 +400,8 @@ void cTerritories::load()
 	}
 
 	// Get the toplevel teleporters and insert them
-	const Q3ValueVector<cElement*> &teleporters = Definitions::instance()->getDefinitions( WPDT_TELEPORTER );
-	Q3ValueVector<cElement*>::const_iterator tit;
+	const QList<cElement*> &teleporters = Definitions::instance()->getDefinitions( WPDT_TELEPORTER );
+	QList<cElement*>::const_iterator tit;
 	for ( tit = teleporters.begin(); tit != teleporters.end(); ++tit )
 	{
 		cElement *element = *tit;

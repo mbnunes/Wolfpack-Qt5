@@ -42,7 +42,7 @@ MultiDefinition::MultiDefinition() : width( 0 ), height( 0 ), left( 0 ), top( 0 
 {
 }
 
-void MultiDefinition::setItems( const Q3ValueVector<multiItem_st>& items )
+void MultiDefinition::setItems( const QList<multiItem_st>& items )
 {
 	// try to sort
 	if ( items.empty() )
@@ -79,10 +79,10 @@ void MultiDefinition::setItems( const Q3ValueVector<multiItem_st>& items )
 	entries = items;
 }
 
-const Q3ValueVector<multiItem_st>& MultiDefinition::itemsAt( int x, int y )
+const QList<multiItem_st>& MultiDefinition::itemsAt( int x, int y )
 {
 	unsigned int index = ( x - left ) + ( y - top ) * width;
-	static Q3ValueVector<multiItem_st> emptyGrid;
+	static QList<multiItem_st> emptyGrid;
 	if ( index >= grid.size() )
 	{
 		return emptyGrid;
@@ -130,7 +130,7 @@ signed char MultiDefinition::multiHeight( short x, short y, short z ) const
 /*!
 	Returns this Multi's entries as found in the multis.mul file
 */
-Q3ValueVector<multiItem_st> MultiDefinition::getEntries() const
+QList<multiItem_st> MultiDefinition::getEntries() const
 {
 	return entries;
 }
@@ -215,8 +215,7 @@ void cMultiCache::load()
 			continue;
 		}
 
-		Q3ValueVector<multiItem_st> items;
-		items.reserve( indexData.length / 12 );
+		QList<multiItem_st> items;
 
 		multiFile.at( indexData.start );
 		QDataStream multiStream( &multiFile );
@@ -229,9 +228,9 @@ void cMultiCache::load()
 			multiStream >> item.x;
 			multiStream >> item.y;
 			multiStream >> item.z;
-			Q_UINT8 empty;
+			quint8 empty;
 			multiStream >> empty; // ????
-			Q_UINT32 isVisible = 0;
+			quint32 isVisible = 0;
 			multiStream >> isVisible;
 			item.visible = isVisible > 0 ? true : false;
 

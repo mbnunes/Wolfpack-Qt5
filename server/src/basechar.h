@@ -263,7 +263,7 @@ public:
 	virtual bool isOverloaded() = 0;
 	virtual void showName( cUOSocket* socket ) = 0;
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
-	virtual void giveGold( Q_UINT32 amount, bool inBank = false ) = 0;
+	virtual void giveGold( quint32 amount, bool inBank = false ) = 0;
 	virtual uint takeGold( uint amount, bool inBank = false ) = 0;
 	virtual void log( eLogLevel, const QString& string ) = 0;
 	virtual void log( const QString& string ) = 0;
@@ -886,7 +886,7 @@ protected:
 	ItemContainer content_;
 
 	// Skill properties of this char.
-	Q3ValueVector<stSkillValue> skills_;
+	QVector<stSkillValue> skills_;
 
 	// Region the char is in.
 	cTerritory* region_;

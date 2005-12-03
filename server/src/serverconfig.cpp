@@ -64,7 +64,7 @@ Q_INT32 resolveName( const QString& data )
 
 	// we do a dns lookup on this
 
-	Q_UINT32 uiValue = inet_addr( ( char* ) data.latin1() ) ;
+	quint32 uiValue = inet_addr( ( char* ) data.latin1() ) ;
 	if ( uiValue == INADDR_NONE )
 	{
 		hostent* ptrHost = gethostbyname( ( char* ) data.latin1() );
@@ -96,16 +96,16 @@ QHostAddress internetAddress()
 
 		if ( hostinfo )
 		{
-			Q_UINT32 i = 0;
+			quint32 i = 0;
 
 			while ( hostinfo->h_addr_list[i] )
 			{
 				// Check if it's an INTERNET ADDRESS
 				char* hIp = inet_ntoa( *( struct in_addr* ) hostinfo->h_addr_list[i++] );
 				result.setAddress( hIp );
-				Q_UINT32 ip = result.toIPv4Address();
-				Q_UINT8 part1 = ( ip & 0xFF000000 ) >> 24;
-				Q_UINT8 part2 = ( ip & 0x00FF0000 ) >> 16;
+				quint32 ip = result.toIPv4Address();
+				quint8 part1 = ( ip & 0xFF000000 ) >> 24;
+				quint8 part2 = ( ip & 0x00FF0000 ) >> 16;
 
 				if ( ( part1 == 127 ) || 	//this one is class A too.
 					( part1 == 10 ) || ( ( part1 == 192 ) && ( part2 == 168 ) ) || ( ( part1 == 172 ) && ( part2 >= 16 ) && ( part2 <= 31 ) ) || ( ( part1 == 169 ) && ( part2 == 254 ) ) // DHCP Space Stuff

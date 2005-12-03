@@ -161,7 +161,7 @@ void cCorpse::save()
 		PersistentBroker::instance()->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial() ) );
 	}
 
-	for ( QMap<Q_UINT8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
+	for ( QMap<quint8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it.key() ).arg( it.data() ) );
 
 	cItem::save();
@@ -202,7 +202,7 @@ void cCorpse::update( cUOSocket* mSock )
 
 		corpseEquip.setSerial( serial() );
 
-		for ( QMap<Q_UINT8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
+		for ( QMap<quint8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 		{
 			P_ITEM pItem = World::instance()->findItem( it.data() );
 
@@ -253,7 +253,7 @@ void cCorpse::update( cUOSocket* mSock )
 	}
 }
 
-SERIAL cCorpse::getEquipment( Q_UINT8 layer )
+SERIAL cCorpse::getEquipment( quint8 layer )
 {
 	if ( equipment_.find( layer ) == equipment_.end() )
 	{
@@ -265,7 +265,7 @@ SERIAL cCorpse::getEquipment( Q_UINT8 layer )
 	}
 }
 
-void cCorpse::addEquipment( Q_UINT8 layer, SERIAL serial )
+void cCorpse::addEquipment( quint8 layer, SERIAL serial )
 {
 	if ( equipment_.find( layer ) != equipment_.end() )
 	{

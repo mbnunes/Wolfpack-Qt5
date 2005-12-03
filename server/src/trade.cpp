@@ -92,7 +92,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 		return;
 	}
 
-	Q_UINT32 itemCount = packet->itemCount();
+	quint32 itemCount = packet->itemCount();
 
 	if ( itemCount >= 256 )
 	{
@@ -105,8 +105,8 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 	Q_UNUSED( pStock );
 	Q_UNUSED( pBought );
 
-	Q_UINT32 totalValue = 0;
-	Q_UINT32 i;
+	quint32 totalValue = 0;
+	quint32 i;
 	map<SERIAL, Q_UINT16> items;
 
 	for ( i = 0; i < itemCount; ++i )
@@ -121,7 +121,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 		}
 
 		Q_UINT16 amount = packet->iAmount( i );
-		Q_UINT8 layer = pItem->getOutmostItem()->layer();
+		quint8 layer = pItem->getOutmostItem()->layer();
 
 		// First check: is the item on the vendor in the specified layer
 		if ( layer == cBaseChar::BuyRestockContainer )
@@ -183,9 +183,9 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				}				
 
 				// Get our total gold at once
-				Q_UINT32 packFirst = backpack->countItems( idfirst.toUShort(0, 16) );
-				Q_UINT32 packSecond = backpack->countItems( idsecond.toUShort(0, 16) );
-				Q_UINT32 packThird = backpack->countItems( idthird.toUShort(0, 16) );
+				quint32 packFirst = backpack->countItems( idfirst.toUShort(0, 16) );
+				quint32 packSecond = backpack->countItems( idsecond.toUShort(0, 16) );
+				quint32 packThird = backpack->countItems( idthird.toUShort(0, 16) );
 
 				// Use Reversed Monetary?
 				if (Config::instance()->usereversedvaluable()) {
@@ -356,13 +356,13 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				P_ITEM backpack = pChar->getBackpack(); //My BackPack
 
 				// Get our total gold at once
-				Q_UINT32 bankFirst = bank->countItems( idfirst.toUShort(0, 16) );
-				Q_UINT32 bankSecond = bank->countItems( idsecond.toUShort(0, 16) );
-				Q_UINT32 bankThird = bank->countItems( idthird.toUShort(0, 16) );
+				quint32 bankFirst = bank->countItems( idfirst.toUShort(0, 16) );
+				quint32 bankSecond = bank->countItems( idsecond.toUShort(0, 16) );
+				quint32 bankThird = bank->countItems( idthird.toUShort(0, 16) );
 
-				Q_UINT32 packFirst = backpack->countItems( idfirst.toUShort(0, 16) );
-				Q_UINT32 packSecond = backpack->countItems( idsecond.toUShort(0, 16) );
-				Q_UINT32 packThird = backpack->countItems( idthird.toUShort(0, 16) );
+				quint32 packFirst = backpack->countItems( idfirst.toUShort(0, 16) );
+				quint32 packSecond = backpack->countItems( idsecond.toUShort(0, 16) );
+				quint32 packThird = backpack->countItems( idthird.toUShort(0, 16) );
 
 				// Lets go... First Money Section
 				if ( packFirst >= totalValue )
@@ -489,7 +489,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 			if (Config::instance()->payfrompackonly()) {
 
 				// Get our total gold at once
-				Q_UINT32 packGold = pChar->countGold();
+				quint32 packGold = pChar->countGold();
 
 				if ( packGold >= totalValue )
 				{
@@ -506,8 +506,8 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 			else
 			{
 				// Get our total gold at once
-				Q_UINT32 bankGold = pChar->countBankGold();
-				Q_UINT32 packGold = pChar->countGold();
+				quint32 bankGold = pChar->countBankGold();
+				quint32 packGold = pChar->countGold();
 
 				if ( packGold >= totalValue )
 				{
@@ -627,7 +627,7 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 		return;
 	}
 
-	Q_UINT32 itemCount = packet->itemCount();
+	quint32 itemCount = packet->itemCount();
 
 	if ( itemCount >= 256 )
 	{
@@ -643,8 +643,8 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 		return;
 	}
 
-	Q_UINT32 totalValue = 0;
-	Q_UINT32 i;
+	quint32 totalValue = 0;
+	quint32 i;
 	map<SERIAL, Q_UINT16> items;
 
 	for ( i = 0; i < itemCount; ++i )

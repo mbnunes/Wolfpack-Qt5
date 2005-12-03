@@ -131,18 +131,18 @@ public:
 	{
 		return tooltipscache_;
 	}
-	bool haveTooltip( Q_UINT32 data ) const
+	bool haveTooltip( quint32 data ) const
 	{
 		return tooltipscache_->testBit( data );
 	}
-	void delTooltip( Q_UINT32 data )
+	void delTooltip( quint32 data )
 	{
 		tooltipscache_->setBit( data, false );
 	}
-	void addTooltip( Q_UINT32 );
+	void addTooltip( quint32 );
 
-	Q_UINT8 walkSequence( void ) const;
-	void setWalkSequence( Q_UINT8 data );
+	quint8 walkSequence( void ) const;
+	void setWalkSequence( quint8 data );
 
 
 	QTcpSocket* socket( void ) const;
@@ -178,7 +178,7 @@ public:
 	void setTxBytes( unsigned int data );
 	void setTxBytesRaw( unsigned int data );
 
-	Q_UINT32 uniqueId( void ) const;
+	quint32 uniqueId( void ) const;
 
 	void send( cUOPacket* packet );
 	void send( cGump* gump );
@@ -239,7 +239,7 @@ public:
 	// Utilities
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
-	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, Q_UINT8 speechType = 0x00 );
+	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, quint8 speechType = 0x00 );
 	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, Q_UINT16 font = 3 );
 	void sendCharList();
 	void removeObject( cUObject* object );
@@ -247,7 +247,7 @@ public:
 	void sendPaperdoll( P_CHAR pChar );
 	void playMusic( void );
 	void sendContainer( P_ITEM pCont );
-	void bounceItem( P_ITEM pItem, Q_UINT8 reason );
+	void bounceItem( P_ITEM pItem, quint8 reason );
 	void updatePlayer();
 	void resendPlayer( bool quick = true );
 	void updateWeather( P_PLAYER pChar );
@@ -268,12 +268,12 @@ public:
 	void sendBuyWindow( P_NPC pVendor );
 	void sendSellWindow( P_NPC pVendor, P_CHAR pSeller );
 	void sendVendorCont( P_ITEM pItem );
-	void clilocMessage( const Q_UINT32 MsgID, const QString& params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool system = false );
-	void clilocMessageAffix( const Q_UINT32 MsgID, const QString& params = 0, const QString& affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
+	void clilocMessage( const quint32 MsgID, const QString& params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool system = false );
+	void clilocMessageAffix( const quint32 MsgID, const QString& params = 0, const QString& affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
 	void updateLightLevel();
 	void sendQuestArrow( bool show, Q_UINT16 x, Q_UINT16 y );
 	void sendWeblink( const QString& url );
-	void closeGump( Q_UINT32 type, Q_UINT32 returnCode );
+	void closeGump( quint32 type, quint32 returnCode );
 	void log( eLogLevel loglevel, const QString& message );
 	void log( const QString& message );
 
@@ -282,8 +282,8 @@ public:
 	bool canSee( P_CHAR character );
 	bool canSee( cUObject* object );
 
-	void allowMove( Q_UINT8 sequence );
-	void denyMove( Q_UINT8 sequence );
+	void allowMove( quint8 sequence );
+	void denyMove( quint8 sequence );
 
 private:
 	void updateCharList();
@@ -298,11 +298,11 @@ signals:
 	void disconnected();
 
 private:
-	Q3ValueVector<cUORxWalkRequest> packetQueue;
+	QList<cUORxWalkRequest> packetQueue;
 	unsigned int _uniqueId;
 	unsigned int _lastActivity;
-	Q_UINT8 _walkSequence;
-	Q_UINT8 lastPacket;
+	quint8 _walkSequence;
+	quint8 lastPacket;
 	eSocketState _state;
 	QString _lang;
 	cTargetRequest* targetRequest;
@@ -316,7 +316,7 @@ private:
 	QQueue<cUOPacket*> incomingQueue;
 	unsigned short _screenWidth;
 	unsigned short _screenHeight;
-	Q_UINT8 _viewRange;
+	quint8 _viewRange;
 	QString _version;
 	cCustomTags tags_;
 	QString _ip; // IP used to connect
@@ -338,12 +338,12 @@ private:
 };
 
 // Inline members
-inline Q_UINT8 cUOSocket::walkSequence( void ) const
+inline quint8 cUOSocket::walkSequence( void ) const
 {
 	return _walkSequence;
 }
 
-inline void cUOSocket::setWalkSequence( Q_UINT8 data )
+inline void cUOSocket::setWalkSequence( quint8 data )
 {
 	_walkSequence = data;
 }
@@ -398,37 +398,37 @@ inline unsigned int cUOSocket::rxBytes( void ) const
 	return _rxBytes;
 }
 
-inline Q_UINT32 cUOSocket::txBytes( void ) const
+inline quint32 cUOSocket::txBytes( void ) const
 {
 	return _txBytes;
 }
 
-inline Q_UINT32 cUOSocket::txBytesRaw( void ) const
+inline quint32 cUOSocket::txBytesRaw( void ) const
 {
 	return _txBytesRaw;
 }
 
-inline Q_UINT8 cUOSocket::viewRange( void ) const
+inline quint8 cUOSocket::viewRange( void ) const
 {
 	return _viewRange;
 }
 
-inline void cUOSocket::setRxBytes( Q_UINT32 data )
+inline void cUOSocket::setRxBytes( quint32 data )
 {
 	_rxBytes = data;
 }
 
-inline void cUOSocket::setTxBytes( Q_UINT32 data )
+inline void cUOSocket::setTxBytes( quint32 data )
 {
 	_txBytes = data;
 }
 
-inline void cUOSocket::setTxBytesRaw( Q_UINT32 data )
+inline void cUOSocket::setTxBytesRaw( quint32 data )
 {
 	_txBytesRaw = data;
 }
 
-inline Q_UINT32 cUOSocket::uniqueId( void ) const
+inline quint32 cUOSocket::uniqueId( void ) const
 {
 	return _uniqueId;
 }

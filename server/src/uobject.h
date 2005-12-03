@@ -119,11 +119,11 @@ public:
 	void postload( unsigned int version ) = 0;
 
 	// Utility Methods
-	void effect( Q_UINT16 id, Q_UINT8 speed = 10, Q_UINT8 duration = 5, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 ); // Moving with this character
-	void effect( Q_UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, Q_UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
-	void effect( Q_UINT16 id, const Coord& target, bool fixedDirection = true, bool explodes = false, Q_UINT8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
+	void effect( Q_UINT16 id, quint8 speed = 10, quint8 duration = 5, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 ); // Moving with this character
+	void effect( Q_UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, quint8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
+	void effect( Q_UINT16 id, const Coord& target, bool fixedDirection = true, bool explodes = false, quint8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
 	void lightning( unsigned short hue = 0 );
-	bool inRange( cUObject* object, Q_UINT32 range ) const;
+	bool inRange( cUObject* object, quint32 range ) const;
 	void removeFromView( bool clean = true );
 	virtual void sendTooltip( cUOSocket* mSock );
 	bool isItem() const
@@ -134,7 +134,7 @@ public:
 	{
 		return isCharSerial( serial_ );
 	}
-	virtual void talk( const QString& message, UI16 color = 0xFFFF, Q_UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, quint8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
 	virtual void flagUnchanged()
 	{
 		changed_ = false;
@@ -171,7 +171,7 @@ public:
 	{
 		return serial_;
 	}
-	Q_UINT32 getTooltip() const
+	quint32 getTooltip() const
 	{
 		return tooltip_;
 	}
@@ -196,7 +196,7 @@ public:
 		serial_ = d; changed_ = true;
 	}
 
-	void setTooltip( const Q_UINT32 d )
+	void setTooltip( const quint32 d )
 	{
 		tooltip_ = d;
 	}

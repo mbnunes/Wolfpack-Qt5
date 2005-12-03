@@ -217,7 +217,7 @@ void cNPC::save()
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
 		addField( "stablemaster", stablemasterSerial_ );
 		addStrField( "ai", aiid_ );
-		addField( "wandertype", ( Q_UINT8 ) wanderType() );
+		addField( "wandertype", ( quint8 ) wanderType() );
 		addField( "wanderx1", wanderX1() );
 		addField( "wanderx2", wanderX2() );
 		addField( "wandery1", wanderY1() );
@@ -387,7 +387,7 @@ void cNPC::resend( bool clean )
 	}
 }
 
-void cNPC::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospam, cUOSocket* socket )
+void cNPC::talk( const QString& message, UI16 color, quint8 type, bool autospam, cUOSocket* socket )
 {
 	if ( autospam )
 	{
@@ -448,7 +448,7 @@ void cNPC::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospam
 	}
 }
 
-void cNPC::talk( const Q_UINT32 MsgID, const QString& params /*= 0*/, const QString& affix /*= 0*/, bool prepend /*= false*/, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
+void cNPC::talk( const quint32 MsgID, const QString& params /*= 0*/, const QString& affix /*= 0*/, bool prepend /*= false*/, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
 {
 	if ( color == 0xFFFF )
 		color = saycolor_;
@@ -476,7 +476,7 @@ void cNPC::talk( const Q_UINT32 MsgID, const QString& params /*= 0*/, const QStr
 	}
 }
 
-Q_UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
+quint8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
 	if ( isIncognito() )
 	{
@@ -495,7 +495,7 @@ Q_UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another cha
 		7 = invulnerable (yellow)
 		//7 = unknown use (translucent (like 0x4000 hue))
 	*/
-	Q_UINT8 result;
+	quint8 result;
 
 	if ( isInvulnerable() )
 	{
@@ -503,7 +503,7 @@ Q_UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another cha
 	}
 
 	// Check for Guild status + Highlight
-	//	Q_UINT8 guildStatus = GuildCompare( this, pChar );
+	//	quint8 guildStatus = GuildCompare( this, pChar );
 
 	//	if( npcaitype() == 0x02 )
 	//		return 0x06; // 6 = Red -> Monster
@@ -702,7 +702,7 @@ void cNPC::soundEffect( UI16 soundId, bool hearAll )
 			s->send( &pSoundEffect );
 }
 
-void cNPC::giveGold( Q_UINT32 amount, bool inBank )
+void cNPC::giveGold( quint32 amount, bool inBank )
 {
 	Q_UNUSED( inBank );
 	P_ITEM pCont = getBackpack();
@@ -711,23 +711,23 @@ void cNPC::giveGold( Q_UINT32 amount, bool inBank )
 		return;
 
 	// Begin Spawning
-	Q_UINT32 total = amount;
+	quint32 total = amount;
 
 	while ( total > 0 )
 	{
 		P_ITEM pile = cItem::createFromScript( "eed" );
-		pile->setAmount( wpMin<Q_UINT32>( total, 65535 ) );
+		pile->setAmount( wpMin<quint32>( total, 65535 ) );
 		pCont->addItem( pile );
 		total -= pile->amount();
 	}
 }
 
-Q_UINT32 cNPC::takeGold( Q_UINT32 amount, bool inBank )
+quint32 cNPC::takeGold( quint32 amount, bool inBank )
 {
 	Q_UNUSED( inBank );
 	P_ITEM pPack = getBackpack();
 
-	Q_UINT32 dAmount = 0;
+	quint32 dAmount = 0;
 
 	if ( pPack )
 		dAmount = pPack->deleteAmount( amount, 0xEED, 0 );

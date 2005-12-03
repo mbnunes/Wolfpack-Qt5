@@ -172,7 +172,7 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 //			what kind of npcs are standing around and then checking only those keywords
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
-bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm, Q3ValueVector<Q_UINT16>& keywords )
+bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm, QList<ushort>& keywords )
 {
 	if ( !pPlayer->socket() || pPlayer->isDead() )
 	{
@@ -253,7 +253,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 	return false;
 }
 
-void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech, Q3ValueVector<Q_UINT16>& keywords, Q_UINT16 color, Q_UINT16 font, Q_UINT8 type ) // PC speech
+void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech, QList<ushort>& keywords, Q_UINT16 color, Q_UINT16 font, quint8 type ) // PC speech
 {
 	// handle things like renaming or describing an item
 	if ( !pChar->socket() )
@@ -304,27 +304,11 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 		return;
 
 	// 0x0007 -> Speech-id for "Guards"
-	for ( Q3ValueVector<Q_UINT16>::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
+	for ( QList<ushort>::const_iterator iter = keywords.begin(); iter != keywords.end(); ++iter )
 	{
-		Q_UINT16 keyword = *iter;
+		ushort keyword = *iter;
 
 		if ( keyword == 0x07 )
 			pChar->callGuards();
 	}
-
-	/*	P_CHAR pc = NULL; ???
-		P_CHAR pNpc = NULL;
-		RegionIterator4Chars ri( pChar->pos() );
-		for( ri.Begin(); !ri.atEnd(); ri++ )
-		{
-			pc = ri.GetData();
-			if (!pc->isSameAs( pChar )
-				&& pc->isNpc()
-				&& pc->dist( pChar ) <= 2)
-			{
-				pNpc = pc;
-				break;
-			}
-		}
-		*/
 }

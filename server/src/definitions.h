@@ -158,7 +158,7 @@ public:
 	void unload( void );
 
 	const cElement* getDefinition( eDefCategory Type, const QString& id ) const;
-	const Q3ValueVector<cElement*>& getDefinitions( eDefCategory Type ) const;
+	const QList<cElement*>& getDefinitions( eDefCategory Type ) const;
 
 	QStringList getSections( eDefCategory Type ) const;
 	QString getRandomListEntry( const QString& ListSection );

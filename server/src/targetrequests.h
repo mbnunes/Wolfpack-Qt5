@@ -135,11 +135,11 @@ class cSetTagTarget : public cTargetRequest
 {
 	OBJECTDEF( cSetTagTarget )
 private:
-	Q_UINT8 type_;
+	quint8 type_;
 	QString key_;
 	QString value_;
 public:
-	cSetTagTarget( QString key, QString value, Q_UINT8 type )
+	cSetTagTarget( QString key, QString value, quint8 type )
 	{
 		type_ = type;
 		key_ = key;

@@ -283,7 +283,7 @@ void cPlayer::resend( bool clean )
 	}
 }
 
-void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospam, cUOSocket* socket )
+void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autospam, cUOSocket* socket )
 {
 	Q_UNUSED( autospam );
 	if ( color == 0xFFFF )
@@ -330,7 +330,7 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 	// Generate the ghost-speech *ONCE*
 	if ( isDead() && !gmSpiritSpeak )
 	{
-		for ( Q_UINT32 gI = 0; gI < message.length(); ++gI )
+		for ( quint32 gI = 0; gI < message.length(); ++gI )
 		{
 			if ( message[gI].isSpace() )
 				ghostSpeech.append( message[gI] );
@@ -371,10 +371,10 @@ void cPlayer::talk( const QString& message, UI16 color, Q_UINT8 type, bool autos
 	}
 }
 
-Q_UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
+quint8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red, 0x07 Yellow
-	Q_UINT8 result;
+	quint8 result;
 
 	if ( isInvulnerable() )
 	{
@@ -740,7 +740,7 @@ void cPlayer::soundEffect( UI16 soundId, bool hearAll )
 	}
 }
 
-void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
+void cPlayer::giveGold( quint32 amount, bool inBank )
 {
 	P_ITEM pCont = NULL;
 	if ( !inBank )
@@ -752,12 +752,12 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 		return;
 
 	// Begin Spawning
-	Q_UINT32 total = amount;
+	quint32 total = amount;
 
 	while ( total > 0 )
 	{
 		P_ITEM pile = cItem::createFromScript( "eed" );
-		pile->setAmount( wpMin<Q_UINT32>( total, static_cast<Q_UINT32>( 65535 ) ) );
+		pile->setAmount( wpMin<quint32>( total, static_cast<quint32>( 65535 ) ) );
 		total -= pile->amount();
 
 		pCont->addItem( pile );
@@ -775,7 +775,7 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 	and returns the amount reduced. If it was successfull, it will return
 	the same value passed on \a amount parameter.
 */
-Q_UINT32 cPlayer::takeGold( Q_UINT32 amount, bool useBank )
+quint32 cPlayer::takeGold( quint32 amount, bool useBank )
 {
 	P_ITEM pPack = getBackpack();
 	P_ITEM pBank = getBankbox();
@@ -792,7 +792,7 @@ Q_UINT32 cPlayer::takeGold( Q_UINT32 amount, bool useBank )
 		return 0;
 	}
 
-	Q_UINT32 dAmount = 0;
+	quint32 dAmount = 0;
 	dAmount = pPack->deleteAmount( amount, 0xEED, 0 );
 
 	if (useBank && dAmount > 0) {
@@ -808,7 +808,7 @@ bool cPlayer::inWorld()
 	return socket_ != 0;
 }
 
-void cPlayer::giveNewbieItems( Q_UINT8 skill )
+void cPlayer::giveNewbieItems( quint8 skill )
 {
 	const cElement* startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString( "default" ) : Skills::instance()->getSkillDef( skill ).lower() );
 
@@ -1478,7 +1478,7 @@ void cPlayer::awardKarma( P_CHAR pKilled, short amount, bool showmessage )
 	if ( !nChange || !socket() || !showmessage )
 		return;
 
-	Q_UINT32 message = 0xF8CB3;
+	quint32 message = 0xF8CB3;
 
 	if ( nChange <= 25 )
 	{

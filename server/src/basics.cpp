@@ -124,7 +124,7 @@ bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ )
 			return false;
 	}
 
-	Q_UINT8 map = coord.map; // Current by default
+	quint8 map = coord.map; // Current by default
 	if ( coords.size() > 3 )
 	{
 		map = coords[3].toUShort( &ok );

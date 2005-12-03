@@ -51,9 +51,9 @@ protected:
 
 public:
 	cUOPacket( const QByteArray& );
-	cUOPacket( Q_UINT32 );
+	cUOPacket( quint32 );
 	cUOPacket( cUOPacket& );
-	cUOPacket( Q_UINT8, Q_UINT32 );
+	cUOPacket( quint8, quint32 );
 	uint size() const;
 	uint count() const;
 	virtual ~cUOPacket();

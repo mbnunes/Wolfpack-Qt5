@@ -141,8 +141,8 @@ bool cMulti::inMulti( const Coord& pos )
 
 	bool itemunder = false;
 	bool itemabove = false;
-	Q3ValueVector<multiItem_st> items = multi->getEntries();
-	Q3ValueVector<multiItem_st>::iterator it;
+	QList<multiItem_st> items = multi->getEntries();
+	QList<multiItem_st>::iterator it;
 	for ( it = items.begin(); it != items.end(); ++it )
 	{
 		if ( !it->visible )
@@ -239,7 +239,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObj
 			bool hasBase = false; // Has this multi tile a base below the floor?
 
 			// See if there are any tiles at that position
-			const Q3ValueVector<multiItem_st> &multiItems = multi->itemsAt( x + left, y + top );
+			const QList<multiItem_st> &multiItems = multi->itemsAt( x + left, y + top );
 
 			if ( multiItems.size() == 0 )
 			{
@@ -408,8 +408,8 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObj
 								if ( multiX >= 0 && multiY >= 0 && multiX < width && multiY < height )
 								{
 									// Get the multi tiles at the to-check position
-									const Q3ValueVector<multiItem_st> &tiles = multi->itemsAt( multiX + left, multiY + right );
-									Q3ValueVector<multiItem_st>::const_iterator it;
+									const QList<multiItem_st> &tiles = multi->itemsAt( multiX + left, multiY + right );
+									QList<multiItem_st>::const_iterator it;
 									for ( it = tiles.begin(); it != tiles.end(); ++it )
 									{
 										if ( it->z > 8 )

@@ -46,7 +46,7 @@ typedef struct
 {
 	PyObject_HEAD;
 	P_CHAR pChar;
-	Q_UINT8 type; // 0: Value; 1: Cap; 2: Lock
+	quint8 type; // 0: Value; 1: Cap; 2: Lock
 } wpSkills;
 
 /*

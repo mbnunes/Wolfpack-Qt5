@@ -53,8 +53,8 @@ struct map_st
 struct staticrecord
 {
 	Q_UINT16 itemid;
-	Q_UINT8 xoff;
-	Q_UINT8 yoff;
+	quint8 xoff;
+	quint8 yoff;
 	Q_INT8 zoff;
 	Q_UINT16 color;
 };

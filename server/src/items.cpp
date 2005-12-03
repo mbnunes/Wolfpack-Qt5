@@ -154,7 +154,7 @@ void cItem::toBackpack( P_CHAR pChar )
  */
 long cItem::reduceAmount( unsigned int amt )
 {
-	Q_UINT32 rest = 0;
+	quint32 rest = 0;
 	if ( amount_ > amt )
 	{
 		setAmount( amount_ - amt );
@@ -1236,7 +1236,7 @@ void cItem::setTotalweight( float data )
 	}
 }
 
-void cItem::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospam, cUOSocket* socket )
+void cItem::talk( const QString& message, UI16 color, quint8 type, bool autospam, cUOSocket* socket )
 {
 	Q_UNUSED( autospam );
 	if ( color == 0xFFFF )
@@ -1292,7 +1292,7 @@ void cItem::talk( const QString& message, UI16 color, Q_UINT8 type, bool autospa
 	}
 }
 
-void cItem::talk( const Q_UINT32 MsgID, const QString& params, const QString& affix, bool prepend, UI16 color, cUOSocket* socket )
+void cItem::talk( const quint32 MsgID, const QString& params, const QString& affix, bool prepend, UI16 color, cUOSocket* socket )
 {
 	if ( color == 0xFFFF )
 		color = 0x3b2;
@@ -2441,8 +2441,8 @@ PyObject* cItem::callEvent( ePythonEvent event, PyObject* args, bool ignoreError
 	// call the basescripts
 	if ( basedef_ )
 	{
-		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
-		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
+		const QList<cPythonScript*> &list = basedef_->baseScripts();
+		QList<cPythonScript*>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			result = ( *it )->callEvent( event, args, ignoreErrors );
@@ -2482,8 +2482,8 @@ bool cItem::canHandleEvent( ePythonEvent event )
 
 	if ( basedef_ )
 	{
-		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
-		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
+		const QList<cPythonScript*> &list = basedef_->baseScripts();
+		QList<cPythonScript*>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			if ( ( *it )->canHandleEvent( event ) )
@@ -2500,8 +2500,8 @@ bool cItem::hasScript( const Q3CString& name )
 {
 	if ( basedef_ )
 	{
-		const Q3PtrList<cPythonScript> &list = basedef_->baseScripts();
-		Q3PtrList<cPythonScript>::const_iterator it( list.begin() );
+		const QList<cPythonScript*> &list = basedef_->baseScripts();
+		QList<cPythonScript*>::const_iterator it( list.begin() );
 		for ( ; it != list.end(); ++it )
 		{
 			if ( ( *it )->name() == name )

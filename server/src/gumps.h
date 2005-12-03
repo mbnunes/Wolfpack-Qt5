@@ -82,7 +82,7 @@ public:
 	void setSerial( SERIAL data );
 	void setX( int data );
 	void setY( int data );
-	void setTimeOut( Q_UINT32 data );
+	void setTimeOut( quint32 data );
 	void setNoMove( bool data );
 	void setNoClose( bool data );
 	void setNoDispose( bool data );
@@ -91,16 +91,16 @@ public:
 	{
 		layout_.push_back( data );
 	}
-	Q_UINT32 addRawText( const QString& data );
+	quint32 addRawText( const QString& data );
 
 	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 
 	// Comfort Setters
-	void startPage( Q_UINT32 pageId = 0 )
+	void startPage( quint32 pageId = 0 )
 	{
 		layout_.push_back( QString( "{page %1}" ).arg( pageId ) );
 	}
-	void startGroup( Q_UINT32 groupId = 0 )
+	void startGroup( quint32 groupId = 0 )
 	{
 		layout_.push_back( QString( "{group %1}" ).arg( groupId ) );
 	}
@@ -108,15 +108,15 @@ public:
 	{
 		layout_.push_back( QString( "{text %1 %2 %3 %4}" ).arg( textX ).arg( textY ).arg( hue ).arg( addRawText( data ) ) );
 	}
-	void addBackground( Q_UINT16 gumpId, Q_UINT32 width, Q_UINT32 height )
+	void addBackground( Q_UINT16 gumpId, quint32 width, quint32 height )
 	{
 		layout_.push_back( QString( "{resizepic 0 0 %1 %2 %3}" ).arg( gumpId ).arg( width ).arg( height ) );
 	}
-	void addResizeGump( Q_INT16 gumpX, Q_INT16 gumpY, Q_UINT16 gumpId, Q_UINT32 width, Q_UINT32 height )
+	void addResizeGump( Q_INT16 gumpX, Q_INT16 gumpY, Q_UINT16 gumpId, quint32 width, quint32 height )
 	{
 		layout_.push_back( QString( "{resizepic %1 %2 %3 %4 %5}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ) );
 	}
-	void addCroppedText( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, const QString& data, Q_UINT16 hue = 0 );
+	void addCroppedText( Q_INT32 textX, Q_INT32 textY, quint32 width, quint32 height, const QString& data, Q_UINT16 hue = 0 );
 
 	// Buttons
 	// TODO: IMPLEMENTATION
@@ -135,7 +135,7 @@ public:
 
 	// Form-fields
 	// 7 = x,y,widthpix,widthchars,wHue,TEXTID,startstringindex
-	void addInputField( Q_INT32 textX, Q_INT32 textY, Q_UINT32 width, Q_UINT32 height, Q_INT32 textId, const QString& data, Q_INT16 hue = 0 )
+	void addInputField( Q_INT32 textX, Q_INT32 textY, quint32 width, quint32 height, Q_INT32 textId, const QString& data, Q_INT16 hue = 0 )
 	{
 		layout_.push_back( QString( "{textentry %1 %2 %3 %4 %5 %6 %7}" ).arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( textId ).arg( addRawText( data ) ) );
 	}
@@ -150,7 +150,7 @@ public:
 
 	// HTML Stuff
 	void addHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, const QString& html, bool hasBack = false, bool canScroll = false );
-	void addXmfHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, Q_UINT32 clilocid, bool hasBack = false, bool canScroll = false );
+	void addXmfHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, quint32 clilocid, bool hasBack = false, bool canScroll = false );
 	// void addXmfHtmlColorGump( );
 
 	// CheckerTrans

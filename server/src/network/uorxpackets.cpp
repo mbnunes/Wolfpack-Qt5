@@ -38,7 +38,7 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 		return 0;
 	}
 
-	Q_UINT8 packetId = data[0];
+	quint8 packetId = data[0];
 
 	// Please keep this in order.
 	switch ( packetId )
@@ -195,27 +195,27 @@ gumpChoice_st cUORxGumpResponse::choice()
 {
 	gumpChoice_st choice;
 	choice.button = getInt( 11 );
-	Q_UINT32 numSwitches = getInt( 15 );
+	quint32 numSwitches = getInt( 15 );
 
 	if ( numSwitches > 2000 )
 	{
 		return choice;
 	}
 
-	Q_UINT32 i;
+	quint32 i;
 	for ( i = 0; i < numSwitches; i++ )
 	{
 		choice.switches.push_back( getInt( 19 + 4 * i ) );
 	}
 
-	Q_UINT32 offset = 19 + 4 * numSwitches;
+	quint32 offset = 19 + 4 * numSwitches;
 
 	if ( offset >= size() )
 	{
 		return choice;
 	}
 
-	Q_UINT32 numTextEntries = getInt( offset );
+	quint32 numTextEntries = getInt( offset );
 
 	if ( numTextEntries > 2000 )
 	{
@@ -234,9 +234,9 @@ gumpChoice_st cUORxGumpResponse::choice()
 	return choice;
 }
 
-Q3ValueVector< Q_UINT16 > cUORxSpeechRequest::keywords()
+QList< ushort > cUORxSpeechRequest::keywords()
 {
-	Q3ValueVector<Q_UINT16> keywords;
+	QList<ushort> keywords;
 
 	ushort count = keywordCount();
 	ushort offset = 13; // Skip the count

@@ -108,7 +108,7 @@ using namespace std;
 struct stBlockItem
 {
 	Q_INT8 z;
-	Q_UINT8 height;
+	quint8 height;
 	bool walkable;
 	bool maptile;
 
@@ -217,7 +217,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 
 		// If we are a stair only the half height counts (round up)
 		if ( tTile.flag2 & 0x04 )
-			staticBlock.height = ( Q_UINT8 ) ( ( tTile.height ) / 2 );
+			staticBlock.height = ( quint8 ) ( ( tTile.height ) / 2 );
 		else
 			staticBlock.height = tTile.height;
 
@@ -271,7 +271,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 		if ( !def )
 			continue;
 
-		Q3ValueVector<multiItem_st> multi = def->getEntries();
+		QList<multiItem_st> multi = def->getEntries();
 
 		for ( unsigned int j = 0; j < multi.size(); ++j )
 		{
@@ -311,7 +311,7 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 	// If we find a tile to walk on
 	vector<stBlockItem> blockList = getBlockingItems( pChar, pos );
 	bool found = false;
-	Q_UINT32 i;
+	quint32 i;
 	bool priviledged = false;
 	Q_INT32 oldz = pos.z;
 
@@ -524,7 +524,7 @@ void handleMultis( P_CHAR pChar, const Coord& oldpos )
 /*!
 	This handles if a character actually tries to walk (NPC & Player)
 */
-bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
+bool cMovement::Walking( P_CHAR pChar, quint8 dir, quint8 sequence )
 {
 	if ( !pChar )
 		return false;
@@ -740,7 +740,7 @@ bool CheckForCharacterAtXYZ( P_CHAR pc, const Coord& pos )
 
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
-bool cMovement::verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw()
+bool cMovement::verifySequence( cUOSocket* socket, quint8 sequence ) throw()
 {
 	if ( ( socket->walkSequence() == 0 && sequence != 0 ) )
 	{
@@ -823,7 +823,7 @@ void cMovement::handleTeleporters( P_CHAR pc, const Coord& oldpos )
 	Calculates a new position out of the old position
 	and the direction we're moving to.
 */
-Coord cMovement::calcCoordFromDir( Q_UINT8 dir, const Coord& oldCoords )
+Coord cMovement::calcCoordFromDir( quint8 dir, const Coord& oldCoords )
 {
 	Coord newCoords( oldCoords );
 
@@ -941,8 +941,8 @@ Q_UINT16 DynTile( const Coord& pos )
 			if ( !def )
 				return 0;
 
-			Q3ValueVector<multiItem_st> multi = def->getEntries();
-			for ( Q_UINT32 j = 0; j < multi.size(); ++j )
+			QList<multiItem_st> multi = def->getEntries();
+			for ( quint32 j = 0; j < multi.size(); ++j )
 			{
 				if ( ( multi[j].visible && ( mapitem->pos().x + multi[j].x == pos.x ) && ( mapitem->pos().y + multi[j].y == pos.y ) && ( abs( mapitem->pos().z + multi[j].z - pos.z ) <= 1 ) ) )
 				{
@@ -969,7 +969,7 @@ bool cMovement::canLandMonsterMoveHere( Coord& pos ) const
 	// If we find a tile to walk on
 	vector<stBlockItem> blockList = getBlockingItems( 0, pos );
 	bool found = false;
-	Q_UINT32 i;
+	quint32 i;
 
 	for ( i = 0; i < blockList.size(); ++i )
 	{

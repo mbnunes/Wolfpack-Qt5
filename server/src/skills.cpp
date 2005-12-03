@@ -156,7 +156,7 @@ void cSkills::SkillUse( cUOSocket* socket, Q_UINT16 id ) // Skill is clicked on 
 	// 1000 Skill == 100 Weight == 10 Stones
 
 	QPtrList<cItem> containment = pBackpack->getContainment();
-	Q_UINT32 chance = containment.count();
+	quint32 chance = containment.count();
 
 	P_ITEM pItem = containment.first();
 	P_ITEM pToSteal = 0;
@@ -352,7 +352,7 @@ void cSkills::load()
 	skillRanks.clear();
 
 	// Try to get all skills first
-	Q_UINT32 i;
+	quint32 i;
 
 	for ( i = 0; i < ALLSKILLS; ++i )
 	{
