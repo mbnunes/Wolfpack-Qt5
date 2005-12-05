@@ -2208,4 +2208,68 @@
 		<category>Decoration\Aquarium\Aquarium (N/S)(2/2)</category>
 	</item>
 
+	<!-- Arcanist Circle -->
+
+	<item id="307b">
+		<id>0x307b</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<item id="307c">
+		<id>0x307c</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<item id="307d">
+		<id>0x307d</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<item id="307e">
+		<id>0x307e</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<item id="307f">
+		<id>0x307f</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<item id="3080">
+		<id>0x3080</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<item id="3081">
+		<id>0x3081</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<item id="3082">
+		<id>0x3082</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<item id="3083">
+		<id>0x3083</id>
+		<nodecay />
+		<category>Decoration\Arcanist Circle\Piece 1</category>
+	</item>
+
+	<!-- Crystal Pedestal -->
+	
+	<item id="2fd4">
+		<id>0x2fd4</id>
+		<nodecay />
+		<category>Decoration\Misc\Crystal Pedestal</category>
+	</item>
+
 </definitions>

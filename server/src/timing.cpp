@@ -184,8 +184,8 @@ void cTiming::poll()
 			if ( Config::instance()->enableTimeChangeForItems() )
 				loopitems = true;
 
-			// Wheater System
-			if ( Config::instance()->enableWheater() )
+			// Weather System
+			if ( Config::instance()->enableWeather() )
 				loopregions = true;		
 		}
 
@@ -348,7 +348,7 @@ void cTiming::poll()
 		}
 	}
 
-	// Loop Regions to try to change Wheater
+	// Loop Regions to try to change Weather
 	if ( loopregions )
 	{
 		const QList<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
