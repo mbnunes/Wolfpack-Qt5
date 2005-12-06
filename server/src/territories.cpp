@@ -348,6 +348,13 @@ bool cTerritory::findTeleporterSpot( Coord& d ) const
 
 void cTerritories::unload()
 {
+	foreach( QList<cTerritory*> t, topregions)
+	{
+		foreach( cTerritory* p, t )
+		{
+			delete p;
+		}
+	}
 	topregions.clear();
 	cComponent::unload();
 }
@@ -369,7 +376,6 @@ void cTerritories::load()
 			rect.y2 = Maps::instance()->mapTileHeight( i ) * 8;
 			territory->rectangles().append( rect );
 			topregions[i].append( territory );
-			topregions[i].setAutoDelete( true ); // set to auto delete
 		}
 	}
 
@@ -388,12 +394,6 @@ void cTerritories::load()
 		else
 		{
 			unsigned char map = territory->rectangles()[0].map;
-
-			if ( !topregions.contains( map ) )
-			{
-				topregions[map].setAutoDelete( true );
-			}
-
 			topregions[map].append( territory );
 		}
 		++it;
@@ -542,11 +542,11 @@ void cTerritories::check( P_CHAR pc )
 cTerritory* cTerritories::region( const QString& regName )
 {
 	cTerritory* result = 0;
-	QMap<uint, Q3PtrList<cTerritory> >::iterator it( topregions.begin() );
+	QMap<uint, QList<cTerritory*> >::iterator it( topregions.begin() );
 	for ( ; it != topregions.end(); ++it )
 	{
 		// search all topregions of that map
-		for ( cTerritory*region = it.data().first(); region; region = it.data().next() )
+		foreach ( cTerritory* region, it.data() )
 		{
 			region = dynamic_cast<cTerritory*>( region->region( regName ) );
 			if ( region )
@@ -560,13 +560,13 @@ cTerritory* cTerritories::region( const QString& regName )
 
 cTerritory* cTerritories::region( UI16 posx, UI16 posy, UI08 map )
 {
-	QMap<uint, Q3PtrList<cTerritory> >::iterator it( topregions.find( map ) );
+	QMap<uint, QList<cTerritory*> >::iterator it( topregions.find( map ) );
 	cTerritory* result = 0;
 
 	if ( it != topregions.end() )
 	{
 		// search all topregions of that map
-		for ( cTerritory*region = it.data().first(); region; region = it.data().next() )
+		foreach ( cTerritory* region, it.data() )
 		{
 			region = dynamic_cast<cTerritory*>( region->region( posx, posy, map ) );
 			if ( region )

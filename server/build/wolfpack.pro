@@ -16,11 +16,6 @@ CONFIG -= flat
 DESTDIR = ../release
 
 VERSION = 12.9.14
-QMAKE_TARGET_COMPANY = Wolfpack Development Team
-QMAKE_TARGET_PRODUCT = Wolfpack
-QMAKE_TARGET_DESCRIPTION = Ultima Online(tm) Server Software
-QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2005 Wolfpack Development Team
-
 
 unix {
 	CONFIG += console
@@ -225,3 +220,9 @@ DISTFILES += \
 # WPSCRIPTS is the folder where Python scripts are.
 WPDEFINITIONS = ../release/definitions
 WPSCRIPTS = ../release/scripts
+
+# This should rarely change at all, so I'm placing at the botton of the file.
+QMAKE_TARGET_COMPANY = Wolfpack Development Team
+QMAKE_TARGET_PRODUCT = Wolfpack
+QMAKE_TARGET_DESCRIPTION = Ultima Online(tm) Server Software
+QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2005 Wolfpack Development Team

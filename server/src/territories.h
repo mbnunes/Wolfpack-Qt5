@@ -403,7 +403,7 @@ class cTerritories : public cComponent
 {
 	OBJECTDEF( cTerritories )
 private:
-	QMap<uint, Q3PtrList<cTerritory> > topregions;
+	QMap<uint, QList<cTerritory*> > topregions;
 public:
 	void reload();
 	void load();

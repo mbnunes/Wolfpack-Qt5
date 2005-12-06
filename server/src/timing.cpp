@@ -263,7 +263,7 @@ void cTiming::poll()
 	}
 
 	// Save the positions of connected players
-	Q3ValueVector<Coord> positions;
+	QList<Coord> positions;
 
 	// Periodic checks for connected players
 	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
@@ -296,13 +296,13 @@ void cTiming::poll()
 				{
 					// Check if we are anywhere near a player
 					// all other npcs are accounted as inactive
-					for ( Q3ValueVector<Coord>::const_iterator it = positions.begin(); it != positions.end(); ++it )
+					for ( QList<Coord>::const_iterator it = positions.begin(); it != positions.end(); ++it )
 					{
 						if ( ( *it ).distance( npc->pos() ) <= 24 && !npc->pos().isInternalMap() )
 						{
+							startProfiling( PF_NPCCHECK );
 							checkRegeneration( npc, time );
 							checkNpc( npc, time );
-							startProfiling( PF_NPCCHECK );
 							stopProfiling( PF_NPCCHECK );
 							break;
 						}
