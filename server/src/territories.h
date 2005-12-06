@@ -361,7 +361,7 @@ private:
 		Coord destination;
 	};
 
-	Q3ValueList<teleporters_st> teleporters;
+	QList<teleporters_st> teleporters;
 public:
 	std::map<UI32, good_st> tradesystem_;
 

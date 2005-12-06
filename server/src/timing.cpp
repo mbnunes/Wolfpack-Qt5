@@ -104,7 +104,7 @@ void cTiming::poll()
 	if ( nextItemCheck <= time )
 	{
 		startProfiling( PF_DECAYCHECK );
-		Q3ValueVector<SERIAL> toRemove;
+		QList<SERIAL> toRemove;
 		DecayIterator it = decayitems.begin();
 
 		while ( it != decayitems.end() )
@@ -116,11 +116,9 @@ void cTiming::poll()
 			++it;
 		}
 
-		Q3ValueVector<SERIAL>::iterator sit;
-
-		for ( sit = toRemove.begin(); sit != toRemove.end(); ++sit )
+		foreach ( SERIAL s, toRemove )
 		{
-			P_ITEM item = FindItemBySerial( *sit );
+			P_ITEM item = FindItemBySerial( s );
 			Coord point = item->pos();
 			cTerritory *region = Territories::instance()->region( point );
 
@@ -130,7 +128,7 @@ void cTiming::poll()
 			}
 			else
 			{
-				removeDecaySerial( *sit );
+				removeDecaySerial( s );
 			}
 		}
 
@@ -157,7 +155,6 @@ void cTiming::poll()
 
 	unsigned int events = 0;
 	bool loopitems = false;
-	bool loopregions = false;
 
 	// Check lightlevel and time
 	if ( nextUOTimeTick <= time )
@@ -183,10 +180,6 @@ void cTiming::poll()
 			// OnTimeChange for Items
 			if ( Config::instance()->enableTimeChangeForItems() )
 				loopitems = true;
-
-			// Weather System
-			if ( Config::instance()->enableWeather() )
-				loopregions = true;		
 		}
 
 		// 11 to 18 = Day
@@ -345,48 +338,6 @@ void cTiming::poll()
 				item->callEventHandler( EVENT_TIMECHANGE, args );
 				Py_DECREF( args );
 			}
-		}
-	}
-
-	// Loop Regions to try to change Weather
-	if ( loopregions )
-	{
-		const QList<cElement*>& elements = Definitions::instance()->getDefinitions( WPDT_REGION );
-
-		QList<cElement*>::const_iterator it( elements.begin() );
-		while ( it != elements.end() )
-		{
-			cTerritory* territory = new cTerritory( *it, 0 );
-
-			// Assign Rain Chance
-			int rainChance = territory->rainChance();
-
-			// Random Chance
-			int randomChance = RandomNum( 1, 100 );
-
-			// Checking if we have to change something
-			if ( randomChance <= rainChance )
-			{
-				territory->setIsRaining( true );
-				Console::instance()->log( LOG_NOTICE, "Start Raining on " + territory->name() );
-			}
-			else
-				territory->setIsRaining( false );
-
-			++it;
-		}
-
-		it = elements.begin();
-		while ( it != elements.end() )
-		{
-			cTerritory* territory = new cTerritory( *it, 0 );
-
-			if ( territory->isRaining() )
-				Console::instance()->log( LOG_NOTICE, tr("%1: Yes").arg(territory->name()) );
-			else
-				Console::instance()->log( LOG_NOTICE, tr("%1: No").arg(territory->name()) );
-			
-			++it;
 		}
 	}
 

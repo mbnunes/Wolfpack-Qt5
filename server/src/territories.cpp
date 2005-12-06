@@ -331,8 +331,8 @@ bool cTerritory::haveTeleporters() const
 
 bool cTerritory::findTeleporterSpot( Coord& d ) const
 {
-	Q3ValueList<teleporters_st>::const_iterator it( teleporters.begin() );
-	Q3ValueList<teleporters_st>::const_iterator end( teleporters.end() );
+	QList<teleporters_st>::const_iterator it( teleporters.begin() );
+	QList<teleporters_st>::const_iterator end( teleporters.end() );
 	for ( ; it != end; ++it )
 	{
 		if ( d == ( *it ).source )

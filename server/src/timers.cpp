@@ -52,9 +52,6 @@
 #include <algorithm>
 #include <typeinfo>
 #include <math.h>
-//Added by qt3to4:
-#include <Q3CString>
-#include <Q3PtrList>
 
 int cTimer::getDest()
 {
@@ -214,8 +211,6 @@ bool cTimer::loadString( unsigned int id, const QString& key, QString& value )
 	return true;
 }
 
-#include "console.h"
-
 void cTimer::save( unsigned int id )
 {
 	PersistentBroker::instance()->executeQuery( QString( "INSERT INTO effects VALUES(%1,'%2',%3,%4,%5,%6);" ).arg( id ).arg( PersistentBroker::instance()->quoteString( objectID() ) ).arg( expiretime - Server::instance()->time() ).arg( dispellable ? 1 : 0 ).arg( sourSer ).arg( destSer ) );
@@ -240,7 +235,7 @@ cTimers::cTimers()
 
 void cTimers::check()
 {
-	cTimer* tEffect = NULL;
+	cTimer* tEffect = 0;
 
 	while ( !teffects.empty() )
 	{
@@ -294,7 +289,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 	}*/
 
 	std::vector<cTimer*>::iterator it = teffects.begin();
-	Q3PtrList<cTimer> eraselist;
+	QList<cTimer*> eraselist;
 
 	/*
 		Note: Erasing iterators would invalidate our iterator and crash.
@@ -311,7 +306,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 		}
 	}
 
-	for ( cTimer*effect = eraselist.first(); effect; effect = eraselist.next() )
+	foreach ( cTimer* effect, eraselist )
 	{
 		erase( effect );
 	}
@@ -342,7 +337,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 		}
 	}
 
-	Q3PtrList<cTimer> eraselist;
+	QList<cTimer*> eraselist;
 	std::vector<cTimer*>::iterator i = teffects.begin();
 	for ( i = teffects.begin(); i != teffects.end(); i++ )
 		if ( ( *i ) != NULL && ( *i )->dispellable && ( uint ) ( *i )->getDest() == ( uint ) pc_dest->serial() )
@@ -358,7 +353,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 			eraselist.append( *i );
 		}
 
-	for ( cTimer*effect = eraselist.first(); effect; effect = eraselist.next() )
+	foreach ( cTimer* effect, eraselist )
 	{
 		erase( effect );
 	}
