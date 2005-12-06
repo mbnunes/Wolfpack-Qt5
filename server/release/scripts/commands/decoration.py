@@ -78,7 +78,7 @@ class DecorationHandler( ContentHandler ):
                        	parser = xml.sax.make_parser()
                 	handler = DecorationHandler()
                 	parser.setContentHandler(handler)
-                	parser.parse( atts.getValue("file")
+                	parser.parse( atts.getValue("file") )
 
 
 class DecorationSaveHandler:
