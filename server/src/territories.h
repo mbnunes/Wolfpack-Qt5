@@ -51,7 +51,7 @@ struct good_st
 class cTerritory : public cBaseRegion
 {
 public:
-	cTerritory( const cElement* Tag, cBaseRegion* parent, bool reload = true );
+	cTerritory( const cElement* Tag, cBaseRegion* parent );
 	cTerritory();
 
 	void init( void );

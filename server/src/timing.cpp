@@ -356,7 +356,7 @@ void cTiming::poll()
 		QList<cElement*>::const_iterator it( elements.begin() );
 		while ( it != elements.end() )
 		{
-			cTerritory* territory = new cTerritory( *it, 0, false );
+			cTerritory* territory = new cTerritory( *it, 0 );
 
 			// Assign Rain Chance
 			int rainChance = territory->rainChance();
@@ -379,7 +379,7 @@ void cTiming::poll()
 		it = elements.begin();
 		while ( it != elements.end() )
 		{
-			cTerritory* territory = new cTerritory( *it, 0, false );
+			cTerritory* territory = new cTerritory( *it, 0 );
 
 			if ( territory->isRaining() )
 				Console::instance()->log( LOG_NOTICE, tr("%1: Yes").arg(territory->name()) );

@@ -49,13 +49,9 @@
 
 // cTerritories
 
-cTerritory::cTerritory( const cElement* Tag, cBaseRegion* parent, bool reload )
+cTerritory::cTerritory( const cElement* Tag, cBaseRegion* parent )
 {
-	if ( reload )
-	{
-		this->init();
-	}
-
+	this->init();
 	if ( Tag->hasAttribute( "id" ) )
 	{
 		this->name_ = Tag->getAttribute( "id" );
@@ -64,9 +60,7 @@ cTerritory::cTerritory( const cElement* Tag, cBaseRegion* parent, bool reload )
 	{
 		this->name_ = Tag->getAttribute( "name" );
 	}
-
 	this->applyDefinition( Tag );
-
 	this->parent_ = parent;
 }
 
