@@ -280,24 +280,24 @@ void cTerritory::processNode( const cElement* Tag )
 	{
 		if ( !Tag->hasAttribute( "source" ) )
 		{
-			qWarning( "ERROR: processing teleport tag, missing source attribute" );
+			Console::instance()->log( LOG_ERROR, tr("processing teleport tag, missing source attribute") );
 			return;
 		}
 
 		if ( !Tag->hasAttribute( "destination" ) )
 		{
-			qWarning( "ERROR: processing teleport tag, missing destination attribute" );
+			Console::instance()->log( LOG_ERROR, tr("processing teleport tag, missing destination attribute") );
 			return;
 		}
 		Coord source, destination;
 		if ( !parseCoordinates( Tag->getAttribute( "source" ), source ) )
 		{
-			qWarning( "ERROR: parsing source attribute, not a valid coordinate vector" );
+			Console::instance()->log( LOG_ERROR, tr("parsing source attribute, not a valid coordinate vector") );
 			return;
 		}
 		if ( !parseCoordinates( Tag->getAttribute( "destination" ), destination ) )
 		{
-			qWarning( "ERROR: parsing destination attribute, not a valid coordinate vector" );
+			Console::instance()->log( LOG_ERROR, tr("parsing destination attribute, not a valid coordinate vector") );
 			return;
 		}
 		bool bothways = Tag->hasAttribute( "bothways" );
