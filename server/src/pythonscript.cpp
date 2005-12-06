@@ -705,6 +705,13 @@ container that is being snooped into.
 */
 "onRealDayChange",
 
+/*
+\event onWorldSave
+\condition Called in the beggining of World Save Process, before save things.
+\notes Please note that this event is only called as a global hook.
+*/
+"onWorldSave",
+
 0
 };
 

@@ -931,6 +931,11 @@ void cWorld::load()
 
 void cWorld::save()
 {
+	// Calling Event before Save
+	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_WORLDSAVE );
+	if ( global )
+		global->callEventHandler( EVENT_WORLDSAVE );
+
 	// Broadcast a message to all connected clients
 	Network::instance()->broadcast( tr( "Worldsave Initialized" ) );
 
