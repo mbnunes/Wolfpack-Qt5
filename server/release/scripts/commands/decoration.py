@@ -74,6 +74,11 @@ class DecorationHandler( ContentHandler ):
 			item.movable = 3 # not movable
 			item.decay = 0 # no decay
 			item.update()
+		elif name == "include":
+                       	parser = xml.sax.make_parser()
+                	handler = DecorationHandler()
+                	parser.setContentHandler(handler)
+                	parser.parse( atts.getValue("file")
 
 
 class DecorationSaveHandler:
