@@ -355,7 +355,7 @@ bool cUObject::hasScript( const Q3CString& name )
 
 		for ( size_t i = 1; i <= count; ++i )
 		{
-			if ( scriptChain[i]->name() == name )
+			if ( scriptChain[i]->name() == QByteArray( name.data(), name.size() ) )
 				return true;
 		}
 	}
@@ -434,7 +434,7 @@ void cUObject::removeScript( const Q3CString& name )
 
 		for ( size_t i = 1; i <= count; ++i )
 		{
-			if ( scriptChain[i]->name() == name )
+			if ( scriptChain[i]->name() == QByteArray( name.data(), name.size() ) )
 			{
 				found = true;
 				break;
@@ -466,7 +466,7 @@ void cUObject::removeScript( const Q3CString& name )
 
 			for ( size_t i = 1; i <= count; ++i )
 			{
-				if ( scriptChain[i]->name() != name )
+				if ( scriptChain[i]->name() != QByteArray( name.data(), name.size() ) )
 				{
 					newScriptChain[pos++] = scriptChain[i];
 				}
@@ -1101,14 +1101,14 @@ bool cUObject::isScriptChainFrozen()
 	return ( count & 0x80000000 ) != 0;
 }
 
-Q3CString cUObject::scriptList() const
+QByteArray cUObject::scriptList() const
 {
 	if ( !scriptChain )
 	{
 		return Q3CString();
 	}
 
-	Q3CString result;
+	QByteArray result;
 	size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 	for ( size_t i = 1; i <= count; ++i )
 	{

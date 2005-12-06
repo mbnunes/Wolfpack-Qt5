@@ -3860,7 +3860,7 @@ bool cBaseChar::callEventHandler( ePythonEvent event, PyObject* args, bool ignor
 	return false;
 }
 
-bool cBaseChar::hasScript( const Q3CString& name )
+bool cBaseChar::hasScript( const QByteArray& name )
 {
 	if ( basedef_ )
 	{

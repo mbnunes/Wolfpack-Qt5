@@ -346,7 +346,7 @@ public:
 	PyObject* callEvent( ePythonEvent event, PyObject* args = 0, bool ignoreErrors = false );
 	bool callEventHandler( ePythonEvent event, PyObject* args = 0, bool ignoreErrors = false );
 	bool canHandleEvent( ePythonEvent event );
-	bool hasScript( const Q3CString& name );
+	bool hasScript( const QByteArray& name );
 
 	// Combat
 	inline P_CHAR attackTarget() const

@@ -98,7 +98,7 @@ public:
 	void unfreezeScriptChain();
 	bool isScriptChainFrozen();
 	void setScriptList( const Q3CString& scripts );
-	Q3CString scriptList() const;
+	QByteArray scriptList() const;
 	inline cPythonScript** getScripts()
 	{
 		return scriptChain;

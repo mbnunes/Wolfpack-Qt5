@@ -36,7 +36,7 @@
 
 // Library Includes
 #include <QString>
-//Added by qt3to4:
+#include <QByteArray>
 #include <Q3CString>
 
 // Script Based Events
@@ -117,7 +117,7 @@ class cAccount;
 class cPythonScript
 {
 protected:
-	Q3CString name_; // Important!
+	QByteArray name_; // Important!
 	bool loaded;
 	PyObject* codeModule; // This object stores the compiled Python Module
 	PyObject* events[EVENT_COUNT];
@@ -127,11 +127,11 @@ public:
 	~cPythonScript();
 
 	// We need an identification value for the scripts
-	void setName( const Q3CString& value )
+	void setName( const QByteArray& value )
 	{
 		name_ = value;
 	}
-	const Q3CString& name() const
+	const QByteArray& name() const
 	{
 		return name_;
 	}
@@ -329,6 +329,11 @@ public:
 	}
 
 	inline PyObject* createPyObject( const Q3CString& value )
+	{
+		return QString2Python( value.data() );
+	}
+
+	inline PyObject* createPyObject( const QByteArray& value )
 	{
 		return QString2Python( value.data() );
 	}

@@ -59,7 +59,7 @@
 #include <math.h>
 #include <algorithm>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PtrList>
 
 using namespace std;
@@ -2496,7 +2496,7 @@ bool cItem::canHandleEvent( ePythonEvent event )
 	return false;
 }
 
-bool cItem::hasScript( const Q3CString& name )
+bool cItem::hasScript( const QByteArray& name )
 {
 	if ( basedef_ )
 	{

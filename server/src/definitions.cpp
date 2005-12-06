@@ -936,7 +936,11 @@ static PyObject* wpElement_getchild( wpElement* self, PyObject* args )
 
 static PyMethodDef methods[] =
 {
-{"hasattribute", ( getattrofunc ) wpElement_hasattribute, METH_VARARGS, 0}, {"getattribute", ( getattrofunc ) wpElement_getattribute, METH_VARARGS, 0}, {"findchild", ( getattrofunc ) wpElement_findchild, METH_VARARGS, 0}, {"getchild", ( getattrofunc ) wpElement_getchild, METH_VARARGS, 0}, {0, 0, 0, 0}
+	{"hasattribute", ( getattrofunc ) wpElement_hasattribute, METH_VARARGS, 0}, 
+	{"getattribute", ( getattrofunc ) wpElement_getattribute, METH_VARARGS, 0}, 
+	{"findchild", ( getattrofunc ) wpElement_findchild, METH_VARARGS, 0}, 
+	{"getchild", ( getattrofunc ) wpElement_getchild, METH_VARARGS, 0}, 
+	{0, 0, 0, 0}
 };
 
 static PyObject* wpElement_getAttr( wpElement* self, char* name )
