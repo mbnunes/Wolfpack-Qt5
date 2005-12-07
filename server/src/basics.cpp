@@ -610,7 +610,7 @@ void cBufferedReader::readRaw( void* data, unsigned int size )
 			// We will never be able to statisfy the request
 			if ( read != 4096 && read < size )
 			{
-				throw wpException( tr( "Unexpected end of file while reading file %1." ).arg( d->file.fileName() ) );
+				throw wpException( QString( "Unexpected end of file while reading file %1." ).arg( d->file.fileName() ) );
 			}
 
 			d->bufferpos = 0;
