@@ -28,6 +28,7 @@
 #include "engine.h"
 #include "utilities.h"
 #include "../territories.h"
+#include "../uotime.h"
 
 #include <vector>
 
@@ -125,12 +126,61 @@ static PyObject* wpRegion_stopsnow( wpRegion* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
+/*
+	\method region.setweatherday
+	\param day The Day to next Weather Change
+	\description It will set the day for next Weather Update.
+*/
+static PyObject* wpRegion_setweatherday( wpRegion* self, PyObject* args )
+{
+	if ( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	unsigned char arg = getArgInt( 0 );
+
+	int actualday = UoTime::instance()->days();
+
+	if ( arg < actualday )
+		Py_RETURN_FALSE;
+
+	self->pRegion->setWeatherDay( arg );
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method region.setweatherhour
+	\param day The Hour to next Weather Change
+	\description It will set the hour for next Weather update.
+*/
+static PyObject* wpRegion_setweatherhour( wpRegion* self, PyObject* args )
+{
+	if ( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	unsigned char arg = getArgInt( 0 );
+
+	int actualhour = UoTime::instance()->hour();
+
+	self->pRegion->setWeatherHour( arg );
+
+	Py_RETURN_NONE;
+}
+
 static PyMethodDef wpRegionMethods[] =
 {
 { "startrain", ( getattrofunc ) wpRegion_startrain,	METH_VARARGS, "The Region begins to rain" },
 { "stoprain", ( getattrofunc ) wpRegion_stoprain,	METH_VARARGS, "The Region stops to rain" },
 { "startsnow", ( getattrofunc ) wpRegion_startsnow,	METH_VARARGS, "The Region begins to snow" },
 { "stopsnow", ( getattrofunc ) wpRegion_stopsnow,	METH_VARARGS, "The Region stops to snow" },
+{ "setweatherday", ( getattrofunc ) wpRegion_setweatherday,	METH_VARARGS, "Set the day of next Weather update" },
+{ "setweatherhour", ( getattrofunc ) wpRegion_setweatherhour,	METH_VARARGS, "Set the hour of next Weather update" },
 { NULL, NULL, 0, NULL }
 };
 
@@ -327,6 +377,16 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "snowchance" ) )
 		return PyInt_FromLong( self->pRegion->snowChance() );
+	/*
+		\rproperty region.weatherday The day for Next Weather Change
+	*/
+	else if ( !strcmp( name, "weatherday" ) )
+		return PyInt_FromLong( self->pRegion->weatherday() );
+	/*
+		\rproperty region.weatherhour The hour for Next Weather Change
+	*/
+	else if ( !strcmp( name, "weatherhour" ) )
+		return PyInt_FromLong( self->pRegion->weatherhour() );
 
 	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
 }

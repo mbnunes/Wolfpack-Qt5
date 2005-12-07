@@ -177,6 +177,14 @@ public:
 	{
 		return thirdcoin_;
 	}
+	int weatherday( void ) const
+	{
+		return weatherday_;
+	}
+	int weatherhour( void ) const
+	{
+		return weatherhour_;
+	}
 
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
@@ -189,6 +197,9 @@ public:
 	// Setters
 	void setIsRaining( bool data );
 	void setIsSnowing( bool data );
+
+	void setWeatherDay( int wday );
+	void setWeatherHour( int whour );
 
 private:
 	// Setters to ease up the flag meanings
@@ -353,6 +364,9 @@ private:
 
 	int fixedlight_;	// The fixed Light Level for this place
 
+	int weatherday_;	// The Day for Next Weather Update
+	int weatherhour_;	// The Hour for Next Weather Update
+
 	QStringList guardSections_;
 
 	struct teleporters_st
@@ -397,6 +411,16 @@ inline void cTerritory::setIsRaining( bool data )
 inline void cTerritory::setIsSnowing( bool data )
 {
 	isSnowing_ = data;
+}
+
+inline void cTerritory::setWeatherDay( int wday )
+{
+	weatherday_ = wday;
+}
+
+inline void cTerritory::setWeatherHour( int whour )
+{
+	weatherhour_ = whour;
 }
 
 class cTerritories : public cComponent

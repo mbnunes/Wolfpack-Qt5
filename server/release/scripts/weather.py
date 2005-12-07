@@ -11,6 +11,7 @@
 
 import wolfpack
 import random
+import wolfpack.time
 
 from wolfpack import console
 from wolfpack.consts import LOG_MESSAGE, EVENT_SERVERHOUR
@@ -47,20 +48,75 @@ def onServerHour():
 			if region.parent:
 				region = region.parent
 
-			# Ok. Now, lets check if this Region have to begins to Rain or Snow
-			rainchance = region.rainchance
-			snowchance = region.snowchance
-			randomrain = random.randint(1, 100)
-			randomsnow = random.randint(1, 100)
+			# Lets see if this region is in the time to change weather or not, right?
+			actualday = wolfpack.time.days()
+			changeday = region.weatherday
 
-			if randomrain <= rainchance:
-				region.startrain()
-				console.log(LOG_MESSAGE, "Raining in " + region.name )
+			if actualday > changeday:
+				changeweather( region )
 
-			if randomsnow <= snowchance:
-				region.startsnow()	
-				console.log(LOG_MESSAGE, "Snowing in " + region.name )
-	
-		
+			elif actualday == changeday:
+				actualhour = wolfpack.time.hour()
+				changehour = region.weatherhour
+
+				if actualhour >= changehour:
+					changeweather( region )
+
 			# So... next socket!
 			worldsocket = wolfpack.sockets.next()
+
+######################################################################################
+#############   Changing Weather   ###################################################
+######################################################################################
+
+def changeweather( region ):
+
+	# Ok. Now, lets check if this Region have to begins to Rain or Snow
+	rainchance = region.rainchance
+	snowchance = region.snowchance
+	randomrain = random.randint(1, 100)
+	randomsnow = random.randint(1, 100)
+
+	# Rain (And possible Snow too)
+	if randomrain <= rainchance:
+		region.startrain()
+
+		if randomsnow <= snowchance:
+			region.startsnow()
+			console.log(LOG_MESSAGE, "Raining and Snowing on " + region.name )
+
+		else:
+			console.log(LOG_MESSAGE, "Raining on " + region.name )
+
+		weatherduration( region, 2 )
+
+	# Snow
+	elif randomsnow <= snowchance:
+		region.startsnow()	
+		console.log(LOG_MESSAGE, "Snowing on " + region.name )
+
+		weatherduration( region, 2 )
+
+	# Dry
+	else:
+		if region.israining:
+			region.stoprain()
+		if region.issnowing:
+			region.stopsnow()
+
+		weatherduration( region, 2 )
+
+######################################################################################
+#############   Set persistance of new Weather   #####################################
+######################################################################################
+
+def weatherduration( region, hours ):
+
+	actualhour = wolfpack.time.hour()
+
+	day = wolfpack.time.days() + (actualhour + hours)/24
+	hour = (actualhour + hours)%24
+
+	# Set Next Weather update
+	region.setweatherhour( hour )
+	region.setweatherday( day )
