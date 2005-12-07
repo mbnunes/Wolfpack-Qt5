@@ -86,9 +86,9 @@ void cTiming::poll()
 	if ( currentday != today.day() )
 	{
 		currentday = today.day();
-		cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_REALDAYCHANGE );
-		if ( global )
-			global->callEventHandler( EVENT_REALDAYCHANGE );
+		cPythonScript* globalsh = ScriptManager::instance()->getGlobalHook( EVENT_REALDAYCHANGE );
+		if ( globalsh )
+			globalsh->callEventHandler( EVENT_REALDAYCHANGE );
 	}
 
 	// Check for spawn regions
@@ -180,6 +180,11 @@ void cTiming::poll()
 			// OnTimeChange for Items
 			if ( Config::instance()->enableTimeChangeForItems() )
 				loopitems = true;
+
+			// onServerHour Event
+			cPythonScript* globalsh = ScriptManager::instance()->getGlobalHook( EVENT_SERVERHOUR );
+			if ( globalsh )
+				globalsh->callEventHandler( EVENT_SERVERHOUR );
 		}
 
 		// 11 to 18 = Day

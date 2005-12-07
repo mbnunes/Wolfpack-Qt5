@@ -712,6 +712,13 @@ container that is being snooped into.
 */
 "onWorldSave",
 
+/*
+\event onServerHour
+\condition Called when a In-Game hour has elapsed.
+\notes Please note that this event is only called as a global hook, while onTimeChange is called for chars and items.
+*/
+"onServerHour",
+
 0
 };
 
