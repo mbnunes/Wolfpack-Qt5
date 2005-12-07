@@ -2553,16 +2553,44 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 	if ( pChar )
 	{
 		cTerritory* subregion = Territories::instance()->region( pChar->pos() );
-		cTerritory* region = dynamic_cast<cTerritory*>( subregion->parent() );
+
+		cTerritory* region = subregion;
+		
+		if ( subregion->parent() )
+			region = dynamic_cast<cTerritory*>( region->parent() );
 
 		// If its a Region and not a Cave...
 		if ( ( region ) && !( region->isCave() ) )
 		{
 			// Assign weather
-			if ( region->isRaining() ) 
+			if ( region->isRaining() && region->isSnowing() ) 
 			{
 				cUOTxWeather weather;
 				weather.setType( WT_RAINING );
+				weather.setAmount( RandomNum( 0x10, 0x70 ) );
+				weather.setTemperature( 0x10 );
+
+				send( &weather );
+
+				weather.setType( WT_SNOWING );
+				weather.setAmount( RandomNum( 0x10, 0x70 ) );
+				weather.setTemperature( 0x10 );
+
+				send( &weather );
+			}
+			else if ( region->isRaining() ) 
+			{
+				cUOTxWeather weather;
+				weather.setType( WT_RAINING );
+				weather.setAmount( RandomNum( 0x10, 0x70 ) );
+				weather.setTemperature( 0x10 );
+
+				send( &weather );
+			}
+			else if ( region->isSnowing() ) 
+			{
+				cUOTxWeather weather;
+				weather.setType( WT_SNOWING );
 				weather.setAmount( RandomNum( 0x10, 0x70 ) );
 				weather.setTemperature( 0x10 );
 

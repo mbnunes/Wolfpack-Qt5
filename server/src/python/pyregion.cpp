@@ -77,8 +77,60 @@ wpDealloc,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
+/*
+	\method region.startrain
+	\description This method make Region begins to rain.
+*/
+static PyObject* wpRegion_startrain( wpRegion* self, PyObject* args )
+{
+
+	self->pRegion->setIsRaining( true );
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method region.stoprain
+	\description This method make Region stops to rain.
+*/
+static PyObject* wpRegion_stoprain( wpRegion* self, PyObject* args )
+{
+
+	self->pRegion->setIsRaining( false );
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method region.startsnow
+	\description This method make Region begins to snow.
+*/
+static PyObject* wpRegion_startsnow( wpRegion* self, PyObject* args )
+{
+
+	self->pRegion->setIsSnowing( true );
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method region.stopsnow
+	\description This method make Region stops to snow.
+*/
+static PyObject* wpRegion_stopsnow( wpRegion* self, PyObject* args )
+{
+
+	self->pRegion->setIsSnowing( false );
+
+	Py_RETURN_NONE;
+}
+
 static PyMethodDef wpRegionMethods[] =
 {
+{ "startrain", ( getattrofunc ) wpRegion_startrain,	METH_VARARGS, "The Region begins to rain" },
+{ "stoprain", ( getattrofunc ) wpRegion_stoprain,	METH_VARARGS, "The Region stops to rain" },
+{ "startsnow", ( getattrofunc ) wpRegion_startsnow,	METH_VARARGS, "The Region begins to snow" },
+{ "stopsnow", ( getattrofunc ) wpRegion_stopsnow,	METH_VARARGS, "The Region stops to snow" },
 { NULL, NULL, 0, NULL }
 };
 
@@ -255,6 +307,26 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "nokillcount" ) )
 		return PyInt_FromLong( self->pRegion->isNoKillCount() ? 1 : 0 );
+	/*
+		\rproperty region.israining This boolean flag indicates that this Region is Raining or not.
+	*/
+	else if ( !strcmp( name, "israining" ) )
+		return PyInt_FromLong( self->pRegion->isRaining() ? 1 : 0);
+	/*
+		\rproperty region.issnowing This boolean flag indicates that this Region is Raining or not.
+	*/
+	else if ( !strcmp( name, "issnowing" ) )
+		return PyInt_FromLong( self->pRegion->isSnowing() ? 1 : 0);
+	/*
+		\rproperty region.rainchance The Rain Chance for that Region
+	*/
+	else if ( !strcmp( name, "rainchance" ) )
+		return PyInt_FromLong( self->pRegion->rainChance() );
+	/*
+		\rproperty region.snowchance The Snow Chance for that Region
+	*/
+	else if ( !strcmp( name, "snowchance" ) )
+		return PyInt_FromLong( self->pRegion->snowChance() );
 
 	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
 }
