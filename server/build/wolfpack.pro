@@ -9,8 +9,8 @@ PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
 
-CONFIG += qt thread exceptions rtti 
-QT += network xml qt3support
+CONFIG *= qt thread exceptions rtti 
+QT *= network xml qt3support
 
 CONFIG -= flat
 DESTDIR = ../release
@@ -18,7 +18,8 @@ DESTDIR = ../release
 VERSION = 12.9.14
 
 unix {
-	CONFIG += console
+	QT -= gui
+	CONFIG *= console
 
 	# We need to remove these, unnecessary dependency
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
@@ -46,7 +47,7 @@ unix {
 
 # Precompiled header
 precompile_header {
-#	PRECOMPILED_HEADER = wolfpack_pch.h
+	PRECOMPILED_HEADER = ../src/wolfpack_pch.h
 	INCLUDEPATH += obj
 }
 
@@ -212,8 +213,14 @@ win32:SOURCES += \
 	../src/win/getopts_win.cpp
 
 DISTFILES += \
-	../release/AUTHORS.txt \
-	../release/LICENSE.GPL
+	../release/AUTHORS \
+	../release/Changelog \
+	../release/COPYING \
+	../release/COPYRIGHT \
+	../release/INSTALL \
+	../release/LICENSE.GPL \
+	../release/NEWS \
+	../release/README
 
 # used by tools/translationupdate, our own version of lupdate
 # WPDEFINITIONS is the folder where xml definitons are.

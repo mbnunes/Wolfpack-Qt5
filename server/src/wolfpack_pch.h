@@ -30,10 +30,10 @@
 #if defined __cplusplus
 /* Add C++ includes here */
 
-#include <qstring.h>
-#include <qstringlist.h>
-#include <qvaluevector.h>
-#include <qmap.h>
+#include <QString>
+#include <QStringList>
+#include <QList>
+#include <QMap>
 
 // Wolfpack Specific
 #include "singleton.h"

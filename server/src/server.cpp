@@ -314,34 +314,39 @@ void cServer::run()
 
 	// Load wolfpack.xml
 	Config::instance()->load();
-	if ( !Config::instance()->fileState() )
-	{
-		Console::instance()->log( LOG_WARNING, "Your configuration file [wolfpack.xml] have just been created with default settings.\n" );
-		Console::instance()->log( LOG_WARNING, "You might have to change it accordingly before running again\n" );
-	}
 
 #if !defined( QT_NO_TRANSLATION )
 	// Start the QT translator
-	QString languageFile = Config::instance()->getString( "General", "Language File", QString( "wolfpack_" ) + QTextCodec::locale() + QString( ".qm" ), true );
-	if ( !languageFile.isEmpty() && QFile::exists( languageFile ) )
+	if ( QTextCodec::locale() != "en_US" )
 	{
-		QTranslator* translator = new QTranslator( qApp );
-		if ( !translator->load( languageFile, "." ) )
+		QString languageFile = Config::instance()->getString( "General", "Language File", QString( "wolfpack_" ) + QTextCodec::locale() + QString( ".qm" ), true );
+		if ( !languageFile.isEmpty() && QFile::exists( languageFile ) )
 		{
-			Console::instance()->log( LOG_WARNING, "Couldn't load translator.\n" );
-			delete translator;
-			// return false;
+			QTranslator* translator = new QTranslator( qApp );
+			if ( !translator->load( languageFile, "." ) )
+			{
+				Console::instance()->log( LOG_WARNING, "Couldn't load translator.\n" );
+				delete translator;
+				// return false;
+			}
+			else
+			{
+				qApp->installTranslator( translator );
+			}
 		}
 		else
 		{
-			qApp->installTranslator( translator );
+			Console::instance()->log( LOG_WARNING, "Couldn't find Language File: " + languageFile + "\n" );
 		}
 	}
-	else
-	{
-		Console::instance()->log( LOG_WARNING, "Couldn't find Language File: " + languageFile + "\n" );
-	}
 #endif
+	
+	// After trying to at least load language files for the benefict of non-English ppl.
+	if ( !Config::instance()->fileState() )
+	{
+		Console::instance()->log( LOG_WARNING, tr("Your configuration file [wolfpack.xml] have just been created with default settings.\n") );
+		Console::instance()->log( LOG_WARNING, tr("You might have to change it accordingly before running again\n") );
+	}
 
 	// Start Python
 	PythonEngine::instance()->load();
