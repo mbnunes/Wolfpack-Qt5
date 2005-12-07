@@ -2544,7 +2544,8 @@ void cUOSocket::updatePlayer()
 
 		updateLightLevel();
 
-		updateWeather( _player );
+		if ( Config::instance()->enableWeather() )
+			updateWeather( _player );
 	}
 }
 

@@ -16,6 +16,12 @@ from wolfpack import console
 from wolfpack.consts import LOG_MESSAGE, EVENT_SERVERHOUR
 
 ######################################################################################
+#############   Constants   ##########################################################
+######################################################################################
+
+ENABLEDWEATHER = int( wolfpack.settings.getbool("Weather", "Enable Weather System", False, True) )
+
+######################################################################################
 #############   Initializing Global Event   ##########################################
 ######################################################################################
 
@@ -28,31 +34,33 @@ def onLoad():
 
 def onServerHour():
 
-	# Starting a Loop between sockets to check region things for weather
+	if ENABLEDWEATHER:
+
+		# Starting a Loop between sockets to check region things for weather
 	
-	worldsocket = wolfpack.sockets.first()
-	while worldsocket:
+		worldsocket = wolfpack.sockets.first()
+		while worldsocket:
 
-		# Lets try to find the region or parent
-		region = worldsocket.player.region
+			# Lets try to find the region or parent
+			region = worldsocket.player.region
 
-		if region.parent:
-			region = region.parent
+			if region.parent:
+				region = region.parent
 
-		# Ok. Now, lets check if this Region have to begins to Rain or Snow
-		rainchance = region.rainchance
-		snowchance = region.snowchance
-		randomrain = random.randint(1, 100)
-		randomsnow = random.randint(1, 100)
+			# Ok. Now, lets check if this Region have to begins to Rain or Snow
+			rainchance = region.rainchance
+			snowchance = region.snowchance
+			randomrain = random.randint(1, 100)
+			randomsnow = random.randint(1, 100)
 
-		if randomrain <= rainchance:
-			region.startrain()
-			console.log(LOG_MESSAGE, "Raining in " + region.name )
+			if randomrain <= rainchance:
+				region.startrain()
+				console.log(LOG_MESSAGE, "Raining in " + region.name )
 
-		if randomsnow <= snowchance:
-			region.startsnow()	
-			console.log(LOG_MESSAGE, "Snowing in " + region.name )
+			if randomsnow <= snowchance:
+				region.startsnow()	
+				console.log(LOG_MESSAGE, "Snowing in " + region.name )
 	
 		
-		# So... next socket!
-		worldsocket = wolfpack.sockets.next()
+			# So... next socket!
+			worldsocket = wolfpack.sockets.next()
