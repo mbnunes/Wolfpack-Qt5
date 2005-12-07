@@ -322,7 +322,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 
 	if ( args.count() == 0 )
 	{
-		socket->sysMessage( tr( "Usage: spawnregion <respawn|clear|fill>" ) );
+		socket->sysMessage( tr( "Usage: spawnregion <respawn|clear|fill|info>" ) );
 		return;
 	}
 
