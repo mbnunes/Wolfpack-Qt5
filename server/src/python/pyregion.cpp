@@ -153,7 +153,7 @@ static PyObject* wpRegion_setweatherday( wpRegion* self, PyObject* args )
 
 /*
 	\method region.setweatherhour
-	\param day The Hour to next Weather Change
+	\param hour The Hour to next Weather Change
 	\description It will set the hour for next Weather update.
 */
 static PyObject* wpRegion_setweatherhour( wpRegion* self, PyObject* args )
