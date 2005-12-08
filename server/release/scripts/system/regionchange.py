@@ -152,6 +152,27 @@ def onChangeRegion( char, oldregion, newregion ):
 	elif not newregion.guarded and not oldregion.guarded:
 		pass
 
+	##############################
+	# Weather thing
+	##############################
+	if newregion.parent:
+		wregion = newregion.parent
+	else:
+		wregion = newregion
+
+	actualday = wolfpack.time.days()
+	changeday = wregion.weatherday
+
+	if actualday > changeday:
+		changeweather( wregion )
+
+	elif actualday == changeday:
+		actualhour = wolfpack.time.hour()
+		changehour = wregion.weatherhour
+
+		if actualhour > changehour:
+			changeweather( wregion )
+
 	return True
 
 # Region Enter Message
