@@ -15,8 +15,8 @@
 <definitions>
 
   <!-- Boats -->
-  <script>boats</script>
-  <script>boats.deed</script>
+    <script>boats</script>
+    <script>boats.deed</script>
 
   <!-- Housing -->
 	<script>housing</script>
@@ -70,6 +70,7 @@
 	<script>scissors</script>
 	<script>shrine</script>
 	<script>shrink</script>
+	<script>shuriken</script>
 	<script>signpost</script>
 	<script>slotmachine</script>
 	<script>spawngem</script>
