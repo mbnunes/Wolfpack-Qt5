@@ -65,6 +65,7 @@ public:
 
 	// This static function can be used to check if the given multi can be placed at the given position
 	static bool canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObject>& moveOut, unsigned short yard = 5 );
+	static bool canPlaceBoat( const Coord& pos, unsigned short multiid, Q3PtrList<cUObject>& moveOut );
 
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 	/*

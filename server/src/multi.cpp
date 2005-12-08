@@ -524,3 +524,139 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObj
 
 	return true;
 }
+
+bool cMulti::canPlaceBoat( const Coord& pos, unsigned short multiid, Q3PtrList<cUObject>& moveOut )
+{
+	MultiDefinition *multi = MultiCache::instance()->getMulti( multiid );
+
+	if ( !multi )
+	{
+		return false;
+	}
+
+	moveOut.setAutoDelete( false );
+
+	// Get the boundaries and build a list sorted by x,y
+	int left = multi->getLeft();
+	int right = multi->getRight();
+	int bottom = multi->getBottom();
+	int top = multi->getTop();
+	int height = multi->getHeight();
+	int width = multi->getWidth();
+
+	Q_UNUSED( bottom );
+
+	for ( int x = 0; x < width; ++x )
+	{
+		for ( int y = 0; y < height; ++y )
+		{
+			Coord point = pos + Coord( x + left, y + top );
+			bool hasBase = false; // Has this multi tile a base below the floor?
+
+			// See if there are any tiles at that position
+			const QList<multiItem_st> &multiItems = multi->itemsAt( x + left, y + top );
+
+			if ( multiItems.size() == 0 )
+			{
+				continue; // Skip this tile since there are no items here
+			}
+
+			// Collect data for the intersect checks
+			StaticsIterator statics = Maps::instance()->staticsIterator( point );
+			MapItemsIterator items = MapObjects::instance()->listItemsAtCoord( point );
+			int top, bottom;
+			unsigned short landId;
+			Maps::instance()->mapTileSpan( point, landId, bottom, top );
+
+			// Check every tile of the multi at the current position
+			// The following algorithm is more or less a ripoff of RunUOs idea.
+			for ( unsigned int i = 0; i < multiItems.size(); ++i )
+			{
+				multiItem_st multiItem = multiItems[i];
+				tile_st tile = TileCache::instance()->getTile( multiItem.tile );
+
+				// Calculcate the spawn of the tile
+				int itemBottom = point.z + multiItem.z;
+				// if the tile is a surface, someone has to be able to stand on it.
+				int itemTop = itemBottom + tile.height + ( ( ( tile.flag2 & 0x02 ) != 0 ) ? 16 : 0 );
+
+				// There is special handling for floor tiles
+				bool baseTile = multiItem.z == 0 && ( tile.flag1 & 0x10 ) != 0;
+				bool isHovering = true; // This tile has not yet something to "stand" on
+
+				Q_UNUSED( isHovering );
+				if ( baseTile )
+					hasBase = true;
+
+				// Does the multi item intersect a land-tile?
+				if ( ( itemTop < top && itemTop >= bottom ) || ( itemBottom < top && itemBottom >= bottom ) )
+				{
+					return false;
+				}
+
+				// Check if the multi item is interfering with a static tile at the same position
+				statics.reset();
+				while ( !statics.atEnd() )
+				{
+					const staticrecord &staticTile = ( statics++ ).data();
+					tile_st staticInfo = TileCache::instance()->getTile( staticTile.itemid );
+
+					int staticBottom = staticTile.zoff;
+					int staticTop = staticBottom + staticInfo.height;
+
+					// The tile intersects a static tile
+					if ( ( itemTop < staticTop && itemTop >= staticBottom ) || ( itemBottom < staticTop && itemBottom >= staticBottom ) )
+					{
+						// A normally blocking tile is intersecting our multi
+						if ( !staticInfo.isWet() )
+						{
+							return false;
+						}
+					}
+				}
+
+				// Do the same check (as above) with movable items, but make sure that movable items
+				// are moved out of the house
+				for ( P_ITEM pItem = items.first(); pItem; pItem = items.next() )
+				{
+					tile_st itemInfo = TileCache::instance()->getTile( pItem->id() );
+					int dynamicBottom = pItem->pos().z;
+					int dynamicTop = dynamicBottom + itemInfo.height;
+
+					// Only handle the tile if it is intersecting the multi
+					if ( ( itemTop < dynamicTop && itemTop >= dynamicBottom ) || ( itemBottom < dynamicTop && itemBottom >= dynamicBottom ) )
+					{
+						// Move the item out of the multi space if possible
+						if ( ( pItem->movable() == 0 && itemInfo.weight != 255 ) || pItem->movable() == 1 )
+						{
+							moveOut.append( pItem );
+						}
+						else
+						{
+							bool impassable = ( itemInfo.flag1 & 0x40 ) != 0;
+							bool background = ( itemInfo.flag1 & 0x01 ) != 0;
+							bool surface = ( itemInfo.flag2 & 0x02 ) != 0;
+
+							// A normally blocking tile is intersecting our multi
+							if ( impassable || ( !background && surface ) )
+							{
+								return false;
+							}
+						}
+					}
+				}
+
+				// Moves mobiles inside the multi out to the ban location
+				MapCharsIterator chars = MapObjects::instance()->listCharsAtCoord( point );
+				for ( P_CHAR pChar = chars.first(); pChar; pChar = chars.next() )
+				{
+					// Move them ALWAYS out, they could be trapped by the castle
+					// otherwise (or other strange multi forms)
+					moveOut.append( pChar );
+				}
+			}
+		}
+	}
+
+	return true;
+}

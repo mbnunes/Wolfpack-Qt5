@@ -819,7 +819,7 @@ static PyObject* wpCanPlace( PyObject* self, PyObject* args )
 	Coord pos;
 	unsigned short multiid;
 	unsigned short yard;
-	if ( !PyArg_ParseTuple( args, "O&hh:wolfpack.canplace(id, yard)", &PyConvertCoord, &pos, &multiid, &yard ) )
+	if ( !PyArg_ParseTuple( args, "O&hh:wolfpack.canplace(coord, id, yard)", &PyConvertCoord, &pos, &multiid, &yard ) )
 	{
 		return 0;
 	}
@@ -829,6 +829,51 @@ static PyObject* wpCanPlace( PyObject* self, PyObject* args )
 	PyObject *result = PyTuple_New( 2 );
 
 	if ( cMulti::canPlace( pos, multiid, moveOut, yard ) )
+	{
+		Py_INCREF( Py_True );
+		PyTuple_SET_ITEM( result, 0, Py_True );
+
+		PyObject *list = PyTuple_New( moveOut.count() );
+		int i = 0;
+		for ( cUObject*obj = moveOut.first(); obj; obj = moveOut.next() )
+		{
+			PyTuple_SET_ITEM( list, i++, obj->getPyObject() );
+		}
+		PyTuple_SET_ITEM( result, 1, list );
+	}
+	else
+	{
+		Py_INCREF( Py_True );
+		PyTuple_SET_ITEM( result, 0, Py_False );
+		PyTuple_SET_ITEM( result, 1, PyTuple_New( 0 ) );
+	}
+
+	return result;
+}
+
+/*
+\function wolfpack.canplaceboat
+\param pos The position.
+\param id The display id of the multi (0x0000 to 0x4000).
+\param yard The size of the multis yard.
+\return True if the given multi can be placed by a player at the given location.
+\description This function checks if a multi can be placed at a certain location by players.
+*/
+static PyObject* wpCanPlaceBoat( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self ); // Warning Fix
+	Coord pos;
+	unsigned short multiid;
+	if ( !PyArg_ParseTuple( args, "O&h:wolfpack.canplaceboat(coord, id)", &PyConvertCoord, &pos, &multiid ) )
+	{
+		return 0;
+	}
+
+	Q3PtrList<cUObject> moveOut; // List of objects to move out
+
+	PyObject *result = PyTuple_New( 2 );
+
+	if ( cMulti::canPlaceBoat( pos, multiid, moveOut ) )
 	{
 		Py_INCREF( Py_True );
 		PyTuple_SET_ITEM( result, 0, Py_True );
@@ -2008,6 +2053,7 @@ static PyMethodDef wpGlobal[] =
 { "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" },
 { "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
 { "canplace",			wpCanPlace,						METH_VARARGS, 0 },
+{ "canplaceboat",		wpCanPlaceBoat,					METH_VARARGS, 0 },
 { "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
 { "spawnregion",		wpSpawnregion,					METH_VARARGS, 0 },
 { "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" },

@@ -34,7 +34,7 @@
 
 /*
 	\object region
-	\description This object type represents a region within the ultima online world.
+	\description This object type represents a region within the Ultima Online world.
 */
 typedef struct
 {

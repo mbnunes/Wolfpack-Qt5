@@ -10,7 +10,8 @@
 	<multi id="boat_small" type="boat">
 		<name>boat</name>
 		<ids north="0x4000" east="0x4001" south="0x4002" west="0x4003" />
-		<special_items>
+    <id>0x4000</id>
+    <special_items>
 			<tillerman>
 				<offsets>
 					<x north="1" east="-4" south="0" west="4" />
@@ -45,12 +46,14 @@
 		<id>0x14F0</id>
 		<name>boat</name>
 		<tag name="multisection" value="boat_small" />
-	</item>
+    <scripts>boats.deed</scripts>
+  </item>
 
 	<multi id="dragonboat_small" type="boat">
 		<name>dragon boat</name>
 		<ids north="0x4004" east="0x4005" south="0x4006" west="0x4007" />
-		<special_items>
+    <id>0x4004</id>
+    <special_items>
 			<tillerman>
 				<offsets>
 					<x north="1" east="-4" south="0" west="4" />
@@ -85,12 +88,14 @@
 		<id>0x14F0</id>
 		<name>dragon boat</name>
 		<tag name="multisection" value="dragonboat_small" />
-	</item>
+    <scripts>boats.deed</scripts>
+  </item>
 
 	<multi id="boat_medium" type="boat">
 		<name>ship</name>
 		<ids north="0x4008" east="0x4009" south="0x400A" west="0x400B" />
-		<special_items>
+    <id>0x4008</id>
+    <special_items>
 			<tillerman>
 				<offsets>
 					<x north="1" east="-5" south="0" west="5" />
@@ -125,12 +130,14 @@
 		<id>0x14F0</id>
 		<name>ship</name>
 		<tag name="multisection" value="boat_medium" />
-	</item>
+    <scripts>boats.deed</scripts>
+  </item>
 
 	<multi id="dragonboat_medium" type="boat">
 		<name>dragon ship</name>
 		<ids north="0x400C" east="0x400D" south="0x400E" west="0x400F" />
-		<special_items>
+    <id>0x400C</id>
+    <special_items>
 			<tillerman>
 				<offsets>
 					<x north="1" east="-5" south="0" west="5" />
@@ -165,12 +172,14 @@
 		<id>0x14F0</id>
 		<name>dragon ship</name>
 		<tag name="multisection" value="dragonboat_medium" />
-	</item>
+    <scripts>boats.deed</scripts>
+  </item>
 
 	<multi id="boat_large" type="boat">
 		<name>galley</name>
 		<ids north="0x4010" east="0x4011" south="0x4012" west="0x4013" />
-		<special_items>
+    <id>0x4010</id>
+    <special_items>
 			<tillerman>
 				<offsets>
 					<x north="1" east="-5" south="0" west="5" />
@@ -203,14 +212,17 @@
 
 	<item id="boat_large">
 		<id>0x14F0</id>
-		<name>galley</name>
+    <!-- large ship deed -->
+    <name>#1041209</name>
 		<tag name="multisection" value="boat_large" />
+    <scripts>boats.deed</scripts>
 	</item>
 
 	<multi id="dragonboat_large" type="boat">
 		<name>dragon galley</name>
 		<ids north="0x4014" east="0x4015" south="0x4016" west="0x4017" />
-		<special_items>
+    <id>0x4014</id>
+    <special_items>
 			<tillerman>
 				<offsets>
 					<x north="1" east="-5" south="0" west="5" />
@@ -245,6 +257,7 @@
 		<id>0x14F0</id>
 		<name>dragon galley</name>
 		<tag name="multisection" value="dragonboat_large" />
-	</item>
+    <scripts>boats.deed</scripts>
+  </item>
 
 </definitions>

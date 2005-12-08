@@ -13,7 +13,12 @@
 	other scripts or eventlists).
 -->
 <definitions>
-	<!-- Housing -->
+
+  <!-- Boats -->
+  <script>boats</script>
+  <script>boats.deed</script>
+
+  <!-- Housing -->
 	<script>housing</script>
 	<script>housing.deed</script>
 	<script>housing.house</script>
