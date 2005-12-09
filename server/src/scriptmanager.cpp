@@ -40,10 +40,9 @@
 #include <QString>
 #include <qregexp.h>
 #include <qapplication.h>
-#include <qfileinfo.h>
+#include <QFileInfo>
 #include <QDir>
-//Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 using namespace std;
 
@@ -58,7 +57,7 @@ cScriptManager::~cScriptManager()
 	unload();
 }
 
-cPythonScript* cScriptManager::find( const Q3CString& name )
+cPythonScript* cScriptManager::find( const QByteArray& name )
 {
 	cScriptManager::iterator it = scripts.find( name );
 
@@ -117,7 +116,7 @@ void cScriptManager::unload()
 		hooks[i] = 0;
 	}
 
-	QMap<Q3CString, PyObject*>::iterator itc;
+	QMap<QByteArray, PyObject*>::iterator itc;
 
 	for ( itc = commandhooks.begin(); itc != commandhooks.end(); ++itc )
 	{
@@ -189,7 +188,7 @@ void cScriptManager::onServerStop()
 	}
 }
 
-PyObject* cScriptManager::getCommandHook( const Q3CString& command )
+PyObject* cScriptManager::getCommandHook( const QByteArray& command )
 {
 	PyObject* result = 0;
 
@@ -213,7 +212,7 @@ cPythonScript* cScriptManager::getGlobalHook( ePythonEvent event )
 	return result;
 }
 
-void cScriptManager::setCommandHook( const Q3CString& command, PyObject* object )
+void cScriptManager::setCommandHook( const QByteArray& command, PyObject* object )
 {
 	if ( commandhooks.contains( command.lower() ) )
 	{

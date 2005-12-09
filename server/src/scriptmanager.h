@@ -33,7 +33,7 @@
 #include <q3valuevector.h>
 #include <QString>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 // Wolfpack Includes
 #include "pythonscript.h"
@@ -43,20 +43,20 @@
 class cScriptManager : public cComponent
 {
 protected:
-	QMap<Q3CString, cPythonScript*> scripts;
+	QMap<QByteArray, cPythonScript*> scripts;
 	cPythonScript* hooks[EVENT_COUNT];
-	QMap<Q3CString, PyObject*> commandhooks;
+	QMap<QByteArray, PyObject*> commandhooks;
 
 	// These are for internal use only
 	void clearGlobalHooks();
 	void clearCommandHooks();
 public:
-	typedef QMap<Q3CString, cPythonScript*>::iterator iterator;
+	typedef QMap<QByteArray, cPythonScript*>::iterator iterator;
 
 	cScriptManager();
 	virtual ~cScriptManager();
 
-	cPythonScript* find( const Q3CString& name );
+	cPythonScript* find( const QByteArray& name );
 
 	void load();
 	void reload();
@@ -65,10 +65,10 @@ public:
 	void onServerStart(); // Call the onServerStart Event for all registered scripts
 	void onServerStop(); // Call the onServerEnd Event for all registered scripts
 
-	void setCommandHook( const Q3CString& command, PyObject* object );
+	void setCommandHook( const QByteArray& command, PyObject* object );
 	void setGlobalHook( ePythonEvent event, cPythonScript* script );
 
-	PyObject* getCommandHook( const Q3CString& command );
+	PyObject* getCommandHook( const QByteArray& command );
 	cPythonScript* getGlobalHook( ePythonEvent event );
 };
 

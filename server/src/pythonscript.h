@@ -37,7 +37,7 @@
 // Library Includes
 #include <QString>
 #include <QByteArray>
-#include <Q3CString>
+#include <QByteArray>
 
 // Script Based Events
 enum ePythonEvent
@@ -137,7 +137,7 @@ public:
 		return name_;
 	}
 
-	bool load( const Q3CString& name );
+	bool load( const QByteArray& name );
 	void unload( void );
 	bool isLoaded() const;
 
@@ -329,11 +329,6 @@ public:
 		return PyInt_FromLong( value );
 	}
 
-	inline PyObject* createPyObject( const Q3CString& value )
-	{
-		return QString2Python( value.data() );
-	}
-
 	inline PyObject* createPyObject( const QByteArray& value )
 	{
 		return QString2Python( value.data() );
@@ -355,7 +350,7 @@ public:
 	bool convertPyObject( PyObject* object, P_ITEM& pItem );
 	bool convertPyObject( PyObject* object, Coord& pos );
 	bool convertPyObject( PyObject* object, QString& string );
-	bool convertPyObject( PyObject* object, Q3CString& string );
+	bool convertPyObject( PyObject* object, QByteArray& string );
 	bool convertPyObject( PyObject* object, unsigned int& data );
 	bool convertPyObject( PyObject* object, int& data );
 

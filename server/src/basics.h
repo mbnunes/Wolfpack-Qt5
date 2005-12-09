@@ -35,9 +35,9 @@
 #include <functional>
 #include <algorithm>
 #include <QMap>
-#include <qfile.h>
+#include <QFile>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 // Forward definitions
 class Coord;
@@ -102,7 +102,7 @@ private:
 	int buffersize;
 
 public:
-	cBufferedWriter( const Q3CString& magic, unsigned int version );
+	cBufferedWriter( const QByteArray& magic, unsigned int version );
 	~cBufferedWriter();
 
 	void open( const QString& filename );
@@ -114,7 +114,7 @@ public:
 	inline void writeByte( unsigned char data, bool unbuffered = false );
 	inline void writeBool( bool data, bool unbuffered = false );
 	inline void writeUtf8( const QString& data, bool unbuffered = false );
-	inline void writeAscii( const Q3CString& data, bool unbuffered = false );
+	inline void writeAscii( const QByteArray& data, bool unbuffered = false );
 	inline void writeRaw( const void* data, unsigned int size, bool unbuffered = false );
 	inline void writeDouble( double data, bool unbuffered = false );
 
@@ -130,11 +130,11 @@ class cBufferedWriterPrivate
 public:
 	QFile file;
 	unsigned int version;
-	Q3CString magic;
+	QByteArray magic;
 	bool needswap;
 	char *buffer;
 	unsigned int bufferpos;
-	QMap<Q3CString, unsigned int> dictionary;
+	QMap<QByteArray, unsigned int> dictionary;
 	QMap<unsigned char, unsigned int> skipmap;
 	QMap<unsigned char, QString> typemap;
 	unsigned int lastStringId;
@@ -148,7 +148,7 @@ private:
 	QString error_;
 
 public:
-	cBufferedReader( const Q3CString& magic, unsigned int version );
+	cBufferedReader( const QByteArray& magic, unsigned int version );
 	~cBufferedReader();
 
 	void open( const QString& filename );
@@ -161,11 +161,11 @@ public:
 	bool readBool();
 	double readDouble();
 	QString readUtf8();
-	Q3CString readAscii( bool nodictionary = false );
+	QByteArray readAscii( bool nodictionary = false );
 	void readRaw( void* data, unsigned int size );
 
 	unsigned int position();
-	const QMap<unsigned char, Q3CString>& typemap();
+	const QMap<unsigned char, QByteArray>& typemap();
 	unsigned int getSkipSize( unsigned char type );
 
 	unsigned int objectCount();
@@ -263,13 +263,12 @@ inline void cBufferedWriter::writeByte( unsigned char data, bool unbuffered )
 
 inline void cBufferedWriter::writeUtf8( const QString& data, bool unbuffered )
 {
-	Q3CString utf8 = data.utf8();
-	writeAscii( utf8, unbuffered );
+	writeAscii( data.utf8(), unbuffered );
 }
 
-inline void cBufferedWriter::writeAscii( const Q3CString& data, bool unbuffered )
+inline void cBufferedWriter::writeAscii( const QByteArray& data, bool unbuffered )
 {
-	QMap<Q3CString, unsigned int>::iterator it = d->dictionary.find( data );
+	QMap<QByteArray, unsigned int>::iterator it = d->dictionary.find( data );
 
 	if ( it != d->dictionary.end() )
 	{

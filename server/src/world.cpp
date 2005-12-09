@@ -47,10 +47,9 @@
 #include "pythonscript.h"
 #include "basics.h"
 #include <sqlite.h>
-#include <qfileinfo.h>
+#include <QFileInfo>
 #include <QDir>
-//Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PtrList>
 
 // Postprocessing stuff, can be deleted later on
@@ -450,7 +449,7 @@ void cWorld::loadBinary( Q3PtrList<PersistentObject>& objects )
 		Console::instance()->setProgress( "0%" );
 
 		unsigned char type;
-		const QMap<unsigned char, Q3CString> &typemap = reader.typemap();
+		const QMap<unsigned char, QByteArray> &typemap = reader.typemap();
 		unsigned int loaded = 0;
 		unsigned int count = reader.objectCount();
 		unsigned int lastpercent = 0;

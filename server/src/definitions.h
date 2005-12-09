@@ -36,8 +36,7 @@
 #include <QString>
 #include <q3valuevector.h>
 #include <q3valuelist.h>
-//Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 // Includes for cPythonScriptable
 #include "pythonscript.h"
@@ -82,7 +81,7 @@ class cElement : public cPythonScriptable
 private:
 	struct stAttribute
 	{
-		Q3CString name;
+		QByteArray name;
 		QString value;
 	};
 
@@ -111,10 +110,10 @@ public:
 	const cElement* findChild( const QString& name ) const;
 	const cElement* getChild( unsigned int index ) const;
 	unsigned int childCount() const;
-	bool hasAttribute( const Q3CString& name ) const;
-	const QString& getAttribute( const Q3CString& name, const QString& def = QString::null ) const;
+	bool hasAttribute( const QByteArray& name ) const;
+	const QString& getAttribute( const QByteArray& name, const QString& def = QString::null ) const;
 
-	void setName( const Q3CString& data );
+	void setName( const QByteArray& data );
 	const QString& name() const;
 
 	void setText( const QString& data );

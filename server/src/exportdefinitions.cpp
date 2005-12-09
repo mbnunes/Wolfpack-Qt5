@@ -36,7 +36,7 @@
 #include "muls/tilecache.h"
 
 #include <q3dict.h>
-#include <qfile.h>
+#include <QFile>
 
 cDefinitionExporter::cDefinitionExporter() {
 	socket = 0;

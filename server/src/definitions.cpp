@@ -27,14 +27,14 @@
 
 // Library Includes
 #include <qxml.h>
-#include <qfile.h>
+#include <QFile>
 #include <q3ptrstack.h>
 #include <qregexp.h>
 #include <QStringList>
 #include <q3valuevector.h>
 #include <q3valuelist.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 // Reloading
 #include "ai/ai.h"
@@ -652,7 +652,7 @@ void cElement::removeChild( cElement* element )
 	}
 }
 
-bool cElement::hasAttribute( const Q3CString& name ) const
+bool cElement::hasAttribute( const QByteArray& name ) const
 {
 	for ( unsigned int i = 0; i < attrCount_; ++i )
 		if ( attributes[i]->name == name )
@@ -661,7 +661,7 @@ bool cElement::hasAttribute( const Q3CString& name ) const
 	return false;
 }
 
-const QString& cElement::getAttribute( const Q3CString& name, const QString& def ) const
+const QString& cElement::getAttribute( const QByteArray& name, const QString& def ) const
 {
 	for ( unsigned int i = 0; i < attrCount_; ++i )
 		if ( attributes[i]->name == name )
@@ -670,7 +670,7 @@ const QString& cElement::getAttribute( const Q3CString& name, const QString& def
 	return def;
 }
 
-void cElement::setName( const Q3CString& data )
+void cElement::setName( const QByteArray& data )
 {
 	name_ = data;
 }

@@ -28,7 +28,7 @@
 #include <QString>
 #include <q3valuevector.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <limits.h>
 
 #include "engine.h"
@@ -205,8 +205,8 @@ static PyObject* wpAccount_authorized( wpAccount* self, PyObject* args )
 		return 0;
 	}
 
-	Q3CString group = getArgStr( 0 ).latin1();
-	Q3CString action = getArgStr( 1 ).latin1();
+	QByteArray group = getArgStr( 0 ).latin1();
+	QByteArray action = getArgStr( 1 ).latin1();
 
 	if ( self->account->authorized( group, action ) )
 		Py_RETURN_TRUE;

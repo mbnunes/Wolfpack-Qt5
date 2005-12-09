@@ -53,7 +53,7 @@
 // System Includes
 #include <functional>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PtrList>
 
 // Main Command processing function
@@ -165,7 +165,7 @@ void cCommands::loadACLs( void )
 		}
 
 		QMap<QString, bool> group;
-		Q3CString groupName;
+		QByteArray groupName;
 
 
 		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
@@ -1046,7 +1046,7 @@ void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 		socket->sysMessage(tr("Loading %1 objects from %2.").arg(reader.objectCount()).arg(filename));
 
 		unsigned char type;
-		const QMap<unsigned char, Q3CString> &typemap = reader.typemap();
+		const QMap<unsigned char, QByteArray> &typemap = reader.typemap();
 		Q3PtrList<PersistentObject> objects;
 
 		do {

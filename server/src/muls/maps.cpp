@@ -38,7 +38,7 @@
 // Library Includes
 #include <QString>
 #include <q3intcache.h>
-#include <qfile.h>
+#include <QFile>
 #include <qdatastream.h>
 #include <QDir>
 

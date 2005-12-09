@@ -74,7 +74,7 @@ CleanupAutoRegister::CleanupAutoRegister( fnCleanupHandler handler )
 // Library includes
 #include <qdom.h>
 #include <QString>
-#include <qfile.h>
+#include <QFile>
 #include <qwaitcondition.h>
 
 // Forward declaration for wolfpack extension function

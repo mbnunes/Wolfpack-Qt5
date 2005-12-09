@@ -39,7 +39,7 @@
 #include <QDateTime>
 #include <QDir>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 cLog::cLog()
 {
@@ -127,8 +127,7 @@ void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool
 	// Timestamp the data
 	QTime now = QTime::currentTime();
 
-	Q3CString utfdata = string.utf8();
-	Q3CString prelude;
+	QString prelude;
 
 	if ( timestamp || loglevel == LOG_PYTHON )
 	{
@@ -157,9 +156,10 @@ void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool
 		prelude.append( " " );
 	}
 
-	utfdata.prepend( prelude );
+	QByteArray utfdata = string.utf8();
+	utfdata.prepend( prelude.utf8() );
 
-	logfile.writeBlock( utfdata.data(), utfdata.length() );
+	logfile.writeBlock( utfdata );
 	logfile.flush();
 }
 
@@ -175,13 +175,11 @@ void cLog::print( eLogLevel loglevel, cUOSocket* sock, const QString& string, bo
 	// send to the logfile
 	log( loglevel, sock, string, timestamp );
 
-	// Timestamp the data
-	QTime now = QTime::currentTime();
-
-	Q3CString prelude;
-
 	if ( timestamp )
 	{
+		// Timestamp the data
+		QTime now = QTime::currentTime();
+		QString prelude;
 		prelude.sprintf( "%02u:%02u:", now.hour(), now.minute() );
 
 		Console::instance()->changeColor( WPC_WHITE );
@@ -212,8 +210,7 @@ void cLog::print( eLogLevel loglevel, cUOSocket* sock, const QString& string, bo
 		break;
 
 	default:
-		if ( !prelude.isEmpty() )
-			Console::instance()->send( " " );
+		Console::instance()->send( " " );
 	}
 
 	Console::instance()->send( string );

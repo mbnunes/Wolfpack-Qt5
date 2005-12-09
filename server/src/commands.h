@@ -33,9 +33,9 @@
 // Library Includes
 #include <QMap>
 #include <QString>
-#include <q3cstring.h>
+#include <QByteArray>
 #include <QStringList>
-#include <qobject.h>
+#include <QObject>
 
 class cUOSocket;
 

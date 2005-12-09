@@ -26,7 +26,7 @@
  */
 
 #include <qdom.h>
-#include <qfile.h>
+#include <QFile>
 #include <qtextstream.h>
 #include <QMap>
 #include <QString>

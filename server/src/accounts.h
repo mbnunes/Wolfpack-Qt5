@@ -30,7 +30,7 @@
 
 // Library Includes
 #include <QString>
-#include <q3cstring.h>
+#include <QByteArray>
 #include <QDateTime>
 #include <QList>
 #include <QMap>
@@ -57,7 +57,7 @@ private:
 	QList<P_PLAYER> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;
-	Q3CString email_;
+	QByteArray email_;
 
 	// Flags for this Account
 	// 0x00000001 blocked
@@ -77,7 +77,7 @@ public:
 
 	QString login() const;
 	QString password() const;
-	const Q3CString& email() const;
+	const QByteArray& email() const;
 	unsigned int rank() const;
 	void remove();
 	QList<P_PLAYER> caracterList() const;
@@ -103,7 +103,7 @@ public:
 	QString acl() const;
 	QDateTime lastLogin() const;
 	void setLastLogin( const QDateTime& );
-	void setEmail( const Q3CString& email );
+	void setEmail( const QByteArray& email );
 	void setBlockUntil( const QDateTime& d );
 	void refreshAcl();
 	void setInUse( bool data );
@@ -221,12 +221,12 @@ inline quint32 cAccount::flags() const
 	return flags_;
 }
 
-inline const Q3CString& cAccount::email() const
+inline const QByteArray& cAccount::email() const
 {
 	return email_;
 }
 
-inline void cAccount::setEmail( const Q3CString& email )
+inline void cAccount::setEmail( const QByteArray& email )
 {
 	email_ = email;
 }

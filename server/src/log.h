@@ -29,7 +29,7 @@
 #define __LOG_H__
 
 // QT Includes
-#include <qfile.h>
+#include <QFile>
 
 // Wolfpack Includes
 #include "singleton.h"

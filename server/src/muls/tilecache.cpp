@@ -33,7 +33,7 @@
 #include "../exceptions.h"
 #include "../serverconfig.h"
 
-#include <qfile.h>
+#include <QFile>
 #include <qdatastream.h>
 
 using namespace std;

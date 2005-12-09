@@ -50,7 +50,7 @@
 
 // Library Includes
 #include <QDateTime>
-#include <qfile.h>
+#include <QFile>
 #include <vector>
 
 using namespace std;

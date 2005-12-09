@@ -32,7 +32,7 @@
 
 // Library Includes
 #include <q3valuevector.h>
-#include <qfile.h>
+#include <QFile>
 #include <qdatastream.h>
 #include <QDir>
 

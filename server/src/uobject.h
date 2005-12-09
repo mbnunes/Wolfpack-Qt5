@@ -49,7 +49,7 @@
 #include <QString>
 #include <QStringList>
 #include <QMap>
-#include <Q3CString>
+#include <QByteArray>
 
 // Forward class declarations
 class Coord;

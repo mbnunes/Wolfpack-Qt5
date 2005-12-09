@@ -26,8 +26,7 @@
  */
 
 #include <QString>
-//Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 #include "utilities.h"
 #include "pypacket.h"
@@ -286,7 +285,7 @@ static PyObject* wpPacket_getascii( PyObject* self, PyObject* args )
 	}
 
 	cUOPacket* packet = ( ( wpPacket* ) self )->packet;
-	Q3CString string = packet->getAsciiString( pos, length );
+	QByteArray string = packet->getAsciiString( pos, length );
 
 	if ( string.isEmpty() )
 	{
@@ -323,7 +322,7 @@ static PyObject* wpPacket_send( PyObject* self, PyObject* args )
 static PyObject* wpPacket_dump( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( args );
-	Q3CString dump = cUOPacket::dump( ( ( wpPacket* ) self )->packet->uncompressed() );
+	QByteArray dump = cUOPacket::dump( ( ( wpPacket* ) self )->packet->uncompressed() );
 
 	return PyString_FromString( dump.data() );
 }
