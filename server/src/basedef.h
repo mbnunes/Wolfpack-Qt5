@@ -34,7 +34,7 @@
 #include "pythonscript.h"
 #include <QMap>
 #include <q3ptrlist.h>
-#include <QByteArray.h>
+#include <QByteArray>
 #include <QString>
 
 class cElement;
