@@ -66,11 +66,10 @@
 	</contextmenu>
 
 	<contextmenu id="banker_menu">
-	    <scripts>contextmenus.bankermenu</scripts>
+		<scripts>contextmenus.bankermenu</scripts>
 		<option tag="1" msgid="6105"/>
 		<option tag="2" msgid="6124"/>
 	</contextmenu>
-
 
 	<contextmenu id="paperdoll_menu">
 		<scripts>contextmenus.paperdollmenu</scripts>
