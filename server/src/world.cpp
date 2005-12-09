@@ -935,7 +935,7 @@ void cWorld::save()
 	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_WORLDSAVE );
 	if ( global )
 		global->callEventHandler( EVENT_WORLDSAVE );
-
+	
 	// Broadcast a message to all connected clients
 	Network::instance()->broadcast( tr( "Worldsave Initialized" ) );
 
@@ -966,6 +966,7 @@ void cWorld::save()
 		for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
 		{
 			socket->send( new cGump( gump ) );
+			socket->waitwritebytes();
 		}
 	}
 

@@ -309,6 +309,14 @@ void cUOSocket::send( cGump* gump )
 	send( &uoPacket );
 }
 
+/*!
+  Wait for bytes to be written
+*/
+void cUOSocket::waitwritebytes()
+{
+	_socket->waitForBytesWritten(-1);
+}
+
 void cUOSocket::buildPackets()
 {
 	// Process the incoming buffer and split it into packets
