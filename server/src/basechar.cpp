@@ -55,7 +55,7 @@
 #include "definitions.h"
 #include "serverconfig.h"
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PtrList>
 
 cBaseChar::cBaseChar()
@@ -472,13 +472,13 @@ void cBaseChar::save()
 	QVector<stSkillValue>::iterator it;
 	PersistentBroker::instance()->lockTable( "skills" );
 	int i = 0;
-	Q3CString query( 256 ); // 256 byte should be enough
+	QString query( 256 ); // 256 byte should be enough
 	for ( it = skills_.begin(); it != skills_.end(); ++it, ++i )
 	{
 		if ( ( *it ).changed )
 		{
 			query.sprintf( "REPLACE INTO skills VALUES(%u,%u,%u,%u,%u);", serial_, i, ( *it ).value, ( *it ).lock, ( *it ).cap );
-			PersistentBroker::instance()->executeQuery( query.data() );
+			PersistentBroker::instance()->executeQuery( query );
 			( *it ).changed = false;
 		}
 	}

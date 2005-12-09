@@ -35,7 +35,7 @@
 #include <string.h>
 #include <qdom.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 void cBaseDef::processNode( const cElement* node )
 {
@@ -123,7 +123,7 @@ void cBaseDef::reset()
 	properties.clear();
 }
 
-cCharBaseDef::cCharBaseDef( const Q3CString& id )
+cCharBaseDef::cCharBaseDef( const QByteArray& id )
 {
 	id_ = id;
 	reset();
@@ -309,7 +309,7 @@ void cCharBaseDef::load()
 	}
 }
 
-cCharBaseDef* cCharBaseDefs::get( const Q3CString& id )
+cCharBaseDef* cCharBaseDefs::get( const QByteArray& id )
 {
 	Iterator it = definitions.find( id );
 
@@ -573,7 +573,7 @@ void cCharBaseDefs::refreshScripts()
 /*
 	cItemBaseDef and cItemBaseDefs
 */
-cItemBaseDef::cItemBaseDef( const Q3CString& id )
+cItemBaseDef::cItemBaseDef( const QByteArray& id )
 {
 	id_ = id;
 	definitionType = WPDT_ITEM;
@@ -680,7 +680,7 @@ void cItemBaseDef::load()
 	}
 }
 
-cItemBaseDef* cItemBaseDefs::get( const Q3CString& id )
+cItemBaseDef* cItemBaseDefs::get( const QByteArray& id )
 {
 	Iterator it = definitions.find( id );
 
@@ -945,7 +945,7 @@ PyObject* cItemBaseDef::getProperty( const QString& name )
 	return cBaseDef::getProperty( name );
 }
 
-cMultiBaseDef::cMultiBaseDef( const Q3CString& id ) : cItemBaseDef( id )
+cMultiBaseDef::cMultiBaseDef( const QByteArray& id ) : cItemBaseDef( id )
 {
 	definitionType = WPDT_MULTI;
 }

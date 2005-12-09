@@ -41,7 +41,7 @@
 #include <q3valuevector.h>
 #include <q3dict.h>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PtrList>
 #include <math.h>
 
@@ -198,9 +198,9 @@ public:
 	{
 		return priv_;
 	}
-	Q3CString baseid() const
+	QByteArray baseid() const
 	{
-		return basedef_ ? basedef_->id() : Q3CString();
+		return basedef_ ? basedef_->id() : QByteArray();
 	}
 	inline unsigned int clilocName() const
 	{
@@ -210,7 +210,7 @@ public:
 	{
 		return basedef_;
 	}
-	inline void setBaseid( const Q3CString& id )
+	inline void setBaseid( const QByteArray& id )
 	{
 		float oldweight = weight();
 		basedef_ = ItemBaseDefs::instance()->get( id );
@@ -258,9 +258,9 @@ public:
 		return basedef_ ? basedef_->type() : 0;
 	}
 
-	virtual Q3CString bindmenu()
+	virtual QByteArray bindmenu()
 	{
-		return basedef_ ? basedef_->bindmenu() : Q3CString();
+		return basedef_ ? basedef_->bindmenu() : QByteArray();
 	}
 
 	// Setters

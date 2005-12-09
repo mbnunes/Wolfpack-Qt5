@@ -91,13 +91,13 @@ public:
 	// Event Management Methods
 	void clearScripts();
 	void addScript( cPythonScript* script, bool append = false );
-	void removeScript( const Q3CString& name );
-	virtual bool hasScript( const Q3CString& name );
+	void removeScript( const QByteArray& name );
+	virtual bool hasScript( const QByteArray& name );
 
 	void freezeScriptChain();
 	void unfreezeScriptChain();
 	bool isScriptChainFrozen();
-	void setScriptList( const Q3CString& scripts );
+	void setScriptList( const QByteArray& scripts );
 	QByteArray scriptList() const;
 	inline cPythonScript** getScripts()
 	{
@@ -156,7 +156,7 @@ public:
 	virtual ~cUObject();
 
 	// Getter Methods
-	virtual Q3CString bindmenu() = 0;
+	virtual QByteArray bindmenu() = 0;
 	virtual unsigned char getClassid() = 0;
 
 	QString name() const

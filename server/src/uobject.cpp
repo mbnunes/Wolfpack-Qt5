@@ -53,7 +53,7 @@
 #include "basics.h"
 #include "world.h"
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 
 // Library Includes
 
@@ -71,7 +71,7 @@ cUObject::~cUObject()
 			size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 			for ( size_t i = 1; i <= count; ++i )
 			{
-				Q3CString* str = reinterpret_cast<Q3CString*>( scriptChain[i] );
+				QByteArray* str = reinterpret_cast<QByteArray*>( scriptChain[i] );
 				delete str;
 			}
 		}
@@ -188,7 +188,7 @@ void cUObject::load( char** result, Q_UINT16& offset )
 	pos_.y = atoi( result[offset++] );
 	pos_.z = atoi( result[offset++] );
 	pos_.map = atoi( result[offset++] );
-	Q3CString scriptList = result[offset];
+	QByteArray scriptList = result[offset];
 	offset++;
 	bool havetags_ = atoi( result[offset++] );
 
@@ -326,7 +326,7 @@ void cUObject::clearScripts()
 			size_t count = reinterpret_cast<size_t>( myChain[0] );
 			for ( size_t i = 1; i <= count; ++i )
 			{
-				Q3CString* str = reinterpret_cast<Q3CString*>( myChain[i] );
+				QByteArray* str = reinterpret_cast<QByteArray*>( myChain[i] );
 				delete str;
 			}
 		}
@@ -347,7 +347,7 @@ void cUObject::clearScripts()
 	Checks if the object has a specific event \a name
 	\sa addEvent
 */
-bool cUObject::hasScript( const Q3CString& name )
+bool cUObject::hasScript( const QByteArray& name )
 {
 	if ( scriptChain )
 	{
@@ -355,7 +355,7 @@ bool cUObject::hasScript( const Q3CString& name )
 
 		for ( size_t i = 1; i <= count; ++i )
 		{
-			if ( scriptChain[i]->name() == QByteArray( name.data(), name.size() ) )
+			if ( scriptChain[i]->name() == name )
 				return true;
 		}
 	}
@@ -420,7 +420,7 @@ void cUObject::addScript( cPythonScript* event, bool append )
 /*!
 	Removes an event handler from the object
 */
-void cUObject::removeScript( const Q3CString& name )
+void cUObject::removeScript( const QByteArray& name )
 {
 	if ( isScriptChainFrozen() )
 	{
@@ -434,7 +434,7 @@ void cUObject::removeScript( const Q3CString& name )
 
 		for ( size_t i = 1; i <= count; ++i )
 		{
-			if ( scriptChain[i]->name() == QByteArray( name.data(), name.size() ) )
+			if ( scriptChain[i]->name() == name )
 			{
 				found = true;
 				break;
@@ -466,7 +466,7 @@ void cUObject::removeScript( const Q3CString& name )
 
 			for ( size_t i = 1; i <= count; ++i )
 			{
-				if ( scriptChain[i]->name() != QByteArray( name.data(), name.size() ) )
+				if ( scriptChain[i]->name() != name )
 				{
 					newScriptChain[pos++] = scriptChain[i];
 				}
@@ -1053,7 +1053,7 @@ void cUObject::freezeScriptChain()
 	size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 	for ( size_t i = 1; i <= count; ++i )
 	{
-		Q3CString* name = new Q3CString( scriptChain[i]->name() );
+		QByteArray* name = new QByteArray( scriptChain[i]->name() );
 		scriptChain[i] = reinterpret_cast<cPythonScript*>( name );
 	}
 	scriptChain[0] = reinterpret_cast<cPythonScript*>( count | 0x80000000 );
@@ -1072,7 +1072,7 @@ void cUObject::unfreezeScriptChain()
 	scriptChain[0] = 0;
 	for ( size_t i = 1; i <= count; ++i )
 	{
-		Q3CString* name = reinterpret_cast<Q3CString*>( scriptChain[i] );
+		QByteArray* name = reinterpret_cast<QByteArray*>( scriptChain[i] );
 		cPythonScript* script = ScriptManager::instance()->find( *name );
 		if ( script )
 		{
@@ -1105,7 +1105,7 @@ QByteArray cUObject::scriptList() const
 {
 	if ( !scriptChain )
 	{
-		return Q3CString();
+		return QByteArray();
 	}
 
 	QByteArray result;
@@ -1126,7 +1126,7 @@ QByteArray cUObject::scriptList() const
 	return result;
 }
 
-void cUObject::setScriptList( const Q3CString& eventlist )
+void cUObject::setScriptList( const QByteArray& eventlist )
 {
 	if ( isScriptChainFrozen() )
 	{

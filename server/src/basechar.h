@@ -36,7 +36,7 @@
 #include <q3valuevector.h>
 #include <QDateTime>
 //Added by qt3to4:
-#include <Q3CString>
+#include <QByteArray>
 #include <Q3PtrList>
 
 // wolfpack includes
@@ -369,9 +369,9 @@ public:
 		nextSwing_ = data;
 	}
 
-	inline Q3CString baseid() const
+	inline QByteArray baseid() const
 	{
-		return basedef_ ? basedef_->id() : Q3CString();
+		return basedef_ ? basedef_->id() : QByteArray();
 	}
 
 	inline cCharBaseDef* basedef() const
@@ -379,7 +379,7 @@ public:
 		return basedef_;
 	}
 
-	inline void setBaseid( const Q3CString& id )
+	inline void setBaseid( const QByteArray& id )
 	{
 		basedef_ = CharBaseDefs::instance()->get( id );
 		changed_ = true;
@@ -592,9 +592,9 @@ public:
 		return CharBaseDefs::instance()->getBodyInfo( body() ).mountid;
 	}
 
-	virtual Q3CString bindmenu()
+	virtual QByteArray bindmenu()
 	{
-		return basedef_ ? basedef_->bindmenu() : Q3CString();
+		return basedef_ ? basedef_->bindmenu() : QByteArray();
 	}
 
 	inline unsigned char bodytype()
@@ -637,14 +637,14 @@ public:
 		return basedef_ ? basedef_->minTaming() : 0;
 	}
 
-	inline Q3CString carve()
+	inline QByteArray carve()
 	{
-		return basedef_ ? basedef_->carve() : Q3CString();
+		return basedef_ ? basedef_->carve() : QByteArray();
 	}
 
-	inline Q3CString lootPacks()
+	inline QByteArray lootPacks()
 	{
-		return basedef_ ? basedef_->lootPacks() : Q3CString();
+		return basedef_ ? basedef_->lootPacks() : QByteArray();
 	}
 
 	inline unsigned char controlSlots()
