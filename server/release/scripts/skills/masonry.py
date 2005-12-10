@@ -17,15 +17,15 @@ import random
 # Granites used by masonry
 # The first four values are required by the makemenu system.
 GRANITES = [
-	[tr('Granite'),		CARPENTRY, 0, ['granite'], 0x0],
-	[tr('Dull Copper Granite'), CARPENTRY, 0, ['dullcopper_granite'], 0x973],
-	[tr('Shadow Granite'), 	CARPENTRY, 0, ['shadowiron_granite'], 0x966],
-	[tr('Copper Granite'),	CARPENTRY, 0, ['copper_granite'], 0x96d],
-	[tr('Bronze Granite'),	CARPENTRY, 0, ['bronze_granite'], 0x972],
-	[tr('Gold Granite'),	CARPENTRY, 0, ['gold_granite'], 0x8a5],
-	[tr('Agapite Granite'),	CARPENTRY, 0, ['agapite_granite'], 0x979],
-	[tr('Verite Granite'),	CARPENTRY, 0, ['verite_granite'], 0x89f],
-	[tr('Valorite Granite'),CARPENTRY, 0, ['valorite_granite'], 0x8ab],
+	[tr('Granite'),		CARPENTRY, 0, ['granite'], 0x0, ''],
+	[tr('Dull Copper Granite'), CARPENTRY, 0, ['dullcopper_granite'], 0x973, 'dullcopper'],
+	[tr('Shadow Granite'), 	CARPENTRY, 0, ['shadowiron_granite'], 0x966, 'shadowiron'],
+	[tr('Copper Granite'),	CARPENTRY, 0, ['copper_granite'], 0x96d, 'copper'],
+	[tr('Bronze Granite'),	CARPENTRY, 0, ['bronze_granite'], 0x972, 'bronze'],
+	[tr('Gold Granite'),	CARPENTRY, 0, ['gold_granite'], 0x8a5, 'gold'],
+	[tr('Agapite Granite'),	CARPENTRY, 0, ['agapite_granite'], 0x979, 'agapite'],
+	[tr('Verite Granite'),	CARPENTRY, 0, ['verite_granite'], 0x89f, 'verite'],
+	[tr('Valorite Granite'),CARPENTRY, 0, ['valorite_granite'], 0x8ab, 'valorite'],
 ]
 
 #
@@ -52,7 +52,6 @@ class StonecrafterItemAction(CraftItemAction):
 		success = 1
 		percent = self.percentage
 		rate = random.randint(0, 100)
-		player.socket.sysmessage(str(check))
 		if check:
 			if rate >= percent:
 				success = 0
@@ -68,6 +67,10 @@ class StonecrafterItemAction(CraftItemAction):
 			material = self.parent.getsubmaterial1used(player, arguments)
 			material = self.parent.submaterials1[material]
 			item.color = material[4]
+			# Set a prefix so the resource is shown in the name
+			if len(material[5]):
+				item.settag('resname', material[5])
+				item.addscript('furniture')
 
 	#
 	# We have no soundeffect
