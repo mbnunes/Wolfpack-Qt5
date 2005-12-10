@@ -943,6 +943,7 @@ void cWorld::save()
 
 	// Send a nice status gump to all sockets if enabled
 	bool fancy = Config::instance()->getBool( "General", "Fancy Worldsave Status", true, true );
+	/* Moved to Python
 	if ( fancy )
 	{
 		// Create a fancy gump as promised
@@ -967,6 +968,12 @@ void cWorld::save()
 			socket->send( new cGump( gump ) );
 			socket->waitwritebytes();
 		}
+	} */
+
+	// Make a Stop to Write sockets before continues
+	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	{
+		socket->waitwritebytes();
 	}
 
 	unsigned int startTime = getNormalizedTime();
