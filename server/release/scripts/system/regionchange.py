@@ -9,6 +9,7 @@ import wolfpack
 import string
 import random
 from wolfpack import tr
+from weather import changeweather
 
 def playmusic(socket, command, arguments):
 	packet = wolfpack.packet(0x6d, 3)
