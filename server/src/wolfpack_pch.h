@@ -32,10 +32,11 @@
 
 #include <QString>
 #include <QStringList>
+#include <QByteArray>
 #include <QList>
 #include <QMap>
 
 // Wolfpack Specific
 #include "singleton.h"
-
+#include "network/uosocket.h"
 #endif
