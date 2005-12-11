@@ -387,6 +387,36 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "weatherhour" ) )
 		return PyInt_FromLong( self->pRegion->weatherhour() );
+	/*
+		\rproperty region.rainduration The Default duration for Rain in this Region
+	*/
+	else if ( !strcmp( name, "rainduration" ) )
+		return PyInt_FromLong( self->pRegion->rainduration() );
+	/*
+		\rproperty region.snowduration The Default duration for Snow in this Region
+	*/
+	else if ( !strcmp( name, "snowduration" ) )
+		return PyInt_FromLong( self->pRegion->snowduration() );
+	/*
+		\rproperty region.dryduration The Default duration for Dry in this Region
+	*/
+	else if ( !strcmp( name, "dryduration" ) )
+		return PyInt_FromLong( self->pRegion->dryduration() );
+	/*
+		\rproperty region.rainrangeduration The Default range for Rain duration in this Region
+	*/
+	else if ( !strcmp( name, "rainrangeduration" ) )
+		return PyInt_FromLong( self->pRegion->rainrangeduration() );
+	/*
+		\rproperty region.snowrangeduration The Default range for Snow duration in this Region
+	*/
+	else if ( !strcmp( name, "snowrangeduration" ) )
+		return PyInt_FromLong( self->pRegion->snowrangeduration() );
+	/*
+		\rproperty region.dryrangeduration The Default range for Dry duration in this Region
+	*/
+	else if ( !strcmp( name, "dryrangeduration" ) )
+		return PyInt_FromLong( self->pRegion->dryrangeduration() );
 
 	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
 }

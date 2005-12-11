@@ -88,14 +88,14 @@ def changeweather( region ):
 		else:
 			console.log(LOG_MESSAGE, "Raining on " + region.name )
 
-		weatherduration( region, 2 )
+		weatherduration( region )
 
 	# Snow
 	elif randomsnow <= snowchance:
 		region.startsnow()	
 		console.log(LOG_MESSAGE, "Snowing on " + region.name )
 
-		weatherduration( region, 2 )
+		weatherduration( region )
 
 	# Dry
 	else:
@@ -104,18 +104,41 @@ def changeweather( region ):
 		if region.issnowing:
 			region.stopsnow()
 
-		weatherduration( region, 2 )
+		weatherduration( region )
 
 ######################################################################################
 #############   Set persistance of new Weather   #####################################
 ######################################################################################
 
-def weatherduration( region, hours ):
+def weatherduration( region ):
+
+	####################
+	# Duration
+	####################
+	if region.israining:
+		if region.issnowing:
+			duration =  random.randint(region.rainduration, region.snowduration)
+			range = random.randint(region.rainrangeduration, region.snowrangeduration)
+		else:
+			duration = region.rainduration
+			range = region.rainrangeduration
+	elif region.issnowing:
+		duration = region.snowduration
+		range = region.snowrangeduration
+	else:
+		duration = region.dryduration
+		range = region.dryrangeduration
+
+	duration = random.randint( duration - range, duration + range)
+
+	####################
+	# Setting
+	####################
 
 	actualhour = wolfpack.time.hour()
 
-	day = wolfpack.time.days() + (actualhour + hours)/24
-	hour = (actualhour + hours)%24
+	day = wolfpack.time.days() + (actualhour + duration)/24
+	hour = (actualhour + duration)%24
 
 	# Set Next Weather update
 	region.setweatherhour( hour )

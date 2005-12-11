@@ -191,6 +191,12 @@ protected:
 
 	// Weather System
 	bool enableWeather_;
+	int rainDefaultDuration_;
+	int dryDefaultDuration_;
+	int snowDefaultDuration_;
+	int rainDefaultDurationRange_;
+	int snowDefaultDurationRange_;
+	int dryDefaultDurationRange_;
 
 public:
 	cConfig();
@@ -380,6 +386,12 @@ public:
 
 	// Weather System
 	bool enableWeather() const;
+	int rainDefaultDuration() const;
+	int snowDefaultDuration() const;
+	int dryDefaultDuration() const;
+	int rainDefaultDurationRange() const;
+	int snowDefaultDurationRange() const;
+	int dryDefaultDurationRange() const;
 
 private:
 	void setDefaultStartLocation();
@@ -803,6 +815,30 @@ inline bool cConfig::usereversedvaluable() const
 inline bool cConfig::enableWeather() const
 {
 	return enableWeather_;
+}
+inline int cConfig::rainDefaultDuration() const
+{
+	return rainDefaultDuration_;
+}
+inline int cConfig::snowDefaultDuration() const
+{
+	return snowDefaultDuration_;
+}
+inline int cConfig::dryDefaultDuration() const
+{
+	return dryDefaultDuration_;
+}
+inline int cConfig::rainDefaultDurationRange() const
+{
+	return rainDefaultDurationRange_;
+}
+inline int cConfig::snowDefaultDurationRange() const
+{
+	return snowDefaultDurationRange_;
+}
+inline int cConfig::dryDefaultDurationRange() const
+{
+	return dryDefaultDurationRange_;
 }
 
 typedef Singleton<cConfig> Config;

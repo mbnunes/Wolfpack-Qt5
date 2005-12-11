@@ -256,7 +256,12 @@ void cConfig::readData()
 
 	// Weather System
 	enableWeather_ = getBool( "Weather", "Enable Weather System", false, true );
-
+	rainDefaultDuration_ = getNumber( "Weather", "Default Rain Duration", 2, true );
+	snowDefaultDuration_ = getNumber( "Weather", "Default Snow Duration", 2, true );
+	dryDefaultDuration_ = getNumber( "Weather", "Default Dry Duration", 4, true );
+	rainDefaultDurationRange_ = getNumber( "Weather", "Default Rain Duration Range", 1, true );
+	snowDefaultDurationRange_ = getNumber( "Weather", "Default Snow Duration Range", 1, true );
+	dryDefaultDurationRange_ = getNumber( "Weather", "Default Dry Duration Range", 1, true );
 }
 
 void cConfig::load()

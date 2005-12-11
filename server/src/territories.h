@@ -185,6 +185,31 @@ public:
 	{
 		return weatherhour_;
 	}
+	// Duration things for Weather
+	int rainduration( void ) const
+	{
+		return rainduration_;
+	}
+	int snowduration( void ) const
+	{
+		return snowduration_;
+	}
+	int dryduration( void ) const
+	{
+		return dryduration_;
+	}
+	int rainrangeduration( void ) const
+	{
+		return rainrangeduration_;
+	}
+	int snowrangeduration( void ) const
+	{
+		return snowrangeduration_;
+	}
+	int dryrangeduration( void ) const
+	{
+		return dryrangeduration_;
+	}
 
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
@@ -366,6 +391,13 @@ private:
 
 	int weatherday_;	// The Day for Next Weather Update
 	int weatherhour_;	// The Hour for Next Weather Update
+
+	int rainduration_;			// Default Rain duration
+	int rainrangeduration_;		// Range for Rain duration
+	int snowduration_;			// Snow duration
+	int snowrangeduration_;		// Range for Snow duration
+	int dryduration_;			// Dry duration
+	int dryrangeduration_;		// Range for Dry duration
 
 	QStringList guardSections_;
 

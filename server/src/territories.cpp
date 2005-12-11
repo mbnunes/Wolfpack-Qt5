@@ -90,6 +90,13 @@ void cTerritory::init( void )
 	isSnowing_ = 0;
 	weatherday_ = 0;
 	weatherhour_ = 0;
+	// Duration
+	rainduration_ = Config::instance()->rainDefaultDuration();
+	rainrangeduration_ = Config::instance()->rainDefaultDurationRange();
+	snowduration_ = Config::instance()->snowDefaultDuration();
+	snowrangeduration_ = Config::instance()->snowDefaultDurationRange();
+	dryduration_ = Config::instance()->dryDefaultDuration();
+	dryrangeduration_ = Config::instance()->dryDefaultDurationRange();
 }
 
 void cTerritory::processNode( const cElement* Tag )
@@ -218,6 +225,37 @@ void cTerritory::processNode( const cElement* Tag )
 	else if ( TagName == "rainchance" )
 	{
 		this->rainchance_ = Value.toUShort();
+	}
+
+	// <rainduration>2</rainduration>
+	else if ( TagName == "rainduration" )
+	{
+		this->rainduration_ = Value.toUShort();
+	}
+	// <snowduration>2</snowduration>
+	else if ( TagName == "snowduration" )
+	{
+		this->snowduration_ = Value.toUShort();
+	}
+	// <dryduration>4</dryduration>
+	else if ( TagName == "dryduration" )
+	{
+		this->dryduration_ = Value.toUShort();
+	}
+	// <rainrangeduration>1</rainrangeduration>
+	else if ( TagName == "rainrangeduration" )
+	{
+		this->rainrangeduration_ = Value.toUShort();
+	}
+	// <snowrangeduration>1</snowrangeduration>
+	else if ( TagName == "snowrangeduration" )
+	{
+		this->snowrangeduration_ = Value.toUShort();
+	}
+	// <dryrangeduration>1</dryrangeduration>
+	else if ( TagName == "dryrangeduration" )
+	{
+		this->dryrangeduration_ = Value.toUShort();
 	}
 	// <tradesystem>
 	//		<good num="1">
