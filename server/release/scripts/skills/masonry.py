@@ -116,7 +116,7 @@ class MasonryMenu(MakeMenu):
 
 	# Check if player has learned masonry
 	def haslearned(self, player, item):
-		if not player.gm and not (player.hastag( 'masonry' ) and player.skill[MINING] >= 1000):
+		if not player.gm and not (player.hastag( 'masonry' ) and player.skill[CARPENTRY] >= 1000):
 			player.socket.clilocmessage(1044633) # You havent learned masonry.
 			return False
 		return True
