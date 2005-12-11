@@ -88,11 +88,11 @@ void cBaseDef::processNode( const cElement* node )
 	{
 		if ( baseScriptList_.isEmpty() )
 		{
-			baseScriptList_.prepend( node->text() );
+			baseScriptList_.prepend( node->text().toLocal8Bit() );
 		}
 		else
 		{
-			baseScriptList_.prepend( node->text() + "," );
+			baseScriptList_.prepend( node->text().toLocal8Bit() + "," );
 		}
 		refreshScripts();
 	}
