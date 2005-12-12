@@ -2503,7 +2503,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 
 	// Add all items to the container
 	cUOTxItemContent itemContent;
-	Q_INT32 count = 0;
+	qint32 count = 0;
 
 	Q3PtrList<cItem> tooltipItems;
 

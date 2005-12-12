@@ -57,7 +57,7 @@ const char preferencesFileVersion[] = "1.0";
 #define INADDR_NONE (-1)
 #endif
 
-Q_INT32 resolveName( const QString& data )
+qint32 resolveName( const QString& data )
 {
 	if ( data.isEmpty() )
 		return INADDR_NONE;

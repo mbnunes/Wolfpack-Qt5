@@ -1137,7 +1137,7 @@ void cBaseChar::emote( const QString& emote, UI16 color )
 			mSock->send( &textSpeech );
 }
 
-bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
+bool cBaseChar::checkSkill( ushort skill, int min, int max, bool advance )
 {
 	bool success = false;
 

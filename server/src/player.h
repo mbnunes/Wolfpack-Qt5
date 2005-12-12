@@ -116,7 +116,7 @@ public:
 	bool canPickUp( cItem* pi );
 	virtual bool inWorld();
 	void giveNewbieItems( quint8 skill = 0xFF );
-	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true ); // override
+	bool checkSkill( ushort skill, int min, int max, bool advance = true ); // override
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	unsigned char controlslots() const;
 	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );

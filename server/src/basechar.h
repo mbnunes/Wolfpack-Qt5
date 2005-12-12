@@ -35,7 +35,6 @@
 #include <QMap>
 #include <q3valuevector.h>
 #include <QDateTime>
-//Added by qt3to4:
 #include <QByteArray>
 #include <Q3PtrList>
 
@@ -262,7 +261,7 @@ public:
 	virtual unsigned int maxWeight() = 0;
 	virtual bool isOverloaded() = 0;
 	virtual void showName( cUOSocket* socket ) = 0;
-	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
+	virtual void soundEffect( ushort soundId, bool hearAll = true ) = 0;
 	virtual void giveGold( quint32 amount, bool inBank = false ) = 0;
 	virtual uint takeGold( uint amount, bool inBank = false ) = 0;
 	virtual void log( eLogLevel, const QString& string ) = 0;
@@ -315,7 +314,7 @@ public:
 	void bark( enBark );	// Play a body dependant sound
 	void goldSound( unsigned short amount, bool hearall = true ); // Play a sound for dropping goldcoins depending on the amount
 	void showPaperdoll( cUOSocket* source, bool hotkey );
-	virtual bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
+	virtual bool checkSkill( ushort skill, int min, int max, bool advance = true );
 	cItem* atLayer( enLayer layer ) const;
 	bool owns( P_ITEM pi ) const;
 	virtual void callGuards();
@@ -325,11 +324,11 @@ public:
 
 	// Wrapper events
 	virtual bool onWalk( unsigned char dir, unsigned char sequence ); // Walks in a specific Direction
-	virtual bool onTalk( unsigned char speechType, UI16 speechColor, UI16 speechFont, const QString& Text, const QString& Lang ); // The character says something
+	virtual bool onTalk( unsigned char speechType, ushort speechColor, ushort speechFont, const QString& Text, const QString& Lang ); // The character says something
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
 	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
 	virtual bool onShowSkillGump(); //Show Skillgump
-	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
+	virtual bool onSkillUse( uchar Skill ); // The character uses %Skill
 	virtual bool onDeath( cUObject* source, P_ITEM corpse );
 	virtual bool onResurrect( cUObject* source );
 	virtual bool onDropOnChar( P_ITEM pItem );

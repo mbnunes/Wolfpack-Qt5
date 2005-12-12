@@ -72,7 +72,7 @@ public:
 	void setShort( uint, ushort );
 	void setUnicodeString( uint, const QString&, uint, bool swapbytes = false );
 	void setAsciiString( uint, const char*, uint );
-	static	 Q3CString dump( const QByteArray& );
+	static QByteArray dump( const QByteArray& );
 
 	// Operators
 	char& operator []( uint );

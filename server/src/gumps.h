@@ -104,7 +104,7 @@ public:
 	{
 		layout_.push_back( QString( "{group %1}" ).arg( groupId ) );
 	}
-	void addText( Q_INT32 textX, Q_INT32 textY, const QString& data, Q_UINT16 hue = 0 )
+	void addText( qint32 textX, qint32 textY, const QString& data, Q_UINT16 hue = 0 )
 	{
 		layout_.push_back( QString( "{text %1 %2 %3 %4}" ).arg( textX ).arg( textY ).arg( hue ).arg( addRawText( data ) ) );
 	}
@@ -116,45 +116,45 @@ public:
 	{
 		layout_.push_back( QString( "{resizepic %1 %2 %3 %4 %5}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ) );
 	}
-	void addCroppedText( Q_INT32 textX, Q_INT32 textY, quint32 width, quint32 height, const QString& data, Q_UINT16 hue = 0 );
+	void addCroppedText( qint32 textX, qint32 textY, quint32 width, quint32 height, const QString& data, Q_UINT16 hue = 0 );
 
 	// Buttons
 	// TODO: IMPLEMENTATION
-	void addButton( Q_INT32 buttonX, Q_INT32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, Q_INT32 returnCode );
-	void addPageButton( Q_INT32 buttonX, Q_INT32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, Q_INT32 pageId );
+	void addButton( qint32 buttonX, qint32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, qint32 returnCode );
+	void addPageButton( qint32 buttonX, qint32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, qint32 pageId );
 
 	// Gump Pictures
-	void addGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_UINT16 gumpId, Q_INT16 hue = -1 );
-	void addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 height, Q_UINT16 gumpId, Q_INT16 hue );
+	void addGump( qint32 gumpX, qint32 gumpY, Q_UINT16 gumpId, Q_INT16 hue = -1 );
+	void addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, Q_UINT16 gumpId, Q_INT16 hue );
 
 	// Art-tile pictures
-	void addTilePic( Q_INT32 tileX, Q_INT32 tileY, Q_UINT16 tileId, Q_INT16 hue = 0 )
+	void addTilePic( qint32 tileX, qint32 tileY, Q_UINT16 tileId, Q_INT16 hue = 0 )
 	{
 		layout_.push_back( QString( "{tilepic %1 %2 %3 %4}" ).arg( tileX ).arg( tileY ).arg( tileId ).arg( hue ) );
 	}
 
 	// Form-fields
 	// 7 = x,y,widthpix,widthchars,wHue,TEXTID,startstringindex
-	void addInputField( Q_INT32 textX, Q_INT32 textY, quint32 width, quint32 height, Q_INT32 textId, const QString& data, Q_INT16 hue = 0 )
+	void addInputField( qint32 textX, qint32 textY, quint32 width, quint32 height, qint32 textId, const QString& data, Q_INT16 hue = 0 )
 	{
 		layout_.push_back( QString( "{textentry %1 %2 %3 %4 %5 %6 %7}" ).arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( textId ).arg( addRawText( data ) ) );
 	}
-	void addCheckbox( Q_INT32 checkX, Q_INT32 checkY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, Q_INT32 returnVal, bool checked = false )
+	void addCheckbox( qint32 checkX, qint32 checkY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, qint32 returnVal, bool checked = false )
 	{
 		layout_.push_back( QString( "{checkbox %1 %2 %3 %4 %5 %6}" ).arg( checkX ).arg( checkY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) );
 	}
-	void addRadioButton( Q_INT32 radioX, Q_INT32 radioY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, Q_INT32 returnVal, bool checked = false )
+	void addRadioButton( qint32 radioX, qint32 radioY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, qint32 returnVal, bool checked = false )
 	{
 		layout_.push_back( QString( "{radio %1 %2 %3 %4 %5 %6}" ).arg( radioX ).arg( radioY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) );
 	}
 
 	// HTML Stuff
-	void addHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, const QString& html, bool hasBack = false, bool canScroll = false );
-	void addXmfHtmlGump( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, quint32 clilocid, bool hasBack = false, bool canScroll = false );
+	void addHtmlGump( qint32 x, qint32 y, qint32 width, qint32 height, const QString& html, bool hasBack = false, bool canScroll = false );
+	void addXmfHtmlGump( qint32 x, qint32 y, qint32 width, qint32 height, quint32 clilocid, bool hasBack = false, bool canScroll = false );
 	// void addXmfHtmlColorGump( );
 
 	// CheckerTrans
-	void addCheckertrans( Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height );
+	void addCheckertrans( qint32 x, qint32 y, qint32 width, qint32 height );
 };
 
 /*****************************************************************************

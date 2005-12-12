@@ -226,7 +226,7 @@ public:
 	{
 		return _driver->fetchrow (*this);
 	}
-	Q_INT32 getInt( quint32 offset ) const; // Get an integer with a specific offset
+	qint32 getInt( quint32 offset ) const; // Get an integer with a specific offset
 	QString getString( quint32 offset ) const; // Get a string with a specific offset
 
 	bool isValid() const

@@ -195,7 +195,7 @@ void cUOPacket::compress( void )
 {
 	QByteArray temp( rawPacket.size() * 2 ); // worst case scenario for memory size
 	int bufferSize = 0; // 32 bits buffer size (bits)
-	Q_INT32 buffer32 = 0; // 32 bits buffer to store the compressed data until it's larger than 1 byte
+	qint32 buffer32 = 0; // 32 bits buffer to store the compressed data until it's larger than 1 byte
 	int codeSize = 0; // Size (in bits) of the Huffman code
 	int code = 0; // Huffman code that represents current byte being compressed
 	uint packetPos = 0; // Current byte being compressed
@@ -444,10 +444,10 @@ cUOPacket& cUOPacket::operator=( cUOPacket& p )
 	0100: 00 00 -- -- -- -- -- -- -- -- -- -- -- -- -- -- : ..
   \endverbatim
 */
-Q3CString cUOPacket::dump( const QByteArray& data )
+QByteArray cUOPacket::dump( const QByteArray& data )
 {
-	Q_INT32 length = data.count();
-	Q3CString dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( quint8 ) data[0], 2, 16 ).arg( data.count() ).latin1();
+	qint32 length = data.count();
+	QByteArray dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( quint8 ) data[0], 2, 16 ).arg( data.count() ).latin1();
 
 	int lines = length / 16;
 	if ( length % 16 ) // always round up.
@@ -455,14 +455,14 @@ Q3CString cUOPacket::dump( const QByteArray& data )
 
 	for ( int actLine = 0; actLine < lines; ++actLine )
 	{
-		Q3CString line; //= QString("%1: ").arg(actLine*16, 4, 16); // Faster, but doesn't look so good
+		QString line; //= QString("%1: ").arg(actLine*16, 4, 16); // Faster, but doesn't look so good
 		line.sprintf( "%04x: ", actLine * 16 );
 		int actRow = 0;
 		for ( ; actRow < 16; ++actRow )
 		{
 			if ( actLine * 16 + actRow < length )
 			{
-				Q3CString number = QString::number( static_cast<uint>( static_cast<quint8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + Q3CString( " " );
+				QByteArray number = QString::number( static_cast<uint>( static_cast<quint8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + QString( " " );
 				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
 				if ( number.length() < 3 )
 					number.prepend( "0" );

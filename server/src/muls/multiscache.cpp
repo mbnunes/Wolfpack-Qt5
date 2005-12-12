@@ -197,9 +197,9 @@ void cMultiCache::load()
 
 	struct
 	{
-		Q_INT32 start;
-		Q_INT32 length;
-		Q_INT32 unknown;
+		qint32 start;
+		qint32 length;
+		qint32 unknown;
 	} indexData;
 	ushort currentID = 0;
 	while ( !indexStream.atEnd() )

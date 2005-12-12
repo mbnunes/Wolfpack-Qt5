@@ -196,7 +196,7 @@ struct stError
 
 #define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
 	bool ok; \
-	Q_INT32 data = value.toInt( &ok ); \
+	qint32 data = value.toInt( &ok ); \
 	if( !ok ) \
 		PROPERTY_ERROR( -2, "Boolean expected" ) \
 	setter = data == 0 ? false : true; \

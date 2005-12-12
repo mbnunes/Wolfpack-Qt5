@@ -29,10 +29,9 @@
 #define __UOSOCKET__
 
 // Library Includes
-#include <q3cstring.h>
 #include <QTcpSocket>
 #include <QMap>
-#include <qbitarray.h>
+#include <QBitArray>
 #include <QObject>
 #include <QQueue>
 #include <QList>

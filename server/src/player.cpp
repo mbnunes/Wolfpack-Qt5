@@ -906,7 +906,7 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 	}
 }
 
-bool cPlayer::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
+bool cPlayer::checkSkill( ushort skill, int min, int max, bool advance )
 {
 	if ( !isJailed() ) {
 		if ( isDead() )
@@ -926,10 +926,7 @@ bool cPlayer::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 
 void cPlayer::addPet( P_NPC pPet, bool noOwnerChange )
 {
-	if ( noOwnerChange )
-	{
-		// Temp Warning Fix
-	}
+	Q_UNUSED( noOwnerChange )		// Temp Warning Fix
 
 	if ( !pPet )
 		return;

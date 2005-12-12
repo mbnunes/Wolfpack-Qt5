@@ -151,7 +151,7 @@ static QString getErrorString()
 	\internal
 	Fill a rectangular on a specific context
 */
-void paintRect( HDC dc, Q_INT32 x, Q_INT32 y, Q_INT32 width, Q_INT32 height, HBRUSH brush )
+void paintRect( HDC dc, qint32 x, qint32 y, qint32 width, qint32 height, HBRUSH brush )
 {
 	RECT rect;
 	rect.bottom = y + height;

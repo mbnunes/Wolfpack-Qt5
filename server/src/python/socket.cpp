@@ -441,7 +441,7 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	gump->setNoMove( nomove );
 	gump->setNoDispose( nodispose );
 
-	Q_INT32 i;
+	qint32 i;
 	for ( i = 0; i < PyList_Size( layout ); ++i )
 	{
 		PyObject* item = PyList_GetItem( layout, i );

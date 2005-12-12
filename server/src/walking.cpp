@@ -313,7 +313,7 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 	bool found = false;
 	quint32 i;
 	bool priviledged = false;
-	Q_INT32 oldz = pos.z;
+	qint32 oldz = pos.z;
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
@@ -322,7 +322,7 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 	for ( i = 0; i < blockList.size(); ++i )
 	{
 		stBlockItem item = blockList[i];
-		Q_INT32 itemTop = ( item.z + item.height );
+		qint32 itemTop = ( item.z + item.height );
 
 		// If we found something to step on and the next tile
 		// below would block us, use the good one instead
