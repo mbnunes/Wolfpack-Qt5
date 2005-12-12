@@ -206,6 +206,16 @@ void Monster_Aggressive::check()
 	AbstractAI::check();
 }
 
+void Monster_Aggressive::NPCscheck()
+{
+	AbstractAI::NPCscheck();
+}
+
+void Monster_Aggressive::ITEMscheck()
+{
+	AbstractAI::ITEMscheck();
+}
+
 void Monster_Aggressive_L0::registerInFactory()
 {
 #ifndef __VC6

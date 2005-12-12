@@ -53,6 +53,8 @@ public:
 	}
 
 	void check();
+	void NPCscheck();
+	void ITEMscheck();
 
 protected:
 	virtual void selectVictim();

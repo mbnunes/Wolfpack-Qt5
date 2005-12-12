@@ -46,6 +46,8 @@ public:
 	}
 
 	virtual void check();
+	virtual void NPCscheck();
+	virtual void ITEMscheck();
 
 	P_CHAR currentVictim() const
 	{

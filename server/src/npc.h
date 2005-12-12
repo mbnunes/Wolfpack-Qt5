@@ -147,6 +147,8 @@ public:
 	SERIAL stablemasterSerial() const;
 	AbstractAI* ai() const;
 	quint32 aiCheckTime() const;
+	quint32 aiNpcsCheckTime() const;
+	quint32 aiItemsCheckTime() const;
 	quint16 aiCheckInterval() const;
 	bool summoned() const;
 	// advanced getters for data structures
@@ -179,6 +181,8 @@ public:
 	void setAI( AbstractAI* ai );
 	void setAICheckTime( quint32 data );
 	void setAICheckInterval( quint16 data );
+	void setAINpcsCheckTime( quint32 data );
+	void setAIItemsCheckTime( quint32 data );
 
 	// advanced setters for data structures
 	// AI
@@ -274,8 +278,16 @@ protected:
 	// NPC AI check timer
 	quint32 aiCheckTime_;
 
+	// NPC Check for Items and NPCs
+	quint32 aiNpcsCheckTime_;
+	quint32 aiItemsCheckTime_;
+
 	// NPC AI check time intervall in msec
 	quint16 aiCheckInterval_;
+
+	// NPC AI check time intervall for Loop for NPCs and Items (in msec)
+	Q_UINT16 aiCheckNPCsInterval_;
+	Q_UINT16 aiCheckITEMsInterval_;
 };
 
 inline quint32 cNPC::additionalFlags() const
@@ -368,9 +380,29 @@ inline quint32 cNPC::aiCheckTime() const
 	return aiCheckTime_;
 }
 
+inline quint32 cNPC::aiNpcsCheckTime() const
+{
+	return aiNpcsCheckTime_;
+}
+
+inline quint32 cNPC::aiItemsCheckTime() const
+{
+	return aiItemsCheckTime_;
+}
+
 inline void cNPC::setAICheckTime( quint32 data )
 {
 	aiCheckTime_ = data;
+}
+
+inline void cNPC::setAINpcsCheckTime( quint32 data )
+{
+	aiNpcsCheckTime_ = data;
+}
+
+inline void cNPC::setAIItemsCheckTime( quint32 data )
+{
+	aiItemsCheckTime_ = data;
 }
 
 inline quint16 cNPC::aiCheckInterval() const

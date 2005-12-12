@@ -45,6 +45,17 @@ void Commoner::selectVictim()
 {
 }
 
-void Commoner::check() {
+void Commoner::check()
+{
 	AbstractAI::check();
+}
+
+void Commoner::NPCscheck()
+{
+	AbstractAI::NPCscheck();
+}
+
+void Commoner::ITEMscheck()
+{
+	AbstractAI::ITEMscheck();
 }

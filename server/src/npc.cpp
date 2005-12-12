@@ -71,7 +71,17 @@ cNPC::cNPC()
 	aiid_ = "Monster_Aggressive_L1";
 	ai_ = new Monster_Aggressive_L1( this );
 	aiCheckInterval_ = ( quint16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
+	aiCheckNPCsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
+	aiCheckITEMsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
 	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_ + RandomNum( 0, 1000 );
+	if ( aiCheckNPCsInterval_ )
+		aiNpcsCheckTime_ = Server::instance()->time() + aiCheckNPCsInterval_ + RandomNum( 0, 1000 );
+	else
+		aiNpcsCheckTime_ = 0;
+	if ( aiCheckITEMsInterval_ )
+		aiItemsCheckTime_ = Server::instance()->time() + aiCheckITEMsInterval_ + RandomNum( 0, 1000 );
+	else
+		aiItemsCheckTime_ = 0;
 }
 
 cNPC::cNPC( const cNPC& right ) : cBaseChar( right )

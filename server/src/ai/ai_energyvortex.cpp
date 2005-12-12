@@ -145,6 +145,16 @@ void Monster_EnergyVortex::check()
 	AbstractAI::check();
 }
 
+void Monster_EnergyVortex::NPCscheck()
+{
+	AbstractAI::NPCscheck();
+}
+
+void Monster_EnergyVortex::ITEMscheck()
+{
+	AbstractAI::ITEMscheck();
+}
+
 void Monster_EnergyVortex::selectVictim() {
 }
 

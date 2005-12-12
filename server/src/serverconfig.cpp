@@ -144,8 +144,12 @@ void cConfig::readData()
 
 	// AI
 	checkAITime_ = getDouble( "AI", "Default AI Check Time", 0.5, true );
+	checkAINPCsTime_ = getDouble( "AI", "Default AI NPCs Check Time", 0.0, true );
+	checkAIITEMsTime_ = getDouble( "AI", "Default AI Items Check Time", 0.0, true );
 	animalWildFleeRange_ = getNumber( "AI", "Wild animals flee range", 8, true );
 	guardDispelTime_ = getNumber( "AI", "Guard dispel time (sec)", 25, true );
+	aiNPCsCheckRange_ = getNumber( "AI", "Default AI NPCs Check Range", 12, true );
+	aiITEMsCheckRange_ = getNumber( "AI", "Default AI Items Check Range", 9, true );
 
 	// Persistency
 	databasePassword_ = getString( "Database", "Database Password", "", true );

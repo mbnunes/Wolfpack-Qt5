@@ -161,8 +161,12 @@ protected:
 
 	// AI
 	float checkAITime_;
+	float checkAINPCsTime_;
+	float checkAIITEMsTime_;
 	unsigned int animalWildFleeRange_;
 	unsigned int guardDispelTime_;
+	unsigned int aiNPCsCheckRange_;
+	unsigned int aiITEMsCheckRange_;
 
 	// Combat
 	unsigned char attack_distance_;
@@ -227,7 +231,11 @@ public:
 	bool autoAccountCreate() const;
 	float checkNPCTime() const;
 	float checkAITime() const;
+	float checkAINPCsTime() const;
+	float checkAIITEMsTime() const;
 	unsigned int animalWildFleeRange() const;
+	unsigned int aiNPCsCheckRange() const;
+	unsigned int aiITEMsCheckRange() const;
 	float checkFollowTime() const;
 	float checkTamedTime() const;
 	float factorMaxHits() const;
@@ -461,9 +469,29 @@ inline float cConfig::checkAITime() const
 	return checkAITime_;
 }
 
+inline float cConfig::checkAINPCsTime() const
+{
+	return checkAINPCsTime_;
+}
+
+inline float cConfig::checkAIITEMsTime() const
+{
+	return checkAIITEMsTime_;
+}
+
 inline unsigned int cConfig::animalWildFleeRange() const
 {
 	return animalWildFleeRange_;
+}
+
+inline unsigned int cConfig::aiNPCsCheckRange() const
+{
+	return aiNPCsCheckRange_;
+}
+
+inline unsigned int cConfig::aiITEMsCheckRange() const
+{
+	return aiITEMsCheckRange_;
 }
 
 inline float cConfig::checkFollowTime() const

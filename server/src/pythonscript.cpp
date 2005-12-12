@@ -718,6 +718,24 @@ container that is being snooped into.
 */
 "onServerHour",
 
+/*
+\event onSeeChar
+\param npc The NPC who saw the Char.
+\param item The Char that NPC saw.
+\condition Triggered when a character see other chars around him.
+\notes This event will be called for every character around the Main Char of Event. So, use carefully.
+*/
+"onSeeChar",
+
+/*
+\event onSeeItem
+\param npc The NPC who saw the Item.
+\param item The Item that NPC saw.
+\condition Triggered when a character see items around him.
+\notes This event will be called for every character around the Main Char of Event. So, use carefully.
+*/
+"onSeeItem",
+
 0
 };
 

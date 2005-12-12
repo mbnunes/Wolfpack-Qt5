@@ -135,6 +135,8 @@ public:
 
 	// this method is called, when the npc ai should be checked
 	virtual void check();
+	virtual void NPCscheck();
+	virtual void ITEMscheck();
 
 	virtual QString name() = 0;
 
@@ -368,6 +370,8 @@ public:
 	}
 
 	virtual void check();
+	virtual void NPCscheck();
+	virtual void ITEMscheck();
 
 protected:
 	virtual void selectVictim() = 0;
@@ -856,6 +860,8 @@ public:
 	}
 
 	virtual void check();
+	virtual void NPCscheck();
+	virtual void ITEMscheck();
 
 	P_CHAR currentVictim() const
 	{

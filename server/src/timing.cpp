@@ -499,6 +499,26 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 		stopProfiling( PF_AICHECK );
 	}
 
+	// Loop to check NPCs and Items
+	if ( npc->aiNpcsCheckTime() <= time )
+	{
+		if ( npc->ai() && npc->aiNpcsCheckTime() <= time )
+		{
+			startProfiling( PF_AICHECKNPCS );
+			npc->ai()->NPCscheck();
+			stopProfiling( PF_AICHECKNPCS );
+		}
+	}
+	if ( npc->aiItemsCheckTime() <= time )
+	{
+		if ( npc->ai() && npc->aiItemsCheckTime() <= time )
+		{
+			startProfiling( PF_AICHECKITEMS );
+			npc->ai()->ITEMscheck();
+			stopProfiling( PF_AICHECKITEMS );
+		}
+	}
+
 	// Hunger for npcs
 	// This only applies to tamed creatures
 	if ( npc->isTamed() && Config::instance()->hungerRate() && npc->hungerTime() <= time )

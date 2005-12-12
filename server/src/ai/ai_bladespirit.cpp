@@ -145,6 +145,16 @@ void Monster_BladeSpirit::check()
 	AbstractAI::check();
 }
 
+void Monster_BladeSpirit::NPCscheck()
+{
+	AbstractAI::NPCscheck();
+}
+
+void Monster_BladeSpirit::ITEMscheck()
+{
+	AbstractAI::ITEMscheck();
+}
+
 void Monster_BladeSpirit::selectVictim() {
 }
 

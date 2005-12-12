@@ -363,6 +363,16 @@ void Human_Guard::check()
 	AbstractAI::check();
 }
 
+void Human_Guard::NPCscheck()
+{
+	AbstractAI::NPCscheck();
+}
+
+void Human_Guard::ITEMscheck()
+{
+	AbstractAI::ITEMscheck();
+}
+
 void Human_Guard::selectVictim()
 {
 	P_CHAR m_currentVictim = World::instance()->findChar( m_currentVictimSer );

@@ -238,6 +238,58 @@ void AbstractAI::check()
 	stopProfiling( PF_AICHECKEXECUTEACTION );
 }
 
+void AbstractAI::NPCscheck()
+{
+	// "Global" result
+	int result = 0;
+
+	// Check if we can Handle the Event
+	if ( m_npc->canHandleEvent( EVENT_SEECHAR ) )
+	{
+		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), Config::instance()->aiNPCsCheckRange() );
+		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
+		{
+			PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, m_npc, PyGetCharObject, pChar );
+			result = m_npc->callEventHandler( EVENT_SEECHAR, args );
+			Py_DECREF( args );
+
+			if ( result )
+				break;
+		}
+	}
+
+	// Setting next time
+	Q_UINT16 aiCheckNPCsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
+	
+	m_npc->setAINpcsCheckTime( Server::instance()->time() + aiCheckNPCsInterval_ );
+}
+
+void AbstractAI::ITEMscheck()
+{
+	// "Global" result
+	int result = 0;
+
+	// Check if we can Handle the Event
+	if ( m_npc->canHandleEvent( EVENT_SEEITEM ) )
+	{
+		MapItemsIterator ti = MapObjects::instance()->listItemsInCircle( m_npc->pos(), Config::instance()->aiITEMsCheckRange() );
+		for ( P_ITEM pItem = ti.first(); pItem; pItem = ti.next() )
+		{
+			PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, m_npc, PyGetItemObject, pItem );
+			result = m_npc->callEventHandler( EVENT_SEEITEM, args );
+			Py_DECREF( args );	
+
+			if ( result )
+				break;
+		}
+	}
+
+	// Setting next time
+	Q_UINT16 aiCheckITEMsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
+
+	m_npc->setAIItemsCheckTime( Server::instance()->time() + aiCheckITEMsInterval_ );
+}
+
 static AbstractAI* productCreator_SCP()
 {
 	return new ScriptAI( NULL );
