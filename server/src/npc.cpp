@@ -73,6 +73,8 @@ cNPC::cNPC()
 	aiCheckInterval_ = ( quint16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
 	aiCheckNPCsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
 	aiCheckITEMsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
+	aiCheckNPCsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
+	aiCheckITEMsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
 	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_ + RandomNum( 0, 1000 );
 	if ( aiCheckNPCsInterval_ )
 		aiNpcsCheckTime_ = Server::instance()->time() + aiCheckNPCsInterval_ + RandomNum( 0, 1000 );
