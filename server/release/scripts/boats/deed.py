@@ -76,7 +76,7 @@ def onUse(player, item):
 #
 # Create boat and items
 #
-def createBoat( deed, pos ):
+def createBoat( player, deed, pos ):
 	boat = wolfpack.addmulti(str(deed.gettag('multisection')))
         if boat == None:
                 player.socket.sysmessage(tr('This deed is broken. Failed to create boat'))
@@ -86,14 +86,31 @@ def createBoat( deed, pos ):
 	boat.update()
 	boats.registerBoat(boat)
 
-	for obj in moveout:
-		obj.removefromview()
-		obj.moveto(player.pos)
-		obj.update()
-		if obj.ischar() and obj.socket:
-			obj.socket.resendworld()
-    
-
+        # Create special items
+        node = wolfpack.getdefinition(WPDT_MULTI, str(deed.gettag('multisection')) )
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'special_items': # Found section
+                        subsubnode = subnode.findchild('tillerman')
+                        if subsubnode != None:
+                                offsets = subsubnode.findchild('offsets')
+                                xoffsets = int( offsets.getattribute( 'x', '0' ) )
+                                yoffsets = int( offsets.getattribute( 'y', '0' ) )
+                                player.socket.sysmessage('xoffsets = %i, yoffsets = %i' % (xoffsets, yoffsets) )
+                                tillerman = wolfpack.additem('3e4e')
+                                itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
+                                tillerman.moveto( itempos )
+                                tillerman.update()
+                        subsubnode = subnode.findchild('hold')
+                        if subsubnode != None:
+                                offsets = subsubnode.findchild('offsets')
+                                xoffsets = int( offsets.getattribute( 'x', '0' ) )
+                                yoffsets = int( offsets.getattribute( 'y', '0' ) )
+                                hold = wolfpack.additem('3eae')
+                                itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
+                                hold.moveto( itempos )
+                                hold.update()
 #
 # Target
 #
@@ -115,6 +132,13 @@ def placement(player, arguments, target):
 		player.socket.clilocmessage( 1043284 ) # A ship can not be created here.
 		return
 
-        createBoat( deed, target.pos )
+        createBoat( player, deed, target.pos )
 	deed.delete()
+
+	for obj in moveout:
+		obj.removefromview()
+		obj.moveto(player.pos)
+		obj.update()
+		if obj.ischar() and obj.socket:
+			obj.socket.resendworld()
 	return

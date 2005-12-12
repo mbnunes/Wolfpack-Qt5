@@ -43,7 +43,7 @@
 	</multi>
 
 	<item id="boat_small">
-		<id>0x14F0</id>
+		<id>0x14F2</id>
 		<name>boat</name>
 		<tag name="multisection" value="boat_small" />
     <scripts>boats.deed</scripts>
@@ -85,7 +85,7 @@
 	</multi>
 
 	<item id="dragonboat_small">
-		<id>0x14F0</id>
+		<id>0x14F2</id>
 		<name>dragon boat</name>
 		<tag name="multisection" value="dragonboat_small" />
     <scripts>boats.deed</scripts>
@@ -127,7 +127,7 @@
 	</multi>
 
 	<item id="boat_medium">
-		<id>0x14F0</id>
+		<id>0x14F2</id>
 		<name>ship</name>
 		<tag name="multisection" value="boat_medium" />
     <scripts>boats.deed</scripts>
@@ -169,7 +169,7 @@
 	</multi>
 
 	<item id="dragonboat_medium">
-		<id>0x14F0</id>
+		<id>0x14F2</id>
 		<name>dragon ship</name>
 		<tag name="multisection" value="dragonboat_medium" />
     <scripts>boats.deed</scripts>
@@ -181,16 +181,10 @@
     <id>0x4010</id>
     <special_items>
 			<tillerman>
-				<offsets>
-					<x north="1" east="-5" south="0" west="5" />
-					<y north="5" east="0" south="-5" west="0" />
-				</offsets>
+				<offsets x="1" y="5" />
 			</tillerman>
 			<hold>
-				<offsets>
-					<x north="0" east="5" south="0" west="-5" />
-					<y north="-5" east="0" south="5" west="0" />
-				</offsets>
+				<offsets x="3" y="-7" />
 			</hold>
 			<planks>
 				<port_closed>
@@ -211,7 +205,7 @@
 	</multi>
 
 	<item id="boat_large">
-		<id>0x14F0</id>
+		<id>0x14F2</id>
     <!-- large ship deed -->
     <name>#1041209</name>
 		<tag name="multisection" value="boat_large" />
@@ -224,16 +218,10 @@
     <id>0x4014</id>
     <special_items>
 			<tillerman>
-				<offsets>
-					<x north="1" east="-5" south="0" west="5" />
-					<y north="5" east="0" south="-5" west="0" />
-				</offsets>
+				<offsets x ="1" y="1" />
 			</tillerman>
 			<hold>
-				<offsets>
-					<x north="0" east="5" south="0" west="-5" />
-					<y north="-5" east="0" south="5" west="0" />
-				</offsets>
+				<offsets x = "-5" y="5" />
 			</hold>
 			<planks>
 				<port_closed>
@@ -254,7 +242,7 @@
 	</multi>
 
 	<item id="dragonboat_large">
-		<id>0x14F0</id>
+		<id>0x14F2</id>
 		<name>dragon galley</name>
 		<tag name="multisection" value="dragonboat_large" />
     <scripts>boats.deed</scripts>
