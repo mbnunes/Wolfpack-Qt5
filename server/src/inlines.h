@@ -35,7 +35,7 @@
 
 // By Race Section to Check in Create an Elf Character
 
-inline bool isHairsByRace( Q_UINT16 model, bool race )
+inline bool isHairsByRace( quint16 model, bool race )
 {
 	if (!race)	// Human's Hairs
 	{
@@ -47,7 +47,7 @@ inline bool isHairsByRace( Q_UINT16 model, bool race )
 	}
 }
 
-inline bool isHairsByRaceColor( Q_UINT16 color, bool race )
+inline bool isHairsByRaceColor( quint16 color, bool race )
 {
 	if (!race)	// Human's Hairs
 	{
@@ -81,22 +81,22 @@ inline bool isHairsByRaceColor( Q_UINT16 color, bool race )
 	}
 }
 
-inline bool isHair( Q_UINT16 model )
+inline bool isHair( quint16 model )
 {
 	return	( ( ( model >= 0x203B ) && ( model <= 0x203D ) ) || ( ( model >= 0x2044 ) && ( model <= 0x204A ) ) ) ? true : false;
 }
 
-inline bool isBeard( Q_UINT16 model )
+inline bool isBeard( quint16 model )
 {
 	return	( ( ( model >= 0x203E ) && ( model <= 0x2041 ) ) || ( ( model >= 0x204B ) && ( model <= 0x204D ) ) ) ? true : false;
 }
 
-inline bool isNormalColor( Q_UINT16 color )
+inline bool isNormalColor( quint16 color )
 {
 	return ( ( color >= 2 ) && ( color < 0x3ea ) ) ? true : false;
 }
 
-inline bool isSkinColor( Q_UINT16 color, bool race )
+inline bool isSkinColor( quint16 color, bool race )
 {
 	if (!race) // Human's Colors
 	{
@@ -126,7 +126,7 @@ inline bool isSkinColor( Q_UINT16 color, bool race )
 	}
 }
 
-inline bool isHairColor( Q_UINT16 color )
+inline bool isHairColor( quint16 color )
 {
 	return ( ( color >= 0x44E ) && ( color <= 0x47D ) ) ? true : false;
 }

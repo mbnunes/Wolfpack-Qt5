@@ -108,7 +108,7 @@ void cCorpse::save( cBufferedWriter& writer, unsigned int version )
 	}
 }
 
-void cCorpse::load( char** result, Q_UINT16& offset )
+void cCorpse::load( char** result, quint16& offset )
 {
 	cItem::load( result, offset );
 	bodyId_ = atoi( result[offset++] );

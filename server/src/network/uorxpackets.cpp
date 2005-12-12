@@ -175,8 +175,8 @@ QString cUORxSpeechRequest::message()
 	if ( type() & 0xc0 )
 	{
 		// Skip the keywords
-		Q_UINT16 skipCount = ( keywordCount() + 1 ) * 12; // We have 12 Bits for the count as well
-		Q_UINT16 skipBytes = static_cast<Q_UINT16>( skipCount / 8 );
+		quint16 skipCount = ( keywordCount() + 1 ) * 12; // We have 12 Bits for the count as well
+		quint16 skipBytes = static_cast<quint16>( skipCount / 8 );
 		if ( skipCount % 8 > 0 ) // Round up
 			skipBytes++;
 
@@ -225,8 +225,8 @@ gumpChoice_st cUORxGumpResponse::choice()
 	offset = 0;
 	for ( i = 0; i < numTextEntries; i++ )
 	{
-		Q_UINT16 textLength = getShort( 25 + 4 * numSwitches + offset );
-		choice.textentries.insert( make_pair<Q_UINT16, QString>( getShort( 23 + 4 * numSwitches + offset ), getUnicodeString( 27 + 4 * numSwitches + offset, textLength * 2 ) ) );
+		quint16 textLength = getShort( 25 + 4 * numSwitches + offset );
+		choice.textentries.insert( make_pair<quint16, QString>( getShort( 23 + 4 * numSwitches + offset ), getUnicodeString( 27 + 4 * numSwitches + offset, textLength * 2 ) ) );
 
 		offset += 4 + textLength * 2;
 	}

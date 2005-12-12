@@ -72,7 +72,7 @@ public:
 	};
 
 	// implementation of interfaces
-	void load( char**, Q_UINT16& );
+	void load( char**, quint16& );
 	void save();
 	bool del();
 	void postload( unsigned int version );

@@ -48,13 +48,14 @@
 #include "network/network.h"
 #include "muls/multiscache.h"
 #include "walking.h"
+#include "pathfinding.h"
 #include "dbdriver.h"
 
 // System Includes
 #include <functional>
 //Added by qt3to4:
 #include <QByteArray>
-#include <Q3PtrList>
+#include <QList>
 
 // Main Command processing function
 void cCommands::process( cUOSocket* socket, const QString& command )
@@ -1047,7 +1048,7 @@ void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 
 		unsigned char type;
 		const QMap<unsigned char, QByteArray> &typemap = reader.typemap();
-		Q3PtrList<PersistentObject> objects;
+		QList<PersistentObject*> objects;
 
 		do {
 			type = reader.readByte();
@@ -1146,7 +1147,7 @@ void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 		reader.close();
 
 		// post process all loaded objects
-		Q3PtrList<PersistentObject>::const_iterator cit( objects.begin() );
+		QList<PersistentObject*>::const_iterator cit( objects.begin() );
 		while ( cit != objects.end() )
 		{
 			( *cit )->postload( reader.version() );
@@ -1166,8 +1167,6 @@ cCommands::~cCommands()
 	_acls.clear();
 }
 
-#include "pathfinding.h"
-
 class cFindPathTarget : public cTargetRequest {
 public:
 	bool responsed(cUOSocket *socket, cUORxTarget *target) {
@@ -1177,7 +1176,7 @@ public:
 		}
 
         Coord to(target->x(), target->y(), target->z(), socket->player()->pos().map);
-		Q3ValueVector<unsigned char> path = Pathfinding::instance()->find(socket->player(), socket->player()->pos(), to);
+		QList<unsigned char> path = Pathfinding::instance()->find(socket->player(), socket->player()->pos(), to);
 
 		socket->sysMessage(QString("Found path with %1 nodes.").arg(path.size()));
 		QStringList dirs;

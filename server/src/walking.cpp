@@ -119,7 +119,7 @@ struct stBlockItem
 
 // Keep in mind that this only get's called when
 // the tile we're walking on is impassable
-bool checkWalkable( P_CHAR pChar, Q_UINT16 tileId )
+bool checkWalkable( P_CHAR pChar, quint16 tileId )
 {
 	if ( !pChar )
 	{
@@ -930,7 +930,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	return true;
 }
 
-Q_UINT16 DynTile( const Coord& pos )
+quint16 DynTile( const Coord& pos )
 {
 	MapItemsIterator ri = MapObjects::instance()->listItemsInCircle( pos, 18 );
 	for ( P_ITEM mapitem = ri.first(); mapitem; mapitem = ri.next() )
@@ -955,7 +955,7 @@ Q_UINT16 DynTile( const Coord& pos )
 			return mapitem->id();
 		}
 	}
-	return ( Q_UINT16 ) - 1;
+	return ( quint16 ) - 1;
 }
 
 bool cMovement::canLandMonsterMoveHere( Coord& pos ) const

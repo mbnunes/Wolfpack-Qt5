@@ -67,28 +67,28 @@ public:
 		stWanderType( enWanderTypes type_ ) : type( type_ )
 		{
 		}
-		stWanderType( Q_UINT16 x1_, Q_UINT16 x2_, Q_UINT16 y1_, Q_UINT16 y2_ ) : type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ )
+		stWanderType( quint16 x1_, quint16 x2_, quint16 y1_, quint16 y2_ ) : type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ )
 		{
 		}
-		stWanderType( Q_UINT16 x_, Q_UINT16 y_, Q_UINT16 radius_ ) : type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ )
+		stWanderType( quint16 x_, quint16 y_, quint16 radius_ ) : type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ )
 		{
 		}
 
 		// attributes
 		enWanderTypes type;
 		// rectangles and circles
-		Q_UINT16 x1;
-		Q_UINT16 x2;
-		Q_UINT16 y1;
-		Q_UINT16 y2;
-		Q_UINT16 radius;
+		quint16 x1;
+		quint16 x2;
+		quint16 y1;
+		quint16 y2;
+		quint16 radius;
 
 		P_CHAR followTarget;
 		Coord destination;
 	};
 
 	// implementation of interfaces
-	void load( char**, Q_UINT16& );
+	void load( char**, quint16& );
 	void save();
 	bool del();
 	void load( cBufferedReader& reader, unsigned int version );
@@ -147,7 +147,7 @@ public:
 	SERIAL stablemasterSerial() const;
 	AbstractAI* ai() const;
 	quint32 aiCheckTime() const;
-	Q_UINT16 aiCheckInterval() const;
+	quint16 aiCheckInterval() const;
 	bool summoned() const;
 	// advanced getters for data structures
 	// path finding
@@ -157,11 +157,11 @@ public:
 	float pathHeuristic( const Coord& source, const Coord& destination );
 	// wander type
 	enWanderTypes wanderType() const;
-	Q_UINT16 wanderX1() const;
-	Q_UINT16 wanderX2() const;
-	Q_UINT16 wanderY1() const;
-	Q_UINT16 wanderY2() const;
-	Q_UINT16 wanderRadius() const;
+	quint16 wanderX1() const;
+	quint16 wanderX2() const;
+	quint16 wanderY1() const;
+	quint16 wanderY2() const;
+	quint16 wanderRadius() const;
 	P_CHAR wanderFollowTarget() const;
 	Coord wanderDestination() const;
 
@@ -178,7 +178,7 @@ public:
 	void setGuarding( P_PLAYER data );
 	void setAI( AbstractAI* ai );
 	void setAICheckTime( quint32 data );
-	void setAICheckInterval( Q_UINT16 data );
+	void setAICheckInterval( quint16 data );
 
 	// advanced setters for data structures
 	// AI
@@ -191,11 +191,11 @@ public:
 	void findPath( const Coord& goal );
 	// wander type
 	void setWanderType( enWanderTypes data );
-	void setWanderX1( Q_UINT16 data );
-	void setWanderX2( Q_UINT16 data );
-	void setWanderY1( Q_UINT16 data );
-	void setWanderY2( Q_UINT16 data );
-	void setWanderRadius( Q_UINT16 data );
+	void setWanderX1( quint16 data );
+	void setWanderX2( quint16 data );
+	void setWanderY1( quint16 data );
+	void setWanderY2( quint16 data );
+	void setWanderRadius( quint16 data );
 	void setWanderFollowTarget( P_CHAR data );
 	void setWanderDestination( const Coord& data );
 
@@ -275,7 +275,7 @@ protected:
 	quint32 aiCheckTime_;
 
 	// NPC AI check time intervall in msec
-	Q_UINT16 aiCheckInterval_;
+	quint16 aiCheckInterval_;
 };
 
 inline quint32 cNPC::additionalFlags() const
@@ -373,12 +373,12 @@ inline void cNPC::setAICheckTime( quint32 data )
 	aiCheckTime_ = data;
 }
 
-inline Q_UINT16 cNPC::aiCheckInterval() const
+inline quint16 cNPC::aiCheckInterval() const
 {
 	return aiCheckInterval_;
 }
 
-inline void cNPC::setAICheckInterval( Q_UINT16 data )
+inline void cNPC::setAICheckInterval( quint16 data )
 {
 	aiCheckInterval_ = data;
 	changed_ = true;
@@ -394,27 +394,27 @@ inline enWanderTypes cNPC::wanderType() const
 	return wanderType_.type;
 }
 
-inline Q_UINT16 cNPC::wanderX1() const
+inline quint16 cNPC::wanderX1() const
 {
 	return wanderType_.x1;
 }
 
-inline Q_UINT16 cNPC::wanderX2() const
+inline quint16 cNPC::wanderX2() const
 {
 	return wanderType_.x2;
 }
 
-inline Q_UINT16 cNPC::wanderY1() const
+inline quint16 cNPC::wanderY1() const
 {
 	return wanderType_.y1;
 }
 
-inline Q_UINT16 cNPC::wanderY2() const
+inline quint16 cNPC::wanderY2() const
 {
 	return wanderType_.y2;
 }
 
-inline Q_UINT16 cNPC::wanderRadius() const
+inline quint16 cNPC::wanderRadius() const
 {
 	return wanderType_.radius;
 }
@@ -434,27 +434,27 @@ inline void cNPC::setWanderType( enWanderTypes data )
 	wanderType_.type = data;
 }
 
-inline void cNPC::setWanderX1( Q_UINT16 data )
+inline void cNPC::setWanderX1( quint16 data )
 {
 	wanderType_.x1 = data;
 }
 
-inline void cNPC::setWanderX2( Q_UINT16 data )
+inline void cNPC::setWanderX2( quint16 data )
 {
 	wanderType_.x2 = data;
 }
 
-inline void cNPC::setWanderY1( Q_UINT16 data )
+inline void cNPC::setWanderY1( quint16 data )
 {
 	wanderType_.y1 = data;
 }
 
-inline void cNPC::setWanderY2( Q_UINT16 data )
+inline void cNPC::setWanderY2( quint16 data )
 {
 	wanderType_.y2 = data;
 }
 
-inline void cNPC::setWanderRadius( Q_UINT16 data )
+inline void cNPC::setWanderRadius( quint16 data )
 {
 	wanderType_.radius = data;
 }

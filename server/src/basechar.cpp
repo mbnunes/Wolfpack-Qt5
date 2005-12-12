@@ -304,7 +304,7 @@ void cBaseChar::save( cBufferedWriter& writer, unsigned int version )
 	}
 }
 
-void cBaseChar::load( char** result, Q_UINT16& offset )
+void cBaseChar::load( char** result, quint16& offset )
 {
 	cUObject::load( result, offset );
 
@@ -380,10 +380,10 @@ void cBaseChar::load( char** result, Q_UINT16& offset )
 		// row[1] = value
 		// row[2] = locktype
 		// row[3] = cap (unused!)
-		Q_UINT16 skill = res.getInt( 0 );
-		Q_UINT16 value = res.getInt( 1 );
+		quint16 skill = res.getInt( 0 );
+		quint16 value = res.getInt( 1 );
 		quint8 lockType = res.getInt( 2 );
-		Q_UINT16 cap = res.getInt( 3 );
+		quint16 cap = res.getInt( 3 );
 
 		if ( lockType > 2 )
 			lockType = 0;
@@ -701,7 +701,7 @@ P_ITEM cBaseChar::getShield() const
 	return NULL;
 }
 
-void cBaseChar::setHairColor( Q_UINT16 d )
+void cBaseChar::setHairColor( quint16 d )
 {
 	changed_ = true;
 	cItem* pHair = getItemOnLayer( 11 );
@@ -710,7 +710,7 @@ void cBaseChar::setHairColor( Q_UINT16 d )
 	pHair->update();
 }
 
-void cBaseChar::setHairStyle( Q_UINT16 d )
+void cBaseChar::setHairStyle( quint16 d )
 {
 	if ( !isHair( d ) )
 		return;
@@ -733,7 +733,7 @@ void cBaseChar::setHairStyle( Q_UINT16 d )
 	pHair->update();
 }
 
-void cBaseChar::setBeardColor( Q_UINT16 d )
+void cBaseChar::setBeardColor( quint16 d )
 {
 	changed_ = true;
 	cItem* pBeard = getItemOnLayer( 16 );
@@ -742,7 +742,7 @@ void cBaseChar::setBeardColor( Q_UINT16 d )
 	pBeard->update();
 }
 
-void cBaseChar::setBeardStyle( Q_UINT16 d )
+void cBaseChar::setBeardStyle( quint16 d )
 {
 	if ( !isBeard( d ) )
 		return;
@@ -1118,7 +1118,7 @@ bool cBaseChar::inNoKillCountArea()
 		return false;
 }
 
-void cBaseChar::emote( const QString& emote, UI16 color )
+void cBaseChar::emote( const QString& emote, ushort color )
 {
 	if ( color == 0xFFFF )
 		color = emoteColor_;
@@ -2282,19 +2282,19 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	return cUObject::getProperty( name );
 }
 
-void cBaseChar::setSkillValue( Q_UINT16 skill, Q_UINT16 value )
+void cBaseChar::setSkillValue( quint16 skill, quint16 value )
 {
 	skills_[skill].value = value;
 	skills_[skill].changed = true;
 }
 
-void cBaseChar::setSkillCap( Q_UINT16 skill, Q_UINT16 cap )
+void cBaseChar::setSkillCap( quint16 skill, quint16 cap )
 {
 	skills_[skill].cap = cap;
 	skills_[skill].changed = true;
 }
 
-void cBaseChar::setSkillLock( Q_UINT16 skill, quint8 lock )
+void cBaseChar::setSkillLock( quint16 skill, quint8 lock )
 {
 	if ( lock > 2 )
 		lock = 0;
@@ -2303,17 +2303,17 @@ void cBaseChar::setSkillLock( Q_UINT16 skill, quint8 lock )
 	skills_[skill].changed = true;
 }
 
-Q_UINT16 cBaseChar::skillValue( Q_UINT16 skill ) const
+quint16 cBaseChar::skillValue( quint16 skill ) const
 {
 	return skills_[skill].value;
 }
 
-Q_UINT16 cBaseChar::skillCap( Q_UINT16 skill ) const
+quint16 cBaseChar::skillCap( quint16 skill ) const
 {
 	return skills_[skill].cap;
 }
 
-quint8 cBaseChar::skillLock( Q_UINT16 skill ) const
+quint8 cBaseChar::skillLock( quint16 skill ) const
 {
 	return skills_[skill].lock;
 }
@@ -2917,9 +2917,9 @@ bool cBaseChar::kill( cUObject* source )
 			// Award fame and karma to the party members of this player if they can see the victim
 			if ( pPlayer->party() )
 			{
-				Q3PtrList<cPlayer> members = pPlayer->party()->members();
+				QList<cPlayer*> members = pPlayer->party()->members();
 
-				for ( P_PLAYER member = members.first(); member; member = members.next() )
+				foreach ( P_PLAYER member, members )
 				{
 					if ( member != pPlayer && member->canSeeChar( this ) )
 					{

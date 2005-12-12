@@ -32,9 +32,8 @@
 #include "dbdriver.h"
 #include "world.h"
 #include "items.h"
-//Added by qt3to4:
-#include <Q3ValueList>
-#include <Q3PtrList>
+
+#include <QList>
 
 cGuilds::~cGuilds()
 {
@@ -196,7 +195,7 @@ void cGuild::save()
 	// Save Members/Canidates
 	P_PLAYER player;
 
-	for ( player = members_.first(); player; player = members_.next() )
+	foreach ( player, members_ )
 	{
 		MemberInfo* info = getMemberInfo( player );
 		PersistentBroker::instance()->executeQuery( QString( "INSERT INTO guilds_members VALUES(%1,%2,%3,'%4',%5);" )
@@ -205,12 +204,12 @@ void cGuild::save()
 			.arg( info->joined() ) );
 	}
 
-	for ( player = canidates_.first(); player; player = canidates_.next() )
+	foreach ( player, canidates_ )
 	{
 		PersistentBroker::instance()->executeQuery( QString( "INSERT INTO guilds_canidates VALUES(%1,%2);" ).arg( serial_ ).arg( player->serial() ) );
 	}
 
-	Q3ValueList<unsigned int>::iterator it;
+	QList<unsigned int>::iterator it;
 
 	for (it = allies_.begin(); it != allies_.end(); ++it) {
 		unsigned int serial = *it;
@@ -249,7 +248,7 @@ cGuild::~cGuild()
 {
 	P_PLAYER player;
 
-	for ( player = members_.first(); player; player = members_.next() )
+	foreach ( player, members_ )
 	{
 		player->setGuild( 0 );
 
@@ -259,7 +258,7 @@ cGuild::~cGuild()
 		memberinfo_.remove( player );
 	}
 
-	for ( player = canidates_.first(); player; player = canidates_.next() )
+	foreach ( player, canidates_ )
 	{
 		player->setGuild( 0 );
 
@@ -269,7 +268,7 @@ cGuild::~cGuild()
 		memberinfo_.remove( player );
 	}
 
-	Q3ValueList<unsigned int>::iterator it;
+	QList<unsigned int>::iterator it;
 
 	for (it = allies_.begin(); it != allies_.end(); ++it) {
 		unsigned int serial = *it;
@@ -815,11 +814,11 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	if ( !strcmp( name, "members" ) )
 	{
-		Q3PtrList<cPlayer>& members = self->guild->members();
+		QList<cPlayer*>& members = self->guild->members();
 		PyObject* list = PyTuple_New( members.count() );
 		unsigned int i = 0;
 
-		for ( P_PLAYER player = members.first(); player; player = members.next() )
+		foreach ( P_PLAYER player, members )
 		{
 			PyTuple_SetItem( list, i++, player->getPyObject() );
 		}
@@ -831,11 +830,11 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "canidates" ) )
 	{
-		Q3PtrList<cPlayer>& canidates = self->guild->canidates();
+		QList<cPlayer*>& canidates = self->guild->canidates();
 		PyObject* list = PyTuple_New( canidates.count() );
 		unsigned int i = 0;
 
-		for ( P_PLAYER player = canidates.first(); player; player = canidates.next() )
+		foreach ( P_PLAYER player, canidates )
 		{
 			PyTuple_SetItem( list, i++, player->getPyObject() );
 		}
@@ -919,8 +918,8 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "allies" ) )
 	{
-		const Q3ValueList<unsigned int> &allies = self->guild->allies();
-		Q3ValueList<unsigned int>::const_iterator it;
+		const QList<unsigned int> &allies = self->guild->allies();
+		QList<unsigned int>::const_iterator it;
 
 		PyObject *result = PyTuple_New( allies.size() );
 		unsigned int i = 0;
@@ -944,8 +943,8 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "enemies" ) )
 	{
-		const Q3ValueList<unsigned int> &enemies = self->guild->enemies();
-		Q3ValueList<unsigned int>::const_iterator it;
+		const QList<unsigned int> &enemies = self->guild->enemies();
+		QList<unsigned int>::const_iterator it;
 
 		PyObject *result = PyTuple_New( enemies.size() );
 		unsigned int i = 0;
@@ -1133,7 +1132,7 @@ void cGuild::save( cBufferedWriter& writer, unsigned int version )
 	P_PLAYER player;
 
 	writer.writeInt( members_.count() );
-	for ( player = members_.first(); player; player = members_.next() )
+	foreach ( player, members_ )
 	{
 		MemberInfo* info = getMemberInfo( player );
 		writer.writeInt( player->serial() );
@@ -1143,13 +1142,13 @@ void cGuild::save( cBufferedWriter& writer, unsigned int version )
 	}
 
 	writer.writeInt( canidates_.count() );
-	for ( player = canidates_.first(); player; player = canidates_.next() )
+	foreach ( player, canidates_ )
 	{
 		writer.writeInt( player->serial() );
 	}
 
 	if (version >= 10) {
-		Q3ValueList<unsigned int>::iterator it;
+		QList<unsigned int>::iterator it;
 
 		writer.writeInt(allies_.count());
 		for (it = allies_.begin(); it != allies_.end(); ++it) {

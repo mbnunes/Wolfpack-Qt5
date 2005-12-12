@@ -26,14 +26,11 @@
  */
 
 // Library Includes
-#include <qxml.h>
+#include <QtXml>
 #include <QFile>
 #include <q3ptrstack.h>
-#include <qregexp.h>
+#include <QRegExp>
 #include <QStringList>
-#include <q3valuevector.h>
-#include <q3valuelist.h>
-//Added by qt3to4:
 #include <QByteArray>
 
 // Reloading
@@ -118,11 +115,11 @@ class cXmlHandler : public QXmlDefaultHandler
 private:
 	cDefManagerPrivate* impl;
 	// Element level within the current file
-	Q3ValueVector<int> levels;
+	QList<int> levels;
 	// Holds all read elements.
 	Q3PtrStack<cElement> elements;
 	// Files stack (each <include> pushes a file)
-	Q3ValueVector<QString> filenames;
+	QList<QString> filenames;
 	// Locators associated to each document
 	Q3PtrStack<QXmlLocator> locators;
 

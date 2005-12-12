@@ -47,7 +47,7 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm );
 namespace Speech
 {
 bool response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm, QList<ushort>& keywords );
-void talking( P_PLAYER pChar, const QString& lang, const QString& speech, QList<ushort>& keywords, Q_UINT16 color, Q_UINT16 font, quint8 type );
+void talking( P_PLAYER pChar, const QString& lang, const QString& speech, QList<ushort>& keywords, quint16 color, quint16 font, quint8 type );
 };
 
 #endif

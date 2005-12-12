@@ -88,7 +88,7 @@ void cQuests::unload()
 	quests.clear();
 }
 
-const QString& cQuests::getQuestName( Q_UINT16 quest ) const
+const QString& cQuests::getQuestName( quint16 quest ) const
 {
 	if ( quest >= quests.size() )
 	{

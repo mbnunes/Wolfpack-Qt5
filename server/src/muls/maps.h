@@ -52,11 +52,11 @@ struct map_st
 
 struct staticrecord
 {
-	Q_UINT16 itemid;
+	quint16 itemid;
 	quint8 xoff;
 	quint8 yoff;
 	Q_INT8 zoff;
-	Q_UINT16 color;
+	quint16 color;
 };
 #pragma pack()
 

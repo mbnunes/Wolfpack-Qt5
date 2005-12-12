@@ -44,14 +44,13 @@
 // System Includes
 #include <math.h>
 #include <set>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
-inline Q3ValueList<Coord> getPointList( const Coord& origin, const Coord& target )
+inline QList<Coord> getPointList( const Coord& origin, const Coord& target )
 {
 	// Create a list of coordinates we are going to "touch" when looking
 	// from point a to point b
-	Q3ValueList<Coord> pointList;
+	QList<Coord> pointList;
 
 	int xDiff = target.x - origin.x;
 	int yDiff = target.y - origin.y;
@@ -123,7 +122,7 @@ struct stBlockingItem
 // Get blocking tiles at the given x,y,map coordinate
 // Get floor tiles, that are not blocking, too
 // we need these floor tiles to know, if the 'black map' tile is the only floor here
-void getBlockingTiles( const Coord& pos, Q3ValueList<stBlockingItem>& items )
+void getBlockingTiles( const Coord& pos, QList<stBlockingItem>& items )
 {
 	stBlockingItem item;
 
@@ -252,10 +251,10 @@ void getBlockingTiles( const Coord& pos, Q3ValueList<stBlockingItem>& items )
 }
 
 // Check for blocking tiles at the given position
-inline bool checkBlockingTiles( const Q3ValueList<stBlockingItem>& items, const Coord& pos, const Coord& target )
+inline bool checkBlockingTiles( const QList<stBlockingItem>& items, const Coord& pos, const Coord& target )
 {
 	// Iterate trough all blocking tiles
-	Q3ValueList<stBlockingItem>::const_iterator it;
+	QList<stBlockingItem>::const_iterator it;
 	for ( it = items.begin(); it != items.end(); ++it )
 	{
 		stBlockingItem item = *it;
@@ -305,12 +304,12 @@ bool Coord::lineOfSight( const Coord& target, bool debug ) const
 		return true;
 	}
 
-	Q3ValueList<Coord> pointList = getPointList( *this, target );
+	QList<Coord> pointList = getPointList( *this, target );
 
 	int lastX = -1, lastY = -1;
-	Q3ValueList<stBlockingItem> blockingItems;
+	QList<stBlockingItem> blockingItems;
 
-	Q3ValueList<Coord>::const_iterator it;
+	QList<Coord>::const_iterator it;
 	for ( it = pointList.begin(); it != pointList.end(); ++it )
 	{
 		Coord point = *it;
@@ -422,7 +421,7 @@ Coord Coord::operator-( const Coord& src ) const
 	return Coord( this->x - src.x, this->y - src.y, this->z - src.z, this->map );
 }
 
-void Coord::effect( Q_UINT16 id, quint8 speed, quint8 duration, Q_UINT16 hue, Q_UINT16 renderMode ) const
+void Coord::effect( quint16 id, quint8 speed, quint8 duration, quint16 hue, quint16 renderMode ) const
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCEPOS );

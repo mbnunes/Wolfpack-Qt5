@@ -58,11 +58,11 @@ class cContextMenu;
 
 struct stTargetItem
 {
-	Q_UINT16 id;
+	quint16 id;
 	Q_INT16 xOffset;
 	Q_INT16 yOffset;
 	Q_INT16 zOffset;
-	Q_UINT16 hue;
+	quint16 hue;
 };
 
 class cUOSocket : public QObject
@@ -239,8 +239,8 @@ public:
 	// Utilities
 	void updateChar( P_CHAR pChar );
 	void sendChar( P_CHAR pChar );
-	void showSpeech( const cUObject* object, const QString& message, Q_UINT16 color = 0x3B2, Q_UINT16 font = 3, quint8 speechType = 0x00 );
-	void sysMessage( const QString& message, Q_UINT16 color = 0x3b2, Q_UINT16 font = 3 );
+	void showSpeech( const cUObject* object, const QString& message, quint16 color = 0x3B2, quint16 font = 3, quint8 speechType = 0x00 );
+	void sysMessage( const QString& message, quint16 color = 0x3b2, quint16 font = 3 );
 	void sendCharList();
 	void removeObject( cUObject* object );
 	void disconnect(); // Call this whenever the socket should disconnect
@@ -252,9 +252,9 @@ public:
 	void resendPlayer( bool quick = true );
 	void updateWeather( P_PLAYER pChar );
 	void poll();
-	void soundEffect( Q_UINT16 soundId, cUObject* source = NULL );
+	void soundEffect( quint16 soundId, cUObject* source = NULL );
 	void attachTarget( cTargetRequest* request );
-	void attachTarget( cTargetRequest* request, Q_UINT16 multiid, unsigned short xoffset, unsigned short yoffset, unsigned short zoffset );
+	void attachTarget( cTargetRequest* request, quint16 multiid, unsigned short xoffset, unsigned short yoffset, unsigned short zoffset );
 	void attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, Q_INT16 xOffset = 0, Q_INT16 yOffset = 0, Q_INT16 zOffset = 0 );
 	void cancelTarget();
 	void resendWorld( bool clean = true );
@@ -264,14 +264,14 @@ public:
 	void updateHealth( P_CHAR pChar = NULL );
 	void sendStatWindow( P_CHAR pChar = NULL );
 	bool inRange( cUOSocket* ) const;
-	void sendSkill( Q_UINT16 skill );
+	void sendSkill( quint16 skill );
 	void sendBuyWindow( P_NPC pVendor );
 	void sendSellWindow( P_NPC pVendor, P_CHAR pSeller );
 	void sendVendorCont( P_ITEM pItem );
-	void clilocMessage( const quint32 MsgID, const QString& params = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool system = false );
-	void clilocMessageAffix( const quint32 MsgID, const QString& params = 0, const QString& affix = 0, const Q_UINT16 color = 0x3b2, const Q_UINT16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
+	void clilocMessage( const quint32 MsgID, const QString& params = 0, const quint16 color = 0x3b2, const quint16 font = 3, cUObject* object = 0, bool system = false );
+	void clilocMessageAffix( const quint32 MsgID, const QString& params = 0, const QString& affix = 0, const quint16 color = 0x3b2, const quint16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
 	void updateLightLevel();
-	void sendQuestArrow( bool show, Q_UINT16 x, Q_UINT16 y );
+	void sendQuestArrow( bool show, quint16 x, quint16 y );
 	void sendWeblink( const QString& url );
 	void closeGump( quint32 type, quint32 returnCode );
 	void log( eLogLevel loglevel, const QString& message );

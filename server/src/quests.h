@@ -57,7 +57,7 @@ public:
 	{
 		unload(); load();
 	}
-	const QString& getQuestName( Q_UINT16 quest ) const;
+	const QString& getQuestName( quint16 quest ) const;
 };
 
 typedef Singleton<cQuests> Quests;

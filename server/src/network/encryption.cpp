@@ -31,7 +31,7 @@
  */
 
 #include <QString>
-#include <qdatastream.h>
+#include <QDataStream>
 
 #include "encryption.h"
 #include "../definitions.h"

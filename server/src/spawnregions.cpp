@@ -278,7 +278,7 @@ void cSpawnRegion::processNode( const cElement* tag )
 			value = 1;
 		}
 
-		npcNodes_.append( tag ); // Append to npc nodes
+		npcNodes_.append( const_cast<cElement*>( tag ) ); // Append to npc nodes
 		npcNodeFrequencies_.append( value );
 		npcNodesTotal_ += value;
 	}
@@ -293,7 +293,7 @@ void cSpawnRegion::processNode( const cElement* tag )
 			value = 1;
 		}
 
-		itemNodes_.append( tag ); // Append to item nodes
+		itemNodes_.append( const_cast<cElement*>( tag ) ); // Append to item nodes
 		itemNodeFrequencies_.append( value );
 		itemNodesTotal_ += value;
 	}
@@ -556,8 +556,7 @@ bool cSpawnRegion::findValidSpot( Coord& result, int tries )
 			// See if there already are items or characters at the given position
 			if ( checkFreeSpot_ )
 			{
-				cUObject *pItem;
-				for ( pItem = items_.first(); pItem; pItem = items_.next() )
+				foreach ( cUObject *pItem, items_ )
 				{
 					if ( pItem->pos() == rndPos )
 					{
@@ -565,8 +564,7 @@ bool cSpawnRegion::findValidSpot( Coord& result, int tries )
 					}
 				}
 
-				cUObject *pChar;
-				for ( pChar = npcs_.first(); pChar; pChar = npcs_.next() )
+				foreach ( cUObject *pChar, npcs_ )
 				{
 					if ( pChar->pos() == rndPos )
 					{
@@ -603,14 +601,14 @@ void cSpawnRegion::spawnSingleNPC()
 		// There are some regions where one NPC should be spawned more often than others
 		// So we treat every NPC section as a 1 point section and then select accordingly...
 		// The frequency="" attribute is used for this
-		cElement *node;
+		cElement* node;
 		unsigned int selected = RandomNum( 0, npcNodesTotal_ - 1 ); // Random number
 		unsigned int offset = 0; // Random offset
 		unsigned int i = 0; // Index for the npcNodeFrequencies
-		const cElement *tag = 0;
+		const cElement* tag = 0;
 
 		// Search the selected element
-		for ( node = npcNodes_.first(); node; node = npcNodes_.next() )
+		foreach ( node, npcNodes_ )
 		{
 			unsigned int value = npcNodeFrequencies_[i++];
 			offset += value;
@@ -710,7 +708,7 @@ void cSpawnRegion::spawnSingleItem()
 		const cElement *tag = 0;
 
 		// Search the selected element
-		for ( node = itemNodes_.first(); node; node = itemNodes_.next() )
+		foreach ( node, itemNodes_ )
 		{
 			unsigned int value = itemNodeFrequencies_[i++];
 			offset += value;
@@ -833,16 +831,16 @@ void cSpawnRegion::reSpawnToMax( void )
 // delete all spawns and reset the timer
 void cSpawnRegion::deSpawn( void )
 {
-	Q3PtrList<cUObject> items = items_; // Copy
-	Q3PtrList<cUObject> npcs = npcs_; // Copy
+	QList<cUObject*> items = items_; // Copy
+	QList<cUObject*> npcs = npcs_; // Copy
 	cUObject *object;
 
-	for ( object = items.first(); object; object = items.next() )
+	foreach ( object, items )
 	{
 		object->remove();
 	}
 
-	for ( object = npcs.first(); object; object = npcs.next() )
+	foreach ( object, npcs )
 	{
 		object->remove();
 	}

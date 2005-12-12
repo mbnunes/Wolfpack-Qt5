@@ -97,7 +97,7 @@ public:
 	bool isInLockedItem();
 	virtual void talk( const QString& message, UI16 color = 0xFFFF, quint8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	virtual void talk( const quint32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
-	void load( char**, Q_UINT16& );
+	void load( char**, quint16& );
 	void save();
 	bool del();
 
@@ -109,7 +109,7 @@ public:
 	virtual void update( cUOSocket* mSock = NULL );
 	P_ITEM dupe( bool dupeContent = false );
 	void dupeContent( P_ITEM container );
-	void soundEffect( Q_UINT16 sound );
+	void soundEffect( quint16 sound );
 
 	// Returns Zero if the item shouldn't decay
 	virtual unsigned int decayDelay();
@@ -363,7 +363,7 @@ public:
 	{
 		return type() == 1008;
 	}
-	Q_UINT16 getWeaponSkill();
+	quint16 getWeaponSkill();
 
 	void moveTo( const Coord& pos );
 	long reduceAmount( unsigned int amount = 1 );
@@ -439,7 +439,7 @@ public:
 	bool onPickup( P_CHAR pChar );
 	//	bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 
-	Q3PtrList< cItem > getContainment() const;
+	QList< cItem* > getContainment() const;
 
 	P_ITEM getOutmostItem();
 	P_CHAR getOutmostChar();

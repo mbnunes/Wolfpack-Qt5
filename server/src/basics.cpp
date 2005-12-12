@@ -107,11 +107,11 @@ bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ )
 
 	bool ok = false;
 
-	Q_UINT16 x = coords[0].toULong( &ok );
+	quint16 x = coords[0].toULong( &ok );
 	if ( !ok )
 		return false;
 
-	Q_UINT16 y = coords[1].toULong( &ok );
+	quint16 y = coords[1].toULong( &ok );
 	if ( !ok )
 		return false;
 
@@ -133,7 +133,7 @@ bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ )
 	}
 
 	// They are 100% valid now, so let's move!
-	// TODO: Add Mapbounds check here
+	// TODO: Add Map bounds check here
 	coord.x = x;
 	coord.y = y;
 	coord.z = z;
@@ -235,7 +235,7 @@ void cBufferedWriter::open( const QString& filename )
 		throw wpException( QString( "Couldn't open file %1 for writing." ).arg( filename ) );
 	}
 
-	// Reserve space for magic, filesize, version, dictionary offset, objectcount (in that order)
+	// Reserve space for magic, filesize, version, dictionary offset, object count (in that order)
 	unsigned int headerSize = d->magic.length() + 1 + sizeof( unsigned int ) * 4;
 
 	QByteArray header( headerSize );
@@ -251,7 +251,7 @@ void cBufferedWriter::open( const QString& filename )
 	{
 		writeByte( it.key() );
 		writeInt( 0 ); // SkipSize
-		writeAscii( qPrintable( it.data() ) ); // Preinsert into the dictionary
+		writeAscii( qPrintable( it.data() ) ); // Pre-insert into the dictionary
 		d->skipmap.insert( it.key(), 0 );
 		d->typemap.insert( it.key(), it.data() );
 	}
@@ -604,9 +604,9 @@ void cBufferedReader::readRaw( void* data, unsigned int size )
 		// Refill buffer if required
 		if ( available == 0 )
 		{
-			unsigned int read = d->file.readBlock( d->buffer.data(), 4096 );
+			unsigned int read = d->file.read( d->buffer.data(), 4096 );
 
-			// We will never be able to statisfy the request
+			// We will never be able to satisfy the request
 			if ( read != 4096 && read < size )
 			{
 				throw wpException( QString( "Unexpected end of file while reading file %1." ).arg( d->file.fileName() ) );

@@ -253,7 +253,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 	return false;
 }
 
-void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech, QList<ushort>& keywords, Q_UINT16 color, Q_UINT16 font, quint8 type ) // PC speech
+void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech, QList<ushort>& keywords, quint16 color, quint16 font, quint8 type ) // PC speech
 {
 	// handle things like renaming or describing an item
 	if ( !pChar->socket() )

@@ -219,7 +219,7 @@ Q3PtrListIterator<cUOSocket> cNetwork::getIterator()
 	return Q3PtrListIterator<cUOSocket>( d->uoSockets );
 }
 
-void cNetwork::broadcast( const QString& message, Q_UINT16 color, Q_UINT16 font )
+void cNetwork::broadcast( const QString& message, quint16 color, quint16 font )
 {
 	for ( cUOSocket*socket = d->uoSockets.first(); socket; socket = d->uoSockets.next() )
 	{

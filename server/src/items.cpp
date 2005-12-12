@@ -58,9 +58,8 @@
 // System Includes
 #include <math.h>
 #include <algorithm>
-//Added by qt3to4:
 #include <QByteArray>
-#include <Q3PtrList>
+#include <QList>
 
 using namespace std;
 
@@ -1199,7 +1198,7 @@ void cItem::dupeContent( P_ITEM container )
 	}
 }
 
-void cItem::soundEffect( Q_UINT16 sound )
+void cItem::soundEffect( quint16 sound )
 {
 	for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
 		if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
@@ -1362,9 +1361,9 @@ bool cItem::wearOut()
 	return false;
 }
 
-Q3PtrList< cItem > cItem::getContainment() const
+QList< cItem* > cItem::getContainment() const
 {
-	Q3PtrList<cItem> itemlist;
+	QList<cItem*> itemlist;
 
 	for ( ContainerIterator it( content_ ); !it.atEnd(); ++it )
 	{
@@ -1373,15 +1372,12 @@ Q3PtrList< cItem > cItem::getContainment() const
 		// we'v got a container
 		if ( pItem->type() == 1 || pItem->type() == 63 )
 		{
-			Q3PtrList<cItem> sublist = pItem->getContainment();
+			QList<cItem*> sublist = pItem->getContainment();
 
 			// Transfer the items
-			Q3PtrListIterator<cItem> pit( sublist );
-			P_ITEM pi;
-			while ( ( pi = pit.current() ) )
+			foreach( cItem* pi, sublist )
 			{
 				itemlist.append( pi );
-				++pit;
 			}
 		}
 		// Or just put it into our list
@@ -1396,7 +1392,7 @@ unsigned char cItem::classid;
 
 static FactoryRegistration<cItem> registration( "cItem" );
 
-void cItem::load( char** result, Q_UINT16& offset )
+void cItem::load( char** result, quint16& offset )
 {
 	cUObject::load( result, offset ); // Load the items we inherit from first
 
@@ -1630,7 +1626,7 @@ void cItem::setAmount( UI16 nValue )
 	flagChanged();
 }
 
-Q_UINT16 cItem::getWeaponSkill()
+quint16 cItem::getWeaponSkill()
 {
 	switch ( type() )
 	{
@@ -2230,9 +2226,9 @@ unsigned int cItem::countItems( const QStringList& baseids ) const
 unsigned int cItem::countItems( short id, short color ) const
 {
 	unsigned int total = 0;
-	Q3PtrList<cItem> content = getContainment();
+	QList<cItem*> content = getContainment();
 
-	for ( P_ITEM pi = content.first(); pi; pi = content.next() )
+	foreach ( P_ITEM pi, content )
 	{
 		if ( !pi || pi->free ) // just to be sure ;-)
 			continue;

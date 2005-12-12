@@ -824,7 +824,7 @@ static PyObject* wpCanPlace( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	Q3PtrList<cUObject> moveOut; // List of objects to move out
+	QList<cUObject*> moveOut; // List of objects to move out
 
 	PyObject *result = PyTuple_New( 2 );
 
@@ -835,7 +835,7 @@ static PyObject* wpCanPlace( PyObject* self, PyObject* args )
 
 		PyObject *list = PyTuple_New( moveOut.count() );
 		int i = 0;
-		for ( cUObject*obj = moveOut.first(); obj; obj = moveOut.next() )
+		foreach ( cUObject* obj, moveOut )
 		{
 			PyTuple_SET_ITEM( list, i++, obj->getPyObject() );
 		}
@@ -852,12 +852,12 @@ static PyObject* wpCanPlace( PyObject* self, PyObject* args )
 }
 
 /*
-\function wolfpack.canplaceboat
-\param pos The position.
-\param id The display id of the multi (0x0000 to 0x4000).
-\param yard The size of the multis yard.
-\return True if the given multi can be placed by a player at the given location.
-\description This function checks if a multi can be placed at a certain location by players.
+	\function wolfpack.canplaceboat
+	\param pos The position.
+	\param id The display id of the multi (0x0000 to 0x4000).
+	\param yard The size of the multis yard.
+	\return True if the given multi can be placed by a player at the given location.
+	\description This function checks if a multi can be placed at a certain location by players.
 */
 static PyObject* wpCanPlaceBoat( PyObject* self, PyObject* args )
 {
@@ -869,7 +869,7 @@ static PyObject* wpCanPlaceBoat( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	Q3PtrList<cUObject> moveOut; // List of objects to move out
+	QList<cUObject*> moveOut; // List of objects to move out
 
 	PyObject *result = PyTuple_New( 2 );
 
@@ -880,7 +880,7 @@ static PyObject* wpCanPlaceBoat( PyObject* self, PyObject* args )
 
 		PyObject *list = PyTuple_New( moveOut.count() );
 		int i = 0;
-		for ( cUObject*obj = moveOut.first(); obj; obj = moveOut.next() )
+		foreach ( cUObject* obj, moveOut )
 		{
 			PyTuple_SET_ITEM( list, i++, obj->getPyObject() );
 		}

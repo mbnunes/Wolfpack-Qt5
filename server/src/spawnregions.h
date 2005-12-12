@@ -89,22 +89,22 @@ public:
 		return items_.count();
 	}
 
-	UI16 maxNpcs( void ) const
+	ushort maxNpcs( void ) const
 	{
 		return maxNpcAmt_;
 	}
 
-	UI16 maxItems( void ) const
+	ushort maxItems( void ) const
 	{
 		return maxItemAmt_;
 	}
 
-	Q3PtrList<cUObject> spawnedItems() const
+	QList<cUObject*> spawnedItems() const
 	{
 		return items_;
 	}
 
-	Q3PtrList<cUObject> spawnedNpcs() const
+	QList<cUObject*> spawnedNpcs() const
 	{
 		return npcs_;
 	}
@@ -155,25 +155,25 @@ private:
 
 	bool checkFreeSpot_; // The target spot has to be free.
 
-	Q3PtrList<cUObject> items_; // List of spawned items
-	Q3PtrList<cUObject> npcs_; // List of spawned npcs
+	QList<cUObject*> items_; // List of spawned items
+	QList<cUObject*> npcs_; // List of spawned npcs
 
-	Q3PtrList<cElement> itemNodes_; // Pointers to definition elements for NPCs
-	Q3PtrList<cElement> npcNodes_; // Pointers to definition elements for Items
-	Q3ValueList<unsigned int> itemNodeFrequencies_; // Frequencies for item nodes
-	Q3ValueList<unsigned int> npcNodeFrequencies_; // Frequencies for npc nodes
+	QList<cElement*> itemNodes_; // Pointers to definition elements for NPCs
+	QList<cElement*> npcNodes_; // Pointers to definition elements for Items
+	QList<unsigned int> itemNodeFrequencies_; // Frequencies for item nodes
+	QList<unsigned int> npcNodeFrequencies_; // Frequencies for npc nodes
 	unsigned int npcNodesTotal_; // The total spawn frequency value. Speedup property.
 	unsigned int itemNodesTotal_; // The total spawn frequency value. Speedup property.
 
-	UI16 maxNpcAmt_; // Max amount of characters to spawn
-	UI16 maxItemAmt_; // Max amount of items to spawn
+	ushort maxNpcAmt_; // Max amount of characters to spawn
+	ushort maxItemAmt_; // Max amount of items to spawn
 
-	UI16 npcsPerCycle_; // amount of characters to spawn per cycle
-	UI16 itemsPerCycle_; // amount of items to spawn per cycle
+	ushort npcsPerCycle_; // amount of characters to spawn per cycle
+	ushort itemsPerCycle_; // amount of items to spawn per cycle
 
-	UI32 minTime_; // Minimum spawn time in sec
-	UI32 maxTime_; // Maximum spawn time in sec
-	UI32 nextTime_; // Next time for this region to spawn
+	uint minTime_; // Minimum spawn time in sec
+	uint maxTime_; // Maximum spawn time in sec
+	uint nextTime_; // Next time for this region to spawn
 };
 
 class cAllSpawnRegions : public std::map<QString, cSpawnRegion*>, public cComponent
@@ -194,9 +194,9 @@ public:
 	void deSpawn( void );
 	bool deSpawnGroup( const QString& group );
 
-	UI16 npcs( void )
+	ushort npcs( void )
 	{
-		UI16 numNpcs = 0;
+		ushort numNpcs = 0;
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
@@ -206,9 +206,9 @@ public:
 		return numNpcs;
 	}
 
-	UI16 items( void )
+	ushort items( void )
 	{
-		UI16 numItems = 0;
+		ushort numItems = 0;
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
@@ -218,9 +218,9 @@ public:
 		return numItems;
 	}
 
-	UI16 maxNpcs( void )
+	ushort maxNpcs( void )
 	{
-		UI16 numNpcs = 0;
+		ushort numNpcs = 0;
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{
@@ -230,9 +230,9 @@ public:
 		return numNpcs;
 	}
 
-	UI16 maxItems( void )
+	ushort maxItems( void )
 	{
-		UI16 numItems = 0;
+		ushort numItems = 0;
 		std::map<QString, cSpawnRegion*>::iterator it = this->begin();
 		while ( it != this->end() )
 		{

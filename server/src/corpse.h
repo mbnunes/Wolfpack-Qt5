@@ -47,7 +47,7 @@ private:
 	static unsigned char classid;
 
 protected:
-	Q_UINT16 bodyId_; // Body id of the corpse
+	quint16 bodyId_; // Body id of the corpse
 	unsigned char direction_; // Direction the corpse is facing.
 	uint murdertime_; // When the people has been killed
 	SERIAL murderer_; // Who was the murderer
@@ -70,7 +70,7 @@ public:
 	}
 
 	cCorpse( bool init = false );
-	void setBodyId( Q_UINT16 data );
+	void setBodyId( quint16 data );
 	void setMurderer( SERIAL data );
 	void setMurderTime( uint data );
 
@@ -83,7 +83,7 @@ public:
 
 	unsigned int decayDelay();
 
-	Q_UINT16 bodyId() const;
+	quint16 bodyId() const;
 	unsigned char direction() const;
 	const QByteArray& charBaseid() const;
 	SERIAL murderer() const;
@@ -103,7 +103,7 @@ public:
 	}
 
 	// DB Serialization
-	void load( char**, Q_UINT16& );
+	void load( char**, quint16& );
 	void save();
 	bool del();
 	void load( cBufferedReader& reader, unsigned int version );
@@ -121,7 +121,7 @@ public:
 };
 
 // Inline members
-inline void cCorpse::setBodyId( Q_UINT16 data )
+inline void cCorpse::setBodyId( quint16 data )
 {
 	bodyId_ = data; changed_ = true;
 }
@@ -146,7 +146,7 @@ inline void cCorpse::setCharBaseid( const QByteArray& baseid )
 	charbaseid_ = baseid;
 }
 
-inline Q_UINT16 cCorpse::bodyId() const
+inline quint16 cCorpse::bodyId() const
 {
 	return bodyId_;
 }

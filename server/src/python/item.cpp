@@ -38,8 +38,6 @@
 #include "pycontent.h"
 #include "tempeffect.h"
 #include "objectcache.h"
-//Added by qt3to4:
-#include <Q3PtrList>
 
 /*
 	\object item
@@ -345,8 +343,8 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 	}
 
 	quint32 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	Q_UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
-	Q_UINT16 color = 0;
+	quint16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	quint16 color = 0;
 
 	if ( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
@@ -376,7 +374,7 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	Q_UINT16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	quint16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 	Q_INT16 color = -1;
 
 	if ( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
@@ -560,7 +558,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	Q_UINT16 id = getArgInt( 0 );
+	quint16 id = getArgInt( 0 );
 
 	cUObject* object = getArgChar( 1 );
 	if ( !object )
@@ -575,8 +573,8 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	bool fixedDirection = true;
 	bool explodes = false;
 	quint8 speed = 10;
-	Q_UINT16 hue = 0;
-	Q_UINT16 renderMode = 0;
+	quint16 hue = 0;
+	quint16 renderMode = 0;
 
 	if ( checkArgInt( 2 ) )
 		fixedDirection = getArgInt( 2 ) != 0;
@@ -1100,12 +1098,12 @@ static PyObject* wpItem_callevent( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_effect( wpItem* self, PyObject* args )
 {
-	Q_UINT16 id;
+	quint16 id;
 	// Optional Arguments
 	quint8 speed = 5;
 	quint8 duration = 10;
-	Q_UINT16 hue = 0;
-	Q_UINT16 renderMode = 0;
+	quint16 hue = 0;
+	quint16 renderMode = 0;
 
 	if ( !PyArg_ParseTuple( args, "H|BBHH:char.effect(id, [speed], [duration], [hue], [rendermode])", &id, &speed, &duration, &hue, &renderMode ) )
 	{
@@ -1338,9 +1336,9 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 			Py_RETURN_NONE;
 		}
 
-		const Q3PtrList<cUObject>& objects = multi->getObjects();
+		const QList<cUObject*>& objects = multi->getObjects();
 		PyObject* tuple = PyTuple_New( objects.count() );
-		Q3PtrList<cUObject>::const_iterator it( objects.begin() );
+		QList<cUObject*>::const_iterator it( objects.begin() );
 		unsigned int i = 0;
 		for ( ; it != objects.end(); ++it )
 		{

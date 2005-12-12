@@ -46,7 +46,7 @@
 // System Includes
 #include <math.h>
 
-void cSkills::SkillUse( cUOSocket* socket, Q_UINT16 id ) // Skill is clicked on the skill list
+void cSkills::SkillUse( cUOSocket* socket, quint16 id ) // Skill is clicked on the skill list
 {
 	P_PLAYER pChar = socket->player();
 
@@ -431,7 +431,7 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 	return skillTitle;
 }
 
-const QString& cSkills::getSkillName( Q_UINT16 skill ) const
+const QString& cSkills::getSkillName( quint16 skill ) const
 {
 	if ( skill >= skills.size() )
 	{
@@ -455,7 +455,7 @@ Q_INT16 cSkills::findSkillByDef( const QString& defname ) const
 	return -1;
 }
 
-const QString& cSkills::getSkillDef( Q_UINT16 skill ) const
+const QString& cSkills::getSkillDef( quint16 skill ) const
 {
 	if ( skill >= skills.size() )
 	{

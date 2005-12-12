@@ -29,9 +29,8 @@
 #define __UO_TXPACKETS__
 
 // Library includes
-#include "q3cstring.h"
-#include "qstring.h"
-#include "qstringlist.h"
+#include <QString>
+#include <QStringList>
 #include "../coord.h"
 #include "../inlines.h"
 #include "../typedefs.h"
@@ -1213,7 +1212,7 @@ public:
 	{
 		setShort( 6, n );
 	}
-	void setMessage( const Q3CString& m );
+	void setMessage( const QByteArray& m );
 };
 
 // 0x88 Open Paperdoll

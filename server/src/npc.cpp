@@ -70,7 +70,7 @@ cNPC::cNPC()
 	wanderType_ = stWanderType();
 	aiid_ = "Monster_Aggressive_L1";
 	ai_ = new Monster_Aggressive_L1( this );
-	aiCheckInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
+	aiCheckInterval_ = ( quint16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
 	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_ + RandomNum( 0, 1000 );
 }
 
@@ -183,7 +183,7 @@ void cNPC::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeShort( wanderRadius() );
 }
 
-void cNPC::load( char** result, Q_UINT16& offset )
+void cNPC::load( char** result, quint16& offset )
 {
 	cBaseChar::load( result, offset );
 
@@ -625,7 +625,7 @@ void cNPC::showName( cUOSocket* socket )
 	if ( isTamed() && guarding_ )
 		charName.append( tr( " [guarding]" ) );
 
-	Q_UINT16 speechColor;
+	quint16 speechColor;
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	if (Config::instance()->sendAsciiNames()) {
@@ -1146,7 +1146,7 @@ void cNPC::findPath( const Coord& goal )
 	if ( pos_.map != goal.map )
 		return;
 
-	Q3ValueVector<unsigned char> path = Pathfinding::instance()->find(this, pos_, goal);
+	QList<unsigned char> path = Pathfinding::instance()->find(this, pos_, goal);
 
 	if ( path.size() < 1 )
 	{

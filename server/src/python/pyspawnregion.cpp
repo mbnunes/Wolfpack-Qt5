@@ -95,7 +95,7 @@ static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 		return 0;
 	}
 
-	Q3PtrList<cUObject> objects;
+	QList<cUObject*> objects;
 	if ( isItemSerial( serial ) )
 	{
 		objects = self->pRegion->spawnedItems(); // Copy
@@ -105,8 +105,7 @@ static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 		objects = self->pRegion->spawnedNpcs(); // Copy
 	}
 
-	cUObject *object;
-	for ( object = objects.first(); object; object = objects.next() )
+	foreach ( cUObject *object, objects )
 	{
 		if ( object->serial() == serial )
 			object->remove();
@@ -187,13 +186,15 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "items" ) )
 	{
-		Q3PtrList<cUObject> objects = self->pRegion->spawnedItems();
+		QList<cUObject*> objects = self->pRegion->spawnedItems();
 		PyObject* list = PyTuple_New( objects.count() );
 		cUObject *object;
 		int offset = 0;
 
-		for ( object = objects.first(); object; object = objects.next() )
+		foreach ( object, objects )
+		{
 			PyTuple_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
+		}
 		return list;
 	}
 	/*
@@ -201,13 +202,15 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "npcs" ) )
 	{
-		Q3PtrList<cUObject> objects = self->pRegion->spawnedNpcs();
+		QList<cUObject*> objects = self->pRegion->spawnedNpcs();
 		PyObject* list = PyTuple_New( objects.count() );
 		cUObject *object;
 		int offset = 0;
 
-		for ( object = objects.first(); object; object = objects.next() )
+		foreach ( object, objects )
+		{
 			PyTuple_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
+		}
 		return list;
 	}
 	/*

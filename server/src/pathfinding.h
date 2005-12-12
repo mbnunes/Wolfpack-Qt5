@@ -32,7 +32,7 @@
 #include "singleton.h"
 #include "basechar.h"
 
-#include <q3valuevector.h>
+#include <QList>
 
 /*
 	Using ints wherever possible for optimization purposes.
@@ -73,7 +73,7 @@ protected:
 	int openlist;
 	Coord goal; // target coordinate
 	bool ignoreDoors; // Should doors be ignored?
-	bool ignoreMovableImpassables; // Should movable impassables be ignored?
+	bool ignoreMovableImpassables; // Should movable impassable´s be ignored?
 
 	int getNodeIndex(int x, int y, int z);
 	int heuristic(int x, int y, int z);
@@ -86,7 +86,7 @@ public:
 	cPathfinding();
 	virtual ~cPathfinding();
 
-	Q3ValueVector<unsigned char> find(P_CHAR pChar, const Coord &from, const Coord &to);
+	QList<unsigned char> find(P_CHAR pChar, const Coord &from, const Coord &to);
 };
 
 /*

@@ -104,31 +104,31 @@ public:
 	{
 		layout_.push_back( QString( "{group %1}" ).arg( groupId ) );
 	}
-	void addText( qint32 textX, qint32 textY, const QString& data, Q_UINT16 hue = 0 )
+	void addText( qint32 textX, qint32 textY, const QString& data, quint16 hue = 0 )
 	{
 		layout_.push_back( QString( "{text %1 %2 %3 %4}" ).arg( textX ).arg( textY ).arg( hue ).arg( addRawText( data ) ) );
 	}
-	void addBackground( Q_UINT16 gumpId, quint32 width, quint32 height )
+	void addBackground( quint16 gumpId, quint32 width, quint32 height )
 	{
 		layout_.push_back( QString( "{resizepic 0 0 %1 %2 %3}" ).arg( gumpId ).arg( width ).arg( height ) );
 	}
-	void addResizeGump( Q_INT16 gumpX, Q_INT16 gumpY, Q_UINT16 gumpId, quint32 width, quint32 height )
+	void addResizeGump( Q_INT16 gumpX, Q_INT16 gumpY, quint16 gumpId, quint32 width, quint32 height )
 	{
 		layout_.push_back( QString( "{resizepic %1 %2 %3 %4 %5}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ) );
 	}
-	void addCroppedText( qint32 textX, qint32 textY, quint32 width, quint32 height, const QString& data, Q_UINT16 hue = 0 );
+	void addCroppedText( qint32 textX, qint32 textY, quint32 width, quint32 height, const QString& data, quint16 hue = 0 );
 
 	// Buttons
 	// TODO: IMPLEMENTATION
-	void addButton( qint32 buttonX, qint32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, qint32 returnCode );
-	void addPageButton( qint32 buttonX, qint32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, qint32 pageId );
+	void addButton( qint32 buttonX, qint32 buttonY, quint16 gumpUp, quint16 gumpDown, qint32 returnCode );
+	void addPageButton( qint32 buttonX, qint32 buttonY, quint16 gumpUp, quint16 gumpDown, qint32 pageId );
 
 	// Gump Pictures
-	void addGump( qint32 gumpX, qint32 gumpY, Q_UINT16 gumpId, Q_INT16 hue = -1 );
-	void addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, Q_UINT16 gumpId, Q_INT16 hue );
+	void addGump( qint32 gumpX, qint32 gumpY, quint16 gumpId, Q_INT16 hue = -1 );
+	void addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, quint16 gumpId, Q_INT16 hue );
 
 	// Art-tile pictures
-	void addTilePic( qint32 tileX, qint32 tileY, Q_UINT16 tileId, Q_INT16 hue = 0 )
+	void addTilePic( qint32 tileX, qint32 tileY, quint16 tileId, Q_INT16 hue = 0 )
 	{
 		layout_.push_back( QString( "{tilepic %1 %2 %3 %4}" ).arg( tileX ).arg( tileY ).arg( tileId ).arg( hue ) );
 	}
@@ -139,11 +139,11 @@ public:
 	{
 		layout_.push_back( QString( "{textentry %1 %2 %3 %4 %5 %6 %7}" ).arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( textId ).arg( addRawText( data ) ) );
 	}
-	void addCheckbox( qint32 checkX, qint32 checkY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, qint32 returnVal, bool checked = false )
+	void addCheckbox( qint32 checkX, qint32 checkY, quint16 gumpOff, quint16 gumpOn, qint32 returnVal, bool checked = false )
 	{
 		layout_.push_back( QString( "{checkbox %1 %2 %3 %4 %5 %6}" ).arg( checkX ).arg( checkY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) );
 	}
-	void addRadioButton( qint32 radioX, qint32 radioY, Q_UINT16 gumpOff, Q_UINT16 gumpOn, qint32 returnVal, bool checked = false )
+	void addRadioButton( qint32 radioX, qint32 radioY, quint16 gumpOff, quint16 gumpOn, qint32 returnVal, bool checked = false )
 	{
 		layout_.push_back( QString( "{radio %1 %2 %3 %4 %5 %6}" ).arg( radioX ).arg( radioY ).arg( gumpOff ).arg( gumpOn ).arg( checked ? 1 : 0 ).arg( returnVal ) );
 	}

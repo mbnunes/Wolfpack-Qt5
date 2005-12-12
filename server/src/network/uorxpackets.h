@@ -679,7 +679,7 @@ public:
 	{
 		return getInt( 5 );
 	}
-	Q_UINT16 entryTag( void ) const
+	quint16 entryTag( void ) const
 	{
 		return getShort( 9 );
 	}

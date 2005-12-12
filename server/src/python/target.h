@@ -40,7 +40,7 @@ typedef struct
 {
 	PyObject_HEAD;
 	Coord pos;
-	Q_UINT16 model;
+	quint16 model;
 	SERIAL object;
 
 	PyObject *	py_pos;

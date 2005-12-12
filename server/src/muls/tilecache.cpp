@@ -34,7 +34,7 @@
 #include "../serverconfig.h"
 
 #include <QFile>
-#include <qdatastream.h>
+#include <QDataStream>
 
 using namespace std;
 
@@ -96,8 +96,8 @@ void cTileCache::load()
 		// Read all 32 blocks
 		for ( j = 0; j < 32; ++j )
 		{
-			Q_UINT16 tileId = ( i * 32 ) + j;
-			input.readBlock( ( char * ) &landTiles[tileId], 26 );
+			quint16 tileId = ( i * 32 ) + j;
+			input.read( ( char * ) &landTiles[tileId], 26 );
 		}
 	}
 
@@ -114,8 +114,8 @@ void cTileCache::load()
 		// Read all 32 blocks
 		for ( j = 0; j < 32; ++j )
 		{
-			Q_UINT16 tileId = ( i * 32 ) + j;
-			input.readBlock( ( char * ) &staticTiles[tileId], 37 ); // Length of one record: 37
+			quint16 tileId = ( i * 32 ) + j;
+			input.read( ( char * ) &staticTiles[tileId], 37 ); // Length of one record: 37
 		}
 	}
 	input.close();
@@ -153,9 +153,9 @@ void cTileCache::load()
 				blockId -= 512;
 				for ( i = 0; i < 32; ++i )
 				{
-					Q_UINT16 tileId = ( blockId * 32 ) + i;
+					quint16 tileId = ( blockId * 32 ) + i;
 					tile_st tile;
-					verdata.device()->readBlock( ( char * ) &tile, sizeof( tile_st ) );
+					verdata.device()->read( ( char * ) &tile, sizeof( tile_st ) );
 
 					if ( staticTiles.find( tileId ) != staticTiles.end() )
 						staticTiles.erase( staticTiles.find( tileId ) );
@@ -167,9 +167,9 @@ void cTileCache::load()
 			{
 				for ( i = 0; i < 32; ++i )
 				{
-					Q_UINT16 tileId = ( blockId * 32 ) + i;
+					quint16 tileId = ( blockId * 32 ) + i;
 					land_st tile;
-					verdata.device()->readBlock( ( char * ) &tile, sizeof( land_st ) );
+					verdata.device()->read( ( char * ) &tile, sizeof( land_st ) );
 
 					if ( landTiles.find( tileId ) != landTiles.end() )
 						landTiles.erase( landTiles.find( tileId ) );

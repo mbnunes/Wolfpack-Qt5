@@ -46,8 +46,6 @@
 // library includes
 #include <math.h>
 #include <vector>
-//Added by qt3to4:
-#include <Q3PtrList>
 
 /*****************************************************************************
   cAIFactory member functions
@@ -666,8 +664,8 @@ void Action_Wander::execute()
 		case enRectangle:
 		{
 			// get any point out of the rectangle and calculate the direction to it
-			Q_UINT16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
-			Q_UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
+			quint16 rndx = RandomNum( m_npc->wanderX1(), m_npc->wanderX2() );
+			quint16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
 
 			quint8 dir = m_npc->pos().direction( Coord( rndx, rndy ) );
 

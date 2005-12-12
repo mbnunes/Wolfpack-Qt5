@@ -39,7 +39,7 @@
 #include <QString>
 #include <q3intcache.h>
 #include <QFile>
-#include <qdatastream.h>
+#include <QDataStream>
 #include <QDir>
 
 // System includes
@@ -224,12 +224,12 @@ map_st MapsPrivate::seekMap( ushort x, ushort y )
 		{
 			unsigned int offset = mappatches[blockid];
 			mapdifdata.at( offset );
-			mapdifdata.readBlock( ( char * ) result, sizeof( mapblock ) );
+			mapdifdata.read( ( char * ) result, sizeof( mapblock ) );
 		}
 		else
 		{
 			mapfile.at( blockid * sizeof( mapblock ) );
-			mapfile.readBlock( ( char * ) result, sizeof( mapblock ) );
+			mapfile.read( ( char * ) result, sizeof( mapblock ) );
 		}
 
 		borrowed = mapCache.insert( blockid, result );
@@ -727,7 +727,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		{
 			stIndexRecord indexStructure;
 			mapRecord->idxfile.at( indexPos );
-			mapRecord->idxfile.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
+			mapRecord->idxfile.read( ( char * ) &indexStructure, sizeof( indexStructure ) );
 
 			if ( indexStructure.offset == 0xFFFFFFFF )
 				return; // No statics for this block

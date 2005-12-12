@@ -163,7 +163,7 @@ void cPlayer::save( cBufferedWriter& writer, unsigned int version )
 	}
 }
 
-void cPlayer::load( char** result, Q_UINT16& offset )
+void cPlayer::load( char** result, quint16& offset )
 {
 	cBaseChar::load( result, offset );
 
@@ -593,7 +593,7 @@ void cPlayer::showName( cUOSocket* socket )
 	if ( isTamed() && guarding_ )
 		affix.append( tr( " [guarding]" ) );
 
-	Q_UINT16 speechColor;
+	quint16 speechColor;
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	if (Config::instance()->sendAsciiNames()) {

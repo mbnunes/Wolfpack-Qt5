@@ -34,8 +34,6 @@
 #include "../inlines.h"
 #include "../walking.h"
 #include "../serverconfig.h"
-//Added by qt3to4:
-#include <Q3PtrList>
 
 static P_CHAR findBestTarget( P_NPC npc )
 {

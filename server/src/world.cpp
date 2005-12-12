@@ -1546,7 +1546,7 @@ void cBackupThread::run()
 
 	int readSize;
 	char buffer[4096];
-	while ( ( readSize = input.readBlock( buffer, 4096 ) ) > 0 )
+	while ( ( readSize = input.read( buffer, 4096 ) ) > 0 )
 	{
 		gzwrite( output, buffer, readSize );
 	}

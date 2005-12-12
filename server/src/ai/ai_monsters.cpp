@@ -37,8 +37,6 @@
 
 // library includes
 #include <math.h>
-//Added by qt3to4:
-#include <Q3PtrList>
 
 // Is this an invalid target?
 bool invalidTarget( P_NPC npc, P_CHAR victim, int dist )

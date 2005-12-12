@@ -159,7 +159,7 @@ private:
 	tile_st emptyStaticTile;
 	land_st emptyLandTile;
 public:
-	inline const land_st &getLand( Q_UINT16 tileId ) {
+	inline const land_st &getLand( quint16 tileId ) {
 		if (tileId < 0x4000) {
 			return landTiles[tileId];
 		} else {
@@ -167,7 +167,7 @@ public:
 		}
 	}
 
-	inline const tile_st &getTile( Q_UINT16 tileId ) {
+	inline const tile_st &getTile( quint16 tileId ) {
 		if (tileId < 0x4000) {
 			return staticTiles[tileId];
 		} else {

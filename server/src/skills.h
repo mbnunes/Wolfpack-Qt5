@@ -62,8 +62,8 @@ public:
 		unload(); load();
 	}
 	QString getSkillTitle( P_CHAR pChar ) const;
-	const QString& getSkillName( Q_UINT16 skill ) const;
-	const QString& getSkillDef( Q_UINT16 skill ) const;
+	const QString& getSkillName( quint16 skill ) const;
+	const QString& getSkillDef( quint16 skill ) const;
 	Q_INT16 findSkillByDef( const QString& defname ) const; // -1 = Not Found
 
 	// Skill Usage methods
@@ -71,7 +71,7 @@ public:
 
 //	static void RandomSteal( cUOSocket*, SERIAL );
 	void Track( P_CHAR pc_i );
-	void SkillUse( cUOSocket*, Q_UINT16 );
+	void SkillUse( cUOSocket*, quint16 );
 	void Snooping( P_PLAYER, P_ITEM );
 };
 

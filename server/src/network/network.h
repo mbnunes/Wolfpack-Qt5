@@ -66,7 +66,7 @@ public:
 	quint32 count();
 	Q3PtrListIterator<cUOSocket> getIterator();
 
-	void broadcast( const QString& message, Q_UINT16 color = 0x84d, Q_UINT16 font = 0 );
+	void broadcast( const QString& message, quint16 color = 0x84d, quint16 font = 0 );
 
 private slots:
 	void incomingLoginServerConnection();

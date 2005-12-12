@@ -107,7 +107,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 
 	quint32 totalValue = 0;
 	quint32 i;
-	map<SERIAL, Q_UINT16> items;
+	map<SERIAL, quint16> items;
 
 	for ( i = 0; i < itemCount; ++i )
 	{
@@ -120,18 +120,18 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 			return;
 		}
 
-		Q_UINT16 amount = packet->iAmount( i );
+		quint16 amount = packet->iAmount( i );
 		quint8 layer = pItem->getOutmostItem()->layer();
 
 		// First check: is the item on the vendor in the specified layer
 		if ( layer == cBaseChar::BuyRestockContainer )
 		{
-			amount = wpMin<Q_UINT16>( pItem->restock(), amount );
+			amount = wpMin<quint16>( pItem->restock(), amount );
 		}
 		else if ( layer == cBaseChar::BuyNoRestockContainer )
 		{
 			// Not enough of that item is left
-			amount = wpMin<Q_UINT16>( pItem->amount(), amount );
+			amount = wpMin<quint16>( pItem->amount(), amount );
 		}
 		else
 		{
@@ -542,10 +542,10 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 	// End of "Char is a GM or Not?"
 
 	// Sanity checks all passed here
-	for ( map<SERIAL, Q_UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
+	for ( map<SERIAL, quint16>::iterator iter = items.begin(); iter != items.end(); ++iter )
 	{
 		P_ITEM pItem = FindItemBySerial( iter->first );
-		Q_UINT16 amount = iter->second; // we already checked if there is enough in stock
+		quint16 amount = iter->second; // we already checked if there is enough in stock
 		P_ITEM pSold;
 
 		if ( pItem->isPileable() )
@@ -560,7 +560,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 		}
 		else
 		{
-			for ( Q_UINT16 j = 0; j < amount; ++j )
+			for ( quint16 j = 0; j < amount; ++j )
 			{
 				pSold = pItem->dupe(1);
 				pSold->removeTag( "restock" ); // Remove the restock tag;
@@ -645,7 +645,7 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 
 	quint32 totalValue = 0;
 	quint32 i;
-	map<SERIAL, Q_UINT16> items;
+	map<SERIAL, quint16> items;
 
 	for ( i = 0; i < itemCount; ++i )
 	{
@@ -658,7 +658,7 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 			return;
 		}
 
-		Q_UINT16 amount = packet->iAmount( i );
+		quint16 amount = packet->iAmount( i );
 
 		// First an equal item with higher amount must be in the vendors sell container!
 		bool found = false;
@@ -707,10 +707,10 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
 	if ( pBought )
 	{
-		for ( map<SERIAL, Q_UINT16>::iterator iter = items.begin(); iter != items.end(); ++iter )
+		for ( map<SERIAL, quint16>::iterator iter = items.begin(); iter != items.end(); ++iter )
 		{
 			P_ITEM pItem = FindItemBySerial( iter->first );
-			Q_UINT16 amount = wpMin<Q_UINT16>( pItem->amount(), iter->second );
+			quint16 amount = wpMin<quint16>( pItem->amount(), iter->second );
 
 			// If we can find something to stack with that is already in the vendors
 			// no restock container, increase the amount of that item instead.

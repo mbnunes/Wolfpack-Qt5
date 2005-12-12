@@ -105,7 +105,7 @@ public:
 	}
 
 	// Serialization Methods
-	void load( char**, Q_UINT16& );
+	void load( char**, quint16& );
 	void save();
 	bool del();
 
@@ -119,9 +119,9 @@ public:
 	void postload( unsigned int version ) = 0;
 
 	// Utility Methods
-	void effect( Q_UINT16 id, quint8 speed = 10, quint8 duration = 5, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 ); // Moving with this character
-	void effect( Q_UINT16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, quint8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
-	void effect( Q_UINT16 id, const Coord& target, bool fixedDirection = true, bool explodes = false, quint8 speed = 10, Q_UINT16 hue = 0, Q_UINT16 renderMode = 0 );
+	void effect( quint16 id, quint8 speed = 10, quint8 duration = 5, quint16 hue = 0, quint16 renderMode = 0 ); // Moving with this character
+	void effect( quint16 id, cUObject* target, bool fixedDirection = true, bool explodes = false, quint8 speed = 10, quint16 hue = 0, quint16 renderMode = 0 );
+	void effect( quint16 id, const Coord& target, bool fixedDirection = true, bool explodes = false, quint8 speed = 10, quint16 hue = 0, quint16 renderMode = 0 );
 	void lightning( unsigned short hue = 0 );
 	bool inRange( cUObject* object, quint32 range ) const;
 	void removeFromView( bool clean = true );

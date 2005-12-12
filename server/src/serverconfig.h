@@ -53,12 +53,12 @@ struct StartLocation_st
 
 struct ServerList_st
 {
-	Q_UINT16 uiIndex;
+	quint16 uiIndex;
 	QString sServer;
 	quint8 uiFull;
 	quint8 uiTime;
 	QHostAddress address;
-	Q_UINT16 uiPort;
+	quint16 uiPort;
 };
 
 // Constants

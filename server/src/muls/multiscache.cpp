@@ -31,9 +31,8 @@
 #include "../serverconfig.h"
 
 // Library Includes
-#include <q3valuevector.h>
 #include <QFile>
-#include <qdatastream.h>
+#include <QDataStream>
 #include <QDir>
 
 #include <algorithm>
@@ -142,7 +141,7 @@ QList<multiItem_st> MultiDefinition::getEntries() const
 /*!
 	\class cMultiCache multiscache.h
 
-	\brief cMultiCache is responsable for loading and parsing multi definitions
+	\brief cMultiCache is responsible for loading and parsing multi definitions
 	stored into "multi.idx" and "multi.mul" files.
 
 	This class is prepared for BigEndian/LittleEndian portability.

@@ -37,14 +37,11 @@
 #include "basechar.h"
 #include "mapobjects.h"
 #include "timers.h"
-//Added by qt3to4:
-#include <Q3ValueList>
-#include <Q3PtrList>
+#include <QList>
 
 void cMulti::remove()
 {
-	cUObject* object;
-	for ( object = objects.first(); object; object = objects.next() )
+	foreach ( cUObject* object, objects )
 	{
 		object->setMulti( 0 );
 	}
@@ -200,14 +197,13 @@ void cMulti::save( cBufferedWriter& writer )
 	cItem::save( writer );
 
 	// Save objects within this multi *after* the multi
-	cUObject* object;
-	for ( object = objects.first(); object; object = objects.next() )
+	foreach ( cUObject* object, objects )
 	{
 		object->save( writer );
 	}
 }
 
-bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObject>& moveOut, unsigned short yard )
+bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QList<cUObject*>& moveOut, unsigned short yard )
 {
 	MultiDefinition *multi = MultiCache::instance()->getMulti( multiid );
 
@@ -215,8 +211,6 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObj
 	{
 		return false;
 	}
-
-	moveOut.setAutoDelete( false );
 
 	// Get the boundaries and build a list sorted by x,y
 	int left = multi->getLeft();
@@ -228,8 +222,8 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObj
 
 	Q_UNUSED( bottom );
 
-	Q3ValueList<Coord> borderList; // a list of points around the foundation that need to be clear of impassables
-	Q3ValueList<Coord> yardList; // a list of points in the yard (front/back of the house that needs to be clear)
+	QList<Coord> borderList; // a list of points around the foundation that need to be clear of impassables
+	QList<Coord> yardList; // a list of points in the yard (front/back of the house that needs to be clear)
 
 	for ( int x = 0; x < width; ++x )
 	{
@@ -449,7 +443,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObj
 		}
 	}
 
-	Q3ValueList<Coord>::const_iterator it;
+	QList<Coord>::const_iterator it;
 
 	// Now check all the accumulated border tiles
 	for ( it = borderList.begin(); it != borderList.end(); ++it )
@@ -525,7 +519,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, Q3PtrList<cUObj
 	return true;
 }
 
-bool cMulti::canPlaceBoat( const Coord& pos, unsigned short multiid, Q3PtrList<cUObject>& moveOut )
+bool cMulti::canPlaceBoat( const Coord& pos, unsigned short multiid, QList<cUObject*>& moveOut )
 {
 	MultiDefinition *multi = MultiCache::instance()->getMulti( multiid );
 
@@ -533,8 +527,6 @@ bool cMulti::canPlaceBoat( const Coord& pos, unsigned short multiid, Q3PtrList<c
 	{
 		return false;
 	}
-
-	moveOut.setAutoDelete( false );
 
 	// Get the boundaries and build a list sorted by x,y
 	int left = multi->getLeft();

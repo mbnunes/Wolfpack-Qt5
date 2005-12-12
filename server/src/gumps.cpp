@@ -57,24 +57,24 @@ quint32 cGump::addRawText( const QString& data )
 	return text_.findIndex( data );
 }
 
-void cGump::addButton( qint32 buttonX, qint32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, qint32 returnCode )
+void cGump::addButton( qint32 buttonX, qint32 buttonY, quint16 gumpUp, quint16 gumpDown, qint32 returnCode )
 {
 	QString button = QString( "{button %1 %2 %3 %4 1 0 %5}" ).arg( buttonX ).arg( buttonY ).arg( gumpUp ).arg( gumpDown ).arg( returnCode );
 	layout_.push_back( button );
 }
 
-void cGump::addPageButton( qint32 buttonX, qint32 buttonY, Q_UINT16 gumpUp, Q_UINT16 gumpDown, qint32 pageId )
+void cGump::addPageButton( qint32 buttonX, qint32 buttonY, quint16 gumpUp, quint16 gumpDown, qint32 pageId )
 {
 	QString button = QString( "{button %1 %2 %3 %4 0 %5 0}" ).arg( buttonX ).arg( buttonY ).arg( gumpUp ).arg( gumpDown ).arg( pageId );
 	layout_.push_back( button );
 }
 
-void cGump::addGump( qint32 gumpX, qint32 gumpY, Q_UINT16 gumpId, Q_INT16 hue )
+void cGump::addGump( qint32 gumpX, qint32 gumpY, quint16 gumpId, Q_INT16 hue )
 {
 	layout_.push_back( QString( "{gumppic %1 %2 %3%4}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString( "" ) ) );
 }
 
-void cGump::addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, Q_UINT16 gumpId, Q_INT16 hue )
+void cGump::addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, quint16 gumpId, Q_INT16 hue )
 {
 	layout_.push_back( QString( "{gumppictiled %1 %2 %4 %5 %3%6}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString( "" ) ) );
 }
@@ -102,7 +102,7 @@ void cGump::addCheckertrans( qint32 x, qint32 y, qint32 width, qint32 height )
 	layout_.push_back( layout );
 }
 
-void cGump::addCroppedText( qint32 textX, qint32 textY, quint32 width, quint32 height, const QString& data, Q_UINT16 hue )
+void cGump::addCroppedText( qint32 textX, qint32 textY, quint32 width, quint32 height, const QString& data, quint16 hue )
 {
 	QString layout( "{croppedtext %1 %2 %3 %4 %5 %6}" );
 	layout = layout.arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( addRawText( data ) );

@@ -36,7 +36,6 @@
 #endif
 
 #include <QString>
-#include <q3ptrlist.h>
 #include <stdlib.h>
 #include <sqlite.h>
 #include "../sqlite3/sqlite3.h"

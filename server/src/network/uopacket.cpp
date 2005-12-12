@@ -462,7 +462,7 @@ QByteArray cUOPacket::dump( const QByteArray& data )
 		{
 			if ( actLine * 16 + actRow < length )
 			{
-				QByteArray number = QString::number( static_cast<uint>( static_cast<quint8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + QString( " " );
+				QString number = QString::number( static_cast<uint>( static_cast<quint8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + QString( " " );
 				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
 				if ( number.length() < 3 )
 					number.prepend( "0" );
@@ -481,7 +481,7 @@ QByteArray cUOPacket::dump( const QByteArray& data )
 		}
 
 		line += "\n";
-		dumped += line;
+		dumped += line.toLocal8Bit();
 	}
 	return dumped;
 }

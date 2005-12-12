@@ -85,7 +85,7 @@ Client Version: UO: LBR (Thrid Dawn) 3.0.8d
 0xFFFF - Packet not used
 0x0000 - Packet has dynamic length
 */
-const Q_UINT16 packetLengths[256] =
+const quint16 packetLengths[256] =
 {
 		0x0068, 0x0005, 0x0007, 0x0000, 0x0002, 0x0005, 0x0005, 0x0007, // 0x00
 		0x000e, 0x0005, 0x0007, 0x010a, 0x0000, 0x0003, 0x0000, 0x003d, // 0x08
@@ -1246,7 +1246,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	}
 
 	// Check the stats
-	Q_UINT16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
+	quint16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
 
 	// Every stat needs to be below 60 && the sum lower/equal than 80
 	if ( statSum > 80 || ( packet->strength() > 60 ) || ( packet->dexterity() > 60 ) || ( packet->intelligence() > 60 ) )
@@ -1464,7 +1464,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
   This method sends a system \a message at the botton of the screen
   \sa cUOTxUnicodeSpeech
 */
-void cUOSocket::sysMessage( const QString& message, Q_UINT16 color, Q_UINT16 font ) {
+void cUOSocket::sysMessage( const QString& message, quint16 color, quint16 font ) {
 	if ( message.isEmpty() )
 		return;
 	// Color: 0x0037
@@ -1793,7 +1793,7 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection* packet )
 	if ( contextMenu_.isEmpty() )
 		return;
 
-	Q_UINT16 Tag = packet->entryTag();
+	quint16 Tag = packet->entryTag();
 	bool found = false;
 	cContextMenu* menu;
 	foreach( menu, contextMenu_ )
@@ -1913,7 +1913,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
   This method prints \a message on top of \a object using the given \a color and \a speechType
   \sa cUObject, cUOTxUnicodeSpeech, cUOTxUnicodeSpeech::eSpeechType
 */
-void cUOSocket::showSpeech( const cUObject* object, const QString& message, Q_UINT16 color, Q_UINT16 font, quint8 speechType )
+void cUOSocket::showSpeech( const cUObject* object, const QString& message, quint16 color, quint16 font, quint8 speechType )
 {
 	cUOTxUnicodeSpeech speech;
 	speech.setSource( object->serial() );
@@ -2146,9 +2146,9 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	QList<ushort> keywords;
 	if ( packet->type() & 0xc0 )
 		keywords = packet->keywords();
-	Q_UINT16 color = packet->color();
-	Q_UINT16 font = packet->font();
-	Q_UINT16 type = packet->type() & 0x3f; // Pad out the Tokenized speech flag
+	quint16 color = packet->color();
+	quint16 font = packet->font();
+	quint16 type = packet->type() & 0x3f; // Pad out the Tokenized speech flag
 
 	// There is one special case. if the user has the body 0x3db and the first char
 	// of the speech is = then it's always a command
@@ -2277,7 +2277,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		return;
 
 	// Get the container gump
-	Q_UINT16 gump = 0x3D;
+	quint16 gump = 0x3D;
 
 	switch ( pCont->id() )
 	{
@@ -2694,7 +2694,7 @@ void cUOSocket::attachTarget( cTargetRequest* request )
 	send( &target );
 }
 
-void cUOSocket::attachTarget( cTargetRequest* request, Q_UINT16 multiid, unsigned short xoffset, unsigned short yoffset, unsigned short zoffset )
+void cUOSocket::attachTarget( cTargetRequest* request, quint16 multiid, unsigned short xoffset, unsigned short yoffset, unsigned short zoffset )
 {
 	if ( multiid < 0x4000 )
 		return;
@@ -2759,7 +2759,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	}
 }
 
-void cUOSocket::soundEffect( Q_UINT16 soundId, cUObject* source )
+void cUOSocket::soundEffect( quint16 soundId, cUObject* source )
 {
 	if ( !_player )
 		return;
@@ -2870,7 +2870,7 @@ void cUOSocket::updateStamina( P_CHAR pChar )
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( ( Q_UINT16 ) ( ( pChar->stamina() / pChar->dexterity() ) * 100 ) );
+		update.setCurrent( ( quint16 ) ( ( pChar->stamina() / pChar->dexterity() ) * 100 ) );
 	}
 
 	send( &update );
@@ -2901,7 +2901,7 @@ void cUOSocket::updateMana( P_CHAR pChar )
 	else
 	{
 		update.setMaximum( 100 );
-		update.setCurrent( ( Q_UINT16 ) ( ( pChar->mana() / pChar->intelligence() ) * 100 ) );
+		update.setCurrent( ( quint16 ) ( ( pChar->mana() / pChar->intelligence() ) * 100 ) );
 	}
 
 	send( &update );
@@ -3028,9 +3028,9 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		// Send the packet to our party members too
 		if ( _player->party() )
 		{
-			Q3PtrList<cPlayer> members = _player->party()->members();
+			QList<cPlayer*> members = _player->party()->members();
 
-			for ( P_PLAYER member = members.first(); member; member = members.next() )
+			foreach ( P_PLAYER member, members )
 			{
 				if ( member->socket() && member != _player )
 				{
@@ -3054,7 +3054,7 @@ void cUOSocket::handleSecureTrading( cUORxSecureTrading* packet )
 	this->player()->onTrade( packet->type(), packet->buttonstate(), packet->itemserial() );
 }
 
-void cUOSocket::sendSkill( Q_UINT16 skill )
+void cUOSocket::sendSkill( quint16 skill )
 {
 	if ( !_player )
 		return;
@@ -3170,7 +3170,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	cUOTxVendorBuy vendorBuy;
 	vendorBuy.setSerial( pItem->serial() );
 
-	/* dont ask me, but the order of the items for vendorbuy is reversed */
+	/* don´t ask me, but the order of the items for vendor buy is reversed */
 	Q3ValueList<buyitem_st> buyitems;
 	Q3ValueList<buyitem_st>::const_iterator bit;
 	Q3PtrList<cItem> items;
@@ -3239,7 +3239,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	unsigned int restockInterval = Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC;
 	unsigned int inventoryDecay = 60 * 60 * MY_CLOCKS_PER_SEC;
 
-	// Perform maintaineance
+	// Perform maintenance
 	int lastRestockTime = pStock->getTag( "last_restock_time" ).toInt();
 
 	// If the next restock interval has been reached or if the last restock time is in the future (server restart)
@@ -3351,7 +3351,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	cUOTxVendorBuy vendorBuy;
 	vendorBuy.setSerial( pStock->serial() );
 
-	// This is something i dont understand. Why does it have to be backwards??
+	// This is something i don´t understand. Why does it have to be backwards??
 	SortedSerialList::const_iterator cit( itemList.begin() );
 	while ( cit != itemList.end() )
 	{
@@ -3491,7 +3491,7 @@ void cUOSocket::handleSell( cUORxSell* packet )
 /*
 thanks to codex
 */
-void cUOSocket::clilocMessage( const quint32 MsgID, const QString& params, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool system )
+void cUOSocket::clilocMessage( const quint32 MsgID, const QString& params, const quint16 color, const quint16 font, cUObject* object, bool system )
 {
 	cUOTxClilocMsg msg;
 
@@ -3537,7 +3537,7 @@ void cUOSocket::clilocMessage( const quint32 MsgID, const QString& params, const
 	send( &msg );
 }
 
-void cUOSocket::clilocMessageAffix( const quint32 MsgID, const QString& params, const QString& affix, const Q_UINT16 color, const Q_UINT16 font, cUObject* object, bool dontMove, bool prepend, bool system )
+void cUOSocket::clilocMessageAffix( const quint32 MsgID, const QString& params, const QString& affix, const quint16 color, const quint16 font, cUObject* object, bool dontMove, bool prepend, bool system )
 {
 	cUOTxClilocMsgAffix msg;
 
@@ -3682,7 +3682,7 @@ void cUOSocket::handleRename( cUORxRename* packet )
 	}
 }
 
-void cUOSocket::sendQuestArrow( bool show, Q_UINT16 x, Q_UINT16 y )
+void cUOSocket::sendQuestArrow( bool show, quint16 x, quint16 y )
 {
 	cUOTxQuestArrow qArrow;
 	qArrow.setActive( show ? 1 : 0 );

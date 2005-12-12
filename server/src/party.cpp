@@ -31,8 +31,6 @@
 #include "world.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
-//Added by qt3to4:
-#include <Q3PtrList>
 
 cParty::cParty( P_PLAYER leader )
 {
@@ -43,7 +41,7 @@ cParty::cParty( P_PLAYER leader )
 cParty::~cParty()
 {
 	P_PLAYER member;
-	for ( member = members_.first(); member; member = members_.next() )
+	foreach ( member, members_ )
 	{
 		member->setParty( 0 );
 
@@ -56,7 +54,7 @@ cParty::~cParty()
 		}
 	}
 
-	for ( member = canidates_.first(); member; member = canidates_.next() )
+	foreach ( member, canidates_ )
 	{
 		if ( member->socket() )
 		{
@@ -103,8 +101,10 @@ void cParty::removeMember( P_PLAYER player, bool update )
 	{
 		cUOTxPartyRemoveMember removemember;
 		removemember.setSerial( player->serial() );
-		for ( P_PLAYER member = members_.first(); member; member = members_.next() )
+		foreach ( P_PLAYER member, members_ )
+		{
 			removemember.addMember( member->serial() );
+		}
 
 		send( &removemember );
 
@@ -143,24 +143,30 @@ void cParty::update()
 {
 	cUOTxPartyUpdate update;
 
-	for ( P_PLAYER player = members_.first(); player; player = members_.next() )
+	foreach ( P_PLAYER player, members_ )
+	{
 		update.addMember( player->serial() );
+	}
 
 	send( &update );
 }
 
 void cParty::send( cUOPacket* packet )
 {
-	for ( P_PLAYER player = members_.first(); player; player = members_.next() )
+	foreach ( P_PLAYER player, members_ )
+	{
 		if ( player->socket() )
 			player->socket()->send( packet );
+	}
 }
 
 void cParty::send( unsigned int message, const QString& params, const QString& affix, bool prepend )
 {
-	for ( P_PLAYER player = members_.first(); player; player = members_.next() )
+	foreach ( P_PLAYER player, members_ )
+	{
 		if ( player->socket() )
 			player->socket()->clilocMessageAffix( message, params, affix, 0x3B2, 3, 0, false, prepend );
+	}
 }
 
 void cParty::send( P_PLAYER from, const QString& message )
@@ -169,9 +175,11 @@ void cParty::send( P_PLAYER from, const QString& message )
 	tell.setSerial( from->serial() );
 	tell.setText( message );
 
-	for ( P_PLAYER player = members_.first(); player; player = members_.next() )
+	foreach ( P_PLAYER player, members_ )
+	{
 		if ( player->socket() )
 			player->socket()->send( &tell );
+	}
 }
 
 void cParty::send( P_PLAYER from, P_PLAYER target, const QString& message )
@@ -180,9 +188,11 @@ void cParty::send( P_PLAYER from, P_PLAYER target, const QString& message )
 	tell.setSerial( from->serial() );
 	tell.setText( message );
 
-	for ( P_PLAYER player = members_.first(); player; player = members_.next() )
+	foreach ( P_PLAYER player, members_ )
+	{
 		if ( player == target && player->socket() )
 			player->socket()->send( &tell );
+	}
 }
 
 void cParty::setLootingAllowed( P_PLAYER player, bool allowed )
@@ -217,7 +227,7 @@ public:
 
 	/*!
 		If source is 0 and silent is true, nothing happens. Otherwise
-		the canidate is removed from the party without notification.
+		the candidate is removed from the party without notification.
 	*/
 	void Dispel( P_CHAR /*source*/, bool silent )
 	{
@@ -229,7 +239,7 @@ public:
 	}
 
 	/*!
-		Remove the canidate from the party and notify him.
+		Remove the candidate from the party and notify him.
 	*/
 	void Expire()
 	{
@@ -281,7 +291,7 @@ public:
 			else if ( leader->party() && leader->party()->members().count() + leader->party()->canidates().count() >= 10 )
 			{
 				socket->clilocMessage( 1008095 );
-				// NPC targetted
+				// NPC targeted
 			}
 			else if ( npc )
 			{
@@ -553,11 +563,13 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 	*/
 	else if ( !strcmp( name, "members" ) )
 	{
-		Q3PtrList<cPlayer> members = party->members();
+		QList<cPlayer*> members = party->members();
 		PyObject* list = PyTuple_New( members.count() );
 		unsigned int i = 0;
-		for ( P_PLAYER member = members.first(); member; member = members.next() )
+		foreach ( P_PLAYER member, members )
+		{
 			PyTuple_SetItem( list, i++, member->getPyObject() );
+		}
 		return list;
 	}
 	/*
@@ -565,11 +577,13 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 	*/
 	else if ( !strcmp( name, "canidates" ) )
 	{
-		Q3PtrList<cPlayer> canidates = party->canidates();
+		QList<cPlayer*> canidates = party->canidates();
 		PyObject* list = PyList_New( 0 );
 		unsigned int i = 0;
-		for ( P_PLAYER canidate = canidates.first(); canidate; canidate = canidates.next() )
+		foreach ( P_PLAYER canidate, canidates )
+		{
 			PyTuple_SetItem( list, i++, canidate->getPyObject() );
+		}
 		return list;
 	}
 	/*
@@ -577,11 +591,13 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 	*/
 	else if ( !strcmp( name, "lootingallowed" ) )
 	{
-		Q3PtrList<cPlayer> lootlist = party->lootingAllowed();
+		QList<cPlayer*> lootlist = party->lootingAllowed();
 		PyObject* list = PyList_New( 0 );
 		unsigned int i = 0;
-		for ( P_PLAYER member = lootlist.first(); member; member = lootlist.next() )
+		foreach ( P_PLAYER member, lootlist )
+		{
 			PyTuple_SetItem( list, i++, member->getPyObject() );
+		}
 		return list;
 	}
 

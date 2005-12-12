@@ -178,7 +178,7 @@ unsigned int cUObject::dist( cUObject* d ) const
 /*!
 	Performs persistency layer loads.
 */
-void cUObject::load( char** result, Q_UINT16& offset )
+void cUObject::load( char** result, quint16& offset )
 {
 	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
 	offset++;
@@ -668,7 +668,7 @@ void cUObject::lightning( unsigned short hue )
 /*!
 	Displays an effect emitting from this object toward another item or character
 */
-void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool explodes, quint8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( quint16 id, cUObject* target, bool fixedDirection, bool explodes, quint8 speed, quint16 hue, quint16 renderMode )
 {
 	if ( !target )
 		return;
@@ -702,7 +702,7 @@ void cUObject::effect( Q_UINT16 id, cUObject* target, bool fixedDirection, bool 
 /*!
 	Displays an effect emitting from this object and moving towards a specific location.
 */
-void cUObject::effect( Q_UINT16 id, const Coord& target, bool fixedDirection, bool explodes, quint8 speed, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( quint16 id, const Coord& target, bool fixedDirection, bool explodes, quint8 speed, quint16 hue, quint16 renderMode )
 {
 	cUOTxEffect effect;
 	effect.setType( ET_MOVING );
@@ -732,7 +732,7 @@ void cUObject::effect( Q_UINT16 id, const Coord& target, bool fixedDirection, bo
 /*!
 	Displays an effect moving with this object.
 */
-void cUObject::effect( Q_UINT16 id, quint8 speed, quint8 duration, Q_UINT16 hue, Q_UINT16 renderMode )
+void cUObject::effect( quint16 id, quint8 speed, quint8 duration, quint16 hue, quint16 renderMode )
 {
 	cUOTxEffect effect;
 	effect.setType( ET_STAYSOURCESER );
