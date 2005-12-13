@@ -33,7 +33,7 @@
 
 // Library Includes
 #include <QFile>
-#include <qglobal.h>
+#include <QtGlobal>
 #include <QByteArray>
 
 // Extension includes

@@ -31,7 +31,7 @@
 #include "typedefs.h"
 #include "singleton.h"
 
-#include <qglobal.h>
+#include <QtGlobal>
 
 struct unitile_st
 {

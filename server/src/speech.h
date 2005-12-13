@@ -35,9 +35,6 @@
 // System includes
 #include <vector>
 
-// QT
-#include <q3valuevector.h>
-
 //Wolfpack Includes
 #include "speech.h"
 #include "typedefs.h"

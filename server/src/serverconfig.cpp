@@ -37,10 +37,10 @@
 #include <QString>
 #include <QStringList>
 #include <QDir>
-#include <qhostaddress.h>
+#include <QHostAddress>
 #include <QDateTime>
 
-#include <qglobal.h>
+#include <QtGlobal>
 #if defined( Q_OS_WIN32 )
 # include <winsock.h>
 #elif defined ( Q_OS_UNIX )

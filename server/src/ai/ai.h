@@ -40,7 +40,6 @@
 #include "../world.h"
 
 // library includes
-#include <q3ptrlist.h>
 #include <QString>
 #include <QStringList>
 

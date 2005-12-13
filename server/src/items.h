@@ -38,11 +38,7 @@
 #include "content.h"
 
 // Library Includes
-#include <q3valuevector.h>
-#include <q3dict.h>
-//Added by qt3to4:
 #include <QByteArray>
-#include <Q3PtrList>
 #include <math.h>
 
 // Forward Class declarations

@@ -38,7 +38,7 @@
 // System Includes
 #include <QStringList>
 #include <QString>
-#include <qmutex.h>
+#include <QMutex>
 
 /*!
 	\brief This is an enumeration

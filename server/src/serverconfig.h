@@ -41,7 +41,7 @@
 #include <QString>
 #include <QStringList>
 #include <QList>
-#include <qhostaddress.h>
+#include <QHostAddress>
 
 // Structs
 

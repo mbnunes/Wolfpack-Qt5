@@ -28,7 +28,6 @@
 #include "definitions.h"
 #include "basics.h"
 #include "serverconfig.h"
-//#include "scriptmanager.h"
 #include "log.h"
 #include "console.h"
 #include "quests.h"

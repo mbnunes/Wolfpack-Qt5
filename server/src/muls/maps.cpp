@@ -46,7 +46,7 @@
 #include <algorithm>
 #include <exception>
 #include <assert.h>
-#include <qglobal.h>
+#include <QtGlobal>
 #include <math.h>
 
 #pragma pack (1)

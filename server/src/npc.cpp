@@ -26,7 +26,6 @@
  */
 
 // library includes
-#include <q3valuelist.h>
 #include <math.h>
 
 // wolfpack includes
@@ -1036,7 +1035,7 @@ PyObject* cNPC::getProperty( const QString& name )
 Coord cNPC::nextMove()
 {
 	Coord ret;
-	Q3ValueList<Coord>::const_iterator it = path_.begin();
+	QList<Coord>::const_iterator it = path_.begin();
 
 	if ( it != path_.end() )
 	{

@@ -49,7 +49,6 @@
 #include "world.h"
 
 // Library Includes
-#include <q3valuevector.h>
 
 // System Includes
 #include <algorithm>

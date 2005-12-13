@@ -30,7 +30,7 @@
 
 // library Includes
 #include <algorithm>
-#include <qglobal.h>
+#include <QtGlobal>
 #include <QString>
 
 // By Race Section to Check in Create an Elf Character

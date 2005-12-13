@@ -49,7 +49,6 @@
 #include <shellapi.h>
 #include <richedit.h>
 #include <commctrl.h>
-#include <QThread>
 #include "../verinfo.h"
 
 #include "../sqlite/sqlite.h"
@@ -62,6 +61,8 @@
 #endif
 
 #include <Q3MemArray>
+#include <QThread>
+#include <QApplication>
 
 #if !defined(CFM_WEIGHT)
 # define CFM_WEIGHT 0x00400000

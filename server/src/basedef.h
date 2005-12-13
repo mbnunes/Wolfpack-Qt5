@@ -33,7 +33,6 @@
 #include "singleton.h"
 #include "pythonscript.h"
 #include <QMap>
-#include <q3ptrlist.h>
 #include <QByteArray>
 #include <QString>
 

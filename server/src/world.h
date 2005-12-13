@@ -35,11 +35,9 @@
 #include "objectdef.h"
 
 // Library Includes
-#include <q3valuevector.h>
 #include <QMap>
 #include <QThread>
 //Added by qt3to4:
-#include <Q3PtrList>
 #include "server.h"
 
 class PersistentObject;
@@ -100,7 +98,7 @@ private:
 	void loadTag( cBufferedReader& reader, unsigned int version );
 	QMap<QString, QString> options;
 	void backupWorld( const QString& filename, unsigned int count, bool compress );
-	Q3PtrList<cBackupThread> backupThreads;
+	QList<cBackupThread*> backupThreads;
 
 public:
 	// Constructor/Destructor
@@ -109,8 +107,8 @@ public:
 
 	// WorldLoader interface
 	void load();
-	void loadBinary( Q3PtrList<PersistentObject>& objects );
-	void loadSQL( Q3PtrList<PersistentObject>& objects );
+	void loadBinary( QList<PersistentObject*>& objects );
+	void loadSQL( QList<PersistentObject*>& objects );
 	void unload();
 	void save();
 

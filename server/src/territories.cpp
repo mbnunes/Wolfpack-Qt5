@@ -43,9 +43,6 @@
 
 // needed for object Config
 #include "pythonscript.h"
-//Added by qt3to4:
-#include <Q3ValueList>
-#include <Q3PtrList>
 
 // cTerritories
 
@@ -117,11 +114,11 @@ void cTerritory::processNode( const cElement* Tag )
 
 			if ( childNode->name() == "npc" )
 			{
-				UI32 mult = childNode->getAttribute( "mult" ).toInt();
+				uint mult = childNode->getAttribute( "mult" ).toInt();
 				if ( mult < 1 )
 					mult = 1;
 
-				for ( UI32 i = 0; i < mult; i++ )
+				for ( uint i = 0; i < mult; i++ )
 					this->guardSections_.push_back( childNode->value() );
 			}
 			else if ( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
@@ -278,7 +275,7 @@ void cTerritory::processNode( const cElement* Tag )
 			goods.sellable = 0;
 			goods.rndmin = 0;
 			goods.rndmax = 0;
-			UI32 num = 0xFFFFFFFF;
+			uint num = 0xFFFFFFFF;
 
 			if ( childNode->name() == "good" )
 			{

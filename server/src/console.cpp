@@ -41,9 +41,9 @@
 
 // Library Includes
 #include <QString>
-#include <qglobal.h>
+#include <QtGlobal>
 #include <QThread>
-#include <qmutex.h>
+#include <QMutex>
 
 using namespace std;
 

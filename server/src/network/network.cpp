@@ -65,10 +65,10 @@ public:
 	~cNetworkPrivate()
 	{
 		foreach (cUOSocket *socket, uoSockets) {
-			socket->deleteLater();
+			delete socket;
 		}
 		foreach (cUOSocket *socket, loginSockets) {
-			socket->deleteLater();
+			delete socket;
 		}
 		delete loginServer_;
 		delete gameServer_;

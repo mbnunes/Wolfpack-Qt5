@@ -32,7 +32,6 @@
 #include "objectdef.h"
 
 #include <QStringList>
-#include <qobject.h>
 #include <vector>
 #include <map>
 

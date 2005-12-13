@@ -33,7 +33,6 @@
 // Qt Includes
 #include <QDir>
 #include <QString>
-#include <qhostaddress.h>
 
 // System Includes
 #include <windows.h>

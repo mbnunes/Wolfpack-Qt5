@@ -29,7 +29,7 @@
 #include "dbdriver.h"
 
 // Library Includes
-#include <qglobal.h>
+#include <QtGlobal>
 
 #if defined(Q_OS_WIN32) // Required by mysql.h
 # include <winsock.h>

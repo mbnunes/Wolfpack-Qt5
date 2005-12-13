@@ -50,7 +50,6 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QByteArray>
-#include <Q3PtrList>
 
 // Postprocessing stuff, can be deleted later on
 #include "muls/maps.h"
@@ -365,7 +364,6 @@ cWorld::cWorld()
 	lastTooltip = 0;
 	_lastCharSerial = 0;
 	_lastItemSerial = ITEM_SPACE;
-	backupThreads.setAutoDelete( true );
 }
 
 /*!
@@ -373,8 +371,8 @@ cWorld::cWorld()
 */
 cWorld::~cWorld()
 {
-	cBackupThread *thread;
-	for ( thread = backupThreads.first(); thread; thread = backupThreads.next() )
+	
+	foreach ( cBackupThread* thread, backupThreads )
 	{
 		thread->wait();
 	}
@@ -435,7 +433,7 @@ void cWorld::loadTag( cBufferedReader& reader, unsigned int version )
 	}
 }
 
-void cWorld::loadBinary( Q3PtrList<PersistentObject>& objects )
+void cWorld::loadBinary( QList<PersistentObject*>& objects )
 {
 	QString filename = Config::instance()->binarySavepath();
 
@@ -454,8 +452,7 @@ void cWorld::loadBinary( Q3PtrList<PersistentObject>& objects )
 		unsigned int count = reader.objectCount();
 		unsigned int lastpercent = 0;
 		unsigned int percent = 0;
-		Q3PtrList<cUObject> invalidSpawnregion;
-		invalidSpawnregion.setAutoDelete( false );
+		QList<cUObject*> invalidSpawnregion;
 
 		do
 		{
@@ -592,7 +589,7 @@ void cWorld::loadBinary( Q3PtrList<PersistentObject>& objects )
 		Console::instance()->rollbackChars( revert );
 
 		// post process all loaded objects
-		Q3PtrList<PersistentObject>::const_iterator cit( objects.begin() );
+		QList<PersistentObject*>::const_iterator cit( objects.begin() );
 		while ( cit != objects.end() )
 		{
 			( *cit )->postload( reader.version() );
@@ -600,7 +597,7 @@ void cWorld::loadBinary( Q3PtrList<PersistentObject>& objects )
 		}
 
 		// Delete all objects with an invalid spawnregion
-		Q3PtrList<cUObject>::const_iterator sit( invalidSpawnregion.begin() );
+		QList<cUObject*>::const_iterator sit( invalidSpawnregion.begin() );
 		while ( sit != invalidSpawnregion.end() )
 		{
 			( *sit )->remove();
@@ -618,7 +615,7 @@ void cWorld::loadBinary( Q3PtrList<PersistentObject>& objects )
 	UoTime::instance()->setMinutes( db_time.toInt() );
 }
 
-void cWorld::loadSQL( Q3PtrList<PersistentObject>& objects )
+void cWorld::loadSQL( QList<PersistentObject*>& objects )
 {
 	if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 	{
@@ -744,7 +741,7 @@ void cWorld::loadSQL( Q3PtrList<PersistentObject>& objects )
 
 	// It's not possible to use cItemIterator during postprocessing because it skips lingering items
 	ItemMap::iterator iter;
-	Q3PtrList<cItem> deleteItems;
+	QList<cItem*> deleteItems;
 
 	for ( iter = p->items.begin(); iter != p->items.end(); ++iter )
 	{
@@ -856,7 +853,7 @@ void cWorld::loadSQL( Q3PtrList<PersistentObject>& objects )
 	// Note from DarkStorm: I THINK it's important to do this before
 	// the deletion of objects, otherwise you might have items in this
 	// list that are already deleted.
-	Q3PtrList<PersistentObject>::const_iterator cit( objects.begin() );
+	QList<PersistentObject*>::const_iterator cit( objects.begin() );
 
 	while ( cit != objects.end() )
 	{
@@ -867,8 +864,10 @@ void cWorld::loadSQL( Q3PtrList<PersistentObject>& objects )
 	if ( deleteItems.count() > 0 )
 	{
 		// Do we have to delete items?
-		for ( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
+		foreach ( P_ITEM pItem, deleteItems )
+		{
 			quickdelete( pItem );
+		}
 
 		Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
 		deleteItems.clear();
@@ -910,7 +909,7 @@ void cWorld::loadSQL( Q3PtrList<PersistentObject>& objects )
 void cWorld::load()
 {
 	unsigned int loadStart = getNormalizedTime();
-	Q3PtrList<PersistentObject> objects;
+	QList<PersistentObject*> objects;
 
 	if ( Config::instance()->databaseDriver() == "binary" )
 	{

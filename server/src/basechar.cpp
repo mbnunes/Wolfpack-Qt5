@@ -54,9 +54,7 @@
 #include "skills.h"
 #include "definitions.h"
 #include "serverconfig.h"
-//Added by qt3to4:
 #include <QByteArray>
-#include <Q3PtrList>
 
 cBaseChar::cBaseChar()
 {

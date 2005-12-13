@@ -30,8 +30,6 @@
 
 // Library Includes
 #include <QString>
-//Added by qt3to4:
-#include <Q3CString>
 
 #include <ctype.h>
 
@@ -314,13 +312,13 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
   \a fieldLength can be 0, in which case, no size check is performed the string
   is read until a \0 is found.
 */
-Q3CString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
+QByteArray cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 {
 #if defined(_DEBUG)
 	if ( rawPacket.size() < fieldLength + pos )
 	{
 		qWarning( "Warning: cUOPacket::getAsciiString() called with params out of bounds" );
-		return Q3CString(); //#better return empty ?
+		return QByteArray(); //#better return empty ?
 	}
 #endif
 	if ( fieldLength )
@@ -328,7 +326,7 @@ Q3CString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 		char* buffer = new char[fieldLength + 1];
 		qstrncpy( buffer, rawPacket.data() + pos, fieldLength );
 		buffer[fieldLength] = 0; // truncate if larger
-		Q3CString result( buffer );
+		QByteArray result( buffer );
 		delete[] buffer;
 		return result;
 	}

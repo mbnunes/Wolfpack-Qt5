@@ -38,7 +38,7 @@
 
 // Library Includes
 #include <QStringList>
-#include <qtextcodec.h>
+#include <QTextCodec>
 #include <QByteArray>
 
 void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, unsigned char serverFull, char serverTimeZone, unsigned int serverIp )

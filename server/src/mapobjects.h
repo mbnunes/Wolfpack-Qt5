@@ -31,7 +31,7 @@
 #include "coord.h"
 #include "server.h"
 #include "singleton.h"
-#include <q3ptrvector.h>
+#include <QList>
 
 class Coord;
 class cItem;
@@ -237,7 +237,7 @@ private:
 	static void releaseIterator( void* state );
 
 private:
-	Q3PtrVector<GridSet> mMaps;
+	QList<GridSet*> mMaps;
 };
 
 

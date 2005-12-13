@@ -28,9 +28,9 @@
 #if !defined(__UOPACKET_H__)
 #define __UOPACKET_H__
 
-#include <q3cstring.h>
+#include <QByteArray>
 
-#include <iosfwd>
+//#include <iosfwd>
 
 // Forward declaration
 class QString;
@@ -66,7 +66,7 @@ public:
 	void resize( uint );
 	int getInt( uint ) const;
 	short getShort( uint ) const;
-	Q3CString getAsciiString( uint, uint = 0 ) const;
+	QByteArray getAsciiString( uint, uint = 0 ) const;
 	QString getUnicodeString( uint, uint ) const;
 	void setInt( uint, uint );
 	void setShort( uint, ushort );

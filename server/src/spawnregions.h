@@ -34,9 +34,6 @@
 #include "objectdef.h"
 
 #include <map>
-//Added by qt3to4:
-#include <Q3ValueList>
-#include <Q3PtrList>
 
 // Abstract class for spawn position
 class cSpawnPosition
@@ -150,8 +147,8 @@ private:
 	QStringList groups_; // Spawngroups
 	bool active_; // Is this spawnregion active?
 
-	Q3PtrList<cSpawnPosition> positions_; // Spawn positions
-	Q3PtrList<cSpawnPosition> exceptions_; // Spawn positions (doesnt reduce point count (beware))
+	QList<cSpawnPosition*> positions_; // Spawn positions
+	QList<cSpawnPosition*> exceptions_; // Spawn positions (doesnt reduce point count (beware))
 
 	bool checkFreeSpot_; // The target spot has to be free.
 

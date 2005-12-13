@@ -30,9 +30,7 @@
 
 // System Includes
 #include <QMap>
-#include <q3valuevector.h>
 #include <QString>
-//Added by qt3to4:
 #include <QByteArray>
 
 // Wolfpack Includes

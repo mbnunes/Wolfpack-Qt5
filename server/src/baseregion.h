@@ -37,7 +37,6 @@
 // Library includes
 #include <QString>
 #include <QStringList>
-#include <q3valuevector.h>
 #include <QMap>
 
 // Forward Definitions
@@ -47,11 +46,11 @@ class cBaseRegion : public cDefinable
 public:
 	struct rect_st
 	{
-		UI16 x1;
-		UI16 x2;
-		UI16 y1;
-		UI16 y2;
-		UI08 map;
+		ushort x1;
+		ushort x2;
+		ushort y1;
+		ushort y2;
+		uchar map;
 	};
 
 	cBaseRegion() : parent_( 0 )
@@ -81,7 +80,7 @@ public:
 		name_ = "the wilderness";
 	}
 
-	bool contains( UI16 posx, UI16 posy, UI08 map ) const
+	bool contains( ushort posx, ushort posy, uchar map ) const
 	{
 		QList<rect_st>::const_iterator it = this->rectangles_.begin();
 
@@ -114,7 +113,7 @@ public:
 		return 0;
 	}
 
-	cBaseRegion* region( UI16 posx, UI16 posy, UI08 map )
+	cBaseRegion* region( ushort posx, ushort posy, uchar map )
 	{
 		cBaseRegion* foundRegion = 0;
 		if ( this->contains( posx, posy, map ) )
@@ -135,9 +134,9 @@ public:
 		return foundRegion;
 	}
 
-	UI32 count( void ) const
+	uint count( void ) const
 	{
-		UI32 result = 1;
+		uint result = 1;
 		QList<cBaseRegion*>::const_iterator it( this->subregions_.begin() );
 		while ( it != this->subregions_.end() )
 		{
@@ -223,7 +222,7 @@ public:
 		return 0;
 	}
 
-	cBaseRegion* region( UI16 posx, UI16 posy, UI08 map )
+	cBaseRegion* region( ushort posx, ushort posy, uchar map )
 	{
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.find( map ) );
 		if ( it != topregions.end() )
@@ -232,9 +231,9 @@ public:
 			return 0;
 	}
 
-	UI32 count( void ) const
+	uint count( void ) const
 	{
-		UI32 i = 0;
+		uint i = 0;
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 		for ( ; it != topregions.end(); ++it )
 			i += it.data()->count();

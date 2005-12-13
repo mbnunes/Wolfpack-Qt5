@@ -34,18 +34,13 @@
 
 #include <map>
 #include <QMap>
-#include <q3ptrlist.h>
-
-#include <qobject.h>
-//Added by qt3to4:
-#include <Q3ValueList>
 
 struct good_st
 {
-	UI32 sellable;
-	UI32 buyable;
-	UI32 rndmin;
-	UI32 rndmax;
+	uint sellable;
+	uint buyable;
+	uint rndmin;
+	uint rndmax;
 };
 
 class cTerritory : public cBaseRegion
@@ -409,7 +404,7 @@ private:
 
 	QList<teleporters_st> teleporters;
 public:
-	std::map<UI32, good_st> tradesystem_;
+	std::map<uint, good_st> tradesystem_;
 
 	inline void addTeleporter( const Coord& from, const Coord& to )
 	{

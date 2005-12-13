@@ -34,8 +34,6 @@
 // Library Includes
 #include <QMap>
 #include <QString>
-#include <q3valuevector.h>
-#include <q3valuelist.h>
 #include <QByteArray>
 
 // Includes for cPythonScriptable

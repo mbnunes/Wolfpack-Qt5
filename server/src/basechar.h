@@ -33,10 +33,9 @@
 
 // library includes
 #include <QMap>
-#include <q3valuevector.h>
 #include <QDateTime>
 #include <QByteArray>
-#include <Q3PtrList>
+#include <QVector>
 
 // wolfpack includes
 #include "basedef.h"

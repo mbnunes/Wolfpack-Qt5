@@ -28,7 +28,7 @@
 #if !defined( __PLATFORM_H__ )
 #define __PLATFORM_H__
 
-#include <qglobal.h>
+#include <QtGlobal>
 
 #if defined(Q_CC_MSVC) | defined(Q_CC_INTEL) | defined(Q_CC_BOR)
 #	pragma pack(8)

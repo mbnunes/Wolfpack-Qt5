@@ -31,7 +31,7 @@
 #include "../server.h"
 #include "../exceptions.h"
 #include "../singleton.h"
-#include <qglobal.h>
+#include <QtGlobal>
 #include <QString>
 #include <QMap>
 #include <QList>

@@ -30,7 +30,6 @@
 
 #include <QString>
 #include <QStringList>
-#include <q3valuevector.h>
 #include <QThread>
 #include "singleton.h"
 #include "objectdef.h"

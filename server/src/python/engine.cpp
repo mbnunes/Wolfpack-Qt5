@@ -75,7 +75,7 @@ CleanupAutoRegister::CleanupAutoRegister( fnCleanupHandler handler )
 #include <qdom.h>
 #include <QString>
 #include <QFile>
-#include <qwaitcondition.h>
+#include <QWaitCondition>
 
 // Forward declaration for wolfpack extension function
 void init_wolfpack_globals();

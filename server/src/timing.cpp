@@ -55,8 +55,6 @@
 
 // Library Includes
 #include <QDateTime>
-//Added by qt3to4:
-#include <Q3PtrList>
 #include <math.h>
 #include <time.h>
 

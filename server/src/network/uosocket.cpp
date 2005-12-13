@@ -67,7 +67,7 @@
 #include "encryption.h"
 
 #include <stdlib.h>
-#include <qhostaddress.h>
+#include <QHostAddress>
 #include <QTimer>
 #include <Q3PtrList>
 
@@ -162,7 +162,6 @@ Destructs the cUOSocket instance.
 */
 cUOSocket::~cUOSocket( void )
 {
-	delete _socket;
 	delete targetRequest;
 	delete tooltipscache_;
 	delete encryption;

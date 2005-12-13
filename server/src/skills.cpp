@@ -61,7 +61,7 @@ void cSkills::SkillUse( cUOSocket* socket, quint16 id ) // Skill is clicked on t
 
 	if ( pChar->isDead() )
 	{
-		socket->sysMessage( tr( "You cannot do that as a ghost." ) );
+		socket->clilocMessage( 1019048 ); // I am dead and cannot do that.
 		return;
 	}
 

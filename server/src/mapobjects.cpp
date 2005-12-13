@@ -454,14 +454,16 @@ struct MapObjects::GridSet
 	MapObjectsGrid offlineChars;
 };
 
-MapObjects::MapObjects() : mMaps( 8 )
+MapObjects::MapObjects()
 {
-	mMaps.setAutoDelete( true );
 }
 
 MapObjects::~MapObjects()
 {
-	// empty
+	foreach( GridSet* g, mMaps )
+	{
+		delete g;
+	}
 }
 
 void MapObjects::load()
@@ -492,11 +494,6 @@ void MapObjects::addMap( UI08 map, UI16 width, UI16 height )
 	}
 
 	GridSet *gridSet = new GridSet( width, height );
-
-	if ( mMaps.size() <= map )
-	{
-		mMaps.resize( map + 1 );
-	}
 
 	mMaps.insert( map, gridSet );
 }

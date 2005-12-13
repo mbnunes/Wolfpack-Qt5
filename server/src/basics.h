@@ -36,7 +36,6 @@
 #include <algorithm>
 #include <QMap>
 #include <QFile>
-//Added by qt3to4:
 #include <QByteArray>
 
 // Forward definitions

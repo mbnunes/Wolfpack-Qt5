@@ -43,8 +43,6 @@
 #include "scriptmanager.h"
 #include "python/pyspawnregion.h"
 #include <math.h>
-//Added by qt3to4:
-#include <Q3PtrList>
 
 using namespace std;
 
@@ -202,8 +200,6 @@ cSpawnRegion::cSpawnRegion( const cElement* tag )
 	maxTime_ = 600;
 	nextTime_ = 0;
 	id_ = tag->getAttribute( "id" );
-	positions_.setAutoDelete( true );
-	exceptions_.setAutoDelete( true );
 	checkFreeSpot_ = false;
 	npcNodesTotal_ = 0;
 	itemNodesTotal_ = 0;
@@ -222,13 +218,21 @@ cSpawnRegion::cSpawnRegion( const cElement* tag )
 
 cSpawnRegion::~cSpawnRegion()
 {
+	foreach(cSpawnPosition* position, positions_ )
+	{
+		delete position;
+	}
+
+	foreach( cSpawnPosition* exception, exceptions_ )
+	{
+		delete exception;
+	}
 }
 
 bool cSpawnRegion::isValidSpot( const Coord& pos )
 {
 	// Check all sub positions
-	cSpawnPosition *position;
-	for ( position = positions_.first(); position; position = positions_.next() )
+	foreach ( cSpawnPosition *position, positions_ )
 	{
 		if ( position->inBounds( pos ) )
 		{
@@ -505,9 +509,8 @@ void cSpawnRegion::processNode( const cElement* tag )
 // Counts the total number of points this spawnregion has
 unsigned int cSpawnRegion::countPoints()
 {
-	cSpawnPosition *position;
 	unsigned int total = 0;
-	for ( position = positions_.first(); position; position = positions_.next() )
+	foreach ( cSpawnPosition *position, positions_ )
 	{
 		total += position->points();
 	}
@@ -537,7 +540,7 @@ bool cSpawnRegion::findValidSpot( Coord& result, int tries )
 	cSpawnPosition *position; // Current partition
 
 	// Search for a random position from out positions list.
-	for ( position = positions_.first(); position; position = positions_.next() )
+	foreach ( position, positions_ )
 	{
 		offset += position->points(); // Increase the offset
 
@@ -574,7 +577,7 @@ bool cSpawnRegion::findValidSpot( Coord& result, int tries )
 			}
 
 			// This checks if the point is within one of the exempt areas
-			for ( cSpawnPosition*exception = exceptions_.first(); exception; exception = exceptions_.next() )
+			foreach ( cSpawnPosition* exception, exceptions_ )
 			{
 				if ( exception->inBounds( rndPos ) )
 				{
@@ -1002,7 +1005,7 @@ void cAllSpawnRegions::reload()
 {
 	// Save a list of all objects and their spawnregions
 	// So the references can be recreated later.
-	QMap<QString, Q3PtrList<cUObject> > objects;
+	QMap<QString, QList<cUObject*> > objects;
 
 	cItemIterator iItems;
 	for ( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
@@ -1010,11 +1013,6 @@ void cAllSpawnRegions::reload()
 		cSpawnRegion *region = pItem->spawnregion();
 		if ( region )
 		{
-			if ( !objects.contains( region->id() ) )
-			{
-				objects[region->id()].setAutoDelete( false );
-			}
-
 			objects[region->id()].append( pItem );
 			pItem->setSpawnregion( 0 ); // Remove from spawnregion before pointer gets invalid
 		}
@@ -1026,11 +1024,6 @@ void cAllSpawnRegions::reload()
 		cSpawnRegion *region = pChar->spawnregion();
 		if ( region )
 		{
-			if ( !objects.contains( region->id() ) )
-			{
-				objects[region->id()].setAutoDelete( false );
-			}
-
 			objects[region->id()].append( pChar );
 			pChar->setSpawnregion( 0 ); // Remove from spawnregion before pointer gets invalid
 		}
@@ -1039,24 +1032,22 @@ void cAllSpawnRegions::reload()
 	unload();
 	load();
 
-	QMap<QString, Q3PtrList<cUObject> >::iterator it;
+	QMap<QString, QList<cUObject*> >::iterator it;
 	for ( it = objects.begin(); it != objects.end(); ++it )
 	{
 		cSpawnRegion *region = this->region( it.key() );
 		if ( region )
 		{
-			cUObject *object;
-			Q3PtrList<cUObject> &list = it.data();
-			for ( object = list.first(); object; object = list.next() )
+			QList<cUObject*> &list = it.data();
+			foreach ( cUObject* object, list )
 			{
 				object->setSpawnregion( region );
 			}
 		}
 		else
 		{
-			cUObject *object;
-			Q3PtrList<cUObject> &list = it.data();
-			for ( object = list.first(); object; object = list.next() )
+			QList<cUObject*> &list = it.data();
+			foreach ( cUObject* object, list )
 			{
 				object->remove();
 			}

@@ -67,9 +67,8 @@
 
 // Library Includes
 #include <QDateTime>
-#include <qmutex.h>
+#include <QMutex>
 #include <QCoreApplication>
-#include <Q3PtrList>
 
 PyObject* PyGetObjectObject( cUObject* object )
 {

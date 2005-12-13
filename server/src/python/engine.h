@@ -33,7 +33,7 @@
 #if !defined(__PYTHON_ENGINE_H__)
 #define __PYTHON_ENGINE_H__
 
-#include <qglobal.h>
+#include <QtGlobal>
 #include <QString>
 
 // Stupid Python developers
