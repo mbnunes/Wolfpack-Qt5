@@ -28,10 +28,7 @@
 #if !defined( __OBJECTDEF_H__ )
 #define __OBJECTDEF_H__
 
-#ifndef QT_H
-#include <qglobal.h>
-#include <qapplication.h>
-#endif // QT_H
+#include <QCoreApplication>
 
 /*!
 	Since we are not using QObject due to memory footprint, moc won't create some nice functions
@@ -43,7 +40,7 @@
 
 inline QString tr( const QString& text, const char* comment = 0, const char* context = "@default" )
 {
-	return qApp->translate( context, text.latin1(), comment );
+	return QCoreApplication::translate( context, text.latin1(), comment );
 }
 
 # ifndef QT_NO_TEXTCODEC
@@ -51,18 +48,12 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 #  define WP_TR_FUNCTIONS(classname) \
 	static QString tr( const char* s, const char* c = 0 ) \
 	{ \
-		if ( qApp ) \
-			return qApp->translate( #classname, s, c, QApplication::DefaultCodec ); \
-		else \
-			return QString::fromLatin1( s ); \
+		return QCoreApplication::translate( #classname, s, c, QApplication::DefaultCodec ); \
 	} \
 	\
 	static QString trUtf8( const char* s, const char* c = 0 ) \
 	{ \
-		if ( qApp ) \
-			return qApp->translate( #classname, s, c, QApplication::UnicodeUTF8 ); \
-		else \
-			return QString::fromUtf8( s ); \
+		return QCoreApplication::translate( #classname, s, c, QApplication::UnicodeUTF8 ); \
 	}
 
 # else
@@ -70,10 +61,7 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 #  define WP_TR_FUNCTIONS \
 	static QString tr( const char* s, const char* c = 0 ) \
 	{ \
-		if ( qApp ) \
-			return qApp->translate( #classname, s, c, QApplication::DefaultCodec ); \
-		else \
-			return QString::fromLatin1( s ); \
+		return QCoreApplication::translate( #classname, s, c, QApplication::DefaultCodec ); \
 	}
 
 # endif

@@ -69,7 +69,7 @@
 // Qt Includes
 #include <qwaitcondition.h>
 #include <q3ptrvector.h>
-#include <QApplication>
+#include <QCoreApplication>
 #include <qtextcodec.h>
 //Added by qt3to4:
 #include <QTranslator>
@@ -427,7 +427,7 @@ void cServer::run()
 					msleep( 10 ); break;
 				}
 				PyEval_RestoreThread( _save ); // Python threading - end
-				qApp->processEvents();
+				QCoreApplication::processEvents();
 
 				stopProfiling( PF_NICENESS );
 			}

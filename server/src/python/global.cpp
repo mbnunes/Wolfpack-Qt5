@@ -68,7 +68,7 @@
 // Library Includes
 #include <QDateTime>
 #include <qmutex.h>
-//Added by qt3to4:
+#include <QCoreApplication>
 #include <Q3PtrList>
 
 PyObject* PyGetObjectObject( cUObject* object )
@@ -2017,7 +2017,7 @@ static PyObject* wpTr( PyObject*, PyObject* args )
 	{
 		return 0;
 	}
-	return QString2Python( qApp->translate( "@pythonscript", message ) );
+	return QString2Python( QCoreApplication::translate( "@pythonscript", message ) );
 }
 
 
