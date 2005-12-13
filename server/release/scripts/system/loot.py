@@ -481,7 +481,7 @@ PACKS = {
 
 	# Potion
 	'potion' : [
-		[1.0, DEF_ALLPOTIONS, 1, 0], # Potion
+		[1.0, DEF_ALLUSABLEPOTIONS, 1, 0], # Potion
 	]
 }
 

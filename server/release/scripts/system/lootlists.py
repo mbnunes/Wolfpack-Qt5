@@ -73,6 +73,10 @@ DEF_CLOTHES_ALL = DEF_SHIRTS + DEF_SHOES + DEF_PANTS + DEF_FEMALE_PANTS + DEF_RO
 
 # Potions
 DEF_ALLPOTIONS = ['f06', 'f07', 'f08', 'f09', 'f0a', 'f0b', 'f0c', 'f0d']
+DEF_ALLUSABLEPOTIONS = ['potion_nightsight', 'potion_lesserheal', 'potion_heal', 'potion_greaterheal', 'potion_lessermana',
+	'potion_lessercure', 'potion_cure', 'potion_greatercure', 'potion_agility', 'potion_greateragility', 'potion_strength',
+	'potion_greaterstrength', 'potion_lesserexplosion', 'potion_explosion', 'potion_greaterexplosion', 'potion_lesserpoison',
+	'potion_poison', 'potion_greaterpoison', 'potion_deadlypoison', 'potion_refresh', 'potion_totalrefresh']
 
 # Reagents
 DEF_PLAINREGS = ['f7a', 'f7b', 'f84', 'f85', 'f86', 'f88', 'f8c', 'f8d']
