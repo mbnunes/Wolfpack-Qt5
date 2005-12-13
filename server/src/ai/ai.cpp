@@ -252,7 +252,7 @@ void AbstractAI::NPCscheck()
 			MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), Config::instance()->aiNPCsCheckRange() );
 			for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 			{
-				if ( ( pChar != m_npc ) && ( !pChar->isHidden() ) )
+				if ( ( pChar != m_npc ) && ( !pChar->isHidden() ) && ( !pChar->isInvisible() ) )
 				{
 					PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, m_npc, PyGetCharObject, pChar );
 					result = m_npc->callEventHandler( EVENT_SEECHAR, args );
