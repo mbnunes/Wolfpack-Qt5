@@ -722,6 +722,7 @@ container that is being snooped into.
 \event onSeeChar
 \param npc The NPC who saw the Char.
 \param item The Char that NPC saw.
+\return Return 1 to break the looping for other Items. If returned 0 or nothing (no return) it will just check all remain chars calling event more times.
 \condition Triggered when a character see other chars around him.
 \notes This event will be called for every character around the Main Char of Event. So, use carefully.
 */
@@ -731,6 +732,7 @@ container that is being snooped into.
 \event onSeeItem
 \param npc The NPC who saw the Item.
 \param item The Item that NPC saw.
+\return Return 1 to break the looping for other Items. If returned 0 or nothing (no return) it will just check all remain items calling event more times.
 \condition Triggered when a character see items around him.
 \notes This event will be called for every character around the Main Char of Event. So, use carefully.
 */
