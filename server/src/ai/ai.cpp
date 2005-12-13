@@ -243,18 +243,25 @@ void AbstractAI::NPCscheck()
 	// "Global" result
 	int result = 0;
 
-	// Check if we can Handle the Event
-	if ( m_npc->canHandleEvent( EVENT_SEECHAR ) )
+	if ( !m_npc->ai()->currentAction() )
 	{
-		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), Config::instance()->aiNPCsCheckRange() );
-		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
-		{
-			PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, m_npc, PyGetCharObject, pChar );
-			result = m_npc->callEventHandler( EVENT_SEECHAR, args );
-			Py_DECREF( args );
 
-			if ( result )
-				break;
+		// Check if we can Handle the Event
+		if ( m_npc->canHandleEvent( EVENT_SEECHAR ) )
+		{
+			MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), Config::instance()->aiNPCsCheckRange() );
+			for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
+			{
+				if ( ( pChar != m_npc ) && ( !pChar->isHidden() ) )
+				{
+					PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, m_npc, PyGetCharObject, pChar );
+					result = m_npc->callEventHandler( EVENT_SEECHAR, args );
+					Py_DECREF( args );
+
+					if ( result )
+						break;
+				}
+			}
 		}
 	}
 
@@ -269,18 +276,25 @@ void AbstractAI::ITEMscheck()
 	// "Global" result
 	int result = 0;
 
-	// Check if we can Handle the Event
-	if ( m_npc->canHandleEvent( EVENT_SEEITEM ) )
+	if ( !m_npc->ai()->currentAction() )
 	{
-		MapItemsIterator ti = MapObjects::instance()->listItemsInCircle( m_npc->pos(), Config::instance()->aiITEMsCheckRange() );
-		for ( P_ITEM pItem = ti.first(); pItem; pItem = ti.next() )
-		{
-			PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, m_npc, PyGetItemObject, pItem );
-			result = m_npc->callEventHandler( EVENT_SEEITEM, args );
-			Py_DECREF( args );	
 
-			if ( result )
-				break;
+		// Check if we can Handle the Event
+		if ( m_npc->canHandleEvent( EVENT_SEEITEM ) )
+		{
+			MapItemsIterator ti = MapObjects::instance()->listItemsInCircle( m_npc->pos(), Config::instance()->aiITEMsCheckRange() );
+			for ( P_ITEM pItem = ti.first(); pItem; pItem = ti.next() )
+			{
+				if ( pItem->visible() )
+				{
+					PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, m_npc, PyGetItemObject, pItem );
+					result = m_npc->callEventHandler( EVENT_SEEITEM, args );
+					Py_DECREF( args );	
+
+					if ( result )
+						break;
+				}
+			}
 		}
 	}
 
