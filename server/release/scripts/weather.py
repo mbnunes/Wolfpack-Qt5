@@ -106,6 +106,15 @@ def changeweather( region ):
 
 		weatherduration( region )
 
+	# Updating all Clients in this Region (I think socket iterator is cheaper than regionchars iterator)
+	worldsocket = wolfpack.sockets.first()
+	while worldsocket:
+
+		if worldsocket.player.region == region:
+			worldsocket.player.update()
+
+		worldsocket = wolfpack.sockets.next()
+
 ######################################################################################
 #############   Set persistance of new Weather   #####################################
 ######################################################################################
