@@ -38,8 +38,7 @@
 
 // Library Includes
 #include <QString>
-#include <qregexp.h>
-#include <qapplication.h>
+#include <QRegExp>
 #include <QFileInfo>
 #include <QDir>
 #include <QByteArray>
@@ -84,9 +83,6 @@ void cScriptManager::reload()
 	// First unload, then reload
 	unload();
 
-	// Stop + Restart Python
-	//stopPython();
-	//startPython( qApp->argc(), qApp->argv() );
 	PythonEngine::instance()->unload();
 	PythonEngine::instance()->load();
 

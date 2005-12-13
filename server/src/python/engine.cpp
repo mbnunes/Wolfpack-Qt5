@@ -32,7 +32,7 @@
 #include "../console.h"
 #include "../log.h"
 
-#include <qapplication.h>
+#include <QCoreApplication>
 #include <QList>
 
 // Python Functions
@@ -295,7 +295,7 @@ cPythonEngine::~cPythonEngine()
 
 void cPythonEngine::load()
 {
-	startPython( qApp->argc(), qApp->argv() );
+	startPython( QCoreApplication::argc(), QCoreApplication::argv() );
 	cComponent::load();
 }
 

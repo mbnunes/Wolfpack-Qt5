@@ -28,7 +28,7 @@
 #if !defined(__PERSISTENTBROKER_H__)
 #define __PERSISTENTBROKER_H__
 
-#include <qregexp.h>
+#include <QRegExp>
 #include "singleton.h"
 
 class PersistentObject;
