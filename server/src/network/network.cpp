@@ -213,10 +213,10 @@ cUOSocket* cNetwork::first()
 
 cUOSocket* cNetwork::next()
 {
-	cUOSocket *result = d->uoSocket.next();
+	cUOSocket *result = d->uoSockets.next();
 
 	while (result && !result->player()) {
-		result = d->uoSocket.next();
+		result = d->uoSockets.next();
 	}
 
 	return result;
