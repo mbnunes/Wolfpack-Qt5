@@ -319,7 +319,7 @@ void cServer::run()
 		QString languageFile = Config::instance()->getString( "General", "Language File", QString( "wolfpack_" ) + QTextCodec::locale() + QString( ".qm" ), true );
 		if ( !languageFile.isEmpty() && QFile::exists( languageFile ) )
 		{
-			QTranslator* translator = new QTranslator( qApp );
+			QTranslator* translator = new QTranslator( QCoreApplication::instance() );
 			if ( !translator->load( languageFile, "." ) )
 			{
 				Console::instance()->log( LOG_WARNING, "Couldn't load translator.\n" );

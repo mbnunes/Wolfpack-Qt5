@@ -1261,7 +1261,7 @@ void cBaseChar::processNode( const cElement* Tag )
 	else if ( TagName == "title" )
 	{
 		QString context = Tag->getAttribute( "context", "@default" );
-		Value = qApp->translate( context, Value );
+		Value = QCoreApplication::instance()->translate( context, Value );
 		setTitle( Value );
 	}
 #endif
