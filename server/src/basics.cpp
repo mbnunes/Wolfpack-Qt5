@@ -320,6 +320,7 @@ void cBufferedWriter::flush()
 	if ( d->bufferpos != 0 )
 	{
 		d->file.writeBlock( d->buffer, d->bufferpos );
+		d->file.flush();
 		d->bufferpos = 0;
 	}
 }
