@@ -201,12 +201,25 @@ void cNetwork::unlock()
 
 cUOSocket* cNetwork::first()
 {
-	return d->uoSockets.first();
+	cUOSocket *result = d->uoSockets.first();
+
+	// Only return in-game sockets with a player object.
+	while (result && !result->player()) {
+		result = d->uoSockets.next();
+	}
+
+	return result;
 }
 
 cUOSocket* cNetwork::next()
 {
-	return d->uoSockets.next();
+	cUOSocket *result = d->uoSocket.next();
+
+	while (result && !result->player()) {
+		result = d->uoSocket.next();
+	}
+
+	return result;
 }
 
 quint32 cNetwork::count()
