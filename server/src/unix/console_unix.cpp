@@ -286,6 +286,6 @@ int main( int argc, char** argv )
 {
 	QCoreApplication app( argc, argv );
 	QObject::connect( Server::instance(), SIGNAL(finished()), &app, SLOT(quit()) );
-	Server::instance()->start();
-	return app.exec();
+	Server::instance()->run();
+	return 0;
 }
