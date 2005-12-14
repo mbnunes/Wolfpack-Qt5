@@ -1182,26 +1182,30 @@ void cNPC::findPath( const Coord& goal )
 
 void cNPC::setAI( const QString& data )
 {
-	QString tmp = QStringList::split( ",", data )[0];
-	aiid_ = tmp;
+	if (data.isEmpty()) {
+		setAI(0);
+	} else {
+		QString tmp = QStringList::split( ",", data )[0];
+		aiid_ = tmp;
 
-	if ( ai_ )
-		delete ai_;
+		if ( ai_ )
+			delete ai_;
 
-	ai_ = NULL;
+		ai_ = NULL;
 
-	AbstractAI* ai = AIFactory::instance()->createObject( tmp );
-	if ( !ai )
-		return;
+		AbstractAI* ai = AIFactory::instance()->createObject( tmp );
+		if ( !ai )
+			return;
 
-	ScriptAI* sai = dynamic_cast<ScriptAI*>( ai );
-	if ( sai )
-	{
-		sai->setName( tmp );
+		ScriptAI* sai = dynamic_cast<ScriptAI*>( ai );
+		if ( sai )
+		{
+			sai->setName( tmp );
+		}
+		ai->init( this );
+
+		setAI( ai );
 	}
-	ai->init( this );
-
-	setAI( ai );
 }
 
 void cNPC::makeShop()

@@ -1,227 +1,313 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
-	Name="wolfpack"
+	Version="8,00"
+	Name="wolfpack-vc8"
 	ProjectGUID="{766437DE-37EB-400E-BF08-4AB9B529C83D}"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/GR
-"
+				AdditionalOptions="/GR&#x0D;&#x0A;"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\src\sqlite;.;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\Qt3Support&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\mkspecs\win32-msvc.net&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_CLEAN_NAMESPACE;QT_COMPAT_WARNINGS;QT_NO_TRANSLATION;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_QT3SUPPORT_LIB;QT3_SUPPORT"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				ForceConformanceInForLoopScope="FALSE"
+				ForceConformanceInForLoopScope="false"
 				UsePrecompiledHeader="0"
 				BrowseInformation="1"
 				WarningLevel="1"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+				DisableSpecificWarnings="4311;4312;4996"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib comctl32.lib qtmain.lib python24.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\Qt3Support4.lib"
+				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\Qt3Support4.lib"
 				OutputFile="../release/wolfpackd.exe"
 				LinkIncremental="2"
-				SuppressStartupBanner="TRUE"
-				GenerateDebugInformation="TRUE"
+				SuppressStartupBanner="true"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile="wolfpack.pdb"
-				GenerateMapFile="TRUE"
+				GenerateMapFile="true"
 				MapFileName="wolfpack.map"
-				MapExports="FALSE"
+				MapExports="false"
 				SubSystem="2"
-				TargetMachine="1"/>
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="..\"
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
-			WholeProgramOptimization="FALSE">
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/GR"
 				Optimization="3"
-				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
-				OptimizeForProcessor="0"
 				AdditionalIncludeDirectories=".;..\src\sqlite;qt;C:\MySQL\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;MYSQL_DRIVER"
-				StringPooling="TRUE"
-				MinimalRebuild="TRUE"
+				StringPooling="true"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
 				StructMemberAlignment="0"
-				BufferSecurityCheck="FALSE"
-				EnableFunctionLevelLinking="FALSE"
+				BufferSecurityCheck="false"
+				EnableFunctionLevelLinking="false"
 				EnableEnhancedInstructionSet="0"
-				ForceConformanceInForLoopScope="TRUE"
-				RuntimeTypeInfo="TRUE"
+				ForceConformanceInForLoopScope="true"
+				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				BrowseInformation="1"
 				WarningLevel="0"
-				Detect64BitPortabilityProblems="FALSE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qt-mt333.lib ws2_32.lib comctl32.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
 				OutputFile="../release/wolfpack.exe"
 				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
+				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="C:\MySQL\lib\opt"
-				IgnoreAllDefaultLibraries="FALSE"
-				GenerateDebugInformation="TRUE"
-				GenerateMapFile="TRUE"
+				IgnoreAllDefaultLibraries="false"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
 				MapFileName="$(OUTDIR)\wolfpack.map"
-				MapExports="TRUE"
-				MapLines="TRUE"
+				MapExports="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
-				SetChecksum="TRUE"
-				SupportUnloadOfDelayLoadedDLL="FALSE"
+				SetChecksum="true"
+				SupportUnloadOfDelayLoadedDLL="false"
 				MergeSections=""
 				TargetMachine="1"
-				FixedBaseAddress="2"/>
+				FixedBaseAddress="2"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Web-Release|Win32"
 			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="2"
-			WholeProgramOptimization="TRUE">
+			WholeProgramOptimization="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/GR"
 				Optimization="3"
-				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="FALSE"
+				EnableIntrinsicFunctions="false"
 				FavorSizeOrSpeed="2"
-				OptimizeForProcessor="0"
-				OptimizeForWindowsApplication="TRUE"
 				AdditionalIncludeDirectories=".;..\src\sqlite;..\STLPort\stlport;..\msvcrt\include;qt;C:\MySQL\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;CRASHHANDLER;MYSQL_DRIVER"
-				StringPooling="TRUE"
-				MinimalRebuild="TRUE"
+				StringPooling="true"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
 				StructMemberAlignment="0"
-				BufferSecurityCheck="FALSE"
-				EnableFunctionLevelLinking="FALSE"
+				BufferSecurityCheck="false"
+				EnableFunctionLevelLinking="false"
 				EnableEnhancedInstructionSet="0"
-				ForceConformanceInForLoopScope="TRUE"
-				RuntimeTypeInfo="TRUE"
+				ForceConformanceInForLoopScope="true"
+				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				BrowseInformation="1"
 				WarningLevel="1"
-				Detect64BitPortabilityProblems="FALSE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="false"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qt-mt333.lib ws2_32.lib comctl32.lib msvcrt.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
 				OutputFile="../release/wolfpack.exe"
 				LinkIncremental="1"
-				SuppressStartupBanner="TRUE"
+				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="..\msvcrt\lib;C:\MySQL\lib\opt"
-				IgnoreAllDefaultLibraries="TRUE"
-				GenerateDebugInformation="TRUE"
-				GenerateMapFile="TRUE"
+				IgnoreAllDefaultLibraries="true"
+				GenerateDebugInformation="true"
+				GenerateMapFile="true"
 				MapFileName="$(OUTDIR)\wolfpack.map"
-				MapExports="TRUE"
-				MapLines="TRUE"
+				MapExports="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
-				SetChecksum="TRUE"
-				SupportUnloadOfDelayLoadedDLL="FALSE"
+				SetChecksum="true"
+				SupportUnloadOfDelayLoadedDLL="false"
 				MergeSections=""
 				TargetMachine="1"
-				FixedBaseAddress="2"/>
+				FixedBaseAddress="2"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -229,790 +315,1306 @@
 	<Files>
 		<Filter
 			Name="Server"
-			Filter="">
+			>
 			<File
-				RelativePath="..\src\accounts.cpp">
+				RelativePath="..\src\accounts.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\accounts.h">
+				RelativePath="..\src\accounts.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\action.cpp">
+				RelativePath="..\src\action.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\action.h">
+				RelativePath="..\src\action.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\basechar.cpp">
+				RelativePath="..\src\basechar.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\basechar.h">
+				RelativePath="..\src\basechar.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\basedef.cpp">
+				RelativePath="..\src\basedef.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\basedef.h">
+				RelativePath="..\src\basedef.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\baseregion.h">
+				RelativePath="..\src\baseregion.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\basics.cpp">
+				RelativePath="..\src\basics.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\basics.h">
+				RelativePath="..\src\basics.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\combat.cpp">
+				RelativePath="..\src\combat.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\combat.h">
+				RelativePath="..\src\combat.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\commands.cpp">
+				RelativePath="..\src\commands.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\commands.h">
+				RelativePath="..\src\commands.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\win\config_win.cpp">
+				RelativePath="..\src\win\config_win.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\console.cpp">
+				RelativePath="..\src\console.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\console.h">
+				RelativePath="..\src\console.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\win\console_win.cpp">
+				RelativePath="..\src\win\console_win.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\content.cpp">
+				RelativePath="..\src\content.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\content.h">
+				RelativePath="..\src\content.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\contextmenu.cpp">
+				RelativePath="..\src\contextmenu.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\contextmenu.h">
+				RelativePath="..\src\contextmenu.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\coord.cpp">
+				RelativePath="..\src\coord.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\coord.h">
+				RelativePath="..\src\coord.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\corpse.cpp">
+				RelativePath="..\src\corpse.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\corpse.h">
+				RelativePath="..\src\corpse.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\customtags.cpp">
+				RelativePath="..\src\customtags.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\customtags.h">
+				RelativePath="..\src\customtags.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\dbdriver.cpp">
+				RelativePath="..\src\dbdriver.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\dbdriver.h">
+				RelativePath="..\src\dbdriver.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\definable.cpp">
+				RelativePath="..\src\definable.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\definable.h">
+				RelativePath="..\src\definable.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\defines.h">
+				RelativePath="..\src\defines.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\definitions.cpp">
+				RelativePath="..\src\definitions.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\definitions.h">
+				RelativePath="..\src\definitions.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\dragdrop.cpp">
+				RelativePath="..\src\dragdrop.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\dragdrop.h">
+				RelativePath="..\src\dragdrop.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\exceptions.h">
+				RelativePath="..\src\exceptions.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\exportdefinitions.cpp">
+				RelativePath="..\src\exportdefinitions.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\exportdefinitions.h">
+				RelativePath="..\src\exportdefinitions.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\factory.h">
+				RelativePath="..\src\factory.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\getopts.cpp">
+				RelativePath="..\src\getopts.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\getopts.h">
+				RelativePath="..\src\getopts.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\win\getopts_win.cpp">
+				RelativePath="..\src\win\getopts_win.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\guilds.cpp">
+				RelativePath="..\src\guilds.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\guilds.h">
+				RelativePath="..\src\guilds.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\gumps.cpp">
+				RelativePath="..\src\gumps.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\gumps.h">
+				RelativePath="..\src\gumps.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\inlines.h">
+				RelativePath="..\src\inlines.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\items.cpp">
+				RelativePath="..\src\items.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\items.h">
+				RelativePath="..\src\items.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\log.cpp">
+				RelativePath="..\src\log.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\log.h">
+				RelativePath="..\src\log.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\mapobjects.cpp">
+				RelativePath="..\src\mapobjects.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\mapobjects.h">
+				RelativePath="..\src\mapobjects.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\md5.cpp">
+				RelativePath="..\src\md5.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\md5.h">
+				RelativePath="..\src\md5.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\multi.cpp">
+				RelativePath="..\src\multi.cpp"
+				>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						ObjectFile="$(IntDir)/$(InputName)1.obj"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						ObjectFile="$(IntDir)/$(InputName)1.obj"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Web-Release|Win32">
+					Name="Web-Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						ObjectFile="$(IntDir)/$(InputName)1.obj"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\multi.h">
+				RelativePath="..\src\multi.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\npc.cpp">
+				RelativePath="..\src\npc.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\npc.h">
+				RelativePath="..\src\npc.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\party.cpp">
+				RelativePath="..\src\party.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\party.h">
+				RelativePath="..\src\party.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\pathfinding.cpp">
+				RelativePath="..\src\pathfinding.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\pathfinding.h">
+				RelativePath="..\src\pathfinding.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\persistentbroker.cpp">
+				RelativePath="..\src\persistentbroker.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\persistentbroker.h">
+				RelativePath="..\src\persistentbroker.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\persistentobject.cpp">
+				RelativePath="..\src\persistentobject.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\persistentobject.h">
+				RelativePath="..\src\persistentobject.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\platform.h">
+				RelativePath="..\src\platform.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\player.cpp">
+				RelativePath="..\src\player.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\player.h">
+				RelativePath="..\src\player.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\preferences.cpp">
+				RelativePath="..\src\preferences.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\preferences.h">
+				RelativePath="..\src\preferences.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\profile.cpp">
+				RelativePath="..\src\profile.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\profile.h">
+				RelativePath="..\src\profile.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\progress.h">
+				RelativePath="..\src\progress.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\pythonscript.cpp">
+				RelativePath="..\src\pythonscript.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\pythonscript.h">
+				RelativePath="..\src\pythonscript.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\scriptmanager.cpp">
+				RelativePath="..\src\quests.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\scriptmanager.h">
+				RelativePath="..\src\quests.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\server.cpp">
+				RelativePath="..\src\scriptmanager.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\server.h">
+				RelativePath="..\src\scriptmanager.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\serverconfig.cpp">
+				RelativePath="..\src\server.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\serverconfig.h">
+				RelativePath="..\src\server.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\singleton.h">
+				RelativePath="..\src\serverconfig.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\skills.cpp">
+				RelativePath="..\src\serverconfig.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\skills.h">
+				RelativePath="..\src\singleton.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\spawnregions.cpp">
+				RelativePath="..\src\skills.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\spawnregions.h">
+				RelativePath="..\src\skills.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\speech.cpp">
+				RelativePath="..\src\spawnregions.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\speech.h">
+				RelativePath="..\src\spawnregions.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\targetrequest.h">
+				RelativePath="..\src\speech.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\targetrequests.cpp">
+				RelativePath="..\src\speech.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\targetrequests.h">
+				RelativePath="..\src\targetrequest.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\territories.cpp">
+				RelativePath="..\src\targetrequests.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\territories.h">
+				RelativePath="..\src\targetrequests.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\timers.cpp">
+				RelativePath="..\src\territories.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\timers.h">
+				RelativePath="..\src\territories.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\Timing.cpp">
+				RelativePath="..\src\timers.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\Timing.h">
+				RelativePath="..\src\timers.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\tracking.cpp">
+				RelativePath="..\src\Timing.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\tracking.h">
+				RelativePath="..\src\Timing.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\Trade.cpp">
+				RelativePath="..\src\Trade.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\Trade.h">
+				RelativePath="..\src\Trade.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\typedefs.h">
+				RelativePath="..\src\typedefs.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\uobject.cpp">
+				RelativePath="..\src\uobject.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\uobject.h">
+				RelativePath="..\src\uobject.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\uotime.h">
+				RelativePath="..\src\uotime.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\verinfo.h">
+				RelativePath="..\src\verinfo.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\walking.cpp">
+				RelativePath="..\src\walking.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\walking.h">
+				RelativePath="..\src\walking.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\world.cpp">
+				RelativePath="..\src\world.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\world.h">
+				RelativePath="..\src\world.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Network"
-			Filter="">
+			>
 			<File
-				RelativePath="..\src\network\asyncnetio.cpp">
+				RelativePath="..\src\network\encryption.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\asyncnetio.h">
+				RelativePath="..\src\network\encryption.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\encryption.cpp">
+				RelativePath="..\src\network\network.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\encryption.h">
+				RelativePath="..\src\network\network.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\network\listener.cpp">
+				RelativePath="..\src\network\uopacket.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\listener.h">
+				RelativePath="..\src\network\uopacket.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\network.cpp">
+				RelativePath="..\src\network\uorxpackets.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\network.h">
+				RelativePath="..\src\network\uorxpackets.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\uopacket.cpp">
+				RelativePath="..\src\network\uosocket.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\uopacket.h">
+				RelativePath="..\src\network\uosocket.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\network\uorxpackets.cpp">
+				RelativePath="..\src\network\uotxpackets.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\network\uorxpackets.h">
-			</File>
-			<File
-				RelativePath="..\src\network\uosocket.cpp">
-			</File>
-			<File
-				RelativePath="..\src\network\uosocket.h">
-			</File>
-			<File
-				RelativePath="..\src\network\uotxpackets.cpp">
-			</File>
-			<File
-				RelativePath="..\src\network\uotxpackets.h">
+				RelativePath="..\src\network\uotxpackets.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
 			<File
-				RelativePath=".\AUTHORS.txt">
+				RelativePath=".\AUTHORS.txt"
+				>
 			</File>
 			<File
-				RelativePath=".\icon2.ico">
+				RelativePath=".\icon2.ico"
+				>
 			</File>
 			<File
-				RelativePath=".\icon_green.ico">
+				RelativePath=".\icon_green.ico"
+				>
 			</File>
 			<File
-				RelativePath=".\icon_red.ico">
+				RelativePath=".\icon_red.ico"
+				>
 			</File>
 			<File
-				RelativePath=".\logo.bmp">
+				RelativePath=".\logo.bmp"
+				>
 			</File>
 			<File
-				RelativePath=".\res.rc">
+				RelativePath=".\res.rc"
+				>
 			</File>
 			<File
-				RelativePath=".\resource.h">
+				RelativePath=".\resource.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Python"
-			Filter="">
+			>
 			<File
-				RelativePath="..\src\python\char.cpp">
+				RelativePath="..\src\python\char.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\engine.cpp">
+				RelativePath="..\src\python\engine.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\engine.h">
+				RelativePath="..\src\python\engine.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\global.cpp">
+				RelativePath="..\src\python\global.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\gump.h">
+				RelativePath="..\src\python\gump.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\item.cpp">
+				RelativePath="..\src\python\item.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\objectcache.h">
+				RelativePath="..\src\python\objectcache.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pyaccount.cpp">
+				RelativePath="..\src\python\pyaccount.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pyaction.cpp">
+				RelativePath="..\src\python\pyaction.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pyaction.h">
+				RelativePath="..\src\python\pyaction.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pyai.cpp">
+				RelativePath="..\src\python\pyai.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pycontent.h">
+				RelativePath="..\src\python\pycontent.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pycoord.cpp">
+				RelativePath="..\src\python\pycoord.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pypacket.cpp">
+				RelativePath="..\src\python\pypacket.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pypacket.h">
+				RelativePath="..\src\python\pypacket.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pyregion.cpp">
+				RelativePath="..\src\python\pyregion.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pyspawnregion.cpp">
+				RelativePath="..\src\python\pyspawnregion.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\pytooltip.cpp">
+				RelativePath="..\src\python\pytooltip.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\region.cpp">
+				RelativePath="..\src\python\region.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\regioniterator.h">
+				RelativePath="..\src\python\regioniterator.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\skills.h">
+				RelativePath="..\src\python\skills.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\socket.cpp">
+				RelativePath="..\src\python\socket.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\target.cpp">
+				RelativePath="..\src\python\target.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\target.h">
+				RelativePath="..\src\python\target.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\tempeffect.h">
+				RelativePath="..\src\python\tempeffect.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\utilities.h">
+				RelativePath="..\src\python\utilities.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\worlditerator.cpp">
+				RelativePath="..\src\python\worlditerator.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\python\worlditerator.h">
+				RelativePath="..\src\python\worlditerator.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="SQLite"
-			Filter="">
+			>
 			<File
-				RelativePath="..\src\sqlite\attach.c">
+				RelativePath="..\src\sqlite\btree.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\auth.c">
+				RelativePath="..\src\sqlite\config.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\btree.c">
+				RelativePath="..\src\sqlite\hash.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\btree_rb.c">
+				RelativePath="..\src\sqlite\opcodes.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\build.c">
+				RelativePath="..\src\sqlite\os.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\copy.c">
+				RelativePath="..\src\sqlite\pager.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\date.c">
+				RelativePath="..\src\sqlite\parse.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\delete.c">
+				RelativePath="..\src\sqlite\sqlite.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\expr.c">
+				RelativePath="..\src\sqlite\sqlite_attach.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\func.c">
+				RelativePath="..\src\sqlite\sqlite_auth.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\hash.c">
+				RelativePath="..\src\sqlite\sqlite_btree.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\insert.c">
+				RelativePath="..\src\sqlite\sqlite_btree_rb.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\main.c">
+				RelativePath="..\src\sqlite\sqlite_build.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\opcodes.c">
+				RelativePath="..\src\sqlite\sqlite_copy.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\os.c">
+				RelativePath="..\src\sqlite\sqlite_date.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\pager.c">
+				RelativePath="..\src\sqlite\sqlite_delete.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\parse.c">
+				RelativePath="..\src\sqlite\sqlite_expr.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\pragma.c">
+				RelativePath="..\src\sqlite\sqlite_func.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\printf.c">
+				RelativePath="..\src\sqlite\sqlite_hash.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\random.c">
+				RelativePath="..\src\sqlite\sqlite_insert.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\select.c">
+				RelativePath="..\src\sqlite\sqlite_main.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\table.c">
+				RelativePath="..\src\sqlite\sqlite_opcodes.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\tokenize.c">
+				RelativePath="..\src\sqlite\sqlite_os.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\trigger.c">
+				RelativePath="..\src\sqlite\sqlite_pager.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\update.c">
+				RelativePath="..\src\sqlite\sqlite_parse.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\util.c">
+				RelativePath="..\src\sqlite\sqlite_pragma.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\vacuum.c">
+				RelativePath="..\src\sqlite\sqlite_printf.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\vdbe.c">
+				RelativePath="..\src\sqlite\sqlite_random.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\vdbeaux.c">
+				RelativePath="..\src\sqlite\sqlite_select.c"
+				>
 			</File>
 			<File
-				RelativePath="..\src\sqlite\where.c">
+				RelativePath="..\src\sqlite\sqlite_table.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqlite_tokenize.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqlite_trigger.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqlite_update.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqlite_util.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqlite_vacuum.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqlite_vdbe.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqlite_vdbeaux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqlite_where.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\sqliteInt.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\vdbe.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite\vdbeInt.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Encryption"
-			Filter="">
+			>
 			<File
-				RelativePath="..\src\twofish\twofish2.cpp">
+				RelativePath="..\src\twofish\twofish2.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="MulReading"
-			Filter="">
+			>
 			<File
-				RelativePath="..\src\muls\maps.cpp">
+				RelativePath="..\src\muls\maps.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\muls\maps.h">
+				RelativePath="..\src\muls\maps.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\muls\multiscache.cpp">
+				RelativePath="..\src\muls\multiscache.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\muls\multiscache.h">
+				RelativePath="..\src\muls\multiscache.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\muls\tilecache.cpp">
+				RelativePath="..\src\muls\tilecache.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\muls\tilecache.h">
+				RelativePath="..\src\muls\tilecache.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Bug Report"
-			Filter="">
+			>
 			<File
-				RelativePath="..\src\bugreport\crashhandler.cpp">
+				RelativePath="..\src\bugreport\crashhandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\bugreport\crashhandler.h">
+				RelativePath="..\src\bugreport\crashhandler.h"
+				>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
-						Name="VCCustomBuildTool"/>
+						Name="VCCustomBuildTool"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Web-Release|Win32">
+					Name="Web-Release|Win32"
+					>
 					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\bugreport\internal.h">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Web-Release|Win32">
-					<Tool
-						Name="VCCustomBuildTool"/>
+						Name="VCCustomBuildTool"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\bugreport\nt4processinfo.cpp">
+				RelativePath="..\src\bugreport\internal.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Web-Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\src\bugreport\util.cpp">
+				RelativePath="..\src\bugreport\nt4processinfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\bugreport\util.cpp"
+				>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						ObjectFile="$(IntDir)/$(InputName)1.obj"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						ObjectFile="$(IntDir)/$(InputName)1.obj"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Web-Release|Win32">
+					Name="Web-Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						ObjectFile="$(IntDir)/$(InputName)1.obj"
+					/>
 				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
 			Name="AI"
-			Filter="">
+			>
 			<File
-				RelativePath="..\src\ai\ai.cpp">
+				RelativePath="..\src\ai\ai.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai.h">
+				RelativePath="..\src\ai\ai.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_animals.cpp">
+				RelativePath="..\src\ai\ai_animals.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_bladespirit.cpp">
+				RelativePath="..\src\ai\ai_bladespirit.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_bladespirit.h">
+				RelativePath="..\src\ai\ai_bladespirit.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_commoner.cpp">
+				RelativePath="..\src\ai\ai_commoner.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_commoner.h">
+				RelativePath="..\src\ai\ai_commoner.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_energyvortex.cpp">
+				RelativePath="..\src\ai\ai_energyvortex.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_energyvortex.h">
+				RelativePath="..\src\ai\ai_energyvortex.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_humans.cpp">
+				RelativePath="..\src\ai\ai_humans.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_mage.cpp">
+				RelativePath="..\src\ai\ai_mage.cpp"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_mage.h">
+				RelativePath="..\src\ai\ai_mage.h"
+				>
 			</File>
 			<File
-				RelativePath="..\src\ai\ai_monsters.cpp">
+				RelativePath="..\src\ai\ai_monsters.cpp"
+				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ftol2.obj">
-			<FileConfiguration
-				Name="Debug|Win32"
-				ExcludedFromBuild="TRUE">
-				<Tool
-					Name="VCCustomBuildTool"/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				ExcludedFromBuild="TRUE">
-				<Tool
-					Name="VCCustomBuildTool"/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath=".\sehprolg.obj">
-			<FileConfiguration
-				Name="Debug|Win32"
-				ExcludedFromBuild="TRUE">
-				<Tool
-					Name="VCCustomBuildTool"/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				ExcludedFromBuild="TRUE">
-				<Tool
-					Name="VCCustomBuildTool"/>
-			</FileConfiguration>
-		</File>
+		<Filter
+			Name="SQLite3"
+			>
+			<File
+				RelativePath="..\src\sqlite3\alter.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\attach.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\auth.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\btree.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\btree.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\build.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\config.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\date.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\delete.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\expr.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\func.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\hash.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\hash.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\insert.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\keywordhash.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\legacy.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\main.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\opcodes.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\opcodes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\os.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\os_common.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\os_unix.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\os_unix.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\os_win.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\os_win.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\pager.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\pager.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\parse.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\parse.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\pragma.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\printf.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\random.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\select.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\sqlite3.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\sqliteInt.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\table.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\tokenize.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\trigger.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\update.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\utf.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\util.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\vacuum.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\vdbe.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\vdbe.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\vdbeapi.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\vdbeaux.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\vdbeInt.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\vdbemem.c"
+				>
+			</File>
+			<File
+				RelativePath="..\src\sqlite3\where.c"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="MOC Files"
+			>
+			<File
+				RelativePath=".\obj\moc_network.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\obj\moc_server.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\obj\moc_uosocket.cpp"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
