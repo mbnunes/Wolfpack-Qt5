@@ -132,6 +132,9 @@ def generate(object, arguments):
 			console.log(LOG_PYTHON, "Unable to compile python template file: %s\n" % str(e))
 			templatemodule = None
 			return
+			
+	# Re-execute after interval miliseconds
+	wolfpack.addtimer(interval, generate, [magic])			
 
 	# Try to execute the code
 	savedstdout = sys.stdout
@@ -150,9 +153,6 @@ def generate(object, arguments):
 		processthread.mutex.acquire()
 		processthread.data = text
 		processthread.mutex.release()
-
-	# Re-execute after interval miliseconds
-	wolfpack.addtimer(interval, generate, [magic])
 
 #
 # Initialization
