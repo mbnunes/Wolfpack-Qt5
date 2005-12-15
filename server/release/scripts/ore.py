@@ -70,8 +70,11 @@ def response( char, args, target ):
 		targetitem = target.item
 
 	elif target.char:
-		char.socket.clilocmessage(501973)
-		return
+		if not target.char.baseid == 'fire_beetle':
+			char.socket.clilocmessage(501973)
+			return
+		else:
+			targetchar = target.char
 
 	# Static Forges can be used, too
 	else:
@@ -92,6 +95,16 @@ def response( char, args, target ):
 
 	# We go onto creating ingots here.
 	if target.item and target.item.id in FORGES:
+		if item.baseid in DEF_ORES:
+			if char.pos.distance( target.pos ) > 3:
+				char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+				return True
+			else:
+				dosmelt( char, [ item, resname ] )
+				return True
+
+	# We can use Fire Beetles like a forge
+	if target.char and target.char.baseid == 'fire_beetle':
 		if item.baseid in DEF_ORES:
 			if char.pos.distance( target.pos ) > 3:
 				char.socket.clilocmessage( 0x7A258 ) # You can't reach...

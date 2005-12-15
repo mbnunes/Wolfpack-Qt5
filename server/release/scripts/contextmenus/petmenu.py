@@ -13,6 +13,13 @@ def onContextCheckVisible(char, object, tag):
 	if (not char.gm) and (tag == 7) and (object.summoned or not object.tamed):
 		return False
 
+	if tag == 9:
+		if ( (object.owner == char) or char.gm ) and object.id == 791 and not object.baseid == 'fire_beetle':
+			return True
+		else:
+			return False
+			
+
 	return (object.owner == char) or char.gm
 
 def onContextEntry(char, target, tag):
@@ -45,5 +52,10 @@ def onContextEntry(char, target, tag):
 	#		ai.onSpeechInput( char, target.name + " STOP" )
 	#elif ( tag == 6 ): # Add Friend
 	#		ai.onSpeechInput( char, target.name + " ADD FRIEND" )
+
+	elif ( tag == 9 ): # Open Backpack
+		# Just to be sure... right?
+		if ( (target.owner == char) or char.gm ) and target.id == 791 and not target.baseid == 'fire_beetle':
+			char.socket.sendcontainer( target.getbackpack() )
 
 	return True

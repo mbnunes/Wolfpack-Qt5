@@ -105,6 +105,7 @@
 		-->
 		<option tag="7" msgid="6113" checkvisible="true" />
 		<option tag="8" msgid="6118" checkvisible="true" />
+		<option tag="9" msgid="6145" checkvisible="true" />
 	</contextmenu>
 
 	<contextmenu id="stabler_menu">
