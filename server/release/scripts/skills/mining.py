@@ -14,6 +14,7 @@ from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
 	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN, MINING_SAND
 from wolfpack import tr
 from wolfpack.utilities import ismountainorcave, issand, tobackpack
+from treasuremap import checktreaspoint
 
 KNOWLEDGE_OF_NATURE_FACTOR =  int( wolfpack.settings.getnumber("Racial Features", "Elves Knowledge of Nature factor", 2, True) )
 
@@ -217,6 +218,24 @@ def response( char, args, target ):
 	#Find tile by it's position if we haven't model
 	elif target.model == 0:
 		map = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
+		###########################
+		# Searching for a Treasure
+		###########################
+		bag = char.getbackpack()
+		if bag.countresource(0x14eb) > 0:
+			# Assign a variable to stop or not process
+			foundtreas = 0
+			# Loop content in player's Backpack
+			for cmap in bag.content:
+				if cmap.id == 0x14eb and cmap.hastag('level'):
+					foundtreas = checktreaspoint(target.pos.x, target.pos.y, target.pos.z, target.pos.map, cmap, char)
+					if foundtreas == 1:
+						break
+			# Stop Action
+			if foundtreas == 1:
+				return True
+					
+
 		if ismountainorcave( map['id'] ):
 			mining( char, target.pos, tool, sand = False )
 		elif issand( map['id'] ) and canminesand(char):
@@ -228,6 +247,23 @@ def response( char, args, target ):
 
 	#Find tile by it's model
 	elif target.model != 0:
+		###########################
+		# Searching for a Treasure
+		###########################
+		bag = char.getbackpack()
+		if bag.countresource(0x14eb) > 0:
+			# Assign a variable to stop or not process
+			foundtreas = 0
+			# Loop content in player's Backpack
+			for cmap in bag.content:
+				if cmap.id == 0x14eb and cmap.hastag('level'):
+					foundtreas = checktreaspoint(target.pos.x, target.pos.y, target.pos.z, target.pos.map, cmap, char)
+					if foundtreas == 1:
+						break
+			# Stop Action
+			if foundtreas == 1:
+				return True
+
 		if ismountainorcave( target.model ):
 			#add new ore gem here and mine
 			mining( char, target.pos, tool )
