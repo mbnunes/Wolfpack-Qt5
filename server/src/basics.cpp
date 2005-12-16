@@ -605,7 +605,7 @@ void cBufferedReader::readRaw( void* data, unsigned int size )
 		// Refill buffer if required
 		if ( available == 0 )
 		{
-			unsigned int read = d->file.read( d->buffer.data(), 4096 );
+			int read = d->file.read( d->buffer.data(), 4096 );
 
 			// We will never be able to satisfy the request
 			if ( read != 4096 && read < size )

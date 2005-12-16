@@ -2943,6 +2943,7 @@ bool cBaseChar::kill( cUObject* source )
 
 				if (pPlayer->kills() == Config::instance()->maxkills() + 1) {
 					pPlayer->resend(); // Just became a murderer
+					pPlayer->sysmessage( 502134 ); // You are now known as a murderer!
 				}
 
 				if ( Config::instance()->murderdecay() > 0 )

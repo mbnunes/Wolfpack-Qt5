@@ -472,7 +472,7 @@ bool cPlayer::mount( P_NPC pMount )
 	if ( !inRange( pMount, Config::instance()->mountRange() ) && !isGM() )
 	{
 		if ( socket )
-			socket->sysMessage( tr( "You are too far away to mount!" ) );
+			socket->sysMessage( 500206 ); // That is too far away to ride.
 		return true; // Mountable, but not in range
 	}
 
@@ -508,8 +508,12 @@ bool cPlayer::mount( P_NPC pMount )
 		pMount->fight( 0 );
 		pMount->setStablemasterSerial( serial_ );
 	}
+	else if ( pMount->owner() == 0 )
+	{
+		socket->clilocMessage( 501263, 0, 0x3b2, 3, this ); // That mount does not look broken! You would have to tame it to ride it.
+	}
 	else
-		socket->sysMessage( tr( "You dont own that creature." ) );
+		socket->clilocMessage( 501264, 0, 0x3b2, 3, this ); // This isn't your mount; it refuses to let you ride.
 
 	return true;
 }
@@ -674,7 +678,7 @@ void cPlayer::makeCriminal()
 			// Notify us if we're not already a criminal
 			if ( socket_ && !isCriminal() )
 			{
-				socket_->clilocMessage( 500167 );
+				socket_->clilocMessage( 500167 ); // You are now a criminal!
 			}
 			setCriminalTime( Server::instance()->time() + Config::instance()->crimtime() * MY_CLOCKS_PER_SEC );
 			changed_ = true;
@@ -689,7 +693,7 @@ void cPlayer::disturbMed()
 		this->setMeditating( false );
 
 		if ( socket_ )
-			socket_->sysMessage( tr( "You loose your concentration" ) );
+			socket_->sysMessage( 500134 ); // You stop meditating.
 	}
 }
 
@@ -1129,7 +1133,7 @@ bool cPlayer::onCastSpell( unsigned int spell )
 {
 	// In jail we can't cast spells
 	if (isJailed()) {
-		sysmessage(tr("You cannot cast spells while you are in jail."));
+		sysmessage( 502629 ); // You cannot cast spells here.
 		return false;
 	}
 

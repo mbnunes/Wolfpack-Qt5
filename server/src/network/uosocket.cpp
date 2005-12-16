@@ -1478,6 +1478,15 @@ void cUOSocket::sysMessage( const QString& message, quint16 color, quint16 font 
 	send( &speech );
 }
 
+/*!
+	Works like the above function, except that for convenience, this one sends
+	clicloc ( localized ) messages
+*/
+void cUOSocket::sysMessage( quint32 messageId, quint16 color /* = 0x3b2 */, quint16 font /* = 3*/ )
+{
+	clilocMessage( messageId, 0, color, font, 0, true );
+}
+
 void cUOSocket::updateCharList()
 {
 	cUOTxUpdateCharList charList;
@@ -3837,7 +3846,7 @@ bool cUOSocket::useItem( P_ITEM item )
 	{
 		if ( !_player->isGM() && _player->objectDelay() >= Server::instance()->time() )
 		{
-			sysMessage( tr( "You must wait to perform another action." ) );
+			sysMessage( 500119 ); // You must wait to perform another action.
 			return false;
 		}
 		else
@@ -4014,7 +4023,7 @@ bool cUOSocket::useItem( P_ITEM item )
 							}
 						}
 						else if ( !pChar->inRange( _player, 2 ) )
-							sysMessage( tr( "You must stand nearer to snoop!" ) );
+							sysMessage( 500446 ); // That is too far away.
 						else
 							Skills::instance()->Snooping( _player, item );
 					}
@@ -4032,7 +4041,7 @@ bool cUOSocket::useItem( P_ITEM item )
 				if ( pChar && pChar != _player )
 				{
 					if ( !pChar->inRange( _player, 2 ) )
-						sysMessage( tr( "You must stand nearer to snoop!" ) );
+						sysMessage( 500446 ); // That is too far away.
 					else
 						Skills::instance()->Snooping( _player, item );
 				}
@@ -4057,7 +4066,7 @@ bool cUOSocket::useItem( P_ITEM item )
 			}
 			else
 			{
-				sysMessage( tr( "You are already living!" ) );
+				sysMessage( 1060197 ); // You are not dead, and thus cannot be ressurected!
 			}
 			return true;
 			break;

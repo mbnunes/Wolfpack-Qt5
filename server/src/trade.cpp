@@ -776,7 +776,8 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 	pVendor->talk( tr( "Thank you %1, here are your %2 gold" ).arg( pChar->name() ).arg( totalValue ) );
 
 	// New Monetary?
-	if (Config::instance()->usenewmonetary()) {
+	if (Config::instance()->usenewmonetary()) 
+	{
 
 		// Lets Assign Region
 		cTerritory* Region = pVendor->region();

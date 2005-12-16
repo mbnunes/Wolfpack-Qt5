@@ -74,13 +74,13 @@ void cSkills::SkillUse( cUOSocket* socket, quint16 id ) // Skill is clicked on t
 
 	if ( pChar->isCasting() )
 	{
-		socket->sysMessage( tr( "You can't do that while you are casting." ) );
+		socket->sysMessage( 1061131 ); // You cannot do that while casting a spell.
 		return;
 	}
 
 	if ( pChar->skillDelay() > Server::instance()->time() && !pChar->isGM() )
 	{
-		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
+		socket->sysMessage( 500118 ); // You must wait a few moments to use another skill.
 		return;
 	}
 
@@ -322,7 +322,7 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 	if ( pp_owner && pp_owner->isGMorCounselor() )
 	{
 		pp_owner->message( tr( "%1 is trying to snoop in your pack" ).arg( player->name() ) );
-		socket->sysMessage( tr( "You can't peek into that container or you'll be jailed." ) );
+		socket->sysMessage( 500209 ); // You can not peek into the container.
 		return;
 	}
 	else if ( player->checkSkill( SNOOPING, 0, 1000 ) )
@@ -332,7 +332,7 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 	}
 	else
 	{
-		socket->sysMessage( tr( "You failed to peek into that container." ) );
+		socket->sysMessage( 500210 ); // You failed to peek into the container.
 
 		if ( !pp_owner ) // is NPC ?
 			pc_owner->talk( tr( "Art thou attempting to disturb my privacy?" ) );

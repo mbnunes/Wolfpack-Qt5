@@ -42,40 +42,6 @@
 #include "objectdef.h"
 #include "ai/ai.h"
 
-class cKillTarget : public cTargetRequest
-{
-	OBJECTDEF( cKillTarget )
-public:
-	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
-	{
-		if ( !socket->player() )
-			return true;
-
-		P_CHAR pChar = FindCharBySerial( target->serial() );
-
-		// check for rank
-		if ( pChar && pChar->objectType() == enPlayer )
-		{
-			P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
-			if ( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
-			{
-				socket->sysMessage( tr( "You want to suicide?" ) );
-				return true;
-			}
-		}
-
-		if ( !pChar )
-		{
-			socket->sysMessage( tr( "You need to target a living being" ) );
-			return true;
-		}
-
-		pChar->kill( socket->player() );
-		//pChar->damage( DAMAGE_GODLY, pChar->hitpoints(), socket->player() );
-		return true;
-	}
-};
-
 class cSetTarget : public cTargetRequest
 {
 	OBJECTDEF( cSetTarget )

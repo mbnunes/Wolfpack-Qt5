@@ -542,7 +542,10 @@ bool cMovement::Walking( P_CHAR pChar, quint8 dir, quint8 sequence )
 	if ( pChar->isFrozen() )
 	{
 		if ( player && player->socket() )
+		{
 			player->socket()->denyMove( sequence );
+			player->socket()->sysMessage( 500111 ); // You are frozen and cannot move.)
+		}
 		return false;
 	}
 

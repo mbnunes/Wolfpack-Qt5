@@ -241,6 +241,7 @@ public:
 	void sendChar( P_CHAR pChar );
 	void showSpeech( const cUObject* object, const QString& message, quint16 color = 0x3B2, quint16 font = 3, quint8 speechType = 0x00 );
 	void sysMessage( const QString& message, quint16 color = 0x3b2, quint16 font = 3 );
+	void sysMessage( quint32 messageId, quint16 color = 0x3b2, quint16 font = 3 );
 	void sendCharList();
 	void removeObject( cUObject* object );
 	void disconnect(); // Call this whenever the socket should disconnect

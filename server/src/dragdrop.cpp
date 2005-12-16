@@ -169,7 +169,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 			// Calling Become Criminal Event
 			if (pChar->onBecomeCriminal(3, NULL, outmostCont ))
 				pChar->makeCriminal();
-			socket->sysMessage( tr( "You lost some karma." ) );
+			socket->sysMessage( 1019064 ); // You have lost some karma.
 		}
 	}
 
@@ -404,7 +404,7 @@ void DragAndDrop::equipItem( cUOSocket* socket, cUORxWearItem* packet )
 	// Males can't wear female armor
 	if ( ( pChar->body() == 0x0190 ) && ( pItem->id() >= 0x1C00 ) && ( pItem->id() <= 0x1C0D ) )
 	{
-		socket->sysMessage( tr( "You cannot wear female armor." ) );
+		socket->sysMessage( 1010388 ); // Only females can wear this
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
