@@ -319,7 +319,7 @@ def absorbdamage(defender, damage):
 
 	# 22% chance: Legs
 	elif position <= 0.65:
-		armor = defender.itemonlayer(LAYER_LEGS)
+		armor = defender.itemonlayer(LAYER_PANTS)
 
 	# 35% chance: Chest
 	else:
