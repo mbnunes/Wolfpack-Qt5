@@ -257,10 +257,10 @@ void Human_Guard_Called_Fight::execute()
 	switch ( RandomNum( 0, 20 ) )
 	{
 	case 0:
-		m_npc->talk( 500131, 0xFFFF, 0, true ); // Thou wilt regret thine actions, swine!	
+		m_npc->talk( 500131 ); // Thou wilt regret thine actions, swine!	
 		break;
 	case 1:
-		m_npc->talk( 1008011, 0xFFFF, 0, true ); // Beware, all, whilst I dispose of this evildoer.
+		m_npc->talk( 1008011 ); // Beware, all, whilst I dispose of this evildoer.
 		break;
 	}
 
