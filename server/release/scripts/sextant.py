@@ -1,3 +1,4 @@
+import wolfpack
 
 def onUse( char, item ):
 	if Format( char ):
@@ -71,10 +72,10 @@ def Format( char ):
 	xLong = int(absLong)
 	yLat  = int(absLat)
 
-	char.socket.sysmessage(str(absLong))
+	#char.socket.sysmessage(str(absLong))
 
 	xMins = int((absLong % 1.0) * 60)
 	yMins = int((absLat  % 1.0) * 60)
-	char.socket.sysmessage(str(xMins))
+	#char.socket.sysmessage(str(xMins))
 
 	return (yLat, yMins, xLong, xMins, east, south)
