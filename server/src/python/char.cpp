@@ -2446,12 +2446,13 @@ static PyObject* wpChar_additem( wpChar* self, PyObject* args )
 	unsigned int layer;
 	P_ITEM pItem;
 	unsigned int handleweight = 1;
+	unsigned int noremove = 0;
 
-	if ( !PyArg_ParseTuple( args, "iO&|i:char.additem(layer, item, [handleweight])", &layer, &PyConvertItem, &pItem, &handleweight ) )
-                return 0;
+	if ( !PyArg_ParseTuple( args, "iO&|ii:char.additem(layer, item, [handleweight], [noremove])", &layer, &PyConvertItem, &pItem, &handleweight, &noremove ) )
+		return 0;
 
 	if ( pItem )
-		self->pChar->addItem( ( cBaseChar::enLayer ) layer, pItem, handleweight != 0, false );
+		self->pChar->addItem( ( cBaseChar::enLayer ) layer, pItem, handleweight != 0, noremove != 0 );
 
 	Py_RETURN_NONE;
 }
