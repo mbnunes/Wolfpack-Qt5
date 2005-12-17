@@ -62,6 +62,8 @@ def additem(player, arguments, target):
 			else:
 				player.log(LOG_MESSAGE, "Adds item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.serial))
 		elif target.item.container:
+			if target.item.layer:
+				return False
 			target.item.container.additem(item, 1, 1, 0)
 
 			if arguments[1]:

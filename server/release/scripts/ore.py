@@ -17,7 +17,7 @@ def onShowTooltip(player, object, tooltip):
 	name = 'Unknown Ore'
 
 	if object.hastag('resname'):
-		resname = str(object.gettag('resname'))
+		resname = unicode(object.gettag('resname'))
 		if mining.ORES.has_key(resname):
 			name = mining.ORES[resname][mining.ORENAME]
 
