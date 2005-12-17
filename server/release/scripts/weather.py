@@ -34,11 +34,8 @@ def onLoad():
 ######################################################################################
 
 def onServerHour():
-
 	if ENABLEDWEATHER:
-
 		# Starting a Loop between sockets to check region things for weather
-	
 		worldsocket = wolfpack.sockets.first()
 		while worldsocket:
 
@@ -70,6 +67,8 @@ def onServerHour():
 ######################################################################################
 
 def changeweather( region ):
+	if not ENABLEDWEATHER:
+		return
 
 	# Ok. Now, lets check if this Region have to begins to Rain or Snow
 	rainchance = region.rainchance
@@ -109,7 +108,6 @@ def changeweather( region ):
 	# Updating all Clients in this Region (I think socket iterator is cheaper than regionchars iterator)
 	worldsocket = wolfpack.sockets.first()
 	while worldsocket:
-
 		# Finding TopRegion
 		topregion = worldsocket.player.region
 		if topregion.parent:
@@ -125,7 +123,6 @@ def changeweather( region ):
 ######################################################################################
 
 def weatherduration( region ):
-
 	####################
 	# Duration
 	####################

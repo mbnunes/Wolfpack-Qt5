@@ -392,18 +392,6 @@ class VampiricEmbrace(TransformationSpell):
 			char.removescript('magic.vampiricembrace')
 			char.id = char.orgid
 			char.skin = char.orgskin
-			# reverse increased stamina regeneration
-			if char.hastag('regenstamina'):
-				if (char.gettag('regenstamina') - 15) <= 0:
-					char.deltag('regenstamina')
-				else:
-					char.settag('regenstamina', char.gettag('regenstamina') - 15)
-			# reverse increased mana regeneration
-			if char.hastag('regenmana'):
-				if (char.gettag('regenmana') - 3) <= 0:
-					char.deltag('regenmana')
-				else:
-					char.settag('regenmana', char.gettag('regenmana') - 3)
 			# reverse decreased fire resistance
 			if char.hastag('vampemb_res_fire'):
 				if char.hastag('res_fire'):
@@ -428,16 +416,6 @@ class VampiricEmbrace(TransformationSpell):
 					char.settag('res_fire', fire_res - 25)
 
 			char.addscript('magic.vampiricembrace')
-			# increase stamina regeneration
-			if char.hastag('regenstamina'):
-				char.settag('regenstamina', char.gettag('regenstamina') + 15)
-			else:
-				char.settag('regenstamina', 15)
-			# increase mana regeneration
-			if char.hastag('regenmana'):
-				char.settag('regenmana', char.gettag('regenmana') + 3)
-			else:
-				char.settag('regenmana', 3)
 
 class VengefulSpirit(CharEffectSpell):
 	def __init__(self):

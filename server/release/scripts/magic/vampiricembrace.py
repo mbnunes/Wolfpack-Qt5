@@ -24,5 +24,5 @@ def onRegenMana(char, points):
 	return points
 
 def onRegenStamina(char, points):
-	points += 3
+	points += 15
 	return points
