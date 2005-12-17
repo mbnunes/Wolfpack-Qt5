@@ -70,8 +70,8 @@ CONTAINERS = {
 	0x9EF: [1042976, 5, 0x1F83, True, 'ale'], # ale
 
 	# Pitcher
-	0x9a7: [1048128, 5, 0x9a7, True, ''], # empty
-	0x9ad: [1048128, 5, 0x9a7, True, ''], # milk
+	0x9a7: [1048128, 5, 0xff6, True, ''], # empty
+	0x9ad: [1048128, 5, 0xff7, True, ''], # milk
 	0xff6: [1048128, 5, 0xff6, True, ''], # empty
 	0xff7: [1048128, 5, 0xff7, True, ''], # empty
 	0xff8: [1048128, 5, 0xff7, True, 'water'], # water
@@ -226,7 +226,6 @@ def fillfromitem( target, item, cprops ):
 		return False
 
 	if CONTAINERS.has_key(target.item.id):
-
 		quantity = 0
 		if target.item.hastag('quantity'):
 			quantity = int(target.item.gettag('quantity'))
@@ -247,7 +246,8 @@ def fillfromitem( target, item, cprops ):
 				if cprop[2] == 0:
 					target.item.delete()
 				else:
-					updateItemIdFromFluid(item, fluid)
+					item.id = target.item.id
+					item.update()
 					target.item.id = cprop[2]
 					target.item.update()
 					target.item.deltag('quantity')
