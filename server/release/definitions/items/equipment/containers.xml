@@ -467,4 +467,14 @@
 		<category>Equipment\Containers\Samurai Empire\Basket 09</category>
 	</item>
 
+	<!-- Special: Treasure Chest -->
+	<item id="treasure chest" inherit="e40">
+		<name>Treasure Chest</name>
+		<id>0xe41</id>
+		<basescripts>lock,treasurechest</basescripts>
+		<tag name="locked" value="1" />
+		<tag name="lock" value="1" />
+		<category>Equipment\Containers\Golden Metal Chest (N/S)</category>
+	</item>
+
 </definitions>

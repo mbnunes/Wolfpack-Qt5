@@ -15,6 +15,7 @@ from wolfpack import tr
 
 from map import sendmapcommand
 from wolfpack.consts import CARTOGRAPHY
+from treasurechest import treasmonsterspawn
 
 ####################################################################################
 ###################     Coords      ################################################
@@ -248,6 +249,11 @@ def onUse(player, item):
 		player.socket.clilocmessage(500685)
 		return 1
 
+	# Already finished?
+	if item.hastag('founded'):
+		player.socket.sysmessage('Someone already founded this treasure!')
+		return 1
+
 	# Its decoded?
 	if item.hastag('decoded'):
 		sendtreasmap(player, item)
@@ -356,11 +362,16 @@ def checktreaspoint(x, y, z, map, item, char):
 	else:
 		xtreas = item.gettag('x')
 		ytreas = item.gettag('y')
+		level = item.gettag('level')
 
 		# Checking if we had correct point
 		if xtreas == x and ytreas == y:
-			createtreaschest(x, y, z, map, char)
-			return 1
+			if not item.hastag('founded'):
+				item.settag('founded', 1)
+				createtreaschest(x, y, z, map, char, level)
+				return 1
+			else:
+				return 0
 		else:
 			return 0
 
@@ -368,9 +379,12 @@ def checktreaspoint(x, y, z, map, item, char):
 #######################   Create Treasure Chest   ###################################
 #####################################################################################
 
-def createtreaschest(x, y, z, map, char):
+def createtreaschest(x, y, z, map, char, level):
 
-	item = wolfpack.additem("e41")
-	item.name = "Treasure Chest... not yet implemented :P"
+	item = wolfpack.additem("treasure chest")
+	item.settag('level', level)
 	item.moveto(x, y, z, map)
 	item.update
+
+	# Spawn some creatures
+	treasmonsterspawn( item )
