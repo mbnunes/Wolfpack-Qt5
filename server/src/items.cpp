@@ -1680,7 +1680,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 		*/
 	else if ( name == "baseid" )
 	{
-		setBaseid( value.toString().latin1() );
+		setBaseid( value.toString().toLatin1() );
 		return 0;
 	}
 	else if ( name == "lockeddown" )
@@ -2076,7 +2076,7 @@ P_ITEM cItem::createFromScript( const QString& id )
 	{
 		nItem = new cItem;
 		nItem->Init( true );
-		nItem->setBaseid( id.latin1() );
+		nItem->setBaseid( id.toLatin1() );
 		nItem->applyDefinition( section );
 		cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( nItem, id );
 		Timers::instance()->insert( onCreateCall );
@@ -2100,7 +2100,7 @@ P_ITEM cItem::createFromId( unsigned short id )
 
 	if ( element )
 	{
-		pItem->setBaseid( QString::number( id, 16 ).latin1() );
+		pItem->setBaseid( QString::number( id, 16 ).toLatin1() );
 	}
 
 	return pItem;

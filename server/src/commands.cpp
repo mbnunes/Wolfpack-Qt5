@@ -53,7 +53,6 @@
 
 // System Includes
 #include <functional>
-//Added by qt3to4:
 #include <QByteArray>
 #include <QList>
 
@@ -76,7 +75,7 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 	pArgs.erase( pArgs.begin() );
 
 	// Check if the priviledges are ok
-	if ( !pChar->account()->authorized( "command", pCommand.latin1() ) )
+	if ( !pChar->account()->authorized( "command", pCommand ) )
 	{
 		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.lower() ) );
 		socket->log( tr( "Access to command '%1' was denied\n" ).arg( pCommand.lower() ) );
@@ -100,7 +99,7 @@ bool cCommands::dispatch( cUOSocket* socket, const QString& command, const QStri
 		return false;
 
 	// Check for custom commands
-	PyObject* function = ScriptManager::instance()->getCommandHook( command.latin1() );
+	PyObject* function = ScriptManager::instance()->getCommandHook( command.toLatin1() );
 
 	if ( function )
 	{

@@ -136,106 +136,46 @@ static PyObject* PyGetTarget( cUORxTarget* target, quint8 map )
 
 bool cPythonTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 {
-	// Try to call the python function
-	// Get everything before the last dot
-	if ( responsefunc.contains( "." ) )
+	PythonFunction function( responsefunc, true );
+	if ( function.isValid() )
 	{
-		// Find the last dot
-		int position = responsefunc.findRev( "." );
-		QString sModule = responsefunc.left( position );
-		QString sFunction = responsefunc.right( responsefunc.length() - ( position + 1 ) );
+		// Create our Argument list
+		PyObject* p_args = PyTuple_New( 3 );
+		PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
+		Py_INCREF( args );
+		PyTuple_SetItem( p_args, 1, args );
+		PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos().map ) );
 
-		PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
-
-		if ( pModule )
-		{
-			PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-
-			if ( pFunc && PyCallable_Check( pFunc ) )
-			{
-				// Create our Argument list
-				PyObject* p_args = PyTuple_New( 3 );
-				PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
-				Py_INCREF( args );
-				PyTuple_SetItem( p_args, 1, args );
-				PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos().map ) );
-
-				PyObject* result = PyEval_CallObject( pFunc, p_args );
-				Py_XDECREF( result );
-				reportPythonError( sModule );
-			}
-
-			Py_XDECREF( pFunc );
-		}
-
-		Py_XDECREF( pModule );
+		PyObject* result = function( p_args );
+		Py_XDECREF( result );
 	}
 	return true;
 }
 
 void cPythonTarget::timedout( cUOSocket* socket )
 {
-	if ( !timeoutfunc.isNull() && !timeoutfunc.isEmpty() && timeoutfunc.contains( "." ) )
+	PythonFunction function( timeoutfunc, true );
+	if ( function.isValid() )
 	{
-		// Find the last dot
-		int position = timeoutfunc.findRev( "." );
-		QString sModule = timeoutfunc.left( position );
-		QString sFunction = timeoutfunc.right( timeoutfunc.length() - ( position + 1 ) );
+		// Create our Argument list
+		PyObject* args = PyTuple_New( 1 );
+		PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
 
-		PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
-
-		if ( pModule )
-		{
-			PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-
-			if ( pFunc && PyCallable_Check( pFunc ) )
-			{
-				// Create our Argument list
-				PyObject* args = PyTuple_New( 1 );
-				PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
-
-				PyObject* result = PyEval_CallObject( pFunc, args );
-				Py_XDECREF( result );
-				reportPythonError( sModule );
-			}
-
-			Py_XDECREF( pFunc );
-		}
-
-		Py_XDECREF( pModule );
+		PyObject* result = function( args );
+		Py_XDECREF( result );
 	}
 }
 
 void cPythonTarget::canceled( cUOSocket* socket )
-{
-	if ( !cancelfunc.isNull() && !cancelfunc.isEmpty() && cancelfunc.contains( "." ) )
+{	
+	PythonFunction function( cancelfunc, true );
+	if ( function.isValid() )
 	{
-		// Find the last dot
-		int position = cancelfunc.findRev( "." );
-		QString sModule = cancelfunc.left( position );
-		QString sFunction = cancelfunc.right( cancelfunc.length() - ( position + 1 ) );
+		// Create our Argument list
+		PyObject* args = PyTuple_New( 1 );
+		PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
 
-		PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
-
-		if ( pModule )
-		{
-			PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-
-			if ( pFunc && PyCallable_Check( pFunc ) )
-			{
-				// Create our Argument list
-				PyObject* args = PyTuple_New( 1 );
-				PyTuple_SetItem( args, 0, PyGetCharObject( socket->player() ) );
-
-				PyObject* result = PyEval_CallObject( pFunc, args );
-				Py_XDECREF( result );
-
-				reportPythonError( sModule );
-			}
-
-			Py_XDECREF( pFunc );
-		}
-
-		Py_XDECREF( pModule );
+		PyObject* result = function( args );
+		Py_XDECREF( result );
 	}
 }

@@ -354,38 +354,19 @@ void ScriptAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 {
 	if ( !onspeech.isNull() )
 	{
-		// Try to call the python function
-		// Get everything before the last dot
-		if ( onspeech.contains( "." ) )
+		PythonFunction function( onspeech, true );
+		if ( function.isValid() )
 		{
-			// Find the last dot
-			int position = onspeech.findRev( "." );
-			QString sModule = onspeech.left( position );
-			QString sFunction = onspeech.right( onspeech.length() - ( position + 1 ) );
 
-			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+			// Create our Argument list
+			PyObject* p_args = PyTuple_New( 3 );
+			PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+			PyTuple_SetItem( p_args, 1, PyGetCharObject( pTalker ) );
+			PyTuple_SetItem( p_args, 2, QString2Python( comm ) );
 
-			if ( pModule )
-			{
-				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-				if ( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject* p_args = PyTuple_New( 3 );
-					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
-					PyTuple_SetItem( p_args, 1, PyGetCharObject( pTalker ) );
-					PyTuple_SetItem( p_args, 2, PyString_FromString( comm.latin1() ) );
+			Py_XDECREF( function( p_args ) );
 
-					Py_XDECREF( PyEval_CallObject( pFunc, p_args ) );
-
-					Py_XDECREF( p_args );
-
-					reportPythonError( sModule );
-				}
-				Py_XDECREF( pFunc );
-			}
-
-			Py_XDECREF( pModule );
+			Py_XDECREF( p_args );
 		}
 	}
 }
@@ -394,52 +375,32 @@ float ScriptAction::preCondition()
 {
 	if ( !precond.isNull() )
 	{
-		// Try to call the python function
-		// Get everything before the last dot
-		if ( precond.contains( "." ) )
+		PythonFunction function( precond, true );
+		if ( function.isValid() )
 		{
-			// Find the last dot
-			int position = precond.findRev( "." );
-			QString sModule = precond.left( position );
-			QString sFunction = precond.right( precond.length() - ( position + 1 ) );
+			// Create our Argument list
+			PyObject* p_args = PyTuple_New( 3 );
+			PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+			Py_INCREF( Py_None ); // SetItem steals a reference
+			PyTuple_SetItem( p_args, 1, Py_None );
+			Py_INCREF( Py_None ); // SetItem steals a reference
+			PyTuple_SetItem( p_args, 2, Py_None );
 
-			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+			PyObject* returnValue = function( p_args );
 
-			if ( pModule )
+			Py_XDECREF( p_args );
+
+			if ( returnValue == NULL || !PyFloat_Check( returnValue ) )
 			{
-				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-				if ( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject* p_args = PyTuple_New( 3 );
-					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
-					Py_INCREF( Py_None ); // SetItem steals a reference
-					PyTuple_SetItem( p_args, 1, Py_None );
-					Py_INCREF( Py_None ); // SetItem steals a reference
-					PyTuple_SetItem( p_args, 2, Py_None );
-
-					PyObject* returnValue = PyObject_CallObject( pFunc, p_args );
-
-					Py_XDECREF( p_args );
-
-					reportPythonError( sModule );
-
-					if ( returnValue == NULL || !PyFloat_Check( returnValue ) )
-					{
-						Py_XDECREF( returnValue );
-						return 1.0f;
-					}
-					else
-					{
-						double result = PyFloat_AsDouble( returnValue );
-						Py_XDECREF( returnValue );
-						return result;
-					}
-				}
-				Py_XDECREF( pFunc );
+				Py_XDECREF( returnValue );
+				return 1.0f;
 			}
-
-			Py_XDECREF( pModule );
+			else
+			{
+				double result = PyFloat_AsDouble( returnValue );
+				Py_XDECREF( returnValue );
+				return result;
+			}
 		}
 	}
 	return 0.0f;
@@ -451,50 +412,32 @@ float ScriptAction::postCondition()
 	{
 		// Try to call the python function
 		// Get everything before the last dot
-		if ( postcond.contains( "." ) )
+		PythonFunction function( postcond, true );
+		if ( function.isValid() )
 		{
-			// Find the last dot
-			int position = postcond.findRev( "." );
-			QString sModule = postcond.left( position );
-			QString sFunction = postcond.right( postcond.length() - ( position + 1 ) );
+			// Create our Argument list
+			PyObject* p_args = PyTuple_New( 3 );
+			PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+			Py_INCREF( Py_None );
+			PyTuple_SetItem( p_args, 1, Py_None );
+			Py_INCREF( Py_None );
+			PyTuple_SetItem( p_args, 2, Py_None );
 
-			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+			PyObject* returnValue = function( p_args );
 
-			if ( pModule )
+			Py_XDECREF( p_args );
+
+			if ( returnValue == NULL || !PyFloat_Check( returnValue ) )
 			{
-				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-				if ( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject* p_args = PyTuple_New( 3 );
-					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
-					Py_INCREF( Py_None );
-					PyTuple_SetItem( p_args, 1, Py_None );
-					Py_INCREF( Py_None );
-					PyTuple_SetItem( p_args, 2, Py_None );
-
-					PyObject* returnValue = PyObject_CallObject( pFunc, p_args );
-
-					Py_XDECREF( p_args );
-
-					reportPythonError( sModule );
-
-					if ( returnValue == NULL || !PyFloat_Check( returnValue ) )
-					{
-						Py_XDECREF( returnValue );
-						return 1.0f;
-					}
-					else
-					{
-						double result = PyFloat_AsDouble( returnValue );
-						Py_XDECREF( returnValue );
-						return result;
-					}
-				}
-				Py_XDECREF( pFunc );
+				Py_XDECREF( returnValue );
+				return 1.0f;
 			}
-
-			Py_XDECREF( pModule );
+			else
+			{
+				double result = PyFloat_AsDouble( returnValue );
+				Py_XDECREF( returnValue );
+				return result;
+			}
 		}
 	}
 	return 1.0f;
@@ -504,40 +447,20 @@ void ScriptAction::execute()
 {
 	if ( !exec.isNull() )
 	{
-		// Try to call the python function
-		// Get everything before the last dot
-		if ( exec.contains( "." ) )
+		PythonFunction function( exec, true );
+		if ( function.isValid() )
 		{
-			// Find the last dot
-			int position = exec.findRev( "." );
-			QString sModule = exec.left( position );
-			QString sFunction = exec.right( exec.length() - ( position + 1 ) );
+			// Create our Argument list
+			PyObject* p_args = PyTuple_New( 3 );
+			PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
+			Py_INCREF( Py_None );
+			PyTuple_SetItem( p_args, 1, Py_None );
+			Py_INCREF( Py_None );
+			PyTuple_SetItem( p_args, 2, Py_None );
 
-			PyObject* pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+			Py_XDECREF( function( p_args ) );
 
-			if ( pModule )
-			{
-				PyObject* pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
-				if ( pFunc && PyCallable_Check( pFunc ) )
-				{
-					// Create our Argument list
-					PyObject* p_args = PyTuple_New( 3 );
-					PyTuple_SetItem( p_args, 0, PyGetCharObject( m_npc ) );
-					Py_INCREF( Py_None );
-					PyTuple_SetItem( p_args, 1, Py_None );
-					Py_INCREF( Py_None );
-					PyTuple_SetItem( p_args, 2, Py_None );
-
-					Py_XDECREF( PyEval_CallObject( pFunc, p_args ) );
-
-					Py_XDECREF( p_args );
-
-					reportPythonError( sModule );
-				}
-				Py_XDECREF( pFunc );
-			}
-
-			Py_XDECREF( pModule );
+			Py_XDECREF( p_args );
 		}
 	}
 }

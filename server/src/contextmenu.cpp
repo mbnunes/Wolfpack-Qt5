@@ -150,7 +150,7 @@ void cContextMenu::recreateEvents()
 	QStringList::const_iterator myIter( eventList.begin() );
 	for ( ; myIter != eventList.end(); ++myIter )
 	{
-		cPythonScript* myScript = ScriptManager::instance()->find( ( *myIter ).latin1() );
+		cPythonScript* myScript = ScriptManager::instance()->find( ( *myIter ).toLatin1() );
 
 		// Script not found
 		if ( myScript == NULL )

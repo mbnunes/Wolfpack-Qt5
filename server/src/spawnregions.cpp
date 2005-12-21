@@ -651,7 +651,7 @@ void cSpawnRegion::spawnSingleNPC()
 		P_NPC pChar = new cNPC;
 		pChar->Init();
 		pChar->setSpawnregion( this );
-		pChar->setBaseid( id.latin1() );
+		pChar->setBaseid( id.toLatin1() );
 		pChar->moveTo( pos );
 
 		pChar->applyDefinition( parent ); // Apply the definition from the id first
@@ -751,7 +751,7 @@ void cSpawnRegion::spawnSingleItem()
 		P_ITEM pItem = new cItem;
 		pItem->Init();
 		pItem->setSpawnregion( this );
-		pItem->setBaseid( id.latin1() );
+		pItem->setBaseid( id.toLatin1() );
 		pItem->moveTo( pos );
 
 		pItem->applyDefinition( parent ); // Apply the definition from the id first

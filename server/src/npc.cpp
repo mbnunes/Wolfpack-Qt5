@@ -185,7 +185,7 @@ void cNPC::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeInt( additionalFlags_ );
 	writer.writeInt( owner_ ? owner_->serial() : INVALID_SERIAL );
 	writer.writeInt( stablemasterSerial_ );
-	writer.writeAscii( aiid_.latin1() );
+	writer.writeAscii( aiid_.toLatin1() );
 	writer.writeByte( ( unsigned char ) wanderType() );
 	writer.writeShort( wanderX1() );
 	writer.writeShort( wanderY1() );
@@ -1468,7 +1468,7 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord& pos )
 
 	P_NPC pChar = new cNPC;
 	pChar->Init();
-	pChar->basedef_ = CharBaseDefs::instance()->get( section.latin1() );
+	pChar->basedef_ = CharBaseDefs::instance()->get( section.toLatin1() );
 	pChar->moveTo( pos );
 	pChar->applyDefinition( DefSection );
 

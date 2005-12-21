@@ -99,7 +99,7 @@ cMulti* cMulti::createFromScript( const QString& id )
 	{
 		multi = new cMulti;
 		multi->setSerial( World::instance()->findItemSerial() );
-		multi->setBaseid( id.latin1() );
+		multi->setBaseid( id.toLatin1() );
 		multi->applyDefinition( section );
 		cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( multi, id );
 		Timers::instance()->insert( onCreateCall );

@@ -192,10 +192,11 @@ class PythonFunction
 	PyObject* pFunc;
 	QString sModule;
 	QString sFunc;
+	bool temp;
 
 	static QList<PythonFunction*> instances; // list of all known instances
 public:
-	explicit PythonFunction( PyObject* function ) : pModule( 0 ), pFunc( 0 )
+	explicit PythonFunction( PyObject* function ) : pModule( 0 ), pFunc( 0 ), temp( false )
 	{
 		// No lambdas!
 		if ( function ) {
@@ -210,36 +211,38 @@ public:
 			}
 		}
 
-		instances.push_back(this); // Add this to the static list of instances
+		instances.append(this); // Add this to the static list of instances
 	}
 
-	explicit PythonFunction( const QString& path ) : pModule( 0 ), pFunc( 0 )
+	explicit PythonFunction( const QString& path, bool tempObject = false ) : pModule( 0 ), pFunc( 0 ), temp( tempObject )
 	{
 		int position = path.findRev( "." );
 		sModule = path.left( position );
 		sFunc = path.right( path.length() - ( position + 1 ) );
 
 		// The Python string functions don't like null pointers
-		if (sModule.latin1()) {
-			pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+		if (!sModule.isEmpty()) {
+			pModule = PyImport_ImportModule( const_cast<char*>( sModule.toLatin1().data() ) );
 
-			if ( pModule && sFunc.latin1() )
+			if ( pModule && !sFunc.isEmpty() )
 			{
-				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.latin1() ) );
+				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.toLatin1().data() ) );
 				if ( pFunc && !PyCallable_Check( pFunc ) )
 				{
 					cleanUp();
 				}
 			}
 		}
-
-		instances.append(this); // Add this to the static list of instances
+		
+		if ( !temp )
+			instances.append(this); // Add this to the static list of instances
 	}
 
 	~PythonFunction()
 	{
 		cleanUp();
-		instances.remove(this); // Remove this from the static list of instances
+		if ( !temp )
+			instances.remove(this); // Remove this from the static list of instances
 	}
 
 	// Clean up all instances
@@ -263,12 +266,12 @@ public:
 		cleanUp();
 
 		// The Python string functions don't like null pointers
-		if (sModule.latin1()) {
-			pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+		if (!sModule.isEmpty()) {
+			pModule = PyImport_ImportModule( const_cast<char*>( sModule.toLatin1().data() ) );
 
-			if ( pModule && sFunc.latin1() )
+			if ( pModule && !sFunc.isEmpty() )
 			{
-				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.latin1() ) );
+				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.toLatin1().data() ) );
 				if ( pFunc && !PyCallable_Check( pFunc ) )
 				{
 					cleanUp();

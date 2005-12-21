@@ -107,7 +107,7 @@ void cBaseDef::refreshScripts()
 		baseScripts_.clear();
 		for ( it = scripts.begin(); it != scripts.end(); ++it )
 		{
-			cPythonScript *script = ScriptManager::instance()->find( ( *it ).latin1() );
+			cPythonScript *script = ScriptManager::instance()->find( ( *it ).toLatin1() );
 			if ( script )
 			{
 				baseScripts_.append( script );

@@ -645,7 +645,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 
 		if ( !toCall->isValid() )
 		{
-			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.latin1());
+			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.toLatin1());
 			return 0;
 		}
 	}
@@ -1365,7 +1365,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 
 		PyObject* list = PyTuple_New( events.count() );
 		for ( uint i = 0; i < events.count(); ++i )
-			PyTuple_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
+			PyTuple_SetItem( list, i, PyString_FromString( events[i].toLatin1() ) );
 		return list;
 	}
 	else
@@ -1448,7 +1448,7 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 
 		if ( error )
 		{
-			PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
+			PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.toLatin1() );
 			delete error;
 			return -1;
 		}

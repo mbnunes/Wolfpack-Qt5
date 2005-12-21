@@ -445,7 +445,7 @@ cUOPacket& cUOPacket::operator=( cUOPacket& p )
 QByteArray cUOPacket::dump( const QByteArray& data )
 {
 	qint32 length = data.count();
-	QByteArray dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( quint8 ) data[0], 2, 16 ).arg( data.count() ).latin1();
+	QByteArray dumped = QString( "\n[ packet: %1; length: %2 ]\n" ).arg( ( quint8 ) data[0], 2, 16 ).arg( data.count() ).toLatin1();
 
 	int lines = length / 16;
 	if ( length % 16 ) // always round up.
@@ -460,7 +460,7 @@ QByteArray cUOPacket::dump( const QByteArray& data )
 		{
 			if ( actLine * 16 + actRow < length )
 			{
-				QString number = QString::number( static_cast<uint>( static_cast<quint8>( data[actLine*16 + actRow] ) ), 16 ).latin1() + QString( " " );
+				QString number = QString::number( static_cast<uint>( static_cast<quint8>( data[actLine*16 + actRow] ) ), 16 ).toLatin1() + QString( " " );
 				//line += QString().sprintf( "%02x ", (unsigned int)((unsigned char)data[actLine * 16 + actRow]) );
 				if ( number.length() < 3 )
 					number.prepend( "0" );

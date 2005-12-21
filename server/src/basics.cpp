@@ -307,7 +307,7 @@ void cBufferedWriter::close()
 
 			writeInt( size, true ); // SkipSize
 
-			QByteArray type = tit.data().latin1();
+			QByteArray type = tit.data().toLatin1();
 			writeInt( d->dictionary[type], true );
 		}
 

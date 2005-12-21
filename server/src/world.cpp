@@ -1536,7 +1536,7 @@ void cBackupThread::run()
 		return;
 	}
 
-	void *output = gzopen( outputName.latin1(), "wb" );
+	void *output = gzopen( outputName.toLatin1(), "wb" );
 	if ( !output )
 	{
 		input.close();

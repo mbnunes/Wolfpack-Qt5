@@ -146,7 +146,7 @@ void cScriptManager::load()
 	{
 		const cElement* element = sections[i];
 
-		if ( scripts.contains( element->text().latin1() ) )
+		if ( scripts.contains( element->text().toLatin1() ) )
 		{
 			Console::instance()->log( LOG_WARNING, tr( "Duplicate Script: %1" ).arg( element->text() ) );
 			continue;
@@ -154,7 +154,7 @@ void cScriptManager::load()
 
 		cPythonScript* script = new cPythonScript;
 		scripts.replace( element->text().utf8(), script );
-		script->load( element->text().latin1() );
+		script->load( element->text().toLatin1() );
 		++loaded;
 	}
 	cComponent::load();

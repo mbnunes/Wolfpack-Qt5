@@ -2037,7 +2037,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		*/
 	else if ( name == "baseid" )
 	{
-		setBaseid( value.toString().latin1() );
+		setBaseid( value.toString().toLatin1() );
 		return 0;
 	}
 	/*

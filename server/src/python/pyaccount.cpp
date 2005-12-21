@@ -203,8 +203,8 @@ static PyObject* wpAccount_authorized( wpAccount* self, PyObject* args )
 		return 0;
 	}
 
-	QByteArray group = getArgStr( 0 ).latin1();
-	QByteArray action = getArgStr( 1 ).latin1();
+	QByteArray group = getArgStr( 0 ).toLatin1();
+	QByteArray action = getArgStr( 1 ).toLatin1();
 
 	if ( self->account->authorized( group, action ) )
 		Py_RETURN_TRUE;
@@ -300,7 +300,7 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 
 	if ( error )
 	{
-		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
+		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.toLatin1() );
 		delete error;
 		return 0;
 	}

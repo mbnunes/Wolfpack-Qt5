@@ -320,7 +320,7 @@ public:
 
 			if ( type == "string" )
 			{
-				PyTuple_SetItem( args, id, PyString_FromString( value.latin1() ) );
+				PyTuple_SetItem( args, id, PyString_FromString( value.toLatin1() ) );
 			}
 			else if ( type == "int" )
 			{

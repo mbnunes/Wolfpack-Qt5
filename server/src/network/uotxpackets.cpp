@@ -57,7 +57,7 @@ void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, 
 	if ( serverName.length() > 31 )
 		serverName = serverName.left( 31 );
 
-	setAsciiString( offset + 2, serverName.latin1(), serverName.length() + 1 );
+	setAsciiString( offset + 2, serverName.toLatin1(), serverName.length() + 1 );
 
 	( *this )[offset + 34] = 0;
 	( *this )[offset + 35] = 0;
@@ -90,7 +90,7 @@ void cUOTxCharTownList::compile( void )
 	{
 		if ( c < characters.size() )
 		{
-			setAsciiString( 4 + ( c * 60 ), characters[c].left( 29 ).latin1(), 30 );
+			setAsciiString( 4 + ( c * 60 ), characters[c].left( 29 ).toLatin1(), 30 );
 			( *this )[4 + ( c * 60 ) + 30] = 0x00; // No Password (!)
 		}
 		else
@@ -106,8 +106,8 @@ void cUOTxCharTownList::compile( void )
 	for ( unsigned char t = 0; t < towns.size(); ++t )
 	{
 		( *this )[offset] = towns[t].index;
-		setAsciiString( offset + 1, towns[t].town.left( 29 ).latin1(), 30 );
-		setAsciiString( offset + 32, towns[t].area.left( 29 ).latin1(), 30 );
+		setAsciiString( offset + 1, towns[t].town.left( 29 ).toLatin1(), 30 );
+		setAsciiString( offset + 32, towns[t].area.left( 29 ).toLatin1(), 30 );
 		offset += 63;
 	}
 
@@ -133,7 +133,7 @@ void cUOTxUpdateCharList::setCharacter( unsigned char index, QString name )
 	if ( name.length() > 29 )
 		name = name.left( 29 );
 
-	setAsciiString( offset, name.latin1(), 30 );
+	setAsciiString( offset, name.toLatin1(), 30 );
 }
 
 void cUOTxSendSkills::addSkill( unsigned short skillId, unsigned short skill, unsigned short realSkill, eStatus status, unsigned short cap )
@@ -656,7 +656,7 @@ void cUOTxWeblink::setUrl( const QString& data )
 {
 	resize( 4 + data.length() );
 	setShort( 1, 4 + data.length() );
-	setAsciiString( 3, data.latin1(), data.length() + 1 );
+	setAsciiString( 3, data.toLatin1(), data.length() + 1 );
 	( *this )[3 + data.length()] = 0; // Null Termination
 }
 
@@ -708,7 +708,7 @@ void cUOTxVendorBuy::addItem( unsigned int price, const QString& description )
 	// Add the item itself
 	setInt( offset, price );
 	( *this )[offset + 4] = description.length() + 1;
-	setAsciiString( offset + 5, description.latin1(), description.length() + 1 );
+	setAsciiString( offset + 5, description.toLatin1(), description.length() + 1 );
 
 	++( *this )[7]; // Increase item count
 }
@@ -717,7 +717,7 @@ void cUOTxGumpDialog::setContent( const QString& layout, const QStringList& text
 {
 	//	QString layout = gump->layout().join( "" );
 	setShort( 19, layout.length() + 1 );
-	setAsciiString( 21, layout.latin1(), layout.length() + 1 );
+	setAsciiString( 21, layout.toLatin1(), layout.length() + 1 );
 
 	// Send the unicode text-lines
 
@@ -740,8 +740,8 @@ void cUOTxTrade::setName( const QString& name )
 	( *this )[16] = 1;
 	resize( size() + name.length() + 1 );
 	setShort( 1, size() );
-	setAsciiString( 17, name.latin1(), name.length() + 1 );
-	//strcpy( &rawPacket.data()[17], name.latin1() );
+	setAsciiString( 17, name.toLatin1(), name.length() + 1 );
+	//strcpy( &rawPacket.data()[17], name.toLatin1() );
 }
 
 void cUOTxProfile::setInfo( const QString& title, const QString& staticText, const QString& dynamicText )
@@ -751,7 +751,7 @@ void cUOTxProfile::setInfo( const QString& title, const QString& staticText, con
 	setShort( 1, size );
 	resize( size );
 
-	setAsciiString( 7, title.latin1(), title.length() + 1 );
+	setAsciiString( 7, title.toLatin1(), title.length() + 1 );
 	( *this )[7 + title.length()] = 0; // Null Terminator
 
 	setUnicodeString( 8 + title.length(), staticText, staticText.length() * 2 );
@@ -834,7 +834,7 @@ void cUOTxSellList::addItem( unsigned int serial, unsigned short id, unsigned sh
 	setShort( offset + 8, amount );
 	setShort( offset + 10, value );
 	setShort( offset + 12, name.length() + 1 );
-	setAsciiString( offset + 14, name.latin1(), name.length() + 1 );
+	setAsciiString( offset + 14, name.toLatin1(), name.length() + 1 );
 }
 
 void cUOTxPartyUpdate::addMember( SERIAL serial )
@@ -865,7 +865,7 @@ void cUOTxAsciiSpeech::setMessage( const QString& data )
 {
 	resize( 45 + data.length() );
 	setShort( 1, 45 + data.length() );
-	setAsciiString( 44, data.latin1(), data.length() + 1 );
+	setAsciiString( 44, data.toLatin1(), data.length() + 1 );
 	( *this )[44 + data.length()] = 0; // Null Termination
 }
 

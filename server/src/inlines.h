@@ -207,7 +207,7 @@ inline QString makeAscii( const QString& input )
 		}
 
 		// Other non representable char
-		if ( c.latin1() < 1 || ( c.latin1() > 122 && c.latin1() != 127 ) )
+		if ( c.toLatin1() < 1 || ( c.toLatin1() > 122 && c.toLatin1() != 127 ) )
 		{
 			continue;
 		}

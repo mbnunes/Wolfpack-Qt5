@@ -1710,7 +1710,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 			const char* ptype = "";
 			if ( !dispelid.isEmpty() )
 			{
-				ptype = dispelid.latin1();
+				ptype = dispelid.toLatin1();
 			}
 
 			PyObject* args = Py_BuildValue( "(NNBBsN", self->pChar->getPyObject(), source, 0, force ? 1 : 0, ptype, dispelargs );
@@ -1824,7 +1824,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 
 		if ( !expireCall->isValid() )
 		{
-			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.latin1());
+			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.toLatin1());
 			return 0;
 		}
 	}
@@ -1853,7 +1853,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 
 			if ( !dispelCall->isValid() )
 			{
-				PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.latin1());
+				PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.toLatin1());
 				return 0;
 			}
 		}
@@ -2867,7 +2867,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 			QString name = *it;
 			if ( !name.isEmpty() )
 			{
-				PyList_AppendStolen( list, PyString_FromString( name.latin1() ) );
+				PyList_AppendStolen( list, PyString_FromString( name.toLatin1() ) );
 			}
 		}
 
@@ -3085,7 +3085,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		}
 		PyObject* list = PyTuple_New( scripts.count() );
 		for ( uint i = 0; i < scripts.count(); ++i )
-			PyTuple_SetItem( list, i, PyString_FromString( scripts[i].latin1() ) );
+			PyTuple_SetItem( list, i, PyString_FromString( scripts[i].toLatin1() ) );
 		return list;
 	}
 	/*
@@ -3143,7 +3143,7 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 
 	if ( error )
 	{
-		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
+		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.toLatin1() );
 		delete error;
 		return -1;
 	}

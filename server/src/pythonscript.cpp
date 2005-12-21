@@ -859,9 +859,9 @@ PyObject* cPythonScript::callEvent( const QString& name, PyObject* args, bool ig
 {
 	PyObject* result = 0;
 
-	if ( codeModule && !name.isEmpty() && PyObject_HasAttrString( codeModule, const_cast<char*>( name.latin1() ) ) )
+	if ( codeModule && !name.isEmpty() && PyObject_HasAttrString( codeModule, const_cast<char*>( name.toLatin1().data() ) ) )
 	{
-		PyObject* event = PyObject_GetAttrString( codeModule, const_cast<char*>( name.latin1() ) );
+		PyObject* event = PyObject_GetAttrString( codeModule, const_cast<char*>( name.toLatin1().data() ) );
 
 		if ( event && PyCallable_Check( event ) )
 		{
@@ -879,9 +879,9 @@ PyObject* cPythonScript::callEvent( const QString& name, PyObject* args, bool ig
 
 bool cPythonScript::canHandleEvent( const QString& event )
 {
-	if ( codeModule && !event.isEmpty() && PyObject_HasAttrString( codeModule, const_cast<char*>( event.latin1() ) ) )
+	if ( codeModule && !event.isEmpty() && PyObject_HasAttrString( codeModule, const_cast<char*>( event.toLatin1().data() ) ) )
 	{
-		PyObject* object = PyObject_GetAttrString( codeModule, const_cast<char*>( event.latin1() ) );
+		PyObject* object = PyObject_GetAttrString( codeModule, const_cast<char*>( event.toLatin1().data() ) );
 
 		if ( object )
 		{

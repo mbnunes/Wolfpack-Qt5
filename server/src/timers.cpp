@@ -277,7 +277,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 		}
 		const char *ptype = "";
 		if (!type.isEmpty()) {
-			ptype = type.latin1();
+			ptype = type.toLatin1();
 		}
 		PyObject *args = Py_BuildValue("(NNBBsN", pc_dest->getPyObject(), source,
 			silent ? 1 : 0, onlyDispellable ? 0 : 1, ptype, PyTuple_New(0));
@@ -498,7 +498,7 @@ void cTimers::save( cBufferedWriter& writer )
 		if ( ( *it )->isSerializable() )
 		{
 			writer.writeByte( 0xFC );
-			writer.writeAscii( ( *it )->objectID().latin1() );
+			writer.writeAscii( ( *it )->objectID().toLatin1() );
 			( *it )->save( writer, writer.version() );
 		}
 	}

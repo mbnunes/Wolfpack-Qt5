@@ -76,7 +76,7 @@ public:
 
 	virtual const char* what() const throw()
 	{
-		return m_Error.latin1();
+		return m_Error.toLatin1();
 	}
 	~wpbad_ptr() throw()
 	{

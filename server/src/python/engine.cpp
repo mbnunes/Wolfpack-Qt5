@@ -121,7 +121,7 @@ void startPython( int argc, char* argv[] )
 	// Prepend our items to the searchpath
 	for ( int i = elements.count() - 1; i >= 0; --i )
 	{
-		PyList_Insert( searchpath, 0, PyString_FromString( elements[i].latin1() ) );
+		PyList_Insert( searchpath, 0, PyString_FromString( elements[i].toLatin1() ) );
 	}
 
 	// Import site now

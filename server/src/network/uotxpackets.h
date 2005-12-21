@@ -955,11 +955,11 @@ public:
 	}
 	void setLanguage( const QString& data )
 	{
-		this->setAsciiString( 14, data.left( 3 ).latin1(), wpMin<uint>( data.length() + 1, 4 ) );
+		this->setAsciiString( 14, data.left( 3 ).toLatin1(), wpMin<uint>( data.length() + 1, 4 ) );
 	}
 	void setName( const QString& data )
 	{
-		this->setAsciiString( 18, data.left( 29 ).latin1(), wpMin<uint>( data.length() + 1, 30 ) );
+		this->setAsciiString( 18, data.left( 29 ).toLatin1(), wpMin<uint>( data.length() + 1, 30 ) );
 	}
 	void setText( const QString& data );
 };
@@ -1003,7 +1003,7 @@ public:
 	}
 	void setName( const QString& name )
 	{
-		setAsciiString( 7, name.left( 29 ).latin1(), wpMin<uint>( name.length() + 1, 30 ) );
+		setAsciiString( 7, name.left( 29 ).toLatin1(), wpMin<uint>( name.length() + 1, 30 ) );
 	}
 	void setHp( unsigned short data )
 	{
@@ -1229,7 +1229,7 @@ public:
 	}
 	void setName( const QString& name )
 	{
-		this->setAsciiString( 5, name.left( 59 ).latin1(), wpMin<uint>( name.length() + 1, 60 ) );
+		this->setAsciiString( 5, name.left( 59 ).toLatin1(), wpMin<uint>( name.length() + 1, 60 ) );
 	}
 	void setFlag( unsigned char flag )
 	{
@@ -1873,7 +1873,7 @@ public:
 
 	void setName( const QString& data )
 	{
-		setAsciiString( 14, ( char * ) data.latin1(), 30 );
+		setAsciiString( 14, ( char * ) data.toLatin1().data(), 30 );
 	}
 
 	void setMessage( const QString& data );
@@ -1921,7 +1921,7 @@ public:
 	}
 	void setName( const QString& data )
 	{
-		this->setAsciiString( 18, data.latin1(), 30 );
+		this->setAsciiString( 18, data.toLatin1(), 30 );
 	}
 	void setParams( const QString& data );
 };
@@ -1978,14 +1978,14 @@ public:
 	}
 	void setName( const QString& data )
 	{
-		this->setAsciiString( 19, data.left( 29 ).latin1(), wpMin<uint>( data.length() + 1, 30 ) );
+		this->setAsciiString( 19, data.left( 29 ).toLatin1(), wpMin<uint>( data.length() + 1, 30 ) );
 	}
 	void setParams( const QString& affix, const QString& params )
 	{
 		// Resize first
 		resize( PacketLen + affix.length() + params.length() * 2 + 2 );
 		setShort( 1, PacketLen + affix.length() + params.length() * 2 + 2 );
-		setAsciiString( 49, affix.latin1(), affix.length() + 1 );
+		setAsciiString( 49, affix.toLatin1(), affix.length() + 1 );
 		setUnicodeString( 50 + affix.length(), params, params.length() * 2 + 2 );
 	}
 };
@@ -2538,7 +2538,7 @@ public:
 
 	void setName( const QString& name )
 	{
-		setAsciiString( 7, name.latin1(), 29 );
+		setAsciiString( 7, name.toLatin1(), 29 );
 	}
 };
 

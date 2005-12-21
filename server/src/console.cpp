@@ -109,7 +109,7 @@ bool cConsole::handleCommand( const QString& command )
 {
 	cUOSocket* mSock;
 	int i;
-	char c = command.latin1()[0];
+	char c = command.toLatin1()[0];
 	c = toupper( c );
 
 	if ( c == 'S' )

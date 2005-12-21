@@ -252,7 +252,7 @@ void cConsole::send( const QString& sMessage )
 	QString newMessage = sMessage;
 	newMessage.replace( "%", "%%" );
 
-	fprintf( stdout, newMessage.latin1() );
+	fprintf( stdout, newMessage.toLocal8Bit() );
 	fflush( stdout );
 
 	linebuffer_.append( sMessage );

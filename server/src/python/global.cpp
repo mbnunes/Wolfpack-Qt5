@@ -538,7 +538,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 		toCall = new PythonFunction( func );
 
 	        if (!toCall || !toCall->isValid()) {
-	                PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s", func.latin1());
+	                PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s", func.toLatin1());
 	                return 0;
 	        }
 
@@ -1029,7 +1029,7 @@ static PyObject* wpLanddata( PyObject* self, PyObject* args )
 	}
 	else
 	{
-		PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( flags.latin1() ) );
+		PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( flags.toLatin1() ) );
 	}
 
 	return dict;
@@ -1108,7 +1108,7 @@ static PyObject* wpTiledata( PyObject* self, PyObject* args )
 		}
 		else
 		{
-			PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( flags.latin1() ) );
+			PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( flags.toLatin1() ) );
 		}
 	}
 
@@ -1309,7 +1309,7 @@ static PyObject* wpServerVersion( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	Q_UNUSED( args );
-	return PyString_FromString( QString( "%1 %2 %3" ).arg( productString() ).arg( productBeta() ).arg( productVersion() ).latin1() );
+	return PyString_FromString( QString( "%1 %2 %3" ).arg( productString() ).arg( productBeta() ).arg( productVersion() ).toLatin1() );
 }
 
 /*
@@ -2531,7 +2531,7 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 	catch ( QString& e )
 	{
 		PyMem_Free( query );
-		PyErr_SetString( PyExc_RuntimeError, e.latin1() );
+		PyErr_SetString( PyExc_RuntimeError, e.toLatin1() );
 		return 0;
 	}
 	catch ( ... )
@@ -2568,7 +2568,7 @@ static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
 	}
 	catch ( QString& e )
 	{
-		PyErr_SetString( PyExc_RuntimeError, e.latin1() );
+		PyErr_SetString( PyExc_RuntimeError, e.toLatin1() );
 		return 0;
 	}
 	catch ( ... )
@@ -2602,7 +2602,7 @@ static PyObject* wpDriver( PyObject* self, PyObject* args )
 	else if ( database == 2 )
 		driver = Config::instance()->databaseDriver();
 
-	return PyString_FromString( driver.latin1() );
+	return PyString_FromString( driver.toLatin1() );
 }
 
 /*
@@ -2652,7 +2652,7 @@ static PyObject* wpOpen( PyObject* /*self*/, PyObject* args )
 	}
 	catch ( QString& e )
 	{
-		PyErr_SetString( PyExc_RuntimeError, e.latin1() );
+		PyErr_SetString( PyExc_RuntimeError, e.toLatin1() );
 		return 0;
 	}
 	catch ( ... )

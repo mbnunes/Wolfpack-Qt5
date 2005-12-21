@@ -219,7 +219,7 @@ public:
 		}
 
 		cElement* element = new cElement;
-		element->setName( localName.latin1() );
+		element->setName( localName.toLatin1() );
 		element->copyAttributes( atts );
 
 		// Child Element?
@@ -711,7 +711,7 @@ const cElement* cElement::findChild( const QString& name ) const
 {
 	for ( unsigned int i = 0; i < childCount_; ++i )
 	{
-		if ( children[i]->name() == name.latin1() )
+		if ( children[i]->name() == name.toLatin1() )
 			return children[i];
 	}
 

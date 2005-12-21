@@ -64,10 +64,10 @@ qint32 resolveName( const QString& data )
 
 	// we do a dns lookup on this
 
-	quint32 uiValue = inet_addr( ( char* ) data.latin1() ) ;
+	quint32 uiValue = inet_addr( ( char* ) data.toLatin1().data() ) ;
 	if ( uiValue == INADDR_NONE )
 	{
-		hostent* ptrHost = gethostbyname( ( char* ) data.latin1() );
+		hostent* ptrHost = gethostbyname( ( char* ) data.toLatin1().data() );
 		if ( ptrHost != 0 )
 		{
 			char** ptrPtr = ptrHost->h_addr_list;

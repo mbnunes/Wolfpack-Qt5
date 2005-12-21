@@ -714,7 +714,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 	{
 		ServerList_st server = shards[i];
 		// we are connecting from the same ip, send 127.0.0.1 as the ip
-		if ( server.address.toString() == ip().latin1() )
+		if ( server.address.toString() == ip().toLatin1() )
 		{
 			shardList.addServer( i, server.sServer, 0x00, server.uiTime, 0x7F000001 );
 		}
@@ -737,7 +737,7 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo* packet )
 	// Do something with the retrieved hardware information here
 	// > Hardware Log ??
 	//QString hardwareMsg = QString( "Hardware: %1 Processors [Type: %2], %2 MB RAM, %3 MB Harddrive" ).arg( packet->processorCount() ).arg( packet->processorType() ).arg( packet->memoryInMb() ).arg( packet->largestPartitionInMb() );
-	//cout << hardwareMsg.latin1() << endl;
+	//cout << hardwareMsg.toLatin1() << endl;
 }
 
 /*!
@@ -2208,7 +2208,7 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 		cUOTxTipWindow packet;
 		packet.setType( cUOTxTipWindow::Tip );
 		packet.setNumber( tip );
-		packet.setMessage( tipText.latin1() );
+		packet.setMessage( tipText.toLatin1() );
 		send( &packet );
 	}
 }
@@ -2577,7 +2577,7 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 			region = dynamic_cast<cTerritory*>( region->parent() );
 
 		// If its a Region and not a Cave...
-		if ( ( region ) && !( region->isCave() ) )
+		if ( ( region ) && !( region->isCave() || subregion->isCave() ) )
 		{
 			// Assign weather
 			if ( region->isRaining() && region->isSnowing() ) 

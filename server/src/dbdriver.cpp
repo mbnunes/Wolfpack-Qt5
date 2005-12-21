@@ -298,7 +298,7 @@ bool cSQLiteDriver::open( int )
 
 	close();
 
-	connection = sqlite_open( _dbname.latin1(), 0, &error );
+	connection = sqlite_open( _dbname.toLatin1(), 0, &error );
 
 	if ( !connection )
 	{
@@ -549,7 +549,7 @@ bool cMySQLDriver::open( int id )
 
 	( ( MYSQL * ) connection )->reconnect = 1;
 
-	if ( !mysql_real_connect( ( MYSQL * ) connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+	if ( !mysql_real_connect( ( MYSQL * ) connection, _host.toLatin1(), _username.toLatin1(), _password.toLatin1(), _dbname.toLatin1(), 0, 0, CLIENT_COMPRESS ) )
 	{
 		// Named pipes are acctually slower :(
 		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( ( MYSQL * ) connection ) );
