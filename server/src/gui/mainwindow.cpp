@@ -32,6 +32,9 @@
 #include "../console.h"
 #include "../server.h"
 #include "../exportdefinitions.h"
+#include "../network/network.h"
+#include "../network/uosocket.h"
+#include "../player.h"
 
 MainWindow::MainWindow() : QMainWindow( 0, 0 )
 {
@@ -252,6 +255,26 @@ void MainWindow::saveworld()
 
 void MainWindow::listusers()
 {
+	// Vars
+	cUOSocket* mSock;
+	unsigned int i;
+
+	// We simply do our thread safety manually here
+	Network::instance()->lock();
+
+	// Generate a list of Users
+	mSock = Network::instance()->first();
+	i = 0;
+
+	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	{
+		if ( mSock->player() )
+			Console::instance()->send( QString( "%1) %2 [%3]\n" ).arg( ++i ).arg( mSock->player()->name() ).arg( QString::number( mSock->player()->serial(), 16 ) ) );
+	}
+
+	Network::instance()->unlock();
+
+	Console::instance()->send( tr( "Total Users Online: %1\n" ).arg( i ) );
 }
 
 void MainWindow::homepage()
