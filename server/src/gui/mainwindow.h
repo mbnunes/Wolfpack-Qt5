@@ -51,7 +51,10 @@ protected:
 private slots:
     void exportDefs();
 	void closeWP();
-	void reload( int choice );
+	void reloadAcc();
+	void reloadCfg();
+	void reloadPyt();
+	void reloadScp();
 	void saveworld();
 	void listusers();
 	void homepage();

@@ -150,22 +150,22 @@ void MainWindow::createActions()
 	reloadAccountsAct = new QAction(tr("&Accounts"), this);
     reloadAccountsAct->setShortcut(tr("Ctrl+A"));
     reloadAccountsAct->setStatusTip(tr("Accounts"));
-    connect(reloadAccountsAct, SIGNAL(triggered()), this, SLOT(reload(1)));
+    connect(reloadAccountsAct, SIGNAL(triggered()), this, SLOT(reloadAcc()));
 
 	reloadConfigAct = new QAction(tr("&Configuration"), this);
     reloadConfigAct->setShortcut(tr("Ctrl+C"));
     reloadConfigAct->setStatusTip(tr("Configuration"));
-    connect(reloadConfigAct, SIGNAL(triggered()), this, SLOT(reload(2)));
+    connect(reloadConfigAct, SIGNAL(triggered()), this, SLOT(reloadCfg()));
 
 	reloadPythonAct = new QAction(tr("&Python"), this);
     reloadPythonAct->setShortcut(tr("Ctrl+P"));
     reloadPythonAct->setStatusTip(tr("Python"));
-    connect(reloadPythonAct, SIGNAL(triggered()), this, SLOT(reload(3)));
+    connect(reloadPythonAct, SIGNAL(triggered()), this, SLOT(reloadPyt()));
 
 	reloadScriptsAct = new QAction(tr("&Scripts"), this);
     reloadScriptsAct->setShortcut(tr("Ctrl+S"));
     reloadScriptsAct->setStatusTip(tr("Scripts"));
-    connect(reloadScriptsAct, SIGNAL(triggered()), this, SLOT(reload(4)));
+    connect(reloadScriptsAct, SIGNAL(triggered()), this, SLOT(reloadScp()));
 	
 	// Server
 	serverSaveAct = new QAction(tr("Save &World"), this);
@@ -203,7 +203,19 @@ void MainWindow::closeWP()
 	Server::instance()->cancel();
 }
 
-void MainWindow::reload( int choice )
+void MainWindow::reloadAcc()
+{
+}
+
+void MainWindow::reloadCfg()
+{
+}
+
+void MainWindow::reloadPyt()
+{
+}
+
+void MainWindow::reloadScp()
 {
 }
 
