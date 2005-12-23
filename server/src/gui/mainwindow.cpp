@@ -227,22 +227,27 @@ void MainWindow::closeWP()
 
 void MainWindow::reloadAcc()
 {
+	Server::instance()->queueAction( RELOAD_ACCOUNTS );
 }
 
 void MainWindow::reloadCfg()
 {
+	Server::instance()->queueAction( RELOAD_CONFIGURATION );
 }
 
 void MainWindow::reloadPyt()
 {
+	Server::instance()->queueAction( RELOAD_PYTHON );
 }
 
 void MainWindow::reloadScp()
 {
+	Server::instance()->queueAction( RELOAD_SCRIPTS );
 }
 
 void MainWindow::saveworld()
 {
+	Server::instance()->queueAction( SAVE_WORLD );
 }
 
 void MainWindow::listusers()
