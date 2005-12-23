@@ -31,6 +31,7 @@
 
 #include "../console.h"
 #include "../server.h"
+#include "../exportdefinitions.h"
 
 MainWindow::MainWindow() : QMainWindow( 0, 0 )
 {
@@ -192,11 +193,14 @@ void MainWindow::createActions()
 	The Actions
 */
 void MainWindow::exportDefs()
-{  
+{
+	cDefinitionExporter exporter;
+	exporter.generate("categories.db");
 }
 
 void MainWindow::closeWP()
-{  
+{
+	Server::instance()->cancel();
 }
 
 void MainWindow::reload( int choice )
