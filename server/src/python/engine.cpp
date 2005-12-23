@@ -32,6 +32,10 @@
 #include "../console.h"
 #include "../log.h"
 
+// Library includes
+#include <QString>
+#include <QFile>
+#include <QWaitCondition>
 #include <QCoreApplication>
 #include <QList>
 
@@ -70,12 +74,6 @@ CleanupAutoRegister::CleanupAutoRegister( fnCleanupHandler handler )
 {
 	registerCleanupHandler( handler );
 }
-
-// Library includes
-#include <qdom.h>
-#include <QString>
-#include <QFile>
-#include <QWaitCondition>
 
 // Forward declaration for wolfpack extension function
 void init_wolfpack_globals();

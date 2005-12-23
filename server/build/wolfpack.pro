@@ -73,6 +73,8 @@ include($$SQLITE3_CPP/sqlite3.pri)
 include($$NETWORK_CPP/network.pri)
 include($$AI_CPP/ai.pri)
 include($$MULS_CPP/muls.pri)
+include(../src/gui/gui.pri)
+
 # Common files
 
 HEADERS += \
@@ -208,7 +210,7 @@ unix:SOURCES  += \
 	../src/unix/getopts_unix.cpp
 
 win32:SOURCES += \
-	../src/win/console_win.cpp \
+#	../src/win/console_win.cpp \
 	../src/win/config_win.cpp \
 	../src/win/getopts_win.cpp
 

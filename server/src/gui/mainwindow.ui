@@ -1,0 +1,34 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Wolfpack</string>
+  </property>
+  <widget class="QWidget" name="centralWidget" >
+   <widget class="QTextBrowser" name="logWindow" >
+    <property name="geometry" >
+     <rect>
+      <x>50</x>
+      <y>90</y>
+      <width>431</width>
+      <height>211</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <resources/>
+ <connections/>
+</ui>

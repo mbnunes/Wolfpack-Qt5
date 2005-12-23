@@ -1,6 +1,6 @@
 import sys, os, zipfile, datetime
 
-QTDIR = 'F:\\Qt-MingW\\4.0.1'
+QTDIR = 'F:\\Qt-MingW\\4.1.0'
 QMAKESPEC = 'win32-g++'
 COMPILER_PATH = 'F:\\MingW\\bin'
 BUILD_PATH = 'c:\\wolfpack\\server'
