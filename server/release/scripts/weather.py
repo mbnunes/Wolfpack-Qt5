@@ -113,7 +113,7 @@ def changeweather( region ):
 		if topregion.parent:
 				topregion = topregion.parent
 		# Checking Region
-		if str(topregion) == str(region):
+		if unicode(topregion) == unicode(region):
 			worldsocket.player.update()
 
 		worldsocket = wolfpack.sockets.next()

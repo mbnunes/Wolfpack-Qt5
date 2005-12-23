@@ -39,6 +39,20 @@ def onDropOnItem(keyring, key):
 	char.socket.clilocmessage(501691)
 	return 1
 
+def solve_keys(char, keyring):
+	# Put all rings into the backpack of the user
+	backpack = char.getbackpack()
+
+	for key in keyring.content:
+		backpack.additem(key, 1, 1, 0)
+		key.update()
+
+	keyring.id = 0x1011
+	keyring.update()
+
+	char.socket.clilocmessage(501685)
+	return
+
 def lock_response(char, args, target):
 	if len(args) != 1:
 		return
@@ -56,16 +70,7 @@ def lock_response(char, args, target):
 	# Targetted the keyring itself??
 	if target.item == keyring:
 		# Put all rings into the backpack of the user
-		backpack = char.getbackpack()
-
-		for key in keyring.content:
-			backpack.additem(key, 1, 1, 0)
-			key.update()
-
-		keyring.id = 0x1011
-		keyring.update()
-
-		char.socket.clilocmessage(501685)
+		solve_keys(char, keyring)
 		return
 
 	if not target.item.hasscript( 'lock' ) or not target.item.hastag( 'lock' ):
