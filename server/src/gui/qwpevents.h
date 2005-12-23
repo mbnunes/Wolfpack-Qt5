@@ -32,52 +32,30 @@
 #include <QString>
 #include <QFont>
 
-class QWPConsoleSendEvent : public QEvent
+class QWolfpackConsoleEvent : public QEvent
 {
-	QString m;
+	QVariant data_;
+	QFont font_;
 public:
-	QWPConsoleSendEvent( const QString& msg ) : QEvent( (QEvent::Type)(QEvent::User + 1) ), m( msg )
-	{
+	enum Type { 
+		SendEvent = QEvent::User,
+		SetTitleEvent,
+		ChangeColorEvent,
+		ChangeFontEvent,
+		RollbackCharsEvent,
+		NotifyState
+	};
 
+	QWolfpackConsoleEvent( Type t, const QVariant& data ) : QEvent( (QEvent::Type) t ), data_(data)
+	{
 	}
 
-	QString message() const { return m;	}
-};
-
-class QWPConsoleTitleEvent : public QEvent
-{
-	QString title_;
-public:
-	QWPConsoleTitleEvent( const QString& title ) : QEvent( (QEvent::Type)(QEvent::User + 2) ), title_( title )
+	explicit QWolfpackConsoleEvent( const QFont& font ) : QEvent( (QEvent::Type) ChangeFontEvent ), font_(font)
 	{
-
 	}
 
-	QString title() const { return title_;	}
-};
-
-class QWPConsoleChangeColorEvent : public QEvent
-{
-	QColor color_;
-public:
-	QWPConsoleChangeColorEvent( const QColor& color ) : QEvent( (QEvent::Type)(QEvent::User + 3) ), color_( color )
-	{
-
-	}
-
-	QColor color() const { return color_;	}
-};
-
-class QWPConsoleChangeFontEvent : public QEvent
-{
-	QFont format_;
-public:
-	QWPConsoleChangeFontEvent( const QFont& format ) : QEvent( (QEvent::Type)(QEvent::User + 4) ), format_( format )
-	{
-
-	}
-
-	QFont format() const { return format_;	}
+	QVariant data() const { return data_;	}
+	QFont font() const { return font_; }
 };
 
 

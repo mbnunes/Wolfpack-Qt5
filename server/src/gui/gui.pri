@@ -11,3 +11,5 @@ HEADERS +=	\
 			
 FORMS +=	\
 			$$PWD/mainwindow.ui
+
+RESOURCES += $$PWD/gui.qrc

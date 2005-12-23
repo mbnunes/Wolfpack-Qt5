@@ -36,6 +36,7 @@
 MainWindow::MainWindow() : QMainWindow( 0, 0 )
 {
 	ui.setupUi( this );
+	setWindowIcon(QIcon(QLatin1String(":/gui/icon.png")));
 
 	// Start Menus
 	createActions();
@@ -48,21 +49,28 @@ MainWindow::MainWindow() : QMainWindow( 0, 0 )
 
 bool MainWindow::event( QEvent* e )
 {
-	if ( e->type() > QEvent::User )
+	if ( e->type() >= QEvent::User )
 	{
+		QWolfpackConsoleEvent* event = static_cast<QWolfpackConsoleEvent*>( e );
 		switch ( e->type() )
 		{
-		case QEvent::User + 1:
-			handleConsoleMessage( static_cast<QWPConsoleSendEvent*>(e)->message() );
+		case QWolfpackConsoleEvent::SendEvent:
+			handleConsoleMessage( event->data().toString() );
 			break;
-		case QEvent::User + 2:
-			setWindowTitle( static_cast<QWPConsoleTitleEvent*>(e)->title() );
+		case QWolfpackConsoleEvent::SetTitleEvent:
+			setWindowTitle( event->data().toString() );
 			break;
-		case QEvent::User + 3:
-			ui.logWindow->setTextColor( static_cast<QWPConsoleChangeColorEvent*>(e)->color() );
+		case QWolfpackConsoleEvent::ChangeColorEvent:
+			ui.logWindow->setTextColor( (QRgb)event->data().toInt() );
 			break;
-		case QEvent::User + 4:
-			ui.logWindow->setCurrentFont( static_cast<QWPConsoleChangeFontEvent*>(e)->format() );
+		case QWolfpackConsoleEvent::ChangeFontEvent:
+			ui.logWindow->setCurrentFont( event->font() );
+			break;
+		case QWolfpackConsoleEvent::RollbackCharsEvent:
+			handleConsoleRollbackChars( event->data().toInt() );
+			break;
+		case QWolfpackConsoleEvent::NotifyState:
+			handleConsoleNotifyState( (enServerState)event->data().toInt() );
 		default:
 			qDebug("MainWindow: Unknown custom event!");
 			return QMainWindow::event( e );
@@ -89,9 +97,23 @@ void MainWindow::closeEvent ( QCloseEvent * e )
 void MainWindow::handleConsoleMessage( const QString& msg )
 {
 	QString message ( msg );
-	if ( message.endsWith('\n') )
-		message.chop(1);
-	ui.logWindow->append( message );
+	ui.logWindow->insertPlainText( message );
+	ui.logWindow->ensureCursorVisible();
+}
+
+void MainWindow::handleConsoleRollbackChars( unsigned int count )
+{
+	QTextCursor cursor = ui.logWindow->textCursor();
+	cursor.setPosition( cursor.position() - count, QTextCursor::KeepAnchor );
+	ui.logWindow->setTextCursor( cursor );
+}
+
+void MainWindow::handleConsoleNotifyState( enServerState s )
+{
+	if ( s == RUNNING )
+		setWindowIcon(QIcon(QLatin1String(":/gui/icon_green.png")));
+	else
+		setWindowIcon(QIcon(QLatin1String(":/gui/icon_red.png")));
 }
 
 void MainWindow::onServerStoped()
@@ -253,7 +275,7 @@ void cConsole::send( const QString& sMessage )
 		progress = temp;
 	}
 
-	QApplication::postEvent( mainWindow, new QWPConsoleSendEvent( sMessage ) );
+	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( QWolfpackConsoleEvent::SendEvent, sMessage ) );
 	// Append to the linebuffer
 	linebuffer_.append( sMessage );
 
@@ -270,49 +292,48 @@ void cConsole::send( const QString& sMessage )
 
 void cConsole::rollbackChars( unsigned int count )
 {
-
+	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( QWolfpackConsoleEvent::RollbackCharsEvent, count ) );
 }
 
 void cConsole::changeColor( enConsoleColors color )
 {
-	QColor qcolor;
+	QRgb qcolor;
 	switch ( color )
 	{
 	case WPC_GREEN:
-		qcolor.setRgb( 0x00, 0xFF, 0x00 );
+		qcolor = qRgb( 0x00, 0xFF, 0x00 );
 		break;
 
 	case WPC_RED:
-		qcolor.setRgb( 0xFF, 0x00, 0x00 );
+		qcolor = qRgb( 0xFF, 0x00, 0x00 );
 		break;
 
 	case WPC_YELLOW:
-		qcolor.setRgb( 0x00, 0xFF, 0xFF );
+		qcolor = qRgb( 0x00, 0xFF, 0xFF );
 		break;
 
 	case WPC_BROWN:
-		qcolor.setRgb( 204, 204, 153 );
+		qcolor = qRgb( 204, 204, 153 );
 		break;
 
 	case WPC_NORMAL:
-		qcolor.setRgb( 0xAF, 0xAF, 0xAF );
+		qcolor = qRgb( 0xAF, 0xAF, 0xAF );
 		break;
 
 	case WPC_WHITE:
-		qcolor.setRgb( 0xFF, 0xFF, 0xFF );
+		qcolor = qRgb( 0xFF, 0xFF, 0xFF );
 		break;
 	}
-	QApplication::postEvent( mainWindow, new QWPConsoleChangeColorEvent( qcolor ) );
+	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( QWolfpackConsoleEvent::ChangeColorEvent, qcolor ) );
 }
 
 void cConsole::setConsoleTitle( const QString& title )
 {
-	QApplication::postEvent( mainWindow, new QWPConsoleTitleEvent( title ) );
+	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( QWolfpackConsoleEvent::SetTitleEvent, title ) );
 }
 
 void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, enFontType font )
 {
-	QTextCharFormat format;
 	QFont f;
 	switch ( font )
 	{
@@ -332,12 +353,13 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 	f.setUnderline( underlined );
 	if ( size > 0 )
 		f.setPointSize( size );
-	QApplication::postEvent( mainWindow, new QWPConsoleChangeFontEvent( f ) );
-	QApplication::postEvent( mainWindow, new QWPConsoleChangeColorEvent( QColor(r, g, b) ) );
+	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( f ) );
+	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( QWolfpackConsoleEvent::ChangeColorEvent, qRgb(r, g, b) ) );
 }
 
 void cConsole::notifyServerState( enServerState newstate )
 {
+	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( QWolfpackConsoleEvent::NotifyState, newstate ) );
 }
 
 void cConsole::start()

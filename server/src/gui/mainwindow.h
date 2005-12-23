@@ -47,6 +47,8 @@ protected:
 	bool event ( QEvent * e );
 	void closeEvent ( QCloseEvent * e );
 	void handleConsoleMessage( const QString& );
+	void handleConsoleRollbackChars( unsigned int );
+	void handleConsoleNotifyState( enServerState );
 
 private slots:
     void exportDefs();
