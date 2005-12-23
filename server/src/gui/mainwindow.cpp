@@ -39,12 +39,10 @@
 MainWindow::MainWindow() : QMainWindow( 0, 0 )
 {
 	ui.setupUi( this );
-	setWindowIcon(QIcon(QLatin1String(":/gui/icon.png")));
 
 	// Start Menus
 	createActions();
     createMenus();
-
 	// Fire up the server thread
 	Server::instance()->start();
 	connect( Server::instance(), SIGNAL(finished()), this, SLOT(onServerStoped()) );
@@ -225,7 +223,7 @@ void MainWindow::exportDefs()
 
 void MainWindow::closeWP()
 {
-	Server::instance()->cancel();
+	close();
 }
 
 void MainWindow::reloadAcc()
