@@ -41,6 +41,12 @@ public:
 
 protected:
 	bool event ( QEvent * e );
+	void closeEvent ( QCloseEvent * e );
+
+	void handleConsoleMessage( const QString& );
+
+protected slots:
+	void onServerStoped();
 };
 
 
