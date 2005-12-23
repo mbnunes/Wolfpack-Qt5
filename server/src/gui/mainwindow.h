@@ -29,21 +29,52 @@
 #define __MAINWINDOW_H__
 
 #include <QMainWindow>
-
 #include "ui_mainwindow.h"
+
+class QAction;
+class QMenu;
+class QTextEdit;
 
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 	Ui::MainWindow ui;
+
 public:
 	MainWindow();
 
 protected:
 	bool event ( QEvent * e );
 	void closeEvent ( QCloseEvent * e );
-
 	void handleConsoleMessage( const QString& );
+
+private slots:
+    void exportDefs();
+	void closeWP();
+	void reload( int choice );
+	void saveworld();
+	void listusers();
+	void homepage();
+	void about();
+
+private:
+	void createActions();
+    void createMenus();
+
+    QMenu *fileMenu;
+	QMenu *reloadMenu;
+	QMenu *serverMenu;
+	QMenu *helpMenu;
+	QAction *expdefAct;
+	QAction *exitAct;
+	QAction *reloadAccountsAct;
+	QAction *reloadConfigAct;
+	QAction *reloadPythonAct;
+	QAction *reloadScriptsAct;
+	QAction *serverSaveAct;
+	QAction *serverUsersAct;
+	QAction *helpHPAct;
+	QAction *helpAboutAct;
 
 protected slots:
 	void onServerStoped();

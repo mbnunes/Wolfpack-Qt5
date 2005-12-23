@@ -24,6 +24,7 @@
 *
 * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
 */
+#include <QtGui>
 
 #include "mainwindow.h"
 #include "qwpevents.h"
@@ -34,6 +35,10 @@
 MainWindow::MainWindow() : QMainWindow( 0, 0 )
 {
 	ui.setupUi( this );
+
+	// Start Menus
+	createActions();
+    createMenus();
 
 	// Fire up the server thread
 	Server::instance()->start();
@@ -92,6 +97,128 @@ void MainWindow::onServerStoped()
 {
 	handleConsoleMessage( tr( "\nThe server has been shut down. You can close this window now.\n" ) );
 }
+
+/*
+
+    Generating all Menus
+
+*/
+void MainWindow::createMenus()
+{
+	// File Menu
+    fileMenu = menuBar()->addMenu(tr("&File"));
+	fileMenu->addAction(expdefAct);
+	fileMenu->addAction(exitAct);
+
+	// Reload Menu
+	reloadMenu = menuBar()->addMenu(tr("&Reload"));
+	reloadMenu->addAction(reloadAccountsAct);
+	reloadMenu->addAction(reloadConfigAct);
+	reloadMenu->addAction(reloadPythonAct);
+	reloadMenu->addAction(reloadScriptsAct);
+
+	// Server Menu
+	serverMenu = menuBar()->addMenu(tr("&Server"));
+	serverMenu->addAction(serverSaveAct);
+	serverMenu->addAction(serverUsersAct);
+
+	// Help Menu
+	helpMenu = menuBar()->addMenu(tr("&Help"));
+	helpMenu->addAction(helpHPAct);
+	helpMenu->addAction(helpAboutAct);
+}
+/*
+
+    Actions Section
+
+*/
+void MainWindow::createActions()
+{
+	// File
+    expdefAct = new QAction(tr("Export &Definitions"), this);
+    expdefAct->setShortcut(tr("Ctrl+D"));
+    expdefAct->setStatusTip(tr("Export Definitions"));
+    connect(expdefAct, SIGNAL(triggered()), this, SLOT(exportDefs()));
+
+	exitAct = new QAction(tr("E&xit"), this);
+    exitAct->setShortcut(tr("Ctrl+X"));
+    exitAct->setStatusTip(tr("Exit"));
+    connect(exitAct, SIGNAL(triggered()), this, SLOT(closeWP()));
+
+	// Reload
+	reloadAccountsAct = new QAction(tr("&Accounts"), this);
+    reloadAccountsAct->setShortcut(tr("Ctrl+A"));
+    reloadAccountsAct->setStatusTip(tr("Accounts"));
+    connect(reloadAccountsAct, SIGNAL(triggered()), this, SLOT(reload(1)));
+
+	reloadConfigAct = new QAction(tr("&Configuration"), this);
+    reloadConfigAct->setShortcut(tr("Ctrl+C"));
+    reloadConfigAct->setStatusTip(tr("Configuration"));
+    connect(reloadConfigAct, SIGNAL(triggered()), this, SLOT(reload(2)));
+
+	reloadPythonAct = new QAction(tr("&Python"), this);
+    reloadPythonAct->setShortcut(tr("Ctrl+P"));
+    reloadPythonAct->setStatusTip(tr("Python"));
+    connect(reloadPythonAct, SIGNAL(triggered()), this, SLOT(reload(3)));
+
+	reloadScriptsAct = new QAction(tr("&Scripts"), this);
+    reloadScriptsAct->setShortcut(tr("Ctrl+S"));
+    reloadScriptsAct->setStatusTip(tr("Scripts"));
+    connect(reloadScriptsAct, SIGNAL(triggered()), this, SLOT(reload(4)));
+	
+	// Server
+	serverSaveAct = new QAction(tr("Save &World"), this);
+    serverSaveAct->setShortcut(tr("Ctrl+W"));
+    serverSaveAct->setStatusTip(tr("Save World"));
+    connect(serverSaveAct, SIGNAL(triggered()), this, SLOT(saveworld()));
+
+	serverUsersAct = new QAction(tr("List &Users"), this);
+    serverUsersAct->setShortcut(tr("Ctrl+U"));
+    serverUsersAct->setStatusTip(tr("List Users"));
+    connect(serverUsersAct, SIGNAL(triggered()), this, SLOT(listusers()));
+
+	// Help
+	helpHPAct = new QAction(tr("Wolfpack &HomePage"), this);
+    helpHPAct->setShortcut(tr("Ctrl+H"));
+    helpHPAct->setStatusTip(tr("Wolfpack HomePage"));
+    connect(helpHPAct, SIGNAL(triggered()), this, SLOT(homepage()));
+
+	helpAboutAct = new QAction(tr("&About"), this);
+    helpAboutAct->setShortcut(tr("Ctrl+A"));
+    helpAboutAct->setStatusTip(tr("About"));
+    connect(helpAboutAct, SIGNAL(triggered()), this, SLOT(about()));
+}
+/*
+	The Actions
+*/
+void MainWindow::exportDefs()
+{  
+}
+
+void MainWindow::closeWP()
+{  
+}
+
+void MainWindow::reload( int choice )
+{
+}
+
+void MainWindow::saveworld()
+{
+}
+
+void MainWindow::listusers()
+{
+}
+
+void MainWindow::homepage()
+{
+}
+
+void MainWindow::about()
+{
+}
+
 /*
 
 	Wolfpack Console class Interface
