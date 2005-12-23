@@ -28,6 +28,32 @@ TREASPAWNS = {
 }
 
 ####################################################################################
+###################     Constants      #############################################
+####################################################################################
+
+MINSPAWN = 3
+MAXSPAWN = 6
+
+####################################################################################
+###################     Using      #################################################
+####################################################################################
+
+def onUse(player, item):
+
+	# Get Owner of the Treaure Chest and Party Leader
+	owner = item.gettag('owner')
+	if item.hastag('party'):
+		party = item.gettag('party')
+
+	# If you are not the owner or is not in the party of chest so... lets make you criminal!
+	if not str(player.serial) == str(owner):
+		if not item.hastag('party'):
+			player.criminal()
+		else:
+			if not str(party) == str(player.party.leader.serial):
+				player.criminal()
+
+####################################################################################
 ###################     Spawning      ##############################################
 ####################################################################################
 
@@ -38,7 +64,7 @@ def treasmonsterspawn( item ):
 	spawnlist = TREASPAWNS[level]
 
 	# Lets check the amount of creatures. Always between 0 and 3:
-	amountspawned = random.randint(0,3)
+	amountspawned = random.randint(MINSPAWN,MAXSPAWN)
 
 	# Now... lets just Spawn creatures
 	for i in range(0, amountspawned):

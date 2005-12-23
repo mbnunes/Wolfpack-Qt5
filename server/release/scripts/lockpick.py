@@ -33,6 +33,7 @@ def response(char, args, target):
 					target.item.removescript( 'lock' )
 					target.item.deltag('lock')
 					target.item.deltag('locked')
+					target.item.resendtooltip()
 
 					if lockpick.amount == 1:
 						lockpick.delete()

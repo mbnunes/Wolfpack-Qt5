@@ -14,7 +14,7 @@ import random
 from wolfpack import tr
 
 from map import sendmapcommand
-from wolfpack.consts import CARTOGRAPHY
+from wolfpack.consts import CARTOGRAPHY, ANIM_ATTACK3
 from treasurechest import treasmonsterspawn
 
 ####################################################################################
@@ -368,12 +368,36 @@ def checktreaspoint(x, y, z, map, item, char):
 		if xtreas == x and ytreas == y:
 			if not item.hastag('founded'):
 				item.settag('founded', 1)
-				createtreaschest(x, y, z, map, char, level)
+				# Animation
+				char.action( ANIM_ATTACK3 )
+				# Dirt
+				dirt = wolfpack.additem("911")
+				dirt.addtimer( 1500, generatechest, [x,y,z,map,char,level])
+				dirt.moveto(x, y, z, map)
+				dirt.update()
+				# Returning
 				return 1
 			else:
 				return 0
 		else:
 			return 0
+
+#####################################################################################
+#######################   Timer for Dirt   ##########################################
+#####################################################################################
+
+def generatechest(item, args):
+
+	x = args[0]
+	y = args[1]
+	z = args[2]
+	map = args[3]
+	char = args[4]
+	level = args[5]
+
+	item.delete()
+
+	createtreaschest(x, y, z, map, char, level)
 
 #####################################################################################
 #######################   Create Treasure Chest   ###################################
@@ -384,7 +408,12 @@ def createtreaschest(x, y, z, map, char, level):
 	item = wolfpack.additem("treasure chest")
 	item.settag('level', level)
 	item.moveto(x, y, z, map)
-	item.update
+	item.update()
+
+	# Lets set the member and, if possible, the party leader for this chest
+	item.settag('owner', char.serial)
+	if char.party:
+		item.settag('party', char.party.leader.serial)
 
 	# Spawn some creatures
 	treasmonsterspawn( item )

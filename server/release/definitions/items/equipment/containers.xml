@@ -473,7 +473,7 @@
 		<id>0xe41</id>
 		<basescripts>lock,treasurechest</basescripts>
 		<tag name="locked" value="1" />
-		<tag name="lock" value="1" />
+		<tag name="lock" value="lockpick" />
 		<category>Equipment\Containers\Golden Metal Chest (N/S)</category>
 	</item>
 
