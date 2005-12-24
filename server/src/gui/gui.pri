@@ -13,3 +13,5 @@ FORMS +=	\
 			$$PWD/mainwindow.ui
 
 RESOURCES += $$PWD/gui.qrc
+
+include ( $$PWD/trayicon/trayicon.pri )

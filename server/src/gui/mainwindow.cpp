@@ -28,6 +28,7 @@
 
 #include "mainwindow.h"
 #include "qwpevents.h"
+#include "trayicon/trayicon.h"
 
 #include "../console.h"
 #include "../server.h"
@@ -36,16 +37,26 @@
 #include "../network/uosocket.h"
 #include "../player.h"
 
-MainWindow::MainWindow() : QMainWindow( 0, 0 )
+MainWindow::MainWindow()
 {
 	ui.setupUi( this );
 
+	setWindowIcon( QIcon(":/gui/images/icon_red.png") );
 	// Start Menus
 	createActions();
     createMenus();
+
+	// Setup trayicon
+	trayicon = new TrayIcon( QPixmap(":/gui/images/icon_red.png"), tr("Wolfpack"), 0, this );
+	trayicon->show();
 	// Fire up the server thread
 	Server::instance()->start();
 	connect( Server::instance(), SIGNAL(finished()), this, SLOT(onServerStoped()) );
+}
+
+MainWindow::~MainWindow()
+{
+	trayicon->hide();
 }
 
 bool MainWindow::event( QEvent* e )
@@ -98,6 +109,9 @@ void MainWindow::closeEvent ( QCloseEvent * e )
 void MainWindow::handleConsoleMessage( const QString& msg )
 {
 	QString message ( msg );
+	QTextCursor cursor = ui.logWindow->textCursor();
+	cursor.movePosition( QTextCursor::End );
+	ui.logWindow->setTextCursor( cursor );
 	ui.logWindow->insertPlainText( message );
 	ui.logWindow->ensureCursorVisible();
 }
@@ -106,15 +120,22 @@ void MainWindow::handleConsoleRollbackChars( unsigned int count )
 {
 	QTextCursor cursor = ui.logWindow->textCursor();
 	cursor.setPosition( cursor.position() - count, QTextCursor::KeepAnchor );
+	cursor.removeSelectedText();
 	ui.logWindow->setTextCursor( cursor );
 }
 
 void MainWindow::handleConsoleNotifyState( enServerState s )
 {
 	if ( s == RUNNING )
-		setWindowIcon(QIcon(QLatin1String(":/gui/icon_green.png")));
+	{
+		setWindowIcon(QIcon(":/gui/images/icon_green.png"));
+		trayicon->setIcon( QPixmap(":/gui/images/icon_green.png") );
+	}
 	else
-		setWindowIcon(QIcon(QLatin1String(":/gui/icon_red.png")));
+	{
+		setWindowIcon(QIcon(":/gui/images/icon_red.png"));
+		trayicon->setIcon( QPixmap(":/gui/images/icon_red.png") );
+	}
 }
 
 void MainWindow::onServerStoped()
@@ -350,7 +371,7 @@ void cConsole::changeColor( enConsoleColors color )
 		qcolor = qRgb( 0xFF, 0xFF, 0xFF );
 		break;
 	}
-	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( QWolfpackConsoleEvent::ChangeColorEvent, qcolor ) );
+	QApplication::postEvent( mainWindow, new QWolfpackConsoleEvent( QWolfpackConsoleEvent::ChangeColorEvent, (int)qcolor ) );
 }
 
 void cConsole::setConsoleTitle( const QString& title )

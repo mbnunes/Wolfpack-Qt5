@@ -34,14 +34,16 @@
 class QAction;
 class QMenu;
 class QTextEdit;
+class TrayIcon;
 
 class MainWindow : public QMainWindow
 {
 	Q_OBJECT
 	Ui::MainWindow ui;
-
+	TrayIcon* trayicon;
 public:
 	MainWindow();
+	~MainWindow();
 
 protected:
 	bool event ( QEvent * e );
