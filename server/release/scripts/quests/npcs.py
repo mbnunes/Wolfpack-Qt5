@@ -19,7 +19,6 @@ from quests.functions import *
 #######################################################################################
 
 def openchoicequestmenu(char, player):
-
 	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
@@ -41,7 +40,6 @@ def openchoicequestmenu(char, player):
 #######################################################################################
 
 def questchoiceresponse( char, args, target ):
-
 	button = target.button
 
 	npc = args[0]
@@ -59,7 +57,6 @@ def questchoiceresponse( char, args, target ):
 #######################################################################################
 
 def npcquestmain(npc, player):
-
 	# Amount of Quests
 	questamount = returnamountquests(npc)
 
@@ -84,7 +81,6 @@ def npcquestmain(npc, player):
 #######################################################################################
 
 def npcquestreport(npc, player):
-
 	# Amount of Quests of this NPC
 	questamount = 0
 
@@ -111,7 +107,6 @@ def npcquestreport(npc, player):
 #######################################################################################
 
 def npcquestmenu(npc, player, questamount):
-	
 	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
@@ -168,7 +163,6 @@ def npcquestmenu(npc, player, questamount):
 #######################################################################################
 
 def questlistresponse( char, args, target ):
-
 	button = target.button
 
 	npc = args[1]
@@ -183,7 +177,6 @@ def questlistresponse( char, args, target ):
 #######################################################################################
 
 def showmenuquest(player, id, npc):
-
 	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
@@ -226,7 +219,6 @@ def showmenuquest(player, id, npc):
 #######################################################################################
 
 def questshowresponse( char, args, target ):
-
 	button = target.button
 
 	npc = args[0]
@@ -247,7 +239,6 @@ def questshowresponse( char, args, target ):
 #######################################################################################
 
 def showquestdetailsnpc(player, id, npc, page):
-
 	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
@@ -326,7 +317,6 @@ def showquestdetailsnpc(player, id, npc, page):
 #######################################################################################
 
 def questdetailsresponsenpc( char, args, target ):
-
 	button = target.button
 
 	id = args[0]
@@ -352,7 +342,6 @@ def questdetailsresponsenpc( char, args, target ):
 #######################################################################################
 
 def npcreportlist(npc, player):
-	
 	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
@@ -407,7 +396,6 @@ def npcreportlist(npc, player):
 #######################################################################################
 
 def npcreportresponse( char, args, target ):
-
 	button = target.button
 
 	npc = args[0]
@@ -421,7 +409,6 @@ def npcreportresponse( char, args, target ):
 #######################################################################################
 
 def returnquestlist(npc):
-	
 	if not npc.hastag('quests'):
 		return 0
 	else:
@@ -437,12 +424,11 @@ def returnquestlist(npc):
 #######################################################################################
 
 def returnamountquests(npc):
-	
 	if not npc.hastag('quests'):
 		return 0
 	else:
 		# Picking Quests and making a list
-		quests = npc.gettag('quests')
+		quests = str(npc.gettag('quests'))
 		questlist = quests.split(',')
 
 		# Returning the amount

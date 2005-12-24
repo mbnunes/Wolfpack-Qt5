@@ -19,7 +19,6 @@ from quests.functions import *
 #######################################################################################
 
 def openquestplayer(player):
-	
 	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
@@ -72,7 +71,6 @@ def openquestplayer(player):
 #######################################################################################
 
 def questplayerresponse( player, args, target ):
-
 	button = target.button
 
 	if not button == 0:
@@ -90,7 +88,6 @@ def questplayerresponse( player, args, target ):
 #######################################################################################
 
 def showquestdescription(player, id, slot):
-
 	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
@@ -132,7 +129,6 @@ def showquestdescription(player, id, slot):
 #######################################################################################
 
 def questdescriptionresponse( char, args, target ):
-
 	button = target.button
 
 	id = args[0]
@@ -154,7 +150,6 @@ def questdescriptionresponse( char, args, target ):
 #######################################################################################
 
 def showquestdetails(player, id, slot, page):
-
 	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
@@ -245,7 +240,6 @@ def showquestdetails(player, id, slot, page):
 #######################################################################################
 
 def questdetailsresponse( char, args, target ):
-
 	button = target.button
 
 	id = args[0]

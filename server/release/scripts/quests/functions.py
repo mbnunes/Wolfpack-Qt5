@@ -22,7 +22,6 @@ from quests.utils import *
 #######################################################################################
 
 def givequesttoplayer(player, id, npc):
-
 	freeslot = 0		# Flag
 	alreadyhave = 0		# Another Flag
 
@@ -88,7 +87,6 @@ def givequesttoplayer(player, id, npc):
 #######################################################################################
 
 def resignquest(player, id, slot):
-
 	if not player.hastag('Quest.'+ str(slot) +'.ID'):
 		player.socket.sysmessage("We have an error in quest system. You resign a Quest that you dont own")
 	else:
@@ -105,7 +103,6 @@ def resignquest(player, id, slot):
 #######################################################################################
 
 def checknpcforquest(player, dead):
-	
 	for i in range(1, 11):
 
 		#
@@ -152,7 +149,6 @@ def checknpcforquest(player, dead):
 #######################################################################################
 
 def reportquestnpc(player, npc, slot):
-
 	# Lets find ID of this quest
 	id = player.gettag('Quest.'+ str(slot) +'.ID')
 
@@ -203,7 +199,6 @@ def reportquestnpc(player, npc, slot):
 #######################################################################################
 
 def completequest(player, slot, id):
-
 	# Get Backpack
 	backpack = player.getbackpack()
 	
