@@ -39,9 +39,15 @@ int PyProfiler::tracefunc( PyObject *obj, PyFrameObject *frame, int what, PyObje
 		//that->data.find()
 		// Don't count recursions
 		pdata = &that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)];	
-		pdata.firstline = frame->f_code->co_firstlineno;
+		pdata->firstline = frame->f_code->co_firstlineno;
 		if ( frame != frame->f_back )
-			pdata.calls++;
+		{
+			pdata->calls++;
+			if ( frame->f_back )
+				pdata->callees.insert( PyString_AS_STRING( frame->f_back->f_code->co_name ) );
+			else
+				pdata->callees.insert( tr("<core>").toLocal8Bit() );
+		}
 		//that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)] = pdata;
 		
 	case PyTrace_RETURN:

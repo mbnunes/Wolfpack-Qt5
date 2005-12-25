@@ -101,7 +101,7 @@ private:
 ProfileSessionModel::ProfileSessionModel( const ProfileSession& data, QObject* parent /* = 0  */) : QAbstractItemModel( parent )
 {
 	QList<QVariant> rootData;
-	rootData << "File" << "Function" << "Calls";
+	rootData << tr("File") << tr("Function") << tr("Calls") << tr("Callees");
 	rootItem = new TreeItem(rootData);
 	setupModelData(data, rootItem);
 }
@@ -202,7 +202,12 @@ void ProfileSessionModel::setupModelData(const ProfileSession& data, TreeItem *p
 			QList<QVariant> columnData;
 			columnData << it.key() << funcs.key() << funcs.value().calls;
 			accumulatedCalls += funcs.value().calls;
-			upperLevel->appendChild( new TreeItem( columnData, upperLevel ) );
+			TreeItem* function = new TreeItem( columnData, upperLevel );
+			upperLevel->appendChild( function );
+			foreach( QByteArray callee, funcs.value().callees )
+			{
+				function->appendChild( new TreeItem( QList<QVariant>() << "" << "" << "" << callee, function ) );
+			}
 		}
 		upperLevel->setData( QList<QVariant>() << it.key() << tr("Accumulated") << accumulatedCalls );
 		parent->appendChild( upperLevel );

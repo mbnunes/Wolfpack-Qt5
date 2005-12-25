@@ -34,13 +34,19 @@
 #include <frameobject.h>
 
 #include <QHash>
+#include <QSet>
 
 class ProfileData
 {
 public:
+	ProfileData() : timming( 0 ), calls( 0 ), firstline ( 0 )
+	{
+	}
+
 	uint timming;
 	uint calls;
 	uint firstline;
+	QSet<QByteArray> callees;
 };
 
 typedef QHash< QByteArray, QMap< QByteArray, ProfileData > > ProfileSession;
