@@ -895,6 +895,7 @@
 	<item id="d96">
 		<id>0xD96</id>
 		<nodecay />
+		<scripts>farming</scripts>
 		<category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 2</category>
 	</item>
 
@@ -919,6 +920,7 @@
 	<item id="d9a">
 		<id>0xD9A</id>
 		<nodecay />
+		<scripts>farming</scripts>
 		<category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 2</category>
 	</item>
 
@@ -943,6 +945,7 @@
 	<item id="d9e">
 		<id>0xD9E</id>
 		<nodecay />
+		<scripts>farming</scripts>
 		<category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 2</category>
 	</item>
 
@@ -967,6 +970,7 @@
 	<item id="da2">
 		<id>0xDA2</id>
 		<nodecay />
+		<scripts>farming</scripts>
 		<category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 2</category>
 	</item>
 
@@ -991,6 +995,7 @@
 	<item id="da6">
 		<id>0xDA6</id>
 		<nodecay />
+		<scripts>farming</scripts>
 		<category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 2</category>
 	</item>
 
@@ -1015,6 +1020,7 @@
 	<item id="daa">
 		<id>0xDAA</id>
 		<nodecay />
+		<scripts>farming</scripts>
 		<category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 2</category>
 	</item>
 
