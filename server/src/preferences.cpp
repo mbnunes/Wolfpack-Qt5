@@ -307,6 +307,9 @@ void Preferences::processGroup( const QDomElement& group )
 */
 void Preferences::writeData()
 {
+	const quint8 indent = 2;
+	QString t = "  ";
+
 	QDomDocument doc( "preferences" );
 
 	// create the root element
@@ -325,9 +328,9 @@ void Preferences::writeData()
 
 		if ( commentText != QString::null )
 		{
-			root.appendChild( doc.createTextNode( "\n\n\t" ) );
-			root.appendChild( doc.createComment( "\n\t" + commentText.replace( "\n", "\n\t" ) + "\n\t" ) );
-			root.appendChild( doc.createTextNode( "\n\t" ) );
+			root.appendChild( doc.createTextNode( "\n\n" + t ) );
+			root.appendChild( doc.createComment( "\n" + t + commentText.replace( "\n", "\n" + t ) + "\n" + t ) );
+			root.appendChild( doc.createTextNode( "\n" + t ) );
 		}
 
 		// create a group element
@@ -340,9 +343,9 @@ void Preferences::writeData()
 
 			if ( commentText != QString::null )
 			{
-				group.appendChild( doc.createTextNode( "\n\n\t" ) );
-				group.appendChild( doc.createComment( "\t" + commentText.replace( "\n", "\n\t" ) + "\t" ) );
-				group.appendChild( doc.createTextNode( "\n\t" ) );
+				group.appendChild( doc.createTextNode( "\n\n" + t + t ) );
+				group.appendChild( doc.createComment( t + commentText.replace( "\n", "\n" + t + t ) + t ) );
+				group.appendChild( doc.createTextNode( "\n" + t + t ) );
 			}
 
 			option = doc.createElement( "option" );
@@ -367,7 +370,7 @@ void Preferences::writeData()
 
 	// write it out
 	QTextStream textstream( &datafile );
-	doc.save( textstream, 2 );
+	doc.save( textstream, indent );
 	datafile.close();
 	d->formatstate_ = true;
 }

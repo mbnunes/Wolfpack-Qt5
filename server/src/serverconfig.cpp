@@ -458,7 +458,7 @@ QString cConfig::getEntryDoc( const QString& group, const QString& entry )
 	static stEntryDoc entry_doc[] =
 	{
 	{"Accounts", "Auto Create", QT_TR_NOOP( "If active login attempts with non-existing login names will create a new account automatically\n"
-	"This is very usefull for new shards without account policy\n" )},
+	"This is very usefull for new shards without account policy" )},
 	{"Accounts", "Database Driver", QT_TR_NOOP( "Possible values are: sqlite, mysql" )},
 	{"Accounts", "Maximum Number of Characters", QT_TR_NOOP( "Should not be more than 6, due to client restrictions" )},
 	{"Accounts", "Use MD5 Hashed Passwords", QT_TR_NOOP( "This will store hashed passwords, increasing password security." )},

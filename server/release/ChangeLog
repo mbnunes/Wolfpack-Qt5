@@ -77,6 +77,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added support for regional monetary with new monetary system (Every region could have your own money)
   - Added new parameters in XML regions for new monetary: <firstcoin>,<secondcoin> and <thirdcoin>
   - onSpeech event will work for items too
+  - Fixed bug #0000026. (Indentation in generated wolfpack.xml broken)
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
