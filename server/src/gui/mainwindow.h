@@ -64,6 +64,8 @@ private slots:
 	void homepage();
 	void about();
 
+	void profilerStopped();
+
 private:
 	void createActions();
     void createMenus();
@@ -71,6 +73,7 @@ private:
     QMenu *fileMenu;
 	QMenu *reloadMenu;
 	QMenu *serverMenu;
+	QMenu *scriptingMenu;
 	QMenu *helpMenu;
 	QAction *expdefAct;
 	QAction *exitAct;
@@ -80,6 +83,8 @@ private:
 	QAction *reloadScriptsAct;
 	QAction *serverSaveAct;
 	QAction *serverUsersAct;
+	QAction *scriptingProfilerStart;
+	QAction *scriptingProfilerStop;
 	QAction *helpHPAct;
 	QAction *helpAboutAct;
 

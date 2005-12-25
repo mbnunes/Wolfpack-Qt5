@@ -28,6 +28,7 @@
 
 #include "mainwindow.h"
 #include "qwpevents.h"
+#include "profilerwindow.h"
 #include "trayicon/trayicon.h"
 
 #include "../console.h"
@@ -36,6 +37,7 @@
 #include "../network/network.h"
 #include "../network/uosocket.h"
 #include "../player.h"
+#include "../python/pyprofiler.h"
 
 MainWindow::MainWindow()
 {
@@ -52,6 +54,10 @@ MainWindow::MainWindow()
 	// Fire up the server thread
 	Server::instance()->start();
 	connect( Server::instance(), SIGNAL(finished()), this, SLOT(onServerStoped()) );
+
+	// Push Python Profiler to Wolfpack's thread
+	PyProfiler::instance()->moveToThread( Server::instance() );
+	connect( PyProfiler::instance(), SIGNAL(stopped()), this, SLOT(profilerStopped()) );
 }
 
 MainWindow::~MainWindow()
@@ -167,6 +173,12 @@ void MainWindow::createMenus()
 	serverMenu->addAction(serverSaveAct);
 	serverMenu->addAction(serverUsersAct);
 
+	// Scripting Menu
+	scriptingMenu = menuBar()->addMenu( tr("&Scripting") );
+	QMenu* subMenu = scriptingMenu->addMenu( tr("&Profiler") );
+	subMenu->addAction( scriptingProfilerStart );
+	subMenu->addAction( scriptingProfilerStop );
+
 	// Help Menu
 	helpMenu = menuBar()->addMenu(tr("&Help"));
 	helpMenu->addAction(helpHPAct);
@@ -221,6 +233,14 @@ void MainWindow::createActions()
     serverUsersAct->setShortcut(tr("Ctrl+U"));
     serverUsersAct->setStatusTip(tr("List Users"));
     connect(serverUsersAct, SIGNAL(triggered()), this, SLOT(listusers()));
+
+	// Scripting - Profiler
+	scriptingProfilerStart = new QAction( tr("Start"), this );
+	connect( scriptingProfilerStart, SIGNAL(triggered()), PyProfiler::instance(), SLOT(start()), Qt::QueuedConnection);
+
+	scriptingProfilerStop = new QAction( tr("Stop"), this );
+	connect( scriptingProfilerStop, SIGNAL(triggered()), PyProfiler::instance(), SLOT(stop()), Qt::QueuedConnection);
+
 
 	// Help
 	helpHPAct = new QAction(tr("Wolfpack &HomePage"), this);
@@ -302,6 +322,12 @@ void MainWindow::homepage()
 
 void MainWindow::about()
 {
+}
+
+void MainWindow::profilerStopped()
+{
+	ProfilerWindow* p = new ProfilerWindow( this );
+	p->show();
 }
 
 /*
@@ -411,6 +437,7 @@ void cConsole::notifyServerState( enServerState newstate )
 
 void cConsole::start()
 {
+
 }
 
 // Yeah, it's exactly the same in all 3 files, we could consolidade in console.cpp

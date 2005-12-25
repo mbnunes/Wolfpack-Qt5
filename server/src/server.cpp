@@ -265,6 +265,8 @@ void myMessageOutput( QtMsgType type, const char *msg )
     }
 }
 
+#include "python/pyprofiler.h"
+
 void cServer::run()
 {
 #if !defined( DEBUG )
@@ -276,6 +278,7 @@ void cServer::run()
 #endif
 
 	bool error = false;
+	QEventLoop eventLoop;
 
 	// Register Components
 	registerComponent( Config::instance(), QT_TR_NOOP( "configuration" ), true, false );
@@ -424,10 +427,10 @@ void cServer::run()
 					msleep( 10 ); break;
 				}
 				PyEval_RestoreThread( _save ); // Python threading - end
-				QCoreApplication::processEvents();
 
 				stopProfiling( PF_NICENESS );
 			}
+			eventLoop.processEvents();
 
 			pollQueuedActions();
 

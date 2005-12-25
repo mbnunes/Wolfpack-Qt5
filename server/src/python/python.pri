@@ -8,6 +8,7 @@ HEADERS += \
 	$$PWD/pyaction.h \
 	$$PWD/pycontent.h \
 	$$PWD/pypacket.h \
+	$$PWD/pyprofiler.h \
 	$$PWD/pyspawnregion.h \
 	$$PWD/regioniterator.h \
 	$$PWD/skills.h \
@@ -26,6 +27,7 @@ SOURCES += \
 	$$PWD/pyai.cpp \           
 	$$PWD/pycoord.cpp \
 	$$PWD/pypacket.cpp \
+	$$PWD/pyprofiler.cpp \
 	$$PWD/pyregion.cpp \
 	$$PWD/pyspawnregion.cpp \
 	$$PWD/pytooltip.cpp \
