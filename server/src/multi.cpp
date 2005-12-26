@@ -194,12 +194,19 @@ cMulti* cMulti::find( const Coord& pos )
 
 void cMulti::save( cBufferedWriter& writer )
 {
-	cItem::save( writer );
-
-	// Save objects within this multi *after* the multi
-	foreach ( cUObject* object, objects )
+	if ( free )
 	{
-		object->save( writer );
+		Console::instance()->log( LOG_WARNING, tr( "Skipping multi 0x%1 during save process because it's already freed.\n" ).arg( serial_, 0, 16 ) );
+	}
+	else
+	{
+		cItem::save( writer );
+
+		// Save objects within this multi *after* the multi
+		foreach ( cUObject* object, objects )
+		{
+			object->save( writer );
+		}
 	}
 }
 

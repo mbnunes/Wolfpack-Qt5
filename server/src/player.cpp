@@ -148,18 +148,25 @@ void cPlayer::load( cBufferedReader& reader, unsigned int version )
 
 void cPlayer::save( cBufferedWriter& writer, unsigned int version )
 {
-	cBaseChar::save( writer, version );
-	writer.writeUtf8( account_ ? account_->login() : QString::null );
-	writer.writeInt( additionalFlags_ );
-	writer.writeByte( visualRange_ );
-	writer.writeUtf8( profile_ );
-	writer.writeByte( fixedLightLevel_ );
-	writer.writeByte( strengthLock_ );
-	writer.writeByte( dexterityLock_ );
-	writer.writeByte( intelligenceLock_ );
-	if ( version > 7 )
+	if ( free )
 	{
-		writer.writeByte( maxControlSlots_ );
+		Console::instance()->log( LOG_WARNING, tr( "Skipping player 0x%1 during save process because it's already freed.\n" ).arg( serial_, 0, 16 ) );
+	}
+	else
+	{
+		cBaseChar::save( writer, version );
+		writer.writeUtf8( account_ ? account_->login() : QString::null );
+		writer.writeInt( additionalFlags_ );
+		writer.writeByte( visualRange_ );
+		writer.writeUtf8( profile_ );
+		writer.writeByte( fixedLightLevel_ );
+		writer.writeByte( strengthLock_ );
+		writer.writeByte( dexterityLock_ );
+		writer.writeByte( intelligenceLock_ );
+		if ( version > 7 )
+		{
+			writer.writeByte( maxControlSlots_ );
+		}
 	}
 }
 

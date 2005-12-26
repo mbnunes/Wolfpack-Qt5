@@ -179,19 +179,26 @@ void cNPC::load( cBufferedReader& reader, unsigned int version )
 
 void cNPC::save( cBufferedWriter& writer, unsigned int version )
 {
-	cBaseChar::save( writer, version );
+	if ( free )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Skipping npc 0x%1 during save process because it's already freed.\n" ).arg( serial_, 0, 16 ) );
+	}
+	else
+	{
+		cBaseChar::save( writer, version );
 
-	writer.writeInt( summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
-	writer.writeInt( additionalFlags_ );
-	writer.writeInt( owner_ ? owner_->serial() : INVALID_SERIAL );
-	writer.writeInt( stablemasterSerial_ );
-	writer.writeAscii( aiid_.toLatin1() );
-	writer.writeByte( ( unsigned char ) wanderType() );
-	writer.writeShort( wanderX1() );
-	writer.writeShort( wanderY1() );
-	writer.writeShort( wanderX2() );
-	writer.writeShort( wanderY2() );
-	writer.writeShort( wanderRadius() );
+		writer.writeInt( summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
+		writer.writeInt( additionalFlags_ );
+		writer.writeInt( owner_ ? owner_->serial() : INVALID_SERIAL );
+		writer.writeInt( stablemasterSerial_ );
+		writer.writeAscii( aiid_.toLatin1() );
+		writer.writeByte( ( unsigned char ) wanderType() );
+		writer.writeShort( wanderX1() );
+		writer.writeShort( wanderY1() );
+		writer.writeShort( wanderX2() );
+		writer.writeShort( wanderY2() );
+		writer.writeShort( wanderRadius() );
+	}
 }
 
 void cNPC::load( char** result, quint16& offset )

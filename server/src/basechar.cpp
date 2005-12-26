@@ -291,11 +291,11 @@ void cBaseChar::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeAscii( baseid() );
 	writer.writeByte( direction_ );
 
-	// Load Skills
+	// Save Skills
 	unsigned int count = ALLSKILLS;
 	for ( unsigned int s = 0; s < count; ++s )
 	{
-		// Read value, cap, lock
+		// write value, cap, lock
 		writer.writeShort( skillValue( s ) );
 		writer.writeShort( skillCap( s ) );
 		writer.writeByte( skillLock( s ) );

@@ -78,6 +78,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added new parameters in XML regions for new monetary: <firstcoin>,<secondcoin> and <thirdcoin>
   - onSpeech event will work for items too
   - Fixed bug #0000026. (Indentation in generated wolfpack.xml broken)
+  - Fixed bug #0000038. (Server crashed when saving freed item, that was still linked to a multi)
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

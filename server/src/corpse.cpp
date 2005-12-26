@@ -33,6 +33,7 @@
 #include "dbdriver.h"
 #include "network/uosocket.h"
 #include "persistentbroker.h"
+#include "console.h"
 
 #include "world.h"
 #include "player.h"
@@ -82,28 +83,39 @@ void cCorpse::load( cBufferedReader& reader, unsigned int version )
 
 void cCorpse::save( cBufferedWriter& writer, unsigned int version )
 {
-	cItem::save( writer, version );
-	writer.writeShort( bodyId_ );
-	writer.writeShort( 0 /*hairStyle_*/ );
-	writer.writeShort( 0 /*hairColor_*/ );
-	writer.writeShort( 0 /*beardStyle_*/ );
-	writer.writeShort( 0 /*beardColor_*/ );
-	writer.writeByte( direction_ );
-	writer.writeAscii( charbaseid_ );
-	writer.writeInt( murderer_ );
-	writer.writeInt( murdertime_ );
-
-	// Write a serial for every possible layer (fixed block size)
-	unsigned char layer;
-	for ( layer = cBaseChar::SingleHandedWeapon; layer <= cBaseChar::Mount; ++layer )
+	if ( free )
 	{
-		if ( equipment_.contains( layer ) )
+		Console::instance()->log( LOG_WARNING, tr( "Skipping corpse 0x%1 during save process because it's already freed.\n" ).arg( serial_, 0, 16 ) );
+	}
+	else if ( container_ && container_->free )
+	{
+		Console::instance()->log( LOG_WARNING, tr( "Skipping corpse 0x%1 during save process because it's in a freed container.\n" ).arg( serial_, 0, 16 ) );
+	}
+	else
+	{
+		cItem::save( writer, version );
+		writer.writeShort( bodyId_ );
+		writer.writeShort( 0 /*hairStyle_*/ );
+		writer.writeShort( 0 /*hairColor_*/ );
+		writer.writeShort( 0 /*beardStyle_*/ );
+		writer.writeShort( 0 /*beardColor_*/ );
+		writer.writeByte( direction_ );
+		writer.writeAscii( charbaseid_ );
+		writer.writeInt( murderer_ );
+		writer.writeInt( murdertime_ );
+
+		// Write a serial for every possible layer (fixed block size)
+		unsigned char layer;
+		for ( layer = cBaseChar::SingleHandedWeapon; layer <= cBaseChar::Mount; ++layer )
 		{
-			writer.writeInt( equipment_[layer] );
-		}
-		else
-		{
-			writer.writeInt( INVALID_SERIAL );
+			if ( equipment_.contains( layer ) )
+			{
+				writer.writeInt( equipment_[layer] );
+			}
+			else
+			{
+				writer.writeInt( INVALID_SERIAL );
+			}
 		}
 	}
 }
