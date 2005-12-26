@@ -133,12 +133,12 @@ public:
 	{
 		while ( !elements.isEmpty() )
 		{
-			cElement *parent;
+			cElement *parent = 0;
 			while ( !elements.isEmpty() && elements.current() != NULL )
 			{
 				parent = elements.pop();
 			}
-			delete parent;
+			if ( parent ) delete parent;
 
 			while ( !elements.isEmpty() && elements.current() == NULL )
 			{
