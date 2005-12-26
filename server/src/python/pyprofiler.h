@@ -30,11 +30,13 @@
 #define __PYPROFILER_H__
 
 #include "../singleton.h"
-#include <Python.h>
+#include "engine.h"
 #include <frameobject.h>
 
+#include <QObject>
 #include <QHash>
 #include <QSet>
+#include <QMap>
 
 class ProfileData
 {
@@ -51,7 +53,7 @@ public:
 
 typedef QHash< QByteArray, QMap< QByteArray, ProfileData > > ProfileSession;
 
-class PyProfiler : public QObject, public cComponent, public Singleton<PyProfiler>
+class PyProfiler : public QObject, public Singleton<PyProfiler>
 {
 	Q_OBJECT
 

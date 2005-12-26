@@ -30,6 +30,7 @@
 
 #include <QMainWindow>
 #include "ui_mainwindow.h"
+#include "../server.h"
 
 class QAction;
 class QMenu;

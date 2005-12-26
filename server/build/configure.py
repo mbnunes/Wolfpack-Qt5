@@ -324,7 +324,7 @@ def main():
 	DEFINES = ""
 	CONFIG = ""
 	# Setup command line parser
-	parser = OptionParser(version="%prog 0.4")
+	parser = OptionParser(version="%prog 0.5")
 	parser.add_option("--dsp", action="store_true", dest="dsp", help="also Generate Visual Studio project files")
 	parser.add_option("--nocolor", action="store_true", dest="nocolor", help="disable color output support on this script")
 	parser.add_option("--python-includes",  dest="py_incpath", help="Python include path")
@@ -335,6 +335,14 @@ def main():
 	parser.add_option("--enable-aidebug", action="store_true", dest="enable_aidebug", help="Enabled debugging of NPC AI.")
 	parser.add_option("--enable-mysql", action="store_true", dest="enable_mysql", help="Enables MySQL support.")
 	parser.add_option("--enable-translation", action="store_true", dest="enable_translation", help="Enable non-English language support.")
+	parser.add_option("--enable-gui", action="store_true", dest="enable_gui", help="Enables Graphic User Interface" )
+
+	if sys.platform == "win32":
+		parser.set_defaults(enable_gui=True)
+	else:
+		parser.set_defaults(enable_gui=False)
+	
+	# Now let's parse the options
 	(options, args) = parser.parse_args()
 
 	if options.nocolor or sys.platform == "win32":
@@ -423,7 +431,15 @@ def main():
 		sys.stdout.write("Enabled\n")
 	else:
 		sys.stdout.write("Disabled\n")
-		
+	
+	# if --enable-gui
+	sys.stdout.write("GUI:                                    ")
+	if not options.enable_gui:
+		CONFIG += "console"
+		sys.stdout.write("Disabled\n")
+	else:
+		sys.stdout.write("Enabled\n")
+	
 	config.write("DEFINES += %s\n" % DEFINES)
 	config.write("CONFIG += %s\n" % CONFIG)
 	config.write("LIBS += $$PY_LIBDIR $$MySQL_LIBDIR \n")

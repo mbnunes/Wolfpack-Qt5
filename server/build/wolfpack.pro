@@ -17,15 +17,6 @@ DESTDIR = ../release
 
 VERSION = 12.9.14
 
-unix {
-	QT -= gui
-	CONFIG *= console
-
-	# We need to remove these, unnecessary dependency
-	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
-}
-
-
 RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
@@ -51,6 +42,14 @@ precompile_header {
 	INCLUDEPATH += obj
 }
 
+# GUI module
+console {
+	QT -= gui
+	unix:SOURCES += ../src/unix/console_unix.cpp
+} else {
+	include(../src/gui/gui.pri)
+}
+
 SQLITE3_CPP = ../src/sqlite3
 SQLITE3_H = ../src/sqlite3
 PYTHON_CPP = ../src/python
@@ -73,7 +72,6 @@ include($$SQLITE3_CPP/sqlite3.pri)
 include($$NETWORK_CPP/network.pri)
 include($$AI_CPP/ai.pri)
 include($$MULS_CPP/muls.pri)
-include(../src/gui/gui.pri)
 
 # Common files
 
@@ -205,7 +203,6 @@ TRANSLATIONS = \
 	languages/wolfpack_ge.ts
 
 unix:SOURCES  += \
-	../src/unix/console_unix.cpp \
 	../src/unix/config_unix.cpp \
 	../src/unix/getopts_unix.cpp
 

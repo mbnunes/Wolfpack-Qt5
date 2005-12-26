@@ -21,11 +21,16 @@
 
 #include "trayicon.h"
 
-#include<qapplication.h>
-#include<qimage.h>
-#include<qpixmap.h>
-#include<qtooltip.h>
-#include<qpainter.h>
+#include <QApplication>
+#include <QImage>
+#include <QPixmap>
+#include <QToolTip>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QEvent>
+#include <QPaintEvent>
+#include <QCloseEvent>
+#include <QDesktopWidget>
 
 #include<X11/Xlib.h>
 #include<X11/Xutil.h>
@@ -120,13 +125,13 @@ private:
 };
 
 TrayIcon::TrayIconPrivate::TrayIconPrivate(TrayIcon *object, int _size)
-	: QWidget(0, "psidock", WRepaintNoErase)
+	: QWidget(0, 0, Qt::WNoAutoErase)
 {
 	iconObject = object;
 	size = _size;
 
-	setFocusPolicy(NoFocus);
-	setBackgroundMode(X11ParentRelative);
+	setFocusPolicy(Qt::NoFocus);
+	setBackgroundMode(Qt::X11ParentRelative);
 
 	setMinimumSize(size, size);
 	setMaximumSize(size, size);
@@ -140,8 +145,8 @@ void TrayIcon::TrayIconPrivate::initWM(WId icon)
 
 	// set the class hint
 	XClassHint classhint;
-	classhint.res_name  = (char*)"psidock";
-	classhint.res_class = (char*)"Psi";
+	classhint.res_name  = (char*)"wpdock";
+	classhint.res_class = (char*)"Wolfpack";
 	XSetClassHint(dsp, leader, &classhint);
 
 	// set the Window Manager hints
@@ -172,22 +177,6 @@ void TrayIcon::TrayIconPrivate::paintEvent(QPaintEvent *)
 
 void TrayIcon::TrayIconPrivate::enterEvent(QEvent *e)
 {
-	// Taken from KSystemTray..
-//#if QT_VERSION < 0x030200
-	//if ( !qApp->focusWidget() ) {
-		XEvent ev;
-		memset(&ev, 0, sizeof(ev));
-		ev.xfocus.display = qt_xdisplay();
-		ev.xfocus.type = FocusIn;
-		ev.xfocus.window = winId();
-		ev.xfocus.mode = NotifyNormal;
-		ev.xfocus.detail = NotifyAncestor;
-		Time time = qt_x_time;
-		qt_x_time = 1;
-		qApp->x11ProcessEvent( &ev );
-		qt_x_time = time;
-	//}
-//#endif
 	QWidget::enterEvent(e);
 }
 
@@ -312,7 +301,7 @@ public:
 	{
 		QPixmap pm;
 		QImage i = _pm.convertToImage();
-		i = i.scale(i.width() * 2, i.height() * 2);
+		i = i.scaled(i.width() * 2, i.height() * 2);
 		pm.convertFromImage(i);
 
 		TrayIconPrivate::setPixmap(pm);
