@@ -39,6 +39,9 @@
 		<category>Monsters\Beasts\Plague Beast</category>
 		<inherit id="speed_slow" />
 		<intproperty name="barddifficulty" value="815" />
+		<!-- Poisoning -->
+		<intproperty name="hit_poison_level" value="3" />
+		<basescript>npc.poison</basescript>
 	</npc>
 
 </definitions>

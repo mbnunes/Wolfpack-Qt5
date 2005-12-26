@@ -44,6 +44,9 @@
 		<intproperty name="barddifficulty" value="965" />
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="1" />
+		<!-- Poisoning -->
+		<intproperty name="hit_poison_level" value="4" />
+		<basescript>npc.poison</basescript>
 	</npc>
 
 </definitions>

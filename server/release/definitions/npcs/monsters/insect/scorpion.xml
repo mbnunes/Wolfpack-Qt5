@@ -52,7 +52,7 @@
 		<strproperty name="slayer_group" value="scorpions" />
 		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
-		<intproperty name="hit_poison_level" value="5" />
+		<intproperty name="hit_poison_level" value="2" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>

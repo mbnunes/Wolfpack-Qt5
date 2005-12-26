@@ -13,6 +13,7 @@
 		<name>Neira</name>
 		<title>The Necromancer</title>
 		<id>401</id>
+		<skin>0x83ec</skin>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
 		<!-- Stats -->
@@ -44,6 +45,20 @@
 		<inherit id="speed_veryfast" />
 		<intproperty name="barddifficulty" value="1600" />
 		<ai>Monster_Mage</ai>
+		<!-- Rides a nightmare! -->
+		<equipped>
+			<item id="2684"> <!-- Shroud -->
+				<newbie />
+				<color>0x455</color>
+			</item>
+			<item id="13b6"> <!-- Scimitar -->
+				<newbie />
+				<color>38</color>
+			</item>
+		</equipped>
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="5" />
 	</npc>
 
 </definitions>

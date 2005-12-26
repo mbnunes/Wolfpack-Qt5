@@ -46,6 +46,9 @@
 		<ai>Monster_Mage</ai>
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="1" />
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="5" />
 	</npc>
 
 </definitions>

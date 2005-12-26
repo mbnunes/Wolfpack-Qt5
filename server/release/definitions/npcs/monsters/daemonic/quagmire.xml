@@ -40,11 +40,6 @@
 		<category>Monsters\Daemonic\Quagmire</category>
 		<inherit id="speed_slow" />
 		<intproperty name="barddifficulty" value="710" />
-		<!-- Poisoning -->
-		<basescript>npc.poison</basescript>
-		<intproperty name="hit_poison_level" value="4" />
-		<intproperty name="hit_poison_chance" value="10" />
-		
 	</npc>
 
 </definitions>

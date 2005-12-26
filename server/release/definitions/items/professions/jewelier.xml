@@ -133,7 +133,7 @@
 		<buyprice>90</buyprice>
 		<sellprice>45</sellprice>
 	</item>
-	
+
 	<item id="f14" inherit="f13">
 		<id>0xf14</id>
 		<category>Professions\Jeweler\Ruby 2</category>
@@ -186,7 +186,7 @@
 		<buyprice>90</buyprice>
 		<sellprice>45</sellprice>
 	</item>
-	
+
 	<!-- Diamond -->
 	<item id="f26">
 		<id>0xf26</id>
