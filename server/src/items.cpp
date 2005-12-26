@@ -2388,18 +2388,6 @@ void cItem::save( cBufferedWriter& writer )
 	if ( free )
 	{
 		Console::instance()->log( LOG_WARNING, tr( "Skipping item 0x%1 during save process because it's already freed.\n" ).arg( serial_, 0, 16 ) );
-		Console::instance()->log( LOG_WARNING, tr( "%1\n" ).arg( this->id_ ) );
-		if ( container_ && container_->free ) 
-		{
-			P_ITEM item = dynamic_cast<P_ITEM>( container_ );
-			if ( item )
-				Console::instance()->log( LOG_WARNING, tr( "%1\n" ).arg( item->id_ ) );
-		}
-		cMulti * mult = this->multi_;
-		if ( mult )
-		{
-			Console::instance()->log( LOG_WARNING, "Multi!" );
-		}
 	}
 	else if ( container_ && container_->free )
 	{
