@@ -29,12 +29,34 @@
 #include "pyprofiler.h"
 #include <QByteArray>
 
+/* Python 2.3 Compatibility */
+#if !defined( PyTrace_C_CALL )
+#define PyTrace_C_CALL 4
+#endif 
+#if !defined( PyTrace_C_EXCEPTION )
+#define PyTrace_C_EXCEPTION 5
+#endif 
+#if !defined( PyTrace_C_RETURN )
+#define PyTrace_C_RETURN 6
+#endif
+
 int PyProfiler::tracefunc( PyObject *obj, PyFrameObject *frame, int what, PyObject *arg )
 {
 	PyProfiler* that = PyProfiler::instance();
 	ProfileData* pdata = 0; 
 	switch ( what )
 	{
+	case PyTrace_C_CALL:
+		pdata = &that->data[tr("<core>").toLocal8Bit()][PyString_AS_STRING(frame->f_code->co_name)];
+		if ( frame != frame->f_back )
+		{
+			pdata->calls++;
+			if ( frame->f_back )
+				pdata->callees.insert( PyString_AS_STRING( frame->f_back->f_code->co_name ) );
+			else
+				pdata->callees.insert( tr("<core>").toLocal8Bit() );
+		}
+		break;
 	case PyTrace_CALL:
 		//that->data.find()
 		// Don't count recursions
@@ -49,9 +71,8 @@ int PyProfiler::tracefunc( PyObject *obj, PyFrameObject *frame, int what, PyObje
 				pdata->callees.insert( tr("<core>").toLocal8Bit() );
 		}
 		//that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)] = pdata;
-		
+		break;
 	case PyTrace_RETURN:
-	case PyTrace_C_CALL:
 	case PyTrace_C_RETURN:
 	default:
 		break;

@@ -80,6 +80,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed bug #0000026. (Indentation in generated wolfpack.xml broken)
   - Fixed bug #0000038. (Server crashed when saving freed item, that was still linked to a multi)
   - Fixed bug #0000003. (Server crashed after tag mismatch)
+  - Rewrote GUI using Qt, now it's possible to have GUI on all platforms.
+  - Added Python profiler
  * Definition Changes:
   - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"

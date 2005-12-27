@@ -2851,11 +2851,11 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 
 		return player->isGM() ? PyTrue() : PyFalse();
 
-		/*
-				\rproperty char.tags This property is a list of names for all tags attached to this character.
-				This property is exclusive to python scripts and overrides normal properties with the same name.
-			*/
 	}
+	/*
+		\rproperty char.tags This property is a list of names for all tags attached to this character.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if ( !strcmp( "tags", name ) )
 	{
 		// Return a list with the keynames
@@ -2872,13 +2872,12 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		}
 
 		return list;
-
-		/*
-						\rproperty char.party A <object id="party">party</object> object for the party the player belongs to.
-						None for NPCs or if the player is not in a party.
-						This property is exclusive to python scripts and overrides normal properties with the same name.
-					*/
 	}
+	/*
+		\rproperty char.party A <object id="party">party</object> object for the party the player belongs to.
+		None for NPCs or if the player is not in a party.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if ( !strcmp( "party", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
@@ -2889,13 +2888,12 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		}
 
 		Py_RETURN_NONE;
-
-		/*
-						\rproperty char.guild A <object id="guild">guild</object> object for the guild the player belongs to.
-						None for NPCs or if the player is not in a guild.
-						This property is exclusive to python scripts and overrides normal properties with the same name.
-					*/
 	}
+	/*
+		\rproperty char.guild A <object id="guild">guild</object> object for the guild the player belongs to.
+		None for NPCs or if the player is not in a guild.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if ( !strcmp( "guild", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
@@ -2906,13 +2904,12 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		}
 
 		Py_RETURN_NONE;
-
-		/*
-						\rproperty char.rank The rank for the players account.
-						NPCs and players without accounts always have rank 1.
-						This property is exclusive to python scripts and overrides normal properties with the same name.
-					*/
 	}
+	/*
+		\rproperty char.rank The rank for the players account.
+		NPCs and players without accounts always have rank 1.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if ( !strcmp( "rank", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
@@ -2931,12 +2928,12 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 			return PyInt_FromLong( 1 );
 		}
 
-		/*
-						\rproperty char.region A <object id="REGION">region</object> object for the region the character is in.
-						May be None if the region the character is in is undefined.
-						This property is exclusive to python scripts and overrides normal properties with the same name.
-					*/
 	}
+	/*
+		\rproperty char.region A <object id="REGION">region</object> object for the region the character is in.
+		May be None if the region the character is in is undefined.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if ( !strcmp( "region", name ) )
 	{
 		if ( !self->py_region )

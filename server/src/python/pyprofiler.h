@@ -31,6 +31,7 @@
 
 #include "../singleton.h"
 #include "engine.h"
+#include <compile.h>
 #include <frameobject.h>
 
 #include <QObject>
