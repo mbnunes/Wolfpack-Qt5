@@ -31,3 +31,6 @@ def findHouse(player):
 		return wolfpack.finditem(HOUSES[serial])
 	else:
 		return None
+
+def getHouses():
+	return HOUSES

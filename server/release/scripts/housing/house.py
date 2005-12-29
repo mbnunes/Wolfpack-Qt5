@@ -27,7 +27,7 @@ def addCoOwner(house, coowner):
 	if not coowner or not house:
 		return
 
-	coowners = getCoOwner(house)
+	coowners = getCoOwners(house)
 	serial = str(coowner.serial)
 
 	if serial not in coowners:
@@ -50,8 +50,17 @@ def removeCoOwner(house, coowner):
 		changed = True
 
 	if changed:
+		if len(coowners)==0:
+			return removeAllCoOwner(house)
 		house.settag('coowners', ','.join(coowners))
 
+#
+# Remove all coowners
+#
+def removeAllCoOwner(house):
+	if not house:
+		return
+	house.deltag('coowners')
 #
 # Friends management
 # Get a list of character STRINGS(!) 
@@ -97,7 +106,76 @@ def removeFriend(house, friend):
 		changed = True
 
 	if changed:
+		if len(friends)==0:
+			return removeAllFriend(house)
 		house.settag('friends', ','.join(friends))
+
+
+#
+# Remove all friends
+#
+def removeAllFriend(house):
+	if not house:
+		return
+	house.deltag('friends')
+
+#
+# Guests management
+# Get a list of character STRINGS(!) 
+# Serials that are guests of the house
+#
+def getGuests(house):
+	if not house:
+		return []
+
+	guests = []
+	if house.hastag('guests'):
+		guests = str(house.gettag('guests')).split(',')		
+
+	return guests
+
+#
+# Add a guest to this house
+#
+def addGuest(house, guest):
+	if not guest or not house:
+		return
+
+	guests = getGuests(house)
+	serial = str(guest.serial)
+
+	if serial not in guests:
+		guests.append(serial)
+		house.settag('guests', ','.join(guests))
+		
+#
+# Remove a guest from the house
+#
+def removeGuest(house, guest):
+	if not house or not guest:
+		return
+
+	guests = getGuests(house)
+	serial = str(guest.serial)
+	changed = False
+
+	while serial in guests:
+		guests.remove(serial)
+		changed = True
+
+	if changed:
+		if len(guests)==0:
+			return removeAllGuest(house)
+		house.settag('guests', ','.join(guests))
+
+
+#
+# Remove all guests
+#
+def removeAllGuest(house):
+	if not house:
+		return
+	house.deltag('guests')
 
 #
 # Is the given house public or private?
@@ -127,17 +205,18 @@ def onDetach(house):
 def onCreate(house, definition):
 	buildHouse(house, definition)
 
+#def already define
 #
 # Is the given character the owner of the given house?
 #
-def isOwner(house, player):
-	if not house:
-		return False
+#~ def isOwner(house, player):
+	#~ if not house:
+		#~ return False
 	
-	if player.gm or house.owner == player:
-		return True
-	else:
-		return False
+	#~ if player.gm or house.owner == player:
+		#~ return True
+	#~ else:
+		#~ return False
 
 #
 # Place items in the house based on a given house definition
@@ -259,3 +338,44 @@ def checkAccess(player, house, level):
 		return True
 
 	return False
+
+def onLoad():
+	wolfpack.registercommand( 'registrehouse', commandregistrehouse ) #debug use
+	wolfpack.registercommand( 'lockthis', commandlockthis )
+	wolfpack.registercommand( 'unlockthis', commandunlockthis )
+	return
+# Debug use
+def commandregistrehouse(socket, cmd, args ):
+	socket.sysmessage("House : %s" % str(housing.getHouses()) )
+	return
+#a first way to do that
+def commandlockthis(socket, cmd, args ):
+	socket.sysmessage('What do you want to lock ?')
+	socket.attachtarget("housing.house.locktarget", [])
+	return
+#a first way to do that
+def commandunlockthis(socket, cmd, args ):
+	socket.sysmessage('What do you want to unlock ?')
+	socket.attachtarget("housing.house.locktarget", [])
+	return
+
+def locktarget(char, arguments, target):
+	if not target.item.isitem :
+		char.socket.sysmessage('You have to target an item.')
+		return
+	if not target.item.multi:
+		char.socket.sysmessage('You are not in a house.')
+		return
+	if not checkAccess(char, target.item.multi, ACCESS_COOWNER) :
+		char.socket.sysmessage("You can't do that, ask a co-owner or the owner.")
+		return		
+	# the item is not locked
+	if not target.item.lockeddown : 
+		target.item.lockeddown = 1
+		target.item.movable = 3
+		char.socket.sysmessage('You lock %s' % (target.item.name))
+	else: # the item is locked
+		target.item.lockeddown = 0
+		target.item.movable = 1
+		char.socket.sysmessage('You unlock %s' % (target.item.name))
+	return

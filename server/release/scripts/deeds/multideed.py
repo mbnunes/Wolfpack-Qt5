@@ -1,3 +1,6 @@
+import datetime
+from time import time, localtime
+
 import wolfpack
 import housing
 from wolfpack.gumps import cGump
@@ -156,10 +159,12 @@ def gump0callback( char, args, target ):
 		gump4( char, gump3callback, classical )
 	#2-Story houses
 	if button == 2:
-		gump1( char, gump1callback, ch2story )
+		char.socket.sysmessage("Custom Houses are not yet implemented")
+		#gump1( char, gump1callback, ch2story )
 	#3-Story houses
 	if button == 3:
-		gump3( char, gump1callback, ch3story )
+		char.socket.sysmessage("Custom Houses are not yet implemented")
+		#gump3( char, gump1callback, ch3story )
 
 #Selection of 2-story size
 def gump1callback( char, args, target ):
@@ -268,11 +273,25 @@ def placement(player, target, multiid, id, value):
 		bank.useresource( value, 0xEED )
 
 	
+	####################################################
 	# Placing the House
+	####################################################
 	house = wolfpack.addmulti( multiid )
 	house.owner = player
 	house.moveto(target.pos)
 	house.update()
+
+	# Registering Current Date and Time
+	agora = datetime.date.today()
+	h, m, s = localtime(time())[3:6]
+	date = str(agora.year) + "-" + str(agora.month) + "-" + str(agora.day) + " " + str(h) + ":" + str(m) + ":" + str(s)
+
+	house.settag('builton', date)
+
+	# House Value
+	house.settag('value', value)
+
+	# Registering House
 	housing.registerHouse(house)
 
 	for obj in moveout:
