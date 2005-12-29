@@ -86,11 +86,9 @@ inline float ceilf( float _X )
 #	define WP_ISUNLIKELY( x )  ( x )
 #endif
 
-typedef Q_UINT64	UI64;
 typedef quint32	UI32;
 typedef quint16	UI16;
 typedef quint8		UI08;
-typedef Q_INT64		SI64;
 typedef Q_INT16		SI16;
 typedef Q_INT8		SI08;
 typedef float		RF32;

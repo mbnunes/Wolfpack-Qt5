@@ -37,10 +37,11 @@
 */
 
 #ifndef QT_NO_TRANSLATION
+#include <QString>
 
 inline QString tr( const QString& text, const char* comment = 0, const char* context = "@default" )
 {
-	return QCoreApplication::translate( context, text.latin1(), comment );
+	return QCoreApplication::translate( context, text.toLatin1(), comment );
 }
 
 # ifndef QT_NO_TEXTCODEC

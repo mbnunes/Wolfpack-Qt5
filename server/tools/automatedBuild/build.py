@@ -21,6 +21,9 @@ for line in os.popen('svn up'):
 
 os.chdir( BUILD_PATH + os.path.sep + 'build' )
 
+for line in os.popen('mingw32-make distclean'):
+    print line
+
 os.remove('Makefile')
 
 for line in os.popen( 'configure.py' ).readlines():
