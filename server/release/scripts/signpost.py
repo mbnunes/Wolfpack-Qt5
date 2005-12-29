@@ -694,8 +694,11 @@ def demolish( char, item ):
 	# Now... the Loop to remove all items
 	contador = 0
 	for multiitem in listitems:
-		multiitem.delete()
-		contador += 1
+		try:
+			n = multiitem.player
+		except:
+			multiitem.delete()
+			contador += 1
 	
 	# Message about how many items are deleted in the house
 	char.socket.sysmessage( "Deleted %i items in house!" % contador )
