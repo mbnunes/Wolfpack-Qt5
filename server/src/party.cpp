@@ -591,12 +591,12 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 	*/
 	else if ( !strcmp( name, "lootingallowed" ) )
 	{
-		QList<cPlayer*> lootlist = party->lootingAllowed();
-		PyObject* list = PyList_New( 0 );
+		QList<cPlayer*> &lootlist = party->lootingAllowed();
+		PyObject* list = PyTuple_New( lootlist.count() );
 		unsigned int i = 0;
-		foreach ( P_PLAYER member, lootlist )
+		foreach ( cPlayer* member, lootlist )
 		{
-			PyTuple_SetItem( list, i++, member->getPyObject() );
+			PyTuple_SetItem( list, i++, PyGetCharObject( member ) );
 		}
 		return list;
 	}
