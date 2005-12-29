@@ -233,7 +233,7 @@ static PyObject* wpChar_awardkarma( wpChar* self, PyObject* args )
 		PyErr_BadArgument();
 		return NULL;
 	}
-	Q_INT16 offset = getArgInt( 0 );
+	qint16 offset = getArgInt( 0 );
 
 	bool showmessage = true;
 	if ( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
@@ -262,7 +262,7 @@ static PyObject* wpChar_awardfame( wpChar* self, PyObject* args )
 		PyErr_BadArgument();
 		return NULL;
 	}
-	Q_INT16 offset = getArgInt( 0 );
+	qint16 offset = getArgInt( 0 );
 
 	bool showmessage = true;
 	if ( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
@@ -912,7 +912,7 @@ static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 	}
 
 	quint16 id = getArgInt( 0 );
-	Q_INT16 color = -1;
+	qint16 color = -1;
 
 	if ( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
 		color = getArgInt( 1 );

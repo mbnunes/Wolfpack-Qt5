@@ -206,7 +206,7 @@ public:
 	void setDexterityLock( unsigned char data );
 	void setIntelligenceLock( unsigned char data );
 
-	virtual void setStamina( Q_INT16 data, bool notify = true );
+	virtual void setStamina( qint16 data, bool notify = true );
 
 	void remove();
 

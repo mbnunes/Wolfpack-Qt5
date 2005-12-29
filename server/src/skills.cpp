@@ -442,7 +442,7 @@ const QString& cSkills::getSkillName( quint16 skill ) const
 	return skills[skill].name;
 }
 
-Q_INT16 cSkills::findSkillByDef( const QString& defname ) const
+qint16 cSkills::findSkillByDef( const QString& defname ) const
 {
 	QString defName = defname.upper();
 

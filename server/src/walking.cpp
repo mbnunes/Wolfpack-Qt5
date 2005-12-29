@@ -106,7 +106,7 @@ using namespace std;
 // Can walk the tile, the tile's height and if the tile's a stair
 struct stBlockItem
 {
-	Q_INT8 z;
+	qint8 z;
 	quint8 height;
 	bool walkable;
 	bool maptile;
@@ -410,7 +410,7 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 		// Lets check if there is enough space ABOVE that position (at least 15 z units)
 		// If there is ANY impassable object between pos.z and pos.z + 15 we can't walk here
 		stBlockItem item = blockList[i];
-		Q_INT8 itemTop = ( item.z + item.height );
+		qint8 itemTop = ( item.z + item.height );
 
 		// If the item is below what we step on, ignore it
 		if ( itemTop <= pos.z )
@@ -889,7 +889,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 		}
 
 		// Set the new stamina
-		pChar->setStamina( wpMax<Q_INT16>( 0, pChar->stamina() - amount ), false );
+		pChar->setStamina( wpMax<qint16>( 0, pChar->stamina() - amount ), false );
 		update = true;
 
 		// We are overloaded
@@ -905,7 +905,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	// stamina more quickly
 	if ( ( pChar->stamina() * 100 ) / wpMax<ushort>( 1, pChar->maxStamina() ) < 10 )
 	{
-		pChar->setStamina( wpMax<Q_INT16>( 0, pChar->stamina() - 1 ), false );
+		pChar->setStamina( wpMax<qint16>( 0, pChar->stamina() - 1 ), false );
 		update = true;
 	}
 
@@ -920,7 +920,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	// Normally reduce stamina every few steps
 	if ( pChar->stepsTaken() % ( mounted ? 48 : 16 ) == 0 )
 	{
-		pChar->setStamina( wpMax<Q_INT16>( 0, pChar->stamina() - 1 ) );
+		pChar->setStamina( wpMax<qint16>( 0, pChar->stamina() - 1 ) );
 		update = true;
 	}
 
@@ -976,7 +976,7 @@ bool cMovement::canLandMonsterMoveHere( Coord& pos ) const
 	for ( i = 0; i < blockList.size(); ++i )
 	{
 		stBlockItem item = blockList[i];
-		Q_INT8 itemTop = ( item.z + item.height );
+		qint8 itemTop = ( item.z + item.height );
 
 		// If we encounter any object with itemTop <= pos.z which is NOT walkable
 		// Then we can as well just return false as while falling we would be
@@ -1025,7 +1025,7 @@ bool cMovement::canLandMonsterMoveHere( Coord& pos ) const
 		// Lets check if there is enough space ABOVE that position (at least 15 z units)
 		// If there is ANY impassable object between pos.z and pos.z + 15 we can't walk here
 		stBlockItem item = blockList[i];
-		Q_INT8 itemTop = ( item.z + item.height );
+		qint8 itemTop = ( item.z + item.height );
 
 		// If the item is below what we step on, ignore it
 		if ( itemTop <= pos.z )

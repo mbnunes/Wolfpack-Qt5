@@ -111,7 +111,7 @@ public:
 	{
 		layout_.push_back( QString( "{resizepic 0 0 %1 %2 %3}" ).arg( gumpId ).arg( width ).arg( height ) );
 	}
-	void addResizeGump( Q_INT16 gumpX, Q_INT16 gumpY, quint16 gumpId, quint32 width, quint32 height )
+	void addResizeGump( qint16 gumpX, qint16 gumpY, quint16 gumpId, quint32 width, quint32 height )
 	{
 		layout_.push_back( QString( "{resizepic %1 %2 %3 %4 %5}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ) );
 	}
@@ -123,18 +123,18 @@ public:
 	void addPageButton( qint32 buttonX, qint32 buttonY, quint16 gumpUp, quint16 gumpDown, qint32 pageId );
 
 	// Gump Pictures
-	void addGump( qint32 gumpX, qint32 gumpY, quint16 gumpId, Q_INT16 hue = -1 );
-	void addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, quint16 gumpId, Q_INT16 hue );
+	void addGump( qint32 gumpX, qint32 gumpY, quint16 gumpId, qint16 hue = -1 );
+	void addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, quint16 gumpId, qint16 hue );
 
 	// Art-tile pictures
-	void addTilePic( qint32 tileX, qint32 tileY, quint16 tileId, Q_INT16 hue = 0 )
+	void addTilePic( qint32 tileX, qint32 tileY, quint16 tileId, qint16 hue = 0 )
 	{
 		layout_.push_back( QString( "{tilepic %1 %2 %3 %4}" ).arg( tileX ).arg( tileY ).arg( tileId ).arg( hue ) );
 	}
 
 	// Form-fields
 	// 7 = x,y,widthpix,widthchars,wHue,TEXTID,startstringindex
-	void addInputField( qint32 textX, qint32 textY, quint32 width, quint32 height, qint32 textId, const QString& data, Q_INT16 hue = 0 )
+	void addInputField( qint32 textX, qint32 textY, quint32 width, quint32 height, qint32 textId, const QString& data, qint16 hue = 0 )
 	{
 		layout_.push_back( QString( "{textentry %1 %2 %3 %4 %5 %6 %7}" ).arg( textX ).arg( textY ).arg( width ).arg( height ).arg( hue ).arg( textId ).arg( addRawText( data ) ) );
 	}

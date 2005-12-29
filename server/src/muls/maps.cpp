@@ -499,11 +499,11 @@ signed char cMaps::mapAverageElevation( const Coord& p, int* top /* = 0 */, int*
 	if ( map1.id > 2 && ILLEGAL_Z != mapElevation( p ) )
 	{
 		// get three other nearby titles to decide on an average z?
-		Q_INT8 map2z = mapElevation( p + Coord( 1, 0, 0 ) );
-		Q_INT8 map3z = mapElevation( p + Coord( 0, 1, 0 ) );
-		Q_INT8 map4z = mapElevation( p + Coord( 1, 1, 0 ) );
+		qint8 map2z = mapElevation( p + Coord( 1, 0, 0 ) );
+		qint8 map3z = mapElevation( p + Coord( 0, 1, 0 ) );
+		qint8 map4z = mapElevation( p + Coord( 1, 1, 0 ) );
 
-		Q_INT8 testz = 0;
+		qint8 testz = 0;
 		if ( abs( map1.z - map4z ) <= abs( map2z - map3z ) )
 		{
 			if ( ILLEGAL_Z == map4z )
@@ -602,7 +602,7 @@ signed char cMaps::dynamicElevation( const Coord& pos ) const
 			}
 			if ( ( mapitem->pos().x == pos.x ) && ( mapitem->pos().y == pos.y ) && ( !mapitem->isMulti() ) )
 			{
-				const Q_INT8 ztemp = mapitem->pos().z + TileCache::instance()->tileHeight( mapitem->id() );
+				const qint8 ztemp = mapitem->pos().z + TileCache::instance()->tileHeight( mapitem->id() );
 				if ( ( ztemp <= pos.z + MaxZstep ) && ( ztemp > z ) )
 				{
 					z = ztemp;

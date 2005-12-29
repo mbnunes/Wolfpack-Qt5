@@ -115,7 +115,7 @@ bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ )
 	if ( !ok )
 		return false;
 
-	Q_INT8 z = 0;
+	qint8 z = 0;
 	if ( !ignoreZ )
 	{
 		z = coords[2].toShort( &ok );

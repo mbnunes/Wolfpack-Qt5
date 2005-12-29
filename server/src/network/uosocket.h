@@ -59,9 +59,9 @@ class cContextMenu;
 struct stTargetItem
 {
 	quint16 id;
-	Q_INT16 xOffset;
-	Q_INT16 yOffset;
-	Q_INT16 zOffset;
+	qint16 xOffset;
+	qint16 yOffset;
+	qint16 zOffset;
 	quint16 hue;
 };
 
@@ -256,7 +256,7 @@ public:
 	void soundEffect( quint16 soundId, cUObject* source = NULL );
 	void attachTarget( cTargetRequest* request );
 	void attachTarget( cTargetRequest* request, quint16 multiid, unsigned short xoffset, unsigned short yoffset, unsigned short zoffset );
-	void attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, Q_INT16 xOffset = 0, Q_INT16 yOffset = 0, Q_INT16 zOffset = 0 );
+	void attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, qint16 xOffset = 0, qint16 yOffset = 0, qint16 zOffset = 0 );
 	void cancelTarget();
 	void resendWorld( bool clean = true );
 	void resync();

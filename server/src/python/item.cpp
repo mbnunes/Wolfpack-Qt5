@@ -375,7 +375,7 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 	}
 
 	quint16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	Q_INT16 color = -1;
+	qint16 color = -1;
 
 	if ( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );

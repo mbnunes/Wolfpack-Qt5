@@ -2659,7 +2659,7 @@ void cUOSocket::poll()
 	}
 }
 
-void cUOSocket::attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, Q_INT16 xOffset, Q_INT16 yOffset, Q_INT16 zOffset )
+void cUOSocket::attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, qint16 xOffset, qint16 yOffset, qint16 zOffset )
 {
 	// Let the old one time out
 	if ( targetRequest && targetRequest != request )

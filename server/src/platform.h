@@ -89,8 +89,8 @@ inline float ceilf( float _X )
 typedef quint32	UI32;
 typedef quint16	UI16;
 typedef quint8		UI08;
-typedef Q_INT16		SI16;
-typedef Q_INT8		SI08;
+typedef qint16		SI16;
+typedef qint8		SI08;
 typedef float		RF32;
 typedef double		RF64;
 
@@ -157,18 +157,18 @@ static inline float wpPowerPCSwapFloat( float val )
 	__asm__ __volatile__("stwbrx %1,0,%2" : "=m" (*addr) : "r" (val), "r" (addr));
 	return a;
 }
-static inline Q_UINT64 wpPowerPCSwapInt64( Q_UINT64 val )
+static inline quint64 wpPowerPCSwapInt64( quint64 val )
 {
-	return ( ( Q_UINT64 ) ( wpPowerPCSwapInt32( ( quint32 ) ( ( val >> 32 ) & 0xFFFFFFFF ) ) ) ) | ( ( ( Q_UINT64 ) ( wpPowerPCSwapInt32( ( quint32 ) ( val & 0xFFFFFFFF ) ) ) ) << 32 );
+	return ( ( quint64 ) ( wpPowerPCSwapInt32( ( quint32 ) ( ( val >> 32 ) & 0xFFFFFFFF ) ) ) ) | ( ( ( quint64 ) ( wpPowerPCSwapInt32( ( quint32 ) ( val & 0xFFFFFFFF ) ) ) ) << 32 );
 }
 static inline double wpPowerPCSwapDouble( double val )
 {
-	Q_UINT64 v64 = wpPowerPCSwapInt64( *( ( Q_UINT64* ) &val ) );
+	quint64 v64 = wpPowerPCSwapInt64( *( ( quint64* ) &val ) );
 	return *( ( double * ) &v64 );
 }
 #  define B_SWAP_DOUBLE(arg)   wpPowerPCSwapDouble((double)(arg))
 #  define B_SWAP_FLOAT(arg)    wpPowerPCSwapFloat((float)(arg))
-#  define B_SWAP_INT64(arg)    wpPowerPCSwapInt64((Q_UINT64)(arg))
+#  define B_SWAP_INT64(arg)    wpPowerPCSwapInt64((quint64)(arg))
 #  define B_SWAP_INT32(arg)    wpPowerPCSwapInt32((quint32)(arg))
 #  define B_SWAP_INT16(arg)    wpPowerPCSwapInt16((quint16)(arg))
 #elif defined(WP_USE_X86_INLINE_ASSEMBLY)
@@ -187,24 +187,24 @@ static inline float wpX86SwapFloat( float val )
 	__asm__ __volatile__ ("bswap %0" : "+r" (val));
 	return val;
 }
-static inline Q_UINT64 wpX86SwapInt64( Q_UINT64 val )
+static inline quint64 wpX86SwapInt64( quint64 val )
 {
-	return ( ( Q_UINT64 ) ( wpX86SwapInt32( ( quint32 ) ( ( val >> 32 ) & 0xFFFFFFFF ) ) ) ) | ( ( ( Q_UINT64 ) ( wpX86SwapInt32( ( Q_UINT64 ) ( val & 0xFFFFFFFF ) ) ) ) << 32 );
+	return ( ( quint64 ) ( wpX86SwapInt32( ( quint32 ) ( ( val >> 32 ) & 0xFFFFFFFF ) ) ) ) | ( ( ( quint64 ) ( wpX86SwapInt32( ( quint64 ) ( val & 0xFFFFFFFF ) ) ) ) << 32 );
 }
 static inline double wpX86SwapDouble( double val )
 {
-	Q_UINT64 v64 = wpX86SwapInt64( *( ( Q_UINT64* ) &val ) );
+	quint64 v64 = wpX86SwapInt64( *( ( quint64* ) &val ) );
 	return *( ( double * ) &v64 );
 }
 #  define B_SWAP_DOUBLE(arg)   wpX86SwapDouble((double)(arg))
 #  define B_SWAP_FLOAT(arg)    wpX86SwapFloat((float)(arg))
-#  define B_SWAP_INT64(arg)    wpX86SwapInt64((Q_UINT64)(arg))
+#  define B_SWAP_INT64(arg)    wpX86SwapInt64((quint64)(arg))
 #  define B_SWAP_INT32(arg)    wpX86SwapInt32((quint32)(arg))
 #  define B_SWAP_INT16(arg)    wpX86SwapInt16((quint16)(arg))
 # else
 #  define B_SWAP_DOUBLE(arg)   wpSwapBytes((double)(arg))
 #  define B_SWAP_FLOAT(arg)    wpSwapBytes((float)(arg))
-#  define B_SWAP_INT64(arg)    wpSwapBytes((Q_UINT64)(arg))
+#  define B_SWAP_INT64(arg)    wpSwapBytes((quint64)(arg))
 #  define B_SWAP_INT32(arg)    wpSwapBytes((quint32)(arg))
 #  define B_SWAP_INT16(arg)    wpSwapBytes((quint16)(arg))
 # endif
@@ -212,7 +212,7 @@ static inline double wpX86SwapDouble( double val )
 #if Q_BYTE_ORDER == Q_LITTLE_ENDIAN
 #  define B_HOST_TO_LENDIAN_DOUBLE(arg) ((double)(arg))
 #  define B_HOST_TO_LENDIAN_FLOAT(arg)  ((float)(arg))
-#  define B_HOST_TO_LENDIAN_INT64(arg)  ((Q_UINT64)(arg))
+#  define B_HOST_TO_LENDIAN_INT64(arg)  ((quint64)(arg))
 #  define B_HOST_TO_LENDIAN_INT32(arg)  ((quint32)(arg))
 #  define B_HOST_TO_LENDIAN_INT16(arg)  ((quint16)(arg))
 #  define B_HOST_TO_BENDIAN_DOUBLE(arg) B_SWAP_DOUBLE(arg)
@@ -222,7 +222,7 @@ static inline double wpX86SwapDouble( double val )
 #  define B_HOST_TO_BENDIAN_INT16(arg)  B_SWAP_INT16(arg)
 #  define B_LENDIAN_TO_HOST_DOUBLE(arg) ((double)(arg))
 #  define B_LENDIAN_TO_HOST_FLOAT(arg)  ((float)(arg))
-#  define B_LENDIAN_TO_HOST_INT64(arg)  ((Q_UINT64)(arg))
+#  define B_LENDIAN_TO_HOST_INT64(arg)  ((quint64)(arg))
 #  define B_LENDIAN_TO_HOST_INT32(arg)  ((quint32)(arg))
 #  define B_LENDIAN_TO_HOST_INT16(arg)  ((quint16)(arg))
 #  define B_BENDIAN_TO_HOST_DOUBLE(arg) B_SWAP_DOUBLE(arg)
@@ -240,7 +240,7 @@ static inline double wpX86SwapDouble( double val )
 #  define B_HOST_TO_LENDIAN_INT16(arg)  B_SWAP_INT16(arg)
 #  define B_HOST_TO_BENDIAN_DOUBLE(arg) ((double)(arg))
 #  define B_HOST_TO_BENDIAN_FLOAT(arg)  ((float)(arg))
-#  define B_HOST_TO_BENDIAN_INT64(arg)  ((Q_UINT64)(arg))
+#  define B_HOST_TO_BENDIAN_INT64(arg)  ((quint64)(arg))
 #  define B_HOST_TO_BENDIAN_INT32(arg)  ((quint32)(arg))
 #  define B_HOST_TO_BENDIAN_INT16(arg)  ((quint16)(arg))
 #  define B_LENDIAN_TO_HOST_DOUBLE(arg) B_SWAP_DOUBLE(arg)
@@ -250,7 +250,7 @@ static inline double wpX86SwapDouble( double val )
 #  define B_LENDIAN_TO_HOST_INT16(arg)  B_SWAP_INT16(arg)
 #  define B_BENDIAN_TO_HOST_DOUBLE(arg) ((double)(arg))
 #  define B_BENDIAN_TO_HOST_FLOAT(arg)  ((float)(arg))
-#  define B_BENDIAN_TO_HOST_INT64(arg)  ((Q_UINT64)(arg))
+#  define B_BENDIAN_TO_HOST_INT64(arg)  ((quint64)(arg))
 #  define B_BENDIAN_TO_HOST_INT32(arg)  ((quint32)(arg))
 #  define B_BENDIAN_TO_HOST_INT16(arg)  ((quint16)(arg))
 #else

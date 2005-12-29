@@ -35,10 +35,10 @@
 
 struct multiItem_st
 {
-	Q_INT16 tile;
-	Q_INT16 x;
-	Q_INT16 y;
-	Q_INT8 z;
+	qint16 tile;
+	qint16 x;
+	qint16 y;
+	qint8 z;
 	bool visible;
 };
 

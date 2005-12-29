@@ -270,9 +270,9 @@ class cMoveTarget : public cTargetRequest
 {
 	OBJECTDEF( cMoveTarget )
 private:
-	Q_INT16 x, y, z;
+	short x, y, z;
 public:
-	cMoveTarget( Q_INT16 _x, Q_INT16 _y, Q_INT8 _z ) : x( _x ), y( _y ), z( _z )
+	cMoveTarget( short _x, short _y, char _z ) : x( _x ), y( _y ), z( _z )
 	{
 	}
 

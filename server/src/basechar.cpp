@@ -889,8 +889,8 @@ bool cBaseChar::resurrect( cUObject* source )
 
 void cBaseChar::turnTo( const Coord& pos )
 {
-	Q_INT16 xdif = ( Q_INT16 ) ( pos.x - this->pos().x );
-	Q_INT16 ydif = ( Q_INT16 ) ( pos.y - this->pos().y );
+	qint16 xdif = ( qint16 ) ( pos.x - this->pos().x );
+	qint16 ydif = ( qint16 ) ( pos.y - this->pos().y );
 	quint8 nDir;
 
 	if ( xdif == 0 && ydif < 0 )
@@ -1355,11 +1355,11 @@ void cBaseChar::processNode( const cElement* Tag )
 	// <skill id="1">100</skill>
 	else if ( TagName == "skill" && Tag->hasAttribute( "id" ) )
 	{
-		Q_INT16 skillId = -1;
+		qint16 skillId = -1;
 		if ( Tag->getAttribute( "id" ).toInt() > 0 && Tag->getAttribute( "id" ).toInt() <= ALLSKILLS )
-			skillId = (Q_INT16)( Tag->getAttribute( "id" ).toInt() - 1 );
+			skillId = (qint16)( Tag->getAttribute( "id" ).toInt() - 1 );
 		else
-			skillId = (Q_INT16)( Skills::instance()->findSkillByDef( Tag->getAttribute( "id", "" ) ) );
+			skillId = (qint16)( Skills::instance()->findSkillByDef( Tag->getAttribute( "id", "" ) ) );
 		// Get the value
 		if ( skillId <= ALLSKILLS && skillId >= 0 )
 		{
@@ -1468,7 +1468,7 @@ void cBaseChar::processNode( const cElement* Tag )
 	{
 		/* This should be replaced by the <skill id="name">0</skill> tags */
 		/*
-		Q_INT16 skillId = Skills::instance()->findSkillByDef( TagName );
+		qint16 skillId = Skills::instance()->findSkillByDef( TagName );
 		if ( skillId == -1 )
 			cUObject::processNode( Tag );
 		else
@@ -2249,7 +2249,7 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		qint16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -2260,7 +2260,7 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	else if ( name.left( 9 ) == "skillcap." )
 	{
 		QString skill = name.right( name.length() - 9 );
-		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		qint16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -2270,7 +2270,7 @@ PyObject* cBaseChar::getProperty( const QString& name )
 	else
 	{
 		// See if there's a skill by that name
-		Q_INT16 skillId = Skills::instance()->findSkillByDef( name );
+		qint16 skillId = Skills::instance()->findSkillByDef( name );
 
 		if ( skillId != -1 )
 		{
@@ -2316,7 +2316,7 @@ quint8 cBaseChar::skillLock( quint16 skill ) const
 	return skills_[skill].lock;
 }
 
-void cBaseChar::setStamina( Q_INT16 data, bool notify )
+void cBaseChar::setStamina( qint16 data, bool notify )
 {
 	stamina_ = data;
 	changed_ = notify;

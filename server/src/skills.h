@@ -63,7 +63,7 @@ public:
 	QString getSkillTitle( P_CHAR pChar ) const;
 	const QString& getSkillName( quint16 skill ) const;
 	const QString& getSkillDef( quint16 skill ) const;
-	Q_INT16 findSkillByDef( const QString& defname ) const; // -1 = Not Found
+	qint16 findSkillByDef( const QString& defname ) const; // -1 = Not Found
 
 	// Skill Usage methods
 	void Meditation( cUOSocket* s );

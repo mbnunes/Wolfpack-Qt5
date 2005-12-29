@@ -676,8 +676,8 @@ void Action_Wander::execute()
 			float rnddist = ( float ) RandomNum( 1, m_npc->wanderRadius() );
 			// now get a point on this circle around the m_npc
 			float rndphi = ( float ) RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
-			pos.x = pos.x + ( Q_INT16 ) floor( cos( rndphi ) * rnddist );
-			pos.y = pos.y + ( Q_INT16 ) floor( sin( rndphi ) * rnddist );
+			pos.x = pos.x + ( qint16 ) floor( cos( rndphi ) * rnddist );
+			pos.y = pos.y + ( qint16 ) floor( sin( rndphi ) * rnddist );
 
 			quint8 dir = m_npc->pos().direction( pos );
 
@@ -1021,14 +1021,14 @@ void Action_Flee::execute()
 			int v1 = newPos.x - fleePos.x;
 			int v2 = newPos.y - fleePos.y;
 			float v_norm = sqrt( ( double ) ( v1* v1 + v2* v2 ) );
-			newPos.x = newPos.x + ( Q_INT16 ) floor( rnddist * v1 / v_norm );
-			newPos.y = newPos.y + ( Q_INT16 ) floor( rnddist * v2 / v_norm );
+			newPos.x = newPos.x + ( qint16 ) floor( rnddist * v1 / v_norm );
+			newPos.y = newPos.y + ( qint16 ) floor( rnddist * v2 / v_norm );
 		}
 		else
 		{
 			float rndphi = ( float ) RandomNum( 0, 100 ) / 100.0f * 2 * 3.14;
-			newPos.x = newPos.x + ( Q_INT16 ) floor( sin( rndphi ) * rnddist );
-			newPos.y = newPos.y + ( Q_INT16 ) floor( cos( rndphi ) * rnddist );
+			newPos.x = newPos.x + ( qint16 ) floor( sin( rndphi ) * rnddist );
+			newPos.y = newPos.y + ( qint16 ) floor( cos( rndphi ) * rnddist );
 		}
 
 		// we use pathfinding for fleeing

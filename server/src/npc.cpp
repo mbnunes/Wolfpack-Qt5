@@ -967,7 +967,7 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	else if ( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		qint16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -988,7 +988,7 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	else if ( name.left( 9 ) == "skillcap." )
 	{
 		QString skill = name.right( name.length() - 9 );
-		Q_INT16 skillId = Skills::instance()->findSkillByDef( skill );
+		qint16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if ( skillId != -1 )
 		{
@@ -998,7 +998,7 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	}
 	else
 	{
-		Q_INT16 skillId = Skills::instance()->findSkillByDef( name );
+		qint16 skillId = Skills::instance()->findSkillByDef( name );
 
 		if ( skillId != -1 )
 		{

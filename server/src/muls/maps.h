@@ -55,7 +55,7 @@ struct staticrecord
 	quint16 itemid;
 	quint8 xoff;
 	quint8 yoff;
-	Q_INT8 zoff;
+	qint8 zoff;
 	quint16 color;
 };
 #pragma pack()

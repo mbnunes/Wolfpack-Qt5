@@ -69,12 +69,12 @@ void cGump::addPageButton( qint32 buttonX, qint32 buttonY, quint16 gumpUp, quint
 	layout_.push_back( button );
 }
 
-void cGump::addGump( qint32 gumpX, qint32 gumpY, quint16 gumpId, Q_INT16 hue )
+void cGump::addGump( qint32 gumpX, qint32 gumpY, quint16 gumpId, qint16 hue )
 {
 	layout_.push_back( QString( "{gumppic %1 %2 %3%4}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString( "" ) ) );
 }
 
-void cGump::addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, quint16 gumpId, Q_INT16 hue )
+void cGump::addTiledGump( qint32 gumpX, qint32 gumpY, qint32 width, qint32 height, quint16 gumpId, qint16 hue )
 {
 	layout_.push_back( QString( "{gumppictiled %1 %2 %4 %5 %3%6}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString( "" ) ) );
 }
