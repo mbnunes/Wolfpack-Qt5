@@ -742,6 +742,33 @@ Npc must have an ai.
 */
 "onSeeItem",
 
+/*
+\event onTimerRegenHitpoints
+\param char The character who will recover Hitpoints.
+\param timer The timer for next Hitpoints recover.
+\return Return The timer value for next Hitpoints recover.
+\condition Triggered when a character Will recover HitPoints and set next recover timer (Its called after OnRegenHitPoints).
+*/
+"onTimerRegenHitpoints",
+
+/*
+\event onTimerRegenMana
+\param char The character who will recover Mana.
+\param timer The timer for next Mana recover.
+\return Return The timer value for next Mana recover.
+\condition Triggered when a character Will recover Mana and set next recover timer (Its called after OnRegenMana).
+*/
+"onTimerRegenMana",
+
+/*
+\event onTimerRegenStamina
+\param char The character who will recover Stamina
+\param timer The timer for next Stamina recover.
+\return Return The timer value for next Stamina recover.
+\condition Triggered when a character Will recover Stamina and set next recover timer (Its called after OnRegenStamina).
+*/
+"onTimerRegenStamina",
+
 0
 };
 

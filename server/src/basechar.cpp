@@ -2855,6 +2855,71 @@ unsigned int cBaseChar::onRegenStamina( unsigned int points )
 	return points;
 }
 
+// Regen Timer Things (OnTimerRegenStamina, OnTimerRegenHitpoints, OnTimerRegenMana)
+
+int cBaseChar::onTimerRegenHitpoints( unsigned int timer )
+{
+	if ( canHandleEvent( EVENT_TIMEREGENHITS ) )
+	{
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* result = callEvent( EVENT_TIMEREGENHITS, args );
+
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				timer = PyInt_AsLong( result );
+
+			Py_DECREF( result );
+		}
+
+		Py_DECREF( args );
+	}
+
+	return timer;
+}
+
+int cBaseChar::onTimerRegenMana( unsigned int timer )
+{
+	if ( canHandleEvent( EVENT_TIMEREGENMANA ) )
+	{
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* result = callEvent( EVENT_TIMEREGENMANA, args );
+
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				timer = PyInt_AsLong( result );
+
+			Py_DECREF( result );
+		}
+
+		Py_DECREF( args );
+	}
+
+	return timer;
+}
+
+int cBaseChar::onTimerRegenStamina( unsigned int timer )
+{
+	if ( canHandleEvent( EVENT_TIMEREGENSTAMINA ) )
+	{
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, timer );
+		PyObject* result = callEvent( EVENT_TIMEREGENSTAMINA, args );
+
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				timer = PyInt_AsLong( result );
+
+			Py_DECREF( result );
+		}
+
+		Py_DECREF( args );
+	}
+
+	return timer;
+}
+
 bool cBaseChar::kill( cUObject* source )
 {
 	if ( free || isDead() )

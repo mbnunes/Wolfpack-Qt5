@@ -333,10 +333,13 @@ public:
 	virtual bool onDropOnChar( P_ITEM pItem );
 	virtual bool onWearItem( P_PLAYER pPlayer, P_ITEM pItem, unsigned char layer );
 	// Regens
-	virtual unsigned int onRegenHitpoints( unsigned int timer );
-	virtual unsigned int onRegenMana( unsigned int timer );
-	virtual unsigned int onRegenStamina( unsigned int timer );
-	//
+	virtual unsigned int onRegenHitpoints( unsigned int points );
+	virtual unsigned int onRegenMana( unsigned int points );
+	virtual unsigned int onRegenStamina( unsigned int points );
+	// Regen Timers
+	virtual int onTimerRegenHitpoints( unsigned int timer );
+	virtual int onTimerRegenMana( unsigned int timer );
+	virtual int onTimerRegenStamina( unsigned int timer );
 	virtual QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	//	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual bool onCHLevelChange( uint level ); // Fired when player moving trough levels

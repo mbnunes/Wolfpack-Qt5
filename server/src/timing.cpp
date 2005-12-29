@@ -371,14 +371,19 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 			if ( !Config::instance()->hungerRate() || character->hunger() > 10 )
 			{
 				// get next health regeneration time
-				//unsigned int hitsRegenTime = character->onRegenHitpoints(( uint ) ( floor( character->getHitpointRate() * 1000 ) ));
-				unsigned int hitsRegenTime = character->getHitpointRate() * 1000;
+				int hitsRegenTime = character->onTimerRegenHitpoints(( uint ) ( floor( character->getHitpointRate() * 1000 ) ));
+				//unsigned int hitsRegenTime = character->getHitpointRate() * 1000;
 
 				if ( hitsRegenTime )
 				{
-					character->setHitpoints( character->hitpoints() + 1 );
-					character->updateHealth();
-					character->setRegenHitpointsTime( Server::instance()->time() + hitsRegenTime );
+					if ( hitsRegenTime > 0 )
+					{
+						character->setHitpoints( character->hitpoints() + 1 );
+						character->updateHealth();
+						character->setRegenHitpointsTime( Server::instance()->time() + hitsRegenTime );
+					}
+					else
+						character->setRegenHitpointsTime( Server::instance()->time() - hitsRegenTime );
 				}
 			}
 		}
@@ -389,20 +394,24 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		if ( character->stamina() < character->maxStamina() )
 		{
 			// get next stamina regeneration time
-			//unsigned int stamRegenTime = character->onRegenStamina(( uint ) ( floor( character->getStaminaRate() * 1000 ) ));
-			unsigned int stamRegenTime = character->getStaminaRate() * 1000;
+			int stamRegenTime = character->onTimerRegenStamina(( uint ) ( floor( character->getStaminaRate() * 1000 ) ));
+			//unsigned int stamRegenTime = character->getStaminaRate() * 1000;
 
 			if ( stamRegenTime )
 			{
-
-				character->setStamina( character->stamina() + 1 );
-				character->setRegenStaminaTime( Server::instance()->time() + stamRegenTime );
-
-				P_PLAYER player = dynamic_cast<P_PLAYER>( character );
-				if ( player && player->socket() )
+				if ( stamRegenTime > 0 )
 				{
-					player->socket()->updateStamina();
+					character->setStamina( character->stamina() + 1 );
+					character->setRegenStaminaTime( Server::instance()->time() + stamRegenTime );
+
+					P_PLAYER player = dynamic_cast<P_PLAYER>( character );
+					if ( player && player->socket() )
+					{
+						player->socket()->updateStamina();
+					}
 				}
+				else
+					character->setRegenStaminaTime( Server::instance()->time() - stamRegenTime );
 			}
 		}
 	}
@@ -412,28 +421,33 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		if ( character->mana() < character->maxMana() )
 		{
 			// get next mana regeneration time
-			//unsigned int manaRegenTime = character->onRegenMana(( uint ) ( floor( character->getManaRate() * 1000 ) ));
-			unsigned int manaRegenTime = character->getManaRate() * 1000;
+			int manaRegenTime = character->onTimerRegenMana(( uint ) ( floor( character->getManaRate() * 1000 ) ));
+			//unsigned int manaRegenTime = character->getManaRate() * 1000;
 
 			if ( manaRegenTime )
 			{
-				character->setMana( character->mana() + 1 );
-				character->setRegenManaTime( Server::instance()->time() + manaRegenTime );
-
-				P_PLAYER player = dynamic_cast<P_PLAYER>( character );
-				if ( player )
+				if ( manaRegenTime > 0 )
 				{
-					if ( player->socket() )
-					{
-						player->socket()->updateMana();
-					}
+					character->setMana( character->mana() + 1 );
+					character->setRegenManaTime( Server::instance()->time() + manaRegenTime );
 
-					if ( player->isMeditating() && character->mana() >= character->maxMana() )
+					P_PLAYER player = dynamic_cast<P_PLAYER>( character );
+					if ( player )
 					{
-						player->setMeditating( false );
-						player->sysmessage( 501846 );
+						if ( player->socket() )
+						{
+							player->socket()->updateMana();
+						}
+
+						if ( player->isMeditating() && character->mana() >= character->maxMana() )
+						{
+							player->setMeditating( false );
+							player->sysmessage( 501846 );
+						}
 					}
 				}
+				else
+					character->setRegenManaTime( Server::instance()->time() - manaRegenTime );
 			}
 		}
 	}
