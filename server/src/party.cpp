@@ -591,7 +591,7 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 	*/
 	else if ( !strcmp( name, "lootingallowed" ) )
 	{
-		QList<cPlayer*> &lootlist = party->lootingAllowed();
+		const QList<cPlayer*> &lootlist = party->lootingAllowed();
 		PyObject* list = PyTuple_New( lootlist.count() );
 		unsigned int i = 0;
 		foreach ( cPlayer* member, lootlist )
