@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\Qt3Support4.lib"
+				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmaind.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\Qt3Support4.lib"
 				OutputFile="../release/wolfpackd.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -159,7 +159,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt333.lib ws2_32.lib comctl32.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
+				AdditionalDependencies="$(QTDIR)\lib\qtmaind.lib ws2_32.lib comctl32.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
 				OutputFile="../release/wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -386,10 +386,6 @@
 			</File>
 			<File
 				RelativePath="..\src\console.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\win\console_win.cpp"
 				>
 			</File>
 			<File
@@ -1011,6 +1007,34 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\python\pyprofiler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\python\pyprofiler.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\src\python\pyregion.cpp"
 				>
 			</File>
@@ -1603,7 +1627,23 @@
 			Name="MOC Files"
 			>
 			<File
+				RelativePath=".\obj\moc_mainwindow.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\obj\moc_network.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\obj\moc_profilersessionmodel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\obj\moc_profilerwindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\obj\moc_pyprofiler.cpp"
 				>
 			</File>
 			<File
@@ -1611,9 +1651,239 @@
 				>
 			</File>
 			<File
+				RelativePath=".\obj\moc_trayicon.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\obj\moc_uosocket.cpp"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="GUI"
+			>
+			<File
+				RelativePath="..\src\gui\mainwindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\gui\mainwindow.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\gui\profilersessionmodel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\gui\profilersessionmodel.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\gui\profilerwindow.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\gui\profilerwindow.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\gui\qwpevents.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\gui\wpmain.cpp"
+				>
+			</File>
+			<Filter
+				Name="Trayicon"
+				>
+				<File
+					RelativePath="..\src\gui\trayicon\trayicon.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\gui\trayicon\trayicon.h"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="moc&apos;ing $(InputFileName)"
+							CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+							Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="moc&apos;ing $(InputFileName)"
+							CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+							Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\gui\trayicon\trayicon_win.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Resources"
+				>
+				<File
+					RelativePath="..\src\gui\gui.qrc"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="RCC&apos;ing $(InputName)"
+							CommandLine="$(QTDIR)\bin\rcc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)rc_$(InputName).cpp&quot;"
+							Outputs="$(InputDir)rc_$(InputName).cpp"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\gui\images\icon.png"
+					>
+				</File>
+				<File
+					RelativePath="..\src\gui\images\icon_green.png"
+					>
+				</File>
+				<File
+					RelativePath="..\src\gui\images\icon_red.png"
+					>
+				</File>
+				<File
+					RelativePath="..\src\gui\images\logo.png"
+					>
+				</File>
+				<File
+					RelativePath="..\src\gui\mainwindow.ui"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="UIC&apos;ing $(InputFileName)"
+							CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)ui_$(InputName).h&quot;&#x0D;&#x0A;"
+							Outputs="$(InputDir)ui_$(InputName).h"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="UIC&apos;ing $(InputFileName)"
+							CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)ui_$(InputName).h&quot;&#x0D;&#x0A;"
+							Outputs="$(InputDir)ui_$(InputName).h"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\gui\profilerwindow.ui"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="UIC&apos;ing $(InputFileName)"
+							CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)ui_$(InputName).h&quot;&#x0D;&#x0A;"
+							Outputs="$(InputDir)ui_$(InputName).h"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="UIC&apos;ing $(InputFileName)"
+							CommandLine="$(QTDIR)\bin\uic.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)ui_$(InputName).h&quot;&#x0D;&#x0A;"
+							Outputs="$(InputDir)ui_$(InputName).h"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\gui\rc_gui.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\gui\ui_mainwindow.h"
+					>
+				</File>
+				<File
+					RelativePath="..\src\gui\ui_profilerwindow.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

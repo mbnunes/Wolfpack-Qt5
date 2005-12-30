@@ -181,41 +181,42 @@ public:
     }
 };
 
-static HBITMAP createIconMask( const QPixmap &qp )
+/*
+  Create an icon mask the way Windows wants it using CreateBitmap.
+*/
+static HBITMAP qt_createIconMask(const QBitmap &bitmap)
 {
-    QImage bm = qp.convertToImage();
+    QImage bm = bitmap.toImage().convertToFormat(QImage::Format_Mono);
     int w = bm.width();
     int h = bm.height();
-    int bpl = ((w+15)/16)*2;			// bpl, 16 bit alignment
+    int bpl = ((w+15)/16)*2;                        // bpl, 16 bit alignment
     uchar *bits = new uchar[bpl*h];
     bm.invertPixels();
-    for ( int y=0; y<h; y++ )
-		memcpy( bits+y*bpl, bm.scanLine(y), bpl );
-    HBITMAP hbm = CreateBitmap( w, h, 1, 1, bits );
+    for (int y=0; y<h; y++)
+        memcpy(bits+y*bpl, bm.scanLine(y), bpl);
+    HBITMAP hbm = CreateBitmap(w, h, 1, 1, bits);
     delete [] bits;
     return hbm;
 }
 
 static HICON createIcon( const QPixmap &pm, HBITMAP &hbm )
 {
-    QPixmap maskpm( pm.size() );
-    QBitmap mask( pm.size() );
-    if ( !pm.mask().isNull() ) {
-		maskpm.fill( Qt::black );			// make masked area black
-		QPainter p(&mask);
-		p.drawPixmap( 0, 0, pm.mask() );
-    } else
-        maskpm.fill( Qt::color1 );
+    QBitmap mask = pm.mask();
+    if (mask.isNull()) {
+        mask = QBitmap(pm.size());
+        mask.fill(Qt::color1);
+    }
+	hbm = qt_createIconMask(mask);
 
-    bitBlt( &maskpm, 0, 0, &pm);
     ICONINFO iconInfo;
-    iconInfo.fIcon    = TRUE;
-    iconInfo.hbmMask  = hbm = createIconMask(mask);
-	iconInfo.hbmColor = maskpm.toWinHBITMAP();
+    iconInfo.fIcon    = TRUE;	
+    iconInfo.hbmMask  = hbm;
+	iconInfo.hbmColor = pm.toWinHBITMAP(QPixmap::PremultipliedAlpha);
+	iconInfo.xHotspot = 0;
+	iconInfo.yHotspot = 0;
 
     HICON icon = CreateIconIndirect( &iconInfo );
-    DeleteObject(iconInfo.hbmMask);
-    iconInfo.hbmMask = hbm = 0; // michalj
+	DeleteObject(iconInfo.hbmColor);
     return icon;
 }
 

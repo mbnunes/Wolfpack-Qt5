@@ -114,20 +114,29 @@ void MainWindow::closeEvent ( QCloseEvent * e )
 
 void MainWindow::handleConsoleMessage( const QString& msg )
 {
+	// Save and restore current char format
+	QTextCharFormat format = ui.logWindow->currentCharFormat();
+
 	QString message ( msg );
 	QTextCursor cursor = ui.logWindow->textCursor();
 	cursor.movePosition( QTextCursor::End );
 	ui.logWindow->setTextCursor( cursor );
+	ui.logWindow->setCurrentCharFormat(format);
 	ui.logWindow->insertPlainText( message );
 	ui.logWindow->ensureCursorVisible();
 }
 
 void MainWindow::handleConsoleRollbackChars( unsigned int count )
 {
+	// Save and restore current char format
+	QTextCharFormat format = ui.logWindow->currentCharFormat();
+
 	QTextCursor cursor = ui.logWindow->textCursor();
 	cursor.setPosition( cursor.position() - count, QTextCursor::KeepAnchor );
 	cursor.removeSelectedText();
 	ui.logWindow->setTextCursor( cursor );
+
+	ui.logWindow->setCurrentCharFormat(format);
 }
 
 void MainWindow::handleConsoleNotifyState( enServerState s )
