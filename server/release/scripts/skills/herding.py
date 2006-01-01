@@ -1,8 +1,6 @@
 # Herding
 import wolfpack
-import wolfpack.utilities
-from wolfpack.consts import GRAY
-from wolfpack.consts import *
+from wolfpack.consts import GRAY, HERDING, SND_ATTACK
 
 def onUse( char, item ):
 	# Needs to be on ourself
