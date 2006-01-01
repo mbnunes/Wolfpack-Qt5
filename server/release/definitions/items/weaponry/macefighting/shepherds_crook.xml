@@ -18,7 +18,7 @@
 		<buyprice>18</buyprice>
 		<durability><random min="30" max="50" /></durability>
 		<weight>2.0</weight>
-		<basescripts>equipment</basescripts>
+		<basescripts>equipment,skills.herding</basescripts>
 		<type>1003</type>
 		<twohanded />
 		<category>Base Weapons\Staves\Crook (N/S)</category>

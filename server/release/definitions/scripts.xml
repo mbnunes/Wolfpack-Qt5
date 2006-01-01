@@ -14,11 +14,11 @@
 -->
 <definitions>
 
-  <!-- Boats -->
-    <script>boats</script>
-    <script>boats.deed</script>
+	<!-- Boats -->
+	<script>boats</script>
+	<script>boats.deed</script>
 
-  <!-- Housing -->
+	<!-- Housing -->
 	<script>housing</script>
 	<script>housing.deed</script>
 	<script>housing.house</script>
@@ -288,6 +288,7 @@
 	<script>skills.fishing</script>
 	<script>skills.glassblowing</script>
 	<script>skills.healing</script>
+	<script>skills.herding</script>
 	<script>skills.hiding</script>
 	<script>skills.inscription</script>
 	<script>skills.itemid</script>
@@ -309,7 +310,6 @@
 	<!-- Testing Scripts -->
 	<script>testing</script>
 	<script>testing.multibag</script>
-
 
 	<!-- Plants -->
 	<script>plants</script>

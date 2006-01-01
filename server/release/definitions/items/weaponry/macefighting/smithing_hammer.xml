@@ -25,7 +25,7 @@
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<tag name="remaining_uses" type="int" value="45" />
-		<intproperty name="req_strength" value="30" />
+		<intproperty name="req_strength" value="40" />
 		<intproperty name="speed" value="33" />
 		<intproperty name="mindamage" value="13" />
 		<intproperty name="maxdamage" value="15" />
