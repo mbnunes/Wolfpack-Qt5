@@ -229,8 +229,8 @@
 		<!-- Missing: level 2 treasure map -->
 		<backpack>
 			<content>
-				<item list="MAGE_SHOES"><color>0xb</color></item> # shoes or sandals
-				<item id="1f04"><color>0x55d</color></item> # robe
+				<item list="MAGE_SHOES"><color>0xb</color></item> <!-- shoes or sandals -->
+				<item id="1f04"><color>0x55d</color></item> <!-- robe -->
 				<item id="eed"><amount><random min="175" max="225" /></amount></item> <!-- Gold -->
 				<item list="REAGENTS"><amount>7</amount></item> <!-- random reg -->
 				<item list="REAGENTS"><amount>8</amount></item> <!-- random reg -->
