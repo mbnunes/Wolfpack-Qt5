@@ -310,8 +310,6 @@ public:
 
 		if ( pObject->isChar() )
 		{
-			P_CHAR pChar = dynamic_cast<P_CHAR>( pObject );
-
 			if ( pChar )
 				pChar->resend();
 		}

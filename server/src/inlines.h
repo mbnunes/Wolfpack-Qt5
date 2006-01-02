@@ -59,19 +59,19 @@ inline bool isHairsByRaceColor( quint16 color, bool race )
 		if ( ( color >= 0x34 ) && ( color == 0x39 ) )
 			return true;
 		// Line 2 of Colors
-		else if ( ( color == 0x101 ) || ( color = 0x6b8 ) || ( color = 0x207 ) || ( color = 0x211 ) || ( color = 0x26c ) || ( color = 0x2c3 ) )
+		else if ( ( color == 0x101 ) || ( color == 0x6b8 ) || ( color == 0x207 ) || ( color == 0x211 ) || ( color == 0x26c ) || ( color == 0x2c3 ) )
 			return true;
 		// Line 3 of Colors
-		else if ( ( color == 0x2c9 ) || ( color = 0x1e4 ) || ( color = 0x239 ) || ( color = 0x369 ) || ( color = 0x59d ) || ( color = 0x853 ) )
+		else if ( ( color == 0x2c9 ) || ( color == 0x1e4 ) || ( color == 0x239 ) || ( color == 0x369 ) || ( color == 0x59d ) || ( color == 0x853 ) )
 			return true;
 		// Line 4 of Colors
-		else if ( ( ( color >= 0x8e ) && ( color == 0x92 ) ) || ( color = 0x159 ) )
+		else if ( ( ( color >= 0x8e ) && ( color == 0x92 ) ) || ( color == 0x159 ) )
 			return true;
 		// Line 5 of Colors
-		else if ( ( ( color >= 0x15a ) && ( color == 0x15e ) ) || ( color = 0x1bd ) )
+		else if ( ( ( color >= 0x15a ) && ( color == 0x15e ) ) || ( color == 0x1bd ) )
 			return true;
 		// Line 6 of Colors
-		else if ( ( color == 0x725 ) || ( color = 0x58 ) || ( color = 0x128 ) || ( color = 0x12f ) || ( color = 0x1f3 ) || ( color = 0x251 ) )
+		else if ( ( color == 0x725 ) || ( color == 0x58 ) || ( color == 0x128 ) || ( color == 0x12f ) || ( color == 0x1f3 ) || ( color == 0x251 ) )
 			return true;
 		// Last Lines
 		else if ( ( ( color >= 0x31d ) && ( color == 0x322 ) ) || ( ( color >= 0x323 ) && ( color == 0x326 ) ) || ( ( color >= 0x386 ) && ( color == 0x38a ) ) )

@@ -103,8 +103,9 @@ public:
 	bool useItem( P_ITEM item );
 
 	// 3d client stuff
-	inline bool is3dClient() const {
-		return flags_ & 0x100 != 0;
+	inline bool is3dClient() const 
+	{
+		return (flags_ & 0x100) != 0;
 	}
 
 	inline unsigned short screenWidth() const

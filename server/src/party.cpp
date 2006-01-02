@@ -345,7 +345,6 @@ public:
 void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 {
 	unsigned char subcommand = ( *packet )[5];
-	QString message;
 	P_PLAYER leader = 0;
 	P_PLAYER player = socket->player();
 
@@ -386,8 +385,8 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 			P_PLAYER target = dynamic_cast<P_PLAYER>( World::instance()->findChar( packet->getInt( 6 ) ) );
 			if ( target )
 			{
-				socket->log( LOG_TRACE, tr( "Told '%1' in party '%2'.\n" ).arg( target->account()->login() ).arg( message ) );
 				QString message = packet->getUnicodeString( 10, packet->size() - 10 );
+				socket->log( LOG_TRACE, tr( "Told '%1' in party '%2'.\n" ).arg( target->account()->login() ).arg( message ) );
 				player->party()->send( player, target, message );
 			}
 		}
@@ -441,6 +440,7 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 		break;
 
 	default:
+		QString message;
 		message.sprintf( "Receieved unknown party subcommand: 0x%02x", subcommand );
 		message += packet->dump( packet->uncompressed() ) + "\n";
 		socket->log( LOG_WARNING, message );
