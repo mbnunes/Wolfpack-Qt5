@@ -379,7 +379,7 @@ void cConsole::rollbackChars( unsigned int count )
 
 void cConsole::changeColor( enConsoleColors color )
 {
-	QRgb qcolor;
+	QRgb qcolor = 0;
 	switch ( color )
 	{
 	case WPC_GREEN:

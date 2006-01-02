@@ -519,7 +519,7 @@ void cTerritories::check( P_CHAR pc )
 				socket->updateLightLevel();
 			}
 			// Added the Fixed Light Level for a Region
-			if ( ( ( !currRegion->fixedlight() < 0 ) && ( lastRegion->fixedlight() < 0 ) ) || ( ( currRegion->fixedlight() < 0 ) && ( !lastRegion->fixedlight() < 0 ) ) )
+			if ( ( ( currRegion->fixedlight() >= 0 ) && ( lastRegion->fixedlight() < 0 ) ) || ( ( currRegion->fixedlight() < 0 ) && ( lastRegion->fixedlight() >= 0 ) ) )
 			{
 				socket->updateLightLevel();
 			}
