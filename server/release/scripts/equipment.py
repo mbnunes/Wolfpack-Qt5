@@ -16,12 +16,15 @@ auto_refresh_max = wolfpack.settings.getbool("General", "Refresh Characters Maxi
 def modifiers(object, tooltip):
 	modifiers = {
 		"remaining_uses": 1060584,
-		"aos_boni_damage": 1060401,
 	}
 
 	for (tag, cliloc) in modifiers.items():
 		if object.hastag(tag):
 			tooltip.add(cliloc, str(object.gettag(tag)))
+			
+	damagebonus = properties.fromitem(object, DAMAGEBONUS)
+	if damagebonus != 0:
+		tooltip.add(1060401, str(damagebonus))
 
 	speedbonus = properties.fromitem(object, SPEEDBONUS)
 	if speedbonus != 0:
