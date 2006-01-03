@@ -19,8 +19,13 @@ from wolfpack import tr, properties
 
 # Now, its the following order to template: Gold Amount, Magic Items, Scrolls, Gems, Stack of Reagents
 TEMPLATELEVEL = {
+	'0': [500, 1, 2, 2, 2],		# Since I dont Have information, I maded by myself level 0 template
 	'1': [1000, 5, 4, 3, 3],
-	'2': [2000, 10, 8, 6, 6]
+	'2': [2000, 10, 8, 6, 6],
+	'3': [3000, 15, 12, 9, 9],
+	'4': [4000, 38, 16, 12, 12],
+	'5': [5000, 50, 20, 15, 15],
+	'6': [6000, 60, 23, 18, 18]
 }
 
 ####################################################################################
