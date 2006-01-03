@@ -79,8 +79,6 @@
 	<script>test</script>
 	<script>training_dummy</script>
 	<script>trashcan</script>
-	<script>treasurechest</script>
-	<script>treasuremap</script>
 	<script>tribal_paint</script>
 	<script>wall_clock</script>
 	<script>weather</script>
@@ -341,5 +339,12 @@
 	<script>quests.utils</script>
 	<script>quests.functions</script>
 	<script>quests.events</script>
+
+	<!-- Treasure System -->
+	<script>treasure.treasure_chest</script>
+	<script>treasure.treasure_coords</script>
+	<script>treasure.treasure_map</script>
+	<script>treasure.treasure_spawn</script>
+	<script>treasure.treasure_templates</script>
 
 </definitions>

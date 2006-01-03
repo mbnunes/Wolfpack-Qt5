@@ -11,7 +11,6 @@
 
 import wolfpack
 import random
-from wolfpack import tr
 
 ####################################################################################
 ###################     Groups      ################################################
@@ -31,33 +30,14 @@ TREASPAWNS = {
 ###################     Constants      #############################################
 ####################################################################################
 
-MINSPAWN = 3
-MAXSPAWN = 6
+MINSPAWN = 4		# Min of Monsters on Initial Spawn
+MAXSPAWN = 4		# Max of Monsters on Initial Spawn
 
 ####################################################################################
-###################     Using      #################################################
+###################     Spawning (Initial)      ####################################
 ####################################################################################
 
-def onUse(player, item):
-
-	# Get Owner of the Treaure Chest and Party Leader
-	owner = item.gettag('owner')
-	if item.hastag('party'):
-		party = item.gettag('party')
-
-	# If you are not the owner or is not in the party of chest so... lets make you criminal!
-	if not str(player.serial) == str(owner):
-		if not item.hastag('party'):
-			player.criminal()
-		else:
-			if not str(party) == str(player.party.leader.serial):
-				player.criminal()
-
-####################################################################################
-###################     Spawning      ##############################################
-####################################################################################
-
-def treasmonsterspawn( item ):
+def treasinitialspawn( item ):
 
 	# Spawn list for that Level
 	level = item.gettag('level')

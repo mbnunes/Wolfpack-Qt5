@@ -379,8 +379,8 @@
 		<tag name="level" value="0" />
 		<tag name="protected" value="1" />
 		<tag name="editable" value="0" />
-		<basescripts>treasuremap</basescripts>
-		<category>Professions\TreasureHunter\Treasure Map Lvl 1</category>
+		<basescripts>treasure.treasure_map</basescripts>
+		<category>Professions\TreasureHunter\Treasure Map Lvl 0</category>
 	</item>
 
 	<item id="map_treasure_1" inherit="14eb">
@@ -388,7 +388,7 @@
 		<tag name="level" value="1" />
 		<tag name="protected" value="1" />
 		<tag name="editable" value="0" />
-		<basescripts>treasuremap</basescripts>
+		<basescripts>treasure.treasure_map</basescripts>
 		<category>Professions\TreasureHunter\Treasure Map Lvl 1</category>
 	</item>
 
@@ -397,8 +397,8 @@
 		<tag name="level" value="2" />
 		<tag name="protected" value="1" />
 		<tag name="editable" value="0" />
-		<basescripts>treasuremap</basescripts>
-		<category>Professions\TreasureHunter\Treasure Map Lvl 1</category>
+		<basescripts>treasure.treasure_map</basescripts>
+		<category>Professions\TreasureHunter\Treasure Map Lvl 2</category>
 	</item>
 
 	<item id="map_treasure_3" inherit="14eb">
@@ -406,8 +406,8 @@
 		<tag name="level" value="3" />
 		<tag name="protected" value="1" />
 		<tag name="editable" value="0" />
-		<basescripts>treasuremap</basescripts>
-		<category>Professions\TreasureHunter\Treasure Map Lvl 1</category>
+		<basescripts>treasure.treasure_map</basescripts>
+		<category>Professions\TreasureHunter\Treasure Map Lvl 3</category>
 	</item>
 
 	<item id="map_treasure_4" inherit="14eb">
@@ -415,8 +415,8 @@
 		<tag name="level" value="4" />
 		<tag name="protected" value="1" />
 		<tag name="editable" value="0" />
-		<basescripts>treasuremap</basescripts>
-		<category>Professions\TreasureHunter\Treasure Map Lvl 1</category>
+		<basescripts>treasure.treasure_map</basescripts>
+		<category>Professions\TreasureHunter\Treasure Map Lvl 4</category>
 	</item>
 
 	<item id="map_treasure_5" inherit="14eb">
@@ -424,8 +424,8 @@
 		<tag name="level" value="5" />
 		<tag name="protected" value="1" />
 		<tag name="editable" value="0" />
-		<basescripts>treasuremap</basescripts>
-		<category>Professions\TreasureHunter\Treasure Map Lvl 1</category>
+		<basescripts>treasure.treasure_map</basescripts>
+		<category>Professions\TreasureHunter\Treasure Map Lvl 5</category>
 	</item>
 
 	<item id="map_treasure_6" inherit="14eb">
@@ -433,8 +433,8 @@
 		<tag name="level" value="6" />
 		<tag name="protected" value="1" />
 		<tag name="editable" value="0" />
-		<basescripts>treasuremap</basescripts>
-		<category>Professions\TreasureHunter\Treasure Map Lvl 1</category>
+		<basescripts>treasure.treasure_map</basescripts>
+		<category>Professions\TreasureHunter\Treasure Map Lvl 6</category>
 	</item>
 
 </definitions>

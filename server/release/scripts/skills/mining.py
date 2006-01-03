@@ -14,7 +14,7 @@ from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
 	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN, MINING_SAND
 from wolfpack import tr
 from wolfpack.utilities import ismountainorcave, issand, tobackpack
-from treasuremap import checktreaspoint
+from treasure.treasure_map import checktreaspoint
 
 KNOWLEDGE_OF_NATURE_FACTOR =  int( wolfpack.settings.getnumber("Racial Features", "Elves Knowledge of Nature factor", 2, True) )
 

@@ -471,7 +471,7 @@
 	<item id="treasure chest" inherit="e40">
 		<name>Treasure Chest</name>
 		<id>0xe41</id>
-		<basescripts>lock,treasurechest</basescripts>
+		<basescripts>lock,treasure.treasure_chest</basescripts>
 		<tag name="locked" value="1" />
 		<tag name="lock" value="lockpick" />
 		<category>Equipment\Containers\Golden Metal Chest (N/S)</category>
