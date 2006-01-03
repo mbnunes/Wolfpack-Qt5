@@ -672,6 +672,20 @@ bool cItem::onPickup( P_CHAR pChar )
 	return result;
 }
 
+bool cItem::onPickupFromContainer( P_CHAR pChar, P_ITEM pItem )
+{
+	bool result = false;
+
+	if ( canHandleEvent( EVENT_PICKUPFROMCONTAINER ) )
+	{
+		PyObject* args = Py_BuildValue( "O&O&O&", PyGetCharObject, pChar, PyGetItemObject, pItem, PyGetItemObject, this );
+		result = callEventHandler( EVENT_PICKUPFROMCONTAINER, args );
+		Py_DECREF( args );
+	}
+
+	return result;	
+}
+
 bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;

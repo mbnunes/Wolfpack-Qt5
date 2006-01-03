@@ -769,6 +769,17 @@ Npc must have an ai.
 */
 "onTimerRegenStamina",
 
+/*
+\event onPickupFromContainer
+\param player The player trying to pick up an item.
+\param item The Item player is trying to pick up from Container.
+\param container The Container where item is.
+\condition Triggered when a player tries to pick up an item from a Container.
+\return Return 1 to prevent the item from being picked up.
+\notes The event is called always for the Container.
+*/
+"onPickupFromContainer",
+
 0
 };
 

@@ -433,6 +433,7 @@ public:
 	bool onDropOnItem( P_ITEM pItem );
 	bool onDropOnGround( const Coord& pos );
 	bool onPickup( P_CHAR pChar );
+	bool onPickupFromContainer( P_CHAR pChar, P_ITEM pItem );
 	//	bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 
 	QList< cItem* > getContainment() const;

@@ -13,6 +13,8 @@ import wolfpack
 import random
 from wolfpack import tr, properties
 
+from treasure.treasure_spawn import treaspickspawn
+
 ####################################################################################
 ###################     Using      #################################################
 ####################################################################################
@@ -31,3 +33,26 @@ def onUse(player, item):
 		else:
 			if not str(party) == str(player.party.leader.serial):
 				player.criminal()
+
+####################################################################################
+###################     Picking Items from Container      ##########################
+####################################################################################
+
+def onPickupFromContainer(player, item, container):
+
+	# Lets call the chance to summon a new guardian to this Chest
+	treaspickspawn( container )
+
+####################################################################################
+###################     Context Menu      ##########################################
+####################################################################################
+
+def onContextEntry( char, target, tag  ):
+
+	if ( tag == 1 ):
+		if target.countitem():
+			char.socket.sysmessage('You have to empty the Treasure Chest First!')
+		else:
+			target.delete()
+
+	return 1

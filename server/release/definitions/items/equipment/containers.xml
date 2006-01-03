@@ -472,6 +472,8 @@
 		<name>Treasure Chest</name>
 		<id>0xe41</id>
 		<basescripts>lock,treasure.treasure_chest</basescripts>
+		<bindmenu>treasure_menu</bindmenu>
+		<nodecay />
 		<tag name="locked" value="1" />
 		<tag name="lock" value="lockpick" />
 		<category>Equipment\Containers\Golden Metal Chest (N/S)</category>

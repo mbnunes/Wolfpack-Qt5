@@ -137,4 +137,9 @@
 		<option tag="2" msgid="6156" checkvisible="true" />
 	</contextmenu>
 
+	<contextmenu id="treasure_menu">
+		<scripts>treasure.treasure_chest</scripts>
+		<option tag="1" msgid="6149" checkvisible="true" />
+	</contextmenu>
+
 </definitions>

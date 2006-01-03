@@ -51,3 +51,57 @@ def treasinitialspawn( item ):
 		
 		npc = wolfpack.addnpc(random.choice( spawnlist ), item.pos)
 		npc.update()
+
+####################################################################################
+###################     Spawning (Treasure Pick)      ##############################
+####################################################################################
+
+def treaspickspawn( item ):
+
+	#############################################
+	# Lets check the Level and assign SpawnList
+	#############################################
+	level = item.gettag('level')
+	spawnlist = TREASPAWNS[level]
+
+	#############################################
+	# Lets check the Random Chances of Spawn
+	#############################################
+	value = random.random()
+
+	# 2% of coming 5 Monsters
+	if value >= 0.98:
+		amount = 5
+	# 3% of coming 4 Monsters
+	elif value >= 0.95:
+		amount = 4
+	# 5% of coming 3 Monsters
+	elif value >= 0.90:
+		amount = 3
+	# 15% of coming 2 Monsters
+	elif value >= 0.75:
+		amount = 2
+	# 25% of coming 1 Monster
+	elif value >= 0.50:
+		amount = 1
+	# 50% to came Nothing
+	else:
+		amount = 0
+
+	#############################################
+	# Now, Lets Adjust to level
+	#############################################
+
+	if amount > level:
+		amount = level
+
+	#############################################
+	# Finally, Lets Spawn the Monsters
+	#############################################
+
+	if amount:
+
+		for i in range(0, amount):
+		
+			npc = wolfpack.addnpc(random.choice( spawnlist ), item.pos)
+			npc.update()
