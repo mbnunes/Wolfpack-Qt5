@@ -30,8 +30,10 @@ TREASPAWNS = {
 ###################     Constants      #############################################
 ####################################################################################
 
-MINSPAWN = 4		# Min of Monsters on Initial Spawn
-MAXSPAWN = 4		# Max of Monsters on Initial Spawn
+MINSPAWN = 4			# Min of Monsters on Initial Spawn
+MAXSPAWN = 4			# Max of Monsters on Initial Spawn
+
+MINLEVELFORINITIALSPAWN = 2	# Min Level to have Initial Spawn on Treasure
 
 ####################################################################################
 ###################     Spawning (Initial)      ####################################
@@ -42,6 +44,10 @@ def treasinitialspawn( item ):
 	# Spawn list for that Level
 	level = item.gettag('level')
 	spawnlist = TREASPAWNS[level]
+
+	# Check Min Level for Initial Spawn
+	if level < MINLEVELFORINITIALSPAWN:
+		return
 
 	# Lets check the amount of creatures. Always between 0 and 3:
 	amountspawned = random.randint(MINSPAWN,MAXSPAWN)
