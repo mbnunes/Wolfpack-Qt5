@@ -125,9 +125,12 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 
 	if ( pItem->container() )
 	{
-		P_ITEM pContainer = dynamic_cast<P_ITEM>( pItem->container() );
-		if ( pContainer->onPickupFromContainer( pChar, pItem ) )
-			return;
+		if ( pItem->container()->isItem() )
+		{
+			P_ITEM pContainer = dynamic_cast<P_ITEM>( pItem->container() );
+			if ( pContainer->onPickupFromContainer( pChar, pItem ) )
+				return;
+		}
 	}
 
 	// Do we really want to let him break his meditation
