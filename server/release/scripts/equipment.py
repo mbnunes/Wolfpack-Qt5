@@ -237,7 +237,7 @@ def onShowTooltip(viewer, object, tooltip):
 				tooltip.add(cliloc, str(effect))
 
 		# Hit Effects
-		for (effect, cliloc) in {HITMAGICARROW: 1060426, HITHARM: 1060421, HITFIREBALL: 1060420, HITLIGHTNING: 1060423, HITDISPEL: 1060417}.items():
+		for (effect, cliloc) in {HITMAGICARROW: 1060426, HITHARM: 1060421, HITFIREBALL: 1060420, HITLIGHTNING: 1060423, HITDISPEL: 1060417, HITLOWERDEFENSE: 1060425, HITLOWERATTACK: 1060424}.items():
 			effect = properties.fromitem(object, effect)
 			if effect > 0:
 				tooltip.add(cliloc, str(effect))

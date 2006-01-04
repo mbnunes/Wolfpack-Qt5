@@ -11,6 +11,8 @@ import wolfpack.time
 import wolfpack.utilities
 import environment
 import skills
+from wolfpack import properties
+import system.slayer
 
 MUSICIANSHIP_DELAY = 1000
 MINSKILL = 0
@@ -90,3 +92,12 @@ def play_instrument( char, item, success ):
 def bard_range( char ):
 	musi_range = 5 + char.skill[ MUSICIANSHIP ] / 150
 	return musi_range
+
+def onShowTooltip(viewer, object, tooltip):
+	slayer = properties.fromitem(object, SLAYER)
+	if slayer != '':
+		slayers = slayer.split(',')
+		for slayer in slayers:
+			slayer = system.slayer.findEntry(slayer)
+			if slayer:
+				tooltip.add(slayer.name, '')

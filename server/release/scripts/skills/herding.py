@@ -39,5 +39,5 @@ def gothere(char, args, target):
 
 	char.socket.clilocmessage( 502479 ) # The animal walks where it was instructed to.
 	pet.goto(target.pos)
-	pet.sound(SND_ATTACK)   
+	pet.sound(SND_ATTACK)
 	return

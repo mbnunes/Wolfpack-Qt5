@@ -125,6 +125,8 @@ PROPERTIES = {
 	HITFIREBALL : ['hitfireball', 0, 0],
 	HITLIGHTNING: ['hitlightning', 0, 0],
 	HITDISPEL: ['hitdispel', 0, 0],
+	HITLOWERDEFENSE: ['hitlowerdefense', 0, 0],
+	HITLOWERATTACK: ['hitlowerattack', 0, 0],
 }
 
 #
@@ -683,7 +685,7 @@ WEAPON_PROPERTIES = {
 	#HITLIGHTNING: [2, 50, 2, False],
 	#HITDISPEL: [2, 50, 2, False],
 	#HIT_LOWERATTACK: [2, 50, 2, False],
-	#HIT_LOWERDEFEND: [2, 50, 2, False],
+	#HITLOWERDEFENSE: [2, 50, 2, False],
 	
 	LIFELEECH: [2, 50, 2, False],
 	STAMINALEECH: [2, 50, 2, False],
