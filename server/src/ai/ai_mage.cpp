@@ -134,6 +134,11 @@ public:
 		return Monster_Aggr_Fight::preCondition(); // Casting has precende if possible
 	}
 
+	virtual float postCondition()
+	{
+		return 1.0f; // Melee is a one time action for mages.
+	}
+
 	virtual const char* name()
 	{
 		return "Monster_Mage_Fight";

@@ -145,9 +145,13 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 							pPet->setOwner( pTalker ); // This is important...
 							pPet->moveTo( m_npc->pos() );
 							pPet->resend();
+							pItem->remove();
 						}
 					}
-					pItem->remove();
+					else
+					{
+						pItem->remove();
+					}
 				}
 
 				pPack->update();
