@@ -335,9 +335,16 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 		socket->sysMessage( 500210 ); // You failed to peek into the container.
 
 		if ( !pp_owner ) // is NPC ?
-			pc_owner->talk( tr( "Art thou attempting to disturb my privacy?" ) );
+		{
+			if ( pc_owner )
+			{
+				pc_owner->talk( tr( "Art thou attempting to disturb my privacy?" ) );
+			}
+		}
 		else
+		{
 			pp_owner->message( tr( "You notice %1 trying to peek into your pack!" ).arg( player->name() ) );
+		}
 	}
 
 

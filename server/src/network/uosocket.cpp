@@ -1540,13 +1540,21 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange* packet )
 	if ( packet->range() > 18 || packet->range() < 5 )
 		return; // Na..
 
+	quint8 data = packet->range();
 	if ( _player )
 	{
-		_player->setVisualRange( packet->range() );
+		_player->setVisualRange( data );
 	}
 
 	cUOPacket update( 0xc8, 2 );
-	update[1] = _player->visualRange();
+	if ( _player )
+	{
+		update[1] = _player->visualRange();
+	}
+	else
+	{
+		update[1] = data;
+	}
 	send( &update );
 }
 
@@ -3616,11 +3624,11 @@ void cUOSocket::updateLightLevel()
 		}
 
 		// If Region have a Default Light Level, then let's Override
-		if (region->fixedlight() > -1)
+		if ( region && region->fixedlight() > -1 )
 			level = wpMin<int>( 0x1f, wpMax<int>( 0, region->fixedlight() - static_cast<int>( _player->fixedLightLevel() ) ) );
 
 		// Elves are always with Full NightSight. True?
-		if (Config::instance()->elffullnightsight())
+		if ( Config::instance()->elffullnightsight() )
 		{
 			if ( _player->isElf() )
 				level = 0;

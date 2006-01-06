@@ -704,8 +704,10 @@ void cBaseChar::setHairColor( quint16 d )
 	changed_ = true;
 	cItem* pHair = getItemOnLayer( 11 );
 	if ( pHair )
+	{
 		pHair->setColor( d );
-	pHair->update();
+		pHair->update();
+	}
 }
 
 void cBaseChar::setHairStyle( quint16 d )
@@ -736,8 +738,10 @@ void cBaseChar::setBeardColor( quint16 d )
 	changed_ = true;
 	cItem* pBeard = getItemOnLayer( 16 );
 	if ( pBeard )
+	{
 		pBeard->setColor( d );
-	pBeard->update();
+		pBeard->update();
+	}
 }
 
 void cBaseChar::setBeardStyle( quint16 d )

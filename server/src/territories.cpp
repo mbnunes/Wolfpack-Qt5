@@ -108,7 +108,7 @@ void cTerritory::processNode( const cElement* Tag )
 	//</guards>
 	if ( TagName == "guards" )
 	{
-		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
+		for ( uint i = 0; i < Tag->childCount(); ++i )
 		{
 			const cElement* childNode = Tag->getChild( i );
 
@@ -118,7 +118,7 @@ void cTerritory::processNode( const cElement* Tag )
 				if ( mult < 1 )
 					mult = 1;
 
-				for ( uint i = 0; i < mult; i++ )
+				for ( uint j = 0; j < mult; j++ )
 					this->guardSections_.push_back( childNode->value() );
 			}
 			else if ( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
@@ -585,7 +585,10 @@ cTerritory* cTerritories::region( const QString& regName )
 		// search all topregions of that map
 		foreach ( cTerritory* region, it.data() )
 		{
-			region = dynamic_cast<cTerritory*>( region->region( regName ) );
+			if ( region )
+			{
+				region = dynamic_cast<cTerritory*>( region->region( regName ) );
+			}
 			if ( region )
 			{
 				result = region;
@@ -605,7 +608,10 @@ cTerritory* cTerritories::region( UI16 posx, UI16 posy, UI08 map )
 		// search all topregions of that map
 		foreach ( cTerritory* region, it.data() )
 		{
-			region = dynamic_cast<cTerritory*>( region->region( posx, posy, map ) );
+			if ( region )
+			{
+				region = dynamic_cast<cTerritory*>( region->region( posx, posy, map ) );
+			}
 			if ( region )
 			{
 				result = region;
