@@ -438,19 +438,19 @@ void cNPC::talk( const QString& message, UI16 color, quint8 type, bool autospam,
 		speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
-	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
-	textSpeech->setSource( serial() );
-	textSpeech->setModel( body_ );
-	textSpeech->setFont( 3 ); // Default Font
-	textSpeech->setType( speechType );
-	textSpeech->setLanguage( "" );
-	textSpeech->setName( name() );
-	textSpeech->setColor( color );
-	textSpeech->setText( message );
+	cUOTxUnicodeSpeech textSpeech;
+	textSpeech.setSource( serial() );
+	textSpeech.setModel( body_ );
+	textSpeech.setFont( 3 ); // Default Font
+	textSpeech.setType( speechType );
+	textSpeech.setLanguage( "" );
+	textSpeech.setName( name() );
+	textSpeech.setColor( color );
+	textSpeech.setText( message );
 
 	if ( socket )
 	{
-		socket->send( textSpeech );
+		socket->send( &textSpeech );
 	}
 	else
 	{
@@ -459,10 +459,9 @@ void cNPC::talk( const QString& message, UI16 color, quint8 type, bool autospam,
 		{
 			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
-				mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
+				mSock->send( &textSpeech );
 			}
 		}
-		delete textSpeech;
 	}
 }
 

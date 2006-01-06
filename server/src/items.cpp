@@ -1277,19 +1277,19 @@ void cItem::talk( const QString& message, UI16 color, quint8 type, bool autospam
 		speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
-	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
-	textSpeech->setSource( serial() );
-	textSpeech->setModel( 0 );
-	textSpeech->setFont( 3 ); // Default Font
-	textSpeech->setType( speechType );
-	textSpeech->setLanguage( "" );
-	textSpeech->setName( getName( true ) );
-	textSpeech->setColor( color );
-	textSpeech->setText( message );
+	cUOTxUnicodeSpeech textSpeech;
+	textSpeech.setSource( serial() );
+	textSpeech.setModel( 0 );
+	textSpeech.setFont( 3 ); // Default Font
+	textSpeech.setType( speechType );
+	textSpeech.setLanguage( "" );
+	textSpeech.setName( getName( true ) );
+	textSpeech.setColor( color );
+	textSpeech.setText( message );
 
 	if ( socket )
 	{
-		socket->send( textSpeech );
+		socket->send( &textSpeech );
 	}
 	else
 	{
@@ -1298,10 +1298,9 @@ void cItem::talk( const QString& message, UI16 color, quint8 type, bool autospam
 		{
 			if ( mSock->canSee( this ) )
 			{
-				mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
+				mSock->send( &textSpeech );
 			}
 		}
-		delete textSpeech;
 	}
 }
 
@@ -1780,7 +1779,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 		{
 			// Remove from Cont and move to the old containers position
 			P_ITEM pCont = getOutmostItem();
-			P_CHAR pChar = pCont->getOutmostChar();
+			pChar = pCont->getOutmostChar();
 
 			removeFromCont();
 

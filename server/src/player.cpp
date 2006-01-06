@@ -321,15 +321,15 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 		speechType = cUOTxUnicodeSpeech::Regular; break;
 	};
 
-	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
-	textSpeech->setSource( serial() );
-	textSpeech->setModel( body_ );
-	textSpeech->setFont( 3 ); // Default Font
-	textSpeech->setType( speechType );
-	textSpeech->setLanguage( lang );
-	textSpeech->setName( name() );
-	textSpeech->setColor( color );
-	textSpeech->setText( message );
+	cUOTxUnicodeSpeech textSpeech;
+	textSpeech.setSource( serial() );
+	textSpeech.setModel( body_ );
+	textSpeech.setFont( 3 ); // Default Font
+	textSpeech.setType( speechType );
+	textSpeech.setLanguage( lang );
+	textSpeech.setName( name() );
+	textSpeech.setColor( color );
+	textSpeech.setText( message );
 
 	QString ghostSpeech;
 	bool gmSpiritSpeak = skillValue( SPIRITSPEAK ) >= 1000;
@@ -351,11 +351,11 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 		// Take the dead-status into account
 		if ( isDead() && !gmSpiritSpeak )
 			if ( !socket->player()->isDead() && !socket->player()->isGMorCounselor() && socket->player()->skillValue( SPIRITSPEAK ) < 1000 )
-				textSpeech->setText( ghostSpeech );
+				textSpeech.setText( ghostSpeech );
 			else
-				textSpeech->setText( message );
+				textSpeech.setText( message );
 
-		socket->send( textSpeech );
+		socket->send( &textSpeech );
 	}
 	else
 	{
@@ -367,14 +367,13 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 				// Take the dead-status into account
 				if ( isDead() && !gmSpiritSpeak )
 					if ( !mSock->player()->isDead() && !mSock->player()->isGMorCounselor() && mSock->player()->skillValue( SPIRITSPEAK ) < 1000 )
-						textSpeech->setText( ghostSpeech );
+						textSpeech.setText( ghostSpeech );
 					else
-						textSpeech->setText( message );
+						textSpeech.setText( message );
 
-				mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
+				mSock->send( &textSpeech );
 			}
 		}
-		delete textSpeech;
 	}
 }
 
