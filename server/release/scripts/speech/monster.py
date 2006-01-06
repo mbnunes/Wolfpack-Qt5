@@ -132,8 +132,8 @@ speechbuilders = {
 }
 
 def onDamage(char, type, amount, source):	
-	# 10% chance to talk
-	if random.random() >= 0.10:
+	# 5% chance to talk
+	if random.random() >= 0.05:
 		return amount
 
 	if char.health - amount > 0:	
@@ -162,7 +162,7 @@ def onWalk(char, dir, sequence):
 	if not char.attacktarget or char.distanceto(char.attacktarget) > 5:	
 		return False
 		
-	# Otherwise a 10% chance
+	# Otherwise a 105% chance
 	if random.random() >= 0.10:
 		return False
 		
