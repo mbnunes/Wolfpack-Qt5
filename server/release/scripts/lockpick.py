@@ -21,14 +21,22 @@ def response(char, args, target):
 			if target.item.hastag('lock'):
 				lock = str(target.item.gettag('lock'))
 
-			if target.item.secured:
+			# Getting the difficult to lockpick
+			if target.item.hastag('lockpick_difficult'):
+				difficult = int(target.item.gettag('lockpick_difficult'))
+			else:
+				difficult = 0
+
+			if char.skill(LOCKPICKING) < difficult:
+				char.socket.clilocmessage(502075) # You are unable to pick the lock.
+			elif target.item.secured:
 				char.socket.clilocmessage(502071) # That is secure
 			elif lock == 'magic':
 				char.socket.clilocmessage(502073) # This lock cannot be picked by normal means.
 			elif lock != 'lockpick':
 				char.socket.clilocmessage(502072) # You don't see how that lock can be manipulated.
 			else:
-				if char.checkskill(LOCKPICKING, 0, 1200):
+				if char.checkskill(LOCKPICKING, difficult, 1200):
 					# SUCCESS: Remove lockpick and the lock
 					target.item.removescript( 'lock' )
 					target.item.deltag('lock')

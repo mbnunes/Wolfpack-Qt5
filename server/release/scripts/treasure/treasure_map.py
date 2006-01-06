@@ -214,5 +214,22 @@ def createtreaschest(x, y, z, map, char, level):
 	if char.party:
 		item.settag('party', char.party.leader.serial)
 
+	# Lets set the Lock difficult fot this Chest
+	if level == 0:
+		item.removescript( 'lock' )
+		item.deltag('lock')
+		item.deltag('locked')
+		item.resendtooltip()
+	elif level == 1:
+		item.settag('lockpick_difficult', 360)
+	elif level == 2:
+		item.settag('lockpick_difficult', 760)
+	elif level == 3:
+		item.settag('lockpick_difficult', 840)
+	elif level == 4:
+		item.settag('lockpick_difficult', 920)
+	else:
+		item.settag('lockpick_difficult', 1000)
+
 	# Spawn some creatures
 	treasinitialspawn( item )
