@@ -1824,7 +1824,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 
 		if ( !expireCall->isValid() )
 		{
-			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.toLatin1());
+			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.latin1());
 			return 0;
 		}
 	}
