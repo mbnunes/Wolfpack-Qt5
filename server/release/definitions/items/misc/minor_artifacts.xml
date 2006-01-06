@@ -31,7 +31,7 @@
 	</item>
 
 	<!-- Blaze of Death -->
-	<item id="arctic_death_dealer" inherit="143f">
+	<item id="blaze_death" inherit="143f">
 		<id>0x143f</id>
 		<name>#1063486</name>
 		<color>0x501</color>
@@ -81,7 +81,7 @@
 	</item>
 
 	<!-- Candelabra of Souls -->
-	<item id="burglars_bandana" inherit="b26">
+	<item id="candelabra_souls" inherit="b26">
 		<id>0xb26</id>
 		<name>#1063478</name>
 		<category>Misc\Minor Artifacts\Candelabra of Souls</category>

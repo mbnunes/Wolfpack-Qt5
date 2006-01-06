@@ -70,6 +70,8 @@ TREAS_PLAINREGS = ['f7a', 'f7b', 'f84', 'f85', 'f86', 'f88', 'f8c', 'f8d']
 TREAS_NECROREGS = ['f78', 'f79', 'f7c', 'f7d', 'f7e', 'f7f', 'f80', 'f81', 'f82', 'f83', 'f87', 'f89', 'f8a', 'f8b', 'f8e', 'f8f', 'f90', 'f91']
 TREAS_ALLREGS = TREAS_PLAINREGS + TREAS_NECROREGS
 
+TREAS_MINORARTIFACTS = ['alchemists_bauble', 'arctic_death_dealer', 'blaze_death', 'bow_of_the_juka_king', 'burglars_bandana', 'candelabra_souls', 'captain_quacklebushs_cutlass', 'cavorting_club', 'cold_blood', 'dread_pirate_hat', 'enchanted_titan_leg_bone', 'ghost_ship_anchor', 'gloves_of_the_pugilist', 'gold_bricks', 'gwennos_harp', 'heart_of_the_lion', 'iolos_lute', 'luna_lance', 'nights_kiss', 'nox_rangers_heavy_crossbow', 'orcish_visage', 'pixie_swatter', 'polar_bear_mask', 'shield_of_invulnerability', 'ship_model_of_the_hms_cape', 'staff_of_power', 'admirals_hearty_rum', 'violet_courage', 'wrath_of_the_dryad']
+
 ####################################################################################
 ###################     Constants      #############################################
 ####################################################################################
@@ -146,4 +148,12 @@ def filltreasure( chest, level ):
 		
 		item = wolfpack.additem(random.choice( TREAS_ALLREGS ))
 		item.amount = random.randint(MINAMOUNTSTACK, MAXAMOUNTSTACK)
+		chest.additem(item)
+
+	##########
+	# Minor Artifacts (Level 6 Map Only)
+	##########
+	if level > 5:
+
+		item = wolfpack.additem(random.choice( TREAS_MINORARTIFACTS ))
 		chest.additem(item)
