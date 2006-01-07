@@ -116,6 +116,10 @@ def checkhit(attacker, defender, time):
 	# attacker gets 10% bonus when they're under divine fury
 	if attacker.hasscript('magic.divinefury'):
 		bonus += 10
+
+	if attacker.hastag('hitlowerattack'):
+		bonus -= 25 # Under Hit Lower Attack effect -> 25% malus
+
 	attackChance = (attackerValue + 20.0) * (100 + bonus)
 
 	# Calculate the defense chance
@@ -123,6 +127,10 @@ def checkhit(attacker, defender, time):
 	# defender loses 20% bonus when they're under divine fury
 	if defender.hasscript('magic.divinefury'):
 		bonus -= 20
+
+	if defender.hastag('hitlowerdefense'):
+		bonus -= 25 # Under Hit Lower Defense effect -> 25% malus
+
 	defendChance = (defenderValue + 20.0) * (100 + bonus)
 
 	# Give a minimum chance of 2%

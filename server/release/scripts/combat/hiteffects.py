@@ -87,10 +87,60 @@ def hitdispel(attacker, defender):
 		if attacker.socket:
 			attacker.socket.clilocmessage(1010084) # The creature resisted the attempt to dispel it!
 
+def attacktimer(char, args):
+	char.deltag('hitlowerattack')
+	if char.socket:
+		char.socket.clilocmessage(1062320) # Your attack chance has returned to normal.
+	return True
+
+def ApplyAttack(target):
+	if target.hastag('hitlowerattack'):
+		return False
+
+	target.settag('hitlowerattack', 0)
+	target.addtimer(10000, attacktimer, [], True) # lasts for 10 seconds
+	if target.socket:
+		target.socket.clilocmessage(1062319) # Your attack chance has been reduced!
+	return True
+
+def hitlowerattack(attacker, defender):
+	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden or defender.region.safe:
+		return
+
+	if ApplyAttack(defender):
+		defender.soundeffect(0x28e)
+		defender.effect(0x37be, 1, 4, 0xa, 3)
+
+def defensetimer(char, args):
+	char.deltag('hitlowerdefense')
+	if char.socket:
+		char.socket.clilocmessage(1062321) # Your defense chance has returned to normal.
+	return True
+
+def ApplyDefense(target):
+	if target.hastag('hitlowerdefense'):
+		return False
+
+	target.settag('hitlowerdefense', 0)
+	target.addtimer(8000, defensetimer, [], True) # lasts for 8 seconds
+	if target.socket:
+		target.socket.clilocmessage(1062318) # Your defense chance has been reduced!
+	return True
+
+def hitlowerdefense(attacker, defender):
+	if defender.invulnerable or defender.dead or defender.invisible or defender.hidden or defender.region.safe:
+		return
+
+	if ApplyDefense(defender):
+		defender.soundeffect(0x28e);
+		defender.effect(0x37be, 1, 4, 0x23, 3)
+
 EFFECTS = {
 	HITMAGICARROW: hitmagicarrow, 
 	HITHARM: hitharm, 
 	HITFIREBALL: hitfireball, 
 	HITLIGHTNING: hitlightning, 
-	HITDISPEL: hitdispel
+	HITDISPEL: hitdispel,
+	HITLOWERATTACK: hitlowerattack,
+	HITLOWERDEFENSE: hitlowerdefense
 }
