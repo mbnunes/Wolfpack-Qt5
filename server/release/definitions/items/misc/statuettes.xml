@@ -1,0 +1,9 @@
+<definitions>
+
+	<item id="base_statuette">
+		<weight>1.0</weight>
+		<newbie />
+		<basescripts>statuette</basescripts>
+	</item>
+
+</definitions>

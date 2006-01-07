@@ -21,6 +21,7 @@
 	<include file="definitions/items/misc/siegeweapons.xml"/>
 	<include file="definitions/items/misc/spellicons.xml"/>
 	<include file="definitions/items/misc/deeds.xml"/>
+	<include file="definitions/items/misc/statuettes.xml"/>
 	<include file="definitions/items/misc/testing.xml"/>
 	<include file="definitions/items/misc/plantgrowing.xml"/>
 </definitions>

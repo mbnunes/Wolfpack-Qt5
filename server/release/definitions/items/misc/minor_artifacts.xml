@@ -315,7 +315,11 @@
 		<intproperty name="range" value="8" />
 	</item>
 
-<!-- Phillip's Wooden Steed -->
+	<!-- Phillip's Wooden Steed -->
+	<item id="phillips_wooden_steed" inherit="base_statuette">
+		<id>0x3ffe</id>
+		<category>Misc\Minor Artifacts\Phillip's Wooden Steed</category>
+	</item>
 
 	<!-- Pixie Swatter -->
 	<item id="pixie_swatter" inherit="26c6">
@@ -354,8 +358,11 @@
 	</item>
 
 
-<!-- Seahorse Statuette -->
-
+	<!-- Seahorse Statuette -->
+	<item id="seahorse_statuette" inherit="base_statuette">
+		<id>0x25ba</id>
+		<category>Misc\Minor Artifacts\Seahorse Statuette</category>
+	</item>
 
 	<!-- Shield of Invulnerability -->
 	<item id="shield_of_invulnerability" inherit="1bc4">
