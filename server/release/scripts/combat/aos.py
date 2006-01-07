@@ -113,6 +113,7 @@ def checkhit(attacker, defender, time):
 	# Calculate the hit chance
 	bonus = 0 # Get the weapon "accuracy" status
 	bonus += properties.fromchar(attacker, HITBONUS) # Get the attackers AttackChance bonus
+
 	# attacker gets 10% bonus when they're under divine fury
 	if attacker.hasscript('magic.divinefury'):
 		bonus += 10
