@@ -76,6 +76,8 @@
 	<script>spawngem</script>
 	<script>specialdye</script>
 	<script>spiderweb</script>
+	<script>statuette</script>
+<!--	<script>taxidermykit</script> -->
 	<script>test</script>
 	<script>training_dummy</script>
 	<script>trashcan</script>
@@ -104,6 +106,7 @@
 	<script>deeds.hairstyle</script>
 	<script>deeds.item_bless_deed</script>
 	<script>deeds.multideed</script>
+<!--	<script>deeds.trophy_deed</script> -->
 
 	<!-- Combat -->
 	<script>combat</script>

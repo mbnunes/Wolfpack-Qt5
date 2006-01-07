@@ -11,7 +11,7 @@ class SpeechBuilder:
 		self.saycolor = saycolor
 		self.saysound = saysound
 		self.syllables = syllables
-		
+
 	#
 	# Build a random word with a given number of syllables
 	#
@@ -20,7 +20,7 @@ class SpeechBuilder:
 		for i in range(0, syllables):
 			result += random.choice(self.syllables)
 		return result
-	
+
 	#
 	# Delimit a sentence
 	#
@@ -48,25 +48,25 @@ class SpeechBuilder:
 	def buildsentence(self, words):
 		sentence = ''
 		sentencestart = True
-		
+
 		for i in range(0, words):
 			# 2/3 long words, 1/3 shorts
 			if random.random() >= 0.33:
 				word = self.buildword(random.randint(1, 5))
 			else:
 				word = self.buildword(random.randint(1, 3))
-				
+
 			# Captalize if beginning of sentence
 			if sentencestart:
 				sentence += word.capitalize()
 			else:
 				sentence += word
-				
+
 			# Add a delimiter
 			char = self.delimiter(i + 1 == words)
 			sentence += char		
 			sentencestart = char[0] != ' '
-	
+
 		return sentence
 
 RATMAN_SAY_COLOR = 149
@@ -161,18 +161,18 @@ def onWalk(char, dir, sequence):
 	# Only talk if talking toward our attack target
 	if not char.attacktarget or char.distanceto(char.attacktarget) > 5:	
 		return False
-		
+
 	# Otherwise a 105% chance
 	if random.random() >= 0.10:
 		return False
-		
+
 	speech = char.getstrproperty('monsterspeech', '')
 	global speechbuilders
 	if not speechbuilders.has_key(speech):
 		console.log(LOG_MESSAGE, speech + "\n")
 		return False
 	speechbuilder = speechbuilders[speech]	
-	
+
 	char.soundeffect( speechbuilder.saysound )
 	char.say( speechbuilder.buildsentence(6), speechbuilder.saycolor )
  	return False
