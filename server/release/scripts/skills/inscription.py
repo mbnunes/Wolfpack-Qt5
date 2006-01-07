@@ -71,11 +71,80 @@ def onUse(char, item):
 		menu.send(char, [item.serial])
 	return True
 
+def isempty(book):
+	pages = 64
+	if book.hastag('pages'):
+		pages = int(book.gettag('pages'))
+	for page in range(1, pages+1):
+		if book.hastag('page%u' % page):
+			return False
+	return True
+
 #
-# Skil is used via blue button
+# Skill is used via blue button
 #
 def inscription(player, skill):
-	pass
+	player.socket.clilocmessage( 1046295 ) # Target the book you wish to copy.
+	player.socket.attachtarget('skills.inscription.copy', []) # , '', 'skills.inscription.timeout', 60000) # times out after 1 minute
+	return True
+
+def copy(char, args, target):
+	if not target.item:
+		return False
+	if not char.canreach(target.item, 3):
+		return False
+	if not target.item.hasscript('book'):
+		char.socket.clilocmessage( 1046296 ) # That is not a book
+		return False
+	if isempty(target.item):
+		char.socket.clilocmessage( 501611 ) # Can't copy an empty book.
+		return False
+
+	char.socket.clilocmessage( 501612 ) # Select a book to copy this to.
+	char.socket.attachtarget('skills.inscription.target_copy', [target.item]) #, '', 'skills.inscription.timeout', 60000) # times out after 1 minute
+	return True
+
+def timeout(char):
+	char.socket.clilocmessage( 501619 ) # You have waited too long to make your inscribe selection, your inscription attempt has timed out.
+
+def target_copy(char, args, target):
+	if not target.item:
+		return False
+	if not char.canreach(target.item, 3):
+		return False
+	tocopy = args[0]
+	if not target.item.hasscript('book'):
+		char.socket.clilocmessage( 1046296 ) # That is not a book
+		return False
+	if tocopy == target.item:
+		char.socket.clilocmessage( 501616 ) # Cannot copy a book onto itself.
+		return False
+	if target.item.hastag('protected'):
+		char.socket.clilocmessage( 501614 ) # Cannot write into that book.
+		return False
+	if char.checkskill(INSCRIPTION, 0, 500):
+		docopy(tocopy, target.item)
+		char.socket.clilocmessage( 501618 ) # You make a copy of the book.
+		char.soundeffect( 0x249 )
+	else:
+		char.socket.clilocmessage( 501617 ) # You fail to make a copy of the book.
+		return False
+	return True
+
+def docopy(original, copy):
+	if original.hastag('author'):
+		copy.settag('author', unicode(original.gettag('author')))
+	copy.name = original.name
+
+	pages = 64
+	if original.hastag('pages'):
+		pages = int(original.gettag('pages'))
+
+	for page in range(1, pages+1):
+		if original.hastag('page%u' % page):
+			copy.settag('page%u' % page, unicode(original.gettag('page%u' % page)))
+	copy.resendtooltip()
+	return True
 
 #
 # ScribeAction for SCROLLS ONLY
