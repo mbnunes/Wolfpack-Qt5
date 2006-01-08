@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -933,10 +933,10 @@ static PyObject* wpElement_getchild( wpElement* self, PyObject* args )
 
 static PyMethodDef methods[] =
 {
-	{"hasattribute", ( getattrofunc ) wpElement_hasattribute, METH_VARARGS, 0}, 
-	{"getattribute", ( getattrofunc ) wpElement_getattribute, METH_VARARGS, 0}, 
-	{"findchild", ( getattrofunc ) wpElement_findchild, METH_VARARGS, 0}, 
-	{"getchild", ( getattrofunc ) wpElement_getchild, METH_VARARGS, 0}, 
+	{"hasattribute", ( getattrofunc ) wpElement_hasattribute, METH_VARARGS, 0},
+	{"getattribute", ( getattrofunc ) wpElement_getattribute, METH_VARARGS, 0},
+	{"findchild", ( getattrofunc ) wpElement_findchild, METH_VARARGS, 0},
+	{"getchild", ( getattrofunc ) wpElement_getchild, METH_VARARGS, 0},
 	{0, 0, 0, 0}
 };
 

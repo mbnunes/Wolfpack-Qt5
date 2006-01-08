@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -261,7 +261,7 @@ void Human_Guard_Called_Fight::execute()
 	switch ( RandomNum( 0, 20 ) )
 	{
 	case 0:
-		m_npc->talk( 500131 ); // Thou wilt regret thine actions, swine!	
+		m_npc->talk( 500131 ); // Thou wilt regret thine actions, swine!
 		break;
 	case 1:
 		m_npc->talk( 1008011 ); // Beware, all, whilst I dispose of this evildoer.

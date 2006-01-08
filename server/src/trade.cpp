@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -180,7 +180,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 					idfirst = Region->firstcoin();
 					idsecond = Region->secondcoin();
 					idthird = Region->thirdcoin();
-				}				
+				}
 
 				// Get our total gold at once
 				quint32 packFirst = backpack->countItems( idfirst.toUShort(0, 16) );
@@ -776,7 +776,7 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 	pVendor->talk( tr( "Thank you %1, here are your %2 gold" ).arg( pChar->name() ).arg( totalValue ) );
 
 	// New Monetary?
-	if (Config::instance()->usenewmonetary()) 
+	if (Config::instance()->usenewmonetary())
 	{
 
 		// Lets Assign Region
@@ -793,7 +793,7 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 			idfirst = Region->firstcoin();
 			idsecond = Region->secondcoin();
 			idthird = Region->thirdcoin();
-		}				
+		}
 
 		// Use Reversed Monetary?
 		if (Config::instance()->usereversedvaluable()) {

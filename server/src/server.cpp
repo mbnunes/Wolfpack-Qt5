@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -253,7 +253,7 @@ void myMessageOutput( QtMsgType type, const char *msg )
 			// This is crazy...
 			// Log->print(LOG_DEBUG, tr("QT Debug: %1\n").arg(msg));
             break;
-        case QtWarningMsg:			
+        case QtWarningMsg:
 			Console::instance()->log(LOG_WARNING, msg);
             break;
         case QtFatalMsg:
@@ -340,7 +340,7 @@ void cServer::run()
 		}
 	}
 #endif
-	
+
 	// After trying to at least load language files for the benefict of non-English ppl.
 	if ( !Config::instance()->fileState() )
 	{
@@ -475,7 +475,7 @@ void cServer::setupConsole()
 	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( productString(), productBeta(), productVersion() ) );
 	Console::instance()->setAttributes( false, false, false, 0xAF, 0xAF, 0xAF, 0, FONT_FIXEDWIDTH );
 
-	Console::instance()->send( "Copyright (C) 2000-2005 Wolfpack Development Team\n" );
+	Console::instance()->send( "Copyright (C) 2000-2006 Wolfpack Development Team\n" );
 	Console::instance()->send( "Wolfpack Homepage: http://www.wpdev.org/\n" );
 	Console::instance()->send( tr( "By using this software you agree to the license accompanying this release.\n" ) );
 	Console::instance()->send( tr( "Compiled on %1 %2\n" ).arg( __DATE__, __TIME__ ) );

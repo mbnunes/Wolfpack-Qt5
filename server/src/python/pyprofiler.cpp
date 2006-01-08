@@ -2,7 +2,7 @@
 *     Wolfpack Emu (WP)
 * UO Server Emulation Program
 *
-* Copyright 2001-2005 by holders identified in AUTHORS.txt
+* Copyright 2001-2006 by holders identified in AUTHORS.txt
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
@@ -32,10 +32,10 @@
 /* Python 2.3 Compatibility */
 #if !defined( PyTrace_C_CALL )
 #define PyTrace_C_CALL 4
-#endif 
+#endif
 #if !defined( PyTrace_C_EXCEPTION )
 #define PyTrace_C_EXCEPTION 5
-#endif 
+#endif
 #if !defined( PyTrace_C_RETURN )
 #define PyTrace_C_RETURN 6
 #endif
@@ -43,7 +43,7 @@
 int PyProfiler::tracefunc( PyObject *obj, PyFrameObject *frame, int what, PyObject *arg )
 {
 	PyProfiler* that = PyProfiler::instance();
-	ProfileData* pdata = 0; 
+	ProfileData* pdata = 0;
 	switch ( what )
 	{
 	case PyTrace_C_CALL:
@@ -60,7 +60,7 @@ int PyProfiler::tracefunc( PyObject *obj, PyFrameObject *frame, int what, PyObje
 	case PyTrace_CALL:
 		//that->data.find()
 		// Don't count recursions
-		pdata = &that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)];	
+		pdata = &that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)];
 		pdata->firstline = frame->f_code->co_firstlineno;
 		if ( frame != frame->f_back )
 		{

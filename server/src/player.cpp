@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -1643,13 +1643,13 @@ bool cPlayer::canSeeItem( P_ITEM item )
 		else
 		{
 			P_CHAR character = dynamic_cast<P_CHAR>( item->container() );
-			
+
 			// We're equipped by a character. If we're on the mount layer
 			// only the equipping character can see us
 			if (item->layer() == 0x19 && character != this && !character->isHuman()) {
 				return false;
 			}
-			
+
 			return canSeeChar( character );
 		}
 	}

@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -179,7 +179,7 @@ void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 		else
 		{
 			setBody( pChar->gender() ? 0x193 : 0x192 );
-		}		
+		}
 	}
 	else
 	{
@@ -285,7 +285,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 		else
 		{
 			setBody( pChar->gender() ? 0x193 : 0x192 );
-		}		
+		}
 		setHue( 0 );
 	}
 	else
@@ -357,7 +357,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 		else
 		{
 			setModel( pChar->gender() ? 0x193 : 0x192 );
-		}		
+		}
 		setColor( 0 );
 	}
 	else
@@ -420,9 +420,9 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 		// -> Shop containers need to be send
 		if ( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C )
 			continue;
-			
+
 		// Skip the mount item if we're not sending it to ourself
-		// which we wont do since 0x78 wont be sent to the player 
+		// which we wont do since 0x78 wont be sent to the player
 		// at least not normally
 		if ( !pChar->isHuman() && pItem->layer() == 0x19 ) {
 			continue;
@@ -457,7 +457,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setSerial( pChar->serial() );
 
 	if ( pChar->isDead() )
-	{		
+	{
 		if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
 		{
 			setBody( pChar->gender() ? 0x260 : 0x25f );
@@ -465,7 +465,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 		else
 		{
 			setBody( pChar->gender() ? 0x193 : 0x192 );
-		}		
+		}
 	}
 	else
 	{

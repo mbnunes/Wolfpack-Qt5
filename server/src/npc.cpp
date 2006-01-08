@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -1413,13 +1413,13 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 		affix.append( QString( " [0x%1]" ).arg( serial(), 3, 16 ) );
 	}
 	tooltip.addLine( 1050045, QString( "%3\t%1\t%2" ).arg( name_ ).arg( affix ).arg( prefix ) );
-	
+
 	// Add Quest Quest Giver title
 	if ( this->hasTag( "quests" ) )
 	{
 		tooltip.addLine( 1072269, "" );
 	}
-	
+
 	onShowTooltip( player, &tooltip );
 }
 

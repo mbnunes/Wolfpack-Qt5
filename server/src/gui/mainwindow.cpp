@@ -2,7 +2,7 @@
 *     Wolfpack Emu (WP)
 * UO Server Emulation Program
 *
-* Copyright 2001-2005 by holders identified in AUTHORS.txt
+* Copyright 2001-2006 by holders identified in AUTHORS.txt
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
 * the Free Software Foundation; either version 2 of the License, or
@@ -101,7 +101,7 @@ bool MainWindow::event( QEvent* e )
 	return false; // Keep some compilers happy
 }
 
-void MainWindow::closeEvent ( QCloseEvent * e ) 
+void MainWindow::closeEvent ( QCloseEvent * e )
 {
 	Server::instance()->cancel();
 	if ( Server::instance()->isFinished() )
@@ -231,7 +231,7 @@ void MainWindow::createActions()
     reloadScriptsAct->setShortcut(tr("Ctrl+S"));
     reloadScriptsAct->setStatusTip(tr("Scripts"));
     connect(reloadScriptsAct, SIGNAL(triggered()), this, SLOT(reloadScp()));
-	
+
 	// Server
 	serverSaveAct = new QAction(tr("Save &World"), this);
     serverSaveAct->setShortcut(tr("Ctrl+W"));

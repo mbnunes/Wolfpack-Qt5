@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -267,7 +267,7 @@ void AbstractAI::NPCscheck()
 
 	// Setting next time
 	Q_UINT16 aiCheckNPCsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
-	
+
 	m_npc->setAINpcsCheckTime( Server::instance()->time() + aiCheckNPCsInterval_ );
 }
 
@@ -289,7 +289,7 @@ void AbstractAI::ITEMscheck()
 				{
 					PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, m_npc, PyGetItemObject, pItem );
 					result = m_npc->callEventHandler( EVENT_SEEITEM, args );
-					Py_DECREF( args );	
+					Py_DECREF( args );
 
 					if ( result )
 						break;

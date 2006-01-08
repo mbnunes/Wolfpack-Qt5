@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -290,13 +290,13 @@ void cUOSocket::send( cGump* gump )
 		gumpsize += ( *it ).length() * 2 + 2;
 		++it;
 	}
-	
+
 	if (gumpsize >= 0x8000) {
 		sysMessage("Gump exceeds maximum packet size.");
 		return;
 	}
-	
-	
+
+
 	cUOTxGumpDialog uoPacket( gumpsize );
 
 	uoPacket.setSerial( gump->serial() );
@@ -319,7 +319,7 @@ void cUOSocket::waitwritebytes()
 void cUOSocket::buildPackets()
 {
 	// Process the incoming buffer and split it into packets
-	while (incomingBuffer.size() != 0) 
+	while (incomingBuffer.size() != 0)
 	{
 		unsigned char packetId = incomingBuffer[0];
 		unsigned short size = packetLengths[packetId];
@@ -333,14 +333,14 @@ void cUOSocket::buildPackets()
 			disconnect();
 		} else if (size == 0 && incomingBuffer.size() >= 3) {
 			unsigned short dynamicSize = ((incomingBuffer[1] & 0xFF) << 8) | (unsigned char)incomingBuffer[2];
-			if (dynamicSize <= incomingBuffer.size()) {				
+			if (dynamicSize <= incomingBuffer.size()) {
 				QByteArray packetData(dynamicSize);
 				memcpy(packetData.data(), incomingBuffer.data(), dynamicSize);
 				incomingBuffer = QByteArray(incomingBuffer.data() + dynamicSize, incomingBuffer.size() - dynamicSize);
 
 				cUOPacket* packet = getUORxPacket( packetData );
 				if (packet)
-					incomingQueue.append(packet);						
+					incomingQueue.append(packet);
 
 				continue; // See if there's another packet
 			}
@@ -353,7 +353,7 @@ void cUOSocket::buildPackets()
 
 			cUOPacket* packet = getUORxPacket( packetData );
 			if (packet)
-				incomingQueue.append(packet);						
+				incomingQueue.append(packet);
 			continue; // See if there's another packet waiting
 		}
 
@@ -369,7 +369,7 @@ void cUOSocket::receive()
 	if ( !skippedUOHeader )
 	{
 		if (_socket->bytesAvailable() >= 4) {
-			_socket->read( (char*)&seed, 4 );			
+			_socket->read( (char*)&seed, 4 );
 			seed = B_BENDIAN_TO_HOST_INT32(seed);
 			skippedUOHeader = true;
 		} else {
@@ -455,7 +455,7 @@ void cUOSocket::receive()
 		encryption->clientDecrypt(temp.data(), temp.size());
 		incomingBuffer.append(temp);
 	}
-	
+
 	buildPackets();
 	while ( !incomingQueue.isEmpty() ) {
 		cUOPacket* packet = incomingQueue.dequeue();
@@ -1231,7 +1231,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	// Temporary Gender and Race (Just for initial Checks... but if Race is allowed in char class, it can be a lot more usefull)
 	bool tGender = true;		// Woman by default
 	bool tRace = false;		// Human by Default
-	
+
 	// The Gender (True to Woman, False to man)
 	if (packet->gender()%2 == 0)
 	{
@@ -2580,7 +2580,7 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 		cTerritory* subregion = Territories::instance()->region( pChar->pos() );
 
 		cTerritory* region = subregion;
-		
+
 		if ( subregion->parent() )
 			region = dynamic_cast<cTerritory*>( region->parent() );
 
@@ -2588,7 +2588,7 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 		if ( ( region ) && !( region->isCave() || subregion->isCave() ) )
 		{
 			// Assign weather
-			if ( region->isRaining() && region->isSnowing() ) 
+			if ( region->isRaining() && region->isSnowing() )
 			{
 				cUOTxWeather weather;
 				weather.setType( WT_RAINING );
@@ -2603,7 +2603,7 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 
 				send( &weather );
 			}
-			else if ( region->isRaining() ) 
+			else if ( region->isRaining() )
 			{
 				cUOTxWeather weather;
 				weather.setType( WT_RAINING );
@@ -2612,7 +2612,7 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 
 				send( &weather );
 			}
-			else if ( region->isSnowing() ) 
+			else if ( region->isSnowing() )
 			{
 				cUOTxWeather weather;
 				weather.setType( WT_SNOWING );

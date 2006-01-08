@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2005 by holders identified in AUTHORS.txt
+ * Copyright 2001-2006 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -99,7 +99,7 @@ void cNetwork::incomingLoginServerConnection()
 {
 	cUOSocket *uosocket = new cUOSocket( d->loginServer_->nextPendingConnection() );
 	d->loginSockets.append( uosocket );
-	
+
 	connect( uosocket, SIGNAL(disconnected()), this, SLOT(partingLoginServerConnection()) );
 	// Notify the admin
 	uosocket->log( tr( "Client connected to login server (%1).\n" ).arg( uosocket->socket()->peerAddress().toString() ) );
@@ -165,7 +165,7 @@ void cNetwork::unload()
 	// Disconnect all connected sockets
 	Q3PtrList<cUOSocket> socketList = d->uoSockets;
 	d->uoSockets.clear();
-	foreach (cUOSocket *socket, socketList) {		
+	foreach (cUOSocket *socket, socketList) {
 		socket->disconnect();
 	}
 	socketList = d->loginSockets;
