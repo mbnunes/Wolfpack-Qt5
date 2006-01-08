@@ -161,7 +161,7 @@ class Unlock(Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		# We can only lock unlocked chests
+		# We can only unlock locked chests
 		if not target.hasscript( 'lock' ):
 			char.message(503101)
 			return
@@ -169,6 +169,11 @@ class Unlock(Spell):
 		if target.gettag('lock') != 'magic':
 			char.message(503099)
 			return
+
+		if target.hastag('magicunlock_difficult'):
+			if target.gettag('magicunlock_difficult') < char.skill(MAGERY):
+				char.socket.sysmessage('Your magic skills are not enough to Unlock this...')
+				return
 
 		if not self.consumerequirements(char, mode, args, target, item):
 			return

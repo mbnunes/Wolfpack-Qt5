@@ -14,7 +14,7 @@ import random
 from wolfpack import tr
 
 from map import sendmapcommand
-from wolfpack.consts import CARTOGRAPHY, ANIM_ATTACK3
+from wolfpack.consts import CARTOGRAPHY, ANIM_ATTACK3, MINING
 
 from treasure.treasure_coords import TREASURECOORDS
 from treasure.treasure_spawn import treasinitialspawn
@@ -156,25 +156,46 @@ def checktreaspoint(x, y, z, map, item, char):
 	if map > 1:
 		return 0
 	else:
+		# Getting Tags from Map
 		xtreas = item.gettag('x')
 		ytreas = item.gettag('y')
 		level = item.gettag('level')
 
+		# Distance from Point
+		if xtreas >= x:
+			xdif = xtreas - x
+		else:
+			xdif = x - xtreas
+
+		if ytreas >= y:
+			ydif = ytreas - y
+		else:
+			ydif = y - ytreas
+
+		# Range
+		mining = char.skill[MINING]
+
+		if mining < 510:
+			radius = 1
+		elif mining < 810:
+			radius = 2
+		elif mining < 1000:
+			radius = 3
+		else:
+			radius = 4
+
 		# Checking if we had correct point
-		if xtreas == x and ytreas == y:
-			if not item.hastag('founded'):
-				item.settag('founded', 1)
-				# Animation
-				char.action( ANIM_ATTACK3 )
-				# Dirt
-				dirt = wolfpack.additem("911")
-				dirt.addtimer( 1500, generatechest, [x,y,z,map,char,level])
-				dirt.moveto(x, y, z, map)
-				dirt.update()
-				# Returning
-				return 1
-			else:
-				return 0
+		if xdif <= radius and ydif <= radius:
+			item.settag('founded', 1)
+			# Animation
+			char.action( ANIM_ATTACK3 )
+			# Dirt
+			dirt = wolfpack.additem("911")
+			dirt.addtimer( 1500, generatechest, [x,y,z,map,char,level])
+			dirt.moveto(x, y, z, map)
+			dirt.update()
+			# Returning
+			return 1
 		else:
 			return 0
 
@@ -222,14 +243,19 @@ def createtreaschest(x, y, z, map, char, level):
 		item.resendtooltip()
 	elif level == 1:
 		item.settag('lockpick_difficult', 360)
+		item.settag('magicunlock_difficult', 500)
 	elif level == 2:
 		item.settag('lockpick_difficult', 760)
+		item.settag('magicunlock_difficult', 1000)
 	elif level == 3:
 		item.settag('lockpick_difficult', 840)
+		item.settag('magicunlock_difficult', 5000) # Just to be sure Magic Unlock could not work with this
 	elif level == 4:
 		item.settag('lockpick_difficult', 920)
+		item.settag('magicunlock_difficult', 5000) # Just to be sure Magic Unlock could not work with this
 	else:
 		item.settag('lockpick_difficult', 1000)
+		item.settag('magicunlock_difficult', 5000) # Just to be sure Magic Unlock could not work with this
 
 	# Spawn some creatures
 	treasinitialspawn( item )

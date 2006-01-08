@@ -227,7 +227,7 @@ def response( char, args, target ):
 			foundtreas = 0
 			# Loop content in player's Backpack
 			for cmap in bag.content:
-				if cmap.id == 0x14eb and cmap.hastag('level'):
+				if cmap.id == 0x14eb and cmap.hastag('level') and not cmap.hastag('founded'):
 					foundtreas = checktreaspoint(target.pos.x, target.pos.y, target.pos.z, target.pos.map, cmap, char)
 					if foundtreas == 1:
 						break
