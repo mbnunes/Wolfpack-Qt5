@@ -1,4 +1,5 @@
 <definitions>
+	<include file="definitions/items/armory/artifacts/aegis.xml"/>
 	<include file="definitions/items/armory/artifacts/arcane_shield.xml"/>
 	<include file="definitions/items/armory/artifacts/armor_of_fortune.xml"/>
 	<include file="definitions/items/armory/artifacts/gauntlets_of_nobility.xml"/>

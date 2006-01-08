@@ -23,7 +23,7 @@
 		<category>Weapons\Artifacts\Bone Crusher</category>
 		<!-- Properties -->
 		<intproperty name="artifact_rarity" value="11" />
-		<!--<intproperty name="hit lower defense" value="50" /> -->
+		<intproperty name="hitlowerdefense" value="50" />
 		<intproperty name="bonusstrength" value="10" />
 		<intproperty name="aos_boni_damage" value="75" />
 		<intproperty name="dmg_physical" value="100" />
