@@ -38,7 +38,7 @@ def addmulti(player, arguments, target):
 
 	multi.moveto(target.pos)
 	multi.update()
-	
+
 	player.log(LOG_MESSAGE, "Adds multi %s (0x%x) at %s.\n" % (str(arguments[0]), multi.serial, target.pos))
 
 #

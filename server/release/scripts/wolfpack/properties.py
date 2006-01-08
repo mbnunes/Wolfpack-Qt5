@@ -311,7 +311,6 @@ def fromchar(char, property):
 		if value > 70:
 			value = 70 # Cap
 			
-		# If Value > 60 && property != RESISTANCE_PHYSICAL && char.propertyflags & CURSE_FLAG
 		if value > 60 and property != RESISTANCE_PHYSICAL and char.propertyflags & 0x80000:
 			value = 60
 
@@ -684,7 +683,7 @@ WEAPON_PROPERTIES = {
 	#HITFIREBALL: [2, 50, 2, False],
 	#HITLIGHTNING: [2, 50, 2, False],
 	#HITDISPEL: [2, 50, 2, False],
-	#HIT_LOWERATTACK: [2, 50, 2, False],
+	#HITLOWERATTACK: [2, 50, 2, False],
 	#HITLOWERDEFENSE: [2, 50, 2, False],
 	
 	LIFELEECH: [2, 50, 2, False],

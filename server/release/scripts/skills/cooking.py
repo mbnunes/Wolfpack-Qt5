@@ -320,7 +320,7 @@ class CookItemAction(CraftItemAction):
 
 		# Check if we have enough water in our backpack
 		if self.water:
-			found = False # Found at laest one unit of water?
+			found = False # Found at least one unit of water?
 			backpack = player.getbackpack()
 			for item in backpack.content:
 				if item.hasscript('beverage') and item.gettag('fluid') == 'water' and item.hastag('quantity'):
