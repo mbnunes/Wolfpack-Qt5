@@ -2412,6 +2412,18 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		return 0;
 	}
 
+	// Sending for Victim too
+	P_PLAYER pvictim = dynamic_cast<P_PLAYER>( this );
+
+	if ( pvictim && pvictim->socket() )
+	{
+		cUOTxDamage damage;
+		damage.setUnknown1( 1 );
+		damage.setDamage( amount );
+		damage.setSerial( serial_ );
+		pvictim->socket()->send( &damage );
+	}
+
 	P_PLAYER player = dynamic_cast<P_PLAYER>( source );
 
 	if ( !player )
