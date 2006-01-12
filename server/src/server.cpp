@@ -524,6 +524,7 @@ void cServer::load()
 	Normal_Base::registerInFactory();
 	Animal_Wild::registerInFactory();
 	Animal_Domestic::registerInFactory();
+	Animal_Predator::registerInFactory();
 
 	// Script NPC AI types
 	QStringList aiSections = Definitions::instance()->getSections( WPDT_AI );
