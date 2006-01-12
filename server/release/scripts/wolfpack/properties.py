@@ -307,7 +307,10 @@ def fromchar(char, property):
 				value = max(0, value - (25 - char.skill[INSCRIPTION] / 200))
 			else:
 				value += 10
-			
+
+		# NECRO SPELLS
+		value += NecroResMod(char, property)
+
 		if value > 70:
 			value = 70 # Cap
 			
@@ -330,6 +333,44 @@ def fromchar(char, property):
 	if property == DAMAGEBONUS and value > 100:
 		value = 100
 		
+	return value
+
+# Necromancer Resistance Modification (for spells)
+# for easier costumization it's seperated from fromchar(char, property) function
+def NecroResMod(char, property):
+	value = 0
+	# Corpseskin Spell (Necromancer)
+	if char.hasscript('magic.corpseskin'):
+		if property == RESISTANCE_FIRE:
+			value -= 10
+		if property == RESISTANCE_POISON:
+			value -= 10
+		if property == RESISTANCE_COLD:
+			value += 10
+		if property == RESISTANCE_PHYSICAL:
+			value += 10
+
+	# Lichform Spell (Necromancer)
+	if char.hasscript('magic.lichform'):
+		if property == RESISTANCE_FIRE:
+			value -= 25
+		if property == RESISTANCE_COLD:
+			value += 10
+		if property == RESISTANCE_POISON:
+			value += 10
+
+	# Wraith Form Spell (Necromancer)
+	if char.hasscript('magic.wraithform'):
+		if property == RESISTANCE_PHYSICAL:
+			value += 10
+		if property == RESISTANCE_FIRE:
+			value -= 25
+		if property == RESISTANCE_COLD:
+			value -= 5
+		if property == RESISTANCE_POISON:
+			value -= 5
+		if property == RESISTANCE_ENERGY:
+			value -= 5
 	return value
 
 #

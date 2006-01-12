@@ -141,6 +141,12 @@ class Recall (Spell):
 
 		return Spell.cast(self, char, mode, args, target, item)
 
+	# always succeed when using Wraith Form spell (Necromancer)
+	def skillcheck(self, char, mode):
+		if char.hasscript('magic.wraithform'):
+			return True
+		return Spell.skillcheck(self, char, mode)
+
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 

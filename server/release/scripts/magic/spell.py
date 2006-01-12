@@ -366,6 +366,25 @@ class Spell:
 			points = char.gettag('tithing_points')
 			char.settag('tithing_points', points - self.tithingpoints)
 
+	def skillcheck(self, char, mode):
+		if mode == MODE_BOOK:
+			circle = self.circle - 1
+		else:
+			circle = self.circle - 3
+		minskill = max(0, int((1000 / 7) * circle - 200))
+		maxskill = min(1200, int((1000 / 7) * circle + 200))
+
+		if not char.checkskill(self.skill, minskill, maxskill):
+			char.message(502632)
+			fizzle(char)
+			return False
+
+		# Required skill for Chivalry
+		if char.skill[self.skill] < self.requiredskill:
+			char.socket.clilocmessage( 1060172, str(self.requiredskill/10) ) # You must have at least ~1_SKILL_REQUIREMENT~ Chivalry to use this ability,
+			return False
+		return True
+
 	def consumerequirements(self, char, mode, args=[], target=None, item=None):
 		if char.gm:
 			return True
@@ -377,21 +396,7 @@ class Spell:
 
 		# Check Skill
 		if self.skill != None:
-			if mode == MODE_BOOK:
-				circle = self.circle - 1
-			else:
-				circle = self.circle - 3
-			minskill = max(0, int((1000 / 7) * circle - 200))
-			maxskill = min(1200, int((1000 / 7) * circle + 200))
-
-			if not char.checkskill(self.skill, minskill, maxskill):
-				char.message(502632)
-				fizzle(char)
-				return False
-
-			# Required skill for Chivalry
-			if char.skill[self.skill] < self.requiredskill:
-				char.socket.clilocmessage( 1060172, str(self.requiredskill/10) ) # You must have at least ~1_SKILL_REQUIREMENT~ Chivalry to use this ability,
+			if not self.skillcheck(char, mode):
 				return False
 
 		# Consume Mana

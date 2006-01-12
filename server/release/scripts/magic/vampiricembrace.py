@@ -15,10 +15,6 @@ def onCastSpell(char, spell):
 		damage = random.randint(17, 23)
 		char.damage( DAMAGE_MAGICAL, damage, char)
 
-# TODO: silver weapons do +25% damage
-#def onDamage(char, type, amount, source):
-#	pass
-
 def onRegenMana(char, points):
 	points += 3
 	return points

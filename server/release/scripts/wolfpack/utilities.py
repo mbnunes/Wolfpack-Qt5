@@ -978,21 +978,3 @@ def isMapAvailableTo(player, mapid):
 			return False
 
 	return True
-
-def changeResistance( char, resistance, amount ):
-	if amount == 0:
-		return
-
-	value = 0
-	# get curren value
-	if char.hastag( resistance ):
-		value = char.gettag( resistance )
-
-	# new value
-	value += amount
-
-	# only save positive values
-	if value > 0:
-		char.settag( resistance, value)
-	else:
-		char.deltag( resistance )

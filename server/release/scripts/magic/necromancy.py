@@ -12,7 +12,6 @@
 from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell, TransformationSpell
 from wolfpack.consts import *
 from magic.utilities import *
-from wolfpack.utilities import changeResistance
 import wolfpack.time
 
 def transformed(char):
@@ -122,12 +121,8 @@ class CorpseSkin(CharEffectSpell):
 
 		duration = ( ((ss - mr) / 2.5) + 40.0 ) * 100
 
-		#changeResistance( char, 'res_fire', -10 )
-		#changeResistance( char, 'res_poison', -10 )
-		#changeResistance( char, 'res_cold', 10 )
-		#changeResistance( char, 'res_physical', 10 )
-		target.addscript('magic.corpseskin')
-		#target.updatestats()
+		target.addscript('magic.corpseskin') # Resistance mod is done through this script!
+		target.updatestats()
 
 		target.addtimer( duration, magic.corpseskin.expire, [], True, False, 'CORPSESKIN', magic.corpseskin.dispel )
 
@@ -229,9 +224,6 @@ class LichForm(TransformationSpell):
 
 		else:
 			char.id = 749
-			#changeResistance( char, 'res_fire', -25 )
-			#changeResistance( char, 'res_cold', 10 )
-			#changeResistance( char, 'res_poison', 10 )
 			# increase mana regeneration
 			if char.hastag('regenmana'):
 				char.settag('regenmana', char.gettag('regenmana') + 3)
@@ -500,23 +492,19 @@ class WraithForm(TransformationSpell):
 		char.soundeffect( 0x17f )
 		char.effect( 0x374a, 1, 15, 1108, 4 )
 		if char.hasscript('magic.wraithform'):
+			char.removescript('magic.wraithform')
+			char.id = char.orgid
+			char.skin = char.orgskin
+		else:
+			char.addscript('magic.wraithform')
 			if char.gender: # female
 				char.id = 747
 				char.skin = 0
 			else: # male
 				char.id = 748
 				char.skin = 0x4001
-		else:
-			char.id = char.orgid
-			char.skin = char.orgskin
+		char.updatestats()
 		char.update()
-
-		# ToDo
-		#public override int PhysResistOffset{ get{ return +10; } }
-		#public override int FireResistOffset{ get{ return -25; } }
-		#public override int ColdResistOffset{ get{ return -05; } }
-		#public override int PoisResistOffset{ get{ return -05; } }
-		#public override int NrgyResistOffset{ get{ return -05; } }
 
 class Exorzism(Spell):
 	def __init__(self):
