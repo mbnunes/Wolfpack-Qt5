@@ -29,13 +29,9 @@
 #include "../npc.h"
 #include "../player.h"
 #include "../serverconfig.h"
-
-#include "../basics.h"
 #include "../mapobjects.h"
-#include "../targetrequests.h"
+#include "../combat.h"
 
-// library includes
-#include <math.h>
 
 void Animal_Wild::registerInFactory()
 {
@@ -54,6 +50,15 @@ void Animal_Domestic::registerInFactory()
 	AIFactory::instance()->registerType( "Animal_Domestic", productCreatorFunctor<Animal_Domestic> );
 #else
 	AIFactory::instance()->registerType( "Animal_Domestic", productCreatorFunctor_Animal_Domestic );
+#endif
+}
+
+void Animal_Predator::registerInFactory()
+{
+#ifndef __VC6
+	AIFactory::instance()->registerType( "Animal_Predator", productCreatorFunctor<Animal_Predator> );
+#else
+	AIFactory::instance()->registerType( "Animal_Predator", productCreatorFunctor_Animal_Predator );
 #endif
 }
 
@@ -128,4 +133,151 @@ float Animal_Wild_Flee::postCondition()
 	return 1.0f;
 }
 
+void Animal_Predator::check()
+{
+	// Our current victim
+	P_CHAR m_currentVictim = World::instance()->findChar( m_currentVictimSer );
+	if ( !m_currentVictim )
+	{
+		m_currentVictimSer = INVALID_SERIAL;
+	}
 
+	if ( m_currentVictim && invalidTarget( m_currentVictim ) )
+	{
+		m_currentVictim = 0;
+		m_currentVictimSer = INVALID_SERIAL;
+		m_npc->fight( 0 );
+	}
+
+	if ( nextVictimCheck < Server::instance()->time() )
+	{
+		// Don't switch if we can hit it...
+		if ( !m_currentVictim || m_currentVictim->dist( m_npc ) > 1 )
+		{
+			P_CHAR target = findPrey();
+			if ( target )
+			{
+				m_currentVictim = target;
+				m_currentVictimSer = target->serial();
+				m_npc->fight( target );
+			}
+		}
+
+		nextVictimCheck = Server::instance()->time() + 1500;
+	}
+
+	AbstractAI::check();
+}
+
+// Find prey for this predator
+P_CHAR Animal_Predator::findPrey()
+{
+	unsigned int distance = ~0;
+	P_CHAR target = 0;
+
+	if ( !m_npc )
+	{
+		return target;
+	}
+
+	// Search for targets in our list of current targets first
+	QList<cFightInfo*> fights( m_npc->fights() );
+	foreach ( cFightInfo* info, fights )
+	{
+		P_CHAR victim = info->victim();
+		if ( victim == m_npc )
+		{
+			victim = info->attacker();
+		}
+
+		// We don't already attack the target, right?
+		if ( victim != target )
+		{
+			// See if it's a target we want
+			unsigned int dist = m_npc->dist( victim );
+			if ( dist < distance && validTarget( victim, dist, false ) )
+			{
+				target = victim;
+				distance = dist;
+			}
+		}
+	}
+
+	// If we are tamed or there is nothing we like we do not hunt
+	if ( m_npc->isTamed() || prey.isEmpty() )
+	{	
+		return target;
+	}
+
+	// Get all chars around us
+	MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), VISRANGE );
+	for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
+	{
+		P_PLAYER victim = dynamic_cast<P_PLAYER>( pChar );
+		P_NPC npcVictim = dynamic_cast<P_NPC>( pChar );
+
+		// We don't already attack the target, right?
+		if ( victim && victim != target )
+		{
+			// do we eat players?
+			if ( huntPlayers )
+			{
+				// See if it's a target we want
+				unsigned int dist = m_npc->dist( victim );
+				if ( dist < distance && validTarget( victim, dist, true ) )
+				{
+					target = victim;
+					distance = dist;
+				}
+			}
+		}
+		else if ( npcVictim && npcVictim->owner() && npcVictim != target )
+		{
+			// do we eat their pets?
+			if ( huntPlayers )
+			{
+				// See if it's a target we want
+				unsigned int dist = m_npc->dist( npcVictim );
+				if ( dist < distance && validTarget( npcVictim, dist, true ) )
+				{
+					target = npcVictim;
+					distance = dist;
+				}
+			}
+		}
+		else if ( npcVictim && npcVictim != target )
+		{
+			// See if it's a target we want
+			unsigned int dist = m_npc->dist( npcVictim );
+			// check prey (stringlist) last, because this is the most expensive
+			if ( dist < distance && validTarget( npcVictim, dist, true ) && prey.contains( npcVictim->baseid() ) )
+			{
+				target = npcVictim;
+				distance = dist;
+			}
+		}
+	}
+
+	return target;
+}
+
+void Animal_Predator::initPrey()
+{
+	if ( m_npc )
+	{
+		// build a list of baseids of chars we hunt
+		QString preyProp = m_npc->basedef()->getStrProperty( "prey" );
+		prey = preyProp.split( ",", QString::SkipEmptyParts );
+		
+		// player get special handling to lower costs
+		if ( prey.contains( "player" ) )
+		{
+			huntPlayers = true;
+			prey.removeAll( "player" );
+		}
+		else
+		{
+			huntPlayers = false;
+		}
+	}
+}

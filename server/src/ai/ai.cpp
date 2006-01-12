@@ -304,6 +304,81 @@ void AbstractAI::ITEMscheck()
 	m_npc->setAIItemsCheckTime( Server::instance()->time() + aiCheckITEMsInterval_ );
 }
 
+bool AbstractAI::invalidTarget( P_CHAR victim, int dist ) const
+{
+	if ( !m_npc )
+	{
+		return true;
+	}
+
+	if ( !victim )
+	{
+		return true;
+	}
+
+	if ( victim == m_npc )
+	{
+		return true;
+	}
+
+	if ( victim->isInvulnerable() || victim->isDead() || victim->inSafeArea() )
+	{
+		return true;
+	}
+
+	if ( m_npc->isTamed() && m_npc->owner() == victim )
+	{
+		return true;
+	}
+
+	if ( dist == -1 )
+	{
+		dist = m_npc->dist( victim );
+	}
+
+	if ( dist > Config::instance()->attack_distance() )
+	{
+		return true;
+	}
+
+	if ( !m_npc->canSee( victim ) )
+	{
+		return true;
+	}
+
+	return false;
+}
+
+// Is this a valid target?
+bool AbstractAI::validTarget( P_CHAR victim, int dist, bool lineOfSight )
+{
+	if ( !m_npc )
+	{
+		return false;
+	}
+
+	if ( invalidTarget( victim, dist ) )
+	{
+		return false;
+	}
+
+	if ( lineOfSight && !m_npc->lineOfSight(victim)) {
+		return false;
+	}
+
+	bool result = true;
+
+	// Check if the NPC has a script for target validation
+	if ( m_npc->canHandleEvent( EVENT_CHECKVICTIM ) )
+	{
+		PyObject *args = Py_BuildValue( "(NNi)", m_npc->getPyObject(), victim->getPyObject(), dist );
+		result = m_npc->callEventHandler( EVENT_CHECKVICTIM, args );
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
 static AbstractAI* productCreator_SCP()
 {
 	return new ScriptAI( NULL );
@@ -465,7 +540,7 @@ void ScriptAction::execute()
 	}
 }
 
-bool Action_Wander::isPassive()
+bool Action_Wander::isPassive() const
 {
 	if ( m_npc->attackTarget() )
 	{
@@ -872,7 +947,7 @@ float Action_MoveToTarget::preCondition()
 
 	P_CHAR currentVictim = m_ai->currentVictim();
 
-	if ( !currentVictim || !validTarget( m_npc, currentVictim ) )
+	if ( !currentVictim || !m_ai->validTarget( currentVictim ) )
 	{
 		return 0.0f;
 	}
@@ -922,7 +997,7 @@ float Action_MoveToTarget::postCondition()
 
 	P_CHAR currentVictim = m_ai->currentVictim();
 
-	if ( !currentVictim || !validTarget( m_npc, currentVictim ) )
+	if ( !currentVictim || !m_ai->validTarget( currentVictim ) )
 		return 1.0f;
 
 	quint8 range = 1;
@@ -1202,7 +1277,7 @@ P_CHAR Action_Defend::findAttacker()
 	unsigned int distance = ~0;
 
 	// check our current target
-	if ( attacker && validTarget( m_npc, attacker ) )
+	if ( attacker && m_ai->validTarget( attacker ) )
 	{
 		m_ai->setcurrentVictimSer( attacker->serial() );
 		return attacker;
@@ -1214,14 +1289,14 @@ P_CHAR Action_Defend::findAttacker()
 	{
 		m_ai->setcurrentVictimSer( INVALID_SERIAL );
 	}
-	else if ( validTarget( m_npc, attacker ) )
+	else if ( m_ai->validTarget( attacker ) )
 	{
 		m_npc->fight( attacker );
 		return attacker;
 	}
 
 	// is it still valid?
-	if ( attacker && invalidTarget( m_npc, attacker ) )
+	if ( attacker && m_ai->invalidTarget( attacker ) )
 	{
 		attacker = 0;
 		m_ai->setcurrentVictimSer( INVALID_SERIAL );
@@ -1251,7 +1326,7 @@ P_CHAR Action_Defend::findAttacker()
 				{
 					// See if it's a target we want
 					unsigned int dist = m_npc->dist( victim );
-					if ( dist < distance && validTarget( m_npc, victim, dist ) )
+					if ( dist < distance && m_ai->validTarget( victim, dist ) )
 					{
 						attacker = victim;
 						distance = dist;
@@ -1361,7 +1436,7 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 	}
 }
 
-bool ScriptAction::isPassive()
+bool ScriptAction::isPassive() const
 {
 	return false;
 }

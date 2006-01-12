@@ -35,17 +35,22 @@
 #include "../walking.h"
 #include "../serverconfig.h"
 
-static P_CHAR findBestTarget( P_NPC npc )
+P_CHAR Monster_BladeSpirit::findBestTarget()
 {
 	int targetAttract = -1;
 	P_CHAR target = 0;
 
+	if ( !m_npc )
+	{
+		return target;
+	}
+
 	// Search for targets in our list of current targets first
-	QList<cFightInfo*> fights = npc->fights();
+	QList<cFightInfo*> fights = m_npc->fights();
 	foreach ( cFightInfo* info, fights )
 	{
 		P_CHAR victim = info->victim();
-		if ( victim == npc )
+		if ( victim == m_npc )
 		{
 			victim = info->attacker();
 		}
@@ -54,9 +59,9 @@ static P_CHAR findBestTarget( P_NPC npc )
 		if ( victim != target )
 		{
 			// See if it's a target we want
-			unsigned int dist = npc->dist(victim);
+			unsigned int dist = m_npc->dist(victim);
 			int attract = (victim->strength() + victim->skillValue(TACTICS) / 10) / (wpMin<unsigned int>(65535, dist) + 1);
-			if ( attract > targetAttract && validTarget( npc, victim, dist ) ) {
+			if ( attract > targetAttract && validTarget( victim, dist ) ) {
 				target = victim;
 				targetAttract = attract;
 			}
@@ -68,9 +73,9 @@ static P_CHAR findBestTarget( P_NPC npc )
 	*/
 
 	// If we're not tamed, we attack other players as well.
-	if ( !npc->isTamed() )
+	if ( !m_npc->isTamed() )
 	{
-		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( npc->pos(), VISRANGE );
+		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), VISRANGE );
 		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 		{
 			// We limit ourself to players and pets owned by players.
@@ -81,9 +86,9 @@ static P_CHAR findBestTarget( P_NPC npc )
 			if ( victim && victim != target )
 			{
 				// See if it's a target we want
-				unsigned int dist = npc->dist(victim);
+				unsigned int dist = m_npc->dist(victim);
 				int attract = (victim->strength() + victim->skillValue(TACTICS) / 10) / (wpMin<unsigned int>(65535, dist) + 1);
-				if ( attract > targetAttract && validTarget( npc, victim, dist ) ) {
+				if ( attract > targetAttract && validTarget( victim, dist ) ) {
 					target = victim;
 					targetAttract = attract;
 				}
@@ -91,9 +96,9 @@ static P_CHAR findBestTarget( P_NPC npc )
 			else if ( npcVictim && npcVictim->owner() && npcVictim != target )
 			{
 				// See if it's a target we want
-				unsigned int dist = npc->dist(victim);
+				unsigned int dist = m_npc->dist(victim);
 				int attract = (npcVictim->strength() + npcVictim->skillValue(TACTICS) / 10) / (wpMin<unsigned int>(65535, dist) + 1);
-				if ( attract > targetAttract && validTarget( npc, npcVictim, dist ) ) {
+				if ( attract > targetAttract && validTarget( npcVictim, dist ) ) {
 					target = npcVictim;
 					targetAttract = attract;
 				}
@@ -119,7 +124,7 @@ void Monster_BladeSpirit::check()
 		m_currentVictimSer = INVALID_SERIAL;
 	}
 
-	if ( m_currentVictim && invalidTarget( m_npc, m_currentVictim ) ) {
+	if ( m_currentVictim && invalidTarget( m_currentVictim ) ) {
 		m_currentVictim = 0;
 		m_currentVictimSer = INVALID_SERIAL;
 		m_npc->fight( 0 );
@@ -130,7 +135,7 @@ void Monster_BladeSpirit::check()
 		// Don't switch if we can hit it...
 		if ( !m_currentVictim || m_currentVictim->dist( m_npc ) > 1 )
 		{
-			P_CHAR target = findBestTarget( m_npc );
+			P_CHAR target = findBestTarget();
 			if ( target )
 			{
 				m_currentVictim = target;

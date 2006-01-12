@@ -50,10 +50,6 @@ class AbstractAI;
 // Uncomment if you want AI debugging messages
 // #define AIDEBUG
 
-// Export this for other AI functions
-bool invalidTarget( P_NPC npc, P_CHAR victim, int dist = -1 );
-bool validTarget( P_NPC npc, P_CHAR victim, int dist = -1, bool lineOfSight = false );
-
 class AbstractAction
 {
 protected:
@@ -69,7 +65,7 @@ public:
 	}
 
 	// is this action passive (wandering, etc.)?
-	virtual bool isPassive() = 0;
+	virtual bool isPassive() const = 0;
 
 	// executes the action
 	virtual void execute() = 0;
@@ -101,7 +97,7 @@ public:
 	{
 		m_npc = npc;
 	}
-	virtual const char* name() = 0;
+	virtual const char* name() const = 0;
 
 protected:
 	P_NPC m_npc;
@@ -137,7 +133,7 @@ public:
 	virtual void NPCscheck();
 	virtual void ITEMscheck();
 
-	virtual QString name() = 0;
+	virtual QString name() const = 0;
 
 	AbstractAction* currentAction()
 	{
@@ -192,6 +188,11 @@ public:
 		nextVictimCheck = value;
 	}
 
+	// Is this a valid target?
+	bool validTarget( P_CHAR victim, int dist = -1, bool lineOfSight = false );
+	// Is this an invalid target?
+	bool invalidTarget( P_CHAR victim, int dist = -1) const;
+
 protected:
 	P_NPC m_npc;
 	AbstractAction* m_currentAction;
@@ -216,14 +217,14 @@ protected:
 	{
 	}
 public:
-	virtual bool isPassive();
+	virtual bool isPassive() const;
 	Action_Wander( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ), waitForPathCalculation( 0 )
 	{
 	}
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Action_Wander";
 	}
@@ -246,7 +247,7 @@ public:
 	}
 	virtual void execute();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Action_Flee";
 	}
@@ -268,7 +269,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Action_FleeAttacker";
 	}
@@ -287,11 +288,11 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
-	virtual bool isPassive()
+	virtual bool isPassive() const
 	{
 		return false;
 	}
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Action_Defend";
 	}
@@ -314,7 +315,7 @@ public:
 		nextTry = 0;
 	}
 
-	virtual bool isPassive()
+	virtual bool isPassive() const
 	{
 		return false;
 	}
@@ -323,7 +324,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Action_MoveToTarget";
 	}
@@ -336,7 +337,7 @@ protected:
 	{
 	}
 public:
-	virtual bool isPassive()
+	virtual bool isPassive() const
 	{
 		return false;
 	}
@@ -348,7 +349,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Monster_Aggr_Fight";
 	}
@@ -374,6 +375,7 @@ public:
 
 protected:
 	virtual void selectVictim() = 0;
+	P_CHAR findBestTarget();
 };
 
 class Monster_Aggressive_L0 : public Monster_Aggressive
@@ -392,7 +394,7 @@ public:
 	}
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Monster_Aggressive_L0";
 	}
@@ -418,7 +420,7 @@ public:
 	}
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Monster_Aggressive_L1";
 	}
@@ -442,7 +444,7 @@ public:
 	}
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Monster_Berserk";
 	}
@@ -466,7 +468,7 @@ public:
 	}
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Normal_Base";
 	}
@@ -492,7 +494,7 @@ public:
 	virtual void onSpeechInput( P_PLAYER pTalker, const QString& comm );
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Human_Vendor";
 	}
@@ -516,7 +518,7 @@ public:
 	virtual void onSpeechInput( P_PLAYER pTalker, const QString& comm );
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Human_Stablemaster";
 	}
@@ -538,7 +540,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Animal_Wild_Flee";
 	}
@@ -577,7 +579,7 @@ public:
 	}
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Animal_Wild";
 	}
@@ -600,10 +602,43 @@ public:
 	}
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Animal_Domestic";
 	}
+};
+
+class Animal_Predator : public AnimalAI
+{
+protected:
+	Animal_Predator() : AnimalAI()
+	{
+	}
+
+public:
+	Animal_Predator( P_NPC npc ) : AnimalAI( npc )
+	{
+		m_actions.append( new Action_Wander( npc, this ) );
+		m_actions.append( new Action_Defend( npc, this ) );
+		m_actions.append( new Action_MoveToTarget( npc, this ) );
+	}
+
+	static void registerInFactory();
+	virtual void check();
+	virtual void init( P_NPC npc )
+	{
+		AnimalAI::init( npc );
+		initPrey();
+	}
+	virtual QString name() const
+	{
+		return "Animal_Predator";
+	}
+protected:
+	P_CHAR findPrey();
+	QStringList prey;
+	void initPrey();
+	bool huntPlayers;
 };
 
 class ScriptAction : public AbstractAction
@@ -616,7 +651,7 @@ public:
 	ScriptAction( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ), exec( ( char* ) 0 ), precond( ( char* ) 0 ), postcond( ( char* ) 0 )
 	{
 	}
-	virtual bool isPassive();
+	virtual bool isPassive() const;
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
@@ -634,7 +669,7 @@ public:
 		postcond = data;
 	}
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "ScriptAction:" + exec;
 	}
@@ -660,7 +695,7 @@ public:
 	}
 
 	static void registerInFactory( const QString& name );
-	virtual QString name()
+	virtual QString name() const
 	{
 		return m_name;
 	}
@@ -695,12 +730,12 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
-	virtual bool isPassive()
+	virtual bool isPassive() const
 	{
 		return false;
 	}
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Human_Guard_Called_Fight";
 	}
@@ -716,7 +751,7 @@ public:
 	Human_Guard_Called_TeleToTarget( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
 	}
-	virtual bool isPassive()
+	virtual bool isPassive() const
 	{
 		return false;
 	}
@@ -724,7 +759,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Human_Guard_Called_TeleToTarget";
 	}
@@ -740,7 +775,7 @@ public:
 	Human_Guard_Called_Disappear( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
 	}
-	virtual bool isPassive()
+	virtual bool isPassive() const
 	{
 		return false;
 	}
@@ -748,7 +783,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Human_Guard_Called_Disappear";
 	}
@@ -771,7 +806,7 @@ public:
 	virtual void init( P_NPC npc );
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Human_Guard_Called";
 	}
@@ -790,7 +825,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Human_Guard_Wander";
 	}
@@ -810,7 +845,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Human_Guard_MoveToTarget";
 	}
@@ -827,7 +862,7 @@ public:
 	Human_Guard_Fight( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
 	}
-	virtual bool isPassive()
+	virtual bool isPassive() const
 	{
 		return false;
 	}
@@ -835,7 +870,7 @@ public:
 	virtual float preCondition();
 	virtual float postCondition();
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Human_Guard_Fight";
 	}
@@ -853,7 +888,7 @@ public:
 	Human_Guard( P_NPC npc );
 
 	static void registerInFactory();
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Human_Guard";
 	}
@@ -880,6 +915,7 @@ AbstractAI* productCreatorFunctor()
 }
 #else
 AbstractAI* productCreatorFunctor_Animal_Domestic();
+AbstractAI* productCreatorFunctor_Animal_Predator();
 AbstractAI* productCreatorFunctor_Animal_Wild();
 AbstractAI* productCreatorFunctor_Human_Guard();
 AbstractAI* productCreatorFunctor_Human_Guard_Called();

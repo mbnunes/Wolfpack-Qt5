@@ -48,7 +48,7 @@ public:
 		AIFactory::instance()->registerType( "Monster_Mage", create );
 	}
 
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Monster_Mage";
 	}

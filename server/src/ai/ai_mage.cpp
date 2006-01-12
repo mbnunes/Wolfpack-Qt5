@@ -192,7 +192,7 @@ public:
 				Check our current attack target. It has the highest priority of all since
 				we are fighting it anyway.
 			*/
-		if ( !invalidTarget( m_npc, ai->currentVictim() ) && canDispel( ai->currentVictim() ) )
+		if ( !ai->invalidTarget( ai->currentVictim() ) && canDispel( ai->currentVictim() ) )
 		{
 			currentTarget = dynamic_cast<P_NPC>( ai->currentVictim() );
 			currentPriority = m_npc->dist( ai->currentVictim() );
@@ -223,7 +223,7 @@ public:
 				continue;
 			}
 
-			if ( !invalidTarget( m_npc, checkTarget ) && canDispel( checkTarget ) )
+			if ( !ai->invalidTarget( checkTarget ) && canDispel( checkTarget ) )
 			{
 				unsigned int newPriority = m_npc->dist( checkTarget );
 				if ( !currentTarget || currentPriority > newPriority )
@@ -384,12 +384,12 @@ public:
 		}
 	}
 
-	virtual const char* name()
+	virtual const char* name() const
 	{
 		return "Monster_Mage_Cast";
 	}
 
-	virtual bool isPassive()
+	virtual bool isPassive() const
 	{
 		return false;
 	}

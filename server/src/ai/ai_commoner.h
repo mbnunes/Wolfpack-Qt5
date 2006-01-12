@@ -40,7 +40,7 @@ protected:
 public:
 	Commoner( P_NPC npc );
 
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Commoner";
 	}

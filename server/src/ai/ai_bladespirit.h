@@ -47,7 +47,7 @@ public:
 		AIFactory::instance()->registerType( "Monster_BladeSpirit", create );
 	}
 
-	virtual QString name()
+	virtual QString name() const
 	{
 		return "Monster_BladeSpirit";
 	}
@@ -58,6 +58,7 @@ public:
 
 protected:
 	virtual void selectVictim();
+	P_CHAR findBestTarget();
 };
 
 #endif
