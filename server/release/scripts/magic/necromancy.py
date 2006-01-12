@@ -126,6 +126,8 @@ class CorpseSkin(CharEffectSpell):
 
 		target.addtimer( duration, magic.corpseskin.expire, [], True, False, 'CORPSESKIN', magic.corpseskin.dispel )
 
+# Incomplete
+# restart the timer when re-casting (stop the old)
 class CurseWeapon(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
@@ -221,7 +223,6 @@ class LichForm(TransformationSpell):
 					char.deltag('regenmana')
 				else:
 					char.settag('regenmana', char.gettag('regenmana') - 3)
-
 		else:
 			char.id = 749
 			# increase mana regeneration
@@ -337,11 +338,16 @@ class Strangle(CharEffectSpell):
 		self.reagents = {REAGENT_NOXCRYSTAL: 1, REAGENT_DAEMONBLOOD: 1}
 		self.mantra = 'In Bal Nox'
 
-	def effect(self, char, target, mode, args, item):
+	def affectchar(self, char, mode, target, args=[]):
 		target.soundeffect( 0x22f )
 		target.effect( 0x36CB, 1, 9, 67, 5 )
 		target.effect( 0x374A, 1, 17, 1108, 4 )
+		if target.hasscript('magic.strangle'):
+			return False
+		return True
 
+	def effect(self, char, target, mode, args, item):
+		target.addscript('magic.strangle')
 		spiritLevel = char.skill[self.damageskill] / 100
 		MinBaseDamage = spiritLevel - 2
 		MaxBaseDamage = spiritLevel + 1

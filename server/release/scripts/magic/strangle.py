@@ -31,9 +31,7 @@ def dodamage(char, args):
 			else:
 				HitDelay = 5
 	if Count == 0:
-		if char.socket:
-			char.socket.clilocmessage( 1061687 ) # You can breath normally again.
-			return
+		return expire(char, args)
 	else:
 		NextHit = HitDelay * 1000
 

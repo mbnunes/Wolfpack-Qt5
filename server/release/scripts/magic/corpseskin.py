@@ -1,6 +1,4 @@
 
-from wolfpack.utilities import changeResistance
-
 def dispel(char, args, source, dispelargs):
 	expire(char, args)
 
