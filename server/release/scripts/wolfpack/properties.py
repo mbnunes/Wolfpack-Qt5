@@ -339,7 +339,7 @@ def fromchar(char, property):
 # for easier costumization it's seperated from fromchar(char, property) function
 def NecroResMod(char, property):
 	value = 0
-	# Corpseskin Spell (Necromancer)
+	# Corpseskin Spell
 	if char.hasscript('magic.corpseskin'):
 		if property == RESISTANCE_FIRE:
 			value -= 10
@@ -350,7 +350,7 @@ def NecroResMod(char, property):
 		if property == RESISTANCE_PHYSICAL:
 			value += 10
 
-	# Lichform Spell (Necromancer)
+	# Lichform Spell
 	if char.hasscript('magic.lichform'):
 		if property == RESISTANCE_FIRE:
 			value -= 25
@@ -359,7 +359,7 @@ def NecroResMod(char, property):
 		if property == RESISTANCE_POISON:
 			value += 10
 
-	# Wraith Form Spell (Necromancer)
+	# Wraith Form Spell
 	if char.hasscript('magic.wraithform'):
 		if property == RESISTANCE_PHYSICAL:
 			value += 10
@@ -371,6 +371,11 @@ def NecroResMod(char, property):
 			value -= 5
 		if property == RESISTANCE_ENERGY:
 			value -= 5
+
+	# Vampiric Embrace Spell
+	if char.hasscript('magic.vampiricembrace'):
+		if property == RESISTANCE_FIRE:
+			value -= 25
 	return value
 
 #

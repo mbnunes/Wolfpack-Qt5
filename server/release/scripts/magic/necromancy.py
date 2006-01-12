@@ -390,13 +390,6 @@ class VampiricEmbrace(TransformationSpell):
 			char.removescript('magic.vampiricembrace')
 			char.id = char.orgid
 			char.skin = char.orgskin
-			# reverse decreased fire resistance
-			if char.hastag('vampemb_res_fire'):
-				if char.hastag('res_fire'):
-					fire_res = char.gettag('res_fire')
-					char.settag('res_fire', fire_res + char.gettag('vampemb_res_fire'))
-				else:
-					char.settag('res_fire', char.gettag('vampemb_res_fire'))
 		# do the transformation
 		else:
 			if char.gender:
@@ -404,15 +397,6 @@ class VampiricEmbrace(TransformationSpell):
 			else:
 				char.id = 744
 			char.skin = 0x847e
-			# decrease fire resistance
-			if char.hastag('res_fire'):
-				fire_res = char.gettag('res_fire')
-				char.settag('vampemb_res_fire',fire_res)
-				if fire_res - 25 <= 0:
-					char.deltag('res_fire')
-				else:
-					char.settag('res_fire', fire_res - 25)
-
 			char.addscript('magic.vampiricembrace')
 
 class VengefulSpirit(CharEffectSpell):
