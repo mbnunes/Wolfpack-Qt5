@@ -161,6 +161,7 @@ class EvilOmen(CharEffectSpell):
 		self.mantra = 'Pas Tym An Sanct'
 
 	def effect(self, char, target, mode, args, item):
+		char.dispel(char, True, 'EVILOMEN')
 		target.soundeffect( 0xFC )
 		target.effect( 0x3728, 1, 13, 1150, 7 )
 		target.effect( 0x3779, 1, 15, 67, 7 )
@@ -170,8 +171,7 @@ class EvilOmen(CharEffectSpell):
 			target.settag('magicresistance', target.skill[MAGICRESISTANCE])
 			target.skill[MAGICRESISTANCE] = 500
 		duration = ( 3.5 + (3.5 * (char.skill[self.damageskill] / 10.0)) ) * 100
-		char.socket.sysmessage(str(duration))
-		target.addtimer( duration, magic.evilomen.expire, [], True, False, 'CORPSESKIN', magic.evilomen.dispel )
+		target.addtimer( duration, magic.evilomen.expire, [], True, False, 'EVILOMEN', magic.evilomen.dispel )
 
 class HorrificBeast(TransformationSpell):
 	def __init__(self):
