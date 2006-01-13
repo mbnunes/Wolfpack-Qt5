@@ -1581,6 +1581,9 @@ static PyObject* wpPacket( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "ii:wolfpack.packet", &id, &size ) )
 		return 0;
 
+	if ( size == 0 )
+		Py_RETURN_NONE;
+
 	return CreatePyPacket( ( unsigned char ) id, ( unsigned short ) size );
 }
 
