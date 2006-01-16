@@ -162,7 +162,7 @@ def onWalk(char, dir, sequence):
 	if not char.attacktarget or char.distanceto(char.attacktarget) > 5:	
 		return False
 
-	# Otherwise a 105% chance
+	# Otherwise a 10% chance
 	if random.random() >= 0.10:
 		return False
 
