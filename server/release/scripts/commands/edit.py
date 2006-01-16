@@ -23,6 +23,9 @@ def response(player, arguments, response):
 
 	command = (response.button >> 28) & 0xC
 	item = wolfpack.finditem((response.button & 0x3FFFFFFF) | 0x40000000)
+	if not item:
+		return
+
 	target = arguments[0]
 	
 	# Delete Item
