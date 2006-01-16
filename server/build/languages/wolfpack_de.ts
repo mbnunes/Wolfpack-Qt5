@@ -4498,7 +4498,7 @@ Interval: %s to %s minutes</source>
     </message>
     <message>
         <source>Thank you %1, here are your %2 gold</source>
-        <translation>Vielen dank %1, hier sind eure %1 Goldmünzen</translation>
+        <translation>Vielen dank %1, hier sind eure %2 Goldmünzen</translation>
     </message>
     <message>
         <source>The total of thy purchase is %1 gold, which has been withdrawn from your bank account. My thanks for the patronage.</source>
