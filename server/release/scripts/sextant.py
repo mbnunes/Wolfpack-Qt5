@@ -1,3 +1,11 @@
+# -*- coding: cp1252 -*-
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  | Created by:                                #
+#   )).-' {{ ;'`   | Revised by:                                #
+#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+#===============================================================#
+
 import wolfpack
 
 def onUse( char, item ):

@@ -8,7 +8,7 @@
 import wolfpack.time
 import skills
 import wolfpack
-import whrandom
+import random
 from wolfpack.consts import *
 import system.spawns
 
@@ -245,7 +245,7 @@ def callback( char, args ):
 	num_try += 1
 	# taming msg : 502790 - 502793
 	# become angry : 502805
-	msgID = whrandom.choice( TAMING_MSGS )
+	msgID = random.choice( TAMING_MSGS )
 	if msgID == 502805:
 		if totame.hastag( 'angry' ):
 			m = totame.gettag( 'angry' )

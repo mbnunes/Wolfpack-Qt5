@@ -8,7 +8,7 @@
 from wolfpack.consts import *
 import wolfpack
 import wolfpack.time
-import whrandom
+import random
 import math
 
 # range in which the bandage exist ( when it is not in the backpack )
@@ -84,7 +84,7 @@ def response( char, args, target ):
 	# calc total heal amount : used formula from UOSS
 	heal_min = 3 + ( char.skill[ ANATOMY ] + char.skill[ HEALING ] ) / 50
 	heal_max = 10 + char.skill[ ANATOMY ] / 50 + char.skill[ HEALING ] / 20
-	heal_amount = whrandom.choice( range( heal_min, heal_max ) )
+	heal_amount = random.choice( range( heal_min, heal_max ) )
 	if not heal_amount:
 		heal_amount = 1
 
@@ -152,7 +152,7 @@ def delay_check( char, args ):
 	if wolfpack.time.currenttime() >= end_time:
 		# resurrect
 		if heal_type == 0:
-			if chance >= whrandom.randint( 0, 1000 ):
+			if chance >= random.randint( 0, 1000 ):
 				char.socket.clilocmessage( 500965, "", 0x3b2, 3 )
 				healto.resurrect( char )
 			else:
@@ -162,7 +162,7 @@ def delay_check( char, args ):
 				char.checkskill( ANATOMY, RES_ANATOMY, 1000 )
 		# cure
 		elif heal_type == 1:
-			if chance >= whrandom.randint( 0, 1000 ):
+			if chance >= random.randint( 0, 1000 ):
 				char.socket.clilocmessage( 503260, "", 0x3b2, 3 )
 				healto.poisoned = 0
 				if healto.hastag( 'poisoned' ):

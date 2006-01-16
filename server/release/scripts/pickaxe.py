@@ -8,7 +8,6 @@
 import wolfpack
 import wolfpack.time
 import skills
-import whrandom
 import wolfpack.utilities
 from wolfpack.consts import GRAY, MINING
 from skills.mining import canminegranite

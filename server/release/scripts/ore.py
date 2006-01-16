@@ -4,7 +4,6 @@
 
 import wolfpack
 import skills
-import whrandom
 import wolfpack.utilities
 from wolfpack.consts import GRAY, MINING, SOUND_HAMMER_1
 from skills import mining
