@@ -172,7 +172,7 @@ class Unlock(Spell):
 
 		if target.hastag('magicunlock_difficult'):
 			if target.gettag('magicunlock_difficult') < char.skill(MAGERY):
-				char.socket.sysmessage('Your magic skills are not enough to Unlock this...')
+				char.socket.sysmessage( tr('Your magic skills are not enough to Unlock this...') ) 
 				return
 
 		if not self.consumerequirements(char, mode, args, target, item):
