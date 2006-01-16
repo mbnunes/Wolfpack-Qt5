@@ -300,7 +300,7 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 
 	if ( error )
 	{
-		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.toLatin1() );
+		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.toLatin1().constData() );
 		delete error;
 		return 0;
 	}

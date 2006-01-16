@@ -538,7 +538,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 		toCall = new PythonFunction( func );
 
 	        if (!toCall || !toCall->isValid()) {
-	                PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s", func.toLatin1());
+	                PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s", func.toLatin1().constData() );
 	                return 0;
 	        }
 

@@ -570,7 +570,7 @@ void cUObject::processNode( const cElement* Tag )
 	// <scripts>a,b,c</scripts>
 	else if ( TagName == "scripts" )
 	{
-		setScriptList( Value.latin1() );
+		setScriptList( Value.toLatin1() );
 	}
 	else
 	{
@@ -793,7 +793,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 		QStringList list = QStringList::split( ",", value.toString() );
 		for ( QStringList::const_iterator it( list.begin() ); it != list.end(); ++it )
 		{
-			cPythonScript* script = ScriptManager::instance()->find( ( *it ).latin1() );
+			cPythonScript* script = ScriptManager::instance()->find( ( *it ).toLatin1() );
 			if ( script )
 				addScript( script );
 			else
@@ -992,7 +992,7 @@ bool cUObject::onCreate( const QString& definition )
 	bool result = false;
 	if ( canHandleEvent( EVENT_CREATE ) )
 	{
-		PyObject* args = Py_BuildValue( "(Ns)", getPyObject(), definition.latin1() );
+		PyObject* args = Py_BuildValue( "(Ns)", getPyObject(), definition.toLatin1().data() );
 		result = callEventHandler( EVENT_CREATE, args );
 		Py_DECREF( args );
 	}
@@ -1143,7 +1143,7 @@ void cUObject::setScriptList( const QByteArray& eventlist )
 
 	for ( it = events.begin(); it != events.end(); ++it )
 	{
-		cPythonScript* script = ScriptManager::instance()->find( ( *it ).latin1() );
+		cPythonScript* script = ScriptManager::instance()->find( ( *it ).toLatin1() );
 
 		if ( script )
 		{

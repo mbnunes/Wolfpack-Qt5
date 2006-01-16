@@ -645,7 +645,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 
 		if ( !toCall->isValid() )
 		{
-			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.toLatin1());
+			PyErr_Format(PyExc_RuntimeError, "The function callback you specified was invalid: %s.", func.toLatin1().constData());
 			return 0;
 		}
 	}
@@ -1448,7 +1448,7 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 
 		if ( error )
 		{
-			PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.toLatin1() );
+			PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.toLatin1().constData() );
 			delete error;
 			return -1;
 		}

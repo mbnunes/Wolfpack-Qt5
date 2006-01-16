@@ -277,7 +277,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 		}
 		const char *ptype = "";
 		if (!type.isEmpty()) {
-			ptype = type.toLatin1();
+			ptype = type.toLatin1().constData();
 		}
 		PyObject *args = Py_BuildValue("(NNBBsN", pc_dest->getPyObject(), source,
 			silent ? 1 : 0, onlyDispellable ? 0 : 1, ptype, PyTuple_New(0));
