@@ -3617,16 +3617,16 @@ void cUOSocket::updateLightLevel()
 		cTerritory* region = Territories::instance()->region( _player->pos() );
 		if ( region && region->isCave() )
 		{
-			level = wpMin<int>( 0x1f, wpMax<int>( 0, Config::instance()->dungeonLightLevel() - static_cast<int>( _player->fixedLightLevel() ) ) );
+			level = wpMin<int>( 30, wpMax<int>( 0, Config::instance()->dungeonLightLevel() - static_cast<int>( _player->fixedLightLevel() ) ) );
 		}
 		else
 		{
-			level = wpMin<int>( 0x1f, wpMax<int>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) ) );
+			level = wpMin<int>( 30, wpMax<int>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) ) );
 		}
 
 		// If Region have a Default Light Level, then let's Override
 		if ( region && region->fixedlight() > -1 )
-			level = wpMin<int>( 0x1f, wpMax<int>( 0, region->fixedlight() - static_cast<int>( _player->fixedLightLevel() ) ) );
+			level = wpMin<int>( 30, wpMax<int>( 0, region->fixedlight() - static_cast<int>( _player->fixedLightLevel() ) ) );
 
 		// Elves are always with Full NightSight. True?
 		if ( Config::instance()->elffullnightsight() )

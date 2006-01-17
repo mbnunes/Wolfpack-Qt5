@@ -1396,7 +1396,7 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 	else if ( ( comm.contains( " FETCH" ) ) || ( comm.contains( " GET" ) ) )
 	{
 //#pragma note( Implement me )
-		pTalker->message( tr( "Sorry, not implemented yet :(" ) );
+		//pTalker->message( tr( "Sorry, not implemented yet :(" ) );
 	}
 	else if ( comm.contains( " COME" ) )
 	{

@@ -156,7 +156,7 @@ public:
 	SERIAL inputItem() const;
 	quint8 visualRange() const;
 	QString profile() const;
-	quint8 fixedLightLevel() const;
+	qint8 fixedLightLevel() const;
 	quint8 maxControlSlots() const;
 
 	// bit flag getters
@@ -304,7 +304,7 @@ protected:
 
 	// Fixed light level. is used in dungeons or for nightsight spell.
 	// cOldChar:fixedlight_
-	quint8 fixedLightLevel_;
+	qint8 fixedLightLevel_;
 };
 
 inline cAccount* cPlayer::account() const
@@ -416,7 +416,7 @@ inline void cPlayer::setProfile( const QString& data )
 	changed_ = true;
 }
 
-inline quint8 cPlayer::fixedLightLevel() const
+inline qint8 cPlayer::fixedLightLevel() const
 {
 	return fixedLightLevel_;
 }
