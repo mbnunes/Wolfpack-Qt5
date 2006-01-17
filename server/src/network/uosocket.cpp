@@ -152,6 +152,7 @@ cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( s ), _walkSequence( 0 ), lastPa
 	skippedUOHeader = false;
 
 	connect( _socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::QueuedConnection);
+	connect( _socket, SIGNAL(error()), this, SIGNAL(disconnected()), Qt::QueuedConnection);
 	connect( _socket, SIGNAL(readyRead()), this, SLOT(receive()), Qt::QueuedConnection);
 	// Creation of a new socket counts as activity
 	_lastActivity = getNormalizedTime();
