@@ -264,6 +264,12 @@ void cTiming::poll()
 	// Periodic checks for connected players
 	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
 	{
+		socket->poll();
+		if ( !socket )
+		{
+			continue;
+		}
+
 		if ( !socket->player() )
 		{
 			continue;
