@@ -71,6 +71,8 @@ cTiming::cTiming()
 	nextHungerCheck = time + Config::instance()->hungerDamageRate();
 	nextCombatCheck = time + 100; // Every 100 ms
 	nextUOTimeTick = 0;
+	nextStormCheck = time + 5000; // Every 5s
+	nextRayCheck = time + 500; // Every 1s
 
 	currentday = 0xFF;
 }
@@ -261,6 +263,91 @@ void cTiming::poll()
 	// Save the positions of connected players
 	QList<Coord> positions;
 
+	// Climatic Things (Storms)
+	if ( ( Config::instance()->enableWeather() ) && ( nextStormCheck <= time ) )
+	{
+		// Loop to Clear old Storm Stuff
+		for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+		{
+			socket->poll();
+			if ( !socket )
+			{
+				continue;
+			}
+
+			if ( !socket->player() )
+			{
+				continue;
+			}
+
+			// Lets try TopRegion of Player
+			cTerritory* region = socket->player()->region();
+
+			if ( socket->player()->region()->parent() )
+				region = dynamic_cast<cTerritory*>( socket->player()->region()->parent() );
+
+			// Clear old Storm Stuff
+			if ( region->stormchecked() )
+				region->setStormChecked( 0 );
+		}
+
+		// Loop checking all Storm Stuff
+		for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+		{
+			socket->poll();
+			if ( !socket )
+			{
+				continue;
+			}
+
+			if ( !socket->player() )
+			{
+				continue;
+			}
+
+			// Lets try TopRegion of Player
+			cTerritory* region = socket->player()->region();
+
+			if ( socket->player()->region()->parent() )
+				region = dynamic_cast<cTerritory*>( socket->player()->region()->parent() );
+
+			// Storm here?
+			if ( ( region->isRaining() ) && ( region->intensity() > Config::instance()->intensityBecomesStorm() ) )
+			{
+				// Chances
+				if ( !region->stormchecked() )
+					region->setStormChecked( RandomNum( 1, 100 ) );
+
+				// Get Actual Chance
+				int chances = region->stormchecked();
+
+				// % of Chances to a Thunder Sound
+				if ( chances <= Config::instance()->defaultThunderChance() )
+				{
+					switch ( RandomNum( 0, 2 ) ) // Random Sound
+					{
+						case 0:
+							socket->player()->soundEffect( 0x28, false );
+							break;
+						case 1:
+							socket->player()->soundEffect( 0x29, false );
+							break;
+						case 2:
+							socket->player()->soundEffect( 0x206, false );
+							break;
+					}
+					// Ray Chance on Thunder
+					if ( chances <= Config::instance()->rayChanceonThunder() )
+						socket->flashray();
+				}
+			}
+		}
+
+		// Assign next Storm Check
+		nextStormCheck = time + 5000;
+	}
+
+
 	// Periodic checks for connected players
 	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
 	{
@@ -274,6 +361,18 @@ void cTiming::poll()
 		{
 			continue;
 		}
+
+		// Lets Stop FlashRay if its enabled
+		if ( nextRayCheck <= time )
+		{
+			if ( socket->tags().has( "flashray" ) )
+			{
+				socket->tags().remove( "flashray" );
+				socket->updateLightLevel();
+			}
+
+			nextRayCheck = time + 500;
+		}		
 
 		startProfiling( PF_PLAYERCHECK );
 		socket->player()->poll( time, events );

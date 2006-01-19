@@ -195,6 +195,7 @@ protected:
 
 	// Weather System
 	bool enableWeather_;
+	bool enableStorms_;
 	int rainDefaultChance_;
 	int snowDefaultChance_;
 	int rainDefaultDuration_;
@@ -205,6 +206,9 @@ protected:
 	int dryDefaultDurationRange_;
 	int minDefaultIntensity_;
 	int maxDefaultIntensity_;
+	int intensitybecomesstorm_;
+	int defaultthunderchance_;
+	int raychanceonthunder_;
 
 	// Season System
 	bool enableSeasons_;
@@ -403,6 +407,7 @@ public:
 
 	// Weather System
 	bool enableWeather() const;
+	bool enableStorms() const;
 	int rainDefaultChance() const;
 	int snowDefaultChance() const;
 	int rainDefaultDuration() const;
@@ -413,6 +418,9 @@ public:
 	int dryDefaultDurationRange() const;
 	int minDefaultIntensity() const;
 	int maxDefaultIntensity() const;
+	int intensityBecomesStorm() const;
+	int defaultThunderChance() const;
+	int rayChanceonThunder() const;
 
 	// Season System
 	bool enableSeasons() const;
@@ -862,6 +870,10 @@ inline bool cConfig::enableWeather() const
 {
 	return enableWeather_;
 }
+inline bool cConfig::enableStorms() const
+{
+	return enableStorms_;
+}
 inline int cConfig::rainDefaultChance() const
 {
 	return rainDefaultChance_;
@@ -903,6 +915,18 @@ inline int cConfig::minDefaultIntensity() const
 inline int cConfig::maxDefaultIntensity() const
 {
 	return maxDefaultIntensity_;
+}
+inline int cConfig::intensityBecomesStorm() const
+{
+	return intensitybecomesstorm_;
+}
+inline int cConfig::defaultThunderChance() const
+{
+	return defaultthunderchance_;
+}
+inline int cConfig::rayChanceonThunder() const
+{
+	return raychanceonthunder_;
 }
 // Season System
 inline bool cConfig::enableSeasons() const

@@ -48,6 +48,8 @@ private:
 	unsigned int nextHungerCheck;
 	unsigned int nextCombatCheck;
 	unsigned int nextUOTimeTick;
+	unsigned int nextStormCheck;
+	unsigned int nextRayCheck;
 
 	unsigned char currentday;
 

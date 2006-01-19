@@ -198,6 +198,25 @@ static PyObject* wpRegion_setweatherintensity( wpRegion* self, PyObject* args )
 
 	Py_RETURN_NONE;
 }
+/*
+	\method region.setlightmodifier
+	\param light The Modifier Light Level for this region
+	\description It will insert a Modifier for Light Level on this region.
+*/
+static PyObject* wpRegion_setlightmodifier( wpRegion* self, PyObject* args )
+{
+	if ( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	unsigned char arg = getArgInt( 0 );
+
+	self->pRegion->setLightModifier( arg );
+
+	Py_RETURN_NONE;
+}
 
 static PyMethodDef wpRegionMethods[] =
 {
@@ -208,6 +227,7 @@ static PyMethodDef wpRegionMethods[] =
 { "setweatherday", ( getattrofunc ) wpRegion_setweatherday,	METH_VARARGS, "Set the day of next Weather update" },
 { "setweatherhour", ( getattrofunc ) wpRegion_setweatherhour,	METH_VARARGS, "Set the hour of next Weather update" },
 { "setweatherintensity", ( getattrofunc ) wpRegion_setweatherintensity, METH_VARARGS, "Set the intensity of Weather" },
+{ "setlightmodifier", ( getattrofunc ) wpRegion_setlightmodifier, METH_VARARGS, "Set the Light Modifier for this Region" },
 { NULL, NULL, 0, NULL }
 };
 
@@ -297,6 +317,11 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "fixedlight" ) )
 		return PyInt_FromLong( self->pRegion->fixedlight() );
+	/*
+		\rproperty region.lightmodifier The Modifier for LightLevel in this Region
+	*/
+	else if ( !strcmp( name, "lightmodifier" ) )
+		return PyInt_FromLong( self->pRegion->lightmodifier() );
 
 	// Flags
 	/*

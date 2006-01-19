@@ -79,6 +79,7 @@ void cTerritory::init( void )
 	flags_ = 0;
 	guardowner_ = QString();
 	fixedlight_ = -1;
+	lightmodifier_ = 0;
 	snowchance_ = Config::instance()->snowDefaultChance();;
 	rainchance_ = Config::instance()->rainDefaultChance();;
 	guardSections_ = QStringList();
@@ -98,6 +99,8 @@ void cTerritory::init( void )
 	minintensity_ = Config::instance()->minDefaultIntensity();
 	maxintensity_ = Config::instance()->maxDefaultIntensity();
 	intensity_ = RandomNum( minintensity_, maxintensity_ );
+	// Storm Parameters
+	stormchecked_ = 0;
 }
 
 void cTerritory::processNode( const cElement* Tag )
@@ -533,7 +536,12 @@ void cTerritories::check( P_CHAR pc )
 				socket->updateLightLevel();
 			}
 			// Added the Fixed Light Level for a Region
-			if ( ( ( currRegion->fixedlight() >= 0 ) && ( lastRegion->fixedlight() < 0 ) ) || ( ( currRegion->fixedlight() < 0 ) && ( lastRegion->fixedlight() >= 0 ) ) )
+			if ( currRegion->fixedlight() != lastRegion->fixedlight() )
+			{
+				socket->updateLightLevel();
+			}
+			// Added Light Modifier for a Region
+			if ( currRegion->lightmodifier() != lastRegion->lightmodifier() )
 			{
 				socket->updateLightLevel();
 			}

@@ -270,6 +270,10 @@ void cConfig::readData()
 	dryDefaultDurationRange_ = getNumber( "Weather", "Default Dry Duration Range", 1, true );
 	minDefaultIntensity_ = getNumber( "Weather", "Minimum Default Intensity", 16, true );
 	maxDefaultIntensity_ = getNumber( "Weather", "Maximum Default Intensity", 112, true );
+	enableStorms_ = getBool( "Weather", "Enable Storms", false, true );
+	intensitybecomesstorm_ = getNumber( "Weather", "Intensity Value to Rain Becomes Storm", 100, true );
+	defaultthunderchance_ = getNumber( "Weather", "Default Thunder Chance", 25, true );
+	raychanceonthunder_ = getNumber( "Weather", "Ray Chance on Thunder", 8, true );
 
 	// Season System
 	enableSeasons_ = getBool( "Season", "Enable Season System", false, true );

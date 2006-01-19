@@ -160,6 +160,10 @@ public:
 	{
 		return fixedlight_;
 	}
+	int lightmodifier( void ) const
+	{
+		return lightmodifier_;
+	}
 	QString firstcoin( void ) const
 	{
 		return firstcoin_;
@@ -218,6 +222,11 @@ public:
 	{
 		return intensity_;
 	}
+	// Storm Parameters
+	int stormchecked( void ) const
+	{
+		return stormchecked_;
+	}
 
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
@@ -228,6 +237,8 @@ public:
 	QString getGuardSect( void ) const;
 
 	// Setters
+	void setLightModifier( int light );
+
 	void setIsRaining( bool data );
 	void setIsSnowing( bool data );
 
@@ -235,6 +246,7 @@ public:
 	void setWeatherHour( int whour );
 
 	void setWeatherIntensity( int intensity );
+	void setStormChecked( int data );
 
 private:
 	// Setters to ease up the flag meanings
@@ -398,6 +410,7 @@ private:
 	UI08 rainchance_;
 
 	int fixedlight_;	// The fixed Light Level for this place
+	int lightmodifier_; // Modifier for Light Level in this Region
 
 	int weatherday_;	// The Day for Next Weather Update
 	int weatherhour_;	// The Hour for Next Weather Update
@@ -412,6 +425,8 @@ private:
 	int minintensity_;			// Default Minimum Intensity for Weather
 	int maxintensity_;			// Default Maximum Intensity for Weather
 	int intensity_;				// Actual Intensity of Weather for this Region
+
+	int stormchecked_;			// A Internal Parameter to Check Storm Feats
 
 	QStringList guardSections_;
 
@@ -449,6 +464,11 @@ inline bool cTerritory::isSnowing() const
 	return isSnowing_;
 }
 
+inline void cTerritory::setLightModifier( int light )
+{
+	lightmodifier_ = light;
+}
+
 inline void cTerritory::setIsRaining( bool data )
 {
 	isRaining_ = data;
@@ -472,6 +492,11 @@ inline void cTerritory::setWeatherHour( int whour )
 inline void cTerritory::setWeatherIntensity( int intensity )
 {
 	intensity_ = intensity;
+}
+
+inline void cTerritory::setStormChecked( int data )
+{
+	stormchecked_ = data;
 }
 
 class cTerritories : public cComponent

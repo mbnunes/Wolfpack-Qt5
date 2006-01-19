@@ -2678,6 +2678,17 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 			// Assign weather
 			if ( region->isRaining() && region->isSnowing() )
 			{
+				// Storm Packet... its really implemented on Client?
+				if ( intensity > Config::instance()->intensityBecomesStorm() )
+				{
+					cUOTxWeather weather;
+					weather.setType( WT_STORM );
+					weather.setAmount( intensity );
+					weather.setTemperature( 0x10 );
+
+					send( &weather );
+				}
+
 				cUOTxWeather weather;
 				weather.setType( WT_RAINING );
 				weather.setAmount( intensity );
@@ -2693,6 +2704,17 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 			}
 			else if ( region->isRaining() )
 			{
+				// Storm Packet... its really implemented on Client?
+				if ( intensity > Config::instance()->intensityBecomesStorm() )
+				{
+					cUOTxWeather weather;
+					weather.setType( WT_STORM );
+					weather.setAmount( intensity );
+					weather.setTemperature( 0x10 );
+
+					send( &weather );
+				}
+
 				cUOTxWeather weather;
 				weather.setType( WT_RAINING );
 				weather.setAmount( intensity );
@@ -3695,6 +3717,17 @@ void cUOSocket::cancelTarget()
 	}
 }
 
+void cUOSocket::flashray()
+{
+	cUOTxLightLevel pLight;
+
+	// Set Tag
+	tags().set( "flashray", 1 );
+
+	pLight.setLevel( 0 );
+	send( &pLight );
+}
+
 void cUOSocket::updateLightLevel()
 {
 	if ( _player )
@@ -3715,6 +3748,10 @@ void cUOSocket::updateLightLevel()
 		if ( region && region->fixedlight() > -1 )
 			level = wpMin<int>( 30, wpMax<int>( 0, region->fixedlight() - static_cast<int>( _player->fixedLightLevel() ) ) );
 
+		// Region Modification for Light Level
+		if ( region && region->lightmodifier() )
+			level = wpMin<int>( 30, wpMax<int>( 0, ( level + region->lightmodifier() ) ) );
+		
 		// Elves are always with Full NightSight. True?
 		if ( Config::instance()->elffullnightsight() )
 		{

@@ -272,6 +272,7 @@ public:
 	void sendVendorCont( P_ITEM pItem );
 	void clilocMessage( const quint32 MsgID, const QString& params = 0, const quint16 color = 0x3b2, const quint16 font = 3, cUObject* object = 0, bool system = false );
 	void clilocMessageAffix( const quint32 MsgID, const QString& params = 0, const QString& affix = 0, const quint16 color = 0x3b2, const quint16 font = 3, cUObject* object = 0, bool dontMove = false, bool prepend = false, bool system = false );
+	void flashray();
 	void updateLightLevel();
 	void sendQuestArrow( bool show, quint16 x, quint16 y );
 	void sendWeblink( const QString& url );
