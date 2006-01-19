@@ -63,6 +63,7 @@
 #include "../log.h"
 #include "../ai/ai.h"
 #include "../python/pypacket.h"
+#include "../uotime.h"
 
 #include "encryption.h"
 
@@ -1034,18 +1035,58 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	send( &changeMap );
 
 	cUOTxChangeSeason season;
-	if ( Config::instance()->enableFeluccaSeason() && _player->pos().map == 0 )
+
+	if ( Config::instance()->enableSeasons() )
 	{
-		season.setSeason( ST_DESOLATION );
-	}
-	else if ( Config::instance()->enableTrammelSeason() && _player->pos().map == 1 )
-	{
-		season.setSeason( ST_SPRING );
+		// How Many Days?
+		int seasoncicles = ( UoTime::instance()->days() ) / Config::instance()->daysToChageSeason();
+
+		// Now lets Check the Best Season
+        if ( Config::instance()->enableDesolationAsSeason() )
+		{
+			int tseason = ( seasoncicles % 5 );
+
+			if ( tseason == 0 )
+				season.setSeason( ST_SPRING );
+			else if ( tseason == 1 )
+				season.setSeason( ST_SUMMER );
+			else if ( tseason == 2 )
+				season.setSeason( ST_FALL );
+			else if ( tseason == 3 )
+				season.setSeason( ST_WINTER );
+			else if ( tseason == 4 )
+				season.setSeason( ST_DESOLATION );
+		}
+		else
+		{
+			int tseason = ( seasoncicles % 4 );
+
+			if ( tseason == 0 )
+				season.setSeason( ST_SPRING );
+			else if ( tseason == 1 )
+				season.setSeason( ST_SUMMER );
+			else if ( tseason == 2 )
+				season.setSeason( ST_FALL );
+			else if ( tseason == 3 )
+				season.setSeason( ST_WINTER );
+		}
 	}
 	else
 	{
-		season.setSeason( ST_SUMMER );
+		if ( Config::instance()->enableFeluccaSeason() && _player->pos().map == 0 )
+		{
+			season.setSeason( ST_DESOLATION );
+		}
+		else if ( Config::instance()->enableTrammelSeason() && _player->pos().map == 1 )
+		{
+			season.setSeason( ST_SPRING );
+		}
+		else
+		{
+			season.setSeason( ST_SUMMER );
+		}
 	}
+	
 	send( &season );
 
 	updatePlayer();
@@ -1997,17 +2038,55 @@ void cUOSocket::resendPlayer( bool quick )
 
 	// Send Season
 	cUOTxChangeSeason season;
-	if ( Config::instance()->enableFeluccaSeason() && _player->pos().map == 0 )
+	if ( Config::instance()->enableSeasons() )
 	{
-		season.setSeason( ST_DESOLATION );
-	}
-	else if ( Config::instance()->enableTrammelSeason() && _player->pos().map == 1 )
-	{
-		season.setSeason( ST_SPRING );
+		// How Many Days?
+		int seasoncicles = ( UoTime::instance()->days() ) / Config::instance()->daysToChageSeason();
+
+		// Now lets Check the Best Season
+        if ( Config::instance()->enableDesolationAsSeason() )
+		{
+			int tseason = ( seasoncicles % 5 );
+
+			if ( tseason == 0 )
+				season.setSeason( ST_SPRING );
+			else if ( tseason == 1 )
+				season.setSeason( ST_SUMMER );
+			else if ( tseason == 2 )
+				season.setSeason( ST_FALL );
+			else if ( tseason == 3 )
+				season.setSeason( ST_WINTER );
+			else if ( tseason == 4 )
+				season.setSeason( ST_DESOLATION );
+		}
+		else
+		{
+			int tseason = ( seasoncicles % 4 );
+
+			if ( tseason == 0 )
+				season.setSeason( ST_SPRING );
+			else if ( tseason == 1 )
+				season.setSeason( ST_SUMMER );
+			else if ( tseason == 2 )
+				season.setSeason( ST_FALL );
+			else if ( tseason == 3 )
+				season.setSeason( ST_WINTER );
+		}
 	}
 	else
 	{
-		season.setSeason( ST_SUMMER );
+		if ( Config::instance()->enableFeluccaSeason() && _player->pos().map == 0 )
+		{
+			season.setSeason( ST_DESOLATION );
+		}
+		else if ( Config::instance()->enableTrammelSeason() && _player->pos().map == 1 )
+		{
+			season.setSeason( ST_SPRING );
+		}
+		else
+		{
+			season.setSeason( ST_SUMMER );
+		}
 	}
 	send( &season );
 

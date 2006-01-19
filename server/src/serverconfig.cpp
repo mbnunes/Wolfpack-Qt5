@@ -270,6 +270,11 @@ void cConfig::readData()
 	dryDefaultDurationRange_ = getNumber( "Weather", "Default Dry Duration Range", 1, true );
 	minDefaultIntensity_ = getNumber( "Weather", "Minimum Default Intensity", 16, true );
 	maxDefaultIntensity_ = getNumber( "Weather", "Maximum Default Intensity", 112, true );
+
+	// Season System
+	enableSeasons_ = getBool( "Season", "Enable Season System", false, true );
+	enableDesolationAsSeason_ = getBool( "Season", "Enable Desolation as Season", false, true );
+	daysToChageSeason_ = getNumber( "Season", "Days to Change Season", 90, true );
 }
 
 void cConfig::load()

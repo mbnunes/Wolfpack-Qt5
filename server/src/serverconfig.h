@@ -206,6 +206,11 @@ protected:
 	int minDefaultIntensity_;
 	int maxDefaultIntensity_;
 
+	// Season System
+	bool enableSeasons_;
+	bool enableDesolationAsSeason_;
+	int daysToChageSeason_;
+
 public:
 	cConfig();
 
@@ -408,6 +413,11 @@ public:
 	int dryDefaultDurationRange() const;
 	int minDefaultIntensity() const;
 	int maxDefaultIntensity() const;
+
+	// Season System
+	bool enableSeasons() const;
+	bool enableDesolationAsSeason() const;
+	int daysToChageSeason() const;
 
 private:
 	void setDefaultStartLocation();
@@ -893,6 +903,19 @@ inline int cConfig::minDefaultIntensity() const
 inline int cConfig::maxDefaultIntensity() const
 {
 	return maxDefaultIntensity_;
+}
+// Season System
+inline bool cConfig::enableSeasons() const
+{
+	return enableSeasons_;
+}
+inline bool cConfig::enableDesolationAsSeason() const
+{
+	return enableDesolationAsSeason_;
+}
+inline int cConfig::daysToChageSeason() const
+{
+	return daysToChageSeason_;
 }
 
 typedef Singleton<cConfig> Config;
