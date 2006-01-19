@@ -94,6 +94,10 @@ void cTerritory::init( void )
 	snowrangeduration_ = Config::instance()->snowDefaultDurationRange();
 	dryduration_ = Config::instance()->dryDefaultDuration();
 	dryrangeduration_ = Config::instance()->dryDefaultDurationRange();
+	// Intensity
+	minintensity_ = Config::instance()->minDefaultIntensity();
+	maxintensity_ = Config::instance()->maxDefaultIntensity();
+	intensity_ = RandomNum( minintensity_, maxintensity_ );
 }
 
 void cTerritory::processNode( const cElement* Tag )
@@ -253,6 +257,16 @@ void cTerritory::processNode( const cElement* Tag )
 	else if ( TagName == "dryrangeduration" )
 	{
 		this->dryrangeduration_ = Value.toUShort();
+	}
+	// <minintensity>1</minintensity>
+	else if ( TagName == "minintensity" )
+	{
+		this->minintensity_ = Value.toUShort();
+	}
+	// <maxintensity>1</maxintensity>
+	else if ( TagName == "maxintensity" )
+	{
+		this->maxintensity_ = Value.toUShort();
 	}
 	// <tradesystem>
 	//		<good num="1">

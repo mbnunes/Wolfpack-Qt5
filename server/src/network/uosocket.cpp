@@ -2588,18 +2588,26 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 		// If its a Region and not a Cave...
 		if ( ( region ) && !( region->isCave() || subregion->isCave() ) )
 		{
+			// Assign Intensity
+			int intensity = region->intensity();
+
+			if ( intensity < 16 )
+				intensity = 16;
+			if ( intensity > 112 )
+				intensity = 112;
+
 			// Assign weather
 			if ( region->isRaining() && region->isSnowing() )
 			{
 				cUOTxWeather weather;
 				weather.setType( WT_RAINING );
-				weather.setAmount( RandomNum( 0x10, 0x70 ) );
+				weather.setAmount( intensity );
 				weather.setTemperature( 0x10 );
 
 				send( &weather );
 
 				weather.setType( WT_SNOWING );
-				weather.setAmount( RandomNum( 0x10, 0x70 ) );
+				weather.setAmount( intensity );
 				weather.setTemperature( 0x10 );
 
 				send( &weather );
@@ -2608,7 +2616,7 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 			{
 				cUOTxWeather weather;
 				weather.setType( WT_RAINING );
-				weather.setAmount( RandomNum( 0x10, 0x70 ) );
+				weather.setAmount( intensity );
 				weather.setTemperature( 0x10 );
 
 				send( &weather );
@@ -2617,7 +2625,7 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 			{
 				cUOTxWeather weather;
 				weather.setType( WT_SNOWING );
-				weather.setAmount( RandomNum( 0x10, 0x70 ) );
+				weather.setAmount( intensity );
 				weather.setTemperature( 0x10 );
 
 				send( &weather );

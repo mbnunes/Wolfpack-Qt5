@@ -88,6 +88,7 @@ def changeweather( region ):
 			console.log(LOG_MESSAGE, "Raining on " + region.name )
 
 		weatherduration( region )
+		weatherintensity( region )
 
 	# Snow
 	elif randomsnow <= snowchance:
@@ -95,6 +96,7 @@ def changeweather( region ):
 		console.log(LOG_MESSAGE, "Snowing on " + region.name )
 
 		weatherduration( region )
+		weatherintensity( region )
 
 	# Dry
 	else:
@@ -154,3 +156,15 @@ def weatherduration( region ):
 	# Set Next Weather update
 	region.setweatherhour( hour )
 	region.setweatherday( day )
+
+######################################################################################
+#############   Set Intensity of new Weather   #######################################
+######################################################################################
+
+def weatherintensity( region ):
+
+	intensity = random.randint( region.minintensity, region.maxintensity )
+
+	region.setweatherintensity( intensity )
+
+	console.log(LOG_MESSAGE, "Intensity: " + str(region.intensity) )

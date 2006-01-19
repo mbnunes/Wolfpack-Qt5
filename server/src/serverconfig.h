@@ -203,6 +203,8 @@ protected:
 	int rainDefaultDurationRange_;
 	int snowDefaultDurationRange_;
 	int dryDefaultDurationRange_;
+	int minDefaultIntensity_;
+	int maxDefaultIntensity_;
 
 public:
 	cConfig();
@@ -404,6 +406,8 @@ public:
 	int rainDefaultDurationRange() const;
 	int snowDefaultDurationRange() const;
 	int dryDefaultDurationRange() const;
+	int minDefaultIntensity() const;
+	int maxDefaultIntensity() const;
 
 private:
 	void setDefaultStartLocation();
@@ -879,6 +883,16 @@ inline int cConfig::snowDefaultDurationRange() const
 inline int cConfig::dryDefaultDurationRange() const
 {
 	return dryDefaultDurationRange_;
+}
+
+inline int cConfig::minDefaultIntensity() const
+{
+	return minDefaultIntensity_;
+}
+
+inline int cConfig::maxDefaultIntensity() const
+{
+	return maxDefaultIntensity_;
 }
 
 typedef Singleton<cConfig> Config;

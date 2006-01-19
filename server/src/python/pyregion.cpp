@@ -173,6 +173,32 @@ static PyObject* wpRegion_setweatherhour( wpRegion* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
+/*
+	\method region.setweatherintensity
+	\param intensity The Intensity of Weather in this area (Between 16 and 112)
+	\description It will set the intensity for actual Weather (Higher = More Rain or Snow on Screen).
+*/
+static PyObject* wpRegion_setweatherintensity( wpRegion* self, PyObject* args )
+{
+	if ( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	unsigned char arg = getArgInt( 0 );
+
+	if ( arg < 16 )
+		arg = 16;
+
+	if ( arg > 112 )
+		arg = 112;
+
+	self->pRegion->setWeatherIntensity( arg );
+
+	Py_RETURN_NONE;
+}
+
 static PyMethodDef wpRegionMethods[] =
 {
 { "startrain", ( getattrofunc ) wpRegion_startrain,	METH_VARARGS, "The Region begins to rain" },
@@ -181,6 +207,7 @@ static PyMethodDef wpRegionMethods[] =
 { "stopsnow", ( getattrofunc ) wpRegion_stopsnow,	METH_VARARGS, "The Region stops to snow" },
 { "setweatherday", ( getattrofunc ) wpRegion_setweatherday,	METH_VARARGS, "Set the day of next Weather update" },
 { "setweatherhour", ( getattrofunc ) wpRegion_setweatherhour,	METH_VARARGS, "Set the hour of next Weather update" },
+{ "setweatherintensity", ( getattrofunc ) wpRegion_setweatherintensity, METH_VARARGS, "Set the intensity of Weather" },
 { NULL, NULL, 0, NULL }
 };
 
@@ -417,6 +444,21 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "dryrangeduration" ) )
 		return PyInt_FromLong( self->pRegion->dryrangeduration() );
+	/*
+		\rproperty region.maxintensity The Max Value for Weather Intensity in this Region
+	*/
+	else if ( !strcmp( name, "maxintensity" ) )
+		return PyInt_FromLong( self->pRegion->maxintensity() );
+	/*
+		\rproperty region.minintensity The Min Value for Weather Intensity in this Region
+	*/
+	else if ( !strcmp( name, "minintensity" ) )
+		return PyInt_FromLong( self->pRegion->minintensity() );
+	/*
+		\rproperty region.intensity The Actual Value for Weather Intensity in this Region
+	*/
+	else if ( !strcmp( name, "intensity" ) )
+		return PyInt_FromLong( self->pRegion->intensity() );
 
 	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
 }

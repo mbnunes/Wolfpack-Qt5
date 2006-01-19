@@ -205,6 +205,19 @@ public:
 	{
 		return dryrangeduration_;
 	}
+	// Intensity
+	int minintensity( void ) const
+	{
+		return minintensity_;
+	}
+	int maxintensity( void ) const
+	{
+		return maxintensity_;
+	}
+	int intensity( void ) const
+	{
+		return intensity_;
+	}
 
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
@@ -220,6 +233,8 @@ public:
 
 	void setWeatherDay( int wday );
 	void setWeatherHour( int whour );
+
+	void setWeatherIntensity( int intensity );
 
 private:
 	// Setters to ease up the flag meanings
@@ -394,6 +409,10 @@ private:
 	int dryduration_;			// Dry duration
 	int dryrangeduration_;		// Range for Dry duration
 
+	int minintensity_;			// Default Minimum Intensity for Weather
+	int maxintensity_;			// Default Maximum Intensity for Weather
+	int intensity_;				// Actual Intensity of Weather for this Region
+
 	QStringList guardSections_;
 
 	struct teleporters_st
@@ -448,6 +467,11 @@ inline void cTerritory::setWeatherDay( int wday )
 inline void cTerritory::setWeatherHour( int whour )
 {
 	weatherhour_ = whour;
+}
+
+inline void cTerritory::setWeatherIntensity( int intensity )
+{
+	intensity_ = intensity;
 }
 
 class cTerritories : public cComponent

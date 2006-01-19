@@ -268,6 +268,8 @@ void cConfig::readData()
 	rainDefaultDurationRange_ = getNumber( "Weather", "Default Rain Duration Range", 1, true );
 	snowDefaultDurationRange_ = getNumber( "Weather", "Default Snow Duration Range", 1, true );
 	dryDefaultDurationRange_ = getNumber( "Weather", "Default Dry Duration Range", 1, true );
+	minDefaultIntensity_ = getNumber( "Weather", "Minimum Default Intensity", 16, true );
+	maxDefaultIntensity_ = getNumber( "Weather", "Maximum Default Intensity", 112, true );
 }
 
 void cConfig::load()
