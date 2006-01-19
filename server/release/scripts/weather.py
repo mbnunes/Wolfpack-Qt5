@@ -166,5 +166,3 @@ def weatherintensity( region ):
 	intensity = random.randint( region.minintensity, region.maxintensity )
 
 	region.setweatherintensity( intensity )
-
-	console.log(LOG_MESSAGE, "Intensity: " + str(region.intensity) )
