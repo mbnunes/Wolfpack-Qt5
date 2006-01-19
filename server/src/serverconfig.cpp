@@ -260,6 +260,8 @@ void cConfig::readData()
 
 	// Weather System
 	enableWeather_ = getBool( "Weather", "Enable Weather System", false, true );
+	rainDefaultChance_ = getNumber( "Weather", "Default Rain Chance", 10, true );
+	snowDefaultChance_ = getNumber( "Weather", "Default Snow Chance", 2, true );
 	rainDefaultDuration_ = getNumber( "Weather", "Default Rain Duration", 2, true );
 	snowDefaultDuration_ = getNumber( "Weather", "Default Snow Duration", 2, true );
 	dryDefaultDuration_ = getNumber( "Weather", "Default Dry Duration", 4, true );

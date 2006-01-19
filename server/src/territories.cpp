@@ -79,8 +79,8 @@ void cTerritory::init( void )
 	flags_ = 0;
 	guardowner_ = QString();
 	fixedlight_ = -1;
-	snowchance_ = 50;
-	rainchance_ = 50;
+	snowchance_ = Config::instance()->snowDefaultChance();;
+	rainchance_ = Config::instance()->rainDefaultChance();;
 	guardSections_ = QStringList();
 	//	guardSections_.push_back( "standard_guard" );
 	isRaining_ = 0;

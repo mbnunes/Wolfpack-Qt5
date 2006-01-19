@@ -195,6 +195,8 @@ protected:
 
 	// Weather System
 	bool enableWeather_;
+	int rainDefaultChance_;
+	int snowDefaultChance_;
 	int rainDefaultDuration_;
 	int dryDefaultDuration_;
 	int snowDefaultDuration_;
@@ -394,6 +396,8 @@ public:
 
 	// Weather System
 	bool enableWeather() const;
+	int rainDefaultChance() const;
+	int snowDefaultChance() const;
 	int rainDefaultDuration() const;
 	int snowDefaultDuration() const;
 	int dryDefaultDuration() const;
@@ -843,6 +847,14 @@ inline bool cConfig::usereversedvaluable() const
 inline bool cConfig::enableWeather() const
 {
 	return enableWeather_;
+}
+inline int cConfig::rainDefaultChance() const
+{
+	return rainDefaultChance_;
+}
+inline int cConfig::snowDefaultChance() const
+{
+	return snowDefaultChance_;
 }
 inline int cConfig::rainDefaultDuration() const
 {
