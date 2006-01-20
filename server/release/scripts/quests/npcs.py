@@ -107,7 +107,6 @@ def npcquestreport(npc, player):
 #######################################################################################
 
 def npcquestmenu(npc, player, questamount):
-	socket = player.socket
 
 	dialog = cGump( nomove=1, x=100, y=30 )
 
@@ -128,7 +127,10 @@ def npcquestmenu(npc, player, questamount):
 	dialog.addGump(449, 3, 10410, 0)
 	dialog.addGump(402, 61, 9012, 0)
 	dialog.addText(135, 49, "Quest List", 1149)
-	dialog.addText(136, 79, npc.name + ", from: " + npc.region.name, 1149)
+	if npc.region:
+		dialog.addText(136, 79, npc.name + ", from: " + npc.region.name, 1149)
+	else:
+		dialog.addText(136, 79, npc.name, 1149)
 	dialog.addTiledGump(139, 69, 161, 2, 2432, 0)
 	dialog.addButton(338, 394, 12012, 12013, 0)
 
