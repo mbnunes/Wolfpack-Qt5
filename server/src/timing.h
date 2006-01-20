@@ -50,6 +50,7 @@ private:
 	unsigned int nextUOTimeTick;
 	unsigned int nextStormCheck;
 	unsigned int nextRayCheck;
+	unsigned int nextWeatherSound;
 
 	unsigned char currentday;
 

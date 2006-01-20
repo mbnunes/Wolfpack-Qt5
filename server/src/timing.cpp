@@ -72,7 +72,8 @@ cTiming::cTiming()
 	nextCombatCheck = time + 100; // Every 100 ms
 	nextUOTimeTick = 0;
 	nextStormCheck = time + 5000; // Every 5s
-	nextRayCheck = time + 500; // Every 1s
+	nextRayCheck = time + 500; // Every 500ms
+	nextWeatherSound = time + Config::instance()->weatherSoundsInterval(); // Time to next Weather Sound
 
 	currentday = 0xFF;
 }
@@ -263,7 +264,7 @@ void cTiming::poll()
 	// Save the positions of connected players
 	QList<Coord> positions;
 
-	// Climatic Things (Storms)
+	// Storms
 	if ( ( Config::instance()->enableWeather() ) && ( nextStormCheck <= time ) )
 	{
 		// Loop to Clear old Storm Stuff
@@ -291,7 +292,7 @@ void cTiming::poll()
 				region->setStormChecked( 0 );
 		}
 
-		// Loop checking all Storm Stuff
+		// Loop checking all Climatic Stuff
 		for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
 		{
 			socket->poll();
@@ -311,34 +312,38 @@ void cTiming::poll()
 			if ( socket->player()->region()->parent() )
 				region = dynamic_cast<cTerritory*>( socket->player()->region()->parent() );
 
-			// Storm here?
-			if ( ( region->isRaining() ) && ( region->intensity() > Config::instance()->intensityBecomesStorm() ) )
+			// Raining ?
+			if ( region->isRaining() )
 			{
-				// Chances
-				if ( !region->stormchecked() )
-					region->setStormChecked( RandomNum( 1, 100 ) );
-
-				// Get Actual Chance
-				int chances = region->stormchecked();
-
-				// % of Chances to a Thunder Sound
-				if ( chances <= Config::instance()->defaultThunderChance() )
+				// Storm ?
+				if ( region->intensity() > Config::instance()->intensityBecomesStorm() )
 				{
-					switch ( RandomNum( 0, 2 ) ) // Random Sound
+					// Chances
+					if ( !region->stormchecked() )
+						region->setStormChecked( RandomNum( 1, 100 ) );
+
+					// Get Actual Chance
+					int chances = region->stormchecked();
+
+					// % of Chances to a Thunder Sound
+					if ( chances <= Config::instance()->defaultThunderChance() )
 					{
-						case 0:
-							socket->player()->soundEffect( 0x28, false );
-							break;
-						case 1:
-							socket->player()->soundEffect( 0x29, false );
-							break;
-						case 2:
-							socket->player()->soundEffect( 0x206, false );
-							break;
+						switch ( RandomNum( 0, 2 ) ) // Random Sound
+						{
+							case 0:
+								socket->player()->soundEffect( 0x28, false );
+								break;
+							case 1:
+								socket->player()->soundEffect( 0x29, false );
+								break;
+							case 2:
+								socket->player()->soundEffect( 0x206, false );
+								break;
+						}
+						// Ray Chance on Thunder
+						if ( chances <= Config::instance()->rayChanceonThunder() )
+							socket->flashray();
 					}
-					// Ray Chance on Thunder
-					if ( chances <= Config::instance()->rayChanceonThunder() )
-						socket->flashray();
 				}
 			}
 		}
@@ -360,6 +365,35 @@ void cTiming::poll()
 		if ( !socket->player() )
 		{
 			continue;
+		}
+
+		// Weather Sounds
+		if ( ( Config::instance()->enableWeatherSounds() ) && ( nextWeatherSound <= time ) )
+		{
+			// Lets try TopRegion of Player
+			cTerritory* region = socket->player()->region();
+
+			if ( socket->player()->region()->parent() )
+				region = dynamic_cast<cTerritory*>( socket->player()->region()->parent() );
+
+			// Rain Sounds
+			if ( region->isRaining() )
+			{
+				if ( region->intensity() > Config::instance()->intensityBecomesStorm() )
+					socket->player()->soundEffect( 0x10, false );
+				else
+					socket->player()->soundEffect( 0x11, false );
+			}
+
+			// Snow Sound
+			if ( region->isSnowing() )
+			{
+				if ( region->intensity() > Config::instance()->intensityBecomesStorm() )
+					socket->player()->soundEffect( 0x16, false );
+			}
+
+			// Next Sound time
+			nextWeatherSound = time + Config::instance()->weatherSoundsInterval();
 		}
 
 		// Lets Stop FlashRay if its enabled
