@@ -249,6 +249,11 @@ def onShowTooltip(viewer, object, tooltip):
 			if slayer:
 				tooltip.add(slayer.name, '')
 
+		# Balanced
+		balanced = properties.fromitem(object, BALANCED)
+		if balanced:
+			tooltip.add(1072792, '')						
+
 		# One or twohanded weapon
 		if object.twohanded:
 			tooltip.add(1061171, '')

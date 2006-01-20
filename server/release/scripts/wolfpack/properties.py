@@ -82,6 +82,7 @@ PROPERTIES = {
 	REGENMANA: ['regenmana', 0, 1],
 
 	# Misc
+	BALANCED: ['balanced', 0, 0],
 	LUCK: ['luck', 0, 1],
 	SELFREPAIR: ['selfrepair', 0, 0],
 	ENHANCEPOTIONS: ['enhancepotions', 0, True],
@@ -106,19 +107,19 @@ PROPERTIES = {
 	REFLECTPHYSICAL: ['reflectphysical', 0, 1],
 	DURABILITYBONUS: ['durabilitybonus', 0, 0],
 	SLAYER: ['slayer', '', 0],
-	
+
 	# % Leeching
 	LIFELEECH: ['lifeleech', 0, 0],
 	STAMINALEECH: ['staminaleech', 0, 0],
 	MANALEECH: ['manaleech', 0, 0],
-	
+
 	# Splash Damage
 	SPLASHPHYSICAL: ['splashphysical', 0, 0],
 	SPLASHCOLD: ['splashcold', 0, 0],
 	SPLASHFIRE: ['splashfire', 0, 0],
 	SPLASHENERGY: ['splashenergy', 0, 0],
 	SPLASHPOISON: ['splashpoison', 0, 0],
-	
+
 	# Hit Spell Effects
 	HITMAGICARROW: ['hitmagicarrow', 0, 0],
 	HITHARM: ['hitharm', 0, 0],
@@ -191,7 +192,7 @@ def fromitem(item, property):
 			resname = str(item.gettag('resname2'))
 			if resboni.has_key(resname) and resboni[resname].has_key(property):
 				value += resboni[resname][property]
-		
+
 		# Special Treatment for Damagetypes, if item hast 2 restypes (they are not cumulative)
 		damagetypes = [DAMAGE_PHYSICAL,DAMAGE_FIRE,DAMAGE_COLD,DAMAGE_POISON,DAMAGE_ENERGY]
 		if property in damagetypes and item.hastag('resname') and item.hastag('resname2') and resboni:
@@ -211,7 +212,7 @@ def fromitem(item, property):
 				value = value/2
 			#if only one resource contains a damagedistribution use only this and this is already done
 			#so there is nothing left to do
-		
+
 		return value
 
 	return info[1]
@@ -224,24 +225,24 @@ def fromresource(resource, property, type):
 		raise Exception, "Unknown property value %u" % property
 
 	info = PROPERTIES[property]
-	
+
 	if type == ITEM_ARMOR or type == ITEM_SHIELD:		
 		resboni = wolfpack.armorinfo.ARMOR_RESNAME_BONI
 	elif type == ITEM_WEAPON:
 		resboni = wolfpack.weaponinfo.WEAPON_RESNAME_BONI		
 	else:
 		return info[1]
-		
+
 	# Default value for unknown resources
 	if not resboni.has_key(resource):
 		return info[1]
-		
+
 	resboni = resboni[resource]
-	
+
 	# Unkown property for this resource
 	if not resboni.has_key(property):
 		return info[1]
-		
+
 	return resboni[property]
 
 #
@@ -320,19 +321,19 @@ def fromchar(char, property):
 	# Lower Mana Cost capped at 40%
 	if property == LOWERMANACOST and value > 40:
 		value = 40
-		
+
 	# Hit Chance Increase at 45%
 	if property == HITBONUS and value > 45:
 		value = 45
-		
+
 	# Defense Chance Increase at 45%
 	if property == DEFENSEBONUS and value > 45:
 		value = 45
-		
+
 	# Damage Increase at 100%
 	if property == DAMAGEBONUS and value > 100:
 		value = 100
-		
+
 	return value
 
 # Necromancer Resistance Modification (for spells)
@@ -781,7 +782,7 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 			continue
 
 		properties.remove(property)
-		
+
 		# Scale the value for the property
 		info = WEAPON_PROPERTIES[property]
 		value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)

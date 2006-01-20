@@ -85,7 +85,7 @@ def isempty(book):
 #
 def inscription(player, skill):
 	player.socket.clilocmessage( 1046295 ) # Target the book you wish to copy.
-	player.socket.attachtarget('skills.inscription.copy', []) # , '', 'skills.inscription.timeout', 60000) # times out after 1 minute
+	player.socket.attachtarget('skills.inscription.copy', [], '', 'skills.inscription.timeout', 60000) # times out after 1 minute
 	return True
 
 def copy(char, args, target):
@@ -101,11 +101,12 @@ def copy(char, args, target):
 		return False
 
 	char.socket.clilocmessage( 501612 ) # Select a book to copy this to.
-	char.socket.attachtarget('skills.inscription.target_copy', [target.item]) #, '', 'skills.inscription.timeout', 60000) # times out after 1 minute
+	char.socket.attachtarget('skills.inscription.target_copy', [target.item], '', 'skills.inscription.timeout', 60000) # times out after 1 minute
 	return True
 
 def timeout(char):
 	char.socket.clilocmessage( 501619 ) # You have waited too long to make your inscribe selection, your inscription attempt has timed out.
+	return True
 
 def target_copy(char, args, target):
 	if not target.item:

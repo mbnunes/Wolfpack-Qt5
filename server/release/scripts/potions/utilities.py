@@ -5,6 +5,7 @@ from random import randint, random
 from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS
 from potions.consts import *
 from wolfpack.consts import *
+from wolfpack import properties
 
 def getPotionType( potion ):
 	potiontype = None
@@ -30,10 +31,10 @@ def canUsePotion( char, item ):
 	if not firsthand and not secondhand:
 		return True
 
-	if firsthand and not secondhand and not firsthand.twohanded:
+	if firsthand and not secondhand and not firsthand.twohanded or properties.fromitem(firsthand, BALANCED):
 		return True
 
-	if not firsthand and secondhand and not secondhand.twohanded:
+	if not firsthand and secondhand and not secondhand.twohanded or properties.fromitem(secondhand, BALANCED):
 		return True
 
 	# You must have a free hand to drink a potion.

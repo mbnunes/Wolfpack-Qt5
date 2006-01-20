@@ -15,12 +15,12 @@ pages = None
 #
 def page_details_response(player, arguments, response):		
 	page = arguments[0]
-	
+
 	# Check if the page is still valid
 	global pages
 	if page not in pages.pages:
 		return
-		
+
 	page.details_response(player, response)
 
 #
@@ -93,7 +93,7 @@ class Page:
 		values.append( quote( self.message[3].encode('utf-8') ) )
 		values.append( str( self.created ) )
 		return ";".join(values)
-		
+
 	"""
 		Build a notification string for being shown to gms.
 	"""
@@ -101,23 +101,23 @@ class Page:
 		char = wolfpack.findchar(self.serial)
 		if not char:
 			return None
-				
+
 		if not updated:
 			result = tr("New %s page from '%s' on account '%s':") % (self.category, char.name, self.account)
 		else:
 			result = tr("Updated %s page from '%s' on account '%s':") % (self.category, char.name, self.account)
 
 		return result
-		
+
 	"""
 		Show details for this page
 	"""
 	def details(self, player):
 		char = wolfpack.findchar(self.serial)
-		
+
 		if not char:
 			return
-		
+
 		# Assign the page to the viewer
 		if not self.assigned:		
 			# Requeue an old page the gm is assigned to
@@ -127,18 +127,18 @@ class Page:
 				page.assigned = None
 				player.socket.sysmessage(tr('You requeue your previous page.'), 0x846)
 				player.log(LOG_MESSAGE, tr("%s requeues gm page from %s (%s).\n") % (player.name, char.name, self.account))
-		
+
 			player.log(LOG_MESSAGE, tr("%s assigns gm page from %s (%s) to himself.\n") % (player.name, char.name, self.account))
 			self.assigned = player.serial
 			player.socket.sysmessage(tr('You assign the gm page to yourself.'), 0x846)
-		
+
 		assigned = self.assigned == player.serial
 		if not assigned and self.assigned:
 			player.socket.sysmessage(tr('This page is already assigned to someone else.'), 0x846)
 			return
-						
+
 		gump = wolfpack.gumps.cGump()
-		
+
 		# Background
 		gump.addBackground( 0xE10, 440, 440 ) 
 		gump.addResizeGump( 195, 360, 0xBB8, 205, 20 )
@@ -147,12 +147,13 @@ class Page:
 		# Gump Header
 		gump.addGump( 165, 18, 0xFA2 )
 		gump.addText( 200, 20, tr("Page Menu"), 0x530 )
-			
-		gump.addText( 150, 400, tr("Category: %s") % self.category, 0x844 + 5 * self.type() );
-		
+
+		gump.addText( 205, 400, tr("Category: %s") % self.category, 0x844 + 5 * self.type() );
+		gump.addButton( 170, 400, 0xFA5, 0xFA7, 8 )
+
 		gump.startPage(1)
 		hue = 0x834
-		
+
 		gump.addText( 50, 60, tr("Char name:"), hue )
 		gump.addText( 200, 60, char.name, hue )
 		gump.addText( 50, 80, tr("Account name:"), hue )
@@ -163,11 +164,11 @@ class Page:
 		gump.addText( 200, 120, str(self.pos), hue )
 		gump.addText( 50, 140, tr("Date/time:"), hue )
 		gump.addText( 200, 140, time.strftime(FORMAT_DATETIME, time.localtime(self.created)), hue )
-		
+
 		gump.addText( 50, 160, tr("Message:"), hue )
 		html = u"<body text=\"#0000FF\" leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">%s</body>" % u"<br>".join(self.message)
 		gump.addResizeGump( 45, 180, 0xBB8, 345, 84 )
-		gump.addHtmlGump( 50, 180, 340, 80, unicode(html) )
+		gump.addHtmlGump( 50, 180, 340, 80, unicode(html), 0, 1 )
 
 		# Commands
 		gump.addButton( 20, 280, 0xFA5, 0xFA7, 1 )
@@ -181,7 +182,7 @@ class Page:
 			gump.addButton( 20, 360, 0xFBD, 0xFBF, 4 )
 			gump.addText( 55, 360, tr("Send message:"), 0x834 )
 			gump.addInputField( 200, 360, 190, 16, 0x834, 1, tr("<msg>") )
-		
+
 			gump.addButton( 220, 280, 0xFAB, 0xFAD, 5 )
 			gump.addText( 255, 280, tr("Show socket info gump"), 0x834 )
 		else:
@@ -199,26 +200,26 @@ class Page:
 		gump.setCallback(page_details_response)
 		gump.setArgs([self])
 		gump.send(player.socket)
-		
+
 	"""
 		Response from the details gump
 	"""
 	def details_response(self, player, response):
 		if response.button == 0:
 			return
-	
+
 		char = wolfpack.findchar(self.serial)
 		
 		if not char:
 			return
-	
+
 		# Go to character
 		if response.button == 1:
 			player.removefromview()
 			player.moveto(char.pos)
 			player.update()
 			player.socket.resendworld()
-						
+
 		# Bring character
 		elif response.button == 2:
 			char.removefromview()
@@ -233,7 +234,7 @@ class Page:
 			player.moveto(self.pos)
 			player.update()
 			player.socket.resendworld()
-			
+
 		# Send message
 		elif response.button == 4:
 			if char.socket:
@@ -249,26 +250,87 @@ class Page:
 				commands.who.details(player, char)
 			else:
 				player.socket.sysmessage(tr('This player is currently offline.'), 0x846)
-			
+
 		# Requeue page
 		elif response.button == 6:
 			self.assigned = None
 			player.socket.sysmessage(tr('You requeue the page.'), 0x846)
 			player.log(LOG_MESSAGE, tr("%s requeues gm page from %s (%s).\n") % (player.name, char.name, self.account))
 			pages_gump(player)
-		
+
 		# Delete page
 		elif response.button == 7:
 			self.assigned = None
 			global pages
 			pages.remove(self)
-			
+
 			if char.socket:
 				char.socket.sysmessage(tr('Your gm page has been deleted.'), 0x846)
 
 			player.socket.sysmessage(tr('You remove the page.'), 0x846)
 			player.log(LOG_MESSAGE, tr("%s deletes gm page from %s (%s).\n") % (player.name, char.name, self.account))
 			pages_gump(player)
+
+		elif response.button == 8:
+			change_category(char, player)
+
+
+def change_category(char, player):
+	global pages	
+	page = pages.find(char.account.name)
+
+	gump = wolfpack.gumps.cGump()
+
+	gump.addResizeGump(0, 40, 0xA28, 245, 175)
+
+	# Header
+	gump.addText( 60, 55, tr("Change Category"), 0x530 )
+
+	# Category selection
+	category = 'BUG'
+	if page:
+		category = page.category
+
+	gump.startGroup(1)
+	gump.addText(30, 80, tr("Category:"), 0x834)
+
+	gump.addRadioButton( 30, 105, 0xD0, 0xD1, 1, category == tr('BUG') )
+	gump.addText( 50, 105, tr('BUG'), 0x834 )
+
+	gump.addRadioButton( 140, 105, 0xD0, 0xD1, 2, category == tr('STUCK') )
+	gump.addText( 160, 105, tr('STUCK'), 0x834 )
+
+	gump.addRadioButton( 30, 130, 0xD0, 0xD1, 3, category == tr('GAMEPLAY') )
+	gump.addText( 50, 130, tr('GAMEPLAY'), 0x834 )
+
+	gump.addRadioButton( 140, 130, 0xD0, 0xD1, 4, category == tr('BUILD') )
+	gump.addText( 160, 130, tr('BUILD'), 0x834 )
+
+	gump.addButton( 50, 170, 0xF9, 0xF8, 1 ) # OK button
+	gump.addButton( 115, 170, 0xF3, 0xF1, 0 ) # Cancel button
+
+	gump.setCallback(change_category_response)
+	gump.setArgs([page])
+
+	gump.send(player.socket)
+
+def change_category_response(player, arguments, response):
+	page = arguments[0]
+	old_category = page.category
+	if response.button == 1:
+		page.assigned = None
+		if 1 in response.switches:
+			page.category = tr('BUG')
+		elif 2 in response.switches:
+			page.category = tr('STUCK')
+		elif 3 in response.switches:
+			page.category = tr('GAMEPLAY')
+		else:
+			page.category = tr('BUILD')
+		pages.save()
+	player.log(LOG_MESSAGE, tr("%s changes category of gm page from %s to %s.\n") % (player.name, old_category, page.category))
+	player.socket.sysmessage( tr("You change the category and requeue the page.") )
+	pages_gump(player)
 
 #
 # The page system class
@@ -297,7 +359,7 @@ class Pages:
 			if pagestr == '':
 				continue
 			page = Page(pagestr)
-			
+
 			char = wolfpack.findchar(page.serial)
 			if char:			
 				self.add(page, False)
@@ -311,7 +373,7 @@ class Pages:
 			if hash(page.account.lower()) == name:
 				return page
 		return None
-	
+
 	"""
 		Check for invalidly assigned pages
 	"""
@@ -329,13 +391,13 @@ class Pages:
 					continue
 		for page in toremove:
 			self.remove(page)
-	
+
 	"""
 		Return the page count.
 	"""
 	def count(self):
 		return len(self.pages)
-		
+
 	"""
 		Get a page from the pages map.
 	"""
@@ -344,7 +406,7 @@ class Pages:
 			if page.assigned == serial:
 				return page
 		return None
-	
+
 	"""
 		Add a page to the pages map.
 	"""
@@ -363,24 +425,24 @@ class Pages:
 					char.log(LOG_MESSAGE, tr("%s (%s) updates his gm page [%s]:\n%s\n") % (char.name, page.account, page.category, page.getmessage()))					
 				else:					
 					char.log(LOG_MESSAGE, tr("%s (%s) makes a gm page [%s]:\n%s\n") % (char.name, page.account, page.category, page.getmessage()))
-		
+
 			notification = page.notification(updated)
 			socket = wolfpack.sockets.first()
 			while socket:
 				player = socket.player
-				
+
 				# If the pagenotify flag is on and it is a staff account,
 				# send a notification about the new or updated page.
 				if player and player.rank > 1 and player.account.flags & 0x10 != 0:				
 					# Send the notification to the socket
 					socket.sysmessage(notification, 0x846)
-					
+
 					for line in page.message:
 						if len(line) > 0:
 							socket.sysmessage(line, 0x843)
 
 				socket = wolfpack.sockets.next()
-		
+
 	"""
 		Resolve page.
 	"""
@@ -442,51 +504,51 @@ def help_response(char, arguments, response):
 def onHelp(char):
 	global pages	
 	page = pages.find(char.account.name)
-	
+
 	gump = wolfpack.gumps.cGump()
-	
+
 	# Background
 	if page:
 		gump.addResizeGump(0, 40, 0xA28, 450, 330 + 40)
 	else:
 		gump.addResizeGump(0, 40, 0xA28, 450, 330)
-	
+
 	# Header
 	gump.addGump( 105, 18, 0x58B ) # Fancy top-bar
 	gump.addGump( 182, 0, 0x589 ) # "Button" like gump
 	gump.addGump( 193, 10, 0x15E9 ) # "Button" like gump
 	gump.addText( 190, 90, tr("Help menu"), 0x530 )
-	
+
 	gump.addText( 50, 120, tr("Message:"), 0x834 )
 	gump.addResizeGump( 45, 140, 0xBB8, 345, 84 )
-	
+
 	# Message input
 	lines = ['', '', '', '']
 	if page:
 		lines = page.message
-	
+
 	gump.addInputField( 50, 140, 330, 16, 0x834, 1, lines[0] )
 	gump.addInputField( 50, 160, 330, 16, 0x834, 2, lines[1] )
 	gump.addInputField( 50, 180, 330, 16, 0x834, 3, lines[2] )
 	gump.addInputField( 50, 200, 330, 16, 0x834, 4, lines[3] )
-	
+
 	# Category selection
 	category = 'BUG'
 	if page:
 		category = page.category
-	
+
 	gump.startGroup(1)
 	gump.addText(50, 240, tr("Category:"), 0x834)
-	
+
 	gump.addRadioButton( 50, 260, 0xD0, 0xD1, 1, category == tr('BUG') )
 	gump.addText( 80, 260, tr('BUG'), 0x834 )
-	
+
 	gump.addRadioButton( 250, 260, 0xD0, 0xD1, 2, category == tr('STUCK') )
 	gump.addText( 280, 260, tr('STUCK'), 0x834 )	
-	
+
 	gump.addRadioButton( 50, 280, 0xD0, 0xD1, 3, category == tr('GAMEPLAY') )
 	gump.addText( 80, 280, tr('GAMEPLAY'), 0x834 )	
-	
+
 	gump.addRadioButton( 250, 280, 0xD0, 0xD1, 4, category == tr('BUILD') )
 	gump.addText( 280, 280, tr('BUILD'), 0x834 )
 
@@ -505,7 +567,7 @@ def onHelp(char):
 
 	gump.setCallback(help_response)
 	gump.send(char.socket)
-	
+
 	return True
 
 #
@@ -514,31 +576,31 @@ def onHelp(char):
 def pages_gump_response(player, arguments, response):	
 	if response.button == 0:
 		return
-		
+
 	page = arguments[0]
-	
+
 	if response.button == 1:
 		pages_gump(player, page - 1) # Previous page
-		
+
 	elif response.button == 2:
 		pages_gump(player, page + 1) # Next page
-	
+
 	# Show a detail gump for a given page.
 	global pages
 	id = response.button - 3
-	
+
 	if id < 0 or id >= len(pages.pages):
 		return
 	else:
 		page = pages.pages[id]
 		page.details(player)
-	
+
 #
 # Show a pages gump to the player.
 #
 def pages_gump(player, i=0):
 	player.socket.closegump(0x87bde41a)
-	
+
 	global pages
 	pages.check() # Make sure all pages are valid
 
@@ -548,15 +610,15 @@ def pages_gump(player, i=0):
 
 	if i >= count or i < 0:
 		i = 0
-	
+
 	gump = wolfpack.gumps.cGump()
-	
+
 	#gump.startPage(0)
-	
+
 	# Gump Background
 	gump.addBackground( 0xE10, 480, 360 ) # Background
 	gump.addCheckerTrans( 15, 15, 450, 330 )
-	
+
 	# Gump Header
 	gump.addGump( 180, 18, 0xFA8 )
 	gump.addText( 215, 20, tr("Page Queue"), 0x530 )
@@ -588,10 +650,10 @@ def pages_gump(player, i=0):
 			gump.addText( 55, 80 + offset, tr("Account: ") + page.account, 2100 )
 			gump.addText( 300, 80 + offset, tr("Category: ") + page.category, 2100 )
 			gump.addText( 300, 60 + offset, tr("Time: ") + time.strftime(FORMAT_DATETIME, time.localtime(page.created)), 2100 )
-			
+
 		offset += 50
 		pageid += 1
-				
+
 	gump.addText( 280, 320, tr("Page %u of %u") % ( i + 1, count ), 0x834 )
 
 	# Are we on the first page
@@ -613,11 +675,11 @@ def pages_gump(player, i=0):
 def page(socket, command, arguments):
 	player = socket.player	
 	page = pages.findassigned(player.serial)
-	
+
 	# Show a selection gump
 	if not page:
 		pages_gump(player)
-	
+
 	# Process page commands
 	else:
 		page.details(player)
@@ -631,7 +693,7 @@ def onLoad():
 	pages = Pages()	
 	wolfpack.registerglobal(EVENT_HELP, "system.pages")
 	wolfpack.registercommand("page", page)
-	
+
 	if not wolfpack.isstarting():
 		pages.load()
 
