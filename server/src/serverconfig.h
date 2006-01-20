@@ -170,6 +170,8 @@ protected:
 
 	// Combat
 	unsigned char attack_distance_;
+	bool showdamagedone_;
+	bool showdamagereceived_;
 
 	//Repsys
 	long int murderdecay_;
@@ -360,6 +362,8 @@ public:
 
 	// Combat
 	unsigned char attack_distance() const;
+	bool showDamageDone() const;
+	bool showDamageReceived() const;
 
 	// Repsys
 	long int murderdecay() const;
@@ -585,6 +589,16 @@ inline unsigned int cConfig::shopRestock() const
 inline unsigned char cConfig::attack_distance() const
 {
 	return attack_distance_;
+}
+
+inline bool cConfig::showDamageDone() const
+{
+	return showdamagedone_;
+}
+
+inline bool cConfig::showDamageReceived() const
+{
+	return showdamagereceived_;
 }
 
 inline unsigned int cConfig::snoopdelay() const

@@ -2413,15 +2413,18 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 	}
 
 	// Sending for Victim too
-	P_PLAYER pvictim = dynamic_cast<P_PLAYER>( this );
-
-	if ( pvictim && pvictim->socket() )
+	if ( Config::instance()->showDamageReceived() )
 	{
-		cUOTxDamage damage;
-		damage.setUnknown1( 1 );
-		damage.setDamage( amount );
-		damage.setSerial( serial_ );
-		pvictim->socket()->send( &damage );
+		P_PLAYER pvictim = dynamic_cast<P_PLAYER>( this );
+
+		if ( pvictim && pvictim->socket() )
+		{
+			cUOTxDamage damage;
+			damage.setUnknown1( 1 );
+			damage.setDamage( amount );
+			damage.setSerial( serial_ );
+			pvictim->socket()->send( &damage );
+		}
 	}
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( source );
@@ -2436,13 +2439,16 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 	}
 
 	// Show the amount of damage dealt over the head of the victim
-	if ( player && player->socket() )
+	if ( Config::instance()->showDamageDone() )
 	{
-		cUOTxDamage damage;
-		damage.setUnknown1( 1 );
-		damage.setDamage( amount );
-		damage.setSerial( serial_ );
-		player->socket()->send( &damage );
+		if ( player && player->socket() )
+		{
+			cUOTxDamage damage;
+			damage.setUnknown1( 1 );
+			damage.setDamage( amount );
+			damage.setSerial( serial_ );
+			player->socket()->send( &damage );
+		}
 	}
 
 	// There is a 25% chance that blood is created on hit by phsical means

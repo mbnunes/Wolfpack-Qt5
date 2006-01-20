@@ -230,6 +230,8 @@ void cConfig::readData()
 
 	// Combat
 	attack_distance_ = getNumber( "Combat", "Attack Distance", 13, true );
+	showdamagedone_ = getBool( "Combat", "Show Damage Done", true, true );
+	showdamagereceived_ = getBool( "Combat", "Show Damage Received", true, true );
 
 	// Light
 	worldBrightLevel_ = getNumber( "Light", "World Bright Level", 1, true );
