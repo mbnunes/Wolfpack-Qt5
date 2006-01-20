@@ -22,6 +22,24 @@ from wolfpack.consts import LOG_MESSAGE, EVENT_SERVERHOUR
 
 ENABLEDWEATHER = int( wolfpack.settings.getbool("Weather", "Enable Weather System", False, True) )
 
+ENABLEDSEASON = int( wolfpack.settings.getbool( "Season", "Enable Season System", False, True ) )
+DAYSTOCHANGESEASON = int( wolfpack.settings.getnumber( "Season", "Days to Change Season", 90, True ) )
+ENABLEDESOLATIONASSEASON = int( wolfpack.settings.getbool( "Season", "Enable Desolation as Season", False, True ) )
+
+######################################################################################
+#############   Season Table   #######################################################
+######################################################################################
+# Rain Chance MOD, Snow Chance MOD, Intensity MOD, Persistance MOD
+# Note: I make this table experiencing Rain and Snow in Brazil (Rain) and Germany (Snow). So... try to make always your own table hehehe :P
+
+SEASONS = {
+	0: [0, 0, 0, 0],	# Spring
+	1: [10, 10, 30, -2],	# Summer
+	2: [5, 5, 0, 0],	# Fall
+	3: [0, 0, 0, 0],	# Winter
+	4: [-10, -10, 0, 0]		# Desolation
+}
+
 ######################################################################################
 #############   Initializing Global Event   ##########################################
 ######################################################################################
@@ -70,9 +88,12 @@ def changeweather( region ):
 	if not ENABLEDWEATHER:
 		return
 
+	# Season modifications
+	season = returnseason()
+
 	# Ok. Now, lets check if this Region have to begins to Rain or Snow
-	rainchance = region.rainchance
-	snowchance = region.snowchance
+	rainchance = region.rainchance + SEASONS[season][0]
+	snowchance = region.snowchance + SEASONS[season][1]
 	randomrain = random.randint(1, 100)
 	randomsnow = random.randint(1, 100)
 
@@ -125,6 +146,7 @@ def changeweather( region ):
 ######################################################################################
 
 def weatherduration( region ):
+
 	####################
 	# Duration
 	####################
@@ -142,7 +164,14 @@ def weatherduration( region ):
 		duration = region.dryduration
 		range = region.dryrangeduration
 
+	# Season Modifications
+	season = returnseason()
+	duration += SEASONS[season][3]
+	
 	duration = random.randint( duration - range, duration + range)
+
+	if duration < 1:
+		duration = 1
 
 	####################
 	# Setting
@@ -165,4 +194,30 @@ def weatherintensity( region ):
 
 	intensity = random.randint( region.minintensity, region.maxintensity )
 
+	# Season Modifications
+	season = returnseason()
+	intensity += SEASONS[season][2]
+
 	region.setweatherintensity( intensity )
+
+######################################################################################
+#############   Return Season   ######################################################
+######################################################################################
+
+def returnseason():
+
+	if ENABLEDSEASON:
+
+		seasoncicles = wolfpack.time.days() / DAYSTOCHANGESEASON
+
+		if ENABLEDESOLATIONASSEASON:
+			seasonnumber = seasoncicles % 5
+	
+		else:
+			seasonnumber = seasoncicles % 4
+
+	
+		return seasonnumber
+
+	else:
+		return 0
