@@ -165,9 +165,9 @@ def onDropOnItem(runebook, item):
 
 	if not item.container or not item.container.ischar():
 		return False # Some internal error or script before us
-	
+
 	player = item.container
-	
+
 	if runebook.getoutmostchar() != player:
 		player.socket.sysmessage(tr('The runebook has to be in your belongings to modify it.'))
 	else:
@@ -207,7 +207,7 @@ def onDropOnItem(runebook, item):
 				consume = min(item.amount, maxcharges - charges)
 				runebook.settag('charges', charges + consume)
 				player.soundeffect(0x249)
-				
+
 				if consume == item.amount:
 					item.delete()
 					return True # The item has been removed
@@ -368,7 +368,7 @@ def callback(char, args, target):
 	if target.button == 100000:
 		return # Automatic Close
 
-	item = wolfpack.finditem(args[0])	
+	item = wolfpack.finditem(args[0])
 	closeGump(char, item)
 
 	if target.button == 0:
@@ -401,7 +401,7 @@ def callback(char, args, target):
 
 	# Use a charge or use the recall spell
 	if( button > 0 and button < 17 ):
-		(charges, maxcharges) = getCharges(item)			
+		(charges, maxcharges) = getCharges(item)
 		if charges > 0:
 			char.say( "Kal Ort Por", 5 )
 			char.addtimer( 2000, recall0, [ item.serial, target ] )
@@ -472,8 +472,6 @@ def recall0( char, args ):
 		char.socket.clilocmessage(502412)
 		return # No charges left
 
-	runebook.settag('charges', charges - 1) # Reduce runebook charges
-
 	region = None
 	region = wolfpack.region(location.x, location.y, location.map)
 
@@ -486,6 +484,8 @@ def recall0( char, args ):
 		char.message(1019004)
 		fizzle(char)
 		return False
+
+	runebook.settag('charges', charges - 1) # Reduce runebook charges
 
 	# Move his pets if he has any
 	if char.player:

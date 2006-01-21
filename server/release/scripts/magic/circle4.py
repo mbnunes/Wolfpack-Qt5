@@ -51,7 +51,6 @@ class GreaterHeal (CharEffectSpell):
 			else:
 				char.message(1010398)
 			return 0
-			
 		return 1
 
 	def effect(self, char, target, mode, args, item):
@@ -158,7 +157,7 @@ class Recall (Spell):
 			if not target.hasscript('magic.rune'):
 				char.message(502357)
 				return
-	
+
 			if not target.hastag('marked') or target.gettag('marked') != 1:
 				char.message(502354)
 				return
@@ -294,7 +293,7 @@ class ArchCure (Spell):
 			# Check if we should affect the char
 			if not mayAreaBenefit(char, target, includeinnocents = True):
 				continue
-		
+
 			target.effect(0x373a, 10, 15)
 			target.soundeffect(0x1e0)
 
