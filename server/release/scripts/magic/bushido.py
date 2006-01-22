@@ -18,7 +18,7 @@ class HonorableExecution(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = BUSHIDO
-		self.requiredskill = 25
+		self.requiredskill = 250
 		self.mana = 0
 		self.mantra = ''
 
@@ -26,7 +26,7 @@ class Confidence(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = BUSHIDO
-		self.requiredskill = 25
+		self.requiredskill = 250
 		self.mana = 10
 		self.mantra = ''
 
@@ -34,7 +34,7 @@ class Evasion(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = BUSHIDO
-		self.requiredskill = 60
+		self.requiredskill = 600
 		self.mana = 10
 		self.mantra = ''
 
@@ -42,7 +42,7 @@ class CounterAttack(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = BUSHIDO
-		self.requiredskill = 40
+		self.requiredskill = 400
 		self.mana = 5
 		self.mantra = ''
 
@@ -50,7 +50,7 @@ class LightningStrike(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = BUSHIDO
-		self.requiredskill = 50
+		self.requiredskill = 500
 		self.mana = 5
 		self.mantra = ''
 
@@ -58,7 +58,7 @@ class MomentumStrike(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = BUSHIDO
-		self.requiredskill = 70
+		self.requiredskill = 700
 		self.mana = 10
 		self.mantra = ''
 

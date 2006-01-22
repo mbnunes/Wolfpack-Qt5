@@ -18,144 +18,128 @@ class ArcaneCircle(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 1
 		self.mana = 24
-		self.reagents = {}
 		self.mantra = ''
 
 class GiftOfRenewal(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 1
 		self.mana = 24
-		self.reagents = {}
 		self.mantra = ''
 
 class ImmolatingWeapon(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 1
 		self.mana = 32
-		self.reagents = {}
 		self.mantra = ''
 
 class Attunement(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 1
 		self.mana = 24
-		self.reagents = {}
 		self.mantra = ''
 
 class Thunderstorm(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 101
 		self.mana = 32
-		self.reagents = {}
 		self.mantra = ''
 
 class NaturesFury(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 1
 		self.mana = 24
-		self.reagents = {}
 		self.mantra = ''
 
 class SummonFey(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 380
 		self.mana = 10
-		self.reagents = {}
 		self.mantra = ''
 
 class SummonFiend(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 380
 		self.mana = 10
-		self.reagents = {}
 		self.mantra = ''
 
 class ReaperForm(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 240
 		self.mana = 34
-		self.reagents = {}
 		self.mantra = ''
 
 class Wildfire(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 660
 		self.mana = 50
-		self.reagents = {}
 		self.mantra = ''
 
 class EssenceOfWind(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 520
 		self.mana = 40
-		self.reagents = {}
 		self.mantra = ''
 
 class DryadAllure(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 520
 		self.mana = 40
-		self.reagents = {}
 		self.mantra = ''
 
 class EtherealVoyage(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 240
 		self.mana = 32
-		self.reagents = {}
 		self.mantra = ''
 
 class WordOfDeath(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 800
 		self.mana = 50
-		self.reagents = {}
 		self.mantra = ''
 
 class GiftOfLife(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 380
 		self.mana = 70
-		self.reagents = {}
 		self.mantra = ''
 
 class ArcaneEmpowerment(Spell):
 	def __init__(self):
 		Spell.__init__(self, 1)
 		self.skill = SPELLWEAVING
-		self.damageskill = MAGERY
+		self.requiredskill = 240
 		self.mana = 50
-		self.reagents = {}
 		self.mantra = ''
 
 def onLoad():

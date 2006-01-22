@@ -18,7 +18,7 @@ class FocusAttack(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NINJITSU
-		self.requiredskill = 60
+		self.requiredskill = 600
 		self.mana = 20
 		self.mantra = ''
 
@@ -26,7 +26,7 @@ class DeathStrike(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NINJITSU
-		self.requiredskill = 50
+		self.requiredskill = 500
 		self.mana = 85
 		self.mantra = ''
 
@@ -42,7 +42,7 @@ class KiAttack(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NINJITSU
-		self.requiredskill = 50
+		self.requiredskill = 500
 		self.mana = 80
 		self.mantra = ''
 
@@ -50,7 +50,7 @@ class SurpriseAttack(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NINJITSU
-		self.requiredskill = 30
+		self.requiredskill = 300
 		self.mana = 20
 		self.mantra = ''
 
@@ -58,7 +58,7 @@ class Backstab(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NINJITSU
-		self.requiredskill = 20
+		self.requiredskill = 200
 		self.mana = 30
 		self.mantra = ''
 
@@ -66,7 +66,7 @@ class Shadowjump(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NINJITSU
-		self.requiredskill = 50
+		self.requiredskill = 500
 		self.mana = 15
 		self.mantra = ''
 
@@ -74,7 +74,7 @@ class MirrorImage(Spell):
 	def __init__(self):
 		Spell.__init__(self, 0)
 		self.skill = NINJITSU
-		self.requiredskill = 40
+		self.requiredskill = 400
 		self.mana = 10
 		self.mantra = ''
 
