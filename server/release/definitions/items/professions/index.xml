@@ -11,6 +11,7 @@
 	<include file="definitions/items/professions/barkeeper.xml" />
 	<include file="definitions/items/professions/beekeper.xml" />
 	<include file="definitions/items/professions/blacksmith.xml" />
+	<include file="definitions/items/professions/bushido.xml" />
 	<include file="definitions/items/professions/butcher.xml" />
 	<include file="definitions/items/professions/carpenter.xml" />
 	<include file="definitions/items/professions/cook.xml" />
@@ -24,6 +25,7 @@
 	<include file="definitions/items/professions/miner.xml" />
 	<include file="definitions/items/professions/musician.xml" />
 	<include file="definitions/items/professions/necromancer.xml" />
+	<include file="definitions/items/professions/ninjitsu.xml" />
 	<include file="definitions/items/professions/paladin.xml" />
 	<include file="definitions/items/professions/peasant.xml" />
 	<include file="definitions/items/professions/stablemaster.xml" />

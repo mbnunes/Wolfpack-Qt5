@@ -187,7 +187,10 @@
 
 	<!-- Magic -->
 	<script>magic</script>
+	<script>magic.arcane</script>
 	<script>magic.arcanespellbook</script>
+	<script>magic.bushido</script>
+	<script>magic.bushidospellbook</script>
 	<script>magic.circle1</script>
 	<script>magic.circle2</script>
 	<script>magic.circle3</script>
@@ -202,6 +205,8 @@
 	<script>magic.gate</script>
 	<script>magic.necromancy</script>
 	<script>magic.necrospellbook</script>
+	<script>magic.ninjitsu</script>
+	<script>magic.ninjitsuspellbook</script>
 	<script>magic.nightsight</script>
 	<script>magic.paralyzefield</script>
 	<script>magic.poisonfield</script>

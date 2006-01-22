@@ -84,6 +84,12 @@ def hasSpell(char, spell, silent = True):
 		elif book.hasscript('magic.chivalryspellbook'):
 			if magic.chivalryspellbook.hasspell(book, spell):
 				return True
+		elif book.hasscript('magic.bushidospellbook'):
+			if magic.bushidospellbook.hasspell(book, spell):
+				return True
+		elif book.hasscript('magic.ninjitsuspellbook'):
+			if magic.ninjitsuspellbook.hasspell(book, spell):
+				return True
 
 	if not silent and char.socket:
 		char.socket.clilocmessage(1042404) # You don't have that spell.

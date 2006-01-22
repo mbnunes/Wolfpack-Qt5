@@ -380,9 +380,20 @@ class Spell:
 			return False
 
 		# Required skill for Chivalry
-		if char.skill[self.skill] < self.requiredskill:
-			char.socket.clilocmessage( 1060172, str(self.requiredskill/10) ) # You must have at least ~1_SKILL_REQUIREMENT~ Chivalry to use this ability,
-			return False
+		if self.skill == CHIVALRY:
+			if char.skill[self.skill] < self.requiredskill:
+				char.socket.clilocmessage( 1060172, str(self.requiredskill/10) ) # You must have at least ~1_SKILL_REQUIREMENT~ Chivalry to use this ability.
+				return False
+		# Required skill for Bushido
+		if self.skill == BUSHIDO:
+			if char.skill[self.skill] < self.requiredskill:
+				char.socket.clilocmessage( 1070768, str(self.requiredskill/10) ) # You need ~1_SKILL_REQUIREMENT~ Bushido skill to perform that attack!
+				return False
+		# Required skill for Ninjitsu
+		if self.skill == NINJITSU:
+			if char.skill[self.skill] < self.requiredskill:
+				char.socket.clilocmessage( 1063352, str(self.requiredskill/10) ) # You need ~1_SKILL_REQUIREMENT~ Ninjitsu skill to perform that attack!
+				return False
 		return True
 
 	def consumerequirements(self, char, mode, args=[], target=None, item=None):

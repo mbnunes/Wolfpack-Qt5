@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Naddel                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Bushido                                                       |
+=================================================================
+-->
+<definitions>
+
+	<!-- Spellbook -->
+	<item id="238c">
+		<id>0x238c</id>
+		<onehanded />
+		<newbie />
+		<decay />
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
+		<tag name="circle1" value="63" />
+		<category>Professions\Bushido\Spellbook</category>
+		<basescripts>magic.bushidospellbook</basescripts>
+	</item>
+
+</definitions>
