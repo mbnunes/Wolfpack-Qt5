@@ -105,7 +105,7 @@ def addtobook(char, cont, item):
 				return False
 
 	elif cont.hasscript( 'magic.arcanespellbook' ):
-		if spell >= 616:
+		if spell >= 617:
 			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
 		else:
 			if not magic.arcanespellbook.hasspell( cont, spell ):

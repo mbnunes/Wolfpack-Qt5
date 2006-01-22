@@ -7,11 +7,9 @@
 # Chivalry Spellbook                                            #
 #===============================================================#
 import wolfpack
-from magic.spellbook import countspells
 from math import floor
 from wolfpack import tr
 
-# spellcount
 def countspells(item):
 	count = 0
 
@@ -29,6 +27,7 @@ def hasspell( item, spell ):
 
 		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 		spell = spell % 8
+
 		if item.hastag( 'circle' + str( circle ) ):
 			spells = int( item.gettag( 'circle' + str( circle ) ) )
 

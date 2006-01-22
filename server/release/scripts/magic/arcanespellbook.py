@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Necromancy Spellbook                                          #
+# Arcane Spellbook                                              #
 #===============================================================#
 import wolfpack
 from math import floor
@@ -13,7 +13,7 @@ from wolfpack import tr
 def countspells(item):
 	count = 0
 
-	for i in range( 1, 4 ):
+	for i in range( 1, 3 ):
 		if item.hastag('circle' + str(i)):
 			spells = int(item.gettag('circle' + str(i)))
 			for j in range(0, 9):
@@ -23,7 +23,7 @@ def countspells(item):
 
 def hasspell( item, spell ):
 	if item and item.hasscript( 'magic.arcanespellbook' ):
-		spell = spell - 100
+		spell = spell - 600
 
 		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 		spell = spell % 8
@@ -38,7 +38,8 @@ def hasspell( item, spell ):
 def addspell( item, spell ):
 	if not item or not item.hasscript( 'magic.arcanespellbook' ):
 		return 0
-	spell = spell - 100
+
+	spell = spell - 600
 	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 	spell = spell % 8
 	spells = 0
@@ -49,7 +50,6 @@ def addspell( item, spell ):
 	item.resendtooltip()
 
 	return True
-
 
 def onUse(char, item):
 	if item.getoutmostchar() != char:
