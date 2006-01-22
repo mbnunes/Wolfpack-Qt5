@@ -317,6 +317,9 @@ def change_category(char, player):
 def change_category_response(player, arguments, response):
 	page = arguments[0]
 	old_category = page.category
+	if response.button == 0:
+		page.details(player)
+		return
 	if response.button == 1:
 		page.assigned = None
 		if 1 in response.switches:
@@ -328,9 +331,9 @@ def change_category_response(player, arguments, response):
 		else:
 			page.category = tr('BUILD')
 		pages.save()
-	player.log(LOG_MESSAGE, tr("%s changes category of gm page from %s to %s.\n") % (player.name, old_category, page.category))
-	player.socket.sysmessage( tr("You change the category and requeue the page.") )
-	pages_gump(player)
+		player.log(LOG_MESSAGE, tr("%s changes category of gm page from %s to %s.\n") % (player.name, old_category, page.category))
+		player.socket.sysmessage( tr("You change the category and requeue the page.") )
+		pages_gump(player)
 
 #
 # The page system class
