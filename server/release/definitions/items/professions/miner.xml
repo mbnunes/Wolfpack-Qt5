@@ -562,12 +562,13 @@
 		<id>0xf3a</id>
 		<category>Professions\Miner\Tools\Shovel (N/S)</category>
 	</item>
-	
+
 	<!-- Granite -->
 	<item id="granite_base">
 		<id>0x1779</id>
 		<name>#1044607</name>
 		<weight>10.0</weight>
+		<basescripts>granite</basescripts>
 		<movable />
 		<decay />
 	</item>
