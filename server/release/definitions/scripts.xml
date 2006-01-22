@@ -186,6 +186,7 @@
 
 	<!-- Magic -->
 	<script>magic</script>
+	<script>magic.arcanespellbook</script>
 	<script>magic.circle1</script>
 	<script>magic.circle2</script>
 	<script>magic.circle3</script>

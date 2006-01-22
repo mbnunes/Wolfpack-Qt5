@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Naddel                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Spellweaving                                                  |
+=================================================================
+-->
+<definitions>
+	<!-- Spellbook -->
+	<item id="2d50">
+		<id>0x2d50</id>
+		<onehanded />
+		<newbie />
+		<decay />
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
+		<category>Professions\Arcanist\Spellbook</category>
+		<basescripts>magic.arcanespellbook</basescripts>
+	</item>
+
+	<item id="2d51">
+		<id>0x2d51</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Arcane Circle</category>
+	</item>
+
+	<item id="2d52">
+		<id>0x2d52</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Gift of Renewal</category>
+	</item>
+
+	<item id="2d53">
+		<id>0x2d53</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Immolating Weapon</category>
+	</item>
+
+	<item id="2d54">
+		<id>0x2d54</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Attune Weapon</category>
+	</item>
+
+	<item id="2d55">
+		<id>0x2d55</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Thunderstorm</category>
+	</item>
+
+	<item id="2d56">
+		<id>0x2d56</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Nature's Fury</category>
+	</item>
+
+	<item id="2d57">
+		<id>0x2d57</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Summon Fey</category>
+	</item>
+
+	<item id="2d58">
+		<id>0x2d58</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Summon Fiend</category>
+	</item>
+
+	<item id="2d59">
+		<id>0x2d59</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Reaper Form</category>
+	</item>
+
+	<item id="2d5a">
+		<id>0x2d5a</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Wildfire</category>
+	</item>
+
+	<item id="2d5b">
+		<id>0x2d5b</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Essence of Wind</category>
+	</item>
+
+	<item id="2d5c">
+		<id>0x2d5c</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Dryad Allure</category>
+	</item>
+
+	<item id="2d5d">
+		<id>0x2d5d</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Ethereal Voyage</category>
+	</item>
+
+	<item id="2d5e">
+		<id>0x2d5e</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Word of Death</category>
+	</item>
+
+	<item id="2d5f">
+		<id>0x2d5f</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Gift of Life</category>
+	</item>
+
+	<item id="2d60">
+		<id>0x2d60</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Arcanist\Scrolls\Arcane Empowerment</category>
+	</item>
+
+</definitions>

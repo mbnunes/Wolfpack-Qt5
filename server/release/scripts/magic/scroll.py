@@ -68,6 +68,24 @@ def addtobook(char, cont, item):
 				char.socket.clilocmessage( 500179 ) # That spell is already present in that spellbook.
 				return False
 
+	elif cont.hasscript( 'magic.necrospellbook' ):
+		if spell >= 117:
+			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
+		else:
+			if not magic.necrospellbook.hasspell( cont, spell ):
+				magic.necrospellbook.addspell( cont, spell )
+
+				if item.amount > 1:
+					item.amount -= 1
+					if not wolfpack.utilities.tobackpack(item, char):
+						item.update()
+
+				else:
+					item.delete() # Consume the scroll
+			else:
+				char.socket.clilocmessage( 500179 ) # That spell is already present in that spellbook.
+				return False
+
 	elif cont.hasscript( 'magic.chivalryspellbook' ):
 		if spell >= 210:
 			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
@@ -86,12 +104,12 @@ def addtobook(char, cont, item):
 				char.socket.clilocmessage( 500179 ) # That spell is already present in that spellbook.
 				return False
 
-	elif cont.hasscript( 'magic.necrospellbook' ):
-		if spell >= 117:
+	elif cont.hasscript( 'magic.arcanespellbook' ):
+		if spell >= 616:
 			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
 		else:
-			if not magic.necrospellbook.hasspell( cont, spell ):
-				magic.necrospellbook.addspell( cont, spell )
+			if not magic.arcanespellbook.hasspell( cont, spell ):
+				magic.arcanespellbook.addspell( cont, spell )
 
 				if item.amount > 1:
 					item.amount -= 1

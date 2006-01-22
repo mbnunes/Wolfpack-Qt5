@@ -4,6 +4,7 @@
 -->
 <definitions>
 	<include file="definitions/items/professions/alchemist.xml" />
+	<include file="definitions/items/professions/arcanist.xml" />
 	<include file="definitions/items/professions/artist.xml" />
 	<include file="definitions/items/professions/baker.xml" />
 	<include file="definitions/items/professions/barber.xml" />
