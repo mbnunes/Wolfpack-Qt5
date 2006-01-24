@@ -46,8 +46,8 @@
 			<item id="1647"><newbie /></item>
 		</equipped>
 		<!-- Poisoning -->
-		<basescript>npc.poison</basescript>
-		<intproperty name="hit_poison_level" value="5" />
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
 	</npc>
 
 </definitions>

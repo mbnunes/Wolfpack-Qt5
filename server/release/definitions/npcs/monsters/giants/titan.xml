@@ -47,8 +47,8 @@
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="4" />
 		<!-- Poisoning -->
-		<basescript>npc.poison</basescript>
-		<intproperty name="hit_poison_level" value="5" />
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
 	</npc>
 
 </definitions>
