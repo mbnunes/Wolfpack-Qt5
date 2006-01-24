@@ -40,7 +40,8 @@
 		<skill id="evaluatingintelligence"><random min="1000" max="1250"/></skill>
 		<skill id="meditation"><random min="275" max="425"/></skill>
 		<!-- Loot Packs -->
-		<!-- Missing: Level 4 Map, Bonsai Seed, Magic Items, Random Items -->
+		<!-- Missing: Bonsai Seed, Magic Items, Random Items -->
+		<lootpacks>tm_4</lootpacks>
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="1600" max="1850" /></amount></item>

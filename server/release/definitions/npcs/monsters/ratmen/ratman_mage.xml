@@ -38,8 +38,7 @@
 		<tag name="res_physical" value="40,45" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 2 Map -->
-		<lootpacks>lootpack_rich;scroll_low;regs_high;statue</lootpacks>
+		<lootpacks>lootpack_rich;scroll_low;regs_high;statue;tm_2</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Ratmen\Ratman Mage</category>
 		<strproperty name="slayer_group" value="ratmen" />

@@ -37,8 +37,7 @@
 		<tag name="res_poison" value="100,100" type="int" />
 		<tag name="res_energy" value="60,70" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 5 Treasure Map -->
-		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;tm_5</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Mephitis</category>
 		<strproperty name="slayer_group" value="spiders" />

@@ -172,7 +172,6 @@
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />
 		<!-- Lootpacks -->
-		<!-- Missing: Level 1 Map -->
 		<backpack>
 			<content>
 				<item list="MAGE_SHOES"><color>0x770</color></item>
@@ -181,7 +180,7 @@
 				<item list="REAGENTS"><amount>6</amount></item>
 			</content>
 		</backpack>
-		<lootpacks>scroll_medium</lootpacks>
+		<lootpacks>scroll_medium;tm_1</lootpacks>
 		<!-- Misc. -->
 		<strproperty name="slayer_group" value="mages" />
 		<intproperty name="barddifficulty" value="722" />
@@ -226,7 +225,6 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: level 2 treasure map -->
 		<backpack>
 			<content>
 				<item list="MAGE_SHOES"><color>0xb</color></item> <!-- shoes or sandals -->
@@ -237,7 +235,7 @@
 				<item list="REAGENTS"><amount>8</amount></item> <!-- random reg -->
 			</content>
 		</backpack>
-		<lootpacks>scroll_medium;scroll_medium</lootpacks>
+		<lootpacks>scroll_medium;scroll_medium;tm_2</lootpacks>
 		<!-- Misc. -->
 		<strproperty name="slayer_group" value="mages" />
 		<intproperty name="barddifficulty" value="796" />

@@ -39,8 +39,7 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 5 Treasure Map -->
-		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich</lootpacks>
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich;tm_5</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Semidar</category>
 		<strproperty name="slayer_group" value="daemons" />

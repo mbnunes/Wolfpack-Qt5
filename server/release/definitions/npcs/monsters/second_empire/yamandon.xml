@@ -37,7 +37,7 @@
 		<tag name="res_poison" value="50,70" type="int" />
 		<tag name="res_energy" value="50,70" type="int" />
 		<!-- Loot -->
-		<!-- Missing: Magic Items, Level 5 Map, Bonsai Seed -->
+		<!-- Missing: Magic Items, Bonsai Seed -->
 		<backpack>
 			<content>
 				<item id="eed"><amount><random min="2000" max="2500" /></amount></item>
@@ -46,7 +46,7 @@
 				</item>
 			</content>
 		</backpack>
-		<lootpacks>gems;gems;gems;gems;gems;gems</lootpacks>
+		<lootpacks>gems;gems;gems;gems;gems;gems;tm_5</lootpacks>
 		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />

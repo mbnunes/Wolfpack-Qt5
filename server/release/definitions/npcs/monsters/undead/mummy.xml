@@ -36,8 +36,7 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 1 Map -->
-		<lootpacks>lootpack_rich;gems;potion</lootpacks>
+		<lootpacks>lootpack_rich;gems;potion;tm_1</lootpacks>
 		<backpack>
 			<content>
 				<item id="f84"> <!-- Garlic -->

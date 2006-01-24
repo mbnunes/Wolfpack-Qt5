@@ -38,8 +38,7 @@
 		<tag name="res_physical" value="40,50" type="int" />
 		<tag name="res_poison" value="90,100" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 3 Map -->
-		<lootpacks>lootpack_rich;lootpack_rich</lootpacks>
+		<lootpacks>lootpack_rich;lootpack_rich;tm_3</lootpacks>
 		<!-- Misc. -->
 		<desc>The harbinger of vengeance among the Terathans. Their very touch poisons the body as well as the mind. The Avengers are unleashed bythe Matriarch only on the deepest infiltrators of their homeland. It is said Avengers possess the most arcane of weapons, but those are won only by removing them from the hands of a dead Avenger.</desc>
 		<category>Monsters\Terathan\Terathan Avenger</category>

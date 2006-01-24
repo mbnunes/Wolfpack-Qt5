@@ -37,8 +37,13 @@
 		<tag name="res_physical" value="60,70" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Lootpacks -->
-		<!-- Missing: 1 Power Crystal, Level 5 Treasure Map, Blackthorn's "A Welcome" Book -->
-		<lootpacks>lootpack_rich;gems</lootpacks>
+		<!-- Missing: 1 Power Crystal -->
+		<lootpacks>lootpack_rich;gems;tm_5</lootpacks>
+		<backpack>
+			<content>
+				<item id="blackthorne_welcome_book" />
+			</content>
+		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Betrayer</category>
 		<intproperty name="barddifficulty" value="965" />

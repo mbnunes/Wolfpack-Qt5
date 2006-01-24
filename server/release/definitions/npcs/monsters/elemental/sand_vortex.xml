@@ -34,8 +34,7 @@
 		<tag name="res_physical" value="80,90" type="int" />
 		<tag name="res_poison" value="60,70" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 4 Map -->
-		<lootpacks>lootpack_rich;bones</lootpacks>
+		<lootpacks>lootpack_rich;bones;tm_4</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Sand Vortex</category>
 		<inherit id="speed_fast" />

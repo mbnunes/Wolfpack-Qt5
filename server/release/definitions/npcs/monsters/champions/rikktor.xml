@@ -38,8 +38,7 @@
 		<tag name="res_poison" value="80,90" type="int" />
 		<tag name="res_energy" value="80,90" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 5 Treasure Map -->
-		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;tm_5</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Rikktor</category>
 		<!-- Carve -->

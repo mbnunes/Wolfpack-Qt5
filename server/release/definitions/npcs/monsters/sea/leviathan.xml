@@ -39,8 +39,8 @@
 		<tag name="res_poison" value="35,45" type="int" />
 		<tag name="res_energy" value="25,35" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: 2 Ropes, Level 4 Map, MIB (only via a special fishing net) -->
-		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
+		<!-- Missing: 2 Ropes, MIB (only via a special fishing net) -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;tm_4</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Sea Monsters\Leviathan</category>
 		<intproperty name="food" value="1" />

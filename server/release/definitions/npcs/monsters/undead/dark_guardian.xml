@@ -40,8 +40,7 @@
 		<tag name="res_poison" value="20,45" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 1 Map, Level 2 Map, Level 3 Map -->
-		<lootpacks>scroll_medium;scroll_medium</lootpacks>
+		<lootpacks>scroll_medium;scroll_medium;tm_1;tm_2;tm_3</lootpacks>
 		<backpack>
 			<content>
 				<item id="eed">

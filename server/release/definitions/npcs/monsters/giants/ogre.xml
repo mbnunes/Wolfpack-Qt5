@@ -33,8 +33,7 @@
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_poison" value="15,25" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 1 Map -->
-		<lootpacks>lootpack_average</lootpacks>
+		<lootpacks>lootpack_average;tm_1</lootpacks>
 		<backpack>
 			<content>
 				<item id="13b4" /> <!-- Club -->

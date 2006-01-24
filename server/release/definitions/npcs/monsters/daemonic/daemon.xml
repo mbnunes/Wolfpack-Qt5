@@ -35,8 +35,7 @@
 		<tag name="res_cold" value="30,40" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
-		<!-- Missing: level 4 map -->
-		<lootpacks>lootpack_rich;lootpack_average;scroll_medium;scroll_medium</lootpacks>
+		<lootpacks>lootpack_rich;lootpack_average;scroll_medium;scroll_medium;tm_4</lootpacks>
 		<!-- Misc -->
 		<desc>No purer manifestation of primal evil exists than the hideous daemon, a denizen of the dark and infernal planes brought to these shores bythe most vile wizardries. Only the greatest of heroes have ever vanquished a daemon in single combat, and even a group of valiant warriors must be mighty indeed to survive an encounter with such a fiend.</desc>
 		<controlslots>5</controlslots>

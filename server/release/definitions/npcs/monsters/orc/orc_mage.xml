@@ -38,8 +38,8 @@
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Mask of Orcish Kin, Level 1 Map -->
-		<lootpacks>lootpack_average;scroll_low;regs_high</lootpacks>
+		<!-- Missing: Mask of Orcish Kin -->
+		<lootpacks>lootpack_average;scroll_low;regs_high;tm_1</lootpacks>
 		<backpack>
 			<content>
 				<item list="REAGENTS"><amount>10</amount></item>

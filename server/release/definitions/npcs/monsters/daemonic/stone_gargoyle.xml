@@ -33,8 +33,8 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Lootpacks -->
-		<!-- Missing: Gargoyle Pickaxe, Level 2 Map -->
-		<lootpacks>lootpack_average;lootpack_average;gems_poor</lootpacks>
+		<!-- Missing: Gargoyle Pickaxe -->
+		<lootpacks>lootpack_average;lootpack_average;gems_poor;tm_2</lootpacks>
 		<backpack>
 			<content>
 				<item id="arcanegem" />

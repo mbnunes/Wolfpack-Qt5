@@ -41,8 +41,7 @@
 		<tag name="res_physical" value="40,50" type="int" />
 		<tag name="res_poison" value="50,60" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 4 Map -->
-		<lootpacks>lootpack_filthy_rich;scroll_medium;scroll_medium</lootpacks>
+		<lootpacks>lootpack_filthy_rich;scroll_medium;scroll_medium;tm_4</lootpacks>
 		<backpack>
 			<content>
 				<item list="NECRO_REAGENTS">

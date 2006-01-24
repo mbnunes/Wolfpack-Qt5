@@ -34,8 +34,7 @@
 		<tag name="res_physical" value="25,30" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 1 Map -->
-		<lootpacks>lootpack_meager;weapons_all</lootpacks>
+		<lootpacks>lootpack_meager;weapons_all;tm_1</lootpacks>
 		<backpack>
 			<content>
 				<item id="bola_ball" />

@@ -33,8 +33,8 @@
 		<tag name="res_poison" value="25,30" type="int" />
 		<tag name="res_energy" value="25,30" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Gargoyle Pickaxe, Level 1 Map -->
-		<lootpacks>lootpack_average</lootpacks>
+		<!-- Missing: Gargoyle Pickaxe -->
+		<lootpacks>lootpack_average;tm_1</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Enslaved Gargoyle</category>
 		<strproperty name="slayer_group" value="gargoyles" />

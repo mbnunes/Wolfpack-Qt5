@@ -35,8 +35,7 @@
 		<tag name="res_physical" value="25,30" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 1 Map -->
-		<lootpacks>lootpack_meager</lootpacks>
+		<lootpacks>lootpack_meager;tm_1</lootpacks>
 		<!-- Misc. -->
 		<desc>These reptilian creatures are savage, but very Intelligent - perhaps equal in intellect to humanity, though without the moderating influences of civilization. They love gold, and will play the brigandon parties that are insufficiently protected.</desc>
 		<category>Monsters\Lizardmen\Lizardman (Random)</category>

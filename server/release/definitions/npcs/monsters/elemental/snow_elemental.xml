@@ -34,8 +34,8 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: 3 Iron Ore, Reagent, Level 2 Map -->
-		<lootpacks>lootpack_rich</lootpacks>
+		<!-- Missing: 3 Iron Ore, Reagent -->
+		<lootpacks>lootpack_rich;tm_2</lootpacks>
 		<backpack>
 			<content>
 				<item id="f7a"><amount>3</amount></item> <!-- black pearl -->

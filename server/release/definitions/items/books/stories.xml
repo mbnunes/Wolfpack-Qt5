@@ -9,9 +9,11 @@
 -->
 <definitions>
 	<item id="blackthorne_welcome_book" inherit="base_book">
-		<category>Equipment\Books\Book 1</category>
+		<category>Equipment\Books\Defined\Blackthorne Welcome Book</category>
 		<id>0xff1</id>
 		<color>0x89b</color>
+		<name>A Welcome</name>
+		<tag name="author" value="Lord Blackthorn" />
 		<tag name="page0" value="  Greetings to you,
 					new member of the
 					Trusted.
@@ -201,8 +203,10 @@
 	</item>
 
 	<item id="drakovs_journal" inherit="base_book">
-		<category>Equipment\Books\Book 1</category>
+		<category>Equipment\Books\Defined\Drakov's Journal</category>
 		<id>0xff2</id>
+		<name>Drakov's Journal</name>
+		<tag name="author" value="Drakov" />
 		<tag name="page0" value="My Master
 					
 					This journal was
@@ -271,8 +275,10 @@
 	</item>
 
 	<item id="fropoz_journal" inherit="base_book">
-		<category>Equipment\Books\Book 1</category>
+		<category>Equipment\Books\Defined\Fropoz Journal</category>
 		<id>0xff1</id>
+		<name>Journal</name>
+		<tag name="author" value="Fropoz" />
 		<tag name="page0" value="I have done as my
 					Master has
 					instructed me.
@@ -372,8 +378,10 @@
 	</item>
 
 	<item id="kabur_journal" inherit="base_book">
-		<category>Equipment\Books\Book 1</category>
+		<category>Equipment\Books\Defined\Kabur Journal</category>
 		<id>0xff1</id>
+		<name>Journal</name>
+		<tag name="author" value="Kabur" />
 		<tag name="page0" value="The campaign to slaughter
 					the Meer goes well.
 					Although they seem to
@@ -536,8 +544,10 @@
 	</item>
 
 	<item id="translated_gargoyle_journal" inherit="base_book">
-		<category>Equipment\Books\Book 1</category>
+		<category>Equipment\Books\Defined\Translated Gargoyle Journal</category>
 		<id>0xff2</id>
+		<name>Translated Journal</name>
+		<tag name="author" value="Velis" />
 		<tag name="page0" value="This text has been
 					translated from a
 					gargoyle's journal

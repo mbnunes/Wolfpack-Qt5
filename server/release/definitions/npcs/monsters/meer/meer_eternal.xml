@@ -39,8 +39,7 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 4 Treasure Map -->
-		<lootpacks>gold_rich;gold_filthy_rich;scroll_medium;scroll_medium;scroll_high;scroll_high</lootpacks>
+		<lootpacks>gold_rich;gold_filthy_rich;scroll_medium;scroll_medium;scroll_high;scroll_high;tm_4</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Eternal</category>
 		<strproperty name="slayer_group" value="meers" />

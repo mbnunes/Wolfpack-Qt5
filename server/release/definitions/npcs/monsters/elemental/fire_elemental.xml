@@ -40,8 +40,7 @@
 		<intproperty name="dispeldifficulty" value="1175" />
 		<intproperty name="dispelfocus" value="450" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 2 Map -->
-		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
+		<lootpacks>lootpack_average;lootpack_average;gems;tm_2</lootpacks>
 		<backpack>
 			<content>
 				<item id="f8c"><amount>3</amount></item> <!-- Sulfurous Ash -->

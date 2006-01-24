@@ -39,8 +39,7 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 2 Treasure Map -->
-		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
+		<lootpacks>lootpack_rich;lootpack_average;tm_2</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Acid Elemental</category>
 		<intproperty name="barddifficulty" value="839" />

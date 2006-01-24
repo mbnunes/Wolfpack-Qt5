@@ -482,6 +482,26 @@ PACKS = {
 	# Potion
 	'potion' : [
 		[1.0, DEF_ALLUSABLEPOTIONS, 1, 0], # Potion
+	],
+
+	# Treasure Maps
+	'tm_1' : [
+		[1.0, 'map_treasure_1', 1, 0] # Treasure Map Level 1
+	],
+	'tm_2' : [
+		[1.0, 'map_treasure_2', 1, 0] # Treasure Map Level 2
+	],
+	'tm_3' : [
+		[1.0, 'map_treasure_3', 1, 0] # Treasure Map Level 3
+	],
+	'tm_4' : [
+		[1.0, 'map_treasure_4', 1, 0] # Treasure Map Level 4
+	],
+	'tm_5' : [
+		[1.0, 'map_treasure_5', 1, 0] # Treasure Map Level 5
+	],
+	'tm_6' : [
+		[1.0, 'map_treasure_6', 1, 0] # Treasure Map Level 6
 	]
 }
 

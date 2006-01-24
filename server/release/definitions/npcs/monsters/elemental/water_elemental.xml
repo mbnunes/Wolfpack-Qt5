@@ -39,8 +39,7 @@
 		<intproperty name="dispeldifficulty" value="1175" />
 		<intproperty name="dispelfocus" value="450" />
 		<!-- Loot Packs -->
-		<!-- Missing: Level 2 Map -->
-		<lootpacks>lootpack_average;lootpack_average;potion</lootpacks>
+		<lootpacks>lootpack_average;lootpack_average;potion;tm_2</lootpacks>
 		<backpack>
 			<content>
 				<item id="f7a"><amount>3</amount></item> <!-- black pearl -->

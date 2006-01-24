@@ -35,8 +35,8 @@
 		<!-- Dispel Difficulty -->
 		<intproperty name="dispeldifficulty" value="1175" />
 		<intproperty name="dispelfocus" value="450" />
-		<!-- Missing: 5 Iron Ore, Level 1 Map -->
-		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
+		<!-- Missing: 5 Iron Ore -->
+		<lootpacks>lootpack_average;lootpack_average;gems;tm_1</lootpacks>
 		<backpack>
 			<content>
 				<item id="f81"><amount><random min="1" max="4"/></amount></item> <!-- fertile death -->

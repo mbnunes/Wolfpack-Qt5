@@ -39,8 +39,8 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<tag name="res_energy" value="25,35" type="int" />
 		<!-- Loot Packs -->
-		<!-- Missing: Daemon Bone Armor, Level 3 Treasure Map -->
-		<lootpacks>gold_filthy_rich;scroll_medium;scroll_medium;</lootpacks>
+		<!-- Missing: Daemon Bone Armor -->
+		<lootpacks>gold_filthy_rich;scroll_medium;scroll_medium;tm_3</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Mage</category>
 		<strproperty name="slayer_group" value="meers" />
