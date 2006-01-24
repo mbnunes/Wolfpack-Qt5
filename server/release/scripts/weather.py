@@ -33,10 +33,10 @@ ENABLEDESOLATIONASSEASON = int( wolfpack.settings.getbool( "Season", "Enable Des
 # Note: I make this table experiencing Rain and Snow in Brazil (Rain) and Germany (Snow). So... try to make always your own table hehehe :P
 
 SEASONS = {
-	0: [0, 0, 0, 0],	# Spring
-	1: [10, 10, 30, -2],	# Summer
+	0: [0, 5, 0, 0],	# Spring
+	1: [10, 0, 30, -2],	# Summer
 	2: [5, 5, 0, 0],	# Fall
-	3: [0, 0, 0, 0],	# Winter
+	3: [0, 10, 0, 0],	# Winter
 	4: [-10, -10, 0, 0]		# Desolation
 }
 
