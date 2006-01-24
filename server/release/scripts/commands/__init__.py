@@ -96,8 +96,8 @@ def nightsight(socket, command, arguments):
 		player.lightbonus = max(0, player.lightbonus - bonus)
 		player.deltag('nightsight')
 	else:
-		player.settag('nightsight', 255)
-		player.lightbonus = 255
+		player.settag('nightsight', 127)
+		player.lightbonus = 127
 	socket.updatelightlevel()
 
 """

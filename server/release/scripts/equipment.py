@@ -635,8 +635,8 @@ def onEquip(char, item, layer):
 	# Add nightsight
 	nightsight = properties.fromitem(item, NIGHTSIGHT)
 	if nightsight and char.player:
-		char.settag('nightsight', 255)
-		char.lightbonus = 255
+		char.settag('nightsight', 127)
+		char.lightbonus = 127
 		if char.socket:
 			char.socket.updatelightlevel()
 
