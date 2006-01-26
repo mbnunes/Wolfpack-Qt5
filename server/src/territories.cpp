@@ -605,7 +605,7 @@ cTerritory* cTerritories::region( const QString& regName )
 	for ( ; it != topregions.end(); ++it )
 	{
 		// search all topregions of that map
-		foreach ( cTerritory* region, it.data() )
+		foreach ( cTerritory* region, it.value() )
 		{
 			if ( region )
 			{
@@ -628,7 +628,7 @@ cTerritory* cTerritories::region( UI16 posx, UI16 posy, UI08 map )
 	if ( it != topregions.end() )
 	{
 		// search all topregions of that map
-		foreach ( cTerritory* region, it.data() )
+		foreach ( cTerritory* region, it.value() )
 		{
 			if ( region )
 			{

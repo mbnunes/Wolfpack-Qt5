@@ -258,11 +258,11 @@ void cSpawnRegion::remove( cUObject* object )
 {
 	if ( object->isItem() )
 	{
-		items_.remove( object );
+		items_.removeAll( object );
 	}
 	else if ( object->isChar() )
 	{
-		npcs_.remove( object );
+		npcs_.removeAll( object );
 	}
 }
 
@@ -402,7 +402,7 @@ void cSpawnRegion::processNode( const cElement* tag )
 			fixedZ = true;
 		}
 
-		if ( tag->getAttribute( "exception", "false" ).lower() == "true" )
+		if ( tag->getAttribute( "exception", "false" ).toLower() == "true" )
 		{
 			exceptions_.append( new cSpawnRectangle( from, to, map, fixedZ, z ) ); // Append to position
 		}
@@ -422,7 +422,7 @@ void cSpawnRegion::processNode( const cElement* tag )
 			return;
 		}
 
-		if ( tag->getAttribute( "exception", "false" ).lower() == "true" )
+		if ( tag->getAttribute( "exception", "false" ).toLower() == "true" )
 		{
 			exceptions_.append( new cSpawnPoint( pos ) );
 		}
@@ -480,7 +480,7 @@ void cSpawnRegion::processNode( const cElement* tag )
 			}
 		}
 
-		if ( tag->getAttribute( "exception", "false" ).lower() == "true" )
+		if ( tag->getAttribute( "exception", "false" ).toLower() == "true" )
 		{
 			exceptions_.append( new cSpawnCircle( center, radius, map, fixedZ, z ) ); // Append to position
 		}
@@ -1038,7 +1038,7 @@ void cAllSpawnRegions::reload()
 		cSpawnRegion *region = this->region( it.key() );
 		if ( region )
 		{
-			QList<cUObject*> &list = it.data();
+			QList<cUObject*> &list = it.value();
 			foreach ( cUObject* object, list )
 			{
 				object->setSpawnregion( region );
@@ -1046,7 +1046,7 @@ void cAllSpawnRegions::reload()
 		}
 		else
 		{
-			QList<cUObject*> &list = it.data();
+			QList<cUObject*> &list = it.value();
 			foreach ( cUObject* object, list )
 			{
 				object->remove();

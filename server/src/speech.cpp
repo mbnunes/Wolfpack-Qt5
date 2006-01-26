@@ -158,7 +158,7 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 	if ( ( comm.contains( "VENDOR" ) ) || ( comm.contains( "SHOPKEEPER" ) ) )
 		return true;
 
-	if ( comm.contains( pVendor->name(), false ) )
+	if ( comm.contains( pVendor->name(), Qt::CaseInsensitive ) )
 		return true;
 	else
 		return false;
@@ -179,7 +179,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 		return false;
 	}
 
-	QString speechUpr = comm.upper();
+	QString speechUpr = comm.toUpper();
 
 	// Lets try a small circle to prevent lag
 	MapItemsIterator ti = MapObjects::instance()->listItemsInCircle( pPlayer->pos(), 9 );
@@ -295,7 +295,7 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 
 	pChar->talk( speech, color, type );
 
-	QString speechUpr = speech.upper();
+	QString speechUpr = speech.toUpper();
 	if ( response( socket, pChar, speech, keywords ) )
 		return;  // Vendor responded already
 

@@ -70,10 +70,10 @@ cNPC::cNPC()
 	aiid_ = "Monster_Aggressive_L1";
 	ai_ = new Monster_Aggressive_L1( this );
 	aiCheckInterval_ = ( quint16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
-	aiCheckNPCsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
-	aiCheckITEMsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
-	aiCheckNPCsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
-	aiCheckITEMsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
+	aiCheckNPCsInterval_ = ( ushort ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
+	aiCheckITEMsInterval_ = ( ushort ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
+	aiCheckNPCsInterval_ = ( ushort ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
+	aiCheckITEMsInterval_ = ( ushort ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
 	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_ + RandomNum( 0, 1000 );
 	if ( aiCheckNPCsInterval_ )
 		aiNpcsCheckTime_ = Server::instance()->time() + aiCheckNPCsInterval_ + RandomNum( 0, 1000 );
@@ -362,7 +362,8 @@ void cNPC::update( bool )
 	cUOTxUpdatePlayer update;
 	update.fromChar( this );
 
-	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* socket, sockets )
 	{
 		if ( socket->canSee( this ) )
 		{
@@ -382,7 +383,8 @@ void cNPC::resend( bool clean )
 	cUOTxRemoveObject remove;
 	remove.setSerial( serial_ );
 
-	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* socket, sockets )
 	{
 		if ( socket->canSee( this ) )
 		{
@@ -395,7 +397,7 @@ void cNPC::resend( bool clean )
 
 			for ( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
 			{
-				it.data()->sendTooltip( socket );
+				it.value()->sendTooltip( socket );
 			}
 		}
 		else if ( clean )
@@ -455,7 +457,8 @@ void cNPC::talk( const QString& message, UI16 color, quint8 type, bool autospam,
 	else
 	{
 		// Send to all clients in range
-		for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* mSock, sockets )
 		{
 			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
@@ -480,7 +483,8 @@ void cNPC::talk( const quint32 MsgID, const QString& params /*= 0*/, const QStri
 	else
 	{
 		// Send to all clients in range
-		for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* mSock, sockets )
 		{
 			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
@@ -714,9 +718,12 @@ void cNPC::soundEffect( UI16 soundId, bool hearAll )
 	pSoundEffect.setCoord( pos() );
 
 	// Send the sound to all sockets in range
-	for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* s, sockets )
+	{
 		if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
 			s->send( &pSoundEffect );
+	}
 }
 
 void cNPC::giveGold( quint32 amount, bool inBank )
@@ -1191,7 +1198,7 @@ void cNPC::setAI( const QString& data )
 	if (data.isEmpty()) {
 		setAI(0);
 	} else {
-		QString tmp = QStringList::split( ",", data )[0];
+		QString tmp = data.split( "," )[0];
 		aiid_ = tmp;
 
 		if ( ai_ )

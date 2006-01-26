@@ -253,7 +253,7 @@ QString cPersistentBroker::quoteString( QString s )
 		return QString( "" );
 
 	if ( d->sqlite )
-		return s.replace( "'", "''" ).utf8().data();
+		return s.replace( "'", "''" ).toUtf8().data();
 	else
-		return s.replace( "'", "\\'" ).utf8().data();
+		return s.replace( "'", "\\'" ).toUtf8().data();
 }

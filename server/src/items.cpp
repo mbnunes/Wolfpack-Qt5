@@ -594,7 +594,7 @@ void cItem::remove()
 	// Check if this item is registered as a guildstone and remove it from the guild
 	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it )
 	{
-		cGuild* guild = it.data();
+		cGuild* guild = it.value();
 		if ( guild->guildstone() == this )
 			guild->setGuildstone( 0 );
 	}
@@ -765,8 +765,6 @@ void cItem::processNode( const cElement* Tag )
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
 
-	const cElement* section = Definitions::instance()->getDefinition( WPDT_DEFINE, TagName );
-
 	// <amount>10</amount>
 	if ( TagName == "amount" )
 	{
@@ -857,13 +855,15 @@ void cItem::processNode( const cElement* Tag )
 		if ( section )
 			applyDefinition( section );
 	}
-	else if ( section )
-	{
-		for ( unsigned int i = 0; i < section->childCount(); ++i )
-			processModifierNode( section->getChild( i ) );
-	}
 	else
-		cUObject::processNode( Tag );
+	{
+		const cElement* section = Definitions::instance()->getDefinition( WPDT_DEFINE, TagName );
+		if ( section )
+			for ( unsigned int i = 0; i < section->childCount(); ++i )
+				processModifierNode( section->getChild( i ) );
+		else
+			cUObject::processNode( Tag );
+	}
 }
 
 void cItem::processModifierNode( const cElement* Tag )
@@ -948,7 +948,7 @@ void cItem::processContainerNode( const cElement* tag )
 			}
 			else if ( element->hasAttribute( "randomlist" ) )
 			{
-				QStringList RandValues = QStringList::split( ",", element->getAttribute( "randomlist" ) );
+				QStringList RandValues = element->getAttribute( "randomlist" ).split( "," );
 				cItem* nItem = cItem::createFromList( RandValues[RandomNum( 0, RandValues.size() - 1 )] );
 				if ( nItem )
 				{
@@ -1032,7 +1032,8 @@ void cItem::update( cUOSocket* singlesocket )
 		// Send to one person only
 		if ( !singlesocket )
 		{
-			for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+			QList<cUOSocket*> sockets = Network::instance()->sockets();
+			foreach ( cUOSocket* socket, sockets )
 			{
 				if ( socket->canSee( this ) )
 				{
@@ -1122,7 +1123,8 @@ void cItem::update( cUOSocket* singlesocket )
 		}
 		else
 		{
-			for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+			QList<cUOSocket*> sockets = Network::instance()->sockets();
+			foreach ( cUOSocket* socket, sockets )
 			{
 				if ( socket->canSee( this ) )
 				{
@@ -1148,7 +1150,8 @@ void cItem::update( cUOSocket* singlesocket )
 		}
 		else
 		{
-			for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+			QList<cUOSocket*> sockets = Network::instance()->sockets();
+			foreach ( cUOSocket* socket, sockets )
 			{
 				if ( socket->canSee( this ) )
 				{
@@ -1214,9 +1217,12 @@ void cItem::dupeContent( P_ITEM container )
 
 void cItem::soundEffect( quint16 sound )
 {
-	for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* mSock, sockets )
+	{
 		if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->soundEffect( sound, this );
+	}
 }
 
 // This subtracts the weight of the top-container
@@ -1294,7 +1300,8 @@ void cItem::talk( const QString& message, UI16 color, quint8 type, bool autospam
 	else
 	{
 		// Send to all clients in range
-		for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* mSock, sockets )
 		{
 			if ( mSock->canSee( this ) )
 			{
@@ -1319,7 +1326,8 @@ void cItem::talk( const quint32 MsgID, const QString& params, const QString& aff
 	else
 	{
 		// Send to all clients in range
-		for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* mSock, sockets )
 		{
 			if ( mSock->canSee( this ) )
 			{
@@ -1358,7 +1366,8 @@ bool cItem::wearOut()
 		// Show to all characters in range that the item has been destroyed and not just unequipped
 		if ( owner )
 		{
-			for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+			QList<cUOSocket*> sockets = Network::instance()->sockets();
+			foreach ( cUOSocket* socket, sockets )
 			{
 				if ( owner != socket->player() && socket->canSee( owner ) )
 				{

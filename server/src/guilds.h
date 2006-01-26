@@ -375,13 +375,14 @@ public:
 	*/
 	inline MemberInfo* getMemberInfo( P_PLAYER player )
 	{
-		if ( !memberinfo_.contains( player ) )
+		QMap<P_PLAYER, MemberInfo*>::iterator it = memberinfo_.find( player );
+		if ( it != memberinfo_.end() )
 		{
-			return 0;
+			return it.value();
 		}
 		else
 		{
-			return memberinfo_.find( player ).data();
+			return 0;
 		}
 	}
 

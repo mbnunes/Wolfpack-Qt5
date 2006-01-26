@@ -451,7 +451,7 @@ const QString& cSkills::getSkillName( quint16 skill ) const
 
 qint16 cSkills::findSkillByDef( const QString& defname ) const
 {
-	QString defName = defname.upper();
+	QString defName = defname.toUpper();
 
 	unsigned int i;
 	for ( i = 0; i < skills.size(); ++i )

@@ -63,13 +63,13 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 		return;
 
 	P_PLAYER pChar = socket->player();
-	QStringList pArgs = QStringList::split( " ", command, true );
+	QStringList pArgs = command.split( " ", QString::KeepEmptyParts );
 
 	// No Command? No Processing
 	if ( pArgs.isEmpty() )
 		return;
 
-	QString pCommand = pArgs[0].upper(); // First element should be the command
+	QString pCommand = pArgs[0].toUpper(); // First element should be the command
 
 	// Remove it from the argument list
 	pArgs.erase( pArgs.begin() );
@@ -77,8 +77,8 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 	// Check if the priviledges are ok
 	if ( !pChar->account()->authorized( "command", pCommand ) )
 	{
-		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.lower() ) );
-		socket->log( tr( "Access to command '%1' was denied\n" ).arg( pCommand.lower() ) );
+		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.toLower() ) );
+		socket->log( tr( "Access to command '%1' was denied\n" ).arg( pCommand.toLower() ) );
 		return;
 	}
 
@@ -130,9 +130,7 @@ bool cCommands::dispatch( cUOSocket* socket, const QString& command, const QStri
 void cCommands::loadACLs( void )
 {
 	// make sure it's clean
-	QMap<QString, cAcl*>::iterator itA( _acls.begin() );
-	for ( ; itA != _acls.end(); ++itA )
-		delete itA.data();
+	qDeleteAll( _acls );
 	_acls.clear();
 
 	QStringList ScriptSections = Definitions::instance()->getSections( WPDT_PRIVLEVEL );
@@ -173,7 +171,7 @@ void cCommands::loadACLs( void )
 			const cElement* childTag = Tag->getChild( i );
 			if ( childTag->name() == "group" )
 			{
-				groupName = childTag->getAttribute( "name" );
+				groupName = childTag->getAttribute( "name" ).toLatin1();
 
 				for ( unsigned int j = 0; j < childTag->childCount(); ++j )
 				{
@@ -225,7 +223,7 @@ void commandSet( cUOSocket* socket, const QString& command, const QStringList& a
 
 	QString key = args[0];
 	QStringList realargs( args );
-	realargs.remove( realargs.begin() );
+	realargs.removeFirst();
 	QString value;
 	if ( realargs.size() == 0 )
 	{
@@ -326,7 +324,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 		return;
 	}
 
-	QString subCommand = args[0].lower();
+	QString subCommand = args[0].toLower();
 
 	// respawn spawnregion
 	if ( subCommand == "respawn" )
@@ -335,7 +333,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 		{
 			socket->sysMessage( tr( "Usage: spawnregion respawn <region_name>" ) );
 		}
-		else if ( args[1].lower() != "all" )
+		else if ( args[1].toLower() != "all" )
 		{
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
@@ -355,7 +353,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 				socket->sysMessage( tr( "Spawnregion '%1' has respawned." ).arg( args[1] ) );
 			}
 		}
-		else if ( args[1].lower() == "all" )
+		else if ( args[1].toLower() == "all" )
 		{
 			SpawnRegions::instance()->reSpawn();
 			socket->sysMessage( tr( "All spawnregions have respawned." ) );
@@ -369,7 +367,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 		{
 			socket->sysMessage( tr( "Usage: spawnregion clear <region_name>" ) );
 		}
-		else if ( args[1].lower() != "all" )
+		else if ( args[1].toLower() != "all" )
 		{
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
@@ -389,7 +387,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 				socket->sysMessage( tr( "Spawnregion '%1' has been cleared." ).arg( args[1] ) );
 			}
 		}
-		else if ( args[1].lower() == "all" )
+		else if ( args[1].toLower() == "all" )
 		{
 			SpawnRegions::instance()->deSpawn();
 			socket->sysMessage( tr( "All spawnregions have been cleared." ) );
@@ -403,7 +401,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 		{
 			socket->sysMessage( tr( "Usage: spawnregion fill <region_name>" ) );
 		}
-		else if ( args[1].lower() != "all" )
+		else if ( args[1].toLower() != "all" )
 		{
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
@@ -423,7 +421,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 				socket->sysMessage( tr( "Spawnregion '%1' has been filled." ).arg( args[1] ) );
 			}
 		}
-		else if ( args[1].lower() == "all" )
+		else if ( args[1].toLower() == "all" )
 		{
 			SpawnRegions::instance()->reSpawnToMax();
 			socket->sysMessage( tr( "All spawnregions have respawned to maximum." ) );
@@ -437,7 +435,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 		{
 			socket->sysMessage( tr( "Usage: spawnregion info <region_name>" ) );
 		}
-		else if ( args[1].lower() != "all" )
+		else if ( args[1].toLower() != "all" )
 		{
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
@@ -450,7 +448,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 				socket->send( pGump );
 			}
 		}
-		else if ( args[1].lower() == "all" )
+		else if ( args[1].toLower() == "all" )
 		{
 			// Display a gump with this information
 			cGump* pGump = new cGump();
@@ -562,7 +560,7 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 		return;
 	}
 
-	QString subCommand = args[0].lower();
+	QString subCommand = args[0].toLower();
 
 	// accounts
 	if ( subCommand == "accounts" )
@@ -697,8 +695,8 @@ void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList
 
 	QString message = "<" + socket->player()->name() + ">: " + args.join( " " );
 
-	cUOSocket* mSock = 0;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* mSock, sockets )
 	{
 		if ( mSock->player() && mSock->player()->isGM() )
 			mSock->sysMessage( message, 32 );
@@ -1160,9 +1158,7 @@ void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 // Clear ACLs
 cCommands::~cCommands()
 {
-	QMap<QString, cAcl*>::iterator itA( _acls.begin() );
-	for ( ; itA != _acls.end(); ++itA )
-		delete itA.data();
+	qDeleteAll( _acls );
 	_acls.clear();
 }
 

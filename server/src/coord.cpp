@@ -432,8 +432,8 @@ void Coord::effect( quint16 id, quint8 speed, quint8 duration, quint16 hue, quin
 	effect.setHue( hue );
 	effect.setRenderMode( renderMode );
 
-	cUOSocket* mSock = 0;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* mSock, sockets )
 	{
 		if ( mSock->player() && ( mSock->player()->pos().distance( ( *this ) ) <= mSock->player()->visualRange() ) )
 			mSock->send( &effect );

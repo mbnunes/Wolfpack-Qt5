@@ -830,15 +830,15 @@ void cCustomTags::save( SERIAL key )
 	for ( ; it != tags_->end(); ++it )
 	{
 		// Erase invalid tags.
-		if ( !it.data().isValid() )
+		if ( !it.value().isValid() )
 		{
 			continue;
 		}
 
 		// Save the Variant type and value
 		QString name = it.key();
-		QString type = it.data().typeName();
-		QString value = it.data().toString();
+		QString type = it.value().typeName();
+		QString value = it.value().toString();
 
 		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO tags VALUES(%1,'%2','%3','%4')" ).arg( key ).arg( PersistentBroker::instance()->quoteString( name ) ).arg( type ).arg( PersistentBroker::instance()->quoteString( value ) ) );
 	}
@@ -902,7 +902,7 @@ const cVariant& cCustomTags::get( const QString& key ) const
 	{
 		QMap<QString, cVariant>::iterator it = tags_->find( key );
 		if ( it != tags_->end() )
-			return it.data();
+			return it.value();
 	}
 
 	return cVariant::null;
@@ -925,7 +925,7 @@ void cCustomTags::set( const QString& key, const cVariant& value )
 		}
 		else
 		{
-			iter.data() = value;
+			iter.value() = value;
 			changed = true;
 		}
 	}
@@ -1001,7 +1001,7 @@ bool cCustomTags::operator==( const cCustomTags& cmp ) const
 			return false;
 		}
 
-		if ( cit.data() != it.data() )
+		if ( cit.value() != it.value() )
 		{
 			return false;
 		}
@@ -1017,7 +1017,7 @@ bool cCustomTags::operator==( const cCustomTags& cmp ) const
 			return false;
 		}
 
-		if ( cit.data() != it.data() )
+		if ( cit.value() != it.value() )
 		{
 			return false;
 		}
@@ -1040,7 +1040,7 @@ void cCustomTags::save( SERIAL serial, cBufferedWriter& writer )
 		for ( ; it != tags_->end(); ++it )
 		{
 			// Erase invalid tags.
-			if ( !it.data().isValid() )
+			if ( !it.value().isValid() )
 			{
 				continue;
 			}
@@ -1050,7 +1050,7 @@ void cCustomTags::save( SERIAL serial, cBufferedWriter& writer )
 			//unsigned int length = writer.position();
 			writer.writeInt( serial );
 			writer.writeUtf8( it.key() );
-			it.data().serialize( writer, writer.version() );
+			it.value().serialize( writer, writer.version() );
 			//length = writer.position() - length;
 
 			writer.setSkipSize( 0xFE, 0 );

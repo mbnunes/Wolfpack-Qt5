@@ -336,7 +336,7 @@ bool cSQLiteDriver::exec( const QString& query )
 {
 	char* error;
 
-	if ( sqlite_exec( ( sqlite * ) connection, query.local8Bit(), NULL, NULL, &error ) != SQLITE_OK )
+	if ( sqlite_exec( ( sqlite * ) connection, query.toLocal8Bit(), NULL, NULL, &error ) != SQLITE_OK )
 	{
 		if ( error )
 		{
@@ -359,7 +359,7 @@ cDBResult cSQLiteDriver::query( const QString& query )
 	sqlite_vm* result;
 
 	// Compile a VM and pass it to cSQLiteResult
-	if ( sqlite_compile( ( sqlite * ) connection, query.local8Bit(), NULL, &result, &error ) != SQLITE_OK )
+	if ( sqlite_compile( ( sqlite * ) connection, query.toLocal8Bit(), NULL, &result, &error ) != SQLITE_OK )
 	{
 		if ( error )
 		{
@@ -434,7 +434,7 @@ bool cSQLite3Driver::open( int )
 
 	close();
 
-	if (sqlite3_open( _dbname.utf8(), (sqlite3**) &connection ) != SQLITE_OK)
+	if (sqlite3_open( _dbname.toUtf8(), (sqlite3**) &connection ) != SQLITE_OK)
 	{
 		QString err( sqlite3_errmsg ((sqlite3*) connection) );
 
@@ -463,7 +463,7 @@ bool cSQLite3Driver::exec( const QString& query )
 {
 	char* error;
 
-	if ( sqlite3_exec( ( sqlite3 * ) connection, query.utf8(), NULL, NULL, &error ) != SQLITE_OK )
+	if ( sqlite3_exec( ( sqlite3 * ) connection, query.toUtf8(), NULL, NULL, &error ) != SQLITE_OK )
 	{
 		if ( error )
 		{
@@ -485,7 +485,7 @@ cDBResult cSQLite3Driver::query( const QString& query )
 	sqlite3_stmt* result;
 
 	// Compile a VM and pass it to cSQLiteResult
-	if ( sqlite3_prepare( ( sqlite3 * ) connection, query.utf8(), NULL, &result, &error ) != SQLITE_OK )
+	if ( sqlite3_prepare( ( sqlite3 * ) connection, query.toUtf8(), NULL, &result, &error ) != SQLITE_OK )
 	{
 		if ( error )
 		{

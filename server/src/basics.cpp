@@ -89,7 +89,7 @@ int rollDice( const QString& dicePattern ) // roll dices d&d style
 	// dicePattern looks like "xdy+z"
 	// which equals RandomNum(x,y)+z
 
-	int doffset = dicePattern. find( "d" ), poffset = dicePattern.find( "+" );
+	int doffset = dicePattern.indexOf( "d" ), poffset = dicePattern.indexOf( "+" );
 	int x = dicePattern.left( doffset ).toInt();
 	int z = dicePattern.right( dicePattern.length() - 1 - poffset ).toInt();
 	int y = dicePattern.mid( doffset + 1, poffset - doffset - 1 ).toInt();
@@ -99,7 +99,7 @@ int rollDice( const QString& dicePattern ) // roll dices d&d style
 
 bool parseCoordinates( const QString& input, Coord& coord, bool ignoreZ )
 {
-	QStringList coords = QStringList::split( ",", input );
+	QStringList coords = input.split( "," );
 
 	// We at least need x, y, z
 	if ( coords.size() < ( ignoreZ ? 2 : 3 ) )
@@ -204,8 +204,7 @@ cBufferedWriter::cBufferedWriter( const QByteArray& magic, unsigned int version 
 	d->dictionary.insert( QByteArray(), 0 ); // Empty String
 
 	// Check Endianess
-	int wordSize;
-	qSysInfo( &wordSize, &d->needswap );
+	d->needswap = (QSysInfo::ByteOrder == QSysInfo::BigEndian);
 }
 
 cBufferedWriter::~cBufferedWriter()
@@ -229,7 +228,7 @@ void cBufferedWriter::open( const QString& filename )
 {
 	close();
 
-	d->file.setName( filename );
+	d->file.setFileName( filename );
 	if ( !d->file.open( QIODevice::WriteOnly | QIODevice::Truncate ) )
 	{
 		throw wpException( QString( "Couldn't open file %1 for writing." ).arg( filename ) );
@@ -238,8 +237,8 @@ void cBufferedWriter::open( const QString& filename )
 	// Reserve space for magic, filesize, version, dictionary offset, object count (in that order)
 	unsigned int headerSize = d->magic.length() + 1 + sizeof( unsigned int ) * 4;
 
-	QByteArray header( headerSize );
-	d->file.writeBlock( header );
+	QByteArray header( headerSize, 0 );
+	d->file.write( header );
 
 	// Start writing the object type list
 	const QMap<unsigned char, QString> &typemap = BinaryTypemap::instance()->getTypemap();
@@ -251,9 +250,9 @@ void cBufferedWriter::open( const QString& filename )
 	{
 		writeByte( it.key() );
 		writeInt( 0 ); // SkipSize
-		writeAscii( qPrintable( it.data() ) ); // Pre-insert into the dictionary
+		writeAscii( it.value().toLatin1() ); // Pre-insert into the dictionary
 		d->skipmap.insert( it.key(), 0 );
-		d->typemap.insert( it.key(), it.data() );
+		d->typemap.insert( it.key(), it.value() );
 	}
 }
 
@@ -269,7 +268,7 @@ void cBufferedWriter::close()
 		QMap<QByteArray, unsigned int>::iterator it;
 		for ( it = d->dictionary.begin(); it != d->dictionary.end(); ++it )
 		{
-			writeInt( it.data() );
+			writeInt( it.value() );
 			writeInt( it.key().length() + 1 ); // Counted Strings
 			if ( it.key().data() == 0 )
 			{
@@ -284,7 +283,7 @@ void cBufferedWriter::close()
 		flush();
 
 		// Seek to the beginning and write the file header
-		d->file.at( 0 );
+		d->file.seek( 0 );
 		writeRaw( d->magic.data(), d->magic.length() + 1, true );
 		writeInt( d->file.size(), true );
 		writeInt( d->version, true );
@@ -307,7 +306,7 @@ void cBufferedWriter::close()
 
 			writeInt( size, true ); // SkipSize
 
-			QByteArray type = tit.data().toLatin1();
+			QByteArray type = tit.value().toLatin1();
 			writeInt( d->dictionary[type], true );
 		}
 
@@ -319,7 +318,7 @@ void cBufferedWriter::flush()
 {
 	if ( d->bufferpos != 0 )
 	{
-		d->file.writeBlock( d->buffer, d->bufferpos );
+		d->file.write( d->buffer, d->bufferpos );
 		d->file.flush();
 		d->bufferpos = 0;
 	}
@@ -337,7 +336,7 @@ unsigned int cBufferedWriter::version()
 
 void cBufferedWriter::setSkipSize( unsigned char type, unsigned int skipsize )
 {
-	d->skipmap.insert( type, skipsize, true );
+	d->skipmap.insert( type, skipsize );
 }
 
 class cBufferedReaderPrivate
@@ -386,7 +385,7 @@ void cBufferedReader::open( const QString& filename )
 {
 	close();
 
-	d->file.setName( filename );
+	d->file.setFileName( filename );
 	if ( !d->file.open( QIODevice::ReadOnly ) )
 	{
 		throw wpException( QString( "Couldn't open file %1 for reading." ).arg( filename ) );
@@ -436,7 +435,7 @@ void cBufferedReader::open( const QString& filename )
 	// Seek to the dictionary and read it
 	d->bufferpos = 0;
 	d->buffersize = 0;
-	d->file.at( dictionary );
+	d->file.seek( dictionary );
 
 	unsigned int entries = readInt();
 	unsigned int i;
@@ -451,7 +450,7 @@ void cBufferedReader::open( const QString& filename )
 		}
 		else
 		{
-			QByteArray data( size );
+			QByteArray data( size, 0 );
 			readRaw( data.data(), size );
 			d->dictionary.insert( id, data );
 		}
@@ -459,7 +458,7 @@ void cBufferedReader::open( const QString& filename )
 
 	d->bufferpos = 0;
 	d->buffersize = 0;
-	d->file.at( dataStart );
+	d->file.seek( dataStart );
 
 	// Read the object type list
 	unsigned char count = readByte();
@@ -573,7 +572,7 @@ QByteArray cBufferedReader::readAscii( bool nodictionary )
 
 		if ( it != d->dictionary.end() )
 		{
-			return it.data();
+			return it.value();
 		}
 		else
 		{
@@ -622,7 +621,7 @@ void cBufferedReader::readRaw( void* data, unsigned int size )
 
 unsigned int cBufferedReader::position()
 {
-	return ( d->file.at() - d->buffersize ) + d->bufferpos;
+	return ( d->file.pos() - d->buffersize ) + d->bufferpos;
 }
 
 const QMap<unsigned char, QByteArray>& cBufferedReader::typemap()

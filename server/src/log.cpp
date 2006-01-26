@@ -87,7 +87,7 @@ bool cLog::checkLogFile()
 		else
 			filename = QString( "wolfpack.log" );
 
-		logfile.setName( path + filename );
+		logfile.setFileName( path + filename );
 
 		if ( !logfile.open( QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text ) )
 		{
@@ -156,10 +156,10 @@ void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool
 		prelude.append( " " );
 	}
 
-	QByteArray utfdata = string.utf8();
-	utfdata.prepend( prelude.utf8() );
+	QByteArray utfdata = string.toUtf8();
+	utfdata.prepend( prelude.toUtf8() );
 
-	logfile.writeBlock( utfdata );
+	logfile.write( utfdata );
 	logfile.flush();
 }
 

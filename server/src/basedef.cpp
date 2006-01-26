@@ -59,7 +59,7 @@ void cBaseDef::processNode( const cElement* node )
 				Console::instance()->log( LOG_WARNING, tr( "Basedef %1 has invalid integer property %2.\n" ).arg( QString( id_ ) ).arg( name ) );
 			}
 
-			intproperties.insert( name.lower(), intvalue, true );
+			intproperties.insert( name.toLower(), intvalue );
 		}
 	}
 	else if ( node->name() == "strproperty" )
@@ -72,16 +72,16 @@ void cBaseDef::processNode( const cElement* node )
 			{
 				value = node->text();
 			}
-			properties.insert( name.lower(), value, true );
+			properties.insert( name.toLower(), value );
 		}
 	}
 	else if ( node->name() == "bindmenu" )
 	{
-		bindmenu_ = node->text();
+		bindmenu_ = node->text().toLatin1();
 	}
 	else if ( node->name() == "basescripts" )
 	{
-		baseScriptList_ = node->text();
+		baseScriptList_ = node->text().toLatin1();
 		refreshScripts();
 	}
 	else if ( node->name() == "basescript" )
@@ -102,12 +102,11 @@ void cBaseDef::refreshScripts()
 {
 	if ( loaded )
 	{
-		QStringList scripts = QStringList::split( ",", baseScriptList_ );
-		QStringList::const_iterator it;
+		QList<QByteArray> scripts = baseScriptList_.split( ',' );
 		baseScripts_.clear();
-		for ( it = scripts.begin(); it != scripts.end(); ++it )
+		foreach ( QByteArray it, scripts )
 		{
-			cPythonScript *script = ScriptManager::instance()->find( ( *it ).toLatin1() );
+			cPythonScript *script = ScriptManager::instance()->find( it );
 			if ( script )
 			{
 				baseScripts_.append( script );
@@ -163,7 +162,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	// <attacksound>0x123,0x124</attacksound>
 	else if ( node->name() == "attacksound" )
 	{
-		QStringList parts = QStringList::split( ",", node->text() );
+		QStringList parts = node->text().split( "," );
 		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
@@ -173,7 +172,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	// <idlesound>0x123,0x124</idlesound>
 	else if ( node->name() == "idlesound" )
 	{
-		QStringList parts = QStringList::split( ",", node->text() );
+		QStringList parts = node->text().split( "," );
 		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
@@ -183,7 +182,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	// <hitsound>0x123,0x124</hitsound>
 	else if ( node->name() == "hitsound" )
 	{
-		QStringList parts = QStringList::split( ",", node->text() );
+		QStringList parts = node->text().split( "," );
 		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
@@ -193,7 +192,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	// <gethitsound>0x12,0x13</gethitsound>
 	else if ( node->name() == "gethitsound" )
 	{
-		QStringList parts = QStringList::split( ",", node->text() );
+		QStringList parts = node->text().split( "," );
 		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
@@ -203,7 +202,7 @@ void cCharBaseDef::processNode( const cElement* node )
 	// <deathsound>0x12,0x13</deathsound>
 	else if ( node->name() == "deathsound" )
 	{
-		QStringList parts = QStringList::split( ",", node->text() );
+		QStringList parts = node->text().split( "," );
 		for ( unsigned int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
@@ -242,12 +241,12 @@ void cCharBaseDef::processNode( const cElement* node )
 	// <carve></carve>
 	else if ( node->name() == "carve" )
 	{
-		carve_ = node->text();
+		carve_ = node->text().toLatin1();
 	}
 	// <lootpacks></lootpacks>
 	else if ( node->name() == "lootpacks" )
 	{
-		lootPacks_ = node->text();
+		lootPacks_ = node->text().toLatin1();
 	}
 	// <inherit id="orc" />
 	// <inherit>orc</inherit>
@@ -319,7 +318,7 @@ cCharBaseDef* cCharBaseDefs::get( const QByteArray& id )
 		it = definitions.insert( id, def );
 	}
 
-	return it.data();
+	return it.value();
 }
 
 void cCharBaseDefs::loadBodyInfo()
@@ -543,11 +542,7 @@ cCharBaseDefs::cCharBaseDefs()
 
 cCharBaseDefs::~cCharBaseDefs()
 {
-	Iterator it;
-	for ( it = definitions.begin(); it != definitions.end(); ++it )
-	{
-		delete it.data();
-	}
+	qDeleteAll( definitions );
 	definitions.clear();
 }
 
@@ -556,7 +551,7 @@ void cCharBaseDefs::reset()
 	Iterator it;
 	for ( it = definitions.begin(); it != definitions.end(); ++it )
 	{
-		it.data()->reset();
+		it.value()->reset();
 	}
 }
 
@@ -565,7 +560,7 @@ void cCharBaseDefs::refreshScripts()
 	Iterator it;
 	for ( it = definitions.begin(); it != definitions.end(); ++it )
 	{
-		it.data()->refreshScripts();
+		it.value()->refreshScripts();
 	}
 }
 
@@ -699,7 +694,7 @@ cItemBaseDef* cItemBaseDefs::get( const QByteArray& id )
 		}
 	}
 
-	return it.data();
+	return it.value();
 }
 
 cItemBaseDefs::cItemBaseDefs()
@@ -708,11 +703,7 @@ cItemBaseDefs::cItemBaseDefs()
 
 cItemBaseDefs::~cItemBaseDefs()
 {
-	Iterator it;
-	for ( it = definitions.begin(); it != definitions.end(); ++it )
-	{
-		delete it.data();
-	}
+	qDeleteAll( definitions );
 	definitions.clear();
 }
 
@@ -721,7 +712,7 @@ void cItemBaseDefs::reset()
 	Iterator it;
 	for ( it = definitions.begin(); it != definitions.end(); ++it )
 	{
-		it.data()->reset();
+		it.value()->reset();
 	}
 }
 
@@ -730,7 +721,7 @@ void cItemBaseDefs::refreshScripts()
 	Iterator it;
 	for ( it = definitions.begin(); it != definitions.end(); ++it )
 	{
-		it.data()->refreshScripts();
+		it.value()->refreshScripts();
 	}
 }
 

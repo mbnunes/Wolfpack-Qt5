@@ -481,7 +481,7 @@ void cServer::setupConsole()
 	Console::instance()->send( tr( "Compiled on %1 %2\n" ).arg( __DATE__, __TIME__ ) );
 	Console::instance()->send( tr( "Compiled for Qt %1 (Using: %2 %3)\n" ).arg( QT_VERSION_STR, qVersion(), qSharedBuild() ? " Shared" : " Static" ) );
 	QString pythonBuild = Py_GetVersion();
-	pythonBuild = pythonBuild.left( pythonBuild.find( ' ' ) );
+	pythonBuild = pythonBuild.left( pythonBuild.indexOf( ' ' ) );
 
 #if defined(Py_ENABLE_SHARED)
 	pythonBuild += " Shared";

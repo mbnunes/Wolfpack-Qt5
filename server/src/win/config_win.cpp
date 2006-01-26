@@ -63,7 +63,7 @@ static QString getUOPath()
 			RegCloseKey( tempKey );
 
 			QString path( ( char* ) &exePath );
-			path = path.left( path.findRev( "\\" ) + 1 );
+			path = path.left( path.lastIndexOf( "\\" ) + 1 );
 			return path;
 		}
 		RegCloseKey( tempKey );
@@ -80,7 +80,7 @@ static QString getUOPath()
 			RegCloseKey( tempKey );
 
 			QString path( ( char* ) &exePath );
-			path = path.left( path.findRev( "\\" ) + 1 );
+			path = path.left( path.lastIndexOf( "\\" ) + 1 );
 			return path;
 		}
 		RegCloseKey( tempKey );
@@ -98,7 +98,7 @@ static QString getUOPath()
 QString cConfig::mulPath() const
 {
 	QDir thePath( mulPath_ );
-	if ( !thePath.exists() || thePath.entryList( "*.mul" ).isEmpty() )
+	if ( !thePath.exists() || thePath.entryList( QStringList() << "*.mul" ).isEmpty() )
 	{
 		Console::instance()->log( LOG_WARNING, tr( "UO Mul files not found at '%1', trying to locate...\n" ).arg( mulPath_ ) );
 		QString uoPath( getUOPath() );

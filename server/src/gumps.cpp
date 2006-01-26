@@ -54,7 +54,7 @@ quint32 cGump::addRawText( const QString& data )
 	if ( !text_.contains( data ) )
 		text_.push_back( data );
 
-	return text_.findIndex( data );
+	return text_.indexOf( data );
 }
 
 void cGump::addButton( qint32 buttonX, qint32 buttonY, quint16 gumpUp, quint16 gumpDown, qint32 returnCode )

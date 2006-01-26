@@ -153,7 +153,7 @@ public:
 
 	unsigned int flags() const;
 	QString version( void ) const;
-	QString lang( void ) const;
+	QByteArray lang( void ) const;
 	QString ip( void ) const;
 
 	P_PLAYER player( void ) const;
@@ -307,7 +307,7 @@ private:
 	quint8 _walkSequence;
 	quint8 lastPacket;
 	eSocketState _state;
-	QString _lang;
+	QByteArray _lang;
 	cTargetRequest* targetRequest;
 	cAccount* _account;
 	P_PLAYER _player;
@@ -376,7 +376,7 @@ inline QString cUOSocket::version( void ) const
 	return _version;
 }
 
-inline QString cUOSocket::lang( void ) const
+inline QByteArray cUOSocket::lang( void ) const
 {
 	return _lang;
 }

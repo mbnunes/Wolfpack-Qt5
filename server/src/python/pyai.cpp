@@ -140,7 +140,7 @@ static PyObject* wpAI_onSpeechInput( wpAI* self, PyObject* args )
 		Py_RETURN_FALSE;
 
 	QString str = getArgStr( 1 );
-	self->pAI->onSpeechInput( player, str.upper() );
+	self->pAI->onSpeechInput( player, str.toUpper() );
 
 	Py_RETURN_TRUE;
 }

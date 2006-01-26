@@ -93,7 +93,7 @@ void cParty::addMember( P_PLAYER player, bool update )
 void cParty::removeMember( P_PLAYER player, bool update )
 {
 	removeCanidate( player );
-	members_.remove( player );
+	members_.removeAll( player );
 	player->setParty( 0 );
 
 	// Update the party
@@ -131,7 +131,7 @@ void cParty::removeMember( P_PLAYER player, bool update )
 
 void cParty::removeCanidate( P_PLAYER player )
 {
-	canidates_.remove( player );
+	canidates_.removeAll( player );
 }
 
 void cParty::addCanidate( P_PLAYER player )
@@ -203,7 +203,7 @@ void cParty::setLootingAllowed( P_PLAYER player, bool allowed )
 			lootingAllowed_.append( player );
 	}
 	else
-		lootingAllowed_.remove( player );
+		lootingAllowed_.removeAll( player );
 }
 
 /*!

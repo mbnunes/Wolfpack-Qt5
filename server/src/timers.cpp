@@ -104,7 +104,7 @@ void cTimer::saveInt( unsigned int id, const QString& key, int value )
  */
 void cTimer::saveString( unsigned int id, const QString& key, const QString& value )
 {
-	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "string" ).arg( PersistentBroker::instance()->quoteString( value.utf8() ) ) );
+	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "string" ).arg( PersistentBroker::instance()->quoteString( value.toUtf8() ) ) );
 }
 
 void cTimer::saveChar( unsigned int id, const QString& key, P_CHAR character )

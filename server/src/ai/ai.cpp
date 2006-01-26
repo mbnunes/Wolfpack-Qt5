@@ -266,7 +266,7 @@ void AbstractAI::NPCscheck()
 	}
 
 	// Setting next time
-	Q_UINT16 aiCheckNPCsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
+	ushort aiCheckNPCsInterval_ = ( ushort ) floor( Config::instance()->checkAINPCsTime() * MY_CLOCKS_PER_SEC );
 
 	m_npc->setAINpcsCheckTime( Server::instance()->time() + aiCheckNPCsInterval_ );
 }
@@ -299,7 +299,7 @@ void AbstractAI::ITEMscheck()
 	}
 
 	// Setting next time
-	Q_UINT16 aiCheckITEMsInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
+	ushort aiCheckITEMsInterval_ = ( ushort ) floor( Config::instance()->checkAIITEMsTime() * MY_CLOCKS_PER_SEC );
 
 	m_npc->setAIItemsCheckTime( Server::instance()->time() + aiCheckITEMsInterval_ );
 }

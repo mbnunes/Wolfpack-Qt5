@@ -286,8 +286,8 @@ protected:
 	quint16 aiCheckInterval_;
 
 	// NPC AI check time intervall for Loop for NPCs and Items (in msec)
-	Q_UINT16 aiCheckNPCsInterval_;
-	Q_UINT16 aiCheckITEMsInterval_;
+	ushort aiCheckNPCsInterval_;
+	ushort aiCheckITEMsInterval_;
 };
 
 inline quint32 cNPC::additionalFlags() const

@@ -163,7 +163,7 @@ void cMultiCache::unload()
 	// Clear existing definitions
 	while ( multis.begin() != multis.end() )
 	{
-		delete multis.begin().data();
+		delete multis.begin().value();
 		multis.erase( multis.begin() );
 	}
 
@@ -203,7 +203,7 @@ void cMultiCache::load()
 	ushort currentID = 0;
 	while ( !indexStream.atEnd() )
 	{
-		indexFile.at( currentID * 12 );
+		indexFile.seek( currentID * 12 );
 		indexStream >> indexData.start;
 		indexStream >> indexData.length;
 		indexStream >> indexData.unknown;
@@ -216,7 +216,7 @@ void cMultiCache::load()
 
 		QList<multiItem_st> items;
 
-		multiFile.at( indexData.start );
+		multiFile.seek( indexData.start );
 		QDataStream multiStream( &multiFile );
 		multiStream.setByteOrder( QDataStream::LittleEndian );
 
@@ -252,7 +252,7 @@ MultiDefinition* cMultiCache::getMulti( ushort id )
 {
 	QMap<ushort, MultiDefinition*>::const_iterator it = multis.find( id );
 	if ( it != multis.end() )
-		return it.data();
+		return it.value();
 	else
 		return 0;
 }

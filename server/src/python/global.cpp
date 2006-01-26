@@ -419,7 +419,7 @@ static PyObject* wpGuilds( PyObject* /*self*/, PyObject* /*args*/ )
 	PyObject* list = PyList_New( 0 );
 
 	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it )
-		PyList_AppendStolen( list, it.data()->getPyObject() );
+		PyList_AppendStolen( list, it.value()->getPyObject() );
 
 	return list;
 }
@@ -926,7 +926,8 @@ static PyObject* wpEffect( PyObject* self, PyObject* args )
 	Coord displaypos = getArgCoord( 1 );
 
 	cUOSocket* mSock;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( mSock->player() && mSock->player()->pos().distance( displaypos ) <= mSock->player()->visualRange() )
 			mSock->send( &effect );
@@ -1901,7 +1902,7 @@ static PyObject* wpGetOption( PyObject* /*self*/, PyObject* args )
 	QString arg_def = getArgStr( 1 );
 	QString value;
 	World::instance()->getOption( arg_key, value, arg_def );
-	return PyString_FromString( value );
+	return PyString_FromString( value.toLatin1().constData() );
 }
 
 /*
@@ -2098,9 +2099,17 @@ static PyMethodDef wpGlobal[] =
 	\description This function resets the iterator to the first available socket
 	and returns it.
 */
+QList<cUOSocket*> sockets;
+int socketsIndex;
+
 static PyObject* wpSocketsFirst( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	return PyGetSocketObject( Network::instance()->first() );
+	socketsIndex = 0;
+	sockets = Network::instance()->sockets();
+	if ( socketsIndex < sockets.count() - 1 )
+		return PyGetSocketObject( sockets[socketsIndex] );
+	else
+		return PyGetSocketObject( 0 );
 }
 
 /*
@@ -2111,7 +2120,10 @@ static PyObject* wpSocketsFirst( PyObject* /*self*/, PyObject* /*args*/ )
 */
 static PyObject* wpSocketsNext( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	return PyGetSocketObject( Network::instance()->next() );
+	if ( ++socketsIndex < sockets.count() - 1 )
+		return PyGetSocketObject( sockets[socketsIndex] );
+	else
+		return PyGetSocketObject( 0 );
 }
 
 /*
@@ -2208,7 +2220,7 @@ static PyObject* wpAccountsAcls( PyObject* self, PyObject* args )
 	{
 		QString name = it.key();
 		if ( !name.isEmpty() )
-			PyList_AppendStolen( list, PyString_FromString( name ) );
+			PyList_AppendStolen( list, PyString_FromString( name.toLatin1().constData() ) );
 	}
 
 	return list;
@@ -2252,7 +2264,7 @@ static PyObject* wpAccountsAcl( PyObject* self, PyObject* args )
 
 		for ( QMap<QString, bool>::const_iterator it = ( *git ).begin(); it != ( *git ).end(); ++it ) {
 			PyObject *key = QString2Python(it.key());
-			PyDict_SetItem( dict2, key, it.data() ? Py_True : Py_False );
+			PyDict_SetItem( dict2, key, it.value() ? Py_True : Py_False );
 			Py_DECREF(key);
 		}
 
@@ -2445,7 +2457,7 @@ static PyObject* wpSettingsGetString( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "sss|b:getString(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
 
-	return PyString_FromString( Config::instance()->getString( pyGroup, pyKey, pyDef, create ) );
+	return PyString_FromString( Config::instance()->getString( pyGroup, pyKey, pyDef, create ).toLatin1().constData() );
 }
 
 /*

@@ -37,10 +37,7 @@
 
 cGuilds::~cGuilds()
 {
-	for ( iterator it = begin(); it != end(); ++it )
-	{
-		delete it.data();
-	}
+	qDeleteAll( guilds );
 }
 
 unsigned int cGuilds::findFreeSerial()
@@ -49,9 +46,9 @@ unsigned int cGuilds::findFreeSerial()
 
 	for ( iterator it = begin(); it != end(); ++it )
 	{
-		if ( it.data()->serial() >= serial )
+		if ( it.value()->serial() >= serial )
 		{
-			serial = it.data()->serial() + 1;
+			serial = it.value()->serial() + 1;
 		}
 	}
 
@@ -69,7 +66,7 @@ void cGuilds::save()
 
 	for ( iterator it = begin(); it != end(); ++it )
 	{
-		it.data()->save();
+		it.value()->save();
 	}
 }
 
@@ -274,7 +271,7 @@ cGuild::~cGuild()
 		unsigned int serial = *it;
 		cGuild *guild = Guilds::instance()->findGuild(serial);
 		if (guild && guild != this) {
-			guild->allies_.remove(serial_);
+			guild->allies_.removeAll(serial_);
 		}
 	}
 
@@ -282,7 +279,7 @@ cGuild::~cGuild()
 		unsigned int serial = *it;
 		cGuild *guild = Guilds::instance()->findGuild(serial);
 		if (guild && guild != this) {
-			guild->enemies_.remove(serial_);
+			guild->enemies_.removeAll(serial_);
 		}
 	}
 }
@@ -307,9 +304,9 @@ void cGuilds::registerGuild( cGuild* guild )
 
 	if ( it != guilds.end() )
 	{
-		if ( it.data() != guild )
+		if ( it.value() != guild )
 		{
-			delete it.data();
+			delete it.value();
 			guilds.erase( it );
 		}
 		else
@@ -318,7 +315,7 @@ void cGuilds::registerGuild( cGuild* guild )
 		}
 	}
 
-	guilds.insert( guild->serial(), guild, true );
+	guilds.insert( guild->serial(), guild );
 }
 
 void cGuilds::unregisterGuild( cGuild* guild )
@@ -336,7 +333,7 @@ cGuild* cGuilds::findGuild( unsigned int serial )
 
 		if ( it != end() )
 		{
-			result = it.data();
+			result = it.value();
 		}
 	}
 
@@ -347,7 +344,7 @@ void cGuild::addMember( P_PLAYER member, MemberInfo* info )
 {
 	if ( !members_.contains( member ) )
 	{
-		canidates_.remove( member );
+		canidates_.removeAll( member );
 		members_.append( member );
 
 		if ( memberinfo_.contains( member ) )
@@ -368,8 +365,8 @@ void cGuild::addMember( P_PLAYER member, MemberInfo* info )
 
 void cGuild::removeMember( P_PLAYER member )
 {
-	canidates_.remove( member );
-	members_.remove( member );
+	canidates_.removeAll( member );
+	members_.removeAll( member );
 	member->setGuild( 0 );
 	memberinfo_.remove( member );
 
@@ -391,8 +388,8 @@ void cGuild::addCanidate( P_PLAYER canidate )
 
 void cGuild::removeCanidate( P_PLAYER canidate )
 {
-	members_.remove( canidate );
-	canidates_.remove( canidate );
+	members_.removeAll( canidate );
+	canidates_.removeAll( canidate );
 	canidate->setGuild( 0 );
 }
 
@@ -1195,13 +1192,13 @@ void cGuild::addAlly(cGuild *ally) {
 }
 
 void cGuild::removeAlly(cGuild *ally) {
-	allies_.remove(ally->serial());
-	ally->allies_.remove(serial_); // Remove us from their list
+	allies_.removeAll( ally->serial() );
+	ally->allies_.removeAll( serial_ ); // Remove us from their list
 }
 
 void cGuild::removeEnemy(cGuild *enemy) {
-	enemies_.remove(enemy->serial());
-	enemy->enemies_.remove(serial_); // Remove us from their list
+	enemies_.removeAll( enemy->serial() );
+	enemy->enemies_.removeAll( serial_ ); // Remove us from their list
 }
 
 bool cGuild::isAllied(cGuild *other) {

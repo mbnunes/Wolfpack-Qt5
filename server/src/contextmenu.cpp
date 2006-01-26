@@ -53,8 +53,8 @@ void cContextMenu::processNode( const cElement* Tag )
 		ushort color = Tag->getAttribute( "color" ).toUShort( &ok );
 		if ( !ok )
 			color = 0; // Default
-		bool checkenabled = Tag->getAttribute( "checkenabled", "false" ).lower() == "true";
-		bool checkvisible = Tag->getAttribute( "checkvisible", "false" ).lower() == "true";
+		bool checkenabled = Tag->getAttribute( "checkenabled", "false" ).toLower() == "true";
+		bool checkvisible = Tag->getAttribute( "checkvisible", "false" ).toLower() == "true";
 		entries_.push_back( new cContextMenuEntry( msgid, tag, color, checkvisible, checkenabled ) );
 	}
 }
@@ -146,7 +146,7 @@ void cContextMenu::recreateEvents()
 {
 	scriptChain_.clear();
 	// Walk the eventList and recreate
-	QStringList eventList = QStringList::split( ",", scripts_ );
+	QStringList eventList = scripts_.split( "," );
 	QStringList::const_iterator myIter( eventList.begin() );
 	for ( ; myIter != eventList.end(); ++myIter )
 	{
@@ -199,7 +199,7 @@ cContextMenu* cAllContextMenus::getMenu( const QString& bindmenu ) const
 	const_iterator it( menus_.find( bindmenu ) );
 	if ( it != menus_.end() )
 	{
-		return it.data(); // returns a copy of the menu
+		return it.value(); // returns a copy of the menu
 	}
 	return 0;
 }
@@ -209,8 +209,8 @@ void cAllContextMenus::unload()
 	const_iterator it( menus_.begin() );
 	for ( ; it != menus_.end(); ++it )
 	{
-		it.data()->disposeEntries();
-		delete it.data();
+		it.value()->disposeEntries();
+		delete it.value();
 	}
 	cComponent::unload();
 }

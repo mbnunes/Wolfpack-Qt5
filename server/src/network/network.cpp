@@ -41,23 +41,22 @@
 
 // Library Includes
 #include <QStringList>
-#include <Q3PtrList>
+#include <QList>
 #include <QTcpServer>
 
 
 class cNetwork::cNetworkPrivate
 {
 public:
-	Q3PtrList<cUOSocket> uoSockets;
-	Q3PtrList<cUOSocket> loginSockets;
+	QList<cUOSocket*> uoSockets;
+	QList<cUOSocket*> loginSockets;
+	QMutableListIterator<cUOSocket*> internalIterator;
 	QTcpServer* loginServer_;
 	QTcpServer* gameServer_;
 	QMutex mutex;
 
-	cNetworkPrivate()
+	cNetworkPrivate() : internalIterator( uoSockets )
 	{
-		loginSockets.setAutoDelete( false );
-		uoSockets.setAutoDelete( false );
 		loginServer_ = 0;
 		gameServer_ = 0;
 	}
@@ -109,7 +108,7 @@ void cNetwork::partingLoginServerConnection()
 {
 	cUOSocket* uoSocket = qobject_cast<cUOSocket *>(sender());
 	uoSocket->log( tr( "Client disconnected.\n" ) );
-	d->loginSockets.remove( uoSocket );
+	d->loginSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();
 }
 
@@ -118,7 +117,7 @@ void cNetwork::partingGameServerConnection()
 	cUOSocket* uoSocket = qobject_cast<cUOSocket *>(sender());
 	uoSocket->log( tr( "Client disconnected.\n" ) );
 	uoSocket->disconnect();
-	d->uoSockets.remove( uoSocket );
+	d->uoSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();
 }
 
@@ -163,7 +162,7 @@ void cNetwork::reload()
 void cNetwork::unload()
 {
 	// Disconnect all connected sockets
-	Q3PtrList<cUOSocket> socketList = d->uoSockets;
+	QList<cUOSocket*> socketList = d->uoSockets;
 	d->uoSockets.clear();
 	foreach (cUOSocket *socket, socketList) {
 		socket->disconnect();
@@ -199,42 +198,24 @@ void cNetwork::unlock()
 	d->mutex.unlock();
 }
 
-cUOSocket* cNetwork::first()
-{
-	cUOSocket *result = d->uoSockets.first();
-
-	// Only return in-game sockets with a player object.
-	while (result && !result->player()) {
-		result = d->uoSockets.next();
-	}
-
-	return result;
-}
-
-cUOSocket* cNetwork::next()
-{
-	cUOSocket *result = d->uoSockets.next();
-
-	while (result && !result->player()) {
-		result = d->uoSockets.next();
-	}
-
-	return result;
-}
-
 quint32 cNetwork::count()
 {
 	return d->uoSockets.count();
 }
 
-Q3PtrListIterator<cUOSocket> cNetwork::getIterator()
+QListIterator<cUOSocket*> cNetwork::getIterator()
 {
-	return Q3PtrListIterator<cUOSocket>( d->uoSockets );
+	return QListIterator<cUOSocket*>( d->uoSockets );
+}
+
+QList<cUOSocket*> cNetwork::sockets() const
+{
+	return d->uoSockets;
 }
 
 void cNetwork::broadcast( const QString& message, quint16 color, quint16 font )
 {
-	for ( cUOSocket*socket = d->uoSockets.first(); socket; socket = d->uoSockets.next() )
+	foreach ( cUOSocket* socket, d->uoSockets )
 	{
 		socket->sysMessage( message, color, font );
 	}

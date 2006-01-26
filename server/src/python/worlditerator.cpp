@@ -209,7 +209,7 @@ static PyObject* wpDefinitionsIterator_getAttr( wpDefinitionsIterator* self, cha
 		if (*(self->iter) == Definitions::instance()->end(self->type)) {
 			Py_RETURN_NONE;
 		} else {
-			PyObject *result = self->iter->data()->getPyObject();
+			PyObject *result = self->iter->value()->getPyObject();
 			(*(self->iter))++;
 			return result;
 		}
@@ -222,7 +222,7 @@ static PyObject* wpDefinitionsIterator_getAttr( wpDefinitionsIterator* self, cha
 		if (*(self->iter) == Definitions::instance()->end(self->type)) {
 			Py_RETURN_NONE;
 		} else {
-			PyObject *result = self->iter->data()->getPyObject();
+			PyObject *result = self->iter->value()->getPyObject();
 			(*(self->iter))++;
 			return result;
 		}

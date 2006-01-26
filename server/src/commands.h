@@ -87,7 +87,7 @@ inline cAcl* cCommands::getACL( const QString& key ) const
 	QMap<QString, cAcl*>::const_iterator it = _acls.find( key );
 
 	if ( it != _acls.end() )
-		return it.data();
+		return it.value();
 	else
 		return 0;
 }

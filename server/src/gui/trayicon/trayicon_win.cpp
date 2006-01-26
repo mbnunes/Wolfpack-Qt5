@@ -42,7 +42,6 @@ static PtrShell_NotifyIcon ptrShell_NotifyIcon = 0;
 static void resolveLibs()
 {
 	QLibrary lib("shell32");
-	lib.setAutoUnload( FALSE );
 	static bool triedResolve = FALSE;
 	if ( !ptrShell_NotifyIcon && !triedResolve ) {
 		triedResolve = TRUE;
@@ -92,7 +91,7 @@ public:
  			if ( !iconObject->toolTip().isNull() ) {
 				// Tip is limited to 63 + NULL; lstrcpyn appends a NULL terminator.
 				QString tip = iconObject->toolTip().left( 63 ) + QChar();
-				lstrcpynA(tnd.szTip, (const char*)tip.local8Bit(), QMIN( tip.length()+1, 64 ) );
+				lstrcpynA(tnd.szTip, (const char*)tip.toLocal8Bit(), qMin( tip.length()+1, 64 ) );
  			}
  		}
 
@@ -119,8 +118,8 @@ public:
 			if ( !iconObject->toolTip().isNull() ) {
 				// Tip is limited to 63 + NULL; lstrcpyn appends a NULL terminator.
 				QString tip = iconObject->toolTip().left( 63 ) + QChar();
-				lstrcpynW(tnd.szTip, (TCHAR*)tip.unicode(), QMIN( tip.length()+1, 64 ) );
-				//		lstrcpynW(tnd.szTip, (TCHAR*)qt_winTchar( tip, FALSE ), QMIN( tip.length()+1, 64 ) );
+				lstrcpynW(tnd.szTip, (TCHAR*)tip.unicode(), qMin( tip.length()+1, 64 ) );
+				//		lstrcpynW(tnd.szTip, (TCHAR*)qt_winTchar( tip, FALSE ), qMin( tip.length()+1, 64 ) );
 			}
 		}
 		return ptrShell_NotifyIcon(msg, &tnd);
@@ -154,18 +153,19 @@ public:
 			{
 				QMouseEvent *e = 0;
 				QPoint gpos = QCursor::pos();
-				switch (m->lParam) {
-					case WM_MOUSEMOVE: e = new QMouseEvent( QEvent::MouseMove, mapFromGlobal( gpos ), gpos, 0, 0 );	break;
-					case WM_LBUTTONDOWN: e = new QMouseEvent( QEvent::MouseButtonPress, mapFromGlobal( gpos ), gpos, Qt::LeftButton, Qt::LeftButton ); break;
-					case WM_LBUTTONUP: e = new QMouseEvent( QEvent::MouseButtonRelease, mapFromGlobal( gpos ), gpos, Qt::LeftButton, Qt::LeftButton ); break;
-					case WM_LBUTTONDBLCLK: e = new QMouseEvent( QEvent::MouseButtonDblClick, mapFromGlobal( gpos ), gpos, Qt::LeftButton, Qt::LeftButton );	break;
-					case WM_RBUTTONDOWN: e = new QMouseEvent( QEvent::MouseButtonPress, mapFromGlobal( gpos ), gpos, Qt::RightButton, Qt::RightButton ); break;
-					case WM_RBUTTONUP: e = new QMouseEvent( QEvent::MouseButtonRelease, mapFromGlobal( gpos ), gpos, Qt::RightButton, Qt::RightButton ); break;
-					case WM_RBUTTONDBLCLK: e = new QMouseEvent( QEvent::MouseButtonDblClick, mapFromGlobal( gpos ), gpos, Qt::RightButton, Qt::RightButton ); break;
-					case WM_MBUTTONDOWN: e = new QMouseEvent( QEvent::MouseButtonPress, mapFromGlobal( gpos ), gpos, Qt::MidButton, Qt::MidButton ); break;
-					case WM_MBUTTONUP: e = new QMouseEvent( QEvent::MouseButtonRelease, mapFromGlobal( gpos ), gpos, Qt::MidButton, Qt::MidButton ); break;
-					case WM_MBUTTONDBLCLK: e = new QMouseEvent( QEvent::MouseButtonDblClick, mapFromGlobal( gpos ), gpos, Qt::MidButton, Qt::MidButton ); break;
-					case WM_CONTEXTMENU: e = new QMouseEvent( QEvent::MouseButtonRelease, mapFromGlobal( gpos ), gpos, Qt::RightButton, Qt::RightButton ); break;
+				switch (m->lParam) 
+				{
+					case WM_MOUSEMOVE:		e = new QMouseEvent( QEvent::MouseMove, mapFromGlobal( gpos ), gpos, Qt::NoButton, Qt::NoButton, Qt::NoModifier );					break;
+					case WM_LBUTTONDOWN:	e = new QMouseEvent( QEvent::MouseButtonPress, mapFromGlobal( gpos ), gpos, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier );		break;
+					case WM_LBUTTONUP:		e = new QMouseEvent( QEvent::MouseButtonRelease, mapFromGlobal( gpos ), gpos, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier );		break;
+					case WM_LBUTTONDBLCLK:	e = new QMouseEvent( QEvent::MouseButtonDblClick, mapFromGlobal( gpos ), gpos, Qt::LeftButton, Qt::LeftButton, Qt::NoModifier );	break;
+					case WM_RBUTTONDOWN:	e = new QMouseEvent( QEvent::MouseButtonPress, mapFromGlobal( gpos ), gpos, Qt::RightButton, Qt::RightButton, Qt::NoModifier );		break;
+					case WM_RBUTTONUP:		e = new QMouseEvent( QEvent::MouseButtonRelease, mapFromGlobal( gpos ), gpos, Qt::RightButton, Qt::RightButton, Qt::NoModifier );	break;
+					case WM_RBUTTONDBLCLK:	e = new QMouseEvent( QEvent::MouseButtonDblClick, mapFromGlobal( gpos ), gpos, Qt::RightButton, Qt::RightButton, Qt::NoModifier );	break;
+					case WM_MBUTTONDOWN:	e = new QMouseEvent( QEvent::MouseButtonPress, mapFromGlobal( gpos ), gpos, Qt::MidButton, Qt::MidButton, Qt::NoModifier );			break;
+					case WM_MBUTTONUP:		e = new QMouseEvent( QEvent::MouseButtonRelease, mapFromGlobal( gpos ), gpos, Qt::MidButton, Qt::MidButton, Qt::NoModifier );		break;
+					case WM_MBUTTONDBLCLK:	e = new QMouseEvent( QEvent::MouseButtonDblClick, mapFromGlobal( gpos ), gpos, Qt::MidButton, Qt::MidButton, Qt::NoModifier );		break;
+					case WM_CONTEXTMENU:	e = new QMouseEvent( QEvent::MouseButtonRelease, mapFromGlobal( gpos ), gpos, Qt::RightButton, Qt::RightButton, Qt::NoModifier );	break;
 				}
 				if ( e ) {
 					bool res = QApplication::sendEvent( iconObject, e );

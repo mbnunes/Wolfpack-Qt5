@@ -91,7 +91,7 @@ void cTileCache::load()
 	for ( i = 0; i < 512; ++i )
 	{
 		// Skip the header (Use unknown)
-		input.at( ( i * ( 4 + ( 32 * 26 ) ) ) + 4 );
+		input.seek( ( i * ( 4 + ( 32 * 26 ) ) ) + 4 );
 
 		// Read all 32 blocks
 		for ( j = 0; j < 32; ++j )
@@ -109,7 +109,7 @@ void cTileCache::load()
 	for ( i = 0; i < 512; ++i )
 	{
 		// Skip the header (Use unknown)
-		input.at( skipLand + ( i * ( 4 + ( 32 * 37 ) ) ) + 4 );
+		input.seek( skipLand + ( i * ( 4 + ( 32 * 37 ) ) ) + 4 );
 
 		// Read all 32 blocks
 		for ( j = 0; j < 32; ++j )

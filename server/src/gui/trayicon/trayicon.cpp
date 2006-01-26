@@ -35,8 +35,10 @@
   \sa show
 */
 TrayIcon::TrayIcon( QObject *parent, const char *name )
-: QObject(parent, name), pop(0), d(0)
+: QObject(parent), pop(0), d(0)
 {
+	if ( name )
+		setObjectName( name );
 	v_isWMDock = FALSE;
 }
 
@@ -48,8 +50,10 @@ TrayIcon::TrayIcon( QObject *parent, const char *name )
   \sa show
 */
 TrayIcon::TrayIcon( const QPixmap &icon, const QString &tooltip, QMenu *popup, QObject *parent, const char *name )
-: QObject(parent, name), pop(popup), pm(icon), tip(tooltip), d(0)
+: QObject(parent), pop(popup), pm(icon), tip(tooltip), d(0)
 {
+	if ( name )
+		setObjectName( name );
 	v_isWMDock = FALSE;
 
 	if ( !pm.width() || !pm.height() )
@@ -238,9 +242,7 @@ void TrayIcon::mouseReleaseEvent( QMouseEvent *e )
 			if ( pop ) {
 				// Necessary to make keyboard focus
 				// and menu closing work on Windows.
-				pop->setActiveWindow();
 				pop->popup( e->globalPos() );
-				pop->setActiveWindow();
 				e->accept();
 			}
 			break;

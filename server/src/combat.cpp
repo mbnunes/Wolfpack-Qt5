@@ -122,14 +122,14 @@ cFightInfo::~cFightInfo()
 	// Unregister the fight info object with the combat system.
 	if ( attacker_ )
 	{
-		attacker_->fights().remove( this );
+		attacker_->fights().removeAll( this );
 	}
 
 	if ( victim_ )
 	{
-		victim_->fights().remove( this );
+		victim_->fights().removeAll( this );
 	}
-	Combat::instance()->fights().remove( this );
+	Combat::instance()->fights().removeAll( this );
 }
 
 void cFightInfo::refresh()
@@ -146,7 +146,7 @@ void cFightInfo::clear()
 			victim_->setAttackTarget( 0 );
 		}
 
-		victim_->fights().remove( this );
+		victim_->fights().removeAll( this );
 	}
 
 	if ( attacker_ )
@@ -156,7 +156,7 @@ void cFightInfo::clear()
 			attacker_->setAttackTarget( 0 );
 		}
 
-		attacker_->fights().remove( this );
+		attacker_->fights().removeAll( this );
 	}
 
 	attacker_ = 0;

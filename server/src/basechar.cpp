@@ -409,7 +409,7 @@ void cBaseChar::save( cBufferedWriter& writer )
 	ItemContainer::iterator it = content_.begin();
 	for ( ; it != content_.end(); ++it )
 	{
-		it.data()->save( writer );
+		it.value()->save( writer );
 	}
 }
 
@@ -669,7 +669,8 @@ void cBaseChar::action( unsigned char id, unsigned char speed, bool reverse )
 		action.setBackwards( 1 );
 	}
 
-	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket*socket, sockets )
 	{
 		if ( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) && ( !isHidden() || socket->player()->isGM() ) )
 			socket->send( &action );
@@ -954,9 +955,12 @@ void cBaseChar::wear( P_ITEM pi )
 	packet.setWearer( this->serial() );
 	packet.setSerial( pi->serial() );
 	packet.fromItem( pi );
-	for ( cUOSocket*socket = Network::instance()->first(); socket != 0; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* socket, sockets )
+	{
 		if ( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) )
 			socket->send( &packet );
+	}
 }
 
 void cBaseChar::unhide()
@@ -1134,9 +1138,12 @@ void cBaseChar::emote( const QString& emote, ushort color )
 	textSpeech.setColor( color );
 	textSpeech.setText( emote );
 
-	for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* mSock, sockets )
+	{
 		if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->send( &textSpeech );
+	}
 }
 
 bool cBaseChar::checkSkill( ushort skill, int min, int max, bool advance )
@@ -1179,7 +1186,7 @@ cItem* cBaseChar::atLayer( cBaseChar::enLayer layer ) const
 {
 	ItemContainer::const_iterator it = content_.find( layer );
 	if ( it != content_.end() )
-		return it.data();
+		return it.value();
 	return 0;
 }
 
@@ -2467,7 +2474,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 				// this property means: from,to
 				if ( basedef_->hasStrProperty( "bloodcolor" ) )
 				{
-					QStringList bloodColors = QStringList::split( ",", basedef_->getStrProperty( "bloodcolor" ) );
+					QStringList bloodColors = basedef_->getStrProperty( "bloodcolor" ).split( "," );
 					if ( bloodColors.count() == 2 )
 					{
 						bool ok1, ok2;
@@ -3219,7 +3226,8 @@ bool cBaseChar::kill( cUObject* source )
 	cUOTxRemoveObject rObject;
 	rObject.setSerial( serial_ );
 
-	for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* mSock, sockets )
 	{
 		if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 		{

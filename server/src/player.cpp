@@ -236,7 +236,8 @@ void cPlayer::update( bool excludeself )
 	cUOTxUpdatePlayer update;
 	update.fromChar( this );
 
-	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* socket, sockets )
 	{
 		if ( socket != socket_ && socket->canSee( this ) )
 		{
@@ -258,7 +259,8 @@ void cPlayer::resend( bool clean )
 	cUOTxRemoveObject remove;
 	remove.setSerial( serial() );
 
-	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* socket, sockets )
 	{
 		// Don't send such a packet to ourself
 		if ( socket->canSee( this ) )
@@ -279,7 +281,7 @@ void cPlayer::resend( bool clean )
 				// Send equipment tooltips to other players as well
 				for ( ItemContainer::const_iterator it( content_.begin() ); it != content_.end(); ++it )
 				{
-					it.data()->sendTooltip( socket );
+					it.value()->sendTooltip( socket );
 				}
 			}
 		}
@@ -296,7 +298,7 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 	if ( color == 0xFFFF )
 		color = saycolor_;
 
-	QString lang;
+	QByteArray lang;
 
 	if ( socket_ )
 		lang = socket_->lang();
@@ -360,7 +362,8 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 	else
 	{
 		// Send to all clients in range
-		for ( cUOSocket*mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* mSock, sockets )
 		{
 			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
@@ -744,9 +747,12 @@ void cPlayer::soundEffect( UI16 soundId, bool hearAll )
 	else
 	{
 		// Send the sound to all sockets in range
-		for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* s, sockets )
+		{
 			if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
 				s->send( &pSoundEffect );
+		}
 	}
 }
 
@@ -820,7 +826,7 @@ bool cPlayer::inWorld()
 
 void cPlayer::giveNewbieItems( quint8 skill )
 {
-	const cElement* startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString( "default" ) : Skills::instance()->getSkillDef( skill ).lower() );
+	const cElement* startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString( "default" ) : Skills::instance()->getSkillDef( skill ).toLower() );
 
 	// No Items defined
 	if ( !startItems )
@@ -861,7 +867,7 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 			}
 			else if ( node->hasAttribute( "randomlist" ) && node->getAttribute( "randomlist" ) != QString::null )
 			{
-				QStringList RandValues = QStringList::split( ",", node->getAttribute( "randomlist" ) );
+				QStringList RandValues = node->getAttribute( "randomlist" ).split( "," );
 				pItem = cItem::createFromList( RandValues[RandomNum( 0, RandValues.size() - 1 )] );
 			}
 

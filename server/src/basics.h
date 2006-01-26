@@ -196,7 +196,7 @@ inline void cBufferedWriter::writeInt( unsigned int data, bool unbuffered )
 	if ( unbuffered )
 	{
 		flush();
-		d->file.writeBlock( ( char * ) &data, sizeof( data ) );
+		d->file.write( ( char * ) &data, sizeof( data ) );
 	}
 	else
 	{
@@ -223,7 +223,7 @@ inline void cBufferedWriter::writeShort( unsigned short data, bool unbuffered )
 	if ( unbuffered )
 	{
 		flush();
-		d->file.writeBlock( ( char * ) &data, sizeof( data ) );
+		d->file.write( ( char * ) &data, sizeof( data ) );
 	}
 	else
 	{
@@ -247,7 +247,7 @@ inline void cBufferedWriter::writeByte( unsigned char data, bool unbuffered )
 	if ( unbuffered )
 	{
 		flush();
-		d->file.writeBlock( ( const char * ) &data, sizeof( data ) );
+		d->file.write( ( const char * ) &data, sizeof( data ) );
 	}
 	else
 	{
@@ -262,7 +262,7 @@ inline void cBufferedWriter::writeByte( unsigned char data, bool unbuffered )
 
 inline void cBufferedWriter::writeUtf8( const QString& data, bool unbuffered )
 {
-	writeAscii( data.utf8(), unbuffered );
+	writeAscii( data.toUtf8(), unbuffered );
 }
 
 inline void cBufferedWriter::writeAscii( const QByteArray& data, bool unbuffered )
@@ -271,7 +271,7 @@ inline void cBufferedWriter::writeAscii( const QByteArray& data, bool unbuffered
 
 	if ( it != d->dictionary.end() )
 	{
-		writeInt( it.data(), unbuffered );
+		writeInt( it.value(), unbuffered );
 	}
 	else
 	{
@@ -285,7 +285,7 @@ inline void cBufferedWriter::writeRaw( const void* data, unsigned int size, bool
 	if ( unbuffered )
 	{
 		flush();
-		d->file.writeBlock( ( const char * ) data, size );
+		d->file.write( ( const char * ) data, size );
 	}
 	else
 	{

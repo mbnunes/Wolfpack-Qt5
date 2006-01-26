@@ -29,8 +29,8 @@
 #define __NETWORK_H__
 
 // Library Includes
-#include <q3ptrlist.h>
 #include <QObject>
+#include <QListIterator>
 
 // Wolfpack Includes
 #include "../platform.h"
@@ -61,10 +61,9 @@ public:
 
 	void lock();
 	void unlock();
-	cUOSocket* first();
-	cUOSocket* next();
 	quint32 count();
-	Q3PtrListIterator<cUOSocket> getIterator();
+	QListIterator<cUOSocket*> getIterator();
+	QList<cUOSocket*> sockets() const;
 
 	void broadcast( const QString& message, quint16 color = 0x84d, quint16 font = 0 );
 

@@ -363,12 +363,12 @@ public:
 
 	void setUsername( const QString& n )
 	{
-		this->setAsciiString( 1, n, 30 );
+		this->setAsciiString( 1, qPrintable(n), 30 );
 	}
 
 	void setPassword( const QString& n )
 	{
-		this->setAsciiString( 31, n, 30 );
+		this->setAsciiString( 31, qPrintable(n), 30 );
 	}
 };
 
@@ -679,11 +679,12 @@ public:
 	{
 	}
 
-	quint32 serial( void ) const
+	uint serial( void ) const
 	{
 		return getInt( 5 );
 	}
-	quint16 entryTag( void ) const
+
+	ushort entryTag( void ) const
 	{
 		return getShort( 9 );
 	}
@@ -696,7 +697,8 @@ public:
 	cUORxSetLanguage( const QByteArray& data ) : cUORxMultiPurpose( data )
 	{
 	}
-	QString language( void ) const
+
+	QByteArray language( void ) const
 	{
 		return this->getAsciiString( 5, 4 );
 	}

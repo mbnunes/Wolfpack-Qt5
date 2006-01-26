@@ -172,7 +172,7 @@ public:
 		if ( iter == sql_count_queries.end() )
 			return QString::null;
 		else
-			return iter.data();
+			return iter.value();
 	}
 
 	/*
@@ -185,7 +185,7 @@ public:
 		if ( iter == sql_queries.end() )
 			return QString::null;
 		else
-			return iter.data();
+			return iter.value();
 	}
 
 	/*

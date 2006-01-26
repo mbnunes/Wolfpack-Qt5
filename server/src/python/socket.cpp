@@ -648,7 +648,7 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 	// Build a packet
 	int packetLength = PyList_Size( list );
 
-	QByteArray buffer( packetLength );
+	QByteArray buffer( packetLength, 0 );
 
 	for ( int i = 0; i < packetLength; ++i )
 		buffer[i] = PyInt_AsLong( PyList_GetItem( list, i ) );

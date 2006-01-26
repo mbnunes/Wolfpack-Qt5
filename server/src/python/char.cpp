@@ -3069,7 +3069,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	*/
 	else if ( !strcmp( "scripts", name ) )
 	{
-		QStringList scripts = QStringList::split( ",", self->pChar->scriptList() );
+		QList<QByteArray> scripts = self->pChar->scriptList().split( ',' );
 		if ( self->pChar->basedef() )
 		{
 			const QList<cPythonScript*> &list = self->pChar->basedef()->baseScripts();
@@ -3082,7 +3082,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		}
 		PyObject* list = PyTuple_New( scripts.count() );
 		for ( uint i = 0; i < scripts.count(); ++i )
-			PyTuple_SetItem( list, i, PyString_FromString( scripts[i].toLatin1() ) );
+			PyTuple_SetItem( list, i, PyString_FromString( scripts[i] ) );
 		return list;
 	}
 	/*

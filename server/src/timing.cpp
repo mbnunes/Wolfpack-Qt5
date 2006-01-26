@@ -268,7 +268,8 @@ void cTiming::poll()
 	if ( ( Config::instance()->enableWeather() ) && ( nextStormCheck <= time ) )
 	{
 		// Loop to Clear old Storm Stuff
-		for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* socket, sockets )
 		{
 			socket->poll();
 			if ( !socket )
@@ -293,7 +294,7 @@ void cTiming::poll()
 		}
 
 		// Loop checking all Climatic Stuff
-		for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+		foreach ( cUOSocket* socket, sockets )
 		{
 			socket->poll();
 			if ( !socket )
@@ -354,7 +355,8 @@ void cTiming::poll()
 
 
 	// Periodic checks for connected players
-	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* socket, sockets )
 	{
 		socket->poll();
 		if ( !socket )
@@ -740,7 +742,7 @@ void cTiming::removeDecayItem( P_ITEM item )
 	{
 		if ( ( *it ).second == serial )
 		{
-			decayitems.remove( it );
+			decayitems.removeAll( *it );
 			return;
 		}
 	}
@@ -753,7 +755,7 @@ void cTiming::removeDecaySerial( SERIAL serial )
 	{
 		if ( ( *it ).second == serial )
 		{
-			decayitems.remove( it );
+			decayitems.removeAll( *it );
 			return;
 		}
 	}

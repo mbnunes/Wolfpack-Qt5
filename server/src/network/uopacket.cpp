@@ -81,7 +81,7 @@ cUOPacket::cUOPacket( cUOPacket& p ) : haveCompressed( false )
 /*!
   Constructs a packet of size \a size and filled with 0's.
 */
-cUOPacket::cUOPacket( quint32 size ) : rawPacket( size ), haveCompressed( false )
+cUOPacket::cUOPacket( quint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
 {
 	init();
 	rawPacket.fill( ( char ) 0 );
@@ -92,7 +92,7 @@ cUOPacket::cUOPacket( quint32 size ) : rawPacket( size ), haveCompressed( false 
   with 0's in all positions except for the first byte which contains
   the packet type.
 */
-cUOPacket::cUOPacket( quint8 packetId, quint32 size ) : rawPacket( size ), haveCompressed( false )
+cUOPacket::cUOPacket( quint8 packetId, quint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
 {
 	init();
 	rawPacket.fill( ( char ) 0 );
@@ -191,7 +191,7 @@ static bitTable[257] =
 */
 void cUOPacket::compress( void )
 {
-	QByteArray temp( rawPacket.size() * 2 ); // worst case scenario for memory size
+	QByteArray temp( rawPacket.size() * 2, 0 ); // worst case scenario for memory size
 	int bufferSize = 0; // 32 bits buffer size (bits)
 	qint32 buffer32 = 0; // 32 bits buffer to store the compressed data until it's larger than 1 byte
 	int codeSize = 0; // Size (in bits) of the Huffman code
@@ -228,7 +228,7 @@ void cUOPacket::compress( void )
 	{
 		temp[actByte++] = ( unsigned char ) ( buffer32 << 8 - bufferSize ) & 0xFF;//& 31;
 	}
-	compressedBuffer.duplicate( temp.data(), actByte );
+	compressedBuffer = QByteArray( temp.data(), actByte );
 }
 
 /*!

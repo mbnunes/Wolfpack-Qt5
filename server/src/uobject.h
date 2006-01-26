@@ -233,6 +233,7 @@ protected:
 	QString name_;
 	cPythonScript** scriptChain; // NULL Terminated Array
 	cSpawnRegion *spawnregion_;
+
 	// Things for building the SQL string
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 

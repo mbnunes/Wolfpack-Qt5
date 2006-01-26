@@ -82,7 +82,7 @@ bool Preferences::getBool( const QString& group, const QString& key, bool def, b
 			setBool( group, key, def );
 		return def;
 	}
-	if ( buffer_.contains( "true", false ) )
+	if ( buffer_.contains( "true", Qt::CaseInsensitive ) )
 		return true;
 	else
 		return false;
@@ -232,7 +232,7 @@ void Preferences::readData()
 	if ( !datafile.open( QIODevice::ReadOnly ) )
 	{
 		// error opening file
-		qWarning( "Error: cannot open preferences file " + d->file_ );
+		qWarning( qPrintable("Error: cannot open preferences file " + d->file_) );
 		datafile.close();
 		d->filestate_ = false;
 		return;
@@ -243,7 +243,7 @@ void Preferences::readData()
 	QDomDocument doc( "preferences" );
 	if ( !doc.setContent( &datafile ) )
 	{
-		qWarning( "Error: " + d->file_ + " is not a proper preferences file" );
+		qWarning( qPrintable("Error: " + d->file_ + " is not a proper preferences file") );
 		datafile.close();
 		d->formatstate_ = false;
 		return;
@@ -254,7 +254,7 @@ void Preferences::readData()
 	if ( doc.doctype().name() != "preferences" )
 	{
 		// wrong file type
-		qWarning( "Error: " + d->file_ + " is not a valid preferences file" );
+		qWarning( qPrintable("Error: " + d->file_ + " is not a valid preferences file") );
 		d->formatstate_ = false;
 		return;
 	}
@@ -262,7 +262,7 @@ void Preferences::readData()
 	if ( root.attribute( "application" ) != d->format_ )
 	{
 		// right file type, wrong application
-		qWarning( "Error: " + d->file_ + " is not a preferences file for " + d->format_ );
+		qWarning( qPrintable("Error: " + d->file_ + " is not a preferences file for " + d->format_) );
 		d->formatstate_ = false;
 		return;
 	}
@@ -350,7 +350,7 @@ void Preferences::writeData()
 
 			option = doc.createElement( "option" );
 			option.setAttribute( "key", pit.key() );
-			option.setAttribute( "value", pit.data() );
+			option.setAttribute( "value", pit.value() );
 			group.appendChild( option );
 		}
 		root.appendChild( group );
@@ -362,7 +362,7 @@ void Preferences::writeData()
 	if ( !datafile.open( QIODevice::WriteOnly ) )
 	{
 		// error opening file
-		qWarning( "Error: Cannot open preferences file " + d->file_ );
+		qWarning( qPrintable("Error: Cannot open preferences file " + d->file_) );
 		d->filestate_ = false;
 		return;
 	}

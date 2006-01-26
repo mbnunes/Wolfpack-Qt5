@@ -953,9 +953,9 @@ public:
 	{
 		setShort( 12, font );
 	}
-	void setLanguage( const QString& data )
+	void setLanguage( const QByteArray& data )
 	{
-		this->setAsciiString( 14, data.left( 3 ).toLatin1(), wpMin<uint>( data.length() + 1, 4 ) );
+		this->setAsciiString( 14, data.left( 3 ), wpMin<uint>( data.length() + 1, 4 ) );
 	}
 	void setName( const QString& data )
 	{
@@ -997,26 +997,32 @@ public:
 	{
 		( *this )[41] = mode ? 0x01 : 0x00;
 	}
+
 	void setSerial( SERIAL serial )
 	{
 		setInt( 3, serial );
 	}
+
 	void setName( const QString& name )
 	{
 		setAsciiString( 7, name.left( 29 ).toLatin1(), wpMin<uint>( name.length() + 1, 30 ) );
 	}
+
 	void setHp( unsigned short data )
 	{
 		setShort( 37, data );
 	}
+
 	void setMaxHp( unsigned short data )
 	{
 		setShort( 39, data );
 	}
+
 	void setSex( bool male )
 	{
 		( *this )[43] = male ? 0 : 1;
 	}
+
 	void setStrength( unsigned short data )
 	{
 		setShort( 44, data );

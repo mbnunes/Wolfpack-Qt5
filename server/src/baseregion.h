@@ -207,7 +207,7 @@ public:
 	{
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 		for ( ; it != topregions.end(); ++it )
-			delete it.data();
+			delete it.value();
 	}
 
 	cBaseRegion* region( const QString& regName )
@@ -215,7 +215,7 @@ public:
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 		for ( ; it != topregions.end(); ++it )
 		{
-			cBaseRegion* result = it.data()->region( regName );
+			cBaseRegion* result = it.value()->region( regName );
 			if ( result )
 				return result;
 		}
@@ -226,7 +226,7 @@ public:
 	{
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.find( map ) );
 		if ( it != topregions.end() )
-			return it.data()->region( posx, posy, map );
+			return it.value()->region( posx, posy, map );
 		else
 			return 0;
 	}
@@ -236,7 +236,7 @@ public:
 		uint i = 0;
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 		for ( ; it != topregions.end(); ++it )
-			i += it.data()->count();
+			i += it.value()->count();
 		return i;
 	}
 

@@ -108,6 +108,7 @@ void cConsole::sendSkip()
 bool cConsole::handleCommand( const QString& command )
 {
 	cUOSocket* mSock;
+	QList<cUOSocket*> socketList;
 	int i;
 	char c = command.toLatin1()[0];
 	c = toupper( c );
@@ -150,10 +151,10 @@ bool cConsole::handleCommand( const QString& command )
 	case 'W':
 		Console::instance()->send( tr( "Current Users in the World:\n" ) );
 
-		mSock = Network::instance()->first();
+		socketList = Network::instance()->sockets();
 		i = 0;
 
-		for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+		foreach ( mSock, socketList )
 		{
 			if ( mSock->player() )
 				Console::instance()->send( QString( "%1) %2 [%3]\n" ).arg( ++i ).arg( mSock->player()->name() ).arg( QString::number( mSock->player()->serial(), 16 ) ) );

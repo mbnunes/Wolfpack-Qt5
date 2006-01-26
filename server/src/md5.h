@@ -106,8 +106,8 @@ public:
 	*/
 	inline static QString fastDigest( const QString& text )
 	{
-		QByteArray data = text.utf8();
-		QByteArray result( 33 );
+		QByteArray data = text.toUtf8();
+		QByteArray result( 33, 0 );
 		fastDigest( result.data(), data.data() );
 		return QString( result );
 	}

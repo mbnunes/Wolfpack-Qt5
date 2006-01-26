@@ -311,10 +311,10 @@ void MainWindow::listusers()
 	Network::instance()->lock();
 
 	// Generate a list of Users
-	mSock = Network::instance()->first();
 	i = 0;
 
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( mSock->player() )
 			Console::instance()->send( QString( "%1) %2 [%3]\n" ).arg( ++i ).arg( mSock->player()->name() ).arg( QString::number( mSock->player()->serial(), 16 ) ) );

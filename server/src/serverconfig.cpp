@@ -325,16 +325,16 @@ std::vector<StartLocation_st>& cConfig::startLocation()
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString( "StartLocation", QString( "Location %1" ).arg( i++ ), "" ).simplifyWhiteSpace();
+			QString tmp = getString( "StartLocation", QString( "Location %1" ).arg( i++ ), "" ).simplified();
 			bKeepLooping = ( tmp != "" );
 			if ( bKeepLooping ) // valid data.
 			{
-				QStringList strList = QStringList::split( "=", tmp );
+				QStringList strList = tmp.split( "=" );
 				if ( strList.size() == 2 )
 				{
 					StartLocation_st loc;
 					loc.name = strList[0];
-					QStringList strList2 = QStringList::split( ",", strList[1].stripWhiteSpace() );
+					QStringList strList2 = strList[1].trimmed().split( "," );
 					if ( strList2.size() == 4 )
 					{
 						loc.pos.x = strList2[0].toUShort();
@@ -509,16 +509,16 @@ QList<ServerList_st> cConfig::serverList()
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString( "LoginServer", QString( "Shard %1" ).arg( i++ ), QString::null, false ).simplifyWhiteSpace();
+			QString tmp = getString( "LoginServer", QString( "Shard %1" ).arg( i++ ), QString::null, false ).simplified();
 			bKeepLooping = !tmp.isEmpty();
 			if ( bKeepLooping ) // valid data.
 			{
-				QStringList strList = QStringList::split( "=", tmp );
+				QStringList strList = tmp.split( "=" );
 				if ( strList.size() == 2 )
 				{
 					ServerList_st server;
 					server.sServer = strList[0];
-					QStringList strList2 = QStringList::split( ",", strList[1].stripWhiteSpace() );
+					QStringList strList2 = strList[1].trimmed().split( "," );
 					QHostAddress host;
 					host.setAddress( strList2[0] );
 					server.address.setAddress( resolveName( strList2[0] ) );

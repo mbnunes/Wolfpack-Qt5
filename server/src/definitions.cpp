@@ -28,7 +28,7 @@
 // Library Includes
 #include <QtXml>
 #include <QFile>
-#include <q3ptrstack.h>
+#include <QStack>
 #include <QRegExp>
 #include <QStringList>
 #include <QByteArray>
@@ -117,11 +117,11 @@ private:
 	// Element level within the current file
 	QList<int> levels;
 	// Holds all read elements.
-	Q3PtrStack<cElement> elements;
+	QStack<cElement*> elements;
 	// Files stack (each <include> pushes a file)
 	QList<QString> filenames;
 	// Locators associated to each document
-	Q3PtrStack<QXmlLocator> locators;
+	QStack<QXmlLocator*> locators;
 
 public:
 	cXmlHandler( cDefManagerPrivate* impl )
@@ -134,13 +134,13 @@ public:
 		while ( !elements.isEmpty() )
 		{
 			cElement *parent = 0;
-			while ( !elements.isEmpty() && elements.current() != NULL )
+			while ( !elements.isEmpty() && elements.top() != NULL )
 			{
 				parent = elements.pop();
 			}
 			if ( parent ) delete parent;
 
-			while ( !elements.isEmpty() && elements.current() == NULL )
+			while ( !elements.isEmpty() && elements.top() == NULL )
 			{
 				elements.pop();
 			}
@@ -203,7 +203,10 @@ public:
 			else
 			{
 				// Within an include
-				elements.push( elements.current() );
+				if ( elements.isEmpty() )
+					elements.push( 0 );
+				else
+					elements.push( elements.top() );
 			}
 			return true;
 		}
@@ -214,7 +217,7 @@ public:
 			QString value = atts.value( "file" );
 			load( value );
 
-			elements.push( elements.current() );
+			elements.push( elements.top() );
 			return true;
 		}
 
@@ -223,9 +226,9 @@ public:
 		element->copyAttributes( atts );
 
 		// Child Element?
-		if ( elements.current() != NULL )
+		if ( elements.top() != NULL )
 		{
-			cElement* parent = elements.current(); // Pop the potential parent
+			cElement* parent = elements.top(); // Pop the potential parent
 			parent->addChild( element ); // Add the child to it's parent
 			element->setParent( parent );
 		} else {
@@ -246,14 +249,14 @@ public:
 			return true;
 		}
 
-		if ( element == elements.current() )
+		if ( element == elements.top() )
 		{
 			// Ignore include
 			return true;
 		}
 
 		// Did we complete a parent node?
-		if ( elements.current() == NULL )
+		if ( elements.top() == NULL )
 		{
 			// Find a category node
 			unsigned int i = 0;
@@ -271,12 +274,12 @@ public:
 						if ( impl->unique[categories[i].key].contains( tagId ) && !Config::instance()->overwriteDefinitions() )
 						{
 							Console::instance()->log( LOG_WARNING, tr( "Duplicate %1: %2\n[File: %3, Line: %4]\n" )
-								.arg( QString( element->name() ) ).arg( tagId ).arg( filenames.back() ).arg( locators.current()->lineNumber() ) );
+								.arg( QString( element->name() ) ).arg( tagId ).arg( filenames.back() ).arg( locators.top()->lineNumber() ) );
 							delete element;
 						}
 						else
 						{
-							impl->unique[categories[i].key].insert( tagId, element, true );
+							impl->unique[categories[i].key].insert( tagId, element );
 						}
 					}
 					else
@@ -290,7 +293,7 @@ public:
 			}
 
 			Console::instance()->log( LOG_WARNING, tr( "Unknown element: %1\n[File: %2, Line: %3]\n" )
-				.arg( QString( element->name() ) ).arg( filenames.back() ).arg( locators.current()->lineNumber() ) );
+				.arg( QString( element->name() ) ).arg( filenames.back() ).arg( locators.top()->lineNumber() ) );
 			delete element;
 		}
 
@@ -301,7 +304,7 @@ public:
 	{
 		if ( !elements.isEmpty() )
 		{
-			cElement *element = elements.current();
+			cElement *element = elements.top();
 			if ( element )
 				element->setText( element->text() + ch );
 		}
@@ -377,7 +380,7 @@ void cDefinitions::reload( void )
 // Load the Definitions
 void cDefinitions::load( void )
 {
-	impl->imports = QStringList::split( ";", Config::instance()->getString( "General", "Definitions", "definitions/index.xml", true ) );
+	impl->imports = Config::instance()->getString( "General", "Definitions", "definitions/index.xml", true ).split( ";" );
 
 	for ( unsigned int i = 0; i < impl->imports.size(); ++i )
 	{
@@ -391,7 +394,7 @@ void cDefinitions::load( void )
 
 	while ( it != impl->unique[WPDT_LIST].end() )
 	{
-		cElement* DefSection = it.data();
+		cElement* DefSection = it.value();
 
 		QStringList list;
 		QString data;
@@ -465,7 +468,7 @@ QString cDefinitions::getRandomListEntry( const QString& ListSection )
 
 	QMap<QString, QStringList>::iterator it = listcache_.find( ListSection );
 	if ( it != listcache_.end() )
-		list = &( it.data() );
+		list = &( it.value() );
 
 	if ( !list || list->isEmpty() )
 		return QString();
@@ -479,7 +482,7 @@ QStringList cDefinitions::getList( const QString& ListSection )
 
 	QMap<QString, QStringList>::iterator it = listcache_.find( ListSection );
 	if ( it != listcache_.end() )
-		list = it.data();
+		list = it.value();
 
 	return list;
 }
@@ -521,7 +524,7 @@ const cElement* cDefinitions::getDefinition( eDefCategory type, const QString& i
 	if ( it == impl->unique[type].end() )
 		return 0;
 	else
-		return it.data();
+		return it.value();
 }
 
 const QList<cElement*>& cDefinitions::getDefinitions( eDefCategory type ) const
@@ -599,7 +602,7 @@ void cElement::copyAttributes( const QXmlAttributes& attributes )
 		for ( unsigned int i = 0; i < attrCount_; ++i )
 		{
 			this->attributes[i] = new stAttribute;
-			this->attributes[i]->name = attributes.localName( i );
+			this->attributes[i]->name = attributes.localName( i ).toLocal8Bit();
 			this->attributes[i]->value = attributes.value( i );
 		}
 	}
@@ -755,7 +758,7 @@ QString cElement::value() const
 			// <random valuelist="value1,value2,value3" />
 			else if ( childTag->hasAttribute( "valuelist" ) )
 			{
-				QStringList RandValues = QStringList::split( ",", childTag->getAttribute( "valuelist" ) );
+				QStringList RandValues = childTag->getAttribute( "valuelist" ).split( "," );
 				Value += RandValues[RandomNum( 0, RandValues.size() - 1 )];
 			}
 			// <random list="listname" />
@@ -766,7 +769,7 @@ QString cElement::value() const
 			// <random randomlist="listname1,listname2,listname3" />
 			else if ( childTag->hasAttribute( "randomlist" ) )
 			{
-				QStringList RandValues = QStringList::split( ",", childTag->getAttribute( "randomlist" ) );
+				QStringList RandValues = childTag->getAttribute( "randomlist" ).split( "," );
 				Value += Definitions::instance()->getRandomListEntry( RandValues[RandomNum( 0, RandValues.size() - 1 )] );
 			}
 			// <random dice="1d6+2" />
@@ -777,7 +780,7 @@ QString cElement::value() const
 			// <random value="10-20" />
 			else if ( childTag->hasAttribute( "value" ) )
 			{
-				QStringList parts = QStringList::split( "-", childTag->getAttribute( "value", "0-0" ) );
+				QStringList parts = childTag->getAttribute( "value", "0-0" ).split( "-" );
 
 				if ( parts.count() >= 2 )
 				{

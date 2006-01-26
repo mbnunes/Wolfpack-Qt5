@@ -143,11 +143,11 @@ inline PyObject* QString2Python( const QString& string )
 	else
 	{
 #if defined(Py_UNICODE_WIDE)
-		QByteArray utf = string.utf8();
+		QByteArray utf = string.toUtf8();
 		PyObject *obj = PyUnicode_DecodeUTF8( utf.data(), utf.length(), "" );
 		return obj;
 #else
-		return PyUnicode_FromUnicode( ( Py_UNICODE * ) string.ucs2(), string.length() );
+		return PyUnicode_FromUnicode( ( Py_UNICODE * ) string.utf16(), string.length() );
 #endif
 	}
 }
@@ -165,7 +165,7 @@ inline QString Python2QString( PyObject* object )
 		return QString::fromUtf8( PyString_AsString( utf8 ) );
 		Py_DECREF(utf8);
 #else
-		return QString::fromUcs2( ( ushort * ) PyUnicode_AS_UNICODE( object ) );
+		return QString::fromUtf16( ( ushort * ) PyUnicode_AS_UNICODE( object ) );
 #endif
 	}
 	else if ( PyString_Check( object ) )
@@ -190,8 +190,8 @@ class PythonFunction
 {
 	PyObject* pModule;
 	PyObject* pFunc;
-	QString sModule;
-	QString sFunc;
+	QByteArray sModule;
+	QByteArray sFunc;
 	bool temp;
 
 	static QList<PythonFunction*> instances; // list of all known instances
@@ -204,8 +204,8 @@ public:
 			PyObject* name = PyObject_GetAttrString(function, "__name__");
 
 			if (name && module) {
-				sModule = Python2QString(module);
-				sFunc = Python2QString(name);
+				sModule = Python2QString(module).toLatin1();
+				sFunc = Python2QString(name).toLatin1();
 				pFunc = function;
 				Py_XINCREF( pFunc );
 			}
@@ -216,17 +216,17 @@ public:
 
 	explicit PythonFunction( const QString& path, bool tempObject = false ) : pModule( 0 ), pFunc( 0 ), temp( tempObject )
 	{
-		int position = path.findRev( "." );
-		sModule = path.left( position );
-		sFunc = path.right( path.length() - ( position + 1 ) );
+		int position = path.lastIndexOf( "." );
+		sModule = path.left( position ).toLatin1();
+		sFunc = path.right( path.length() - ( position + 1 ) ).toLatin1();
 
 		// The Python string functions don't like null pointers
 		if (!sModule.isEmpty()) {
-			pModule = PyImport_ImportModule( const_cast<char*>( sModule.toLatin1().data() ) );
+			pModule = PyImport_ImportModule( const_cast<char*>( sModule.data() ) );
 
 			if ( pModule && !sFunc.isEmpty() )
 			{
-				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.toLatin1().data() ) );
+				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.data() ) );
 				if ( pFunc && !PyCallable_Check( pFunc ) )
 				{
 					cleanUp();
@@ -242,7 +242,7 @@ public:
 	{
 		cleanUp();
 		if ( !temp )
-			instances.remove(this); // Remove this from the static list of instances
+			instances.removeAll(this); // Remove this from the static list of instances
 	}
 
 	// Clean up all instances
@@ -267,11 +267,11 @@ public:
 
 		// The Python string functions don't like null pointers
 		if (!sModule.isEmpty()) {
-			pModule = PyImport_ImportModule( const_cast<char*>( sModule.toLatin1().data() ) );
+			pModule = PyImport_ImportModule( const_cast<char*>( sModule.data() ) );
 
 			if ( pModule && !sFunc.isEmpty() )
 			{
-				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.toLatin1().data() ) );
+				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.data() ) );
 				if ( pFunc && !PyCallable_Check( pFunc ) )
 				{
 					cleanUp();

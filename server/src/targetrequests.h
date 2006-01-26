@@ -219,7 +219,7 @@ public:
 					}
 				}
 
-				if ( key_.lower() == "all" )
+				if ( key_.toLower() == "all" )
 				{
 					QStringList keys = pChar->getTags();
 					QStringList::const_iterator it = keys.begin();
@@ -243,7 +243,7 @@ public:
 			P_ITEM pItem = FindItemBySerial( target->serial() );
 			if ( pItem )
 			{
-				if ( key_.lower() == "all" )
+				if ( key_.toLower() == "all" )
 				{
 					QStringList keys = pItem->getTags();
 					QStringList::const_iterator it = keys.begin();

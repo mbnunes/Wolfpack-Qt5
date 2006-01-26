@@ -1351,7 +1351,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 	*/
 	else if ( !strcmp( "scripts", name ) )
 	{
-		QStringList events = QStringList::split( ",", self->pItem->scriptList() );
+		QList<QByteArray> events = self->pItem->scriptList().split( ',' );
 		if ( self->pItem->basedef() )
 		{
 			const QList<cPythonScript*> &list = self->pItem->basedef()->baseScripts();
@@ -1365,7 +1365,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 
 		PyObject* list = PyTuple_New( events.count() );
 		for ( uint i = 0; i < events.count(); ++i )
-			PyTuple_SetItem( list, i, PyString_FromString( events[i].toLatin1() ) );
+			PyTuple_SetItem( list, i, PyString_FromString( events[i] ) );
 		return list;
 	}
 	else

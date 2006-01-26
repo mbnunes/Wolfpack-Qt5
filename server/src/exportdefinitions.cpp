@@ -35,7 +35,7 @@
 #include "network/network.h"
 #include "muls/tilecache.h"
 
-#include <q3dict.h>
+#include <QSet>
 #include <QFile>
 
 cDefinitionExporter::cDefinitionExporter() {
@@ -168,7 +168,7 @@ static void processItem(cItemInfo &item, const cElement *node, bool multi = fals
 			// Split into category and description
 			QString category = child->text();
 
-			int rearIndex = category.findRev('\\');
+			int rearIndex = category.lastIndexOf('\\');
 			if (rearIndex != -1) {
 				item.categoryname = category.left(rearIndex);
 				item.name = category.mid(rearIndex + 1);
@@ -189,8 +189,11 @@ struct stCategory {
 	at the same time ensuring that the entire category
 	is in the dictionary.
 */
-static int getCategoryId(Q3Dict<stCategory> &categories, QString &name, cSQLiteDriver &driver, const char *table) {
-	stCategory *category = categories.find(name);
+static int getCategoryId(QHash<QString, stCategory*> &categories, QString &name, cSQLiteDriver &driver, const char *table) {
+	QHash<QString, stCategory*>::iterator it = categories.find(name);
+	stCategory *category = 0;
+	if ( it != categories.end() )
+		category = it.value();
 
 	// name is an unknown category
 	if (!category) {
@@ -199,7 +202,7 @@ static int getCategoryId(Q3Dict<stCategory> &categories, QString &name, cSQLiteD
 		categories.insert(name, category); // Insert it into the category map
 
 		// Now link the category with its parent
-		int parentOffset = name.findRev('\\');
+		int parentOffset = name.lastIndexOf('\\');
 
 		// This is not a toplevel category
 		if (parentOffset != -1) {
@@ -215,7 +218,7 @@ static int getCategoryId(Q3Dict<stCategory> &categories, QString &name, cSQLiteD
 			.arg( name.mid(parentOffset + 1).replace( "'", "''" ) )
 			.arg( category->parent )
 			.arg( table );
-		driver.exec( sql.utf8() );
+		driver.exec( sql.toUtf8() );
 	}
 
 	return category->id;
@@ -229,8 +232,7 @@ void cDefinitionExporter::exportItems() {
 	cDefinitions::Iterator end = Definitions::instance()->end(WPDT_ITEM);
 
 	// This QMap maps category names to their respective ids
-	Q3Dict<stCategory> categories(9973);
-	categories.setAutoDelete(true);
+	QHash<QString, stCategory*> categories;
 
 	// Iterate over the item definitions
 	for (; it != end; ++it) {
@@ -255,7 +257,11 @@ void cDefinitionExporter::exportItems() {
 		.arg( item.dispid )
 		.arg( item.color )
 		.arg( id.replace( "'", "''" ) );
-		driver.exec(sql.utf8());
+		driver.exec(sql.toUtf8());
+	}
+	foreach( stCategory* s, categories )
+	{
+		delete s;
 	}
 }
 
@@ -268,8 +274,7 @@ void cDefinitionExporter::exportLocations() {
 	cDefinitions::Iterator end = Definitions::instance()->end(WPDT_LOCATION);
 
 	// This QMap maps category names to their respective ids
-	Q3Dict<stCategory> categories(257);
-	categories.setAutoDelete(true);
+	QHash<QString, stCategory*> categories;
 
 	// Iterate over the location definitions
 	for (; it != end; ++it) {
@@ -279,7 +284,7 @@ void cDefinitionExporter::exportLocations() {
 
 		if (!category.isEmpty()) {
 			// Split into name and category
-			int offset = category.findRev('\\');
+			int offset = category.lastIndexOf('\\');
 			if (offset != -1) {
 				QString name = category.mid(offset + 1);
 				category = category.left(offset);
@@ -302,7 +307,7 @@ void cDefinitionExporter::exportLocations() {
 				.arg( coord.map )
 				.arg( id.replace( "'", "''" ) );
 
-				driver.exec( sql.utf8() );
+				driver.exec( sql.toUtf8() );
 			}
 		}
 	}
@@ -366,7 +371,7 @@ static void processNpc(cNpcInfo &npc, const cElement *node) {
 			// Split into category and description
 			QString category = child->text();
 
-			int rearIndex = category.findRev('\\');
+			int rearIndex = category.lastIndexOf('\\');
 			if (rearIndex != -1) {
 				npc.categoryname = category.left(rearIndex);
 				npc.name = category.mid(rearIndex + 1);
@@ -414,8 +419,7 @@ void cDefinitionExporter::exportNpcs() {
 	cDefinitions::Iterator end = Definitions::instance()->end(WPDT_NPC);
 
 	// This QMap maps category names to their respective ids
-	Q3Dict<stCategory> categories(9973);
-	categories.setAutoDelete(true);
+	QHash<QString, stCategory*> categories;
 
 	// Iterate over the npc definitions
 	for (; it != end; ++it) {
@@ -440,7 +444,7 @@ void cDefinitionExporter::exportNpcs() {
 		.arg( npc.bodyid )
 		.arg( npc.skin )
 		.arg( id.replace( "'", "''" ) );
-		driver.exec( sql.utf8() );
+		driver.exec( sql.toUtf8() );
 
 		int lastInsertId = driver.lastInsertId();
 
@@ -453,9 +457,13 @@ void cDefinitionExporter::exportNpcs() {
 				.arg( npc.equipment[i].anim )
 				.arg( i )
 				.arg( npc.equipment[i].color );
-				driver.exec( sql.utf8() );
+				driver.exec( sql.toUtf8() );
 			}
 		}
+	}
+	foreach( stCategory* s, categories )
+	{
+		delete s;
 	}
 }
 
@@ -480,7 +488,7 @@ void cDefinitionExporter::exportMultis() {
 			.arg( item.name.replace( "'", "''" ) )
 			.arg( id.replace( "'", "''" ) )
 			.arg( item.dispid );
-			driver.exec( sql.utf8() );
+			driver.exec( sql.toUtf8() );
 		}
 	}
 }

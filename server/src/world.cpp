@@ -970,7 +970,8 @@ void cWorld::save()
 	} */
 
 	// Make a Stop to Write sockets before continues
-	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* socket, sockets )
 	{
 		socket->waitwritebytes();
 	}
@@ -1027,7 +1028,7 @@ void cWorld::save()
 			{
 				writer.writeByte( 0xFB );
 				writer.writeUtf8( oit.key() );
-				writer.writeUtf8( oit.data() );
+				writer.writeUtf8( oit.value() );
 			}
 
 			writer.writeByte( 0xFF ); // Terminator Type
@@ -1118,7 +1119,7 @@ void cWorld::save()
 			{
 				QString sql = QString( "INSERT INTO settings VALUES('%1','%2');" )
 				.arg( PersistentBroker::instance()->quoteString( oit.key() ) )
-				.arg( PersistentBroker::instance()->quoteString( oit.data() ) );
+				.arg( PersistentBroker::instance()->quoteString( oit.value() ) );
 				PersistentBroker::instance()->executeQuery( sql );
 			}
 
@@ -1155,7 +1156,8 @@ void cWorld::save()
 		cUOTxCloseGump close;
 		close.setType( 0x98FA2C10 );
 
-		for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* socket, sockets )
 		{
 			socket->send( &close );
 		}
@@ -1176,7 +1178,7 @@ void cWorld::getOption( const QString& name, QString& value, const QString fallb
 	}
 	else
 	{
-		value = it.data();
+		value = it.value();
 	}
 }
 
@@ -1185,7 +1187,7 @@ void cWorld::getOption( const QString& name, QString& value, const QString fallb
  */
 void cWorld::setOption( const QString& name, const QString& value )
 {
-	options.insert( name, value, true );
+	options.insert( name, value );
 }
 
 void cWorld::registerObject( cUObject* object )
@@ -1417,16 +1419,16 @@ void cWorld::purge()
 QMap<QDateTime, QString> listBackups( const QString& filename )
 {
 	// Get the path the file is in
-	QString name = QFileInfo( filename ).baseName( false );
+	QString name = QFileInfo( filename ).baseName();
 
 	QDir dir = QFileInfo( filename ).dir();
-	QStringList entries = dir.entryList( name + "*", QDir::Files );
+	QStringList entries = dir.entryList( QStringList() << (name + "*"), QDir::Files );
 	QMap<QDateTime, QString> backups;
 
 	QStringList::iterator sit;
 	for ( sit = entries.begin(); sit != entries.end(); ++sit )
 	{
-		QString backup = QFileInfo( *sit ).baseName( false );
+		QString backup = QFileInfo( *sit ).baseName();
 		QString timestamp = backup.right( backup.length() - name.length() );
 		QDate date;
 		QTime time;
@@ -1473,7 +1475,7 @@ void cWorld::backupWorld( const QString& filename, unsigned int count, bool comp
 	// Check if we need to remove a previous backup
 	QMap<QDateTime, QString> backups = listBackups( filename );
 
-	QString backupName = QFileInfo( filename ).dirPath( true ) + QDir::separator();
+	QString backupName = QFileInfo( filename ).absolutePath() + QDir::separator();
 
 	if ( backups.count() >= count )
 	{
@@ -1487,7 +1489,7 @@ void cWorld::backupWorld( const QString& filename, unsigned int count, bool comp
 			if ( current.isNull() || it.key() < current )
 			{
 				current = it.key();
-				backup = it.data();
+				backup = it.value();
 			}
 		}
 
@@ -1499,11 +1501,11 @@ void cWorld::backupWorld( const QString& filename, unsigned int count, bool comp
 	}
 
 	// Rename the old worldfile to the new backup name
-	backupName.append( QFileInfo( filename ).baseName( false ) );
+	backupName.append( QFileInfo( filename ).baseName() );
 	QDateTime current = QDateTime::currentDateTime();
 	backupName.append( current.toString( "-yyyyMMdd-hhmm" ) ); // Append Timestamp
 	backupName.append( "." );
-	backupName.append( QFileInfo( filename ).extension( true ) ); // Append Extension
+	backupName.append( QFileInfo( filename ).completeSuffix() ); // Append Extension
 
 	// Rename the old worldfile
 	QDir dir = QDir::current();

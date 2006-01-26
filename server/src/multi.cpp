@@ -114,13 +114,13 @@ cMulti* cMulti::createFromScript( const QString& id )
 
 void cMulti::addObject( cUObject* object )
 {
-	objects.remove( object );
+	objects.removeAll( object );
 	objects.append( object );
 }
 
 void cMulti::removeObject( cUObject* object )
 {
-	objects.remove( object );
+	objects.removeAll( object );
 }
 
 bool cMulti::inMulti( const Coord& pos )

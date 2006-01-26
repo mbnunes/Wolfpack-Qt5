@@ -124,7 +124,7 @@ bool cAccount::authorized( const QString& group, const QString& value ) const
 		return false;
 
 	// Group
-	QMap<QString, bool> aGroup = groupIter.data();
+	QMap<QString, bool> aGroup = groupIter.value();
 
 	// Check if we have a rule for the specified command, if not check for any
 	if ( aGroup.find( value ) != aGroup.end() )
@@ -285,9 +285,7 @@ cAccounts::~cAccounts()
 
 void cAccounts::unload()
 {
-	iterator it = accounts.begin();
-	for ( ; it != accounts.end(); ++it )
-		delete it.data();
+	qDeleteAll( accounts );
 	accounts.clear();
 
 	cComponent::unload();
@@ -295,20 +293,20 @@ void cAccounts::unload()
 
 cAccount* cAccounts::authenticate( const QString& login, const QString& password, enErrorCode* error ) const
 {
-	const_iterator it = accounts.find( login.lower() ); // make sure it's case insensitive
+	const_iterator it = accounts.find( login.toLower() ); // make sure it's case insensitive
 	if ( error )
 		*error = NoError;
 	if ( it != accounts.end() )
 	{
 		// First we check for blocked account.
-		if ( it.data()->isBlocked() )
+		if ( it.value()->isBlocked() )
 		{
 			if ( error )
 				*error = Banned;
 			return 0;
 		}
 
-		if ( it.data()->inUse() )
+		if ( it.value()->inUse() )
 		{
 			if ( error )
 				*error = AlreadyInUse;
@@ -320,19 +318,19 @@ cAccount* cAccounts::authenticate( const QString& login, const QString& password
 		// Regard hashed passwords
 		if ( Config::instance()->hashAccountPasswords() )
 		{
-			authorized = it.data()->password() == cMd5::fastDigest( password );
+			authorized = it.value()->password() == cMd5::fastDigest( password );
 		}
 		else
 		{
-			authorized = it.data()->password() == password;
+			authorized = it.value()->password() == password;
 		}
 
 		// Ok, lets continue.
 		if ( authorized )
 		{
-			it.data()->setLastLogin( QDateTime::currentDateTime() );
-			it.data()->resetLoginAttempts();
-			return it.data();
+			it.value()->setLastLogin( QDateTime::currentDateTime() );
+			it.value()->resetLoginAttempts();
+			return it.value();
 		}
 		else
 		{
@@ -387,7 +385,7 @@ void cAccounts::save()
 		for ( ; it != accounts.end(); ++it )
 		{
 			// INSERT
-			cAccount* account = it.data();
+			cAccount* account = it.value();
 
 			QString sql( "REPLACE INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6, '%7' );" );
 
@@ -450,7 +448,7 @@ void cAccounts::load()
 		while ( result.fetchrow() )
 		{
 			cAccount* account = new cAccount;
-			account->login_ = result.getString( 0 ).lower();
+			account->login_ = result.getString( 0 ).toLower();
 			account->password_ = result.getString( 1 );
 			account->flags_ = result.getInt( 2 );
 			account->aclName_ = result.getString( 3 );
@@ -461,7 +459,7 @@ void cAccounts::load()
 			if ( result.getInt( 5 ) != 0 )
 				account->blockUntil.setTime_t( result.getInt( 5 ) );
 
-			account->email_ = result.getString( 6 );
+			account->email_ = result.getString( 6 ).toLatin1();
 
 			// See if the password can and should be hashed,
 			// Md5 hashes are 32 characters long.
@@ -478,7 +476,7 @@ void cAccounts::load()
 				}
 			}
 
-			accounts.insert( account->login_.lower(), account );
+			accounts.insert( account->login_.toLower(), account );
 		}
 
 		result.free();
@@ -516,7 +514,8 @@ void cAccounts::reload()
 	}
 
 	cUOSocket* mSock = NULL;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( mSock->account() )
 			sockaccnames.push_back( mSock->account()->login() );
@@ -531,12 +530,12 @@ void cAccounts::reload()
 	{
 		P_PLAYER pp = dynamic_cast<P_PLAYER>( FindCharBySerial( it.key() ) );
 		if ( pp )
-			pp->setAccount( getRecord( it.data() ), false );
+			pp->setAccount( getRecord( it.value() ), false );
 		++it;
 	}
 
 	QStringList::iterator sit = sockaccnames.begin();
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	foreach ( mSock, sockets )
 	{
 		if ( !( *sit ).isNull() )
 			mSock->setAccount( getRecord( ( *sit ) ) );
@@ -552,7 +551,7 @@ void cAccounts::reload()
 cAccount* cAccounts::createAccount( const QString& login, const QString& password )
 {
 	cAccount* d = new cAccount;
-	d->login_ = login.lower();
+	d->login_ = login.toLower();
 	d->setPassword( password );
 	accounts.insert( d->login(), d );
 	if ( accounts.count() == 1 ) // first account, it must be admin!
@@ -599,7 +598,7 @@ cAccount* cAccounts::getRecord( const QString& login )
 	if ( it == accounts.end() )
 		return 0;
 	else
-		return it.data();
+		return it.value();
 }
 
 void cAccounts::clearAcls()
@@ -608,7 +607,7 @@ void cAccounts::clearAcls()
 
 	while ( it != accounts.end() )
 	{
-		it.data()->refreshAcl();
+		it.value()->refreshAcl();
 		++it;
 	}
 }
@@ -686,7 +685,10 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 	*/
 	else if ( name == "email" )
 	{
-		SET_STR_PROPERTY( "email", email_ );
+		QString text = value.toString(); 
+		if( text == QString::null )	
+			PROPERTY_ERROR( -2, "String expected" );
+		email_ = text.toLatin1();
 		return 0;
 	}
 	/*

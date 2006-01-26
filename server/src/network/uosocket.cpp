@@ -70,10 +70,9 @@
 #include <stdlib.h>
 #include <QHostAddress>
 #include <QTimer>
-#include <Q3PtrList>
+#include <QList>
 
 #include <vector>
-#include <q3valuelist.h>
 #include <functional>
 
 using namespace std;
@@ -148,7 +147,7 @@ cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( s ), _walkSequence( 0 ), lastPa
 	flags_ = 0;
 	_ip = s->peerAddress().toString();
 	_socket = s;
-	_uniqueId = s->socket();
+	_uniqueId = s->socketDescriptor();
 	tooltipscache_ = new QBitArray;
 	skippedUOHeader = false;
 
@@ -167,12 +166,7 @@ cUOSocket::~cUOSocket( void )
 	delete tooltipscache_;
 	delete encryption;
 
-	QMap<SERIAL, cGump*>::iterator it( gumps.begin() );
-	while ( it != gumps.end() )
-	{
-		delete it.data();
-		++it;
-	}
+	qDeleteAll( gumps );
 }
 
 // Initialize all packet handlers to zero
@@ -246,11 +240,6 @@ void cUOSocket::send( cUOPacket* packet )
 			_socket->write( packet->uncompressed() );
 		}
 	}
-
-	// Once send, flush if in Debug mode
-#if defined(_DEBUG)
-	_socket->flush();
-#endif
 }
 
 /*!
@@ -267,7 +256,7 @@ void cUOSocket::send( cGump* gump )
 	else if ( gumps.contains( gump->serial() ) ) // Remove/Timeout the old one first
 	{
 		QMap<SERIAL, cGump*>::iterator it( gumps.find( gump->serial() ) );
-		delete it.data();
+		delete it.value();
 		gumps.erase( it );
 	}
 
@@ -335,7 +324,7 @@ void cUOSocket::buildPackets()
 		} else if (size == 0 && incomingBuffer.size() >= 3) {
 			unsigned short dynamicSize = ((incomingBuffer[1] & 0xFF) << 8) | (unsigned char)incomingBuffer[2];
 			if (dynamicSize <= incomingBuffer.size()) {
-				QByteArray packetData(dynamicSize);
+				QByteArray packetData(dynamicSize, 0);
 				memcpy(packetData.data(), incomingBuffer.data(), dynamicSize);
 				incomingBuffer = QByteArray(incomingBuffer.data() + dynamicSize, incomingBuffer.size() - dynamicSize);
 
@@ -347,7 +336,7 @@ void cUOSocket::buildPackets()
 			}
 		} else if (size <= incomingBuffer.size()) {
 			// Completed a packet
-			QByteArray packetData(size);
+			QByteArray packetData(size, 0);
 			memcpy(packetData.data(), incomingBuffer.data(), size);
 			memcpy(incomingBuffer.data(), incomingBuffer.data() + size, incomingBuffer.size() - size);
 			incomingBuffer.resize(incomingBuffer.size() - size);
@@ -395,7 +384,7 @@ void cUOSocket::receive()
 				if ( !Config::instance()->allowUnencryptedClients() )
 				{
 					// Send a communication problem message to this socket
-					_socket->writeBlock( "\x82\x04", 2 );
+					_socket->write( "\x82\x04", 2 );
 					disconnect();
 					return;
 				}
@@ -407,7 +396,7 @@ void cUOSocket::receive()
 					delete crypt;
 
 					// Send a communication problem message to this socket
-					_socket->writeBlock( "\x82\x04", 2 );
+					_socket->write( "\x82\x04", 2 );
 					disconnect();
 					return;
 				}
@@ -434,7 +423,7 @@ void cUOSocket::receive()
 				if ( !Config::instance()->allowUnencryptedClients() )
 				{
 					// Send a communication problem message to this socket
-					_socket->writeBlock( "\x82\x04", 2 );
+					_socket->write( "\x82\x04", 2 );
 					disconnect();
 					return;
 				}
@@ -1115,7 +1104,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 
 	for ( it = content.begin(); it != content.end(); it++ )
 	{
-		P_ITEM pItem = it.data();
+		P_ITEM pItem = it.value();
 		if ( pItem->layer() <= 0x19 )
 		{
 			pItem->update( this );
@@ -1931,15 +1920,14 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
 	cUOTxContextMenu menuPacket;
 	menuPacket.setSerial( packet->serial() );
 
-	QStringList bindMenus = QStringList::split( ",", clicked->bindmenu() );
-	QStringList::const_iterator menuIt = bindMenus.begin();
+	QList<QByteArray> bindMenus = clicked->bindmenu().split( ',' );
 
 	contextMenu_.clear();
 	unsigned int i = 0;
 	unsigned int totalCount = 0;
-	for ( ; menuIt != bindMenus.end(); ++menuIt )
+	foreach ( QByteArray menuIt, bindMenus )
 	{
-		cContextMenu* menu = ContextMenus::instance()->getMenu( *menuIt );
+		cContextMenu* menu = ContextMenus::instance()->getMenu( menuIt );
 
 		if ( !menu )
 			continue;
@@ -2180,7 +2168,7 @@ void cUOSocket::sendChar( P_CHAR pChar )
 		cBaseChar::ItemContainer content = pChar->content();
 		for ( cBaseChar::ItemContainer::const_iterator it = content.begin(); it != content.end(); ++it )
 		{
-			P_ITEM item = it.data();
+			P_ITEM item = it.value();
 			if ( item->layer() <= 0x19 )
 			{
 				item->sendTooltip( this );
@@ -2600,7 +2588,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	cUOTxItemContent itemContent;
 	qint32 count = 0;
 
-	Q3PtrList<cItem> tooltipItems;
+	QList<cItem*> tooltipItems;
 
 	for ( ContainerIterator it( pCont ); !it.atEnd(); ++it )
 	{
@@ -2619,7 +2607,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	{
 		send( &itemContent );
 
-		for ( P_ITEM pItem = tooltipItems.first(); pItem; pItem = tooltipItems.next() )
+		foreach ( P_ITEM pItem, tooltipItems )
 		{
 			pItem->sendTooltip( this );
 		}
@@ -3211,7 +3199,7 @@ void cUOSocket::handleAction( cUORxAction* packet )
 		// Skill use
 		case 0x24:
 			{
-				QStringList skillParts = QStringList::split( " ", packet->action() );
+				QStringList skillParts = packet->action().split( " " );
 				if ( skillParts.count() > 1 )
 					Skills::instance()->SkillUse( this, skillParts[0].toInt() );
 			}
@@ -3255,7 +3243,7 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 		return;
 	}
 
-	cGump* pGump = it.data();
+	cGump* pGump = it.value();
 
 	if ( pGump )
 	{
@@ -3277,12 +3265,13 @@ struct buyitem_st
 	QString name;
 };
 
-class SortedSerialList : public Q3PtrList<cItem>
+template< class T > 
+class SortedSerialPredicate
 {
-protected:
-	virtual int compareItems( Q3PtrCollection::Item item1, Q3PtrCollection::Item item2 )
+public:
+	inline bool operator()( T item1, T item2 )
 	{
-		return ( ( P_ITEM ) item1 )->serial() - ( ( P_ITEM ) item2 )->serial();
+		return item1->serial() < item2->serial();
 	}
 };
 
@@ -3296,16 +3285,16 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	vendorBuy.setSerial( pItem->serial() );
 
 	/* don´t ask me, but the order of the items for vendor buy is reversed */
-	Q3ValueList<buyitem_st> buyitems;
-	Q3ValueList<buyitem_st>::const_iterator bit;
-	Q3PtrList<cItem> items;
+	QList<buyitem_st> buyitems;
+	QList<buyitem_st>::const_iterator bit;
+	QList<cItem*> items;
 
-	SortedSerialList sortedList;
+	QList<cItem*> sortedList;
 	for ( ContainerIterator it( pItem ); !it.atEnd(); ++it )
 	{
 		sortedList.append( *it );
 	}
-	sortedList.sort();
+	qSort( sortedList.begin(), sortedList.end(), SortedSerialPredicate<cItem*>() );
 
 	bool restockNow = false;
 	if ( pItem->layer() == cBaseChar::BuyRestockContainer )
@@ -3325,7 +3314,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	}
 
 	unsigned int i = 0;
-	for ( P_ITEM mItem = sortedList.first(); mItem; mItem = sortedList.next() )
+	foreach ( P_ITEM mItem, sortedList )
 	{
 		if ( restockNow )
 			mItem->setRestock( mItem->amount() );
@@ -3342,10 +3331,10 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	// Reverse items
 
 	send( &itemContent );
-	for ( P_ITEM item = items.last(); item; item = items.prev() )
+	for ( QList<cItem*>::Iterator it = --items.end(); it > items.begin(); --it )
 	{
-		vendorBuy.addItem( item->buyprice(), "" );
-		item->sendTooltip( this );
+		vendorBuy.addItem( (*it)->buyprice(), "" );
+		(*it)->sendTooltip( this );
 	}
 	send( &vendorBuy );
 }
@@ -3407,7 +3396,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	}
 
 	// Build the list of items to be sent.
-	SortedSerialList itemList;
+	QList<cItem*> itemList;
 
 	// Process all items for sale first
 	for ( ContainerIterator it( pStock ); !it.atEnd(); ++it )
@@ -3462,7 +3451,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	pStock->update( this );
 	pSell->update( this );
 
-	itemList.sort(); // Organize the container content by serial
+	qSort( itemList.begin(), itemList.end(), SortedSerialPredicate<cItem*>() );
 
 	// Create the container content
 	cUOTxItemContent containerContent;
@@ -3477,10 +3466,8 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	vendorBuy.setSerial( pStock->serial() );
 
 	// This is something i don´t understand. Why does it have to be backwards??
-	SortedSerialList::const_iterator cit( itemList.begin() );
-	while ( cit != itemList.end() )
+	foreach ( cItem* pItem, itemList )
 	{
-		P_ITEM pItem = *( cit++ ); // Get the current item and advance to the next
 		containerContent.setInt( pOffset, pItem->serial() );
 		containerContent.setShort( pOffset + 4, pItem->id() );
 		containerContent[pOffset + 6] = 0; // Unknown
@@ -3513,17 +3500,16 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 	drawContainer.setGump( 0x30 );
 	send( &drawContainer );
 
-	cit = itemList.begin();
-	while ( cit != itemList.end() )
+	foreach( cItem* item, itemList )
 	{
-		( *( cit++ ) )->sendTooltip( this );
+		item->sendTooltip( this );
 	}
 
 	// Send status gump with gold info
 	sendStatWindow();
 }
 
-static void walkSellItems( P_ITEM pCont, P_ITEM pPurchase, Q3PtrList<cItem>& items )
+static void walkSellItems( P_ITEM pCont, P_ITEM pPurchase, QList<cItem*>& items )
 {
 	// For every pack item search for an equivalent sellitem
 	for ( ContainerIterator pit( pCont ); !pit.atEnd(); ++pit )
@@ -3558,16 +3544,15 @@ void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 
 	if ( pPurchase && pBackpack )
 	{
-		Q3PtrList<cItem> items;
+		QList<cItem*> items;
 		cUOTxSellList itemContent;
 		itemContent.setSerial( pVendor->serial() );
 
 		walkSellItems( pBackpack, pPurchase, items );
 
 		// Transfer the found items to the sell list
-		P_ITEM pItem;
 		unsigned int count = 0;
-		for ( pItem = items.first(); pItem; pItem = items.next() )
+		foreach( P_ITEM pItem, items )
 		{
 			unsigned int sellprice = pItem->getSellPrice( pVendor );
 			if ( sellprice != 0 )
@@ -3585,7 +3570,7 @@ void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 
 		pVendor->talk( 501530, 0, 0, false, pVendor->saycolor(), this );
 		send( &itemContent );
-		for ( P_ITEM item = items.first(); item; item = items.next() )
+		foreach ( P_ITEM item, items )
 		{
 			item->sendTooltip( this );
 		}

@@ -532,7 +532,7 @@ void cUObject::processNode( const cElement* Tag )
 				// we assume it's a random gradient.
 				// If it's separated by ; we assume it's a list of values
 				// we should choose from randomly.
-				int sep = value.find( ',' );
+				int sep = value.indexOf( ',' );
 
 				if ( sep != -1 )
 				{
@@ -547,7 +547,7 @@ void cUObject::processNode( const cElement* Tag )
 					// Choose a random value from the list.
 					if ( value.contains( ';' ) )
 					{
-						QStringList values = QStringList::split( ';', value );
+						QStringList values = value.split( ';' );
 						if ( values.size() > 0 )
 						{
 							value = values[RandomNum( 0, values.size() - 1 )];
@@ -606,7 +606,8 @@ void cUObject::removeFromView( bool clean )
 
 	cUOTxRemoveObject remove;
 	remove.setSerial( serial_ );
-	for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( cUOSocket* socket, sockets )
 	{
 		if ( socket->player() != this && ( clean || socket->canSee( this ) ) )
 		{
@@ -658,7 +659,8 @@ void cUObject::lightning( unsigned short hue )
 	effect.setHue( hue );
 
 	cUOSocket* mSock = 0;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( mSock->player() && dist( mSock->player() ) < mSock->player()->visualRange() )
 			mSock->send( &effect );
@@ -688,7 +690,8 @@ void cUObject::effect( quint16 id, cUObject* target, bool fixedDirection, bool e
 	effect.setRenderMode( renderMode );
 
 	cUOSocket* mSock = 0;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( !mSock->player() )
 			continue;
@@ -718,7 +721,8 @@ void cUObject::effect( quint16 id, const Coord& target, bool fixedDirection, boo
 	effect.setRenderMode( renderMode );
 
 	cUOSocket* mSock = 0;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( !mSock->player() )
 			continue;
@@ -747,7 +751,8 @@ void cUObject::effect( quint16 id, quint8 speed, quint8 duration, quint16 hue, q
 	effect.setRenderMode( renderMode );
 
 	cUOSocket* mSock = 0;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->send( &effect );
@@ -790,7 +795,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "scriptlist" )
 	{
 		clearScripts();
-		QStringList list = QStringList::split( ",", value.toString() );
+		QStringList list = value.toString().split( "," );
 		for ( QStringList::const_iterator it( list.begin() ); it != list.end(); ++it )
 		{
 			cPythonScript* script = ScriptManager::instance()->find( ( *it ).toLatin1() );
@@ -944,7 +949,8 @@ void cUObject::resendTooltip()
 			tooltip.setId( tooltip_ );
 			tooltip.setSerial( serial() );
 
-			for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
+			QList<cUOSocket*> sockets = Network::instance()->sockets();
+			foreach ( cUOSocket* s, sockets )
 			{
 				if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
 				{
@@ -957,7 +963,8 @@ void cUObject::resendTooltip()
 			tooltip.setId( tooltip_ );
 			tooltip.setSerial( serial() );
 
-			for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
+			QList<cUOSocket*> sockets = Network::instance()->sockets();
+			foreach ( cUOSocket* s, sockets )
 			{
 				if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
 				{
@@ -971,7 +978,8 @@ void cUObject::resendTooltip()
 	{
 		cUOTxTooltipList tooltip;
 
-		for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* s, sockets )
 		{
 			if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
 			{
@@ -1133,17 +1141,16 @@ void cUObject::setScriptList( const QByteArray& eventlist )
 		return;
 	}
 
-	QStringList events = QStringList::split( ",", eventlist );
+	QList<QByteArray> events = eventlist.split( ',' );
 	size_t i = 1;
-	QStringList::iterator it;
 
 	clearScripts();
 	scriptChain = new cPythonScript * [1 + events.count()];
 	scriptChain[0] = reinterpret_cast<cPythonScript*>( 0 );
 
-	for ( it = events.begin(); it != events.end(); ++it )
+	foreach ( QByteArray it, events )
 	{
-		cPythonScript* script = ScriptManager::instance()->find( ( *it ).toLatin1() );
+		cPythonScript* script = ScriptManager::instance()->find( it );
 
 		if ( script )
 		{

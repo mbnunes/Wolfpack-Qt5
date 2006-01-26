@@ -219,7 +219,7 @@ void cKeyManager::load()
 	QStringList::const_iterator it;
 	for ( it = list.begin(); it != list.end(); ++it )
 	{
-		QStringList elements = QStringList::split( ";", *it, false );
+		QStringList elements = (*it).split( ";" );
 
 		if ( elements.size() < 3 )
 		{
@@ -231,19 +231,19 @@ void cKeyManager::load()
 
 		bool ok;
 
-		key.key1 = hex2dec( elements[1].stripWhiteSpace() ).toUInt( &ok );
+		key.key1 = hex2dec( elements[1].trimmed() ).toUInt( &ok );
 
 		if ( !ok )
 		{
-			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[1].stripWhiteSpace() ) );
+			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[1].trimmed() ) );
 			continue;
 		}
 
-		key.key2 = hex2dec( elements[2].stripWhiteSpace() ).toUInt( &ok );
+		key.key2 = hex2dec( elements[2].trimmed() ).toUInt( &ok );
 
 		if ( !ok )
 		{
-			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[2].stripWhiteSpace() ) );
+			Log::instance()->print( LOG_WARNING, QString( "Couldn't parse key value: %1" ).arg( elements[2].trimmed() ) );
 			continue;
 		}
 

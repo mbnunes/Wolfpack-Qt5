@@ -61,7 +61,7 @@ cPythonScript* cScriptManager::find( const QByteArray& name )
 	cScriptManager::iterator it = scripts.find( name );
 
 	if ( it != scripts.end() )
-		return it.data();
+		return it.value();
 	else
 		return 0;
 }
@@ -116,7 +116,7 @@ void cScriptManager::unload()
 
 	for ( itc = commandhooks.begin(); itc != commandhooks.end(); ++itc )
 	{
-		Py_XDECREF( itc.data() );
+		Py_XDECREF( itc.value() );
 	}
 
 	commandhooks.clear();
@@ -125,8 +125,8 @@ void cScriptManager::unload()
 
 	for ( it = scripts.begin(); it != scripts.end(); ++it )
 	{
-		it.data()->unload();
-		delete it.data();
+		it.value()->unload();
+		delete it.value();
 	}
 
 	scripts.clear();
@@ -153,7 +153,7 @@ void cScriptManager::load()
 		}
 
 		cPythonScript* script = new cPythonScript;
-		scripts.replace( element->text().utf8(), script );
+		scripts.insert( element->text().toUtf8(), script );
 		script->load( element->text().toLatin1() );
 		++loaded;
 	}
@@ -170,7 +170,7 @@ void cScriptManager::onServerStart()
 
 	for ( it = scripts.begin(); it != scripts.end(); ++it )
 	{
-		it.data()->callEventHandler( "onServerStart" );
+		it.value()->callEventHandler( "onServerStart" );
 	}
 }
 
@@ -180,7 +180,7 @@ void cScriptManager::onServerStop()
 
 	for ( it = scripts.begin(); it != scripts.end(); ++it )
 	{
-		it.data()->callEventHandler( "onServerStop" );
+		it.value()->callEventHandler( "onServerStop" );
 	}
 }
 
@@ -188,9 +188,9 @@ PyObject* cScriptManager::getCommandHook( const QByteArray& command )
 {
 	PyObject* result = 0;
 
-	if ( commandhooks.contains( command.lower() ) )
+	if ( commandhooks.contains( command.toLower() ) )
 	{
-		result = commandhooks[command.lower()];
+		result = commandhooks[command.toLower()];
 	}
 
 	return result;
@@ -210,12 +210,12 @@ cPythonScript* cScriptManager::getGlobalHook( ePythonEvent event )
 
 void cScriptManager::setCommandHook( const QByteArray& command, PyObject* object )
 {
-	if ( commandhooks.contains( command.lower() ) )
+	if ( commandhooks.contains( command.toLower() ) )
 	{
-		Py_DECREF( commandhooks[command.lower()] );
+		Py_DECREF( commandhooks[command.toLower()] );
 	}
 
-	commandhooks.replace( command.lower(), object );
+	commandhooks.insert( command.toLower(), object );
 }
 
 void cScriptManager::setGlobalHook( ePythonEvent event, cPythonScript* script )

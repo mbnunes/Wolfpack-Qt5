@@ -114,7 +114,7 @@ void startPython( int argc, char* argv[] )
 	// Modify our search-path
 	PyObject* searchpath = PySys_GetObject( "path" );
 
-	QStringList elements = QStringList::split( ";", Config::instance()->getString( "General", "Python Searchpath", "./scripts;.", true ) );
+	QStringList elements = Config::instance()->getString( "General", "Python Searchpath", "./scripts;.", true ).split( ";" );
 
 	// Prepend our items to the searchpath
 	for ( int i = elements.count() - 1; i >= 0; --i )
@@ -161,7 +161,7 @@ void reloadPython()
 	// This is a dictionary, so iterate trough it and reload all contained modules
 	PyObject* mList = PyDict_Items( modules );
 
-	for ( qint32 i = 0; i < PyList_Size( mList ); ++i )
+	for ( int i = 0; i < PyList_Size( mList ); ++i )
 	{
 		PyObject* m = PyImport_ReloadModule( PyList_GetItem( mList, i ) );
 		Py_XDECREF( m );

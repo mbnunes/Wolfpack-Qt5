@@ -206,7 +206,8 @@ static PyObject* wpCoord_effect( wpCoord* self, PyObject* args )
 	effect.setRenderMode( rendermode );
 
 	cUOSocket* mSock;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( mSock->player() && mSock->player()->pos().distance( self->coord ) <= mSock->player()->visualRange() )
 			mSock->send( &effect );
@@ -233,7 +234,8 @@ static PyObject* wpCoord_soundeffect( wpCoord* self, PyObject* args )
 	effect.setCoord( self->coord );
 
 	cUOSocket* mSock;
-	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	QList<cUOSocket*> sockets = Network::instance()->sockets();
+	foreach ( mSock, sockets )
 	{
 		if ( mSock->player() && mSock->player()->pos().distance( self->coord ) <= mSock->player()->visualRange() )
 			mSock->send( &effect );

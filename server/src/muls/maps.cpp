@@ -37,10 +37,10 @@
 
 // Library Includes
 #include <QString>
-#include <q3intcache.h>
 #include <QFile>
 #include <QDataStream>
 #include <QDir>
+#include <QCache>
 
 // System includes
 #include <algorithm>
@@ -81,8 +81,8 @@ public:
 
 	uint width;
 	uint height;
-	Q3IntCache<mapblock> mapCache;
-	Q3IntCache<QList<staticrecord> > staticsCache;
+	QCache<int, mapblock> mapCache;
+	QCache<int, QList<staticrecord> > staticsCache;
 
 	QFile mapfile;
 	QFile idxfile;
@@ -106,20 +106,17 @@ public:
 
 MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw( wpFileNotFoundException )
 {
-	idxfile.setName( index );
+	idxfile.setFileName( index );
 	if ( !idxfile.open( QIODevice::ReadOnly ) )
 		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( index ) );
 
-	mapfile.setName( map );
+	mapfile.setFileName( map );
 	if ( !mapfile.open( QIODevice::ReadOnly ) )
 		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( map ) );
 
-	staticsfile.setName( statics );
+	staticsfile.setFileName( statics );
 	if ( !staticsfile.open( QIODevice::ReadOnly ) )
 		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( statics ) );
-
-	staticsCache.setAutoDelete( true );
-	mapCache.setAutoDelete( true );
 }
 
 void MapsPrivate::loadDiffs( const QString& basePath, unsigned int id )
@@ -134,20 +131,20 @@ void MapsPrivate::loadDiffs( const QString& basePath, unsigned int id )
 	QString statDiffIndexName = QString( "stadifi%1.mul" ).arg( id );
 	for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
 	{
-		if ( ( *it ).lower() == mapDiffListName )
+		if ( ( *it ).toLower() == mapDiffListName )
 			mapDiffListName = *it;
-		else if ( ( *it ).lower() == mapDiffFileName )
+		else if ( ( *it ).toLower() == mapDiffFileName )
 			mapDiffFileName = *it;
-		else if ( ( *it ).lower() == statDiffFileName )
+		else if ( ( *it ).toLower() == statDiffFileName )
 			statDiffFileName = *it;
-		else if ( ( *it ).lower() == statDiffListName )
+		else if ( ( *it ).toLower() == statDiffListName )
 			statDiffListName = *it;
-		else if ( ( *it ).lower() == statDiffIndexName )
+		else if ( ( *it ).toLower() == statDiffIndexName )
 			statDiffIndexName = *it;
 	}
 
 	QFile mapdiflist( basePath + mapDiffListName );
-	mapdifdata.setName( basePath + mapDiffFileName );
+	mapdifdata.setFileName( basePath + mapDiffFileName );
 
 	// Try to read a list of ids
 	if ( mapdifdata.open( QIODevice::ReadOnly ) && mapdiflist.open( QIODevice::ReadOnly ) )
@@ -165,7 +162,7 @@ void MapsPrivate::loadDiffs( const QString& basePath, unsigned int id )
 		mapdiflist.close();
 	}
 
-	stadifdata.setName( basePath + statDiffFileName );
+	stadifdata.setFileName( basePath + statDiffFileName );
 	stadifdata.open( QIODevice::ReadOnly );
 
 	QFile stadiflist( basePath + statDiffListName );
@@ -212,7 +209,7 @@ map_st MapsPrivate::seekMap( ushort x, ushort y )
 	unsigned int blockid = x / 8 * height + y / 8;
 
 	// See if the block has been cached
-	mapblock* result = mapCache.find( blockid );
+	mapblock* result = mapCache.object( blockid );
 	bool borrowed = true;
 
 	if ( !result )
@@ -223,12 +220,12 @@ map_st MapsPrivate::seekMap( ushort x, ushort y )
 		if ( mappatches.contains( blockid ) )
 		{
 			unsigned int offset = mappatches[blockid];
-			mapdifdata.at( offset );
+			mapdifdata.seek( offset );
 			mapdifdata.read( ( char * ) result, sizeof( mapblock ) );
 		}
 		else
 		{
-			mapfile.at( blockid * sizeof( mapblock ) );
+			mapfile.seek( blockid * sizeof( mapblock ) );
 			mapfile.read( ( char * ) result, sizeof( mapblock ) );
 		}
 
@@ -309,7 +306,7 @@ void cMaps::flushCache()
 {
 	for ( iterator it = d.begin(); it != d.end(); ++it )
 	{
-		it.data()->flushCache();
+		it.value()->flushCache();
 	}
 }
 
@@ -318,10 +315,7 @@ void cMaps::flushCache()
 */
 void cMaps::unload()
 {
-	for ( iterator it = d.begin(); it != d.end(); ++it )
-	{
-		delete it.data();
-	}
+	qDeleteAll( d );
 	d.clear();
 
 	cComponent::unload();
@@ -353,11 +347,11 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 		QString staticsIdxName, mapFileName, staticsFileName;
 		for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
 		{
-			if ( ( *it ).lower() == staticsidx.lower() )
+			if ( ( *it ).toLower() == staticsidx.toLower() )
 				staticsIdxName = *it;
-			if ( ( *it ).lower() == mapfile.lower() )
+			if ( ( *it ).toLower() == mapfile.toLower() )
 				mapFileName = *it;
-			if ( ( *it ).lower() == staticsfile.lower() )
+			if ( ( *it ).toLower() == staticsfile.toLower() )
 				staticsFileName = *it;
 		}
 
@@ -403,7 +397,7 @@ map_st cMaps::seekMap( uint id, ushort x, ushort y ) const
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
 		return map_st();
-	return it.data()->seekMap( x, y );
+	return it.value()->seekMap( x, y );
 }
 
 /*!
@@ -443,7 +437,7 @@ uint cMaps::mapTileHeight( uint id ) const
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
 		return 0;
-	return it.data()->height;
+	return it.value()->height;
 }
 
 /*!
@@ -454,7 +448,7 @@ uint cMaps::mapTileWidth( uint id ) const
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
 		return 0;
-	return it.data()->width;
+	return it.value()->width;
 }
 
 void cMaps::mapTileSpan( const Coord& pos, unsigned short& id, int& bottom, int& top ) const
@@ -567,18 +561,20 @@ bool cMaps::canFit( int x, int y, int z, uint map ) const
 
 unsigned int cMaps::mapPatches( unsigned int id )
 {
-	if ( d.find( id ) == d.end() )
+	iterator it = d.find( id );
+	if ( it == d.end() )
 		throw wpException( QString( "[cMaps::mapPatches line %1] map id(%2) not registered!" ).arg( __LINE__ ).arg( id ) );
 
-	return d.find( id ).data()->mappatches.size();
+	return it.value()->mappatches.size();
 }
 
 unsigned int cMaps::staticPatches( unsigned int id )
 {
-	if ( d.find( id ) == d.end() )
+	iterator it = d.find( id );
+	if ( it == d.end() )
 		throw wpException( QString( "[cMaps::staticPatches line %1] map id(%2) not registered!" ).arg( __LINE__ ).arg( id ) );
 
-	return d.find( id ).data()->staticpatches.size();
+	return it.value()->staticpatches.size();
 }
 
 signed char cMaps::dynamicElevation( const Coord& pos ) const
@@ -654,7 +650,7 @@ StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact 
 		Console::instance()->log( LOG_ERROR, tr( "[cMaps::staticsIterator line %1] map id(%2) not registered!\n" ).arg( __LINE__ ).arg( id ) );
 		return StaticsIterator( x, y, 0, true );
 	}
-	return StaticsIterator( x, y, it.data(), exact );
+	return StaticsIterator( x, y, it.value(), exact );
 }
 
 StaticsIterator cMaps::staticsIterator( const Coord& p, bool exact /* = true */ ) const throw( wpException )
@@ -703,7 +699,7 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exact )
 {
 	uint indexPos = ( baseX * mapRecord->height + baseY ) * 12;
-	QList<staticrecord>* p = mapRecord->staticsCache.find(indexPos);
+	QList<staticrecord>* p = mapRecord->staticsCache.object(indexPos);
 
 	// The block is not cached yet.
 	if (!p) {
@@ -719,20 +715,20 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 			if ( index.offset == 0xFFFFFFFF )
 				return; // No statics for this block
 
-			mapRecord->stadifdata.at( index.offset );
+			mapRecord->stadifdata.seek( index.offset );
 			staticStream.setDevice( &mapRecord->stadifdata );
 			blockLength = index.blocklength;
 		}
 		else
 		{
 			stIndexRecord indexStructure;
-			mapRecord->idxfile.at( indexPos );
+			mapRecord->idxfile.seek( indexPos );
 			mapRecord->idxfile.read( ( char * ) &indexStructure, sizeof( indexStructure ) );
 
 			if ( indexStructure.offset == 0xFFFFFFFF )
 				return; // No statics for this block
 
-			mapRecord->staticsfile.at( indexStructure.offset );
+			mapRecord->staticsfile.seek( indexStructure.offset );
 			staticStream.setDevice( &mapRecord->staticsfile );
 			blockLength = indexStructure.blocklength;
 		}

@@ -174,7 +174,7 @@ void cCorpse::save()
 	}
 
 	for ( QMap<quint8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
-		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it.key() ).arg( it.data() ) );
+		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it.key() ).arg( it.value() ) );
 
 	cItem::save();
 }
@@ -216,11 +216,11 @@ void cCorpse::update( cUOSocket* mSock )
 
 		for ( QMap<quint8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 		{
-			P_ITEM pItem = World::instance()->findItem( it.data() );
+			P_ITEM pItem = World::instance()->findItem( it.value() );
 
 			if ( pItem && pItem->container() == this )
 			{
-				corpseEquip.addItem( it.key(), it.data() );
+				corpseEquip.addItem( it.key(), it.value() );
 				corpseContent.addItem( pItem );
 			}
 		}
@@ -248,7 +248,8 @@ void cCorpse::update( cUOSocket* mSock )
 		}
 		else
 		{
-			for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+			QList<cUOSocket*> sockets = Network::instance()->sockets();
+			foreach ( mSock, sockets )
 			{
 				if ( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 				{
@@ -345,8 +346,14 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 		This is used to derive the carve section for this corpse.
 		This property only exists for corpses.
 		*/
-	else
-		SET_STR_PROPERTY( "charbaseid", charbaseid_ )
+	else if( charbaseid_ == "charbaseid" ) 
+	{
+		QString text = value.toString();
+		if( text == QString::null )
+			PROPERTY_ERROR( -2, "String expected" );
+		charbaseid_ = text.toLatin1();
+		return 0; 
+	}
 
 	return cItem::setProperty( name, value );
 }

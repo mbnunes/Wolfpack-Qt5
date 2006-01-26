@@ -671,7 +671,13 @@ public:
 
 	virtual const char* name() const
 	{
-		return "ScriptAction:" + exec;
+		static char _name[20] = {0,};
+		if ( !_name[0] )
+		{
+			qstrcmp( _name, "ScriptAction:");
+			qstrncpy( _name + 13, exec.toLatin1().constData(), 20 - 13 );
+		}
+		return _name;
 	}
 
 protected:
