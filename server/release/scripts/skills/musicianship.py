@@ -33,13 +33,13 @@ sounds = {
 def wearout( player, item ):
 	# We do not allow "invulnerable" tools.
 	if not item.hastag('remaining_uses'):
-		player.socket.clilocmessage(1044038)
+		player.socket.clilocmessage(502079) # The instrument played its last tune.
 		item.delete()
 		return False
 
 	uses = int(item.gettag('remaining_uses'))
 	if uses <= 1:
-		player.socket.clilocmessage(1044038)
+		player.socket.clilocmessage(502079) # The instrument played its last tune.
 		item.delete()
 		return False
 	else:
@@ -90,8 +90,61 @@ def play_instrument( char, item, success ):
 
 # The base range of all bard abilities is 5 tiles, with each 15 points of skill in the ability being used increasing this range by one tile.
 def bard_range( char ):
-	musi_range = 5 + char.skill[ MUSICIANSHIP ] / 150
+	musi_range = 8 + char.skill[ MUSICIANSHIP ] / 150
 	return musi_range
+
+def IsPoisonImmune( char ):
+	poison_immunity = char.getintproperty('poison_immunity', -1)
+	return poison_immunity != -1
+
+def GetDifficultyFor( player, instrument, target ):
+	# Difficulty TODO: Add another 100 points for each of the following abilities:
+	#	- Radiation or Aura Damage (Heat, Cold etc.)
+	#	- Summoning Undead
+	#
+	totalskills = 0
+	val = target.hitpoints + target.stamina + target.mana
+	skills = target.skill
+	for i in range(0, ALLSKILLS):
+		totalskills += skills[i] / 100.0
+
+	if val > 700:
+		val = 700 + ((val - 700) / 3.66667)
+
+	# Target is Magery Creature
+	if target.ai == "Monster_Mage" and target.char.skill[MAGERY] > 50:
+		val += 100
+
+	#if IsFireBreathingCreature( bc ):
+	#	val += 100
+
+	if IsPoisonImmune( target ):
+		val += 100
+
+	if target.id == 317:
+		val += 100
+
+	val += (target.getintproperty('hit_poison_level', 0) + 1) * 20
+
+	val /= 10
+
+	#if ( bc != null && bc.IsParagon )
+	#	val += 40.0;
+
+	if instrument.hastag('exceptional'):
+		val -= 5.0 # 10%
+
+	slayer = properties.fromitem(instrument, SLAYER)
+	if slayer != '':
+		slayers = slayer.split(',')
+		for slayer in slayers:
+			slayer = system.slayer.findEntry(slayer)
+			if slayer:
+				if slayer.slays(target):
+					val -= 10.0 # 20%
+				elif slayer.group.opposition.super.slays(target): # not sure if this is correct
+					val += 10.0 # -20%
+	return val
 
 def onShowTooltip(viewer, object, tooltip):
 	slayer = properties.fromitem(object, SLAYER)

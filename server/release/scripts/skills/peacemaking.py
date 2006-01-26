@@ -82,6 +82,7 @@ def response( char, args, target ):
 	# anyone including npcs can re-target and start fight
 	peace_range = skills.musicianship.bard_range( char )
 	if char == target.char:
+		
 		result = char.checkskill( MUSICIANSHIP, 0, 1000 )
 		skills.musicianship.play_instrument( char, instrument, result )
 		# fail to play well
@@ -115,8 +116,13 @@ def response( char, args, target ):
 			skills.musicianship.play_instrument( char, instrument, False )
 			char.socket.clilocmessage( 500612, "", 0x3b2, 3 ) # You play poorly, and there is no effect.
 		else:
-			# bard difficulty - later, we should get these from the xml defs.
-			result = char.checkskill( PEACEMAKING, 0, 1000 )
+			# bard difficulty
+			diff = skills.musicianship.GetDifficultyFor( char, instrument, creature ) - 10.0
+			music = char.skill[MUSICIANSHIP] / 10.0
+			if music > 100.0:
+				diff -= (music - 100.0) * 0.5
+
+			result = char.checkskill( PEACEMAKING, diff - 25.0, diff + 25.0 )
 			skills.musicianship.play_instrument( char, instrument, result )
 			if not result:
 				char.socket.clilocmessage( 1049531, "", 0x3b2, 3 ) # You attempt to calm your target, but fail.
@@ -124,14 +130,17 @@ def response( char, args, target ):
 
 			char.socket.clilocmessage( 1049532 ) # You play hypnotic music, calming your target.
 
-			# FIXME : duration in relation to opponent
-			duration = 5000 + char.skill[ PEACEMAKING ] * 60
+			duration = 100 - (diff / 1.5)
+			if duration > 120:
+				duration = 120
+			elif duration < 10:
+				duration = 10
 			# NPC
 			if creature.npc:			
 				# stop combat
 				# do not start combat for the duration while not attacked
 				creature.addscript( 'skills.peacemaking' )
-				creature.addtimer( duration, release, [] )
+				creature.addtimer( duration * 1000, release, [] )
 			# Player chars
 			else:
 				creature.socket.clilocmessage( 500616 ) # You hear lovely music, and forget to continue battling!
