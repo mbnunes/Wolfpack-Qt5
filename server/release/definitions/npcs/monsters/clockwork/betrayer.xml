@@ -37,10 +37,10 @@
 		<tag name="res_physical" value="60,70" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Lootpacks -->
-		<!-- Missing: 1 Power Crystal -->
 		<lootpacks>lootpack_rich;gems;tm_5</lootpacks>
 		<backpack>
 			<content>
+				<item id="power_crystal" />
 				<item id="blackthorne_welcome_book" />
 			</content>
 		</backpack>

@@ -2298,4 +2298,24 @@
 		<basescripts>oil_cloth</basescripts>
 		<category>Misc\Oil Cloth</category>
 	</item>
+
+	<item id="clockwork_assembly">
+		<id>0x1ea8</id>
+		<name>clockwork assembly</name>
+		<weight>5.0</weight>
+		<color>1102</color>
+		<decay />
+		<basescripts>clockwork_assembly</basescripts>
+		<category>Misc\Clockwork Assembly</category>
+	</item>
+
+	<item id="power_crystal">
+		<id>0x1f1c</id>
+		<name>power crystal</name>
+		<weight>1.0</weight>
+		<decay />
+		<basescripts>power_crystal</basescripts>
+		<category>Misc\Power Crystal</category>
+	</item>
+
 </definitions>

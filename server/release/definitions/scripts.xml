@@ -36,6 +36,7 @@
 	<script>book</script>
 	<script>bulletinboard</script>
 	<script>check</script>
+	<script>clockwork_assembly</script>
 	<script>comcrystals</script>
 	<script>cooking</script>
 	<script>cotton</script>
@@ -66,6 +67,7 @@
 	<script>pickaxe</script>
 	<script>pickpocket_dip</script>
 	<script>potionkeg</script>
+	<script>power_crystal</script>
 	<script>runedye</script>
 	<script>sextant</script>
 	<script>scissors</script>
