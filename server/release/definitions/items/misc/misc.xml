@@ -2318,4 +2318,14 @@
 		<category>Misc\Power Crystal</category>
 	</item>
 
+	<item id="firehorn">
+		<id>0xfc7</id>
+		<name>#1060456</name>
+		<weight>1.0</weight>
+		<color>0x466</color>
+		<decay />
+		<basescripts>firehorn</basescripts>
+		<category>Misc\Firehorn</category>
+	</item>
+
 </definitions>
