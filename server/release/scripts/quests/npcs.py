@@ -287,7 +287,10 @@ def showquestdetailsnpc(player, id, npc, page):
 		dialog.addText(260, 200, " --- ", 1149)	
 	
 		dialog.addText(145, 240, "Return To", 55)
-		dialog.addText(260, 240, npc.name + " (" + npc.region.name + ")", 90)
+		if npc.region:
+			dialog.addText(260, 240, npc.name + " (" + npc.region.name + ")", 90)
+		else:
+			dialog.addText(260, 240, npc.name, 90)
 
 		if (page + 1) < npcamount:
 			dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
@@ -300,7 +303,10 @@ def showquestdetailsnpc(player, id, npc, page):
 		dialog.addText(180, 180, giveitemname(itemlist[page - npcamount]), 1149)
 	
 		dialog.addText(145, 240, "Return To", 55)
-		dialog.addText(260, 240, npc.name + " (" + npc.region.name + ")", 90)
+		if npc.region:
+			dialog.addText(260, 240, npc.name + " (" + npc.region.name + ")", 90)
+		else:
+			dialog.addText(260, 240, npc.name, 90)
 
 		if ((page - npcamount) + 1) < itemamount:
 			dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
@@ -365,7 +371,10 @@ def npcreportlist(npc, player):
 	dialog.addGump(449, 3, 10410, 0)
 	dialog.addGump(402, 61, 9012, 0)
 	dialog.addText(135, 49, "Quest Report", 1149)
-	dialog.addText(136, 79, npc.name + ", from: " + npc.region.name, 1149)
+	if npc.region:
+		dialog.addText(136, 79, npc.name + ", from: " + npc.region.name, 1149)
+	else:
+		dialog.addText(136, 79, npc.name, 1149)
 	dialog.addTiledGump(139, 69, 161, 2, 2432, 0)
 	dialog.addButton(338, 394, 12012, 12013, 0)
 
