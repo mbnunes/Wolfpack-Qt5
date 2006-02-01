@@ -862,17 +862,11 @@ def onUse(player, item):
 	# return True to handle the equip event.
 	scripts = list(item.scripts) + item.basescripts.split(',') + list(player.scripts) + player.basescripts.split(',')
 
-	if player.hastag('debug'):
-		player.socket.sysmessage(str(scripts))
 	for script in scripts:
-		try:
-			if wolfpack.hasevent(script, EVENT_WEARITEM):
-				result = wolfpack.callevent(script, EVENT_WEARITEM, (player, player, item, layer))
-				if result:
-					return True
-		except:
-			if player.hastag('debug'):
-				player.socket.sysmessage('Error in script ' + str(script))
+		if script and wolfpack.hasevent(script, EVENT_WEARITEM):
+			result = wolfpack.callevent(script, EVENT_WEARITEM, (player, player, item, layer))
+			if result:
+				return True
 
 	player.additem(layer, item)
 	item.update()
