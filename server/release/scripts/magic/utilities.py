@@ -70,7 +70,7 @@ def hasSpell(char, spell, silent = True):
 		return True
 
 	book = char.itemonlayer(1)
-	
+
 	if magic.spellbook.hasspell(book, spell):
 		return True
 
