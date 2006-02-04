@@ -5,7 +5,6 @@
 #  ( (  ;._ \\ ctr # Last Modification: Created                 #
 #################################################################
 
-import wolfpack
 import random
 from combat.utilities import weaponskill
 from wolfpack.consts import FENCING, MACEFIGHTING, SWORDSMANSHIP, WRESTLING, MAX_SKILL_FOR_DUMMIE
@@ -84,14 +83,12 @@ def onUse( char, item ):
 	item.soundeffect( 0x33 )
 
 	# Add a timer to reset the id (serializable!)
-	wolfpack.addtimer( random.randint( 2000, 3000 ), resetid, [ item.serial ], 1 )
+	item.addtimer( random.randint( 2000, 3000 ), resetid, [], 1 )
 
 	return True
 
 # Reset the id of a swinging dummy
-def resetid( object, args ):
-	item = wolfpack.finditem( args[0] )
-
+def resetid( item, args ):
 	if( item and ( item.id == 0x1071 or item.id == 0x1075 ) ):
 		item.id -= 1
 		item.update()
