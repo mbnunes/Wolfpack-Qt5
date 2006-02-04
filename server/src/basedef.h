@@ -59,7 +59,7 @@ protected:
 
 	eDefCategory definitionType;
 public:
-	void processNode( const cElement* node );
+	void processNode( const cElement* node, uint hash = 0 );
 
 	inline unsigned int getIntProperty( const QString& name, unsigned int def = 0 )
 	{
@@ -163,7 +163,7 @@ public:
 	cCharBaseDef( const QByteArray& id );
 	~cCharBaseDef();
 
-	void processNode( const cElement* node );
+	void processNode( const cElement* node, uint hash = 0 );
 
 	inline unsigned char controlSlots()
 	{
@@ -362,7 +362,7 @@ public:
 	cItemBaseDef( const QByteArray& id );
 	~cItemBaseDef();
 
-	void processNode( const cElement* node );
+	void processNode( const cElement* node, uint hash = 0 );
 
 	inline unsigned int decaydelay()
 	{

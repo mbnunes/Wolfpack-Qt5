@@ -535,6 +535,29 @@ const QList<cElement*>& cDefinitions::getDefinitions( eDefCategory type ) const
 /*
  *	Implementation of cElement
  */
+
+cElement::cElement() : nameHashKey( 0 ), name_( QString::null ), text_( QString::null )
+{
+	childCount_ = 0;
+	attrCount_ = 0;
+	children = 0;
+	attributes = 0;
+	parent_ = 0;
+
+	//instances.append(this);
+};
+
+cElement::~cElement()
+{
+	freeAttributes();
+	freeChildren();
+
+	if ( parent_ )
+		parent_->removeChild( this );
+
+	//instances.remove(this);
+}
+
 void cElement::freeAttributes()
 {
 	if ( attributes != 0 )
@@ -564,30 +587,6 @@ void cElement::freeChildren()
 
 		delete[] copy;
 	}
-}
-
-cElement::cElement()
-{
-	childCount_ = 0;
-	attrCount_ = 0;
-	name_ = QString::null;
-	text_ = QString::null;
-	children = 0;
-	attributes = 0;
-	parent_ = 0;
-
-	//instances.append(this);
-};
-
-cElement::~cElement()
-{
-	freeAttributes();
-	freeChildren();
-
-	if ( parent_ )
-		parent_->removeChild( this );
-
-	//instances.remove(this);
 }
 
 void cElement::copyAttributes( const QXmlAttributes& attributes )
@@ -678,6 +677,13 @@ void cElement::setName( const QByteArray& data )
 const QString& cElement::name() const
 {
 	return name_;
+}
+
+uint cElement::nameHash() const
+{
+	if ( !nameHashKey )
+		nameHashKey = elfHash( name_.toLatin1() );
+	return nameHashKey;
 }
 
 void cElement::setText( const QString& data )

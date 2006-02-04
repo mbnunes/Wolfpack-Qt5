@@ -80,7 +80,9 @@ void cDefinable::applyDefinition( const cElement* sectionNode )
 	}
 
 	for ( unsigned int i = 0; i < sectionNode->childCount(); ++i )
+	{
 		processNode( sectionNode->getChild( i ) );
+	}
 
 	//unsigned int endtime = getNormalizedTime();
 

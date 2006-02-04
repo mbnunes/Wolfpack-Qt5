@@ -89,7 +89,7 @@ void cNetwork::incomingGameServerConnection()
 	cUOSocket *uosocket = new cUOSocket( d->gameServer_->nextPendingConnection() );
 	d->uoSockets.append( uosocket );
 	connect( uosocket, SIGNAL(disconnected()), this, SLOT(partingGameServerConnection()) );
-
+	connect( uosocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(partingGameServerConnection()));
 	// Notify the admin
 	uosocket->log( tr( "Client connected to game server (%1).\n" ).arg( uosocket->socket()->peerAddress().toString() ) );
 }
@@ -100,6 +100,7 @@ void cNetwork::incomingLoginServerConnection()
 	d->loginSockets.append( uosocket );
 
 	connect( uosocket, SIGNAL(disconnected()), this, SLOT(partingLoginServerConnection()) );
+	connect( uosocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(partingLoginServerConnection()));
 	// Notify the admin
 	uosocket->log( tr( "Client connected to login server (%1).\n" ).arg( uosocket->socket()->peerAddress().toString() ) );
 }

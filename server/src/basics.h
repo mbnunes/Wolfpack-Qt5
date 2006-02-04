@@ -53,16 +53,7 @@ QString hex2dec( const QString& value );
 
 float RandomFloatNum( float nLowNum, float nHighNum );
 unsigned int getNormalizedTime();
-
-template <class T>
-struct destroy_obj : std::unary_function<T, void>
-{
-	void operator()( T& d ) const
-	{
-		delete d;
-		d = 0;
-	}
-};
+uint elfHash(const char * name);
 
 // Swap the value in place
 inline void swapBytes( unsigned int& data )

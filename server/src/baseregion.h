@@ -148,7 +148,7 @@ public:
 	}
 
 protected:
-	virtual void processNode( const cElement* Tag )
+	virtual void processNode( const cElement* Tag, uint hash = 0 )
 	{
 		QString TagName = Tag->name();
 		QString Value = Tag->value();

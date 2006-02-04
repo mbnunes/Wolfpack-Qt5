@@ -758,111 +758,151 @@ bool cItem::onDropOnChar( P_CHAR pChar )
 	return result;
 }
 
-void cItem::processNode( const cElement* Tag )
+void cItem::processNode( const cElement* Tag, uint hash )
 {
+/*
+#define OUTPUT_HASH(x) QString("%1 = %2\n").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+		OUTPUT_HASH("amount") + 
+		OUTPUT_HASH("durability") + 
+		OUTPUT_HASH("movable") + 
+		OUTPUT_HASH("ownermovable") + 
+		OUTPUT_HASH("immovable") + 
+		OUTPUT_HASH("decay") + 
+		OUTPUT_HASH("nodecay") + 
+		OUTPUT_HASH("dispellable") + 
+		OUTPUT_HASH("notdispellable") + 
+		OUTPUT_HASH("newbie") + 
+		OUTPUT_HASH("notnewbie") + 
+		OUTPUT_HASH("twohanded") + 
+		OUTPUT_HASH("singlehanded") + 
+		OUTPUT_HASH("invisible") + 
+		OUTPUT_HASH("visible") + 
+		OUTPUT_HASH("ownervisible") + 
+		OUTPUT_HASH("dye") + 
+		OUTPUT_HASH("nodye") + 
+		OUTPUT_HASH("content") + 
+		OUTPUT_HASH("inherit")
+		);
+#undef OUTPUT_HASH
+*/
 	flagChanged();
 	// we do this as we're going to modify the element
-	QString TagName = Tag->name();
 	QString Value = Tag->value();
 
-	// <amount>10</amount>
-	if ( TagName == "amount" )
+	if ( !hash )
+		hash = Tag->nameHash();
+
+	switch ( hash )
 	{
+	case 0x6846c54: // amount
+		// <amount>10</amount>
 		this->setAmount( Value.toUShort() );
-	}
-	// <durability>10</durabilty>
-	else if ( TagName == "durability" )
-	{
+		break;
+
+	case 0x78aac39: // durability
+		// <durability>10</durabilty>
 		this->setMaxhp( Value.toLong() );
 		this->setHp( this->maxhp() );
-	}
+		break;
 
-	// <movable />
-	// <ownermovable />
-	// <immovable />
-	else if ( TagName == "movable" )
+	case 0x46c7955: // movable
 		this->movable_ = 1;
-	else if ( TagName == "ownermovable" )
+		break;
+
+	case 0x50235b5: // ownermovable
 		this->movable_ = 2;
-	else if ( TagName == "immovable" )
+		break;
+
+	case 0x46c0965: // immovable
 		this->movable_ = 3;
+		break;
 
-	// <decay />
-	// <nodecay />
-	else if ( TagName == "decay" )
+	case 0x6ab989: // decay
 		setNoDecay( false );
-	else if ( TagName == "nodecay" )
+		break;
+
+	case 0x55ab9f9: // nodecay
 		setNoDecay( true );
+		break;
 
-	// <dispellable />
-	// <notdispellable />
-	else if ( TagName == "dispellable" )
+	case 0xc597345: //dispellable
 		this->priv_ |= 0x04;
-	else if ( TagName == "notdispellable" )
+		break;
+
+	case 0xe997615: // notdispellable
 		this->priv_ &= 0xFB;
+		break;
 
-	// <newbie />
-	// <notnewbie />
-	else if ( TagName == "newbie" )
+	case 0x74cd8f5: // newbie
 		this->setNewbie( true );
-	else if ( TagName == "notnewbie" )
+		break;
+
+	case 0xb4cad95: // notnewbie
 		this->setNewbie( false );
+		break;
 
-	// <twohanded />
-	else if ( TagName == "twohanded" )
+	case 0x5e83154: // twohanded
 		this->setTwohanded( true );
-
-	// <singlehanded />
-	else if ( TagName == "singlehanded" )
+		break;
+		
+	case 0xc480494: // singlehanded
 		this->setTwohanded( false );
+		break;
 
-	// <visible />
-	// <invisible />
-	// <ownervisible />
-	else if ( TagName == "invisible" )
+	case 0xd098975: // invisible
 		this->visible_ = 2;
-	else if ( TagName == "visible" )
+		break;
+
+	case 0xd09f955: // visible
 		this->visible_ = 0;
-	else if ( TagName == "ownervisible" )
+		break;
+
+	case 0xc67b5b5: // ownervisible
 		this->visible_ = 1;
+		break;
 
-	// <dye />
-	// <nodye />
-	else if ( TagName == "dye" )
+	case 0x6bf5: // dye
 		this->setDye( true );
-	else if ( TagName == "nodye" )
+		break;
+
+	case 0x755bf5: // nodye
 		this->setDye( false );
+		break;
 
-	// <content><item id="a" />...<item id="z" /></content> (sereg)
-	else if ( TagName == "content" && Tag->childCount() > 0 )
+	case 0xa65ac34: // content
+		// <content><item id="a" />...<item id="z" /></content> (sereg)
 		this->processContainerNode( Tag );
+		break;
 
-	// <inherit id="f23" />
-	// <inherit>f23</inherit>
-	else if ( TagName == "inherit" )
-	{
-		const cElement* section;
-
-		if ( Tag->hasAttribute( "id" ) )
+	case 0x4ec974:
 		{
-			section = Definitions::instance()->getDefinition( WPDT_ITEM, Tag->getAttribute( "id" ) );
-		}
-		else
-		{
-			section = Definitions::instance()->getDefinition( WPDT_ITEM, Value );
-		}
+			const cElement* section;
 
-		if ( section )
-			applyDefinition( section );
-	}
-	else
-	{
-		const cElement* section = Definitions::instance()->getDefinition( WPDT_DEFINE, TagName );
-		if ( section )
-			for ( unsigned int i = 0; i < section->childCount(); ++i )
-				processModifierNode( section->getChild( i ) );
-		else
-			cUObject::processNode( Tag );
+			if ( Tag->hasAttribute( "id" ) )
+			{
+				section = Definitions::instance()->getDefinition( WPDT_ITEM, Tag->getAttribute( "id" ) );
+			}
+			else
+			{
+				section = Definitions::instance()->getDefinition( WPDT_ITEM, Value );
+			}
+
+			if ( section )
+				applyDefinition( section );
+		}
+		break;
+
+	default:
+		{
+			const cElement* section = Definitions::instance()->getDefinition( WPDT_DEFINE, Tag->name() );
+			if ( section )
+				for ( unsigned int i = 0; i < section->childCount(); ++i )
+					processModifierNode( section->getChild( i ) );
+			else
+				cUObject::processNode( Tag );
+		}
+		break;
 	}
 }
 

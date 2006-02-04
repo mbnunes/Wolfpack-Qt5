@@ -33,11 +33,11 @@
 #include "serverconfig.h"
 #include "basics.h"
 #include <string.h>
-#include <qdom.h>
-//Added by qt3to4:
+
+#include <QtXml>
 #include <QByteArray>
 
-void cBaseDef::processNode( const cElement* node )
+void cBaseDef::processNode( const cElement* node, uint hash )
 {
 	if ( node->name() == "intproperty" )
 	{
@@ -152,7 +152,7 @@ void cCharBaseDef::reset()
 	deathSound_.clear();
 }
 
-void cCharBaseDef::processNode( const cElement* node )
+void cCharBaseDef::processNode( const cElement* node, uint hash )
 {
 	// <basesound>0x12</basesound>
 	if ( node->name() == "basesound" )
@@ -592,7 +592,7 @@ void cItemBaseDef::reset()
 	clilocName_ = 0;
 }
 
-void cItemBaseDef::processNode( const cElement* node )
+void cItemBaseDef::processNode( const cElement* node, uint hash )
 {
 	// <weight>10.5</weight>
 	if ( node->name() == "weight" )

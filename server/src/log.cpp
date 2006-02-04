@@ -38,7 +38,6 @@
 // QT Includes
 #include <QDateTime>
 #include <QDir>
-//Added by qt3to4:
 #include <QByteArray>
 
 cLog::cLog()

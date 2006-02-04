@@ -25,6 +25,7 @@
  * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
+#include "server.h"
 #include "accounts.h"
 #include "ai/ai.h"
 #include "ai/ai_commoner.h"
@@ -70,6 +71,7 @@
 #include <QWaitCondition>
 #include <QCoreApplication>
 #include <QTextCodec>
+#include <QLocale>
 #include <QTranslator>
 
 #if defined(MYSQL_DRIVER)
@@ -317,9 +319,9 @@ void cServer::run()
 
 #if !defined( QT_NO_TRANSLATION )
 	// Start the QT translator
-	if ( QTextCodec::locale() != "en_US" )
+	if ( QLocale::system().language() != QLocale::English )
 	{
-		QString languageFile = Config::instance()->getString( "General", "Language File", QString( "wolfpack_" ) + QTextCodec::locale() + QString( ".qm" ), true );
+		QString languageFile = Config::instance()->getString( "General", "Language File", QString( "wolfpack_" ) + QLocale::system().name() + QString( ".qm" ), true );
 		if ( !languageFile.isEmpty() && QFile::exists( languageFile ) )
 		{
 			QTranslator* translator = new QTranslator( this );
@@ -678,7 +680,7 @@ void cServer::reload( const QString& name )
 	{
 		if ( !component->isSilent() )
 		{
-			Console::instance()->sendProgress( tr( "Reloading %1" ).arg( tr( component->getName() ) ) );
+			Console::instance()->sendProgress( tr( "Reloading %1" ).arg( tr( component->getName().toLatin1() ) ) );
 		}
 
 		component->reload();

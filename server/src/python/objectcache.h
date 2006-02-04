@@ -31,7 +31,6 @@
 #include "engine.h"
 
 #include <stdexcept>
-//Added by qt3to4:
 #include <QList>
 
 template <class T, unsigned int MAXSIZE>

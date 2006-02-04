@@ -1248,38 +1248,69 @@ void cBaseChar::removeTimer( cTimer* timer )
 	}
 }
 
-void cBaseChar::processNode( const cElement* Tag )
+void cBaseChar::processNode( const cElement* Tag, uint hash )
 {
 	changed_ = true;
-	QString TagName = Tag->name();
 	QString Value = Tag->value();
 
-	//<backpack>
-	//	<color>0x132</color>
-	//	<item id="a">
-	//	...
-	//	<item id="z">
-	//</backpack>
-	if ( TagName == "backpack" )
-	{
-		P_ITEM pBackpack = getBackpack(); // This autocreates a backpack
+/*
+#define OUTPUT_HASH(x) QString("%1 = %2, ").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+		OUTPUT_HASH("backpack") + 
+		OUTPUT_HASH("title") + 
+		OUTPUT_HASH("stat") + 
+		OUTPUT_HASH("strength") + 
+		OUTPUT_HASH("str") + 
+		OUTPUT_HASH("dexterity") + 
+		OUTPUT_HASH("dex") + 
+		OUTPUT_HASH("intelligence") + 
+		OUTPUT_HASH("int") + 
+		OUTPUT_HASH("maxhitpoints") + 
+		OUTPUT_HASH("maxhp") + 
+		OUTPUT_HASH("maxstamina") + 
+		OUTPUT_HASH("maxstm") + 
+		OUTPUT_HASH("maxmana") + 
+		OUTPUT_HASH("maxmn") + 
+		OUTPUT_HASH("skill") + 
+		OUTPUT_HASH("equipped") + 
+		OUTPUT_HASH("saycolor") + 
+		OUTPUT_HASH("haircolor")
+		);
+#undef OUTPUT_HASH
+*/
 
-		if ( Tag->childCount() )
-			pBackpack->applyDefinition( Tag );
-	}
+	if ( !hash )
+		hash = Tag->nameHash();
+
+	switch ( hash )
+	{
+	case 0x7a2611b: // backpack
+		//<backpack>
+		//	<color>0x132</color>
+		//	<item id="a">
+		//	...
+		//	<item id="z">
+		//</backpack>
+		{
+			P_ITEM pBackpack = getBackpack(); // This autocreates a backpack
+
+			if ( Tag->childCount() )
+				pBackpack->applyDefinition( Tag );
+		}
+		break;
 
 #if !defined(QT_NO_TRANSLATION)
-	else if ( TagName == "title" )
-	{
-		QString context = Tag->getAttribute( "context", "@default" );
-		Value = QCoreApplication::instance()->translate( context, Value );
-		setTitle( Value );
-	}
+	case 0x7b0b25: // title
+		{
+			QString context = Tag->getAttribute( "context", "@default" );
+			Value = QCoreApplication::instance()->translate( context.toLatin1(), Value.toLatin1() );
+			setTitle( Value );
+		}
+		break;
 #endif
 
-	//<stat type="str">100</stat>
-	else if ( TagName == "stat" )
-	{
+	case 0x7aa84: // stat
+		//<stat type="str">100</stat>
 		if ( Tag->hasAttribute( "type" ) )
 		{
 			QString statType = Tag->getAttribute( "type" );
@@ -1320,71 +1351,77 @@ void cBaseChar::processNode( const cElement* Tag )
 				mana_ = maxMana_;
 			}
 		}
-	}
-	// Aliases to <stat></stat>
-	// <str>100</str>
-	else if ( TagName == "str" || TagName == "strength" )
-	{
+		break;
+
+	case 0xb8c4908: // strength
+	case 0x7ab2:    // str
+		// Aliases to <stat></stat>
+		// <str>100</str>
 		strength_ = Value.toLong();
 		maxHitpoints_ = strength_;
 		hitpoints_ = maxHitpoints_;
-	}
-	// <dex>100</dex>
-	else if ( TagName == "dex" || TagName == "dexterity" )
-	{
+		break;
+
+	case 0xfacfa79: // dexterity
+	case 0x6ac8:    // dex
+		// <dex>100</dex>
 		dexterity_ = Value.toLong();
 		maxStamina_ = dexterity_;
 		stamina_ = maxStamina_;
-	}
-	// <int>100</int>
-	else if ( TagName == "int" || TagName == "intelligence" )
-	{
+		break;
+
+	case 0x5f828a5: // intelligence
+	case 0x7054:    // int
+		// <int>100</int>
 		intelligence_ = Value.toLong();
 		maxMana_ = intelligence_;
 		mana_ = maxMana_;
-	}
-	// <maxhitpoints>100</maxhitpoints>
-	else if ( TagName == "maxhp" || TagName == "maxhitpoints" )
-	{
+		break;
+
+	case 0xc6d2ab3: // maxhitpoints
+	case 0x738ef0:  // maxhp
+		// <maxhitpoints>100</maxhitpoints>
 		maxHitpoints_ = Value.toLong();
 		hitpoints_ = maxHitpoints_;
-	}
-	// <maxstamina>100</maxstamina>
-	else if ( TagName == "maxstm" || TagName == "maxstamina" )
-	{
+		break;
+
+	case 0xaa108b1: // maxstamina
+	case 0x738faad: // maxstm
+		// <maxstamina>100</maxstamina>
 		maxStamina_ = Value.toLong();
 		stamina_ = maxStamina_;
-	}
-	// <maxmana>100</maxmana>
-	else if ( TagName == "maxmn" || TagName == "maxmana" )
-	{
+		break;
+
+	case 0x38f3831: // maxmana
+	case 0x738f3e:  // maxmn
+		// <maxmana>100</maxmana>
 		maxMana_ = Value.toLong();
 		mana_ = maxMana_;
-	}
+		break;
 
-	// <skill id="alchemy">100</skill>
-	// <skill id="1">100</skill>
-	else if ( TagName == "skill" && Tag->hasAttribute( "id" ) )
-	{
-		qint16 skillId = -1;
-		if ( Tag->getAttribute( "id" ).toInt() > 0 && Tag->getAttribute( "id" ).toInt() <= ALLSKILLS )
-			skillId = (qint16)( Tag->getAttribute( "id" ).toInt() - 1 );
-		else
-			skillId = (qint16)( Skills::instance()->findSkillByDef( Tag->getAttribute( "id", "" ) ) );
-		// Get the value
-		if ( skillId <= ALLSKILLS && skillId >= 0 )
+	case 0x7a202c: // skill
+		// <skill id="alchemy">100</skill>
+		// <skill id="1">100</skill>
 		{
-			setSkillValue( skillId, Value.toInt() );
+			qint16 skillId = -1;
+			if ( Tag->getAttribute( "id" ).toInt() > 0 && Tag->getAttribute( "id" ).toInt() <= ALLSKILLS )
+				skillId = (qint16)( Tag->getAttribute( "id" ).toInt() - 1 );
+			else
+				skillId = (qint16)( Skills::instance()->findSkillByDef( Tag->getAttribute( "id", "" ) ) );
+			// Get the value
+			if ( skillId <= ALLSKILLS && skillId >= 0 )
+			{
+				setSkillValue( skillId, Value.toInt() );
+			}
 		}
-	}
+		break;
 
-	//<equipped>
-	//	<item id="a" />
-	//	<item id="b" />
-	//	...
-	//</epuipped>
-	else if ( TagName == "equipped" )
-	{
+	case 0x8c07074: // equipped
+		//<equipped>
+		//	<item id="a" />
+		//	<item id="b" />
+		//	...
+		//</epuipped>
 		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
 			const cElement* element = Tag->getChild( i );
@@ -1446,46 +1483,43 @@ void cBaseChar::processNode( const cElement* Tag )
 				Console::instance()->log( LOG_ERROR, tr( "Invalid equipped element '%1' in npc definition '%2'." ).arg( QString( element->name() ) ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 			}
 		}
-	}
-	// <saycolor>0x12</saycolor>
-	else if ( TagName == "saycolor" )
-	{
-		bool ok;
-		ushort color;
-		color = Value.toUShort( &ok );
-		if ( ok )
-			this->setSaycolor( color );
-	}
-	// Dyes currently equipped hair/beard
-	// <haircolor value="0x12" />
-	// <haircolor>0x12</haircolor>
-	else if ( TagName == "haircolor" )
-	{
-		bool ok;
-		ushort color;
-		color = Value.toUShort( &ok );
-		if ( ok )
-		{
-			P_ITEM hair = getItemOnLayer( Hair );
-			if ( hair )
-				hair->setColor( color );
+		break;
 
-			P_ITEM facialHair = getItemOnLayer( FacialHair );
-			if ( facialHair )
-				facialHair->setColor( color );
+	case 0x8fa66f2: // saycolor
+		// <saycolor>0x12</saycolor>
+		{
+			bool ok;
+			ushort color;
+			color = Value.toUShort( &ok );
+			if ( ok )
+				this->setSaycolor( color );
 		}
-	}
-	else
-	{
-		/* This should be replaced by the <skill id="name">0</skill> tags */
-		/*
-		qint16 skillId = Skills::instance()->findSkillByDef( TagName );
-		if ( skillId == -1 )
-			cUObject::processNode( Tag );
-		else
-			setSkillValue( skillId, Value.toInt() );
-		*/
-		cUObject::processNode( Tag );
+		break;
+
+	case 0x8a4de2: // haircolor
+		// Dyes currently equipped hair/beard
+		// <haircolor value="0x12" />
+		// <haircolor>0x12</haircolor>
+		{
+			bool ok;
+			ushort color;
+			color = Value.toUShort( &ok );
+			if ( ok )
+			{
+				P_ITEM hair = getItemOnLayer( Hair );
+				if ( hair )
+					hair->setColor( color );
+
+				P_ITEM facialHair = getItemOnLayer( FacialHair );
+				if ( facialHair )
+					facialHair->setColor( color );
+			}
+		}
+		break;
+
+	default:
+		cUObject::processNode( Tag, hash );
+		break;
 	}
 }
 

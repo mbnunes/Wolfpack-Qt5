@@ -67,8 +67,16 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 
 # endif
 #else
-# define WP_TR_FUNCTIONS(classname)
-# define tr(x) QString(x)
+#  define WP_TR_FUNCTIONS(classname) \
+	static QString tr( const char* s, const char* c = 0 ) \
+	{ \
+		return QString::fromAscii( s ); \
+	} \
+	\
+	static QString trUtf8( const char* s, const char* c = 0 ) \
+	{ \
+		return QString::fromAscii(s); \
+	}
 #endif
 
 #define OBJECTDEF(classname) \

@@ -693,7 +693,7 @@ protected:
 	{
 	}
 
-	virtual void processNode( const cElement* Tag );
+	virtual void processNode( const cElement* Tag, uint hash = 0 );
 
 public:
 	ScriptAI( P_NPC npc ) : AbstractAI( npc ), onspeech( ( char* ) 0 )

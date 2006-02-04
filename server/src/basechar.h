@@ -715,7 +715,7 @@ protected:
 
 	// other protected methods
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
-	virtual void processNode( const cElement* Tag );
+	virtual void processNode( const cElement* Tag, uint hash = 0 );
 
 	// The body ID for this character. cOldChar::id_
 	ushort body_;

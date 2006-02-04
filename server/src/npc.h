@@ -225,7 +225,7 @@ private:
 
 protected:
 	// interface implementation
-	virtual void processNode( const cElement* Tag );
+	virtual void processNode( const cElement* Tag, uint hash = 0 );
 
 	// Time till NPC talks again.
 	// cOldChar::antispamtimer_

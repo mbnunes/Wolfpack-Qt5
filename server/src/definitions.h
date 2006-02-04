@@ -83,6 +83,7 @@ private:
 		QString value;
 	};
 
+	mutable uint nameHashKey;
 	QString name_; // Tag Name spell for <spell i.e.
 	QString text_; // This is not really a well implemented approach. this is subject to change
 
@@ -113,6 +114,7 @@ public:
 
 	void setName( const QByteArray& data );
 	const QString& name() const;
+	uint nameHash() const;
 
 	void setText( const QString& data );
 	const QString& text() const;

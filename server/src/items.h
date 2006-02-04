@@ -461,7 +461,7 @@ public:
 
 protected:
 	// Methods
-	virtual void processNode( const cElement* Tag );
+	virtual void processNode( const cElement* Tag, uint hash = 0 );
 	void processModifierNode( const cElement* Tag );
 
 	unsigned short id_; // Display id of the item

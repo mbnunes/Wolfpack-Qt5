@@ -40,7 +40,7 @@ public:
 	}
 	virtual void applyDefinition( const cElement* sectionNode );
 protected:
-	virtual void processNode( const cElement* Tag ) = 0;
+	virtual void processNode( const cElement* Tag, uint hash = 0 ) = 0;
 	void processModifierNode( const cElement* Tag );
 };
 

@@ -10,7 +10,7 @@ TARGET = wolfpack
 TEMPLATE = app
 
 CONFIG *= qt thread exceptions rtti 
-QT *= network xml
+QT += network xml
 
 CONFIG -= flat
 DESTDIR = ../release
@@ -207,7 +207,6 @@ unix:SOURCES  += \
 	../src/unix/getopts_unix.cpp
 
 win32:SOURCES += \
-#	../src/win/console_win.cpp \
 	../src/win/config_win.cpp \
 	../src/win/getopts_win.cpp
 

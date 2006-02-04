@@ -393,7 +393,7 @@ void ScriptAI::registerInFactory( const QString& name )
 	AIFactory::instance()->registerType( name, productCreator_SCP );
 }
 
-void ScriptAI::processNode( const cElement* Tag )
+void ScriptAI::processNode( const cElement* Tag, uint hash )
 {
 	QString TagName = Tag->name();
 	// <action precondition="scriptfunction" postcondition="scriptfunction" execute="scriptfunction" onspeech="scriptfunction" />

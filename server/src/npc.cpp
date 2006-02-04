@@ -759,21 +759,35 @@ quint32 cNPC::takeGold( quint32 amount, bool inBank )
 	return dAmount;
 }
 
-void cNPC::processNode( const cElement* Tag )
+void cNPC::processNode( const cElement* Tag, uint hash )
 {
 	changed_ = true;
-	QString TagName = Tag->name();
 	QString Value = Tag->value();
+/*
 
-	//<npcwander type="rectangle" x1="-10" x2="12" y1="5" y2="7" />
-	//<......... type="rect" ... />
-	//<......... type="3" ... />
-	//<......... type="circle" radius="10" />
-	//<......... type="2" ... />
-	//<......... type="free" (or "1") />
-	//<......... type="none" (or "0") />
-	if ( TagName == "npcwander" )
+#define OUTPUT_HASH(x) QString("%1 = %2, ").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+		OUTPUT_HASH("npcwander") + 
+		OUTPUT_HASH("shopkeeper") + 
+		OUTPUT_HASH("inherit")
+		);
+#undef OUTPUT_HASH
+
+*/
+
+	if ( !hash )
+		hash = Tag->nameHash();
+	
+	switch ( hash )
 	{
+	case 0xad83fa2: // npcwander
+		//<npcwander type="rectangle" x1="-10" x2="12" y1="5" y2="7" />
+		//<......... type="rect" ... />
+		//<......... type="3" ... />
+		//<......... type="circle" radius="10" />
+		//<......... type="2" ... />
+		//<......... type="free" (or "1") />
+		//<......... type="none" (or "0") />
 		if ( Tag->hasAttribute( "type" ) )
 		{
 			QString wanderType = Tag->getAttribute( "type" );
@@ -793,53 +807,56 @@ void cNPC::processNode( const cElement* Tag )
 				else
 					wanderType_ = stWanderType();
 		}
-	}
-
-	//<shopkeeper>
-	//	<sellable>...handled like item-<contains>-section...</sellable>
-	//	<buyable>...see above...</buyable>
-	//	<restockable>...see above...</restockable>
-	//</shopkeeper>
-	else if ( TagName == "shopkeeper" )
-	{
-		makeShop();
-
-		for ( unsigned int i = 0; i < Tag->childCount(); ++i )
+		break;
+	case 0x71c59a2: // shopkeeper
+		//<shopkeeper>
+		//	<sellable>...handled like item-<contains>-section...</sellable>
+		//	<buyable>...see above...</buyable>
+		//	<restockable>...see above...</restockable>
+		//</shopkeeper>
 		{
-			const cElement* currNode = Tag->getChild( i );
+			makeShop();
 
-			if ( !currNode->childCount() )
-				continue;
+			for ( unsigned int i = 0; i < Tag->childCount(); ++i )
+			{
+				const cElement* currNode = Tag->getChild( i );
 
-			unsigned char contlayer = 0;
-			if ( currNode->name() == "restockable" )
-				contlayer = BuyRestockContainer;
-			else if ( currNode->name() == "buyable" )
-				contlayer = BuyNoRestockContainer;
-			else if ( currNode->name() == "sellable" )
-				contlayer = SellContainer;
-			else
-				continue;
+				if ( !currNode->childCount() )
+					continue;
 
-			P_ITEM contItem = this->getItemOnLayer( contlayer );
-			if ( contItem != NULL )
-				contItem->processContainerNode( currNode );
+				unsigned char contlayer = 0;
+				if ( currNode->name() == "restockable" )
+					contlayer = BuyRestockContainer;
+				else if ( currNode->name() == "buyable" )
+					contlayer = BuyNoRestockContainer;
+				else if ( currNode->name() == "sellable" )
+					contlayer = SellContainer;
+				else
+					continue;
+
+				P_ITEM contItem = this->getItemOnLayer( contlayer );
+				if ( contItem != NULL )
+					contItem->processContainerNode( currNode );
+			}
 		}
-	}
-	else if ( TagName == "inherit" )
-	{
-		QString inheritID;
-		if ( Tag->hasAttribute( "id" ) )
-			inheritID = Tag->getAttribute( "id" );
-		else
-			inheritID = Value;
+		break;
 
-		const cElement* element = Definitions::instance()->getDefinition( WPDT_NPC, inheritID );
-		if ( element )
-			applyDefinition( element );
+	case 0x4ec974: // inherit
+		{
+			QString inheritID;
+			if ( Tag->hasAttribute( "id" ) )
+				inheritID = Tag->getAttribute( "id" );
+			else
+				inheritID = Value;
+
+			const cElement* element = Definitions::instance()->getDefinition( WPDT_NPC, inheritID );
+			if ( element )
+				applyDefinition( element );
+		}
+		break;
+	default:
+		cBaseChar::processNode( Tag, hash );
 	}
-	else
-		cBaseChar::processNode( Tag );
 }
 
 // Simple setting and getting of properties for scripts and the set command.

@@ -208,7 +208,7 @@ public:
 	void setSpawnregion( cSpawnRegion* spawnregion );
 
 	// Definable Methods
-	void processNode( const cElement* Tag );
+	void processNode( const cElement* Tag, uint hash = 0 );
 	stError* setProperty( const QString& name, const cVariant& value );
 	PyObject* getProperty( const QString& name );
 

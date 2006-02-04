@@ -114,7 +114,7 @@ public:
 	{
 		return entries_.count();
 	}
-	void processNode( const cElement* Tag );
+	void processNode( const cElement* Tag, uint hash );
 	void onContextEntry( cPlayer* from, cUObject* target, ushort entry );
 	bool onCheckVisible( cPlayer* from, cUObject* target, ushort entry );
 	bool onCheckEnabled( cPlayer* from, cUObject* target, ushort entry );

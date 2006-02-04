@@ -52,7 +52,7 @@
 #include "serverconfig.h"
 #include "basics.h"
 #include "world.h"
-//Added by qt3to4:
+
 #include <QByteArray>
 
 // Library Includes
@@ -491,7 +491,7 @@ void cUObject::removeScript( const QByteArray& name )
 	}
 }
 
-void cUObject::processNode( const cElement* Tag )
+void cUObject::processNode( const cElement* Tag, uint hash )
 {
 	QString TagName( Tag->name() );
 	QString Value( Tag->value() );

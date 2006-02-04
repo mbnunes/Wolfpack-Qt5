@@ -37,7 +37,7 @@
 /*!
 	Builds a context menu out of the definition scripts
 */
-void cContextMenu::processNode( const cElement* Tag )
+void cContextMenu::processNode( const cElement* Tag, uint hash )
 {
 	QString TagName = Tag->name();
 

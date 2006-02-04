@@ -37,7 +37,7 @@
 // Library Includes
 #include <QMap>
 #include <QThread>
-//Added by qt3to4:
+
 #include "server.h"
 
 class PersistentObject;

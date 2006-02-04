@@ -190,6 +190,26 @@ unsigned int getNormalizedTime()
 	return getPlatformTime() - startTime;
 }
 
+uint elfHash(const char * name)
+{
+	const uchar *k;
+	uint h = 0;
+	uint g;
+
+	if (name) {
+		k = (const uchar *) name;
+		while (*k) {
+			h = (h << 4) + *k++;
+			if ((g = (h & 0xf0000000)) != 0)
+				h ^= g >> 24;
+			h &= ~g;
+		}
+	}
+	if (!h)
+		h = 1;
+	return h;
+}
+
 cBufferedWriter::cBufferedWriter( const QByteArray& magic, unsigned int version )
 {
 	buffersize = 4096;
