@@ -30,6 +30,7 @@
 #if defined __cplusplus
 /* Add C++ includes here */
 
+#include <QtGlobal>
 #include <QString>
 #include <QStringList>
 #include <QByteArray>
@@ -38,5 +39,7 @@
 
 // Wolfpack Specific
 #include "singleton.h"
+#include "items.h"
+#include "player.h"
 #include "network/uosocket.h"
 #endif
