@@ -67,6 +67,13 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 
 # endif
 #else
+#include <QString>
+
+inline QString tr( const QString& text, const char* comment = 0, const char* context = "@default" )
+{
+	return text;
+}
+
 #  define WP_TR_FUNCTIONS(classname) \
 	static QString tr( const char* s, const char* c = 0 ) \
 	{ \

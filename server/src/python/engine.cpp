@@ -144,7 +144,7 @@ void startPython( int argc, char* argv[] )
 	}
 	catch ( ... )
 	{
-		Console::instance()->send( tr( "Failed to initialize the python extension modules\n" ) );
+		Console::instance()->send( QString( "Failed to initialize the python extension modules\n" ) );
 	}
 }
 

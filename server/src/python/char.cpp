@@ -1819,7 +1819,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 			PyErr_SetString( PyExc_TypeError, "Bad argument on char.addtimer callback type" );
 			return 0;
 		}
-		Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
+		Console::instance()->log( LOG_WARNING, QString("Using deprecated string as callback identifier [%1]").arg(func) );
 		expireCall = new PythonFunction( func );
 
 		if ( !expireCall->isValid() )
@@ -1848,7 +1848,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 				PyErr_SetString( PyExc_TypeError, "Bad argument on char.addtimer callback type" );
 				return 0;
 			}
-			Console::instance()->log( LOG_WARNING, tr("Using deprecated string as callback identifier [%1]").arg(func) );
+			Console::instance()->log( LOG_WARNING, QString("Using deprecated string as callback identifier [%1]").arg(func) );
 			dispelCall = new PythonFunction( func );
 
 			if ( !dispelCall->isValid() )
