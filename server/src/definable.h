@@ -28,6 +28,8 @@
 #if !defined (__DEFINABLE_H__)
 #define __DEFINABLE_H__
 
+#include <QtGlobal>
+
 // Library includes
 class cElement;
 class QString;
