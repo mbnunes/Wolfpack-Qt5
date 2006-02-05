@@ -36,7 +36,7 @@
 QString cConfig::mulPath() const
 {
 	QDir thePath( mulPath_ );
-	if ( !thePath.exists() || thePath.entryList( "*.mul" ).isEmpty() )
+	if ( !thePath.exists() || thePath.entryList( QStringList() << "*.mul" ).isEmpty() )
 	{
 		// Can't detect under *nix, so just warn the user :(
 		qWarning( "Unable to find *.mul files path. Please check wolfpack.xml, section \"General\", key \"MulPath\"" );

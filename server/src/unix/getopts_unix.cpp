@@ -73,7 +73,7 @@ void pidfile_add( QString pidfile )
 {
 	FILE* pf;
 
-	if ( ( pf = fopen( pidfile, "w+" ) ) != NULL )
+	if ( ( pf = fopen( qPrintable(pidfile), "w+" ) ) != NULL )
 	{
 		fprintf( pf, "%i", getpid() );
 		fclose( pf );
@@ -86,7 +86,7 @@ void pidfile_add( QString pidfile )
 
 void pidfile_del( QString pidfile )
 {
-	if ( unlink( pidfile ) == -1 )
+	if ( unlink( qPrintable( pidfile ) ) == -1 )
 		perror( "unlink" );
 }
 
