@@ -20,7 +20,11 @@ def spawn(spawner, spawntype, spawndef, current, area):
 		if spawntype == 1:
 			npc = wolfpack.addnpc(spawndef, spawner.pos)
 			npc.settag('spawner', spawner.serial)
-			npc.wandertype = 3
+			# NPCs with Area 0 have to stay on Origin Point
+			if not area == 0:
+				npc.wandertype = 3
+			else:
+				npc.wandertype = 0
 			npc.wanderx1 = spawner.pos.x
 			npc.wandery1 = spawner.pos.y
 			npc.wanderradius = area
