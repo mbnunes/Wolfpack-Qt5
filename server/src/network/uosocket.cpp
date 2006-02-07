@@ -152,6 +152,7 @@ cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( s ), _walkSequence( 0 ), lastPa
 	skippedUOHeader = false;
 
 	connect( _socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::QueuedConnection);
+	connect( _socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(disconnected()), Qt::QueuedConnection);
 	connect( _socket, SIGNAL(readyRead()), this, SLOT(receive()), Qt::QueuedConnection);
 	// Creation of a new socket counts as activity
 	_lastActivity = getNormalizedTime();
@@ -165,6 +166,7 @@ cUOSocket::~cUOSocket( void )
 	delete targetRequest;
 	delete tooltipscache_;
 	delete encryption;
+	delete _socket;
 
 	qDeleteAll( gumps );
 }
@@ -762,7 +764,8 @@ void cUOSocket::disconnect()
 		_player->removeFromView( true );
 
 		// Insta Logout from Guarded Regions activated?
-		if (Config::instance()->instalogoutfromguarded()) {
+		if ( Config::instance()->instalogoutfromguarded() ) 
+		{
 
 			// is the player allowed to logoff instantly?
 			if ( _player->isGMorCounselor() || ( _player->region() && _player->region()->isGuarded() ) || ( _player->region() && _player->region()->isInstaLogout() ) || _player->multi() )
