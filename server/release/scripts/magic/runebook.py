@@ -405,7 +405,8 @@ def callback(char, args, target):
 		if charges > 0:
 			char.say( "Kal Ort Por", 5 )
 			char.addtimer( 2000, recall0, [ item.serial, target ] )
-		elif magic.utilities.hasSpell(char, 32):
+		#notice: hasSpell uses SpellID-1, recall is 32, so you have to test for 31
+		elif magic.utilities.hasSpell(char, 31):
 			char.addtimer( 0, recall1, [item.serial, target] ) # Fall back to the Recall Spell
 		else:
 			char.socket.clilocmessage(502412) # No charges left
