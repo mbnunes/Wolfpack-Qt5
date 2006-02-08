@@ -151,9 +151,9 @@ cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( s ), _walkSequence( 0 ), lastPa
 	tooltipscache_ = new QBitArray;
 	skippedUOHeader = false;
 
-	connect( _socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()), Qt::QueuedConnection);
-	connect( _socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(disconnected()), Qt::QueuedConnection);
-	connect( _socket, SIGNAL(readyRead()), this, SLOT(receive()), Qt::QueuedConnection);
+	connect( _socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()) );
+	connect( _socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(disconnected()) );
+	connect( _socket, SIGNAL(readyRead()), this, SLOT(receive()) );
 	// Creation of a new socket counts as activity
 	_lastActivity = getNormalizedTime();
 }
