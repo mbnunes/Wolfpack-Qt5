@@ -303,9 +303,9 @@ void cUOSocket::send( cGump* gump )
 /*!
   Wait for bytes to be written
 */
-void cUOSocket::waitwritebytes()
+void cUOSocket::waitForBytesWritten()
 {
-	_socket->waitForBytesWritten(-1);
+	_socket->waitForBytesWritten( 200 );
 }
 
 void cUOSocket::buildPackets()

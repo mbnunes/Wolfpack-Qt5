@@ -973,7 +973,7 @@ void cWorld::save()
 	QList<cUOSocket*> sockets = Network::instance()->sockets();
 	foreach ( cUOSocket* socket, sockets )
 	{
-		socket->waitwritebytes();
+		socket->waitForBytesWritten();
 	}
 
 	unsigned int startTime = getNormalizedTime();

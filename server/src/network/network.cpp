@@ -105,7 +105,7 @@ void cNetwork::incomingLoginServerConnection()
 
 void cNetwork::partingLoginServerConnection()
 {
-	cUOSocket* uoSocket = qobject_cast<cUOSocket *>(sender());
+	cUOSocket* uoSocket = qobject_cast<cUOSocket *>( sender() );
 	uoSocket->log( tr( "Client disconnected.\n" ) );
 	d->loginSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();

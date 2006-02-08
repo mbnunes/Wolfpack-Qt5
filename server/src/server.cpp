@@ -75,10 +75,10 @@
 #include <QTranslator>
 
 #if defined(MYSQL_DRIVER)
-#if defined(Q_OS_WIN32)
-#include <winsock.h>
-#endif
-#include <mysql.h>
+# if defined(Q_OS_WIN32)
+#  include <winsock.h>
+# endif
+# include <mysql.h>
 #endif
 
 #if defined(Q_OS_UNIX)
@@ -283,7 +283,7 @@ void cServer::run()
 	QEventLoop eventLoop;
 
 	// Register Components
-	registerComponent( Config::instance(), QT_TR_NOOP( "configuration" ), true, false );
+	registerComponent( Config::instance(), tr( "configuration" ), true, false );
 
 	// We want to start this independently
 	//registerComponent(PythonEngine::instance(), "python", false, true, "configuration");

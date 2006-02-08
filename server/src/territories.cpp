@@ -103,7 +103,7 @@ void cTerritory::init( void )
 	stormchecked_ = 0;
 }
 
-void cTerritory::processNode( const cElement* Tag )
+void cTerritory::processNode( const cElement* Tag, uint hash )
 {
 	QString TagName( Tag->name() );
 	QString Value( Tag->value() );
@@ -367,7 +367,7 @@ void cTerritory::processNode( const cElement* Tag )
 		}
 	}
 	else
-		cBaseRegion::processNode( Tag );
+		cBaseRegion::processNode( Tag, hash );
 }
 
 QString cTerritory::getGuardSect( void ) const

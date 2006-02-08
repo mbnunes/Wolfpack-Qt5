@@ -182,7 +182,7 @@ public:
 
 	void send( cUOPacket* packet );
 	void send( cGump* gump );
-	void waitwritebytes();
+	void waitForBytesWritten();
 
 	// Handler
 	void handleSecureTrading( cUORxSecureTrading* packet );

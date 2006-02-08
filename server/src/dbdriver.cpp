@@ -572,7 +572,7 @@ cDBResult cMySQLDriver::query( const QString& query )
 	if ( !mysql )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
-	if ( mysql_query( mysql, query.local8Bit() ) )
+	if ( mysql_query( mysql, query.toLocal8Bit() ) )
 	{
 		return cDBResult ( 0, 0, *this ); // Return invalid result
 	}
@@ -586,7 +586,7 @@ bool cMySQLDriver::exec( const QString& query )
 	if ( !connection )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
-	bool ok = !mysql_query( ( MYSQL* ) connection, query.local8Bit() );
+	bool ok = !mysql_query( ( MYSQL* ) connection, query.toLocal8Bit() );
 	return ok;
 }
 

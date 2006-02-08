@@ -392,7 +392,7 @@ private:
 			flags_ &= ~0x00080000;
 	}
 
-	virtual void processNode( const cElement* Tag );
+	virtual void processNode( const cElement* Tag, uint hash = 0 );
 
 private:
 	QString midilist_; // midilist to play
