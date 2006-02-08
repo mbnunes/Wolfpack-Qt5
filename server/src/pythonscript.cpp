@@ -826,6 +826,8 @@ void cPythonScript::unload( void )
 	\event onLoad
 	\return None
 	\condition Triggered when the script is loaded.
+	\notes Wolfpack loads scripts before loading the worldfile, creating items in this event handler
+	might result in corrupt worldfiles due to serial id clashes.
 */
 // Find our module name
 bool cPythonScript::load( const QByteArray& name )

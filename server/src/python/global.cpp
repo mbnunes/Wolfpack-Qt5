@@ -364,6 +364,13 @@ static PyObject* wpAdditem( PyObject* /*self*/, PyObject* args )
 		return 0;
 	}
 
+	if ( !World::instance()->isLoaded() )
+	{
+		PyErr_Format(PyExc_RuntimeError, "Trying to create an item before the world has loaded is not supported." );
+		Py_RETURN_NONE;
+	}
+
+
 	P_ITEM pItem = cItem::createFromScript( definition );
 	return PyGetItemObject( pItem );
 }
@@ -384,6 +391,12 @@ static PyObject* wpAddnpc( PyObject* /*self*/, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "sO&:wolfpack.addnpc(def, pos)", &definition, &PyConvertCoord, &pos ) )
 	{
 		return 0;
+	}
+
+	if ( !World::instance()->isLoaded() )
+	{
+		PyErr_Format(PyExc_RuntimeError, "Trying to create an npc before the world has loaded is not supported." );
+		Py_RETURN_NONE;
 	}
 
 	P_CHAR pChar = cNPC::createFromScript( getArgStr( 0 ), pos );
@@ -1435,6 +1448,12 @@ static PyObject* wpNewItem( PyObject* /*self*/, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "|b:wolfpack.newitem", &createSerial ) )
 		return 0;
 
+	if ( !World::instance()->isLoaded() )
+	{
+		PyErr_Format(PyExc_RuntimeError, "Trying to create an item before the world has loaded is not supported." );
+		Py_RETURN_NONE;
+	}
+
 	P_ITEM pItem = new cItem;
 
 	if ( createSerial )
@@ -1458,6 +1477,12 @@ static PyObject* wpNewNpc( PyObject* /*self*/, PyObject* args )
 
 	if ( !PyArg_ParseTuple( args, "|b:wolfpack.newnpc", &createSerial ) )
 		return 0;
+
+	if ( !World::instance()->isLoaded() )
+	{
+		PyErr_Format(PyExc_RuntimeError, "Trying to create an npc before the world has loaded is not supported." );
+		Py_RETURN_NONE;
+	}
 
 	P_NPC pNpc = new cNPC;
 
