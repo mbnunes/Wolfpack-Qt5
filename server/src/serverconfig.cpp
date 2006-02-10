@@ -308,6 +308,7 @@ void cConfig::unload()
 {
 	serverList_.clear();
 	startLocation_.clear();
+	flush();
 	cComponent::unload();
 }
 

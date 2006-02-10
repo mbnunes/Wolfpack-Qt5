@@ -25,9 +25,9 @@
  * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
-#include <qdom.h>
+#include <QtXml>
 #include <QFile>
-#include <qtextstream.h>
+#include <QTextStream>
 #include <QMap>
 #include <QString>
 
@@ -308,14 +308,14 @@ void Preferences::processGroup( const QDomElement& group )
 void Preferences::writeData()
 {
 	const quint8 indent = 2;
-	QString t = "  ";
+	QString t = QLatin1String("  ");
 
-	QDomDocument doc( "preferences" );
+	QDomDocument doc( QLatin1String("preferences") );
 
 	// create the root element
 	QDomElement root = doc.createElement( doc.doctype().name() );
-	root.setAttribute( "version", d->version_ );
-	root.setAttribute( "application", d->format_ );
+	root.setAttribute( QLatin1String("version"), d->version_ );
+	root.setAttribute( QLatin1String("application"), d->format_ );
 
 	// now do our options group by group
 	QMap<QString, PreferencesPrivate::PrefMap>::Iterator git;
@@ -328,14 +328,14 @@ void Preferences::writeData()
 
 		if ( commentText != QString::null )
 		{
-			root.appendChild( doc.createTextNode( "\n\n" + t ) );
-			root.appendChild( doc.createComment( "\n" + t + commentText.replace( "\n", "\n" + t ) + "\n" + t ) );
-			root.appendChild( doc.createTextNode( "\n" + t ) );
+			root.appendChild( doc.createTextNode( QLatin1String("\n\n") + t ) );
+			root.appendChild( doc.createComment( QLatin1String("\n") + t + commentText.replace( QLatin1String("\n"), QLatin1String("\n") + t ) + QLatin1String("\n") + t ) );
+			root.appendChild( doc.createTextNode( QLatin1String("\n") + t ) );
 		}
 
 		// create a group element
-		group = doc.createElement( "group" );
-		group.setAttribute( "name", git.key() );
+		group = doc.createElement( QLatin1String("group") );
+		group.setAttribute( QLatin1String("name"), git.key() );
 		// add in options
 		for ( pit = ( *git ).begin(); pit != ( *git ).end(); ++pit )
 		{
@@ -343,14 +343,14 @@ void Preferences::writeData()
 
 			if ( commentText != QString::null )
 			{
-				group.appendChild( doc.createTextNode( "\n\n" + t + t ) );
-				group.appendChild( doc.createComment( t + commentText.replace( "\n", "\n" + t + t ) + t ) );
-				group.appendChild( doc.createTextNode( "\n" + t + t ) );
+				group.appendChild( doc.createTextNode( QLatin1String("\n\n") + t + t ) );
+				group.appendChild( doc.createComment( t + commentText.replace( QLatin1String("\n"), QLatin1String("\n") + t + t ) + t ) );
+				group.appendChild( doc.createTextNode( QLatin1String("\n") + t + t ) );
 			}
 
-			option = doc.createElement( "option" );
-			option.setAttribute( "key", pit.key() );
-			option.setAttribute( "value", pit.value() );
+			option = doc.createElement( QLatin1String("option") );
+			option.setAttribute( QLatin1String("key"), pit.key() );
+			option.setAttribute( QLatin1String("value"), pit.value() );
 			group.appendChild( option );
 		}
 		root.appendChild( group );
