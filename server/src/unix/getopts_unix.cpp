@@ -49,18 +49,22 @@ void daemonize()
 	case 0:
 		// child
 		setsid();
-
+                for ( fd = getdtablesize(); fd >= 0; --fd )
+			close( fd );
+		
 		if ( ( fd = open( "/dev/null", O_RDWR ) ) != -1 )
 		{
 			dup2( fd, 0 );
 			dup2( fd, 1 );
-			close( fd );
 		}
+		signal(SIGTSTP, SIG_IGN); // Ignore tty signals
+		signal(SIGTTOU, SIG_IGN);
+		signal(SIGTTIN, SIG_IGN);
 
 		break;
 
 	case -1:
-		perror( "fork" );
+		perror( "fork error" );
 		break;
 
 	default:
@@ -105,7 +109,6 @@ cGetopts::~cGetopts()
 void cGetopts::parse_options( int argc, char** argv )
 {
 	unsigned int i;
-
 	for ( i = 1; i < ( uint ) argc; i++ )
 	{
 		if ( argv[i][0] == '-' )
@@ -130,6 +133,9 @@ void cGetopts::parse_options( int argc, char** argv )
 					pidfile_ = argv[i + 1];
 					pidfile_add( pidfile_ );
 				}
+				break;
+			case 'a':
+				chdir( argv[++i] );
 				break;
 			}
 		}
