@@ -112,7 +112,7 @@ def GetDifficultyFor( player, instrument, target ):
 		val = 700 + ((val - 700) / 3.66667)
 
 	# Target is Magery Creature
-	if target.ai == "Monster_Mage" and target.char.skill[MAGERY] > 50:
+	if target.ai == "Monster_Mage" and target.skill[MAGERY] > 50:
 		val += 100
 
 	#if IsFireBreathingCreature( bc ):
