@@ -202,8 +202,11 @@ def showquestdetails(player, id, slot, page):
 		dialog.addText(260, 220, killedlist[page], 90)	
 	
 		dialog.addText(145, 240, "Return To", 55)
-		dialog.addText(260, 240, npcdest.name + " (" + npcdest.region.name + ")", 90)
-	
+		if npcdest.region:
+			dialog.addText(260, 240, npcdest.name + " (" + npcdest.region.name + ")", 90)
+		else:
+			dialog.addText(260, 240, npcdest.name, 90)
+
 		if (page + 1) < npcamount:
 			dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
 		elif itemamount:
@@ -221,7 +224,10 @@ def showquestdetails(player, id, slot, page):
 		dialog.addText(260, 220, str(itemcount), 90)
 	
 		dialog.addText(145, 240, "Return To", 55)
-		dialog.addText(260, 240, npcdest.name + " (" + npcdest.region.name + ")", 90)
+		if npcdest.region:
+			dialog.addText(260, 240, npcdest.name + " (" + npcdest.region.name + ")", 90)
+		else:
+			dialog.addText(260, 240, npcdest.name, 90)
 
 		if ((page - npcamount) + 1) < itemamount:
 			dialog.addButton(302, 365, 12009, 12010, 3)		# Continue
