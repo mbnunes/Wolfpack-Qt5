@@ -77,6 +77,7 @@ void cTerritory::init( void )
 	secondcoin_ = "ef0";
 	thirdcoin_ = "eea";
 	flags_ = 0;
+	extraflags_ = 0;
 	guardowner_ = QString();
 	fixedlight_ = -1;
 	lightmodifier_ = 0;
@@ -168,6 +169,9 @@ void cTerritory::processNode( const cElement* Tag, uint hash )
 	// <midilist>MIDI_COMBAT</midilist>
 	else if ( TagName == "midilist" )
 		this->midilist_ = Value;
+	// <extraflags>ExtraFlags</extraflags>
+	else if ( TagName == "extraflags" )
+		this->extraflags_ = Value.toUShort();
 	else if ( TagName == "flags" )
 	{
 		flags_ = 0;

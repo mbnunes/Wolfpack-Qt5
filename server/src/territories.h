@@ -227,6 +227,11 @@ public:
 	{
 		return stormchecked_;
 	}
+	// Extra Flags
+	quint16 extraflags( void ) const
+	{
+		return extraflags_;
+	}
 
 	bool haveTeleporters() const;
 	bool findTeleporterSpot( Coord& ) const;
@@ -404,6 +409,7 @@ private:
 	QString thirdcoin_; // Third Coin for this Region
 
 	quint32 flags_; // flags like guarded, mark allowed, etc. (see getters)
+	quint16 extraflags_; // Extra Flags for Regions
 
 	QString guardowner_;
 	UI08 snowchance_;

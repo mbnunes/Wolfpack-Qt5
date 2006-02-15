@@ -484,6 +484,11 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "intensity" ) )
 		return PyInt_FromLong( self->pRegion->intensity() );
+	/*
+		\rproperty region.extraflags The Extra Flags for this Region
+	*/
+	else if ( !strcmp( name, "extraflags" ) )
+		return PyInt_FromLong( self->pRegion->extraflags() );
 
 	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
 }
