@@ -42,7 +42,7 @@
 				AdditionalOptions="/GR&#x0D;&#x0A;"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\src\sqlite;.;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\Qt3Support&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\mkspecs\win32-msvc.net&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_CLEAN_NAMESPACE;QT_COMPAT_WARNINGS;QT_NO_TRANSLATION;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_QT3SUPPORT_LIB;QT3_SUPPORT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_CLEAN_NAMESPACE;QT_COMPAT_WARNINGS;QT_NO_TRANSLATION;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmaind.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\Qt3Support4.lib"
+				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmaind.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib"
 				OutputFile="../release/wolfpackd.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -130,7 +130,7 @@
 				AdditionalOptions="/GR"
 				Optimization="3"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=".;..\src\sqlite;qt;C:\MySQL\include"
+				AdditionalIncludeDirectories=".;..\src\sqlite;C:\MySQL\include;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\mkspecs\win32-msvc.net&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;MYSQL_DRIVER"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -159,7 +159,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(QTDIR)\lib\qtmaind.lib ws2_32.lib comctl32.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
+				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmain.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib libmysql.lib"
 				OutputFile="../release/wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -1802,7 +1802,7 @@
 						<Tool
 							Name="VCCustomBuildTool"
 							Description="RCC&apos;ing $(InputName)"
-							CommandLine="$(QTDIR)\bin\rcc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)rc_$(InputName).cpp&quot;"
+							CommandLine="$(QTDIR)\bin\rcc.exe &quot;$(InputPath)&quot; -o &quot;$(InputDir)rc_$(InputName).cpp&quot;&#x0D;&#x0A;"
 							Outputs="$(InputDir)rc_$(InputName).cpp"
 						/>
 					</FileConfiguration>
