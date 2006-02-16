@@ -1,0 +1,28 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<include file="definitions/npcs/monsters/samurai_empire/bake_kitsune.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/deathwatch_beetle.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/deathwatch_beetle_hatchling.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/fan_dancer.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/kappa.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/kaze_kemono.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/lady_of_the_snow.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/oni.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/raiju.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/revenant_lion.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/rune_beetle.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/tsuki_wolf.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/yamandon.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/yomotsu_elder.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/yomotsu_priest.xml" />
+	<include file="definitions/npcs/monsters/samurai_empire/yomotsu_warrior.xml" />
+
+</definitions>
