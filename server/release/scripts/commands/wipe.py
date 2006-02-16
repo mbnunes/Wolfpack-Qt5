@@ -53,7 +53,7 @@
 import wolfpack
 import string
 import wolfpack.gumps
-from wolfpack.gumps import WarningGump
+from gumps.warning_gump import WarningGump
 import wolfpack.consts
 
 def getBoundingBox( socket, callback, args ) :

@@ -4,6 +4,7 @@
 #   )).-' {{ ;'`   # Revised by: Incanus                        #
 #  ( (  ;._ \\ ctr # Last Modification:                         #
 #################################################################
+from speech.healer import offerResurrection
 
 def onContextCheckVisible(char, target, tag):
 	if( int( tag ) == 1 ):
@@ -20,8 +21,6 @@ def onContextEntry( char, healer, tag ):
 			char.socket.clilocmessage( 501040  ) # The resurrecter must be alive
 			return False
 
-		char.socket.clilocmessage( 3002069  ) # Resurrection
-		char.soundeffect( 0x215 )
-		char.resurrect( healer )
-
+		offerResurrection(healer, char)
 	return True
+

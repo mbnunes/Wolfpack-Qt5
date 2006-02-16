@@ -958,7 +958,6 @@ def iteminfo( socket, item ):
 	# 6
 	gump.addText( 113, 260, "Weight:", 0x834 )
 	gump.addResizeGump( 280, 260, 0xBB8, 215, 20 )
-	#gump.addInputField( 284, 260, 200, 16, 0x834,  6, unicode( item.weight ) )
 	gump.addText( 284, 260, unicode( item.weight ), 0x834 )
 	# 7
 	gump.addText( 113, 280, "Layer:", 0x834 )
@@ -985,7 +984,6 @@ def iteminfo( socket, item ):
 	gump.addResizeGump( 280, 380, 0xBB8, 215, 20 )
 	gump.addInputField( 284, 380, 200, 16, 0x834, 12, unicode( item.newbie ) )
 	# 13
-	# This should really be .movable! :P
 	gump.addText( 113, 400, "Movable:", 0x834 )
 	gump.addResizeGump( 280, 400, 0xBB8, 215, 20 )
 	gump.addInputField( 284, 400, 200, 16, 0x834, 13, unicode( item.movable ) )
@@ -1013,12 +1011,12 @@ def iteminfo( socket, item ):
 	#gump.addResizeGump( 280, 200, 0xBB8, 215, 20 )
 	#gump.addInputField( 284, 200, 200, 16, 0x834, 16, unicode( item.restock ) )
 	# 17
-	gump.addText( 113, 220, "Time unused:", 0x834 )
-	gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
-	if ( item.hastag( 'timeunused' ) ):
-		gump.addInputField( 284, 220, 200, 16, 0x834, 17, unicode( item.gettag( 'timeunused' ) ) )
-	else:
-		gump.addInputField( 284, 220, 200, 16, 0x834, 17, '' )
+	#gump.addText( 113, 220, "Time unused:", 0x834 )
+	#gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
+	#if ( item.hastag( 'timeunused' ) ):
+	#	gump.addInputField( 284, 220, 200, 16, 0x834, 17, unicode( item.gettag( 'timeunused' ) ) )
+	#else:
+	#	gump.addInputField( 284, 220, 200, 16, 0x834, 17, '' )
 	# 18
 	gump.addText( 113, 240, "Charges:", 0x834 )
 	gump.addResizeGump( 280, 240, 0xBB8, 215, 20 )
@@ -1207,6 +1205,10 @@ def iteminfo( socket, item ):
 		gump.addInputField( 284, 180, 200, 16, 0x834, 41, unicode( item.gettag( 'maxdamage' ) ) )
 	else:
 		gump.addInputField( 284, 180, 200, 16, 0x834, 41, '')
+	# 41
+	gump.addText( 113, 200, "Owner (Hex Serial):", 0x834 )
+	gump.addResizeGump( 280, 200, 0xBB8, 215, 20 )
+	gump.addInputField( 284, 200, 200, 16, 0x834, 41, unicode( item.owner ) )
 
 	gump.addText( 415, 450, "Page 4 of 4", 0x834 )
 	# prev page

@@ -1,7 +1,7 @@
 
 import wolfpack
 from wolfpack import tr
-from wolfpack.gumps import WarningGump
+from gumps.warning_gump import WarningGump
 
 """
 	\command spawn

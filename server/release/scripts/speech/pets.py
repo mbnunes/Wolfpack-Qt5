@@ -11,6 +11,7 @@ from wolfpack.consts import *
 import wolfpack
 import random
 from wolfpack import tr
+from wolfpack.utilities import hex2dec
 
 #check if the pet does follow the order 
 #Formula from http://uo.stratics.com/content/professions/taming/taming-lore.shtml#loyalty
@@ -25,7 +26,7 @@ def checkPetControl(pet, char, text, keywords):
 	if pet.mintaming <=291:
 		return True
 
-	#summoned pets can always be conrolled
+	# summoned pets can always be controlled
 	if pet.summoned:
 		return True
 
@@ -52,6 +53,25 @@ def checkPetControl(pet, char, text, keywords):
 		return True
 	else:
 		return False
+
+def friends(pet):
+	friend = []
+	for tag in pet.tags:
+		if tag.startswith( "friend_" ):
+			char = wolfpack.findchar( int(tag.split("_")[1]) )
+			# always check on deleted chars every time friends(pet) is called
+			if not char:
+				pet.deltag(tag)
+			friend.append(char)
+	return friend
+
+def isPetFriend(char, pet):
+	if pet.hastag('friend_' + str(char.serial)):
+		return True
+	return False
+
+def AllowNewPetFriend(pet):
+	return len(friends(pet)) < 5 # your pet can have max. 4 friends
 
 def stopfight(pet):
 	pet.attacktarget = None
@@ -201,6 +221,80 @@ def transfer(char, pet):
 	char.socket.sysmessage(tr('Who do you want to transfer your pet to?'))
 	char.socket.attachtarget("speech.pets.transfer_target", [pet.serial])
 
+def addfriend_target(char, arguments, target):
+	pet = wolfpack.findchar(arguments[0])
+
+	#if not target.char or not target.char.player or target.char == char:
+	#	pet.say(502039, '', '', 0, 0x3b2) # *looks confused*
+
+	#
+	#if char.young and not target.young:
+	#	char.socket.clilocmessage( 502040 ) # As a young player, you may not friend pets to older players.
+	#elif not char.young and target.young:
+	#	char.socket.clilocmessage( 502041 ) # As an older player, you may not friend pets to young players.
+	#
+
+	if pet:
+		target = target.char
+		if char.hasscript('system.trading'):
+			char.socket.clilocmessage( 1070947 ) # You cannot friend a pet with a trade pending
+		elif target.hasscript('system.trading'):
+			target.socket.clilocmessage( 1070947 ) # You cannot friend a pet with a trade pending
+		elif isPetFriend(target, pet):
+			char.socket.clilocmessage( 1049691 ) # That person is already a friend.
+		elif not AllowNewPetFriend(pet):
+			char.socket.clilocmessage( 1005482 ) # Your pet does not seem to be interested in making new friends right now.
+		else:
+			# ~1_NAME~ will now accept movement commands from ~2_NAME~.
+			char.socket.clilocmessage( 1049676, "%s\t%s" % (unicode(pet.name), unicode(target.name)))
+
+			# ~1_NAME~ has granted you the ability to give orders to their pet ~2_PET_NAME~.
+			# This creature will now consider you as a friend.
+			target.socket.clilocmessage( 1043246, "%s\t%s" % (unicode(char.name), unicode(pet.name)) )
+
+			doaddfriend(target, pet)
+			return True
+
+	pet.follow(char)
+	return True
+
+def doaddfriend(newfriend, pet):
+	pet.settag('friend_' + str(newfriend.serial), 0)
+	pet.follow(newfriend)
+	return True
+
+def addfriend(char, pet):
+	char.socket.attachtarget("speech.pets.addfriend_target", [pet.serial])
+	return
+
+def removefriend_target(char, arguments, target):
+	pet = wolfpack.findchar(arguments[0])
+
+	if not target.char or not target.char.player or target.char == char:
+		pet.say(502039, '', '', 0, 0x3b2) # *looks confused*
+	elif not isPetFriend(target.char, pet):
+		char.socket.clilocmessage( 1070953 ) # That person is not a friend.
+	else:
+		# ~1_NAME~ will no longer accept movement commands from ~2_NAME~.
+		char.socket.clilocmessage( 1070951, "%s\t%s" % (unicode(pet.name), unicode(target.name)))
+
+		# ~1_NAME~ has no longer granted you the ability to give orders to their pet ~2_PET_NAME~.
+		# This creature will no longer consider you as a friend.
+		target.char.socket.clilocmessage( 1070952, "%s\t%s" % (unicode(char.name), unicode(pet.name)) )
+
+		doremovefriend(oldfriend, pet)
+
+	pet.follow(char)
+	return True
+
+def doremovefriend(oldfriend, pet):
+	pet.deltag('friend_' + str(oldfriend.serial))
+	return True
+
+def removefriend(char, pet):
+	char.socket.attachtarget("speech.pets.removefriend_target", [pet.serial])
+	return
+
 def follow_target(char, arguments, target):
 	if not target.char:
 		char.socket.sysmessage(tr('Your pets can only follow characters.'))
@@ -311,7 +405,7 @@ def onSpeech(pet, char, text, keywords):
 			#char.socket.sysmessage('zzz Follow')
 			follow(char, pet, False)
 			return True
-		
+
 		# Kill, Attack
 		elif 349 in keywords or 350 in keywords:
 			attack(char, pet, False)
@@ -322,51 +416,115 @@ def onSpeech(pet, char, text, keywords):
 			stop(char, pet, False)
 			return True
 
-		# Come (341)
+		# Come
 		if 341 in keywords:
 			come(char, pet, False)
+			return True
+
+		# Drop
+		#elif 342 in keywords:
+		#	drop(char, pet)
+		#	return True
+
+		# Friend
+		elif 347 in keywords:
+			addfriend(char, pet)
+			return True
+
+		# Guard
+		#elif 348 in keywords:
+		#	guard(char, pet, False)
+		#	return True
+
+		# Patrol
+		#elif 351 in keywords:
+		#	patrol(char, pet, False)
+		#	return True
+
+		# Release
+		elif 365 in keywords:
+			release(pet)
+			return True
+
+		# Transfer
+		elif 366 in keywords:
+			transfer(char, pet)
 			return True
 
 		# Go
 		elif text.endswith('go'):
 			go(char, pet, False)
 			return True
-		
-		# Transfer
-		elif 366 in keywords:
-			transfer(char, pet)
-			return True
-
-		# Release
-		elif 365 in keywords:
-			release(pet)
-			return True
 		# end some #
 
 	return False
 
-
-def onTimeChange( char ):
-	#if char.hasscript('npc.mount') and char.owner:
-	if char.tamed and char.hastag('loyalty'):
-		release = False
-		loyalty = char.gettag('loyalty')
-		loyalty_new = loyalty - 1
-		if loyalty_new <= 0:
-			char.deltag('loyalty')
-			release = True
-		else:
-			char.settag('loyalty', loyalty_new)
-		if loyalty_new == 1: # Confused
-			char.say(1043270, char.name ) # * ~1_NAME~ looks around desperately *
-			char.soundeffect(char.basesound + 1)
-		if release:
-			char.say( 1043255, char.name ) # ~1_NAME~ appears to have decided that is better off without a master!
-			char.settag('loyalty', 11) # Wonderfully happy
-			#c.IsBonded = false;
-			#c.BondingBegin = DateTime.MinValue;
-			#c.OwnerAbandonTime = DateTime.MinValue;
-			release(char)
+#def onTimeChange( char ):
+#	if ( m is BaseMount && ((BaseMount)m).Rider != null )
+#	{
+#		((BaseCreature)m).OwnerAbandonTime = DateTime.MinValue;
+#		continue;
+#	}
+#
+#	if char.tamed:
+#		if not char.hastag('loyalty'):
+#			char.settag('loyalty', 11)
+#		loyalty = char.gettag('loyalty')
+#		owner = char.owner
+#		if owner and owner.gm:
+#			return False
+#		if char.dead:
+#			#if not owner or owner.pos.map != char.pos.map or (char.distanceto(owner) > 12) or not char.cansee(owner):
+#				#if ( c.OwnerAbandonTime == DateTime.MinValue )
+#				#	c.OwnerAbandonTime = DateTime.Now;
+#				#else if ( (c.OwnerAbandonTime + c.BondingAbandonDelay) <= DateTime.Now )
+#				#	toRemove.Add( c );
+#			return
+#			#}
+#			#else
+#			#{
+#			#	c.OwnerAbandonTime = DateTime.MinValue;
+#			#}
+#
+#		elif loyalty > 0 and char.pos.map != 0xFF:
+#			torelease = False
+#			loyalty_new = loyalty - 1
+#			if loyalty_new < 1:
+#				torelease = True
+#			else:
+#				char.settag('loyalty', loyalty_new)
+#			if loyalty_new == 1: # Confused
+#				char.say(1043270, unicode(char.name) ) # * ~1_NAME~ looks around desperately *
+#				char.soundeffect(char.basesound + 1)
+#
+#			#c.OwnerAbandonTime = DateTime.MinValue;
+#
+#			if torelease:
+#				char.say( 1043255, unicode(char.name) ) # ~1_NAME~ appears to have decided that is better off without a master!
+#				char.settag('loyalty', 11) # Wonderfully happy
+#				#c.IsBonded = false;
+#				#c.BondingBegin = DateTime.MinValue;
+#				#c.OwnerAbandonTime = DateTime.MinValue;
+#				release(char)
+#	# not tamed
+#	else:
+#		# Animals in houses/multis
+#		if char.multi:
+#			if not char.dead:
+#				if char.hastag("removestep"):
+#					if char.gettag("removestep") >= 20:
+#						char.delete()
+#					else:
+#						char.settag("removestep", char.gettag("removestep") + 1)
+#				else:
+#					char.settag("removestep", 1)		
+#		else:
+#			if char.hastag("removestep"):
+#				char.deltag("removestep")
+#	return
+#
+#
+## already partly translated
 
 #			foreach ( Mobile m in World.Mobiles.Values )
 #			{

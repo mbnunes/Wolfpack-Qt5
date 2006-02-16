@@ -44,6 +44,7 @@
 			</sellable>
 		</shopkeeper>
 		<bindmenu>paperdoll_menu,vendor_menu,train_menu,healer_menu</bindmenu>
+		<scripts>speech.healer</scripts>
 		<skill id="anatomy"><random min="800" max="1000" /></skill>
 		<skill id="healing"><random min="800" max="1000" /></skill>
 		<skill id="forensics"><random min="800" max="1000" /></skill>
@@ -61,6 +62,24 @@
 		<inherit id="healer_base" />
 		<title context="Vendor Female Titles">the Healer</title>
 		<category>Vendors\Healer (Female)</category>
+	</npc>
+	
+	<!-- A Priced Healer vendor -->
+	<npc id="priced_healer" inherit="healer_base">
+		<intproperty name="price" value="5000" />
+	</npc>
+
+	<npc id="priced_healer_male" inherit="vendor_male">
+		<inherit id="priced_healer" />
+		<intproperty name="price" value="5000" />
+		<title context="Vendor Male Titles">the Healer</title>
+		<category>Vendors\Priced Healer (Male)</category>
+	</npc>
+
+	<npc id="priced_healer_female" inherit="vendor_female">
+		<inherit id="priced_healer" />
+		<title context="Vendor Female Titles">the Healer</title>
+		<category>Vendors\Priced Healer (Female)</category>
 	</npc>
 
 </definitions>

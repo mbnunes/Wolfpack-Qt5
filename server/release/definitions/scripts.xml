@@ -253,6 +253,7 @@
 	<!-- Speech Scripts -->
 	<script>speech.barber</script>
 	<script>speech.banker</script>
+	<script>speech.healer</script>
 	<script>speech.pets</script>
 	<script>speech.stablemaster</script>
 	<script>speech.monster</script>
@@ -359,5 +360,10 @@
 	<script>treasure.treasure_map</script>
 	<script>treasure.treasure_spawn</script>
 	<script>treasure.treasure_templates</script>
+
+	<!-- Gumps -->
+	<script>gumps.confirm_release_gump</script>
+	<script>gumps.notice_gump</script>
+	<script>gumps.warning_gump</script>
 
 </definitions>

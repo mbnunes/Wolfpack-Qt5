@@ -88,24 +88,23 @@
 
 	<contextmenu id="pet_menu">
 		<scripts>contextmenus.petmenu</scripts>
-		<option tag="1" msgid="6111" checkvisible="true" />
-		<option tag="2" msgid="6108" checkvisible="true" />
 		<!--
 			Guarding not implemented yet.
-			<option tag="3" msgid="6107" />
+			<option tag="1" msgid="6107" /> Guarding 
 		-->
+		<option tag="2" msgid="6108" checkvisible="true" /> <!-- Follow -->
+		<option tag="3" msgid="6109" checkvisible="true" /> <!-- Drop -->
+		<option tag="4" msgid="6111" checkvisible="true" /> <!-- Kill -->
 		<!--
 			Stop and Stay do the same for us now.
-		<option tag="4" msgid="6112" />
+		<option tag="5" msgid="6112" /> Stop
 		-->
-		<option tag="5" msgid="6114" checkvisible="true" />
-		<!--
-			no pet friends yet
-		<option tag="6" msgid="6110" />
-		-->
-		<option tag="7" msgid="6113" checkvisible="true" />
-		<option tag="8" msgid="6118" checkvisible="true" />
-		<option tag="9" msgid="6145" checkvisible="true" />
+		<option tag="6" msgid="6114" checkvisible="true" /> <!-- Stay -->
+		<option tag="7" msgid="6110" checkvisible="true" /> <!-- Add Friend -->
+		<option tag="8" msgid="6099" checkvisible="true" /> <!-- Remove Friend -->
+		<option tag="9" msgid="6113" checkvisible="true" /> <!-- Transfer -->
+		<option tag="10" msgid="6118" checkvisible="true" /> <!-- Release -->
+		<option tag="11" msgid="6145" checkvisible="true" /> <!-- Open Backpack -->
 	</contextmenu>
 
 	<contextmenu id="stabler_menu">
