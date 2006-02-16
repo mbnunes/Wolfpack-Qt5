@@ -72,6 +72,7 @@ CONTAINERS = {
 	# Pitcher
 	0x9a7: [1048128, 5, 0xff6, True, ''], # empty
 	0x9ad: [1048128, 5, 0xff7, True, ''], # milk
+	0x9f0: [1048128, 5, 0xff7, True, ''], # milk
 	0xff6: [1048128, 5, 0xff6, True, ''], # empty
 	0xff7: [1048128, 5, 0xff7, True, ''], # empty
 	0xff8: [1048128, 5, 0xff7, True, 'water'], # water
