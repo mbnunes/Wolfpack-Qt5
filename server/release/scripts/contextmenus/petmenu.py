@@ -44,8 +44,8 @@ def onContextEntry(char, target, tag):
 	elif tag == 2: # Command: Follow
 		follow(char, target, 0)
 
-	#if tag == 3: # Command: Drop
-	#	drop(char, target)
+	if tag == 3: # Command: Drop
+		drop(target)
 
 	if tag == 4: # Command: Kill
 		attack(char, target, 0)

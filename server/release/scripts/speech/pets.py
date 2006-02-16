@@ -325,6 +325,17 @@ def follow(char, pet, all=False):
 
 	char.socket.attachtarget("speech.pets.follow_target", [pet.serial, all])
 
+def drop(pet):
+	if pet.summoned:
+		return True
+	backpack = pet.getbackpack()
+	if backpack:
+		for item in backpack.content:
+			item.container = 0
+			item.pos = pet.pos
+			item.update()
+	return True
+
 def release(pet):
 	if pet.summoned:
 		pet.delete()
@@ -422,9 +433,9 @@ def onSpeech(pet, char, text, keywords):
 			return True
 
 		# Drop
-		#elif 342 in keywords:
-		#	drop(char, pet)
-		#	return True
+		elif 342 in keywords:
+			drop(pet)
+			return True
 
 		# Friend
 		elif 347 in keywords:
