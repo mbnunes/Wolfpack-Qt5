@@ -223,8 +223,8 @@ def transfer(char, pet):
 def addfriend_target(char, arguments, target):
 	pet = wolfpack.findchar(arguments[0])
 
-	#if not target.char or not target.char.player or target.char == char:
-	#	pet.say(502039, '', '', 0, 0x3b2) # *looks confused*
+	if not target.char or not target.char.player or target.char == char:
+		pet.say(502039, '', '', 0, 0x3b2) # *looks confused*
 
 	#
 	#if char.young and not target.young:
