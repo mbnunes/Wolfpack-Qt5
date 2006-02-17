@@ -9,6 +9,9 @@ from wolfpack.gumps import cGump
 
 RESURRECT_DELAY = 2000 # 2 sec.
 YOUNG_HEAL_TIME = 60 * 5000 # 5 min.
+#
+# ToDo: Priced Healer
+#
 priced_healer = ['priced_healer_male', 'priced_healer_female']
 
 def onSeeChar(npc, char):

@@ -31,7 +31,7 @@ def onContextEntry(char, target, tag):
 		return False
 
 	#it has to be our pet, a friend, or we have to be gm
-	if (not char.gm) and ((target.owner != char) or not isPetFriend(char, target) or (not target.tamed)):
+	if (not char.gm) and ((target.owner != char) and not isPetFriend(char, target) or (not target.tamed)):
 		return False
 
 	#check if can be controlled
@@ -43,10 +43,8 @@ def onContextEntry(char, target, tag):
 
 	elif tag == 2: # Command: Follow
 		follow(char, target, 0)
-
 	if tag == 3: # Command: Drop
 		drop(target)
-
 	if tag == 4: # Command: Kill
 		attack(char, target, 0)
 
@@ -55,7 +53,6 @@ def onContextEntry(char, target, tag):
 
 	elif tag == 6: # Command: Stay
 		stop(char, target, 0)
-
 	elif tag == 7: # Add Friend
 		addfriend(char, target)
 	elif tag == 8: # Remove Friend

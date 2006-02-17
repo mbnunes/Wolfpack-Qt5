@@ -18,7 +18,6 @@ from wolfpack.utilities import hex2dec
 #return true if pet follow the order
 #false if the refuses to follow the order
 def checkPetControl(pet, char, text, keywords):
-
 	#GMs can control everything
 	if char.gm:
 		return True
@@ -111,7 +110,7 @@ def stop(char, pet, all=False):
 		else:
 			for follower in char.followers:
 				stop(char, follower, False)
-	elif pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
+	elif pet and (pet.owner == char or char.gm or isPetFriend(char, pet)) and pet.distanceto(char) < 18:
 		stopfight(pet)
 		pet.guarding = None
 		pet.wandertype = 0
@@ -128,7 +127,7 @@ def follow_me(char, pet, all=False):
 		else:
 			for follower in char.followers:
 				follow_me(char, follower, False)
-	if pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
+	if pet and (pet.owner == char or char.gm or isPetFriend(char, pet)) and pet.distanceto(char) < 18:
 		stopfight(pet)
 		pet.follow(char)
 		pet.sound(SND_ATTACK)
@@ -312,7 +311,7 @@ def follow_target(char, arguments, target):
 		else:
 			for follower in char.followers:
 				follow_target(char, [follower.serial, False], target)
-	elif pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
+	elif pet and (pet.owner == char or char.gm or isPetFriend(char, pet)) and pet.distanceto(char) < 18:
 		pet.guarding = None
 		pet.follow(target.char)
 		pet.sound(SND_ATTACK)
@@ -354,12 +353,8 @@ def onSpeech(pet, char, text, keywords):
 
 	text = text.lower()
 
-	# Test Ownership / Allow GMs to control
-	if (pet.owner != char or not pet.tamed) and not char.gm:
-		return False
-
 	#check if can be controlled
-	if not checkPetControl(pet,char, text, keywords):
+	if not checkPetControl(pet, char, text, keywords):
 		return True
 
 	# Test All
@@ -367,6 +362,10 @@ def onSpeech(pet, char, text, keywords):
 	all = text.startswith('all ')
 
 	if all:
+		# Test Ownership / Allow Friends/GMs to control
+		if (pet.owner != char or not pet.tamed) and not char.gm:
+			return False
+
 		# begin all #
 		# All Follow Me
 		if 232 in keywords and 355 in keywords and 364 in keywords:
@@ -405,26 +404,31 @@ def onSpeech(pet, char, text, keywords):
 		if not text.startswith(pet.name.lower() + " "):
 			return False
 
+		# Test Ownership / Allow Friends/GMs to control
+		elif not char.gm and ((pet.owner != char) and not isPetFriend(char, pet) or (not target.tamed)):
+			return False
+
 		# Follow Me
 		elif 232 in keywords and 355 in keywords:
-			#char.socket.sysmessage('zzz Follow me')
 			follow_me(char, pet, False)
-			return True
-
-		# Follow
-		elif 232 in keywords and 346 in keywords:
-			#char.socket.sysmessage('zzz Follow')
-			follow(char, pet, False)
-			return True
-
-		# Kill, Attack
-		elif 349 in keywords or 350 in keywords:
-			attack(char, pet, False)
 			return True
 
 		# Stay, Stop
 		elif 353 in keywords or 367 in keywords:
 			stop(char, pet, False)
+			return True
+
+		# Follow
+		elif 232 in keywords and 346 in keywords:
+			follow(char, pet, False)
+			return True
+
+		if isPetFriend(char, pet):
+			return False
+
+		# Kill, Attack
+		elif 349 in keywords or 350 in keywords:
+			attack(char, pet, False)
 			return True
 
 		# Come
