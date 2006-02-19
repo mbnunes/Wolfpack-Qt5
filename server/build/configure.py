@@ -131,7 +131,7 @@ def checkQt(options):
 	else:
 		sys.stdout.write( red("Fail") + "\n" )
 		sys.stdout.write( "  You must properly setup the QTDIR environment variable or use --qt-directory parameter!\n" )
-		sys.exit();
+		sys.exit(1);
 	sys.stdout.write( "  Searching for qmake executable:       " )
 	temp = ""
 
@@ -168,7 +168,7 @@ def checkMySQL(options):
 			"/usr/include/mysql/mysql.h" ]
 	else:
 		sys.stdout.write("ERROR: Unknown platform %s to checkMySQL()\n" % sys.platform )
-		sys.exit()
+		sys.exit(1)
 
 	# if --static
 	if options.staticlink:
@@ -183,7 +183,7 @@ def checkMySQL(options):
 		sys.stdout.write("%s\n" % os.path.join( mysql_libpath, mysql_libfile ) )
 	else:
 		sys.stdout.write("Not Found!\n")
-		sys.exit()
+		sys.exit(1)
 
 	global mysql_incpath
 	mysql_incfile = None
@@ -266,7 +266,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 	# Undefined OS
 	else:
 		sys.stdout.write(red("ERROR")+": Unknown platform %s to checkPython()\n" % sys.platform )
-		sys.exit()
+		sys.exit(1)
 
 	# if --static
 	if options.staticlink:
@@ -287,7 +287,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 	else:
 		sys.stdout.write( red("Fail") + "\n" )
 		sys.stdout.write( bold("  Wolfpack requires Python version >= 2.3.0\n") )
-		sys.exit();
+		sys.exit(1);
 
 	sys.stdout.write( "  Checking CPU byte order:              %s\n" % sys.byteorder )
 	if sys.byteorder != 'little':
@@ -302,7 +302,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			sys.stdout.write( "%s\n" % py_incpath )
 		else:
 			sys.stdout.write(red("Not Found!") + "\n")
-			sys.exit()
+			sys.exit(1)
 
 	if lookForLib:
 		sys.stdout.write( "  Searching for Python library:         " )
@@ -313,7 +313,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			sys.stdout.write( "%s\n" % os.path.join( py_libpath, py_libfile ) )
 		else:
 			sys.stdout.write(red("Not Found!") + "\n")
-			sys.exit()
+			sys.exit(1)
 
 	sys.stdout.write("\n")
 	return True
@@ -378,10 +378,6 @@ def main():
 	else:
 		sys.stdout.write(yellow("Disabled") + "\n  use --enable-mysql parameter to enable MySQL support\n\n")
 
-
-	if not options.enable_translation:
-		DEFINES += "QT_NO_TRANSLATION "
-
 	# Create config.pri
 	global py_libpath
 	global py_libfile
@@ -424,14 +420,6 @@ def main():
 		CONFIG += "release warn_off "
 		sys.stdout.write("Release\n")
 
-	# if --aidebug
-	sys.stdout.write("AI debugging:                           ")
-	if options.enable_aidebug:
-		DEFINES += "_AIDEBUG "
-		sys.stdout.write("Enabled\n")
-	else:
-		sys.stdout.write("Disabled\n")
-	
 	# if --enable-gui
 	sys.stdout.write("GUI:                                    ")
 	if not options.enable_gui:
@@ -439,7 +427,23 @@ def main():
 		sys.stdout.write("Disabled\n")
 	else:
 		sys.stdout.write("Enabled\n")
+
+        # if --enable-translations
+        sys.stdout.write("Translation:                            ")
+        if not options.enable_translation:
+		DEFINES += "QT_NO_TRANSLATION "
+                sys.stdout.write("Disabled\n")
+        else:
+                sys.stdout.write("Enabled\n")
 	
+	# if --aidebug
+	sys.stdout.write("AI debugging:                           ")
+	if options.enable_aidebug:
+		DEFINES += "_AIDEBUG "
+		sys.stdout.write("Enabled\n")
+	else:
+		sys.stdout.write("Disabled\n")
+
 	config.write("DEFINES += %s\n" % DEFINES)
 	config.write("CONFIG += %s\n" % CONFIG)
 	config.write("LIBS += $$PY_LIBDIR $$MySQL_LIBDIR \n")
@@ -448,7 +452,11 @@ def main():
 
 	sys.stdout.write("\nGenerating makefile... ")
 	sys.stdout.flush()
-	os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro"])
+	exitcode = os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro"])
+	if exitcode != 0:
+                sys.stdout.write("Error generating Makefile!\n")
+                sys.exit(1)        
+
 	if options.dsp:
 		sys.stdout.write("Generating Visual Studio project files... \n")
 		os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro", "-t vcapp"])
