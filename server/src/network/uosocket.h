@@ -296,6 +296,7 @@ private:
 
 private slots:
 	void receive(); // Tries to recieve one packet and process it
+	void disconnectedImplementation();
 
 signals:
 	void disconnected();

@@ -151,8 +151,8 @@ cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( s ), _walkSequence( 0 ), lastPa
 	tooltipscache_ = new QBitArray;
 	skippedUOHeader = false;
 
-	connect( _socket, SIGNAL(disconnected()), this, SIGNAL(disconnected()) );
-	connect( _socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SIGNAL(disconnected()) );
+	connect( _socket, SIGNAL(disconnected()), this, SLOT(disconnectedImplementation()) );
+	connect( _socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(disconnectedImplementation()) );
 	connect( _socket, SIGNAL(readyRead()), this, SLOT(receive()) );
 	// Creation of a new socket counts as activity
 	_lastActivity = getNormalizedTime();
@@ -169,6 +169,12 @@ cUOSocket::~cUOSocket( void )
 	delete _socket;
 
 	qDeleteAll( gumps );
+}
+
+void cUOSocket::disconnectedImplementation()
+{
+	QObject::disconnect( this, SLOT(disconnectedImplementation()) ); // Ensure it's only called once.
+	emit disconnected();
 }
 
 // Initialize all packet handlers to zero
