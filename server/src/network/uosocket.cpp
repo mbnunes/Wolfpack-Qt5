@@ -3348,7 +3348,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	send( &vendorBuy );
 }
 
-void cUOSocket::sendBuyWindow( P_NPC pVendor )
+void cUOSocket::sendBuyWindow( P_NPC pVendor, P_CHAR pPlayer )
 {
 	P_ITEM pBought = pVendor->atLayer( cBaseChar::BuyNoRestockContainer );
 	P_ITEM pStock = pVendor->atLayer( cBaseChar::BuyRestockContainer );
@@ -3496,9 +3496,9 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor )
 		pOffset -= 19; // Previous item
 
 		if ( !pItem->name().isEmpty() )
-			vendorBuy.addItem( pItem->buyprice(), pItem->name() ); // add it to the other packet as well
+			vendorBuy.addItem( pItem->getBuyPrice( pVendor, pPlayer ), pItem->name() ); // add it to the other packet as well
 		else
-			vendorBuy.addItem( pItem->buyprice(), QString::number( 1020000 + pItem->id() ) );
+			vendorBuy.addItem( pItem->getBuyPrice( pVendor, pPlayer ), QString::number( 1020000 + pItem->id() ) );
 	}
 
 	send( &containerContent ); // Send container content
@@ -3563,7 +3563,7 @@ void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 		unsigned int count = 0;
 		foreach( P_ITEM pItem, items )
 		{
-			unsigned int sellprice = pItem->getSellPrice( pVendor );
+			unsigned int sellprice = pItem->getSellPrice( pVendor, pSeller );
 			if ( sellprice != 0 )
 			{
 				itemContent.addItem( pItem->serial(), pItem->id(), pItem->color(), pItem->amount(), sellprice, pItem->getName() );

@@ -2601,7 +2601,7 @@ Coord cItem::getOutmostPos()
 	return pos_;
 }
 
-unsigned int cItem::getSellPrice( P_CHAR pVendor )
+unsigned int cItem::getSellPrice( P_CHAR pVendor, P_CHAR player )
 {
 	unsigned int sellprice = this->sellprice();
 	bool fromItem = false;
@@ -2611,7 +2611,7 @@ unsigned int cItem::getSellPrice( P_CHAR pVendor )
 
 	if ( itemCanHandle || npcCanHandle )
 	{
-		args = Py_BuildValue( "(NN)", getPyObject(), pVendor->getPyObject() );
+		args = Py_BuildValue( "(NNN)", getPyObject(), pVendor->getPyObject(), player->getPyObject() );
 	}
 
 	if ( itemCanHandle )
@@ -2655,6 +2655,62 @@ unsigned int cItem::getSellPrice( P_CHAR pVendor )
 	Py_XDECREF( args );
 
 	return sellprice;
+}
+
+unsigned int cItem::getBuyPrice( P_CHAR pVendor, P_CHAR player )
+{
+	unsigned int buyprice = this->buyprice();
+	bool fromItem = false;
+	bool itemCanHandle = canHandleEvent( EVENT_GETBUYPRICE );
+	bool npcCanHandle = pVendor->canHandleEvent( EVENT_GETBUYPRICE );
+	PyObject *args = 0;
+
+	if ( itemCanHandle || npcCanHandle )
+	{
+		args = Py_BuildValue( "(NNN)", getPyObject(), pVendor->getPyObject(), player->getPyObject() );
+	}
+
+	if ( itemCanHandle )
+	{
+		PyObject *result = callEvent( EVENT_GETBUYPRICE, args );
+		if ( result )
+		{
+			if ( PyInt_CheckExact( result ) )
+			{
+				buyprice = PyInt_AsLong( result );
+				fromItem = true;
+			}
+			else if ( PyLong_CheckExact( result ) )
+			{
+				buyprice = PyLong_AsLong( result );
+				fromItem = true;
+			}
+		}
+		Py_XDECREF( result );
+	}
+
+	if ( npcCanHandle && !fromItem )
+	{
+		PyObject *result = pVendor->callEvent( EVENT_GETBUYPRICE, args );
+		if ( result )
+		{
+			if ( PyInt_CheckExact( result ) )
+			{
+				buyprice = PyInt_AsLong( result );
+				fromItem = true;
+			}
+			else if ( PyLong_CheckExact( result ) )
+			{
+				buyprice = PyLong_AsLong( result );
+				fromItem = true;
+			}
+		}
+		Py_XDECREF( result );
+	}
+
+	Py_XDECREF( args );
+
+	return buyprice;
 }
 
 void cItem::setContainer( cUObject* d )

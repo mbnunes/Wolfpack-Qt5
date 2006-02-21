@@ -530,6 +530,7 @@ is requested.
 \event onGetSellPrice
 \param item The item being checked.
 \param vendor The vendor buying the item. This could be None.
+\param player The player selling the item.
 \return None if your event does not know the price. An integer
 value otherwise.
 \condition This event is triggered to get the sellprice for an item.
@@ -779,6 +780,18 @@ Npc must have an ai.
 \notes The event is called always for the Container.
 */
 "onPickupFromContainer",
+
+/*
+\event onGetBuyPrice
+\param item The item being checked.
+\param vendor The vendor selling the item. This could be None.
+\param player The player buying the item.
+\return None if your event does not know the price. An integer
+value otherwise.
+\condition This event is triggered to get the buyprice for an item.
+It's triggered for the item, then for the npc and then for the global hook.
+*/
+"onGetBuyPrice",
 
 0
 };

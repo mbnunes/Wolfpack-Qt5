@@ -1353,7 +1353,7 @@ void cNPC::vendorBuy( P_PLAYER player )
 	}
 
 	talk( 500186, 0, 0, false, saycolor(), player->socket() ); // Greetings.  Have a look around.
-	player->socket()->sendBuyWindow( this );
+	player->socket()->sendBuyWindow( this, player );
 }
 
 void cNPC::vendorSell( P_PLAYER player )

@@ -142,7 +142,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 
 		if ( amount )
 		{
-			totalValue += amount * pItem->buyprice();
+			totalValue += amount * pItem->getBuyPrice( pVendor, pChar );
 			items.insert( make_pair( pItem->serial(), amount ) );
 		}
 	}
@@ -689,9 +689,9 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 			return;
 		}
 
-		unsigned int sellprice = pItem->getSellPrice( pVendor );
+		unsigned int sellprice = pItem->getSellPrice( pVendor, pChar );
 
-		if ( !sellprice || !pItem->buyprice() )
+		if ( !sellprice || !pItem->getBuyPrice( pVendor, pChar ) )
 		{
 			socket->sysMessage( tr( "Invalid item sold." ) );
 			socket->send( &clearBuy );

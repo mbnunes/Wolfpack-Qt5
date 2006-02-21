@@ -267,7 +267,7 @@ public:
 	void sendStatWindow( P_CHAR pChar = NULL );
 	bool inRange( cUOSocket* ) const;
 	void sendSkill( quint16 skill );
-	void sendBuyWindow( P_NPC pVendor );
+	void sendBuyWindow( P_NPC pVendor, P_CHAR pPlayer );
 	void sendSellWindow( P_NPC pVendor, P_CHAR pSeller );
 	void sendVendorCont( P_ITEM pItem );
 	void clilocMessage( const quint32 MsgID, const QString& params = 0, const quint16 color = 0x3b2, const quint16 font = 3, cUObject* object = 0, bool system = false );
