@@ -3113,11 +3113,72 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		// use a different method of counting gold here. (not recursive)
 		unsigned int gold = 0;
 		ContainerIterator it(_player->getBackpack());
-		while (!it.atEnd()) {
-			if ((*it)->id() == 0xeed && (*it)->color() == 0) {
-				gold += (*it)->amount();
+
+		// New Monetary?
+		if (Config::instance()->usenewmonetary()) {
+
+			// Lets Assign Region
+			cTerritory* Region = pChar->region();
+
+			// Lets Assign the IDs
+			QString idfirst = "eed";
+			QString idsecond = "ef0";
+			QString idthird = "eea";
+
+			// Lets try to find the IDs ahn?
+			if ( Region )
+			{
+				idfirst = Region->firstcoin();
+				idsecond = Region->secondcoin();
+				idthird = Region->thirdcoin();
 			}
-			++it;
+			
+			// Reversed Valuable
+			if (Config::instance()->usereversedvaluable()) {
+				while (!it.atEnd()) {
+					if ((*it)->id() == idfirst.toUShort(0, 16) && (*it)->color() == 0) {
+						gold += (*it)->amount() * 100;
+					}
+					if ((*it)->id() == idsecond.toUShort(0, 16) && (*it)->color() == 0) {
+						gold += (*it)->amount() * 10;
+					}
+					if ((*it)->id() == idthird.toUShort(0, 16) && (*it)->color() == 0) {
+						gold += (*it)->amount();
+					}
+					++it;
+				}
+			}
+			// Normal Valuable
+			else
+			{
+				unsigned int fc = 0;
+				unsigned int sc = 0;
+				unsigned int tc = 0;
+
+				while (!it.atEnd()) {
+					if ((*it)->id() == idfirst.toUShort(0, 16) && (*it)->color() == 0) {
+						fc += (*it)->amount();
+					}
+					if ((*it)->id() == idsecond.toUShort(0, 16) && (*it)->color() == 0) {
+						sc += (*it)->amount();
+					}
+					if ((*it)->id() == idthird.toUShort(0, 16) && (*it)->color() == 0) {
+						tc += (*it)->amount();
+					}
+					++it;
+				}
+				gold += ( fc + sc/10 + tc/100 );
+			}
+		}
+		// Normal Monetary
+		else
+		{
+			while (!it.atEnd()) {
+				if ((*it)->id() == 0xeed && (*it)->color() == 0) {
+					gold += (*it)->amount();
+				}
+				++it;
+			}
 		}
 
 		sendStats.setGold(gold);
