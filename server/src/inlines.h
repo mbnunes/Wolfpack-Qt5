@@ -56,7 +56,7 @@ inline bool isHairsByRaceColor( quint16 color, bool race )
 	else		// Elf's Hairs
 	{
 		// Line 1 of Colors
-		if ( ( color >= 0x34 ) && ( color == 0x39 ) )
+		if ( ( color >= 0x34 ) && ( color <= 0x39 ) )
 			return true;
 		// Line 2 of Colors
 		else if ( ( color == 0x101 ) || ( color == 0x6b8 ) || ( color == 0x207 ) || ( color == 0x211 ) || ( color == 0x26c ) || ( color == 0x2c3 ) )
