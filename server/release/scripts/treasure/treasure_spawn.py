@@ -42,7 +42,7 @@ MINLEVELFORINITIALSPAWN = 2	# Min Level to have Initial Spawn on Treasure
 def treasinitialspawn( item ):
 
 	# Spawn list for that Level
-	level = item.gettag('level')
+	level = int(item.gettag('level'))
 	spawnlist = TREASPAWNS[level]
 
 	# Check Min Level for Initial Spawn
@@ -54,7 +54,7 @@ def treasinitialspawn( item ):
 
 	# Now... lets just Spawn creatures
 	for i in range(0, amountspawned):
-		
+
 		npc = wolfpack.addnpc(random.choice( spawnlist ), item.pos)
 		npc.update()
 
@@ -67,7 +67,7 @@ def treaspickspawn( item ):
 	#############################################
 	# Lets check the Level and assign SpawnList
 	#############################################
-	level = item.gettag('level')
+	level = int(item.gettag('level'))
 	spawnlist = TREASPAWNS[level]
 
 	#############################################
@@ -106,8 +106,6 @@ def treaspickspawn( item ):
 	#############################################
 
 	if amount:
-
 		for i in range(0, amount):
-		
 			npc = wolfpack.addnpc(random.choice( spawnlist ), item.pos)
 			npc.update()

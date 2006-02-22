@@ -25,12 +25,8 @@ from treasure.treasure_templates import filltreasure
 #####################################################################################
 
 def onCreate(item, id):
-
-	# Get Level
-	level = item.gettag('level')
-
 	# Get a point in list
-	(x,y) = random.choice(TREASURECOORDS)	
+	(x,y) = random.choice(TREASURECOORDS)
 
 	item.settag('x', x)
 	item.settag('y', y)
@@ -47,7 +43,7 @@ def onUse(player, item):
 
 	# Already finished?
 	if item.hastag('founded'):
-		player.socket.sysmessage('Someone already founded this treasure!')
+		player.socket.sysmessage(tr('Someone already found this treasure!'))
 		return 1
 
 	# Its decoded?
@@ -55,7 +51,7 @@ def onUse(player, item):
 		sendtreasmap(player, item)
 	else:
 		trydecodemap(player, item)
-	
+
 	return 1
 
 #####################################################################################
@@ -106,7 +102,7 @@ def trydecodemap(player, item):
 			item.name = "tattered treasure map"
 		else:
 			player.socket.sysmessage("You cannot decode this map yet!")
-	
+
 #####################################################################################
 #######################   Sending Map to Client   ###################################
 #####################################################################################
@@ -114,9 +110,9 @@ def trydecodemap(player, item):
 def sendtreasmap(player, item):
 
 	# Get tags from map
-	x = item.gettag('x')
-	y = item.gettag('y')
-	
+	x = int(item.gettag('x'))
+	y = int(item.gettag('y'))
+
 	# Get Parameters
 	width = 200
 	height = 200
@@ -157,9 +153,9 @@ def checktreaspoint(x, y, z, map, item, char):
 		return 0
 	else:
 		# Getting Tags from Map
-		xtreas = item.gettag('x')
-		ytreas = item.gettag('y')
-		level = item.gettag('level')
+		xtreas = int(item.gettag('x'))
+		ytreas = int(item.gettag('y'))
+		level = int(item.gettag('level'))
 
 		# Distance from Point
 		if xtreas >= x:
