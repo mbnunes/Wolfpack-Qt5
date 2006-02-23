@@ -69,7 +69,7 @@ def stealitem( char, tosteal ):
 	# check if hands are empty and target can be seen
 	if not check( char, tosteal ):
 		return True
-	if not char.canreach(tosteal, 1):
+	if not char.canreach(victim, 1):
 		char.socket.clilocmessage( 502703 ) # You must be standing next to an item to steal it.
 		return True
 	elif not tosteal.container and not tosteal.movable and tosteal.newbie:
