@@ -73,9 +73,9 @@ void cTerritory::init( void )
 	cBaseRegion::init();
 	midilist_ = "";
 	resores_ = "";
-	firstcoin_ = "eed";
-	secondcoin_ = "ef0";
-	thirdcoin_ = "eea";
+	firstcoin_ = Config::instance()->defaultFirstCoin();
+	secondcoin_ = Config::instance()->defaultSecondCoin();
+	thirdcoin_ = Config::instance()->defaultThirdCoin();
 	flags_ = 0;
 	extraflags_ = 0;
 	guardowner_ = QString();

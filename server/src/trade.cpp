@@ -170,9 +170,9 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				cTerritory* Region = pVendor->region();
 
 				// Lets Assign the IDs
-				QString idfirst = "eed";
-				QString idsecond = "ef0";
-				QString idthird = "eea";
+				QString idfirst = Config::instance()->defaultFirstCoin();
+				QString idsecond = Config::instance()->defaultSecondCoin();
+				QString idthird = Config::instance()->defaultThirdCoin();
 
 				// Lets try to find the IDs ahn?
 				if ( Region )
@@ -183,9 +183,9 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				}
 
 				// Get our total gold at once
-				quint32 packFirst = backpack->countItems( idfirst.toUShort(0, 16) );
-				quint32 packSecond = backpack->countItems( idsecond.toUShort(0, 16) );
-				quint32 packThird = backpack->countItems( idthird.toUShort(0, 16) );
+				quint32 packFirst = backpack->countBaseItems( idfirst );
+				quint32 packSecond = backpack->countBaseItems( idsecond );
+				quint32 packThird = backpack->countBaseItems( idthird );
 
 				// Use Reversed Monetary?
 				if (Config::instance()->usereversedvaluable()) {
@@ -238,7 +238,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 							{
 								pChar->getBackpack()->removeItem( idfirst, ( totalValue/100 ) + 1 );
 								// Creating Money Back
-								if ( (totalValue % 100) > 10 )
+								if ( (totalValue % 100) < 90 )
 								{
 									// First, Silver
 									P_ITEM pTroco = cItem::createFromScript( idsecond );
@@ -246,13 +246,13 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 									pTroco->toBackpack( pChar );
 									// Now, Copper
 									pTroco = cItem::createFromScript( idthird );
-									pTroco->setAmount( ( 100 - (totalValue % 100) ) % 10 );
+									pTroco->setAmount( 10 - (totalValue % 10) );
 									pTroco->toBackpack( pChar );
 								}
 								else
 								{
 									P_ITEM pTroco = cItem::createFromScript( idthird );
-									pTroco->setAmount( 10 - (totalValue % 100) );
+									pTroco->setAmount( 10 - (totalValue % 10) );
 									backpack->addItem( pTroco );
 								}
 							}
@@ -260,14 +260,34 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 							{
 								pChar->getBackpack()->removeItem( idfirst, packFirst );
 								// The rest of Money
-								if (packSecond*10 >= ( totalValue - packFirst * 100) )
+								if (totalValue % 10)
 								{
-									pChar->getBackpack()->removeItem( idsecond, totalValue/10 );
+									if (packSecond*10 >= ( totalValue - packFirst * 100) )
+									{
+										pChar->getBackpack()->removeItem( idsecond, ((totalValue - packFirst * 100)/10) + 1 );
+										
+										// Money Back
+										P_ITEM pTroco = cItem::createFromScript( idthird );
+										pTroco->setAmount( 10 - (totalValue % 10) );
+										backpack->addItem( pTroco );
+									}
+									else
+									{
+										pChar->getBackpack()->removeItem( idsecond, packSecond );
+										pChar->getBackpack()->removeItem( idthird, totalValue - ( packSecond * 10 ) - ( packFirst * 100 ) );
+									}
 								}
 								else
 								{
-									pChar->getBackpack()->removeItem( idsecond, packSecond );
-									pChar->getBackpack()->removeItem( idthird, totalValue - ( packSecond * 10 ) - ( packFirst * 100 ) );
+									if (packSecond*10 >= ( totalValue - packFirst * 100) )
+									{
+										pChar->getBackpack()->removeItem( idsecond, ((totalValue - packFirst * 100)/10) );
+									}
+									else
+									{
+										pChar->getBackpack()->removeItem( idsecond, packSecond );
+										pChar->getBackpack()->removeItem( idthird, totalValue - ( packSecond * 10 ) - ( packFirst * 100 ) );
+									}
 								}
 							}
 						}
@@ -284,7 +304,7 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 								// The rest of Money
 								if (packSecond*10 >= ( totalValue - packFirst * 100) )
 								{
-									pChar->getBackpack()->removeItem( idsecond, totalValue/10 );
+									pChar->getBackpack()->removeItem( idsecond, ((totalValue - packFirst * 100)/10) );
 								}
 								else
 								{
@@ -356,13 +376,13 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 				P_ITEM backpack = pChar->getBackpack(); //My BackPack
 
 				// Get our total gold at once
-				quint32 bankFirst = bank->countItems( idfirst.toUShort(0, 16) );
-				quint32 bankSecond = bank->countItems( idsecond.toUShort(0, 16) );
-				quint32 bankThird = bank->countItems( idthird.toUShort(0, 16) );
+				quint32 bankFirst = bank->countBaseItems( idfirst );
+				quint32 bankSecond = bank->countBaseItems( idsecond );
+				quint32 bankThird = bank->countBaseItems( idthird );
 
-				quint32 packFirst = backpack->countItems( idfirst.toUShort(0, 16) );
-				quint32 packSecond = backpack->countItems( idsecond.toUShort(0, 16) );
-				quint32 packThird = backpack->countItems( idthird.toUShort(0, 16) );
+				quint32 packFirst = backpack->countBaseItems( idfirst );
+				quint32 packSecond = backpack->countBaseItems( idsecond );
+				quint32 packThird = backpack->countBaseItems( idthird );
 
 				// Lets go... First Money Section
 				if ( packFirst >= totalValue )
@@ -783,9 +803,9 @@ void sellAction( cUOSocket* socket, cUORxSell* packet )
 		cTerritory* Region = pVendor->region();
 
 		// Lets Assign the IDs
-		QString idfirst = "eed";
-		QString idsecond = "ef0";
-		QString idthird = "eea";
+		QString idfirst = Config::instance()->defaultFirstCoin();
+		QString idsecond = Config::instance()->defaultSecondCoin();
+		QString idthird = Config::instance()->defaultThirdCoin();
 
 		// Lets try to find the IDs ahn?
 		if ( Region )

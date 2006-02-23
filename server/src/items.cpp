@@ -2301,6 +2301,21 @@ unsigned int cItem::countItems( short id, short color ) const
 	return total;
 }
 
+unsigned int cItem::countBaseItems( QString baseid, short color ) const
+{
+	unsigned int total = 0;
+	QList<cItem*> content = getContainment();
+
+	foreach ( P_ITEM pi, content )
+	{
+		if ( !pi || pi->free ) // just to be sure ;-)
+			continue;
+		if ( pi->baseid() == baseid && ( color == -1 || pi->color() == color ) )
+			total += pi->amount();
+	}
+	return total;
+}
+
 /*!
 	\brief Removes a certain amount of items from this container
 	recursively.

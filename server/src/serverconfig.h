@@ -194,6 +194,9 @@ protected:
 	// New Monetary
 	bool usenewmonetary_;
 	bool usereversedvaluable_;
+	QString defaultFirstCoin_;
+	QString defaultSecondCoin_;
+	QString defaultThirdCoin_;
 
 	// Weather System
 	bool enableWeather_;
@@ -409,6 +412,9 @@ public:
 	// New Monetary system
 	bool usenewmonetary() const;
 	bool usereversedvaluable() const;
+	QString defaultFirstCoin() const;
+	QString defaultSecondCoin() const;
+	QString defaultThirdCoin() const;
 
 	// Weather System
 	bool enableWeather() const;
@@ -880,6 +886,18 @@ inline bool cConfig::usenewmonetary() const
 inline bool cConfig::usereversedvaluable() const
 {
 	return usereversedvaluable_;
+}
+inline QString cConfig::defaultFirstCoin() const
+{
+	return defaultFirstCoin_;
+}
+inline QString cConfig::defaultSecondCoin() const
+{
+	return defaultSecondCoin_;
+}
+inline QString cConfig::defaultThirdCoin() const
+{
+	return defaultThirdCoin_;
 }
 // Weather System
 inline bool cConfig::enableWeather() const

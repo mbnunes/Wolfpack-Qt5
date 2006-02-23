@@ -376,6 +376,7 @@ public:
 	bool contains( const cItem* ) const;
 	unsigned int countItems( const QStringList& baseids ) const;
 	unsigned int countItems( short ID, short col = -1 ) const;
+	unsigned int countBaseItems( QString baseid, short col = -1 ) const;
 
 	unsigned int removeItems( const QStringList& baseids, unsigned int amount );
 	unsigned int removeItem( const QString& id, unsigned int amount );

@@ -259,6 +259,9 @@ void cConfig::readData()
 	// Monetary System
 	usenewmonetary_ = getBool( "Monetary", "Use New Monetary", false, true );
 	usereversedvaluable_ = getBool( "Monetary", "Use Reversed Valuable Base", false, true );
+	defaultFirstCoin_ = getString( "Monetary", "Default First Coin", "eed", true );
+	defaultSecondCoin_ = getString( "Monetary", "Default Second Coin", "ef0", true );
+	defaultThirdCoin_ = getString( "Monetary", "Default Third Coin", "eea", true );
 
 	// Weather System
 	enableWeather_ = getBool( "Weather", "Enable Weather System", false, true );

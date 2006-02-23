@@ -3121,9 +3121,9 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 			cTerritory* Region = pChar->region();
 
 			// Lets Assign the IDs
-			QString idfirst = "eed";
-			QString idsecond = "ef0";
-			QString idthird = "eea";
+			QString idfirst = Config::instance()->defaultFirstCoin();
+			QString idsecond = Config::instance()->defaultSecondCoin();
+			QString idthird = Config::instance()->defaultThirdCoin();
 
 			// Lets try to find the IDs ahn?
 			if ( Region )
@@ -3136,13 +3136,13 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 			// Reversed Valuable
 			if (Config::instance()->usereversedvaluable()) {
 				while (!it.atEnd()) {
-					if ((*it)->id() == idfirst.toUShort(0, 16) && (*it)->color() == 0) {
+					if ((*it)->baseid() == idfirst) {
 						gold += (*it)->amount() * 100;
 					}
-					if ((*it)->id() == idsecond.toUShort(0, 16) && (*it)->color() == 0) {
+					if ((*it)->baseid() == idsecond) {
 						gold += (*it)->amount() * 10;
 					}
-					if ((*it)->id() == idthird.toUShort(0, 16) && (*it)->color() == 0) {
+					if ((*it)->baseid() == idthird) {
 						gold += (*it)->amount();
 					}
 					++it;
@@ -3156,13 +3156,13 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 				unsigned int tc = 0;
 
 				while (!it.atEnd()) {
-					if ((*it)->id() == idfirst.toUShort(0, 16) && (*it)->color() == 0) {
+					if ((*it)->baseid() == idfirst) {
 						fc += (*it)->amount();
 					}
-					if ((*it)->id() == idsecond.toUShort(0, 16) && (*it)->color() == 0) {
+					if ((*it)->baseid() == idsecond) {
 						sc += (*it)->amount();
 					}
-					if ((*it)->id() == idthird.toUShort(0, 16) && (*it)->color() == 0) {
+					if ((*it)->baseid() == idthird) {
 						tc += (*it)->amount();
 					}
 					++it;
