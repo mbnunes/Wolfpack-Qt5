@@ -164,14 +164,6 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 		return false;
 }
 
-/////////////////
-// name:	response
-// purpose:	tries to get a response from an npc standing around
-// history:	heavily revamped/rewritten by Duke, Oct 2001
-// remark:	The new logic tries to minimize the # of strstr() calls by *first* checking
-//			what kind of npcs are standing around and then checking only those keywords
-//			that they might be interested in.
-//			This is especially usefull in crowded places.
 bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm, QList<ushort>& keywords )
 {
 	if ( !pPlayer->socket() || pPlayer->isDead() )
@@ -265,8 +257,9 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 		return;
 
 	// Squelched
-	if (pChar->isSquelched()) {
-		socket->clilocMessage(500168); // You cannot say anything, you have been squelched.
+	if ( pChar->isSquelched() ) 
+	{
+		socket->clilocMessage( 500168 ); // You cannot say anything, you have been squelched.
 		return;
 	}
 

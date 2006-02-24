@@ -140,7 +140,7 @@ const quint16 packetLengths[256] =
   Ownership of \a s will be transfered to cUOSocket, that is,
   cUOSocket will call delete on the given pointer when it's destructed.
 */
-cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( s ), _walkSequence( 0 ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ), targetRequest( 0 ), _account( 0 ), _player( 0 ), _rxBytes( 0 ), _txBytes( 0 ), _screenWidth( 640 ), _screenHeight( 480 )
+cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( 0 ), _walkSequence( 0 ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ), targetRequest( 0 ), _account( 0 ), _player( 0 ), _rxBytes( 0 ), _txBytes( 0 ), _screenWidth( 640 ), _screenHeight( 480 )
 {
 	encryption = 0;
 	_txBytesRaw = 0;
@@ -174,7 +174,8 @@ cUOSocket::~cUOSocket( void )
 void cUOSocket::disconnectedImplementation()
 {
 	QObject::disconnect( this, SLOT(disconnectedImplementation()) ); // Ensure it's only called once.
-	emit disconnected();
+	if ( _socket->isOpen() )
+		emit disconnected();
 }
 
 // Initialize all packet handlers to zero

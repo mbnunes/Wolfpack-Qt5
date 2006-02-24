@@ -106,18 +106,19 @@ void cNetwork::incomingLoginServerConnection()
 void cNetwork::partingLoginServerConnection()
 {
 	cUOSocket* uoSocket = qobject_cast<cUOSocket *>( sender() );
-	uoSocket->log( tr( "Client disconnected.\n" ) );
+	uoSocket->disconnect();
 	d->loginSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();
+	uoSocket->log( tr( "Client disconnected.\n" ) );
 }
 
 void cNetwork::partingGameServerConnection()
 {
 	cUOSocket* uoSocket = qobject_cast<cUOSocket *>(sender());
-	uoSocket->log( tr( "Client disconnected.\n" ) );
 	uoSocket->disconnect();
 	d->uoSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();
+	uoSocket->log( tr( "Client disconnected.\n" ) );
 }
 
 // Load IP Blocking rules
@@ -163,15 +164,22 @@ void cNetwork::unload()
 	// Disconnect all connected sockets
 	QList<cUOSocket*> socketList = d->uoSockets;
 	d->uoSockets.clear();
-	foreach (cUOSocket *socket, socketList) {
+	foreach (cUOSocket *socket, socketList) 
+	{
 		socket->disconnect();
-	}
-	socketList = d->loginSockets;
-	d->loginSockets.clear();
-	foreach (cUOSocket *socket, d->loginSockets) {
-		socket->disconnect();
+		delete socket;
 	}
 
+	socketList = d->loginSockets;
+	d->loginSockets.clear();
+	foreach (cUOSocket *socket, d->loginSockets) 
+	{
+		socket->disconnect();
+		delete socket;
+	}
+
+	// Process derrefered deletion of cUOSockets before deleting the parent QTcpSocket to avoid double deletion.
+	QCoreApplication::processEvents();
 	if ( d->loginServer_ )
 	{
 		delete d->loginServer_;
