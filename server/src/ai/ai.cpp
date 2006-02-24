@@ -58,6 +58,11 @@ AbstractAI* productCreatorFunctor_Animal_Domestic()
 	return new Animal_Domestic( 0 );
 }
 
+AbstractAI* productCreatorFunctor_Animal_Predator()
+{
+	return new Animal_Predator( 0 );
+}
+
 AbstractAI* productCreatorFunctor_Animal_Wild()
 {
 	return new Animal_Wild( 0 );
