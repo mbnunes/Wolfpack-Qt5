@@ -32,6 +32,9 @@ def showWhoGump(player, page):
 	worldsocket = wolfpack.sockets.first()
 	while worldsocket:
 		char = worldsocket.player
+		if not char:
+			worldsocket = wolfpack.sockets.next()
+			continue
 		if char.invisible and char.rank > player.rank:
 			worldsocket = wolfpack.sockets.next()
 			continue
