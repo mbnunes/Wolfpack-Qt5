@@ -42,8 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(QTDIR)\include" /I "..\src\sqlite" /I "..\build" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "__VC6" /Fr /FD /c
-# SUBTRACT CPP /YX
+# ADD CPP /nologo /MD /W3 /GR /GX /O2 /I "$(QTDIR)\include" /I "$(QTDIR)\include\QtNetwork" /I "$(QTDIR)\include\QtXml" /I "$(QTDIR)\include\QtCore" /I "$(QTDIR)\include\QtGui" /I "..\src\sqlite" /I "..\build" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_LARGEFILE_SUPPORT" /D "QT_LITE_COMPONENT" /D "QT_COMPAT_WARNINGS" /D "QT_THREAD_SUPPORT" /D "QT_DLL" /D "QT_NO_STL" /D "QT_NO_DEBUG" /D "QT_CORE_LIB" /D "QT_GUI_LIB" /D "QT_NETWORK_LIB" /D "QT_XML_LIB" /D "__VC6" /D "MYSQL_DRIVER" /Fr /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409
 BSC32=bscmake.exe
@@ -51,7 +50,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib comctl32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"release\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib comctl32.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\qtmain.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:".\release\wolfpack.exe" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
@@ -68,7 +67,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MD /W3 /Gm /GR /GX /ZI /Od /I "$(QTDIR)\include" /I "..\src\sqlite" /I "..\build" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "__VC6" /Fr /FD /GZ /c
+# ADD CPP /nologo /MD /W3 /Gm /GR /GX /ZI /Od /I "$(QTDIR)\include" /I "$(QTDIR)\include\QtNetwork" /I "$(QTDIR)\include\QtXml" /I "$(QTDIR)\include\QtCore" /I "$(QTDIR)\include\QtGui" /I "..\src\sqlite" /I "..\build" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "QT_LARGEFILE_SUPPORT" /D "QT_LITE_COMPONENT" /D "QT_COMPAT_WARNINGS" /D "QT_THREAD_SUPPORT" /D "QT_DLL" /D "QT_NO_STL" /D "QT_CORE_LIB" /D "QT_GUI_LIB" /D "QT_NETWORK_LIB" /D "QT_XML_LIB" /D "__VC6" /D "MYSQL_DRIVER" /Fr /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /fo"debug\res.res" /d "_DEBUG"
 BSC32=bscmake.exe
@@ -76,13 +75,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /version:12.9 /subsystem:windows /pdb:none /debug /machine:I386 /out:".\debug\wolfpack.exe" /fixed:no
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib comctl32.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\qtmain.lib shell32.lib /nologo /subsystem:windows /pdb:none /debug /machine:I386 /out:".\debug\wolfpackd.exe" /fixed:no
 # SUBTRACT LINK32 /map
-# Begin Special Build Tool
-SOURCE="$(InputPath)"
-PostBuild_Desc=MoveIt
-PostBuild_Cmds=copy debug\wolfpack.exe d:\Wolfpack\WolfpackEXE\debug\current\wolfpack.exe
-# End Special Build Tool
 
 !ENDIF 
 
@@ -100,38 +94,6 @@ SOURCE=..\src\accounts.cpp
 # Begin Source File
 
 SOURCE=..\src\action.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_animals.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_bladespirit.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_commoner.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_energyvortex.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_humans.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_mage.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_monsters.cpp
 # End Source File
 # Begin Source File
 
@@ -160,10 +122,6 @@ SOURCE=..\src\win\config_win.cpp
 # Begin Source File
 
 SOURCE=..\src\console.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\win\console_win.cpp
 # End Source File
 # Begin Source File
 
@@ -235,19 +193,11 @@ SOURCE=..\src\mapobjects.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\muls\maps.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\md5.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\src\multi.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\muls\multiscache.cpp
 # End Source File
 # Begin Source File
 
@@ -323,10 +273,6 @@ SOURCE=..\src\territories.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\muls\tilecache.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\timers.cpp
 # End Source File
 # Begin Source File
@@ -336,10 +282,6 @@ SOURCE=..\src\timing.cpp
 # Begin Source File
 
 SOURCE=..\src\trade.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\twofish\twofish2.cpp
 # End Source File
 # Begin Source File
 
@@ -368,26 +310,6 @@ SOURCE=..\src\action.h
 # Begin Source File
 
 SOURCE=..\src\twofish\aes.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_bladespirit.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_commoner.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_energyvortex.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\ai\ai_mage.h
 # End Source File
 # Begin Source File
 
@@ -503,10 +425,6 @@ SOURCE=..\src\mapobjects.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\muls\maps.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\md5.h
 # End Source File
 # Begin Source File
@@ -516,10 +434,6 @@ SOURCE=..\src\mersennetwister.h
 # Begin Source File
 
 SOURCE=..\src\multi.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\muls\multiscache.h
 # End Source File
 # Begin Source File
 
@@ -579,10 +493,6 @@ SOURCE=..\src\quests.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\resource.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\scriptmanager.h
 # End Source File
 # Begin Source File
@@ -627,10 +537,6 @@ SOURCE=..\src\territories.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\src\muls\tilecache.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\src\timers.h
 # End Source File
 # Begin Source File
@@ -670,33 +576,9 @@ SOURCE=..\src\wolfpack_pch.h
 SOURCE=..\src\world.h
 # End Source File
 # End Group
-# Begin Group "Resource Files"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\icon2.ico
-# End Source File
-# Begin Source File
-
-SOURCE=.\logo.bmp
-# End Source File
-# Begin Source File
-
-SOURCE=.\res.rc
-# End Source File
-# End Group
 # Begin Group "Network"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\src\network\asyncnetio.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\network\asyncnetio.h
-# End Source File
 # Begin Source File
 
 SOURCE=..\src\network\encryption.cpp
@@ -704,14 +586,6 @@ SOURCE=..\src\network\encryption.cpp
 # Begin Source File
 
 SOURCE=..\src\network\encryption.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\network\listener.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\src\network\listener.h
 # End Source File
 # Begin Source File
 
@@ -816,6 +690,14 @@ SOURCE=..\src\python\pypacket.cpp
 # Begin Source File
 
 SOURCE=..\src\python\pypacket.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\python\pyprofiler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\python\pyprofiler.h
 # End Source File
 # Begin Source File
 
@@ -1242,6 +1124,173 @@ SOURCE=..\src\sqlite3\vdbemem.c
 SOURCE=..\src\sqlite3\where.c
 # End Source File
 # End Group
+# Begin Group "AI"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\src\ai\ai.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_animals.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_bladespirit.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_bladespirit.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_commoner.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_commoner.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_energyvortex.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_energyvortex.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_humans.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_mage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_mage.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\ai\ai_monsters.cpp
+# End Source File
+# End Group
+# Begin Group "Encryption"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\src\twofish\twofish2.cpp
+# End Source File
+# End Group
+# Begin Group "GUI"
+
+# PROP Default_Filter ""
+# Begin Group "Resources"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\src\gui\gui.pri
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\gui.qrc
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\images\icon.png
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\images\icon_green.png
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\images\icon_red.png
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\images\logo.png
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\rc_gui.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\ui_mainwindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\ui_profilerwindow.h
+# End Source File
+# End Group
+# Begin Group "Trayicon"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\src\gui\trayicon\trayicon.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\trayicon\trayicon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\trayicon\trayicon_win.cpp
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=..\src\gui\mainwindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\mainwindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\profilersessionmodel.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\profilersessionmodel.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\profilerwindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\profilerwindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\qwpevents.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\gui\wpmain.cpp
+# End Source File
+# End Group
+# Begin Group "Resource Files"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\AUTHORS.txt
+# End Source File
+# Begin Source File
+
+SOURCE=.\icon2.ico
+# End Source File
 # Begin Source File
 
 SOURCE=.\icon_green.ico
@@ -1250,5 +1299,117 @@ SOURCE=.\icon_green.ico
 
 SOURCE=.\icon_red.ico
 # End Source File
+# Begin Source File
+
+SOURCE=.\logo.bmp
+# End Source File
+# Begin Source File
+
+SOURCE=.\res.rc
+# End Source File
+# Begin Source File
+
+SOURCE=.\resource.h
+# End Source File
+# End Group
+# Begin Group "MulReading"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\src\muls\maps.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\muls\maps.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\muls\multiscache.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\muls\multiscache.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\muls\tilecache.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\muls\tilecache.h
+# End Source File
+# End Group
+# Begin Group "MOC Files"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\obj\moc_mainwindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\obj\moc_network.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\obj\moc_profilersessionmodel.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\obj\moc_profilerwindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\obj\moc_pyprofiler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\obj\moc_server.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\obj\moc_trayicon.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\obj\moc_uosocket.cpp
+# End Source File
+# End Group
+# Begin Group "Bug Report"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\src\bugreport\crashhandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\bugreport\crashhandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\bugreport\internal.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\bugreport\nt4processinfo.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\src\bugreport\util.cpp
+
+!IF  "$(CFG)" == "wolf - Win32 Release"
+
+# PROP Intermediate_Dir "Release\Intermediate\Bug_Report"
+
+!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
+
+# PROP Intermediate_Dir "Debug\Intermediate\Bug_Report"
+
+!ENDIF 
+
+# End Source File
+# End Group
 # End Target
 # End Project
