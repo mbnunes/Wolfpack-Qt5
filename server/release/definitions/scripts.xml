@@ -82,11 +82,12 @@
 	<script>spiderweb</script>
 	<script>statscroll</script>
 	<script>statuette</script>
-<!--	<script>taxidermykit</script> -->
+	<script>taxidermykit</script>
 	<script>test</script>
 	<script>training_dummy</script>
 	<script>trashcan</script>
 	<script>tribal_paint</script>
+	<script>trophy</script>
 	<script>wall_clock</script>
 	<script>weather</script>
 	<script>wheat</script>
@@ -111,7 +112,7 @@
 	<script>deeds.hairstyle</script>
 	<script>deeds.item_bless_deed</script>
 	<script>deeds.multideed</script>
-<!--	<script>deeds.trophy_deed</script> -->
+	<script>deeds.trophy_deed</script>
 
 	<!-- Combat -->
 	<script>combat</script>

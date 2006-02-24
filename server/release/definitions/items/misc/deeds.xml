@@ -17,6 +17,13 @@
 		<weight>1.0</weight>
 	</item>
 
+	<item id="trophy_deed">
+		<id>0x14ef</id>
+		<name>Trophy Deed</name>
+		<weight>1.0</weight>
+		<basescripts>deeds.trophy_deed</basescripts>
+	</item>
+
 	<!-- Carpentry Deeds -->
 	<!-- small bed deeds -->
 	<item id="ballot_box_deed" inherit="blank_deed">
@@ -25,21 +32,21 @@
 		<tag name="carpentry_type" value="ballot_box" />
 		<category>Misc\Deeds\Carpentry\Ballot Box Deed</category>
 	</item>
-	
+
 	<item id="bulletin_board_deed" inherit="blank_deed">
 		<name>Bulletin Board Deed</name>
 		<basescripts>deeds.carpentry_deed</basescripts>
 		<tag name="carpentry_type" value="bulletin_board" />
 		<category>Misc\Deeds\Carpentry\Bulletin Board Deed</category>
 	</item>
-	
+
 	<item id="dresser_e_deed" inherit="blank_deed">
 		<name>Dresser East Deed</name>
 		<basescripts>deeds.carpentry_deed</basescripts>
 		<tag name="carpentry_type" value="dresser_e" />
 		<category>Misc\Deeds\Carpentry\Dresser East Deed</category>
 	</item>
-	
+
 	<item id="dresser_s_deed" inherit="blank_deed">
 		<name>Dresser South Deed</name>
 		<basescripts>deeds.carpentry_deed</basescripts>

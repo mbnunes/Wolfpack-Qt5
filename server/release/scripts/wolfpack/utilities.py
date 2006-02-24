@@ -19,6 +19,7 @@ import random
 import string
 from types import *
 from wolfpack.consts import *
+import wolfpack.console
 
 payfrompackonly = wolfpack.settings.getbool( "General", "Pay From Pack Only", False, True )
 
@@ -978,3 +979,12 @@ def isMapAvailableTo(player, mapid):
 			return False
 
 	return True
+
+def isWall(x, y, z, map):
+	tiles = wolfpack.statics(x, y, map, 1)
+
+	for tile in tiles:
+		wall = wolfpack.tiledata(tile[0])["flag1"] & 0x010
+		if wall and (z + 16) > tile[3] and (tile[3] + wolfpack.tiledata(tile[0])["height"]) > z:
+			return True
+	return False

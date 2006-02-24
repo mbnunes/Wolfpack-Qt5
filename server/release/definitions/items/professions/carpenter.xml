@@ -491,7 +491,6 @@
 		<weight>2.0</weight>
 	</item>
 	
-	<!--
 	<item id="taxidermy_kit">
 		<id>0x1eba</id>
 		<name>#1041279</name>
@@ -499,7 +498,6 @@
 		<category>Professions\Carpenter\Tools\Taxidermy Kit</category>
 		<basescripts>equipment,taxidermykit</basescripts>
 	</item>
-	-->
 
 	<!-- Logs -->
 	<item id="log_apple" inherit="1bdd">

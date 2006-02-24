@@ -4,6 +4,7 @@
 #   )).-' {{ ;'`   # Revised by:				#
 #  ( (  ;._ \\ ctr # Last Modification:				#
 #################################################################
+import wolfpack
 import wolfpack.time
 from wolfpack.gumps import cGump
 
@@ -21,7 +22,7 @@ def onSeeChar(npc, char):
 		if wolfpack.time.currenttime() < char.socket.gettag( 'resurrect_delay' ):
 			return False
 		else:
-			char.socket.deltag( 'skill_delay' )
+			char.socket.deltag( 'resurrect_delay' )
 
 	if not char.frozen and npc.distanceto(char) <= 4:# and npc.cansee(char):
 		if char.dead:
@@ -88,7 +89,7 @@ def CheckYoungHealTime(char):
 """
 def resurrectGump(healer, char, msg):
 	dialog = cGump( 0, 0, 0, 0, 40 )
-	dialog.setCallback(response1)
+	dialog.setCallback(response)
 	dialog.setType(0x3f1dcc97)
 	dialog.startPage(0)
 
@@ -105,17 +106,21 @@ def resurrectGump(healer, char, msg):
 	dialog.addButton(65, 227, 4005, 4007, 1) # Okay
 	dialog.addXmfHtmlGump(100, 230, 110, 35, 1011011, 0,0 ) # CONTINUE
 
+	dialog.setArgs([0, healer.serial])
 	dialog.send(char.socket)
 
-def response1( player, args, choice ):
+def response( player, args, choice ):
+	player.socket.deltag('healerresurrect_gump')
 	price = 0
+	healer = wolfpack.findchar(args[1])
 	if args and args[0]:
 		price = args[0]
 	if choice.button == 0:
 		return False
 	if not player.dead:
 		return False
-	player.socket.sysmessage(str(choice.button))
+	if healer and player.distanceto(healer) > 4:
+		return False
 	if choice.button in [1, 2]:
 		if not player.pos.validspawnspot():
 			player.socket.clilocmessage(502391) # Thou can not be resurrected there!

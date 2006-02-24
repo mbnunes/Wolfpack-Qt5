@@ -71,7 +71,6 @@
 
 	<npc id="priced_healer_male" inherit="vendor_male">
 		<inherit id="priced_healer" />
-		<intproperty name="price" value="5000" />
 		<title context="Vendor Male Titles">the Healer</title>
 		<category>Vendors\Priced Healer (Male)</category>
 	</npc>
