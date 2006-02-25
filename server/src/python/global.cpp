@@ -2145,7 +2145,7 @@ static PyObject* wpSocketsFirst( PyObject* /*self*/, PyObject* /*args*/ )
 */
 static PyObject* wpSocketsNext( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	if ( ++socketsIndex < sockets.count() - 1 )
+	if ( ++socketsIndex < sockets.count() )
 		return PyGetSocketObject( sockets[socketsIndex] );
 	else
 		return PyGetSocketObject( 0 );
