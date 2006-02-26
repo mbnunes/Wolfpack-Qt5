@@ -202,6 +202,7 @@ void cConfig::readData()
 	refreshMaxValues_ = getBool( "General", "Refresh Characters Maximum Values", true, true );
 	sendAsciiNames_ = getBool( "General", "Send ASCII Character Names", false, true );
 	payfrompackonly_ = getBool( "General", "Pay From Pack Only", false, true );
+	enableyoung_ = getBool( "General", "Enable Young Status", true, true );
 	instalogoutfromguarded_ = getBool( "General", "Insta Logout from Guarded Regions", true, true );
 	percentHitsAfterRess_ = getNumber( "General", "Percent Hits after Ress", 10, true );
 	percentManaAfterRess_ = getNumber( "General", "Percent Mana after Ress", 50, true );

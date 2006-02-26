@@ -1790,6 +1790,12 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 		}
 	}
 
+	// Append the (Young) tag
+	if ( Config::instance()->enableyoung() && hasTag("young") )
+	{
+		affix.append( tr( " (Young)" ) );
+	}
+
 	// Append the (frozen) tag
 	if ( isFrozen() )
 	{
