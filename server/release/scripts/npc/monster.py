@@ -1,11 +1,11 @@
 import wolfpack.settings
 import wolfpack.time
-from wolfpack.utilities import isyoung
+#from wolfpack.utilities import isyoung
 
-def onCheckVictim(npc, victim, dist):
-	if not npc.owner or not npc.summoned:
-		if CheckYoungProtection(victim):
-			return False
+#def onCheckVictim(npc, victim, dist):
+#	if not npc.owner or not npc.summoned:
+#		if CheckYoungProtection(victim):
+#			return False
 
 def CheckYoungProtection(char):
 	if not isyoung(char):

@@ -989,9 +989,8 @@ def isWall(x, y, z, map):
 			return True
 	return False
 
-def isyoung(char):
-	enable_young = int( wolfpack.settings.getbool("General", "Enable Young Status", True, True) )
-	if enable_young and char.hastag("young"):
-		return True
-	return False
-
+#def isyoung(char):
+#	enable_young = int( wolfpack.settings.getbool("General", "Enable Young Status", True, True) )
+#	if enable_young and char.hasscript("system.young"):
+#		return True
+#	return False

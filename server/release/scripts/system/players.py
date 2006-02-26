@@ -5,13 +5,13 @@ import guilds.stone
 from commands.jail import jailPlayer
 import wolfpack.settings
 from quests.players import openquestplayer
-from wolfpack.utilities import isyoung
+#from wolfpack.utilities import isyoung
 
-enable_young = int( wolfpack.settings.getbool("General", "Enable Young Status", True, True) )
+#enable_young = int( wolfpack.settings.getbool("General", "Enable Young Status", True, True) )
 
-def onCreate(object, id):
-	if enable_young:
-		object.settag("young", 1)
+#def onCreate(object, id):
+#	if enable_young:
+#		object.addscript("system.young")
 
 def onLogin( player ):
 	socket = player.socket
