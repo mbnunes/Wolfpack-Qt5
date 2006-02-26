@@ -240,6 +240,7 @@
 	<script>npc.mount</script>
 	<script>npc.cow</script>
 	<script>npc.chicken</script>
+	<script>npc.monster</script>
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>

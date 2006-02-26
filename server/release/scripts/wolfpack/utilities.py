@@ -988,3 +988,10 @@ def isWall(x, y, z, map):
 		if wall and (z + 16) > tile[3] and (tile[3] + wolfpack.tiledata(tile[0])["height"]) > z:
 			return True
 	return False
+
+def isyoung(char):
+	enable_young = int( wolfpack.settings.getbool("General", "Enable Young Status", True, True) )
+	if enable_young and char.hastag("young"):
+		return True
+	return False
+

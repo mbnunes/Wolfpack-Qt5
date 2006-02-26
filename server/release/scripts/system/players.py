@@ -3,8 +3,15 @@ import wolfpack
 from wolfpack import tr
 import guilds.stone
 from commands.jail import jailPlayer
-
+import wolfpack.settings
 from quests.players import openquestplayer
+from wolfpack.utilities import isyoung
+
+enable_young = int( wolfpack.settings.getbool("General", "Enable Young Status", True, True) )
+
+def onCreate(object, id):
+	if enable_young:
+		object.settag("young", 1)
 
 def onLogin( player ):
 	socket = player.socket
@@ -36,6 +43,9 @@ def onLogout( player ):
 	player.update()
 
 def onDamage(char, type, amount, source):
+	if isyoung(char):
+		return 0
+
 	socket = char.socket
 
 	if source and source.player:
