@@ -43,8 +43,8 @@ def onLogout( player ):
 	player.update()
 
 def onDamage(char, type, amount, source):
-	if isyoung(char):
-		return 0
+#	if isyoung(char):
+#		return 0
 
 	socket = char.socket
 
