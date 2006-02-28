@@ -5,11 +5,16 @@ from wolfpack import console, database
 from wolfpack.database import WORLD
 
 #
-# MySQL: Update Database Version 7 to 8
+# Null update procedure, should be used for version changes that
+# don't require any updating action
 #
-def mysql_update_11():
-	return True
+def null_update_procedure():
+    return True
 
+#
+# MySQL: Update Database Procedures
+# Naming convention: mysql_update_%current version%() - will update to %current version% + 1
+#
 def mysql_update_7():
 	sql = "ALTER TABLE players ADD `maxcontrolslots` tinyint(4) NOT NULL default '5' AFTER intlock;"
 	database.execute(sql)
@@ -35,14 +40,9 @@ def mysql_update_10():
 
 	return True
 #
-# SQLLite Database Updates
+# SQLite Database Updates
+# Naming convention: sqlite_update_%current version%() - will update to %current version% + 1
 #
-
-def sqlite_update_11():
-	return True # Do Nothing
-
-def sqlite_update_10():
-	return True # Do Nothing
 
 def sqlite_update_8():
 
@@ -69,17 +69,25 @@ def sqlite_update_8():
 
 	return True
 
+def sqlite_update_11():
+        return True
+
+
+# MySQL and Sqlite version update arrays
 MYSQL_UPDATES = {
 	7: mysql_update_7,
+        8: null_update_procedure,
 	9: mysql_update_10,
-	10: mysql_update_11,
+	10: null_update_procedure,
+        11: null_update_procedure,
 }
 
 SQLITE_UPDATES = {
 	7: sqlite_update_8,
-	# ???? What the hell happened to 9 ????
-	9: sqlite_update_10,
-	10: sqlite_update_11,
+	8: null_update_procedure,# ???? What the hell happened to 9 ????
+	9: null_update_procedure,
+	10: null_update_procedure,
+        11: sqlite_update_10,
 }
 
 #

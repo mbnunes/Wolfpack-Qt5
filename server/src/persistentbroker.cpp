@@ -36,6 +36,9 @@
 
 // Qt Includes
 #include <QString>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 
 #include <list>
 
@@ -48,15 +51,7 @@ struct stDeleteItem
 class PersistentBrokerPrivate
 {
 public:
-	PersistentBrokerPrivate() : connection( 0 )
-	{
-	}
-	~PersistentBrokerPrivate()
-	{
-		delete connection;
-	}
-
-	cDBDriver* connection;
+	QSqlDatabase connection;
 	bool sqlite;
 	std::list<stDeleteItem> deleteQueue;
 };
@@ -72,60 +67,54 @@ cPersistentBroker::~cPersistentBroker()
 
 bool cPersistentBroker::openDriver( const QString& driver )
 {
-	if ( d->connection != 0 )
+	if ( !d->connection.isValid() )
 	{
-		d->connection->close();
-		delete d->connection;
-		d->connection = 0;
+		d->connection = QSqlDatabase::addDatabase( QString("q" + driver).toUpper() );
 	}
 
-	if ( driver == "sqlite" )
-	{
-		d->connection = new cSQLiteDriver();
+	if ( driver.toLower() == "sqlite" )
 		d->sqlite = true;
-	}
-	else if ( driver == "sqlite3" )
-	{
-		d->connection = new cSQLite3Driver();
-		d->sqlite = true;
-	}
-	else if ( driver == "mysql" )
-	{
-#ifdef MYSQL_DRIVER
-		d->connection = new cMySQLDriver;
-		d->sqlite = false;
-#else
-		throw wpException( "Sorry, you have to define MYSQL_DRIVER to make wolfpack work with MySQL.\n" );
-#endif
-	}
 
-	if ( !d->connection )
+	if ( !d->connection.isValid() )
 		return false;
 
 	return true;
 }
 
+bool cPersistentBroker::isOpen() const
+{
+	return d->connection.isOpen();
+}
+
 bool cPersistentBroker::connect( const QString& host, const QString& db, const QString& username, const QString& password )
 {
-	if ( !d->connection )
+	if ( !d->connection.isValid() )
 		return false;
 
 	// This does nothing but a little test-connection
-	d->connection->setDatabaseName( db );
-	d->connection->setUserName( username );
-	d->connection->setPassword( password );
-	d->connection->setHostName( host );
+	d->connection.setDatabaseName( db );
+	d->connection.setUserName( username );
+	d->connection.setPassword( password );
+	d->connection.setHostName( host );
 
-	if ( !d->connection->open() )
+	if ( !d->connection.open() )
 		return false;
+
+	if ( d->sqlite )
+	{
+		d->connection.exec( "PRAGMA synchronous = OFF;" );
+		d->connection.exec( "PRAGMA default_synchronous = OFF;" );
+		d->connection.exec( "PRAGMA full_column_names = OFF;" );
+		d->connection.exec( "PRAGMA show_datatypes = OFF;" );
+		d->connection.exec( "PRAGMA parser_trace = OFF;" );
+	}
 
 	return true;
 }
 
 void cPersistentBroker::disconnect()
 {
-	if ( d->connection )
-		d->connection->close();
+	d->connection.close();
 }
 
 bool cPersistentBroker::saveObject( PersistentObject* object )
@@ -158,29 +147,24 @@ bool cPersistentBroker::deleteObject( PersistentObject* object )
 
 bool cPersistentBroker::executeQuery( const QString& query )
 {
-	if ( !d->connection )
+	if ( !d->connection.isValid() )
 		throw tr( "PersistentBroker not connected to database." );
 
-	//qWarning( query );
-	bool result = d->connection->exec( query );
-	if ( !result )
+	QSqlQuery q;
+	if ( !q.exec( query ) )
 	{
-		Console::instance()->log( LOG_ERROR, d->connection->error() );
+		Console::instance()->log( LOG_ERROR, d->connection.lastError().text() );
+		return false;
 	}
-	return result;
+	return true;
 }
 
-cDBDriver* cPersistentBroker::driver() const
+QSqlQuery cPersistentBroker::query( const QString& query )
 {
-	return d->connection;
-}
-
-cDBResult cPersistentBroker::query( const QString& query )
-{
-	if ( !d->connection )
+	if ( !d->connection.isValid() )
 		throw QString( "PersistentBroker not connected to database." );
 
-	return d->connection->query( query );
+	return d->connection.exec( query );
 }
 
 void cPersistentBroker::clearDeleteQueue()
@@ -209,42 +193,40 @@ void cPersistentBroker::addToDeleteQueue( const QString& tables, const QString& 
 
 QString cPersistentBroker::lastError() const
 {
-	return d->connection->error();
+	return d->connection.lastError().text();
 }
 
 void cPersistentBroker::lockTable( const QString& table ) const
 {
-	d->connection->lockTable( table );
 }
 
 void cPersistentBroker::unlockTable( const QString& table ) const
 {
-	d->connection->unlockTable( table );
 }
 
 void cPersistentBroker::startTransaction()
 {
-	executeQuery( "BEGIN;" );
+	d->connection.transaction();
 }
 
 void cPersistentBroker::commitTransaction()
 {
-	executeQuery( "COMMIT;" );
+	d->connection.commit();
 }
 
 void cPersistentBroker::rollbackTransaction()
 {
-	executeQuery( "ROLLBACK;" );
+	d->connection.rollback();
 }
 
 bool cPersistentBroker::tableExists( const QString& table )
 {
-	if ( !d->connection )
+	if ( !d->connection.isOpen() )
 	{
 		throw QString( "Trying to query an existing table without a database connection." );
 	}
 
-	return d->connection->tableExists( table );
+	return d->connection.tables().contains( table, Qt::CaseInsensitive );
 }
 
 QString cPersistentBroker::quoteString( QString s )

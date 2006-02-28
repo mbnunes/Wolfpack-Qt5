@@ -38,14 +38,20 @@
 #include "network/network.h"
 #include "network/uosocket.h"
 
+#include <QtGlobal>
+#include <QVariant>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QSqlDatabase>
+
 // DB AutoCreation
 const char* createSql = "CREATE TABLE accounts (\
 login varchar(16) NOT NULL default '',\
 password varchar(32) NOT NULL default '',\
 flags int NOT NULL default '0',\
 acl varchar(255) NOT NULL default 'player',\
-lastlogin int NOT NULL default '',\
-blockuntil int NOT NULL default '',\
+lastlogin int NOT NULL default '0',\
+blockuntil int NOT NULL default '0',\
 email varchar(255) NOT NULL default '',\
 PRIMARY KEY (login)\
 );";
@@ -354,65 +360,63 @@ cAccount* cAccounts::authenticate( const QString& login, const QString& password
 void cAccounts::save()
 {
 	// Open the Account Driver
-	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
+	QSqlDatabase db = QSqlDatabase::database("accounts");
+	if ( !db.isValid() )
 	{
-		Console::instance()->log( LOG_ERROR, tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
-		return;
+		db = QSqlDatabase::addDatabase( QString("q" + Config::instance()->accountsDriver()).toUpper(), "accounts" );
+		if ( !db.isValid() )
+		{
+			throw wpException( tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+		}
 	}
-
-	bool connected = false;
 
 	try
 	{
-		PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword() );
-		connected = true;
+		if ( !db.isOpen() )
+		{
+			db.setHostName( Config::instance()->accountsHost() );
+			db.setDatabaseName( Config::instance()->accountsName() );
+			db.setUserName( Config::instance()->accountsUsername() );
+			db.setPassword( Config::instance()->accountsPassword() );
+			if ( !db.open() )
+				throw db.lastError().databaseText();
+		}
 
-		if ( !PersistentBroker::instance()->tableExists( "accounts" ) )
+		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
 		{
 			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
-			PersistentBroker::instance()->executeQuery( createSql );
+			db.exec( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
-			account->setAcl( "admin" );
 			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
 		}
 
 		// Lock the table
-		PersistentBroker::instance()->lockTable( "accounts" );
-		PersistentBroker::instance()->executeQuery( "BEGIN;" );
-		PersistentBroker::instance()->executeQuery( "DELETE FROM accounts;" );
-
+		QSqlQuery query( db );
+		query.exec( "DELETE FROM accounts" );
+		query.prepare( "insert into accounts values( ?, ?, ?, ?, ?, ?, ? )" );
 		iterator it = accounts.begin();
 		for ( ; it != accounts.end(); ++it )
 		{
 			// INSERT
 			cAccount* account = it.value();
 
-			QString sql( "REPLACE INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6, '%7' );" );
+			query.addBindValue( account->login_ );
+			query.addBindValue( account->password_ );
+			query.addBindValue( QVariant::fromValue<uint>( account->flags_ ) );
+			query.addBindValue( account->aclName_ );
+			query.addBindValue( QVariant::fromValue<uint>( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ) );
+			query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 ) );
+			query.addBindValue( QString(account->email_) );
 
-			sql = sql.arg( PersistentBroker::instance()->quoteString( account->login_ ) )
-			.arg( PersistentBroker::instance()->quoteString( account->password_ ) )
-			.arg( account->flags_ )
-			.arg( PersistentBroker::instance()->quoteString( account->aclName_ ) )
-			.arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 )
-			.arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 )
-			.arg( PersistentBroker::instance()->quoteString( account->email_ ) );
-
-			PersistentBroker::instance()->executeQuery( sql );
+			query.exec();
 		}
-
-		PersistentBroker::instance()->executeQuery( "COMMIT;" );
-		PersistentBroker::instance()->unlockTable( "accounts" );
 	}
 	catch ( QString& error )
 	{
-		if ( connected )
-			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
 		Console::instance()->log( LOG_ERROR, tr( "Error while saving Accounts: %1." ).arg( error ) );
 	}
 	catch ( ... )
 	{
-		if ( connected )
-			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
 		Console::instance()->log( LOG_ERROR, tr( "Unknown error while saving Accounts." ) );
 	}
 }
@@ -420,46 +424,60 @@ void cAccounts::save()
 void cAccounts::load()
 {
 	// Open the Account Driver
-	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
+	QSqlDatabase db = QSqlDatabase::database("accounts");
+	if ( !db.isValid() )
 	{
-		throw wpException( tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+		db = QSqlDatabase::addDatabase( QString("q" + Config::instance()->accountsDriver()).toUpper(), "accounts" );
+		if ( !db.isValid() )
+		{
+			throw wpException( tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+		}
 	}
 
 	// Load all Accounts
 	try
 	{
-		PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword() );
+		if ( !db.isOpen() )
+		{
+			db.setHostName( Config::instance()->accountsHost() );
+			db.setDatabaseName( Config::instance()->accountsName() );
+			db.setUserName( Config::instance()->accountsUsername() );
+			db.setPassword( Config::instance()->accountsPassword() );
+			if ( !db.open() )
+				throw db.lastError().databaseText();
+		}
 
-		if ( !PersistentBroker::instance()->tableExists( "accounts" ) )
+		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
 		{
 			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
-			PersistentBroker::instance()->executeQuery( createSql );
+			db.exec( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
 		}
 
-		PersistentBroker::instance()->lockTable( "accounts" );
-		cDBResult result = PersistentBroker::instance()->query( "SELECT login,password,flags,acl,lastlogin,blockuntil,email FROM accounts;" );
+		QSqlQuery query ( db );
+		query.setForwardOnly( true );
+		query.exec( "SELECT login,password,flags,acl,lastlogin,blockuntil,email FROM accounts" );
 
 		// Clear Accounts HERE
 		// Here we can be pretty sure that we have a valid datasource for accounts
 		unload();
 
-		while ( result.fetchrow() )
+		while ( query.next() )
 		{
 			cAccount* account = new cAccount;
-			account->login_ = result.getString( 0 ).toLower();
-			account->password_ = result.getString( 1 );
-			account->flags_ = result.getInt( 2 );
-			account->aclName_ = result.getString( 3 );
+			account->login_ = query.value( 0 ).toString().toLower();
+			account->password_ = query.value( 1 ).toString();
+			account->flags_ = query.value( 2 ).toInt();
+			account->aclName_ = query.value( 3 ).toString();
 			account->refreshAcl();
-			if ( result.getInt( 4 ) != 0 )
-				account->lastLogin_.setTime_t( result.getInt( 4 ) );
+			if ( query.value( 4 ).toInt() != 0 )
+				account->lastLogin_.setTime_t( query.value( 4 ).toInt() );
 
-			if ( result.getInt( 5 ) != 0 )
-				account->blockUntil.setTime_t( result.getInt( 5 ) );
+			if ( query.value( 5 ).toInt() != 0 )
+				account->blockUntil.setTime_t( query.value( 5 ).toInt() );
 
-			account->email_ = result.getString( 6 ).toLatin1();
+			account->email_ = query.value( 6 ).toByteArray();
 
 			// See if the password can and should be hashed,
 			// Md5 hashes are 32 characters long.
@@ -476,11 +494,8 @@ void cAccounts::load()
 				}
 			}
 
-			accounts.insert( account->login_.toLower(), account );
+			accounts.insert( account->login_, account );
 		}
-
-		result.free();
-		PersistentBroker::instance()->unlockTable( "accounts" );
 	}
 	catch ( QString& error )
 	{
@@ -559,7 +574,7 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 		d->setAcl( "admin" );
 		d->refreshAcl();
 		save(); // Make sure to save it.
-		reload(); // Reloads
+		//reload(); // Reloads
 		return d;
 	}
 	else

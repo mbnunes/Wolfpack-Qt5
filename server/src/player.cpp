@@ -53,6 +53,9 @@
 #include "scriptmanager.h"
 #include "inlines.h"
 
+#include <QSqlQuery>
+#include <QVariant>
+
 cPlayer::cPlayer()
 {
 	account_ = NULL;
@@ -170,52 +173,65 @@ void cPlayer::save( cBufferedWriter& writer, unsigned int version )
 	}
 }
 
-void cPlayer::load( char** result, quint16& offset )
+void cPlayer::load( QSqlQuery& result, ushort& offset )
 {
 	cBaseChar::load( result, offset );
 
-	setAccount( Accounts::instance()->getRecord( result[offset++] ) );
-	additionalFlags_ = atoi( result[offset++] );
-	visualRange_ = atoi( result[offset++] );
-	profile_ = result[offset++];
-	fixedLightLevel_ = atoi( result[offset++] );
-	strengthLock_ = atoi( result[offset++] );
-	dexterityLock_ = atoi( result[offset++] );
-	intelligenceLock_ = atoi( result[offset++] );
-	maxControlSlots_ = atoi( result[offset++] );
+	setAccount( Accounts::instance()->getRecord( result.value( offset++ ).toString() ) );
+	additionalFlags_ = result.value( offset++ ).toInt();
+	visualRange_ = result.value( offset++ ).toInt();
+	profile_ = result.value( offset++ ).toString();
+	fixedLightLevel_ = result.value( offset++ ).toInt();
+	strengthLock_ = result.value( offset++ ).toInt();
+	dexterityLock_ = result.value( offset++ ).toInt();
+	intelligenceLock_ = result.value( offset++ ).toInt();
+	maxControlSlots_ = result.value( offset++ ).toInt();
 
 	changed_ = false;
 }
 
 void cPlayer::save()
 {
+	static bool init = false;
+	static QSqlQuery preparedUpdate;
+	static QSqlQuery preparedInsert;
+	if ( !init )
+	{
+		preparedUpdate.prepare("update players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) where serial = ?");
+		preparedInsert.prepare("insert into players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+		init = true;
+	}
+
 	if ( changed_ )
 	{
-		initSave;
-		setTable( "players" );
+		QSqlQuery q;
+		if ( isPersistent )
+			q = preparedUpdate;
+		else
+			q = preparedInsert;
 
-		addField( "serial", serial() );
+		q.addBindValue( serial() );
 
 		if ( account_ )
 		{
-			addStrField( "account", account_->login() );
+			q.addBindValue( account_->login() );
 		}
 		else
 		{
-			addStrField( "account", QString::null );
+			q.addBindValue( QString() );
 		}
 
-		addField( "additionalflags", additionalFlags_ );
-		addField( "visualrange", visualRange_ );
-		addStrField( "profile", profile_ );
-		addField( "fixedlight", fixedLightLevel_ );
-		addField( "strlock", strengthLock_ );
-		addField( "dexlock", dexterityLock_ );
-		addField( "intlock", intelligenceLock_ );
-		addField( "maxcontrolslots", maxControlSlots_ );
-
-		addCondition( "serial", serial() );
-		saveFields;
+		q.addBindValue( additionalFlags_ );
+		q.addBindValue( visualRange_ );
+		q.addBindValue( profile_ );
+		q.addBindValue( fixedLightLevel_ );
+		q.addBindValue( strengthLock_ );
+		q.addBindValue( dexterityLock_ );
+		q.addBindValue( intelligenceLock_ );
+		q.addBindValue( maxControlSlots_ );
+		if ( isPersistent )
+			q.addBindValue( serial() );
+		q.exec();
 	}
 	cBaseChar::save();
 }

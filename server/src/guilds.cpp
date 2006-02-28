@@ -34,6 +34,8 @@
 #include "items.h"
 
 #include <QList>
+#include <QSqlQuery>
+#include <QVariant>
 
 cGuilds::~cGuilds()
 {
@@ -73,35 +75,33 @@ void cGuilds::save()
 void cGuilds::load()
 {
 	// Get all guilds from the database
-	cDBResult result = PersistentBroker::instance()->query( "SELECT serial,name,abbreviation,charta,website,alignment,leader,founded,guildstone FROM guilds" );
+	QSqlQuery result( "SELECT serial,name,abbreviation,charta,website,alignment,leader,founded,guildstone FROM guilds" );
 
-	while ( result.fetchrow() )
+	while ( result.next() )
 	{
 		cGuild* guild = new cGuild( false );
 		guild->load( result );
 	}
-
-	result.free();
 }
 
-void cGuild::load( const cDBResult& result )
+void cGuild::load( const QSqlQuery& result )
 {
-	serial_ = result.getInt( 0 );
-	name_ = result.getString( 1 );
-	abbreviation_ = result.getString( 2 );
-	charta_ = result.getString( 3 );
-	website_ = result.getString( 4 );
-	alignment_ = ( eAlignment ) result.getInt( 5 );
-	leader_ = dynamic_cast<P_PLAYER>( World::instance()->findChar( result.getInt( 6 ) ) );
-	founded_.setTime_t( result.getInt( 7 ) );
-	guildstone_ = World::instance()->findItem( result.getInt( 8 ) );
+	serial_ = result.value( 0 ).toInt();
+	name_ = result.value( 1 ).toString();
+	abbreviation_ = result.value( 2 ).toString();
+	charta_ = result.value( 3 ).toString();
+	website_ = result.value( 4 ).toString();
+	alignment_ = ( eAlignment ) result.value( 5 ).toInt();
+	leader_ = dynamic_cast<P_PLAYER>( World::instance()->findChar( result.value( 6 ).toInt() ) );
+	founded_.setTime_t( result.value( 7 ).toInt() );
+	guildstone_ = World::instance()->findItem( result.value( 8 ).toInt() );
 
 	// Load members and canidates
-	cDBResult members = PersistentBroker::instance()->query( QString( "SELECT player,showsign,guildtitle,joined FROM guilds_members WHERE guild = %1" ).arg( serial_ ) );
+	QSqlQuery members( QString( "SELECT player,showsign,guildtitle,joined FROM guilds_members WHERE guild = %1" ).arg( serial_ ) );
 
-	while ( members.fetchrow() )
+	while ( members.next() )
 	{
-		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( members.getInt( 0 ) ) );
+		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( members.value( 0 ).toInt() ) );
 
 		if ( player )
 		{
@@ -109,20 +109,18 @@ void cGuild::load( const cDBResult& result )
 			members_.append( player );
 
 			MemberInfo* info = new MemberInfo;
-			info->setShowSign( members.getInt( 1 ) != 0 );
-			info->setGuildTitle( members.getString( 2 ) );
-			info->setJoined( members.getInt( 3 ) );
+			info->setShowSign( members.value( 1 ).toInt() != 0 );
+			info->setGuildTitle( members.value( 2 ).toString() );
+			info->setJoined( members.value( 3 ).toInt() );
 			memberinfo_.insert( player, info );
 		}
 	}
 
-	members.free();
+	QSqlQuery canidates( QString( "SELECT player FROM guilds_canidates WHERE guild = %1" ).arg( serial_ ) );
 
-	cDBResult canidates = PersistentBroker::instance()->query( QString( "SELECT player FROM guilds_canidates WHERE guild = %1" ).arg( serial_ ) );
-
-	while ( canidates.fetchrow() )
+	while ( canidates.next() )
 	{
-		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( canidates.getInt( 0 ) ) );
+		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( canidates.value( 0 ).toInt() ) );
 
 		if ( player )
 		{
@@ -130,8 +128,6 @@ void cGuild::load( const cDBResult& result )
 			canidates_.append( player );
 		}
 	}
-
-	canidates.free();
 
 	// Clear the leader if he's not a member of the guild
 	if ( !members_.contains( leader_ ) )
@@ -141,23 +137,19 @@ void cGuild::load( const cDBResult& result )
 
 	Guilds::instance()->registerGuild( this );
 
-	cDBResult allies = PersistentBroker::instance()->query( QString( "SELECT ally FROM guilds_allies WHERE guild = %1" ).arg( serial_ ) );
+	QSqlQuery allies( QString( "SELECT ally FROM guilds_allies WHERE guild = %1" ).arg( serial_ ) );
 
-	while ( allies.fetchrow() )
+	while ( allies.next() )
 	{
-		allies_.append(allies.getInt(0));
+		allies_.append( allies.value( 0 ).toInt() );
 	}
 
-	allies.free();
+	QSqlQuery enemies( QString( "SELECT enemy FROM guilds_enemies WHERE guild = %1" ).arg( serial_ ) );
 
-	cDBResult enemies = PersistentBroker::instance()->query( QString( "SELECT enemy FROM guilds_enemies WHERE guild = %1" ).arg( serial_ ) );
-
-	while ( enemies.fetchrow() )
+	while ( enemies.next() )
 	{
-		enemies_.append(enemies.getInt(0));
+		enemies_.append( enemies.value( 0 ).toInt() );
 	}
-
-	enemies.free();
 }
 
 void cGuild::save()

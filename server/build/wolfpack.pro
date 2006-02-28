@@ -10,7 +10,7 @@ TARGET = wolfpack
 TEMPLATE = app
 
 CONFIG *= qt thread exceptions rtti 
-QT += network xml
+QT += network xml sql
 
 CONFIG -= flat
 DESTDIR = ../release

@@ -33,6 +33,7 @@
 #include <QStringList>
 #include <QString>
 #include <QMap>
+#include <QSqlQuery>
 #include "singleton.h"
 #include "factory.h"
 
@@ -53,7 +54,7 @@ public:
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 	virtual bool del();
 
-	virtual void load( char**, ushort& );
+	virtual void load( QSqlQuery&, ushort& );
 	virtual void save();
 
 	// Wrapper

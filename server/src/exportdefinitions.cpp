@@ -37,6 +37,8 @@
 
 #include <QSet>
 #include <QFile>
+#include <QSqlQuery>
+#include <QVariant>
 
 cDefinitionExporter::cDefinitionExporter() {
 	socket = 0;
@@ -81,7 +83,7 @@ void cDefinitionExporter::generate(const QString &filename) {
 		reportError(tr("Unable to remove existing database %1.").arg(filename));
 		return;
 	}
-
+	QSqlDatabase driver = QSqlDatabase::addDatabase( "QSQLITE", "definitionExporter" );
 	driver.setDatabaseName(filename);
 
 	if (!driver.open()) {
@@ -189,7 +191,7 @@ struct stCategory {
 	at the same time ensuring that the entire category
 	is in the dictionary.
 */
-static int getCategoryId(QHash<QString, stCategory*> &categories, QString &name, cSQLiteDriver &driver, const char *table) {
+static int getCategoryId(QHash<QString, stCategory*> &categories, QString &name, QSqlDatabase &driver, const char *table) {
 	QHash<QString, stCategory*>::iterator it = categories.find(name);
 	stCategory *category = 0;
 	if ( it != categories.end() )
@@ -444,9 +446,9 @@ void cDefinitionExporter::exportNpcs() {
 		.arg( npc.bodyid )
 		.arg( npc.skin )
 		.arg( id.replace( "'", "''" ) );
-		driver.exec( sql.toUtf8() );
+		QSqlQuery q = driver.exec( sql.toUtf8() );
 
-		int lastInsertId = driver.lastInsertId();
+		int lastInsertId = q.lastInsertId().toInt();
 
 		// Save equipment data (by layer)
 		for (int i = 0; i < 0x19; ++i) {

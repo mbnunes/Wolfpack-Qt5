@@ -118,7 +118,7 @@ public:
 	};
 
 	// implementation of interfaces
-	void load( char**, ushort& );
+	void load( QSqlQuery&, ushort& );
 	void save();
 	bool del();
 	void load( cBufferedReader& reader );

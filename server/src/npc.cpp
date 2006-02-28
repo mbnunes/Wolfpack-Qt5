@@ -55,6 +55,9 @@
 #include "accounts.h"
 #include "pathfinding.h"
 
+#include <QSqlQuery>
+#include <QVariant>
+
 cNPC::cNPC()
 {
 	setWanderFollowTarget( 0 );
@@ -201,49 +204,62 @@ void cNPC::save( cBufferedWriter& writer, unsigned int version )
 	}
 }
 
-void cNPC::load( char** result, quint16& offset )
+void cNPC::load( QSqlQuery& result, quint16& offset )
 {
 	cBaseChar::load( result, offset );
 
-	summonTime_ = atoi( result[offset++] ) + Server::instance()->time();
+	summonTime_ = result.value( offset++ ).toInt() + Server::instance()->time();
 	if ( summonTime_ )
 		summonTime_ += Server::instance()->time();
-	additionalFlags_ = atoi( result[offset++] );
-	owner_ = reinterpret_cast<P_PLAYER>( atoi( result[offset++] ) );
-	stablemasterSerial_ = atoi( result[offset++] );
-	setAI( result[offset++] );
-	setWanderType( ( enWanderTypes ) atoi( result[offset++] ) );
-	setWanderX1( atoi( result[offset++] ) );
-	setWanderX2( atoi( result[offset++] ) );
-	setWanderY1( atoi( result[offset++] ) );
-	setWanderY2( atoi( result[offset++] ) );
-	setWanderRadius( atoi( result[offset++] ) );
+	additionalFlags_ = result.value( offset++ ).toInt();
+	owner_ = reinterpret_cast<P_PLAYER>( result.value( offset++ ).toInt() );
+	stablemasterSerial_ = result.value( offset++ ).toInt();
+	setAI( result.value( offset++ ).toString() );
+	setWanderType( ( enWanderTypes ) result.value( offset++ ).toInt() );
+	setWanderX1( result.value( offset++ ).toInt() );
+	setWanderX2( result.value( offset++ ).toInt() );
+	setWanderY1( result.value( offset++ ).toInt() );
+	setWanderY2( result.value( offset++ ).toInt() );
+	setWanderRadius( result.value( offset++ ).toInt() );
 
 	changed_ = false;
 }
 
 void cNPC::save()
 {
+	static bool init = false;
+	static QSqlQuery preparedUpdate;
+	static QSqlQuery preparedInsert;
+	if ( !init )
+	{
+		preparedUpdate.prepare("update npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) where serial = ?");
+		preparedInsert.prepare("insert into npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+		init = true;
+	}
+
 	if ( changed_ )
 	{
-		initSave;
-		setTable( "npcs" );
+		QSqlQuery q;
+		if ( isPersistent )
+			q = preparedUpdate;
+		else
+			q = preparedInsert;
 
-		addField( "serial", serial() );
-		addField( "summontime", summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
-		addField( "additionalflags", additionalFlags_ );
-		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
-		addField( "stablemaster", stablemasterSerial_ );
-		addStrField( "ai", aiid_ );
-		addField( "wandertype", ( quint8 ) wanderType() );
-		addField( "wanderx1", wanderX1() );
-		addField( "wanderx2", wanderX2() );
-		addField( "wandery1", wanderY1() );
-		addField( "wandery2", wanderY2() );
-		addField( "wanderradius", wanderRadius() );
-
-		addCondition( "serial", serial() );
-		saveFields;
+		q.addBindValue( serial() );
+		q.addBindValue( summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
+		q.addBindValue( additionalFlags_ );
+		q.addBindValue( owner_ ? owner_->serial() : INVALID_SERIAL );
+		q.addBindValue( stablemasterSerial_ );
+		q.addBindValue( aiid_ );
+		q.addBindValue( ( quint8 ) wanderType() );
+		q.addBindValue( wanderX1() );
+		q.addBindValue( wanderX2() );
+		q.addBindValue( wanderY1() );
+		q.addBindValue( wanderY2() );
+		q.addBindValue( wanderRadius() );
+		if ( isPersistent )
+			q.addBindValue( serial() );
+		q.exec();
 	}
 
 	cBaseChar::save();

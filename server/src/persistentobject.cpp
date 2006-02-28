@@ -38,7 +38,7 @@ bool PersistentObject::del()
 	return true;
 }
 
-void PersistentObject::load( char** result, ushort& offset )
+void PersistentObject::load( QSqlQuery& result, ushort& offset )
 {
 	Q_UNUSED( result );
 	Q_UNUSED( offset );

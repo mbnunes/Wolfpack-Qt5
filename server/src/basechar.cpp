@@ -54,7 +54,11 @@
 #include "skills.h"
 #include "definitions.h"
 #include "serverconfig.h"
+
 #include <QByteArray>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QVariant>
 
 cBaseChar::cBaseChar()
 {
@@ -302,7 +306,7 @@ void cBaseChar::save( cBufferedWriter& writer, unsigned int version )
 	}
 }
 
-void cBaseChar::load( char** result, quint16& offset )
+void cBaseChar::load( QSqlQuery& result, ushort& offset )
 {
 	cUObject::load( result, offset );
 
@@ -312,76 +316,75 @@ void cBaseChar::load( char** result, quint16& offset )
 
 	SERIAL ser;
 
-	orgName_ = result[offset++];
-	title_ = QString::fromUtf8( result[offset++] );
-	creationDate_ = QDateTime::fromString( result[offset++], Qt::ISODate );
-	body_ = atoi( result[offset++] );
-	orgBody_ = atoi( result[offset++] );
-	skin_ = atoi( result[offset++] );
-	orgSkin_ = atoi( result[offset++] );
-	saycolor_ = atoi( result[offset++] );
-	emoteColor_ = atoi( result[offset++] );
-	strength_ = atoi( result[offset++] );
-	strengthMod_ = atoi( result[offset++] );
-	dexterity_ = atoi( result[offset++] );
-	dexterityMod_ = atoi( result[offset++] );
-	intelligence_ = atoi( result[offset++] );
-	intelligenceMod_ = atoi( result[offset++] );
-	maxHitpoints_ = atoi( result[offset++] );
-	hitpoints_ = atoi( result[offset++] );
-	maxStamina_ = atoi( result[offset++] );
-	stamina_ = atoi( result[offset++] );
-	maxMana_ = atoi( result[offset++] );
-	mana_ = atoi( result[offset++] );
-	karma_ = atoi( result[offset++] );
-	fame_ = atoi( result[offset++] );
-	kills_ = atoi( result[offset++] );
-	deaths_ = atoi( result[offset++] );
-	hunger_ = atoi( result[offset++] );
-	poison_ = ( char ) atoi( result[offset++] );
-	murdererTime_ = atoi( result[offset++] );
+	orgName_ = result.value( offset++ ).toString();
+	title_ = QString::fromUtf8( result.value( offset++ ).toByteArray() );
+	creationDate_ = QDateTime::fromString( result.value( offset++ ).toString(), Qt::ISODate );
+	body_ = result.value( offset++ ).toInt();
+	orgBody_ = result.value( offset++ ).toInt();
+	skin_ = result.value( offset++ ).toInt();
+	orgSkin_ = result.value( offset++ ).toInt();
+	saycolor_ = result.value( offset++ ).toInt();
+	emoteColor_ = result.value( offset++ ).toInt();
+	strength_ = result.value( offset++ ).toInt();
+	strengthMod_ = result.value( offset++ ).toInt();
+	dexterity_ = result.value( offset++ ).toInt();
+	dexterityMod_ = result.value( offset++ ).toInt();
+	intelligence_ = result.value( offset++ ).toInt();
+	intelligenceMod_ = result.value( offset++ ).toInt();
+	maxHitpoints_ = result.value( offset++ ).toInt();
+	hitpoints_ = result.value( offset++ ).toInt();
+	maxStamina_ = result.value( offset++ ).toInt();
+	stamina_ = result.value( offset++ ).toInt();
+	maxMana_ = result.value( offset++ ).toInt();
+	mana_ = result.value( offset++ ).toInt();
+	karma_ = result.value( offset++ ).toInt();
+	fame_ = result.value( offset++ ).toInt();
+	kills_ = result.value( offset++ ).toInt();
+	deaths_ = result.value( offset++ ).toInt();
+	hunger_ = result.value( offset++ ).toInt();
+	poison_ = ( char ) result.value( offset++ ).toInt();
+	murdererTime_ = result.value( offset++ ).toInt();
 	if ( murdererTime_ != 0 )
 	{
 		murdererTime_ += Server::instance()->time();
 	}
-	criminalTime_ = atoi( result[offset++] );
+	criminalTime_ = result.value( offset++ ).toInt();
 	if ( criminalTime_ != 0 )
 	{
 		criminalTime_ += Server::instance()->time();
 	}
-	gender_ = atoi( result[offset++] );
-	propertyFlags_ = atoi( result[offset++] );
-	murdererSerial_ = atoi( result[offset++] );
-	ser = atoi( result[offset++] );
+	gender_ = result.value( offset++ ).toInt();
+	propertyFlags_ = result.value( offset++ ).toInt();
+	murdererSerial_ = result.value( offset++ ).toInt();
+	ser = result.value( offset++ ).toInt();
 	guarding_ = dynamic_cast<P_PLAYER>( FindCharBySerial( ser ) );
-	hitpointsBonus_ = atoi( result[offset++] );
-	staminaBonus_ = atoi( result[offset++] );
-	manaBonus_ = atoi( result[offset++] );
-	strengthCap_ = atoi( result[offset++] );
-	dexterityCap_ = atoi( result[offset++] );
-	intelligenceCap_ = atoi( result[offset++] );
-	statCap_ = atoi( result[offset++] );
-	basedef_ = CharBaseDefs::instance()->get( result[offset++] );
-	direction_ = atoi( result[offset++] );
+	hitpointsBonus_ = result.value( offset++ ).toInt();
+	staminaBonus_ = result.value( offset++ ).toInt();
+	manaBonus_ = result.value( offset++ ).toInt();
+	strengthCap_ = result.value( offset++ ).toInt();
+	dexterityCap_ = result.value( offset++ ).toInt();
+	intelligenceCap_ = result.value( offset++ ).toInt();
+	statCap_ = result.value( offset++ ).toInt();
+	basedef_ = CharBaseDefs::instance()->get( result.value( offset++ ).toByteArray() );
+	direction_ = result.value( offset++ ).toInt();
 
 	// Query the Skills for this character
-	QString sql = "SELECT skill,value,locktype,cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
+	QSqlQuery query("SELECT skill,value,locktype,cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'");
 
-	cDBResult res = PersistentBroker::instance()->query( sql );
-	if ( !res.isValid() )
-		throw PersistentBroker::instance()->lastError();
+	if ( !query.isActive() )
+		throw query.lastError().databaseText();
 
 	// Fetch row-by-row
-	while ( res.fetchrow() )
+	while ( query.next() )
 	{
 		// row[0] = skill
 		// row[1] = value
 		// row[2] = locktype
 		// row[3] = cap (unused!)
-		quint16 skill = res.getInt( 0 );
-		quint16 value = res.getInt( 1 );
-		quint8 lockType = res.getInt( 2 );
-		quint16 cap = res.getInt( 3 );
+		quint16 skill = query.value( 0 ).toInt();
+		quint16 value = query.value( 1 ).toInt();
+		quint8 lockType = query.value( 2 ).toInt();
+		quint16 cap = query.value( 3 ).toInt();
 
 		if ( lockType > 2 )
 			lockType = 0;
@@ -394,8 +397,6 @@ void cBaseChar::load( char** result, quint16& offset )
 
 		skills_[skill] = skValue;
 	}
-
-	res.free();
 
 	characterRegisterAfterLoading( this );
 	changed_ = false;
@@ -415,72 +416,93 @@ void cBaseChar::save( cBufferedWriter& writer )
 
 void cBaseChar::save()
 {
-	if ( changed_ )
+	static bool init = false;
+	static QSqlQuery preparedUpdate;
+	static QSqlQuery preparedInsert;
+	if ( !init )
 	{
-		initSave;
-		setTable( "characters" );
-
-		addField( "serial", serial() );
-		addStrField( "name", orgName_ );
-		addStrField( "title", title_ );
-		addStrField( "creationdate", creationDate_.toString( Qt::ISODate ) );
-		addField( "body", body_ );
-		addField( "orgbody", orgBody_ );
-		addField( "skin", skin_ );
-		addField( "orgskin", orgSkin_ );
-		addField( "saycolor", saycolor_ );
-		addField( "emotecolor", emoteColor_ );
-		addField( "strength", strength_ );
-		addField( "strengthmod", strengthMod_ );
-		addField( "dexterity", dexterity_ );
-		addField( "dexteritymod", dexterityMod_ );
-		addField( "intelligence", intelligence_ );
-		addField( "intelligencemod", intelligenceMod_ );
-		addField( "maxhitpoints", maxHitpoints_ );
-		addField( "hitpoints", hitpoints_ );
-		addField( "maxstamina", maxStamina_ );
-		addField( "stamina", stamina_ );
-		addField( "maxmana", maxMana_ );
-		addField( "mana", mana_ );
-		addField( "karma", karma_ );
-		addField( "fame", fame_ );
-		addField( "kills", kills_ );
-		addField( "deaths", deaths_ );
-		addField( "hunger", hunger_ );
-		addField( "poison", poison_ );
-		addField( "murderertime", murdererTime_ ? murdererTime_ - Server::instance()->time() : 0 );
-		addField( "criminaltime", criminalTime_ ? criminalTime_ - Server::instance()->time() : 0 );
-		addField( "gender", gender_ );
-		addField( "propertyflags", propertyFlags_ );
-		addField( "murderer", murdererSerial_ );
-		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
-		addField( "hitpointsbonus", hitpointsBonus_ );
-		addField( "staminabonus", staminaBonus_ );
-		addField( "manabonus", manaBonus_ );
-		addField( "strcap", strengthCap_ );
-		addField( "dexcap", dexterityCap_ );
-		addField( "intcap", intelligenceCap_ );
-		addField( "statcap", statCap_ );
-		addStrField( "baseid", baseid() );
-		addField( "direction", direction_ );
-		addCondition( "serial", serial() );
-		saveFields;
+		preparedUpdate.prepare("update characters values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) where serial = ?");
+		preparedInsert.prepare("insert into characters values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+		init = true;
 	}
 
+	if ( changed_ )
+	{
+		QSqlQuery q;
+		if ( isPersistent )
+			q = preparedUpdate;
+		else
+			q = preparedInsert;
+
+		q.addBindValue( serial() );
+		q.addBindValue( orgName_ );
+		q.addBindValue( title_ );
+		q.addBindValue( creationDate_.toString( Qt::ISODate ) );
+		q.addBindValue( body_ );
+		q.addBindValue( orgBody_ );
+		q.addBindValue( skin_ );
+		q.addBindValue( orgSkin_ );
+		q.addBindValue( saycolor_ );
+		q.addBindValue( emoteColor_ );
+		q.addBindValue( strength_ );
+		q.addBindValue( strengthMod_ );
+		q.addBindValue( dexterity_ );
+		q.addBindValue( dexterityMod_ );
+		q.addBindValue( intelligence_ );
+		q.addBindValue( intelligenceMod_ );
+		q.addBindValue( maxHitpoints_ );
+		q.addBindValue( hitpoints_ );
+		q.addBindValue( maxStamina_ );
+		q.addBindValue( stamina_ );
+		q.addBindValue( maxMana_ );
+		q.addBindValue( mana_ );
+		q.addBindValue( karma_ );
+		q.addBindValue( fame_ );
+		q.addBindValue( kills_ );
+		q.addBindValue( deaths_ );
+		q.addBindValue( hunger_ );
+		q.addBindValue( poison_ );
+		q.addBindValue( murdererTime_ ? murdererTime_ - Server::instance()->time() : 0 );
+		q.addBindValue( criminalTime_ ? criminalTime_ - Server::instance()->time() : 0 );
+		q.addBindValue( gender_ );
+		q.addBindValue( propertyFlags_ );
+		q.addBindValue( murdererSerial_ );
+		q.addBindValue( guarding_ ? guarding_->serial() : INVALID_SERIAL );
+		q.addBindValue( hitpointsBonus_ );
+		q.addBindValue( staminaBonus_ );
+		q.addBindValue( manaBonus_ );
+		q.addBindValue( strengthCap_ );
+		q.addBindValue( dexterityCap_ );
+		q.addBindValue( intelligenceCap_ );
+		q.addBindValue( statCap_ );
+		q.addBindValue( baseid() );
+		q.addBindValue( direction_ );
+		if ( isPersistent )
+			q.addBindValue( serial() );
+		q.exec();
+	}
+
+	QSqlQuery skillsPreparedQuery;
+	if ( isPersistent )
+		skillsPreparedQuery.prepare( "REPLACE INTO skills VALUES( ?, ?, ?, ?, ?)" );
+	else
+		skillsPreparedQuery.prepare( "INSERT INTO skills VALUES( ?, ?, ?, ?, ?)" );
+
 	QVector<stSkillValue>::iterator it;
-	PersistentBroker::instance()->lockTable( "skills" );
 	int i = 0;
-	QString query( 256 ); // 256 byte should be enough
 	for ( it = skills_.begin(); it != skills_.end(); ++it, ++i )
 	{
 		if ( ( *it ).changed )
 		{
-			query.sprintf( "REPLACE INTO skills VALUES(%u,%u,%u,%u,%u);", serial_, i, ( *it ).value, ( *it ).lock, ( *it ).cap );
-			PersistentBroker::instance()->executeQuery( query );
+			skillsPreparedQuery.addBindValue( serial_ );
+			skillsPreparedQuery.addBindValue( i );
+			skillsPreparedQuery.addBindValue( (*it).value );
+			skillsPreparedQuery.addBindValue( (*it).lock );
+			skillsPreparedQuery.addBindValue( (*it).cap );
+			skillsPreparedQuery.exec();
 			( *it ).changed = false;
 		}
 	}
-	PersistentBroker::instance()->unlockTable( "skills" );
 	cUObject::save();
 }
 

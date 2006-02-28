@@ -160,7 +160,7 @@ public:
 		\param connection The database connection.
 		\param result The resultset for this guild.
 	*/
-	void load( const cDBResult& result );
+	void load( const QSqlQuery& result );
 
 	/*
 		\returns A constant reference to the list of enemy guilds.

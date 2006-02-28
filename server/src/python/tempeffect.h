@@ -40,6 +40,9 @@
 #include "../world.h"
 #include "../console.h"
 
+#include <QSqlQuery>
+#include <QVariant>
+
 class cPythonEffect : public cTimer
 {
 protected:
@@ -290,7 +293,7 @@ public:
 		cTimer::save( id );
 	}
 
-	void load( unsigned int id, const char** result )
+	void load( unsigned int id, QSqlQuery& result )
 	{
 		// Load the Base Properties and then Select
 		QString value;
@@ -305,13 +308,13 @@ public:
 
 		args = PyTuple_New( count );
 
-		cDBResult res = PersistentBroker::instance()->query( QString( "SELECT keyname,type,value FROM effects_properties WHERE id = %1 AND keyname LIKE 'pyarg_%'" ).arg( id ) );
+		QSqlQuery res( QString( "SELECT keyname,type,value FROM effects_properties WHERE id = %1 AND keyname LIKE 'pyarg_%'" ).arg( id ) );
 
-		while ( res.fetchrow() )
+		while ( res.next() )
 		{
-			QString key = res.getString( 0 );
-			QString type = res.getString( 1 );
-			QString value = res.getString( 2 );
+			QString key = res.value( 0 ).toString();
+			QString type = res.value( 1 ).toString();
+			QString value = res.value( 2 ).toString();
 
 			int id = key.right( key.length() - 6 ).toInt();
 
@@ -339,8 +342,6 @@ public:
 				PyTuple_SetItem( args, id, PyGetItemObject( World::instance()->findItem( value.toInt() ) ) );
 			}
 		}
-
-		res.free();
 
 		cTimer::load( id, result );
 	}

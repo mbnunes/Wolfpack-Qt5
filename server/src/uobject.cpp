@@ -52,8 +52,11 @@
 #include "serverconfig.h"
 #include "basics.h"
 #include "world.h"
+#include "typedefs.h"
 
 #include <QByteArray>
+#include <QSqlQuery>
+#include <QVariant>
 
 // Library Includes
 
@@ -178,19 +181,18 @@ unsigned int cUObject::dist( cUObject* d ) const
 /*!
 	Performs persistency layer loads.
 */
-void cUObject::load( char** result, quint16& offset )
+void cUObject::load( QSqlQuery& result, ushort& offset )
 {
-	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
+	name_ = ( result.value(offset).toByteArray().isEmpty() ) ? QString::null : QString::fromUtf8( result.value(offset).toByteArray() );
 	offset++;
-	serial_ = atoi( result[offset++] );
-	multi_ = reinterpret_cast<cMulti*>( static_cast<size_t>( atoi( result[offset++] ) ) );
-	pos_.x = atoi( result[offset++] );
-	pos_.y = atoi( result[offset++] );
-	pos_.z = atoi( result[offset++] );
-	pos_.map = atoi( result[offset++] );
-	QByteArray scriptList = result[offset];
-	offset++;
-	bool havetags_ = atoi( result[offset++] );
+	serial_ = result.value( offset++ ).toInt();
+	multi_ = reinterpret_cast<cMulti*>( static_cast<size_t>( result.value(offset++).toInt() ) );
+	pos_.x = result.value( offset++ ).toInt();
+	pos_.y = result.value( offset++ ).toInt();
+	pos_.z = result.value( offset++ ).toInt();
+	pos_.map = result.value( offset++ ).toInt();
+	QByteArray scriptList = result.value( offset++ ).toByteArray();
+	bool havetags_ = result.value( offset++ ).toInt();
 
 	setScriptList( scriptList );
 
@@ -213,33 +215,47 @@ void cUObject::save()
 	// So we never update the type EVER here..
 	if ( !isPersistent )
 	{
-		initSave;
-		setTable( "uobjectmap" );
-		addField( "serial", serial_ );
-		addStrField( "type", QString( objectID() ) );
-		addCondition( "serial", serial_ );
-		saveFields;
-		clearFields;
+		QSqlQuery q;
+		q.prepare( "insert into uobjectmap values ( ?, ? )" );
+		q.addBindValue( serial_ );
+		q.addBindValue( QString( objectID() ) );
+		q.exec();
 	}
 
 	// uobject fields
+	static bool init = false;
+	static QSqlQuery preparedUpdate;
+	static QSqlQuery preparedInsert;
+	if ( !init )
+	{
+		preparedUpdate.prepare("update uobject values ( ?, ?, ?, ?, ?, ?, ?, ?, ? ) where serial = ?");
+		preparedInsert.prepare("insert into uobject values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+		init = true;
+	}
+
 	if ( changed_ )
 	{
-		initSave;
-		setTable( "uobject" );
-		addStrField( "name", name_ );
-		addField( "serial", serial_ );
-		addField( "multis", multi_ ? multi_->serial() : INVALID_SERIAL );
-		addField( "pos_x", pos_.x );
-		addField( "pos_y", pos_.y );
-		addField( "pos_z", pos_.z );
-		addField( "pos_map", pos_.map );
+		QSqlQuery q;
+		if ( isPersistent )
+			q = preparedUpdate;
+		else
+			q = preparedInsert;
+
+		q.addBindValue( name_ );
+		q.addBindValue( serial_ );
+		q.addBindValue( multi_ ? multi_->serial() : INVALID_SERIAL );
+		q.addBindValue( pos_.x );
+		q.addBindValue( pos_.y );
+		q.addBindValue( pos_.z );
+		q.addBindValue( pos_.map );
 		QString scriptList = this->scriptList();
-		addStrField( "events", scriptList == QString::null ? QString( "" ) : scriptList );
-		addCondition( "serial", serial_ );
-		addField( "havetags", havetags_ );
-		saveFields;
+		q.addBindValue( scriptList == QString::null ? QString( "" ) : scriptList );
+		q.addBindValue( havetags_ );
+		if ( isPersistent )
+			q.addBindValue( serial_ );
+		q.exec();
 	}
+
 	if ( havetags_ )
 	{
 		tags_.save( serial_ );

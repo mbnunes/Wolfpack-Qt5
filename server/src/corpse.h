@@ -103,7 +103,7 @@ public:
 	}
 
 	// DB Serialization
-	void load( char**, quint16& );
+	void load( QSqlQuery&, ushort& );
 	void save();
 	bool del();
 	void load( cBufferedReader& reader, unsigned int version );

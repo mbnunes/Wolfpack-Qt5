@@ -30,13 +30,13 @@
 
 #include <QString>
 
-#include "dbdriver.h"
+#include <QSqlDatabase>
 
 // Class for exporting the definitions to a sqlite database
 class cDefinitionExporter {
 protected:
-	cSQLiteDriver driver;
 	cUOSocket *socket;
+	QSqlDatabase driver;
 
 	void createTables();
 	void reportStatus(const QString &message);

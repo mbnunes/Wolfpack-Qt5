@@ -93,7 +93,7 @@ public:
 	bool isInLockedItem();
 	virtual void talk( const QString& message, UI16 color = 0xFFFF, quint8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	virtual void talk( const quint32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
-	void load( char**, quint16& );
+	void load( QSqlQuery&, ushort& );
 	void save();
 	bool del();
 

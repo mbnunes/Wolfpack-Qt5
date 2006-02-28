@@ -50,6 +50,9 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QByteArray>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QVariant>
 
 // Postprocessing stuff, can be deleted later on
 #include "muls/maps.h"
@@ -86,7 +89,7 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
 #define DATABASE_VERSION 11
-#define WP_DATABASE_VERSION "11"
+#define WP_DATABASE_VERSION "12"
 
 unsigned int cWorld::getDatabaseVersion() const {
 	return DATABASE_VERSION;
@@ -629,13 +632,23 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 	}
 
 	QString objectID;
+	QSqlQuery query;
 	register unsigned int i = 0;
 
 	while ( tableInfo[i].name )
 	{
 		if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
 		{
-			PersistentBroker::instance()->executeQuery( tableInfo[i].create );
+			if ( !query.exec( tableInfo[i].create ) )
+			{
+				// Create Database failed, let's figure why
+				QSqlError e = query.lastError();
+				if ( Config::instance()->databaseDriver() == "sqlite" && e.number() == 26 )
+				{
+					Console::instance()->log( LOG_ERROR, tr("Invalid World database file. The file is either corrupted or in sqlite2 format, which require a conversion step. If this is an sqlite2 database please check this wiki entry: http://www.wpdev.org/wiki/index.php/Convert_sqlite2_to_sqlite3_format") );
+				}
+				throw tr( "Unable to load world database" );
+			}
 
 			// create default settings
 			if ( !strcmp( tableInfo[i].name, "settings" ) )
@@ -653,12 +666,11 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 	{
 		settingsSql = "SELECT `option`,`value` FROM `settings`;";
 	}
-	cDBResult oresult = PersistentBroker::instance()->query( settingsSql );
-	while ( oresult.fetchrow() )
+	query.exec( settingsSql );
+	while ( query.next() )
 	{
-		setOption( oresult.getString( 0 ), oresult.getString( 1 ) );
+		setOption( query.value( 0 ).toString(), query.value( 1 ).toString() );
 	}
-	oresult.free();
 
 	// Get Database Version (Since Version 7 SQL has it)
 	QString db_version;
@@ -689,41 +701,38 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 		QString type = types[j];
 
 		QString countQuery = PersistentFactory::instance()->findSqlCountQuery( type );
-		cDBResult res = PersistentBroker::instance()->query( countQuery );
+		query.exec( countQuery );
 
 		// Find out how many objects of this type are available
-		if ( !res.isValid() )
-			throw PersistentBroker::instance()->lastError();
+		if ( !query.isActive() )
+			throw query.lastError().driverText();
 
-		res.fetchrow();
-		quint32 count = res.getInt( 0 );
-		res.free();
+		query.next();
+		quint32 count = query.value(0).toInt();
 
 		if ( count == 0 )
 			continue; // Move on...
 
 		Console::instance()->send( "\n" + tr( "Loading %1 objects of type %2" ).arg( count ).arg( type ) );
 
-		res = PersistentBroker::instance()->query( PersistentFactory::instance()->findSqlQuery( type ) );
+		query.exec( PersistentFactory::instance()->findSqlQuery( type ) );
 
 		// Error Checking
-		if ( !res.isValid() )
-			throw PersistentBroker::instance()->lastError();
+		if ( !query.isActive() )
+			throw query.lastError().driverText();
 
 		//quint32 sTime = getNormalizedTime();
 		PersistentObject* object;
 		progress_display progress( count );
 
 		// Fetch row-by-row
-		PersistentBroker::instance()->driver()->setActiveConnection( CONN_SECOND );
-		while ( res.fetchrow() )
+		while ( query.next() )
 		{
 			unsigned short offset = 0;
-			char** row = res.data();
 
 			// do something with data
 			object = PersistentFactory::instance()->createObject( type );
-			object->load( row, offset );
+			object->load( query, offset );
 			objects.append( object );
 
 			++progress;
@@ -731,9 +740,6 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 
 		while ( progress.count() < progress.expected_count() )
 			++progress;
-
-		res.free();
-		PersistentBroker::instance()->driver()->setActiveConnection();
 	}
 
 	// Load Temporary Effects
@@ -874,12 +880,12 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 	}
 
 	// Load SpawnRegion information
-	cDBResult result = PersistentBroker::instance()->query( "SELECT spawnregion,serial FROM spawnregions;" );
+	QSqlQuery result = PersistentBroker::instance()->query( "SELECT spawnregion,serial FROM spawnregions;" );
 
-	while ( result.fetchrow() )
+	while ( result.next() )
 	{
-		QString spawnregion = result.getString( 0 );
-		SERIAL serial = result.getInt( 1 );
+		QString spawnregion = result.value( 0 ).toString();
+		SERIAL serial = result.value( 1 ).toInt();
 
 		cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
 		cUObject *object = findObject( serial );
@@ -892,8 +898,6 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 			object->remove();
 		}
 	}
-
-	result.free();
 
 	Guilds::instance()->load();
 
@@ -1054,14 +1058,14 @@ void cWorld::save()
 				Console::instance()->log( LOG_ERROR, tr( "Couldn't open the database: %1\n" ).arg( e ) );
 				return;
 			}
-
+			QSqlQuery query;
 			unsigned int i = 0;
 
 			while ( tableInfo[i].name )
 			{
 				if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
 				{
-					PersistentBroker::instance()->executeQuery( tableInfo[i].create );
+					query.exec( tableInfo[i].create );
 				}
 
 				++i;
@@ -1077,7 +1081,8 @@ void cWorld::save()
 
 			PersistentBroker::instance()->startTransaction();
 
-			PersistentBroker::instance()->executeQuery( "DELETE FROM spawnregions;" );
+			query.exec("DELETE FROM spawnregions");
+			query.prepare( "INSERT INTO spawnregions VALUES(?,?)" );
 
 			cItemIterator iItems;
 			for ( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
@@ -1086,9 +1091,9 @@ void cWorld::save()
 
 				if ( pItem->spawnregion() )
 				{
-					QString name = PersistentBroker::instance()->quoteString( pItem->spawnregion()->id() );
-					QString query = QString( "INSERT INTO spawnregions VALUES('%1',%2);" ).arg( name ).arg( pItem->serial() );
-					PersistentBroker::instance()->executeQuery( query );
+					query.addBindValue( pItem->spawnregion()->id() );
+					query.addBindValue( pItem->serial() );
+					query.exec();
 				}
 			}
 
@@ -1099,9 +1104,9 @@ void cWorld::save()
 
 				if ( pChar->spawnregion() )
 				{
-					QString name = PersistentBroker::instance()->quoteString( pChar->spawnregion()->id() );
-					QString query = QString( "INSERT INTO spawnregions VALUES('%1',%2);" ).arg( name ).arg( pChar->serial() );
-					PersistentBroker::instance()->executeQuery( query );
+					query.addBindValue( pChar->spawnregion()->id() );
+					query.addBindValue( pChar->serial() );
+					query.exec();
 				}
 			}
 

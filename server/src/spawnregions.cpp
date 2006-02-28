@@ -690,6 +690,7 @@ void cSpawnRegion::spawnSingleNPC()
 	else if ( pointCount <= 1 )
 	{
 		Console::instance()->log( LOG_WARNING, tr( "Unable to find valid spot for spawnregion %1.\n" ).arg( id_ ) );
+		active_ = false;
 	}
 }
 

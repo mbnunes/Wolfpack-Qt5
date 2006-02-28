@@ -37,6 +37,8 @@
 #include <math.h>
 #include <QString>
 #include <QList>
+#include <QSqlQuery>
+#include <QVariant>
 
 /*!
 	\class cVariant customtags.h
@@ -364,7 +366,7 @@ const QString cVariant::toString() const
 	}
 
 	if ( typ != StringType )
-		return QString::null;
+		return QString();
 
 	return *( ( QString * ) value.ptr );
 }
@@ -816,8 +818,10 @@ void cCustomTags::save( SERIAL key )
 {
 	if ( !changed )
 		return;
-
-	PersistentBroker::instance()->executeQuery( QString( "DELETE FROM tags WHERE serial = '%1'" ).arg( key ) );
+	QSqlQuery query;
+	query.prepare( "DELETE FROM tags WHERE serial = ?" );
+	query.addBindValue( key );
+	query.exec();
 
 	if ( !tags_ )
 	{
@@ -827,6 +831,7 @@ void cCustomTags::save( SERIAL key )
 
 	QMap<QString, cVariant>::const_iterator it( tags_->begin() );
 
+	query.prepare( "insert into tags values( ?, ?, ?, ?)" );
 	for ( ; it != tags_->end(); ++it )
 	{
 		// Erase invalid tags.
@@ -836,11 +841,11 @@ void cCustomTags::save( SERIAL key )
 		}
 
 		// Save the Variant type and value
-		QString name = it.key();
-		QString type = it.value().typeName();
-		QString value = it.value().toString();
-
-		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO tags VALUES(%1,'%2','%3','%4')" ).arg( key ).arg( PersistentBroker::instance()->quoteString( name ) ).arg( type ).arg( PersistentBroker::instance()->quoteString( value ) ) );
+		query.addBindValue( key );
+		query.addBindValue( it.key() );
+		query.addBindValue( it.value().typeName() );
+		query.addBindValue( it.value().toString() );
+		query.exec();
 	}
 
 	changed = false;
@@ -854,13 +859,17 @@ void cCustomTags::load( SERIAL key )
 	if ( tags_ )
 		tags_->clear();
 
-	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
+	QSqlQuery result;
+	result.setForwardOnly( true );
+	result.prepare( "SELECT name,type,value FROM tags WHERE serial = ?" );
+	result.addBindValue( key );
+	result.exec();
 
-	while ( result.fetchrow() )
+	while ( result.next() )
 	{
-		QString name = result.getString( 0 );
-		QString type = result.getString( 1 );
-		QString value = result.getString( 2 );
+		QString name = result.value( 0 ).toString();
+		QString type = result.value( 1 ).toString();
+		QString value = result.value( 2 ).toString();
 
 		if ( !tags_ )
 			tags_ = new QMap<QString, cVariant>;
@@ -872,8 +881,6 @@ void cCustomTags::load( SERIAL key )
 		else if ( type == "Double" )
 			tags_->insert( name, cVariant( value.toDouble() ) );
 	}
-
-	result.free();
 
 	changed = false;
 }

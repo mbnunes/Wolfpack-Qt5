@@ -2562,11 +2562,11 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 
 	try
 	{
-		cDBResult result = PersistentBroker::instance()->query( query );
+		QSqlQuery result = PersistentBroker::instance()->query( query );
 
 		PyMem_Free( query );
 
-		return ( new cDBResult( result ) )->getPyObject();
+		return getPyObjectFromQSqlQuery( result );
 	}
 	catch ( QString& e )
 	{

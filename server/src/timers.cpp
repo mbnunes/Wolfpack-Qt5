@@ -88,7 +88,7 @@ void cTimer::setExpiretime_ms( float milliseconds )
  */
 void cTimer::saveFloat( unsigned int id, const QString& key, double value )
 {
-	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "float" ).arg( value ) );
+	QSqlQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "float" ).arg( value ) );
 }
 
 /*
@@ -104,50 +104,54 @@ void cTimer::saveInt( unsigned int id, const QString& key, int value )
  */
 void cTimer::saveString( unsigned int id, const QString& key, const QString& value )
 {
-	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "string" ).arg( PersistentBroker::instance()->quoteString( value.toUtf8() ) ) );
+	QSqlQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "string" ).arg( PersistentBroker::instance()->quoteString( value.toUtf8() ) ) );
 }
 
 void cTimer::saveChar( unsigned int id, const QString& key, P_CHAR character )
 {
 	unsigned int value = character->serial();
-	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "char" ).arg( value ) );
+	QSqlQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "char" ).arg( value ) );
 }
 
 void cTimer::saveItem( unsigned int id, const QString& key, P_ITEM item )
 {
 	unsigned int value = item->serial();
-	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "item" ).arg( value ) );
+	QSqlQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "item" ).arg( value ) );
 }
 
 bool cTimer::loadChar( unsigned int id, const QString& key, P_CHAR& character )
 {
-	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'char'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
+	QSqlQuery result;
+	result.prepare( "SELECT value FROM effects_properties WHERE id = ? AND keyname = ? AND type = 'char'" );
+	result.addBindValue( id );
+	result.addBindValue( key );
 
-	character = 0;
-	if ( !result.fetchrow() )
+	if ( !result.next() )
 	{
-		result.free();
 		return false;
 	}
 
-	character = World::instance()->findChar( result.getString( 0 ).toInt() );
-	result.free();
+	character = 0;
+	character = World::instance()->findChar( result.value( 0 ).toInt() );
+
 	return true;
 }
 
 bool cTimer::loadItem( unsigned int id, const QString& key, P_ITEM& item )
 {
-	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'item'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
+	QSqlQuery result;
+	result.prepare( "SELECT value FROM effects_properties WHERE id = ? AND keyname = ? AND type = 'item'" );
+	result.addBindValue( id );
+	result.addBindValue( key );
 
-	item = 0;
-	if ( !result.fetchrow() )
+	if ( !result.next() )
 	{
-		result.free();
 		return false;
 	}
 
-	item = World::instance()->findItem( result.getString( 0 ).toInt() );
-	result.free();
+	item = 0;
+	item = World::instance()->findItem( result.value( 0 ).toInt() );
+
 	return true;
 }
 
@@ -156,17 +160,14 @@ bool cTimer::loadItem( unsigned int id, const QString& key, P_ITEM& item )
  */
 bool cTimer::loadFloat( unsigned int id, const QString& key, double& value )
 {
-	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'float'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
+	QSqlQuery result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'float'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
-	if ( !result.fetchrow() )
+	if ( !result.next() )
 	{
-		result.free();
 		return false;
 	}
 
-	value = result.getString( 0 ).toFloat();
-
-	result.free();
+	value = result.value( 0 ).toDouble();
 
 	return true;
 }
@@ -176,17 +177,17 @@ bool cTimer::loadFloat( unsigned int id, const QString& key, double& value )
  */
 bool cTimer::loadInt( unsigned int id, const QString& key, int& value )
 {
-	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'int'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
+	QSqlQuery result;
+	result.prepare( "SELECT value FROM effects_properties WHERE id = ? AND keyname = ? AND type = 'int'" );
+	result.addBindValue( id );
+	result.addBindValue( key );
 
-	if ( !result.fetchrow() )
+	if ( !result.next() )
 	{
-		result.free();
 		return false;
 	}
 
-	value = result.getString( 0 ).toInt();
-
-	result.free();
+	value = result.value( 0 ).toInt();
 
 	return true;
 }
@@ -196,34 +197,42 @@ bool cTimer::loadInt( unsigned int id, const QString& key, int& value )
  */
 bool cTimer::loadString( unsigned int id, const QString& key, QString& value )
 {
-	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'string'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
+	QSqlQuery result;
+	result.prepare( "SELECT value FROM effects_properties WHERE id = ? AND keyname = ? AND type = 'string'" );
+	result.addBindValue( id );
+	result.addBindValue( key );
 
-	if ( !result.fetchrow() )
+	if ( !result.next() )
 	{
-		result.free();
 		return false;
 	}
 
-	value = result.getString( 0 );
-
-	result.free();
+	value = result.value( 0 ).toString();
 
 	return true;
 }
 
 void cTimer::save( unsigned int id )
 {
-	PersistentBroker::instance()->executeQuery( QString( "INSERT INTO effects VALUES(%1,'%2',%3,%4,%5,%6);" ).arg( id ).arg( PersistentBroker::instance()->quoteString( objectID() ) ).arg( expiretime - Server::instance()->time() ).arg( dispellable ? 1 : 0 ).arg( sourSer ).arg( destSer ) );
+	QSqlQuery query;
+	query.prepare( "INSERT INTO effects VALUES( ?, ?, ?, ?, ?, ?)" );
+	query.addBindValue( id );
+	query.addBindValue( objectID() );
+	query.addBindValue( expiretime - Server::instance()->time() );
+	query.addBindValue( dispellable ? 1 : 0 );
+	query.addBindValue( sourSer );
+	query.addBindValue( destSer );
+	query.exec();
 }
 
-void cTimer::load( unsigned int /*id*/, const char** result )
+void cTimer::load( unsigned int /*id*/, QSqlQuery& result )
 {
 	unsigned int offset = 2;
 
-	expiretime = atol( result[offset++] ) + Server::instance()->time();
-	dispellable = atol( result[offset++] ) == 0 ? false : true;
-	sourSer = atol( result[offset++] );
-	destSer = atol( result[offset++] );
+	expiretime = result.value( offset++ ).toInt() + Server::instance()->time();
+	dispellable = result.value( offset++ ).toInt() == 0 ? false : true;
+	sourSer = result.value( offset++ ).toInt();
+	destSer = result.value( offset++ ).toInt();
 
 	serializable = true;
 }
@@ -363,14 +372,12 @@ void cTimers::load()
 {
 	// Query the Database
 
-	cDBResult result = PersistentBroker::instance()->query( "SELECT id,objectid,expiretime,dispellable,source,destination FROM effects ORDER BY expiretime ASC;" );
+	QSqlQuery result( "SELECT id,objectid,expiretime,dispellable,source,destination FROM effects ORDER BY expiretime ASC;" );
 
-	PersistentBroker::instance()->driver()->setActiveConnection( CONN_SECOND );
-
-	while ( result.fetchrow() )
+	while ( result.next() )
 	{
-		unsigned int id = result.getInt( 0 );
-		QString objectId = result.getString( 1 );
+		unsigned int id = result.value( 0 ).toInt();
+		QString objectId = result.value( 1 ).toString();
 
 		cTimer* effect = 0;
 
@@ -383,20 +390,17 @@ void cTimers::load()
 			throw QString( "Unknown TempEffect Type: %1" ).arg( objectId );
 		}
 
-		const char** res = ( const char** ) result.data(); // Skip id, objectid
-
-		effect->load( id, res );
+		effect->load( id, result );
 
 		insert( effect );
 	}
-	result.free();
-	PersistentBroker::instance()->driver()->setActiveConnection();
 }
 
 void cTimers::save()
 {
-	PersistentBroker::instance()->executeQuery( "DELETE FROM effects;" );
-	PersistentBroker::instance()->executeQuery( "DELETE FROM effects_properties;" );
+	QSqlQuery query;
+	query.exec( "DELETE FROM effects;" );
+	query.exec( "DELETE FROM effects_properties;" );
 
 	std::vector<cTimer*>::iterator it = teffects.begin();
 	unsigned int id = 0;

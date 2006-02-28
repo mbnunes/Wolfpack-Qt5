@@ -44,12 +44,13 @@ public:
 	cPersistentBroker();
 	~cPersistentBroker();
 	bool openDriver( const QString& driver );
+	bool isOpen() const;
 
 	bool connect( const QString& host, const QString& db, const QString& username, const QString& password );
 	void disconnect();
 
 	bool executeQuery( const QString& query );
-	cDBResult query( const QString& query );
+	QSqlQuery query( const QString& query );
 	void flushDeleteQueue();
 	void clearDeleteQueue();
 	void addToDeleteQueue( const QString& tables, const QString& conditions );
@@ -63,7 +64,6 @@ public:
 	bool saveObject( PersistentObject* );
 	bool deleteObject( PersistentObject* );
 	QString lastError() const;
-	cDBDriver* driver() const;
 
 	void startTransaction();
 	void commitTransaction();

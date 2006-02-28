@@ -49,7 +49,7 @@ class cBufferedWriter;
 
 #include <QString>
 
-class cDBResult;
+class QSqlQuery;
 
 class cTimer
 {
@@ -146,7 +146,7 @@ public:
 		serializable = data;
 	}
 
-	virtual void load( unsigned int id, const char** result );
+	virtual void load( unsigned int id, QSqlQuery& result );
 	virtual void save( unsigned int id );
 
 	std::vector< cTimer* > asVector();
