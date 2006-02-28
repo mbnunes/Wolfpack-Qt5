@@ -113,27 +113,30 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 }
 
 // All this Stuff should be scripted
-bool QuestionSpeech( cUOSocket* socket, P_PLAYER pPlayer, P_NPC pChar, const QString& comm )
+bool handleInternalKeywords( P_PLAYER pPlayer, P_NPC pChar, const QString& comm, QList<ushort>& keywords )
 {
-	if ( socket )
-	{
-		// Warning Fix
-	}
-
 	if ( !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
 		return false;
+
+	if ( !keywords.isEmpty() )
+	{
+		foreach( ushort keyword, keywords )
+		{
+			switch ( keyword )
+			{
+			case 0x009e: // time
+				pChar->talk( tr( "It is now %1 hours and %2 minutes." ).arg( UoTime::instance()->hour() ).arg( UoTime::instance()->minute() ) );
+				return true;
+			default:
+				break;
+			}
+		}
+	}
 
 	// Tell the questioner our name
 	if ( comm.contains( "NAME" ) )
 	{
 		pChar->talk( tr( "Hello, my name is %1." ).arg( pChar->name() ) );
-		return true;
-	}
-
-	// say time and the npChar gives the time.
-	if ( comm.contains( "TIME" ) )
-	{
-		pChar->talk( tr( "It is now %1 hours and %2 minutes." ).arg( UoTime::instance()->hour() ).arg( UoTime::instance()->minute() ) );
 		return true;
 	}
 
@@ -170,8 +173,6 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 	{
 		return false;
 	}
-
-	QString speechUpr = comm.toUpper();
 
 	// Lets try a small circle to prevent lag
 	MapItemsIterator ti = MapObjects::instance()->listItemsInCircle( pPlayer->pos(), 9 );
@@ -233,12 +234,13 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 				return true;
 		}
 
+		QString speechUpr = comm.toUpper();
 		if ( pNpc->ai() )
 		{
 			pNpc->ai()->onSpeechInput( pPlayer, speechUpr );
 		}
 
-		if ( QuestionSpeech( socket, pPlayer, pNpc, speechUpr ) )
+		if ( handleInternalKeywords( pPlayer, pNpc, speechUpr, keywords ) )
 			return true;
 	}
 

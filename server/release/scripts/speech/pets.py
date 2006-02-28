@@ -22,7 +22,7 @@ def checkPetControl(pet, char, text, keywords):
 	if char.gm:
 		return True
 
-	if pet.mintaming <=291:
+	if pet.mintaming <= 291:
 		return True
 
 	# summoned pets can always be controlled
@@ -355,7 +355,7 @@ def onSpeech(pet, char, text, keywords):
 
 	#check if can be controlled
 	if not checkPetControl(pet, char, text, keywords):
-		return True
+		return False
 
 	# Test All
 	# Check for keywords

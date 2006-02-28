@@ -87,7 +87,7 @@ SQLITE_UPDATES = {
 	8: null_update_procedure,# ???? What the hell happened to 9 ????
 	9: null_update_procedure,
 	10: null_update_procedure,
-        11: sqlite_update_10,
+        11: sqlite_update_11,
 }
 
 #
