@@ -50,8 +50,6 @@ console {
 	include(../src/gui/gui.pri)
 }
 
-SQLITE3_CPP = ../src/sqlite3
-SQLITE3_H = ../src/sqlite3
 PYTHON_CPP = ../src/python
 PYTHON_H = ../src/python
 NETWORK_H = ../src/network
@@ -61,14 +59,12 @@ AI_CPP = ../src/ai
 MULS_H = ../src/muls
 MULS_CPP = ../src/muls
 
-DEPENDPATH += $$SQLITE3_H;$$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
-INCLUDEPATH += $$SQLITE3_H;$$SQLITE3_H;../src
+DEPENDPATH += $$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
+INCLUDEPATH += ../src
 
 
 #modules
 include($$PYTHON_CPP/python.pri)
-include(../src/sqlite/sqlite.pri)
-include($$SQLITE3_CPP/sqlite3.pri)
 include($$NETWORK_CPP/network.pri)
 include($$AI_CPP/ai.pri)
 include($$MULS_CPP/muls.pri)

@@ -64,8 +64,6 @@
 #include "python/engine.h"
 #include "verinfo.h"
 #include "network/network.h"
-#include "sqlite/sqlite.h"
-#include "sqlite3/sqlite3.h"
 
 // Qt Includes
 #include <QWaitCondition>
@@ -498,13 +496,6 @@ void cServer::setupConsole()
 	QString UnicodeType( "UCS-2" );
 #endif
 	Console::instance()->send( tr( "Compiled for Python %1 %2 (Using: %3)\n" ).arg( PY_VERSION, UnicodeType, pythonBuild ) );
-	Console::instance()->send( tr( "Compiled with SQLite %1\n" ).arg( sqlite_version ) );
-	Console::instance()->send( tr( "Compiled with SQLite3 %1\n" ).arg( sqlite3_version ) );
-#if defined (MYSQL_DRIVER)
-	Console::instance()->send( tr( "Compiled for MySQL %1 (Using: %2)\n" ).arg( MYSQL_SERVER_VERSION, mysql_get_client_info() ) );
-#else
-	Console::instance()->send( tr( "MySQL Support: disabled\n" ) );
-#endif
 	Console::instance()->send( "\n" );
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( productString(), productBeta(), productVersion() );
 	Console::instance()->setConsoleTitle( consoleTitle );

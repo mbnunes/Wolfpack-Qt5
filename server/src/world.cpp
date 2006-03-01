@@ -46,7 +46,6 @@
 #include "scriptmanager.h"
 #include "pythonscript.h"
 #include "basics.h"
-#include <sqlite.h>
 #include <QFileInfo>
 #include <QDir>
 #include <QByteArray>
