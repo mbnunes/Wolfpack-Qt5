@@ -35,6 +35,7 @@
 #include "../basics.h"
 #include "../timers.h"
 #include "../persistentbroker.h"
+#include "../customtags.h"
 
 #include "../dbdriver.h"
 #include "../world.h"

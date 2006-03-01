@@ -32,8 +32,7 @@
 #include "singleton.h"
 
 class PersistentObject;
-class cDBDriver;
-class cDBResult;
+class QSqlQuery;
 
 class PersistentBrokerPrivate;
 

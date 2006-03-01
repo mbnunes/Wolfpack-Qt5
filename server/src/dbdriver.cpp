@@ -27,6 +27,7 @@
 
 // Wolfpack Includes
 #include "dbdriver.h"
+#include "python/utilities.h"
 
 // Library Includes
 #include <QtGlobal>
