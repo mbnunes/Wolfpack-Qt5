@@ -174,8 +174,7 @@ cUOSocket::~cUOSocket( void )
 void cUOSocket::disconnectedImplementation()
 {
 	QObject::disconnect( this, SLOT(disconnectedImplementation()) ); // Ensure it's only called once.
-	if ( _socket->isOpen() )
-		emit disconnected();
+	disconnect();
 }
 
 // Initialize all packet handlers to zero
@@ -800,6 +799,12 @@ void cUOSocket::disconnect()
 		}
 
 		_player->resend( false );
+	}
+
+	if ( _state != Disconnected )
+	{
+		_state = Disconnected;
+		emit disconnected();
 	}
 }
 
@@ -2757,6 +2762,9 @@ void cUOSocket::updateWeather( P_PLAYER pChar )
 // Do periodic stuff for this socket
 void cUOSocket::poll()
 {
+	if ( _state == Disconnected )
+		return;
+
 	// Check for timed out target requests
 	if ( targetRequest && targetRequest->timeout() > 1 && targetRequest->timeout() < Server::instance()->time() )
 	{
@@ -2769,9 +2777,13 @@ void cUOSocket::poll()
 	// Check for idling/silent sockets
 	if ( _lastActivity + 180 * MY_CLOCKS_PER_SEC < Server::instance()->time() )
 	{
-		log( tr( "Idle for %1 ms. Disconnecting.\n" ).arg( Server::instance()->time() - _lastActivity ) );
+		log( tr( "Idle for %1s. Disconnecting.\n" ).arg( ( Server::instance()->time() - _lastActivity ) / MY_CLOCKS_PER_SEC ) );
 		disconnect();
 	}
+
+	// Sanity check, we have state != Disconnected, but with a closed socket!
+	if ( !_socket->isOpen() )
+		disconnect();
 }
 
 void cUOSocket::attachTarget( cTargetRequest* request, std::vector<stTargetItem>& items, qint16 xOffset, qint16 yOffset, qint16 zOffset )

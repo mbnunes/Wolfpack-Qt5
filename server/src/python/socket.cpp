@@ -86,7 +86,7 @@ PyObject* PyGetSocketObject( cUOSocket* socket )
 static PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED( args );
-	self->pSock->socket()->close();
+	self->pSock->disconnect();
 	Py_RETURN_NONE;
 }
 

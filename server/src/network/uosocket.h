@@ -75,7 +75,8 @@ public:
 		Connecting		= 0,
 		LoggingIn,
 		LoggedIn,
-		InGame
+		InGame, 
+		Disconnected
 	};
 
 public:
@@ -143,10 +144,6 @@ public:
 
 	quint8 walkSequence( void ) const;
 	void setWalkSequence( quint8 data );
-
-
-	QTcpSocket* socket( void ) const;
-	void setSocket( QTcpSocket* data );
 
 	eSocketState state( void ) const;
 	void setState( eSocketState data );
@@ -350,16 +347,6 @@ inline quint8 cUOSocket::walkSequence( void ) const
 inline void cUOSocket::setWalkSequence( quint8 data )
 {
 	_walkSequence = data;
-}
-
-inline QTcpSocket* cUOSocket::socket( void ) const
-{
-	return _socket;
-}
-
-inline void cUOSocket::setSocket( QTcpSocket* data )
-{
-	_socket = data;
 }
 
 inline cUOSocket::eSocketState cUOSocket::state( void ) const

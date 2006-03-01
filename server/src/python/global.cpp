@@ -2121,8 +2121,9 @@ static PyMethodDef wpGlobal[] =
 /*
 	\function wolfpack.sockets.first
 	\return A <object id="socket">socket</object> object or None.
-	\description This function resets the iterator to the first available socket
-	and returns it.
+	\description This function is used to iterate thru the ingame sockets. It resets the iterator to the first 
+	available socket and returns it. 
+	\sa wolfpack.sockets.next
 */
 QList<cUOSocket*> sockets;
 int socketsIndex;
@@ -2131,30 +2132,40 @@ static PyObject* wpSocketsFirst( PyObject* /*self*/, PyObject* /*args*/ )
 {
 	socketsIndex = 0;
 	sockets = Network::instance()->sockets();
+	foreach( cUOSocket* s, sockets )
+	{
+		if ( s->state() != cUOSocket::InGame )
+			sockets.removeAll( s );
+	}
+
 	if ( socketsIndex < sockets.count() )
 		return PyGetSocketObject( sockets[socketsIndex] );
 	else
-		return PyGetSocketObject( 0 );
+		Py_RETURN_NONE;
 }
 
 /*
 	\function wolfpack.sockets.next
 	\return A <object id="socket">socket</object> object or None.
-	\description This function sets the iterator to the next available socket
-	and returns it. If there is no socket available, None is returned.
+	\description This function sets the iterator to the next ingame available socket
+	and returns it. If there is no more sockets available, None is returned.
+	\sa wolfpack.sockets.first
 */
 static PyObject* wpSocketsNext( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	if ( ++socketsIndex < sockets.count() )
+	while ( ++socketsIndex < sockets.count() && sockets[socketsIndex]->state() != cUOSocket::InGame );
+
+	if ( socketsIndex < sockets.count() )
 		return PyGetSocketObject( sockets[socketsIndex] );
 	else
-		return PyGetSocketObject( 0 );
+		Py_RETURN_NONE;
 }
 
 /*
 	\function wolfpack.sockets.count
 	\return An integer value.
-	\description This function returns how many sockets are connected.
+	\description This function returns how many sockets are connected. There is no distinction 
+	on their state, which could be logging in sockets or ingame sockets.
 */
 static PyObject* wpSocketsCount( PyObject* self, PyObject* args )
 {

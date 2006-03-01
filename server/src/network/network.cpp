@@ -86,21 +86,23 @@ cNetwork::~cNetwork()
 
 void cNetwork::incomingGameServerConnection()
 {
-	cUOSocket *uosocket = new cUOSocket( d->gameServer_->nextPendingConnection() );
+	QTcpSocket* socket = d->gameServer_->nextPendingConnection();
+	cUOSocket *uosocket = new cUOSocket( socket );
 	d->uoSockets.append( uosocket );
 	connect( uosocket, SIGNAL(disconnected()), this, SLOT(partingGameServerConnection()) );
 	// Notify the admin
-	uosocket->log( tr( "Client connected to game server (%1).\n" ).arg( uosocket->socket()->peerAddress().toString() ) );
+	uosocket->log( tr( "Client connected to game server (%1).\n" ).arg( socket->peerAddress().toString() ) );
 }
 
 void cNetwork::incomingLoginServerConnection()
 {
-	cUOSocket *uosocket = new cUOSocket( d->loginServer_->nextPendingConnection() );
+	QTcpSocket* socket = d->loginServer_->nextPendingConnection();
+	cUOSocket *uosocket = new cUOSocket( socket );
 	d->loginSockets.append( uosocket );
 
 	connect( uosocket, SIGNAL(disconnected()), this, SLOT(partingLoginServerConnection()) );
 	// Notify the admin
-	uosocket->log( tr( "Client connected to login server (%1).\n" ).arg( uosocket->socket()->peerAddress().toString() ) );
+	uosocket->log( tr( "Client connected to login server (%1).\n" ).arg( socket->peerAddress().toString() ) );
 }
 
 void cNetwork::partingLoginServerConnection()
