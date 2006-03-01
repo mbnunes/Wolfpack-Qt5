@@ -744,6 +744,9 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo* packet )
 */
 void cUOSocket::disconnect()
 {
+	if ( _state == Disconnected ) // Already disconnected
+		return;
+
 	if ( _account )
 		_account->setInUse( false );
 
