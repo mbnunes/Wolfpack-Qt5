@@ -88,7 +88,13 @@ void cTimer::setExpiretime_ms( float milliseconds )
  */
 void cTimer::saveFloat( unsigned int id, const QString& key, double value )
 {
-	QSqlQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "float" ).arg( value ) );
+	QSqlQuery q;
+	q.prepare( "REPLACE INTO effects_properties VALUES(?,?,?,?)" );
+	q.addBindValue( id );
+	q.addBindValue( key );
+	q.addBindValue( "float" );
+	q.addBindValue( value );
+	q.exec();
 }
 
 /*
@@ -96,7 +102,13 @@ void cTimer::saveFloat( unsigned int id, const QString& key, double value )
  */
 void cTimer::saveInt( unsigned int id, const QString& key, int value )
 {
-	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "int" ).arg( value ) );
+	QSqlQuery q;
+	q.prepare( "REPLACE INTO effects_properties VALUES(?,?,?,?)" );
+	q.addBindValue( id );
+	q.addBindValue( key );
+	q.addBindValue( "int" );
+	q.addBindValue( value );
+	q.exec();
 }
 
 /*
@@ -104,19 +116,37 @@ void cTimer::saveInt( unsigned int id, const QString& key, int value )
  */
 void cTimer::saveString( unsigned int id, const QString& key, const QString& value )
 {
-	QSqlQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "string" ).arg( PersistentBroker::instance()->quoteString( value.toUtf8() ) ) );
+	QSqlQuery q;
+	q.prepare( "REPLACE INTO effects_properties VALUES(?,?,?,?)" );
+	q.addBindValue( id );
+	q.addBindValue( key );
+	q.addBindValue( "string" );
+	q.addBindValue( value );
+	q.exec();
 }
 
 void cTimer::saveChar( unsigned int id, const QString& key, P_CHAR character )
 {
 	unsigned int value = character->serial();
-	QSqlQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "char" ).arg( value ) );
+	QSqlQuery q;
+	q.prepare( "REPLACE INTO effects_properties VALUES(?,?,?,?)" );
+	q.addBindValue( id );
+	q.addBindValue( key );
+	q.addBindValue( "char" );
+	q.addBindValue( value );
+	q.exec();
 }
 
 void cTimer::saveItem( unsigned int id, const QString& key, P_ITEM item )
 {
 	unsigned int value = item->serial();
-	QSqlQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "item" ).arg( value ) );
+	QSqlQuery q;
+	q.prepare( "REPLACE INTO effects_properties VALUES(?,?,?,?)" );
+	q.addBindValue( id );
+	q.addBindValue( key );
+	q.addBindValue( "item" );
+	q.addBindValue( value );
+	q.exec();
 }
 
 bool cTimer::loadChar( unsigned int id, const QString& key, P_CHAR& character )
@@ -125,6 +155,7 @@ bool cTimer::loadChar( unsigned int id, const QString& key, P_CHAR& character )
 	result.prepare( "SELECT value FROM effects_properties WHERE id = ? AND keyname = ? AND type = 'char'" );
 	result.addBindValue( id );
 	result.addBindValue( key );
+	result.exec();
 
 	if ( !result.next() )
 	{
@@ -143,6 +174,7 @@ bool cTimer::loadItem( unsigned int id, const QString& key, P_ITEM& item )
 	result.prepare( "SELECT value FROM effects_properties WHERE id = ? AND keyname = ? AND type = 'item'" );
 	result.addBindValue( id );
 	result.addBindValue( key );
+	result.exec();
 
 	if ( !result.next() )
 	{
@@ -181,6 +213,7 @@ bool cTimer::loadInt( unsigned int id, const QString& key, int& value )
 	result.prepare( "SELECT value FROM effects_properties WHERE id = ? AND keyname = ? AND type = 'int'" );
 	result.addBindValue( id );
 	result.addBindValue( key );
+	result.exec();
 
 	if ( !result.next() )
 	{
@@ -201,6 +234,7 @@ bool cTimer::loadString( unsigned int id, const QString& key, QString& value )
 	result.prepare( "SELECT value FROM effects_properties WHERE id = ? AND keyname = ? AND type = 'string'" );
 	result.addBindValue( id );
 	result.addBindValue( key );
+	result.exec();
 
 	if ( !result.next() )
 	{

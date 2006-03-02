@@ -146,57 +146,6 @@ def checkQt(options):
 	sys.stdout.write("\n")
 	return True
 
-def checkMySQL(options):
-	if sys.platform == "win32":
-		MySQL_LIBSEARCHPATH = [ sys.prefix + "\Libs\mysqlclient*.lib" ]
-		MySQL_INCSEARCHPATH = [ sys.prefix + "\include\mysql.h" ]
-	elif sys.platform in ("linux2", "freebsd4", "freebsd5"):
-		MySQL_LIBSEARCHPATH = [ \
-			"/usr/local/lib/libmysqlclient*.so", \
-			"/usr/local/lib/mysql/libmysqlclient*.so", \
-			"/usr/lib/libmysqlclient*.so", \
-			"/usr/lib/mysql/libmysqlclient*.so" ]
-		MySQL_LIBSTATICSEARCHPATH = [ \
-			"/usr/local/lib/libmysqlclient*.a", \
-			"/usr/local/lib/mysql/libmysqlclient*.a", \
-			"/usr/lib/libmysqlclient*.a", \
-			"/usr/lib/mysql/libmysqlclient*.a" ]
-		MySQL_INCSEARCHPATH = [ \
-			"/usr/local/include/mysql.h", \
-			"/usr/local/include/mysql/mysql.h", \
-			"/usr/include/mysql.h", \
-			"/usr/include/mysql/mysql.h" ]
-	else:
-		sys.stdout.write("ERROR: Unknown platform %s to checkMySQL()\n" % sys.platform )
-		sys.exit(1)
-
-	# if --static
-	if options.staticlink:
-		MySQL_LIBSEARCHPATH = MySQL_LIBSTATICSEARCHPATH
-
-	global mysql_libpath
-	global mysql_libfile
-
-	sys.stdout.write( "  Searching for MySQL library:          " )
-	mysql_libfile, mysql_libpath = findFile( MySQL_LIBSEARCHPATH )
-	if ( mysql_libfile ):
-		sys.stdout.write("%s\n" % os.path.join( mysql_libpath, mysql_libfile ) )
-	else:
-		sys.stdout.write("Not Found!\n")
-		sys.exit(1)
-
-	global mysql_incpath
-	mysql_incfile = None
-	sys.stdout.write( "  Searching for MySQL includes:         " )
-	mysql_incfile, mysql_incpath = findFile( MySQL_INCSEARCHPATH )
-	if ( mysql_incfile ):
-		sys.stdout.write( "%s\n" % mysql_incpath )
-	else:
-		sys.stdout.write("Not Found!\n")
-		sys.exit()
-
-	return True
-
 def checkPython( options, lookForHeaders, lookForLib ):
 	sys.stdout.write("Checking Python Configuration:\n")
 	# Default Blank
@@ -333,7 +282,6 @@ def main():
 	parser.add_option("--static", action="store_true", dest="staticlink", help="Build wokfpack using static libraries")
 	parser.add_option("--enable-debug", action="store_true", dest="enable_debug", help="Enables basic debugging support.")
 	parser.add_option("--enable-aidebug", action="store_true", dest="enable_aidebug", help="Enabled debugging of NPC AI.")
-	parser.add_option("--enable-mysql", action="store_true", dest="enable_mysql", help="Enables MySQL support.")
 	parser.add_option("--enable-translation", action="store_true", dest="enable_translation", help="Enable non-English language support.")
 	parser.add_option("--enable-gui", action="store_true", dest="enable_gui", help="Enables Graphic User Interface" )
 
@@ -368,16 +316,6 @@ def main():
 	# Check Python Settings
 	checkPython( options, pyIncSearch, pyLibSearch )
 
-	sys.stdout.write("Checking MySQL Configuration:           ")
-	if options.enable_mysql:
-		CONFIG += "mysql "
-		DEFINES += "MYSQL_DRIVER "
-		sys.stdout.write(green("Enabled") + "\n")
-		checkMySQL(options)
-		sys.stdout.write("\n")
-	else:
-		sys.stdout.write(yellow("Disabled") + "\n  use --enable-mysql parameter to enable MySQL support\n\n")
-
 	# Create config.pri
 	global py_libpath
 	global py_libfile
@@ -402,11 +340,6 @@ def main():
 	config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
 	config.write("PY_INCDIR = %s\n" % py_incpath )
 
-	# Build MySQL Libs and Includes
-	MySQL_LIBDIR = buildLibLine( mysql_libpath, mysql_libfile )
-	config.write("MySQL_INCDIR = %s\n" % mysql_incpath )
-	config.write("MySQL_LIBDIR = %s\n" % MySQL_LIBDIR )
-	
 	# QT stuff
 	config.write("QTDIR = %s\n" % qt_dir )
 
