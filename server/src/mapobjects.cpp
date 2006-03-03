@@ -31,7 +31,7 @@
 #include "inlines.h"
 #include "uobject.h"
 #include "mapobjects.h"
-#include "../serverconfig.h"
+#include "serverconfig.h"
 
 #include "npc.h"
 #include "world.h"

@@ -28,7 +28,7 @@
 #if !defined(__DBDRIVER_H__)
 #define __DBDRIVER_H__
 
-#include <../python/engine.h>
+#include "python/engine.h"
 
 class QSqlQuery;
 

@@ -41,8 +41,8 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/GR&#x0D;&#x0A;"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\src\sqlite;.;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\Qt3Support&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\mkspecs\win32-msvc.net&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_CLEAN_NAMESPACE;QT_COMPAT_WARNINGS;QT_NO_TRANSLATION;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB"
+				AdditionalIncludeDirectories=".;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\Qt3Support&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtSql&quot;;&quot;$(QTDIR)\mkspecs\win32-msvc.net&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_LARGEFILE_SUPPORT;QT_CLEAN_NAMESPACE;QT_COMPAT_WARNINGS;QT_NO_TRANSLATION;QT_THREAD_SUPPORT;QT_DLL;QT_NO_DEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_XML_LIB;QT_SQL_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmaind.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib"
+				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmaind.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\QtSql4.lib"
 				OutputFile="../release/wolfpackd.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -130,8 +130,8 @@
 				AdditionalOptions="/GR"
 				Optimization="3"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories=".;..\src\sqlite;C:\MySQL\include;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\mkspecs\win32-msvc.net&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;MYSQL_DRIVER"
+				AdditionalIncludeDirectories=".;&quot;$(QTDIR)\include&quot;;&quot;$(QTDIR)\include\QtNetwork&quot;;&quot;$(QTDIR)\include\QtXml&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\QtSql&quot;;&quot;$(QTDIR)\mkspecs\win32-msvc.net&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;QT_SQL_LIB"
 				StringPooling="true"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="0"
@@ -159,117 +159,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmain.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib libmysql.lib"
+				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmain.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\QtSql4.lib"
 				OutputFile="../release/wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="C:\MySQL\lib\opt"
 				IgnoreAllDefaultLibraries="false"
-				GenerateDebugInformation="true"
-				GenerateMapFile="true"
-				MapFileName="$(OUTDIR)\wolfpack.map"
-				MapExports="true"
-				SubSystem="2"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				OptimizeForWindows98="1"
-				SetChecksum="true"
-				SupportUnloadOfDelayLoadedDLL="false"
-				MergeSections=""
-				TargetMachine="1"
-				FixedBaseAddress="2"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Web-Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			CharacterSet="2"
-			WholeProgramOptimization="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-			/>
-			<Tool
-				Name="VCCLCompilerTool"
-				AdditionalOptions="/GR"
-				Optimization="3"
-				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="false"
-				FavorSizeOrSpeed="2"
-				AdditionalIncludeDirectories=".;..\src\sqlite;..\STLPort\stlport;..\msvcrt\include;qt;C:\MySQL\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;CRASHHANDLER;MYSQL_DRIVER"
-				StringPooling="true"
-				MinimalRebuild="true"
-				BasicRuntimeChecks="0"
-				RuntimeLibrary="2"
-				StructMemberAlignment="0"
-				BufferSecurityCheck="false"
-				EnableFunctionLevelLinking="false"
-				EnableEnhancedInstructionSet="0"
-				ForceConformanceInForLoopScope="true"
-				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="0"
-				BrowseInformation="1"
-				WarningLevel="1"
-				Detect64BitPortabilityProblems="false"
-				DebugInformationFormat="3"
-			/>
-			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
-			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt333.lib ws2_32.lib comctl32.lib msvcrt.lib python23.lib wininet.lib imagehlp.lib libmysql.lib"
-				OutputFile="../release/wolfpack.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\msvcrt\lib;C:\MySQL\lib\opt"
-				IgnoreAllDefaultLibraries="true"
 				GenerateDebugInformation="true"
 				GenerateMapFile="true"
 				MapFileName="$(OUTDIR)\wolfpack.map"
@@ -557,14 +451,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Web-Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1088,174 +974,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="SQLite"
-			>
-			<File
-				RelativePath="..\src\sqlite\btree.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\config.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\hash.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\opcodes.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\os.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\pager.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\parse.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_attach.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_auth.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_btree.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_btree_rb.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_build.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_copy.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_date.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_delete.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_expr.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_func.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_hash.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_insert.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_main.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_opcodes.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_os.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_pager.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_parse.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_pragma.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_printf.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_random.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_select.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_table.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_tokenize.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_trigger.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_update.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_util.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_vacuum.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_vdbe.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_vdbeaux.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqlite_where.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\sqliteInt.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\vdbe.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite\vdbeInt.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="Encryption"
 			>
 			<File
@@ -1308,26 +1026,12 @@
 						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Web-Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\bugreport\internal.h"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Web-Release|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"
@@ -1351,14 +1055,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Web-Release|Win32"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -1420,206 +1116,6 @@
 			</File>
 			<File
 				RelativePath="..\src\ai\ai_monsters.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="SQLite3"
-			>
-			<File
-				RelativePath="..\src\sqlite3\alter.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\attach.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\auth.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\btree.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\btree.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\build.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\config.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\date.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\delete.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\expr.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\func.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\hash.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\hash.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\insert.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\keywordhash.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\legacy.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\main.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\opcodes.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\opcodes.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\os.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\os_common.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\os_unix.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\os_unix.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\os_win.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\os_win.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\pager.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\pager.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\parse.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\parse.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\pragma.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\printf.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\random.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\select.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\sqlite3.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\sqliteInt.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\table.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\tokenize.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\trigger.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\update.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\utf.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\util.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\vacuum.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\vdbe.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\vdbe.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\vdbeapi.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\vdbeaux.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\vdbeInt.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\vdbemem.c"
-				>
-			</File>
-			<File
-				RelativePath="..\src\sqlite3\where.c"
 				>
 			</File>
 		</Filter>
