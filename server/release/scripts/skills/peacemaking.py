@@ -82,7 +82,7 @@ def response( char, args, target ):
 	# anyone including npcs can re-target and start fight
 	peace_range = skills.musicianship.bard_range( char )
 	if char == target.char:
-		
+
 		result = char.checkskill( MUSICIANSHIP, 0, 1000 )
 		skills.musicianship.play_instrument( char, instrument, result )
 		# fail to play well
@@ -136,7 +136,7 @@ def response( char, args, target ):
 			elif duration < 10:
 				duration = 10
 			# NPC
-			if creature.npc:			
+			if creature.npc:
 				# stop combat
 				# do not start combat for the duration while not attacked
 				creature.addscript( 'skills.peacemaking' )
@@ -171,13 +171,14 @@ def release( char, args ):
 	if char.hasscript( 'skills.peacemaking' ):
 		char.removescript( 'skills.peacemaking' )
 
-def onCheckVictim( npc, victim, dist ):	
+def onCheckVictim( npc, victim, dist ):
 	npc.war = False
 	npc.attacktarget = None
 	return False
 
 def onDamage( char, type, amount, source ):
 	release( char, [] )
+	return amount
 
 def onLoad():
 	skills.register( PEACEMAKING, peacemaking )
