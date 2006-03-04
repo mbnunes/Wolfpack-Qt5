@@ -62,6 +62,7 @@
 			<tinkering min="700" max="1200" />
 			<logs amount="8" />
 			<ingots amount="3" />
+			<retaincolor />
 		</setinker>
 	</menu>
 
@@ -221,7 +222,6 @@
 		<tinker definition="1004">
 			<tinkering min="350" max="850" />
 			<ingots amount="2" />
-			<nomark />
 		</tinker>
 
 		<!--Springs-->
@@ -256,6 +256,7 @@
 		<setinker definition="bola_ball">
 			<tinkering min="450" max="950" />
 			<ingots amount="10" />
+			<nomark />
 		</setinker>
 	</menu>
 
@@ -265,54 +266,63 @@
 		<tinker definition="13f6">
 			<tinkering min="250" max="750" />
 			<ingots amount="2" />
+			<retaincolor />
 		</tinker>
 
 		<!--Spoon-->
 		<tinker definition="9c2">
 			<tinkering min="0" max="500" />
 			<ingots amount="1" />
+			<retaincolor />
 		</tinker>
 
 		<!--Plate-->
 		<tinker definition="9d7">
 			<tinkering min="0" max="500" />
 			<ingots amount="2" />
+			<retaincolor />
 		</tinker>
 
 		<!--Fork-->
 		<tinker definition="9a3">
 			<tinkering min="0" max="500" />
 			<ingots amount="1" />
+			<retaincolor />
 		</tinker>
 
 		<!--Cleaver-->
 		<tinker definition="ec3">
 			<tinkering min="200" max="700" />
 			<ingots amount="3" />
+			<retaincolor />
 		</tinker>
 
 		<!--Knife-->
 		<tinker definition="9a5">
 			<tinkering min="0" max="500" />
 			<ingots amount="1" />
+			<retaincolor />
 		</tinker>
 
 		<!--Goblet-->
 		<tinker definition="99a">
 			<tinkering min="100" max="600" />
 			<ingots amount="2" />
+			<retaincolor />
 		</tinker>
 
 		<!--Pewter Mug-->
 		<tinker definition="fff">
 			<tinkering min="100" max="600" />
 			<ingots amount="2" />
+			<retaincolor />
 		</tinker>
 
 		<!--Skinning Knife-->
 		<tinker definition="ec4">
 			<tinkering min="250" max="750" />
 			<ingots amount="1" />
+			<retaincolor />
 		</tinker>
 	</menu>
 
@@ -322,6 +332,7 @@
 		<tinker definition="1011">
 			<tinkering min="100" max="600" />
 			<ingots amount="2" />
+			<retaincolor />
 		</tinker>
 
 		<!--Candelabra-->
@@ -342,30 +353,35 @@
 		<tinker definition="1010">
 			<tinkering min="550" max="1050" />
 			<ingots amount="3" />
+			<retaincolor />
 		</tinker>
 
 		<!--Globe-->
 		<tinker definition="1047">
 			<tinkering min="550" max="1050" />
 			<ingots amount="4" />
+			<retaincolor />
 		</tinker>
 
 		<!--Spyglass-->
 		<tinker definition="14f5">
 			<tinkering min="600" max="1100" />
 			<ingots amount="4" />
+			<retaincolor />
 		</tinker>
 
 		<!--Lantern-->
 		<tinker definition="a25">
 			<tinkering min="300" max="800" />
 			<ingots amount="2" />
+			<retaincolor />
 		</tinker>
 
 		<!--Heating Stand-->
 		<tinker definition="1849">
 			<tinkering min="600" max="1100" />
 			<ingots amount="4" />
+			<retaincolor />
 		</tinker>
 
 		<!--Shoji Lantern-->
