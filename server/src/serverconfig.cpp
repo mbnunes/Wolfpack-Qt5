@@ -449,6 +449,13 @@ QString cConfig::getGroupDoc( const QString& group )
 	{"AI", QT_TR_NOOP( "This group configures the NPC AI." )},
 	{"Accounts", QT_TR_NOOP( "This group configures the account management." )},
 	{"Database", QT_TR_NOOP( "This group configures access to the worldsave database." )},
+	{"Binary Save Driver", QT_TR_NOOP("This group configures binary save driver options. You can skip these if you are not using \"binary\" as worldsave driver")},
+	{"Combat", QT_TR_NOOP("Combat tweaking options")},
+	{"Game Speed", QT_TR_NOOP("Game speed and timming settings. Change with caution, misconfiguration may cause lag or cpu hog")},
+	{"General", QT_TR_NOOP("General settings")},
+	{"LoginServer", QT_TR_NOOP("Configures the list of servers shown during the login process.")},
+	{"Network", QT_TR_NOOP("Network settings.")},
+	{"Path Finding", QT_TR_NOOP("AI Path finding algorithm tweaks. Change with caution.")},
 	{0, 0}
 	};
 
@@ -480,7 +487,8 @@ QString cConfig::getEntryDoc( const QString& group, const QString& entry )
 	{
 	{"Accounts", "Auto Create", QT_TR_NOOP( "If active login attempts with non-existing login names will create a new account automatically\n"
 	"This is very usefull for new shards without account policy" )},
-	{"Accounts", "Database Driver", QT_TR_NOOP( "Possible values are: sqlite, mysql" )},
+	{"Accounts", "Database Driver", QT_TR_NOOP( "Possible values are: sqlite, mysql, oci for oracle, odbc, psql for PostgreSQL, tds for Sybase Adaptative Server, db2 for IBM DB2 (v7.1 or higher), sqlite2 for Sqlite version 2.x and ibase for Borland Interbase\n"
+	                                            "Avaliable drivers depends on your Qt Instalation thought" )},
 	{"Accounts", "Maximum Number of Characters", QT_TR_NOOP( "Should not be more than 6, due to client restrictions" )},
 	{"Accounts", "Use MD5 Hashed Passwords", QT_TR_NOOP( "This will store hashed passwords, increasing password security." )},
 	{"Accounts", "Automatically Hash Loaded Passwords", QT_TR_NOOP( "If active, will convert older plain text passwords into MD5 hash" )},
