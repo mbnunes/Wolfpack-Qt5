@@ -2464,6 +2464,10 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 			Py_DECREF( result );
 		}
+		else
+		{
+				amount = 0;
+		}
 
 		Py_DECREF( args );
 	}
