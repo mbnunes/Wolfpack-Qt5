@@ -197,7 +197,7 @@ void cPlayer::save()
 	static QSqlQuery preparedInsert;
 	if ( !init )
 	{
-		preparedUpdate.prepare("update players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) where serial = ?");
+		preparedUpdate.prepare("update players set serial = ?, account = ?, additionalflags = ?, visualrange = ?, profile = ?, fixedlight = ?, strlock = ?, dexlock = ?, intlock = ?, maxcontrolslots = ? where serial = ?");
 		preparedInsert.prepare("insert into players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		init = true;
 	}

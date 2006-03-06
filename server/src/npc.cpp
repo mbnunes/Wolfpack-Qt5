@@ -232,7 +232,7 @@ void cNPC::save()
 	static QSqlQuery preparedInsert;
 	if ( !init )
 	{
-		preparedUpdate.prepare("update npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) where serial = ?");
+		preparedUpdate.prepare("update npcs set serial = ?, summontime = ?, additionalflags = ?, owner = ?, stablemaster = ?, ai = ?, wandertype = ?, wanderx1 = ?, wanderx2 = ?, wandery1 = ?, wandery2 = ?, wanderradius = ? where serial = ?");
 		preparedInsert.prepare("insert into npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		init = true;
 	}

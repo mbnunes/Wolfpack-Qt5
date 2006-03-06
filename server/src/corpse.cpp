@@ -154,7 +154,7 @@ void cCorpse::save()
 	static QSqlQuery preparedInsert;
 	if ( !init )
 	{
-		preparedUpdate.prepare("update corpses values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ) where serial = ?");
+		preparedUpdate.prepare("update corpses set serial = ?, bodyid = ?, hairstyle = ?, haircolor = ?, beardstyle = ?, beardcolor = ?, direction = ?, charbaseid = ?, murderer = ?, murdertime = ? where serial = ?");
 		preparedInsert.prepare("insert into corpses values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		init = true;
 	}
