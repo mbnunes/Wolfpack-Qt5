@@ -159,6 +159,7 @@
 	<script>commands.invul</script>
 	<script>commands.kickban</script>
 	<script>commands.kill</script>
+	<script>commands.makestatic</script>
 	<script>commands.move</script>
 	<script>commands.mute</script>
 	<script>commands.jail</script>

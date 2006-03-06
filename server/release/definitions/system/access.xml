@@ -105,6 +105,7 @@
 			<action name="INVIS" permit="true" />
 			<action name="INVUL" permit="true" />
 			<action name="JAIL" permit="true" />
+			<action name="MAKESTATIC" permit="true" />
 			<action name="MOVE" permit="true" />
 			<action name="MUTE" permit="true" />
 			<action name="NIGHTSIGHT" permit="true" />
