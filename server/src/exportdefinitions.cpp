@@ -83,7 +83,8 @@ void cDefinitionExporter::generate(const QString &filename) {
 		reportError(tr("Unable to remove existing database %1.").arg(filename));
 		return;
 	}
-	QSqlDatabase driver = QSqlDatabase::addDatabase( "QSQLITE", "definitionExporter" );
+	
+	driver = QSqlDatabase::addDatabase( "QSQLITE", "definitionExporter" );
 	driver.setDatabaseName(filename);
 
 	if (!driver.open()) {
