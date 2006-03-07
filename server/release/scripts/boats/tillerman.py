@@ -183,6 +183,39 @@ def RaiseAnchor( boat, tillerman, message ):
 
     return True
 
+def SetFacing( boat, direction ):
+    # Check for collisions!
+
+    old = int( boat.gettag('boat_facing') )
+    boat.settag( 'boat_facing', direction )
+    rx, ry = MovementOffset( direction )
+    # Not finished!
+    return False
+    
+
+def doBoatTurn( boat, args ):
+    offset = args[0]
+    message = args[1]
+
+    if boat.hastag( 'boat_anchored' ):
+        return False
+    if SetFacing( boat, ( offset + int( boat.gettag('boat_facing') ) & 0x07 ) ):
+        return True
+    else:
+        if message:
+            boat.say( 501423 ) # Ar, can't turn sir.
+        return False
+    
+
+def StartTurn( boat, tillerman, offset, message ):
+    if boat.hastag( 'boat_anchored' ):
+        if message and tillerman != None:
+            tillerman.say( 501419 ) # Ar, the anchor is down sir!
+        return False
+    boat.settag( 'boat_turning', 1 )
+    boat.addtimer( 500, doBoatTurn, [offset, message] )
+    
+
 def onSpeech( obj, player, text, keywords ):
 
     if player.multi == None:
