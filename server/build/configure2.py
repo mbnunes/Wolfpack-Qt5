@@ -3,7 +3,7 @@
 #   )      (\_     # Wolfpack 13.0.0 Build Script               #
 #  ((    _/{  "-;  # Created by: Wolfpack Development Team      #
 #   )).-" {{ ;"`   # Revised by: Wolfpack Development Team      #
-#  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
+#  ( (  ;._ \\ ctr # Last Modification: check svn logs          #
 #################################################################
 #                                                               #
 #################################################################
@@ -25,6 +25,7 @@ import glob
 import fnmatch
 import dircache
 import string
+import re
 import distutils.sysconfig
 
 # Older Python lib work arounds...
@@ -63,7 +64,17 @@ def yellow( text ):
 	return colorcodes["yellow"] + text + colorcodes["reset"]
 
 class AbstractExternalLibrary:
-
+    
+    def __init__( self, output = sys.stdout ):
+        self.output = output
+        self.includePath = ""
+        self.librarySearchPath = ""
+        self.toolPath = ""
+        self.libs = []
+    
+    def out( self, message ):
+        self.output.write( message )
+    
     def findFile( self, searchpath ):
         """Locates a file specified in the searchpath structure, returning a tuple
         containing filename, path, non-searched entries in the searchpath.
@@ -82,10 +93,238 @@ class AbstractExternalLibrary:
 	return ( None, None, None )
 
     def check( self, options ): pass
-    def includePath( self ): pass
-    def librarySearchPath( self ): pass
-    def toolPath( self ): pass
+    def includePath( self ):
+        return self.includePath
+
+    def librarySearchPath( self ): 
+        return self.librarySearchPath
+
+    def toolPath( self ): 
+        return self.toolPath
     
+    def libraryFiles( self ):
+        return self.libs
+    
+
+class PythonLibrary( AbstractExternalLibrary ):
+    
+    def __init__( self, minversion ):
+        AbstractExternalLibrary.__init__( self )
+        self.minversion = minversion
+        self.defineRe = re.compile("^#[ \t]*define[ \t]*")
+    
+    def check( self, options ):
+        self.out( "Checking Python Configuration:\n" )
+
+	self.out( "  Checking CPU byte order:              %s\n" % sys.byteorder )
+	if sys.byteorder != 'little':
+		self.out(yellow("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work!\n" )
+
+	self.out( "  Checking Python version:              " )
+	if sys.hexversion >= self.minversion:
+		self.out(green("Pass\n"))
+	else:
+		self.out( red("Fail") + "\n" )
+		self.out( bold("  Wolfpack requires Python version >= 2.3.0\n") )
+		sys.exit(1);
+
+        # Default Blank
+        PYTHONLIBSEARCHPATH = []
+        PYTHONLIBSTATICSEARCHPATH = []
+        PYTHONINCSEARCHPATH = []
+        # Attept to find the system's configuration
+        PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + "Python.h" ]
+
+	if distutils.sysconfig.get_config_vars().has_key("DESTSHARED"):
+		PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] + os.path.sep + "libpython*" ]
+
+	# Windows Search Paths
+	if sys.platform == "win32":
+		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs\python*.lib" ]
+		PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
+	# Linux and BSD Search Paths
+	elif sys.platform in ("linux2", "freebsd4", "freebsd5"):
+		PYTHONLIBSEARCHPATH += [ \
+			# Python 2.4 - Look for this first
+			"/usr/local/lib/libpython2.4*.so", \
+			"/usr/local/lib/[Pp]ython*/libpython2.4*.so", \
+			"/usr/local/lib/[Pp]ython*/config/libpython2.4*.so", \
+			"/usr/lib/libpython2.4*.so", \
+			"/usr/lib/[Pp]ython*/libpython2.4*.so", \
+			"/usr/lib/[Pp]ython*/config/libpython2.4*.so", \
+			# Python 2.3
+			"/usr/local/lib/libpython2.3*.so", \
+			"/usr/local/lib/[Pp]ython*/libpython2.3*.so", \
+			"/usr/local/lib/[Pp]ython*/config/libpython2.3*.so", \
+			"/usr/lib/libpython2.3*.so", \
+			"/usr/lib/[Pp]ython*/libpython2.3*.so", \
+			"/usr/lib/[Pp]ython*/config/libpython2.3*.so" ]
+		PYTHONLIBSTATICSEARCHPATH += [ \
+			# Python 2.4
+			"/usr/local/lib/libpython2.4*.a", \
+			"/usr/local/lib/[Pp]ython2.4*/libpython2.4*.a", \
+			"/usr/local/lib/[Pp]ython2.4*/config/libpython2.4*.a", \
+			"/usr/lib/libpython2.4*.a", \
+			"/usr/lib/[Pp]ython2.4*/libpython2.4*.a", \
+			"/usr/lib/[Pp]ython2.4*/config/libpython2.4*.a", \
+			# Python 2.3
+			"/usr/local/lib/libpython2.3]*.a", \
+			"/usr/local/lib/[Pp]ython2.3]*/libpython2.3*.a", \
+			"/usr/local/lib/[Pp]ython2.3]*/config/libpython2.3*.a", \
+			"/usr/lib/libpython2.3*.a", \
+			"/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
+			"/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a" ]
+		PYTHONINCSEARCHPATH += [ \
+			"/usr/local/include/Python.h", \
+			"/usr/include/Python.h", \
+			# Python 2.4
+			"/usr/local/include/[Pp]ython2.4*/Python.h", \
+			"/usr/include/[Pp]ython2.4*/Python.h" \
+			# Python 2.3
+			"/usr/local/include/[Pp]ython2.3*/Python.h", \
+			"/usr/include/[Pp]ython2.3*/Python.h" ]
+	# MacOSX Search Paths
+	elif sys.platform == "darwin":
+		PYTHONINCSEARCHPATH += [ \
+			"/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h" ]
+		PYTHONLIBSEARCHPATH += [ ]
+		PYTHONLIBSTATICSEARCHPATH += [ \
+			"/usr/local/lib/[Pp]ython*/config/libpython*.a", \
+			"/System/Library/Frameworks/Python.framework/Versions/Current/Python", \
+			"/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/libpython*.a" ]
+	# Undefined OS
+	else:
+		self.out(red("ERROR")+": Unknown platform %s to checkPython()\n" % sys.platform )
+		sys.exit(1)
+
+	# if --static
+	if options.staticlink:
+		PYTHONLIBSEARCHPATH = None
+		PYTHONLIBSEARCHPATH = PYTHONLIBSTATICSEARCHPATH
+
+	# if it was overiden...
+	if options.py_incpath:
+		PYTHONINCSEARCHPATH = None
+		PYTHONINCSEARCHPATH = [ options.py_incpath ]
+	if options.py_libpath:
+		PYTHONLIBSEARCHPATH = None
+		PYTHONLIBSEARCHPATH = [ options.py_libpath ]
+
+        # Search for python
+        self.out( "  Searching for Python includes:        " )
+        filename, path, searchpath = self.findFile( PYTHONINCSEARCHPATH )
+        if filename:
+            self.out( "%s\n" % path )
+            self.includePath = path
+        else:
+            self.out(red("Not Found!") + "\n")
+
+        if sys.platform != "darwin":
+            self.out( "  Searching for Python library:         " )
+            filename, path, searchpath = self.findFile( PYTHONLIBSEARCHPATH )
+            if ( filename ):
+                self.out( "%s\n" % os.path.join( filename, path ) )
+                self.librarySearchPath = path
+                self.libs = [ filename ]
+            else:
+                self.out(red("Not Found!") + "\n")
+                sys.exit(1)
+        self.out( "\n" )
+        return True
+    
+
+            
+
+
+class QtLibrary( AbstractExternalLibrary ):
+    def __init__( self, minversion ):
+        AbstractExternalLibrary.__init__( self )
+        self.minversion = minversion
+        self.defineRe = re.compile("^#[ \t]*define[ \t]*")
+        if sys.platform == "win32":
+            self.qmakeExecutable = "qmake.exe"
+	else:
+            self.qmakeExecutable = "qmake"
+        
+    def check( self, options ):
+       	self.out("Checking QT Configuration:\n")
+        
+	qt_dir = ""
+        self.out( "  Checking QT installation:             " )
+	if not options.qt_dir:
+		if ( os.environ.has_key("QTDIR") and os.path.exists( os.environ["QTDIR"] ) ):
+			qt_dir = os.environ["QTDIR"]
+			self.out( green("Pass\n") )
+			self.out( "  Found value for QTDIR:                %s\n" % qt_dir )
+		else:
+			self.out( red("Fail") + "\n" )
+			self.out( "  You must properly setup the QTDIR environment variable or use --qt-directory parameter!\n" )
+			sys.exit( 1 );
+	else:
+		qt_dir = options.qt_dir
+		self.out( "  Manually specified value:             %s\n" % qt_dir )
+                if os.path.exists( qt_dir ):
+                    self.out( green("Pass\n") )
+                else:
+                    self.out( red("Fail") + "\n" )
+                    self.out( "Specified folder %s doesn't exist\n" % qt_dir )
+                    sys.exit( 1 )
+		
+	self.out( "  Searching for qmake executable:       " )
+	temp = ""
+
+	QMAKESEARCHPATH = [ os.path.join(os.path.join(qt_dir, "bin"), self.qmakeExecutable) ]
+	for dir in string.split( os.environ["PATH"], os.path.pathsep ):
+		QMAKESEARCHPATH.append( os.path.join( dir, self.qmakeExecutable ) )
+
+	qmake_file, qmake_path, searchpath = self.findFile(QMAKESEARCHPATH)
+	qt_qmake = os.path.join(qmake_path, qmake_file)
+        self.toolPath = qmake_path
+	self.out( "%s\n" % qt_qmake )
+	self.out("\n")
+	return True
+
+    
+
+def main():
+    """ Entry Point """
+
+    parser = OptionParser(version="%prog 0.5")
+    parser.add_option("--dsp", action="store_true", dest="dsp", help="also Generate Visual Studio project files")
+    parser.add_option("--nocolor", action="store_true", dest="nocolor", help="disable color output support on this script")
+    parser.add_option("--python-includes",  dest="py_incpath", help="Python include path")
+    parser.add_option("--python-libraries", dest="py_libpath", help="Python library path")
+    parser.add_option("--qt-directory", dest="qt_dir", help="Base directory of Qt")
+    parser.add_option("--static", action="store_true", dest="staticlink", help="Build wokfpack using static libraries")
+    parser.add_option("--enable-debug", action="store_true", dest="enable_debug", help="Enables basic debugging support.")
+    parser.add_option("--enable-aidebug", action="store_true", dest="enable_aidebug", help="Enabled debugging of NPC AI.")
+    parser.add_option("--enable-translation", action="store_true", dest="enable_translation", help="Enable non-English language support.")
+    parser.add_option("--enable-gui", action="store_true", dest="enable_gui", help="Enables Graphic User Interface" )
+    parser.add_option("--dry-run", action="store_true", dest="dry_run", help="Run checks without changing config.pri" )
+    
+    if sys.platform == "win32":
+            parser.set_defaults(enable_gui=True)
+    else:
+            parser.set_defaults(enable_gui=False)
+    
+    # Now let's parse the options
+    (options, args) = parser.parse_args()
+
+    if options.nocolor or sys.platform == "win32":
+            nocolor()
+    
+    checkQt = QtLibrary( 0x040001 )
+    checkQt.check( options )
+    
+    checkPython = PythonLibrary( 0x020200F0 )
+    checkPython.check( options )
+
+    if options.dry_run or True:
+        sys.exit( 0 )
+    
+    config = file( "config.pri", "wt" )
+    config.write("# WARNING: This file was automatically generated by configure.py\n")
+    config.write("#          any changes to this file will be lost!\n\n")
 
 
 if __name__ == "__main__":
