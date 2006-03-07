@@ -81,6 +81,26 @@ def onUse(player, item):
 	player.socket.attachmultitarget("boats.deed.placement", dispid - 0x4000, [item.serial, dispid, xoffset, yoffset, zoffset], xoffset, yoffset, zoffset)
 	return True
 
+def createBoatSpecialItem( definition, parentTag, boat ):
+    offsets = parentTag.findchild( 'offsets' )
+    xoffset = int( offsets.getattribute( 'x', '0' ) )
+    yoffset = int( offsets.getattribute( 'y', '0' ) )
+    item = wolfpack.additem( definition )
+    itempos = wolfpack.coord( boat.pos.x + xoffset, boat.pos.y + yoffset, boat.pos.z, boat.pos.map )
+    item.moveto( itempos )
+    item.update()
+    item.settag( 'boat_serial', boat.serial )
+    if not boat.hastag( 'boat_part_count' ):
+        boat.settag( 'boat_part_count', 1 )
+        boat.settag( 'boat_part1', item.serial )
+    else:
+        i = int( boat.gettag('boat_part_count') )
+        i = i + 1
+        boat.settag( 'boat_part_count', i )
+        boat.settag( 'boat_part%i' % i, item.serial )
+
+    return item
+
 #
 # Create boat and items
 #
@@ -91,6 +111,7 @@ def createBoat( player, deed, pos ):
 
 	boat.owner = player
 	boat.settag( 'boat_anchored', 1 )
+	boat.settag( 'boat_facing', 0 ) # boat is facing north
 	boat.moveto(pos)
 	boat.update()
 	boats.registerBoat(boat)
@@ -103,45 +124,16 @@ def createBoat( player, deed, pos ):
 		if subnode.name == 'special_items': # Found section
                         subsubnode = subnode.findchild('tillerman')
                         if subsubnode != None:
-                                offsets = subsubnode.findchild('offsets')
-                                xoffsets = int( offsets.getattribute( 'x', '0' ) )
-                                yoffsets = int( offsets.getattribute( 'y', '0' ) )
-                                player.socket.sysmessage('xoffsets = %i, yoffsets = %i' % (xoffsets, yoffsets) )
-                                tillerman = wolfpack.additem('3e4e')
-                                itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
-                                tillerman.moveto( itempos )
-                                tillerman.update()
-                                tillerman.settag('boat_serial', boat.serial)
+                                tillerman = createBoatSpecialItem( '3e4e', subsubnode, boat )
                         subsubnode = subnode.findchild('hold')
                         if subsubnode != None:
-                                offsets = subsubnode.findchild('offsets')
-                                xoffsets = int( offsets.getattribute( 'x', '0' ) )
-                                yoffsets = int( offsets.getattribute( 'y', '0' ) )
-                                hold = wolfpack.additem('3eae')
-                                itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
-                                hold.moveto( itempos )
-                                hold.update()
+                                hold = createBoatSpecialItem( '3eae', subsubnode, boat )
                         subsubnode = subnode.findchild('planks')
                         if subsubnode != None:
                                 portclosed = subsubnode.findchild('port_closed')
-                                offsets = portclosed.findchild('offsets')
-                                xoffsets = int( offsets.getattribute( 'x', '0' ) )
-                                yoffsets = int( offsets.getattribute( 'y', '0' ) )
-                                pplank = wolfpack.additem('3eb1')
-                                itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
-                                pplank.moveto( itempos )
-                                pplank.update()
-                                pplank.settag( 'boat_serial', boat.serial )
+                                pplank = createBoatSpecialItem( '3eb1', portclosed, boat )
                                 starclosed = subsubnode.findchild('star_closed')
-                                offsets = starclosed.findchild('offsets')
-                                xoffsets = int( offsets.getattribute( 'x', '0' ) )
-                                yoffsets = int( offsets.getattribute( 'y', '0' ) )
-                                splank = wolfpack.additem('3eb2')
-                                itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
-                                splank.moveto( itempos )
-                                splank.update()
-                                splank.settag( 'boat_serial', boat.serial )
-                                
+                                splank = createBoatSpecialItem( '3eb2', starclosed, boat )
                                 
 #
 # Target

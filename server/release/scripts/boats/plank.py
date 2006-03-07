@@ -49,20 +49,17 @@ def closePlank( item ):
 
 def onUse( player, item ):
 
-    item.say('checking distance')
     if ( player.distanceto( item ) > 8 ):
         return False
 
     boat_serial = item.gettag( 'boat_serial' )
 
-    item.say('Is player inside the boat?')
-    if ( player.multi == boat_serial ):
+    if ( player.multi != None and player.multi.serial == boat_serial ):
         if ( item.hastag('plank_open') ):
             closePlank( item )
         else:
             openPlank( item )
     else:
-        item.say('Not inside boat')
         if not item.hastag('plank_open'):
             if not item.hastag('plank_locked'):
                 openPlank( item )
