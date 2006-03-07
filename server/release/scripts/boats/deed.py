@@ -1,3 +1,11 @@
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts		        #
+#  ((    _/{  "-;  | Created by: Correa			        #
+#   )).-' {{ ;'`   | Revised by: see svn logs			#
+#  ( (  ;._ \\ ctr | Last Modification: see svn logs	        #
+#===============================================================#
+# Boat deeds    					        #
+#===============================================================#
 
 from wolfpack import tr, console
 import wolfpack
@@ -82,6 +90,7 @@ def createBoat( player, deed, pos ):
                 player.socket.sysmessage(tr('This deed is broken. Failed to create boat'))
 
 	boat.owner = player
+	boat.settag( 'boat_anchored', 1 )
 	boat.moveto(pos)
 	boat.update()
 	boats.registerBoat(boat)
@@ -102,6 +111,7 @@ def createBoat( player, deed, pos ):
                                 itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
                                 tillerman.moveto( itempos )
                                 tillerman.update()
+                                tillerman.settag('boat_serial', boat.serial)
                         subsubnode = subnode.findchild('hold')
                         if subsubnode != None:
                                 offsets = subsubnode.findchild('offsets')
@@ -111,6 +121,28 @@ def createBoat( player, deed, pos ):
                                 itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
                                 hold.moveto( itempos )
                                 hold.update()
+                        subsubnode = subnode.findchild('planks')
+                        if subsubnode != None:
+                                portclosed = subsubnode.findchild('port_closed')
+                                offsets = portclosed.findchild('offsets')
+                                xoffsets = int( offsets.getattribute( 'x', '0' ) )
+                                yoffsets = int( offsets.getattribute( 'y', '0' ) )
+                                pplank = wolfpack.additem('3eb1')
+                                itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
+                                pplank.moveto( itempos )
+                                pplank.update()
+                                pplank.settag( 'boat_serial', boat.serial )
+                                starclosed = subsubnode.findchild('star_closed')
+                                offsets = starclosed.findchild('offsets')
+                                xoffsets = int( offsets.getattribute( 'x', '0' ) )
+                                yoffsets = int( offsets.getattribute( 'y', '0' ) )
+                                splank = wolfpack.additem('3eb2')
+                                itempos = wolfpack.coord( pos.x + xoffsets, pos.y + yoffsets, pos.z, pos.map )
+                                splank.moveto( itempos )
+                                splank.update()
+                                splank.settag( 'boat_serial', boat.serial )
+                                
+                                
 #
 # Target
 #

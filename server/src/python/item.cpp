@@ -605,7 +605,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 /*
 	\method item.addtimer
 	\description Set a delayed timer for a script function to execute.
-	\param expiretime The INT value of the time.
+	\param expiretime Timer interval, in milliseconds.
 	\param expirecallback The function that should be called
 	when the effect expires. The prototype for this function is:
 	<code>def expire_callback(item, args):
@@ -619,7 +619,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	\param serializable Defaults to false.
 		If this is true, the effect will be saved to the worldfile. Otherwise the effect will be lost when the server is
 		shutdown or crashes.
-	\return Returns true or false if the tag exists.
+	\return Returns None.
 */
 static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 {

@@ -17,6 +17,8 @@
 	<!-- Boats -->
 	<script>boats</script>
 	<script>boats.deed</script>
+  <script>boats.tillerman</script>
+  <script>boats.plank</script>
 
 	<!-- Housing -->
 	<script>housing</script>

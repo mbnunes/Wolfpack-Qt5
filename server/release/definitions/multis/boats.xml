@@ -184,20 +184,14 @@
 				<offsets x="1" y="5" />
 			</tillerman>
 			<hold>
-				<offsets x="3" y="-7" />
+				<offsets x="5" y="5" />
 			</hold>
 			<planks>
 				<port_closed>
-					<offsets>
-						<x north="-2" east="1" south="2" west="-1" />
-						<y north="-1" east="-2" south="1" west="2" />
-					</offsets>
+					<offsets x="-2" y="-1" />
 				</port_closed>
 				<star_closed>
-					<offsets>
-						<x north="2" east="1" south="-2" west="-1" />
-						<y north="-1" east="2" south="1" west="-2" />
-					</offsets>
+					<offsets x="2" y="-1" />
 				</star_closed>
 			</planks>
 		</special_items>

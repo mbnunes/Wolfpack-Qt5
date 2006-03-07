@@ -588,12 +588,14 @@
 
 	<item id="3eb1">
 		<id>0x3eb1</id>
-		<category>Boat Parts\Ship\Ship 38</category>
+    <basescript>boats.plank</basescript>
+		<category>Boat Parts\Ship\Closed Port Gang Plank</category>
 	</item>
 
 	<item id="3eb2">
 		<id>0x3eb2</id>
-		<category>Boat Parts\Ship\Ship 39</category>
+    <basescript>boats.plank</basescript>
+    <category>Boat Parts\Ship\Closed Starboard Gang Plank</category>
 	</item>
 
 	<item id="3eb5">
@@ -802,6 +804,7 @@
 
 	<item id="3e4e">
 		<id>0x3e4e</id>
+    <basescripts>boats.tillerman</basescripts>
 		<category>Boat Parts\Tiller Man\Tiller Man 5</category>
 	</item>
 
