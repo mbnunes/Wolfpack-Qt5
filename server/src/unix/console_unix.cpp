@@ -31,11 +31,16 @@
 #include "../server.h"
 
 // System Includes
-#include <sys/time.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <termios.h>
 #include <signal.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <sys/time.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+
 
 // Qt Includes
 #include <QThread>
@@ -112,7 +117,7 @@ protected:
 			signal( SIGTERM, &signal_handler ); // Terminate Server
 			signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
 
-			if ( !Getopts::instance()->isDaemon() )
+			if ( !CommandLineOptions::instance()->value("isDaemon").toBool() )
 			{
 				while ( Server::instance()->getState() < SHUTDOWN )
 				{
@@ -153,8 +158,70 @@ protected:
 
 cConsoleThread* thread = 0;
 
+void daemonize()
+{
+	int pid, fd;
+
+	pid = fork();
+
+	switch ( pid )
+	{
+	case 0:
+		// child
+		setsid();
+		for ( fd = getdtablesize(); fd >= 0; --fd )
+			close( fd );
+
+		if ( ( fd = open( "/dev/null", O_RDWR ) ) != -1 )
+		{
+			dup2( fd, 0 );
+			dup2( fd, 1 );
+		}
+		signal(SIGTSTP, SIG_IGN); // Ignore tty signals
+		signal(SIGTTOU, SIG_IGN);
+		signal(SIGTTIN, SIG_IGN);
+
+		break;
+
+	case -1:
+		perror( "fork error" );
+		break;
+
+	default:
+		// we forked, so silently exit the parent
+		exit( 0 );
+	}
+}
+
+void pidfile_add( QString pidfile )
+{
+	FILE* pf;
+
+	if ( ( pf = fopen( qPrintable(pidfile), "w+" ) ) != NULL )
+	{
+		fprintf( pf, "%i", getpid() );
+		fclose( pf );
+	}
+	else
+	{
+		perror( "fopen" );
+	}
+}
+
+void pidfile_del( QString pidfile )
+{
+	if ( unlink( qPrintable( pidfile ) ) == -1 )
+		perror( "unlink" );
+}
+
 void cConsole::start()
 {
+	if ( CommandLineOptions::instance()->value("isDaemon").toBool() )
+		daemonize();
+
+	if ( CommandLineOptions::instance()->value("pidFile").isValid() )
+		pidfile_add( CommandLineOptions::instance()->value("pidFile").toString() );
+
 	thread = new cConsoleThread;
 	thread->start();
 }
@@ -178,6 +245,8 @@ void cConsole::stop()
 {
 	thread->wait();
 	delete thread;
+	if ( CommandLineOptions::instance()->value("pidFile").isValid() )
+		pidfile_del( CommandLineOptions::instance()->value("pidFile").toString() );
 }
 
 
@@ -285,7 +354,6 @@ void cConsole::notifyServerState( enServerState newstate )
 int main( int argc, char** argv )
 {
 	QCoreApplication app( argc, argv );
-	Getopts::instance()->parse_options( argc, argv );
 	QObject::connect( Server::instance(), SIGNAL(finished()), &app, SLOT(quit()) );
 	Server::instance()->start();
 	return app.exec();

@@ -44,6 +44,8 @@ public:
 	const QString& file();
 	const QString& format();
 	const QString& version();
+
+	void setFileName( const QString& );
 	// did file open successfully?
 	bool fileState();
 	// is this a proper preferences file for format?

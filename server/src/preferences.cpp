@@ -380,6 +380,11 @@ const QString& Preferences::file()
 	return d->file_;
 };
 
+void Preferences::setFileName( const QString& fileName )
+{
+	d->file_ = fileName;
+}
+
 const QString& Preferences::format()
 {
 	return d->format_;

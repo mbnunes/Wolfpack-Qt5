@@ -36,7 +36,7 @@
 #include "basics.h"
 #include "commands.h"
 #include "console.h"
-#include "getopts.h"
+#include "optionparser.h"
 #include "contextmenu.h"
 #include "corpse.h"
 #include "inlines.h"
@@ -71,6 +71,7 @@
 #include <QTextCodec>
 #include <QLocale>
 #include <QTranslator>
+#include <QDir>
 
 #if defined(MYSQL_DRIVER)
 # if defined(Q_OS_WIN32)
@@ -281,6 +282,16 @@ void cServer::run()
 	bool error = false;
 	QEventLoop eventLoop;
 
+	CommandLineOptions::instance()->addOption("-c", "configFile", "Alternative config file to use. Default=wolfpack.xml", true);
+	CommandLineOptions::instance()->addOption("-d", "isDaemon", OptionParser::Posix, "Run as a daemon.");
+	CommandLineOptions::instance()->addOption("-p", "pidFile", OptionParser::Posix, "Specify a pid file to use", true);
+	CommandLineOptions::instance()->addOption("-a", "cdTo", "Specify the working directory to run", true );
+
+	CommandLineOptions::instance()->parse();
+
+	if ( CommandLineOptions::instance()->value("cdTo").isValid() )
+		QDir::setCurrent( CommandLineOptions::instance()->value("cdTo").toString() );
+
 	// Register Components
 	registerComponent( Config::instance(), QT_TR_NOOP( "configuration" ), true, false );
 
@@ -314,6 +325,13 @@ void cServer::run()
 #endif
 
 	// Load wolfpack.xml
+#if defined( WP_USE_ALTERNATIVE_CONFIG_FILE )
+	Config::instance()->setFileName( WP_USE_ALTERNATIVE_CONFIG_FILE );
+#endif
+
+	if ( CommandLineOptions::instance()->value("configFile").isValid() )
+		Config::instance()->setFileName( CommandLineOptions::instance()->value("configFile").toString() );
+
 	Config::instance()->load();
 
 #if !defined( QT_NO_TRANSLATION )

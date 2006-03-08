@@ -95,7 +95,6 @@ HEADERS += \
 	../src/exceptions.h \
 	../src/exportdefinitions.h \
 	../src/factory.h \
-	../src/getopts.h \
 	../src/guilds.h \
 	../src/gumps.h \
 	../src/inlines.h \
@@ -105,6 +104,7 @@ HEADERS += \
 	../src/md5.h \
 	../src/multi.h \
 	../src/npc.h \
+	../src/optionparser.h \
 	../src/party.h \
 	../src/pathfinding.h \
 	../src/persistentbroker.h \
@@ -154,7 +154,6 @@ SOURCES += \
 	../src/definitions.cpp \
 	../src/dragdrop.cpp \
 	../src/exportdefinitions.cpp \
-	../src/getopts.cpp \
 	../src/guilds.cpp \
 	../src/gumps.cpp \
 	../src/items.cpp \
@@ -163,6 +162,7 @@ SOURCES += \
 	../src/md5.cpp \
 	../src/multi.cpp \
 	../src/npc.cpp \
+	../src/optionparser.cpp \
 	../src/party.cpp \
 	../src/pathfinding.cpp \
 	../src/persistentbroker.cpp \
@@ -199,12 +199,10 @@ TRANSLATIONS = \
 	languages/wolfpack_ge.ts
 
 unix:SOURCES  += \
-	../src/unix/config_unix.cpp \
-	../src/unix/getopts_unix.cpp
+	../src/unix/config_unix.cpp
 
 win32:SOURCES += \
-	../src/win/config_win.cpp \
-	../src/win/getopts_win.cpp
+	../src/win/config_win.cpp
 
 DISTFILES += \
 	../release/AUTHORS \
