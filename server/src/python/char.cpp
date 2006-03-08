@@ -361,7 +361,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 		Coord pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
 		if (pos.isInternalMap()) {
 			PyErr_SetString( PyExc_RuntimeError, "Moving to the internal map using char.moveto() is not supported." );
-			return 0;
+			Py_RETURN_FALSE;
 		}
 		self->pChar->moveTo( getWpCoord( PyTuple_GetItem( args, 0 ) ) );
 		Py_RETURN_TRUE;
@@ -373,14 +373,17 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if ( PyTuple_Size( args ) <= 1 )
 	{
 		PyErr_BadArgument();
-		return NULL;
+		Py_RETURN_FALSE;
 	}
 
 	// X,Y
 	if ( PyTuple_Size( args ) >= 2 )
 	{
 		if ( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+		{	
+			PyErr_BadArgument();
 			Py_RETURN_FALSE;
+		}
 
 		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
 		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
@@ -390,7 +393,10 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if ( PyTuple_Size( args ) >= 3 )
 	{
 		if ( !PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
+		{	
+			PyErr_BadArgument();
 			Py_RETURN_FALSE;
+		}
 
 		pos.z = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 	}
@@ -399,19 +405,22 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if ( PyTuple_Size( args ) >= 4 )
 	{
 		if ( !PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
+		{	
+			PyErr_BadArgument();
 			Py_RETURN_FALSE;
+		}
 
 		pos.map = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
 	}
 
 	if (pos.isInternalMap()) {
 		PyErr_SetString( PyExc_RuntimeError, "Moving to the internal map using char.moveto() is not supported." );
-		return 0;
+		Py_RETURN_FALSE;
 	}
 
 	self->pChar->moveTo( pos );
 
-	Py_RETURN_NONE;
+	Py_RETURN_TRUE;
 }
 
 /*
