@@ -38,6 +38,7 @@
 #include <QStringList>
 #include <QDir>
 #include <QHostAddress>
+#include <QHostInfo>
 #include <QDateTime>
 
 #include <QtGlobal>
@@ -534,7 +535,7 @@ QList<ServerList_st> cConfig::serverList()
 					QStringList strList2 = strList[1].trimmed().split( "," );
 					QHostAddress host;
 					host.setAddress( strList2[0] );
-					server.address.setAddress( resolveName( strList2[0] ) );
+					server.address = QHostInfo::fromName( strList2[0] ).addresses().first();
 
 					bool ok = false;
 					server.uiPort = strList2[1].toUShort( &ok );

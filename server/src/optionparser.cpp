@@ -53,8 +53,14 @@ void OptionParser::addOption( const QString& opt, const QString& dest, PlatformS
 */
 void OptionParser::parse()
 {
+#if QT_VERSION < 0x0401000
+	QStringList args;
+	for( int j = 0; j < QCoreApplication::argc(); ++j )
+		args.append( QCoreApplication::argv()[ j ] );
+#else
 	QStringList args = QCoreApplication::arguments();
-	
+#endif
+
 	int i = 1;
 	while ( i < args.size() )
 	{
