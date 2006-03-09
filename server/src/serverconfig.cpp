@@ -78,15 +78,21 @@ QHostAddress internetAddress()
 				char* hIp = inet_ntoa( *( struct in_addr* ) hostinfo->h_addr_list[i++] );
 				result.setAddress( hIp );
 				quint32 ip = result.toIPv4Address();
-				quint8 part1 = ( ip & 0xFF000000 ) >> 24;
-				quint8 part2 = ( ip & 0x00FF0000 ) >> 16;
 
+				if ( ip & 0x0A000000 || // 10.x.x.x
+					 ip & 0x7F000000 || // 127.x.x.x
+					 ip & 0xC0A80000 || // 192.168.x.x
+					 ip & 0xAC100000 || // 172.16-31.x.x 
+					 ip & 0xA9FE0000 )  // 169.254.x.x
+					continue;
+/*
 				if ( ( part1 == 127 ) || 	//this one is class A too.
 					( part1 == 10 ) || ( ( part1 == 192 ) && ( part2 == 168 ) ) || ( ( part1 == 172 ) && ( part2 >= 16 ) && ( part2 <= 31 ) ) || ( ( part1 == 169 ) && ( part2 == 254 ) ) // DHCP Space Stuff
 					)
 				{
 					continue;
 				}
+*/
 
 				// We are now certain that it's a valid INET ip
 				break;
