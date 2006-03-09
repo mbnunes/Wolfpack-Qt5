@@ -58,33 +58,6 @@ const char preferencesFileVersion[] = "1.0";
 #define INADDR_NONE (-1)
 #endif
 
-qint32 resolveName( const QString& data )
-{
-	if ( data.isEmpty() )
-		return INADDR_NONE;
-
-	// we do a dns lookup on this
-
-	quint32 uiValue = inet_addr( ( char* ) data.toLatin1().data() ) ;
-	if ( uiValue == INADDR_NONE )
-	{
-		hostent* ptrHost = gethostbyname( ( char* ) data.toLatin1().data() );
-		if ( ptrHost != 0 )
-		{
-			char** ptrPtr = ptrHost->h_addr_list;
-			//We only use the first one
-			if ( *ptrPtr != NULL )
-			{
-				//  	I can think of no other way
-				memcpy( &uiValue, *ptrPtr, sizeof( in_addr ) ) ;
-			}
-		}
-	}
-
-	// inet_addr returns the ip in reverse order
-	return ntohl( uiValue );
-}
-
 QHostAddress internetAddress()
 {
 	hostent* hostinfo;
