@@ -32,6 +32,8 @@
 #include <QString>
 #include <QMap>
 #include <QVariant>
+#include <QStringList>
+#include <QCoreApplication>
 
 // Wolfpack Includes
 #include "singleton.h"
