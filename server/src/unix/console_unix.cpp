@@ -27,7 +27,7 @@
 
 // Wolfpack includes
 #include "../console.h"
-#include "../getopts.h"
+#include "../optionparser.h"
 #include "../server.h"
 
 // System Includes
