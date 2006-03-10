@@ -184,6 +184,8 @@ static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 	\param id The art id of the effect to play.
 	\param speed The speed of the effect.
 	\param duration The duration of the effect.
+	\param hue (optional). Default: 0
+	\param rendermode (optional). Default: 0
 	\description Shows a graphical effect at the given position.
 */
 static PyObject* wpCoord_effect( wpCoord* self, PyObject* args )
