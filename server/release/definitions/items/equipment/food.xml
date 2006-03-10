@@ -7,25 +7,6 @@
 =================================================================
 -->
 
-<!--
-Food subtypes:
-0 - no food
-1 - raw meat
-2 - raw fish
-3 - eggs
-4 - crops
-5 - fruits
-6 - hay
-7 - grain
-8 - cooked meat
-9 - cooked fish
-10 - pastries
-11 - leather
-12 - metal
-13 - vegetables
-14 - other
--->
-
 <definitions>
 
 	<!-- Stew -->

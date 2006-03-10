@@ -42,7 +42,6 @@
 		<!-- Loot Missing: Special: Stat Power Scrolls -->
 		<!-- Misc. -->
 		<category>Monsters\Champions\The True Harrower</category>
-		<intproperty name="barddifficulty" value="1600" />
 		<inherit id="speed_frozen" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->

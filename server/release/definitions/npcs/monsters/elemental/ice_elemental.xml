@@ -48,7 +48,6 @@
 		<desc>The motives and desires of elementals are their own. What is known of the Ice Elemental is that they desire the return of the Ice. Working toward one sinister purpose, the Elementals composed of permafrost desire a time when glaciers cover the world. Make no mistake; these demons of cold are an invading force.</desc>
 		<category>Monsters\Elementals\Ice Elemental</category>
 		<strproperty name="slayer_group" value="snowelementals" />
-		<intproperty name="barddifficulty" value="769" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

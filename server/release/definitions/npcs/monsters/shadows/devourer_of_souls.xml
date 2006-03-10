@@ -53,7 +53,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Devourer of Souls</category>
 		<strproperty name="slayer_group" value="daemons" />
-		<intproperty name="barddifficulty" value="1143" />
 		<ai>Monster_Mage</ai>
 	</npc>
 

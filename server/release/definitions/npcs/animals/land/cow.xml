@@ -37,7 +37,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>111</mintaming>
 		<strproperty name="food" value="3,5" />
-		<intproperty name="barddifficulty" value="66" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Cow (Random)</category>
 		<!-- Carve -->

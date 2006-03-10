@@ -18,7 +18,6 @@
 		<!-- Loot Packs -->
 		<lootpacks></lootpacks>
 		<!-- Misc. -->
-		<intproperty name="barddifficulty" value="784" />
 	</npc>
 
 </definitions>

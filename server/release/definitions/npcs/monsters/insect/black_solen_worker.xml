@@ -38,7 +38,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Solen\Black Solen Worker</category>
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="583" />
 	</npc>
 
 </definitions>

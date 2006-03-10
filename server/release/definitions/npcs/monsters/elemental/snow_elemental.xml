@@ -46,7 +46,6 @@
 		<category>Monsters\Elementals\Snow Elemental</category>
 		<strproperty name="slayer_group" value="snowelementals" />
 		<inherit id="speed_fast" />
-		<intproperty name="barddifficulty" value="782" />
 	</npc>
 
 </definitions>

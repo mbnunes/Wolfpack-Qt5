@@ -37,7 +37,6 @@
 		<basescripts>npc.mount</basescripts>
 		<category>Animals\Undead\Hellsteed</category>
 		<strproperty name="slayer_group" value="undeads" />
-		<intproperty name="barddifficulty" value="784" />
 	</npc>
 
 </definitions>

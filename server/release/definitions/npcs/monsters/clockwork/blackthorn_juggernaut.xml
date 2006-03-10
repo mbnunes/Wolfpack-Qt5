@@ -45,7 +45,6 @@
 		</backpack>
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Blackthorn Juggernaut</category>
-		<intproperty name="barddifficulty" value="822" />
 	</npc>
 
 </definitions>

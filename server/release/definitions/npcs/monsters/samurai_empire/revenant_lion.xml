@@ -52,7 +52,6 @@
 		<!-- Misc. -->
 		<category>Monsters\SE\Revenant Lion</category>
 		<strproperty name="slayer_group" value="undead" />
-		<intproperty name="barddifficulty" value="940" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<intproperty name="hit_poison_level" value="2" />

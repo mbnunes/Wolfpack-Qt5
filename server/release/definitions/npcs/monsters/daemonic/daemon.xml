@@ -41,7 +41,6 @@
 		<controlslots>5</controlslots>
 		<category>Monsters\Daemonic\Daemon (Random)</category>
 		<strproperty name="slayer_group" value="daemons" />
-		<intproperty name="barddifficulty" value="898" />
 		<ai>Monster_Mage</ai>
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="1" />

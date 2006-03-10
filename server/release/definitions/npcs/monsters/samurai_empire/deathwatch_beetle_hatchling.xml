@@ -47,7 +47,6 @@
 		<!-- Misc. -->
 		<strproperty name="food" value="3" />
 		<category>Monsters\SE\Deathwatch Beetle Hatchling</category>
-		<intproperty name="barddifficulty" value="333" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 	</npc>

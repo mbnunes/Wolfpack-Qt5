@@ -37,7 +37,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>
 		<strproperty name="food" value="3,5" />
-		<intproperty name="barddifficulty" value="311" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Gorilla</category>
 		<!-- Carve -->

@@ -43,7 +43,6 @@
 		</backpack>
 		<!-- Misc -->
 		<category>Monsters\Beasts\Bogling</category>
-		<intproperty name="barddifficulty" value="615" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<intproperty name="carve_meat" value="1" />

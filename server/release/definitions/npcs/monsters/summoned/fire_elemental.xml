@@ -37,7 +37,6 @@
 		<!-- Misc. -->
 		<controlslots>4</controlslots>
 		<category>Summoned\Fire Elemental</category>
-		<intproperty name="barddifficulty" value="831" />
 	</npc>
 
 </definitions>

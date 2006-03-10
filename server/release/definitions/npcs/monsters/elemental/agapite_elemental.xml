@@ -38,7 +38,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Agapite Elemental</category>
 		<strproperty name="slayer_group" value="earthelementals" />
-		<intproperty name="barddifficulty" value="729" />
 	</npc>
 
 </definitions>

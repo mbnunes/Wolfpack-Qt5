@@ -35,7 +35,6 @@
 		<tag name="res_poison" value="75,85" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Beasts\Plague Beast Lord</category>
-		<intproperty name="barddifficulty" value="1445" />
 		<!-- Missing Loot: Special: A Plague Beast Mutation Core -->
 	</npc>
 

@@ -41,7 +41,6 @@
 		<strproperty name="food" value="1,2,3,5,4" />
 		<category>Monsters\Common\Slime</category>
 		<inherit id="speed_slow" />
-		<intproperty name="barddifficulty" value="325" />
 		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="0" />

@@ -38,7 +38,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Reptiles\Ice Snake</category>
 		<strproperty name="slayer_group" value="snakes" />
-		<intproperty name="barddifficulty" value="206" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />
 	</npc>

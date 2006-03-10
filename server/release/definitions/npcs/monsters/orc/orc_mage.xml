@@ -50,7 +50,6 @@
 		<category>Monsters\Orcs\Orc Mage</category>
 		<strproperty name="slayer_group" value="orcs" />
 		<intproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="732" />
 		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />

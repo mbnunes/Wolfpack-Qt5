@@ -49,7 +49,6 @@
 		<category>Monsters\SE\Rai-Ju</category>
 		<strproperty name="slayer_group" value="elementals" />
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="820" />
 	</npc>
 
 </definitions>

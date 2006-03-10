@@ -38,7 +38,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Sand Vortex</category>
 		<inherit id="speed_fast" />
-		<intproperty name="barddifficulty" value="756" />
 	</npc>
 
 </definitions>

@@ -51,7 +51,6 @@
 		<strproperty name="food" value="1" />
 		<category>Monsters\SE\Oni</category>
 		<strproperty name="slayer_group" value="daemons" />
-		<intproperty name="barddifficulty" value="1065" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

@@ -44,7 +44,6 @@
 		<category>Monsters\Champions\Silvani</category>
 		<strproperty name="slayer_group" value="feys" />
 		<inherit id="speed_fast" />
-		<intproperty name="barddifficulty" value="1281" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

@@ -51,7 +51,6 @@
 		<category>Monsters\Dragons\Wyrvern</category>
 		<strproperty name="slayer_group" value="dragons" />
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="782" />
 		<!-- Carving -->
 		<intproperty name="carve_hides" value="20" />
 		<strproperty name="carve_hides_type" value="horned" />

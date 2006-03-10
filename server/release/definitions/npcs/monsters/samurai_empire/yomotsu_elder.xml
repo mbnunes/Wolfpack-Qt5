@@ -49,7 +49,6 @@
 		<lootpacks>gems;gems</lootpacks>
 		<!-- Misc -->
 		<strproperty name="food" value="1,2" />
-		<intproperty name="barddifficulty" value="1263" />
 		<category>Monsters\SE\Yomotsu Elder</category>
 	</npc>
 

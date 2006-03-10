@@ -44,7 +44,6 @@
 		<category>Monsters\Elementals\Crystal Elemental</category>
 		<inherit id="speed_slow" />
 		<ai>Monster_Mage</ai>
-		<intproperty name="barddifficulty" value="836" />
 		<intproperty name="poison_immunity" value="5" />
 	</npc>
 

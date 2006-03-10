@@ -40,7 +40,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Undead\Ethereal Warrior</category>
 		<strproperty name="slayer_group" value="feys" />
-		<intproperty name="barddifficulty" value="1076" />
 		<hitsound>757,758</hitsound>
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>

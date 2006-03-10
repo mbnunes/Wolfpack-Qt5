@@ -40,7 +40,6 @@
 		<lootpacks>lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Wailing Banshee</category>
-		<intproperty name="barddifficulty" value="600" />
 	</npc>
 
 </definitions>

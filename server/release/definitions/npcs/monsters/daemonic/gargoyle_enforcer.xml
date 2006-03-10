@@ -46,7 +46,6 @@
 		<category>Monsters\Daemonic\Gargoyle Enforcer</category>
 		<strproperty name="slayer_group" value="gargoyles" />
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="880" />
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="1" />
 		<!-- Poisoning -->

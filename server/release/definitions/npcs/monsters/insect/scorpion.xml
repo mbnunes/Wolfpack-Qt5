@@ -46,7 +46,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>471</mintaming>
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="651" />
 		<strproperty name="packinstinct" value="arachnid" />
 		<category>Monsters\Insects\Giant Scorpion</category>
 		<strproperty name="slayer_group" value="scorpions" />

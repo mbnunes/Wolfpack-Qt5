@@ -44,7 +44,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Sea Monsters\Leviathan</category>
 		<intproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="1600" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->

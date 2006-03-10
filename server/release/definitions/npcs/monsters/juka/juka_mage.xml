@@ -77,7 +77,6 @@
 		<category>Monsters\Juka\Juka Mage</category>
 		<strproperty name="food" value="1" />
 		<strproperty name="slayer_group" value="jukas" />
-		<intproperty name="barddifficulty" value="963" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

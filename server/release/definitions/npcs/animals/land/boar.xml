@@ -38,7 +38,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
 		<strproperty name="food" value="3,5" />
-		<intproperty name="barddifficulty" value="75" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Boar</category>
 		<intproperty name="carve_meat" value="2" />
@@ -71,7 +70,6 @@
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
 		<strproperty name="food" value="3,5" />
-		<intproperty name="barddifficulty" value="59" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Pig</category>
 		<intproperty name="carve_meat" value="1" />

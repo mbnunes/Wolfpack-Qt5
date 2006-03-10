@@ -44,7 +44,6 @@
 		<controlslots>2</controlslots>
 		<mintaming>951</mintaming>
 		<strproperty name="food" value="3,5" />
-		<intproperty name="barddifficulty" value="862" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Unicorn</category>
 		<strproperty name="slayer_group" value="feys" />

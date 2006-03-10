@@ -50,7 +50,6 @@
 		<category>Monsters\Terathan\Terathan Matriarch</category>
 		<strproperty name="slayer_group" value="tarathans,terathans" />
 		<intproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="912" />
 		<ai>Monster_Mage</ai>
 	</npc>
 

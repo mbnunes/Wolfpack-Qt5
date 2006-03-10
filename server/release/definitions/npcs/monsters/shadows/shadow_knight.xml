@@ -38,7 +38,6 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Shadow Knight</category>
-		<intproperty name="barddifficulty" value="1600" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

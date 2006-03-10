@@ -37,7 +37,6 @@
 		<basescripts>npc.mount</basescripts>
 		<category>Monsters\Undead\Skeletal Steed</category>
 		<strproperty name="slayer_group" value="undeads" />
-		<intproperty name="barddifficulty" value="491" />
 	</npc>
 
 </definitions>

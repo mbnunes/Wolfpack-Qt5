@@ -62,7 +62,6 @@
 		<category>Monsters\Orcs\Orc Scout</category>
 		<strproperty name="slayer_group" value="orcs" />
 		<intproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="579" />
 	</npc>
 
 </definitions>

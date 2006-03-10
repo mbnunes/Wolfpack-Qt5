@@ -53,7 +53,6 @@
 		<category>Monsters\Ratmen\Ratman Archer</category>
 		<strproperty name="slayer_group" value="ratmen" />
 		<intproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="735" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="8" />
 		<strproperty name="carve_hides_type" value="spined" />

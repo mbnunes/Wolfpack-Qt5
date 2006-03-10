@@ -51,7 +51,6 @@
 		<desc>Although it is a beast and not a plant, the Reaper is rooted to the ground, from whence it lashes about itself with long, vine like tentacles. Any man or beast unfortunate enough to be caught in the reaper's grasp is drawn into the thing's maw. Reapers root themselves in shadowy areas for conceal ment purposes, so that they may lash out at their prey unseen.</desc>
 		<category>Monsters\Common\Reaper</category>
 		<ai>Monster_Mage</ai>
-		<intproperty name="barddifficulty" value="741" />
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->
 		<!-- <intproperty name="hit_poison_level" value="5" /> -->

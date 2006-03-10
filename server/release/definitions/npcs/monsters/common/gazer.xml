@@ -48,7 +48,6 @@
 		<desc>These unnatural beasts have the appearance of a floating, decapitated head sprouting myriad writhing tentacles, each with a staring eye at the end. Certain adventurers claim to have eaten the meat of the gazer with no ill effects, although the very thought to most is repugnant.</desc>
 		<category>Monsters\Common\Gazer</category>
 		<intproperty name="carve_meat" value="1" />
-		<intproperty name="barddifficulty" value="733" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

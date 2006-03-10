@@ -48,7 +48,6 @@
 		<category>Monsters\SE\Fan Dancer</category>
 		<inherit id="speed_fast" />
 		<strproperty name="slayer_group" value="daemons" />
-		<intproperty name="barddifficulty" value="970" />
 	</npc>
 
 </definitions>

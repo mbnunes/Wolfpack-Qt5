@@ -47,7 +47,6 @@
 		<!-- Loot -->
 		<lootpacks>gold_meager;gold_meager;gold_meager</lootpacks>
 		<!-- Misc. -->
-		<intproperty name="barddifficulty" value="726" />
 		<inherit id="speed_medium" /> <!-- Default Speed -->
 		<direction><random min="0" max="7"/></direction>
 	</npc>
@@ -108,7 +107,6 @@
 		<!-- Loot -->
 		<lootpacks>gold_meager;gold_meager;gold_meager</lootpacks>
 		<!-- Misc. -->
-		<intproperty name="barddifficulty" value="726" />
 		<inherit id="speed_medium" /> <!-- Default Speed -->
 		<direction><random min="0" max="7"/></direction>
 	</npc>
@@ -183,7 +181,6 @@
 		<lootpacks>scroll_medium;tm_1</lootpacks>
 		<!-- Misc. -->
 		<strproperty name="slayer_group" value="mages" />
-		<intproperty name="barddifficulty" value="722" />
 		<strproperty name="food" value="1" />
 		<category>Humans\Evil\Evil mage</category>
 		<!-- Carve -->
@@ -238,7 +235,6 @@
 		<lootpacks>scroll_medium;scroll_medium;tm_2</lootpacks>
 		<!-- Misc. -->
 		<strproperty name="slayer_group" value="mages" />
-		<intproperty name="barddifficulty" value="796" />
 		<strproperty name="food" value="1" />
 		<category>Humans\Evil\Evil mage lord</category>
 		<!-- Carve -->

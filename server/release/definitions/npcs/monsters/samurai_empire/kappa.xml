@@ -45,7 +45,6 @@
 		<!-- Misc. -->
 		<strproperty name="food" value="1" />
 		<category>Monsters\SE\Kappa</category>
-		<intproperty name="barddifficulty" value="636" />
 	</npc>
 
 </definitions>

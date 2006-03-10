@@ -43,7 +43,6 @@
 		<category>Monsters\Champions\The Harrower</category>
 		<ai>Monster_Mage</ai>
 		<inherit id="speed_frozen" />
-		<intproperty name="barddifficulty" value="1600" />
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->
 		<!-- <intproperty name="hit_poison_level" value="5" /> -->

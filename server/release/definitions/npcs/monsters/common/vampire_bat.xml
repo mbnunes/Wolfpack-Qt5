@@ -39,7 +39,6 @@
 		<lootpacks>lootpack_poor</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Common\Vampire Bat</category>
-		<intproperty name="barddifficulty" value="484" />
 	</npc>
 
 </definitions>

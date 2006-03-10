@@ -35,7 +35,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Common\Mound of Maggots</category>
 		<inherit id="speed_slow" />
-		<intproperty name="barddifficulty" value="1086" />
 	</npc>
 
 </definitions>

@@ -39,7 +39,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Quagmire</category>
 		<inherit id="speed_slow" />
-		<intproperty name="barddifficulty" value="710" />
 	</npc>
 
 </definitions>

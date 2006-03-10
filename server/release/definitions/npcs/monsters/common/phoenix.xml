@@ -41,7 +41,6 @@
 		<!-- Misc. -->
 		<desc>For aeons the phoenix has been a symbol of hope. Looking much like the majestic eagle, the phoenix has wings of flame. Those foolish enough to hope to kill a phoenix for the feathers will find the phoenix is noeasy target. Talons of the phoenix are harder than steel and can rend even plate armor. Few can best the phoenix in one-on-one battle.</desc>
 		<category>Monsters\Common\Phoenix</category>
-		<intproperty name="barddifficulty" value="1086" />
 		<inherit id="speed_veryfast" />
 		<ai>Monster_Mage</ai>
 		<!-- Carve -->

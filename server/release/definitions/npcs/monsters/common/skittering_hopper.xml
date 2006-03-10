@@ -35,7 +35,6 @@
 		<lootpacks>gold_meager;gold_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Common\Skittering Hopper</category>
-		<intproperty name="barddifficulty" value="388" />
 	</npc>
 
 </definitions>

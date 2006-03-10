@@ -36,7 +36,6 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<category>Summoned\Death Adder</category>
-		<intproperty name="barddifficulty" value="0" />
 		<!-- Poisoning -->
 		<intproperty name="hit_poison_level" value="2" />
 		<basescript>npc.poison</basescript>

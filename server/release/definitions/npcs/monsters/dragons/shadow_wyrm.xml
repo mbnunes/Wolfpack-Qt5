@@ -43,7 +43,6 @@
 		<category>Monsters\Dragons\Shadow Wyrm</category>
 		<strproperty name="slayer_group" value="dragons" />
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="1249" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>

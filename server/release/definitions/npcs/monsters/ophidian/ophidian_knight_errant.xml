@@ -46,7 +46,6 @@
 		<category>Monsters\Ophidians\Ophidian Knight-Errant</category>
 		<strproperty name="slayer_group" value="ophidians" />
 		<intproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="862" />
 		<inherit id="speed_fast" />
 		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>

@@ -50,7 +50,6 @@
 		<desc>Perhaps the most destructive elemental of them all, for its very touch burns with a consuming flame. Fortunately, fire elementals can not long survive in the cool climes of our world, and are therefore seldom found outside of the burning lava pits of great volcanoes.</desc>
 		<category>Monsters\Elementals\Fire Elemental</category>
 		<strproperty name="slayer_group" value="fireelementals" />
-		<intproperty name="barddifficulty" value="745" />
 		<ai>Monster_Mage</ai>
 
 		<equipped>

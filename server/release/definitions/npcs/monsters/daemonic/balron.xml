@@ -44,7 +44,6 @@
 		<category>Monsters\Daemonic\Balron</category>
 		<strproperty name="slayer_group" value="balron" />
 		<inherit id="speed_fast" />
-		<intproperty name="barddifficulty" value="1145" />
 		<ai>Monster_Mage</ai>
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="1" />

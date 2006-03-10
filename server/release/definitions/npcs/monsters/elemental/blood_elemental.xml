@@ -43,7 +43,6 @@
 		<desc>Formed from the blood of the dead, blood elementals are strong magic-users, and an aggressive and formidable foe. You have blood, and they want it.</desc>
 		<category>Monsters\Elementals\Blood Elemental</category>
 		<strproperty name="slayer_group" value="bloodelementals" />
-		<intproperty name="barddifficulty" value="935" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

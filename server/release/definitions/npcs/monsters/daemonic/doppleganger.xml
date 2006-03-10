@@ -37,7 +37,6 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Doppleganger</category>
-		<intproperty name="barddifficulty" value="651" />
 	</npc>
 
 </definitions>

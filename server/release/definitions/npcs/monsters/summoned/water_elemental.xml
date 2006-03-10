@@ -33,7 +33,6 @@
 		<!-- Misc. -->
 		<controlslots>3</controlslots>
 		<category>Summoned\Water Elemental</category>
-		<intproperty name="barddifficulty" value="794" />
 	</npc>
 
 </definitions>

@@ -38,7 +38,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Shadow Iron Elemental</category>
 		<strproperty name="slayer_group" value="earthelementals" />
-		<intproperty name="barddifficulty" value="723" />
 	</npc>
 
 </definitions>

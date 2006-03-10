@@ -38,7 +38,6 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Flesh Renderer</category>
-		<intproperty name="barddifficulty" value="1600" />
 		<inherit id="speed_veryfast" />
 	</npc>
 

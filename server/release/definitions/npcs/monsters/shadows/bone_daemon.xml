@@ -42,7 +42,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Bone Daemon</category>
 		<strproperty name="slayer_group" value="daemons" />
-		<intproperty name="barddifficulty" value="1600" />
 		<ai>Monster_Mage</ai>
 	</npc>
 

@@ -40,8 +40,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Common\Shadow Wisp</category>
 		<ai>Monster_Mage</ai>
-		<intproperty name="barddifficulty" value="464" />
-
 		<equipped>
 			<item id="1647"><newbie /></item>
 		</equipped>

@@ -39,7 +39,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Solen\Red Solen Infiltrator (Warrior) </category>
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="748" />
 	</npc>
 
 </definitions>

@@ -52,7 +52,6 @@
 		<strproperty name="food" value="1,2" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Monsters\SE\Bake Kitsune</category>
-		<intproperty name="barddifficulty" value="955" />
 		<ai>Monster_Mage</ai>
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="30" />

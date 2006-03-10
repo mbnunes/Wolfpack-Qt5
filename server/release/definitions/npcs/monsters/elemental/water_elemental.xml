@@ -49,7 +49,6 @@
 		<desc>Water elementals dwell in, and are composed of, water. They have great power to command the waves themselves. Fortunately, the few that dwell upon our plane keep themselves mostly to the nether depths of the ocean, and so seldom come into contact with humanity.</desc>
 		<category>Monsters\Elementals\Water Elemental</category>
 		<strproperty name="slayer_group" value="waterelementals" />
-		<intproperty name="barddifficulty" value="730" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

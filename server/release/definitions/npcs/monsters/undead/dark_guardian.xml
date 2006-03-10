@@ -57,7 +57,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Undead\Dark Guardian</category>
 		<strproperty name="slayer_group" value="undeads" />
-		<intproperty name="barddifficulty" value="881" />
 		<ai>Monster_Mage</ai>
 	</npc>
 

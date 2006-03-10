@@ -40,7 +40,6 @@
 		<controlslots>2</controlslots>
 		<mintaming>291</mintaming>
 		<strproperty name="food" value="3,5" />
-		<intproperty name="barddifficulty" value="242" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Pack\Pack Llama</category>
 		<intproperty name="carve_meat" value="1" />

@@ -50,7 +50,6 @@
 		<category>Monsters\SE\Lady of the Snow</category>
 		<inherit id="speed_slow" />
 		<strproperty name="slayer_group" value="undeads" />
-		<intproperty name="barddifficulty" value="1114" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

@@ -51,7 +51,6 @@
 		<strproperty name="slayer_group" value="poisonelementals" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
-		<intproperty name="barddifficulty" value="1051" />
 		<!-- Poisoning -->
 		<basescript>npc.poison</basescript>
 		<intproperty name="hit_poison_level" value="4" />

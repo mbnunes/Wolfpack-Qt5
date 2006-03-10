@@ -47,7 +47,6 @@
 		<desc>These beings embody the element of Earth, and as the Air Elementals dwell naturally on a plane devoid of solidity, the Earth Elementals are native to a world devoid of air. They are mighty engines of destruction indeed, possessing both the crushing power of the avalanche and the steadfast endurance of the mountain. Furthermore, they command magicks allowing them to twist the earth to their will.</desc>
 		<category>Monsters\Elementals\Earth Elemental</category>
 		<strproperty name="slayer_group" value="earthelementals" />
-		<intproperty name="barddifficulty" value="650" />
 		<inherit id="speed_slow" />
 	</npc>
 

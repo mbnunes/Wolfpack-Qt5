@@ -41,7 +41,6 @@
 		<category>Monsters\Juka\Juka Warrior</category>
 		<strproperty name="slayer_group" value="jukas" />
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="856" />
 	</npc>
 
 </definitions>

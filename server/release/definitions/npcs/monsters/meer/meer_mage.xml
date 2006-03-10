@@ -44,7 +44,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Meer\Meer Mage</category>
 		<strproperty name="slayer_group" value="meers" />
-		<intproperty name="barddifficulty" value="659" />
 		<ai>Monster_Mage</ai>
 		<!-- Poisoning -->
 		<!-- <basescript>npc.poison</basescript> -->

@@ -41,7 +41,6 @@
 		<category>Monsters\Terathan\Terathan Warrior</category>
 		<strproperty name="slayer_group" value="tarathans,terathans" />
 		<intproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="706" />
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="4" />
 	</npc>

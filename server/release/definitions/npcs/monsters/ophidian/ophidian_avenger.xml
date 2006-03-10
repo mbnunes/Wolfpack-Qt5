@@ -44,7 +44,6 @@
 		<category>Monsters\Ophidians\Ophidian Avenger</category>
 		<strproperty name="slayer_group" value="ophidians" />
 		<intproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="866" />
 		<inherit id="speed_fast" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />

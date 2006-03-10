@@ -36,7 +36,6 @@
 		<skill id="magicresistance"><random min="151" max="200" /></skill>
 		<!-- Misc. -->
 		<category>Animals\Sea\Dolphin</category>
-		<intproperty name="barddifficulty" value="356" />
 		<strproperty name="food" value="2" />
 		<!-- Carve -->
 		<intproperty name="carve_meat" value="1" />

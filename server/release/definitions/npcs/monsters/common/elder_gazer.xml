@@ -41,7 +41,6 @@
 		<!-- Misc. -->
 		<desc>If the glare of a gazer inspires fear, the countenance of the Elder Gazer is the abandonment of hope. It is rumored that Elder Gazers are feared even by their own kind, as the cruelty of the Elder Gazer is unrivaled. Unlike humans, gazers do not become infirm with age, but rather more avaricious and powerful. Hardened and horrible, Elder Gazers crave only more wealth.</desc>
 		<category>Monsters\Common\Elder Gazer</category>
-		<intproperty name="barddifficulty" value="902" />
 		<ai>Monster_Mage</ai>
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="1" />

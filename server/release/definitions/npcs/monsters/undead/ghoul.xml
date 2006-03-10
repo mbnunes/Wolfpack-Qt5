@@ -38,7 +38,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Undead\Ghoul</category>
 		<strproperty name="slayer_group" value="undeads" />
-		<intproperty name="barddifficulty" value="415" />
 		<inherit id="speed_slow" />
 		<intproperty name="poison_immunity" value="2" />
 	</npc>

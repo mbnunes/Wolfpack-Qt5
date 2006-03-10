@@ -45,7 +45,6 @@
 		<category>Monsters\Giants\Arctic Ogre Lord</category>
 		<strproperty name="slayer_group" value="ogres" />
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="888" />
 		<inherit id="speed_slow" />
 	</npc>
 

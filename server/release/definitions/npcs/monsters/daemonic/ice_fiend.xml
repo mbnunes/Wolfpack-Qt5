@@ -41,7 +41,6 @@
 		<desc>Some say hell is a sulfurous inferno, and others hold it is a barren wasteland of ice under an ever-biting blizzard. The Ice Fiend is a good support for the latter. No hatred, anger, madness, joy, love, or emotion of any kind shows on their faces. The Ice Fiend wields the whip of frost in battle with only a grim look of lost hope on their face.</desc>
 		<category>Monsters\Daemonic\Ice Fiend</category>
 		<strproperty name="slayer_group" value="daemons" />
-		<intproperty name="barddifficulty" value="893" />
 		<ai>Monster_Mage</ai>
 		<!-- Carving -->
 		<intproperty name="carve_meat" value="1" />

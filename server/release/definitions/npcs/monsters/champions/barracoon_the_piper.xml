@@ -40,7 +40,6 @@
 		<!-- Misc. -->
 		<category>Monsters\Champions\Baracoon The Piper</category>
 		<inherit id="speed_veryfast" />
-		<intproperty name="barddifficulty" value="1600" />
 	</npc>
 
 </definitions>

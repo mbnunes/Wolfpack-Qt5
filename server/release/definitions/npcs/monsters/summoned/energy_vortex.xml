@@ -41,7 +41,6 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<category>Summoned\Energy Vortex</category>
-		<intproperty name="barddifficulty" value="753" />
 		<inherit id="speed_veryfast" />
 		<!-- Dispel Difficulty -->
 		<intproperty name="dispelfocus" value="200" />

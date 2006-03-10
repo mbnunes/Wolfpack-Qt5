@@ -48,7 +48,6 @@
 		<desc>The Bog Thing is best described as a shambling mound of plants, muck, and vermin. Most bog things are about twice the size of a man and resemble a large mound with two or more arms and a hole in the middle of its chest that resembles a mouth. The creature is entirely formed from plant growth. While they demonstrate no known means ofcommunication, they are able to coordinate their boglings during battle. They are very aggressive and territorial, and will attack any human that ventures too close to their land.</desc>
 		<category>Monsters\Beasts\Bog Thing</category>
 		<inherit id="speed_slow" />
-		<intproperty name="barddifficulty" value="861" />
 	</npc>
 
 </definitions>

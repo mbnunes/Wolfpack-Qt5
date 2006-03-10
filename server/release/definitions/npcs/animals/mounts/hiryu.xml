@@ -41,7 +41,6 @@
 		<mintaming>987</mintaming>
 		<controlslots>4</controlslots>
 		<strproperty name="food" value="1" />
-		<intproperty name="barddifficulty" value="1153" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Hiryu</category>
 		<basescript>npc.mount</basescript>
