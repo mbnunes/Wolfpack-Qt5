@@ -371,5 +371,4 @@
 	<script>gumps.confirm_release_gump</script>
 	<script>gumps.notice_gump</script>
 	<script>gumps.warning_gump</script>
-
 </definitions>

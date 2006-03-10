@@ -670,10 +670,37 @@
 		<newbie />
 	</item>
 
-	<!-- GM Robe -->
+	<!-- Admin Robe -->
 	<item id="204f">
-		<category>Clothes\Special\GM Robe</category>
+		<category>Clothes\Special\Staff\Admin Robe</category>
 		<id>0x204f</id>
+		<newbie />
+		<basescripts>equipment</basescripts>
+	</item>
+
+	<!-- Seer Robe -->
+	<item id="seer_robe">
+		<category>Clothes\Special\Staff\Seer Robe</category>
+		<id>0x204f</id>
+		<color>0x1d3</color>
+		<newbie />
+		<basescripts>equipment</basescripts>
+	</item>
+
+	<!-- Counselor Robe -->
+	<item id="counsi_robe">
+		<category>Clothes\Special\Staff\Counselor Robe</category>
+		<id>0x204f</id>
+		<color>0x3</color>
+		<newbie />
+		<basescripts>equipment</basescripts>
+	</item>
+
+	<!-- GM Robe -->
+	<item id="gm_robe">
+		<category>Clothes\Special\Staff\GM Robe</category>
+		<id>0x204f</id>
+		<color>0x26</color>
 		<newbie />
 		<basescripts>equipment</basescripts>
 	</item>

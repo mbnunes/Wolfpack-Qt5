@@ -93,6 +93,40 @@ def createammo(defender, ammo):
 				item.moveto(defender.pos)
 				item.update()
 
+def GetPackInstinctBonus( attacker, defender ):
+	if attacker.player or defender.player:
+		return 0
+
+	packinstinct = attacker.getstrproperty('packinstinct', '')
+	if not packinstinct or (not attacker.owner and not attacker.summoned):
+		return 0
+
+	master = attacker.owner
+	if not master:
+		return 0
+
+	inPack = 1
+
+	chars = wolfpack.chars(defender.pos.x, defender.pos.y, defender.pos.map, 1)
+	for char in chars:
+		if char != attacker:
+			if packinstinct == char.getstrproperty('packinstinct', '') or char.player or (not char.owner and not char.summoned):
+				continue
+
+			theirMaster = char.owner
+			if master == theirMaster and defender in char.getopponents():
+				inPack += 1
+
+	if inPack >= 5:
+		return 100
+	elif inPack >= 4:
+		return 75
+	elif inPack >=3:
+		return 50
+	elif inPack >= 2:
+		return 25
+	return 0
+
 #
 # Checks if the character hits his target or misses instead
 # Returns 1 if the character hits and 0 if the character misses.
@@ -535,6 +569,10 @@ def hit(attacker, defender, weapon, time):
 			if attacker.hastag( "enemyofonetype" ) and attacker.gettag( "enemyofonetype" ) == defender.id:
 				defender.effect( 0x37B9, 10, 5 )
 				damage += scaledamage(attacker, 50 )
+
+	packInstinctBonus = GetPackInstinctBonus( attacker, defender )
+	if packInstinctBonus:
+		damage += scaledamage(attacker, packInstinctBonus)
 
 	slayer = properties.fromitem(weapon, SLAYER)
 	if slayer and slayer == "silver" and magic.necromancy.transformed(defender) and not defender.hasscript("magic.horrificbeast"):

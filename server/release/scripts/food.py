@@ -7,20 +7,47 @@ from system import poison
 import skills
 from wolfpack import tr
 from math import ceil
+from speech.pets import isPetFriend
 
 farm_food = [  'c7c', 'c70', 'c7b', 'c78', 'c71', 'c64', 'c65' ]
 farm_eaters = [ 'rabbit', 'goat', 'hind', 'pack_horse', 'pack_llama', 'cow', 'bull',
 	'sheep_unsheered', 'sheep_sheered', 'llama', 'horse', 'great_hart',
 	'ostard_desert', 'ostard_forest', 'ostard_frinzied' ]
 
-# List of baseids of items only animals can eat
-animalsonly = [ "f36", "100c", "100d" ]
+# List of baseids of items only animals can eat (not complete, because not all foods have the script right now)
+animalsonly = [ 'f36', '100c', '100d', # Hay
+		'9f1', '1609', '1607', # Raw Meat
+		'97a', # Raw Fish
+		'eed' # Gold
+		]
 
 #
 # TODO: favorite food of animals:
 # FruitsAndVegies | GrainsAndHay | Meat | Eggs | Gold | Fish
-# intproperties: 1=meat; 2=fish; 3=FruitAndVegies; 4=Eggs
+# intproperties: 1=meat; 2=fish; 3=FruitAndVegies; 4=Eggs; 5=GrainsAndHay; 6=Gold; 7=Metal
 #
+types = {
+	'1' : ['979', '9b7', '9c0', '9c9', '9f2', '160a', '1608', '9f1', '1609', '1607', '9b9', ], # missing: body parts
+	'2' : ['97b', '97a'],
+	'3' : ['c74', 'c75', 'c64', 'c65', 'c66', 'c67', '171f', '1720', '1721', '1722', '1728', '172a', '1727', \
+	'9d1', '9d2', '994', '9d0', 'c5c', 'c5d', 'c72', 'c73', 'c79', 'c7a', 'c77', 'c78', 'c7b', 'c7c', 'c6d', \
+	'c6e', 'c70', 'c71', 'c6a', 'c6b' ],
+	'4' : ['9b6', '9b5'],
+	'5' : ['103b', '98c', "f36", "100c", "100d"],
+	'6' : ['eed']
+	}
+
+def checkfoodpreference(char, item):
+	favfoodtypes = char.getstrproperty("food", "0")
+	favfoodtypes = favfoodtypes.split(",")
+	#char.say(str(favfoodtypes))
+	if len(favfoodtypes) == 1 and '0' in favfoodtypes:
+		return False
+	for i in favfoodtypes:
+		allowed = types.get(i, [])
+		if item.baseid in allowed:
+			return True
+	return False
 
 #
 # Feed the food
@@ -29,44 +56,102 @@ def onDropOnChar(char, item):
 	# See if it's not hostile
 	if char.npc and char.id < 0x190:
 		player = item.container
-
-		if not char.tamed:
-			return False
-
-		if not player.canreach(char, 2):
-			player.socket.clilocmessage(500312) # You cannot reach that.
-			if not tobackpack( item, player ):
-				item.update()
-			return True
-
-		if char.hunger >= 20:
-			player.message( tr('It doesn''t seem to be hungry.') )
-			if not tobackpack( item, player ):
-				item.update()
-			return True
-
-		fillfactor = item.getintproperty('fillfactor', 1)
-
-		complete_fillfactor = fillfactor * item.amount
-
-		if complete_fillfactor > 20 - char.hunger:
-			requireditems = int(ceil((20 - char.hunger) / fillfactor))
-			item.amount -= requireditems
-			char.hunger = 20
-			if not tobackpack(item, player):
-				item.update()
-				item.resendtooltip()
+		if char.tamed and (char.owner == player) or isPetFriend(player, char) :
+			if checkfoodpreference(char, item):
+				ischecked(char, item)
 		else:
-			char.hunger += complete_fillfactor
-			item.delete()
-
-		# Fidget animation and munch munch sound
-		char.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
-		if not char.ismounted():
-			char.action(ANIM_FIDGET3)
+			return False
 		return True
 
-	return False
+def ischecked(char, item):
+	amount = item.amount
+	if amount > 0:
+		happier = False
+		stamGain = 0
+		if item.baseid == 'eed':
+			stamGain = amount - 50
+		else:
+			stamGain = (amount * 15) - 50
+		if stamGain > 0:
+			char.stamina += stamGain
+		for i in range(0, amount):
+			loyalty = 0
+			if char.hastag('loyalty'):
+				loyalty = char.gettag('loyalty')
+			# if loyalty < Wonderfully happy
+			if loyalty < 11 and 0.5 >= random.random():
+				char.settag('loyalty', loyalty + 1)
+				happier = True
+		if happier:
+			char.say(502060, '', '', 0, char.saycolor, player.socket) # Your pet looks happier.
+
+		if char.bodytype == 3: # is animal
+			char.action( 3 )
+		elif char.bodytype == 1: # is monster
+			char.action( 17 )
+
+		#if ( IsBondable && !IsBonded )
+		#{
+		#	Mobile master = m_ControlMaster;
+
+		#	if ( master != null )
+		#	{
+		#		if ( m_dMinTameSkill <= 29.1 || master.Skills[SkillName.AnimalTaming].Value >= m_dMinTameSkill || this is SwampDragon || this is Ridgeback || this is SavageRidgeback )
+		#		{
+		#			if ( BondingBegin == DateTime.MinValue )
+		#			{
+		#				BondingBegin = DateTime.Now;
+		#			}
+		#			else if ( (BondingBegin + BondingDelay) <= DateTime.Now )
+		#			{
+		#				IsBonded = true;
+		#				BondingBegin = DateTime.MinValue;
+		#				from.SendLocalizedMessage( 1049666 ); // Your pet has bonded with you!
+		#			}
+		#		}
+		#	}
+		#}
+
+		item.delete()
+
+
+		#if not char.tamed:
+		#	return False
+#
+		#if not player.canreach(char, 2):
+		#	player.socket.clilocmessage(500312) # You cannot reach that.
+		#	if not tobackpack( item, player ):
+		#		item.update()
+		#	return True
+#
+		#if char.hunger >= 20:
+		#	player.message( tr('It doesn''t seem to be hungry.') )
+		#	if not tobackpack( item, player ):
+		#		item.update()
+		#	return True
+#
+		#fillfactor = item.getintproperty('fillfactor', 1)
+#
+		#complete_fillfactor = fillfactor * item.amount
+#
+		#if complete_fillfactor > 20 - char.hunger:
+		#	requireditems = int(ceil((20 - char.hunger) / fillfactor))
+		#	item.amount -= requireditems
+		#	char.hunger = 20
+		#	if not tobackpack(item, player):
+		#		item.update()
+		#		item.resendtooltip()
+		#else:
+		#	char.hunger += complete_fillfactor
+		#	item.delete()
+#
+		## Fidget animation and munch munch sound
+		#char.soundeffect( random.choice([0x03a, 0x03b, 0x03c]), 1 )
+		#if not char.ismounted():
+		#	char.action(ANIM_FIDGET3)
+		#return True
+#
+#	return False
 
 def caneat(char, item):
 	if item.baseid in animalsonly:

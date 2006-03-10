@@ -13,6 +13,12 @@ import random
 from wolfpack import tr
 from wolfpack.utilities import hex2dec
 
+# This causes some strange error... O_o
+#import food
+
+# When pet's loyalty is decreased
+CHECKINTERVAL = 60 * 60 * 1000 
+
 #check if the pet does follow the order 
 #Formula from http://uo.stratics.com/content/professions/taming/taming-lore.shtml#loyalty
 #return true if pet follow the order
@@ -29,28 +35,36 @@ def checkPetControl(pet, char, text, keywords):
 	if pet.summoned:
 		return True
 
-	diff = pet.mintaming / 10.0
 	taming = char.skill[TAMING]
 	lore = char.skill[ANIMALLORE]
-	#Effective Taming=(Animal Taming * 4 + Animal Lore) / 5
-	effTaming = ( taming * 4 + lore) / 5
-	effTaming = effTaming / 10.0
+	diff = pet.mintaming
+	weighted = ( taming * 4 + lore) / 5
+	bonus = weighted - diff
 
-	if diff > effTaming:
-		#Pet Control %=70 + 14 * (Effective Taming - Pet Difficulty) if efftaming < diff
-		chance = 70 + 14* (effTaming - diff)
+	if bonus <= 0:
+		chance = 700 + (bonus * 14)
 	else:
-		# Pet Control %=70 + 6 * (Effective Taming - Pet Difficulty) if efftaming > diff
-		chance = 70 + 6 * (effTaming - diff)
+		chance = 700 + (bonus * 6)
 
-	if chance > 99:
-		chance = 99
-	if chance < 20:
-		chance = 20
+	if chance >= 0 and chance < 200:
+		chance = 200
+	elif chance > 990:
+		chance = 990
+
+	loyaltyValue = 1
+	if pet.hastag('loyalty') and pet.gettag('loyalty') > 1:
+		loyaltyValue = int(pet.gettag('loyalty') - 1) * 10
+
+	chance -= ((100 - loyaltyValue) * 10)
 
 	if random.randint(1,100) <= chance:
 		return True
 	else:
+		pet.sound(SND_STARTATTACK)
+		if pet.bodytype == 3: # is animal
+			pet.action( 10 )
+		elif pet.bodytype == 1: # is monster
+			pet.action( 18 )
 		return False
 
 def friends(pet):
@@ -474,153 +488,72 @@ def onSpeech(pet, char, text, keywords):
 
 	return False
 
-#def onTimeChange( char ):
-#	if ( m is BaseMount && ((BaseMount)m).Rider != null )
-#	{
-#		((BaseCreature)m).OwnerAbandonTime = DateTime.MinValue;
-#		continue;
-#	}
-#
-#	if char.tamed:
-#		if not char.hastag('loyalty'):
-#			char.settag('loyalty', 11)
-#		loyalty = char.gettag('loyalty')
-#		owner = char.owner
-#		if owner and owner.gm:
-#			return False
-#		if char.dead:
-#			#if not owner or owner.pos.map != char.pos.map or (char.distanceto(owner) > 12) or not char.cansee(owner):
-#				#if ( c.OwnerAbandonTime == DateTime.MinValue )
-#				#	c.OwnerAbandonTime = DateTime.Now;
-#				#else if ( (c.OwnerAbandonTime + c.BondingAbandonDelay) <= DateTime.Now )
-#				#	toRemove.Add( c );
-#			return
-#			#}
-#			#else
-#			#{
-#			#	c.OwnerAbandonTime = DateTime.MinValue;
-#			#}
-#
-#		elif loyalty > 0 and char.pos.map != 0xFF:
-#			torelease = False
-#			loyalty_new = loyalty - 1
-#			if loyalty_new < 1:
-#				torelease = True
-#			else:
-#				char.settag('loyalty', loyalty_new)
-#			if loyalty_new == 1: # Confused
-#				char.say(1043270, unicode(char.name) ) # * ~1_NAME~ looks around desperately *
-#				char.soundeffect(char.basesound + 1)
-#
-#			#c.OwnerAbandonTime = DateTime.MinValue;
-#
-#			if torelease:
-#				char.say( 1043255, unicode(char.name) ) # ~1_NAME~ appears to have decided that is better off without a master!
-#				char.settag('loyalty', 11) # Wonderfully happy
-#				#c.IsBonded = false;
-#				#c.BondingBegin = DateTime.MinValue;
-#				#c.OwnerAbandonTime = DateTime.MinValue;
-#				release(char)
-#	# not tamed
-#	else:
-#		# Animals in houses/multis
-#		if char.multi:
-#			if not char.dead:
-#				if char.hastag("removestep"):
-#					if char.gettag("removestep") >= 20:
-#						char.delete()
-#					else:
-#						char.settag("removestep", char.gettag("removestep") + 1)
-#				else:
-#					char.settag("removestep", 1)		
-#		else:
-#			if char.hastag("removestep"):
-#				char.deltag("removestep")
-#	return
-#
-#
-## already partly translated
+#def onDropOnChar(char, item):
+#	if item.baseid == "eed":
+#		food.ischecked(char, item)
+#		return True
+#	return False
 
-#			foreach ( Mobile m in World.Mobiles.Values )
-#			{
-#				if ( m is BaseMount && ((BaseMount)m).Rider != null )
-#				{
-#					((BaseCreature)m).OwnerAbandonTime = DateTime.MinValue;
-#					continue;
-#				}
-#
-#				if ( m is BaseCreature )
-#				{
-#					BaseCreature c = (BaseCreature)m;
-#
-#					if ( c.IsDeadPet )
-#					{
-#						Mobile owner = c.ControlMaster;
-#
-#						if ( owner == null || owner.Deleted || owner.Map != c.Map || !owner.InRange( c, 12 ) || !c.CanSee( owner ) || !c.InLOS( owner ) )
-#						{
-#							if ( c.OwnerAbandonTime == DateTime.MinValue )
-#								c.OwnerAbandonTime = DateTime.Now;
-#							else if ( (c.OwnerAbandonTime + c.BondingAbandonDelay) <= DateTime.Now )
-#								toRemove.Add( c );
-#						}
-#						else
-#						{
-#							c.OwnerAbandonTime = DateTime.MinValue;
-#						}
-#					}
-#					else if ( c.Controled && c.Commandable && c.Loyalty > PetLoyalty.None && c.Map != Map.Internal )
-#					{
-#						Mobile owner = c.ControlMaster;
-#
-#						// changed loyalty decrement
-#						if ( hasHourElapsed )
-#						{
-#							--c.Loyalty;
-#
-#							if ( c.Loyalty == PetLoyalty.Confused )
-#							{
-#								c.Say( 1043270, c.Name ); // * ~1_NAME~ looks around desperately *
-#								c.PlaySound( c.GetIdleSound() );
-#							}
-#						}
-#
-#						c.OwnerAbandonTime = DateTime.MinValue;
-#
-#						if ( c.Loyalty == PetLoyalty.None )
-#							toRelease.Add( c );
-#					}
-#
-#					// added lines to check if a wild creature in a house region has to be removed or not
-#					if ( !c.Controled && c.Region is HouseRegion && c.CanBeDamaged() )
-#					{
-#						c.RemoveStep++;
-#
-#						if ( c.RemoveStep >= 20 )
-#							toRemove.Add( c );
-#					}
-#					else
-#					{
-#						c.RemoveStep = 0;
-#					}
-#				}
-#			}
-#
-#			foreach ( BaseCreature c in toRelease )
-#			{
-#				c.Say( 1043255, c.Name ); // ~1_NAME~ appears to have decided that is better off without a master!
-#				c.Loyalty = PetLoyalty.WonderfullyHappy;
-#				c.IsBonded = false;
-#				c.BondingBegin = DateTime.MinValue;
-#				c.OwnerAbandonTime = DateTime.MinValue;
-#				c.ControlTarget = null;
-#				//c.ControlOrder = OrderType.Release;
-#				c.AIObject.DoOrderRelease(); // this will prevent no release of creatures left alone with AI disabled (and consequent bug of Followers)
-#			}
-#
-#			// added code to handle removing of wild creatures in house regions
-#			foreach ( BaseCreature c in toRemove )
-#			{
-#				c.Delete();
-#			}
-#		}
+def onLoad():
+	global magic_pets
+	magic_pets = random.random()
+	wolfpack.addtimer( CHECKINTERVAL, loyaltyexp, [magic_pets], False )
+
+def onUnload():
+	global magic_pets
+	magic_pets = random.random()
+
+def loyaltyexp(obj, args):
+	if args[0] != magic_pets:
+		return # The scripts have been reloaded
+
+	wolfpack.addtimer( CHECKINTERVAL, loyaltyexp, [magic_pets], False )
+
+	iterator = wolfpack.chariterator()
+	char = iterator.first
+	while char:
+		# Access char properties here
+		if char.tamed:	
+			if not char.hastag('loyalty'):
+				char.settag('loyalty', 11)
+			loyalty = char.gettag('loyalty')
+			owner = char.owner
+			if owner and owner.gm:
+				return False
+
+			if loyalty > 0 and char.pos.map != 0xFF:
+				torelease = False
+				loyalty_new = loyalty - 1
+				if loyalty_new < 1:
+					torelease = True
+				else:
+					char.settag('loyalty', loyalty_new)
+				if loyalty_new == 1: # Confused
+					char.say(1043270, unicode(char.name) ) # * ~1_NAME~ looks around desperately *
+					char.sound(SND_IDLE)
+
+				if torelease:
+					char.say( 1043255, unicode(char.name) ) # ~1_NAME~ appears to have decided that is better off without a master!
+					char.settag('loyalty', 11) # Wonderfully happy
+	#				#c.IsBonded = false;
+	#				#c.BondingBegin = DateTime.MinValue;
+	#				#c.OwnerAbandonTime = DateTime.MinValue;
+					release(char)
+		# not tamed
+		else:
+			# Animals in houses/multis
+			if char.multi:
+				if not char.dead:
+					if char.hastag("removestep"):
+						if char.gettag("removestep") >= 20:
+							char.delete()
+						else:
+							char.settag("removestep", char.gettag("removestep") + 1)
+					else:
+						char.settag("removestep", 1)		
+			else:
+				if char.hastag("removestep"):
+					char.deltag("removestep")
+		char = iterator.next
+
+	return
