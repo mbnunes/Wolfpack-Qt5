@@ -140,6 +140,10 @@ def checkQt(options):
 		QMAKESEARCHPATH.append( os.path.join( dir, QMAKE_EXECUTABLE ) )
 
 	qmake_file, qmake_path = findFile(QMAKESEARCHPATH)
+	if not qmake_file:
+            sys.stdout.write( red("Fail") + "\n" )
+            sys.stdout.write( "Couldn't find qmake" )
+            return False
 	global qt_qmake;
 	qt_qmake = os.path.join(qmake_path, qmake_file)
 	sys.stdout.write( "%s\n" % qt_qmake )

@@ -294,6 +294,11 @@ class QtLibrary( AbstractExternalLibrary ):
 		QMAKESEARCHPATH.append( os.path.join( dir, self.qmakeExecutable ) )
 
 	qmake_file, qmake_path, searchpath = self.findFile(QMAKESEARCHPATH)
+	if not qmake_file:
+            self.out( red("Fail") + "\n" )
+            self.out( "Couldn't find qmake" )
+            return False
+        
 	qt_qmake = os.path.join(qmake_path, qmake_file)
         self.toolPath = qmake_path
 	self.out( "%s\n" % qt_qmake )
