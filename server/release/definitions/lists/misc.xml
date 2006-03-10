@@ -19,5 +19,11 @@
 		<item>GAMEPLAY</item>
 		<item>BUILD</item>
 	</list>
+  
+  <!-- Gender List -->
+  <list id="GENDER_LIST">
+    <item>male</item>
+    <item>female</item>
+  </list>
 
 </definitions>

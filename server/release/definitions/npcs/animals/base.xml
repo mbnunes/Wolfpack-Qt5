@@ -10,6 +10,9 @@
 
 	<!-- animal_base -->
 	<npc id="animal_base">
+    <gender>
+      <random list="GENDER_LIST" />
+    </gender>
 		<name>unknown animal</name>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction>
