@@ -51,12 +51,6 @@ def checkDeed(player, item):
 		player.socket.clilocmessage(1042001) # That must be in your pack for you to use it.
 		return False
 
-	# We may only own one house (Same for gamemasters -> registry)
-	boat = boats.findBoat(player)
-	if boat:
-		player.socket.clilocmessage(501271) # You already own a house, you may not place another!
-		return False
-
 	# Does this deed have a multi section assigned to it?
 	if not item.hastag('multisection'):
 		player.socket.sysmessage(tr('This deed is broken.'))
@@ -121,10 +115,16 @@ def createBoat( player, deed, pos ):
 	count = node.childcount
 	for i in range(0, count):
 		subnode = node.getchild(i)
-		if subnode.name == 'special_items': # Found section
+		if subnode.name == 'ids':
+                    boat.settag('boat_id_north', hex2dec( subnode.getattribute( 'north', '0' ) ) )
+                    boat.settag('boat_id_east', hex2dec( subnode.getattribute( 'east', '0' ) ) )                               
+                    boat.settag('boat_id_south', hex2dec( subnode.getattribute( 'south', '0' ) ) )                               
+                    boat.settag('boat_id_west', hex2dec( subnode.getattribute( 'west', '0' ) ) )                               
+		elif subnode.name == 'special_items': # Found section
                         subsubnode = subnode.findchild('tillerman')
                         if subsubnode != None:
                                 tillerman = createBoatSpecialItem( '3e4e', subsubnode, boat )
+                                boat.settag('boat_tillerman', tillerman.serial)
                         subsubnode = subnode.findchild('hold')
                         if subsubnode != None:
                                 hold = createBoatSpecialItem( '3eae', subsubnode, boat )
@@ -134,6 +134,7 @@ def createBoat( player, deed, pos ):
                                 pplank = createBoatSpecialItem( '3eb1', portclosed, boat )
                                 starclosed = subsubnode.findchild('star_closed')
                                 splank = createBoatSpecialItem( '3eb2', starclosed, boat )
+                                splank.settag('plank_starboard', 1)
                                 
 #
 # Target
@@ -152,7 +153,7 @@ def placement(player, arguments, target):
                 
 	(canplace, moveout) = wolfpack.canplaceboat(target.pos, dispid - 0x4000)
 
-	if not canplace:
+	if not canplace or player.pos.distance( target.pos ) > 30:
 		player.socket.clilocmessage( 1043284 ) # A ship can not be created here.
 		return
 
