@@ -71,9 +71,7 @@ def stroke(char, arguments):
 				else:
 					viewer.socket.clilocmessage(1042857 + char.poison * 2, '', 34, 3, char)
 
-	damage = 1 + int(char.hitpoints * poison[3])
-	damage = min(poison[2], max(poison[1], damage))
-	energydamage(char, None, damage, poison=100)
+	dodamage(char, poison)
 
 	# See if we should add another timer
 	strokes += 1
@@ -86,6 +84,11 @@ def stroke(char, arguments):
 		return
 
 	char.addtimer(poison[5], stroke, [strokes], 0, 0, "poison_timer")
+
+def dodamage(char, poison)
+	damage = 1 + int(char.hitpoints * poison[3])
+	damage = min(poison[2], max(poison[1], damage))
+	energydamage(char, None, damage, poison=100)
 
 #
 # Cure the currently applied poison
