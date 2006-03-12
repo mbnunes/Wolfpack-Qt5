@@ -13,7 +13,7 @@
 				<item id="e76"><amount>20</amount></item> <!-- Bag -->
 				<item id="e79"><amount>20</amount></item> <!-- Pouch -->
 				<item id="leather_hides"><amount>20</amount></item> <!-- Leather -->
-				<!--<item id=""><amount>20</amount></item>--> <!-- Taxidermy Kit -->
+				<item id="taxidermy_kit"><amount>20</amount></item> <!-- Taxidermy Kit -->
 				<item id="ec4"><amount>20</amount></item> <!-- Skinning Knife -->
 				<item id="13cb"><amount>20</amount></item> <!-- Leather Legs -->
 				<item id="1c00"><amount>20</amount></item> <!-- Leather Shorts -->
