@@ -42,20 +42,18 @@ def response( char, args, target):
 	elif target.item.corpse and VisitedByTaxidermist(target.item):
 		char.socket.clilocmessage( 1042596 ) # That corpse seems to have been visited by a taxidermist already.
 	else:
-		if getname( target.item.bodyid ) in corpses.keys():
+		if target.item.baseid == "big_fish":
+			createTrophyDeed( char, 'big_fish', target.item )
+			target.item.delete()
+			kit.delete()
+
+		elif getname( target.item.bodyid ) in corpses.keys():
 			corpse = corpses[getname( target.item.bodyid )]
 			if not wolfpack.utilities.checkresources(char.getbackpack(), '1bdd', 10):
-				wolfpack.utilities.consumeresources(char.getbackpack(), '1bdd', 10)
-				char.socket.clilocmessage( 1042278 ) # You review the corpse and find it worthy of a trophy.
-				char.socket.clilocmessage( 1042602 ) # You use your kit up making the trophy.
 
 				createTrophyDeed( char, getname( target.item.bodyid ), target.item )
 
-				#if target.item.corpse:
-				#	target.item.settag( 'VisitedByTaxidermist', 0 )
-				#elif target.item.baseid == "big_fish":
-				#	target.item.delete()
-
+				target.item.settag( 'VisitedByTaxidermist', 0 )
 				kit.delete()
 			else:
 				char.socket.clilocmessage( 1042598 ) # You do not have enough boards.
@@ -70,17 +68,21 @@ def getname( bodyid ):
 			return corpse
 	return False
 
-def createTrophyDeed( char, corpse, item ):
+def createTrophyDeed( char, corpse, item, message = True ):
+	wolfpack.utilities.consumeresources(char.getbackpack(), '1bdd', 10)
+	if message:
+		char.socket.clilocmessage( 1042278 ) # You review the corpse and find it worthy of a trophy.
+		char.socket.clilocmessage( 1042602 ) # You use your kit up making the trophy.
+
 	trophydeed = wolfpack.additem('trophy_deed')
 	trophydeed.settag('corpse', corpse)
 	trophydeed.name = '#' + str(corpses[corpse][2])
-	try:
+	if item.hastag('hunter'):
 		hunter = item.gettag('hunter')
-		weight = item.gettag('animalweight')
-
 		trophydeed.settag('hunter', hunter)
+	if item.hastag('animalweight'):
+		weight = item.gettag('animalweight')
 		trophydeed.settag('animalweight', weight)
-	except:
-		pass
+
 	char.getbackpack().additem(trophydeed)
 	trophydeed.update()

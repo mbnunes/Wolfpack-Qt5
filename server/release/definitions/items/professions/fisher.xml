@@ -101,6 +101,14 @@
 		<category>Professions\Fisher\Small Fish 4</category>
 	</item>
 
+	<item id="big_fish">
+		<id>0x9cc</id>
+		<name>#1041112</name>
+		<color>0x847</color>
+		<basescripts>bigfish</basescripts>
+		<category>Professions\Fisher\Big Fish</category>
+	</item>
+
 	<item id="1e15">
 		<id>0x1e15</id>
 		<category>Professions\Fisher\Raw Fish 1</category>

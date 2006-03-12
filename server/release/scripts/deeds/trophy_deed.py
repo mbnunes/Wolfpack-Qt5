@@ -47,7 +47,7 @@ def onUse(char, item):
 		char.socket.clilocmessage( 1042626 ) # The trophy must be placed next to a wall.
 
 	if itemID > 0:
-		if setup_trophy(char, itemID):
+		if setup_trophy(char, item, itemID):
 			item.delete()
 		else:
 			char.socket.clilocmessage( 500269 ) # You cannot build that there.
@@ -55,11 +55,18 @@ def onUse(char, item):
 		# house.Addons.Add( new TrophyAddon( from, itemID, m_WestID, m_NorthID, m_DeedNumber, m_AddonNumber, m_Hunter, m_AnimalWeight ) );
 	return True
 
-def setup_trophy(char, itemID):
+def setup_trophy(char, item, itemID):
 	if check_spot(char):
 		trophy = wolfpack.additem(itemID)
+		if item.hastag('hunter'):
+			hunter = item.gettag('hunter')
+			trophy.settag('hunter', hunter)
+		if item.hastag('animalweight'):
+			weight = item.gettag('animalweight')
+			trophy.settag('animalweight', weight)
 		trophy.pos = char.pos
 		trophy.update()
+		trophy.resendtooltip()
 		return True
 	return False
 

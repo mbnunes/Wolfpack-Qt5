@@ -309,7 +309,10 @@ def carve_scales( char, corpse, tool, scales_type, scales ):
 # CUT FISH
 def cut_fish( char, item ):
 	item_new = wolfpack.additem( "97a" )
-	item_new.amount = item.amount * 2
+	if item.baseid == "big_fish":
+		item_new.amount = random.randint(16, item.gettag('animalweight')/4)
+	else:
+		item_new.amount = item.amount * 2
 	if not utilities.tocontainer( item_new, char.getbackpack() ):
 		item_new.update()
 	item.delete()

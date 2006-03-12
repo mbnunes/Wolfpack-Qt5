@@ -19,7 +19,7 @@ def onUse(char, item):
 	corpse = str(getbase(char, item.id))
 	if not corpse:
 		return False
-	createTrophyDeed( char, corpse, item )
+	createTrophyDeed( char, corpse, item, False )
 	item.delete()
 	return True
 
