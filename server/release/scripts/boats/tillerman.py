@@ -263,7 +263,7 @@ def SetFacing( boat, direction ):
                 distance = max( abs( boat.pos.y - item.pos.y ), abs( boat.pos.x - item.pos.x ) )
                 p = wolfpack.coord( boat.pos.x + ( rx * distance ), boat.pos.y + ( ry * distance ), item.pos.z, item.pos.map )
                 if direction == Forward:
-                    p.x = p.x + 1
+                    #p.x = p.x + 1
                     item.id = 0x3eae
                 elif direction == Backward:
                     item.id = 0x3eb9
