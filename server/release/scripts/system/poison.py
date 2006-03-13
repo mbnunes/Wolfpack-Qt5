@@ -85,7 +85,7 @@ def stroke(char, arguments):
 
 	char.addtimer(poison[5], stroke, [strokes], 0, 0, "poison_timer")
 
-def dodamage(char, poison)
+def dodamage(char, poison):
 	damage = 1 + int(char.hitpoints * poison[3])
 	damage = min(poison[2], max(poison[1], damage))
 	energydamage(char, None, damage, poison=100)

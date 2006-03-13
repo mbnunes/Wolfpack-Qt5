@@ -85,7 +85,6 @@ def Move( boat, direction, speed, message ):
     newCoord = wolfpack.coord( boat.pos.x + xOffset, boat.pos.y + yOffset, boat.pos.z, boat.pos.map )
 
     # Check collision here
-
     if not wolfpack.canboatmoveto( boat, newCoord ):
         if message:
             tillerman = wolfpack.finditem( int( boat.gettag('boat_tillerman') ) )
@@ -108,9 +107,10 @@ def Move( boat, direction, speed, message ):
     # Move other items/chars inside the boat
     listitems = boat.objects
     for item in listitems:
-        newCoord = wolfpack.coord( item.pos.x + xOffset, item.pos.y + yOffset, item.pos.z, item.pos.map )
-        item.moveto( newCoord )
-        item.update()
+	if not item.hastag('boat_serial'):
+		newCoord = wolfpack.coord( item.pos.x + xOffset, item.pos.y + yOffset, item.pos.z, item.pos.map )
+		item.moveto( newCoord )
+		item.update()
     return True
 
 def doBoatMovement( boat, args ):
@@ -317,8 +317,9 @@ def SetFacing( boat, direction ):
     # Rotate other items/chars inside the boat
     listitems = boat.objects
     for item in listitems:
-        item.moveto( Rotate( boat, item.pos, count ) )
-        item.update()
+	if not item.hastag('boat_serial'):
+		item.moveto( Rotate( boat, item.pos, count ) )
+		item.update()
 
             
     boat.update()
