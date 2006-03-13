@@ -184,7 +184,7 @@
 				<offsets x="1" y="5" />
 			</tillerman>
 			<hold>
-				<offsets x="5" y="5" />
+				<offsets x="0" y="-5" />
 			</hold>
 			<planks>
 				<port_closed>

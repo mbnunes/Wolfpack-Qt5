@@ -105,6 +105,9 @@ public:
 
 	// See if a certain coordinate is within the multi
 	bool inMulti( const Coord& pos );
+
+	// Boat Specifics
+	bool canBoatMoveTo( const Coord& pos );
 };
 
 #endif

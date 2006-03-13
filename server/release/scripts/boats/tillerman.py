@@ -13,6 +13,8 @@ from wolfpack.consts import *
 import boats
 from wolfpack.utilities import hex2dec
 
+import wolfpack.console
+
 Forward = 0
 ForwardLeft = 7
 ForwardRight = 1
@@ -84,7 +86,7 @@ def Move( boat, direction, speed, message ):
 
     # Check collision here
 
-    if not canplace:
+    if not wolfpack.canboatmoveto( boat, newCoord ):
         if message:
             tillerman = wolfpack.finditem( int( boat.gettag('boat_tillerman') ) )
             if tillerman != None:
@@ -96,7 +98,7 @@ def Move( boat, direction, speed, message ):
     boat.update()
 
     # Move boat subparts
-    for i in range( 1, int( boat.gettag('boat_part_count') ) ):
+    for i in range( 1, int( boat.gettag('boat_part_count') ) + 1 ):
         item = wolfpack.finditem( int( boat.gettag('boat_part%i' % i) ) )
         if item != None:
             newCoord = wolfpack.coord( item.pos.x + xOffset, item.pos.y + yOffset, item.pos.z, item.pos.map )
@@ -109,6 +111,7 @@ def Move( boat, direction, speed, message ):
         newCoord = wolfpack.coord( item.pos.x + xOffset, item.pos.y + yOffset, item.pos.z, item.pos.map )
         item.moveto( newCoord )
         item.update()
+    return True
 
 def doBoatMovement( boat, args ):
     speed = args[0]
@@ -119,7 +122,9 @@ def doBoatMovement( boat, args ):
     if not boat: # linger timer from removed boat
         return
     
-    Move( boat, direction, speed, True )
+    if not Move( boat, direction, speed, True ):
+        return
+    
     if not single and boat.hastag( 'boat_moving' ):
         boat.addtimer( interval, doBoatMovement, list(args) )
 
@@ -210,11 +215,6 @@ def Rotate( boat, coord, count ):
     return wolfpack.coord( boat.pos.x + rx, boat.pos.y + ry, coord.z, coord.map )
 
 def SetFacing( boat, direction ):
-    # Check for collisions!
-
-    old = int( boat.gettag('boat_facing') )
-    boat.settag( 'boat_facing', direction )
-    rx, ry = MovementOffset( direction )
 
     # Checking collision
     newboatid = boat.id
@@ -228,20 +228,29 @@ def SetFacing( boat, direction ):
         newboatid = int( boat.gettag('boat_id_east') )
 
     #(canplace, moveout) = wolfpack.canplaceboat(boat.pos, newboatid - 0x4000)
-
-    if not canplace or moveout != None:
+    oldboatid = boat.id
+    boat.id = newboatid
+    if not wolfpack.canboatmoveto( boat, boat.pos ):
+        boat.id = oldboatid
         return False;        
 
-    count = ( ( direction - old ) & 0x07 ) / 2
+    old = int( boat.gettag('boat_facing') )
+    boat.settag( 'boat_facing', direction )
+    rx, ry = MovementOffset( direction )
+
+    count = ( direction - old ) & 0x07
+    count = count / 2
 
     # Move boat subparts
-    for i in range( 1, int( boat.gettag('boat_part_count') ) ):
+    for i in range( 1, int( boat.gettag('boat_part_count') ) + 1 ):
         item = wolfpack.finditem( int( boat.gettag('boat_part%i' % i) ) )
         if item != None:
-            item.moveto( Rotate( boat, item.pos, count ) )
+            wolfpack.console.send('direction = %i\n' % direction )
             if item.id in [ 0x3e4b, 0x3e4e, 0x3e50, 0x3e53 ]: # Tillerman
-                item.say( "distance = %i" % item.pos.distance( boat ) )
+                distance = max( abs( boat.pos.y - item.pos.y ), abs( boat.pos.x - item.pos.x ) )
+                p = wolfpack.coord( boat.pos.x + ( rx * -distance ), boat.pos.y + ( ry * -distance ), item.pos.z, item.pos.map )
                 if direction == Forward:
+                    p.x = p.x + 1
                     item.id = 0x3e4e
                 elif direction == Backward:
                     item.id = 0x3e4b
@@ -249,8 +258,12 @@ def SetFacing( boat, direction ):
                     item.id = 0x3e50
                 elif direction == Right:
                     item.id = 0x3e53
+                item.moveto( p )
             elif item.id in [ 0x3e65, 0x3e93, 0x3eae, 0x3eb9 ]: # Hold
+                distance = max( abs( boat.pos.y - item.pos.y ), abs( boat.pos.x - item.pos.x ) )
+                p = wolfpack.coord( boat.pos.x + ( rx * distance ), boat.pos.y + ( ry * distance ), item.pos.z, item.pos.map )
                 if direction == Forward:
+                    p.x = p.x + 1
                     item.id = 0x3eae
                 elif direction == Backward:
                     item.id = 0x3eb9
@@ -258,6 +271,7 @@ def SetFacing( boat, direction ):
                     item.id = 0x3e93
                 elif direction == Right:
                     item.id = 0x3e65
+                item.moveto( p )
             elif item.id in [ 0x3ed4, 0x3ed5, 0x3e84, 0x3e89, 0x3eb2, 0x3eb1, 0x3e85, 0x3e8a ]: # gang planks
                 if item.hastag('plank_open'):
                     if item.hastag('plank_starboard'):
@@ -285,7 +299,7 @@ def SetFacing( boat, direction ):
                         elif direction == Backward:
                             item.id = 0x3eb1
                         elif direction == Left:
-                            item.id = 0x3e84
+                            item.id = 0x3e8a
                         elif direction == Right:
                             item.id = 0x3e85
                     else:
@@ -297,7 +311,7 @@ def SetFacing( boat, direction ):
                             item.id = 0x3e85
                         elif direction == Right:
                             item.id = 0x3e8a
-
+                item.moveto( Rotate( boat, item.pos, count ) )
             item.update()
 
     # Rotate other items/chars inside the boat
@@ -307,8 +321,6 @@ def SetFacing( boat, direction ):
         item.update()
 
             
-    # Change boat id
-    boat.id = newboatid
     boat.update()
 
     return True
@@ -320,7 +332,7 @@ def doBoatTurn( boat, args ):
 
     if boat.hastag( 'boat_anchored' ):
         return False
-    if SetFacing( boat, ( offset + int( boat.gettag('boat_facing') ) & 0x07 ) ):
+    if SetFacing( boat, ( offset + int( boat.gettag('boat_facing') ) ) & 0x07 ):
         return True
     else:
         if message:
@@ -333,6 +345,9 @@ def StartTurn( boat, tillerman, offset, message ):
         if message and tillerman != None:
             tillerman.say( 501419 ) # Ar, the anchor is down sir!
         return False
+
+    if boat.hastag( 'boat_moving' ):
+        StopMove( boat, tillerman, False )
 
     boat.addtimer( 500, doBoatTurn, [offset, message] )
 
@@ -389,9 +404,9 @@ def onSpeech( obj, player, text, keywords ):
         elif keyword == 0x4f: # stop
             StopMove( boat, obj, True )
             return True
-        elif keyword == 0x49 or keyword == 0x65:
+        elif keyword == 0x49 or keyword == 0x65: # turn right
             StartTurn( boat, obj, 2, True )
-        elif keyword == 0x4A or keyword == 0x66:
+        elif keyword == 0x4A or keyword == 0x66: # turn left
             StartTurn( boat, obj, -2, True )
         elif keyword == 0x50: # left
             StartMove( boat, obj, Left, False )

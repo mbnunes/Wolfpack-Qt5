@@ -120,7 +120,8 @@
 	</item>
 
 	<item id="3eae">
-		<id>0x3eae</id>
+    <type>1</type>
+    <id>0x3eae</id>
 		<category>Boat Parts\Hatch\Hatch 3</category>
 	</item>
 

@@ -909,6 +909,37 @@ static PyObject* wpCanPlaceBoat( PyObject* self, PyObject* args )
 }
 
 /*
+\function wolfpack.canboatmoveto
+\param boat the boat object.
+\param pos The position.
+\return True if the given multi can move to position.
+\description This function checks if a multi can advance to target position.
+*/
+static PyObject* wpCanBoatMoveTo( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self ); // Warning Fix
+	Coord pos;
+	cItem* boat;
+
+	if ( !PyArg_ParseTuple( args, "O&O&:wolfpack.canboatmoveto(boat, coord)", &PyConvertItem, &boat, &PyConvertCoord, &pos ) )
+	{
+		return 0;
+	}
+
+	cMulti* multi = dynamic_cast<cMulti*>( boat );
+	if ( !multi )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	if ( multi->canBoatMoveTo( pos ) )
+		Py_RETURN_TRUE;
+	else
+		Py_RETURN_FALSE;
+}
+
+/*
 	\function wolfpack.effect
 	\param id The art id of the effect that should be shown.
 	\param pos A <object id="coord">coord</object> object representing the position where the effect should be shown.
@@ -2082,6 +2113,7 @@ static PyMethodDef wpGlobal[] =
 { "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
 { "canplace",			wpCanPlace,						METH_VARARGS, 0 },
 { "canplaceboat",		wpCanPlaceBoat,					METH_VARARGS, 0 },
+{ "canboatmoveto",		wpCanBoatMoveTo,				METH_VARARGS, 0 },
 { "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
 { "spawnregion",		wpSpawnregion,					METH_VARARGS, 0 },
 { "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" },
