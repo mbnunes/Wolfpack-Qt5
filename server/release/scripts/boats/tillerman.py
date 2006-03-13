@@ -245,7 +245,7 @@ def SetFacing( boat, direction ):
     for i in range( 1, int( boat.gettag('boat_part_count') ) + 1 ):
         item = wolfpack.finditem( int( boat.gettag('boat_part%i' % i) ) )
         if item != None:
-            wolfpack.console.send('direction = %i\n' % direction )
+            #wolfpack.console.send('direction = %i\n' % direction )
             if item.id in [ 0x3e4b, 0x3e4e, 0x3e50, 0x3e53 ]: # Tillerman
                 distance = max( abs( boat.pos.y - item.pos.y ), abs( boat.pos.x - item.pos.x ) )
                 p = wolfpack.coord( boat.pos.x + ( rx * -distance ), boat.pos.y + ( ry * -distance ), item.pos.z, item.pos.map )
@@ -319,6 +319,8 @@ def SetFacing( boat, direction ):
     for item in listitems:
 	if not item.hastag('boat_serial'):
 		item.moveto( Rotate( boat, item.pos, count ) )
+		if item.ischar:
+			item.direction += int( direction ) - int( old )
 		item.update()
 
             
