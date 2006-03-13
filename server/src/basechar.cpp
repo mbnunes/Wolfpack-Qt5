@@ -1275,7 +1275,7 @@ void cBaseChar::processNode( const cElement* Tag, uint hash )
 	changed_ = true;
 	QString Value = Tag->value();
 
-
+/*
 #define OUTPUT_HASH(x) QString("%1 = %2, ").arg(x).arg( elfHash( x ), 0, 16)
 	Console::instance()->send(
 		OUTPUT_HASH("backpack") + 
@@ -1300,8 +1300,7 @@ void cBaseChar::processNode( const cElement* Tag, uint hash )
 		OUTPUT_HASH("gender")
 		);
 #undef OUTPUT_HASH
-
-	while ( true );
+*/
 
 	if ( !hash )
 		hash = Tag->nameHash();
