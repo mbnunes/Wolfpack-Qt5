@@ -78,8 +78,10 @@ def ischecked(player, char, item):
 			loyalty = 0
 			if char.hastag('loyalty'):
 				loyalty = char.gettag('loyalty')
+			if not loyalty:
+				char.settag('loyalty', 11)
 			# if loyalty < Wonderfully happy
-			if loyalty < 11 and 0.5 >= random.random():
+			elif loyalty < 11 and 0.5 >= random.random():
 				char.settag('loyalty', loyalty + 1)
 				happier = True
 		if happier:
