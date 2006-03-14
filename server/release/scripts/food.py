@@ -58,12 +58,12 @@ def onDropOnChar(char, item):
 		player = item.container
 		if char.tamed and (char.owner == player) or isPetFriend(player, char) :
 			if checkfoodpreference(char, item):
-				ischecked(char, item)
+				ischecked(player, char, item)
 		else:
 			return False
 		return True
 
-def ischecked(char, item):
+def ischecked(player, char, item):
 	amount = item.amount
 	if amount > 0:
 		happier = False
