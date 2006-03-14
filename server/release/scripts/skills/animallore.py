@@ -115,29 +115,16 @@ def sendGump( char, args, target ):
 		loreGump.addXmfHtmlGump( 147, 276, 160, 18, 1049594, 0, 0, 200 ) # Loyalty Rating
 
 		loyalty = 0
-		if char.hastag("loyalty"):
+		if target.char.hastag("loyalty"):
 			try:
-				loyalty = int(char.gettag("loaylty"))
+				loyalty = int(target.char.gettag("loyalty"))
 			except:
 				loyalty = 0
 
 		if not target.char.tamed:
-			loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+			loreGump.addXmfHtmlGump( 153, 294, 160, 18, 1061643, 0, 0, 16000229 ) # Wild
 		else:
-			if target.char.hunger >= 20:
-				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x100405, 0, 0, 16000229 ) # Wonderfully happy
-			elif target.char.hunger > 16:
-				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x100403, 0, 0, 16000229 ) # Very Happy
-			elif target.char.hunger > 13:
-				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x100402, 0, 0, 16000229 ) # Rather Happy
-			elif target.char.hunger >= 10:
-				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x100400, 0, 0, 16000229 ) # Content
-			elif target.char.hunger > 7:
-				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003FE, 0, 0, 16000229 ) # Unhappy
-			elif target.char.hunger > 4:
-				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003FD, 0, 0, 16000229 ) # Rather Unhappy
-			elif target.char.hunger >= 0:
-				loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003FC, 0, 0, 16000229 ) # Extremely Unhappy
+			loreGump.addXmfHtmlGump( 153, 294, 160, 18, int(1049594 + loyalty), 0, 0, 16000229 )
 
 	else:
 		loreGump.addXmfHtmlGump( 147, 276, 160, 18, 0x2DCAB8, 0, 0, 200 ) # Miscellaneous
@@ -328,37 +315,16 @@ def sendGump( char, args, target ):
 	loreGump.addXmfHtmlGump( 153, 222, 160, 18, 1049594, 0, 0, 200 ) # Loyalty Rating
 
 	loyalty = 0
-	if char.hastag("loyalty"):
+	if target.char.hastag("loyalty"):
 		try:
-			loyalty = int(char.gettag("loyalty"))
+			loyalty = int(target.char.gettag("loyalty"))
 		except:
 			loyalty = 0
 
 	if not target.char.tamed:
-		loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+		loreGump.addXmfHtmlGump( 153, 294, 160, 18, 1061643, 0, 0, 16000229 ) # Wild
 	else:
-		if loyalty == 11:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100405, 0, 0, 16000229 ) # Wonderfully happy
-		elif loyalty == 10:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100404, 0, 0, 16000229 ) # Extremely happy
-		elif loyalty == 9:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100403, 0, 0, 16000229 ) # Very Happy
-		elif loyalty == 8:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100402, 0, 0, 16000229 ) # Rather Happy
-		elif loyalty == 7:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100401, 0, 0, 16000229 ) # Happy
-		elif loyalty == 6:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100400, 0, 0, 16000229 ) # Content
-		elif loyalty == 5:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FF, 0, 0, 16000229 ) # Somewhat Content
-		elif loyalty == 4:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FE, 0, 0, 16000229 ) # Unhappy
-		elif loyalty == 3:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FD, 0, 0, 16000229 ) # Rather Unhappy
-		elif loyalty == 2:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FC, 0, 0, 16000229 ) # Extremely Unhappy
-		elif loyalty == 1:
-			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FB, 0, 0, 16000229 ) # Confused
+		loreGump.addXmfHtmlGump( 153, 240, 160, 18, int(1049594 + loyalty), 0, 0, 16000229 ) # Wonderfully happy
 
 	loreGump.addPageButton( 340, 358, 0x15E1, 0x15E5, 1 )
 	loreGump.addPageButton( 317, 358, 0x15E3, 0x15E7, page - 1 )
