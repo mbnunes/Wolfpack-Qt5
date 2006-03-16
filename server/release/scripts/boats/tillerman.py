@@ -227,7 +227,6 @@ def SetFacing( boat, direction ):
     elif direction == Right:
         newboatid = int( boat.gettag('boat_id_east') )
 
-    #(canplace, moveout) = wolfpack.canplaceboat(boat.pos, newboatid - 0x4000)
     oldboatid = boat.id
     boat.id = newboatid
     if not wolfpack.canboatmoveto( boat, boat.pos ):

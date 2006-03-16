@@ -13,29 +13,17 @@
     <id>0x4000</id>
     <special_items>
 			<tillerman>
-				<offsets>
-					<x north="1" east="-4" south="0" west="4" />
-					<y north="4" east="0" south="-4" west="0" />
-				</offsets>
+				<offsets x="1" y="4" />
 			</tillerman>
 			<hold>
-				<offsets>
-					<x north="0" east="4" south="0" west="-4" />
-					<y north="-4" east="0" south="4" west="0" />
-				</offsets>
+				<offsets x="0" y="-4" />
 			</hold>
 			<planks>
 				<port_closed>
-					<offsets>
-						<x north="-2" east="0" south="2" west="0" />
-						<y north="0" east="-2" south="0" west="2" />
-					</offsets>
+					<offsets x="-2" y="0" />
 				</port_closed>
 				<star_closed>
-					<offsets>
-						<x north="2" east="0" south="-2" west="0" />
-						<y north="0" east="2" south="0" west="-2" />
-					</offsets>
+					<offsets x="2" y="0" />
 				</star_closed>
 			</planks>
 		</special_items>
@@ -44,7 +32,8 @@
 
 	<item id="boat_small">
 		<id>0x14F2</id>
-		<name>boat</name>
+    <!-- small ship deed -->
+		<name>#1041205</name>
 		<tag name="multisection" value="boat_small" />
     <scripts>boats.deed</scripts>
   </item>
@@ -55,29 +44,17 @@
     <id>0x4004</id>
     <special_items>
 			<tillerman>
-				<offsets>
-					<x north="1" east="-4" south="0" west="4" />
-					<y north="4" east="0" south="-4" west="0" />
-				</offsets>
+				<offsets x="1" y="4" />
 			</tillerman>
 			<hold>
-				<offsets>
-					<x north="0" east="4" south="0" west="-4" />
-					<y north="-4" east="0" south="4" west="0" />
-				</offsets>
+				<offsets x="0" y="-4" />
 			</hold>
 			<planks>
 				<port_closed>
-					<offsets>
-						<x north="-2" east="0" south="2" west="0" />
-						<y north="0" east="-2" south="0" west="2" />
-					</offsets>
+					<offsets x="-2" y="0" />
 				</port_closed>
 				<star_closed>
-					<offsets>
-						<x north="2" east="0" south="-2" west="0" />
-						<y north="0" east="2" south="0" west="-2" />
-					</offsets>
+					<offsets x="2" y="0" />
 				</star_closed>
 			</planks>
 		</special_items>
@@ -86,7 +63,8 @@
 
 	<item id="dragonboat_small">
 		<id>0x14F2</id>
-		<name>dragon boat</name>
+    <!-- small dragon ship deed -->
+		<name>#1041206</name>
 		<tag name="multisection" value="dragonboat_small" />
     <scripts>boats.deed</scripts>
   </item>
@@ -97,29 +75,20 @@
     <id>0x4008</id>
     <special_items>
 			<tillerman>
-				<offsets>
-					<x north="1" east="-5" south="0" west="5" />
-					<y north="5" east="0" south="-5" west="0" />
-				</offsets>
+				<offsets x="1" y="5" />
 			</tillerman>
 			<hold>
-				<offsets>
+				<offsets x="0" y="-1">
 					<x north="0" east="4" south="0" west="-4" />
 					<y north="-4" east="0" south="4" west="0" />
 				</offsets>
 			</hold>
 			<planks>
 				<port_closed>
-					<offsets>
-						<x north="-2" east="0" south="2" west="0" />
-						<y north="0" east="-2" south="0" west="2" />
-					</offsets>
+					<offsets x="-2" y="0" />
 				</port_closed>
 				<star_closed>
-					<offsets>
-						<x north="2" east="0" south="-2" west="0" />
-						<y north="0" east="2" south="0" west="-2" />
-					</offsets>
+					<offsets x="2" y="0" />
 				</star_closed>
 			</planks>
 		</special_items>
@@ -128,7 +97,8 @@
 
 	<item id="boat_medium">
 		<id>0x14F2</id>
-		<name>ship</name>
+    <!-- medium ship deed -->
+		<name>#1041207</name>
 		<tag name="multisection" value="boat_medium" />
     <scripts>boats.deed</scripts>
   </item>
@@ -139,29 +109,17 @@
     <id>0x400C</id>
     <special_items>
 			<tillerman>
-				<offsets>
-					<x north="1" east="-5" south="0" west="5" />
-					<y north="5" east="0" south="-5" west="0" />
-				</offsets>
+				<offsets x="1" y="5" />
 			</tillerman>
 			<hold>
-				<offsets>
-					<x north="0" east="4" south="0" west="-4" />
-					<y north="-4" east="0" south="4" west="0" />
-				</offsets>
+				<offsets x ="0" y="-4" />
 			</hold>
 			<planks>
 				<port_closed>
-					<offsets>
-						<x north="-2" east="0" south="2" west="0" />
-						<y north="0" east="-2" south="0" west="2" />
-					</offsets>
+					<offsets x="-2" y="0" />
 				</port_closed>
 				<star_closed>
-					<offsets>
-						<x north="2" east="0" south="-2" west="0" />
-						<y north="0" east="2" south="0" west="-2" />
-					</offsets>
+					<offsets x="2" y="0" />
 				</star_closed>
 			</planks>
 		</special_items>
@@ -170,7 +128,8 @@
 
 	<item id="dragonboat_medium">
 		<id>0x14F2</id>
-		<name>dragon ship</name>
+    <!-- medium dragon ship deed -->
+		<name>#1041208</name>
 		<tag name="multisection" value="dragonboat_medium" />
     <scripts>boats.deed</scripts>
   </item>
@@ -212,23 +171,17 @@
     <id>0x4014</id>
     <special_items>
 			<tillerman>
-				<offsets x ="1" y="1" />
+				<offsets x ="1" y="5" />
 			</tillerman>
 			<hold>
-				<offsets x = "-5" y="5" />
+				<offsets x = "-5" y="0" />
 			</hold>
 			<planks>
 				<port_closed>
-					<offsets>
-						<x north="-2" east="1" south="2" west="-1" />
-						<y north="-1" east="-2" south="1" west="2" />
-					</offsets>
+					<offsets x="-2" y="-1" />
 				</port_closed>
 				<star_closed>
-					<offsets>
-						<x north="2" east="1" south="-2" west="-1" />
-						<y north="-1" east="2" south="1" west="-2" />
-					</offsets>
+					<offsets x="2" y="-1" />
 				</star_closed>
 			</planks>
 		</special_items>
@@ -237,7 +190,8 @@
 
 	<item id="dragonboat_large">
 		<id>0x14F2</id>
-		<name>dragon galley</name>
+    <!-- large dragon ship deed -->
+		<name>#1041210</name>
 		<tag name="multisection" value="dragonboat_large" />
     <scripts>boats.deed</scripts>
   </item>

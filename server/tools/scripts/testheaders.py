@@ -32,8 +32,6 @@ for root, dirs, files in os.walk( WolfpackPath ):
     for name in files:
         if fnmatch.fnmatch( name, "*.h" ):
             includes.append( os.path.join( root, name ) )
-    if 'sqlite' in dirs:
-        dirs.remove('sqlite') # don't visit this
 
 if not os.path.exists( 'work' ):
     os.mkdir( 'work' )
