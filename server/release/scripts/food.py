@@ -74,6 +74,8 @@ def ischecked(player, char, item):
 			stamGain = (amount * 15) - 50
 		if stamGain > 0:
 			char.stamina += stamGain
+		if char.stamina > char.maxstamina:
+			char.stamina = char.maxstamina
 		for i in range(0, amount):
 			loyalty = 0
 			if char.hastag('loyalty'):
