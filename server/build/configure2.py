@@ -314,7 +314,7 @@ class QtLibrary( AbstractExternalLibrary ):
 	qmake_file, qmake_path, searchpath = self.findFile(QMAKESEARCHPATH)
 	if not qmake_file:
             self.out( red("Fail") + "\n" )
-            self.out( "Couldn't find qmake" )
+            self.out( "Couldn't find qmake\n" )
             return False
 
 	qt_qmake = os.path.join(qmake_path, qmake_file)
@@ -322,23 +322,27 @@ class QtLibrary( AbstractExternalLibrary ):
 	self.out( "%s\n" % qt_qmake )
 	self.out("\n")
 	self.out( "  Checking Qt version:      " )
-	lines = []
-	for line in os.popen( qt_qmake + " -v" ):
-            lines.append( line )
+	import tempfile
+        fd, fname = tempfile.mkstemp('', 'qmakerun', text=True)
+        os.close( fd )
+        os.system( qt_qmake + (" -v > %s" % fname ) )
+        f = open( fname, 'rt' )
+        lines = f.readlines()
+        f.close()
         if len(lines) < 2:
             self.out( red("Fail") + "\n" )
-            self.out( "Couldn't run qmake -v to figure out Qt version" )
+            self.out( "Couldn't run qmake -v to figure out Qt version\n" )
             return False
-        version = lines[2].split()[3]
+        version = lines[1].split()[3]
         if not version:
             self.out( red("Fail") + "\n" )
-            self.out( "Unrecognized output from qmake -v" )
+            self.out( "Unrecognized output from qmake -v\n" )
             return False
         if version >= "4.0.0":
             self.out( green("Pass") + "\n" )
         else:
             self.out( red("Fail") + "\n" )
-            self.out( "You need Qt version >= 4.0.0" )
+            self.out( "You need Qt version >= 4.0.0\n" )
         
 	return True
 
@@ -379,10 +383,12 @@ def main():
             nocolor()
     
     checkQt = QtLibrary( 0x040001 )
-    checkQt.check( options )
+    if not checkQt.check( options ):
+        sys.exit( 1 )
     
     checkPython = PythonLibrary( 0x020200F0 )
-    checkPython.check( options )
+    if not checkPython.check( options ):
+        sys.exit( 1 )
 
     if options.dry_run or True:
         sys.exit( 0 )
