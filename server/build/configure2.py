@@ -78,6 +78,24 @@ def buildLibLine( path, file ):
 	result = "-L\"%s\" -l%s" % ( path, file )
 	return result
 
+def get_compiler():
+    from distutils.ccompiler import new_compiler
+    qmakespec = os.environ.get('QMAKESPEC')
+    if not qmakespec:
+        return new_compiler()
+    else:
+        if qmakespec.startswith('win32-msvc'):
+            return new_compiler( 'nt', 'msvc' )
+        elif qmakespec == "win32-g++":
+            return new_compiler( 'nt', 'mingw32' )
+        elif qmakespec == "win32-borland":
+            return new_compiler( 'nt', 'bcpp' )
+        elif qmakespec == "macx-mwerks":
+            return new_compiler( 'posix', 'mwerks' )
+        else:
+            return new_compiler( None, 'unix' )
+        
+
 
 class AbstractExternalLibrary:
     
@@ -298,11 +316,30 @@ class QtLibrary( AbstractExternalLibrary ):
             self.out( red("Fail") + "\n" )
             self.out( "Couldn't find qmake" )
             return False
-        
+
 	qt_qmake = os.path.join(qmake_path, qmake_file)
         self.toolPath = qmake_path
 	self.out( "%s\n" % qt_qmake )
 	self.out("\n")
+	self.out( "  Checking Qt version:      " )
+	lines = []
+	for line in os.popen( qt_qmake + " -v" ):
+            lines.append( line )
+        if len(lines) < 2:
+            self.out( red("Fail") + "\n" )
+            self.out( "Couldn't run qmake -v to figure out Qt version" )
+            return False
+        version = lines[2].split()[3]
+        if not version:
+            self.out( red("Fail") + "\n" )
+            self.out( "Unrecognized output from qmake -v" )
+            return False
+        if version >= "4.0.0":
+            self.out( green("Pass") + "\n" )
+        else:
+            self.out( red("Fail") + "\n" )
+            self.out( "You need Qt version >= 4.0.0" )
+        
 	return True
 
     def runQMake( self, projectfile, options ):
