@@ -23,6 +23,7 @@
 
 #include <QApplication>
 #include <QImage>
+#include <QIcon>
 #include <QPixmap>
 #include <QToolTip>
 #include <QPainter>
@@ -31,6 +32,7 @@
 #include <QPaintEvent>
 #include <QCloseEvent>
 #include <QDesktopWidget>
+#include <QX11Info>
 
 #include<X11/Xlib.h>
 #include<X11/Xutil.h>
@@ -125,13 +127,14 @@ private:
 };
 
 TrayIcon::TrayIconPrivate::TrayIconPrivate(TrayIcon *object, int _size)
-	: QWidget(0, 0, Qt::WNoAutoErase)
+	: QWidget(0, 0)
 {
+	QWidget::setAttribute( Qt::WA_NoBackground );
 	iconObject = object;
 	size = _size;
 
 	setFocusPolicy(Qt::NoFocus);
-	setBackgroundMode(Qt::X11ParentRelative);
+	setBackgroundRole( QPalette::NoRole );
 
 	setMinimumSize(size, size);
 	setMaximumSize(size, size);
@@ -140,7 +143,7 @@ TrayIcon::TrayIconPrivate::TrayIconPrivate(TrayIcon *object, int _size)
 // This base stuff is required by both FreeDesktop specification and WindowMaker
 void TrayIcon::TrayIconPrivate::initWM(WId icon)
 {
-	Display *dsp = x11Display();
+	Display *dsp = QX11Info::display();
 	WId leader   = winId();
 
 	// set the class hint
@@ -165,7 +168,7 @@ void TrayIcon::TrayIconPrivate::initWM(WId icon)
 void TrayIcon::TrayIconPrivate::setPixmap(const QPixmap &pm)
 {
 	pix = pm;
-	setIcon(pix);
+	setWindowIcon(pix);
 	repaint();
 }
 
@@ -224,7 +227,7 @@ TrayIconFreeDesktop::TrayIconFreeDesktop(TrayIcon *object, const QPixmap &pm)
 	initWM( winId() );
 
 	// initialize NetWM
-	Display *dsp = x11Display();
+	Display *dsp = QX11Info::display();
 
 	// dock the widget (adapted from SIM-ICQ)
 	Screen *screen = XDefaultScreenOfDisplay(dsp); // get the screen
@@ -292,7 +295,7 @@ public:
 		XClassHint classhint;
 		classhint.res_name  = (char*)"psidock-wharf";
 		classhint.res_class = (char*)"Psi";
-		XSetClassHint(x11Display(), winId(), &classhint);
+		XSetClassHint(QX11Info::display(), winId(), &classhint);
 
 		setPixmap(pm);
 	}
@@ -300,18 +303,16 @@ public:
 	void setPixmap(const QPixmap &_pm)
 	{
 		QPixmap pm;
-		QImage i = _pm.convertToImage();
+		QImage i = _pm.toImage();
 		i = i.scaled(i.width() * 2, i.height() * 2);
-		pm.convertFromImage(i);
+		pm.fromImage(i);
 
 		TrayIconPrivate::setPixmap(pm);
 
 		// thanks to Robert Spier for this:
 		// for some reason the repaint() isn't being honored, or isn't for
 		// the icon.  So force one on the widget behind the icon
-		erase();
-		QPaintEvent pe( rect() );
-		paintEvent(&pe);
+		repaint();
 	}
 };
 
@@ -389,7 +390,7 @@ void TrayIcon::sysUpdateToolTip()
 		return;
 
 	if ( tip.isEmpty() )
-		QToolTip::remove(d);
+		d->setToolTip( QString() );
 	else
-		QToolTip::add(d, tip);
+		d->setToolTip( tip );
 }
