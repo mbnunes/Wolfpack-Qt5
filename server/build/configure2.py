@@ -101,9 +101,9 @@ class AbstractExternalLibrary:
     
     def __init__( self, output = sys.stdout ):
         self.output = output
-        self.includePath = ""
-        self.librarySearchPath = ""
-        self.toolPath = ""
+        self.incPath = ""
+        self.libSearchPath = ""
+        self._toolPath = ""
         self.libs = []
     
     def out( self, message ):
@@ -165,13 +165,13 @@ class AbstractExternalLibrary:
         raise NotImplementedError
     
     def includePath( self ):
-        return self.includePath
+        return self.incPath
 
     def librarySearchPath( self ): 
-        return self.librarySearchPath
+        return self.libSearchPath
 
     def toolPath( self ): 
-        return self.toolPath
+        return self._toolPath
     
     def libraryFiles( self ):
         return self.libs
@@ -255,7 +255,7 @@ class PythonLibrary( AbstractExternalLibrary ):
         filename, path, searchpath = self.findFile( PYTHONINCSEARCHPATH )
         if filename:
             self.out( "%s\n" % path )
-            self.includePath = path
+            self.incPath = path
         else:
             self.out(red("Not Found!") + "\n")
 
@@ -275,7 +275,7 @@ class PythonLibrary( AbstractExternalLibrary ):
 
             if path:
                 self.out( "%s\n" % path )
-                self.librarySearchPath = path
+                self.libSearchPath = path
             else:
                 self.out(red("Not Found!") + "\n")
                 sys.exit(1)
@@ -318,7 +318,7 @@ class QtLibrary( AbstractExternalLibrary ):
                     self.out( red("Fail") + "\n" )
                     self.out( "Specified folder %s doesn't exist\n" % qt_dir )
                     sys.exit( 1 )
-	self.librarySearchPath = qt_dir
+	self.libSearchPath = qt_dir
 	self.out( "  Searching for qmake executable:       " )
 	temp = ""
 
@@ -333,7 +333,7 @@ class QtLibrary( AbstractExternalLibrary ):
             return False
 
 	qt_qmake = os.path.join(qmake_path, qmake_file)
-        self.toolPath = qmake_path
+        self._toolPath = qmake_path
 	self.out( "%s\n" % qt_qmake )
 
         # Check Qt Version
@@ -365,7 +365,7 @@ class QtLibrary( AbstractExternalLibrary ):
 	return True
 
     def runQMake( self, projectfile, options ):
-        qmakeFullPath = os.path.join(self.toolPath(), self.qmakeExecutable)
+        qt_qmake = os.path.join(self.toolPath(), self.qmakeExecutable)
         if options:
             return os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, projectfile, options])
         else:
@@ -424,12 +424,12 @@ def main():
 	PY_LIBDIR = distutils.sysconfig.get_config_vars("LINKFORSHARED")[0]
 	PY_LIBDIR += " -flat_namespace"
     else:
-	PY_LIBDIR = buildLibLine( checkPython.librarySearchPath(), checkPython.libraryFiles() )
+	PY_LIBDIR = buildLibLine( checkPython.librarySearchPath(), checkPython.libraryFiles()[0] )
     config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
     config.write("PY_INCDIR = %s\n" % checkPython.includePath() )
 
     # QT stuff
-    config.write("QTDIR = %s\n" % checkQt.librarySearchPath() )
+    #config.write("QTDIR = %s\n" % checkQt.librarySearchPath() )
 
     # if --debug
     sys.stdout.write("Build mode:                             ")
