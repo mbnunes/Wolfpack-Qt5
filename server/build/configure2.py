@@ -130,10 +130,10 @@ class AbstractExternalLibrary:
         """Locates a library in the specified dirs, guessing the local filename based on library name"""
         compiler = get_compiler()
         shared_f = compiler.library_filename( lib, lib_type='shared' )
-        static_f = compiler.library_filename(lib, lib_type='static')
+        static_f = compiler.library_filename( lib, lib_type='static' )
         dylib_f = None
         try:
-            dylib_f = compiler.library_filename(lib, lib_type='dylib')
+            dylib_f = compiler.library_filename( lib, lib_type='dylib' )
         except:
             pass
 
@@ -151,11 +151,11 @@ class AbstractExternalLibrary:
                 # assuming that *all* Unix C compilers do.  And of course I'm
                 # ignoring even GCC's "-static" option.  So sue me.
                 if not static and dylib and os.path.exists(dylib):
-                    return dylib
+                    return dir
                 elif not static and os.path.exists(shared):
-                    return shared
+                    return dir
                 elif os.path.exists(static):
-                    return static
+                    return dir
 
         # Can't find it
         return None
@@ -185,18 +185,6 @@ class PythonLibrary( AbstractExternalLibrary ):
     
     def check( self, options ):
         self.out( "Checking Python Configuration:\n" )
-
-	self.out( "  Checking CPU byte order:              %s\n" % sys.byteorder )
-	if sys.byteorder != 'little':
-		self.out(yellow("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work!\n" )
-
-	self.out( "  Checking Python version:              " )
-	if sys.hexversion >= self.minversion:
-		self.out(green("Pass\n"))
-	else:
-		self.out( red("Fail") + "\n" )
-		self.out( bold("  Wolfpack requires Python version >= 2.3.0\n") )
-		sys.exit(1);
 
         # Default Blank
         PYTHONLIBSEARCHPATH = []
@@ -242,15 +230,25 @@ class PythonLibrary( AbstractExternalLibrary ):
 			"/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/" ]
 	# Undefined OS
 	else:
-		self.out(yellow("WARNING")+": Unknown platform %s to LibraryPython::check()\nLibrary autosearch might not work properly" % sys.platform )
+		self.out(yellow("  WARNING")+": Unknown platform %s to LibraryPython::check()\nLibrary autosearch might not work properly\n" % sys.platform )
 
 	# if it was overiden...
 	if options.py_incpath:
-		PYTHONINCSEARCHPATH = None
 		PYTHONINCSEARCHPATH = [ options.py_incpath ]
 	if options.py_libpath:
-		PYTHONLIBSEARCHPATH = None
 		PYTHONLIBSEARCHPATH = [ options.py_libpath ]
+
+	self.out( "  Checking CPU byte order:              %s\n" % sys.byteorder )
+	if sys.byteorder != 'little':
+		self.out(yellow("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work!\n" )
+
+	self.out( "  Checking Python version:              " )
+	if sys.hexversion >= self.minversion:
+		self.out(green("Pass\n"))
+	else:
+		self.out( red("Fail") + "\n" )
+		self.out( bold("  Wolfpack requires Python version >= 2.3.0\n") )
+		sys.exit(1);
 
         # Search for python
         self.out( "  Searching for Python includes:        " )
@@ -270,13 +268,14 @@ class PythonLibrary( AbstractExternalLibrary ):
                 library24 = "python2.4"
                 library23 = "python2.3"
             path = self.find_library_file( PYTHONLIBSEARCHPATH, library24, static = options.staticlink )
+            self.libs = [ library24 ]
             if not path:
                 path = self.find_library_file( PYTHONLIBSEARCHPATH, library23, static = options.staticlink )
+                self.libs = [ library23 ]
 
             if path:
-                self.out( "%s\n" % os.path.join( filename, path ) )
+                self.out( "%s\n" % path )
                 self.librarySearchPath = path
-                self.libs = [ "python2.4" ]
             else:
                 self.out(red("Not Found!") + "\n")
                 sys.exit(1)
@@ -291,7 +290,6 @@ class QtLibrary( AbstractExternalLibrary ):
     def __init__( self, minversion ):
         AbstractExternalLibrary.__init__( self )
         self.minversion = minversion
-        self.defineRe = re.compile("^#[ \t]*define[ \t]*")
         if sys.platform == "win32":
             self.qmakeExecutable = "qmake.exe"
 	else:
@@ -357,7 +355,7 @@ class QtLibrary( AbstractExternalLibrary ):
             self.out( red("Fail") + "\n" )
             self.out( "Unrecognized output from qmake -v\n" )
             return False
-        if version >= "4.0.0":
+        if version >= self.minversion:
             self.out( green("Pass") + "\n" )
         else:
             self.out( red("Fail") + "\n" )
@@ -402,7 +400,7 @@ def main():
     if options.nocolor or sys.platform == "win32":
             nocolor()
     
-    checkQt = QtLibrary( 0x040001 )
+    checkQt = QtLibrary( "4.0.0" )
     if not checkQt.check( options ):
         sys.exit( 1 )
     
@@ -410,7 +408,7 @@ def main():
     if not checkPython.check( options ):
         sys.exit( 1 )
 
-    if options.dry_run or True:
+    if options.dry_run:
         sys.exit( 0 )
     
     config = file( "config.pri", "wt" )
