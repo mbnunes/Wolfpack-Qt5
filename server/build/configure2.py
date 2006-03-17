@@ -202,7 +202,7 @@ class PythonLibrary( AbstractExternalLibrary ):
 		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs" ]
 		PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
 	# Linux and BSD Search Paths
-	elif sys.platform in ("linux2", "freebsd4", "freebsd5"):
+	elif sys.platform in ("linux2", "freebsd4", "freebsd5", "openbsd3"):
 		PYTHONLIBSEARCHPATH += [ \
 			# Python 2.4 - Look for this first
 			"/usr/local/lib/", \
@@ -425,6 +425,9 @@ def main():
 	PY_LIBDIR += " -flat_namespace"
     else:
 	PY_LIBDIR = buildLibLine( checkPython.librarySearchPath(), checkPython.libraryFiles()[0] )
+	if sys.platform != "win32":
+		for lib in distutils.sysconfig.get_config_vars("LIBS"):
+			PY_LIBDIR += " %s" % lib
     config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
     config.write("PY_INCDIR = %s\n" % checkPython.includePath() )
 
