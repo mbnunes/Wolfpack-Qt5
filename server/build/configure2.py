@@ -108,7 +108,7 @@ class AbstractExternalLibrary:
     
     def out( self, message ):
         self.output.write( message )
-    
+
     def findFile( self, searchpath ):
         """Locates a file specified in the searchpath structure, returning a tuple
         containing filename, path, non-searched entries in the searchpath.
@@ -126,7 +126,44 @@ class AbstractExternalLibrary:
 						return ( file, path, searchpath )
 	return ( None, None, None )
 
-    def check( self, options ): pass
+    def find_library_file( self, dirs, lib, debug = False, static = False ):
+        """Locates a library in the specified dirs, guessing the local filename based on library name"""
+        compiler = get_compiler()
+        shared_f = compiler.library_filename( lib, lib_type='shared' )
+        static_f = compiler.library_filename(lib, lib_type='static')
+        dylib_f = None
+        try:
+            dylib_f = compiler.library_filename(lib, lib_type='dylib')
+        except:
+            pass
+
+
+        for pathexp in dirs:
+            for dir in glob.glob( pathexp ):
+                shared = os.path.join(dir, shared_f)
+                if dylib_f:
+                    dylib = os.path.join(dir, dylib_f)
+                else:
+                    dylib = None
+                static = os.path.join(dir, static_f)
+                # We're second-guessing the linker here, with not much hard
+                # data to go on: GCC seems to prefer the shared library, so I'm
+                # assuming that *all* Unix C compilers do.  And of course I'm
+                # ignoring even GCC's "-static" option.  So sue me.
+                if not static and dylib and os.path.exists(dylib):
+                    return dylib
+                elif not static and os.path.exists(shared):
+                    return shared
+                elif os.path.exists(static):
+                    return static
+
+        # Can't find it
+        return None
+
+
+    def check( self, options ):
+        raise NotImplementedError
+    
     def includePath( self ):
         return self.includePath
 
@@ -145,7 +182,6 @@ class PythonLibrary( AbstractExternalLibrary ):
     def __init__( self, minversion ):
         AbstractExternalLibrary.__init__( self )
         self.minversion = minversion
-        self.defineRe = re.compile("^#[ \t]*define[ \t]*")
     
     def check( self, options ):
         self.out( "Checking Python Configuration:\n" )
@@ -164,50 +200,29 @@ class PythonLibrary( AbstractExternalLibrary ):
 
         # Default Blank
         PYTHONLIBSEARCHPATH = []
-        PYTHONLIBSTATICSEARCHPATH = []
         PYTHONINCSEARCHPATH = []
         # Attept to find the system's configuration
         PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + "Python.h" ]
 
 	if distutils.sysconfig.get_config_vars().has_key("DESTSHARED"):
-		PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] + os.path.sep + "libpython*" ]
-
+		PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] ]
+        if distutils.sysconfig.get_config_vars().has_key("DESTLIB"):
+		PYTHONLIBSEARCHPATH.append( distutils.sysconfig.get_config_vars()["DESTLIB"] )
+		
 	# Windows Search Paths
 	if sys.platform == "win32":
-		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs\python*.lib" ]
+		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs" ]
 		PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
 	# Linux and BSD Search Paths
 	elif sys.platform in ("linux2", "freebsd4", "freebsd5"):
 		PYTHONLIBSEARCHPATH += [ \
 			# Python 2.4 - Look for this first
-			"/usr/local/lib/libpython2.4*.so", \
-			"/usr/local/lib/[Pp]ython*/libpython2.4*.so", \
-			"/usr/local/lib/[Pp]ython*/config/libpython2.4*.so", \
-			"/usr/lib/libpython2.4*.so", \
-			"/usr/lib/[Pp]ython*/libpython2.4*.so", \
-			"/usr/lib/[Pp]ython*/config/libpython2.4*.so", \
-			# Python 2.3
-			"/usr/local/lib/libpython2.3*.so", \
-			"/usr/local/lib/[Pp]ython*/libpython2.3*.so", \
-			"/usr/local/lib/[Pp]ython*/config/libpython2.3*.so", \
-			"/usr/lib/libpython2.3*.so", \
-			"/usr/lib/[Pp]ython*/libpython2.3*.so", \
-			"/usr/lib/[Pp]ython*/config/libpython2.3*.so" ]
-		PYTHONLIBSTATICSEARCHPATH += [ \
-			# Python 2.4
-			"/usr/local/lib/libpython2.4*.a", \
-			"/usr/local/lib/[Pp]ython2.4*/libpython2.4*.a", \
-			"/usr/local/lib/[Pp]ython2.4*/config/libpython2.4*.a", \
-			"/usr/lib/libpython2.4*.a", \
-			"/usr/lib/[Pp]ython2.4*/libpython2.4*.a", \
-			"/usr/lib/[Pp]ython2.4*/config/libpython2.4*.a", \
-			# Python 2.3
-			"/usr/local/lib/libpython2.3]*.a", \
-			"/usr/local/lib/[Pp]ython2.3]*/libpython2.3*.a", \
-			"/usr/local/lib/[Pp]ython2.3]*/config/libpython2.3*.a", \
-			"/usr/lib/libpython2.3*.a", \
-			"/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
-			"/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a" ]
+			"/usr/local/lib/", \
+			"/usr/local/lib/[Pp]ython*/", \
+			"/usr/local/lib/[Pp]ython*/config/", \
+			"/usr/lib/", \
+			"/usr/lib/[Pp]ython*/", \
+			"/usr/lib/[Pp]ython*/config/" ]
 		PYTHONINCSEARCHPATH += [ \
 			"/usr/local/include/Python.h", \
 			"/usr/include/Python.h", \
@@ -221,20 +236,13 @@ class PythonLibrary( AbstractExternalLibrary ):
 	elif sys.platform == "darwin":
 		PYTHONINCSEARCHPATH += [ \
 			"/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h" ]
-		PYTHONLIBSEARCHPATH += [ ]
-		PYTHONLIBSTATICSEARCHPATH += [ \
-			"/usr/local/lib/[Pp]ython*/config/libpython*.a", \
+		PYTHONLIBSEARCHPATH +=  [ \
+			"/usr/local/lib/[Pp]ython*/config/", \
 			"/System/Library/Frameworks/Python.framework/Versions/Current/Python", \
-			"/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/libpython*.a" ]
+			"/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/" ]
 	# Undefined OS
 	else:
-		self.out(red("ERROR")+": Unknown platform %s to checkPython()\n" % sys.platform )
-		sys.exit(1)
-
-	# if --static
-	if options.staticlink:
-		PYTHONLIBSEARCHPATH = None
-		PYTHONLIBSEARCHPATH = PYTHONLIBSTATICSEARCHPATH
+		self.out(yellow("WARNING")+": Unknown platform %s to LibraryPython::check()\nLibrary autosearch might not work properly" % sys.platform )
 
 	# if it was overiden...
 	if options.py_incpath:
@@ -255,11 +263,20 @@ class PythonLibrary( AbstractExternalLibrary ):
 
         if sys.platform != "darwin":
             self.out( "  Searching for Python library:         " )
-            filename, path, searchpath = self.findFile( PYTHONLIBSEARCHPATH )
-            if ( filename ):
+            if sys.platform == "win32":
+                library24 = "python24"
+                library23 = "python23"
+            else:
+                library24 = "python2.4"
+                library23 = "python2.3"
+            path = self.find_library_file( PYTHONLIBSEARCHPATH, library24, static = options.staticlink )
+            if not path:
+                path = self.find_library_file( PYTHONLIBSEARCHPATH, library23, static = options.staticlink )
+
+            if path:
                 self.out( "%s\n" % os.path.join( filename, path ) )
                 self.librarySearchPath = path
-                self.libs = [ filename ]
+                self.libs = [ "python2.4" ]
             else:
                 self.out(red("Not Found!") + "\n")
                 sys.exit(1)
@@ -320,8 +337,9 @@ class QtLibrary( AbstractExternalLibrary ):
 	qt_qmake = os.path.join(qmake_path, qmake_file)
         self.toolPath = qmake_path
 	self.out( "%s\n" % qt_qmake )
-	self.out("\n")
-	self.out( "  Checking Qt version:      " )
+
+        # Check Qt Version
+	self.out( "  Checking Qt version:                  " )
 	import tempfile
         fd, fname = tempfile.mkstemp('', 'qmakerun', text=True)
         os.close( fd )
@@ -329,6 +347,7 @@ class QtLibrary( AbstractExternalLibrary ):
         f = open( fname, 'rt' )
         lines = f.readlines()
         f.close()
+        os.remove( fname )
         if len(lines) < 2:
             self.out( red("Fail") + "\n" )
             self.out( "Couldn't run qmake -v to figure out Qt version\n" )
@@ -343,7 +362,8 @@ class QtLibrary( AbstractExternalLibrary ):
         else:
             self.out( red("Fail") + "\n" )
             self.out( "You need Qt version >= 4.0.0\n" )
-        
+
+	self.out("\n")
 	return True
 
     def runQMake( self, projectfile, options ):
