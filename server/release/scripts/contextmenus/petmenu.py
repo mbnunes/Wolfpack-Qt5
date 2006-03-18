@@ -32,20 +32,22 @@ def onContextEntry(char, target, tag):
 
 	#it has to be our pet, a friend, or we have to be gm
 	if (not char.gm) and ((target.owner != char) and not isPetFriend(char, target) or (not target.tamed)):
+		char.socket.sysmessage("aar")
 		return False
 
 	#check if can be controlled
 	if not checkPetControl(target, char, "", ""):
+		char.socket.sysmessage("con")
 		return False
 
-	#if tag == 1: # Command: Guard
-	#	guard(char, target)
-
+	if tag == 1: # Command: Guard
+		char.socket.sysmessage("guar")
+		guard(char, target)
 	elif tag == 2: # Command: Follow
 		follow(char, target, 0)
-	if tag == 3: # Command: Drop
+	elif tag == 3: # Command: Drop
 		drop(target)
-	if tag == 4: # Command: Kill
+	elif tag == 4: # Command: Kill
 		attack(char, target, 0)
 
 	#elif tag == 5: # Command: Stop
@@ -61,14 +63,6 @@ def onContextEntry(char, target, tag):
 		transfer(char, target)
 	elif tag == 10: # Release
 		gumps.confirm_release_gump.ConfirmReleaseGump(char, target)
-
-	# Disabled for now
-	#elif ( tag == 3 ): # Command: Guard
-	#	ai.onSpeechInput( char, target.name + " GUARD" )
-	#elif ( tag == 4 ): # Command: Stop
-	#	ai.onSpeechInput( char, target.name + " STOP" )
-	#elif ( tag == 6 ): # Add Friend
-	#	ai.onSpeechInput( char, target.name + " ADD FRIEND" )
 
 	elif ( tag == 11 ): # Open Backpack
 		# Just to be sure... right?

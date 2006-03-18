@@ -12,6 +12,7 @@ import wolfpack
 import random
 from wolfpack import tr
 from wolfpack.utilities import hex2dec
+import math
 
 # This causes some strange error... O_o
 #import food
@@ -361,6 +362,51 @@ def release(pet):
 	pet.wandertype = 1
 	pet.sound(SND_ATTACK)
 
+def guard(char, pet, all=False):
+	master = pet.owner
+	if not master:
+		return True
+
+	aggressors = master.getopponents()
+	combatant = None
+	if len(aggressors) > 0:
+		if all:
+			for pet in char.followers:
+				if pet.distanceto(char) >= 18:
+					continue
+				master = pet.owner
+				if not master:
+					continue
+				combatant = pet.attacktarget
+				for attacker in aggressors:
+					if attacker and GetDistanceToSqrt( attacker, pet ) <= pet.getintproperty('range_perception', 16):
+						if not combatant or GetDistanceToSqrt( attacker, master ) < GetDistanceToSqrt( combatant, master ):
+							combatant = attacker
+				if combatant and combatant != pet and combatant != master and not combatant.dead and pet.cansee( combatant ) and combatant.pos.map == pet.pos.map:
+					pet.fight( combatant )
+				else:
+					pet.war = False
+					pet.updateflags()
+		else:
+			combatant = pet.attacktarget
+			for attacker in aggressors:
+				if attacker and GetDistanceToSqrt( attacker, pet ) <= pet.getintproperty('range_perception', 16):
+					if not combatant or GetDistanceToSqrt( attacker, master ) < GetDistanceToSqrt( combatant, master ):
+						combatant = attacker
+
+			if combatant and combatant != pet and combatant != master and not combatant.dead and pet.cansee( combatant ) and combatant.pos.map == pet.pos.map:
+				pet.fight( combatant )
+			else:
+				pet.war = False
+				pet.updateflags()
+	return True
+
+def GetDistanceToSqrt( attacker, mobile ):
+	xDelta = attacker.pos.x - mobile.pos.x
+	yDelta = attacker.pos.y - mobile.pos.y
+
+	return math.sqrt( (xDelta * xDelta) + (yDelta * yDelta) )
+
 def onSpeech(pet, char, text, keywords):
 	if not char.socket:
 		return False
@@ -381,8 +427,12 @@ def onSpeech(pet, char, text, keywords):
 			return False
 
 		# begin all #
+		# all guard
+		if 358 in keywords:
+			guard(char, pet, True)
+			return True
 		# All Follow Me
-		if 232 in keywords and 355 in keywords and 364 in keywords:
+		elif 232 in keywords and 355 in keywords and 364 in keywords:
 			follow_me(char, pet, True)
 			return True
 	
@@ -395,7 +445,10 @@ def onSpeech(pet, char, text, keywords):
 		elif (360 in keywords and 349 in keywords) or (361 in keywords and 350 in keywords):
 			attack(char, pet, True)
 			return True
-
+		# all guard me
+		elif 363 in keywords:
+			guard(char, pet, True)
+			return True
 		# All Come (356)
 		elif 356 in keywords and 341 in keywords:
 			come(char, pet, True)
@@ -419,7 +472,7 @@ def onSpeech(pet, char, text, keywords):
 			return False
 
 		# Test Ownership / Allow Friends/GMs to control
-		elif not char.gm and ((pet.owner != char) and not isPetFriend(char, pet) or (not target.tamed)):
+		elif not char.gm and ((pet.owner != char) and not isPetFriend(char, pet) or (not pet.tamed)):
 			return False
 
 		# Follow Me
@@ -461,9 +514,9 @@ def onSpeech(pet, char, text, keywords):
 			return True
 
 		# Guard
-		#elif 348 in keywords:
-		#	guard(char, pet, False)
-		#	return True
+		elif 348 in keywords:
+			guard(char, pet, False)
+			return True
 
 		# Patrol
 		#elif 351 in keywords:

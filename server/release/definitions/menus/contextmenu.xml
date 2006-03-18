@@ -88,10 +88,7 @@
 
 	<contextmenu id="pet_menu">
 		<scripts>contextmenus.petmenu</scripts>
-		<!--
-			Guarding not implemented yet.
-			<option tag="1" msgid="6107" /> Guarding 
-		-->
+		<option tag="1" msgid="6107" /> <!-- Guarding -->
 		<option tag="2" msgid="6108" checkvisible="true" /> <!-- Follow -->
 		<option tag="3" msgid="6109" checkvisible="true" /> <!-- Drop -->
 		<option tag="4" msgid="6111" checkvisible="true" /> <!-- Kill -->
