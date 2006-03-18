@@ -32,16 +32,13 @@ def onContextEntry(char, target, tag):
 
 	#it has to be our pet, a friend, or we have to be gm
 	if (not char.gm) and ((target.owner != char) and not isPetFriend(char, target) or (not target.tamed)):
-		char.socket.sysmessage("aar")
 		return False
 
 	#check if can be controlled
 	if not checkPetControl(target, char, "", ""):
-		char.socket.sysmessage("con")
 		return False
 
 	if tag == 1: # Command: Guard
-		char.socket.sysmessage("guar")
 		guard(char, target)
 	elif tag == 2: # Command: Follow
 		follow(char, target, 0)

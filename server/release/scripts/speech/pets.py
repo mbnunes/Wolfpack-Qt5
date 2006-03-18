@@ -407,6 +407,10 @@ def GetDistanceToSqrt( attacker, mobile ):
 
 	return math.sqrt( (xDelta * xDelta) + (yDelta * yDelta) )
 
+def patrol(char, pet):
+	char.socket.sysmessage("This order is not yet coded")
+	return True
+
 def onSpeech(pet, char, text, keywords):
 	if not char.socket:
 		return False
@@ -519,9 +523,9 @@ def onSpeech(pet, char, text, keywords):
 			return True
 
 		# Patrol
-		#elif 351 in keywords:
-		#	patrol(char, pet, False)
-		#	return True
+		elif 351 in keywords:
+			patrol(char, pet)
+			return True
 
 		# Release
 		elif 365 in keywords:
