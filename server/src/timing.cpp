@@ -408,7 +408,7 @@ void cTiming::poll()
 			}
 
 			nextRayCheck = time + 500;
-		}		
+		}
 
 		startProfiling( PF_PLAYERCHECK );
 		socket->player()->poll( time, events );
@@ -671,7 +671,7 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 			stopProfiling( PF_AICHECKITEMS );
 		}
 	}
-
+	/*
 	// Hunger for npcs
 	// This only applies to tamed creatures
 	if ( npc->isTamed() && Config::instance()->hungerRate() && npc->hungerTime() <= time )
@@ -721,6 +721,7 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 			}
 		}
 	}
+	*/
 }
 
 void cTiming::addDecayItem( P_ITEM item )
