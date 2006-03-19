@@ -570,7 +570,8 @@ def loyaltyexp(obj, args):
 	char = iterator.first
 	while char:
 		# Access char properties here
-		if char.tamed:	
+		if char.tamed:
+			char.hunger = 20
 			if not char.hastag('loyalty'):
 				char.settag('loyalty', 11)
 			loyalty = char.gettag('loyalty')
