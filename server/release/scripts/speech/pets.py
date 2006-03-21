@@ -570,6 +570,8 @@ def loyaltyexp(obj, args):
 	char = iterator.first
 	while char:
 		if not char.npc:
+			# Do not forget the iteration step
+			char = iterator.next
 			continue
 		# Access char properties here
 		if char.tamed:
