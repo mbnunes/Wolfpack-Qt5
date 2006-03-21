@@ -449,7 +449,7 @@ class Spell:
 		male_only = ["semidar"]
 		if target.baseid in reflecting:
 			return True
-		elif target.baseid in male_only and not target.char.gender:
+		elif target.baseid in male_only and not target.gender:
 			return True
 		return False
 

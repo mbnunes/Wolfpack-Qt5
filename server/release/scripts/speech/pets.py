@@ -569,6 +569,8 @@ def loyaltyexp(obj, args):
 	iterator = wolfpack.chariterator()
 	char = iterator.first
 	while char:
+		if not char.npc:
+			continue
 		# Access char properties here
 		if char.tamed:
 			char.hunger = 20

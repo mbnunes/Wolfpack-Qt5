@@ -282,7 +282,8 @@ def domining(char, args):
 	tool = wolfpack.finditem(args[0])
 	pos = args[1]
 	socket = char.socket
-	socket.deltag( 'is_mining' )
+	if socket.hastag('is_mining'):
+		socket.deltag( 'is_mining' )
 
 	if not tool:
 		return False
