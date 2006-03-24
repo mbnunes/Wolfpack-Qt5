@@ -138,4 +138,13 @@
 		<option tag="1" msgid="6149" checkvisible="true" />
 	</contextmenu>
 
+	<contextmenu id="bracelet_of_binding_menu">
+		<scripts>bracelet_of_binding</scripts>
+		<option tag="1" msgid="6170" checkvisible="true" />
+		<option tag="2" msgid="6171" checkvisible="true" />
+		<option tag="3" msgid="6173" checkvisible="true" />
+		<option tag="4" msgid="6174" checkvisible="true" />
+		<option tag="5" msgid="6175" checkvisible="true" />
+	</contextmenu>
+
 </definitions>

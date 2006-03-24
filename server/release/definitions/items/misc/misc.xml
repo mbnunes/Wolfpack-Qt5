@@ -2338,4 +2338,15 @@
 		<category>Misc\Stat Scroll of Power</category>
 	</item>
 
+	<item id="bracelet_of_binding">
+		<id>0x1086</id>
+		<name>bracelet of binding</name>
+		<weight>1.0</weight>
+		<color>0x489</color>
+		<basescripts>bracelet_of_binding</basescripts>
+		<bindmenu>bracelet_of_binding_menu</bindmenu>
+		<category>Misc\Bracelet of Binding</category>
+	</item>
+
+
 </definitions>
