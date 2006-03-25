@@ -417,13 +417,17 @@ def onSpeech(pet, char, text, keywords):
 
 	text = text.lower()
 
-	#check if can be controlled
-	if not checkPetControl(pet, char, text, keywords):
-		return False
-
 	# Test All
 	# Check for keywords
 	all = text.startswith('all ')
+
+	# Check if event must be continued
+	if not all and not text.startswith(pet.name):
+		return False
+
+	#check if can be controlled
+	if not checkPetControl(pet, char, text, keywords):
+		return False
 
 	if all:
 		# Test Ownership / Allow Friends/GMs to control
