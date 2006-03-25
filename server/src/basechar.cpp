@@ -3050,6 +3050,35 @@ int cBaseChar::onTimerRegenStamina( unsigned int timer )
 	return timer;
 }
 
+int cBaseChar::onBuy( P_CHAR pChar, P_ITEM pItem, int amount )
+{
+	PyObject* args = Py_BuildValue( "O&O&O&i", PyGetItemObject, pItem, PyGetCharObject, this, PyGetCharObject, pChar, amount );
+	if ( canHandleEvent( EVENT_BUY ) )
+	{
+		PyObject *result = callEvent( EVENT_BUY, args );
+		if ( result )
+		{
+			if ( PyInt_CheckExact( result ) )
+			{
+				amount = PyInt_AsLong( result );
+			}
+			else if ( PyLong_CheckExact( result ) )
+			{
+				amount = PyLong_AsLong( result );
+			}
+		}
+		else
+		{
+			amount = 0;
+		}
+		Py_XDECREF( result );
+	}
+
+	Py_XDECREF( args );
+
+	return amount;
+}
+
 bool cBaseChar::kill( cUObject* source )
 {
 	if ( free || isDead() )

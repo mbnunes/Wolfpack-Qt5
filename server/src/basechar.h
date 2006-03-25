@@ -342,6 +342,7 @@ public:
 	virtual int onTimerRegenHitpoints( unsigned int timer );
 	virtual int onTimerRegenMana( unsigned int timer );
 	virtual int onTimerRegenStamina( unsigned int timer );
+	virtual int onBuy( P_CHAR pChar, P_ITEM pItem, int amount );
 	virtual QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	//	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
 	virtual bool onCHLevelChange( uint level ); // Fired when player moving trough levels

@@ -703,6 +703,35 @@ bool cItem::onPickupFromContainer( P_CHAR pChar, P_ITEM pItem )
 	return result;
 }
 
+int cItem::onBuy( P_CHAR pVendor, P_CHAR pChar, int amount )
+{
+	PyObject* args = Py_BuildValue( "O&O&O&i", PyGetItemObject, this, PyGetCharObject, pVendor, PyGetCharObject, pChar, amount );
+	if ( canHandleEvent( EVENT_BUY ) )
+	{
+		PyObject *result = callEvent( EVENT_BUY, args );
+		if ( result )
+		{
+			if ( PyInt_CheckExact( result ) )
+			{
+				amount = PyInt_AsLong( result );
+			}
+			else if ( PyLong_CheckExact( result ) )
+			{
+				amount = PyLong_AsLong( result );
+			}
+		}
+		else
+		{
+			amount = 0;
+		}
+		Py_XDECREF( result );
+	}
+
+	Py_XDECREF( args );
+
+	return amount;
+}
+
 bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;

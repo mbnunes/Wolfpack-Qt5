@@ -793,6 +793,18 @@ It's triggered for the item, then for the npc and then for the global hook.
 */
 "onGetBuyPrice",
 
+/*
+\event onBuy
+\param item The item a player is trying to Buy.
+\param vendor The vendor selling the item.
+\param player The player buying the item.
+\param amount The amount of that item player wants to buy from Vendor
+\return Returns the amount of items to be bought. If 0, item will be skipped. So, Return 0 to prevent players to buy items. If you return a negative value, the Event will stop the buy action for all items.
+\condition This item is triggered when a player try to buy a item from a NPC.
+It's triggered for the item, then for the npc and then for the player.
+*/
+"onBuy",
+
 0
 };
 

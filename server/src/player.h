@@ -137,6 +137,7 @@ public:
 	virtual bool onChat(); // The character wants to chat
 	virtual bool onCastSpell( unsigned int spell );
 	virtual bool onBecomeCriminal( unsigned int reason, P_CHAR sourcechar, P_ITEM sourceitem ); // The Character will becomes criminal
+	virtual int onBuy( P_CHAR pVendor, P_ITEM pItem, int amount ); // Player Buying a item (Ovewrite BaseChars Method)
 	void poll( unsigned int time, unsigned int events );
 	bool onUse( P_ITEM pItem );
 	bool onPickup( P_ITEM pItem );

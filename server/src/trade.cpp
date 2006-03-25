@@ -140,6 +140,27 @@ void buyAction( cUOSocket* socket, cUORxBuy* packet )
 			return;
 		}
 
+		// Lets introduce onBuy Events here
+		int secAmount;
+		
+		secAmount = pItem->onBuy( pVendor, pChar, amount );
+		if (secAmount < 0)
+			return;
+		else
+			amount = secAmount;
+
+		secAmount = pChar->onBuy( pVendor, pItem, amount );
+		if (secAmount < 0)
+			return;
+		else
+			amount = secAmount;
+		
+		secAmount = pVendor->onBuy( pChar, pItem, amount );
+		if (secAmount < 0)
+			return;
+		else
+			amount = secAmount;
+
 		if ( amount )
 		{
 			totalValue += amount * pItem->getBuyPrice( pVendor, pChar );
