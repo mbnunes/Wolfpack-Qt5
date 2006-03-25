@@ -50,7 +50,7 @@
 		<category>Vendors\Tanner (Male)</category>
 		<inherit id="tanner_inventory" />
 	</npc>
-	
+
 	<npc id="tanner_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Tanner</title>
 		<category>Vendors\Tanner (Female)</category>
