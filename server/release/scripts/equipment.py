@@ -824,7 +824,7 @@ def onUse(player, item):
 		return True
 	tile = wolfpack.tiledata(item.id)
 
-	if not player.gm and (item.lockeddown or item.movable > 1 or tile['weight'] == 255):
+	if not player.gm and (item.lockeddown or item.movable > 1 or tile['weight'] == 255 or item.getoutmostchar() != player):
 		player.objectdelay = 0
 		return True
 
