@@ -22,7 +22,7 @@ def onLogout( player ):
 		closetrade( player, partner, box1, box2 )
 
 	return True
-	
+
 def onLogin( player ):
 	player.deltag('trade_partner')
 	player.deltag('trade_button')
@@ -45,33 +45,33 @@ def onPickup(player1, item):
 	box1 = player1.itemonlayer(LAYER_TRADING)
 	if not box1:
 		return False
-		
+
 	if item.container != box1:
 		return False
-		
+
 	if not player1.hastag('trade_partner'):
 		return False
-	
+
 	player2 = wolfpack.findchar(int(player1.gettag('trade_partner')))
 	if not player2:
 		return False
 	box2 = player2.itemonlayer(LAYER_TRADING)
-	
+
 	if not box2:
 		return False
-		
+
 	player1.settag( 'trade_button', 0 )
 	player2.settag( 'trade_button', 0 )
-		
+
 	# Reset the trading status and resend it
 	# To me
 	sendtradepacket( player1.socket, 2, box1.serial, 0, 0, "" )
-	
+
 	# To partner
 	sendtradepacket( player2.socket, 2, box2.serial, 0, 0, "" )
-	
+
 	item.removefromview(True)
-	
+
 	return False
 
 def onTradeAdd( player, item ):
@@ -91,7 +91,7 @@ def onTradeRemove( player, item ):
 	#not implemented yet in code
 
 	return True
-	
+
 def onDropOnItem( item, box1 ):
 	player1 = box1.container
 	if not player1.hastag('trade_partner'):
@@ -100,20 +100,20 @@ def onDropOnItem( item, box1 ):
 	if not player2:
 		return False
 	box2 = player2.itemonlayer(LAYER_TRADING)
-	
+
 	if not box2:
 		return False
-		
+
 	player1.settag( 'trade_button', 0 )
 	player2.settag( 'trade_button', 0 )
-		
+
 	# Reset the trading status and resend it
 	# To me
 	sendtradepacket( player1.socket, 2, box1.serial, 0, 0, "" )
-	
+
 	# To partner
 	sendtradepacket( player2.socket, 2, box2.serial, 0, 0, "" )	
-	
+
 	return False
 
 #
@@ -130,7 +130,7 @@ def onTradeStart( player1, player2, firstitem ):
 			if not tobackpack(firstitem, player1):
 				firstitem.update()
 			return True
-			
+
 	if player1.hastag('trade_partner'):
 		partner = wolfpack.findchar(int(player1.gettag('trade_partner')))
 		if partner and partner != player2:
@@ -138,7 +138,7 @@ def onTradeStart( player1, player2, firstitem ):
 			if not tobackpack(firstitem, player1):
 				firstitem.update()
 			return True
-	
+
 	#player1 : I am
 	#player2 : Partner
 
@@ -186,7 +186,7 @@ def onTradeStart( player1, player2, firstitem ):
 	#To me
 	if box1new:
 		sendtradepacket( player1.socket, 0, player2.serial, box1.serial, box2.serial, player2.name )
-		
+
 	#To partner
 	if box2new:
 		sendtradepacket( player2.socket, 0, player1.serial, box2.serial, box1.serial, player1.name )
@@ -199,7 +199,7 @@ def onTradeStart( player1, player2, firstitem ):
 
 	box1.additem( firstitem )
 	firstitem.update()
-	
+
 	box1.addscript('system.trading')
 	box2.addscript('system.trading')
 
@@ -288,7 +288,7 @@ def pressbutton( player, partner, box1, box2 ):
 			player.log(LOG_TRACE, tr("Trading item 0x%x ('%s', %u) to player '%s' (0x%x, %s)\n") % (item.serial, item.baseid, item.amount, partner.orgname, partner.serial, partner.account.name))
 			if not tocontainer( item, back2 ):
 				item.update()
-		
+
 		for item in box2.content:
 			# Partner is giving this item to partner
 			partner.log(LOG_TRACE, tr("Trading item 0x%x ('%s', %u) to player '%s' (0x%x, %s)\n") % (item.serial, item.baseid, item.amount, player.orgname, player.serial, player.account.name))

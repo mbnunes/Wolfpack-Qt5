@@ -894,7 +894,7 @@ def mayAreaHarm(player, char, excludeself = True, includeinnocents = False):
 		return False
 
 	# Invulnerable, Invisible and Hidden creatures aren't affected
-	if char.dead or char.invulnerable or char.region.safe or not player.cansee(char):
+	if char.dead or char.invulnerable or (char.region and char.region.safe) or not player.cansee(char):
 		return False
 
 	# If we're allied with the given character, Return right away

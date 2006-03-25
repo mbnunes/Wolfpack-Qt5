@@ -195,7 +195,7 @@ class GateTravel (Spell):
 		gate1.settag('other_gate', gate2.serial)
 		gate2.settag('other_gate', gate1.serial)
 
-		wolfpack.addtimer(30000, field_expire, serials, 1)
+		wolfpack.addtimer(3000, field_expire, serials, 1)
 
 class ManaVampire (DelayedDamageSpell):
 	def __init__(self):
