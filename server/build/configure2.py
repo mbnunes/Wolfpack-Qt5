@@ -26,7 +26,14 @@ import fnmatch
 import dircache
 import string
 import re
-import distutils.sysconfig
+
+try:
+    import distutils.sysconfig
+except:
+    sys.stdout.write("Invalid Python instalation. It's missing the distutils package\n")
+    sys.stdout.write("If you are using linux, check for python dev packages, or consider switching to some other distro without morron packagers" )
+    sys.exit( 1 )
+    
 
 # Older Python lib work arounds...
 try:

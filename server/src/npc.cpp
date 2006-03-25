@@ -423,6 +423,15 @@ void cNPC::resend( bool clean )
 	}
 }
 
+/*
+Yes, this is *shouldn't* be necessary, but fixes compiler bug
+*/
+void cNPC::talk( uint MsgID, const QString& params /* = 0 */, const QString& affix /* = 0 */, bool prepend /* = false */, ushort color /* = 0xFFFF */, cUOSocket* socket /* = 0  */)
+{
+	cBaseChar::talk( MsgID, params, affix, prepend, color, socket );
+}
+
+
 void cNPC::talk( const QString& message, UI16 color, quint8 type, bool autospam, cUOSocket* socket )
 {
 	if ( autospam )
@@ -479,35 +488,6 @@ void cNPC::talk( const QString& message, UI16 color, quint8 type, bool autospam,
 			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
 				mSock->send( &textSpeech );
-			}
-		}
-	}
-}
-
-void cNPC::talk( const quint32 MsgID, const QString& params /*= 0*/, const QString& affix /*= 0*/, bool prepend /*= false*/, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
-{
-	if ( color == 0xFFFF )
-		color = saycolor_;
-
-	if ( socket )
-	{
-		if ( affix.isEmpty() )
-			socket->clilocMessage( MsgID, params, color, 3, this );
-		else
-			socket->clilocMessageAffix( MsgID, params, affix, color, 3, this, false, prepend );
-	}
-	else
-	{
-		// Send to all clients in range
-		QList<cUOSocket*> sockets = Network::instance()->sockets();
-		foreach ( cUOSocket* mSock, sockets )
-		{
-			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
-			{
-				if ( affix.isEmpty() )
-					mSock->clilocMessage( MsgID, params, color, 3, this );
-				else
-					mSock->clilocMessageAffix( MsgID, params, affix, color, 3, this, false, prepend );
 			}
 		}
 	}

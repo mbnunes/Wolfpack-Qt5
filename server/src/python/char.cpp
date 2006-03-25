@@ -860,7 +860,7 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject* keywds )
 
 	if ( !checkArgStr( 0 ) )
 	{
-		P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
+		cBaseChar* npc = self->pChar;
 
 		if ( !npc )
 			Py_RETURN_FALSE;

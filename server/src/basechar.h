@@ -320,6 +320,8 @@ public:
 	virtual void flagUnchanged();
 	virtual void awardFame( short amount, bool showmessage = true ) = 0;
 	virtual void awardKarma( P_CHAR pKilled, short amount, bool showmessage = true ) = 0;
+	virtual void talk( uint MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, ushort color = 0xFFFF, cUOSocket* socket = 0 );
+	virtual void talk( const QString& message, UI16 color = 0xFFFF, quint8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
 
 	// Wrapper events
 	virtual bool onWalk( unsigned char dir, unsigned char sequence ); // Walks in a specific Direction

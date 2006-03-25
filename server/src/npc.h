@@ -102,7 +102,7 @@ public:
 	virtual void update( bool excludeself = false );
 	virtual void resend( bool clean = true );
 	virtual void talk( const QString& message, UI16 color = 0xFFFF, quint8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	void talk( const quint32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
+	virtual void talk( uint MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, ushort color = 0xFFFF, cUOSocket* socket = 0 );
 	virtual quint8 notoriety( P_CHAR pChar = 0 );
 	virtual void showName( cUOSocket* socket );
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );

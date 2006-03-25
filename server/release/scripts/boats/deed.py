@@ -10,8 +10,7 @@
 from wolfpack import tr, console
 import wolfpack
 from wolfpack.consts import *
-import boats
-from wolfpack.utilities import hex2dec
+from wolfpack.utilities import hex2dec, tobackpack, tobankbox, createkeysecret
 
 #
 # Get placement information from the multi definition
@@ -83,6 +82,7 @@ def createBoatSpecialItem( definition, parentTag, boat ):
     itempos = wolfpack.coord( boat.pos.x + xoffset, boat.pos.y + yoffset, boat.pos.z, boat.pos.map )
     item.moveto( itempos )
     item.update()
+    item.decay = 0
     item.settag( 'boat_serial', boat.serial )
     if not boat.hastag( 'boat_part_count' ):
         boat.settag( 'boat_part_count', 1 )
@@ -94,6 +94,23 @@ def createBoatSpecialItem( definition, parentTag, boat ):
         boat.settag( 'boat_part%i' % i, item.serial )
 
     return item
+
+def createKeys( plank1, plank2, player ):
+    rkeyid = createkeysecret()
+    packkey = wolfpack.additem('1010')
+    packkey.settag('lock', rkeyid)
+    packkey.name = "a ship key"
+    tobackpack( packkey, player )
+    packkey.update()
+    player.say( 502485, socket = player.socket ) # A ship's key is now in my backpack.
+    bankkey = wolfpack.additem('1010')
+    bankkey.settag('lock', rkeyid)
+    bankkey.name = "a ship key"
+    tobankbox( bankkey, player )
+    player.say( 502484, socket = player.socket ) # A ship's key is now in my safety deposit box.
+    plank1.settag('lock', rkeyid)
+    plank2.settag('lock', rkeyid)
+
 
 #
 # Create boat and items
@@ -108,7 +125,10 @@ def createBoat( player, deed, pos ):
 	boat.settag( 'boat_facing', 0 ) # boat is facing north
 	boat.moveto(pos)
 	boat.update()
-	boats.registerBoat(boat)
+	boat.decay = 0
+
+	splank = None
+	pplank = None
 
         # Create special items
         node = wolfpack.getdefinition(WPDT_MULTI, str(deed.gettag('multisection')) )
@@ -135,6 +155,8 @@ def createBoat( player, deed, pos ):
                                 starclosed = subsubnode.findchild('star_closed')
                                 splank = createBoatSpecialItem( '3eb2', starclosed, boat )
                                 splank.settag('plank_starboard', 1)
+
+        createKeys( splank, pplank, player )
                                 
 #
 # Target

@@ -308,6 +308,14 @@ void cPlayer::resend( bool clean )
 	}
 }
 
+/*
+	Yes, this is *shouldn't* be necessary, but fixes compiler bug
+*/
+void cPlayer::talk( uint MsgID, const QString& params /* = 0 */, const QString& affix /* = 0 */, bool prepend /* = false */, ushort color /* = 0xFFFF */, cUOSocket* socket /* = 0  */)
+{
+	cBaseChar::talk( MsgID, params, affix, prepend, color, socket );
+}
+
 void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autospam, cUOSocket* socket )
 {
 	Q_UNUSED( autospam );

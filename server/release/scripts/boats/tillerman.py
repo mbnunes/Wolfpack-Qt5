@@ -341,6 +341,11 @@ def doBoatTurn( boat, args ):
             boat.say( 501423 ) # Ar, can't turn sir.
         return False
     
+def BoatRename( item, player ):
+    pass
+
+def DryDock( item, player ):
+    pass
 
 def StartTurn( boat, tillerman, offset, message ):
     if boat.hastag( 'boat_anchored' ):
@@ -422,5 +427,11 @@ def onSpeech( obj, player, text, keywords ):
         elif keyword == 0x67: # turn around, come about
             StartTurn( boat, obj, -4, True )
             
-        
+
+def onUse( player, item ):
+
+    if player.multi.serial != obj.gettag('boat_serial'):
+        DryDock( item, player )
+    else:
+        RenameBoat( item, player )
             

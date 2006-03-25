@@ -2708,6 +2708,36 @@ void cBaseChar::showPaperdoll( cUOSocket* source, bool hotkey )
 	}
 }
 
+void cBaseChar::talk( uint MsgID, const QString& params /*= 0*/, const QString& affix /*= 0*/, bool prepend /*= false*/, ushort color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
+{
+	if ( color == 0xFFFF )
+		color = saycolor_;
+
+	if ( socket )
+	{
+		if ( affix.isEmpty() )
+			socket->clilocMessage( MsgID, params, color, 3, this );
+		else
+			socket->clilocMessageAffix( MsgID, params, affix, color, 3, this, false, prepend );
+	}
+	else
+	{
+		// Send to all clients in range
+		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		foreach ( cUOSocket* mSock, sockets )
+		{
+			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
+			{
+				if ( affix.isEmpty() )
+					mSock->clilocMessage( MsgID, params, color, 3, this );
+				else
+					mSock->clilocMessageAffix( MsgID, params, affix, color, 3, this, false, prepend );
+			}
+		}
+	}
+}
+
+
 /*
 	Event Wrappers
  */

@@ -165,6 +165,19 @@ def tobackpack(item, char):
 	return tocontainer(item, backpack)
 
 """
+	\function wolfpack.utilities.tobankbox
+	\param item The item you want to move to the bank deposit box of the character.
+	\param char The character in whose bank box you want to place the item.
+	\return True if the item was stacked inside the characters bank box and is now invalid.
+	False if the item has been put into the characters backpack and needs to be updated.
+	\description Moves an object into a characters backpack and stacks it if possible.
+"""
+def tobankbox(item, char):
+	backpack = char.getbankbox()
+	return tocontainer(item, backpack)
+
+
+"""
 	\function wolfpack.utilities.booleantoggle
 	\param boolean
 	\return Boolean
@@ -646,6 +659,18 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 	damage = max(1, damage)
 	return target.damage(damagetype, damage, source)
 
+
+"""
+	\function wolfpack.utilities.createkeysecret
+	\description Returns a random key secret used to create locks, or change lock secrets
+"""
+def createkeysecret():
+    parts = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9']
+    rkeyid = ''
+    for i in range(1,8):
+       	rkeyid += random.choice(parts)
+    return rkeyid
+    
 """
 	\function wolfpack.utilities.createlockandkey
 	\param container The container you want to make lockable.
@@ -654,10 +679,7 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 def createlockandkey( container ):
 	if container.type == 1:
 		if not container.hastag('lock'):
-			parts = ['A','B','C','D','E','F','G','H','J','K','L','M','N','P','Q','R','S','T','U','V','W','X','Y','Z','2','3','4','5','6','7','8','9']
-			rkeyid = ''
-			for i in range(1,8):
-				rkeyid += random.choice(parts)
+			rkeyid = createkeysecret()
 			key = wolfpack.additem('1010')
 			key.settag('lock', rkeyid)
 			tocontainer( key, container )

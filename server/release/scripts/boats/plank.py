@@ -79,3 +79,50 @@ def onUse( player, item ):
         else:
             player.say( 502503 ); # That is locked.
     return True
+
+def onCollide( char, item ):
+
+    if not item.hastag('plank_open'):
+        return False
+
+    boat_serial = item.gettag( 'boat_serial' )
+    if char.multi != None and char.multi.serial != boat_serial:
+        return True
+
+    rx = 0
+    ry = 0
+
+    if item.id == 0x3ed4:
+        rx = 1
+    elif item.id == 0x3ed5:
+        rx = -1
+    elif item.id == 0x3e84:
+        ry = 1
+    elif item.id == 0x3e89:
+        ry = -1
+
+    for i in range( 1, 6 ):
+        x = item.pos.x + ( i * rx )
+        y = item.pos.y + ( i * ry )
+        z = 0
+
+        for j in range( -8, 8 ):
+            z = char.pos.z + j
+            pos = wolfpack.coord( x, y, z, item.pos.map )
+            if pos.validspawnspot():
+                if i == 1 and j >= -2 and j <= 2:
+                    return True
+                char.moveto( pos )
+                char.update()
+                return True
+
+        #z = wolfpack.getaveragez( x, y, item.pos.map )
+        #pos = wolfpack.coord( x, y, z, item.pos.map )
+        #if  pos.validspawnspot():
+        #    if i == 1:
+        #        return True
+        #    char.moveto( pos )
+        #    char.update()
+        #    return True
+    return True
+
