@@ -1016,3 +1016,20 @@ def isWall(x, y, z, map):
 #	if enable_young and char.hasscript("system.young"):
 #		return True
 #	return False
+
+"""
+	\function wolfpack.utilities.staffmessage
+	\param char The char causing the message.
+	\param text Text which should be sended.
+	\pram mtype The message type. Valid values are so far:
+	0 - hearall
+	\description Sends a message to every connected staff char depending on the mtype.
+"""
+def staffmessage(char, text, mtype):
+	socket = wolfpack.sockets.first()
+	while socket:
+		if socket.player.gm:
+			if mtype == 0 and char.distanceto(socket.player) > 16 and socket.player.account.rank >= char.account.rank and socket.player.hastag('hearall'):
+				socket.sysmessage(unicode(char.name) + ': ' + unicode(text), YELLOW)
+		socket = wolfpack.sockets.next()
+	return
