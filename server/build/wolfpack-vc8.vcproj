@@ -375,18 +375,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\getopts.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\getopts.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\win\getopts_win.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\guilds.cpp"
 				>
 			</File>
@@ -468,6 +456,14 @@
 			</File>
 			<File
 				RelativePath="..\src\npc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\optionparser.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\optionparser.h"
 				>
 			</File>
 			<File
@@ -713,6 +709,34 @@
 			<File
 				RelativePath="..\src\network\encryption.h"
 				>
+			</File>
+			<File
+				RelativePath="..\src\network\ipupdater.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\network\ipupdater.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="moc&apos;ing $(InputFileName)"
+						CommandLine="$(QTDIR)\bin\moc.exe &quot;$(InputPath)&quot; -o &quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;&#x0D;&#x0A;"
+						Outputs="&quot;$(ProjectDir)\obj\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\network\network.cpp"
@@ -1122,6 +1146,10 @@
 		<Filter
 			Name="MOC Files"
 			>
+			<File
+				RelativePath=".\obj\moc_ipupdater.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\obj\moc_mainwindow.cpp"
 				>
