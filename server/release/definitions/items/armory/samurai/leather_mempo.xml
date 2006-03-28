@@ -11,7 +11,7 @@
 
 	<!-- Leather Mempo -->
 	<item id="277a">
-		<id>0x277e</id>
+		<id>0x277a</id>
 		<decay />
 		<nodye />
 		<durability><random min="60" max="100" /></durability>
