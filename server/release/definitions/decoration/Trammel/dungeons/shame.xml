@@ -1,0 +1,83 @@
+<decoration>
+	<!-- wooden logs-->
+	<item id="0x0509">
+		<pos x="5620" y="66" z="0" map="1" />
+	</item>
+
+	<!-- wooden logs-->
+	<item id="0x050A">
+		<pos x="5546" y="12" z="0" map="1" />
+		<pos x="5546" y="13" z="0" map="1" />
+		<pos x="5546" y="14" z="0" map="1" />
+		<pos x="5548" y="14" z="0" map="1" />
+		<pos x="5553" y="14" z="0" map="1" />
+		<pos x="5555" y="12" z="0" map="1" />
+	</item>
+
+	<!-- stone pavers-->
+	<item id="0x051E">
+		<pos x="5443" y="179" z="22" map="1" />
+		<pos x="5444" y="179" z="22" map="1" />
+	</item>
+
+	<!-- stone pavers-->
+	<item id="0x051F">
+		<pos x="5574" y="199" z="22" map="1" />
+	</item>
+
+	<!-- stone-->
+	<item id="0x071E">
+		<pos x="5513" y="9" z="0" map="1" />
+		<pos x="5514" y="10" z="0" map="1" />
+		<pos x="5490" y="19" z="-30" map="1" />
+	</item>
+
+	<!-- suspension bridge-->
+	<item id="0x07F0">
+		<pos x="5617" y="70" z="0" map="1" />
+	</item>
+
+	<!-- suspension bridge-->
+	<item id="0x080F">
+		<pos x="5552" y="15" z="0" map="1" />
+	</item>
+
+	<!-- water-->
+	<item id="0x1797">
+		<pos x="5546" y="15" z="-5" map="1" />
+		<pos x="5548" y="15" z="-5" map="1" />
+		<pos x="5549" y="15" z="-5" map="1" />
+		<pos x="5550" y="13" z="-5" map="1" />
+		<pos x="5554" y="10" z="-5" map="1" />
+		<pos x="5617" y="57" z="-5" map="1" />
+		<pos x="5617" y="64" z="-5" map="1" />
+		<pos x="5620" y="66" z="-5" map="1" />
+		<pos x="5621" y="67" z="-5" map="1" />
+		<pos x="5672" y="43" z="-5" map="1" />
+		<pos x="5436" y="168" z="-5" map="1" />
+	</item>
+
+	<!-- wooden planks-->
+	<item id="0x04C9">
+		<pos x="5460" y="185" z="0" map="1" />
+		<pos x="5460" y="186" z="0" map="1" />
+		<pos x="5460" y="187" z="0" map="1" />
+		<pos x="5460" y="188" z="0" map="1" />
+		<pos x="5456" y="185" z="0" map="1" />
+		<pos x="5456" y="186" z="0" map="1" />
+		<pos x="5456" y="187" z="0" map="1" />
+		<pos x="5456" y="188" z="0" map="1" />
+	</item>
+
+	<!-- moongate-->
+	<item id="0x1FD4">
+		<pos x="5490" y="19" z="-24" map="1" />
+		<pos x="5514" y="10" z="6" map="1" />
+		<pos x="5604" y="102" z="6" map="1" />
+		<pos x="5514" y="147" z="26" map="1" />
+		<pos x="5538" y="170" z="6" map="1" />
+		<pos x="5513" y="176" z="6" map="1" />
+		<pos x="5507" y="162" z="6" map="1" />
+		<pos x="5875" y="19" z="-4" map="1" />
+	</item>
+</decoration>

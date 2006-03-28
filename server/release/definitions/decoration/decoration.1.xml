@@ -1,4 +1,5 @@
 <decoration>
+	<!-- Towns-->
 	<include file="definitions/decoration/Trammel/signs.xml"/>
 	<include file="definitions/decoration/Trammel/doors.xml"/>
 	<include file="definitions/decoration/Trammel/britain.xml"/>
@@ -7,4 +8,12 @@
 	<include file="definitions/decoration/Trammel/wind.xml"/>
 	<include file="definitions/decoration/Trammel/shrines.xml"/>
 	<include file="definitions/decoration/Trammel/minoccamp.xml"/>
+	<include file="definitions/decoration/Trammel/haven.xml"/>
+	<include file="definitions/decoration/Trammel/cove.xml"/>
+
+	<!-- Dungeons-->
+	<include file="definitions/decoration/Trammel/Dungeons/hythloth.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/shame.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/destard.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/despise.xml"/>
 </decoration>

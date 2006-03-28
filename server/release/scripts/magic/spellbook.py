@@ -192,7 +192,7 @@ def removespelltarget( char, args, target ):
 """
 def onUse( char, item ):
 	if item.getoutmostchar() != char:
-		char.socket.sysmessage(tr('The book has to be in your belongings to be used.'))
+		char.socket.clilocmessage( 500207 ) # The spellbook must be in your backpack (and not in a container within) to open.
 		return True
 
 	# This is annoying and eats bandwith but its the only way to "reopen" the spellbook
@@ -229,4 +229,4 @@ def onUse( char, item ):
 # Create the special tooltip
 #
 def onShowTooltip(viewer, object, tooltip):
-	tooltip.add(1042886, str(countspells(object)))
+	tooltip.add(1042886, str(countspells(object))) # ~1_NUMBERS_OF_SPELLS~ Spells

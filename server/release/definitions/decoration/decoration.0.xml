@@ -1,4 +1,5 @@
 <decoration>
+	<!-- Towns-->
 	<include file="definitions/decoration/Felucca/signs.xml"/>
 	<include file="definitions/decoration/Felucca/doors.xml"/>
 	<include file="definitions/decoration/Felucca/britain.xml"/>
@@ -7,4 +8,11 @@
 	<include file="definitions/decoration/Felucca/wind.xml"/>
 	<include file="definitions/decoration/Felucca/shrines.xml"/>
 	<include file="definitions/decoration/Felucca/minoccamp.xml"/>
+	<include file="definitions/decoration/Felucca/cove.xml"/>
+
+	<!-- Dunegons-->
+	<include file="definitions/decoration/Felucca/Dungeons/hythloth.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/shame.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/destard.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/despise.xml"/>
 </decoration>
