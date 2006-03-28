@@ -210,7 +210,7 @@ public:
 	// Definable Methods
 	void processNode( const cElement* Tag, uint hash = 0 );
 	stError* setProperty( const QString& name, const cVariant& value );
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 
 	// Call an event handler for this object and take both the normal
 	// and the base script chain into account. This will also call the

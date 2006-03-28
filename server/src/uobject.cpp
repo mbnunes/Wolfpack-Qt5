@@ -826,27 +826,55 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	return cPythonScriptable::setProperty( name, value );
 }
 
-PyObject* cUObject::getProperty( const QString& name )
+PyObject* cUObject::getProperty( const QString& name, uint hash )
 {
 	/*
+	#define OUTPUT_HASH(x, y) QString("case 0x%2: // %1\n\treturn createPyObject( "#y" );\n").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+	OUTPUT_HASH( "bindmenu", bindmenu() ) +
+	OUTPUT_HASH( "spawnregion", spawnregion_ ? spawnregion_->id() : QString() ) +
+	OUTPUT_HASH( "serial", serial_ ) +
+	OUTPUT_HASH( "free", free ? 1 : 0 ) +
+	OUTPUT_HASH( "name", this->name() ) +
+	OUTPUT_HASH( "pos", pos() ) +
+	OUTPUT_HASH( "scriptlist", scriptList() ) +
+	OUTPUT_HASH( "multi", multi_ ) );
+	#undef OUTPUT_HASH
+	*/
+
+	if ( !hash )
+		hash = elfHash( name.toLatin1() );
+
+	switch ( hash )
+	{
+	case 0x4b3ec5: // bindmenu
+		/*
 		\rproperty object.bindmenu This string property contains a comma separated list of context menu ids for this object.
 		This property is inherited by the baseid property of this object.
-	*/
-	PY_PROPERTY( "bindmenu", bindmenu() )
-	/*
-	\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string
-	if the object wasn't spawned or removed from the spawnregion.
-	*/
-	PY_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->id() : QString() )
-	PY_PROPERTY( "serial", serial_ )
-	PY_PROPERTY( "free", free ? 1 : 0 )
-	PY_PROPERTY( "name", this->name() )
-	PY_PROPERTY( "pos", pos() )
-	PY_PROPERTY( "scriptlist", scriptList() )
-	// \rproperty object.multi This item property contains the multi this object is contained in.
-	PY_PROPERTY( "multi", multi_ )
-
-	return cPythonScriptable::getProperty( name );
+		*/
+		return createPyObject( bindmenu() );
+	case 0x5f1b8be: // spawnregion
+		/*
+		\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string
+		if the object wasn't spawned or was removed from the spawnregion.
+		*/
+		return createPyObject( spawnregion_ ? spawnregion_->id() : QString() );
+	case 0x79c8f7c: // serial
+		return createPyObject( serial_ );
+	case 0x6d8b5: // free
+		return createPyObject( free ? 1 : 0 );
+	case 0x74835: // name
+		return createPyObject( this->name() );
+	case 0x7763: // pos
+		return createPyObject( pos() );
+	case 0x7eca34: // scriptlist
+		return createPyObject( scriptList() );
+	case 0x74c3a9: // multi
+		// \rproperty object.multi This item property contains the multi this object is contained in.
+		return createPyObject( multi_ );
+	default:
+		return cPythonScriptable::getProperty( name, hash );
+	}
 }
 
 void cUObject::sendTooltip( cUOSocket* mSock )

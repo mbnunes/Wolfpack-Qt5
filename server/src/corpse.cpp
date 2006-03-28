@@ -50,6 +50,19 @@ static FactoryRegistration<cCorpse> registration( "cCorpse" );
 
 unsigned char cCorpse::classid;
 
+cCorpse::cCorpse( bool init )
+{
+	if ( init )
+		cItem::Init( true );
+
+	bodyId_ = 0x190;
+	murderer_ = INVALID_SERIAL;
+	murdertime_ = 0;
+	direction_ = 0;
+	id_ = 0x2006;
+	setBaseid( "2006" );
+}
+
 void cCorpse::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cItem::buildSqlString( objectid, fields, tables, conditions );
@@ -310,19 +323,6 @@ void cCorpse::addEquipment( quint8 layer, SERIAL serial )
 	equipment_.insert( layer, serial );
 }
 
-cCorpse::cCorpse( bool init )
-{
-	if ( init )
-		cItem::Init( true );
-
-	bodyId_ = 0x190;
-	murderer_ = INVALID_SERIAL;
-	murdertime_ = 0;
-	direction_ = 0;
-	id_ = 0x2006;
-	setBaseid( "2006" );
-}
-
 stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 {
 	/*
@@ -379,14 +379,14 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 	return cItem::setProperty( name, value );
 }
 
-PyObject* cCorpse::getProperty( const QString& name )
+PyObject* cCorpse::getProperty( const QString& name, uint hash )
 {
 	PY_PROPERTY( "bodyid", bodyId_ )
 	PY_PROPERTY( "murderer", FindCharBySerial( murderer_ ) )
 	PY_PROPERTY( "murdertime", murdertime_ )
 	PY_PROPERTY( "direction", direction_ )
 	PY_PROPERTY( "charbaseid", charbaseid_ )
-	return cItem::getProperty( name );
+	return cItem::getProperty( name, hash );
 }
 
 void cCorpse::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )

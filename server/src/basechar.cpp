@@ -2138,224 +2138,390 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	return cUObject::setProperty( name, value );
 }
 
-PyObject* cBaseChar::getProperty( const QString& name )
+PyObject* cBaseChar::getProperty( const QString& name, uint hash )
 {
-	// \rproperty char.overloaded This boolean property indicates whether the character is overloaded or not.
-	PY_PROPERTY( "overloaded", isOverloaded() )
-	// \rproperty char.maxweight The maximum weight this character can carry with his current strength.
-	PY_PROPERTY( "maxweight", maxWeight() )
-	/* \rproperty char.stepstaken The number of steps this character walked since the server started.
-	This value is not saved between server downs.
-	*/
-	PY_PROPERTY( "stepstaken", stepsTaken() )
-	/*
-	\rproperty char.bodytype The type of this characters bodies.
-	<code>0 - Unknown
-	1 Monster
-	2 Sea
-	3 Animal
-	4 Human
-	5 Equipment</code>
-	*/
-	PY_PROPERTY( "bodytype", bodytype() )
-	PY_PROPERTY( "orgname", orgName_ )
-	PY_PROPERTY( "direction", direction_ )
-	PY_PROPERTY( "baseid", baseid() )
-	PY_PROPERTY( "lastmovement", lastMovement_ )
-	PY_PROPERTY( "title", title_ )
-	PY_PROPERTY( "incognito", isIncognito() )
-	PY_PROPERTY( "polymorph", isPolymorphed() )
-	PY_PROPERTY( "skin", skin_ )
-	PY_PROPERTY( "orgskin", orgSkin_ )
-	PY_PROPERTY( "creationdate", creationDate_.toString() )
-	PY_PROPERTY( "stealthedsteps", stealthedSteps_ )
-	PY_PROPERTY( "running", running_ )
-	PY_PROPERTY( "tamed", isTamed() )
-	PY_PROPERTY( "guarding", guarding_ )
-	PY_PROPERTY( "murderer", FindCharBySerial( murdererSerial_ ) )
-	PY_PROPERTY( "casting", isCasting() )
-	PY_PROPERTY( "hidden", isHidden() )
-	PY_PROPERTY( "hunger", hunger_ )
-	PY_PROPERTY( "hungertime", hungerTime_ )
-	PY_PROPERTY( "poison", poison_ )
-	PY_PROPERTY( "flag", flag_ )
-	PY_PROPERTY( "propertyflags", propertyFlags_ )
-	PY_PROPERTY( "murderertime", murdererTime_ )
-	PY_PROPERTY( "criminaltime", criminalTime_ )
-	PY_PROPERTY( "meditating", isMeditating() )
-	PY_PROPERTY( "weight", weight_ )
-	PY_PROPERTY( "saycolor", saycolor_ )
-	PY_PROPERTY( "emotecolor", emoteColor_ )
-	PY_PROPERTY( "strength", strength_ )
-	PY_PROPERTY( "dexterity", dexterity_ )
-	PY_PROPERTY( "intelligence", intelligence_ )
-	PY_PROPERTY( "strength2", strengthMod_ )
-	PY_PROPERTY( "dexterity2", dexterityMod_ )
-	PY_PROPERTY( "intelligence2", intelligenceMod_ )
-	PY_PROPERTY( "orgid", orgBody_ )
-	PY_PROPERTY( "maxhitpoints", maxHitpoints_ )
-	PY_PROPERTY( "hitpoints", hitpoints_ )
-	PY_PROPERTY( "strengthcap", strengthCap_ )
-	PY_PROPERTY( "dexteritycap", dexterityCap_ )
-	PY_PROPERTY( "intelligencecap", intelligenceCap_ )
-	PY_PROPERTY( "statcap", statCap_ )
-	PY_PROPERTY( "health", hitpoints_ )
-	PY_PROPERTY( "maxstamina", maxStamina_ )
-	PY_PROPERTY( "stamina", stamina_ )
-	PY_PROPERTY( "maxmana", maxMana_ )
-	PY_PROPERTY( "mana", mana_ )
-	PY_PROPERTY( "karma", karma_ )
-	PY_PROPERTY( "fame", fame_ )
-	PY_PROPERTY( "kills", kills_ )
-	PY_PROPERTY( "deaths", deaths_ )
-	PY_PROPERTY( "dead", isDead() )
-	PY_PROPERTY( "war", isAtWar() )
-	PY_PROPERTY( "attacktarget", attackTarget_ )
-	PY_PROPERTY( "nextswing", nextSwing_ )
-	PY_PROPERTY( "regenhealth", regenHitpointsTime_ )
-	PY_PROPERTY( "regenstamina", regenStaminaTime_ )
-	PY_PROPERTY( "regenmana", regenManaTime_ )
-	PY_PROPERTY( "region", region_ )
-	PY_PROPERTY( "skilldelay", skillDelay_ )
-	PY_PROPERTY( "gender", gender_ )
-	PY_PROPERTY( "id", body_ )
-	PY_PROPERTY( "invulnerable", isInvulnerable() )
-	PY_PROPERTY( "elf", isElf() )
-	PY_PROPERTY( "invisible", isInvisible() )
-	PY_PROPERTY( "frozen", isFrozen() )
-	PY_PROPERTY( "hitpointsbonus", hitpointsBonus_ )
-	PY_PROPERTY( "staminabonus", staminaBonus_ )
-	PY_PROPERTY( "manabonus", manaBonus_ )
-	PY_PROPERTY( "disableunderwear", isUnderwearDisabled() )
-	PY_PROPERTY( "hidereputation", isReputationHidden() )
+/*
+	#define OUTPUT_HASH(x, y) QString("case 0x%2: // %1\n\treturn createPyObject( "#y" );\n").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+	OUTPUT_HASH( "overloaded", isOverloaded() ) +
+	OUTPUT_HASH( "maxweight", maxWeight() ) +
+	OUTPUT_HASH( "stepstaken", stepsTaken() ) +
+	OUTPUT_HASH( "bodytype", bodytype() ) +
+	OUTPUT_HASH( "orgname", orgName_ ) +
+	OUTPUT_HASH( "direction", direction_ ) +
+	OUTPUT_HASH( "baseid", baseid() ) +
+	OUTPUT_HASH( "lastmovement", lastMovement_ ) +
+	OUTPUT_HASH( "title", title_ ) +
+	OUTPUT_HASH( "incognito", isIncognito() ) +
+	OUTPUT_HASH( "polymorph", isPolymorphed() ) +
+	OUTPUT_HASH( "skin", skin_ ) +
+	OUTPUT_HASH( "orgskin", orgSkin_ ) +
+	OUTPUT_HASH( "creationdate", creationDate_.toString() ) +
+	OUTPUT_HASH( "stealthedsteps", stealthedSteps_ ) +
+	OUTPUT_HASH( "running", running_ ) +
+	OUTPUT_HASH( "tamed", isTamed() ) +
+	OUTPUT_HASH( "guarding", guarding_ ) +
+	OUTPUT_HASH( "murderer", FindCharBySerial( murdererSerial_ ) ) +
+	OUTPUT_HASH( "casting", isCasting() ) +
+	OUTPUT_HASH( "hidden", isHidden() ) +
+	OUTPUT_HASH( "hunger", hunger_ ) +
+	OUTPUT_HASH( "hungertime", hungerTime_ ) +
+	OUTPUT_HASH( "poison", poison_ ) +
+	OUTPUT_HASH( "flag", flag_ ) +
+	OUTPUT_HASH( "propertyflags", propertyFlags_ ) +
+	OUTPUT_HASH( "murderertime", murdererTime_ ) +
+	OUTPUT_HASH( "criminaltime", criminalTime_ ) +
+	OUTPUT_HASH( "meditating", isMeditating() ) +
+	OUTPUT_HASH( "weight", weight_ ) +
+	OUTPUT_HASH( "saycolor", saycolor_ ) +
+	OUTPUT_HASH( "emotecolor", emoteColor_ ) +
+	OUTPUT_HASH( "strength", strength_ ) +
+	OUTPUT_HASH( "dexterity", dexterity_ ) +
+	OUTPUT_HASH( "intelligence", intelligence_ ) +
+	OUTPUT_HASH( "strength2", strengthMod_ ) +
+	OUTPUT_HASH( "dexterity2", dexterityMod_ ) +
+	OUTPUT_HASH( "intelligence2", intelligenceMod_ ) +
+	OUTPUT_HASH( "orgid", orgBody_ ) +
+	OUTPUT_HASH( "maxhitpoints", maxHitpoints_ ) +
+	OUTPUT_HASH( "hitpoints", hitpoints_ ) +
+	OUTPUT_HASH( "strengthcap", strengthCap_ ) +
+	OUTPUT_HASH( "dexteritycap", dexterityCap_ ) +
+	OUTPUT_HASH( "intelligencecap", intelligenceCap_ ) +
+	OUTPUT_HASH( "statcap", statCap_ ) +
+	OUTPUT_HASH( "health", hitpoints_ ) +
+	OUTPUT_HASH( "maxstamina", maxStamina_ ) +
+	OUTPUT_HASH( "stamina", stamina_ ) +
+	OUTPUT_HASH( "maxmana", maxMana_ ) +
+	OUTPUT_HASH( "mana", mana_ ) +
+	OUTPUT_HASH( "karma", karma_ ) +
+	OUTPUT_HASH( "fame", fame_ ) +
+	OUTPUT_HASH( "kills", kills_ ) +
+	OUTPUT_HASH( "deaths", deaths_ ) +
+	OUTPUT_HASH( "dead", isDead() ) +
+	OUTPUT_HASH( "war", isAtWar() ) +
+	OUTPUT_HASH( "attacktarget", attackTarget_ ) +
+	OUTPUT_HASH( "nextswing", nextSwing_ ) +
+	OUTPUT_HASH( "regenhealth", regenHitpointsTime_ ) +
+	OUTPUT_HASH( "regenstamina", regenStaminaTime_ ) +
+	OUTPUT_HASH( "regenmana", regenManaTime_ ) +
+	OUTPUT_HASH( "region", region_ ) +
+	OUTPUT_HASH( "skilldelay", skillDelay_ ) +
+	OUTPUT_HASH( "gender", gender_ ) +
+	OUTPUT_HASH( "id", body_ ) +
+	OUTPUT_HASH( "invulnerable", isInvulnerable() ) +
+	OUTPUT_HASH( "elf", isElf() ) +
+	OUTPUT_HASH( "invisible", isInvisible() ) +
+	OUTPUT_HASH( "frozen", isFrozen() ) +
+	OUTPUT_HASH( "hitpointsbonus", hitpointsBonus_ ) +
+	OUTPUT_HASH( "staminabonus", staminaBonus_ ) +
+	OUTPUT_HASH( "manabonus", manaBonus_ ) +
+	OUTPUT_HASH( "disableunderwear", isUnderwearDisabled() ) +
+	OUTPUT_HASH( "hidereputation", isReputationHidden() ) +
+	OUTPUT_HASH( "basesound", basesound() ) +
+	OUTPUT_HASH( "canfly", isCanFly() ) +
+	OUTPUT_HASH( "antiblink", isAntiBlink() ) +
+	OUTPUT_HASH( "nocorpse", isNoCorpse() ) +
+	OUTPUT_HASH( "figurine", figurine() ) +
+	OUTPUT_HASH( "mindamage", minDamage() ) +
+	OUTPUT_HASH( "maxdamage", maxDamage() ) +
+	OUTPUT_HASH( "mintaming", minTaming() ) +
+	OUTPUT_HASH( "carve", carve() ) +
+	OUTPUT_HASH( "lootpacks", lootPacks() ) +
+	OUTPUT_HASH( "controlslots", controlSlots() ) +
+	OUTPUT_HASH( "basescripts", basedef_ ? basedef_->baseScriptList() : "" )
+	);
+	#undef OUTPUT_HASH
+*/
+	if ( !hash )
+		hash = elfHash( name.toLatin1() );
 
-	/*
-	\rproperty char.basesound The base sound id for this creature. Not used for humans.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "basesound", basesound() )
-
-	/*
-	\rproperty char.canfly Indicates whether the creature can fly.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "canfly", isCanFly() )
-
-	/*
-	\rproperty char.antiblink Indicates whether the creature has the anti blink bit set for animations.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "antiblink", isAntiBlink() )
-
-	/*
-	\rproperty char.nocorpse Indicates whether the creature leaves a corpse or not.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "nocorpse", isNoCorpse() )
-
-	/*
-	\rproperty figurine The itemid of the figurine thats created when the creature is shrunk.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "figurine", figurine() )
-
-	/*
-	\rproperty char.mindamage The minimum damage this character type
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "antiblink", isAntiBlink() )
-
-	/*
-	\rproperty char.mindamage This is the minimum damage dealt by the creature when unarmed.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "mindamage", minDamage() )
-
-	/*
-	\rproperty char.maxdamage This is the maximum damage dealt by the creature when unarmed.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "maxdamage", maxDamage() )
-
-	/*
-	\rproperty char.mintaming This is the minimum taming skill required to tame this creature.
-	This has no meaning for player characters.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "mintaming", minTaming() )
-
-	/*
-	\rproperty char.carve This is the name of the list of items created when a dagger is
-	used on the corpse of this creature.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "carve", carve() )
-
-	/*
-	\rproperty char.lootpacks This is a semicolon separated list of lootpacks that are created
-	in the corpse of this creature.
-	This has no meaning for player characters.
-
-	This property is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "lootpacks", lootPacks() )
-
-	/*
-	\rproperty char.controlslots The amount of follower slots this npc will consume when owned
-	by a player.
-
-	This property is exclusive to npcs and is inherited from the definition referenced by the baseid property.
-	*/
-	PY_PROPERTY( "controlslots", controlSlots() )
-
-	/*
-	\rproperty char.basescripts This is a comma separated list of scripts assigned to this item
-	via the baseid. They are called after the scripts assigned dynamically to the item.
-	*/
-	PY_PROPERTY( "basescripts", basedef_ ? basedef_->baseScriptList() : "" );
-
-	if ( name.left( 6 ) == "skill." )
+	switch ( hash )
 	{
-		QString skill = name.right( name.length() - 6 );
-		qint16 skillId = Skills::instance()->findSkillByDef( skill );
+	case 0x9321674: // overloaded
+		// \rproperty char.overloaded This boolean property indicates whether the character is overloaded or not.
+		return createPyObject( isOverloaded() );
+	case 0xfdb8e74: // maxweight
+		// \rproperty char.maxweight The maximum weight this character can carry with his current strength.
+		return createPyObject( maxWeight() );
+	case 0x7adeb7e: // stepstaken
+		/* \rproperty char.stepstaken The number of steps this character walked since the server started.
+		This value is not saved between server downs.
+		*/
+		return createPyObject( stepsTaken() );
+	case 0x5c0c6f5: // bodytype
+		/*
+		\rproperty char.bodytype The type of this characters bodies.
+		<code>0 - Unknown
+		1 Monster
+		2 Sea
+		3 Animal
+		4 Human
+		5 Equipment</code>
+		*/
+		return createPyObject( bodytype() );
+	case 0x68e4845: // orgname
+		return createPyObject( orgName_ );
+	case 0x8bac55e: // direction
+		return createPyObject( direction_ );
+	case 0x6889bf4: // baseid
+		return createPyObject( baseid() );
+	case 0x1e49114: // lastmovement
+		return createPyObject( lastMovement_ );
+	case 0x7b0b25: // title
+		return createPyObject( title_ );
+	case 0xa5e40ef: // incognito
+		return createPyObject( isIncognito() );
+	case 0x4041e08: // polymorph
+		return createPyObject( isPolymorphed() );
+	case 0x7a1fe: // skin
+		return createPyObject( skin_ );
+	case 0x68ea18e: // orgskin
+		return createPyObject( orgSkin_ );
+	case 0xb0c1005: // creationdate
+		return createPyObject( creationDate_.toString() );
+	case 0x1029133: // stealthedsteps
+		return createPyObject( stealthedSteps_ );
+	case 0x9c55037: // running
+		return createPyObject( running_ );
+	case 0x7a83b4: // tamed
+		return createPyObject( isTamed() );
+	case 0xb88aaa7: // guarding
+		return createPyObject( guarding_ );
+	case 0xc8acf82: // murderer
+		return createPyObject( FindCharBySerial( murdererSerial_ ) );
+	case 0x98ab027: // casting
+		return createPyObject( isCasting() );
+	case 0x6efaabe: // hidden
+		return createPyObject( isHidden() );
+	case 0x6fc4dc2: // hunger
+		return createPyObject( hunger_ );
+	case 0xdcf5475: // hungertime
+		return createPyObject( hungerTime_ );
+	case 0x7760a5e: // poison
+		return createPyObject( poison_ );
+	case 0x6d277: // flag
+		return createPyObject( flag_ );
+	case 0xc6b4b03: // propertyflags
+		return createPyObject( propertyFlags_ );
+	case 0xf8526f5: // murderertime
+		return createPyObject( murdererTime_ );
+	case 0x2eaac35: // criminaltime
+		return createPyObject( criminalTime_ );
+	case 0xaf95f7: // meditating
+		return createPyObject( isMeditating() );
+	case 0x7dbfdf4: // weight
+		return createPyObject( weight_ );
+	case 0x8fa66f2: // saycolor
+		return createPyObject( saycolor_ );
+	case 0xac0a702: // emotecolor
+		return createPyObject( emoteColor_ );
+	case 0xb8c4908: // strength
+		return createPyObject( strength_ );
+	case 0xfacfa79: // dexterity
+		return createPyObject( dexterity_ );
+	case 0x5f828a5: // intelligence
+		return createPyObject( intelligence_ );
+	case 0x8c49002: // strength2
+		return createPyObject( strengthMod_ );
+	case 0xacfa732: // dexterity2
+		return createPyObject( dexterityMod_ );
+	case 0xf828ad2: // intelligence2
+		return createPyObject( intelligenceMod_ );
+	case 0x768df4: // orgid
+		return createPyObject( orgBody_ );
+	case 0xc6d2ab3: // maxhitpoints
+		return createPyObject( maxHitpoints_ );
+	case 0xb75aab3: // hitpoints
+		return createPyObject( hitpoints_ );
+	case 0x4905140: // strengthcap
+		return createPyObject( strengthCap_ );
+	case 0xfa70340: // dexteritycap
+		return createPyObject( dexterityCap_ );
+	case 0x28ae600: // intelligencecap
+		return createPyObject( intelligenceCap_ );
+	case 0xaa8a9f0: // statcap
+		return createPyObject( statCap_ );
+	case 0x6eb83a8: // health
+		return createPyObject( hitpoints_ );
+	case 0xaa108b1: // maxstamina
+		return createPyObject( maxStamina_ );
+	case 0xaa84031: // stamina
+		return createPyObject( stamina_ );
+	case 0x38f3831: // maxmana
+		return createPyObject( maxMana_ );
+	case 0x73841: // mana
+		return createPyObject( mana_ );
+	case 0x718931: // karma
+		return createPyObject( karma_ );
+	case 0x6c835: // fame
+		return createPyObject( fame_ );
+	case 0x720333: // kills
+		return createPyObject( kills_ );
+	case 0x6ab8af3: // deaths
+		return createPyObject( deaths_ );
+	case 0x6ab74: // dead
+		return createPyObject( isDead() );
+	case 0x7d82: // war
+		return createPyObject( isAtWar() );
+	case 0x4232a64: // attacktarget
+		return createPyObject( attackTarget_ );
+	case 0xfbaac87: // nextswing
+		return createPyObject( nextSwing_ );
+	case 0x493de68: // regenhealth
+		return createPyObject( regenHitpointsTime_ );
+	case 0xd2de411: // regenstamina
+		return createPyObject( regenStaminaTime_ );
+	case 0xdc550f1: // regenmana
+		return createPyObject( regenManaTime_ );
+	case 0x78be05e: // region
+		return createPyObject( region_ );
+	case 0x32d2089: // skilldelay
+		return createPyObject( skillDelay_ );
+	case 0x6dc4ac2: // gender
+		return createPyObject( gender_ );
+	case 0x6f4: // id
+		return createPyObject( body_ );
+	case 0x3cda515: // invulnerable
+		return createPyObject( isInvulnerable() );
+	case 0x6c26: // elf
+		return createPyObject( isElf() );
+	case 0xd098975: // invisible
+		return createPyObject( isInvisible() );
+	case 0x6d970be: // frozen
+		return createPyObject( isFrozen() );
+	case 0xb301f63: // hitpointsbonus
+		return createPyObject( hitpointsBonus_ );
+	case 0x3d3e1c3: // staminabonus
+		return createPyObject( staminaBonus_ );
+	case 0x4793643: // manabonus
+		return createPyObject( manaBonus_ );
+	case 0xd5da752: // disableunderwear
+		return createPyObject( isUnderwearDisabled() );
+	case 0x30426ce: // hidereputation
+		return createPyObject( isReputationHidden() );
+	case 0x9ca04c4: // basesound
+		/*
+		\rproperty char.basesound The base sound id for this creature. Not used for humans.
 
-		if ( skillId != -1 )
-		{
-			return createPyObject( skillValue( skillId ) );
-		}
-		// skillcap.
-	}
-	else if ( name.left( 9 ) == "skillcap." )
-	{
-		QString skill = name.right( name.length() - 9 );
-		qint16 skillId = Skills::instance()->findSkillByDef( skill );
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( basesound() );
+	case 0x6984d39: // canfly
+		/*
+		\rproperty char.canfly Indicates whether the creature can fly.
 
-		if ( skillId != -1 )
-		{
-			return createPyObject( skillCap( skillId ) );
-		}
-	}
-	else
-	{
-		// See if there's a skill by that name
-		qint16 skillId = Skills::instance()->findSkillByDef( name );
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( isCanFly() );
+	case 0xaf9481b: // antiblink
+		/*
+		\rproperty char.antiblink Indicates whether the creature has the anti blink bit set for animations.
 
-		if ( skillId != -1 )
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( isAntiBlink() );
+	case 0x5a690c5: // nocorpse
+		/*
+		\rproperty char.nocorpse Indicates whether the creature leaves a corpse or not.
+
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( isNoCorpse() );
+	case 0xfec8a85: // figurine
+		/*
+		\rproperty figurine The itemid of the figurine thats created when the creature is shrunk.
+
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( figurine() );
+	case 0x4a843d5: // mindamage
+		/*
+		\rproperty char.mindamage This is the minimum damage dealt by the creature when unarmed.
+
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( minDamage() );
+	case 0xea84455: // maxdamage
+		/*
+		\rproperty char.maxdamage This is the maximum damage dealt by the creature when unarmed.
+
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( maxDamage() );
+	case 0x5a84c47: // mintaming
+		/*
+		\rproperty char.mintaming This is the minimum taming skill required to tame this creature.
+		This has no meaning for player characters.
+
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( minTaming() );
+	case 0x6989c5: // carve
+		/*
+		\rproperty char.carve This is the name of the list of items created when a dagger is
+		used on the corpse of this creature.
+
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( carve() );
+	case 0x6b60b43: // lootpacks
+		/*
+		\rproperty char.lootpacks This is a semicolon separated list of lootpacks that are created
+		in the corpse of this creature.
+		This has no meaning for player characters.
+
+		This property is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( lootPacks() );
+	case 0x4a08d23: // controlslots
+		/*
+		\rproperty char.controlslots If char is a npc object, this will be the amount of follower slots this npc will consume when owned
+		by a player. When char is a player object, then this is the amount of follower slots currently used.
+
+		For npcs this is inherited from the definition referenced by the baseid property.
+		*/
+		return createPyObject( controlSlots() );
+	case 0x9c18e73: // basescripts
+		/*
+		\rproperty char.basescripts This is a comma separated list of scripts assigned to this item
+		via the baseid. They are called after the scripts assigned dynamically to the item.
+		*/
+		return createPyObject( basedef_ ? basedef_->baseScriptList() : "" );
+
+	default:
+		if ( name.startsWith("skill.") )
 		{
-			return createPyObject( skillValue( skillId ) );
+			QString skill = name.right( name.length() - 6 );
+			qint16 skillId = Skills::instance()->findSkillByDef( skill );
+
+			if ( skillId != -1 )
+			{
+				return createPyObject( skillValue( skillId ) );
+			}
+			// skillcap.
 		}
+		else if ( name.startsWith("skillcap.") )
+		{
+			QString skill = name.right( name.length() - 9 );
+			qint16 skillId = Skills::instance()->findSkillByDef( skill );
+
+			if ( skillId != -1 )
+			{
+				return createPyObject( skillCap( skillId ) );
+			}
+		}
+		else
+		{
+			// See if there's a skill by that name
+			qint16 skillId = Skills::instance()->findSkillByDef( name );
+
+			if ( skillId != -1 )
+			{
+				return createPyObject( skillValue( skillId ) );
+			}
+		}
+		return cUObject::getProperty( name, hash );
 	}
-	return cUObject::getProperty( name );
 }
 
 void cBaseChar::setSkillValue( quint16 skill, quint16 value )

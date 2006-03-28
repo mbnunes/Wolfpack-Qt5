@@ -138,7 +138,7 @@ public:
 	const char* className() const;
 	bool implements( const QString& name ) const;
 	PyObject* getPyObject();
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 	stError* setProperty( const QString& name, const cVariant& value );
 };
 

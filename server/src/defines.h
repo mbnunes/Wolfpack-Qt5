@@ -47,27 +47,6 @@
 #define VISRANGE 18 // Visibility for normal items
 #define BUILDRANGE 21 // Visibility for castles and keeps
 
-// Verdata Settings
-#define VERFILE_MAP 0x00
-#define VERFILE_STAIDX 0x01
-#define VERFILE_STATICS 0x02
-#define VERFILE_ARTIDX 0x03
-#define VERFILE_ART 0x04
-#define VERFILE_ANIMIDX 0x05
-#define VERFILE_ANIM 0x06
-#define VERFILE_SOUNDIDX 0x07
-#define VERFILE_SOUND 0x08
-#define VERFILE_TEXIDX 0x09
-#define VERFILE_TEXMAPS 0x0A
-#define VERFILE_GUMPIDX 0x0B
-#define VERFILE_GUMPART 0x0C
-#define VERFILE_MULTIIDX 0x0D
-#define VERFILE_MULTI 0x0E
-#define VERFILE_SKILLSIDX 0x0F
-#define VERFILE_SKILLS 0x10
-#define VERFILE_TILEDATA 0x1E
-#define VERFILE_ANIMDATA 0x1F
-
 // List of skill numbers (For later implementation)
 enum eSkills
 {
@@ -133,13 +112,6 @@ enum eSkills
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL 0
-
-#define CONN_MAIN 1
-#define CONN_SECOND 2
-
-#define HOUSE 0
-#define BOAT 1
-#define CUSTOMHOUSE 2
 
 #define ARCHERY_RANGE 10
 

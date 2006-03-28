@@ -128,7 +128,7 @@ public:
 	const char* className() const;
 	PyObject* getPyObject();
 	bool implements( const QString& name ) const;
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 };
 
 class cCharBaseDef : public cBaseDef
@@ -261,7 +261,7 @@ public:
 		return lootPacks_;
 	}
 
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 };
 
 #define BODY_UNKNOWN 0
@@ -412,7 +412,7 @@ public:
 		return ( flags_ & 0x01 ) != 0;
 	}
 
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 };
 
 class cItemBaseDefs

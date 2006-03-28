@@ -2036,98 +2036,162 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 	return cUObject::setProperty( name, value );
 }
 
-PyObject* cItem::getProperty( const QString& name )
+PyObject* cItem::getProperty( const QString& name, uint hash )
 {
-	PY_PROPERTY( "id", id_ )
 	/*
-	\rproperty item.lightsource For lightsources this is the type of the light.
-
-	This property is inherited from the definition specified in the baseid property.
+	#define OUTPUT_HASH(x) QString("case 0x%2: // %1\n").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+	OUTPUT_HASH("id") + 
+	OUTPUT_HASH("lightsource") + 
+	OUTPUT_HASH("decaydelay") + 
+	OUTPUT_HASH("baseid") + 
+	OUTPUT_HASH("color") + 
+	OUTPUT_HASH("amount") + 
+	OUTPUT_HASH("layer") + 
+	OUTPUT_HASH("type") + 
+	OUTPUT_HASH("weight") + 
+	OUTPUT_HASH("sellprice") + 
+	OUTPUT_HASH("buyprice") + 
+	OUTPUT_HASH("health") + 
+	OUTPUT_HASH("maxhealth") + 
+	OUTPUT_HASH("owner") + 
+	OUTPUT_HASH("totalweight") + 
+	OUTPUT_HASH("container") + 
+	OUTPUT_HASH("visible") + 
+	OUTPUT_HASH("ownervisible") + 
+	OUTPUT_HASH("dye") + 
+	OUTPUT_HASH("decay") +
+	OUTPUT_HASH("newbie") +
+	OUTPUT_HASH("dispellable") +
+	OUTPUT_HASH("secured") +
+	OUTPUT_HASH("allowmeditation") +
+	OUTPUT_HASH("twohanded") +
+	OUTPUT_HASH("corpse") +
+	OUTPUT_HASH("movable") +
+	OUTPUT_HASH("lockeddown") +
+	OUTPUT_HASH("watersource") +
+	OUTPUT_HASH("basescripts")
+	);
+	#undef OUTPUT_HASH
 	*/
-	PY_PROPERTY( "lightsource", lightsource() )
-	/*
-	\rproperty item.decaydelay The decay delay for this item in miliseconds.
+	
+	if ( !hash )
+		hash = elfHash( name.toLatin1() );
 
-	This is 0 if the item won't decay.
-	*/
-	PY_PROPERTY( "decaydelay", ( int ) decayDelay() )
+	switch ( hash )
+	{
+	case 0x6f4: // id
+		return createPyObject(id_);
+	case 0xbf43565: // lightsource
+		/*
+		\rproperty item.lightsource For lightsources this is the type of the light.
 
-	PY_PROPERTY( "baseid", baseid() )
-	PY_PROPERTY( "color", color_ )
-	PY_PROPERTY( "amount", amount_ )
-	PY_PROPERTY( "layer", layer_ )
-	/*
-	\rproperty item.type The type value of an object. Used to group weapons,
-	armor and other equipables, as well as usable objects.
+		This property is inherited from the definition specified in the baseid property.
+		*/
+		return createPyObject(lightsource());
+	case 0x8fc2919: // decaydelay
+		/*
+		\rproperty item.decaydelay The decay delay for this item in miliseconds.
 
-	This property is inherited from the definition specified in the baseid property.
-	*/
-	PY_PROPERTY( "type", type() )
-	/*
-	\rproperty item.weight The weight value of the object.
+		This is 0 if the item won't decay.
+		*/
+		return createPyObject(( int ) decayDelay());
+	case 0x6889bf4: // baseid
+		return createPyObject(baseid());
+	case 0x6a6362: // color
+		return createPyObject(color_);
+	case 0x6846c54: // amount
+		return createPyObject(amount_);
+	case 0x728fc2: // layer
+		return createPyObject(layer_);
+	case 0x7c065: // type
+		/*
+		\rproperty item.type The type value of an object. Used to group weapons,
+		armor and other equipables, as well as usable objects.
 
-	This property is inherited from the definition specified in the baseid property.
-	*/
-	PY_PROPERTY( "weight", weight() )
-	/*
-	\rproperty item.sellprice The value at which this object can be sold to vendors.
+		This property is inherited from the definition specified in the baseid property.
+		*/
+		return createPyObject(type());
+	case 0x7dbfdf4: // weight
+		/*
+		\rproperty item.weight The weight value of the object.
 
-	This property is inherited from the definition specified in the baseid property.
-	*/
-	PY_PROPERTY( "sellprice", ( int ) sellprice() )
-	/*
-	\rproperty item.buyprice The value at which this object is bought from vendors.
+		This property is inherited from the definition specified in the baseid property.
+		*/
+		return createPyObject( weight() );
+	case 0x337f655: // sellprice
+		/*
+		\rproperty item.sellprice The value at which this object can be sold to vendors.
 
-	This property is inherited from the definition specified in the baseid property.
-	*/
-	PY_PROPERTY( "buyprice", ( int ) buyprice() )
+		This property is inherited from the definition specified in the baseid property.
+		*/
+		return createPyObject( ( int ) sellprice() );
+	case 0xd078905: // buyprice
+		/*
+		\rproperty item.buyprice The value at which this object is bought from vendors.
 
-	PY_PROPERTY( "health", hp_ )
-	PY_PROPERTY( "maxhealth", maxhp_ )
-	PY_PROPERTY( "owner", owner() )
-	PY_PROPERTY( "totalweight", totalweight_ )
-	// container
-	PY_PROPERTY( "container", container_ )
-	// Visible
-	PY_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
-	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
-	// Flags
-	PY_PROPERTY( "dye", dye() ? 1 : 0 )
-	PY_PROPERTY( "decay", priv_ & 0x01 ? 0 : 1 )
-	PY_PROPERTY( "newbie", priv_ & 0x02 ? 1 : 0 )
-	PY_PROPERTY( "dispellable", priv_ & 0x04 ? 1 : 0 )
-	PY_PROPERTY( "secured", priv_ & 0x08 ? 1 : 0 )
-	PY_PROPERTY( "allowmeditation", priv_ & 0x10 ? 1 : 0 )
-	PY_PROPERTY( "twohanded", priv_ & 0x20 ? 1 : 0 )
-	/*
-	\rproperty item.corpse Specifies whether this item is a corpse or not.
-	*/
-	PY_PROPERTY( "corpse", corpse() )
-	PY_PROPERTY( "visible", visible() )
-	PY_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
-	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
-	PY_PROPERTY( "movable", movable_ )
-	/*
-	\property item.lockeddown This property indicates that the item has been locked down by a
+		This property is inherited from the definition specified in the baseid property.
+		*/
+		return createPyObject( ( int ) buyprice() );
+	case 0x6eb83a8: // health
+		return createPyObject( hp_ );
+	case 0xeeb1028: // maxhealth
+		return createPyObject( maxhp_ );
+	case 0x76e4c2: // owner
+		return createPyObject( owner() );
+	case 0x3a09774: // totalweight
+		return createPyObject( totalweight_ );
+	case 0x5a7aea2: // container
+		return createPyObject( container_ );
+	case 0xd09f955: // visible
+		return createPyObject( visible_ == 0 ? 1 : 0 );
+	case 0xc67b5b5: // ownervisible
+		return createPyObject( visible_ == 1 ? 1 : 0 );
+	case 0x6bf5: // dye
+		return createPyObject( dye() ? 1 : 0 );
+	case 0x6ab989: // decay
+		return createPyObject( priv_ & 0x01 ? 0 : 1 );
+	case 0x74cd8f5: // newbie
+		return createPyObject( priv_ & 0x02 ? 1 : 0 );
+	case 0xc597345: // dispellable
+		return createPyObject( priv_ & 0x04 ? 1 : 0 );
+	case 0x9bac8c4: // secured
+		return createPyObject( priv_ & 0x08 ? 1 : 0 );
+	case 0x3c6fdfe: // allowmeditation
+		return createPyObject( priv_ & 0x10 ? 1 : 0 );
+	case 0x5e83154: // twohanded
+		return createPyObject( priv_ & 0x20 ? 1 : 0 );
+	case 0x6a69795: // corpse
+		/*
+		\rproperty item.corpse Specifies whether this item is a corpse or not.
+		*/
+		return createPyObject( corpse() );
+	case 0x46c7955: // movable
+		return createPyObject( movable_ );
+	case 0x1bda37e: // lockeddown
+		/*
+		\property item.lockeddown This property indicates that the item has been locked down by a
 		player.
-	*/
-	PY_PROPERTY( "lockeddown", isLockedDown() )
+		*/
+		return createPyObject( isLockedDown() );
+	case 0x9fb4255: // watersource
+		/*
+		\rproperty item.watersource This property indicates that this type of item is a source of
+		water. If there is a "quantity" tag for the item, it should be used, otherwise the source
+		is indepletable.
+		This property is inherited from the base id of this item.
+		*/
+		return createPyObject( isWaterSource() );
+	case 0x9c18e73: // basescripts
+		/*
+		\rproperty item.basescripts This is a comma separated list of scripts assigned to this item
+		via the baseid. They are called after the scripts assigned dynamically to the item.
+		*/
+		return createPyObject( basedef_ ? basedef_->baseScriptList() : "" );
 
-	/*
-	\rproperty item.watersource This property indicates that this type of item is a source of
-	water. If there is a "quantity" tag for the item, it should be used, otherwise the source
-	is indepletable.
-
-	This property is inherited from the base id of this item.
-	*/
-	PY_PROPERTY( "watersource", isWaterSource() )
-	/*
-	\rproperty item.basescripts This is a comma separated list of scripts assigned to this item
-	via the baseid. They are called after the scripts assigned dynamically to the item.
-	*/
-	PY_PROPERTY( "basescripts", basedef_ ? basedef_->baseScriptList() : "" );
-
-	return cUObject::getProperty( name );
+	default:
+		return cUObject::getProperty( name, hash );
+	}
 }
 
 void cItem::sendTooltip( cUOSocket* mSock )

@@ -1400,36 +1400,73 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 	return cBaseChar::setProperty( name, value );
 }
 
-PyObject* cPlayer::getProperty( const QString& name )
+PyObject* cPlayer::getProperty( const QString& name, uint hash )
 {
-	PY_PROPERTY( "account", account_ )
 	/*
-	\rproperty controlslots The amount of controlslots currently used for this
-	player.
-	This property is only available for player objects.
+	#define OUTPUT_HASH(x) QString("case 0x%2: // %1\n").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+	OUTPUT_HASH("account") + 
+	OUTPUT_HASH("controlslots") + 
+	OUTPUT_HASH("logouttime") + 
+	OUTPUT_HASH("npc") + 
+	OUTPUT_HASH("lightbonus") + 
+	OUTPUT_HASH("objectdelay") + 
+	OUTPUT_HASH("visrange") + 
+	OUTPUT_HASH("profile") + 
+	OUTPUT_HASH("strengthlock") + 
+	OUTPUT_HASH("dexteritylock") + 
+	OUTPUT_HASH("intelligencelock") + 
+	OUTPUT_HASH("maxcontrolslots") + 
+	OUTPUT_HASH("karmalock") + 
+	OUTPUT_HASH("squelched") + 
+	OUTPUT_HASH("jailed")
+	);
+	#undef OUTPUT_HASH
 	*/
-	PY_PROPERTY( "controlslots", controlslots() )
-	PY_PROPERTY( "logouttime", logoutTime_ )
-	PY_PROPERTY( "npc", false )
-	PY_PROPERTY( "lightbonus", fixedLightLevel_ )
-	PY_PROPERTY( "objectdelay", objectDelay_ )
-	PY_PROPERTY( "visrange", visualRange_ )
-	PY_PROPERTY( "profile", profile_ )
-	PY_PROPERTY( "strengthlock", strengthLock_ )
-	PY_PROPERTY( "dexteritylock", dexterityLock_ )
-	PY_PROPERTY( "intelligencelock", intelligenceLock_ )
-	PY_PROPERTY( "maxcontrolslots", maxControlSlots_ )
-	PY_PROPERTY( "karmalock", karmaLock() )
-	PY_PROPERTY( "squelched", isSquelched() )
-	PY_PROPERTY( "jailed", isJailed() )
 
-	// Forward the property to the account
-	if ( name.startsWith( "account." ) && account_ )
+	if ( !hash )
+		hash = elfHash( name.toLatin1() );
+
+	switch ( hash )
 	{
-		return account_->getProperty( name.right( name.length() - 8 ) );
-	}
+	case 0x79a6c34: // account
+		 return createPyObject( account_ );
+	case 0x6cc9bd5: // logouttime
+		 return createPyObject( logoutTime_ );
+	case 0x7563: // npc
+		 return createPyObject( false );
+	case 0xfb08a13: // lightbonus
+		 return createPyObject( fixedLightLevel_ );
+	case 0xadf3239: // objectdelay
+		 return createPyObject( objectDelay_ );
+	case 0xa88305: // visrange
+		 return createPyObject( visualRange_ );
+	case 0x795d055: // profile
+		 return createPyObject( profile_ );
+	case 0x906b9db: // strengthlock
+		 return createPyObject( strengthLock_ );
+	case 0xa71996b: // dexteritylock
+		 return createPyObject( dexterityLock_ );
+	case 0x8afedbb: // intelligencelock
+		 return createPyObject( intelligenceLock_ );
+	case 0xca01ea3: // maxcontrolslots
+		 return createPyObject( maxControlSlots_ );
+	case 0x938641b: // karmalock
+		 return createPyObject( karmaLock() );
+	case 0xbc2e434: // squelched
+		 return createPyObject( isSquelched() );
+	case 0x70802b4: // jailed	}
+		 return createPyObject( isJailed() );
+	default:
 
-	return cBaseChar::getProperty( name );
+		// Forward the property to the account
+		if ( account_ && name.startsWith( "account." ) )
+		{
+			return account_->getProperty( name.right( name.length() - 8 ) );
+		}
+
+		return cBaseChar::getProperty( name, hash );
+	}
 }
 
 void cPlayer::awardFame( short amount, bool showmessage )

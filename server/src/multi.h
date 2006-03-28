@@ -79,7 +79,7 @@ public:
 
 	// Property Interface Methods
 	stError* setProperty( const QString& name, const cVariant& value );
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 
 	// Python Interface Methods
 	PyObject* getPyObject();

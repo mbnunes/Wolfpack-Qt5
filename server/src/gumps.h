@@ -38,7 +38,6 @@
 // Forward Declarations
 class cUObject;
 class cUOSocket;
-class cPage;
 class cSpawnRegion;
 
 

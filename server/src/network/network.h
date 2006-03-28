@@ -40,8 +40,6 @@
 #include "uosocket.h"
 
 //Forward class Declaration
-class cAsyncNetIO;
-class cListener;
 class QHostAddress;
 
 class cNetwork : public QObject, public cComponent

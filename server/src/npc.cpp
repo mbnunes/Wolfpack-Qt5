@@ -1029,33 +1029,94 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	return cBaseChar::setProperty( name, value );
 }
 
-PyObject* cNPC::getProperty( const QString& name )
+PyObject* cNPC::getProperty( const QString& name, uint hash )
 {
-	PY_PROPERTY( "nextmsgtime", nextMsgTime_ )
-	PY_PROPERTY( "antispamtimer", nextMsgTime_ )
-	PY_PROPERTY( "nextguardcalltime", nextGuardCallTime_ )
-	PY_PROPERTY( "antiguardstimer", nextGuardCallTime_ )
-	PY_PROPERTY( "stablemaster", stablemasterSerial_ )
-	PY_PROPERTY( "npc", true )
-	PY_PROPERTY( "nextmovetime", nextMoveTime_ )
-	PY_PROPERTY( "npcmovetime", nextMoveTime_ )
-	PY_PROPERTY( "wandertype", wanderType() )
-	PY_PROPERTY( "wanderx1", wanderX1() )
-	PY_PROPERTY( "fx1", wanderX1() )
-	PY_PROPERTY( "wanderx2", wanderX2() )
-	PY_PROPERTY( "fx2", wanderX2() )
-	PY_PROPERTY( "wandery1", wanderY1() )
-	PY_PROPERTY( "fy1", wanderY1() )
-	PY_PROPERTY( "wandery2", wanderY2() )
-	PY_PROPERTY( "fy2", wanderY2() )
-	PY_PROPERTY( "wanderradius", wanderRadius() )
-	PY_PROPERTY( "fz1", wanderRadius() )
-	PY_PROPERTY( "summontime", summonTime_ )
-	PY_PROPERTY( "summontimer", summonTime_ )
-	PY_PROPERTY( "owner", owner_ )
-	PY_PROPERTY( "ai", aiid_ )
-	PY_PROPERTY( "summoned", summoned() )
-	return cBaseChar::getProperty( name );
+	/*
+	#define OUTPUT_HASH(x, y) QString("case 0x%2: // %1\n\treturn createPyObject( "#y" );\n").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+	OUTPUT_HASH( "nextmsgtime", nextMsgTime_ ) +
+	OUTPUT_HASH( "antispamtimer", nextMsgTime_ ) +
+	OUTPUT_HASH( "nextguardcalltime", nextGuardCallTime_ ) +
+	OUTPUT_HASH( "antiguardstimer", nextGuardCallTime_ ) +
+	OUTPUT_HASH( "stablemaster", stablemasterSerial_ ) +
+	OUTPUT_HASH( "npc", true ) +
+	OUTPUT_HASH( "nextmovetime", nextMoveTime_ ) +
+	OUTPUT_HASH( "npcmovetime", nextMoveTime_ ) +
+	OUTPUT_HASH( "wandertype", wanderType() ) +
+	OUTPUT_HASH( "wanderx1", wanderX1() ) +
+	OUTPUT_HASH( "fx1", wanderX1() ) +
+	OUTPUT_HASH( "wanderx2", wanderX2() ) +
+	OUTPUT_HASH( "fx2", wanderX2() ) +
+	OUTPUT_HASH( "wandery1", wanderY1() ) +
+	OUTPUT_HASH( "fy1", wanderY1() ) +
+	OUTPUT_HASH( "wandery2", wanderY2() ) +
+	OUTPUT_HASH( "fy2", wanderY2() ) +
+	OUTPUT_HASH( "wanderradius", wanderRadius() ) +
+	OUTPUT_HASH( "fz1", wanderRadius() ) +
+	OUTPUT_HASH( "summontime", summonTime_ ) +
+	OUTPUT_HASH( "summontimer", summonTime_ ) +
+	OUTPUT_HASH( "owner", owner_ ) +
+	OUTPUT_HASH( "ai", aiid_ ) +
+	OUTPUT_HASH( "summoned", summoned() ) );
+	#undef OUTPUT_HASH
+	*/
+
+	if ( !hash )
+		hash = elfHash( name.toLatin1() );
+
+	switch ( hash )
+	{
+	case 0x4ea6185: // nextmsgtime
+		return createPyObject( nextMsgTime_ );
+	case 0x1209d2: // antispamtimer
+		return createPyObject( nextMsgTime_ );
+	case 0xaffeb05: // nextguardcalltime
+		return createPyObject( nextGuardCallTime_ );
+	case 0x1543312: // antiguardstimer
+		return createPyObject( nextGuardCallTime_ );
+	case 0xd92d3e2: // stablemaster
+		return createPyObject( stablemasterSerial_ );
+	case 0x7563: // npc
+		return createPyObject( true );
+	case 0x1805575: // nextmovetime
+		return createPyObject( nextMoveTime_ );
+	case 0x6b9c675: // npcmovetime
+		return createPyObject( nextMoveTime_ );
+	case 0xace7825: // wandertype
+		return createPyObject( wanderType() );
+	case 0x84ace61: // wanderx1
+		return createPyObject( wanderX1() );
+	case 0x6db1: // fx1
+		return createPyObject( wanderX1() );
+	case 0x84ace62: // wanderx2
+		return createPyObject( wanderX2() );
+	case 0x6db2: // fx2
+		return createPyObject( wanderX2() );
+	case 0x84ace11: // wandery1
+		return createPyObject( wanderY1() );
+	case 0x6dc1: // fy1
+		return createPyObject( wanderY1() );
+	case 0x84ace12: // wandery2
+		return createPyObject( wanderY2() );
+	case 0x6dc2: // fy2
+		return createPyObject( wanderY2() );
+	case 0xe5ffa03: // wanderradius
+		return createPyObject( wanderRadius() );
+	case 0x6dd1: // fz1
+		return createPyObject( wanderRadius() );
+	case 0x4620475: // summontime
+		return createPyObject( summonTime_ );
+	case 0x6204782: // summontimer
+		return createPyObject( summonTime_ );
+	case 0x76e4c2: // owner
+		return createPyObject( owner_ );
+	case 0x679: // ai
+		return createPyObject( aiid_ );
+	case 0xc446314: // summoned
+		return createPyObject( summoned() );	
+	default:
+		return cBaseChar::getProperty( name, hash );
+	}
 }
 
 Coord cNPC::nextMove()

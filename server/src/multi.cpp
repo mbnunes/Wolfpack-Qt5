@@ -79,9 +79,9 @@ stError* cMulti::setProperty( const QString& name, const cVariant& value )
 	return cItem::setProperty( name, value );
 }
 
-PyObject* cMulti::getProperty( const QString& name )
+PyObject* cMulti::getProperty( const QString& name, uint hash )
 {
-	return cItem::getProperty( name );
+	return cItem::getProperty( name, hash );
 }
 
 void cMulti::moveTo( const Coord& pos )

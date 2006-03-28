@@ -649,7 +649,7 @@ PyObject* cAccount::getPyObject()
 	return createPyObject( this );
 }
 
-PyObject* cAccount::getProperty( const QString& name )
+PyObject* cAccount::getProperty( const QString& name, uint hash )
 {
 	PY_PROPERTY( "acl", acl() );
 	PY_PROPERTY( "email", email() );
@@ -682,7 +682,7 @@ PyObject* cAccount::getProperty( const QString& name )
 	// \rproperty account.rank Returns the integer rank of this account. This is inherited by the ACL of this account.
 	PY_PROPERTY( "rank", rank() );
 
-	return cPythonScriptable::getProperty( name );
+	return cPythonScriptable::getProperty( name, hash );
 }
 
 stError* cAccount::setProperty( const QString& name, const cVariant& value )

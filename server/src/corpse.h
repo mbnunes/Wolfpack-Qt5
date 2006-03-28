@@ -116,7 +116,7 @@ public:
 	virtual void update( cUOSocket* mSock = 0 );
 
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 };
 

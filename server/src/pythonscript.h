@@ -270,8 +270,7 @@ public:
 		\param name The name of the property.
 		\returns A python object with the value or None.
 	*/
-	virtual PyObject* getProperty( const QString& name );
-	virtual bool setPropety( const QString& name, PyObject* value );
+	virtual PyObject* getProperty( const QString& name, uint hash = 0 );
 
 	// Functions for creating python representations of objects
 	inline PyObject* createPyObject( cPythonScriptable* object )

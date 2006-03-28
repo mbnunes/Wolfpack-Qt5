@@ -906,25 +906,25 @@ static int wpBasedef_compare( PyObject* a, PyObject* b )
 	return !( ( ( wpBasedef * ) a )->basedef == ( ( wpBasedef * ) b )->basedef );
 }
 
-PyObject* cBaseDef::getProperty( const QString& name )
+PyObject* cBaseDef::getProperty( const QString& name, uint hash )
 {
 	PY_PROPERTY( "id", id() ) // \rproperty basedef.id The definition id of this base definition.
 	PY_PROPERTY( "basescripts", baseScriptList() ) // \rproperty basedef.basescripts The names of all basescripts assigned to this base definition.
 	PY_PROPERTY( "bindmenu", bindmenu() ) // \rproperty basedef.bindmenu The id of the context menu assigned to this base definition.
-	return cPythonScriptable::getProperty( name );
+	return cPythonScriptable::getProperty( name, hash );
 }
 
-PyObject* cCharBaseDef::getProperty( const QString& name )
+PyObject* cCharBaseDef::getProperty( const QString& name, uint hash )
 {
 	PY_PROPERTY( "controlslots", controlSlots() ) // \rproperty basedef.controlslots The amount of controlslots consumed by this npc.
 	PY_PROPERTY( "criticalhealth", criticalHealth() ) // \rproperty basedef.criticalhealth The percentage of health this NPC will start fleeing at.
 	PY_PROPERTY( "mindamage", minDamage() ) // \rproperty basedef.mindamage The mindamage for this npc.
 	PY_PROPERTY( "mintaming", minTaming() ) // \rproperty basedef.mintaming The minimum taming skill required for this npc.
 	PY_PROPERTY( "lootpacks", lootPacks() ) // \rproperty basedef.lootpacks The lootpacks for this npc.
-	return cBaseDef::getProperty( name );
+	return cBaseDef::getProperty( name, hash );
 }
 
-PyObject* cItemBaseDef::getProperty( const QString& name )
+PyObject* cItemBaseDef::getProperty( const QString& name, uint hash )
 {
 	PY_PROPERTY( "decaydelay", decaydelay() ) // \rproperty basedef.decaydelay The delay until this item will decay when its dropped to ground.
 	PY_PROPERTY( "weight", weight() ) // \rproperty basedef.weight The weight of this item.
@@ -933,7 +933,7 @@ PyObject* cItemBaseDef::getProperty( const QString& name )
 	PY_PROPERTY( "type", type() ) // \rproperty basedef.type The type of this item.
 	PY_PROPERTY( "lightsource", lightsource() ) // \rproperty.lightsource The lightmap id for this item.
 	PY_PROPERTY( "watersource", isWaterSource() ) // \rproperty.watersource Indicates whether this item is a source of water.
-	return cBaseDef::getProperty( name );
+	return cBaseDef::getProperty( name, hash );
 }
 
 cMultiBaseDef::cMultiBaseDef( const QByteArray& id ) : cItemBaseDef( id )

@@ -42,7 +42,6 @@
 #include <math.h>
 
 // Forward Class declarations
-class ISerialization;
 class cUOSocket;
 
 /*
@@ -447,7 +446,7 @@ public:
 
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	virtual PyObject* getProperty( const QString& name );
+	virtual PyObject* getProperty( const QString& name, uint hash = 0 );
 
 	////
 	virtual void flagUnchanged()

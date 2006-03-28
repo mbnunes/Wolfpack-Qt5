@@ -270,7 +270,7 @@ public:
 	// other public methods
 	// Simple Property setting and getting for script engines.
 	stError* setProperty( const QString& name, const cVariant& value );
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 	void updateHealth( void );
 	void action( uchar id, uchar speed = 1, bool reverse = false ); // Do an action
 	P_ITEM getWeapon() const;
@@ -651,7 +651,7 @@ public:
 		return basedef_ ? basedef_->lootPacks() : QByteArray();
 	}
 
-	inline unsigned char controlSlots()
+	virtual unsigned char controlSlots() const
 	{
 		return basedef_ ? basedef_->controlSlots() : 0;
 	}

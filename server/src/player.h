@@ -105,7 +105,7 @@ public:
 
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	PyObject* getProperty( const QString& name );
+	PyObject* getProperty( const QString& name, uint hash = 0 );
 	P_NPC unmount();
 	bool mount( P_NPC pMount );
 	bool isGM() const;
@@ -119,7 +119,7 @@ public:
 	void giveNewbieItems( quint8 skill = 0xFF );
 	bool checkSkill( ushort skill, int min, int max, bool advance = true ); // override
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
-	unsigned char controlslots() const;
+	virtual unsigned char controlslots() const;
 	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );
 
 	//! Returns true if there's a client (socket) attached to the character.
