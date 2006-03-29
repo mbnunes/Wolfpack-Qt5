@@ -86,3 +86,9 @@ def createTrophyDeed( char, corpse, item, message = True ):
 
 	char.getbackpack().additem(trophydeed)
 	trophydeed.update()
+
+def onBuy(item, vendor, player, amount):
+	if player.skill[CARPENTRY] < 901:
+		vendor.say(1042603) # You would not understand how to use the kit.
+		return 0
+	return amount
