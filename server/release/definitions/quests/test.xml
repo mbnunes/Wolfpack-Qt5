@@ -13,7 +13,7 @@
 		<name>Lets Test Quests</name>
 		<description>Well... we have to test the quest system for Wolfpack. So... I was thinking... Why not kill some efreets for us? Just for test man.</description>
 		<npctargets>efreet</npctargets>
-		<npctargetsamounts>10</npctargetsamounts>
+		<npcamounts>10</npcamounts>
 		<rewarditems>eed</rewarditems>
 		<rewardsamount>100</rewardsamount>
 	</quest>
@@ -23,9 +23,9 @@
 		<description>So... I have to make another description to a test quest. Man... I have no idea about a good description so... I was thinking... why not simple kill some efreets and dopplegangers? 10 of each creature could be enough. Accept this poor quest?</description>
 		<requiredquests>1</requiredquests>
 		<npctargets>doppleganger,efreet</npctargets>
-		<npctargetsamounts>10,10</npctargetsamounts>
+		<npcamounts>10,10</npcamounts>
 		<itemtargets>potion_heal</itemtargets>
-		<itemtargetsamounts>10</itemtargetsamounts>
+		<itemamounts>10</itemamounts>
 		<rewarditems>eed</rewarditems>
 		<rewardsamount>100</rewardsamount>
 	</quest>
@@ -34,9 +34,9 @@
 		<name>The Module Items test</name>
 		<description>Now, lets try this. Just give me 10 Heal potions and everything is fine. Ok?</description>
 		<itemtargets>potion_heal</itemtargets>
-		<itemtargetsamounts>10</itemtargetsamounts>
+		<itemamounts>10</itemamounts>
 		<rewarditems>eed</rewarditems>
 		<rewardsamount>100</rewardsamount>
-	</quest>
+	</quest>		
 
 </definitions>

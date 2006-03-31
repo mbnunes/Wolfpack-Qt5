@@ -47,6 +47,14 @@ def givequesttoplayer(player, id, npc):
 				freeslot = 1		# Yeah! We founded a Free Slot
 
 				#
+				# Lets Call Assignment Function
+				#
+				assignfunc = givequestassignfunction(id)
+				if assignfunc:
+					if assignfunc(player, npc):
+						break
+
+				#
 				# ID of the Quest
 				#
 				player.settag('Quest.'+ str(i) +'.ID', id)
@@ -90,6 +98,17 @@ def resignquest(player, id, slot):
 	if not player.hastag('Quest.'+ str(slot) +'.ID'):
 		player.socket.sysmessage("We have an error in quest system. You resign a Quest that you dont own")
 	else:
+		#
+		# Lets Call Resignment Function
+		#
+		resignfunc = givequestassignfunction(id)
+		if resignfunc:
+			npcserial = player.gettag('Quest.'+ str(slot) +'.NPCDest')
+			npc = wolfpack.findchar(npcserial)
+			if npc:
+				if resignfunc(player, npc):
+					return
+
 		player.deltag('Quest.'+ str(slot) +'.ID')
 		player.deltag('Quest.'+ str(slot) +'.NPCDest')
 
@@ -122,6 +141,14 @@ def checknpcforquest(player, dead):
 				
 				# Oh! Is this the NPC?
 				if dead.baseid == npclist[j]:
+
+					# Lets Check the Region
+					npcregions = givequestnpcregions(id)
+					if len(npcregions):
+						if npcregions[j]:
+							if not npcregions[j] == dead.region.name:
+								return
+						
 
 					eachamount = givequestnpceachamount(id)					# Amount for each NPC for this Quest
 
@@ -161,8 +188,8 @@ def reportquestnpc(player, npc, slot):
 	itemtargets = givequestitemtargets(id)
 
 	# Now the amount of NPCs
-	npcamount = givequestnpcamounts(id)
-	itemamount = givequestitemamounts(id)
+	npcamount = len(eachnpcamount)
+	itemamount = len(itemtargets)
 
 	# The Flag to check things
 	flag = 0
@@ -192,13 +219,22 @@ def reportquestnpc(player, npc, slot):
 		npc.say("You not completed all required things for this quest. Come back when you complete all tasks.")
 	else:
 		npc.say("You completed all tasks for this quest! Now let me give to you your reward.")
-		completequest(player, slot, id)
+		completequest(player, slot, id, npc)
 
 #######################################################################################
 ##############   Complete the Quest and give rewards   ################################
 #######################################################################################
 
-def completequest(player, slot, id):
+def completequest(player, slot, id, npc):
+
+	#
+	# Lets Call Assignment Function
+	#
+	completefunc = givequestcompletefunction(id)
+	if completefunc:
+		if completefunc(player, npc):
+			return
+	
 	# Get Backpack
 	backpack = player.getbackpack()
 	
@@ -208,8 +244,8 @@ def completequest(player, slot, id):
 	player.deltag('Quest.'+ str(slot) +'.ReqNPC')
 
 	# Let's Consume required items
-	itemamount = givequestitemamounts(id)
 	itemtargets = givequestitemtargets(id)
+	itemamount = len(itemtargets)
 	eachitemamount = givequestitemeachamount(id)
 
 	if itemamount:
@@ -223,7 +259,7 @@ def completequest(player, slot, id):
 	# Now, rewards time. First, lists. After, amount of rewards
 	rewards = givequestrewards(id)
 	rewardamounts = givequesteachrewardsamount(id)
-	amountofrewards = givequestrewardsamount(id)
+	amountofrewards = len(rewards)
 
 	# Lets see if reward is not an empty list
 	if amountofrewards:

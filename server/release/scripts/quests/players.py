@@ -179,13 +179,14 @@ def showquestdetails(player, id, slot, page):
 
 	# Data
 	npcdest = wolfpack.findchar( int( player.gettag('Quest.'+ str(slot) +'.NPCDest') ) )	# NPC to report Quest Back
-	npcamount = givequestnpcamounts(id)						# Amount of NPCs to be killed (Different types)
 	npclist = givequestnpctargets(id)						# Required NPCs
+	npcamount = len(npclist)							# Amount of NPCs to be killed (Different types)
 	eachnpcamount = givequestnpceachamount(id)					# Amount of each Required NPC
+	eachnpcregion = givequestnpcregions(id)						# Region to Kill this NPC
 	killedlist = player.gettag('Quest.'+ str(slot) +'.ReqNPC').split(',')
 
-	itemamount = givequestitemamounts(id)						# Amount of Items to be killed (Different types)
 	itemlist = givequestitemtargets(id)						# Required Items
+	itemamount = len(itemlist)							# Amount of Items to be killed (Different types)
 	eachitemamount = givequestitemeachamount(id)					# Amount of each Required Item
 	
 	# Construct dialog
@@ -196,7 +197,13 @@ def showquestdetails(player, id, slot, page):
 		dialog.addText(180, 180, givenpcname(npclist[page]), 1149)
 
 		dialog.addText(145, 200, "Location", 55)
-		dialog.addText(260, 200, " --- ", 1149)
+		if len(eachnpcregion):
+			if eachnpcregion[page]:
+				dialog.addText(260, 200, eachnpcregion[page], 1149)
+			else:
+				dialog.addText(260, 200, " --- ", 1149)	
+		else:
+			dialog.addText(260, 200, " --- ", 1149)
 
 		dialog.addText(145, 220, "Total", 55)
 		dialog.addText(260, 220, killedlist[page], 90)	

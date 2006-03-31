@@ -41,7 +41,39 @@ class cUOSocket;
 
 struct stQuest
 {
-	QString name, description, requiredquests, npctargets, npcamounts, itemtargets, itemamounts, rewards, rewardamounts;
+	QString name,
+		    description,
+			// Required Section
+			requiredQuests,		// Quests Required before assign this quest
+			requiredClasses,	// Classes that are allowed to assign this quest (Class Shards)
+			requiredRaces,		// Races that are allowed to assign this quest (Race Shards)
+			requiredLevel,		// Level that is allowed to assign this quest (XP and Level Shards)
+			requiredExtra1,		// Extra field for required things
+			requiredExtra2,		// Extra field for required things
+			requiredExtra3,		// Extra field for required things
+			// Module: Kill NPCs
+			npcTargets,			// IDs of NPCs that have to be killed to complete this Quest 
+			npcAmounts,			// Amounts of each NPC in "npctargets" that have to be killed
+			npcRegions,			// Regions where each NPC in "npctargets" have to be killed
+			// Module: Wanted Items
+			itemTargets,		// IDs of Items that have to on Backpack to complete this quest
+			itemAmounts,		// Amounts of each item in "itemtargets" for this quest
+			itemLoots,			// IDs of NPCs where these items can be found
+			itemLootRegions,	// Regions where the NPCs in "itemloots" have to be killed to give player the item
+			// Module: Timed Quests
+			questTimer,			// The time that quest have to be finished, in seconds
+			// Module: Report
+			reportUID,			// The UID(s) of NPC(s) where quest have to be reported
+			reportID,			// The ID(s) of NPC(s) where quest have to be reported
+			// Rewards
+			rewardItems,		// Items for Reward for that Quest
+			rewardAmounts,		// Amount of every item on "rewardItems"
+			rewardXp,			// XP reward for this quest (For XP and Level Shards)
+			// Functions of each quest
+			functionAssign,		// Function that have to be called on Assignment
+			functionResign,		// Function that have to be called on Resign
+			functionFail,		// Function that have to be called when quest fails
+			functionComplete;	// Function that have to be called when player complete the quest
 };
 
 class cQuests

@@ -14,6 +14,12 @@ from wolfpack.consts import *
 
 from quests import MAXQUESTSPERTAG
 
+#######################################################################################################
+#######################################################################################################
+#######################     BASICS FOR QUESTS     #####################################################
+#######################################################################################################
+#######################################################################################################
+
 #######################################################################################
 ##############   Return a Quest Name   ################################################
 #######################################################################################
@@ -37,7 +43,7 @@ def givequestname(id):
 		return "Error"
 
 #######################################################################################
-##############   Give a Quest Description   ###########################################
+##############   Return a Quest Description   #########################################
 #######################################################################################
 
 def givequestdescription(id):
@@ -51,6 +57,12 @@ def givequestdescription(id):
 			quest = subnode.text
 
 	return quest
+
+#######################################################################################################
+#######################################################################################################
+#######################     REQUIRED PARAMETERS TO ASSIGN QUEST     ###################################
+#######################################################################################################
+#######################################################################################################
 
 #######################################################################################
 ##############   Give Required Quests in a list   #####################################
@@ -69,120 +81,61 @@ def givequestrequiredquests(id):
 	return quest
 
 #######################################################################################
-##############   Give the number of required quests   #################################
+##############   Give Required Classes in a list   ####################################
 #######################################################################################
+# Exclusive for Class Shards
 
-def giveamountofrequiredquests(id):
+def givequestrequiredclasses(id):
 	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
 	for i in range(0, count):
 		subnode = node.getchild(i)
-		if subnode.name == 'requiredquests':
-			quest = subnode.text.split(',')
-
-	return len(quest)
-
-#######################################################################################
-##############   Give Required NPCs in a list   #######################################
-#######################################################################################
-
-def givequestnpctargets(id):
-	quest = ''
-	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
-
-	count = node.childcount
-	for i in range(0, count):
-		subnode = node.getchild(i)
-		if subnode.name == 'npctargets':
+		if subnode.name == 'requiredclasses':
 			quest = subnode.text.split(',')
 
 	return quest
 
 #######################################################################################
-##############   Give amount of each Required NPC in a list   #########################
+##############   Give Required Races in a list   ######################################
 #######################################################################################
+# Exclusive for Race Shards
 
-def givequestnpceachamount(id):
+def givequestrequiredraces(id):
 	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
 	for i in range(0, count):
 		subnode = node.getchild(i)
-		if subnode.name == 'npctargetsamounts':
-			quest = subnode.text.split(',')
-
-	# Returning the list
-	return quest
-
-#######################################################################################
-##############   Give amount of Required NPCs   #######################################
-#######################################################################################
-
-def givequestnpcamounts(id):
-	quest = ''
-	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
-
-	count = node.childcount
-	for i in range(0, count):
-		subnode = node.getchild(i)
-		if subnode.name == 'npctargets':
-			quest = subnode.text.split(',')
-
-	# Returning the Amount
-	return len( quest )
-
-#######################################################################################
-##############   Give Required Items in a list   ######################################
-#######################################################################################
-
-def givequestitemtargets(id):
-	quest = ''
-	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
-
-	count = node.childcount
-	for i in range(0, count):
-		subnode = node.getchild(i)
-		if subnode.name == 'itemtargets':
+		if subnode.name == 'requiredraces':
 			quest = subnode.text.split(',')
 
 	return quest
 
 #######################################################################################
-##############   Give amount of each Required Item in a list   ########################
+##############   Give Required Level   ################################################
 #######################################################################################
+# Exclusive for XP and Level Shards
 
-def givequestitemeachamount(id):
-	quest = ''
+def givequestrequiredlevel(id):
+	quest = 0
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
 	for i in range(0, count):
 		subnode = node.getchild(i)
-		if subnode.name == 'itemtargetsamounts':
-			quest = subnode.text.split(',')
+		if subnode.name == 'requiredlevel':
+			quest = subnode.text
 
-	# Returning the list
-	return quest
+	return int(quest)
 
-#######################################################################################
-##############   Give amount of Required Items   ######################################
-#######################################################################################
-
-def givequestitemamounts(id):
-	quest = ''
-	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
-
-	count = node.childcount
-	for i in range(0, count):
-		subnode = node.getchild(i)
-		if subnode.name == 'itemtargets':
-			quest = subnode.text.split(',')
-
-	# Returning the Amount
-	return len( quest )
+#######################################################################################################
+#######################################################################################################
+#######################     REWARDS FOR QUEST     #####################################################
+#######################################################################################################
+#######################################################################################################
 
 #######################################################################################
 ##############   Give Rewards for Quest in a List   ###################################
@@ -217,33 +170,307 @@ def givequesteachrewardsamount(id):
 	return quest
 
 #######################################################################################
-##############   Give amount of Rewards for Quest   ###################################
+##############   Give amount of each Rewards for Quest in a List   ####################
 #######################################################################################
+# Exclusive for XP and Level Shards
 
-def givequestrewardsamount(id):
+def givequestxpreward(id):
 	quest = ''
 	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
 	count = node.childcount
 	for i in range(0, count):
 		subnode = node.getchild(i)
-		if subnode.name == 'rewarditems':
+		if subnode.name == 'rewardxp':
+			quest = subnode.text
+
+	return int(quest)
+
+#######################################################################################################
+#######################################################################################################
+#######################     FUNCTIONS FOR EACH QUEST     ##############################################
+#######################################################################################################
+#######################################################################################################
+
+#######################################################################################
+##############   Return the Assign Function for this Quest   ##########################
+#######################################################################################
+
+def givequestassignfunction(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'functionassign':
+			quest = subnode.text
+
+	return quest
+
+#######################################################################################
+##############   Return the Resign Function for this Quest   ##########################
+#######################################################################################
+
+def givequestresignfunction(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'functionresign':
+			quest = subnode.text
+
+	return quest
+
+#######################################################################################
+##############   Return the Complete Function for this Quest   ########################
+#######################################################################################
+
+def givequestcompletefunction(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'functioncomplete':
+			quest = subnode.text
+
+	return quest
+
+#######################################################################################
+##############   Return the Fail Function for this Quest   ############################
+#######################################################################################
+
+def givequestfailfunction(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'functionfail':
+			quest = subnode.text
+
+	return quest
+
+#######################################################################################################
+#######################################################################################################
+#######################     MODULE: KILL NPCs     #####################################################
+#######################################################################################################
+#######################################################################################################
+
+#######################################################################################
+##############   Give Required NPCs in a list   #######################################
+#######################################################################################
+
+def givequestnpctargets(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'npctargets':
 			quest = subnode.text.split(',')
 
-	# Returning the amount
-	return len( quest )
+	return quest
 
 #######################################################################################
-##############   Return a Quest name by an ID Slot of a player   ######################
+##############   Give amount of each Required NPC in a list   #########################
 #######################################################################################
 
-def givequestnameplayer(char, id):
+def givequestnpceachamount(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
 
-	if not char.hastag('Quest.'+ str(id) +'.ID'):
-		return "No Quest"
-	else:
-		questid = char.gettag('Quest.'+ str(id) +'.ID')
-		return givequestname(questid)
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'npcamounts':
+			quest = subnode.text.split(',')
+
+	# Returning the list
+	return quest
+
+#######################################################################################
+##############   Give Regions for kill each NPCs in a list   ##########################
+#######################################################################################
+
+def givequestnpcregions(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'npcregions':
+			quest = subnode.text.split(',')
+
+	return quest
+
+#######################################################################################################
+#######################################################################################################
+#######################     MODULE: REQUIRED ITEMS     ################################################
+#######################################################################################################
+#######################################################################################################
+
+#######################################################################################
+##############   Give Required Items in a list   ######################################
+#######################################################################################
+
+def givequestitemtargets(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'itemtargets':
+			quest = subnode.text.split(',')
+
+	return quest
+
+#######################################################################################
+##############   Give amount of each Required Item in a list   ########################
+#######################################################################################
+
+def givequestitemeachamount(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'itemamounts':
+			quest = subnode.text.split(',')
+
+	# Returning the list
+	return quest
+
+#######################################################################################
+#########   Give ID of NPCs that drops each required item in a list   #################
+#######################################################################################
+
+def givequestitemloots(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'itemloots':
+			quest = subnode.text.split(',')
+
+	return quest
+
+#######################################################################################
+#########   Give Region of NPCs that drops each required item in a list   #############
+#######################################################################################
+
+def givequestitemlootsregions(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'itemlootregions':
+			quest = subnode.text.split(',')
+
+	return quest
+
+#######################################################################################################
+#######################################################################################################
+#######################     MODULE: TIMED QUESTS     ##################################################
+#######################################################################################################
+#######################################################################################################
+
+#######################################################################################
+##############   Give Time for this Quest   ###########################################
+#######################################################################################
+
+def givequesttimer(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'questtimer':
+			quest = subnode.text
+
+	return int(quest)
+
+#######################################################################################################
+#######################################################################################################
+#######################     MODULE: REPORT QUEST     ##################################################
+#######################################################################################################
+#######################################################################################################
+
+#######################################################################################
+#########   Give the UID(s) of NPC to report Quest back   #############################
+#######################################################################################
+
+def givequestreportuids(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'reportuid':
+			quest = subnode.text.split(',')
+
+	return quest
+
+#######################################################################################
+#########   Give the ID(s) of NPC to report Quest back   ##############################
+#######################################################################################
+
+def givequestreportids(id):
+	quest = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'reportid':
+			quest = subnode.text.split(',')
+
+	return quest
+
+#######################################################################################################
+#######################################################################################################
+#######################     CHECK REQUIREDS FOR PLAYER (GENERIC UTILS)     ############################
+#######################################################################################################
+#######################################################################################################
+
+#######################################################################################
+##############   Check if a Player have all Requirements   ############################
+#######################################################################################
+
+def checkquestrequirements(player, id):
+	
+	if not checkhaverequiredquests(player, id):
+		return False
+
+	# Here, check Class, Race and Level too if your Shard supports it.
+	# This sample checks for tags 'classe' for player class and 'raca' for player Race. Level is checked by 'level' tag.
+	# Adjust it for your own Shard
+	
+	if not checkhaverequiredclass(player, id):
+		return False
+
+	if not checkhaverequiredrace(player, id):
+		return False
+
+	if not checkhaverequiredlevel(player, id):
+		return False
+
+	return True
 
 #######################################################################################
 ##############   Check if a Player have the Required Quests   #########################
@@ -253,7 +480,7 @@ def checkhaverequiredquests(player, id):
 	
 	# Get Required Quests for this quest and Amount of requireds
 	requiredquests = givequestrequiredquests(id)
-	amountofrequired = giveamountofrequiredquests(id)
+	amountofrequired = len(requiredquests)
 	# Just a Flag
 	requiredok = 0
 
@@ -275,6 +502,101 @@ def checkhaverequiredquests(player, id):
 			return True
 	else:
 		return True
+
+#######################################################################################
+##############   Check if a Player have the Required Class   ##########################
+#######################################################################################
+
+def checkhaverequiredclass(player, id):
+	
+	# Get Required Quests for this quest and Amount of requireds
+	requiredclasses = givequestrequiredclasses(id)
+	amountofrequired = len(requiredclasses)
+	# Just a Flag
+	requiredok = 0
+	# The Class Tag. Edit it for your shard
+	classe = player.gettag('classe')
+
+	if amountofrequired:
+		# Player things
+		for i in range(0, amountofrequired):
+			if requiredclasses[i] == classe:
+				requiredok = 1			
+
+		if not requiredok:
+			return False
+		else:
+			return True
+	else:
+		return True
+
+#######################################################################################
+##############   Check if a Player have the Required Race   ###########################
+#######################################################################################
+
+def checkhaverequiredrace(player, id):
+	
+	# Get Required Quests for this quest and Amount of requireds
+	requiredraces = givequestrequiredraces(id)
+	amountofrequired = len(requiredraces)
+	# Just a Flag
+	requiredok = 0
+	# The Class Tag. Edit it for your shard
+	race = player.gettag('raca')
+
+	if amountofrequired:
+		# Player things
+		for i in range(0, amountofrequired):
+			if requiredraces[i] == race:
+				requiredok = 1			
+
+		if not requiredok:
+			return False
+		else:
+			return True
+	else:
+		return True
+
+#######################################################################################
+##############   Check if a Player have the Required Level   ##########################
+#######################################################################################
+
+def checkhaverequiredlevel(player, id):
+	
+	# Get Required Quests for this quest and Amount of requireds
+	requiredlevel = givequestrequiredlevel(id)
+
+	# The Level Tag. Edit it for your shard
+	if player.hastag('level'):
+		level = int( player.gettag('level') )
+	else:
+		return True
+
+	if requiredlevel:
+		if requiredlevel > level:
+			return False
+		else:
+			return True
+	else:
+		return True
+
+#######################################################################################################
+#######################################################################################################
+#######################     PLAYER UTILS     ##########################################################
+#######################################################################################################
+#######################################################################################################
+
+#######################################################################################
+##############   Return a Quest name by an ID Slot of a player   ######################
+#######################################################################################
+
+def givequestnameplayer(char, id):
+
+	if not char.hastag('Quest.'+ str(id) +'.ID'):
+		return "No Quest"
+	else:
+		questid = char.gettag('Quest.'+ str(id) +'.ID')
+		return givequestname(questid)
 
 #######################################################################################
 ##############   Check if a Player already completed a quest   ########################
@@ -301,9 +623,11 @@ def checkifquestcompleted(player, id):
 	else:
 		return False
 
-##########################################################################################################
-###################   Now things for other systems and not for Quest object   ############################
-##########################################################################################################
+#######################################################################################################
+#######################################################################################################
+#######################     MISC UTILS     ############################################################
+#######################################################################################################
+#######################################################################################################
 
 #######################################################################################
 ##############   Return a NPC Name   ##################################################

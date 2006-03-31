@@ -57,24 +57,66 @@ void cQuests::load()
 		for ( unsigned int j = 0; j < quest->childCount(); ++j )
 		{
 			const cElement* node = quest->getChild( j );
+			// Basics
 			if ( node->name() == "name" )
 				nQuest.name = node->text();
 			else if ( node->name() == "description" )
 				nQuest.description = node->text();
+			// Required Section
 			else if ( node->name() == "requiredquests" )
-				nQuest.requiredquests = node->text();
+				nQuest.requiredQuests = node->text();
+			else if ( node->name() == "requiredclasses" )
+				nQuest.requiredClasses = node->text();
+			else if ( node->name() == "requiredraces" )
+				nQuest.requiredRaces = node->text();
+			else if ( node->name() == "requiredlevel" )
+				nQuest.requiredLevel = node->text();
+			else if ( node->name() == "requiredextra1" )
+				nQuest.requiredExtra1 = node->text();
+			else if ( node->name() == "requiredextra2" )
+				nQuest.requiredExtra2 = node->text();
+			else if ( node->name() == "requiredextra3" )
+				nQuest.requiredExtra3 = node->text();
+			// Module: Kill NPCs
 			else if ( node->name() == "npctargets" )
-				nQuest.npctargets = node->text();
-			else if ( node->name() == "npctargetsamounts" )
-				nQuest.npcamounts = node->text();
+				nQuest.npcTargets = node->text();
+			else if ( node->name() == "npcamounts" )
+				nQuest.npcAmounts = node->text();
+			else if ( node->name() == "npcregions" )
+				nQuest.npcRegions = node->text();
+			// Module: Wanted Items
 			else if ( node->name() == "itemtargets" )
-				nQuest.itemtargets = node->text();
-			else if ( node->name() == "itemtargetsamounts" )
-				nQuest.itemamounts = node->text();
+				nQuest.itemTargets = node->text();
+			else if ( node->name() == "itemamounts" )
+				nQuest.itemAmounts = node->text();
+			else if ( node->name() == "itemloots" )
+				nQuest.itemLoots = node->text();
+			else if ( node->name() == "itemlootregions" )
+				nQuest.itemLootRegions = node->text();
+			// Module: Timed Quests
+			else if ( node->name() == "questtimer" )
+				nQuest.questTimer = node->text();
+			// Module: Report
+			else if ( node->name() == "reportuid" )
+				nQuest.reportUID = node->text();
+			else if ( node->name() == "reportid" )
+				nQuest.reportID = node->text();
+			// Rewards
 			else if ( node->name() == "rewarditems" )
-				nQuest.rewards = node->text();
-			else if ( node->name() == "rewardsamount" )
-				nQuest.rewardamounts = node->text();
+				nQuest.rewardItems = node->text();
+			else if ( node->name() == "rewardamounts" )
+				nQuest.rewardAmounts = node->text();
+			else if ( node->name() == "rewardxp" )
+				nQuest.rewardXp = node->text();
+			// Functions of each quest
+			else if ( node->name() == "functionassign" )
+				nQuest.functionAssign = node->text();
+			else if ( node->name() == "functionresign" )
+				nQuest.functionResign = node->text();
+			else if ( node->name() == "functionfail" )
+				nQuest.functionFail = node->text();
+			else if ( node->name() == "functioncomplete" )
+				nQuest.functionComplete = node->text();
 		}
 
 		quests.push_back( nQuest );

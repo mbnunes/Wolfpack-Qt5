@@ -21,7 +21,7 @@ from quests.functions import *
 def openchoicequestmenu(char, player):
 	socket = player.socket
 
-	dialog = cGump( nomove=1, x=100, y=30 )
+	dialog = cGump( nomove=1, x=100, y=100 )
 
 	dialog.addResizeGump(7, 6, 9400, 253, 122)
 	dialog.addText(81, 17, "Quest System", 1149)
@@ -66,7 +66,7 @@ def npcquestmain(npc, player):
 		if not questamount > 1:
 			id = npc.gettag('quests')
 
-			if checkhaverequiredquests(player, id):
+			if checkquestrequirements(player, id):
 				if not checkifquestcompleted(player, id):
 					showmenuquest(player, id, npc)
 				else:
@@ -144,7 +144,7 @@ def npcquestmenu(npc, player, questamount):
 
 		id = str( quests[i] )
 
-		if checkhaverequiredquests(player, id):
+		if checkquestrequirements(player, id):
 
 			if not checkifquestcompleted(player, id):
 				dialog.addText(106, int(tempy), givequestname( id ), 1149)
@@ -269,12 +269,13 @@ def showquestdetailsnpc(player, id, npc, page):
 	dialog.addText(103, 160, "All of the following", 175)
 
 	# Data
-	npcamount = givequestnpcamounts(id)						# Amount of NPCs to be killed (Different types)
 	npclist = givequestnpctargets(id)						# Required NPCs
+	npcamount = len(npclist)							# Amount of NPCs to be killed (Different types)
 	eachnpcamount = givequestnpceachamount(id)					# Amount of each Required NPC
-	
-	itemamount = givequestitemamounts(id)						# Amount of Items to be killed (Different types)
+	eachnpcregion = givequestnpcregions(id)						# Region to Kill this NPC
+
 	itemlist = givequestitemtargets(id)						# Required Items
+	itemamount = len(itemlist)							# Amount of Items to be killed (Different types)
 	eachitemamount = givequestitemeachamount(id)					# Amount of each Required Item
 	
 	# Construct dialog
@@ -284,7 +285,13 @@ def showquestdetailsnpc(player, id, npc, page):
 		dialog.addText(180, 180, givenpcname(npclist[page]), 1149)
 
 		dialog.addText(145, 200, "Location", 55)
-		dialog.addText(260, 200, " --- ", 1149)	
+		if len(eachnpcregion):
+			if eachnpcregion[page]:
+				dialog.addText(260, 200, eachnpcregion[page], 1149)
+			else:
+				dialog.addText(260, 200, " --- ", 1149)	
+		else:
+			dialog.addText(260, 200, " --- ", 1149)	
 	
 		dialog.addText(145, 240, "Return To", 55)
 		if npc.region:
