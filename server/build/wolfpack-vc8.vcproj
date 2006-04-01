@@ -1119,10 +1119,6 @@
 			Name="MOC Files"
 			>
 			<File
-				RelativePath=".\obj\moc_ipupdater.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\obj\moc_mainwindow.cpp"
 				>
 			</File>
