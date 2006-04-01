@@ -249,12 +249,12 @@ bool cServer::getSecure()
 
 void myMessageOutput( QtMsgType type, const char *msg )
 {
-    switch ( type ) {
+ /*   switch ( type ) {
         case QtDebugMsg:
 			// This is crazy...
 			// Log->print(LOG_DEBUG, tr("QT Debug: %1\n").arg(msg));
             break;
-        case QtWarningMsg:
+		case QtWarningMsg:
 			Console::instance()->log(LOG_WARNING, msg);
             break;
         case QtFatalMsg:
@@ -263,7 +263,7 @@ void myMessageOutput( QtMsgType type, const char *msg )
 		default:
 			Console::instance()->log(LOG_ERROR, msg);
 			break;
-    }
+    }*/
 }
 
 #include "python/pyprofiler.h"
@@ -499,6 +499,20 @@ void cServer::setupConsole()
 	Console::instance()->send( tr( "By using this software you agree to the license accompanying this release.\n" ) );
 	Console::instance()->send( tr( "Compiled on %1 %2\n" ).arg( __DATE__, __TIME__ ) );
 	Console::instance()->send( tr( "Compiled for Qt %1 (Using: %2 %3)\n" ).arg( QT_VERSION_STR, qVersion(), qSharedBuild() ? " Shared" : " Static" ) );
+
+	QStringList sqlDrivers = QSqlDatabase::drivers();
+	Console::instance()->send( tr( "Available SQL Drivers: " ) );
+
+	if (sqlDrivers.isEmpty()) {
+		Console::instance()->send( tr("none") );
+	} else {
+		foreach(QString name, sqlDrivers) {
+			Console::instance()->send( name + " " );
+		}
+	}
+
+	Console::instance()->send("\n");
+
 	QString pythonBuild = Py_GetVersion();
 	pythonBuild = pythonBuild.left( pythonBuild.indexOf( ' ' ) );
 
