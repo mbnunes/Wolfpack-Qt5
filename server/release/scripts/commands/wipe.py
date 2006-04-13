@@ -14,6 +14,7 @@
 	- <code>nuke all</code>
 	- <code>nuke nomulti</code>
 	- <code>nuke onlymulti</code>
+	- <code>nuke map</code>
 	If you don't specify any parameters, you will
 	be able to select a region to nuke. If you
 	use wipe all, the whole world will be nuked.
@@ -22,6 +23,7 @@
 	Using onlymulti, you will nuke all items in the
 	selected region that are in any multi, and just
 	these items.
+	Using map, you'll nuke the map you're on (Map 0, map 1, etc)
 	\notes There is also <b>WIPE</b> which is an alias for this command.
 """
 """
@@ -31,6 +33,7 @@
 	- <code>wipe all</code>
 	- <code>wipe nomulti</code>
 	- <code>wipe onlymulti</code>
+	- <code>wipe map</code>
 	If you don't specify any parameters, you will
 	be able to select a region to nuke. If you
 	use wipe all, the whole world will be nuked.
@@ -39,6 +42,7 @@
 	Using onlymulti, you will nuke all items in the
 	selected region that are in any multi, and just
 	these items.
+	Using map, you'll nuke the map you're on (Map 0, map 1, etc)
 	\notes There is also <b>NUKE</b> which is an alias for this command.
 """
 """
@@ -72,6 +76,10 @@ def nuke( socket, command, argstring ):
 	if len( argstring ) > 0:
 		if argstring.lower() == "all":
 			gump = WarningGump( 1060635, 30720, "Wiping <i>all</i> items in the world.<br>Do you wish to proceed?", 0xFFC000, 420, 400, wipeAllWorld, [] )
+			gump.send( socket )
+			return
+		elif argstring.lower() == "map":
+			gump = WarningGump( 1060635, 30720, "Wiping <i>all</i> items in this map.<br>Do you wish to proceed?", 0xFFC000, 420, 400, wipeMap, [] )
 			gump.send( socket )
 			return
 		else:
@@ -128,6 +136,25 @@ def wipeAllWorld( player, accept, state ):
 		item = iterator.next
 
 	player.socket.sysmessage( "%i items have been removed from world" % counter )
+	return
+
+def wipeMap( player, accept, state ):
+	if not accept:
+		player.socket.sysmessage( "Wipe command have been canceled" )
+		return 1
+
+	player.socket.sysmessage( "Removing all items from this map, this may take a while" )
+	iterator = wolfpack.itemiterator()
+	item = iterator.first
+	counter = 0
+	while item:
+		if item.pos.map == player.pos.map:
+			if item.container == None:
+				item.delete()
+				counter += 1
+		item = iterator.next
+
+	player.socket.sysmessage( "%i items have been removed from this map" % counter )
 	return
 
 def wipeBoundingBox( socket, target1, target2, argstring ):
