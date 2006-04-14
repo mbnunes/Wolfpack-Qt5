@@ -1089,7 +1089,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>A private message from %s: %s</source>
         <comment>../release/scripts/commands/who.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Eine private Nachricht von %s: %s</translation>
     </message>
     <message>
         <source>Here is your bank box, %s.</source>
@@ -1164,7 +1164,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>You have to choose a hair color.</source>
         <comment>../release/scripts/environment.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du musst eine Haarfarbe auswählen.</translation>
     </message>
     <message>
         <source>That is an invalid color.</source>
@@ -2126,7 +2126,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>You must be standing in front of or behind the dummy to use it.</source>
         <comment>../release/scripts/pickpocket_dip.py</comment>
-        <translation type="unfinished">Du musst vor oder hinter einer Trainingspuppe stehen.</translation>
+        <translation type="unfinished">Du musst vor oder hinter einer Trainingspuppe stehen um an ihr zu trainieren.</translation>
     </message>
     <message>
         <source>Empty the bowl?</source>
@@ -2206,12 +2206,12 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>This potion is out of your reach...</source>
         <comment>../release/scripts/potions/__init__.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst diesen Trank nicht erreichen...</translation>
     </message>
     <message>
         <source>You should throw this now!</source>
         <comment>../release/scripts/potions/__init__.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du solltest das jetzt werfen!</translation>
     </message>
     <message>
         <source>What do you want to shrink?</source>
@@ -2311,32 +2311,32 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Red Scales</source>
         <comment>../release/scripts/skills/blacksmithing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Rote Schuppen</translation>
     </message>
     <message>
         <source>Yellow Scales</source>
         <comment>../release/scripts/skills/blacksmithing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Gelbe Schuppen</translation>
     </message>
     <message>
         <source>Black Scales</source>
         <comment>../release/scripts/skills/blacksmithing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Schwarze Schuppen</translation>
     </message>
     <message>
         <source>Green Scales</source>
         <comment>../release/scripts/skills/blacksmithing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Grüne Schuppen</translation>
     </message>
     <message>
         <source>White Scales</source>
         <comment>../release/scripts/skills/blacksmithing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Weiße Schuppen</translation>
     </message>
     <message>
         <source>Blue Scales</source>
         <comment>../release/scripts/skills/blacksmithing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Blaue Schuppen</translation>
     </message>
     <message>
         <source>Water: 1&lt;br&gt;</source>
@@ -2426,7 +2426,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Batwing</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fledermausflügel</translation>
     </message>
     <message>
         <source>Blackmoor</source>
@@ -2586,7 +2586,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>Blank Scrolls</source>
         <comment>../release/scripts/skills/inscription.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Leere Rollen</translation>
     </message>
     <message>
         <source>You could probably buy this for %u gold.</source>
@@ -2696,7 +2696,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>You reach into %s&apos;s backpack and try to steal something...</source>
         <comment>../release/scripts/skills/stealing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du greifst in die Tasche von %s und versuchst etwas zu stehlen...</translation>
     </message>
     <message>
         <source>That is too heavy to steal.</source>
@@ -2716,7 +2716,7 @@ Das ist eine unsortierte und nicht unbedingt vollständige Liste mit den Namen d
     <message>
         <source>You notice %s trying to steal %s from you.</source>
         <comment>../release/scripts/skills/stealing.py</comment>
-        <translation type="unfinished"></translation>
+        <translation>Du bemerkst, dass %s versucht %s von dir zu stehlen.</translation>
     </message>
     <message>
         <source>Leather</source>
