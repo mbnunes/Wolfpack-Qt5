@@ -945,32 +945,6 @@ void cWorld::save()
 
 	// Send a nice status gump to all sockets if enabled
 	bool fancy = Config::instance()->getBool( "General", "Fancy Worldsave Status", true, true );
-	/* Moved to Python
-	if ( fancy )
-	{
-		// Create a fancy gump as promised
-		cGump gump;
-		gump.setNoClose( true );
-		gump.setNoDispose( true );
-		gump.setNoMove( false );
-		gump.setX( 150 );
-		gump.setY( 150 );
-		gump.setType( 0x98FA2C10 );
-
-		gump.addResizeGump( 0, 0, 9200, 291, 90 );
-		gump.addCheckertrans( 0, 0, 291, 90 );
-		gump.addText( 47, 19, tr( "WORLDSAVE IN PROGRESS" ), 2122 );
-		gump.addText( 47, 37, tr( "Saving %1 items." ).arg( itemCount() ), 2100 );
-		gump.addText( 47, 55, tr( "Saving %1 characters." ).arg( charCount() ), 2100 );
-		gump.addTilePic( 3, 25, 4167 );
-
-		// Send it to all connected ingame sockets
-		for ( cUOSocket*socket = Network::instance()->first(); socket; socket = Network::instance()->next() )
-		{
-			socket->send( new cGump( gump ) );
-			socket->waitwritebytes();
-		}
-	} */
 
 	// Make a Stop to Write sockets before continues
 	QList<cUOSocket*> sockets = Network::instance()->sockets();
@@ -987,7 +961,7 @@ void cWorld::save()
 		setOption( "worldtime", QString::number( UoTime::instance()->getMinutes() ) );
 
 		if ( Config::instance()->databaseDriver() == "binary" )
-		{
+		{			
 			// Make a backup of the old world.
 			backupWorld( Config::instance()->binarySavepath(), Config::instance()->binaryBackups(), Config::instance()->binaryCompressBackups() );
 
@@ -1080,7 +1054,7 @@ void cWorld::save()
 
 			PersistentBroker::instance()->startTransaction();
 
-			query.exec("DELETE FROM spawnregions");
+			query.exec("TRUNCATE spawnregions");
 			query.prepare( "INSERT INTO spawnregions VALUES(?,?)" );
 
 			cItemIterator iItems;
@@ -1116,7 +1090,7 @@ void cWorld::save()
 			PersistentBroker::instance()->commitTransaction();
 
 			// Write Options
-			PersistentBroker::instance()->executeQuery( "DELETE FROM settings;" );
+			PersistentBroker::instance()->executeQuery( "TRUNCATE settings;" );
 
 			QMap<QString, QString>::iterator oit;
 			for ( oit = options.begin(); oit != options.end(); ++oit )

@@ -433,8 +433,8 @@ void cTimers::load()
 void cTimers::save()
 {
 	QSqlQuery query;
-	query.exec( "DELETE FROM effects;" );
-	query.exec( "DELETE FROM effects_properties;" );
+	query.exec( "TRUNCATE effects;" );
+	query.exec( "TRUNCATE effects_properties;" );
 
 	std::vector<cTimer*>::iterator it = teffects.begin();
 	unsigned int id = 0;

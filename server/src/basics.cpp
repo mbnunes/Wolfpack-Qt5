@@ -212,7 +212,7 @@ uint elfHash(const char * name)
 
 cBufferedWriter::cBufferedWriter( const QByteArray& magic, unsigned int version )
 {
-	buffersize = 4096;
+	buffersize = 1048576; // 1 MB
 
 	d = new cBufferedWriterPrivate;
 	d->version = version;

@@ -392,7 +392,7 @@ void cAccounts::save()
 
 		// Lock the table
 		QSqlQuery query( db );
-		query.exec( "DELETE FROM accounts" );
+		query.exec( "TRUNCATE accounts" );
 		query.prepare( "insert into accounts values( ?, ?, ?, ?, ?, ?, ? )" );
 		iterator it = accounts.begin();
 		for ( ; it != accounts.end(); ++it )

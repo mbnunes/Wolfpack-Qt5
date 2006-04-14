@@ -60,11 +60,11 @@ unsigned int cGuilds::findFreeSerial()
 void cGuilds::save()
 {
 	// Clear the tables first: guilds are not saved incremental.
-	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds;" );
-	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_members;" );
-	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_canidates;" );
-	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_allies;" );
-	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_enemies;" );
+	PersistentBroker::instance()->executeQuery( "TRUNCATE guilds;" );
+	PersistentBroker::instance()->executeQuery( "TRUNCATE guilds_members;" );
+	PersistentBroker::instance()->executeQuery( "TRUNCATE guilds_canidates;" );
+	PersistentBroker::instance()->executeQuery( "TRUNCATE guilds_allies;" );
+	PersistentBroker::instance()->executeQuery( "TRUNCATE guilds_enemies;" );
 
 	for ( iterator it = begin(); it != end(); ++it )
 	{
