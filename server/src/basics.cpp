@@ -212,19 +212,14 @@ uint elfHash(const char * name)
 
 cBufferedWriter::cBufferedWriter( const QByteArray& magic, unsigned int version )
 {
-	buffersize = 1048576; // 1 MB
-
 	d = new cBufferedWriterPrivate;
 	d->version = version;
 	d->magic = magic;
-	d->buffer = new char[buffersize];
+	d->buffer = new char[WRITER_BUFFERSIZE];
 	d->bufferpos = 0;
 	d->lastStringId = 0;
 	d->objectCount = 0;
 	d->dictionary.insert( QByteArray(), 0 ); // Empty String
-
-	// Check Endianess
-	d->needswap = (QSysInfo::ByteOrder == QSysInfo::BigEndian);
 }
 
 cBufferedWriter::~cBufferedWriter()
@@ -304,19 +299,19 @@ void cBufferedWriter::close()
 
 		// Seek to the beginning and write the file header
 		d->file.seek( 0 );
-		writeRaw( d->magic.data(), d->magic.length() + 1, true );
-		writeInt( d->file.size(), true );
-		writeInt( d->version, true );
-		writeInt( dictionary, true );
-		writeInt( d->objectCount, true );
+		writeRawUnbuffered( d->magic.data(), d->magic.length() + 1 );
+		writeIntUnbuffered( d->file.size() );
+		writeIntUnbuffered( d->version );
+		writeIntUnbuffered( dictionary );
+		writeIntUnbuffered( d->objectCount );
 
 		// Write new object type table
 		QMap<unsigned char, QString>::const_iterator tit;
 
-		writeByte( d->typemap.size(), true );
+		writeByteUnbuffered( d->typemap.size() );
 		for ( tit = d->typemap.begin(); tit != d->typemap.end(); ++tit )
 		{
-			writeByte( tit.key(), true );
+			writeByteUnbuffered( tit.key() );
 
 			unsigned int size = 0;
 			if ( d->skipmap.contains( tit.key() ) )
@@ -324,10 +319,10 @@ void cBufferedWriter::close()
 				size = d->skipmap[tit.key()];
 			}
 
-			writeInt( size, true ); // SkipSize
+			writeIntUnbuffered( size ); // SkipSize
 
 			QByteArray type = tit.value().toLatin1();
-			writeInt( d->dictionary[type], true );
+			writeIntUnbuffered( d->dictionary[type] );
 		}
 
 		d->file.close();
@@ -365,7 +360,6 @@ public:
 	QFile file;
 	unsigned int version;
 	QByteArray magic;
-	bool needswap;
 	QByteArray buffer;
 	unsigned int bufferpos;
 	unsigned int buffersize;
@@ -385,9 +379,6 @@ cBufferedReader::cBufferedReader( const QByteArray& magic, unsigned int version 
 	d->magic = magic;
 	d->version = version;
 	d->objectCount = 0;
-
-	// Check Endianess
-	d->needswap = QSysInfo::ByteOrder == QSysInfo::BigEndian;
 }
 
 cBufferedReader::~cBufferedReader()
@@ -507,10 +498,9 @@ unsigned int cBufferedReader::readInt()
 	unsigned int result;
 	readRaw( &result, sizeof( result ) );
 
-	if ( d->needswap )
-	{
-		swapBytes( result );
-	}
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	swapBytes( result );
+#endif
 
 	return result;
 }
@@ -520,10 +510,9 @@ double cBufferedReader::readDouble()
 	double result;
 	readRaw( &result, sizeof( result ) );
 
-	if ( d->needswap )
-	{
-		swapBytes( result );
-	}
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	swapBytes( result );
+#endif
 
 	return result;
 }
@@ -533,10 +522,9 @@ unsigned short cBufferedReader::readShort()
 	unsigned short result;
 	readRaw( &result, sizeof( result ) );
 
-	if ( d->needswap )
-	{
-		swapBytes( result );
-	}
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	swapBytes( result );
+#endif
 
 	return result;
 }

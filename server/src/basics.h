@@ -38,6 +38,8 @@
 #include <QFile>
 #include <QByteArray>
 
+#define WRITER_BUFFERSIZE 1048576
+
 // Forward definitions
 class Coord;
 class QString;
@@ -89,7 +91,15 @@ class cBufferedWriter
 {
 private:
 	class cBufferedWriterPrivate *d;
-	int buffersize;
+
+	void writeIntUnbuffered( unsigned int data );
+	void writeShortUnbuffered( unsigned short data );
+	void writeByteUnbuffered( unsigned char data );
+	void writeBoolUnbuffered( bool data );
+	void writeUtf8Unbuffered( const QString& data );
+	void writeAsciiUnbuffered( const QByteArray& data );
+	void writeRawUnbuffered( const void* data, unsigned int size );
+	void writeDoubleUnbuffered( double data );
 
 public:
 	cBufferedWriter( const QByteArray& magic, unsigned int version );
@@ -99,14 +109,14 @@ public:
 	void close();
 	void flush();
 
-	inline void writeInt( unsigned int data, bool unbuffered = false );
-	inline void writeShort( unsigned short data, bool unbuffered = false );
-	inline void writeByte( unsigned char data, bool unbuffered = false );
-	inline void writeBool( bool data, bool unbuffered = false );
-	inline void writeUtf8( const QString& data, bool unbuffered = false );
-	inline void writeAscii( const QByteArray& data, bool unbuffered = false );
-	inline void writeRaw( const void* data, unsigned int size, bool unbuffered = false );
-	inline void writeDouble( double data, bool unbuffered = false );
+	void writeInt( unsigned int data );
+	void writeShort( unsigned short data );
+	void writeByte( unsigned char data );
+	void writeBool( bool data );
+	void writeUtf8( const QString& data );
+	void writeAscii( const QByteArray& data );
+	void writeRaw( const void* data, unsigned int size );
+	void writeDouble( double data );
 
 	unsigned int position();
 	unsigned int version();
@@ -121,7 +131,6 @@ public:
 	QFile file;
 	unsigned int version;
 	QByteArray magic;
-	bool needswap;
 	char *buffer;
 	unsigned int bufferpos;
 	QMap<QByteArray, unsigned int> dictionary;
@@ -176,147 +185,176 @@ public:
 	}
 };
 
-inline void cBufferedWriter::writeInt( unsigned int data, bool unbuffered )
+inline void cBufferedWriter::writeInt( unsigned int data )
 {
-	// Inplace Swapping (data is a copy anyway)
-	if ( d->needswap )
-	{
-		swapBytes( data );
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	swapBytes( data );
+#endif
+
+	if ( d->bufferpos > WRITER_BUFFERSIZE - sizeof( data ) ) {
+		flush();
 	}
 
-	if ( unbuffered )
+	unsigned int *ptr = (unsigned int*)(d->buffer + d->bufferpos);
+	*ptr = data;
+	d->bufferpos += sizeof(data);
+}
+
+inline void cBufferedWriter::writeIntUnbuffered( unsigned int data )
+{
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	swapBytes( data );
+#endif
+
+	flush();
+	d->file.write( ( char * ) &data, sizeof( data ) );
+}
+
+inline void cBufferedWriter::writeShort( unsigned short data )
+{
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	swapBytes( data );
+#endif
+
+	if ( d->bufferpos > WRITER_BUFFERSIZE - sizeof( data ) )
 	{
 		flush();
-		d->file.write( ( char * ) &data, sizeof( data ) );
 	}
-	else
-	{
-		if ( d->bufferpos > buffersize - sizeof( data ) )
-		{
-			flush();
-		}
 
-		d->buffer[d->bufferpos++] = ( ( char * ) &data )[0];
-		d->buffer[d->bufferpos++] = ( ( char * ) &data )[1];
-		d->buffer[d->bufferpos++] = ( ( char * ) &data )[2];
-		d->buffer[d->bufferpos++] = ( ( char * ) &data )[3];
-	}
+	unsigned short *ptr = (unsigned short*)(d->buffer + d->bufferpos);
+	*ptr = data;
+	d->bufferpos += sizeof(data);
 }
 
-inline void cBufferedWriter::writeShort( unsigned short data, bool unbuffered )
+inline void cBufferedWriter::writeShortUnbuffered( unsigned short data )
 {
-	// Inplace Swapping (data is a copy anyway)
-	if ( d->needswap )
-	{
-		swapBytes( data );
-	}
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	swapBytes( data );
+#endif
 
-	if ( unbuffered )
-	{
+	flush();
+	d->file.write( ( char * ) &data, sizeof( data ) );
+}
+
+inline void cBufferedWriter::writeBool( bool data )
+{
+	writeByte( data ? 1 : 0 );
+}
+
+inline void cBufferedWriter::writeBoolUnbuffered( bool data )
+{
+	writeByteUnbuffered( data ? 1 : 0 );
+}
+
+inline void cBufferedWriter::writeByte( unsigned char data )
+{
+	if ( d->bufferpos >= WRITER_BUFFERSIZE ) {
 		flush();
-		d->file.write( ( char * ) &data, sizeof( data ) );
 	}
-	else
-	{
-		if ( d->bufferpos > buffersize - sizeof( data ) )
-		{
-			flush();
-		}
 
-		d->buffer[d->bufferpos++] = ( ( char * ) &data )[0];
-		d->buffer[d->bufferpos++] = ( ( char * ) &data )[1];
-	}
+	d->buffer[d->bufferpos++] = (char)data;
 }
 
-inline void cBufferedWriter::writeBool( bool data, bool unbuffered )
+inline void cBufferedWriter::writeByteUnbuffered( unsigned char data )
 {
-	writeByte( data ? 1 : 0, unbuffered );
+	flush();
+	d->file.write( ( const char * ) &data, sizeof( data ) );
 }
 
-inline void cBufferedWriter::writeByte( unsigned char data, bool unbuffered )
+inline void cBufferedWriter::writeUtf8( const QString& data )
 {
-	if ( unbuffered )
-	{
-		flush();
-		d->file.write( ( const char * ) &data, sizeof( data ) );
-	}
-	else
-	{
-		if ( d->bufferpos >= 4096 )
-		{
-			flush();
-		}
-
-		d->buffer[d->bufferpos++] = ( char ) data;
-	}
+	writeAscii( data.toUtf8() );
 }
 
-inline void cBufferedWriter::writeUtf8( const QString& data, bool unbuffered )
+inline void cBufferedWriter::writeUtf8Unbuffered( const QString& data )
 {
-	writeAscii( data.toUtf8(), unbuffered );
+	writeAsciiUnbuffered( data.toUtf8() );
 }
 
-inline void cBufferedWriter::writeAscii( const QByteArray& data, bool unbuffered )
+inline void cBufferedWriter::writeAscii( const QByteArray& data )
 {
 	QMap<QByteArray, unsigned int>::iterator it = d->dictionary.find( data );
 
 	if ( it != d->dictionary.end() )
 	{
-		writeInt( it.value(), unbuffered );
+		writeInt( it.value() );
 	}
 	else
 	{
 		d->dictionary.insert( data, ++d->lastStringId );
-		writeInt( d->lastStringId, unbuffered );
+		writeInt( d->lastStringId );
 	}
 }
 
-inline void cBufferedWriter::writeRaw( const void* data, unsigned int size, bool unbuffered )
+inline void cBufferedWriter::writeAsciiUnbuffered( const QByteArray& data )
 {
-	if ( unbuffered )
+	QMap<QByteArray, unsigned int>::iterator it = d->dictionary.find( data );
+
+	if ( it != d->dictionary.end() )
 	{
-		flush();
-		d->file.write( ( const char * ) data, size );
+		writeIntUnbuffered( it.value() );
 	}
 	else
 	{
-		// Flush out entire blocks if neccesary until we dont
-		// overflow the buffer anymore, then just append
-		unsigned int pos = 0;
-
-		while ( d->bufferpos + size >= ( unsigned int ) buffersize )
-		{
-			unsigned int bspace = buffersize - d->bufferpos;
-
-			// Try putting in some bytes of the remaining data
-			if ( bspace != 0 )
-			{
-				memcpy( d->buffer + d->bufferpos, ( unsigned char * ) data + pos, bspace );
-				d->bufferpos = buffersize;
-				pos += bspace;
-				size -= bspace;
-			}
-
-			flush();
-		}
-
-		// There are still some remaining bytes of our data
-		if ( size != 0 )
-		{
-			memcpy( d->buffer + d->bufferpos, ( unsigned char * ) data + pos, size );
-			d->bufferpos += size;
-		}
+		d->dictionary.insert( data, ++d->lastStringId );
+		writeIntUnbuffered( d->lastStringId );
 	}
 }
 
-inline void cBufferedWriter::writeDouble( double value, bool unbuffered )
+inline void cBufferedWriter::writeRaw( const void* data, unsigned int size )
 {
-	if ( d->needswap )
+	// Flush out entire blocks if neccesary until we dont
+	// overflow the buffer anymore, then just append
+	unsigned int pos = 0;
+
+	while ( d->bufferpos + size >= ( unsigned int ) WRITER_BUFFERSIZE )
 	{
-		swapBytes( value );
+		unsigned int bspace = WRITER_BUFFERSIZE - d->bufferpos;
+
+		// Try putting in some bytes of the remaining data
+		if ( bspace != 0 )
+		{
+			memcpy( d->buffer + d->bufferpos, ( unsigned char * ) data + pos, bspace );
+			d->bufferpos = WRITER_BUFFERSIZE;
+			pos += bspace;
+			size -= bspace;
+		}
+
+		flush();
 	}
 
-	writeRaw( &value, sizeof( value ), unbuffered );
+	// There are still some remaining bytes of our data
+	if ( size != 0 )
+	{
+		memcpy( d->buffer + d->bufferpos, ( unsigned char * ) data + pos, size );
+		d->bufferpos += size;
+	}
+}
+
+inline void cBufferedWriter::writeRawUnbuffered( const void* data, unsigned int size )
+{
+	flush();
+	d->file.write( ( const char * ) data, size );
+}
+
+inline void cBufferedWriter::writeDouble( double value )
+{
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	// Inplace Swapping (data is a copy anyway)
+	swapBytes( value );
+#endif
+
+	writeRaw( &value, sizeof( value ) );
+}
+
+inline void cBufferedWriter::writeDoubleUnbuffered( double value )
+{
+#if (Q_BYTE_ORDER != Q_LITTLE_ENDIAN)
+	// Inplace Swapping (data is a copy anyway)
+	swapBytes( value );
+#endif
+
+	writeRawUnbuffered( &value, sizeof( value ) );
 }
 
 #endif
