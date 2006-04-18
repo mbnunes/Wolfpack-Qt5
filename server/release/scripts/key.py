@@ -91,7 +91,7 @@ def lock_response(char, args, target):
 		return
 
 	# Check for an item target.
-	if not target.item or not char.canreach(target.item,5):
+	if not target.item or ( not char.canreach(target.item,5) and not target.item.hasscript( 'boats.plank' ) ):
 		char.socket.clilocmessage(501666)
 		return
 

@@ -154,17 +154,26 @@ class Recall (Spell):
 
 		# We can only recall from recall runes or via the runebook
 		if not runebook:
-			if not target.hasscript('magic.rune'):
+			if not target.hasscript('magic.rune') and not target.hastag('recall.link'):
 				char.message(502357)
 				return
 
-			if not target.hastag('marked') or target.gettag('marked') != 1:
+			if ( not target.hastag('marked') or target.gettag('marked') != 1 ) and not target.hastag('recall.link'):
 				char.message(502354)
 				return
 
-			location = target.gettag('location')
-			location = location.split(",")
-			location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
+			if target.hastag('recall.link'):
+				litem = wolfpack.finditem(target.gettag('recall.link'))
+				if not litem:
+					char.message(502357)
+					return
+				else:
+					location = wolfpack.coord(litem.pos.x, litem.pos.y, litem.pos.z, litem.pos.map)
+			else:
+				location = target.gettag('location')
+				location = location.split(",")
+				location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
+			
 			char.log(LOG_MESSAGE, 'Tries to recall to %s using rune.\n' % str(location))
 		else:
 			location = args[0]
@@ -188,7 +197,7 @@ class Recall (Spell):
 		region = None
 		region = wolfpack.region(location.x, location.y, location.map)
 
-		if not location.validspawnspot():
+		if not location.validspawnspot() and not litem:
 			char.message(501942)
 			fizzle(char)
 			return

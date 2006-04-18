@@ -95,21 +95,32 @@ def createBoatSpecialItem( definition, parentTag, boat ):
 
     return item
 
-def createKeys( plank1, plank2, player ):
+def createKeys( plank1, plank2, hold, boat, player ):
     rkeyid = createkeysecret()
     packkey = wolfpack.additem('1010')
     packkey.settag('lock', rkeyid)
     packkey.name = "a ship key"
+    packkey.settag('recall.link', boat.serial)
     tobackpack( packkey, player )
     packkey.update()
     player.say( 502485, socket = player.socket ) # A ship's key is now in my backpack.
     bankkey = wolfpack.additem('1010')
     bankkey.settag('lock', rkeyid)
     bankkey.name = "a ship key"
+    bankkey.settag('recall.link', boat.serial)
     tobankbox( bankkey, player )
     player.say( 502484, socket = player.socket ) # A ship's key is now in my safety deposit box.
+    # Plank Section
     plank1.settag('lock', rkeyid)
+    plank1.addscript( 'lock' )
+    plank1.settag('locked',1)
     plank2.settag('lock', rkeyid)
+    plank2.addscript( 'lock' )
+    plank2.settag('locked',1)
+    # Hold Section
+    hold.settag('lock', rkeyid)
+    hold.addscript( 'lock' )
+    hold.settag('locked',1)
 
 
 #
@@ -156,7 +167,7 @@ def createBoat( player, deed, pos ):
                                 splank = createBoatSpecialItem( '3eb2', starclosed, boat )
                                 splank.settag('plank_starboard', 1)
 
-        createKeys( splank, pplank, player )
+        createKeys( splank, pplank, hold, boat, player )
                                 
 #
 # Target
