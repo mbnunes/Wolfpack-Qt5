@@ -172,6 +172,46 @@ def checknpcforquest(player, dead):
 						player.socket.sysmessage("You killed " + str(tempamount) + " of " + str(eachamount[j]) + " npcs for a Quest")
 
 #######################################################################################
+#############   Check if a Dead NPC have some Special Loot for Quests   ###############
+#######################################################################################
+
+def checknpcforquestloot(player, dead, corpse):
+	for i in range(1, 11):
+
+		# Checking if player have this Quest
+		if player.hastag('Quest.'+ str(i) +'.ID'):
+			
+			#
+			# Check if this NPC is one of targets
+			#
+			id = player.gettag('Quest.'+ str(i) +'.ID')				# Get ID of this Quest
+
+			npclist = givequestitemloots(id)					# Get the List of NPCs that Drop items
+
+			for j in range( 0, len(npclist) ):
+				
+				# Oh! Is this the NPC?
+				if dead.baseid == npclist[j]:
+
+					# Lets Check the Region
+					npcregions = givequestitemlootsregions(id)
+					if len(npcregions):
+						if npcregions[j]:
+							if not npcregions[j] == dead.region.name:
+								return
+						
+
+					eachamount = givequestitemeachamount(id)			# Amount for each Item for this Quest
+					itemsquest = givequestitemtargets(id)				# Items for this quest
+					actualamount = player.getbackpack().countitems([itemsquest[j]])	# Actual amount of this item
+
+					if int(actualamount) < int(eachamount[j]):
+					
+						# Lets create this item on Corpse
+						newitem = wolfpack.additem(itemsquest[j])
+						corpse.additem(newitem)
+
+#######################################################################################
 ##############   Report a Quest to a NPC   ############################################
 #######################################################################################
 

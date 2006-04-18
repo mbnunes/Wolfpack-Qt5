@@ -8,7 +8,7 @@
 #===============================================================#
 
 import wolfpack
-from quests.functions import checknpcforquest
+from quests.functions import checknpcforquest, checknpcforquestloot
 from quests.npcs import openchoicequestmenu
 
 #######################################################################################
@@ -20,6 +20,7 @@ def onDeath(char, source, corpse):
 	if source and source.ischar() and source.socket:
 	
 		checknpcforquest(source, char)
+		checknpcforquestloot(source, char, corpse)
 
 #######################################################################################
 ##############   Show Paperdoll for give quest choice   ###############################
