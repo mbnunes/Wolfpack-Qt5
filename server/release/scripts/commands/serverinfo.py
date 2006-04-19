@@ -19,16 +19,28 @@ from wolfpack.sockets import *
 import platform
 
 shardname = 'Wolfpack Shard' # Shard name?
-operatingsystem = platform.system() + " " +  platform.release() + " [" + platform.machine() + "]" # Windows? Linux?
+operatingsystem = None
 processor = platform.processor() # example: 1GHz AMD Athlon(tm)
 # If someone finds cross platform memory stuff, please let me know!
 memory = '512MB PC133' # example: 512MB PC133
+initialized = False
 
 upseconds = 0
 upminutes = 0
 uphours = 0
 
+def initializeValues():
+	global operatingsystem, initialized
+	
+	operatingsystem = platform.system() + " " +  platform.release() + " [" + platform.machine() + "]" # Windows? Linux?
+	initialized = True
+
 def serverinfo( socket, command, arguments ):
+	global initialized
+	if not initialized:
+		initializeValues()
+			
+	
 	char = socket.player
 	version = wolfpack.serverversion()
 	uptime = wolfpack.currenttime() / 1000
