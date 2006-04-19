@@ -443,15 +443,30 @@ def drydockresponse( char, args, target ):
 		# So... lets Drydock
 		deed = wolfpack.additem(boat.gettag('deedid'))
 		char.getbackpack().additem(deed)
-		
-		char.socket.sysmessage('Your boat is now DryDocked!')
+		keyid = 0
+
+		# Lets set Boat Name
+		deed.name = boat.name
+		deed.settag('hasname', 1)
+
+		# Lets set ID
+		deed.id = 0x14f4
+		deed.update()
 
 		# Now, lets remove the boat and parts
 		for i in range( 1, int( boat.gettag('boat_part_count') ) + 1 ):
 			item = wolfpack.finditem( int( boat.gettag('boat_part%i' % i) ) )
+			if item.hastag('lock'):
+				keyid = item.gettag('lock')
 			item.delete()
 
 		boat.delete()
+
+		# Lets now save KeyID reference to use same keys
+		if keyid:
+			deed.settag('lock', keyid)
+
+		char.socket.sysmessage('Your boat is now DryDocked!')
 
 		return
 

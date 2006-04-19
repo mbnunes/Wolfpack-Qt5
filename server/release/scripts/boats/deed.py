@@ -122,6 +122,22 @@ def createKeys( plank1, plank2, hold, boat, player ):
     hold.addscript( 'lock' )
     hold.settag('locked',1)
 
+def applyKeys( plank1, plank2, hold, deed ):
+    # Get KeyID
+    rkeyid = deed.gettag('lock')
+    # Plank Section
+    plank1.settag('lock', rkeyid)
+    plank1.addscript( 'lock' )
+    plank1.settag('locked',1)
+    plank2.settag('lock', rkeyid)
+    plank2.addscript( 'lock' )
+    plank2.settag('locked',1)
+    # Hold Section
+    hold.settag('lock', rkeyid)
+    hold.addscript( 'lock' )
+    hold.settag('locked',1)
+	
+
 
 #
 # Create boat and items
@@ -138,6 +154,9 @@ def createBoat( player, deed, pos ):
 	boat.moveto(pos)
 	boat.update()
 	boat.decay = 0
+
+	if deed.hastag('hasname'):
+		boat.name = deed.name
 
 	splank = None
 	pplank = None
@@ -157,6 +176,8 @@ def createBoat( player, deed, pos ):
                         if subsubnode != None:
                                 tillerman = createBoatSpecialItem( '3e4e', subsubnode, boat )
                                 boat.settag('boat_tillerman', tillerman.serial)
+				if deed.hastag('hasname'):
+					tillerman.name = 'Tillerman of ' + boat.name
                         subsubnode = subnode.findchild('hold')
                         if subsubnode != None:
                                 hold = createBoatSpecialItem( '3eae', subsubnode, boat )
@@ -168,7 +189,10 @@ def createBoat( player, deed, pos ):
                                 splank = createBoatSpecialItem( '3eb2', starclosed, boat )
                                 splank.settag('plank_starboard', 1)
 
-        createKeys( splank, pplank, hold, boat, player )
+	if not deed.hastag('lock'):
+		createKeys( splank, pplank, hold, boat, player )
+	else:
+		applyKeys( splank, pplank, hold, deed )
                                 
 #
 # Target
