@@ -134,6 +134,7 @@ def createBoat( player, deed, pos ):
 	boat.owner = player
 	boat.settag( 'boat_anchored', 1 )
 	boat.settag( 'boat_facing', 0 ) # boat is facing north
+	boat.settag( 'deedid', deed.baseid ) # For DryDock
 	boat.moveto(pos)
 	boat.update()
 	boat.decay = 0

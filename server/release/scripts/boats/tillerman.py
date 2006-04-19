@@ -12,6 +12,7 @@ import wolfpack
 from wolfpack.consts import *
 import boats
 from wolfpack.utilities import hex2dec
+from wolfpack.gumps import cGump
 
 import wolfpack.console
 
@@ -342,10 +343,117 @@ def doBoatTurn( boat, args ):
         return False
     
 def BoatRename( item, player ):
-    pass
+
+	boat = wolfpack.finditem(item.gettag('boat_serial'))
+
+	socket = player.socket
+
+	dialog = cGump( nomove=1, x=100, y=150 )
+
+	dialog.addResizeGump(0, 0, 9200, 240, 159)
+	dialog.addText(60, 10, "Rename your Boat", 0)
+	dialog.addResizeGump(18, 39, 9350, 200, 70)
+	dialog.addText(25, 45, "New Boat name:", 0)
+	dialog.addInputField(28, 75, 176, 20, 0, 1, boat.name)
+	dialog.addButton(40, 120, 247, 248, 1)
+	dialog.addButton(130, 120, 241, 242, 0)
+
+	dialog.setArgs( [boat, item] )
+	dialog.setCallback( renameresponse )
+
+	dialog.send( player.socket )
+
+	return True
+
+def renameresponse( char, args, target ):
+
+	boat = args[0]
+	tiller = args[1]
+
+	button = target.button
+
+	if button == 1:
+	
+		# Changing the Boat name
+		boat.name = target.text[1]
+		tiller.name = 'Tillerman of ' + boat.name
+
+		tiller.resendtooltip()
+
+		char.socket.sysmessage('You renamed your boat to ' + boat.name)
+		return
 
 def DryDock( item, player ):
-    pass
+
+	boat = wolfpack.finditem(item.gettag('boat_serial'))
+
+	socket = player.socket
+
+	dialog = cGump( nomove=1, x=100, y=150 )
+
+	dialog.addResizeGump(0, 0, 9200, 240, 159)
+	dialog.addText(60, 10, "DryDock System", 0)
+	dialog.addResizeGump(18, 39, 9350, 200, 70)
+	dialog.addText(35, 50, "Do you really want to dock", 0)
+	dialog.addText(35, 75, "your ship?", 0)
+	dialog.addButton(40, 120, 247, 248, 1)
+	dialog.addButton(130, 120, 241, 242, 0)
+
+	dialog.setArgs( [boat] )
+	dialog.setCallback( drydockresponse )
+
+	dialog.send( player.socket )
+
+	return True
+
+def drydockresponse( char, args, target ):
+
+	boat = args[0]
+
+	button = target.button
+
+	if button == 1:
+	
+		# Drydocking your boat
+
+		# Check if Anchored
+		if not boat.hastag('boat_anchored'):
+			char.socket.sysmessage('To Drydock your boat you have to drop your anchor')
+			return
+
+		# Check if still have items inside
+		flagitem = 0
+		listitems = boat.objects
+		for item in listitems:
+			if not item.hastag('boat_serial'):
+				flagitem = 1
+
+		if flagitem:
+			char.socket.sysmessage('To Drydock your boat you have to make the boat empty')
+			return
+
+		# Check items on Hatch
+		for i in range( 1, int( boat.gettag('boat_part_count') ) + 1 ):
+			item = wolfpack.finditem( int( boat.gettag('boat_part%i' % i) ) )
+			if item.baseid == '3eae':
+				if item.countitem():
+					char.socket.sysmessage('To Drydock your boat you have to empty Hatch')
+					return
+
+		# So... lets Drydock
+		deed = wolfpack.additem(boat.gettag('deedid'))
+		char.getbackpack().additem(deed)
+		
+		char.socket.sysmessage('Your boat is now DryDocked!')
+
+		# Now, lets remove the boat and parts
+		for i in range( 1, int( boat.gettag('boat_part_count') ) + 1 ):
+			item = wolfpack.finditem( int( boat.gettag('boat_part%i' % i) ) )
+			item.delete()
+
+		boat.delete()
+
+		return
 
 def StartTurn( boat, tillerman, offset, message ):
     if boat.hastag( 'boat_anchored' ):
@@ -430,8 +538,10 @@ def onSpeech( obj, player, text, keywords ):
 
 def onUse( player, item ):
 
-    if player.multi.serial != obj.gettag('boat_serial'):
+    if not player.multi or (player.multi.serial != item.gettag('boat_serial')):
         DryDock( item, player )
     else:
-        RenameBoat( item, player )
+        BoatRename( item, player )
+
+    return 1
             
