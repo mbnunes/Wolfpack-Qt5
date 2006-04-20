@@ -3,13 +3,13 @@
 ; Script "Modes"
 !define PYTHONLESSMODE   ; Packs required python files along with installer,
                           ; so user don't need to download pyhton
-!define MINGWBUILD       ; Include Mingw dependency dlls
-;!define MSVC8BUILD      ; Include Microsoft VC++ 8.0 ( 2005 ) dependency dlls
+;!define MINGWBUILD       ; Include Mingw dependency dlls
+!define MSVC8BUILD      ; Include Microsoft VC++ 8.0 ( 2005 ) dependency dlls
 
 ; HM NIS Edit Wizard helper defines
 !define VERSION "12.9.14"
 !define PRODUCT_NAME "Wolfpack"
-!define PRODUCT_VERSION "${VERSION} (Pre-Beta - Qt4Port Testing)"
+!define PRODUCT_VERSION "${VERSION}"
 !define PRODUCT_PUBLISHER "Wolfpack Project"
 !define PRODUCT_WEB_SITE "http://www.wpdev.org/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\wolfpack.exe"
@@ -97,15 +97,19 @@ Section "Core" SEC01
   File /r /x .svn /x *.pyc "..\..\release\myownscripts"
   File /r /x .svn /x *.pyc "..\..\release\scripts"
   File /r /x .svn /x *.pyc "..\..\release\web"
+  File /r /x .svn "..\..\release\sqldrivers"
+  File /r /x .svn "..\..\release\imageformats"
   File "$%QTDIR%\lib\QtCore4.dll"
   File "$%QTDIR%\lib\QtGui4.dll"
   File "$%QTDIR%\lib\QtNetwork4.dll"
   File "$%QTDIR%\lib\QtXml4.dll"
-  File "$%QTDIR%\lib\Qt3Support4.dll"
   File "$%QTDIR%\lib\QtSql4.dll"
+  File "$%QTDIR%\lib\QtTest4.dll"
+  File "$%QTDIR%\lib\QtSvg4.dll"
+  File "$%QTDIR%\lib\QtOpenGL4.dll"
 !ifdef MSVC8BUILD
-  File "$%SystemRoot%\System32\msvcp80.dll"
-  File "$%SystemRoot%\System32\msvcr80.dll"
+  File "..\..\release\msvcp80.dll"
+  File "..\..\release\msvcr80.dll"
 !endif
 !ifdef MINGWBUILD
   File "$%QTDIR%\bin\mingwm10.dll"

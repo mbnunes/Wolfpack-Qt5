@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmaind.lib $(QTDIR)\lib\QtCore4.lib $(QTDIR)\lib\QtGui4.lib $(QTDIR)\lib\QtNetwork4.lib $(QTDIR)\lib\QtXml4.lib $(QTDIR)\lib\QtSql4.lib"
+				AdditionalDependencies="ws2_32.lib comctl32.lib python24.lib $(QTDIR)\lib\qtmaind.lib $(QTDIR)\lib\QtCored4.lib $(QTDIR)\lib\QtGuid4.lib $(QTDIR)\lib\QtNetworkd4.lib $(QTDIR)\lib\QtXmld4.lib $(QTDIR)\lib\QtSqld4.lib"
 				OutputFile="../release/wolfpackd.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -636,6 +636,14 @@
 			</File>
 			<File
 				RelativePath="..\src\territories.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\threatsystem.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\threatsystem.h"
 				>
 			</File>
 			<File
