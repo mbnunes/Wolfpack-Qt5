@@ -625,9 +625,9 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 		return;
 	}
 
-	if ( !PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() ) )
+	if ( !PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword(), Config::instance()->databasePort() ) )
 	{
-		throw tr( "Unable to open the world database." );
+		throw wpException( tr( "Unable to open the world database: %1." ).arg(PersistentBroker::instance()->lastError()) );
 	}
 
 	QString objectID;
@@ -646,7 +646,7 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 				{
 					Console::instance()->log( LOG_ERROR, tr("Invalid World database file. The file is either corrupted or in sqlite2 format, which require a conversion step. If this is an sqlite2 database please check this wiki entry: http://www.wpdev.org/wiki/index.php/Convert_sqlite2_to_sqlite3_format") );
 				}
-				throw tr( "Unable to load world database" );
+				throw wpException( tr( "Unable to load world database" ) );
 			}
 
 			// create default settings
@@ -704,7 +704,7 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 
 		// Find out how many objects of this type are available
 		if ( !query.isActive() )
-			throw query.lastError().driverText();
+			throw wpException( query.lastError().text() );
 
 		query.next();
 		quint32 count = query.value(0).toInt();
@@ -718,7 +718,7 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 
 		// Error Checking
 		if ( !query.isActive() )
-			throw query.lastError().driverText();
+			throw wpException( query.lastError().driverText() );
 
 		//quint32 sTime = getNormalizedTime();
 		PersistentObject* object;
@@ -1024,11 +1024,11 @@ void cWorld::save()
 
 			try
 			{
-				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
+				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword(), Config::instance()->databasePort() );
 			}
-			catch ( QString& e )
+			catch ( wpException& e )
 			{
-				Console::instance()->log( LOG_ERROR, tr( "Couldn't open the database: %1\n" ).arg( e ) );
+				Console::instance()->log( LOG_ERROR, tr( "Couldn't open the database: %1\n" ).arg( e.error() ) );
 				return;
 			}
 			QSqlQuery query;
@@ -1115,7 +1115,7 @@ void cWorld::save()
 
 		Console::instance()->send( tr( " [%1ms]\n" ).arg( Server::instance()->time() - startTime ) );
 	}
-	catch ( QString& e )
+	catch ( wpException& e )
 	{
 		PersistentBroker::instance()->rollbackTransaction();
 
@@ -1123,7 +1123,7 @@ void cWorld::save()
 		Console::instance()->send( tr( " Failed\n" ) );
 		Console::instance()->changeColor( WPC_NORMAL );
 
-		Console::instance()->log( LOG_ERROR, tr( "Saving failed: %1" ).arg( e ) );
+		Console::instance()->log( LOG_ERROR, tr( "Saving failed: %1" ).arg( e.error() ) );
 	}
 
 	// Broadcast a message to all connected clients

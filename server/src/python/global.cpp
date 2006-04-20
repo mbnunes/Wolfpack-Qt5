@@ -2611,10 +2611,10 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 
 		return getPyObjectFromQSqlQuery( result );
 	}
-	catch ( QString& e )
+	catch ( wpException e )
 	{
 		PyMem_Free( query );
-		PyErr_SetString( PyExc_RuntimeError, e.toLatin1() );
+		PyErr_SetString( PyExc_RuntimeError, e.error().toLatin1() );
 		return 0;
 	}
 	catch ( ... )
@@ -2649,9 +2649,9 @@ static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
 	{
 		PersistentBroker::instance()->executeQuery( query );
 	}
-	catch ( QString& e )
+	catch ( wpException & e )
 	{
-		PyErr_SetString( PyExc_RuntimeError, e.toLatin1() );
+		PyErr_SetString( PyExc_RuntimeError, e.error().toLatin1() );
 		return 0;
 	}
 	catch ( ... )
@@ -2726,16 +2726,16 @@ static PyObject* wpOpen( PyObject* /*self*/, PyObject* args )
 	{
 		if ( database == 1 )
 		{
-			PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword() );
+			PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword(), Config::instance()->accountsPort() );
 		}
 		else if ( database == 2 )
 		{
-			PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
+			PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword(), Config::instance()->databasePort() );
 		}
 	}
-	catch ( QString& e )
+	catch ( wpException& e )
 	{
-		PyErr_SetString( PyExc_RuntimeError, e.toLatin1() );
+		PyErr_SetString( PyExc_RuntimeError, e.error().toLatin1() );
 		return 0;
 	}
 	catch ( ... )

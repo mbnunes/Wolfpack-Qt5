@@ -86,7 +86,7 @@ bool cPersistentBroker::isOpen() const
 	return d->connection.isOpen();
 }
 
-bool cPersistentBroker::connect( const QString& host, const QString& db, const QString& username, const QString& password )
+bool cPersistentBroker::connect( const QString& host, const QString& db, const QString& username, const QString& password, int port )
 {
 	if ( !d->connection.isValid() )
 		return false;
@@ -96,6 +96,9 @@ bool cPersistentBroker::connect( const QString& host, const QString& db, const Q
 	d->connection.setUserName( username );
 	d->connection.setPassword( password );
 	d->connection.setHostName( host );
+	if (port > 0) {
+		d->connection.setPort( port );
+	}
 
 	if ( !d->connection.open() )
 		return false;
@@ -148,7 +151,7 @@ bool cPersistentBroker::deleteObject( PersistentObject* object )
 bool cPersistentBroker::executeQuery( const QString& query )
 {
 	if ( !d->connection.isValid() )
-		throw tr( "PersistentBroker not connected to database." );
+		throw wpException( tr( "PersistentBroker not connected to database." ) );
 
 	QSqlQuery q;
 	if ( !q.exec( query ) )
@@ -162,7 +165,7 @@ bool cPersistentBroker::executeQuery( const QString& query )
 QSqlQuery cPersistentBroker::query( const QString& query )
 {
 	if ( !d->connection.isValid() )
-		throw QString( "PersistentBroker not connected to database." );
+		throw wpException( QString( "PersistentBroker not connected to database." ) );
 
 	return d->connection.exec( query );
 }
@@ -223,7 +226,7 @@ bool cPersistentBroker::tableExists( const QString& table )
 {
 	if ( !d->connection.isOpen() )
 	{
-		throw QString( "Trying to query an existing table without a database connection." );
+		throw wpException( QString( "Trying to query an existing table without a database connection." ) );
 	}
 
 	return d->connection.tables().contains( table, Qt::CaseInsensitive );

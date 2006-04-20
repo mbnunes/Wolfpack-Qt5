@@ -312,7 +312,7 @@ void cBaseChar::load( QSqlQuery& result, ushort& offset )
 
 	// Broken Serial?
 	if ( !isCharSerial( serial() ) )
-		throw QString( "Character has invalid char serial: 0x%1" ).arg( serial(), 0, 16 );
+		throw wpException( QString( "Character has invalid char serial: 0x%1" ).arg( serial(), 0, 16 ) );
 
 	SERIAL ser;
 
@@ -372,7 +372,7 @@ void cBaseChar::load( QSqlQuery& result, ushort& offset )
 	QSqlQuery query("SELECT skill,value,locktype,cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'");
 
 	if ( !query.isActive() )
-		throw query.lastError().databaseText();
+		throw wpException( query.lastError().text() );
 
 	// Fetch row-by-row
 	while ( query.next() )

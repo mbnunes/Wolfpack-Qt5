@@ -123,11 +123,13 @@ protected:
 	QString databaseUsername_;
 	QString databasePassword_;
 	QString databaseHost_;
+	int databasePort_;
 	QString accountsDriver_;
 	QString accountsName_;
 	QString accountsUsername_;
 	QString accountsPassword_;
 	QString accountsHost_;
+	int accountsPort_;
 	int saveInterval_;
 	QString mulPath_;
 	QString logPath_;
@@ -363,6 +365,8 @@ public:
 	QString accountsPassword() const;
 	QString accountsUsername() const;
 	QString accountsName() const;
+	int databasePort() const;
+	int accountsPort() const;
 	unsigned int maxCharsPerAccount() const;
 
 	// Combat
@@ -672,6 +676,15 @@ inline int cConfig::saveInterval() const
 inline unsigned int cConfig::showNpcTitles() const
 {
 	return showNpcTitles_;
+}
+inline int cConfig::databasePort() const
+{
+	return databasePort_;
+}
+
+inline int cConfig::accountsPort() const
+{
+	return accountsPort_;
 }
 
 inline QString cConfig::databaseDriver() const

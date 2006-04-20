@@ -421,7 +421,7 @@ void cTimers::load()
 		}
 		else
 		{
-			throw QString( "Unknown TempEffect Type: %1" ).arg( objectId );
+			throw wpException( QString( "Unknown TempEffect Type: %1" ).arg( objectId ) );
 		}
 
 		effect->load( id, result );
@@ -554,7 +554,7 @@ void cTimers::load( cBufferedReader& reader )
 	}
 	else
 	{
-		throw QString( "Unknown TempEffect Type: %1" ).arg( objectId );
+		throw wpException( QString( "Unknown TempEffect Type: %1" ).arg( objectId ) );
 	}
 
 	timer->load( reader, reader.version() );

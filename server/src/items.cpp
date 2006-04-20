@@ -1506,7 +1506,7 @@ void cItem::load( QSqlQuery& result, ushort& offset )
 
 	// Broken Serial?
 	if ( !isItemSerial( serial() ) )
-		throw QString( "Item has invalid character serial: 0x%1" ).arg( serial(), 0, 16 );
+		throw wpException( QString( "Item has invalid character serial: 0x%1" ).arg( serial(), 0, 16 ) );
 
 	id_ = result.value( offset++ ).toInt();
 	color_ = result.value( offset++ ).toInt();

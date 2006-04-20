@@ -153,7 +153,7 @@ void cCorpse::load( QSqlQuery& result, ushort& offset )
 	QSqlQuery query( "SELECT serial,layer,item FROM corpses_equipment WHERE serial = '" + QString::number( serial() ) + "'" );
 
 	if ( !query.isActive() )
-		throw query.lastError().databaseText();
+		throw wpException( query.lastError().text() );
 
 	// Fetch row-by-row
 	while ( query.next() )

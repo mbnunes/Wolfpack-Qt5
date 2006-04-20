@@ -110,8 +110,6 @@ void cDefinitionExporter::generate(const QString &filename) {
 		driver.exec("COMMIT;"); // End the SQL transaction
 
 		reportStatus(tr("Finished exporting definitions.")); // Report that the export has finished
-	} catch ( const QString& e ) {
-		reportError(e); // Report errors to the client or console
 	} catch ( const wpException& e ) {
 		reportError(e.error()); // Report errors to the client or console
 	}

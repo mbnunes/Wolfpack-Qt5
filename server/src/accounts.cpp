@@ -378,8 +378,9 @@ void cAccounts::save()
 			db.setDatabaseName( Config::instance()->accountsName() );
 			db.setUserName( Config::instance()->accountsUsername() );
 			db.setPassword( Config::instance()->accountsPassword() );
+			db.setPort( Config::instance()->accountsPort() );
 			if ( !db.open() )
-				throw db.lastError().databaseText();
+				throw wpException( db.lastError().text() );
 		}
 
 		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
@@ -411,9 +412,9 @@ void cAccounts::save()
 			query.exec();
 		}
 	}
-	catch ( QString& error )
+	catch ( wpException& error )
 	{
-		Console::instance()->log( LOG_ERROR, tr( "Error while saving Accounts: %1." ).arg( error ) );
+		Console::instance()->log( LOG_ERROR, tr( "Error while saving Accounts: %1." ).arg( error.error() ) );
 	}
 	catch ( ... )
 	{
@@ -443,8 +444,9 @@ void cAccounts::load()
 			db.setDatabaseName( Config::instance()->accountsName() );
 			db.setUserName( Config::instance()->accountsUsername() );
 			db.setPassword( Config::instance()->accountsPassword() );
+			db.setPort( Config::instance()->accountsPort() );
 			if ( !db.open() )
-				throw db.lastError().databaseText();
+				throw wpException( db.lastError().text() );
 		}
 
 		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
@@ -497,9 +499,9 @@ void cAccounts::load()
 			accounts.insert( account->login_, account );
 		}
 	}
-	catch ( QString& error )
+	catch ( wpException& error )
 	{
-		throw wpException( tr( "Error while loading Accounts: %1" ).arg( error ) );
+		throw wpException( tr( "Error while loading Accounts: %1" ).arg( error.error() ) );
 	}
 	catch ( ... )
 	{
