@@ -129,7 +129,8 @@ void cNetwork::load()
 	if ( Config::instance()->enableLogin() )
 	{
 		d->loginServer_ = new QTcpServer( this );
-		d->loginServer_->listen( QHostAddress::Any, Config::instance()->loginPort() );
+		if ( !d->loginServer_->listen( QHostAddress::Any, Config::instance()->loginPort() ) )
+			throw wpException( tr("Unable to listen to port %1, port may be already in use").arg(Config::instance()->loginPort()) );
 		connect( d->loginServer_, SIGNAL(newConnection()), this, SLOT(incomingLoginServerConnection()));
 		Console::instance()->send( tr( "\nLoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
 		QList<ServerList_st> serverList = Config::instance()->serverList();
@@ -145,7 +146,8 @@ void cNetwork::load()
 	if ( Config::instance()->enableGame() )
 	{
 		d->gameServer_ = new QTcpServer( this );
-		d->gameServer_->listen( QHostAddress::Any, Config::instance()->gamePort() );
+		if ( !d->gameServer_->listen( QHostAddress::Any, Config::instance()->gamePort() ) )
+			throw wpException( tr("Unable to listen to port %1, port may be already in use").arg(Config::instance()->gamePort()) );
 		connect( d->gameServer_, SIGNAL(newConnection()), this, SLOT(incomingGameServerConnection()));
 		Console::instance()->send( tr( "\nGameServer running on port %1\n" ).arg( Config::instance()->gamePort() ) );
 	}
