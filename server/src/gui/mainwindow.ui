@@ -8,7 +8,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>555</width>
+    <width>582</width>
     <height>403</height>
    </rect>
   </property>
@@ -42,29 +42,29 @@
           <blue>255</blue>
          </color>
          <color>
-          <red>236</red>
-          <green>233</green>
-          <blue>216</blue>
+          <red>0</red>
+          <green>64</green>
+          <blue>38</blue>
          </color>
          <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
+          <red>0</red>
+          <green>96</green>
+          <blue>57</blue>
          </color>
          <color>
-          <red>245</red>
-          <green>244</green>
-          <blue>235</blue>
+          <red>0</red>
+          <green>80</green>
+          <blue>47</blue>
          </color>
          <color>
-          <red>118</red>
-          <green>116</green>
-          <blue>108</blue>
+          <red>0</red>
+          <green>32</green>
+          <blue>19</blue>
          </color>
          <color>
-          <red>157</red>
-          <green>155</green>
-          <blue>144</blue>
+          <red>0</red>
+          <green>42</green>
+          <blue>25</blue>
          </color>
          <color>
           <red>255</red>
@@ -117,9 +117,9 @@
           <blue>255</blue>
          </color>
          <color>
-          <red>245</red>
-          <green>244</green>
-          <blue>235</blue>
+          <red>0</red>
+          <green>32</green>
+          <blue>19</blue>
          </color>
         </active>
         <inactive>
@@ -129,29 +129,29 @@
           <blue>255</blue>
          </color>
          <color>
-          <red>236</red>
-          <green>233</green>
-          <blue>216</blue>
+          <red>0</red>
+          <green>64</green>
+          <blue>38</blue>
          </color>
          <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
+          <red>0</red>
+          <green>96</green>
+          <blue>57</blue>
          </color>
          <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>250</blue>
+          <red>0</red>
+          <green>80</green>
+          <blue>47</blue>
          </color>
          <color>
-          <red>118</red>
-          <green>116</green>
-          <blue>108</blue>
+          <red>0</red>
+          <green>32</green>
+          <blue>19</blue>
          </color>
          <color>
-          <red>157</red>
-          <green>155</green>
-          <blue>144</blue>
+          <red>0</red>
+          <green>42</green>
+          <blue>25</blue>
          </color>
          <color>
           <red>255</red>
@@ -204,61 +204,61 @@
           <blue>255</blue>
          </color>
          <color>
-          <red>245</red>
-          <green>244</green>
-          <blue>235</blue>
+          <red>0</red>
+          <green>32</green>
+          <blue>19</blue>
          </color>
         </inactive>
         <disabled>
          <color>
-          <red>128</red>
-          <green>128</green>
-          <blue>128</blue>
-         </color>
-         <color>
-          <red>236</red>
-          <green>233</green>
-          <blue>216</blue>
-         </color>
-         <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-         <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>250</blue>
-         </color>
-         <color>
-          <red>118</red>
-          <green>116</green>
-          <blue>108</blue>
-         </color>
-         <color>
-          <red>157</red>
-          <green>155</green>
-          <blue>144</blue>
-         </color>
-         <color>
-          <red>128</red>
-          <green>128</green>
-          <blue>128</blue>
-         </color>
-         <color>
-          <red>255</red>
-          <green>255</green>
-          <blue>255</blue>
-         </color>
-         <color>
-          <red>128</red>
-          <green>128</green>
-          <blue>128</blue>
+          <red>0</red>
+          <green>32</green>
+          <blue>19</blue>
          </color>
          <color>
           <red>0</red>
-          <green>0</green>
-          <blue>0</blue>
+          <green>64</green>
+          <blue>38</blue>
+         </color>
+         <color>
+          <red>0</red>
+          <green>96</green>
+          <blue>57</blue>
+         </color>
+         <color>
+          <red>0</red>
+          <green>80</green>
+          <blue>47</blue>
+         </color>
+         <color>
+          <red>0</red>
+          <green>32</green>
+          <blue>19</blue>
+         </color>
+         <color>
+          <red>0</red>
+          <green>42</green>
+          <blue>25</blue>
+         </color>
+         <color>
+          <red>0</red>
+          <green>32</green>
+          <blue>19</blue>
+         </color>
+         <color>
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+         <color>
+          <red>0</red>
+          <green>32</green>
+          <blue>19</blue>
+         </color>
+         <color>
+          <red>0</red>
+          <green>64</green>
+          <blue>38</blue>
          </color>
          <color>
           <red>0</red>
@@ -291,18 +291,24 @@
           <blue>255</blue>
          </color>
          <color>
-          <red>245</red>
-          <green>244</green>
-          <blue>235</blue>
+          <red>0</red>
+          <green>64</green>
+          <blue>38</blue>
          </color>
         </disabled>
        </palette>
       </property>
+      <property name="autoFillBackground" >
+       <bool>true</bool>
+      </property>
       <property name="frameShape" >
-       <enum>QFrame::StyledPanel</enum>
+       <enum>QFrame::NoFrame</enum>
       </property>
       <property name="frameShadow" >
-       <enum>QFrame::Raised</enum>
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="lineWidth" >
+       <number>0</number>
       </property>
       <layout class="QVBoxLayout" >
        <property name="margin" >
