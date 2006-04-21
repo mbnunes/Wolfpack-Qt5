@@ -30,6 +30,7 @@
 #include <QEvent>
 #include <QPainter>
 #include <QMouseEvent>
+#include <QSysInfo>
 
 #include <qt_windows.h>
 
@@ -102,7 +103,7 @@ public:
     bool trayMessageW( DWORD msg )
     {
 		resolveLibs();
-		if ( ! (ptrShell_NotifyIcon && qWinVersion() & Qt::WV_NT_based) )
+		if ( ! (ptrShell_NotifyIcon && QSysInfo::WindowsVersion & QSysInfo::WV_NT_based) )
 			return trayMessageA( msg );
 
 		NOTIFYICONDATAW tnd;
