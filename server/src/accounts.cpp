@@ -418,7 +418,7 @@ void cAccounts::save()
 			query.addBindValue( account->login_ );
 			query.addBindValue( account->password_ );
 			query.addBindValue( QVariant::fromValue<uint>( account->flags_ ) );
-			query.addBindValue( account->aclName_ );
+			query.addBindValue( account->aclName_.isEmpty() ? "" : account->aclName_ );
 			query.addBindValue( QVariant::fromValue<uint>( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ) );
 			query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 ) );
 			query.addBindValue( QString(account->email_) );
