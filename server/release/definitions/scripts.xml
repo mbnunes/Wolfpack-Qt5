@@ -26,7 +26,6 @@
 	<script>housing.house</script>
 	<script>housing.sign</script>
 	<script>housing.security</script>
-
 	<script>ankh</script>
 	<script>arcanegem</script>
 	<script>archery_butte</script>
@@ -121,6 +120,7 @@
 	<script>combat</script>
 	<script>combat.specialmoves</script>
 	<script>combat.hiteffects</script>
+	<script>combat.paralyze_blow</script>
 
 	<!-- Guilds -->
 	<script>guilds</script>

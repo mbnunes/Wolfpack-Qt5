@@ -754,6 +754,8 @@ class ParalyzeBlow(BaseAbility):
 		else:
 			duration = 6000
 
+		defender.addscript("combat.paralyze_blow")
+
 		# Use the normal paralyze code from here
 		defender.disturb()
 		defender.frozen = True
