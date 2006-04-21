@@ -1054,7 +1054,9 @@ void cWorld::save()
 
 			PersistentBroker::instance()->startTransaction();
 
-			query.exec("TRUNCATE spawnregions");
+			if (!query.exec("TRUNCATE spawnregions")) {
+				query.exec("DELETE FROM spawnregions;");
+			}
 			query.prepare( "INSERT INTO spawnregions VALUES(?,?)" );
 
 			cItemIterator iItems;

@@ -371,6 +371,8 @@ void cAccounts::save()
 		}
 	}
 
+	bool transaction;
+
 	try
 	{
 		if ( !db.isOpen() )
@@ -382,19 +384,30 @@ void cAccounts::save()
 			db.setPort( Config::instance()->accountsPort() );
 			if ( !db.open() )
 				throw wpException( db.lastError().text() );
+			db.exec( "PRAGMA synchronous = OFF;" );
+			db.exec( "PRAGMA default_synchronous = OFF;" );
+			db.exec( "PRAGMA full_column_names = OFF;" );
+			db.exec( "PRAGMA show_datatypes = OFF;" );
+			db.exec( "PRAGMA parser_trace = OFF;" );
 		}
 
 		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
 		{
 			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
 			db.exec( createSql );
-			cAccount* account = createAccount( "admin", "admin" );
-			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
+			if (!getRecord("admin")) {
+				cAccount* account = createAccount( "admin", "admin" );
+				Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
+			}
 		}
+
+		transaction = db.transaction();
 
 		// Lock the table
 		QSqlQuery query( db );
-		query.exec( "TRUNCATE accounts" );
+		if (!query.exec( "TRUNCATE accounts" )) {
+			query.exec("DELETE FROM accounts");
+		}
 		query.prepare( "insert into accounts values( ?, ?, ?, ?, ?, ?, ? )" );
 		iterator it = accounts.begin();
 		for ( ; it != accounts.end(); ++it )
@@ -410,17 +423,25 @@ void cAccounts::save()
 			query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 ) );
 			query.addBindValue( QString(account->email_) );
 
-			query.exec();
+			if (!query.exec()) {
+				Console::instance()->log(LOG_ERROR, tr("Unable to save account '%1' because of the following error: %2").arg( account->login_ ).arg(query.lastError().text()));
+			}
 		}
+
+		db.commit();		
 	}
 	catch ( wpException& error )
 	{
+		db.rollback();
 		Console::instance()->log( LOG_ERROR, tr( "Error while saving Accounts: %1." ).arg( error.error() ) );
 	}
 	catch ( ... )
 	{
+		db.rollback();
 		Console::instance()->log( LOG_ERROR, tr( "Unknown error while saving Accounts." ) );
 	}
+
+	db.close();
 }
 
 void cAccounts::load()
@@ -448,6 +469,11 @@ void cAccounts::load()
 			db.setPort( Config::instance()->accountsPort() );
 			if ( !db.open() )
 				throw wpException( db.lastError().text() );
+			db.exec( "PRAGMA synchronous = OFF;" );
+			db.exec( "PRAGMA default_synchronous = OFF;" );
+			db.exec( "PRAGMA full_column_names = OFF;" );
+			db.exec( "PRAGMA show_datatypes = OFF;" );
+			db.exec( "PRAGMA parser_trace = OFF;" );
 		}
 
 		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
