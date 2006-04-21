@@ -27,6 +27,7 @@
 
 // Wolfpack Includes
 #include "accounts.h"
+#include "exceptions.h"
 #include "serverconfig.h"
 #include "dbdriver.h"
 #include "console.h"

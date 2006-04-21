@@ -93,14 +93,14 @@ public:
 
 	void load();
 	void unload();
+
+	static QString version();
 };
 
 typedef Singleton<cPythonEngine> PythonEngine;
 
 void registerCleanupHandler( fnCleanupHandler );
 void reloadPython();
-void stopPython();
-void startPython( int argc, char* argv[] );
 void reportPythonError( const QString& moduleName = QString::null );
 
 #endif // __PYTHON_ENGINE_H__

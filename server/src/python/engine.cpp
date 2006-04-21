@@ -81,7 +81,7 @@ void init_wolfpack_globals();
 /*!
 	Stops the python interpreter
 */
-void stopPython()
+static void stopPython()
 {
 	// Give the Python Threads time to finalize
 	Py_BEGIN_ALLOW_THREADS
@@ -102,7 +102,7 @@ void stopPython()
 /*!
 	Starts the python interpreter
 */
-void startPython( int argc, char* argv[] )
+static void startPython( int argc, char* argv[] )
 {
 	Py_SetProgramName( argv[0] );
 
@@ -301,4 +301,9 @@ void cPythonEngine::unload()
 {
 	stopPython();
 	cComponent::unload();
+}
+
+QString cPythonEngine::version()
+{
+	return Py_GetVersion();
 }

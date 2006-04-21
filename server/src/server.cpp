@@ -32,6 +32,7 @@
 #include "ai/ai_mage.h"
 #include "ai/ai_bladespirit.h"
 #include "ai/ai_energyvortex.h"
+#include "exceptions.h"
 #include "basedef.h"
 #include "basics.h"
 #include "commands.h"
@@ -506,14 +507,12 @@ void cServer::setupConsole()
 	if (sqlDrivers.isEmpty()) {
 		Console::instance()->send( tr("none") );
 	} else {
-		foreach(QString name, sqlDrivers) {
-			Console::instance()->send( name + " " );
-		}
+		Console::instance()->send( sqlDrivers.join(" ") );
 	}
 
 	Console::instance()->send("\n");
 
-	QString pythonBuild = Py_GetVersion();
+	QString pythonBuild = cPythonEngine::version();
 	pythonBuild = pythonBuild.left( pythonBuild.indexOf( ' ' ) );
 
 #if defined(Py_ENABLE_SHARED)
