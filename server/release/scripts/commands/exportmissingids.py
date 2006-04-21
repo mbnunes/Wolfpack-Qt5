@@ -12,7 +12,7 @@
 	\description Export a list of item ids that have no item definition.
 	\notes Tiledata.mul is searched for item ids.
 	
-	Be carefull, not all found items do exist in art.mul.
+	Be careful, not all found items do exist in art.mul.
 
 """
 

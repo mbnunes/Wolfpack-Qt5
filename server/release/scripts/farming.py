@@ -73,7 +73,6 @@ def onAttach(obj):
 def onDetach(obj):
 	unregister(obj)
 
-
 #
 # This prevents too many growth checks
 #
@@ -93,7 +92,7 @@ def gainresObject(obj, args):
 	# Copy the list of known object serials and
 	# start the subprocessing function
 	processGainresObject(None, ( OBJECTS[:], 0, magic_farming ))
-	
+
 #
 # This function is both, a timer callback and a function that can be normally
 # called to process a list of object serials and check their growth.

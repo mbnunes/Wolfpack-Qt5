@@ -178,10 +178,6 @@ def response( char, args, target ):
 	# Show the Fishing animation
 	char.action( 0x0c )
 
-	# Wearout of fishing poles ?
-	# ID: 0x7AD86 (0)
-	# You broke your fishing pole.
-
 	socket.settag( 'is_fishing', int( wolfpack.time.currenttime() + 5000 ) ) # Times out after 5000ms
 	char.addtimer( 2500, effecttimer, [ pos, deepwater ] )
 	char.addtimer( 5000, itemtimer, [ pos, deepwater, args[0] ] )

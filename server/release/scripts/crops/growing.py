@@ -23,6 +23,11 @@ CHECKSPERCYCLE = 250
 CHECKDELAY = 1000
 
 #
+# If the item is not in stages, after how many it should be ready to be harvested
+#
+MINSTAGE = 3
+
+#
 # This function registers a new crop
 #
 def register(crop):
@@ -62,7 +67,7 @@ def growthCheck(obj, args):
 	# Copy the list of known plant serials and
 	# start the subprocessing function
 	processGrowthCheck(None, ( CROPS[:], 0, magic_crops ))
-	
+
 #
 # This function is both, a timer callback and a function that can be normally
 # called to process a list of crop serials and check their growth.
@@ -82,12 +87,7 @@ def processGrowthCheck(obj, args):
 	for i in range(index, upperindex):
 		try:
 			crop = wolfpack.finditem(croplist[i])
-			if crop and crop.baseid in stages.keys():
-				growCrop(crop)
-			else:
-				console.log(LOG_ERROR, "An error occured while checking crop 0x%x: Baseid is not in Stages list.\n" % crop.serial)
-				crop.removescript("crops.growing")
-				unregister(crop)
+			growCrop(crop)
 		except Exception, e:
 			console.log(LOG_ERROR, "An error occured while checking crop 0x%x: %s.\n" % (crop.serial, str(e)))
 
@@ -114,16 +114,23 @@ def growCrop(crop):
 	stage = crop.gettag( "stage" )
 
 	# Set the new id
-	new_id = random.choice(stages[base][stage])
-	crop.id = new_id
-	crop.update()
+	if crop.baseid in stages.keys():
+		new_id = random.choice(stages[base][stage])
+		crop.id = new_id
+		crop.update()
 
-	# if it's ripe, remove it from growth check
-	if len(stages[base][:-4]) == stage:
-		unregister(crop)
-		crop.removescript("crops.growing")
-		crop.addscript("crops.harvest")
-		crop.deltag( "stage" )
+		# if it's ripe, remove it from growth check
+		if len(stages[base][:-4]) == stage:
+			unregister(crop)
+			crop.removescript("crops.growing")
+			crop.addscript("crops.harvest")
+			crop.deltag( "stage" )
+	else:
+		if stage >= MINSTAGE:
+			unregister(crop)
+			crop.removescript("crops.growing")
+			crop.addscript("crops.harvest")
+			crop.deltag( "stage" )
 
 def onUse(char, crop):
 	char.socket.sysmessage( tr("That is not ripe yet.") )
