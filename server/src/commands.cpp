@@ -78,16 +78,35 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 	if ( !pChar->account()->authorized( "command", pCommand ) )
 	{
 		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.toLower() ) );
-		socket->log( tr( "Access to command '%1' was denied\n" ).arg( pCommand.toLower() ) );
+		socket->log( 
+			tr( "Character '%1', account '%2' used command '%3', access denied\n"
+				).arg( socket->player()->orgName()
+				).arg( socket->player()->account()->login()
+				).arg( pCommand.toLower() 
+			)
+		);
+
 		return;
 	}
 
 	// Dispatch the command
-	socket->log( tr( "Used command '%1'.\n" ).arg( command ) );
-
+	socket->log( 
+		tr( "Character '%1', account '%2' used command '%3'\n"
+			).arg( socket->player()->orgName()
+			).arg( socket->player()->account()->login()
+			).arg( pCommand.toLower() 
+		)
+	);
 	if ( !dispatch( socket, pCommand, pArgs ) )
 	{
-		socket->log( tr( "Unknown command used: %1.\n" ).arg( command ) );
+		socket->log( 
+			tr( "Character '%1', account '%2' used unknown command '%3'\n"
+				).arg( socket->player()->orgName()
+				).arg( socket->player()->account()->login()
+				).arg( pCommand.toLower() 
+			)
+		);
+
 	}
 }
 

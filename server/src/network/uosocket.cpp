@@ -915,7 +915,13 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter* packet )
 
 	if ( pChar )
 	{
-		log(tr("Deleting character %1 (0x%2).\n").arg(pChar->orgName()).arg(pChar->serial(), 0, 16));
+		log( tr( "Client '%1', account '%2', deletes character '%3' (serial=0x%4).\n"
+				).arg( _ip
+		  	).arg( pChar->account()->login()  // accountname
+				).arg( pChar->orgName() // original char name
+				).arg( pChar->serial(), 0, 16)
+		);
+
 		pChar->remove();
 	}
 
@@ -968,7 +974,15 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 		}
 	}
 
-	log( LOG_MESSAGE, tr( "Selected character '%1' (0x%2).\n" ).arg( pChar->name() ).arg( pChar->serial(), 0, 16 ) );
+	log( LOG_MESSAGE,
+		tr( "Client '%1', account '%2', selected character '%3' (0x%4).\n"
+				).arg( _ip
+				).arg( pChar->orgName()
+				).arg( pChar->account()->login()
+				).arg( pChar->serial(), 0, 16 
+				)
+		);
+
 	playChar( pChar );
 
 	// if this char was lingering, cancel the auto-logoff and don't send the onLogin() event
@@ -1206,17 +1220,29 @@ bool cUOSocket::authenticate( const QString& username, const QString& password )
 			}
 			case cAccounts::BadPassword:
 			{
-				log( tr( "Failed to log in as '%1', wrong password\n" ).arg( username ) );
+				log( tr( "Client '%1' failed to log in as account '%2', wrong password\n"
+						).arg( _ip
+						).arg( username )
+				);
+
 				denyPacket.setReason( cUOTxDenyLogin::DL_BADPASSWORD );
 				break;
 			}
 			case cAccounts::Wipped:
 			case cAccounts::Banned:
-				log( tr( "Failed to log in as '%1', Wipped/Banned account\n" ).arg( username ) );
+				log( tr( "Client '%1' failed to log in as account '%2', wiped/banned\n"
+						).arg( _ip
+						).arg( username )
+				);
+
 				denyPacket.setReason( cUOTxDenyLogin::DL_BLOCKED );
 				break;
 			case cAccounts::AlreadyInUse:
-				log( tr( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
+				log( tr( "Client '%1' failed to log in as account '%2', account is already in use\n"
+						).arg( _ip
+						).arg( username )
+				);
+
 				denyPacket.setReason( cUOTxDenyLogin::DL_INUSE );
 				break;
 			case cAccounts::NoError:
@@ -1225,12 +1251,19 @@ bool cUOSocket::authenticate( const QString& username, const QString& password )
 				break;
 		};
 
-		log( tr( "Failed to log in as '%1'.\n" ).arg( username ) );
+		log( tr( "Client '%1' failed to log in as account '%2'.\n"
+				).arg( _ip
+				).arg( username )
+		);
+
 		send( &denyPacket );
 	}
 	else if ( error == cAccounts::NoError )
 	{
-		log( tr( "Logged in as '%1'.\n" ).arg( username ) );
+		log( tr( "Client '%1' logged in as '%2'.\n"
+				).arg( _ip
+				).arg( username )
+		);
 	}
 
 	_account = authRet;
@@ -1494,7 +1527,13 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	pChar->giveNewbieItems( skillid );
 	pChar->giveNewbieItems( skillid2 );
 
-	log( LOG_MESSAGE, tr( "Created character '%1' (0x%2).\n" ).arg( pChar->name() ).arg( pChar->serial(), 0, 16 ) );
+	log( LOG_MESSAGE, tr( "Client '%1', account '%2', created character '%3' (serial=0x%4).\n"
+				).arg( _ip
+				).arg( pChar->account()->login()
+				).arg( pChar->name()
+				).arg( pChar->serial(), 0, 16 )
+	);
+
 
 	// Save the flags
 	flags_ = packet->flags();

@@ -266,7 +266,14 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 	}
 
 	// log
-	pChar->log( LOG_SPEECH, tr( "Saying '%1' (%2, 0x%3).\n" ).arg( speech ).arg( font ).arg( color, 0, 16 ) );
+	pChar->log( LOG_SPEECH, 
+		tr( "Character '%1' says '%2' (font=%3, color=0x%4).\n" 
+			).arg( pChar->orgName() 
+			).arg( speech 
+			).arg( font 
+			).arg( color, 0, 16 
+		) 
+	);
 
 	pChar->unhide();
 

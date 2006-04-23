@@ -91,7 +91,7 @@ void cNetwork::incomingGameServerConnection()
 	d->uoSockets.append( uosocket );
 	connect( uosocket, SIGNAL(disconnected()), this, SLOT(partingGameServerConnection()) );
 	// Notify the admin
-	uosocket->log( tr( "Client connected to game server (%1).\n" ).arg( socket->peerAddress().toString() ) );
+	uosocket->log( tr( "Client '%1' connected to game server.\n" ).arg( socket->peerAddress().toString() ) );
 }
 
 void cNetwork::incomingLoginServerConnection()
@@ -102,7 +102,7 @@ void cNetwork::incomingLoginServerConnection()
 
 	connect( uosocket, SIGNAL(disconnected()), this, SLOT(partingLoginServerConnection()) );
 	// Notify the admin
-	uosocket->log( tr( "Client connected to login server (%1).\n" ).arg( socket->peerAddress().toString() ) );
+	uosocket->log( tr( "Client '%1' connected to login server.\n" ).arg( socket->peerAddress().toString() ) );
 }
 
 void cNetwork::partingLoginServerConnection()
@@ -111,7 +111,7 @@ void cNetwork::partingLoginServerConnection()
 	uoSocket->disconnect();
 	d->loginSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();
-	uoSocket->log( tr( "Client disconnected.\n" ) );
+	uoSocket->log( tr( "Client '%1' disconnected from loginserver.\n" ).arg( uoSocket->ip()) );
 }
 
 void cNetwork::partingGameServerConnection()
@@ -120,7 +120,8 @@ void cNetwork::partingGameServerConnection()
 	uoSocket->disconnect();
 	d->uoSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();
-	uoSocket->log( tr( "Client disconnected.\n" ) );
+	// account info?
+	uoSocket->log( tr( "Client '%1' disconnected from gameserver.\n" ).arg( uoSocket->ip()) );
 }
 
 // Load IP Blocking rules

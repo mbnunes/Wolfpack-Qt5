@@ -134,21 +134,23 @@ void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool
 
 		if ( sock )
 			prelude.append( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
+		else
+			prelude.append( QString( "--:" ) );
 	}
 
 	// LogLevel
 	switch ( loglevel )
 	{
 	case LOG_ERROR:
-		prelude.append( "ERROR: " );
+		prelude.append( " ERROR: " );
 		break;
 
 	case LOG_WARNING:
-		prelude.append( "WARNING: " );
+		prelude.append( " WARNING: " );
 		break;
 
 	case LOG_PYTHON:
-		prelude.append( "PYTHON: " );
+		prelude.append( " PYTHON: " );
 		break;
 
 	default:
@@ -187,6 +189,8 @@ void cLog::print( eLogLevel loglevel, cUOSocket* sock, const QString& string, bo
 
 		if ( sock )
 			Console::instance()->send( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
+		else	
+			Console::instance()->send( QString( "--:" ));
 	}
 
 	// LogLevel
