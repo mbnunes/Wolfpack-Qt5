@@ -251,6 +251,7 @@ class MindBlast (DelayedDamageSpell):
 def paralyze_expire(char, arguments):
 	if char:
 		char.frozen = 0
+		char.removescript("combat.paralyze_blow")
 		char.resendtooltip()
 
 class Paralyze (CharEffectSpell):
