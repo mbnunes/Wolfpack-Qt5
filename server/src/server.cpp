@@ -280,7 +280,6 @@ void cServer::run()
 	signal( SIGPIPE, SIG_IGN );
 #endif
 
-	bool error = false;
 	QEventLoop eventLoop;
 
 	CommandLineOptions::instance()->addOption("-c", "configFile", "Alternative config file to use. Default=wolfpack.xml", true);
@@ -382,7 +381,7 @@ void cServer::run()
 	catch ( wpException& e )
 	{
 		Console::instance()->log( LOG_ERROR, e.error() + "\n" );
-		return;
+		cancel();
 	}
 
 
@@ -391,14 +390,12 @@ void cServer::run()
 		// Open the Worldsave and Account Database drivers.
 		if ( Config::instance()->databaseDriver() != "binary" && !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 		{
-			Console::instance()->log( LOG_ERROR, tr( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
-			return;
+			throw wpException( tr( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
 		}
 
 		if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 		{
-			Console::instance()->log( LOG_ERROR, tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
-			return;
+			throw wpException( tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
 		}
 
 		setState( RUNNING );
@@ -472,7 +469,6 @@ void cServer::run()
 	catch ( wpException& exception )
 	{
 		Console::instance()->log( LOG_ERROR, exception.error() + "\n" );
-		error = true;
 	} /*catch (...) {
 	  	error = true;
 	  }*/
