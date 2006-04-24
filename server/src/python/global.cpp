@@ -2725,26 +2725,26 @@ BOOST_PYTHON_MODULE(_wolfpack)
 
 	PyObject* wpNamespace = Py_InitModule( "_wolfpack", wpGlobal );
 
-	object mConsole ( handle<>( borrowed(PyImport_AddModule("console") ) ) );
+	object mConsole ( ( handle<>( borrowed(PyImport_AddModule("console") ) ) ) );
 //	scope().attr("console") = console;
 
 //	object mConsole ( handle<>( borrowed( Py_InitModule( "_wolfpack.console", wpConsole ) ) ) );
 
 	scope().attr("console") = mConsole;
 
-	object mAccounts ( handle<>( borrowed( Py_InitModule( "_wolfpack.accounts", wpAccounts ) ) ) );
+	object mAccounts ( ( handle<>( borrowed( Py_InitModule( "_wolfpack.accounts", wpAccounts ) ) ) ) );
 	scope().attr("accounts") = mAccounts;
 
-	object mSockets ( handle<>( borrowed( Py_InitModule( "_wolfpack.sockets", wpSockets ) ) ) );
+	object mSockets ( ( handle<>( borrowed( Py_InitModule( "_wolfpack.sockets", wpSockets ) ) ) ) );
 	scope().attr("sockets") = mSockets;
 
-	object mTime ( handle<>( borrowed( Py_InitModule( "_wolfpack.time", wpTime ) ) ) );
+	object mTime ( ( handle<>( borrowed( Py_InitModule( "_wolfpack.time", wpTime ) ) ) ) );
 	scope().attr("time") = mTime;
 
-	object mSettings ( handle<>( borrowed ( Py_InitModule( "_wolfpack.settings", wpSettings ) ) ) );
+	object mSettings ( ( handle<>( borrowed ( Py_InitModule( "_wolfpack.settings", wpSettings ) ) ) ) );
 	scope().attr("settings") = mSettings;
 
-	object mDatabase ( handle<>( borrowed ( Py_InitModule( "_wolfpack.database", wpDatabase ) ) ) );
+	object mDatabase ( ( handle<>( borrowed ( Py_InitModule( "_wolfpack.database", wpDatabase ) ) ) ) );
 	scope().attr("database") = mDatabase;
 }
 

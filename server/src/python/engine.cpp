@@ -132,7 +132,7 @@ static void startPython( int argc, char* argv[] )
 	}
 	
 	// Import site now
-	object siteModule( handle<>( PyImport_ImportModule( "site" ) ) );
+	object siteModule = extract<object>( PyImport_ImportModule( "site" ) );
 
 	// Try changing the stderr + stdout pointers
 	PyObject* file = PyFile_FromString( "python.log", "w" );
@@ -178,7 +178,7 @@ void reportPythonError( const QString& moduleName )
 		PySys_SetObject( "last_value", value );
 		PySys_SetObject( "last_traceback", traceback );
 
-		object exceptionName( handle<>( PyObject_GetAttrString( exception, "__name__" ) ) );
+		object exceptionName( ( handle<>( PyObject_GetAttrString( exception, "__name__" ) ) ) );
 
 		// Do we have a detailed description of the error ?
 		PyObject* error = value != 0 ? PyObject_Str( value ) : 0;

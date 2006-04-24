@@ -72,8 +72,11 @@ struct QString_from_python_str
 			//QString* result = new(storage) QString;
 			
 #if defined(Py_UNICODE_WIDE)
-			object unicode( handle<>( PyUnicode_AsUTF16String( obj ) ) );
-			new(storage) QString( (const QChar *)PyString_AsString( unicode.ptr() ), PyString_Size( obj ) );
+			PY_UNICODE_TYPE *ucode = PyUnicode_AS_UNICODE( obj );
+			int len = PyUnicode_GET_SIZE( obj );
+			QString* out = new(storage) QString;
+			for ( int i = 0; i < len; ++i )
+				out->append( (uint)ucode[i] );
 #else
 			new(storage) QString( (const QChar *)PyUnicode_AS_UNICODE( obj ), PyUnicode_GetSize(obj) );
 #endif
