@@ -19,6 +19,7 @@ HEADERS += \
 
 SOURCES += \
 	$$PWD/char.cpp \
+	$$PWD/converters.cpp \
 	$$PWD/engine.cpp \
 	$$PWD/global.cpp \
 	$$PWD/item.cpp \
