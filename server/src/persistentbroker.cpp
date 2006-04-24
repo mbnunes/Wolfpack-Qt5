@@ -156,7 +156,7 @@ bool cPersistentBroker::executeQuery( const QString& query )
 	QSqlQuery q;
 	if ( !q.exec( query ) )
 	{
-		Console::instance()->log( LOG_ERROR, d->connection.lastError().text() );
+		Console::instance()->log( LOG_ERROR, q.lastError().text() );
 		return false;
 	}
 	return true;
