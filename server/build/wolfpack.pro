@@ -21,15 +21,9 @@ RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
-win32:DEFINES -= UNICODE
-win32:LIBS += -lws2_32 -lcomctl32 -lwininet -lkernel32 -luser32 -lgdi32 -lwinspool -lcomdlg32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lodbc32 -lodbccp32
+DEFINES += BOOST_PYTHON_STATIC_LIB
 
-# make confclean
-unix {
-	confclean.depends += clean
-	confclean.commands += $(DEL_FILE) config.pri 
-	QMAKE_EXTRA_UNIX_TARGETS += confclean 
-}
+win32:LIBS += -lws2_32 -lkernel32 -luser32 -lgdi32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lodbc32 -lodbccp32
 
 # Include configure settings
 !include(config.pri) {
@@ -50,6 +44,8 @@ console {
 	include(../src/gui/gui.pri)
 }
 
+LIBS += -lboost_python -L../boost/lib/
+INCLUDEPATH += ../boost/include
 PYTHON_CPP = ../src/python
 PYTHON_H = ../src/python
 NETWORK_H = ../src/network
@@ -213,6 +209,14 @@ DISTFILES += \
 	../release/LICENSE.GPL \
 	../release/NEWS \
 	../release/README
+
+
+# make confclean
+unix {
+	confclean.depends += clean
+	confclean.commands += $(DEL_FILE) config.pri 
+	QMAKE_EXTRA_UNIX_TARGETS += confclean 
+}
 
 # used by tools/translationupdate, our own version of lupdate
 # WPDEFINITIONS is the folder where xml definitons are.

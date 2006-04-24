@@ -100,7 +100,6 @@ public:
 typedef Singleton<cPythonEngine> PythonEngine;
 
 void registerCleanupHandler( fnCleanupHandler );
-void reloadPython();
 void reportPythonError( const QString& moduleName = QString::null );
 
 #endif // __PYTHON_ENGINE_H__

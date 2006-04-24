@@ -25,6 +25,7 @@
  * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
+#include <boost/python.hpp>
 #include "engine.h"
 
 #include "../basics.h"
@@ -69,6 +70,8 @@
 #include <QDateTime>
 #include <QMutex>
 #include <QCoreApplication>
+
+using namespace boost::python;
 
 PyObject* PyGetObjectObject( cUObject* object )
 {
@@ -135,147 +138,81 @@ static QStringList getFlagNames( unsigned char flag1, unsigned char flag2, unsig
 }
 
 /*
-	\function wolfpack.console.log
-	\param loglevel The loglevel for this message. See the "Log Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for
-	details.
-	\param text The text of the message.
-	\description Sends a string to the console and the logfile.
+\function wolfpack.console.log
+\param loglevel The loglevel for this message. See the "Log Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for
+details.
+\param text The text of the message.
+\description Sends a string to the console and the logfile.
 */
-static PyObject* wpConsole_log( PyObject* self, PyObject* args )
+void wpConsole_log(int loglevel, QString text )
 {
-	Q_UNUSED( self );
-
-	char loglevel;
-	PyObject *text;
-
-	if ( !PyArg_ParseTuple( args, "bO:wolfpack.console.log( loglevel, text )", &loglevel, &text ) )
-		return 0;
-
-	Console::instance()->log( ( eLogLevel ) loglevel, Python2QString( text ) );
-
-	Py_RETURN_TRUE;
+	Console::instance()->log( ( eLogLevel ) loglevel, text );
 }
 
 /*
-	\function wolfpack.console.send
-	\param text The text of the message.
-	\description Prints a string on the server console.
+\function wolfpack.console.send
+\param text The text of the message.
+\description Prints a string on the server console.
 */
-static PyObject* wpConsole_send( PyObject* self, PyObject* args )
+void wpConsole_send( QString text )
 {
-	Q_UNUSED( self );
-	if ( PyTuple_Size( args ) < 1 )
-		Py_RETURN_FALSE;
-
-	PyObject* pyMessage = PyTuple_GetItem( args, 0 );
-
-	if ( pyMessage == Py_None )
-		Py_RETURN_FALSE;
-
-	Console::instance()->send( PyString_AS_STRING( pyMessage ) );
-
-	Py_RETURN_TRUE;
+	Console::instance()->send( text );
 }
 
 /*
-	\function wolfpack.console.sendprogress
-	\param text The progress identifier.
-	\description Prints a string on the console that identifies the start of a progress display.
+\function wolfpack.console.sendprogress
+\param text The progress identifier.
+\description Prints a string on the console that identifies the start of a progress display.
 */
-static PyObject* wpConsole_sendprogress( PyObject* self, PyObject* args )
+void wpConsole_sendprogress( QString message )
 {
-	Q_UNUSED( self );
-	char* message;
-	if ( !PyArg_ParseTuple( args, "es", "utf-8", &message ) )
-	{
-		return 0;
-	}
-
-	Console::instance()->sendProgress( QString::fromUtf8( message ) );
-
-	PyMem_Free( message );
-
-	Py_RETURN_NONE;
+	Console::instance()->sendProgress( message );
 }
 
 /*
-	\function wolfpack.console.senddone
-	\description Indicates that a printed progress action is now done.
+\function wolfpack.console.senddone
+\description Indicates that a printed progress action is now done.
 */
-static PyObject* wpConsole_senddone( PyObject* self, PyObject* args )
+void wpConsole_senddone()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
 	Console::instance()->sendDone();
-	Py_RETURN_NONE;
 }
 
 /*
-	\function wolfpack.console.sendfail
-	\description Indicates that a printed progress action has failed.
+\function wolfpack.console.sendfail
+\description Indicates that a printed progress action has failed.
 */
-static PyObject* wpConsole_sendfail( PyObject* self, PyObject* args )
+void wpConsole_sendfail()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
 	Console::instance()->sendFail();
-	Py_RETURN_NONE;
 }
 
 /*
-	\function wolfpack.console.sendskip
-	\description Indicates that a printed progress action has been skipped.
+\function wolfpack.console.sendskip
+\description Indicates that a printed progress action has been skipped.
 */
-static PyObject* wpConsole_sendskip( PyObject* self, PyObject* args )
+void wpConsole_sendskip()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
 	Console::instance()->sendSkip();
-	Py_RETURN_NONE;
 }
 
 /*
-	\function wolfpack.console.getbuffer
-	\return A list of the strings that have been sent to the console previously.
+\function wolfpack.console.getbuffer
+\return A list of the strings that have been sent to the console previously.
 */
-static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
+QString wpConsole_getbuffer()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-
-	return QString2Python( Console::instance()->linebuffer() );
+	return Console::instance()->linebuffer();
 }
 
 /*
-	\function wolfpack.console.shutdown
-	\description Shutdown the server.
+\function wolfpack.console.shutdown
+\description Shutdown the server.
 */
-static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
+void wpConsole_shutdown()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
 	Server::instance()->cancel();
-
-	Py_RETURN_TRUE;
 }
-
-/*!
-	wolfpack.console
-	Initializes wolfpack.console
-*/
-static PyMethodDef wpConsole[] =
-{
-{ "send",			wpConsole_send,			METH_VARARGS,	0 },
-{ "sendprogress",	wpConsole_sendprogress,	METH_VARARGS,	0 },
-{ "senddone",		wpConsole_senddone,		METH_NOARGS,	0 },
-{ "sendfail",		wpConsole_sendfail,		METH_NOARGS,	0 },
-{ "sendskip",		wpConsole_sendskip,		METH_NOARGS,	0 },
-{ "getbuffer",		wpConsole_getbuffer,	METH_NOARGS,	0 },
-{ "log",			wpConsole_log,			METH_VARARGS,	0 },
-{ "shutdown",		wpConsole_shutdown,		METH_NOARGS,	0 },
-{ NULL, NULL, 0, NULL } // Terminator
-
-};
 
 /*
 	\function wolfpack.time.minute
@@ -2757,39 +2694,58 @@ static PyMethodDef wpDatabase[] =
 { 0, 0, 0, 0 }
 };
 
+BOOST_PYTHON_MODULE(console)
+{
+	def( "log", wpConsole_log );
+	def( "send", wpConsole_send );
+	def( "sendprogress",	wpConsole_sendprogress );
+	def( "senddone", wpConsole_senddone );
+	def( "sendfail", wpConsole_sendfail );
+	def( "sendskip", wpConsole_sendskip );
+	def( "getbuffer", wpConsole_getbuffer );
+	def( "shutdown", wpConsole_shutdown );
+}
+
+void init_wolfpack_console()
+{
+	boost::python::detail::init_module("_wolfpack.console", initconsole);
+}
+
 /*!
 	This initializes the _wolfpack namespace and it's sub extensions
 */
-void init_wolfpack_globals()
+BOOST_PYTHON_MODULE(_wolfpack)
 {
+	// Namespace level definitions
+
+	// Configure subpackages
+	//scope().attr("__path__") = "_wolfpack";
+
+	init_wolfpack_console();
+
 	PyObject* wpNamespace = Py_InitModule( "_wolfpack", wpGlobal );
 
-	PyObject* mConsole = Py_InitModule( "_wolfpack.console", wpConsole );
-	PyObject_SetAttrString( wpNamespace, "console", mConsole );
+	object mConsole ( handle<>( borrowed(PyImport_AddModule("console") ) ) );
+//	scope().attr("console") = console;
 
-	PyObject* mAccounts = Py_InitModule( "_wolfpack.accounts", wpAccounts );
-	PyObject_SetAttrString( wpNamespace, "accounts", mAccounts );
+//	object mConsole ( handle<>( borrowed( Py_InitModule( "_wolfpack.console", wpConsole ) ) ) );
 
-	PyObject* mSockets = Py_InitModule( "_wolfpack.sockets", wpSockets );
-	PyObject_SetAttrString( wpNamespace, "sockets", mSockets );
+	scope().attr("console") = mConsole;
 
-	PyObject* mTime = Py_InitModule( "_wolfpack.time", wpTime );
-	PyObject_SetAttrString( wpNamespace, "time", mTime );
+	object mAccounts ( handle<>( borrowed( Py_InitModule( "_wolfpack.accounts", wpAccounts ) ) ) );
+	scope().attr("accounts") = mAccounts;
 
-	PyObject* mSettings = Py_InitModule( "_wolfpack.settings", wpSettings );
-	PyObject_SetAttrString( wpNamespace, "settings", mSettings );
+	object mSockets ( handle<>( borrowed( Py_InitModule( "_wolfpack.sockets", wpSockets ) ) ) );
+	scope().attr("sockets") = mSockets;
 
-	PyObject* mDatabase = Py_InitModule( "_wolfpack.database", wpDatabase );
-	PyObject_SetAttrString( wpNamespace, "database", mDatabase );
+	object mTime ( handle<>( borrowed( Py_InitModule( "_wolfpack.time", wpTime ) ) ) );
+	scope().attr("time") = mTime;
 
-	// Try to import the wolfpack module and add some integer constants
-	/*PyObject *module;
-	module = PyImport_ImportModule("wolfpack.consts");
-	if (!module) {
-		reportPythonError("wolfpack.consts");
-		return;
-	}
-	Py_DECREF(module);*/
+	object mSettings ( handle<>( borrowed ( Py_InitModule( "_wolfpack.settings", wpSettings ) ) ) );
+	scope().attr("settings") = mSettings;
+
+	object mDatabase ( handle<>( borrowed ( Py_InitModule( "_wolfpack.database", wpDatabase ) ) ) );
+	scope().attr("database") = mDatabase;
 }
 
 int PyConvertObject( PyObject* object, cUObject** uoobject )

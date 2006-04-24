@@ -30,6 +30,10 @@
 #if defined __cplusplus
 /* Add C++ includes here */
 
+// Boost.Python
+#include <boost/python.hpp>
+
+// Qt Includes
 #include <QtGlobal>
 #include <QString>
 #include <QStringList>

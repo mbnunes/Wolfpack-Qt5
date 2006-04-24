@@ -25,6 +25,9 @@
  * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
  */
 
+// Boost.Python
+#include <boost/python.hpp>
+
 #include "engine.h"
 #include "utilities.h"
 
@@ -38,6 +41,8 @@
 #include <QWaitCondition>
 #include <QCoreApplication>
 #include <QList>
+
+using namespace boost::python;
 
 // Python Functions
 QList<PythonFunction*> PythonFunction::instances;
@@ -78,6 +83,7 @@ CleanupAutoRegister::CleanupAutoRegister( fnCleanupHandler handler )
 // Forward declaration for wolfpack extension function
 void init_wolfpack_globals();
 
+
 /*!
 	Stops the python interpreter
 */
@@ -102,29 +108,31 @@ static void stopPython()
 /*!
 	Starts the python interpreter
 */
+extern "C"  void init_wolfpack();
 static void startPython( int argc, char* argv[] )
 {
+	using namespace boost::python;
 	Py_SetProgramName( argv[0] );
 
 	Py_NoSiteFlag = 1; // No import because we need to set the search path first
 
+	PyImport_AppendInittab( "_wolfpack", init_wolfpack );
 	Py_Initialize();
 	PySys_SetArgv( argc, argv );
 
 	// Modify our search-path
-	PyObject* searchpath = PySys_GetObject( "path" );
+	list searchPath = extract<list>( object( handle<>( borrowed( PySys_GetObject( "path" ) ) ) ) );
 
 	QStringList elements = Config::instance()->getString( "General", "Python Searchpath", "./scripts;.", true ).split( ";" );
 
 	// Prepend our items to the searchpath
 	for ( int i = elements.count() - 1; i >= 0; --i )
 	{
-		PyList_Insert( searchpath, 0, PyString_FromString( elements[i].toLatin1() ) );
+		searchPath.insert( 0, str( elements[i].toLatin1() ) );
 	}
-
+	
 	// Import site now
-	PyObject* m = PyImport_ImportModule( "site" );
-	Py_XDECREF( m );
+	object siteModule( handle<>( PyImport_ImportModule( "site" ) ) );
 
 	// Try changing the stderr + stdout pointers
 	PyObject* file = PyFile_FromString( "python.log", "w" );
@@ -138,7 +146,7 @@ static void startPython( int argc, char* argv[] )
 		Py_DECREF( file );
 	}
 
-	try
+/*	try
 	{
 		init_wolfpack_globals();
 	}
@@ -146,32 +154,17 @@ static void startPython( int argc, char* argv[] )
 	{
 		Console::instance()->send( QString( "Failed to initialize the python extension modules\n" ) );
 	}
+*/
 }
 
 /*!
 	Reloads Python interpreter and restarts loaded modules
 */
-void reloadPython()
-{
-	PyObject* sysModule = PyImport_ImportModule( "sys" );
 
-	PyObject* modules = PyObject_GetAttrString( sysModule, "modules" );
-	Py_DECREF( sysModule );
-
-	// This is a dictionary, so iterate trough it and reload all contained modules
-	PyObject* mList = PyDict_Items( modules );
-
-	for ( int i = 0; i < PyList_Size( mList ); ++i )
-	{
-		PyObject* m = PyImport_ReloadModule( PyList_GetItem( mList, i ) );
-		Py_XDECREF( m );
-	}
-	Py_DECREF( mList );
-	Py_DECREF( modules );
-}
 
 void reportPythonError( const QString& moduleName )
 {
+	using namespace boost::python;
 	// Print the Error
 	if ( PyErr_Occurred() )
 	{
@@ -185,7 +178,7 @@ void reportPythonError( const QString& moduleName )
 		PySys_SetObject( "last_value", value );
 		PySys_SetObject( "last_traceback", traceback );
 
-		PyObject* exceptionName = PyObject_GetAttrString( exception, "__name__" );
+		object exceptionName( handle<>( PyObject_GetAttrString( exception, "__name__" ) ) );
 
 		// Do we have a detailed description of the error ?
 		PyObject* error = value != 0 ? PyObject_Str( value ) : 0;
@@ -194,25 +187,25 @@ void reportPythonError( const QString& moduleName )
 		{
 			if ( !moduleName.isNull() )
 			{
-				Console::instance()->log( LOG_ERROR, tr( "An error occured while compiling \"%1\": %2" ).arg( moduleName ).arg( PyString_AsString( exceptionName ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "An error occured while compiling \"%1\": %2" ).arg( moduleName ).arg( extract<QString>( exceptionName ) ) );
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, tr( "An error occured: %1" ).arg( PyString_AsString( exceptionName ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "An error occured: %1" ).arg( extract<QString>( exceptionName ) ) );
 			}
 		}
 		else
 		{
 			if ( !moduleName.isNull() )
 			{
-				Console::instance()->log( LOG_ERROR, tr( "An error occured in \"%1\": %2" ).arg( moduleName ).arg( PyString_AsString( exceptionName ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "An error occured in \"%1\": %2" ).arg( moduleName ).arg( extract<QString>( exceptionName ) ) );
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, tr( "An error occured: %1" ).arg( PyString_AsString( exceptionName ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "An error occured: %1" ).arg( extract<QString>( exceptionName ) ) );
 			}
 
-			Console::instance()->log( LOG_PYTHON, QString( "%1: %2" ).arg( PyString_AsString( exceptionName ) ).arg( PyString_AsString( error ) ), false );
+			Console::instance()->log( LOG_PYTHON, QString( "%1: %2" ).arg( extract<QString>( exceptionName ) ).arg( PyString_AsString( error ) ), false );
 			Py_XDECREF( error );
 		}
 
@@ -271,7 +264,6 @@ void reportPythonError( const QString& moduleName )
 			traceback = newtb;
 		}
 
-		Py_XDECREF( exceptionName );
 		Py_XDECREF( exception );
 		Py_XDECREF( value );
 		Py_XDECREF( traceback );
@@ -283,8 +275,11 @@ void wpDealloc( PyObject* self )
 	PyObject_Del( self );
 }
 
+void registerConverters(); // from converters.cpp
+
 cPythonEngine::cPythonEngine()
 {
+	registerConverters();
 }
 
 cPythonEngine::~cPythonEngine()
