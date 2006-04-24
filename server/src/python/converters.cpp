@@ -73,10 +73,11 @@ struct QString_from_python_str
 			
 #if defined(Py_UNICODE_WIDE)
 			object unicode( handle<>( PyUnicode_AsUTF16String( obj ) ) );
-			new(storage) QString( PyString_AsString( unicode.ptr() ), PyString_Size( obj ) );
+			new(storage) QString( (const QChar *)PyString_AsString( unicode.ptr() ), PyString_Size( obj ) );
 #else
 			new(storage) QString( (const QChar *)PyUnicode_AS_UNICODE( obj ), PyUnicode_GetSize(obj) );
 #endif
+			data->convertible = storage;
 		}
 		else if ( PyString_Check( obj ) )
 		{

@@ -13,6 +13,7 @@ def testConsoleLog():
 
 def testConsoleSend():
     console.send(" console.send test message\n" )
+    console.send(u" console.send unicode message\n" )
 
 def testConsoleSendProgress():
     console.sendprogress("Testing progress, result Fail")
