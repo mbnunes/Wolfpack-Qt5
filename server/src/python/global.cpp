@@ -266,7 +266,7 @@ static PyObject* wpTime_minutes( PyObject* self, PyObject* args )
 /*
 	\function wolfpack.time.currentlightlevel
 	\return Integer value.
-	\description Returns the current global lightlevel of the world.
+	\description Returns the current global lightlevel of the world. This value range is between 0 and 30
 */
 static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
 {

@@ -27,6 +27,9 @@
 
 #include <boost/python.hpp>
 
+#include <QByteArray>
+#include <QString>
+
 using namespace boost::python;
 
 struct QByteArray_to_python_str

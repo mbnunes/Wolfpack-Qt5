@@ -4,3 +4,4 @@ import wolfpack.tests.console
 
 def runAll():
     console.runAll()
+    time.runAll()
