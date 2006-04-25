@@ -6,10 +6,8 @@
 
 import _wolfpack.time
 
-minute = _wolfpack.time.minute
-hour = _wolfpack.time.hour
-days = _wolfpack.time.days
-minutes = _wolfpack.time.minutes
-servertime = _wolfpack.currenttime
-currenttime = _wolfpack.currenttime
-currentlightlevel = _wolfpack.time.currentlightlevel
+d = globals()
+for (name, obj) in _wolfpack.time.__dict__.items():
+	d[name] = obj
+
+servertime = _wolfpack.time.currenttime

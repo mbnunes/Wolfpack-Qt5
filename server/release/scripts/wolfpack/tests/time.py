@@ -2,16 +2,23 @@
 from wolfpack import *
 
 def runTests():
+    result = True
     if time.minute() not in range( 0, 59 ):
-        return False
+        console.send(" - time.minute() fail\n")
+        result = False
     if time.hour() not in range( 0, 23 ):
-        return False
+        console.send(" - time.hour() fail\n")
+        result = False
     if time.days() < 0:
-        return False
+        console.send(" - time.days() fail\n")
+        result = False
     if time.minutes() < 0:
-        return False
+        console.send(" - time.minutes() fail\n")
+        result = False
     if time.currentlightlevel() not in range( 0, 30 ):
-        return False
+        console.send("time.currentlightlevel() fail\n")
+        result = False
+    return result
 
 
 def runAll():

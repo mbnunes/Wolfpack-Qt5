@@ -219,11 +219,9 @@ void wpConsole_shutdown()
 	\return Integer value ranging from 0 to 59.
 	\description Returns the current minute of the hour in ingame time.
 */
-static PyObject* wpTime_minute( PyObject* self, PyObject* args )
+int wpTime_minute()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyInt_FromLong( UoTime::instance()->minute() );
+	return UoTime::instance()->minute();
 }
 
 /*
@@ -231,11 +229,9 @@ static PyObject* wpTime_minute( PyObject* self, PyObject* args )
 	\return Integer value ranging from 0 to 23.
 	\description Returns the current hour of the day in ingame time.
 */
-static PyObject* wpTime_hour( PyObject* self, PyObject* args )
+int wpTime_hour()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyInt_FromLong( UoTime::instance()->hour() );
+	return UoTime::instance()->hour();
 }
 
 /*
@@ -244,11 +240,9 @@ static PyObject* wpTime_hour( PyObject* self, PyObject* args )
 	\description Returns the current day in ingame time. There are no years in ingame time but
 	you are free to implement them yourself in custom calendar and clock items.
 */
-static PyObject* wpTime_days( PyObject* self, PyObject* args )
+int wpTime_days()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyInt_FromLong( UoTime::instance()->days() );
+	return UoTime::instance()->days();
 }
 
 /*
@@ -256,11 +250,9 @@ static PyObject* wpTime_days( PyObject* self, PyObject* args )
 	\return Integer value.
 	\description Returns the minutes since the world was initialized.
 */
-static PyObject* wpTime_minutes( PyObject* self, PyObject* args )
+int wpTime_minutes()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyInt_FromLong( UoTime::instance()->getMinutes() );
+	return UoTime::instance()->getMinutes();
 }
 
 /*
@@ -268,23 +260,20 @@ static PyObject* wpTime_minutes( PyObject* self, PyObject* args )
 	\return Integer value.
 	\description Returns the current global lightlevel of the world. This value range is between 0 and 30
 */
-static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
+int wpTime_currentlightlevel()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyInt_FromLong( Config::instance()->worldCurrentLevel() );
+	return Config::instance()->worldCurrentLevel();
 }
 
-static PyMethodDef wpTime[] =
+/*
+\function wolfpack.time.currenttime
+\return An interger value.
+\description This function returns the current time since the server start in miliseconds.
+*/
+unsigned int wpCurrenttime()
 {
-{ "minute",				wpTime_minute,				METH_NOARGS, "Returns the current time-minutes" },
-{ "hour",				wpTime_hour,				METH_NOARGS, "Returns the current time-hour" },
-{ "days",				wpTime_days,				METH_NOARGS, "Returns the current date-day" },
-{ "minutes",			wpTime_minutes,				METH_NOARGS, "Returns the current timestamp" },
-{ "currentlightlevel",	wpTime_currentlightlevel,	METH_NOARGS, "Returns the current light level" },
-{ NULL, NULL, 0, NULL } // Terminator
-
-};
+	return Server::instance()->time();
+}
 
 /*
 	\function wolfpack.additem
@@ -556,18 +545,6 @@ static PyObject* wpSpawnregion( PyObject* self, PyObject* args )
 
 	cSpawnRegion *spawn = SpawnRegions::instance()->region( name );
 	return PyGetSpawnRegionObject( spawn );
-}
-
-/*
-	\function wolfpack.time.currenttime
-	\return An interger value.
-	\description This function returns the current time since the server start in miliseconds.
-*/
-static PyObject* wpCurrenttime( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyInt_FromLong( Server::instance()->time() );
 }
 
 /*
@@ -1501,7 +1478,7 @@ static PyObject* wpNewPlayer( PyObject* /*self*/, PyObject* args )
 	\function wolfpack.tickcount
 	\return An integer value.
 	\description This function calculates the current normalized time and returns it.
-	It is often faster to use the currenttime function instead, but if you need
+	It is often faster to use the wolfpack.time.currenttime function instead, but if you need
 	an accurate value for timing or similar tasks, use this function instead.
 */
 static PyObject* wpTickcount( PyObject* self, PyObject* args )
@@ -2053,7 +2030,6 @@ static PyMethodDef wpGlobal[] =
 { "canboatmoveto",		wpCanBoatMoveTo,				METH_VARARGS, 0 },
 { "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
 { "spawnregion",		wpSpawnregion,					METH_VARARGS, 0 },
-{ "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" },
 { "newguild",			wpNewguild,						METH_VARARGS, 0},
 { "statics",			wpStatics,						METH_VARARGS, "Returns a list of static-item at a given position" },
 { "map",				wpMap,							METH_VARARGS, "Returns a dictionary with information about a given map tile" },
@@ -2694,11 +2670,11 @@ static PyMethodDef wpDatabase[] =
 { 0, 0, 0, 0 }
 };
 
-BOOST_PYTHON_MODULE(console)
+BOOST_PYTHON_MODULE(wpconsole)
 {
 	def( "log", wpConsole_log );
 	def( "send", wpConsole_send );
-	def( "sendprogress",	wpConsole_sendprogress );
+	def( "sendprogress", wpConsole_sendprogress );
 	def( "senddone", wpConsole_senddone );
 	def( "sendfail", wpConsole_sendfail );
 	def( "sendskip", wpConsole_sendskip );
@@ -2708,7 +2684,22 @@ BOOST_PYTHON_MODULE(console)
 
 void init_wolfpack_console()
 {
-	boost::python::detail::init_module("_wolfpack.console", initconsole);
+	boost::python::detail::init_module("_wolfpack.console", initwpconsole);
+}
+
+BOOST_PYTHON_MODULE(wptime)
+{
+	def( "minute", wpTime_minute );
+	def( "hour", wpTime_hour );
+	def( "days", wpTime_days );
+	def( "minutes", wpTime_minutes );
+	def( "currentlightlevel", wpTime_currentlightlevel );
+	def( "currenttime", wpCurrenttime );
+}
+
+void init_wolfpack_time()
+{
+	boost::python::detail::init_module("_wolfpack.time", initwptime);
 }
 
 /*!
@@ -2718,28 +2709,22 @@ BOOST_PYTHON_MODULE(_wolfpack)
 {
 	// Namespace level definitions
 
-	// Configure subpackages
-	//scope().attr("__path__") = "_wolfpack";
-
 	init_wolfpack_console();
 
 	PyObject* wpNamespace = Py_InitModule( "_wolfpack", wpGlobal );
 
-	object mConsole ( ( handle<>( borrowed(PyImport_AddModule("console") ) ) ) );
-//	scope().attr("console") = console;
-
-//	object mConsole ( handle<>( borrowed( Py_InitModule( "_wolfpack.console", wpConsole ) ) ) );
-
+	object mConsole ( ( handle<>( borrowed(PyImport_AddModule("wpconsole") ) ) ) );
 	scope().attr("console") = mConsole;
+
+	init_wolfpack_time();
+	object mTime ( ( handle<>( borrowed( PyImport_AddModule( "wptime" ) ) ) ) );
+	scope().attr("time") = mTime;
 
 	object mAccounts ( ( handle<>( borrowed( Py_InitModule( "_wolfpack.accounts", wpAccounts ) ) ) ) );
 	scope().attr("accounts") = mAccounts;
 
 	object mSockets ( ( handle<>( borrowed( Py_InitModule( "_wolfpack.sockets", wpSockets ) ) ) ) );
 	scope().attr("sockets") = mSockets;
-
-	object mTime ( ( handle<>( borrowed( Py_InitModule( "_wolfpack.time", wpTime ) ) ) ) );
-	scope().attr("time") = mTime;
 
 	object mSettings ( ( handle<>( borrowed ( Py_InitModule( "_wolfpack.settings", wpSettings ) ) ) ) );
 	scope().attr("settings") = mSettings;
