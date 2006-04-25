@@ -134,8 +134,6 @@ void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool
 
 		if ( sock )
 			prelude.append( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
-		else
-			prelude.append( QString( "--:" ) );
 	}
 
 	// LogLevel
