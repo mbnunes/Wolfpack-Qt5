@@ -589,7 +589,7 @@ PyObject* wpGuild_setmemberinfo( wpGuild* self, PyObject* args )
 	PyObject* guildtitle = PyDict_GetItemString( dict, "guildtitle" );
 	if ( guildtitle )
 	{
-		info->setGuildTitle( Python2QString( guildtitle ) );
+		info->setGuildTitle( boost::python::extract<QString>( guildtitle ) );
 	}
 
 	PyObject* joined = PyDict_GetItemString( dict, "joined" );
@@ -1000,19 +1000,19 @@ static int wpGuild_setAttr( wpGuild* self, char* name, PyObject* value )
 	}
 	else if ( !strcmp( name, "name" ) )
 	{
-		self->guild->setName( Python2QString( value ) );
+		self->guild->setName( boost::python::extract<QString>( value ) );
 	}
 	else if ( !strcmp( name, "abbreviation" ) )
 	{
-		self->guild->setAbbreviation( Python2QString( value ) );
+		self->guild->setAbbreviation( boost::python::extract<QString>( value ) );
 	}
 	else if ( !strcmp( name, "charta" ) )
 	{
-		self->guild->setCharta( Python2QString( value ) );
+		self->guild->setCharta( boost::python::extract<QString>( value ) );
 	}
 	else if ( !strcmp( name, "website" ) )
 	{
-		self->guild->setWebsite( Python2QString( value ) );
+		self->guild->setWebsite( boost::python::extract<QString>( value ) );
 	}
 	else if ( !strcmp( name, "alignment" ) )
 	{

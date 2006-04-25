@@ -170,17 +170,17 @@ public:
 
 			if ( PyInt_Check( object ) )
 			{
-				int value = PyInt_AsLong( object );
+				int value = boost::python::extract<int>( object );
 				cVariant( value ).serialize( writer, version );
 			}
 			else if ( PyString_Check( object ) || PyUnicode_Check( object ) )
 			{
-				QString value = Python2QString( object );
+				QString value = boost::python::extract<QString>( object );
 				cVariant( value ).serialize( writer, version );
 			}
 			else if ( PyFloat_Check( object ) )
 			{
-				double value = PyFloat_AsDouble( object );
+				double value = boost::python::extract<double>( object );
 				cVariant( value ).serialize( writer, version );
 			}
 			else if ( checkWpChar( object ) )

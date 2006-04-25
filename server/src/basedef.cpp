@@ -789,7 +789,7 @@ PyObject* wpBasedef_getintproperty( wpBasedef* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 	return PyInt_FromLong( self->basedef->getIntProperty( name, def ) );
 }
 
@@ -811,8 +811,8 @@ static PyObject* wpBasedef_getstrproperty( wpBasedef* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
-	QString def = Python2QString( pydef );
+	QString name = boost::python::extract<QString>( pyname );
+	QString def = boost::python::extract<QString>( pydef );
 
 	return QString2Python( self->basedef->getStrProperty( name, def ) );
 }
@@ -832,7 +832,7 @@ static PyObject* wpBasedef_hasstrproperty( wpBasedef* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 
 	if ( self->basedef->hasStrProperty( name ) )
 	{
@@ -859,7 +859,7 @@ static PyObject* wpBasedef_hasintproperty( wpBasedef* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 
 	if ( self->basedef->hasIntProperty( name ) )
 	{

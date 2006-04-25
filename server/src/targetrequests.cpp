@@ -138,12 +138,12 @@ bool cShowTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 	{
 		if ( PyUnicode_Check( result ) || PyString_Check( result ) )
 		{
-			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( Python2QString( result ) ) );
+			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( boost::python::extract<QString>( result ) ) );
 		}
 		else
 		{
 			PyObject *repr = PyObject_Str( result );
-			QString value = Python2QString( repr );
+			QString value = boost::python::extract<QString>( repr );
 			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( value ) );
 			Py_XDECREF( repr );
 		}

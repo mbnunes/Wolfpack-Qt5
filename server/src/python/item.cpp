@@ -440,7 +440,7 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 
 	if ( PyString_Check( object ) || PyUnicode_Check( object ) )
 	{
-		self->pItem->setTag( key, cVariant( Python2QString( object ) ) );
+		self->pItem->setTag( key, cVariant( boost::python::extract<QString>( object ) ) );
 	}
 	else if ( PyInt_Check( object ) )
 	{
@@ -634,7 +634,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	PythonFunction* toCall = 0;
 	if ( !PyCallable_Check( function ) )
 	{
-		QString func = Python2QString( function );
+		QString func = boost::python::extract<QString>( function );
 		if ( func.isNull() )
 		{
 			PyErr_SetString( PyExc_TypeError, "Bad argument on addtimer callback type" );
@@ -889,7 +889,7 @@ static PyObject* wpItem_countitems( wpItem* self, PyObject* args )
 	for ( int i = 0; i < PyList_Size( list ); ++i )
 	{
 		PyObject* item = PyList_GetItem( list, i );
-		baseids.append( Python2QString( item ) );
+		baseids.append( boost::python::extract<QString>( item ) );
 	}
 
 	return PyInt_FromLong( self->pItem->countItems( baseids ) );
@@ -918,7 +918,7 @@ static PyObject* wpItem_removeitems( wpItem* self, PyObject* args )
 	for ( int i = 0; i < PyList_Size( list ); ++i )
 	{
 		PyObject* item = PyList_GetItem( list, i );
-		baseids.append( Python2QString( item ) );
+		baseids.append( boost::python::extract<QString>( item ) );
 	}
 
 	return PyInt_FromLong( self->pItem->removeItems( baseids, amount ) );
@@ -1133,7 +1133,7 @@ static PyObject* wpItem_getintproperty( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 	if ( self->pItem->basedef() )
 	{
 		return PyInt_FromLong( self->pItem->basedef()->getIntProperty( name, def ) );
@@ -1162,8 +1162,8 @@ static PyObject* wpItem_getstrproperty( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
-	QString def = Python2QString( pydef );
+	QString name = boost::python::extract<QString>( pyname );
+	QString def = boost::python::extract<QString>( pydef );
 
 	if ( self->pItem->basedef() )
 	{
@@ -1198,7 +1198,7 @@ static PyObject* wpItem_hasstrproperty( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 
 	if ( self->pItem->basedef() && self->pItem->basedef()->hasStrProperty( name ) )
 	{
@@ -1225,7 +1225,7 @@ static PyObject* wpItem_hasintproperty( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 
 	if ( self->pItem->basedef() && self->pItem->basedef()->hasIntProperty( name ) )
 	{
@@ -1417,7 +1417,7 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 	{
 		cVariant val;
 		if ( PyString_Check( value ) || PyUnicode_Check( value ) )
-			val = cVariant( Python2QString( value ) );
+			val = cVariant( boost::python::extract<QString>( value ) );
 		else if ( PyInt_Check( value ) )
 			val = cVariant( PyInt_AsLong( value ) );
 		else if ( PyLong_Check( value ) )

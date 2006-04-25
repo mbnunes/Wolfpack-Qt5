@@ -28,6 +28,8 @@
 #if !defined( __UTILITIES_H__ )
 #define __UTILITIES_H__
 
+#include <boost/python.hpp>
+
 #include "engine.h"
 #include "pyerrors.h"
 #include <QString>
@@ -124,8 +126,8 @@ AbstractAI* getWpAI( PyObject* );
 #define getArgInt( id ) PyInt_AsLong( PyTuple_GetItem( args, id ) )
 #define checkArgStr( id ) ( PyTuple_Size( args ) > id && ( PyString_Check( PyTuple_GetItem( args, id ) ) || PyUnicode_Check( PyTuple_GetItem( args, id ) ) ) )
 #define checkArgUnicode( id ) ( PyTuple_Size( args ) > id && PyUnicode_Check( PyTuple_GetItem( args, id ) ) )
-#define getArgStr( id ) (Python2QString(PyTuple_GetItem(args,id)))
-#define getArgUnicode( id ) Python2QString( PyTuple_GetItem( args, id ) )
+#define getArgStr( id ) (boost::python::extract<QString>(PyTuple_GetItem(args,id)))
+#define getArgUnicode( id ) (boost::python::extract<QString>( PyTuple_GetItem( args, id ) ))
 #define getUnicodeSize( id ) PyUnicode_GetSize( PyTuple_GetItem( args, id ) )
 #define checkArgAccount( id ) ( PyTuple_Size( args ) > id && checkWpAccount( PyTuple_GetItem( args, id ) ) )
 #define checkArgRegion( id ) ( PyTuple_Size( args ) > id && checkWpRegion( PyTuple_GetItem( args, id ) ) )
@@ -136,54 +138,7 @@ AbstractAI* getWpAI( PyObject* );
 
 inline PyObject* QString2Python( const QString& string )
 {
-	if ( string.isEmpty() )
-	{
-		return PyUnicode_FromWideChar( L"", 0 );
-	}
-	else
-	{
-#if defined(Py_UNICODE_WIDE)
-		QByteArray utf = string.toUtf8();
-		PyObject *obj = PyUnicode_DecodeUTF8( utf.data(), utf.length(), "" );
-		return obj;
-#else
-		return PyUnicode_FromUnicode( ( Py_UNICODE * ) string.utf16(), string.length() );
-#endif
-	}
-}
-
-inline QString Python2QString( PyObject* object )
-{
-	if ( !object )
-	{
-		return QString::null;
-	}
-	else if ( PyUnicode_Check( object ) )
-	{
-#if defined(Py_UNICODE_WIDE)
-		PyObject *utf8 = PyUnicode_AsUTF8String( object );
-		return QString::fromUtf8( PyString_AsString( utf8 ) );
-		Py_DECREF(utf8);
-#else
-		return QString::fromUtf16( ( ushort * ) PyUnicode_AS_UNICODE( object ) );
-#endif
-	}
-	else if ( PyString_Check( object ) )
-	{
-		return QString::fromLocal8Bit( PyString_AsString( object ) );
-	}
-	else if ( PyInt_Check( object ) )
-	{
-		return QString::number( PyInt_AsLong( object ) );
-	}
-	else if ( PyFloat_Check( object ) )
-	{
-		return QString::number( PyFloat_AsDouble( object ) );
-	}
-	else
-	{
-		return QString::null;
-	}
+	return boost::python::to_python_value<const QString&>()( string );
 }
 
 class PythonFunction
@@ -200,12 +155,12 @@ public:
 	{
 		// No lambdas!
 		if ( function ) {
-			PyObject* module = PyObject_GetAttrString(function, "__module__");
-			PyObject* name = PyObject_GetAttrString(function, "__name__");
+			boost::python::object module ( (boost::python::handle<>( PyObject_GetAttrString(function, "__module__") )) );
+			boost::python::object name ( (boost::python::handle<>( PyObject_GetAttrString(function, "__name__") )) );
 
 			if (name && module) {
-				sModule = Python2QString(module).toLatin1();
-				sFunc = Python2QString(name).toLatin1();
+				sModule = boost::python::extract<QByteArray>(module);
+				sFunc = boost::python::extract<QByteArray>(name);
 				pFunc = function;
 				Py_XINCREF( pFunc );
 			}
@@ -290,11 +245,11 @@ public:
 	QString functionPath() const
 	{
 		if (isValid()) {
-			PyObject* module = PyObject_GetAttrString(pFunc, "__module__");
-			PyObject* name = PyObject_GetAttrString(pFunc, "__name__");
-			QString result = Python2QString(module) + "." + Python2QString(name);
-			Py_XDECREF( name );
-			Py_XDECREF( module );
+			boost::python::object module( (boost::python::handle<>( PyObject_GetAttrString(pFunc, "__module__") )) );
+			boost::python::object name( (boost::python::handle<>( PyObject_GetAttrString(pFunc, "__name__") )) );
+			QString result = boost::python::extract<QString>(module);
+			result.append(".");
+			result.append( boost::python::extract<QString>(name) );
 			return result;
 		} else {
 			return QString::null;

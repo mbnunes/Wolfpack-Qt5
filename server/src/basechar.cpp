@@ -3016,7 +3016,7 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 
 		if ( result )
 		{
-			name = Python2QString( result );
+			name = boost::python::extract<QString>( result );
 		}
 
 		Py_XDECREF( result );

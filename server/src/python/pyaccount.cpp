@@ -203,10 +203,10 @@ static PyObject* wpAccount_authorized( wpAccount* self, PyObject* args )
 		return 0;
 	}
 
-	QByteArray group = getArgStr( 0 ).toLatin1();
-	QByteArray action = getArgStr( 1 ).toLatin1();
+	QString group = getArgStr( 0 );
+	QString action = getArgStr( 1 );
 
-	if ( self->account->authorized( group, action ) )
+	if ( self->account->authorized( group.toLatin1(), action.toLatin1() ) )
 		Py_RETURN_TRUE;
 	else
 		Py_RETURN_FALSE;
@@ -280,7 +280,7 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 {
 	cVariant val;
 	if ( PyString_Check( value ) || PyUnicode_Check( value ) )
-		val = cVariant( Python2QString( value ) );
+		val = cVariant( boost::python::extract<QString>( value ) );
 	else if ( PyInt_Check( value ) )
 		val = cVariant( PyInt_AsLong( value ) );
 	else if ( checkWpItem( value ) )

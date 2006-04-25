@@ -397,13 +397,14 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	{
 		return 0;
 	}
+	PyErr_Format( PyExc_DeprecationWarning, "socket.sendgump is deprecated, please use cGump class instead" );
 
 	PythonFunction* toCall = 0;
 	if ( callback )
 	{
 		if ( !PyCallable_Check( callback ) )
 		{
-			QString func = Python2QString( callback );
+			QString func = boost::python::extract<QString>( callback );
 			if ( func.isNull() )
 			{
 				PyErr_SetString( PyExc_TypeError, "Bad argument on socket.sendgump callback type" );
@@ -446,13 +447,9 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	{
 		PyObject* item = PyList_GetItem( layout, i );
 
-		if ( PyString_Check( item ) )
+		if ( PyUnicode_Check( item ) || PyString_Check( item ) )
 		{
-			gump->addRawLayout( PyString_AsString( item ) );
-		}
-		else if ( PyUnicode_Check( item ) )
-		{
-			gump->addRawLayout( Python2QString( item ) );
+			gump->addRawLayout( boost::python::extract<QString>( item ) );
 		}
 		else
 		{
@@ -464,13 +461,9 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	{
 		PyObject* item = PyList_GetItem( texts, i );
 
-		if ( PyString_Check( item ) )
+		if ( PyUnicode_Check( item ) || PyString_Check( item ) )
 		{
-			gump->addRawText( PyString_AsString( item ) );
-		}
-		else if ( PyUnicode_Check( item ) )
-		{
-			gump->addRawText( Python2QString( item ) );
+			gump->addRawText( boost::python::extract<QString>( item ) );
 		}
 		else
 		{
@@ -645,6 +638,8 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 		return 0;
 	}
 
+	PyErr_Format( PyExc_DeprecationWarning, "socket.sendpacket is deprecated, please use something instead" );
+
 	// Build a packet
 	int packetLength = PyList_Size( list );
 
@@ -776,7 +771,7 @@ static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 
 	if ( PyString_Check( object ) || PyUnicode_Check( object ) )
 	{
-		self->pSock->tags().set( key, cVariant( Python2QString( object ) ) );
+		self->pSock->tags().set( key, cVariant( boost::python::extract<QString>( object ) ) );
 	}
 	else if ( PyInt_Check( object ) )
 	{

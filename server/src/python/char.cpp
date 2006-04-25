@@ -975,7 +975,7 @@ static PyObject* wpChar_getintproperty( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 	if ( self->pChar->basedef() )
 	{
 		return PyInt_FromLong( self->pChar->basedef()->getIntProperty( name, def ) );
@@ -1004,8 +1004,8 @@ static PyObject* wpChar_getstrproperty( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
-	QString def = Python2QString( pydef );
+	QString name = boost::python::extract<QString>( pyname );
+	QString def = boost::python::extract<QString>( pydef );
 
 	if ( self->pChar->basedef() )
 	{
@@ -1040,7 +1040,7 @@ static PyObject* wpChar_hasstrproperty( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 
 	if ( self->pChar->basedef() && self->pChar->basedef()->hasStrProperty( name ) )
 	{
@@ -1067,7 +1067,7 @@ static PyObject* wpChar_hasintproperty( wpChar* self, PyObject* args )
 		return 0;
 	}
 
-	QString name = Python2QString( pyname );
+	QString name = boost::python::extract<QString>( pyname );
 
 	if ( self->pChar->basedef() && self->pChar->basedef()->hasIntProperty( name ) )
 	{
@@ -1132,7 +1132,7 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 
 	if ( PyString_Check( object ) || PyUnicode_Check( object ) )
 	{
-		self->pChar->setTag( key, cVariant( Python2QString( object ) ) );
+		self->pChar->setTag( key, cVariant( boost::python::extract<QString>( object ) ) );
 	}
 	else if ( PyLong_Check( object ) )
 	{
@@ -1822,7 +1822,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	PythonFunction* expireCall = 0;
 	if ( !PyCallable_Check( expireFunction ) )
 	{
-		QString func = Python2QString( expireFunction );
+		QString func = boost::python::extract<QString>( expireFunction );
 		if ( func.isNull() )
 		{
 			PyErr_SetString( PyExc_TypeError, "Bad argument on char.addtimer callback type" );
@@ -1851,7 +1851,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	{
 		if ( !PyCallable_Check( dispelFunction ) )
 		{
-			QString func = Python2QString( dispelFunction );
+			QString func = boost::python::extract<QString>( dispelFunction );
 			if ( func.isNull() )
 			{
 				PyErr_SetString( PyExc_TypeError, "Bad argument on char.addtimer callback type" );
@@ -1878,7 +1878,7 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	effect->setSerializable( persistent != 0 );
 
 	effect->dispellable = dispelable != 0;
-	effect->setDispelId( Python2QString( dispelName ) );
+	effect->setDispelId( boost::python::extract<QString>( dispelName ) );
 
 	effect->setDispelFunc( dispelCall );
 
@@ -3127,7 +3127,7 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 {
 	cVariant val;
 	if ( PyString_Check( value ) || PyUnicode_Check( value ) )
-		val = cVariant( Python2QString( value ) );
+		val = cVariant( boost::python::extract<QString>( value ) );
 	else if ( PyInt_Check( value ) )
 		val = cVariant( PyInt_AsLong( value ) );
 	else if ( PyLong_Check( value ) )

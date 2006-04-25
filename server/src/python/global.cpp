@@ -467,7 +467,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	PythonFunction* toCall = 0;
 	if ( !PyCallable_Check( function ) )
 	{
-		QString func = Python2QString( function );
+		QString func = extract<QString>( function );
 		if ( func.isNull() )
 		{
 			PyErr_SetString( PyExc_TypeError, "Bad argument on addtimer callback type" );
@@ -2348,16 +2348,9 @@ static PyMethodDef wpAccounts[] =
 	\return A boolean value.
 	\description This function retrieves a value from the configuration file.
 */
-static PyObject* wpSettingsGetBool( PyObject* self, PyObject* args )
+bool wpSettingsGetBool( const QString& group, const QString& key, bool def, bool create = false )
 {
-	Q_UNUSED( self );
-	char* pyGroup,* pyKey,
-	pyDef,
-	create = 0;
-	if ( !PyArg_ParseTuple( args, "ssb|b:getBool(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
-		return 0;
-
-	return Config::instance()->getBool( pyGroup, pyKey, pyDef, create ) ? PyTrue() : PyFalse();
+	return Config::instance()->getBool( group, key, def, create );
 }
 
 /*
@@ -2367,16 +2360,9 @@ static PyObject* wpSettingsGetBool( PyObject* self, PyObject* args )
 	\param value The new value of the configuration option.
 	\description This function changes or creates a new configuration option.
 */
-static PyObject* wpSettingsSetBool( PyObject* self, PyObject* args )
+void wpSettingsSetBool( const QString& group, const QString& key, bool value )
 {
-	Q_UNUSED( self );
-	char* pyGroup,* pyKey,
-	pyValue;
-	if ( !PyArg_ParseTuple( args, "ssb:setBool(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
-		return 0;
-
-	Config::instance()->setBool( pyGroup, pyKey, pyValue );
-	Py_RETURN_NONE;
+	Config::instance()->setBool( group, key, value );
 }
 
 /*
@@ -2389,16 +2375,9 @@ static PyObject* wpSettingsSetBool( PyObject* self, PyObject* args )
 	\return An integer value.
 	\description This function retrieves a value from the configuration file.
 */
-static PyObject* wpSettingsGetNumber( PyObject* self, PyObject* args )
+long wpSettingsGetNumber( const QString& group, const QString& key, long def, bool create = false )
 {
-	Q_UNUSED( self );
-	char* pyGroup,* pyKey,
-	create = 0;
-	int pyDef;
-	if ( !PyArg_ParseTuple( args, "ssi|b:getNumber(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
-		return 0;
-
-	return PyInt_FromLong( Config::instance()->getNumber( pyGroup, pyKey, pyDef, create ) );
+	return Config::instance()->getNumber( group, key, def, create );
 }
 
 /*
@@ -2408,16 +2387,9 @@ static PyObject* wpSettingsGetNumber( PyObject* self, PyObject* args )
 	\param value The new value of the configuration option.
 	\description This function changes or creates a new configuration option.
 */
-static PyObject* wpSettingsSetNumber( PyObject* self, PyObject* args )
+void wpSettingsSetNumber( const QString& group, const QString& key, long value )
 {
-	Q_UNUSED( self );
-	char* pyGroup,* pyKey;
-	int pyValue;
-	if ( !PyArg_ParseTuple( args, "ssi:setNumber(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
-		return 0;
-
-	Config::instance()->setNumber( pyGroup, pyKey, pyValue );
-	Py_RETURN_NONE;
+	Config::instance()->setNumber( group, key, value );
 }
 
 /*
@@ -2430,15 +2402,9 @@ static PyObject* wpSettingsSetNumber( PyObject* self, PyObject* args )
 	\return A string.
 	\description This function retrieves a value from the configuration file.
 */
-static PyObject* wpSettingsGetString( PyObject* self, PyObject* args )
+QString wpSettingsGetString( const QString& group, const QString& key, const QString& def, bool create = false )
 {
-	Q_UNUSED( self );
-	char* pyGroup,* pyKey,* pyDef,
-	create = 0;
-	if ( !PyArg_ParseTuple( args, "sss|b:getString(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
-		return 0;
-
-	return PyString_FromString( Config::instance()->getString( pyGroup, pyKey, pyDef, create ).toLatin1().constData() );
+	return Config::instance()->getString( group, key, def, create );
 }
 
 /*
@@ -2448,58 +2414,39 @@ static PyObject* wpSettingsGetString( PyObject* self, PyObject* args )
 	\param value The new value of the configuration option.
 	\description This function changes or creates a new configuration option.
 */
-static PyObject* wpSettingsSetString( PyObject* self, PyObject* args )
+void wpSettingsSetString( const QString& group, const QString& key, const QString& value )
 {
-	Q_UNUSED( self );
-	char* pyGroup,* pyKey,* pyValue;
-	if ( !PyArg_ParseTuple( args, "sss:setString(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
-		return 0;
+	Config::instance()->setString( group, key, value );
+}
 
-	Config::instance()->setString( pyGroup, pyKey, pyValue );
-	Py_RETURN_NONE;
+/*
+	\function wolfpack.settings.removekey
+	\param group String containing the name of the group.
+	\param key String containing the name of the configuration option within the given group.
+	\description This function removes the specified group/key pair from the configuration file.
+*/
+void wpSettingsRemoveKey( const QString& group, const QString& key )
+{
+	Config::instance()->removeKey( group, key );
 }
 
 /*
 	\function wolfpack.settings.reload
 	\description This function reloads the settings file.
 */
-static PyObject* wpSettingsReload( PyObject* self, PyObject* args )
+void wpSettingsReload()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
 	Config::instance()->reload();
-	Py_RETURN_NONE;
 }
 
 /*
 	\function wolfpack.settings.save
 	\description This function saves the settings file to disk.
 */
-static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
+void wpSettingsSave()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
 	Config::instance()->flush();
-	Py_RETURN_NONE;
 }
-
-/*!
-	wolfpack.settings
-	wolfpack.xml config related functions
-*/
-static PyMethodDef wpSettings[] =
-{
-{ "getbool",		wpSettingsGetBool,		METH_VARARGS, "Reads a boolean value from wolfpack.xml." },
-{ "setbool",		wpSettingsSetBool,		METH_VARARGS, "Sets a boolean value to wolfpack.xml." },
-{ "getnumber",		wpSettingsGetNumber,	METH_VARARGS, "Gets a numeric value from wolfpack.xml." },
-{ "setnumber",		wpSettingsSetNumber,	METH_VARARGS, "Sets a numeric value to wolfpack.xml." },
-{ "getstring",		wpSettingsGetString,	METH_VARARGS, "Reads a string value from wolfpack.xml." },
-{ "setstring",		wpSettingsSetString,	METH_VARARGS, "Writes a string value to wolfpack.xml." },
-{ "reload",			wpSettingsReload,		METH_NOARGS, "Reloads wolfpack.xml." },
-{ "save",			wpSettingsSave,			METH_NOARGS, "Saves changes made to wolfpack.xml"	},
-{ NULL, NULL, 0, NULL } // Terminator
-
-};
 
 /*
 	\function wolfpack.database.query
@@ -2556,7 +2503,7 @@ static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
 		return 0;
 	}
 
-	query = Python2QString(pquery);
+	query = extract<QString>(pquery);
 
 	try
 	{
@@ -2702,6 +2649,28 @@ void init_wolfpack_time()
 	boost::python::detail::init_module("_wolfpack.time", initwptime);
 }
 
+BOOST_PYTHON_FUNCTION_OVERLOADS(wpSettingsGetBoolOverloads, wpSettingsGetBool, 3, 4)
+BOOST_PYTHON_FUNCTION_OVERLOADS(wpSettingsGetNumberOverloads, wpSettingsGetNumber, 3, 4)
+BOOST_PYTHON_FUNCTION_OVERLOADS(wpSettingsGetStringOverloads, wpSettingsGetString, 3, 4)
+
+BOOST_PYTHON_MODULE(wpsettings)
+{
+	def( "getbool", wpSettingsGetBool, wpSettingsGetBoolOverloads() );
+	def( "setbool", wpSettingsSetBool );
+	def( "getnumber", wpSettingsGetNumber, wpSettingsGetNumberOverloads() );
+	def( "setnumber", wpSettingsSetNumber );
+	def( "getstring", wpSettingsGetString, wpSettingsGetStringOverloads() );
+	def( "setstring", wpSettingsSetString );
+	def( "removekey", wpSettingsRemoveKey );
+	def( "reload", wpSettingsReload );
+	def( "save", wpSettingsSave );
+}
+
+void init_wolfpack_settings()
+{
+	boost::python::detail::init_module("_wolfpack.settings", initwpsettings);
+}
+
 /*!
 	This initializes the _wolfpack namespace and it's sub extensions
 */
@@ -2709,10 +2678,9 @@ BOOST_PYTHON_MODULE(_wolfpack)
 {
 	// Namespace level definitions
 
+	object wpNamespace( ( handle<>( borrowed( Py_InitModule( "_wolfpack", wpGlobal ) ) ) ) );
+
 	init_wolfpack_console();
-
-	PyObject* wpNamespace = Py_InitModule( "_wolfpack", wpGlobal );
-
 	object mConsole ( ( handle<>( borrowed(PyImport_AddModule("wpconsole") ) ) ) );
 	scope().attr("console") = mConsole;
 
@@ -2726,7 +2694,8 @@ BOOST_PYTHON_MODULE(_wolfpack)
 	object mSockets ( ( handle<>( borrowed( Py_InitModule( "_wolfpack.sockets", wpSockets ) ) ) ) );
 	scope().attr("sockets") = mSockets;
 
-	object mSettings ( ( handle<>( borrowed ( Py_InitModule( "_wolfpack.settings", wpSettings ) ) ) ) );
+	init_wolfpack_settings();
+	object mSettings ( ( handle<>( borrowed ( PyImport_AddModule( "wpsettings" ) ) ) ) );
 	scope().attr("settings") = mSettings;
 
 	object mDatabase ( ( handle<>( borrowed ( Py_InitModule( "_wolfpack.database", wpDatabase ) ) ) ) );
