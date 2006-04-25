@@ -21,9 +21,25 @@ RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
-DEFINES += BOOST_PYTHON_STATIC_LIB
-
 win32:LIBS += -lws2_32 -lkernel32 -luser32 -lgdi32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lodbc32 -lodbccp32
+
+DEFINES += BOOST_PYTHON_STATIC_LIB
+LIBS += -lboost_python -L../boost/lib/
+INCLUDEPATH += ../boost/include
+PYTHON_CPP = ../src/python
+PYTHON_H = ../src/python
+NETWORK_H = ../src/network
+NETWORK_CPP = ../src/network
+AI_H = ../src/ai
+AI_CPP = ../src/ai
+MULS_H = ../src/muls
+MULS_CPP = ../src/muls
+
+DEPENDPATH += $$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
+INCLUDEPATH += ../src
+
+# Stupid GCC bug: http://gcc.gnu.org/bugzilla/show_bug.cgi?id=24389
+win32-g++:CONFIG -= precompile_header
 
 # Include configure settings
 !include(config.pri) {
@@ -43,20 +59,6 @@ console {
 } else {
 	include(../src/gui/gui.pri)
 }
-
-LIBS += -lboost_python -L../boost/lib/
-INCLUDEPATH += ../boost/include
-PYTHON_CPP = ../src/python
-PYTHON_H = ../src/python
-NETWORK_H = ../src/network
-NETWORK_CPP = ../src/network
-AI_H = ../src/ai
-AI_CPP = ../src/ai
-MULS_H = ../src/muls
-MULS_CPP = ../src/muls
-
-DEPENDPATH += $$PYTHON_H;$$NETWORK_H;$$AI_H;$$MULS_H;../src
-INCLUDEPATH += ../src
 
 
 #modules
