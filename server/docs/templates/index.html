@@ -22,67 +22,62 @@ img {
 </head>
 <body>
 <table width="100%"  border="0" cellspacing="0" cellpadding="0">
-	<tr>
-		<td bgcolor="#004B2C"><a href="index.html"><img src="top_logo.jpg" width="586" height="87" border="0"/></a></td>
-	</tr>
-	<tr>
-		<td height="3" bgcolor="#999999"><img src="spacer.gif" width="1" height="3" /></td>
-	</tr>
+  <tr brcolor="#004B2C">
+    <td bgcolor="#004B2C"><a href="index.html"><img src="top_logo.jpg" width="586" height="87" border="0"/></a></td>
+    <td bgcolor="#004B2C"><!-- SiteSearch Google -->
+      <form method=GET action="http://www.google.com/search">
+        <input type=hidden name=ie value=UTF-8>
+        <input type=hidden name=oe value=UTF-8>
+        <input type=text name=q size=31 maxlength=255 value="">
+        <input type=hidden name=domains value="doc.wpdev.org">
+        <input type=hidden name=sitesearch value="doc.wpdev.org">
+      </form>
+      <!-- SiteSearch Google -->
+    </td>
+  </tr>
+  <tr>
+    <td height="3" bgcolor="#999999" colspan="2"><img src="spacer.gif" width="1" height="3" /></td>
+  </tr>
 </table>
 <div align="center">
-	
   <p><span class="maintitle">Wolfpack Reference Documentation</span></p>
-		<table width="740" border="0" cellspacing="3" cellpadding="2">
-			<tr align="left" valign="top">
-				<td width="33%" class="text">
-					<div align="left">
-						<span class="sectiontitle">INGAME COMMANDS</span><br />
-						These commands can be used by players, gms and admins while in the game. This section gives you an overview over all available commands and how to use them.<br />
-						<a href="commands.html">Read more... ({COMMANDS} commands)</a><br />
-						<br />
-					</div>
-				</td>
-				<td width="33%" class="text">
-					<span class="sectiontitle">SCRIPTING OBJECTS</span><br />
-					This section of the documentation gives you an overview over available wolfpack specific objects, their properties and methods and in some cases how to create them.<br />
-					<a href="objects.html">Read more... ({OBJECTS} objects)</a>
-				</td>
-				<td width="33%" class="text">
-					<span class="sectiontitle">SCRIPTING LIBRARY</span><br />
-					Wolfpack comes with a sophisticated library of scripts. This section of the documentation provides an overview over the library and its functions.<br />
-					<a href="modules.html">Read more... ({MODULES} modules)</a>
-				</td>
-			</tr>
-		</table>
-		<hr width="740" size="1" noshade="noshade" />
-		<table width="740" border="0" cellpadding="2" cellspacing="3">
-			<tr align="left" valign="top">
-				<td width="33%" class="text">
-					<span class="sectiontitle">SCRIPTING EVENTS</span><br />
-					This section describes the events your scripts will be notified about.<br />
-					<a href="events.html">Read more... ({EVENTS} events)</a><br />
-				</td>
-				<td width="33%" class="text">
-					<span class="sectiontitle">DEFINITION TAGS</span><br />
-					This section provides an overview over the tags used in the Wolfpack XML definitions.
-					<a href="http://www.wpdev.org/wiki/index.php/Definitions">Read more...</a>
-				</td>
-				<td width="33%" class="text">
-					<span class="sectiontitle">MISCELLANEOUS</span><br />
-					<a href="introduction.html">Introduction to Wolfpack</a><br />
-					<a href="FAQ.html">FAQ</a><br />
-					<a href="http://doc.wpdev.org/ChangeLog.wolfpack">Changelog</a><img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" /><br />
-					<a href="http://doc.wpdev.org/formats/">File Formats</a> <img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" /><br />
-					<a href="http://doc.wpdev.org/wolfpack-{SHORTVERSION}-doc.zip">Download Documentation</a> <img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" />
-				</td>
-			</tr>
-		</table>
-		<br />
+  <table width="740" border="0" cellspacing="3" cellpadding="2">
+    <tr align="left" valign="top">
+      <td width="33%" class="text"><div align="left"> <span class="sectiontitle">INGAME COMMANDS</span><br />
+          These commands can be used by players, gms and admins while in the game. This section gives you an overview over all available commands and how to use them.<br />
+          <a href="commands.html">Read more... ({COMMANDS} commands)</a><br />
+          <br />
+        </div></td>
+      <td width="33%" class="text"><span class="sectiontitle">SCRIPTING OBJECTS</span><br />
+        This section of the documentation gives you an overview over available wolfpack specific objects, their properties and methods and in some cases how to create them.<br />
+        <a href="objects.html">Read more... ({OBJECTS} objects)</a> </td>
+      <td width="33%" class="text"><span class="sectiontitle">SCRIPTING LIBRARY</span><br />
+        Wolfpack comes with a sophisticated library of scripts. This section of the documentation provides an overview over the library and its functions.<br />
+        <a href="modules.html">Read more... ({MODULES} modules)</a> </td>
+    </tr>
+  </table>
+  <hr width="740" size="1" noshade="noshade" />
+  <table width="740" border="0" cellpadding="2" cellspacing="3">
+    <tr align="left" valign="top">
+      <td width="33%" class="text"><span class="sectiontitle">SCRIPTING EVENTS</span><br />
+        This section describes the events your scripts will be notified about.<br />
+        <a href="events.html">Read more... ({EVENTS} events)</a><br />
+      </td>
+      <td width="33%" class="text"><span class="sectiontitle">DEFINITION TAGS</span><br />
+        This section provides an overview over the tags used in the Wolfpack XML definitions. <a href="http://www.wpdev.org/wiki/index.php/Definitions">Read more...</a> </td>
+      <td width="33%" class="text"><span class="sectiontitle">MISCELLANEOUS</span><br />
+        <a href="introduction.html">Introduction to Wolfpack</a><br />
+        <a href="FAQ.html">FAQ</a><br />
+        <a href="http://doc.wpdev.org/ChangeLog.wolfpack">Changelog</a><img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" /><br />
+        <a href="http://doc.wpdev.org/formats/">File Formats</a> <img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" /><br />
+        <a href="http://doc.wpdev.org/wolfpack-{SHORTVERSION}-doc.zip">Download Documentation</a> <img src="external_link.gif" alt="External Link" width="11" height="12" border="0" align="bottom" /> </td>
+    </tr>
+  </table>
   <br />
-<span class="smalltext">Generated:&#160;{GENERATED}&#160;|&#160;Version:&#160;{VERSION}</span>
-		<br />
-  <span class="smalltext">&copy; 2004-2006 Wolfpack Team |
-<a href="http://www.wpdev.org" target="_blank">http://www.wpdev.org</a></span>
-</div>
+  <br />
+  <span class="smalltext">Site search provided by <A HREF="http://www.google.com/"> <IMG SRC="http://www.google.com/logos/Logo_25wht.gif" 
+border="0" ALT="Google"></A></span> <br />
+  <span class="smalltext">Generated:&#160;{GENERATED}&#160;|&#160;Version:&#160;{VERSION}</span> <br />
+  <span class="smalltext">&copy; 2004-2006 Wolfpack Team | <a href="http://www.wpdev.org" target="_blank">http://www.wpdev.org</a></span> </div>
 </body>
 </html>

@@ -73,6 +73,24 @@
 			</tr>
 		</table>
 		<br />
+<!-- SiteSearch Google -->
+<FORM method=GET action="http://www.google.com/search">
+<input type=hidden name=ie value=UTF-8>
+<input type=hidden name=oe value=UTF-8>
+<TABLE bgcolor="#FFFFFF"><tr><td>
+<A HREF="http://www.google.com/">
+<IMG SRC="http://www.google.com/logos/Logo_40wht.gif" 
+border="0" ALT="Google"></A>
+</td>
+<td>
+<INPUT TYPE=text name=q size=31 maxlength=255 value="">
+<INPUT type=submit name=btnG VALUE="Google Search">
+<font size=-1>
+<input type=hidden name=domains value="doc.wpdev.org"><br><input type=hidden name=sitesearch value="doc.wpdev.org">Search Wolfpack Reference<br>
+</font>
+</td></tr></TABLE>
+</FORM>
+<!-- SiteSearch Google -->
 <?php require_once('footer.inc.php'); ?>
 		</div>
 	</body>

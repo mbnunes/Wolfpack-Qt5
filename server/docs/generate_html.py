@@ -20,7 +20,8 @@ functions = []
 constants = []
 
 if len(paths) == 0:
-	print "Usage: python generate.py path1[,path2,...]"
+	print "Usage: python generate.py path1[,path2,...]\n"
+	print "All generated HTML code will be output to webroot folder\n"
 	sys.exit()
 
 def examine(path):
@@ -99,7 +100,7 @@ for row in range(0, rows):
 		id = col * rows + row
 		if id < len(commands):
 			command = commands[id]
-			overview += '<td>- <a href="command_%s.html">%s</a></td>' % (command['name'].lower(), command['name'])
+			overview += '<td><li><a href="command_%s.html">%s</a></li></td>' % (command['name'].lower(), command['name'])
 		else:
 			overview += "<td>&nbsp;</td>\n";
 
