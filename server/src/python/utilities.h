@@ -278,6 +278,21 @@ public:
 	}
 };
 
+class PythonGILLocker
+{
+	PyGILState_STATE gstate;
+public:
+	PythonGILLocker()
+	{
+		gstate = PyGILState_Ensure();
+	}
+	
+	~PythonGILLocker()
+	{
+		PyGILState_Release(gstate);
+	}
+};
+
 // Helper functions for managing stealed references in lists and dictionaries
 // NOTE: THIS FUNCTION DECREFS THE GIVEN PYOBJECT!!!
 inline void PyDict_SetStolenItem(PyObject *dict, const char *key, PyObject *object) {

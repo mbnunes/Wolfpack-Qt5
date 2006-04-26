@@ -118,6 +118,9 @@ static void startPython( int argc, char* argv[] )
 
 	PyImport_AppendInittab( "_wolfpack", init_wolfpack );
 	Py_Initialize();
+	if ( !PyEval_ThreadsInitialized() )
+		PyEval_InitThreads();
+
 	PySys_SetArgv( argc, argv );
 
 	// Modify our search-path

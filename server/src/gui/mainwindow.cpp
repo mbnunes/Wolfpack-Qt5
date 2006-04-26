@@ -29,6 +29,7 @@
 #include "mainwindow.h"
 #include "qwpevents.h"
 #include "profilerwindow.h"
+#include "pythoninteractivewindow.h"
 #include "trayicon/trayicon.h"
 
 #include "../console.h"
@@ -184,6 +185,7 @@ void MainWindow::createMenus()
 
 	// Scripting Menu
 	scriptingMenu = menuBar()->addMenu( tr("&Scripting") );
+	scriptingMenu->addAction( scriptingPythonInterpreter );
 	QMenu* subMenu = scriptingMenu->addMenu( tr("&Profiler") );
 	subMenu->addAction( scriptingProfilerStart );
 	subMenu->addAction( scriptingProfilerStop );
@@ -244,6 +246,9 @@ void MainWindow::createActions()
     connect(serverUsersAct, SIGNAL(triggered()), this, SLOT(listusers()));
 
 	// Scripting - Profiler
+	scriptingPythonInterpreter = new QAction( tr("Interactive Interpreter"), this );
+	scriptingPythonInterpreter->setStatusTip( tr("Opens a window with an interactive Python interpreter") );
+	connect( scriptingPythonInterpreter, SIGNAL(triggered()), this, SLOT(newInterpreterWindow()) );
 	scriptingProfilerStart = new QAction( tr("Start"), this );
 	connect( scriptingProfilerStart, SIGNAL(triggered()), PyProfiler::instance(), SLOT(start()), Qt::QueuedConnection);
 
@@ -336,6 +341,12 @@ void MainWindow::about()
 void MainWindow::profilerStopped()
 {
 	ProfilerWindow* p = new ProfilerWindow( this );
+	p->show();
+}
+
+void MainWindow::newInterpreterWindow()
+{
+	PythonInteractiveWindow* p = new PythonInteractiveWindow( this );
 	p->show();
 }
 

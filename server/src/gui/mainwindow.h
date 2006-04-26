@@ -66,6 +66,7 @@ private slots:
 	void about();
 
 	void profilerStopped();
+	void newInterpreterWindow();
 
 private:
 	void createActions();
@@ -84,6 +85,7 @@ private:
 	QAction *reloadScriptsAct;
 	QAction *serverSaveAct;
 	QAction *serverUsersAct;
+	QAction *scriptingPythonInterpreter;
 	QAction *scriptingProfilerStart;
 	QAction *scriptingProfilerStop;
 	QAction *helpHPAct;

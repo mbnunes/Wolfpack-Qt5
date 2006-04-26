@@ -68,8 +68,6 @@ struct QByteArray_from_python_str
 			data->convertible = storage;
 		}
 	}
-
-
 };
 
 struct QString_to_python_str
