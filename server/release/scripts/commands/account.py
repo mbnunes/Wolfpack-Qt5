@@ -7,36 +7,34 @@
 """
 	\command account
 	\description This command will modify account information.
-	\usage - <code>account create username password</code>
-	- <code>account remove username</code>
-	- <code>account set username key value</code>
-	- <code>account show username key</code>
+	\usage
+	- <code>account create <i>username</i> <i>password</i></code>
+	- <code>account remove <i>username</i></code>
+	- <code>account set <i>username</i> <i>key</i> <i>value</i></code>
+	- <code>account show <i>username</i> <i>key</i></code>
+
+	<strong>Detailed Description</strong>
 	 Use the create subcommand to create a new account with the given username and password.
 	To remove an account along with all player characters on that account, use the remove
 	subcommand and pass the username to it.
 	To change properties of a given account, use the set subcommand and pass the username,
 	the property key and the new property value to it. See the notes for a list of valid property keys.
 	To view properties of an account, use the show subcommand and pass the property key to it.
-	\notes The following properties can be set for accounts:
-	<i>password</i>
-	The account password.
-	<br />
-	<i>acl</i>
-	The name of the access control list.
-	<br />
-	<i>block</i>
-	Block status of the account.
-	<br />
+
+        The following properties can be set for accounts:
+	<ul>
+	<li> <b>password</b> The account password.</li>
+	<li> <b>acl</b> The name of the access control list.</li>
+	<li> <b>block</b> Block status of the account.</li>
+	</ul>
 	In addition to the writeable properties, the following properties can be shown:
-	<br />
-	<i>lastlogin</i>
-	When was the last successful login made.
-	<br />
-	<i>chars</i>
-	Prints a list of player characters on this account.
-	<br />
+	<ul>
+	<li><b>lastlogin</b> When was the last successful login made.</li>
+	<li><b>chars</b> Prints a list of player characters on this account.</li>
+	</ul>
 	Valid values for the block property are either true or false.
 	<br />
+	\notes
 	If you have enabled MD5 passwords, you can only view the hashed password when showing the password property.
 """
 

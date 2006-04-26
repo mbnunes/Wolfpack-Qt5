@@ -416,15 +416,24 @@ def onUnload():
 
 """
 	\command add
-	\description Add a npc, item or multi and if no definition was specified, open a menu.
+	\description The <tt>add</tt> command allows you to create npc, item or multi instances.
 	\usage - <code>add npc-id</code>
 	- <code>add item-id</code>
 	- <code>add multi-id</code>
 	- <code>add</code>
-	If neither a npc nor an item id is passed to the add command, a menu with all
-	categorized item and npc definitions is shown.
-	The menu is automatically generated from the definitions of items and NPCs
-	based on the <category> tag.
+	<br /><strong>Detailed Description</strong><br />
+        If no additional parameters are passed to the add command, it will generate a menu with all
+	categorized item and npc definitions. The entries of the menu are automatically generated
+	based on the loaded definitions <pre><category></pre> tag.
+	The object's ids are can be found in the definitions, such as:
+	<code>
+		&lt;!-- Random Horse --&gt;
+        	&lt;npc id="horse" inherit="animal_base"&gt;
+        	...
+        	&lt;/npc&gt;
+	</code>
+	In this case, to create an instance of the object defined above one should
+	use <tt>add horse</tt>.
 """
 
 """

@@ -42,8 +42,8 @@ def onWorldSave():
 		dialog.addResizeGump( 0, 0, 9200, 291, 90 )
 		dialog.addCheckerTrans( 0, 0, 291, 90 )
 		dialog.addText( 47, 19, tr( "WORLDSAVE IN PROGRESS" ), 2122 )
-		dialog.addText( 47, 37, tr( "Saving %s items." )%( str(wolfpack.itemcount()) ), 2100 )
-		dialog.addText( 47, 55, tr( "Saving %s characters." )%( str(wolfpack.charcount()) ), 2100 )
+		dialog.addText( 47, 37, tr( "Saving %i items." )%( wolfpack.itemcount() ), 2100 )
+		dialog.addText( 47, 55, tr( "Saving %i characters." )%( wolfpack.charcount() ), 2100 )
 		dialog.addTilePic( 3, 25, 4167 )
 
 		# Sending to players
