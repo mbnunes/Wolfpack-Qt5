@@ -144,6 +144,7 @@ PythonInteractiveWindow::PythonInteractiveWindow( QWidget * parent ) : QMainWind
 	vboxlayout->addLayout( hboxlayout1 );
 	setCentralWidget(box);
 
+	resize(QSize(555, 403).expandedTo(minimumSizeHint()));
 	setWindowTitle("Wolfpack Embedded Interactive Python Interpreter");
 	statusBar();
 

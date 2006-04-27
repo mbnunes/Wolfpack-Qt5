@@ -330,8 +330,17 @@ void MainWindow::listusers()
 	Console::instance()->send( tr( "Total Users Online: %1\n" ).arg( i ) );
 }
 
+#if defined( Q_OS_WIN )
+#include <windows.h>
+#endif
+
 void MainWindow::homepage()
 {
+#if defined ( Q_OS_WIN )
+	ShellExecuteA(NULL, "open", "http://www.wpdev.org", NULL, NULL, SW_SHOWNORMAL);
+#else
+	QMessageBox::information( this, tr("Wolfpack homepage"), tr("Wolfpack doesn't know how to start your default browser\nPlease access http://www.wpdev.org/ manually") );
+#endif
 }
 
 void MainWindow::about()

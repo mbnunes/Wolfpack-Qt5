@@ -118,7 +118,9 @@ static void startPython( int argc, char* argv[] )
 
 	PyImport_AppendInittab( "_wolfpack", init_wolfpack );
 	Py_Initialize();
+#if PY_VERSION_HEX > 0x02040000
 	if ( !PyEval_ThreadsInitialized() )
+#endif
 		PyEval_InitThreads();
 
 	PySys_SetArgv( argc, argv );

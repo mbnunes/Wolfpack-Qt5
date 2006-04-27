@@ -7,7 +7,7 @@ SOURCES +=	\
 			$$PWD/mainwindow.cpp \
 			$$PWD/lineedithistory.cpp \
 			$$PWD/profilersessionmodel.cpp \
-			$$PWD/profilerwindow.cpp /
+			$$PWD/profilerwindow.cpp \
 			$$PWD/pythoninteractivewindow.cpp
 			
 HEADERS +=	\
