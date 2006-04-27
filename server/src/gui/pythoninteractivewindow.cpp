@@ -36,6 +36,7 @@
 #include "pythoninteractivewindow.h"
 #include "lineedithistory.h"
 #include "../python/utilities.h"
+#include "../serverconfig.h"
 
 #include <QLabel>
 #include <QTextEdit>
