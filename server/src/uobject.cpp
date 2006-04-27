@@ -226,7 +226,7 @@ void cUObject::save()
 	static bool init = false;
 	static QSqlQuery preparedUpdate;
 	static QSqlQuery preparedInsert;
-	if ( !init )
+	if ( !init || !preparedInsert.isValid() || !preparedUpdate.isValid() )
 	{
 		preparedUpdate.prepare("update uobject set name = ?, serial = ?, multis = ?, pos_x = ?, pos_y = ?, pos_z = ?, pos_map = ?, events = ?, havetags = ? where serial = ?");
 		preparedInsert.prepare("insert into uobject values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )");

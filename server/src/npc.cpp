@@ -230,7 +230,7 @@ void cNPC::save()
 	static bool init = false;
 	static QSqlQuery preparedUpdate;
 	static QSqlQuery preparedInsert;
-	if ( !init )
+	if ( !init || !preparedInsert.isValid() || !preparedUpdate.isValid() )
 	{
 		preparedUpdate.prepare("update npcs set serial = ?, summontime = ?, additionalflags = ?, owner = ?, stablemaster = ?, ai = ?, wandertype = ?, wanderx1 = ?, wanderx2 = ?, wandery1 = ?, wandery2 = ?, wanderradius = ? where serial = ?");
 		preparedInsert.prepare("insert into npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");

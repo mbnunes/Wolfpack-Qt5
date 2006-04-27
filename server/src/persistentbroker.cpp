@@ -242,3 +242,14 @@ QString cPersistentBroker::quoteString( QString s )
 	else
 		return s.replace( "'", "\\'" ).toUtf8().data();
 }
+
+void cPersistentBroker::truncateTable( const QString& table )
+{
+	QString query;
+	if ( d->connection.driverName().toLower() == "qmysql" )
+		query += "truncate ";
+	else
+		query += "delete from";
+	query += table;
+	executeQuery( query );
+}

@@ -1048,15 +1048,11 @@ void cWorld::save()
 			Config::instance()->flush();
 
 			// Flush old items
-			PersistentBroker::instance()->flushDeleteQueue();
-
-			p->purgePendingObjects();
-
 			PersistentBroker::instance()->startTransaction();
+			PersistentBroker::instance()->flushDeleteQueue();
+			p->purgePendingObjects();
+			PersistentBroker::instance()->truncateTable("spawnregions");
 
-			if (!query.exec("TRUNCATE spawnregions")) {
-				query.exec("DELETE FROM spawnregions;");
-			}
 			query.prepare( "INSERT INTO spawnregions VALUES(?,?)" );
 
 			cItemIterator iItems;
@@ -1089,10 +1085,8 @@ void cWorld::save()
 
 			Guilds::instance()->save();
 
-			PersistentBroker::instance()->commitTransaction();
-
 			// Write Options
-			PersistentBroker::instance()->executeQuery( "TRUNCATE settings;" );
+			PersistentBroker::instance()->truncateTable( "settings" );
 
 			QMap<QString, QString>::iterator oit;
 			for ( oit = options.begin(); oit != options.end(); ++oit )
@@ -1103,6 +1097,7 @@ void cWorld::save()
 				PersistentBroker::instance()->executeQuery( sql );
 			}
 
+			PersistentBroker::instance()->commitTransaction();
 			PersistentBroker::instance()->disconnect();
 		}
 

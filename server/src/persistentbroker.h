@@ -67,6 +67,8 @@ public:
 	void startTransaction();
 	void commitTransaction();
 	void rollbackTransaction();
+
+	void truncateTable( const QString& table );
 };
 
 typedef Singleton<cPersistentBroker> PersistentBroker;

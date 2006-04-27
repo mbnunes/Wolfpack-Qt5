@@ -60,21 +60,11 @@ unsigned int cGuilds::findFreeSerial()
 void cGuilds::save()
 {
 	// Clear the tables first: guilds are not saved incremental.
-	if (!PersistentBroker::instance()->executeQuery( "TRUNCATE guilds;" )) {
-		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds;" );
-	}
-	if (!PersistentBroker::instance()->executeQuery( "TRUNCATE guilds_members;" )) {
-		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_members;" );
-	}
-	if (!PersistentBroker::instance()->executeQuery( "TRUNCATE guilds_canidates;" )) {
-		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_canidates;" );
-	}
-	if (!PersistentBroker::instance()->executeQuery( "TRUNCATE guilds_allies;" )) {
-		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_allies;" );
-	}
-	if (!PersistentBroker::instance()->executeQuery( "TRUNCATE guilds_enemies;" )) {
-		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_enemies;" );
-	}
+	PersistentBroker::instance()->truncateTable( "guilds" );
+	PersistentBroker::instance()->truncateTable( "guilds_members" );
+	PersistentBroker::instance()->truncateTable( "guilds_canidates" );
+	PersistentBroker::instance()->truncateTable( "guilds_allies" );
+	PersistentBroker::instance()->truncateTable( "guilds_enemies" );
 	
 	for ( iterator it = begin(); it != end(); ++it )
 	{
