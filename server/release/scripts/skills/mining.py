@@ -235,7 +235,6 @@ def response( char, args, target ):
 			# Stop Action
 			if foundtreas == 1:
 				return True
-					
 
 		if ismountainorcave( map['id'] ):
 			mining( char, target.pos, tool, sand = False )
@@ -274,8 +273,6 @@ def response( char, args, target ):
 
 	else:
 		return False
-
-	return True
 
 def domining(char, args):
 	char.soundeffect( random.choice([0x125, 0x126]) )
