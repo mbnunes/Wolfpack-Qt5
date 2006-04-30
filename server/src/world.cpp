@@ -1024,7 +1024,7 @@ void cWorld::save()
 
 			try
 			{
-				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword(), Config::instance()->databasePort() );
+				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword(), Config::instance()->databasePort(), Config::instance()->useDatabaseTransaction() );
 			}
 			catch ( wpException& e )
 			{

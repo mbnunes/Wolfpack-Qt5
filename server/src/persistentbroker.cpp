@@ -53,6 +53,7 @@ class PersistentBrokerPrivate
 public:
 	QSqlDatabase connection;
 	bool sqlite;
+	bool useTransaction;
 	std::list<stDeleteItem> deleteQueue;
 };
 
@@ -86,7 +87,7 @@ bool cPersistentBroker::isOpen() const
 	return d->connection.isOpen();
 }
 
-bool cPersistentBroker::connect( const QString& host, const QString& db, const QString& username, const QString& password, int port )
+bool cPersistentBroker::connect( const QString& host, const QString& db, const QString& username, const QString& password, int port, bool transaction )
 {
 	if ( !d->connection.isValid() )
 		return false;
@@ -99,6 +100,8 @@ bool cPersistentBroker::connect( const QString& host, const QString& db, const Q
 	if (port > 0) {
 		d->connection.setPort( port );
 	}
+	
+	d->useTransaction = transaction;
 
 	if ( !d->connection.open() )
 		return false;
@@ -209,17 +212,20 @@ void cPersistentBroker::unlockTable( const QString& table ) const
 
 void cPersistentBroker::startTransaction()
 {
-	d->connection.transaction();
+	if ( d->useTransaction )
+		d->connection.transaction();
 }
 
 void cPersistentBroker::commitTransaction()
 {
-	d->connection.commit();
+	if ( d->useTransaction )
+		d->connection.commit();
 }
 
 void cPersistentBroker::rollbackTransaction()
 {
-	d->connection.rollback();
+	if ( d->useTransaction )
+		d->connection.rollback();
 }
 
 bool cPersistentBroker::tableExists( const QString& table )
@@ -249,7 +255,7 @@ void cPersistentBroker::truncateTable( const QString& table )
 	if ( d->connection.driverName().toLower() == "qmysql" )
 		query += "truncate ";
 	else
-		query += "delete from";
+		query += "delete from ";
 	query += table;
 	executeQuery( query );
 }

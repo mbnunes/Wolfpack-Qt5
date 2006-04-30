@@ -113,16 +113,14 @@ struct QString_from_python_str
 		if ( PyUnicode_Check( obj ) )
 		{
 			void *storage=((converter::rvalue_from_python_storage<QString> *) data)->storage.bytes;
-			//QString* result = new(storage) QString;
-			
-#if defined(Py_UNICODE_WIDE)
 			PY_UNICODE_TYPE *ucode = PyUnicode_AS_UNICODE( obj );
 			int len = PyUnicode_GET_SIZE( obj );
+#if defined(Py_UNICODE_WIDE)
 			QString* out = new(storage) QString;
 			for ( int i = 0; i < len; ++i )
 				out->append( (uint)ucode[i] );
 #else
-			new(storage) QString( (const QChar *)PyUnicode_AS_UNICODE( obj ), PyUnicode_GET_SIZE(obj) );
+			new(storage) QString( (const QChar *)ucode, len );
 #endif
 			data->convertible = storage;
 		}

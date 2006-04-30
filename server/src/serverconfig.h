@@ -124,6 +124,7 @@ protected:
 	QString databasePassword_;
 	QString databaseHost_;
 	int databasePort_;
+	bool useDatabaseTransaction_;
 	QString accountsDriver_;
 	QString accountsName_;
 	QString accountsUsername_;
@@ -365,6 +366,7 @@ public:
 	QString accountsPassword() const;
 	QString accountsUsername() const;
 	QString accountsName() const;
+	bool useDatabaseTransaction() const;
 	int databasePort() const;
 	int accountsPort() const;
 	unsigned int maxCharsPerAccount() const;
@@ -710,6 +712,11 @@ inline QString cConfig::databaseUsername() const
 inline QString cConfig::databasePassword() const
 {
 	return databasePassword_;
+}
+
+inline bool cConfig::useDatabaseTransaction() const
+{
+	return useDatabaseTransaction_;
 }
 
 inline QString cConfig::accountsDriver() const

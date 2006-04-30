@@ -139,6 +139,7 @@ void cConfig::readData()
 	databaseDriver_ = getString( "Database", "Database Driver", "binary", true );
 	databaseName_ = getString( "Database", "Database Name", "world.db", true );
 	databasePort_ = getNumber("Database", "Database Port", 3306, true);
+	useDatabaseTransaction_ = getBool("Database", "Use Transactions", false, true );
 
 	// Repsys
 	murderdecay_ = getNumber( "Repsys", "Murder Decay", 28800, true );

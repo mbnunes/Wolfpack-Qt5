@@ -45,7 +45,7 @@ public:
 	bool openDriver( const QString& driver );
 	bool isOpen() const;
 
-	bool connect( const QString& host, const QString& db, const QString& username, const QString& password, int port = -1 );
+	bool connect( const QString& host, const QString& db, const QString& username, const QString& password, int port = -1, bool transaction = false );
 	void disconnect();
 
 	bool executeQuery( const QString& query );
