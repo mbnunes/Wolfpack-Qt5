@@ -1878,7 +1878,9 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	effect->setSerializable( persistent != 0 );
 
 	effect->dispellable = dispelable != 0;
-	effect->setDispelId( boost::python::extract<QString>( dispelName ) );
+
+	if ( dispelName )
+		effect->setDispelId( boost::python::extract<QString>( dispelName ) );
 
 	effect->setDispelFunc( dispelCall );
 
