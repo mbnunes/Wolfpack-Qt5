@@ -251,7 +251,7 @@ def hairstyle_response(char, arguments, response):
 		return
 
 	# Gold?
-	female = ( speaker.id in PLAYER_BODIES_ALIVE_FEMALE )
+	female = ( char.id in PLAYER_BODIES_ALIVE_FEMALE )
 	gold = char.getbackpack().countitems(['eed'])
 	gold += char.getbankbox().countitems(['eed'])
 
