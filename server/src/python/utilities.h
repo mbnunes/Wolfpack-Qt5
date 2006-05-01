@@ -268,13 +268,20 @@ public:
 
 	PyObject* operator()( PyObject* args )
 	{
-		PyObject* result = 0;
-		Py_XINCREF( args );
-		if ( isValid() )
-			result = PyEval_CallObject( pFunc, args );
-		reportPythonError( sModule );
-		Py_XDECREF( args );
-		return result;
+		try
+		{
+			PyObject* result = 0;
+			Py_XINCREF( args );
+			if ( isValid() )
+				result = PyEval_CallObject( pFunc, args );
+			reportPythonError( sModule );
+			Py_XDECREF( args );
+			return result;
+		}
+		catch( boost::python::error_already_set& )
+		{
+			return 0;
+		}
 	}
 };
 

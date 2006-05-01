@@ -1564,18 +1564,9 @@ static PyObject* wpPacket( PyObject* self, PyObject* args )
 	Take a look at the "Action Constants" in the <module id="wolfpack.consts">wolfpack.consts</module> module.
 	\description This function queues an action to be executed in the next iteration of the mainloop.
 */
-static PyObject* wpQueueAction( PyObject* self, PyObject* args )
+void wpQueueAction( unsigned int action )
 {
-	Q_UNUSED( self );
-
-	unsigned int type = 0;
-
-	if ( !PyArg_ParseTuple( args, "i:wolfpack.queueaction( type )", &type ) )
-		return 0;
-
-	Server::instance()->queueAction( ( enActionType ) type );
-
-	Py_RETURN_NONE;
+	Server::instance()->queueAction( ( enActionType ) action );
 }
 
 /*
@@ -1607,19 +1598,10 @@ static PyObject* wpQueueCode( PyObject* self, PyObject* args )
 	\description This function behaves like the exportdefinitions command. It exports a WPGM compatible database
 	to the given filename.
 */
-static PyObject* wpExportDefinitions( PyObject* self, PyObject* args )
+void wpExportDefinitions( const QString& filename )
 {
-	Q_UNUSED( self );
-
-	char *filename;
-
-	if ( !PyArg_ParseTuple( args, "s:wolfpack.exportdefinitions( filename )", &filename ) )
-		return 0;
-
 	cDefinitionExporter exporter;
 	exporter.generate(filename);
-
-	Py_RETURN_NONE;
 }
 
 /*
@@ -1755,34 +1737,17 @@ static PyObject* wpCallEvent( PyObject* /*self*/, PyObject* args )
 	\return True or false.
 	\description This function checks if the given script can handle an event of the given type and returns true if it can.
 */
-static PyObject* wpHasEvent( PyObject* /*self*/, PyObject* args )
+bool wpHasEvent( const QString& script, unsigned int event )
 {
-	char* script;
-	unsigned int event;
-
-	if ( !PyArg_ParseTuple( args, "sI:wolfpack.hasevent(scriptname, event)", &script, &event ) )
-	{
-		return 0;
-	}
-
-	cPythonScript* pythonscript = ScriptManager::instance()->find( script );
+	cPythonScript* pythonscript = ScriptManager::instance()->find( script.toLatin1() );
 
 	if ( !pythonscript )
 	{
 		PyErr_SetString( PyExc_ValueError, "You tried to access an unknown script." );
-		return 0;
+		throw_error_already_set();
 	}
 
-	bool result = pythonscript->canHandleEvent( ( ePythonEvent ) event );
-
-	if ( result )
-	{
-		Py_RETURN_TRUE;
-	}
-	else
-	{
-		Py_RETURN_FALSE;
-	}
+	return pythonscript->canHandleEvent( ( ePythonEvent ) event );
 }
 
 /*
@@ -1829,34 +1794,17 @@ static PyObject* wpCallNamedEvent( PyObject* /*self*/, PyObject* args )
 	\return True or false.
 	\description This function checks if the given script can handle an event with the given name and returns true if it can.
 */
-static PyObject* wpHasNamedEvent( PyObject* /*self*/, PyObject* args )
+bool wpHasNamedEvent( const QString& script, const QString& event )
 {
-	char* script;
-	char* event;
-
-	if ( !PyArg_ParseTuple( args, "ss:wolfpack.hasnamedevent(scriptname, eventname)", &script, &event ) )
-	{
-		return 0;
-	}
-
-	cPythonScript* pythonscript = ScriptManager::instance()->find( script );
+	cPythonScript* pythonscript = ScriptManager::instance()->find( script.toLatin1() );
 
 	if ( !pythonscript )
 	{
 		PyErr_SetString( PyExc_ValueError, "You tried to access an unknown script." );
-		return 0;
+		throw_error_already_set();
 	}
 
-	bool result = pythonscript->canHandleEvent( event );
-
-	if ( result )
-	{
-		Py_RETURN_TRUE;
-	}
-	else
-	{
-		Py_RETURN_FALSE;
-	}
+	return pythonscript->canHandleEvent( event );
 }
 
 /*
@@ -1866,13 +1814,11 @@ static PyObject* wpHasNamedEvent( PyObject* /*self*/, PyObject* args )
 	\return A string with the value of the option.
 	\description This function retrieves an option from the world database.
 */
-static PyObject* wpGetOption( PyObject* /*self*/, PyObject* args )
+QString wpGetOption( const QString& arg_key, const QString& arg_def )
 {
-	QString arg_key = getArgStr( 0 );
-	QString arg_def = getArgStr( 1 );
 	QString value;
 	World::instance()->getOption( arg_key, value, arg_def );
-	return PyString_FromString( value.toLatin1().constData() );
+	return value;
 }
 
 /*
@@ -1881,14 +1827,9 @@ static PyObject* wpGetOption( PyObject* /*self*/, PyObject* args )
 	\param value A string containing the value of the option.
 	\description This function sets a given option in the world database.
 */
-static PyObject* wpSetOption( PyObject* /*self*/, PyObject* args )
+void wpSetOption( const QString& arg_key, const QString& arg_val )
 {
-	QString arg_key = getArgStr( 0 );
-	QString arg_val = getArgStr( 1 );
-
 	World::instance()->setOption( arg_key, arg_val );
-
-	Py_RETURN_NONE;
 }
 
 /*
@@ -1978,19 +1919,14 @@ static PyObject* wpItemBase( PyObject*, PyObject* args )
 }
 
 /*
-\function wolfpack.tr
-\param message The message to be translated.
-\return The translated message into the current server's language.
-\description Get a message in English and translates it into the current server's language.
+	\function wolfpack.tr
+	\param message The message to be translated.
+	\return The translated message into the current server's language.
+	\description Get a message in English and translates it into the current server's language.
 */
-static PyObject* wpTr( PyObject*, PyObject* args )
+QString wpTr( const char* message )
 {
-	char* message = 0;
-	if ( !PyArg_ParseTuple( args, "s:wolfpack.tr(message)", &message ) )
-	{
-		return 0;
-	}
-	return QString2Python( QCoreApplication::translate( "@pythonscript", message ) );
+	return QCoreApplication::translate( "@pythonscript", message );
 }
 
 
@@ -2002,12 +1938,8 @@ static PyMethodDef wpGlobal[] =
 { "playercount",		wpPlayerCount,					METH_VARARGS, 0 },
 { "bodyinfo",			wpBodyInfo,						METH_VARARGS, 0 },
 { "charbase",			wpCharBase,						METH_VARARGS, 0 },
-{ "getoption",			wpGetOption,					METH_VARARGS, "Reads a string value from the database." },
-{ "setoption",			wpSetOption,					METH_VARARGS, "Sets a string value and a key to the database." },
 { "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
-{ "hasevent",			wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
 { "callnamedevent",		wpCallNamedEvent,				METH_VARARGS, "Call an event in a script and return the result." },
-{ "hasnamedevent",		wpHasNamedEvent,				METH_VARARGS, "If the given script has the given event. Return true." },
 { "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." },
 { "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." },
 { "packet",				wpPacket,						METH_VARARGS, NULL },
@@ -2052,12 +1984,9 @@ static PyMethodDef wpGlobal[] =
 { "isreloading",		wpIsReloading,					METH_NOARGS, "Returns if the server is in reload state" },
 { "isclosing",			wpIsClosing,					METH_NOARGS, "Returns if the server is in closing state" },
 { "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
-{ "queueaction",		wpQueueAction,					METH_VARARGS, NULL },
 { "queuecode",			wpQueueCode,					METH_VARARGS, NULL },
-{ "exportdefinitions",	wpExportDefinitions,			METH_VARARGS, NULL },
 { "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" },
 { "itemcount",			wpItemCount,					METH_NOARGS,  "Returns the number of items in the world" },
-{ "tr",					wpTr,							METH_VARARGS, NULL },
 { "definitionsiterator",wpDefinitionsIterator,			METH_VARARGS, NULL },
 { NULL, NULL, 0, NULL } // Terminator
 
@@ -2677,6 +2606,13 @@ void init_wolfpack_settings()
 BOOST_PYTHON_MODULE(_wolfpack)
 {
 	// Namespace level definitions
+	def("queueaction", wpQueueAction );
+	def("exportdefinitions", wpExportDefinitions );
+	def("hasevent", wpHasEvent );
+	def("hasnamedevent", wpHasNamedEvent );
+	def("getoption", wpGetOption );
+	def("setoption", wpSetOption );
+	def("tr", wpTr );
 
 	object wpNamespace( ( handle<>( borrowed( Py_InitModule( "_wolfpack", wpGlobal ) ) ) ) );
 
