@@ -349,8 +349,8 @@ class Pages:
 		i = 0
 		for page in self.pages:
 			i += 1
-			wolfpack.setoption('page_%u' % i, page.tostring())
-		wolfpack.setoption('pages', i)
+			wolfpack.setoption('page_' + str(i), page.tostring())
+		wolfpack.setoption('pages', str(i))
 
 	"""
 		Load the pages
