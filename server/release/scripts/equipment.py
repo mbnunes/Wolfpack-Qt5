@@ -1,4 +1,5 @@
 import wolfpack
+import wolfpack.time
 from wolfpack.utilities import *
 from wolfpack.consts import *
 import wolfpack.weaponinfo
@@ -413,7 +414,7 @@ def onShowTooltip(viewer, object, tooltip):
 def onWearItem(player, wearer, item, layer):
 	if wearer.socket and wearer.socket.hastag('block_equip'):
 		expire = int(wearer.socket.gettag('block_equip'))
-		if expire < wolfpack.currenttime():
+		if expire < wolfpack.time.currenttime():
 			wearer.socket.deltag('block_equip')
 		else:
 			if player == wearer:

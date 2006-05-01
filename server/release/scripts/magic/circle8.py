@@ -3,6 +3,7 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from magic.utilities import *
 import random
 import wolfpack
+import wolfpack.time
 from wolfpack.utilities import tobackpack, energydamage, mayAreaHarm
 
 def onLoad():

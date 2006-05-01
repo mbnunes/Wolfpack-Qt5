@@ -1,5 +1,6 @@
 
 import wolfpack
+import wolfpack.time
 import random
 import system.lootlists
 from wolfpack import tr
@@ -45,7 +46,7 @@ def checkUse(player):
 	if player.socket and player.socket.hastag('greenthorn_delay'):
 		delay = int(player.socket.gettag('greenthorn_delay'))
 
-		if wolfpack.currenttime() < delay:
+		if wolfpack.time.currenttime() < delay:
 			return False
 
 	return True
@@ -126,7 +127,7 @@ def target(player, arguments, target):
 				listener.socket.clilocmessage(1061915, player.name, 0x961, 3, player, "", False, True) # * ~1_PLAYER_NAME~ pushes a strange green thorn into the ground. *
 
 		# Set the next use delay for this kind of item
-		player.socket.settag('greenthorn_delay', wolfpack.currenttime() + GREENTHORN_DELAY)
+		player.socket.settag('greenthorn_delay', wolfpack.time.currenttime() + GREENTHORN_DELAY)
 
 		# Start the effect
 		player.addtimer(2500, callback, [target.pos, 0])

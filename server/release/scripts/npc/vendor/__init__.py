@@ -5,6 +5,7 @@ import time
 
 # Wolfpack imports
 import wolfpack
+import wolfpack.time
 from wolfpack.consts import *
 from wolfpack import console, tr
 
@@ -356,13 +357,13 @@ class Vendor:
 		last_restock = vendor.gettag('lastrestock')
 
 		# If there was no restock yet, set the time for the next one
-		if not last_restock or last_restock > wolfpack.currenttime():
-			vendor.settag('lastrestock', wolfpack.currenttime())
+		if not last_restock or last_restock > wolfpack.time.currenttime():
+			vendor.settag('lastrestock', wolfpack.time.currenttime())
 
 		# Check if the last restock is long enough in the past to justify a new restock
-		elif last_restock + RESTOCK_INTERVAL < wolfpack.currenttime():
+		elif last_restock + RESTOCK_INTERVAL < wolfpack.time.currenttime():
 			self.doRestock(vendor)
-			vendor.settag('lastrestock', wolfpack.currenttime())
+			vendor.settag('lastrestock', wolfpack.time.currenttime())
 
 	#
 	# Restock the vendors inventory

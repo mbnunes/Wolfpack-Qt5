@@ -154,7 +154,7 @@ class BaseAbility:
 			return True # This ability does not require mana
 
 		if player.socket and player.socket.hastag('last_special_ability'):
-			if player.socket.gettag('last_special_ability') + 3000 > wolfpack.currenttime():
+			if player.socket.gettag('last_special_ability') + 3000 > wolfpack.time.currenttime():
 				mana *= 2
 			else:
 				player.socket.deltag('last_special_ability')
@@ -201,7 +201,7 @@ class BaseAbility:
 		self.checkmana(player, weapon, True) # Consume the mana
 		clearability(player) # Clear the ability
 		if player.socket:
-			player.socket.settag('last_special_ability', wolfpack.currenttime())		
+			player.socket.settag('last_special_ability', wolfpack.time.currenttime())		
 
 #
 # An ability was selected
@@ -441,7 +441,7 @@ class Disarm (BaseAbility):
 
 			# Players cannot equip another weapon for 5000 ms
 			if defender.socket:
-				defender.socket.settag('block_equip', wolfpack.currenttime() + 5000)
+				defender.socket.settag('block_equip', wolfpack.time.currenttime() + 5000)
 			elif defender.npc:
 				defender.addtimer(random.randint(5000, 7500), reequip_weapon, [weapon.serial, layer], True)
 
@@ -510,7 +510,7 @@ class Dismount (BaseAbility):
 		defender.unmount()		
 
 		# Make it impossible to mount a horse for 10 seconds
-		defender.socket.settag('block_mount', wolfpack.currenttime() + 10000)
+		defender.socket.settag('block_mount', wolfpack.time.currenttime() + 10000)
 
 		if not mounted:
 			energydamage(defender, attacker, random.randint(15, 25), physical=100, damagetype=DAMAGE_PHYSICAL)
@@ -551,7 +551,7 @@ class DoubleStrike(BaseAbility):
 		# Make sure that the next swing has only 90% of the damage
 		if attacker.socket:
 			attacker.socket.settag('weaponability', 1000)
-		attacker.callevent(EVENT_SWING, (attacker, defender, wolfpack.currenttime())) # Swing again
+		attacker.callevent(EVENT_SWING, (attacker, defender, wolfpack.time.currenttime())) # Swing again
 
 class DoubleStrikeInternal(BaseAbility):
 	def __init__(self):
@@ -660,10 +660,10 @@ class MortalStrike(BaseAbility):
 		defender.dispel(None, True, 'MORTALSTRIKE_CHECK')
 
 		if defender.npc:
-			defender.settag('mortalstrike', wolfpack.currenttime() + 12000)
+			defender.settag('mortalstrike', wolfpack.time.currenttime() + 12000)
 			defender.addtimer(12000, ismortallywounded, [True], False, False, 'MORTALSTRIKE_CHECK')
 		else:
-			defender.settag('mortalstrike', wolfpack.currenttime() + 6000)
+			defender.settag('mortalstrike', wolfpack.time.currenttime() + 6000)
 			defender.addtimer(6000, ismortallywounded, [True], False, False, 'MORTALSTRIKE_CHECK')
 
 MortalStrike()
@@ -682,14 +682,14 @@ def ismortallywounded(char, args = None):
 		return False
 		
 	expire = int(char.gettag('mortalstrike'))
-	if expire < wolfpack.currenttime():
+	if expire < wolfpack.time.currenttime():
 		char.deltag('mortalstrike')
 		if char.socket:
 			char.socket.clilocmessage(1060208)
 		return False
 
 	# Wont it expire within 20 seconds? > Server Restart occured
-	if expire + 20000 < wolfpack.currenttime():
+	if expire + 20000 < wolfpack.time.currenttime():
 		char.deltag('mortalstrike')
 		if char.socket:
 			char.socket.clilocmessage(1060208)
@@ -861,6 +861,6 @@ class WhirlwindAttack(BaseAbility):
 					attacker.socket.clilocmessage(1060161) # The whirling attack strikes a target!
 				if defender.socket:
 					defender.socket.clilocmessage(1060162) # You are struck by the whirling attack and take damage!
-				combat.aos.hit(attacker, target, weapon, wolfpack.currenttime())
+				combat.aos.hit(attacker, target, weapon, wolfpack.time.currenttime())
 
 WhirlwindAttack()
