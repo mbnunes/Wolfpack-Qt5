@@ -12,8 +12,7 @@
 	<!-- Dont create this as a normal item -->
 	<item id="base_book">
 		<decay />
-		<weight>1.0</weight> <!-- A bit low i think -->
-		<type>11</type>
+		<weight>2.0</weight>
 		<basescripts>book</basescripts>
 		<buyprice>18</buyprice>
 		<sellprice>9</sellprice>
@@ -21,53 +20,53 @@
 
 	<!-- Book 1 -->
 	<item id="fef" inherit="base_book">
-		<category>Equipment\Books\Book 1</category>
+		<category>Equipment\Books\Book (brown)</category>
 		<id>0xfef</id>
 	</item>
 
 	<!-- Book 2 -->
 	<item id="ff0" inherit="base_book">
-		<category>Equipment\Books\Book 2</category>
+		<category>Equipment\Books\Book (beige)</category>
 		<id>0xff0</id>
 	</item>
 
 	<!-- Book 3 -->
 	<item id="ff1" inherit="base_book">
-		<category>Equipment\Books\Book 3</category>
+		<category>Equipment\Books\Book (red/brown)</category>
 		<id>0xff1</id>
 	</item>
 
 	<!-- Book 4 -->
 	<item id="ff2" inherit="base_book">
-		<category>Equipment\Books\Book 4</category>
+		<category>Equipment\Books\Book (purple)</category>
 		<id>0xff2</id>
 	</item>
 
 	<!-- Book 5 -->
 	<item id="ff3" inherit="base_book">
-		<category>Equipment\Books\Book 5</category>
+		<category>Equipment\Books\Book 1</category>
 		<id>0xff3</id>
 	</item>
 
 	<!-- Book 6 -->
 	<item id="ff4" inherit="base_book">
-		<category>Equipment\Books\Book 6</category>
+		<category>Equipment\Books\Book 2</category>
 		<id>0xff4</id>
 	</item>
 
 	<item id="fbd" inherit="base_book">
 		<id>0xfbd</id>
-		<category>Equipment\Books\Book 7 (N/S)</category>
+		<category>Equipment\Books\Book 3 (N/S)</category>
 	</item>
 
 	<item id="fbe" inherit="base_book">
 		<id>0xfbe</id>
-		<category>Equipment\Books\Book 7 (W/E)</category>
+		<category>Equipment\Books\Book 3 (W/E)</category>
 	</item>
 
 	<item id="1e20" inherit="base_book">
 		<id>0x1e20</id>
-		<category>Equipment\Books\Book 8</category>
+		<category>Equipment\Books\Book 4</category>
 	</item>
 
 	<item id="1e21">

@@ -487,6 +487,9 @@
 
 	<item id="1c18">
 		<id>0x1c18</id>
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
+		<weight>1.0</weight>
 		<category>Professions\Alchemist\Oil Flask</category>
 	</item>
 
@@ -601,7 +604,7 @@
 		<basescripts>equipment,skills.glassblowing</basescripts>
 		<buyprice>21</buyprice>
 		<sellprice>10</sellprice>
-		<weight>4.0</weight>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Elven Alchemy Table -->

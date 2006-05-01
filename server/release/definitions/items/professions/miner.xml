@@ -330,7 +330,6 @@
 		<category>Professions\Miner\Ore\Merkite\Merkite Ore 1</category>
 		<tag name="resname" value="merkite" />
 		<basescripts>ore</basescripts>
-		<type>1102</type>
 	</item>
 
 	<item id="mythril_ore" inherit="19b7">
@@ -346,7 +345,6 @@
 		<id>0x19b7</id>
 		<category>Professions\Miner\Ore\Ore 1</category>
 		<basescripts>ore</basescripts>
-		<type>1102</type>
 		<weight>2.0</weight>
 	</item>
 

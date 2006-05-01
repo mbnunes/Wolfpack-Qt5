@@ -135,8 +135,8 @@
 	<item id="chessboard">
 		<id>0xfa6</id>
 		<name>#1016450</name>
-		<buyprice>2</buyprice>
-		<sellprice>1</sellprice>
+		<buyprice>1</buyprice>
+		<sellprice>0</sellprice>
 	</item>
 
 	<item id="checkerboard">
@@ -162,26 +162,30 @@
 	<!-- Keys -->
 	<item id="100e">
 		<id>0x100e</id>
-		<type>7</type>
 		<category>Misc\Keys\Copper Key</category>
 		<basescripts>key</basescripts>
-		<buyprice>3</buyprice>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
 		<newbie />
 	</item>
 
 	<item id="100f">
 		<id>0x100f</id>
-		<type>7</type>
 		<category>Misc\Keys\Gold Key</category>
 		<basescripts>key</basescripts>
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
+		<weight>1.0</weight>
 		<newbie />
 	</item>
 
 	<item id="1010">
 		<id>0x1010</id>
-		<type>7</type>
 		<category>Misc\Keys\Iron Key</category>
 		<basescripts>key</basescripts>
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
+		<weight>1.0</weight>
 		<newbie />
 	</item>
 
@@ -189,33 +193,29 @@
 		<id>0x1011</id>
 		<category>Misc\Keys\Keyring 1</category>
 		<basescripts>keyring</basescripts>
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
+		<weight>1.0</weight>
 		<newbie />
 	</item>
 
-	<item id="1769">
+	<item id="1769" inherit="1011">
 		<id>0x1769</id>
 		<category>Misc\Keys\Keyring 2</category>
-		<basescripts>keyring</basescripts>
-		<newbie />
 	</item>
 
-	<item id="176a">
+	<item id="176a" inherit="1011">
 		<id>0x176a</id>
 		<category>Misc\Keys\Keyring 3</category>
-		<basescripts>keyring</basescripts>
-		<newbie />
 	</item>
 
-	<item id="176b">
+	<item id="176b" inherit="1011">
 		<id>0x176b</id>
 		<category>Misc\Keys\Keyring 4</category>
-		<basescripts>keyring</basescripts>
-		<newbie />
 	</item>
 
 	<item id="1012">
 		<id>0x1012</id>
-		<type>7</type>
 		<category>Misc\Keys\Magic Key</category>
 		<basescripts>key</basescripts>
 		<newbie />
@@ -223,9 +223,11 @@
 
 	<item id="1013">
 		<id>0x1013</id>
-		<type>7</type>
 		<category>Misc\Keys\Rusty Iron Key</category>
 		<basescripts>key</basescripts>
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
+		<weight>1.0</weight>
 		<newbie />
 	</item>
 
@@ -237,11 +239,9 @@
 		<basescripts>training_dummy</basescripts>
 	</item>
 
-	<item id="1074">
+	<item id="1074" inherit="1070">
 		<id>0x1074</id>
-		<nodecay />
 		<category>Misc\Training Dummy\Training Dummy (W/E)</category>
-		<basescripts>training_dummy</basescripts>
 	</item>
 
 	<!-- Levers & Switches -->
@@ -2038,6 +2038,7 @@
 		<bindmenu>comcrystal_menu</bindmenu>
 		<basescripts>comcrystals</basescripts>
 		<tag name="charges" type="int" value="2000" />
+		<weight>1.0</weight>
 	</item>
 
 	<item id="comcrystal_receiver">
@@ -2046,6 +2047,7 @@
 		<category>Misc\Comm. Crystals\Red Communication Crystal</category>
 		<bindmenu>comcrystal_menu</bindmenu>
 		<basescripts>comcrystals</basescripts>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Serpent Pillar -->
@@ -2347,6 +2349,5 @@
 		<bindmenu>bracelet_of_binding_menu</bindmenu>
 		<category>Misc\Bracelet of Binding</category>
 	</item>
-
 
 </definitions>

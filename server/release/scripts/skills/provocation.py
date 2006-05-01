@@ -165,7 +165,7 @@ def findinstrument( char, args, target ):
 			socket.clilocmessage( 0x7A750, "", 0x3b2, 3 ) # That is too far away.
 			return False
 
-	if not isinstrument(target.item):
+	if not wolfpack.utilities.isinstrument(target.item):
 		socket.clilocmessage( 0x7A752, "", 0x3b2, 3 ) # That isn't a musical instrument.
 		return False
 
