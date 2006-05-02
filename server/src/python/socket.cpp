@@ -380,7 +380,7 @@ static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 }
 
 
-// DEPRECATED
+// DEPRECATED (??? - Couldnt find the new method and all scripts still using this)
 static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 {
 	// Parameters:
@@ -397,7 +397,8 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	{
 		return 0;
 	}
-	PyErr_Format( PyExc_DeprecationWarning, "socket.sendgump is deprecated, please use cGump class instead" );
+	// Comment: Couldnt find the new method and all scripts still using this
+	// PyErr_Format( PyExc_DeprecationWarning, "socket.sendgump is deprecated, please use cGump class instead" );
 
 	PythonFunction* toCall = 0;
 	if ( callback )
