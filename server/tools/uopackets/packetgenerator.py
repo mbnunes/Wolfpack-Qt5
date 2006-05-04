@@ -31,7 +31,7 @@ def writeCopyright( f ):
  * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/\n\
  */\n\n" % t.year )
     f.write("/****************************************************************************\n"
-            "** Resource object code                                                      \n"
+            "** Network Packet Code                                                       \n"
             "**                                                                           \n"
             "** Created: %s                                                               \n"
             "**      by: The Wolfpack Packet Compiler                                     \n"
@@ -44,26 +44,58 @@ class CppType:
     def __init__(self, node):
         datatype = node.getAttribute("datatype")
         self.internalDefinition = None
+        self.isEnum = False
+        self.isFixedSize = True
         if datatype == "byte":
             self.cppType = "uchar"
-            self.isEnum = False
-            self.isFixedSize = True
+        elif datatype == "short":
+            self.cppType = "short"
+        elif datatype == "ushort":
+            self.cppType = "ushort"
         elif datatype == "uint":
             self.cppType = "uint"
-            self.isEnum = False
-            self.isFixedSize = True
+        elif datatype == "int":
+            self.cppType = "int"
         elif datatype == "string":
             self.cppType = "QByteArray"
-            self.isEnum = False
-            self.isFixedSize = False
         elif datatype == "enum":
             self.cppType = node.getAttribute("name").title()
             self.isEnum = True
-            self.isFixedSize = True
             self.internalDefinition = "\tenum %s {\n" % self.cppType
             for value in node.getElementsByTagName("value"):
-                self.internalDefinition += "\t\t%s = %s,\n" % ( value.getAttribute("name"), value.nodeValue )
+                self.internalDefinition += "\t\t%s = %s,\n" % ( value.getAttribute("name"), node_text( value ) )
             self.internalDefinition += "\t\t%sCount\n\t}\n" % self.cppType
+
+class PacketField:
+    def __init__( self, node, className ):
+        self.className = className
+        self.fieldName = node.getAttribute("name")
+        self.cppType = CppType( node )
+        if not self.cppType.isEnum:
+            for value in node.getElementsByTagName("value"):
+                self.value = node_text( value )
+        for desc in node.getElementsByTagName("description"):
+            self.description = node_text( desc )
+
+    def declareGetter( self ):
+        return "\t%s %s() const;\n" % ( self.cppType.cppType, self.fieldName )
+
+    def declareSetter( self ):
+        return "\tvoid set%s( const %s& );\n\n" % ( self.fieldName.title(), self.cppType.cppType )
+
+    def implementGetter( self ):
+        return "%s %s::%s() const\n{\n\treturn m_%s;\n}\n\n" % ( self.cppType.cppType, self.className, self.fieldName, self.fieldName )
+        
+    def implementSetter( self ):
+        return "void %s::set%s( const %s& d )\n{\n\tm_%s = d;\n}\n\n" % ( self.className, self.fieldName.title(), self.cppType.cppType, self.fieldName )
+        
+
+def node_text(node):
+    text = ''
+    for child in node.childNodes:
+        if child.nodeType is child.TEXT_NODE:
+            text += child.data
+    return text
                 
 def getBuiltInByBitSize( num, signed ):
     if num <= 8:
@@ -97,20 +129,22 @@ def buildPacket( packetNode, forwardfile, hfile, cppfile ):
     methodsDeclaration += "\t%s::%s( const QDataStream& );\n\n" % ( className, className )
 
     methodsImplementation = ""
+    dataMethodImplementation = ""
 
     for node in packetNode.getElementsByTagName("field"):
 
         # Build the 2 constructors, for sending and receiving
-        fieldName = node.getAttribute("name")
+        field = PacketField( node, className )
+        fieldName = field.fieldName
         if fieldName == "id":
-            constructorImplementation += str( node.nodeValue )
+            constructorImplementation += str( field.value )
             if packetNode.getAttribute("size") != None:
-                constructorImplementation += ", %s)\n{\n}\n\n" % packetNode.getAttribute("size")
+                constructorImplementation += ", %s )\n{\n}\n\n" % packetNode.getAttribute("size")
             else:
                 constructorImplementation += ")\n{\n}\n\n"
             constructorImplementation += "%s::%s( const QDataStream& ds )\n{\n" % (className, className)
         else:
-            cppType = CppType( node )
+            cppType = field.cppType
 
             # Build the parsing constructor
             if cppType.isFixedSize:
@@ -129,13 +163,13 @@ def buildPacket( packetNode, forwardfile, hfile, cppfile ):
             # Declare Private members
             privateData += "\t%s m_%s;\n" % ( cppType.cppType, fieldName )
             # Declare Getter
-            methodsDeclaration += ("\t%s %s() const;\n" % ( cppType.cppType, fieldName ) )
+            methodsDeclaration += field.declareGetter()
             # Declare Setter
-            methodsDeclaration += ("\tvoid set%s( const %s& );\n\n" % ( fieldName.title(), cppType.cppType ) )
+            methodsDeclaration += field.declareSetter()
             # Define Getter
-            methodsImplementation += "%s %s::%s() const\n{\n\treturn m_%s;\n}\n\n" % ( cppType.cppType, className, fieldName, fieldName )
+            methodsImplementation += field.implementGetter()
             # Define Setter
-            methodsImplementation += "void %s::set%s( const %s& d )\n{\n\tm_%s = d;\n}\n\n" % ( className, fieldName.title(), cppType.cppType, fieldName )
+            methodsImplementation += field.implementSetter()
 
     constructorImplementation += "}\n\n"
 

@@ -2,19 +2,203 @@
 
 <uoprotocol>
   <packet size="0x0068" name="Character Creation" side="client">
-    <field name="id" datatype="byte">0x00</field>
+    <description>This is sent to create a new character.</description>
+    <field name="id" datatype="byte">
+      <value>0x00</value>
+      <description>The packet ID number.</description>
+    </field>
     <field name="unknown" datatype="uint">0xEDEDEDED</field>
     <field name="unknown2" datatype="uint">0xFFFFFFFF</field>
     <field name="unknown3" datatype="byte">0x00</field>
-    <field name="name" datatype="string" size="30" />
-    <field name="password" datatype="string" size="30" />
+    <field name="name" datatype="string" size="30">
+      <description>The character's name.</description>
+    </field>
+    <field name="password" datatype="string" size="30">
+      <description>The character's password. This value is not used anymore.</description>
+    </field>
     <field name="gender" datatype="enum" size="8">
       <value name="Male">0</value>
       <value name="Female">1</value>
       <value name="Neutral">2</value>
+      <description>The Character's gender.</description>
     </field>
-    <field name="strenght" datatype="byte" />
+    <field name="strenght" datatype="byte">
+      <description>The character's strength.</description>
+    </field>
     <field name="dexterity" datatype="byte" />
     <field name="skill1" datatype="byte" />
+    <field name="skill1Value" datatype="byte" />
+    <field name="skill2" datatype="byte" />
+    <field name="skill2Value" datatype="byte" />
+    <field name="skill3" datatype="byte" />
+    <field name="skill3Value" datatype="byte" />
+    <field name="hue" datatype="ushort" />
+    <field name="hairStyle" datatype="ushort" />
+    <field name="hairColor" datatype="ushort" />
+    <field name="beardStyle" datatype="ushort" />
+    <field name="beardColor" datatype="ushort" />
+    <field name="city" datatype="ushort" />
+    <field name="unknown4" datatype="ushort">0x00</field>
+    <field name="slot" datatype="ushort" />
+    <field name="encriptionKey" datatype="uint" />
+    <field name="shirtColor" datatype="ushort" />
+    <field name="pantsColor" datatype="ushort" />
   </packet>
+
+  <packet size="0x0007" name="Walk Request" side="client">
+    <field name="id" datatype="byte">
+      <value>0x02</value>
+    </field>
+    <field name="direction" datatype="byte">
+      <description>The direction the player is moving.</description>
+    </field>
+    <field name="sequence" datatype="byte">
+      <description>
+        The current value in a sequence of numbers ranging from 0 to 255.
+
+        The value increases each time the player successfully moves.
+        After this value reaches 255, it gets reset to 1 when the player next moves and the sequence is repeated.
+      </description>
+    </field>
+    <field name="fastWalkKey" datatype="uint">
+      <description>
+        A value used with fast walk prevention.
+      </description>
+    </field>
+  </packet>
+
+  <packet size="0x0005" name="Attack Request" side="client">
+    <description>This is sent by the client to begin attacking another character.</description>
+    <field name="id" datatype="byte">
+      <value>0x05</value>
+    </field>
+    <field name="serial" datatype="uint">
+      <description>The serial of the character to attack.</description>
+    </field>
+  </packet>
+
+  <packet size="0x0005" name="Double Click" side="client">
+    <description>This is sent by the client when it double clicks an object.</description>
+    <field name="id" datatype="byte">
+      <value>0x06</value>
+    </field>
+    <field name="serial" datatype="uint">
+      <description>The serial of the object being double clicked.</description>
+    </field>
+  </packet>
+
+  <packet size="0x0007" name="Drag Item" side="client">
+    <field name="id" datatype="byte">
+      <value>0x07</value>
+    </field>
+    <field name="serial" datatype="uint">
+      <description>The serial of the item to take.</description>
+    </field>
+    <field name="amount" datatype="ushort">
+      <description>The amount of the item to take.</description>
+    </field>
+  </packet>
+
+  <packet size="0x000E" name="Drop Item" side="client">
+    <description>This packet is sent when the player drops an item previously dragged (see packet Drag Item).</description>  
+    <field name="id" datatype="byte">
+      <value>0x08</value>
+    </field>
+    <field name="serial" datatype="uint">
+      <description>The serial of the item dropped.</description>
+    </field>
+    <field name="x" datatype="ushort">
+      <description>The X-axis position at which the item is being placed.</description>
+    </field>
+    <field name="y" datatype="ushort">
+      <description>The Y-axis position at which the item is being placed.</description>
+    </field>
+    <field name="z" datatype="ushort">
+      <description>The Z-axis position at which the item is being placed.</description>
+    </field>
+    <field name="container" datatype="uint">
+      <description>
+        The serial of the container in which the item is being placed.
+        A value of 0xFFFFFFFF means the item is being placed on the ground.
+      </description>
+    </field>
+  </packet>
+
+  <packet size="0x0005" name="Single Click" side="client">
+    <description>Send when the player clicks an object.</description>
+    <field name="id" datatype="byte">
+      <value>0x09</value>
+    </field>
+    <field name="serial" datatype="uint">
+      <description>The serial of the clicked object.</description>
+    </field>
+  </packet>
+
+  <packet size="0x0000" name="Send Stats" side="server">
+    <description>
+      Sends data containing information about various character stats that are displayed in the Status window
+    </description>
+    <field name="id" datatype="byte">
+      <value>0x11</value>
+    </field>
+    <field name="size" datatype="ushort">
+      <description>The total size of the packet, including ID.</description>
+    </field>
+    <field name="serial" datatype="uint">
+      <description>The character's serial.</description>
+    </field>
+    <field name="name" datatype="string" size="30">
+      <description>The character's name.</description>
+    </field>
+    <field name="currentHP" datatype="ushort">
+      <description>Current amount of hit points.</description>
+    </field>
+    <field name="maximumHP" datatype="ushort">
+      <description>Maximum amount of hit points.</description>
+    </field>
+    <field name="allowRename" datatype="byte">
+      <description>
+        * 0x00 - Normal
+        * 0x01 - The user can set the character's name.
+      </description>
+    </field>
+    <field name="flagDisplay" datatype="byte">
+      <description>
+        * 0x01 - Normal
+        * 0x02 - Display Stat Cap
+        * 0x03 - Display Stat Cap and Followers.
+        * 0x04 - Display Stat Cap, Followers, and Resistances
+      </description>
+    </field>
+    <field name="gender" datatype="byte">
+      <description>
+        * 0x00 - Male
+        * 0x01 - Female
+        * 0x02 - Neutrum
+      </description>
+    </field>
+    <field name="strenght" datatype="ushort">
+    </field>
+    <field name="dexterity" datatype="ushort"></field>
+    <field name="intelligence" datatype="ushort"></field>
+    <field name="currentStamina" datatype="ushort"></field>
+    <field name="maximumStamina" datatype="ushort"></field>
+    <field name="currentMana" datatype="ushort"></field>
+    <field name="maximumMana" datatype="ushort"></field>
+    <field name="gold" datatype="uint"></field>
+    <field name="resistPhysical" datatype="ushort"></field>
+    <field name="weight" datatype="ushort"></field>
+    <field name="statCap" datatype="ushort"></field>
+    <field name="currentFollowers" datatype="byte"></field>
+    <field name="maximumFollowers" datatype="byte"></field>
+    <field name="resistFire" datatype="ushort"></field>
+    <field name="resistCold" datatyle="ushort"></field>
+    <field name="resistPoison" datatype="ushort"></field>
+    <field name="resistEnergy" datatype="ushort"></field>
+    <field name="luck" datatype="ushort"></field>
+    <field name="minDamage" datatype="ushort"></field>
+    <field name="maxDamage" datatype="ushort"></field>
+    <field name="tithingPoints" datatype="ushort"></field>
+  </packet>
+  
 </uoprotocol>
