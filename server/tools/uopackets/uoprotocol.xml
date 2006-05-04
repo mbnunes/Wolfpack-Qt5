@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<uoprotocol>
+  <packet size="0x0068" name="Character Creation" side="client">
+    <field name="id" datatype="byte">0x00</field>
+    <field name="unknown" datatype="uint">0xEDEDEDED</field>
+    <field name="unknown2" datatype="uint">0xFFFFFFFF</field>
+    <field name="unknown3" datatype="byte">0x00</field>
+    <field name="name" datatype="string" size="30" />
+    <field name="password" datatype="string" size="30" />
+    <field name="gender" datatype="enum" size="8">
+      <value name="Male">0</value>
+      <value name="Female">1</value>
+      <value name="Neutral">2</value>
+    </field>
+    <field name="strenght" datatype="byte" />
+    <field name="dexterity" datatype="byte" />
+    <field name="skill1" datatype="byte" />
+  </packet>
+</uoprotocol>
