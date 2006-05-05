@@ -773,7 +773,7 @@ void cUOSocket::disconnect()
 		_player->removeFromView( true );
 
 		// Insta Logout from Guarded Regions activated?
-		if ( Config::instance()->instalogoutfromguarded() ) 
+		if ( Config::instance()->instalogoutfromguarded() )
 		{
 
 			// is the player allowed to logoff instantly?
@@ -977,9 +977,9 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter* packet )
 	log( LOG_MESSAGE,
 		tr( "Client '%1', account '%2', selected character '%3' (0x%4).\n"
 				).arg( _ip
-				).arg( pChar->orgName()
 				).arg( pChar->account()->login()
-				).arg( pChar->serial(), 0, 16 
+				).arg( pChar->orgName()
+				).arg( pChar->serial(), 0, 16
 				)
 		);
 
@@ -1106,7 +1106,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 			season.setSeason( ST_SUMMER );
 		}
 	}
-	
+
 	send( &season );
 
 	updatePlayer();
@@ -3187,7 +3187,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 				idsecond = Region->secondcoin();
 				idthird = Region->thirdcoin();
 			}
-			
+
 			// Reversed Valuable
 			if (Config::instance()->usereversedvaluable()) {
 				while (!it.atEnd()) {
@@ -3390,7 +3390,7 @@ struct buyitem_st
 	QString name;
 };
 
-template< class T > 
+template< class T >
 class SortedSerialPredicate
 {
 public:
