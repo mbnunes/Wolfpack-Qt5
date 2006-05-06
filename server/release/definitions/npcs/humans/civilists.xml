@@ -24,7 +24,7 @@
 		<id>0x190</id>
 		<ai></ai>
 		<bindmenu>paperdoll_menu</bindmenu>
-    <gender>male</gender>
+		<gender>male</gender>
 		<name><random list="NAMES_MALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 		<saycolor><random min="2" max="1000" /></saycolor>
@@ -71,8 +71,8 @@
 		<id>0x191</id>
 		<ai></ai>
 		<bindmenu>paperdoll_menu</bindmenu>
-    <gender>female</gender>
-    <name><random list="NAMES_FEMALE" /></name>
+		<gender>female</gender>
+		<name><random list="NAMES_FEMALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 		<saycolor><random min="2" max="1000" /></saycolor>
 		<wandertype>1</wandertype>

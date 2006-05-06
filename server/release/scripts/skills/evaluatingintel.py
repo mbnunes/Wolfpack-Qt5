@@ -7,7 +7,7 @@
 
 import wolfpack
 from wolfpack.consts import *
-from math import floor
+import random
 import skills
 import wolfpack.time
 
@@ -22,66 +22,68 @@ def evaluatingintel( char, skill ):
 
 	if char.socket.hastag( 'skill_delay' ):
 		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
-			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
+			char.socket.clilocmessage( 500118, "", 0x3b2, 3 ) 
 			return True
 		else:
 			char.socket.deltag( 'skill_delay' )
 
-	char.socket.clilocmessage( 0x7A4AA, "", 0x3b2, 3 ) # What would you like to evaluate
+	char.socket.clilocmessage( 500906, "", 0x3b2, 3 ) # What do you wish to evaluate?
 	char.socket.attachtarget( "skills.evaluatingintel.response" )
 	return True
 
 def response( char, args, target ):
-	if not char:
+	if not char.canreach( target, 8 ):
 		return False
 
 	if skills.skilltable[ EVALUATINGINTEL ][ skills.UNHIDE ] and char.hidden:
 		char.reveal()
 
-	if target.item:
-		# It looks smarter than a rock, but dumber than a piece of wood
-		char.socket.clilocmessage( 0x7A4AC, "", 0x3b2, 3, target.item )
-		return False
+	if target.char:
+		if target.char == char:
+			char.socket.clilocmessage( 500910, "", 0x3b2, 3, target.char ) # Hmm, that person looks really silly.
 
-	if not target.char:
-		return False
+		# Town Criers: 500907 He looks smart enough to remember the news.  Ask him about it.
 
-	if not char.canreach( target.char, 8 ):
-		# No Cliloc when failing LoS or Distance Check
-		return False
+		elif target.char.ai == "Human_Vendor" and target.char.invulnerable:
+			char.socket.clilocmessage( 500909, "", 0x3b2, 3, target.char ) # That person could probably calculate the cost of what you buy from them.
+		else:
+			marginOfError = max(0, (20 - (char.skill[EVALUATINGINTEL] / 50)))
+			char.socket.sysmessage(str(marginOfError))
 
-	# Vendors: 0x7A4AD That person could probably calculate the cost of what you buy from them.
-	# Town Criers: 0x7A4AB He looks smart enough to remember the news.  Ask him about it.
+			intel = target.char.intelligence + random.randint(-marginOfError, marginOfError)
+			mana = ((target.char.mana * 100) / max(target.char.maxmana, 1)) + random.randint(-marginOfError, marginOfError)
 
-	if target.char == char:
-		# Hmm, that person looks really silly.
-		char.socket.clilocmessage( 0x7A4AE, "", 0x3b2, 3, target.char )
-		return False
+			intMod = intel / 10
+			mnMod = mana / 10
+
+			if intMod > 10:
+				intMod = 10
+			elif intMod < 0:
+				intMod = 0
+
+			if mnMod > 10:
+				mnMod = 10
+			elif mnMod < 0:
+				mnMod = 0
+
+			body = 0
+			if target.char.bodytype == 4: # is human
+				if target.char.gender:
+					body = 11
+			else:
+				body = 22
+
+			if char.checkskill( EVALUATINGINTEL, MINSKILL, MAXSKILL ):
+				char.socket.clilocmessage( 1038169 + intMod + body, "", 0x3b2, 3, target.char ) # He/She/It looks [slighly less intelligent than a rock.]  [Of Average intellect] [etc...]
+
+				if char.skill[EVALUATINGINTEL] >= 760:
+					char.socket.clilocmessage( 1038202 + mnMod, "", 0x3b2, 3, target.char ) # That being is at [10,20,...] percent mental strength.
+			else:
+				char.socket.clilocmessage( 1038166 + (body / 11), "", 0x3b2, 3, target.char ) # You cannot judge his/her/its mental abilities.
+	else:
+		char.socket.clilocmessage( 500908, "", 0x3b2, 3, target.item ) # It looks smarter than a rock, but dumber than a piece of wood.
 
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + EVALINTDELAY ) )
-
-	if not char.checkskill( EVALUATINGINTEL, MINSKILL, MAXSKILL ):
-		char.socket.clilocmessage( 0xFD756, "", 0x3b2, 3, target.char )
-		return False
-
-	IntRatio = float( 100.0 / target.char.intelligence )
-	ManaId = floor( ( target.char.mana * IntRatio ) / 10 )
-	IntId = min( 10, floor( target.char.intelligence / 10 ) )
-
-	if target.char.id in PLAYER_BODIES_ALIVE_MALE:
-		msgId = int( 0xFD759 + IntId )
-	elif target.char.id in PLAYER_BODIES_ALIVE_FEMALE:
-		msgId = int( 0xFD764 + IntId )
-	else:
-		msgId = int( 0xFD76F + IntId )
-
-	msgId2 = int( 0xFD77A + ManaId )
-
-	char.socket.clilocmessage( msgId, "", 0x3b2, 3, target.char, "", True )
-
-	if char.skill[EVALUATINGINTEL] >= 760:
-		char.socket.clilocmessage( msgId2, "", 0x3b2, 3, target.char, "", True )
-
 	return True
 
 def onLoad():
