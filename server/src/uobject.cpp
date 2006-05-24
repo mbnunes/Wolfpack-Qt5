@@ -192,7 +192,7 @@ void cUObject::load( QSqlQuery& result, ushort& offset )
 	pos_.z = result.value( offset++ ).toInt();
 	pos_.map = result.value( offset++ ).toInt();
 	QByteArray scriptList = result.value( offset++ ).toByteArray();
-	bool havetags_ = result.value( offset++ ).toInt();
+	bool havetags_ = result.value( offset++ ).toBool();
 
 	setScriptList( scriptList );
 
