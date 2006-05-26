@@ -81,6 +81,7 @@ protected:
 	unsigned int antiSpeedHackDelayMounted_;
 	bool hashAccountPasswords_;
 	bool convertUnhashedPasswords_;
+	bool enableIndivNumberSlots_;
 	bool allowUnencryptedClients_;
 	bool allowStatRequest_;
 	unsigned int skillcap_;
@@ -241,6 +242,7 @@ public:
 	bool enableTrammelSeason() const;
 	bool hashAccountPasswords() const;
 	bool convertUnhashedPasswords() const;
+	bool enableIndivNumberSlots() const;
 	bool showSkillTitles() const;
 	bool allowUnencryptedClients() const;
 	bool allowStatRequest() const;
@@ -812,6 +814,11 @@ inline bool cConfig::hashAccountPasswords() const
 inline bool cConfig::convertUnhashedPasswords() const
 {
 	return convertUnhashedPasswords_;
+}
+
+inline bool cConfig::enableIndivNumberSlots() const
+{
+	return enableIndivNumberSlots_;
 }
 
 inline bool cConfig::usesMondainsLegacyMap() const

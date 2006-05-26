@@ -2,7 +2,14 @@
 import wolfpack
 from wolfpack.consts import *
 from wolfpack import console, database
-from wolfpack.database import WORLD
+from wolfpack.database import WORLD, ACCOUNTS
+
+#
+# onLoad
+#
+def onLoad():
+	wolfpack.registerglobal(EVENT_UPDATEACCTDATABASE, 'system.dbupdate')
+	wolfpack.registerglobal(EVENT_UPDATEDATABASE, 'system.dbupdate')
 
 #
 # Null update procedure, should be used for version changes that
@@ -10,6 +17,11 @@ from wolfpack.database import WORLD
 #
 def null_update_procedure():
     return True
+
+
+#########################################################################################
+#######################   World DB Update   #############################################
+#########################################################################################
 
 #
 # MySQL: Update Database Procedures
@@ -130,5 +142,88 @@ def onUpdateDatabase(current, version):
 
 	return True
 
-def onLoad():
-	wolfpack.registerglobal(EVENT_UPDATEDATABASE, 'system.dbupdate')
+#########################################################################################
+#######################   Account DB Update   ###########################################
+#########################################################################################
+
+#
+# Update Version
+#
+def updateacctversion(version):
+
+	sql = "UPDATE settings SET value = " + str(version) + " WHERE option = 'db_version'"
+	database.execute(sql)
+
+#
+# MySQL
+#
+def acct_mysql_update_1():
+	sql = "ALTER TABLE accounts ADD creationdate varchar(19) default NULL AFTER email;"
+	database.execute(sql)
+
+	sql = "ALTER TABLE accounts ADD totalgametime int NOT NULL default '0' AFTER creationdate;"
+	database.execute(sql)
+
+	sql = "ALTER TABLE accounts ADD slots smallint(5) NOT NULL default '1' AFTER totalgametime;"
+	database.execute(sql)
+
+	return True
+
+#
+# SQLite
+#
+def acct_sqlite_update_1():
+	sql = "ALTER TABLE accounts ADD creationdate varchar(19) default NULL;"
+	database.execute(sql)
+
+	sql = "ALTER TABLE accounts ADD totalgametime int NOT NULL default '0';"
+	database.execute(sql)
+
+	sql = "ALTER TABLE accounts ADD slots smallint(5) NOT NULL default '1';"
+	database.execute(sql)
+
+	return True
+
+# MySQL and Sqlite version update arrays
+ACCT_MYSQL_UPDATES = {
+	0: acct_mysql_update_1,
+}
+
+ACCT_SQLITE_UPDATES = {
+	0: acct_sqlite_update_1,
+}
+
+#
+# Database update event
+#
+def onUpdateAcctDatabase(current, version):
+
+	driver = database.driver(ACCOUNTS)
+	if driver == 'mysql':
+		updates = ACCT_MYSQL_UPDATES
+	elif driver == 'sqlite':
+		updates = ACCT_SQLITE_UPDATES
+	else:
+		console.log(LOG_ERROR, "Unknown database driver for Accounts: %s.\n" % driver)
+		return False
+
+	for i in range(version, current):
+		# No update for this version available
+		if not updates.has_key(i):
+			console.log(LOG_ERROR, "No update available for database version %u.\n" % i)
+			return False
+
+		console.log(LOG_MESSAGE, "Updating database from version %u to %u.\n" % (i, i+1))
+
+		try:
+			if not updates[i]():
+				return False
+		except Exception, e:
+			console.log(LOG_ERROR, str(e) + "\n")
+			return False
+
+		# Updating Version Number
+		updateacctversion(i+1)
+
+
+	return True

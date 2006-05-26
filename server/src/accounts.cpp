@@ -36,6 +36,8 @@
 #include "persistentbroker.h"
 #include "world.h"
 #include "md5.h"
+#include "scriptmanager.h"
+#include "pythonscript.h"
 #include "network/network.h"
 #include "network/uosocket.h"
 
@@ -44,6 +46,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlDatabase>
+
+#define ACCT_DATABASE_VERSION 1
 
 // DB AutoCreation
 const char* createSql = "CREATE TABLE accounts (\
@@ -54,7 +58,16 @@ acl varchar(255) NOT NULL default 'player',\
 lastlogin int NOT NULL default '0',\
 blockuntil int NOT NULL default '0',\
 email varchar(255) NOT NULL default '',\
+creationdate varchar(19) default NULL,\
+totalgametime int NOT NULL default '0',\
+slots smallint(5) NOT NULL default '1',\
 PRIMARY KEY (login)\
+);";
+
+const char* createSqlSettings = "CREATE TABLE settings (\
+option varchar(255) NOT NULL default '', \
+value varchar(255) NOT NULL default '', \
+PRIMARY KEY (option) \
 );";
 
 /*****************************************************************************
@@ -218,6 +231,11 @@ bool cAccount::isJailed() const
 	return flags_ & 0x00000080;
 }
 
+bool cAccount::isYoung() const
+{
+	return flags_ & 0x00000100;
+}
+
 void cAccount::setBlocked( bool data )
 {
 	if ( data )
@@ -272,6 +290,14 @@ void cAccount::setJailed( bool data )
 		flags_ |= 0x00000080;
 	else
 		flags_ &= 0xFFFFFF7F;
+}
+
+void cAccount::setYoung( bool data )
+{
+	if ( data )
+		flags_ |= 0x00000100;
+	else
+		flags_ &= 0xFFFFFEFF;
 }
 
 unsigned int cAccount::rank() const
@@ -408,7 +434,7 @@ void cAccounts::save()
 		if (!query.exec( "TRUNCATE accounts" )) {
 			query.exec("DELETE FROM accounts");
 		}
-		query.prepare( "insert into accounts values( ?, ?, ?, ?, ?, ?, ? )" );
+		query.prepare( "insert into accounts values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
 		iterator it = accounts.begin();
 		for ( ; it != accounts.end(); ++it )
 		{
@@ -422,6 +448,9 @@ void cAccounts::save()
 			query.addBindValue( QVariant::fromValue<uint>( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ) );
 			query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 ) );
 			query.addBindValue( QString(account->email_) );
+			query.addBindValue( QString(account->creationdate_) );
+			query.addBindValue( account->totalgametime_ );
+			query.addBindValue( account->charslots_ );
 
 			if (!query.exec()) {
 				Console::instance()->log(LOG_ERROR, tr("Unable to save account '%1' because of the following error: %2").arg( account->login_ ).arg(query.lastError().text()));
@@ -446,6 +475,72 @@ void cAccounts::save()
 
 void cAccounts::load()
 {
+	//
+	// Check and Update Database Section
+	//
+
+	// Opening Persistent Broker
+	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+		return;
+	}
+
+	if ( !PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword(), Config::instance()->accountsPort() ) )
+	{
+		throw wpException( tr( "Unable to open the account database: %1." ).arg(PersistentBroker::instance()->lastError()) );
+	}
+
+	QSqlQuery acctquery;
+
+	// Mounting table if it not exists
+	if ( !PersistentBroker::instance()->tableExists( "settings" ) )
+	{
+		Console::instance()->send( tr( "Account Settings database didn't exist! Creating one\n" ) );
+		acctquery.exec( createSqlSettings );
+		acctquery.exec( "insert into settings (option, value) values ('db_version',0);" );
+	}
+
+	// Load Options
+	QString settingsSql = "SELECT value FROM settings WHERE option = 'db_version';";
+	if ( Config::instance()->accountsDriver() == "mysql" )
+	{
+		settingsSql = "SELECT `value` FROM `settings` WHERE option = `db_version`;";
+	}
+	acctquery.exec( settingsSql );
+	acctquery.next();
+	
+	// Get Database Version
+	QString db_version = acctquery.value( 0 ).toString();
+
+	acctquery.clear(); // Lets make this table free
+
+	if ( db_version.toInt() != ACCT_DATABASE_VERSION )
+	{
+		// Call Event
+		cPythonScript *script = ScriptManager::instance()->getGlobalHook( EVENT_UPDATEACCTDATABASE );
+		if ( !script || !script->canHandleEvent( EVENT_UPDATEACCTDATABASE ) )
+		{
+			throw wpException( tr( "Unable to load account database. Version mismatch: %1 != %2." ).arg( db_version.toInt() ).arg( ACCT_DATABASE_VERSION ) );
+		}
+
+		PyObject *args = Py_BuildValue( "(ii)", ACCT_DATABASE_VERSION, db_version.toInt() );
+		bool result = script->callEventHandler( EVENT_UPDATEACCTDATABASE, args );
+		Py_DECREF( args );
+
+		if ( !result )
+		{
+			throw wpException( tr( "Unable to load account database. Version mismatch: %1 != %2." ).arg( db_version.toInt() ).arg( ACCT_DATABASE_VERSION ) );
+		}
+	}
+
+	// Disconnect (For script purpouse?)
+	PersistentBroker::instance()->disconnect();
+
+	//
+	// Now the normal Proccess for Account load
+	//
+
 	// Open the Account Driver
 	QSqlDatabase db = QSqlDatabase::database("accounts");
 	if ( !db.isValid() )
@@ -456,7 +551,7 @@ void cAccounts::load()
 			throw wpException( tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
 		}
 	}
-
+	
 	// Load all Accounts
 	try
 	{
@@ -476,6 +571,11 @@ void cAccounts::load()
 			db.exec( "PRAGMA parser_trace = OFF;" );
 		}
 
+		// Initializing Query
+		QSqlQuery query ( db );
+		query.setForwardOnly( true );
+
+		// Checking for Account Database
 		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
 		{
 			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
@@ -484,9 +584,8 @@ void cAccounts::load()
 			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
 		}
 
-		QSqlQuery query ( db );
-		query.setForwardOnly( true );
-		query.exec( "SELECT login,password,flags,acl,lastlogin,blockuntil,email FROM accounts" );
+		// Selecting things to Query
+		query.exec( "SELECT login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots FROM accounts" );
 
 		// Clear Accounts HERE
 		// Here we can be pretty sure that we have a valid datasource for accounts
@@ -507,6 +606,9 @@ void cAccounts::load()
 				account->blockUntil.setTime_t( query.value( 5 ).toInt() );
 
 			account->email_ = query.value( 6 ).toByteArray();
+			account->creationdate_ = query.value( 7 ).toString();
+			account->totalgametime_ = query.value( 8 ).toInt();
+			account->charslots_ = query.value( 9 ).toInt();
 
 			// See if the password can and should be hashed,
 			// Md5 hashes are 32 characters long.
@@ -597,6 +699,9 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 	cAccount* d = new cAccount;
 	d->login_ = login.toLower();
 	d->setPassword( password );
+	d->setCreationDate( (QDateTime::currentDateTime()).toString() );
+	d->setTotalGameTime( 0 );
+	d->setCharSlots( Config::instance()->maxCharsPerAccount() );
 	accounts.insert( d->login(), d );
 	if ( accounts.count() == 1 ) // first account, it must be admin!
 	{
@@ -689,6 +794,12 @@ PyObject* cAccount::getProperty( const QString& name, uint hash )
 	PY_PROPERTY( "rawpassword", password() );
 	PY_PROPERTY( "flags", flags() );
 	/*
+		\rproperty account.creationdate The Creation date for this account.
+	*/
+	PY_PROPERTY( "creationdate", creationdate() );
+	PY_PROPERTY( "totalgametime", totalgametime() );
+	PY_PROPERTY( "charslots", charslots() );
+	/*
 		\rproperty account.characters A tuple of <object id="CHAR">char</object> objects.
 		This tuple contains all characters assigned to this account.
 	*/
@@ -710,6 +821,8 @@ PyObject* cAccount::getProperty( const QString& name, uint hash )
 	PY_PROPERTY( "inuse", inUse() );
 	// \rproperty account.rank Returns the integer rank of this account. This is inherited by the ACL of this account.
 	PY_PROPERTY( "rank", rank() );
+	// \rproperty account.young Returns the Young Status for this account
+	PY_PROPERTY( "young", isYoung() );
 
 	return cPythonScriptable::getProperty( name, hash );
 }
@@ -773,7 +886,8 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 		0x00000010 pagenotify
 		0x00000020 staff - gm mode on/off
 		0x00000040 multigems on/off
-		0x00000080 jailed</code>
+		0x00000080 jailed
+		0x00000100 young</code>
 	*/
 	else if ( name == "flags" )
 	{
@@ -791,6 +905,27 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 	{
 		QDateTime datetime = QDateTime::fromString( value.toString(), Qt::ISODate );
 		setBlockUntil( datetime );
+		return 0;
+	}
+	/*
+		\rproperty account.charslots How many Slots for chars this account have.
+	*/
+	else if ( name == "charslots" )
+	{
+		if ( value.toInt() > 6 )
+            setCharSlots( 6 );
+		else if ( value.toInt() < 1 )
+			setCharSlots( 1 );
+		else
+			setCharSlots( value.toInt() );
+		return 0;
+	}
+	/*
+		\rproperty account.totalgametime How many online minutes this account have since creation.
+	*/
+	else if ( name == "totalgametime" )
+	{
+		setTotalGameTime( value.toInt() );
 		return 0;
 	}
 

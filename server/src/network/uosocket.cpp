@@ -693,7 +693,14 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 {
 	if ( _account )
 	{
-		sendCharList();
+		uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+
+		if ( Config::instance()->enableIndivNumberSlots() )
+		{
+			maxChars = _account->charslots();
+		}
+
+		sendCharList(maxChars);
 		return;
 	}
 	// If we dont authenticate disconnect us
@@ -847,7 +854,14 @@ void cUOSocket::handleServerAttach( cUORxServerAttach* packet )
 		disconnect();
 	else
 	{
-		sendCharList();
+		uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+
+		if ( Config::instance()->enableIndivNumberSlots() )
+		{
+			maxChars = _account->charslots();
+		}
+
+		sendCharList(maxChars);
 	}
 }
 
@@ -856,12 +870,11 @@ void cUOSocket::handleServerAttach( cUORxServerAttach* packet )
   during the login process.
   \sa cUOTxCharTownList
 */
-void cUOSocket::sendCharList()
+void cUOSocket::sendCharList(const uint maxChars)
 {
 	// NOTE:
 	// Send the server/account features here as well
 	// AoS needs it most likely for account creation
-	const uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
 	cUOTxClientFeatures clientFeatures;
 	unsigned short flags = 0x3 | 0x40 | 0x801c | 0x80;	// Added 0x80 to Enable the ML Features
 	if (maxChars == 6) {
@@ -1291,7 +1304,11 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	QList<P_PLAYER> characters = _account->caracterList();
 
 	// If we have more than 6 characters
-	const uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+	uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+	if ( Config::instance()->enableIndivNumberSlots() )
+	{
+		maxChars = _account->charslots();
+	}
 	if ( characters.size() >= maxChars )
 	{
 		cancelCreate( tr( "You already have more than %1 characters" ).arg( maxChars ) )

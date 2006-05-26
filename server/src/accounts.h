@@ -58,6 +58,9 @@ private:
 	QDateTime lastLogin_;
 	QDateTime blockUntil;
 	QByteArray email_;
+	QString creationdate_;
+	int totalgametime_;
+	int charslots_;
 
 	// Flags for this Account
 	// 0x00000001 blocked
@@ -68,6 +71,7 @@ private:
 	// 0x00000020 staff - gm mode on/off
 	// 0x00000040 multigems on/off
 	// 0x00000080 jailed
+	// 0x00000100 young
 	quint32 flags_;
 	int attempts_;
 	bool inUse_;
@@ -78,6 +82,9 @@ public:
 	QString login() const;
 	QString password() const;
 	const QByteArray& email() const;
+	const QString creationdate() const;
+	const int totalgametime() const;
+	const int charslots() const;
 	unsigned int rank() const;
 	void remove();
 	QList<P_PLAYER> caracterList() const;
@@ -109,6 +116,10 @@ public:
 	void setInUse( bool data );
 	void setFlags( quint32 data );
 	void setPassword( const QString& );
+	void setCreationDate( const QString creationdate );
+	void setTotalGameTime( const int totalgametime );
+	void setCharSlots( const int charslots );
+
 	quint32 flags() const;
 	QDateTime blockedUntil() const
 	{
@@ -124,6 +135,7 @@ public:
 	bool isStaff() const;
 	bool isMultiGems() const;
 	bool isJailed() const;
+	bool isYoung() const;
 
 	void setBlocked( bool data );
 	void setAllMove( bool data );
@@ -133,6 +145,7 @@ public:
 	void setStaff( bool data );
 	void setMultiGems( bool data );
 	void setJailed( bool data );
+	void setYoung( bool data );
 
 	// Python Scriptable Interface
 	const char* className() const;
@@ -226,9 +239,39 @@ inline const QByteArray& cAccount::email() const
 	return email_;
 }
 
+inline const QString cAccount::creationdate() const
+{
+	return creationdate_;
+}
+
+inline const int cAccount::totalgametime() const
+{
+	return totalgametime_;
+}
+
+inline const int cAccount::charslots() const
+{
+	return charslots_;
+}
+
 inline void cAccount::setEmail( const QByteArray& email )
 {
 	email_ = email;
+}
+
+inline void cAccount::setCreationDate( const QString creationdate )
+{
+	creationdate_ = creationdate;
+}
+
+inline void cAccount::setTotalGameTime( const int totalgametime )
+{
+	totalgametime_ = totalgametime;
+}
+
+inline void cAccount::setCharSlots( const int charslots )
+{
+	charslots_ = charslots;
 }
 
 inline void cAccount::setLastLogin( const QDateTime& d )

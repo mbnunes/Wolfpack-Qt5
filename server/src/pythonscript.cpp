@@ -805,6 +805,14 @@ It's triggered for the item, then for the npc and then for the player.
 */
 "onBuy",
 
+/*
+\event onUpdateAcctDatabase
+\param current The current account database version.
+\param version The version of the loaded account database.
+\condition Triggered when the version of the loaded account database doesn't match the version the server expects.
+*/
+"onUpdateAcctDatabase",
+
 0
 };
 
