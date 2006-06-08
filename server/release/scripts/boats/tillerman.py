@@ -119,15 +119,23 @@ def doBoatMovement( boat, args ):
     interval = args[1]
     direction = args[2]
     single = args[3]
+    bid = args[4]
 
     if not boat: # linger timer from removed boat
+        return
+
+    if not boat.hastag( 'boat_moving' ):
+	return
+
+    tid = boat.gettag( 'boat_moving' )	# Checking if this timer is from correct session of movement (Before move)
+    if not tid == bid:
         return
     
     if not Move( boat, direction, speed, True ):
         return
     
-    if not single and boat.hastag( 'boat_moving' ):
-        boat.addtimer( interval, doBoatMovement, list(args) )
+    if not single:
+	boat.addtimer( interval, doBoatMovement, list(args) )
 
 def StartMoving( boat, tillerman, direction, speed, interval, single, message ):
 
@@ -137,10 +145,15 @@ def StartMoving( boat, tillerman, direction, speed, interval, single, message ):
         return False
 
     if boat.hastag( 'boat_moving' ):
+	bid = boat.gettag( 'boat_moving' )
         StopMove( boat, tillerman, False )
+    else:
+        bid = 0
+
+    # Bid will make the timer session to be "registered", since we cant cancel timers on items this time
     
-    boat.settag( 'boat_moving', 1 )
-    boat.addtimer( interval, doBoatMovement, [speed, interval, direction, single] )
+    boat.settag( 'boat_moving', bid + 1 )
+    boat.addtimer( interval, doBoatMovement, [speed, interval, direction, single, bid + 1] )
     return True
 
 def StartMove( boat, tillerman, direction, fast ):
@@ -319,9 +332,12 @@ def SetFacing( boat, direction ):
     for item in listitems:
 	if not item.hastag('boat_serial'):
 		item.moveto( Rotate( boat, item.pos, count ) )
-		if item.ischar:
+		try:
 			item.direction += int( direction ) - int( old )
-		item.update()
+			item.update()
+		except:
+			item.update()
+			continue
 
             
     boat.update()
@@ -497,7 +513,7 @@ def onSpeech( obj, player, text, keywords ):
     boat = player.multi
 
     for keyword in keywords:
-        obj.say( "%s" % str( keyword ) )
+        #obj.say( "%s" % str( keyword ) )
         if keyword == 0x42: # rename
             SetName()
             return True
