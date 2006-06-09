@@ -32,8 +32,12 @@ def doRemovemulti( char, args, target ):
 		# Now... the Loop to remove all items
 		contador = 0
 		for multiitem in listitems:
-			multiitem.delete()
-			contador += 1
+			# A bad but necessary way to check if its Char or item for a while (IsChar and IsItem have some problems on objects list)
+			try:
+				dir = multiitem.direction
+			except:
+				multiitem.delete()
+				contador += 1
 	
 		# Message about how many items are deleted in the house
 		char.socket.sysmessage( "Deleted %i items in house!" % contador )

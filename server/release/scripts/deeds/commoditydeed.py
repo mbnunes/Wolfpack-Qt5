@@ -95,4 +95,6 @@ def response ( char, args, target ):
 	char.socket.clilocmessage( 0xFF9F0, "", 0x3b2, 3 )
 	deed.update()
 
+	deed.resendtooltip()
+
 	return True
