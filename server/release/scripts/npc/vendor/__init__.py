@@ -812,7 +812,7 @@ class Vendor:
 
 		validitems = [] # A list with 3-tuples containing the dispitem, buyitem and amount to be bought
 		totalprice = 0 # Total purchase
-		controlslots = player.maxcontrolslots - player.controlslots # Amount of controlslots left
+		controlslots = player.maxcontrolslots - len(player.followers) #player.controlslots # Amount of controlslots left
 		partial = False # We assume we can buy everything here
 		
 		# Process the buy item list

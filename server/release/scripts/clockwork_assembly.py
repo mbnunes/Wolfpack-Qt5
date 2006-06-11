@@ -16,7 +16,7 @@ def onUse(char, item):
 	if TinkerSkill < 60.0:
 		char.socket.sysmessage( tr("You must have at least 60.0 skill in tinkering to construct a golem.") )
 		return True
-	elif char.controlslots + 4 > char.maxcontrolslots:
+	elif len(char.followers) + 4 > char.maxcontrolslots:
 		char.socket.clilocmessage( 1049607 ) # You have too many followers to control that creature.
 		return True
 

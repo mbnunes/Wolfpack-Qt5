@@ -19,7 +19,7 @@ class BladeSpirits (Spell):
 		return Spell.calcdelay(self, char, mode) * 5
 
 	def cast(self, char, mode, args=[], target=None, item=None):
-		if char.player and char.controlslots >= 5:
+		if char.player and len(char.followers) >= 5:
 			char.socket.clilocmessage(1049645)
 			return
 		else:
@@ -28,7 +28,7 @@ class BladeSpirits (Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if char.player and char.controlslots >= 5:
+		if char.player and len(char.followers) >= 5:
 			char.socket.clilocmessage(1049645)
 			return
 
@@ -363,7 +363,7 @@ class SummonCreature (Spell):
 		self.validtarget = TARGET_GROUND
 
 	def cast(self, char, mode, args=[], target=None, item=None):
-		if char.player and char.controlslots + 1 > char.maxcontrolslots:
+		if char.player and len(char.followers) + 1 > char.maxcontrolslots:
 			if char.socket:
 				char.socket.clilocmessage(1049645)
 			return
@@ -372,7 +372,7 @@ class SummonCreature (Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		if char.player and char.controlslots + 1 > char.maxcontrolslots:
+		if char.player and len(char.followers) + 1 > char.maxcontrolslots:
 			if char.socket:
 				char.socket.clilocmessage(1049645)
 			return
@@ -391,7 +391,7 @@ class SummonCreature (Spell):
 
 		creature = wolfpack.addnpc(npcid, target)
 		# If the creature is out of our control, delete it.
-		if creature.controlslots + char.controlslots > char.maxcontrolslots:
+		if creature.controlslots + len(char.followers) > char.maxcontrolslots:
 			creature.delete()
 			char.socket.clilocmessage(1049645)
 		else:

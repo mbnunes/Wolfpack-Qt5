@@ -78,7 +78,7 @@ def dotame(char, totame):
 		return
 
 	# Too Many Followers
-	if char.controlslots + totame.controlslots > char.maxcontrolslots:
+	if len(char.followers) + totame.controlslots > char.maxcontrolslots:
 		socket.clilocmessage( 1049611, "", 0x3b2, 3, totame )
 		return
 
@@ -177,7 +177,7 @@ def callback( char, args ):
 			removetags( totame )
 
 			# Too Many Followers
-			if char.controlslots + totame.controlslots > char.maxcontrolslots:
+			if len(char.followers) + totame.controlslots > char.maxcontrolslots:
 				# You have too many followers to tame that creature.
 				socket.clilocmessage( 1049611, "", 0x3b2, 3, totame )
 				return

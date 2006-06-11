@@ -216,7 +216,7 @@ def transfer_target(char, arguments, target):
 	pet = wolfpack.findchar(arguments[0])
 
 	if pet and (pet.owner == char or char.gm):
-		if (target.char.controlslots + pet.controlslots) > target.char.maxcontrolslots:
+		if (len(target.char.followers) + pet.controlslots) > target.char.maxcontrolslots:
 			char.socket.sysmessage(tr('Your target already controls too many pets.'))
 			return
 

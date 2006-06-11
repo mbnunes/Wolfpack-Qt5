@@ -45,7 +45,7 @@ class AnimateDead(Spell):
 			char.socket.clilocmessage(1042600)
 			return
 
-		if char.player and char.controlslots >= 5:
+		if char.player and len(char.followers) >= 5:
 			char.socket.clilocmessage(1049645)
 			return
 
@@ -410,7 +410,7 @@ class VengefulSpirit(CharEffectSpell):
 		self.mantra = 'Kal Xen Bal Beh'
 
 	def affectchar(self, char, mode, target, args=[]):
-		if char.controlslots + 3 > char.maxcontrolslots:
+		if len(char.followers) + 3 > char.maxcontrolslots:
 			char.socket.clilocmessage(1049645) # You have too many followers to summon that creature.
 			return False
 		elif target == char:
