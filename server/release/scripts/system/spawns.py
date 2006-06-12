@@ -313,6 +313,8 @@ def onDelete(object):
 				spawner.deltag('current')
 			else:
 				spawner.settag('current', current)
+
+			spawner.resendtooltip()
 	except:
 		return 0
 

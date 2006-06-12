@@ -4,7 +4,7 @@ import wolfpack.gumps
 from wolfpack import tr
 from system import spawns
 
-ADVANCEDSPAWNS = 0
+ADVANCEDSPAWNS = 1
 
 #
 # Register the spawngem with the spawning system.
@@ -30,8 +30,14 @@ def onShowTooltip(sender, target, tooltip):
 		area = target.gettag('area')
 		mininterval = target.gettag('mininterval')
 		maxinterval = target.gettag('maxinterval')
+		current = 0
+		if target.hastag('current'):
+			current = target.gettag('current')
+		maxspawns = 1
+		if target.hastag('maximum'):
+			maxspawns = target.gettag('maximum')
 
-		appendix = tr('Radius: %s\nInterval: %s to %s minutes') % (area, mininterval, maxinterval)
+		appendix = tr('Amount: %s / %s\nRadius: %s\nInterval: %s to %s minutes') % (current, maxspawns, area, mininterval, maxinterval)
 
 		tooltip.add(1060847, "%s\t\n" % appendix)
 
@@ -62,6 +68,7 @@ def response(player, arguments, response):
 		area = int(response.text[1])
 		mininterval = int(response.text[2])
 		maxinterval = int(response.text[3])
+		maximum = int(response.text[4])
 	except:
 		player.socket.sysmessage( tr('You entered an invalid value.') )
 		return
@@ -71,6 +78,7 @@ def response(player, arguments, response):
 	item.settag('area', area)
 	item.settag('mininterval', mininterval)
 	item.settag('maxinterval', maxinterval)
+	item.settag('maximum', maximum)
 
 	item.resendtooltip()
 #
@@ -108,6 +116,11 @@ def onUse(player, item):
 		area = unicode(max(0, item.gettag('area')))
 	else:
 		area = 0
+
+	if item.hastag('maximum'):
+		maximum = item.gettag('maximum')
+	else:
+		maximum = 1
 
 	dialog.startPage(0)
 	dialog.addResizeGump(35, 11, 9260, 460, 504)
@@ -156,6 +169,10 @@ def onUse(player, item):
 	dialog.addText(80, 376, tr("Max. Interval in Minutes"), 2100)
 	dialog.addResizeGump(80, 400, 9300, 75, 28)
 	dialog.addInputField(84, 404, 63, 20, 2100, 3, unicode(maxinterval))
+	# Amount
+	dialog.addText(280, 248, tr("Max. Spawns"), 2100)
+	dialog.addResizeGump(280, 272, 9300, 75, 28)
+	dialog.addInputField(284, 276, 63, 20, 2100, 4, unicode(maximum))
 
 	if ADVANCEDSPAWNS:
 		dialog.addButton(320, 471, 1209, 1210, 2)
