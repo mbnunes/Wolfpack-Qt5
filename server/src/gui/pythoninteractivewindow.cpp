@@ -125,8 +125,8 @@ public:
 			dict d = ( dict )o;
 			return d.keys();
 		}
-		handle<> hl( PyObject_Dir( o.ptr() ) );
-		list result( hl );
+		boost::python::handle<> hl( PyObject_Dir( o.ptr() ) );
+		boost::python::list result( hl );
 		return result;
 	}
 };
@@ -186,11 +186,11 @@ void PythonInteractiveWindow::startPythonInterpreter()
 	d->interpreterState = Py_NewInterpreter();
 	PyThreadState_Swap( d->interpreterState );
 	/* Code to execute in the interpreter */
-	d->main_module = object( (handle<>( borrowed( PyImport_AddModule( "__main__" ) ) )) );
-	d->main_namespace = dict( (handle<>( borrowed( PyModule_GetDict( d->main_module.ptr() ) ) )) );
+	d->main_module = boost::python::object( (boost::python::handle<>( boost::python::borrowed( PyImport_AddModule( "__main__" ) ) )) );
+	d->main_namespace = boost::python::dict( (boost::python::handle<>( boost::python::borrowed( PyModule_GetDict( d->main_module.ptr() ) ) )) );
 
 	// Modify our search-path
-	list searchPath = extract<list>( object( handle<>( borrowed( PySys_GetObject( "path" ) ) ) ) );
+	list searchPath = extract<list>( boost::python::object( boost::python::handle<>( boost::python::borrowed( PySys_GetObject( "path" ) ) ) ) );
 	QStringList elements = Config::instance()->getString( "General", "Python Searchpath", "./scripts;.", true ).split( ";" );
 
 	// Prepend our items to the searchpath
@@ -215,7 +215,7 @@ void PythonInteractiveWindow::runPythonString( const QString& text )
 	PyThreadState* global_state = PyThreadState_Swap( d->interpreterState );
 	try 
 	{
-		handle<> result( PyRun_String( text.toLatin1().constData(), Py_file_input, d->main_namespace.ptr(), d->main_namespace.ptr() ) );
+		boost::python::handle<> result( PyRun_String( text.toLatin1().constData(), Py_file_input, d->main_namespace.ptr(), d->main_namespace.ptr() ) );
 	}
 	catch ( error_already_set& )
 	{
