@@ -81,6 +81,7 @@ def spawn(spawner, spawntype, spawndef, current, area):
 		return
 
 	spawner.settag('current', current + 1)
+	spawner.resendtooltip()
 
 #
 # Run this in the mainloop
