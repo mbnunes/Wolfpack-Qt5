@@ -2235,6 +2235,9 @@ PyObject* cBaseChar::getProperty( const QString& name, uint hash )
 	if ( !hash )
 		hash = elfHash( name.toLatin1() );
 
+	// For future Checks between BaseChar and Player
+	P_PLAYER player = dynamic_cast<P_PLAYER>( this );
+
 	switch ( hash )
 	{
 	case 0x9321674: // overloaded
@@ -2480,7 +2483,10 @@ PyObject* cBaseChar::getProperty( const QString& name, uint hash )
 
 		For npcs this is inherited from the definition referenced by the baseid property.
 		*/
-		return createPyObject( controlSlots() );
+		if ( player )
+			return createPyObject( player->controlslots() );
+		else
+			return createPyObject( controlSlots() );
 	case 0x9c18e73: // basescripts
 		/*
 		\rproperty char.basescripts This is a comma separated list of scripts assigned to this item

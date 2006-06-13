@@ -110,7 +110,7 @@ class SummonElementBase(Spell):
 		char.turnto(target)
 
 		# Lowest controlslots we see is 2, Earth Elemental
-		if char.player and len(char.followers) + 2 > char.maxcontrolslots:
+		if char.player and char.controlslots + 2 > char.maxcontrolslots:
 			char.socket.clilocmessage(1049645)
 			return
 
@@ -119,7 +119,7 @@ class SummonElementBase(Spell):
 
 		creature = wolfpack.addnpc(self.elementid, target)
 		# If the creature is out of our control, delete it.
-		if char.player and len(char.followers) + creature.controlslots > char.maxcontrolslots:
+		if char.player and char.controlslots + creature.controlslots > char.maxcontrolslots:
 			creature.delete()
 			char.socket.clilocmessage(1049645)
 		else:
