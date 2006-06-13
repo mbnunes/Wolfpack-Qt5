@@ -194,13 +194,18 @@ def callback( char, args ):
 			# Remove the tamed npc from the spawngem system too
 			if totame.hasscript('system.spawns'):
 				if totame.hastag('spawner'):
-					spawner = wolfpack.finditem(totame.gettag('spawner'))
+					spawner = wolfpack.finditem(int(totame.gettag('spawner')))
 					if spawner and spawner.hastag('current'):
-						current = int(spawner.gettag('current')) - 1
-						if current <= 0:
-							spawner.deltag('current')
-						else:
-							spawner.settag('current', current)
+						current = int(spawner.gettag('current'))
+						current -= 1
+
+					if current <= 0:
+						spawner.deltag('current')
+					else:
+						spawner.settag('current', current)
+
+					spawner.resendtooltip()
+
 					totame.deltag('spawner')
 				totame.removescript('system.spawns')
 
