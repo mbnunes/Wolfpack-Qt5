@@ -281,24 +281,16 @@ unsigned int wpCurrenttime()
 	\return An <object id="item">item</object> object or None.
 	\description Creates a new item from a given definition id and assigns a new serial to it.
 */
-static PyObject* wpAdditem( PyObject* /*self*/, PyObject* args )
+handle<> wpAdditem( const QString& definition )
 {
-	char* definition;
-
-	if ( !PyArg_ParseTuple( args, "s:wolfpack.additem(def)", &definition ) )
-	{
-		return 0;
-	}
-
 	if ( !World::instance()->isLoaded() )
 	{
 		PyErr_Format(PyExc_RuntimeError, "Trying to create an item before the world has loaded is not supported." );
-		Py_RETURN_NONE;
+		throw_error_already_set();
 	}
 
-
 	P_ITEM pItem = cItem::createFromScript( definition );
-	return PyGetItemObject( pItem );
+	return handle<>( PyGetItemObject( pItem ) );
 }
 
 /*
@@ -337,15 +329,9 @@ static PyObject* wpAddnpc( PyObject* /*self*/, PyObject* args )
 	\description Tries to find an item with the given serial and returns an item object for it. If
 	no item with the given serial is found, None is silently returned.
 */
-static PyObject* wpFinditem( PyObject* self, PyObject* args )
+handle<> wpFinditem( unsigned int serial )
 {
-	Q_UNUSED( self );
-
-	SERIAL serial = INVALID_SERIAL;
-	if ( !PyArg_ParseTuple( args, "i:wolfpack.finditem", &serial ) )
-		return 0;
-
-	return PyGetItemObject( FindItemBySerial( serial ) );
+	return handle<>( allow_null( PyGetItemObject( FindItemBySerial( serial ) ) ) );
 }
 
 /*
@@ -370,24 +356,17 @@ static PyObject* wpGuilds( PyObject* /*self*/, PyObject* /*args*/ )
 	\description Tries to find a guild with the given id and returns a guild object for it.
 	Returns None if no guild could be found.
 */
-static PyObject* wpFindguild( PyObject* self, PyObject* args )
+handle<> wpFindguild( unsigned int serial )
 {
-	Q_UNUSED( self );
-
-	SERIAL serial;
-
-	if ( !PyArg_ParseTuple( args, "i:wolfpack.findguild(serial)", &serial ) )
-		return 0;
-
 	cGuild* guild = Guilds::instance()->findGuild( serial );
 
 	if ( guild )
 	{
-		return guild->getPyObject();
+		return handle<>( guild->getPyObject() );
 	}
 	else
 	{
-		Py_RETURN_NONE;
+		return handle<>( allow_null((PyObject*)0) );
 	}
 }
 
@@ -398,14 +377,9 @@ static PyObject* wpFindguild( PyObject* self, PyObject* args )
 	\description Tries to find a player or npc with the given serial and returns a character
 	object. If no character with the given serial could be found it returns None.
 */
-static PyObject* wpFindchar( PyObject* self, PyObject* args )
+handle<> wpFindchar( unsigned int serial )
 {
-	Q_UNUSED( self );
-	SERIAL serial = INVALID_SERIAL;
-	if ( !PyArg_ParseTuple( args, "i:wolfpack.findchar", &serial ) )
-		return 0;
-
-	return PyGetCharObject( FindCharBySerial( serial ) );
+	return handle<>( PyGetCharObject( FindCharBySerial( serial ) ) );
 }
 
 /*
@@ -515,17 +489,9 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	\return A <object id="region">region</object> object or None if there is no region at the given coordinates.
 	\description Finds a region at the given coordinates.
 */
-static PyObject* wpRegion( PyObject* self, PyObject* args )
+handle<> wpRegion( int x, int y, int map )
 {
-	Q_UNUSED( self );
-	// Three arguments
-	int x = 0,
-	y = 0,
-	map = 0;
-	if ( !PyArg_ParseTuple( args, "iii:wolfpack.region", &x, &y, &map ) )
-		return 0;
-
-	return PyGetRegionObject( Territories::instance()->region( x, y, map ) );
+	return handle<>( PyGetRegionObject( Territories::instance()->region( x, y, map ) ) );
 }
 
 /*
@@ -534,17 +500,10 @@ static PyObject* wpRegion( PyObject* self, PyObject* args )
 	\return A <object id="spawnregion">spawnregion</object> object or None if there is no region with the given name.
 	\description Finds a spawnregion with the given id.
 */
-static PyObject* wpSpawnregion( PyObject* self, PyObject* args )
+handle<> wpSpawnregion( const QString& name )
 {
-	Q_UNUSED( self );
-
-	// Three arguments
-	char *name;
-	if ( !PyArg_ParseTuple( args, "s:wolfpack.spawnregion", &name ) )
-		return 0;
-
 	cSpawnRegion *spawn = SpawnRegions::instance()->region( name );
-	return PyGetSpawnRegionObject( spawn );
+	return handle<>( PyGetSpawnRegionObject( spawn ) );
 }
 
 /*
@@ -630,11 +589,9 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 	\description This function creates an itemiterator object to allow iteration
 	over all items registered in the world.
 */
-static PyObject* wpAllItemsIterator( PyObject* self, PyObject* args )
+handle<> wpAllItemsIterator()
 {
-	Q_UNUSED( args );
-	Q_UNUSED( self );
-	return PyGetItemIterator();
+	return handle<>( PyGetItemIterator() );
 }
 
 /*
@@ -643,11 +600,9 @@ static PyObject* wpAllItemsIterator( PyObject* self, PyObject* args )
 	\description This function creates a chariterator object to allow iteration
 	over all characters registered in the world.
 */
-static PyObject* wpAllCharsIterator( PyObject* self, PyObject* args )
+handle<> wpAllCharsIterator()
 {
-	Q_UNUSED( args );
-	Q_UNUSED( self );
-	return PyGetCharIterator();
+	return handle<>( PyGetCharIterator() );
 }
 
 /*
@@ -931,14 +886,9 @@ static PyObject* wpMap( PyObject* self, PyObject* args )
 	\return True or False.
 	\description This function returns true if the given map id is available and valid.
 */
-static PyObject* wpHasMap( PyObject* self, PyObject* args )
+bool wpHasMap( unsigned int map )
 {
-	Q_UNUSED( self );
-	uint map = 0;
-	if ( !PyArg_ParseTuple( args, "i:wolfpack.hasmap", &map ) )
-		return 0;
-
-	return Maps::instance()->hasMap( map ) ? PyTrue() : PyFalse();
+	return Maps::instance()->hasMap( map );
 }
 
 /*
@@ -1107,31 +1057,23 @@ static PyObject* wpList( PyObject* self, PyObject* args )
 	event is triggered, the given script will be called first. Please note that there can only be one
 	hook per event at a time, but a script can hook more than one event to itself.
 */
-static PyObject* wpRegisterGlobal( PyObject* /*self*/, PyObject* args )
+void wpRegisterGlobal( unsigned int event, const QString& scriptName )
 {
-	unsigned int event;
-	const char* scriptName;
-
-	if ( !PyArg_ParseTuple( args, "is:wolfpack.registerglobal", &event, &scriptName ) )
-		return 0;
-
-	cPythonScript* script = ScriptManager::instance()->find( scriptName );
+	cPythonScript* script = ScriptManager::instance()->find( scriptName.toLatin1() );
 
 	if ( script == 0 )
 	{
 		PyErr_SetString( PyExc_RuntimeError, "Unknown script." );
-		return 0;
+		throw_error_already_set();
 	}
 
 	if ( event >= EVENT_COUNT )
 	{
-		PyErr_SetString( PyExc_RuntimeError, "Unknown script." );
-		return 0;
+		PyErr_SetString( PyExc_RuntimeError, "Invalid event ID." );
+		throw_error_already_set();
 	}
 
 	ScriptManager::instance()->setGlobalHook( ( ePythonEvent ) event, script );
-
-	Py_RETURN_NONE;
 }
 
 /*
@@ -1215,20 +1157,9 @@ static PyObject* wpRegisterPacketHook( PyObject* /*self*/, PyObject* args )
 	\description This function creates a new coord object from the
 	given coordinate components.
 */
-static PyObject* wpCoord( PyObject* self, PyObject* args )
+handle<> wpCoord( unsigned int x, unsigned int y, unsigned int z, unsigned char map )
 {
-	Q_UNUSED( self );
-
-	uint x = 0,
-	y = 0,
-	z = 0;
-	uchar map = 0;
-	if ( !PyArg_ParseTuple( args, "iiib:wolfpack.coord", &x, &y, &z, &map ) )
-		return 0;
-
-	Coord pos( x, y, z, map );
-
-	return PyGetCoordObject( pos );
+	return handle<>( PyGetCoordObject( (Coord( x, y, z, map )) ) );
 }
 
 /*
@@ -1238,24 +1169,17 @@ static PyObject* wpCoord( PyObject* self, PyObject* args )
 	\description Creates a new multi from a given definition id and assigns a new serial to it.
 	Please note that multis are represented by the item object.
 */
-static PyObject* wpAddMulti( PyObject* /*self*/, PyObject* args )
+handle<> wpAddMulti( const QString& definition )
 {
-	char* definition;
-
-	if ( !PyArg_ParseTuple( args, "s:wolfpack.addmulti(def)", &definition ) )
-	{
-		return 0;
-	}
-
 	cMulti* multi = cMulti::createFromScript( definition );
 
 	if ( multi )
 	{
-		return multi->getPyObject();
+		return handle<>( multi->getPyObject() );
 	}
 	else
 	{
-		Py_RETURN_NONE;
+		return handle<>( allow_null( (PyObject*)0 ) );
 	}
 }
 
@@ -1264,67 +1188,45 @@ static PyObject* wpAddMulti( PyObject* /*self*/, PyObject* args )
 	\return A string.
 	\description Returns the server version.
 */
-static PyObject* wpServerVersion( PyObject* self, PyObject* args )
+QString wpServerVersion()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	return PyString_FromString( QString( "%1 %2 %3" ).arg( productString() ).arg( productBeta() ).arg( productVersion() ).toLatin1() );
+	return QString( "%1 %2 %3" ).arg( productString() ).arg( productBeta() ).arg( productVersion() );
 }
 
 /*
 	\function wolfpack.isstarting
 	\return True if the server is in startup phase, false otherwise.
 */
-static PyObject* wpIsStarting( PyObject* self, PyObject* args )
+bool wpIsStarting()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	if ( Server::instance()->getState() == STARTUP )
-		Py_RETURN_TRUE;
-	else
-		Py_RETURN_FALSE;
+	return Server::instance()->getState() == STARTUP;
 }
 
 /*
 	\function wolfpack.isrunning
 	\return True if the server is in running phase, false otherwise.
 */
-static PyObject* wpIsRunning( PyObject* self, PyObject* args )
+bool wpIsRunning()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	if ( Server::instance()->getState() == RUNNING )
-		Py_RETURN_TRUE;
-	else
-		Py_RETURN_FALSE;
+	return Server::instance()->getState() == RUNNING;
 }
 
 /*
 	\function wolfpack.isreloading
 	\return True if the server is reloading, false otherwise.
 */
-static PyObject* wpIsReloading( PyObject* self, PyObject* args )
+bool wpIsReloading()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	if ( Server::instance()->getState() == SCRIPTRELOAD )
-		Py_RETURN_TRUE;
-	else
-		Py_RETURN_FALSE;
+	return Server::instance()->getState() == SCRIPTRELOAD;
 }
 
 /*
 	\function wolfpack.isclosing
 	\return True if the server is shutting down, false otherwise.
 */
-static PyObject* wpIsClosing( PyObject* self, PyObject* args )
+bool wpIsClosing()
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	if ( Server::instance()->getState() == SHUTDOWN )
-		Py_RETURN_TRUE;
-	else
-		Py_RETURN_FALSE;
+	return Server::instance()->getState() == SHUTDOWN;
 }
 
 /*
@@ -1543,19 +1445,15 @@ static PyObject* wpItemCount( PyObject* self, PyObject* args )
 	\return A <object id="packet">packet</object> object.
 	\description This function creates a new packet object with the given size and sets the first byte of the packet to the given packet id.
 */
-static PyObject* wpPacket( PyObject* self, PyObject* args )
+handle<> wpPacket( unsigned int id, unsigned int size )
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	unsigned int id, size;
-
-	if ( !PyArg_ParseTuple( args, "ii:wolfpack.packet", &id, &size ) )
-		return 0;
-
 	if ( size == 0 )
-		Py_RETURN_NONE;
+	{
+		PyErr_Format( PyExc_RuntimeError, "Invalid packet size 0." );
+		throw_error_already_set();
+	}
 
-	return CreatePyPacket( ( unsigned char ) id, ( unsigned short ) size );
+	return handle<>( CreatePyPacket( ( unsigned char ) id, ( unsigned short ) size ) );
 }
 
 /*
@@ -1613,28 +1511,13 @@ void wpExportDefinitions( const QString& filename )
 	\description This function tries to find a section with the given type and id in the definitions and returns
 	an element object to access its data.
 */
-static PyObject* wpGetDefinition( PyObject* /*self*/, PyObject* args )
+handle<> wpGetDefinition( unsigned int type, const QString& name )
 {
-	unsigned int type;
-	char* name;
-
-	if ( !PyArg_ParseTuple( args, "Ies:getdefinition(type, id)", &type, "utf-8", &name ) )
-	{
-		return 0;
-	}
-
-	const cElement* element = Definitions::instance()->getDefinition( ( eDefCategory ) type, QString::fromUtf8( name ) );
-
-	PyMem_Free( name );
-
+	const cElement* element = Definitions::instance()->getDefinition( ( eDefCategory ) type, name );
 	if ( element )
-	{
-		return const_cast<cElement*>( element )->getPyObject();
-	}
+		return handle<>( const_cast<cElement*>( element )->getPyObject() );
 	else
-	{
-		Py_RETURN_NONE;
-	}
+		return handle<>( allow_null((PyObject*)0) );
 }
 
 /*
@@ -1940,49 +1823,30 @@ static PyMethodDef wpGlobal[] =
 { "charbase",			wpCharBase,						METH_VARARGS, 0 },
 { "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
 { "callnamedevent",		wpCallNamedEvent,				METH_VARARGS, "Call an event in a script and return the result." },
-{ "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." },
 { "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." },
-{ "packet",				wpPacket,						METH_VARARGS, NULL },
 { "charregion",			wpCharRegion,					METH_VARARGS, NULL },
 { "itemregion",			wpItemRegion,					METH_VARARGS, NULL },
-{ "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },
 { "newnpc",				wpNewNpc,						METH_VARARGS, "Creates an entirely new npc." },
 { "newitem",			wpNewItem,						METH_VARARGS, "Creates an entirely new item." },
 { "newplayer",			wpNewPlayer,					METH_VARARGS, "Creates an entirely new player." },
 { "addnpc",				wpAddnpc,						METH_VARARGS, "Adds a npc with the specified script-section" },
-{ "finditem",			wpFinditem,						METH_VARARGS, "Tries to find an item based on it's serial" },
 { "guilds",				wpGuilds,						METH_VARARGS, 0},
-{ "findguild",			wpFindguild,					METH_VARARGS, 0},
-{ "findchar",			wpFindchar,						METH_VARARGS, "Tries to find a char based on it's serial" },
 { "findmulti",			wpFindmulti,					METH_VARARGS, "Tries to find a multi based on it's position" },
 { "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" },
 { "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
 { "canplace",			wpCanPlace,						METH_VARARGS, 0 },
 { "canplaceboat",		wpCanPlaceBoat,					METH_VARARGS, 0 },
 { "canboatmoveto",		wpCanBoatMoveTo,				METH_VARARGS, 0 },
-{ "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
-{ "spawnregion",		wpSpawnregion,					METH_VARARGS, 0 },
 { "newguild",			wpNewguild,						METH_VARARGS, 0},
 { "statics",			wpStatics,						METH_VARARGS, "Returns a list of static-item at a given position" },
 { "map",				wpMap,							METH_VARARGS, "Returns a dictionary with information about a given map tile" },
-{ "hasmap",				wpHasMap,						METH_VARARGS, "Returns true if the map specified is present"	},
 { "items",				wpItems,						METH_VARARGS, "Returns a list of items in a specific sector." },
-{ "itemiterator",		wpAllItemsIterator,				METH_NOARGS,  "Returns an iterator for all items in the world."	},
-{ "chariterator",		wpAllCharsIterator,				METH_NOARGS,  "Returns an iterator for all chars in the world."	},
 { "chars",				wpChars,						METH_VARARGS, "Returns a list of chars in a specific sector." },
 { "landdata",			wpLanddata,						METH_VARARGS, "Returns the landdata information for a given tile stored on the server." },
 { "tiledata",			wpTiledata,						METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
-{ "coord",				wpCoord,						METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
-{ "addmulti",			wpAddMulti,						METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },
 { "list",				wpList,							METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
-{ "registerglobal",		wpRegisterGlobal,				METH_VARARGS, "Registers a global script hook." },
 { "registerpackethook", wpRegisterPacketHook,			METH_VARARGS, "Registers a packet hook." },
 { "registercommand",	wpRegisterCommand,				METH_VARARGS, "Registers a global command hook." },
-{ "serverversion",		wpServerVersion,				METH_NOARGS, "Returns the server version string." },
-{ "isstarting",			wpIsStarting,					METH_NOARGS, "Returns if the server is in starting state" },
-{ "isrunning",			wpIsRunning,					METH_NOARGS, "Returns if the server is in running state" },
-{ "isreloading",		wpIsReloading,					METH_NOARGS, "Returns if the server is in reload state" },
-{ "isclosing",			wpIsClosing,					METH_NOARGS, "Returns if the server is in closing state" },
 { "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
 { "queuecode",			wpQueueCode,					METH_VARARGS, NULL },
 { "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" },
@@ -2383,38 +2247,26 @@ void wpSettingsSave()
 	\return A <object id="dbresult">dbresult</object> object.
 	\description This function executes the given SQL query in the currently connected database and returns the result.
 */
-static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
+handle<> wpQuery( const QString& query )
 {
-	char* query;
-
-	if ( !PyArg_ParseTuple( args, "es:wolfpack.database.query(query)", "utf-8", &query ) )
-	{
-		return 0;
-	}
-
 	try
 	{
 		QSqlQuery result = PersistentBroker::instance()->query( query );
-
-		PyMem_Free( query );
-
-		return getPyObjectFromQSqlQuery( result );
+		return handle<>( getPyObjectFromQSqlQuery( result ) );
 	}
 	catch ( wpException e )
 	{
-		PyMem_Free( query );
 		PyErr_SetString( PyExc_RuntimeError, e.error().toLatin1() );
-		return 0;
+		throw_error_already_set();
 	}
 	catch ( ... )
 	{
-		PyMem_Free( query );
 		PyErr_SetString( PyExc_RuntimeError, "An error occured while querying the database." );
-		return 0;
+		throw_error_already_set();
 	}
 
 	// we should never get here
-	return 0;
+	return handle<>( allow_null((PyObject*)0 ) );
 }
 
 /*
@@ -2422,18 +2274,8 @@ static PyObject* wpQuery( PyObject* /*self*/, PyObject* args )
 	\param query A string containing the SQL statement.
 	\description This function executes the given SQL query in the currently connected database and discards the result if there is any.
 */
-static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
+void wpExecute( const QString& query )
 {
-	PyObject *pquery;
-	QString query;
-
-	if ( !PyArg_ParseTuple( args, "O:wolfpack.database.execute(query)", &pquery ) )
-	{
-		return 0;
-	}
-
-	query = extract<QString>(pquery);
-
 	try
 	{
 		PersistentBroker::instance()->executeQuery( query );
@@ -2441,15 +2283,13 @@ static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
 	catch ( wpException & e )
 	{
 		PyErr_SetString( PyExc_RuntimeError, e.error().toLatin1() );
-		return 0;
+		throw_error_already_set();
 	}
 	catch ( ... )
 	{
 		PyErr_SetString( PyExc_RuntimeError, "An error occured while querying the database." );
-		return 0;
+		throw_error_already_set();
 	}
-
-	Py_RETURN_NONE;
 }
 
 /*
@@ -2458,15 +2298,8 @@ static PyObject* wpExecute( PyObject* /*self*/, PyObject* args )
 	\return A string.
 	\description This function returns the name of the database driver in use for the given database.
 */
-static PyObject* wpDriver( PyObject* self, PyObject* args )
+QString wpDriver( unsigned int database )
 {
-	Q_UNUSED( self );
-	Q_UNUSED( args );
-	unsigned int database;
-
-	if ( !PyArg_ParseTuple( args, "I:wolfpack.database.driver(database)", &database ) )
-		return 0;
-
 	QString driver( "unknown" );
 
 	if ( database == 1 )
@@ -2474,7 +2307,7 @@ static PyObject* wpDriver( PyObject* self, PyObject* args )
 	else if ( database == 2 )
 		driver = Config::instance()->databaseDriver();
 
-	return PyString_FromString( driver.toLatin1() );
+	return driver.toLatin1();
 }
 
 /*
@@ -2482,7 +2315,7 @@ static PyObject* wpDriver( PyObject* self, PyObject* args )
 	\param database The id of the database you want to close. See the "Database Constants" in this module.
 	\description This function closes the connection to the given database.
 */
-static PyObject* wpClose( PyObject* /*self*/, PyObject* /*args*/ )
+void wpClose( unsigned int database )
 {
 	try
 	{
@@ -2491,10 +2324,8 @@ static PyObject* wpClose( PyObject* /*self*/, PyObject* /*args*/ )
 	catch ( ... )
 	{
 		PyErr_SetString( PyExc_RuntimeError, "Error while disconnecting from the database." );
-		return 0;
+		throw_error_already_set();
 	}
-
-	Py_RETURN_NONE;
 }
 
 /*
@@ -2502,15 +2333,8 @@ static PyObject* wpClose( PyObject* /*self*/, PyObject* /*args*/ )
 	\param database The id of the database you want to open. See the "Database Constants" in this module.
 	\description This function opens the connection to the given database.
 */
-static PyObject* wpOpen( PyObject* /*self*/, PyObject* args )
+bool wpOpen( unsigned int database )
 {
-	unsigned int database;
-
-	if ( !PyArg_ParseTuple( args, "I:wolfpack.database.open(database)", &database ) )
-	{
-		return 0;
-	}
-
 	try
 	{
 		if ( database == 1 )
@@ -2525,26 +2349,30 @@ static PyObject* wpOpen( PyObject* /*self*/, PyObject* args )
 	catch ( wpException& e )
 	{
 		PyErr_SetString( PyExc_RuntimeError, e.error().toLatin1() );
-		return 0;
+		throw_error_already_set();
 	}
 	catch ( ... )
 	{
 		PyErr_SetString( PyExc_RuntimeError, "Error while connecting to the database." );
-		return 0;
+		throw_error_already_set();
 	}
 
-	Py_RETURN_TRUE;
+	return true;
 }
 
-static PyMethodDef wpDatabase[] =
+BOOST_PYTHON_MODULE(wpdatabase)
 {
-{ "query",				wpQuery,	METH_VARARGS, "Executes a sql query and returns the result." },
-{ "execute",			wpExecute,	METH_VARARGS, "Executes a sql query and dont return a result." },
-{ "driver",				wpDriver,	METH_VARARGS, "Returns the name of the database driver used." },
-{ "close",				wpClose,	METH_VARARGS, "Closes the database." },
-{ "open",				wpOpen,		METH_VARARGS, "Opens the database." },
-{ 0, 0, 0, 0 }
-};
+	def( "query", wpQuery, "Executes a sql query and returns the result." );
+	def( "execute", wpExecute, "Executes a sql query and dont return a result." );
+	def( "driver", wpDriver, "Returns the name of the database driver used." );
+	def( "close", wpClose, "Closes the database." );
+	def( "open", wpOpen, "Opens the database." );
+}
+
+void init_wolfpack_database()
+{
+	boost::python::detail::init_module("_wolfpack.database", initwpdatabase);
+}
 
 BOOST_PYTHON_MODULE(wpconsole)
 {
@@ -2606,13 +2434,33 @@ void init_wolfpack_settings()
 BOOST_PYTHON_MODULE(_wolfpack)
 {
 	// Namespace level definitions
-	def("queueaction", wpQueueAction );
-	def("exportdefinitions", wpExportDefinitions );
-	def("hasevent", wpHasEvent );
-	def("hasnamedevent", wpHasNamedEvent );
-	def("getoption", wpGetOption );
-	def("setoption", wpSetOption );
-	def("tr", wpTr );
+	def( "additem", wpAdditem, "Adds an item with the specified script definition" );
+	def( "finditem", wpFinditem, "Tries to find an item based on it's serial" );
+	def( "findguild", wpFindguild );
+	def( "findchar", wpFindchar, "Tries to find a char based on it's serial" );
+	def( "region", wpRegion, "Gets the region at a specific position" );
+	def( "itemiterator", wpAllItemsIterator, "Returns an iterator for all items in the world." );
+	def( "chariterator", wpAllCharsIterator, "Returns an iterator for all chars in the world." );
+	def( "coord", wpCoord, "Creates a coordinate object from the given parameters (x,y,z,map)." );
+	def( "addmulti", wpAddMulti, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." );
+	def( "serverversion", wpServerVersion, "Returns the server version string." );
+	def( "isstarting", wpIsStarting, "Returns if the server is in starting state" );
+	def( "isrunning", wpIsRunning, "Returns if the server is in running state" );
+	def( "isreloading", wpIsReloading, "Returns if the server is in reload state" );
+	def( "isclosing", wpIsClosing, "Returns if the server is in closing state" );
+
+	def( "spawnregion", wpSpawnregion );
+	def( "registerglobal", wpRegisterGlobal,	"Registers a global script hook." );
+	def( "hasmap", wpHasMap,	"Returns true if the map specified is present" );
+	def( "packet", wpPacket );
+	def( "getdefinition", wpGetDefinition );
+	def( "queueaction", wpQueueAction );
+	def( "exportdefinitions", wpExportDefinitions );
+	def( "hasevent", wpHasEvent );
+	def( "hasnamedevent", wpHasNamedEvent );
+	def( "getoption", wpGetOption );
+	def( "setoption", wpSetOption );
+	def( "tr", wpTr );
 
 	object wpNamespace( ( handle<>( borrowed( Py_InitModule( "_wolfpack", wpGlobal ) ) ) ) );
 
@@ -2634,7 +2482,8 @@ BOOST_PYTHON_MODULE(_wolfpack)
 	object mSettings ( ( handle<>( borrowed ( PyImport_AddModule( "wpsettings" ) ) ) ) );
 	scope().attr("settings") = mSettings;
 
-	object mDatabase ( ( handle<>( borrowed ( Py_InitModule( "_wolfpack.database", wpDatabase ) ) ) ) );
+	init_wolfpack_database();
+	object mDatabase ( ( handle<>( borrowed ( PyImport_AddModule( "wpdatabase" ) ) ) ) );
 	scope().attr("database") = mDatabase;
 }
 
