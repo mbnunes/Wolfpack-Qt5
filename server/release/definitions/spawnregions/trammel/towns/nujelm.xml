@@ -7,4 +7,118 @@
 =================================================================
 -->
 <definitions>
+	<spawnregion id="nujelm_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>mnujelm_vendors</group>
+		<group>nujelm</group>
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_1">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3730,1259,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_2">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3768,1236,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_3">
+		<active />
+		<npc id="bard_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bard_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3740,1193,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_4">
+		<active />
+		<npc id="shipwright_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shipwright_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3700,1210,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_5">
+		<active />
+		<npc id="mapmaker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mapmaker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3705,1227,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_6">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3764,1314,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_7">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3774,1266,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_8">
+		<active />
+		<npc id="spinner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spinner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3765,1266,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_9">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3765,1259,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_10">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3773,1170,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_11">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3555,1171,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_12">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3547,1188,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_13">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3547,1195,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_14">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3555,1203,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_15">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3547,1178,0,1" />
+	</spawnregion>
 </definitions>

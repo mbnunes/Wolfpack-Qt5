@@ -33,7 +33,8 @@
 	<include file="definitions/npcs/humans/vendors/mapmaker.xml"/>
 	<include file="definitions/npcs/humans/vendors/provisioner.xml"/>
 	<include file="definitions/npcs/humans/vendors/ranger.xml"/>
-	<include file="definitions/npcs/humans/vendors/shipwright.xml"/>
+  <include file="definitions/npcs/humans/vendors/scribe.xml"/>
+  <include file="definitions/npcs/humans/vendors/shipwright.xml"/>
 	<include file="definitions/npcs/humans/vendors/spinner.xml"/>
 	<include file="definitions/npcs/humans/vendors/stablemaster.xml"/>
 	<include file="definitions/npcs/humans/vendors/tailor.xml"/>

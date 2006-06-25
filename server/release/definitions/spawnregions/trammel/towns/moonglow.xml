@@ -1,4 +1,152 @@
 
 <definitions>
+	<spawnregion id="moonglow_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>moonglow_vendors</group>
+		<group>moonglow</group>
+	</spawnregion>
 
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_1">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4465,1161,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_2">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4478,1160,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_3">
+		<active />
+		<npc id="tinker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tinker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4470,1167,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_4">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4439,1157,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_5">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4402,1161,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_6">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4393,1136,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_7">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4411,1138,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_8">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4412,1111,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_9">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4412,1086,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_10">
+		<active />
+		<npc id="architect_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="architect_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4418,1087,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_11">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4387,1113,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_12">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4389,1064,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_13">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4413,1064,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_14">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4454,1081,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_15">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4460,1086,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_16">
+		<active />
+		<npc id="farmer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="farmer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4474,1083,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_17">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4456,1067,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_18">
+		<active />
+		<npc id="spinner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spinner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4461,1067,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_19">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4458,1061,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="moonglow_vendor" id="moonglow_vendor_20">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4483,1066,0,1" />
+	</spawnregion>
 </definitions>

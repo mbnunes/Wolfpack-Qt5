@@ -1,4 +1,120 @@
 
 <definitions>
+	<spawnregion id="trammel_animalskare_1">
+		<active />
+		<maxnpcamount>30</maxnpcamount>
+                <delay min="2" max="5" />
+		<npcspercycle>10</npcspercycle>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1321,3661" to="1474,3876" map="0" />
+	</spawnregion>
 
+	<spawnregion id="skara_brae_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>skara_brae_vendors</group>
+		<group>skara_brae</group>
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_1">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="591,2147,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_2">
+		<active />
+		<npc id="farmer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="farmer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="609,2156,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_3">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="631,2162,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_4">
+		<active />
+		<npc id="architect_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="architect_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="631,2155,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_5">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="651,2162,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_6">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="668,2138,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_7">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="650,2188,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_8">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="631,2196,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_9">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="624,2218,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_10">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="602,2235,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_11">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="580,2227,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_12">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="596,2204,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_13">
+		<active />
+		<npc id="mapmaker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mapmaker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="602,2283,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="skara_brae_vendor" id="skara_brae_vendor_14">
+		<active />
+		<npc id="shipwright_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shipwright_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="602,2274,0,1" />
+	</spawnregion>
 </definitions>

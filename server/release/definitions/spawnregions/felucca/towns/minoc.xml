@@ -7,4 +7,125 @@
 =================================================================
 -->
 <definitions>
+	<spawnregion id="felucca_minoc_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>felucca_minoc_vendors</group>
+		<group>felucca_minoc</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_1">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2434,412,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_2">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2461,400,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_3">
+		<active />
+		<npc id="stablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2517,377,23,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_4">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2450,429,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_5">
+		<active />
+		<npc id="tinker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tinker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2465,453,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_6">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2509,476,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_7">
+		<active />
+		<npc id="architect_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="architect_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2516,476,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_8">
+		<active />
+		<npc id="bard_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bard_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2420,553,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_9">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2468,561,5,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_10">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2476,563,5,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_11">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2500,555,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_12">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2506,548,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_13">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2527,548,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_14">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2533,573,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_15">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2525,573,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_minoc_vendor" id="felucca_minoc_vendor_16">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2573,594,0,0" />
+	</spawnregion>
 </definitions>

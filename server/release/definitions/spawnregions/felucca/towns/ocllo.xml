@@ -7,7 +7,7 @@
 =================================================================
 -->
 <definitions>
-	<spawnregion id="felucca_animalocllo_1">
+	<spawnregion id="felucca_animalfelucca_ocllo_1">
 		<active />
 		<maxnpcamount>35</maxnpcamount>
                 <delay min="2" max="5" />
@@ -15,5 +15,155 @@
 		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
 		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
                 <rectangle from="3601,2463" to="3759,2689" map="0" />
+	</spawnregion>
+
+	<spawnregion id="felucca_ocllo_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>felucca_ocllo_vendors</group>
+		<group>felucca_ocllo</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_1">
+		<active />
+		<npc id="fisherman_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fisherlady_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3647,2681,-2,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_2">
+		<active />
+		<npc id="scribe_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="scribe_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3612,2466,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_3">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3628,2541,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_4">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3628,2541,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_5">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3667,2586,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_6">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3667,2586,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_7">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3708,2649,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_8">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3672,2654,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_9">
+		<active />
+		<npc id="shipwright_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shipwright_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3635,2635,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_10">
+		<active />
+		<npc id="mapmaker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mapmaker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3635,2635,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_11">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3692,2508,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_12">
+		<active />
+		<npc id="tanner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tanner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3602,2615,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_13">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3602,2615,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_14">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3671,2614,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_15">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3632,2595,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_16">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3632,2595,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_17">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3626,2607,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_18">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3636,2565,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_19">
+		<active />
+		<npc id="cobbler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cobbler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3636,2565,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_20">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3604,2576,0,0" />
 	</spawnregion>
 </definitions>
