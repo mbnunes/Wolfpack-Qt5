@@ -226,6 +226,10 @@ protected:
 	bool enableDesolationAsSeason_;
 	int daysToChageSeason_;
 
+	// Skills
+	bool disableFocus_;
+	int defaultFocusValue_;
+
 public:
 	cConfig();
 
@@ -448,6 +452,10 @@ public:
 	bool enableSeasons() const;
 	bool enableDesolationAsSeason() const;
 	int daysToChageSeason() const;
+
+	// Skills
+	bool disableFocus() const;
+	int defaultFocusValue() const;
 
 private:
 	void setDefaultStartLocation();
@@ -1012,6 +1020,15 @@ inline bool cConfig::enableDesolationAsSeason() const
 inline int cConfig::daysToChageSeason() const
 {
 	return daysToChageSeason_;
+}
+// Skills
+inline bool cConfig::disableFocus() const
+{
+	return disableFocus_;
+}
+inline int cConfig::defaultFocusValue() const
+{
+	return defaultFocusValue_;
 }
 
 typedef Singleton<cConfig> Config;

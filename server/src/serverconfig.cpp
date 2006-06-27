@@ -155,12 +155,10 @@ void cConfig::readData()
 	skillDelay_ = getNumber( "Game Speed", "SkillDelay", 7, true );
 	hungerRate_ = getNumber( "Game Speed", "Hunger Rate", 120, true );
 	hungerDamageRate_ = getNumber( "Game Speed", "Hunger Damage Rate", 10, true );
-	snoopdelay_ = getNumber( "Game Speed", "Snoop Delay", 7, true );
 	spawnRegionCheckTime_ = getNumber( "Game Speed", "SpawnRegion Check Time", 5, true );
 	itemDecayTime_ = getNumber( "Game Speed", "Item Decay Time", 300, true );
 	npcCorpseDecayTime_ = getNumber( "Game Speed", "NPC Corpse Decay Time", 600, true );
 	playerCorpseDecayTime_ = getNumber( "Game Speed", "Player Corpse Decay Time", 1200, true );
-
 	secondsPerUOMinute_ = getNumber( "Game Speed", "Seconds Per UO Minute", 5, true );
 
 	// General Group
@@ -171,7 +169,6 @@ void cConfig::readData()
 	skillcap_ = getNumber( "General", "SkillCap", 700, true );
 	statcap_ = getNumber( "General", "StatsCap", 225, true );
 	commandPrefix_ = getString( "General", "Command Prefix", "'", true );
-	stealing_ = getBool( "General", "Stealing Enabled", true, true );
 	guardsActive_ = getBool( "General", "Guards Enabled", true, true );
 	hungerDamage_ = getNumber( "General", "Hunger Damage", 0, true );
 	tamedDisappear_ = getNumber( "General", "Tamed Disappear", 0, true );
@@ -270,6 +267,13 @@ void cConfig::readData()
 	enableSeasons_ = getBool( "Season", "Enable Season System", false, true );
 	enableDesolationAsSeason_ = getBool( "Season", "Enable Desolation as Season", false, true );
 	daysToChageSeason_ = getNumber( "Season", "Days to Change Season", 90, true );
+
+	// Skills
+	disableFocus_ = getBool( "Skills", "Disable Focus", false, true );
+	defaultFocusValue_ = getNumber( "Skills", "Default Focus Value", 500, true );
+	snoopdelay_ = getNumber( "Skills", "Snoop Delay", 7, true );
+	stealing_ = getBool( "Skills", "Stealing Enabled", true, true );
+
 }
 
 void cConfig::load()

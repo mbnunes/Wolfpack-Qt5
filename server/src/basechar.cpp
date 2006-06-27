@@ -4012,11 +4012,14 @@ double cBaseChar::getStaminaRate()
 {
 	if ( !isDead() )
 	{
-		double chance = ( double ) ( stamina() + 1 ) / ( double ) maxStamina();
-		double value = sqrt( skillValue( FOCUS ) * 0.0005 );
-		chance *= ( 1.0 - value );
-		chance += value;
-		checkSkill( FOCUS, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
+		if ( !Config::instance()->disableFocus() )
+		{
+			double chance = ( double ) ( stamina() + 1 ) / ( double ) maxStamina();
+			double value = sqrt( skillValue( FOCUS ) * 0.0005 );
+			chance *= ( 1.0 - value );
+			chance += value;
+			checkSkill( FOCUS, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
+		}
 	}
 
 	int points = 0;
@@ -4026,7 +4029,10 @@ double cBaseChar::getStaminaRate()
 		points = getTag( "regenstamina" ).toInt();
 	}
 
-	points += static_cast<int>( skillValue( FOCUS ) * 0.01 );
+	if ( Config::instance()->disableFocus() )
+		points += static_cast<int>( Config::instance()->defaultFocusValue() * 0.01 );
+	else
+		points += static_cast<int>( skillValue( FOCUS ) * 0.01 );
 	points = wpMax<int>( -1, points );
 
 	// Bonus from Regen Events
@@ -4039,11 +4045,14 @@ double cBaseChar::getManaRate()
 {
 	if ( !isDead() )
 	{
-		double chance = ( double ) ( mana() + 1 ) / maxMana();
-		double value = sqrt( skillValue( FOCUS ) * 0.0005 );
-		chance *= ( 1.0 - value );
-		chance += value;
-		checkSkill( FOCUS, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
+		if ( !Config::instance()->disableFocus() )
+		{
+			double chance = ( double ) ( mana() + 1 ) / maxMana();
+			double value = sqrt( skillValue( FOCUS ) * 0.0005 );
+			chance *= ( 1.0 - value );
+			chance += value;
+			checkSkill( FOCUS, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
+		}
 	}
 
 	if ( !isMeditating() )
@@ -4056,7 +4065,13 @@ double cBaseChar::getManaRate()
 	}
 
 	double medPoints = wpMin<double>( 13.0, ( intelligence() + skillValue( MEDITATION ) * 0.03 ) * ( skillValue( MEDITATION ) < 1000 ? 0.025 : 0.0275 ) );
-	double focusPoints = skillValue( FOCUS ) * 0.005;
+	
+	double focusPoints;
+
+	if ( !Config::instance()->disableFocus() )
+		focusPoints = skillValue( FOCUS ) * 0.005;
+	else
+		focusPoints = Config::instance()->defaultFocusValue() * 0.005;
 
 	// Wearing type 1009 items without the 'magearmor': 1 or 'spellchanneling': 1 flags
 	// eliminates the meditation bonus
