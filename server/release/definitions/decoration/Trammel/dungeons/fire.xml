@@ -1,0 +1,222 @@
+<decoration>
+	<!-- bellows -->
+	<item id="0x1986">
+		<pos x="5640" y="1410" z="0" map="1" />
+	</item>
+
+	<!-- forge -->
+	<item id="0x198A">
+		<pos x="5640" y="1411" z="0" map="1" />
+	</item>
+
+	<!-- forge -->
+	<item id="0x1996">
+		<pos x="5640" y="1412" z="0" map="1" />
+	</item>
+
+	<!-- bellows -->
+	<item id="0x1992">
+		<pos x="5640" y="1413" z="0" map="1" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E40">
+		<pos x="5675" y="1433" z="0" map="1" />
+		<pos x="5647" y="1434" z="0" map="1" />
+		<pos x="5640" y="1433" z="0" map="1" />
+		<pos x="5640" y="1435" z="0" map="1" />
+		<pos x="5640" y="1437" z="0" map="1" />
+		<pos x="5650" y="1438" z="0" map="1" />
+	</item>
+
+	<!-- stalagmites -->
+	<item id="0x08E0">
+		<pos x="5690" y="1328" z="-1" map="1" />
+		<pos x="5717" y="1410" z="42" map="1" />
+		<pos x="5718" y="1409" z="42" map="1" />
+		<pos x="5718" y="1410" z="40" map="1" />
+	</item>
+
+	<!-- fire column -->
+	<item id="0x1">
+		<pos x="5688" y="1353" z="-26" map="1" />
+		<pos x="5689" y="1354" z="-26" map="1" />
+		<pos x="5690" y="1354" z="-26" map="1" />
+		<pos x="5691" y="1354" z="-26" map="1" />
+		<pos x="5692" y="1353" z="-26" map="1" />
+		<pos x="5692" y="1352" z="-26" map="1" />
+		<pos x="5689" y="1350" z="-26" map="1" />
+		<pos x="5691" y="1350" z="-26" map="1" />
+		<pos x="5692" y="1351" z="-26" map="1" />
+		<pos x="5688" y="1351" z="-26" map="1" />
+		<pos x="5688" y="1352" z="-26" map="1" />
+		<pos x="5690" y="1350" z="-26" map="1" />
+	</item>
+
+	<!-- pentagram -->
+	<item id="0x0FEA">
+		<pos x="5690" y="1352" z="-26" map="1" />
+		<pos x="5691" y="1348" z="0" map="1" />
+	</item>
+
+	<!-- glowing rune -->
+	<item id="0x0E68">
+		<pos x="5686" y="1432" z="22" map="1" />
+	</item>
+
+	<!-- boulder -->
+	<item id="0x1362">
+		<pos x="5696" y="1388" z="-1" map="1" />
+		<pos x="5694" y="1388" z="4" map="1" />
+		<pos x="5695" y="1388" z="4" map="1" />
+		<pos x="5695" y="1387" z="0" map="1" />
+		<pos x="5694" y="1387" z="2" map="1" />
+	</item>
+
+	<!-- barrel -->
+	<item id="0x0E77">
+		<pos x="5645" y="1400" z="22" map="1" />
+		<pos x="5653" y="1400" z="22" map="1" />
+	</item>
+
+	<!-- empty tub -->
+	<item id="0x0E83">
+		<pos x="5648" y="1400" z="0" map="1" />
+	</item>
+
+	<!-- keg -->
+	<item id="0x0E7F">
+		<pos x="5720" y="1386" z="2" map="1" />
+	</item>
+
+	<!-- wooden chest -->
+	<item id="0x0E43">
+		<pos x="5675" y="1436" z="0" map="1" />
+		<pos x="5728" y="1391" z="-1" map="1" />
+		<pos x="5673" y="1434" z="0" map="1" />
+	</item>
+
+	<!-- metal door -->
+	<item id="0x06C5">
+		<pos x="5835" y="1487" z="-1" map="1" />
+		<pos x="5835" y="1431" z="0" map="1" />
+		<pos x="5643" y="1408" z="0" map="1" />
+		<pos x="5651" y="1412" z="0" map="1" />
+		<pos x="5643" y="1416" z="22" map="1" />
+		<pos x="5851" y="1431" z="0" map="1" />
+		<pos x="5723" y="1295" z="0" map="1" />
+		<pos x="5731" y="1383" z="0" map="1" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E7C">
+		<pos x="5672" y="1434" z="0" map="1" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x09AB">
+		<pos x="5723" y="1384" z="-2" map="1" />
+		<pos x="5673" y="1433" z="0" map="1" />
+	</item>
+
+	<!-- stone stairs -->
+	<item id="0x07A6">
+		<pos x="5786" y="1337" z="-5" map="1" />
+		<pos x="5787" y="1337" z="-5" map="1" />
+		<pos x="5788" y="1337" z="-5" map="1" />
+	</item>
+
+	<!-- stone -->
+	<item id="0x07A3">
+		<pos x="5786" y="1338" z="-5" map="1" />
+		<pos x="5787" y="1338" z="-5" map="1" />
+		<pos x="5788" y="1338" z="-5" map="1" />
+	</item>
+
+	<!-- metal door -->
+	<item id="0x06CD">
+		<pos x="5647" y="1443" z="0" map="1" />
+		<pos x="5642" y="1401" z="22" map="1" />
+		<pos x="5655" y="1402" z="0" map="1" />
+		<pos x="5647" y="1420" z="0" map="1" />
+		<pos x="5644" y="1409" z="22" map="1" />
+		<pos x="5655" y="1363" z="-1" map="1" />
+		<pos x="5679" y="1434" z="0" map="1" />
+		<pos x="5679" y="1444" z="0" map="1" />
+		<pos x="5687" y="1441" z="-1" map="1" />
+		<pos x="5855" y="1475" z="0" map="1" />
+		<pos x="5855" y="1427" z="0" map="1" />
+		<pos x="5671" y="1315" z="0" map="1" />
+	</item>
+
+	<!-- rock -->
+	<item id="0x1773">
+		<pos x="5711" y="1337" z="1" map="1" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E41">
+		<pos x="5642" y="1432" z="0" map="1" />
+	</item>
+
+	<!-- vines -->
+	<item id="0x0CF1">
+		<pos x="5854" y="1457" z="0" map="1" />
+	</item>
+
+	<!-- rock -->
+	<item id="0x1772">
+		<pos x="5688" y="1328" z="1" map="1" />
+		<pos x="5712" y="1337" z="-3" map="1" />
+	</item>
+
+	<!-- rock -->
+	<item id="0x1778">
+		<pos x="5710" y="1336" z="2" map="1" />
+	</item>
+
+	<!-- rock -->
+	<item id="0x1775">
+		<pos x="5711" y="1336" z="-1" map="1" />
+	</item>
+
+	<!-- metal door -->
+	<item id="0x06D1">
+		<pos x="5647" y="1410" z="0" map="1" />
+		<pos x="5647" y="1402" z="0" map="1" />
+	</item>
+
+	<!-- rock -->
+	<item id="0x1774">
+		<pos x="5712" y="1338" z="-2" map="1" />
+	</item>
+
+	<!-- metal door -->
+	<item id="0x06C9">
+		<pos x="5691" y="1343" z="0" map="1" />
+		<pos x="5651" y="1439" z="0" map="1" />
+		<pos x="5650" y="1416" z="22" map="1" />
+	</item>
+
+	<!-- barrel -->
+	<item id="0x0FAE">
+		<pos x="5645" y="1413" z="22" map="1" />
+		<pos x="5643" y="1415" z="0" map="1" />
+	</item>
+
+	<!-- wooden chest -->
+	<item id="0x0E42">
+		<pos x="5640" y="1403" z="0" map="1" />
+		<pos x="5640" y="1404" z="0" map="1" />
+	</item>
+
+	<!-- metal door -->
+	<item id="0x06CB">
+		<pos x="5651" y="1416" z="22" map="1" />
+	</item>
+
+	<!-- forge -->
+	<item id="0x198A">
+		<pos x="5640" y="1411" z="0" map="1" />
+	</item>
+</decoration>
