@@ -1,19 +1,43 @@
 <decoration>
-	<!-- Towns-->
-	<include file="definitions/decoration/Trammel/signs.xml"/>
-	<include file="definitions/decoration/Trammel/doors.xml"/>
-	<include file="definitions/decoration/Trammel/britain.xml"/>
-	<include file="definitions/decoration/Trammel/bucs.xml"/>
-	<include file="definitions/decoration/Trammel/yew.xml"/>
-	<include file="definitions/decoration/Trammel/wind.xml"/>
+	<!-- Misc-->
 	<include file="definitions/decoration/Trammel/shrines.xml"/>
 	<include file="definitions/decoration/Trammel/minoccamp.xml"/>
-	<include file="definitions/decoration/Trammel/haven.xml"/>
-	<include file="definitions/decoration/Trammel/cove.xml"/>
+	<include file="definitions/decoration/Trammel/signs.xml"/>
+	<include file="definitions/decoration/Trammel/doors.xml"/>
+	<include file="definitions/decoration/Trammel/hedgemaze.xml"/>
+
+	<!-- Towns-->
+	<include file="definitions/decoration/Trammel/Towns/britain.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/bucs.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/delucia.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/yew.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/wind.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/haven.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/havenadditions.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/cove.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/magincia.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/papua.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/jhelom.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/minoc.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/moonglow.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/nujelm.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/trinsic.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/vesper.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/skara.xml"/>
+	<include file="definitions/decoration/Trammel/Towns/serpentshold.xml"/>
 
 	<!-- Dungeons-->
 	<include file="definitions/decoration/Trammel/Dungeons/hythloth.xml"/>
 	<include file="definitions/decoration/Trammel/Dungeons/shame.xml"/>
 	<include file="definitions/decoration/Trammel/Dungeons/destard.xml"/>
 	<include file="definitions/decoration/Trammel/Dungeons/despise.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/covetous.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/wrong.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/orccave.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/fire.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/ice.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/shame.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/despise2.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/terathankeep.xml"/>
+	<include file="definitions/decoration/Trammel/Dungeons/destard2.xml"/>
 </decoration>

@@ -18,8 +18,8 @@
 	</item>
 
 	<!-- Bakery-->
-	<item id="0xba3">
-		<attribute key="name" value="The Shakin' Bakery" />
+	<item id="0x0be9">
+		<attribute key="name" value="#1023049" />
 		<pos x="3632" y="2537" z="0" map="0" />
 	</item>
 
@@ -205,12 +205,6 @@
 
 	<!-- Butcher-->
 	<item id="0xba9">
-		<attribute key="name" value="The Prime Cut Butcher Shop" />
-		<pos x="3720" y="2650" z="20" map="0" />
-	</item>
-
-	<!-- Butcher-->
-	<item id="0xba9">
 		<attribute key="name" value="#1016114" />
 		<pos x="1464" y="4024" z="0" map="0" />
 	</item>
@@ -229,7 +223,7 @@
 
 	<!-- Butcher-->
 	<item id="0xba9">
-		<attribute key="name" value="The Prime Cut Butcher Shop" />
+		<attribute key="name" value="#1016270" />
 		<pos x="3720" y="2650" z="20" map="0" />
 	</item>
 
@@ -367,12 +361,6 @@
 
 	<!-- Healer-->
 	<item id="0xbac">
-		<attribute key="name" value="The Healers of Haven" />
-		<pos x="3658" y="2585" z="0" map="0" />
-	</item>
-
-	<!-- Healer-->
-	<item id="0xbac">
 		<attribute key="name" value="#1016405" />
 		<pos x="1914" y="2813" z="0" map="0" />
 	</item>
@@ -399,12 +387,6 @@
 	<item id="0xbad">
 		<attribute key="name" value="#1016148" />
 		<pos x="5291" y="3982" z="37" map="0" />
-	</item>
-
-	<!-- Mage-->
-	<item id="0xbad">
-		<attribute key="name" value="The Little Shop of Magic" />
-		<pos x="3632" y="2577" z="19" map="0" />
 	</item>
 
 	<!-- Mage-->
@@ -534,8 +516,8 @@
 	</item>
 
 	<!-- Woodworker-->
-	<item id="0xbb0">
-		<attribute key="name" value="Carpenters of Haven" />
+	<item id="0x0bca">
+		<attribute key="name" value="#1016211" />
 		<pos x="3646" y="2512" z="0" map="0" />
 	</item>
 
@@ -662,7 +644,7 @@
 
 	<!-- Inn-->
 	<item id="0xbb4">
-		<attribute key="name" value="The Bountiful Harvest Inn" />
+		<attribute key="name" value="#1016283" />
 		<pos x="3670" y="2624" z="0" map="0" />
 	</item>
 
@@ -753,8 +735,8 @@
 
 	<!-- Shipwright-->
 	<item id="0xbb6">
-		<attribute key="name" value="Mapmakers of Haven" />
-		<pos x="3634" y="2640" z="0" map="0" />
+		<attribute key="name" value="#1016042" />
+		<pos x="3634" y="2648" z="0" map="0" />
 	</item>
 
 	<!-- Shipwright-->
@@ -1112,7 +1094,7 @@
 
 	<!-- Tavern-->
 	<item id="0xbc4">
-		<attribute key="name" value="The Albatross Bar and Grill" />
+		<attribute key="name" value="#1016276" />
 		<pos x="3665" y="2657" z="4" map="0" />
 	</item>
 
@@ -1189,12 +1171,6 @@
 
 	<!-- Blacksmith-->
 	<item id="0xbc7">
-		<attribute key="name" value="The Haven Blacksmith" />
-		<pos x="3645" y="2609" z="0" map="0" />
-	</item>
-
-	<!-- Blacksmith-->
-	<item id="0xbc7">
 		<attribute key="name" value="#1016208" />
 		<pos x="632" y="2185" z="0" map="0" />
 	</item>
@@ -1209,12 +1185,6 @@
 	<item id="0xbc7">
 		<attribute key="name" value="#1016420" />
 		<pos x="1424" y="3859" z="0" map="0" />
-	</item>
-
-	<!-- Blacksmith-->
-	<item id="0xbc7">
-		<attribute key="name" value="The Haven Blacksmith" />
-		<pos x="3645" y="2609" z="0" map="0" />
 	</item>
 
 	<!-- Blacksmith-->
@@ -1323,12 +1293,6 @@
 	<item id="0xbcc">
 		<attribute key="name" value="#1016078" />
 		<pos x="1851" y="2800" z="-8" map="0" />
-	</item>
-
-	<!-- Provisioner-->
-	<item id="0xbcc">
-		<attribute key="name" value="#1016162" />
-		<pos x="3666" y="2600" z="0" map="0" />
 	</item>
 
 	<!-- Provisioner-->
@@ -1540,12 +1504,6 @@
 
 	<!-- brass sign-->
 	<item id="0xbd1">
-		<attribute key="name" value="Uzeraan's mansion" />
-		<pos x="3613" y="2585" z="0" map="0" />
-	</item>
-
-	<!-- brass sign-->
-	<item id="0xbd1">
 		<attribute key="name" value="#1016120" />
 		<pos x="3024" y="777" z="0" map="0" />
 	</item>
@@ -1728,19 +1686,14 @@
 	</item>
 
 	<!-- brass sign-->
-	<item id="0xbd2">
-		<pos x="3728" y="2160" z="20" map="0" />
-		<pos x="3666" y="2512" z="0" map="0" />
-	</item>
-
-	<!-- brass sign-->
-	<item id="0xbd2">
-		<pos x="1493" y="1724" z="5" map="0" />
+	<item id="0x0c0c">
+		<attribute key="name" value="#1016054" />
 		<pos x="3690" y="2520" z="0" map="0" />
 	</item>
 
 	<!-- brass sign-->
 	<item id="0xbd2">
+		<pos x="1493" y="1724" z="5" map="0" />
 		<pos x="2436" y="443" z="15" map="0" />
 		<pos x="3776" y="1196" z="0" map="0" />
 	</item>
@@ -2016,12 +1969,6 @@
 
 	<!-- Bank-->
 	<item id="0xc0b">
-		<attribute key="name" value="The Second Bank of Haven" />
-		<pos x="3624" y="2610" z="2" map="0" />
-	</item>
-
-	<!-- Bank-->
-	<item id="0xc0b">
 		<attribute key="name" value="Bank of Cove" />
 		<pos x="2232" y="1199" z="0" map="0" />
 	</item>
@@ -2120,5 +2067,88 @@
 		<attribute key="name" value="#1016320" />
 		<pos x="1441" y="1584" z="20" map="0" />
 		<pos x="1454" y="1600" z="20" map="0" />
+	</item>
+
+	<!-- road sign-->
+	<item id="0xc0e">
+		<attribute key="name" value="#1016419" />
+		<pos x="1428" y="1622" z="32" map="0" />
+	</item>
+
+	<!-- road sign 1-->
+	<item id="0xc0e">
+		<attribute key="name" value="#1016504" />
+		<pos x="1428" y="1622" z="37" map="0" />
+	</item>
+
+	<!-- road sign 2-->
+	<item id="0x129a">
+		<attribute key="name" value="#1016419" />
+		<pos x="1459" y="1622" z="35" map="0" />
+		<pos x="1489" y="1627" z="34" map="0" />
+	</item>
+
+	<!-- road sign 3-->
+	<item id="0x129d">
+		<attribute key="name" value="#1016504" />
+		<pos x="1424" y="1701" z="18" map="0" />
+		<pos x="1432" y="1538" z="42" map="0" />
+		<pos x="1422" y="1672" z="25" map="0" />
+	</item>
+
+	<!-- road sign 4-->
+	<item id="0x129c">
+		<attribute key="name" value="#1016500" />
+		<pos x="1439" y="1585" z="35" map="0" />
+		<pos x="1435" y="1570" z="45" map="0" />
+		<pos x="1432" y="1538" z="42" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016061" />
+		<pos x="3608" y="2609" z="0" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016197" />
+		<pos x="3602" y="2584" z="0" map="0" />
+	</item>
+
+	<!-- library-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016207" />
+		<pos x="3617" y="2480" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016140" />
+		<pos x="3625" y="2616" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016162" />
+		<pos x="3634" y="2584" z="0" map="0" />
+	</item>
+
+	<!-- Bard-->
+	<item id="0xbbc">
+		<attribute key="name" value="#1016115" />
+		<pos x="3675" y="2480" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016132" />
+		<pos x="3647" y="2600" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016022" />
+		<pos x="3656" y="2592" z="0" map="0" />
 	</item>
 </decoration>

@@ -2121,4 +2121,39 @@
 		<pos x="1441" y="1584" z="20" map="1" />
 		<pos x="1454" y="1600" z="20" map="1" />
 	</item>
+
+	<!-- road sign-->
+	<item id="0xc0e">
+		<attribute key="name" value="#1016419" />
+		<pos x="1428" y="1622" z="32" map="1" />
+	</item>
+
+	<!-- road sign 1-->
+	<item id="0xc0e">
+		<attribute key="name" value="#1016504" />
+		<pos x="1428" y="1622" z="37" map="1" />
+	</item>
+
+	<!-- road sign 2-->
+	<item id="0x129a">
+		<attribute key="name" value="#1016419" />
+		<pos x="1459" y="1622" z="35" map="1" />
+		<pos x="1489" y="1627" z="34" map="1" />
+	</item>
+
+	<!-- road sign 3-->
+	<item id="0x129d">
+		<attribute key="name" value="#1016504" />
+		<pos x="1424" y="1701" z="18" map="1" />
+		<pos x="1432" y="1538" z="42" map="1" />
+		<pos x="1422" y="1672" z="25" map="1" />
+	</item>
+
+	<!-- road sign 4-->
+	<item id="0x129c">
+		<attribute key="name" value="#1016500" />
+		<pos x="1439" y="1585" z="35" map="1" />
+		<pos x="1435" y="1570" z="45" map="1" />
+		<pos x="1432" y="1538" z="42" map="1" />
+	</item>
 </decoration>

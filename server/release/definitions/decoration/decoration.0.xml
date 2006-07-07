@@ -1,18 +1,45 @@
 <decoration>
-	<!-- Towns-->
+	<!-- Misc-->
 	<include file="definitions/decoration/Felucca/signs.xml"/>
 	<include file="definitions/decoration/Felucca/doors.xml"/>
-	<include file="definitions/decoration/Felucca/britain.xml"/>
-	<include file="definitions/decoration/Felucca/bucs.xml"/>
-	<include file="definitions/decoration/Felucca/yew.xml"/>
-	<include file="definitions/decoration/Felucca/wind.xml"/>
 	<include file="definitions/decoration/Felucca/shrines.xml"/>
 	<include file="definitions/decoration/Felucca/minoccamp.xml"/>
-	<include file="definitions/decoration/Felucca/cove.xml"/>
+	<include file="definitions/decoration/Felucca/hedgemaze.xml"/>
+
+	<!-- Towns-->
+	<include file="definitions/decoration/Felucca/Towns/britain.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/bucs.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/delucia.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/yew.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/wind.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/cove.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/magincia.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/papua.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/ocllo.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/yew.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/jhelom.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/minoc.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/moonglow.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/nujelm.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/trinsic.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/vesper.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/skara.xml"/>
+	<include file="definitions/decoration/Felucca/Towns/serpentshold.xml"/>
 
 	<!-- Dunegons-->
 	<include file="definitions/decoration/Felucca/Dungeons/hythloth.xml"/>
 	<include file="definitions/decoration/Felucca/Dungeons/shame.xml"/>
 	<include file="definitions/decoration/Felucca/Dungeons/destard.xml"/>
 	<include file="definitions/decoration/Felucca/Dungeons/despise.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/khaldunentrance.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/khaldun.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/covetous.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/wrong.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/orccave.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/fire.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/ice.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/shame.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/despise2.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/terathankeep.xml"/>
+	<include file="definitions/decoration/Felucca/Dungeons/destard2.xml"/>
 </decoration>
