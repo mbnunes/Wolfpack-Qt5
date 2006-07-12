@@ -1199,6 +1199,29 @@ bool cPlayer::onBecomeCriminal( unsigned int reason, P_CHAR sourcechar, P_ITEM s
 	return result;
 }
 
+int cPlayer::onStepChar( P_CHAR pChar )
+{
+	unsigned int retvalue = 0;
+	
+	if ( canHandleEvent( EVENT_STEPCHAR ) )
+	{
+		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pChar );
+		PyObject* result = callEvent( EVENT_STEPCHAR, args );
+
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				retvalue = PyInt_AsLong( result );
+
+			Py_DECREF( result );
+		}
+
+		Py_DECREF( args );
+	}
+
+	return retvalue;
+}
+
 int cPlayer::onBuy( P_CHAR pVendor, P_ITEM pItem, int amount )
 {
 	PyObject* args = Py_BuildValue( "O&O&O&i", PyGetItemObject, pItem, PyGetCharObject, pVendor, PyGetCharObject, this, amount );

@@ -580,19 +580,52 @@ bool cMovement::Walking( P_CHAR pChar, quint8 dir, quint8 sequence )
 		// Check if we're going to collide with characters
 		if ( player )
 		{
-			// Player vs characters
-			if ( player->socket() && player->pos().map == 0 && !player->account()->isStaff() )
+			// Lets check just Felluca or All maps?
+			bool rightmap = false;
+
+			if ( Config::instance()->checkCollisionAtAllMaps() )
+				rightmap = true;
+			else
 			{
-				// Currently hard-limiting collisions to Felucca; this should be a server option!
+				if (player->pos().map == 0)
+					rightmap = true;
+			}			
+			
+			// Player vs characters Section
+			if ( player->socket() && rightmap )
+			{
 				MapCharsIterator charCollisions = MapObjects::instance()->listCharsAtCoord( newCoord );
 				for ( P_CHAR them = charCollisions.first(); them; them = charCollisions.next() )
 				{
 					if ( them == player )
 						continue;
+	
+					// Handling onStepChar					
+					int handlingstepevent = player->onStepChar(them);
+                    if ( handlingstepevent )
+					{
+						if ( handlingstepevent == 2)
+						{
+							player->socket()->denyMove( sequence );
+							return false;
+						}
+						else
+							continue;
+					}
+
+					// If we're dead or Staff, no collisions to check (Unless we have events)
+					if ( player->isDead() || player->account()->isStaff() )
+						if ( player->canHandleEvent( EVENT_STEPCHAR ) )
+							continue;
+						else
+							break;
 
 					P_PLAYER otherplayer = dynamic_cast<P_PLAYER>( them );
 					if ( otherplayer && otherplayer->account()->isStaff() )
 						continue; // no collisions against the staff
+
+					if ( otherplayer && otherplayer->isDead() )
+						continue; // no collisions against dead players
 
 					if ( wpAbs<SI08>( newCoord.z - them->pos().z ) < P_M_MAX_Z_CLIMB )
 					{

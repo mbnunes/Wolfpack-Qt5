@@ -27,7 +27,7 @@ def response(char, args, target):
 			else:
 				difficult = 0
 
-			if char.skill(LOCKPICKING) < difficult:
+			if char.skill[LOCKPICKING] < difficult:
 				char.socket.clilocmessage(502075) # You are unable to pick the lock.
 			elif target.item.secured:
 				char.socket.clilocmessage(502071) # That is secure

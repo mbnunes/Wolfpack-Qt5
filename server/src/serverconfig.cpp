@@ -201,6 +201,7 @@ void cConfig::readData()
 	factorMaxStam_ = getDouble( "General", "Factor for MaxStamina Calculation", 1.0, true );
 	simpleMaxHitsCalculation_ = getBool( "General", "Simple MaxHitPoints Calculation", false, true );
 	enableTimeChangeForItems_ = getBool( "General", "Enable onTimeChange for Items", false, true );
+	checkCollisionAtAllMaps_ = getBool( "General", "Check Collision at All Maps", false, true );
 
 	// Network
 	loginPort_ = getNumber( "Network", "Loginserver Port", 2593, true );

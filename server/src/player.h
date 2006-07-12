@@ -143,6 +143,7 @@ public:
 	bool onPickup( P_ITEM pItem );
 	bool onTrade( unsigned int type, unsigned int buttonstate, SERIAL itemserial );
 	bool onTradeStart( P_PLAYER partner, P_ITEM firstitem );
+	int onStepChar( P_CHAR pChar );
 
 	// getters
 	cAccount* account() const;

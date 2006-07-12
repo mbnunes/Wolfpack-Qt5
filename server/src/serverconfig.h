@@ -158,6 +158,7 @@ protected:
 	float elfwisdombonus_;
 	float humanstrongback_;
 	float humantough_;
+	bool checkCollisionAtAllMaps_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -360,6 +361,7 @@ public:
 	bool payfrompackonly() const;
 	bool enableyoung() const;
 	bool instalogoutfromguarded() const;
+	bool checkCollisionAtAllMaps() const;
 
 	// Persistency Module
 	QString databaseDriver() const;
@@ -902,6 +904,10 @@ inline bool cConfig::simpleMaxHitsCalculation() const
 inline bool cConfig::enableTimeChangeForItems() const
 {
 	return enableTimeChangeForItems_;
+}
+inline bool cConfig::checkCollisionAtAllMaps() const
+{
+	return checkCollisionAtAllMaps_;
 }
 // Racial features
 inline bool cConfig::elffullnightsight() const
