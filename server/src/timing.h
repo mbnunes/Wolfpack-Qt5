@@ -45,7 +45,6 @@ private:
 	unsigned int nextNpcCheck;
 	unsigned int nextItemCheck;
 	unsigned int nextShopRestock;
-	unsigned int nextHungerCheck;
 	unsigned int nextCombatCheck;
 	unsigned int nextUOTimeTick;
 	unsigned int nextStormCheck;

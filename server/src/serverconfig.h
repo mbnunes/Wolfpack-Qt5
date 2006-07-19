@@ -111,7 +111,6 @@ protected:
 	bool enableGame_;
 	unsigned short skillDelay_;
 	unsigned int hungerRate_;
-	unsigned int hungerDamageRate_;
 	unsigned char hungerDamage_;
 	unsigned int tamedDisappear_;
 	unsigned int shopRestock_;
@@ -318,7 +317,6 @@ public:
 	unsigned char mountRange() const;
 	unsigned short skillDelay() const;
 	unsigned int hungerRate() const;
-	unsigned int hungerDamageRate() const;
 	unsigned char hungerDamage() const;
 	float boatSpeed() const;
 	unsigned int tamedDisappear() const;
@@ -590,11 +588,6 @@ inline unsigned short cConfig::skillDelay() const
 inline unsigned int cConfig::hungerRate() const
 {
 	return hungerRate_;
-}
-
-inline unsigned int cConfig::hungerDamageRate() const
-{
-	return hungerDamageRate_;
 }
 
 inline unsigned char cConfig::hungerDamage() const

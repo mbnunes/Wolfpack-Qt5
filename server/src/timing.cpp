@@ -68,7 +68,6 @@ cTiming::cTiming()
 	nextNpcCheck = ( uint ) ( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
 	nextItemCheck = time + 10000; // Every 10 seconds
 	nextShopRestock = time + 20 * 60 * MY_CLOCKS_PER_SEC; // Every 20 minutes
-	nextHungerCheck = time + Config::instance()->hungerDamageRate();
 	nextCombatCheck = time + 100; // Every 100 ms
 	nextUOTimeTick = 0;
 	nextStormCheck = time + 5000; // Every 5s
@@ -489,9 +488,6 @@ void cTiming::poll()
 	startProfiling( PF_TIMERSCHECK );
 	Timers::instance()->check();
 	stopProfiling( PF_TIMERSCHECK );
-
-	if ( nextHungerCheck <= time )
-		nextHungerCheck = time + Config::instance()->hungerDamageRate() * MY_CLOCKS_PER_SEC;
 }
 
 void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
