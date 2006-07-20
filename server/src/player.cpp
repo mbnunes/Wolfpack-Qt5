@@ -329,6 +329,9 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 
 	cUOTxUnicodeSpeech::eSpeechType speechType;
 
+	// Lets try the Range of Speech
+	int speechrange = Config::instance()->SpeechNormalRange();
+
 	switch ( type )
 	{
 	case 0x01:
@@ -336,11 +339,11 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 	case 0x06:
 		speechType = cUOTxUnicodeSpeech::System; break;
 	case 0x09:
-		speechType = cUOTxUnicodeSpeech::Yell; break;
+		speechType = cUOTxUnicodeSpeech::Yell; speechrange = Config::instance()->SpeechYellRange();; break;
 	case 0x02:
 		speechType = cUOTxUnicodeSpeech::Emote; break;
 	case 0x08:
-		speechType = cUOTxUnicodeSpeech::Whisper; break;
+		speechType = cUOTxUnicodeSpeech::Whisper; speechrange = Config::instance()->SpeechWhisperRange();; break;
 	case 0x0A:
 		speechType = cUOTxUnicodeSpeech::Spell; break;
 	default:
@@ -389,7 +392,7 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 		QList<cUOSocket*> sockets = Network::instance()->sockets();
 		foreach ( cUOSocket* mSock, sockets )
 		{
-			if ( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
+			if ( mSock->player() && ( mSock->player()->dist( this ) < speechrange ) )
 			{
 				// Take the dead-status into account
 				if ( isDead() && !gmSpiritSpeak )
@@ -1207,6 +1210,29 @@ int cPlayer::onStepChar( P_CHAR pChar )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pChar );
 		PyObject* result = callEvent( EVENT_STEPCHAR, args );
+
+		if ( result )
+		{
+			if ( PyInt_Check( result ) )
+				retvalue = PyInt_AsLong( result );
+
+			Py_DECREF( result );
+		}
+
+		Py_DECREF( args );
+	}
+
+	return retvalue;
+}
+
+int cPlayer::onStepWeightPercent( int percent )
+{
+	unsigned int retvalue = 0;
+	
+	if ( canHandleEvent( EVENT_STEPWEIGHTPERCENT ) )
+	{
+		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, percent );
+		PyObject* result = callEvent( EVENT_STEPWEIGHTPERCENT, args );
 
 		if ( result )
 		{

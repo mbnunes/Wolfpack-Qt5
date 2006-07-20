@@ -451,7 +451,8 @@ void cServer::run()
 
 			pollQueuedActions();
 
-			d->time = getNormalizedTime(); // Update our currenttime
+			//d->time = getNormalizedTime(); // Update our currenttime
+			refreshTime(); // Update our currenttime
 
 			try
 			{

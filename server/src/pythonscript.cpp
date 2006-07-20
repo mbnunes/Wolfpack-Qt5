@@ -822,9 +822,20 @@ Return 2 if your function handles the event and you want to deny the step to pla
 If you return 0, the core will call the remaining scripts in the chain.
 \condition Triggered when a character walks onto another character. This event is only triggered
 if the character was not previously standing on the stepped character.
-\notes This event is only called for the item and not for the character.
 */
 "onStepChar",
+
+/*
+\event onStepWeightPercent
+\param player The Player who stepped under certain Weight Percent.
+\param percent The percent of MaxWeight this Char is carrying.
+\return Return 1 if your function handles the event and you want to permit player to step.
+Return 2 if your function handles the event and you want to deny the step.
+If you return 0, the core will call the remaining scripts in the chain.
+\condition Triggered when a character walks under certain Weight percent (Configurable by xml)
+\notes This event will not be called for dead people or gms.
+*/
+"onStepWeightPercent",
 
 
 0

@@ -158,6 +158,10 @@ protected:
 	float humanstrongback_;
 	float humantough_;
 	bool checkCollisionAtAllMaps_;
+	int SpeechNormalRange_;
+	int SpeechYellRange_;
+	int SpeechWhisperRange_;
+	int WeightPercentActiveEvent_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -360,6 +364,10 @@ public:
 	bool enableyoung() const;
 	bool instalogoutfromguarded() const;
 	bool checkCollisionAtAllMaps() const;
+	int SpeechNormalRange() const;
+	int SpeechYellRange() const;
+	int SpeechWhisperRange() const;
+	int WeightPercentActiveEvent() const;
 
 	// Persistency Module
 	QString databaseDriver() const;
@@ -901,6 +909,22 @@ inline bool cConfig::enableTimeChangeForItems() const
 inline bool cConfig::checkCollisionAtAllMaps() const
 {
 	return checkCollisionAtAllMaps_;
+}
+inline int cConfig::SpeechNormalRange() const
+{
+	return SpeechNormalRange_;
+}
+inline int cConfig::SpeechYellRange() const
+{
+	return SpeechYellRange_;
+}
+inline int cConfig::SpeechWhisperRange() const
+{
+	return SpeechWhisperRange_;
+}
+inline int cConfig::WeightPercentActiveEvent() const
+{
+	return WeightPercentActiveEvent_;
 }
 // Racial features
 inline bool cConfig::elffullnightsight() const

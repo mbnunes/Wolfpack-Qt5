@@ -900,8 +900,24 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 
 	// Calculate the stones we weight too much
 	int overWeight = ( int ) ( pChar->weight() - pChar->maxWeight() );
+	int Weightpercent = ( int ) ( ( pChar->weight() * 100 ) / pChar->maxWeight() );
 	bool mounted = pChar->atLayer( cBaseChar::Mount ) != 0;
 	bool update = false;
+
+	// Handling onStepWeightPercent
+	if ( Config::instance()->WeightPercentActiveEvent() )
+	{
+		if ( Weightpercent >= Config::instance()->WeightPercentActiveEvent() )
+		{
+			int handlingstepevent = pChar->onStepWeightPercent( Weightpercent );
+			if ( handlingstepevent )
+			{
+				if ( handlingstepevent == 2)
+					return false;
+				return true;
+			}
+		}
+	}
 
 	// We carry too much
 	if ( overWeight > 0 )

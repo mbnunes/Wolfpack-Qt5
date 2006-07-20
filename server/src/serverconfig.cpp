@@ -201,6 +201,10 @@ void cConfig::readData()
 	simpleMaxHitsCalculation_ = getBool( "General", "Simple MaxHitPoints Calculation", false, true );
 	enableTimeChangeForItems_ = getBool( "General", "Enable onTimeChange for Items", false, true );
 	checkCollisionAtAllMaps_ = getBool( "General", "Check Collision at All Maps", false, true );
+	SpeechNormalRange_ = getNumber( "General", "Speech Normal Range", 18, true );
+	SpeechYellRange_ = getNumber( "General", "Speech Yell Range", 54, true );
+	SpeechWhisperRange_ = getNumber( "General", "Speech Whisper Range", 1, true );
+	WeightPercentActiveEvent_ = getNumber( "General", "Weight Percent to Active Event", 0, true );
 
 	// Network
 	loginPort_ = getNumber( "Network", "Loginserver Port", 2593, true );
