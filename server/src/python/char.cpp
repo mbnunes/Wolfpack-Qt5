@@ -2001,6 +2001,26 @@ static PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 }
 
 /*
+	\method char.callguards
+	\description Make the Character Call Guards. This method works only for NPCs and does nothing to players.
+*/
+static PyObject* wpChar_callguards( wpChar* self, PyObject* args )
+{
+	Q_UNUSED( args );
+	if ( !self->pChar || self->pChar->free )
+		Py_RETURN_FALSE;
+
+	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
+
+	if ( npc )
+	{
+		npc->callGuards();
+	}
+
+	Py_RETURN_NONE;
+}
+
+/*
 	\method char.reveal
 	\description Reveal the character if he's currently hidden.
 */
@@ -2782,6 +2802,7 @@ static PyMethodDef wpCharMethods[] =
 { "aiengine",		( getattrofunc ) wpChar_aiengine,			METH_VARARGS, 0	},
 { "addtimer",		( getattrofunc ) wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
 { "dispel",			( getattrofunc ) wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
+{ "callguards",		( getattrofunc ) wpChar_callguards,			METH_VARARGS, "Make this character call for guards." },
 
 // Event handling functions
 { "addscript",		( getattrofunc ) wpChar_addscript,			METH_VARARGS, 0},
