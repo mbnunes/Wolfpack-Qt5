@@ -829,6 +829,8 @@ if the character was not previously standing on the stepped character.
 \event onStepWeightPercent
 \param player The Player who stepped under certain Weight Percent.
 \param percent The percent of MaxWeight this Char is carrying.
+\param mounted If player is mounted or not (Bool)
+\param running If player is running or not (Bool)
 \return Return 1 if your function handles the event and you want to permit player to step.
 Return 2 if your function handles the event and you want to deny the step.
 If you return 0, the core will call the remaining scripts in the chain.

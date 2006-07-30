@@ -144,7 +144,7 @@ public:
 	bool onTrade( unsigned int type, unsigned int buttonstate, SERIAL itemserial );
 	bool onTradeStart( P_PLAYER partner, P_ITEM firstitem );
 	int onStepChar( P_CHAR pChar );
-	int onStepWeightPercent( int percent );
+	int onStepWeightPercent( int percent, bool mounted, bool running );
 
 	// getters
 	cAccount* account() const;

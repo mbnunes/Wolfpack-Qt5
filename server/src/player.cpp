@@ -1225,13 +1225,13 @@ int cPlayer::onStepChar( P_CHAR pChar )
 	return retvalue;
 }
 
-int cPlayer::onStepWeightPercent( int percent )
+int cPlayer::onStepWeightPercent( int percent, bool mounted, bool running )
 {
 	unsigned int retvalue = 0;
 	
 	if ( canHandleEvent( EVENT_STEPWEIGHTPERCENT ) )
 	{
-		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, percent );
+		PyObject* args = Py_BuildValue( "O&iii", PyGetCharObject, this, percent, mounted, running );
 		PyObject* result = callEvent( EVENT_STEPWEIGHTPERCENT, args );
 
 		if ( result )

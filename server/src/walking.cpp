@@ -909,7 +909,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	{
 		if ( Weightpercent >= Config::instance()->WeightPercentActiveEvent() )
 		{
-			int handlingstepevent = pChar->onStepWeightPercent( Weightpercent );
+			int handlingstepevent = pChar->onStepWeightPercent( Weightpercent, mounted, running );
 			if ( handlingstepevent )
 			{
 				if ( handlingstepevent == 2)

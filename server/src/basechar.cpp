@@ -846,13 +846,10 @@ bool cBaseChar::resurrect( cUObject* source )
 
 	if ( !corpse )
 	{
-		pRobe = cItem::createFromScript( "1f03" );
+		pRobe = cItem::createFromScript( "ress_robe" );
 
 		if ( pRobe )
 		{
-			pRobe->setColor( 0 );
-			pRobe->setHp( 1 );
-			pRobe->setMaxhp( 1 );
 			this->addItem( cBaseChar::OuterTorso, pRobe );
 			pRobe->update();
 		}

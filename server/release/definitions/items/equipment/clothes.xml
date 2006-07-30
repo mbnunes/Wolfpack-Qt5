@@ -809,4 +809,11 @@
 		<baseid>27a1</baseid>
 	</item>
 
+	<!-- Ress Robe -->
+	<item id="ress_robe">
+		<id>0x1f03</id>
+		<durability>1</durability>
+		<category>Clothes\Torso\Ress Robe</category>
+	</item>
+
 </definitions>
