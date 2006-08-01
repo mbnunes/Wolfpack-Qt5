@@ -42,6 +42,20 @@ class Page:
 			self.message[2] = unquote(values[7]).decode('utf-8')
 			self.message[3] = unquote(values[8]).decode('utf-8')
 			self.created = float(values[9])
+		elif type(char) == unicode:
+			values = char.split(';')
+			self.account = unquote( values[0] )
+			self.serial = int(values[1])
+			self.name = unquote(values[2])
+			(x, y, z, m) = values[3].split(',')
+			self.pos = wolfpack.coord(int(x), int(y), int(z), int(m))
+			self.category = unquote(values[4])
+			self.message = ['', '', '', '']
+			self.message[0] = unquote(values[5])
+			self.message[1] = unquote(values[6])
+			self.message[2] = unquote(values[7])
+			self.message[3] = unquote(values[8])
+			self.created = float(values[9])			
 		else:
 			self.account = char.account.name
 			self.serial = char.serial
