@@ -1736,6 +1736,10 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose* packet )
 			handleCastSpell( dynamic_cast<cUORxCastSpell*>( packet ) );
 			return;
 
+		case cUORxCloseQuestArrow::closeQuestArrow:
+			handleCloseQuestArrow( dynamic_cast<cUORxCloseQuestArrow*>( packet ) );
+			return;
+
 		case cUORxMultiPurpose::toolTip:
 			handleToolTip( dynamic_cast<cUORxRequestToolTip*>( packet ) );
 			return;
@@ -1899,6 +1903,14 @@ void cUOSocket::handleCastSpell( cUORxCastSpell* packet )
 		return;
 
 	_player->onCastSpell( packet->spell() );
+}
+
+void cUOSocket::handleCloseQuestArrow( cUORxCloseQuestArrow* packet )
+{
+	if ( !_player )
+		return;
+
+	_player->socket()->sendQuestArrow(0,0,0);
 }
 
 void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection* packet )

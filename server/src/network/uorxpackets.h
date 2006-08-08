@@ -594,6 +594,7 @@ public:
 		closeGump										= 0x04,
 		screenSize										= 0x05,
 		partySystem										= 0x06,
+		closeQuestArrow									= 0x07,
 		changeMap										= 0x08,
 		wrestlingStun									= 0x0a,
 		setLanguage										= 0x0b,
@@ -655,6 +656,15 @@ public:
 	ushort spell() const
 	{
 		return getShort( 7 );
+	}
+};
+
+// 0xBF 0x07
+class cUORxCloseQuestArrow : public cUORxMultiPurpose
+{
+public:
+	cUORxCloseQuestArrow( const QByteArray& data ) : cUORxMultiPurpose( data )
+	{
 	}
 };
 

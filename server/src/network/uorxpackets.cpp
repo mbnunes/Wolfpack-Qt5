@@ -145,6 +145,8 @@ cUOPacket* cUORxMultiPurpose::packet( const QByteArray& data )
 		return new cUORxCustomHouseRequest( data );
 	case extendedStats:
 		return new cUORxExtendedStats( data );
+	case closeQuestArrow:
+		return new cUORxCloseQuestArrow( data );
 	default:
 		return new cUORxMultiPurpose( data );
 	};

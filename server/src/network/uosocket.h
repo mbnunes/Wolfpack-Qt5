@@ -251,6 +251,7 @@ private:
 	void handleRequestLook( cUORxRequestLook* packet );
 	void handleMultiPurpose( cUORxMultiPurpose* packet );
 	void handleCastSpell( cUORxCastSpell* packet );
+	void handleCloseQuestArrow( cUORxCloseQuestArrow* packet );
 	void handleContextMenuRequest( cUORxContextMenuRequest* packet );
 	void handleContextMenuSelection( cUORxContextMenuSelection* packet );
 	void handleToolTip( cUORxRequestToolTip* packet );

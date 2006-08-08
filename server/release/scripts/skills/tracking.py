@@ -54,12 +54,6 @@ def tracking( char, skill ):
 			return True
 		else:
 			socket.deltag( 'skill_delay' )
-
-	if char.socket.hastag('usingtracking'):
-		socket.sysmessage('You stop tracking the target')
-		char.socket.questarrow(False, 0, 0)
-		char.socket.deltag('usingtracking')
-		return True
    
 	socket.clilocmessage( 1011350 ) # What do you wish to track?
 	socket.closegump( 0x87651592 ) # What to track
@@ -261,12 +255,6 @@ def trackWhatResponse2( char, args, target ):
 
 	# Send the Arrow
 	char.socket.questarrow(True, npc.pos.x, npc.pos.y)
-
-	# Assign that we are using Tracking now. On RunUO I think a reverse click make arrow disappear... but its not supported on core yet (Ill work on it later). Here, to turn off the arrow we have to use Tracking again
-	char.socket.settag('usingtracking', 1)
-
-	# Message
-	char.socket.sysmessage('Tracking the target. Use tracking Skill again to turn off the arrow...')
 
 	return True
 

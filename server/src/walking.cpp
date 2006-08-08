@@ -600,18 +600,21 @@ bool cMovement::Walking( P_CHAR pChar, quint8 dir, quint8 sequence )
 					if ( them == player )
 						continue;
 	
-					// Handling onStepChar					
-					int handlingstepevent = player->onStepChar(them);
-                    if ( handlingstepevent )
+					// Handling onStepChar (Cant call the event it z difference is higher than definition)
+					if ( wpAbs<SI08>( newCoord.z - them->pos().z ) < P_M_MAX_Z_CLIMB )
 					{
-						if ( handlingstepevent == 2)
+						int handlingstepevent = player->onStepChar(them);
+						if ( handlingstepevent )
 						{
-							player->socket()->denyMove( sequence );
-							return false;
+							if ( handlingstepevent == 2)
+							{
+								player->socket()->denyMove( sequence );
+								return false;
+							}
+							else
+								continue;
 						}
-						else
-							continue;
-					}
+					}					
 
 					// If we're dead or Staff, no collisions to check (Unless we have events)
 					if ( player->isDead() || player->account()->isStaff() )
