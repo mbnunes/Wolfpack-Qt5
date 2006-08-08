@@ -51,11 +51,11 @@ def onUse( char, ore ):
 def response( char, args, target ):
 	char.turnto(target.pos)
 
-	if not char.canreach(target.pos, 4):
+	item = wolfpack.finditem(args[0])
+
+	if not char.canreach(target.pos, 4) and not item.container == target.item.container:
 		char.socket.clilocmessage(500295)
 		return
-
-	item = wolfpack.finditem(args[0])
 
 	if not item:
 		return
@@ -146,6 +146,10 @@ def response( char, args, target ):
 						item.delete()
 						# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
 						char.socket.clilocmessage( 501971, '', GRAY )
+					
+					# Just update Weight
+					char.updatestats()
+
 					return True
 			else:
 				# Merge the ore piles
@@ -167,6 +171,9 @@ def response( char, args, target ):
 					item.delete()
 					# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
 					char.socket.clilocmessage( 501971, '', GRAY )
+
+				# Just update Weight
+				char.updatestats()
 				return True
 
 		# Second Largest Ore
@@ -182,11 +189,15 @@ def response( char, args, target ):
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
+						# Just update Weight
+						char.updatestats()
 						return True
 					elif targetitem.baseid == DEF_ORES[0]:
 						targetitem.amount += ( item.amount * 2 )
 						targetitem.update()
 						item.delete()
+						# Just update Weight
+						char.updatestats()
 						return True
 					elif targetitem.baseid == DEF_ORES[3]:
 						return False
@@ -197,11 +208,15 @@ def response( char, args, target ):
 					targetitem.amount += item.amount
 					targetitem.update()
 					item.delete()
+					# Just update Weight
+					char.updatestats()
 					return True
 				elif targetitem.baseid == DEF_ORES[0]:
 					targetitem.amount += ( item.amount * 2 )
 					targetitem.update()
 					item.delete()
+					# Just update Weight
+					char.updatestats()
 					return True
 				elif targetitem.baseid == DEF_ORES[3]:
 					return False
@@ -218,11 +233,15 @@ def response( char, args, target ):
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
+						# Just update Weight
+						char.updatestats()
 						return True
 					elif targetitem.baseid == DEF_ORES[0]:
 						targetitem.amount += ( item.amount * 2 )
 						targetitem.update()
 						item.delete()
+						# Just update Weight
+						char.updatestats()
 						return True
 					elif targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[3]:
 						return False
@@ -233,11 +252,15 @@ def response( char, args, target ):
 					targetitem.amount += item.amount
 					targetitem.update()
 					item.delete()
+					# Just update Weight
+					char.updatestats()
 					return True
 				elif targetitem.baseid == DEF_ORES[0]:
 					targetitem.amount += ( item.amount * 2 )
 					targetitem.update()
 					item.delete()
+					# Just update Weight
+					char.updatestats()
 					return True
 				elif targetitem.baseid == DEF_ORES[2] or targetitem.baseid == DEF_ORES[3]:
 					return False
@@ -259,6 +282,8 @@ def response( char, args, target ):
 						targetitem.update()
 						item.delete()
 						char.socket.sysmessage( tr("You combine the two ore piles to create a single pile of ore."), GRAY )
+					# Just update Weight
+					char.updatestats()
 					return True
 			else:
 				# Merge the ore piles
@@ -269,6 +294,8 @@ def response( char, args, target ):
 					targetitem.update()
 					item.delete()
 					char.socket.sysmessage( tr("You combine the two ore piles to create a single pile of ore."), GRAY )
+				# Just update Weight
+				char.updatestats()
 				return True
 
 def dosmelt(char, args):

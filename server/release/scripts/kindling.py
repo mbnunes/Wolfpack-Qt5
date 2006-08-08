@@ -10,6 +10,8 @@
 # 0xDE1
 # 0xDE2
 
+CONSUMEONFAILURE = 0
+
 import wolfpack
 import wolfpack.time
 from wolfpack.consts import CAMPING
@@ -36,6 +38,13 @@ def onUse( char, item ):
 			return 1
 
 	if not char.checkskill( CAMPING, 0, 500 ):
+		if CONSUMEONFAILURE:
+			if item.amount > 1:
+				item.amount -= 1
+				item.update()
+			else:
+				item.delete()
+		
 		char.socket.clilocmessage( 0x7A7C0, "", 0x3b2, 0x3, item ) # You fail to ignite the campfire
 		return 1
 
@@ -52,6 +61,10 @@ def onUse( char, item ):
 	campfire.update()
 
 	# Delete the kindlings
-	item.delete()
+	if item.amount > 1:
+		item.amount -= 1
+		item.update()
+	else:
+		item.delete()
 
 	return True
