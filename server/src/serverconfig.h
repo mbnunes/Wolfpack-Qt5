@@ -162,6 +162,7 @@ protected:
 	int SpeechYellRange_;
 	int SpeechWhisperRange_;
 	int WeightPercentActiveEvent_;
+	int deleteCharDelay_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -368,6 +369,7 @@ public:
 	int SpeechYellRange() const;
 	int SpeechWhisperRange() const;
 	int WeightPercentActiveEvent() const;
+	int deleteCharDelay() const;
 
 	// Persistency Module
 	QString databaseDriver() const;
@@ -925,6 +927,10 @@ inline int cConfig::SpeechWhisperRange() const
 inline int cConfig::WeightPercentActiveEvent() const
 {
 	return WeightPercentActiveEvent_;
+}
+inline int cConfig::deleteCharDelay() const
+{
+	return deleteCharDelay_;
 }
 // Racial features
 inline bool cConfig::elffullnightsight() const

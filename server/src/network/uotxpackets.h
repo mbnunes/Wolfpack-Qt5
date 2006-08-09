@@ -138,19 +138,19 @@ public:
 	virtual void compile();
 };
 
-enum eCharChangeResult
-{
-	CCR_BADPASS				= 0,
-	CCR_DOESNTEXISTS,
-	CCR_INUSE,
-	CCR_NOTOLDENOUGH,
-	CCR_QUEUEDFORBACKUP,
-};
-
 // 0x85 CharChangeResult
 class cUOTxCharChangeResult : public cUOPacket
 {
 public:
+	enum eCharChangeResult
+	{
+		CCR_BADPASS				= 0,
+		CCR_DOESNTEXISTS,
+		CCR_INUSE,
+		CCR_NOTOLDENOUGH,
+		CCR_QUEUEDFORBACKUP,
+	};
+
 	cUOTxCharChangeResult() : cUOPacket( 0x85, 2 )
 	{
 	}

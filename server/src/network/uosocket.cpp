@@ -926,6 +926,16 @@ void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter* packet )
 
 	P_PLAYER pChar = charList[packet->index()];
 
+	// Lets check if its old enough
+	int minutestodelete = Config::instance()->deleteCharDelay() * 60;
+	if ( pChar->creationDate().addSecs( minutestodelete ) > QDateTime::currentDateTime() )
+	{
+		cUOTxCharChangeResult dLogin;
+		dLogin.setResult( cUOTxCharChangeResult::CCR_NOTOLDENOUGH );
+		send( &dLogin );
+		return;
+	}
+
 	if ( pChar )
 	{
 		log( tr( "Client '%1', account '%2', deletes character '%3' (serial=0x%4).\n"

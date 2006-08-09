@@ -205,6 +205,7 @@ void cConfig::readData()
 	SpeechYellRange_ = getNumber( "General", "Speech Yell Range", 54, true );
 	SpeechWhisperRange_ = getNumber( "General", "Speech Whisper Range", 1, true );
 	WeightPercentActiveEvent_ = getNumber( "General", "Weight Percent to Active Event", 0, true );
+	deleteCharDelay_ = getNumber( "General", "Minutes to Delete Character", 1440, true );
 
 	// Network
 	loginPort_ = getNumber( "Network", "Loginserver Port", 2593, true );
