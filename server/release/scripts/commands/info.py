@@ -1,3 +1,4 @@
+# -*- coding: cp1252 -*-
 #===============================================================#
 #   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
 #  ((    _/{  "-;  | Created by: Correa                         #
@@ -1229,7 +1230,12 @@ def iteminfo_response( player, args, choice ):
 
 	for key in keys:
 		if key == 1:
-			item.name = textentries[ key ]
+			# fix for wolfpack complaining that it expects a string
+			# shoud be fixed in source (python 2.3 UCS4, linux)
+			if textentries[ key ] == '':
+				item.name = str('')
+			else:
+				item.name = textentries[ key ]					
 		elif key == 2:
 			item.id = int( hex2dec( textentries[ key ] ) )
 		elif key == 3:
