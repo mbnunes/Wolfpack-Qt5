@@ -167,7 +167,7 @@ def callback( char, args ):
 		char.socket.clilocmessage( 502794, "", 0x3b2, 3, totame )
 		return
 
-	havetamed = args[ 0 ]
+	havetamed = (args[ 0 ] == 1)
 	# no. trying = args[ 2 ]
 	num_try = args[ 2 ]
 	if num_try > 3:
@@ -259,7 +259,7 @@ def callback( char, args ):
 			totame.settag( 'angry', 1 )
 
 	char.socket.clilocmessage( msgID, "", 0x3b2, 3, char )
-	char.addtimer( TAMING_DURATION, callback, [ havetamed, totame.serial, num_try ] )
+	char.addtimer( TAMING_DURATION, callback, [ args[ 0 ], totame.serial, num_try ] )
 
 def removetags( char ):
 	if char.hastag( 'taming' ):
