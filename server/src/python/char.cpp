@@ -659,12 +659,18 @@ static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 	if ( PyTuple_Size( args ) == 3 )
 	{
 		if ( !PyArg_ParseTuple( args, "hii|char.checkskill( skill, min, max )", &skill, &min, &max ) )
-			return 0;
+		{
+			PyErr_BadArgument();
+			Py_RETURN_FALSE;
+		}
 	}
 	else
 	{
-		if ( !PyArg_ParseTuple( args, "hiii|char.checkskill( skill, min, max, advance )", &skill, &min, &max, &advance ) )
-			return 0;
+		if ( !PyArg_ParseTuple( args, "hiiB|char.checkskill( skill, min, max, advance )", &skill, &min, &max, &advance ) )
+		{
+			PyErr_BadArgument();
+			Py_RETURN_FALSE;
+		}
 	}
 
 	if ( self->pChar->checkSkill( skill, min, max, advance ) )
