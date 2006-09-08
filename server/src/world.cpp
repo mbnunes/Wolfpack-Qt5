@@ -505,6 +505,15 @@ void cWorld::loadBinary( QList<PersistentObject*>& objects )
 						}
 						else
 						{
+							// Lets Assign the Region to the NPC (Bug on Binary Loads)
+							P_NPC npc = dynamic_cast<P_NPC>( object );
+							if ( npc )
+							{
+								cTerritory* region = Territories::instance()->region( npc->pos().x, npc->pos().y, npc->pos().map );
+								npc->setRegion( region );
+							}
+
+							// Now, just Append
 							objects.append( object );
 						}
 					}
