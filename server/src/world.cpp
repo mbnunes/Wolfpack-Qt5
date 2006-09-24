@@ -1449,7 +1449,6 @@ QMap<QDateTime, QString> listBackups( const QString& filename )
 */
 void cWorld::backupWorld( const QString& filename, unsigned int count, bool compress )
 {
-	Q_UNUSED( compress );
 	// Looks like there is nothing to backup
 	if ( count == 0 || !QFile::exists( filename ) )
 	{
@@ -1496,9 +1495,12 @@ void cWorld::backupWorld( const QString& filename, unsigned int count, bool comp
 	dir.rename( filename, backupName );
 
 	// Start the compression thread if requested by the user
-	cBackupThread *backupThread = new cBackupThread();
-	backupThread->setFilename( backupName );
-	backupThread->start( QThread::LowPriority );
+	if ( compress )
+	{
+		cBackupThread *backupThread = new cBackupThread();
+		backupThread->setFilename( backupName );
+		backupThread->start( QThread::LowPriority );
+	}
 }
 
 extern "C"
