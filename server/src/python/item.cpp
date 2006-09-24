@@ -1154,7 +1154,7 @@ static PyObject* wpItem_getintproperty( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_getstrproperty( wpItem* self, PyObject* args )
 {
-	PyObject *pydef = 0;
+	PyObject *pydef = Py_None;
 	PyObject *pyname;
 
 	if ( !PyArg_ParseTuple( args, "O|O:item.getstrproperty(name, def)", &pyname, &pydef ) )
@@ -1163,7 +1163,12 @@ static PyObject* wpItem_getstrproperty( wpItem* self, PyObject* args )
 	}
 
 	QString name = boost::python::extract<QString>( pyname );
-	QString def = boost::python::extract<QString>( pydef );
+	
+	QString def = QString::null;
+	if ( pydef != Py_None )
+	{
+		def = boost::python::extract<QString>( pydef );
+	}
 
 	if ( self->pItem->basedef() )
 	{
@@ -1171,7 +1176,7 @@ static PyObject* wpItem_getstrproperty( wpItem* self, PyObject* args )
 	}
 	else
 	{
-		if ( pydef )
+		if ( pydef != Py_None )
 		{
 			Py_INCREF( pydef );
 			return pydef;
