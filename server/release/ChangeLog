@@ -1,3 +1,24 @@
+Wolfpack 12.9.16 Beta (SVN)
+ * Core Changes:
+  - Fixed a bug Loading binary saves where npcs have no region pointer when emulator restarts.
+  - Fixed char.getstrproperty and item.getstrproperty crashing the server, when optional parameter 'default' was missing.
+  - Fixed bug #0000096 "Wolfpack does not use "Compress Backups" Option".
+ * Definition Changes:
+ * Python Script Changes:
+  - Fixed a bug in animal taming that prevented taming from gaining on some configurations of python/operating system.
+ * Misc. Changes:
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Multis (Houses/Boats) are not completly supported.
+  - "Infused with Magic" and "Perception" (Elves Features from Mondain's Legacy) are not implemented yet
+  - "Workhorse" and "Jack of all trades" (Human Features from Mondain's Legacy) are not implemented yet
+  - For latest information check out: http://bugs.wpdev.org
+
 Wolfpack 12.9.14 Beta (SVN)
  * Core Changes:
   - Changed python callbacks to use the function object instead of a string containing hardcoded paths.
