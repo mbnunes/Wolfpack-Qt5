@@ -174,6 +174,8 @@
 					<div class="answer">
 						First you need the latest QT-4.1.x release for your linux distribution.<br />
 						You will also need the dev package for this version of QT.<br />
+						Second you need the latest release of Python 2.4 or Python 2.3.<br />
+						You will also need the dev package for this version of Python.<br />
 						<br />
 						Distribution Notes<br /><br />
 						Debian:<br />
@@ -196,6 +198,13 @@
 							./configure.py --enable-debug --enable-mysql<br />
 							# At this point you can edit Makefile and add optional CXXFLAGS<br />
 							# I personally add -march=athlon -03<br />
+							# Before we can run make now, we have to compile boost<br />
+							cd ../boost<br />
+							qmake<br />
+							make<br />
+							# Get yourself a coffee while it compiles.<br />
+							# Go back to wolfpack build folder.
+							cd ../build<br />
 							make<br />
 							# Grab a snack while it compiles.
 						</div>
