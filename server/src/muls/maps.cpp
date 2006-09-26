@@ -733,8 +733,6 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 			blockLength = indexStructure.blocklength;
 		}
 
-		const uint remainX = x % 8;
-		const uint remainY = y % 8;
 		for ( quint32 i = 0; i < blockLength / 7; ++i )
 		{
 			staticrecord r;
@@ -759,6 +757,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 	if (p) {
 		if (exact) {
 			// Copy only the ones we need
+			staticArray.clear();
 			const uint remainX = x % 8;
 			const uint remainY = y % 8;
 			for (quint32 i = 0; i < p->size(); ++i ) {

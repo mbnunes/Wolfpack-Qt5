@@ -3,6 +3,7 @@ Wolfpack 12.9.16 Beta (SVN)
   - Fixed a bug Loading binary saves where npcs have no region pointer when emulator restarts.
   - Fixed char.getstrproperty and item.getstrproperty crashing the server, when optional parameter 'default' was missing.
   - Fixed bug #0000096 "Wolfpack does not use "Compress Backups" Option".
+  - Fixed wolfpack.statics ignoring "exact" parameter in some occasions.
  * Definition Changes:
  * Python Script Changes:
   - Fixed a bug in animal taming that prevented taming from gaining on some configurations of python/operating system.
