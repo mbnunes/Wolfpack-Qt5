@@ -82,6 +82,40 @@ def givequestrequiredquests(id):
 	return quest
 
 #######################################################################################
+##############   Give Required Skills in a list   #####################################
+#######################################################################################
+
+def givequestrequiredskills(id):
+	skills = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'requiredskills':
+			if len(subnode.text):
+				skills = subnode.text.split(',')
+
+	return skills
+
+#######################################################################################
+##############   Give Required Skills amount in a list   ##############################
+#######################################################################################
+
+def givequestrequiredskillamounts(id):
+	skillamounts = ''
+	node = wolfpack.getdefinition(WPDT_QUEST, str(id))
+
+	count = node.childcount
+	for i in range(0, count):
+		subnode = node.getchild(i)
+		if subnode.name == 'requiredskillamounts':
+			if len(subnode.text):
+				skillamounts = subnode.text.split(',')
+
+	return skillamounts
+
+#######################################################################################
 ##############   Give Required Classes in a list   ####################################
 #######################################################################################
 # Exclusive for Class Shards
@@ -461,6 +495,9 @@ def checkquestrequirements(player, id):
 	if not checkhaverequiredquests(player, id):
 		return False
 
+	if not checkhaverequiredskills(player, id):
+		return False
+
 	# Here, check Class, Race and Level too if your Shard supports it.
 	# This sample checks for tags 'classe' for player class and 'raca' for player Race. Level is checked by 'level' tag.
 	# Adjust it for your own Shard
@@ -506,6 +543,34 @@ def checkhaverequiredquests(player, id):
 			return True
 	else:
 		return True
+
+#######################################################################################
+##############   Check if a Player have the Required Skills   #########################
+#######################################################################################
+
+def checkhaverequiredskills(player, id):
+	
+	# Get Required Skills for this quest and Amount of requireds
+	requiredskills = givequestrequiredskills(id)
+	num_skills = len(requiredskills)
+
+	# Get Required Skill amounts for this quest and Amount of requireds
+	requiredskillamounts = givequestrequiredskillamounts(id)
+	num_skillamounts = len(requiredskillamounts)
+
+	# how many skills do we really have to check?
+	num_check = min( num_skills, num_skillamounts )
+
+	try:
+		for i in range(0, num_check):
+			# check for each skill its requirement
+			if player.skill[ skillnamesids[ requiredskills[i] ] ] < int(requiredskillamounts[i]):
+				return False		
+	except:
+		# catch misspelled skill names etc.
+		return False
+
+	return True
 
 #######################################################################################
 ##############   Check if a Player have the Required Class   ##########################
