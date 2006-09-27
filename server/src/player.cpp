@@ -582,7 +582,7 @@ void cPlayer::showName( cUOSocket* socket )
 	QString prefix( " " );
 
 	// Tag for Prefix
-	if ( !isIncognito() && !isPolymorphed() )
+	if ( !isPolymorphed() )
 	{
 		if ( hasTag( "name.prefix" ) )
 		{
@@ -598,7 +598,7 @@ void cPlayer::showName( cUOSocket* socket )
 	QString affix( " " );
 
 	// Tag for Suffix
-	if ( !isIncognito() && !isPolymorphed() )
+	if ( !isPolymorphed() )
 	{
 		if ( hasTag( "name.suffix" ) )
 		{
@@ -1920,7 +1920,7 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	QString affix( " " );
 
 	// Tag for Suffix
-	if ( !isIncognito() && !isPolymorphed() )
+	if ( !isPolymorphed() )
 	{
 		if ( hasTag( "name.suffix" ) )
 		{
@@ -1967,7 +1967,7 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	QString prefix( " " );
 
 	// Tag for Prefix
-	if ( !isIncognito() && !isPolymorphed() )
+	if ( !isPolymorphed() )
 	{
 		if ( hasTag( "name.prefix" ) )
 		{
