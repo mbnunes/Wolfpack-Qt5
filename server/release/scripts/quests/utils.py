@@ -76,7 +76,8 @@ def givequestrequiredquests(id):
 	for i in range(0, count):
 		subnode = node.getchild(i)
 		if subnode.name == 'requiredquests':
-			quest = subnode.text.split(',')
+			if len(subnode.text):
+				quest = subnode.text.split(',')
 
 	return quest
 
@@ -93,7 +94,8 @@ def givequestrequiredclasses(id):
 	for i in range(0, count):
 		subnode = node.getchild(i)
 		if subnode.name == 'requiredclasses':
-			quest = subnode.text.split(',')
+			if len(subnode.text):
+				quest = subnode.text.split(',')
 
 	return quest
 
@@ -110,7 +112,8 @@ def givequestrequiredraces(id):
 	for i in range(0, count):
 		subnode = node.getchild(i)
 		if subnode.name == 'requiredraces':
-			quest = subnode.text.split(',')
+			if len(subnode.text):
+				quest = subnode.text.split(',')
 
 	return quest
 
@@ -127,7 +130,8 @@ def givequestrequiredlevel(id):
 	for i in range(0, count):
 		subnode = node.getchild(i)
 		if subnode.name == 'requiredlevel':
-			quest = subnode.text
+			if len(subnode.text):
+				quest = subnode.text
 
 	return int(quest)
 
