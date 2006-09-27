@@ -7,6 +7,7 @@ Wolfpack 12.9.16 Beta (SVN)
  * Definition Changes:
  * Python Script Changes:
   - Fixed a bug in animal taming that prevented taming from gaining on some configurations of python/operating system.
+  - Added support for 'strproperties' to quest system.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

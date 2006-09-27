@@ -325,3 +325,15 @@ def completequest(player, slot, id, npc):
 
 	else:
 		player.settag('quest.'+ str(tagsection) +'.complete', id)
+
+#######################################################################################
+##############   Check if a npc has quests   ##########################################
+#######################################################################################
+
+def hasQuests( npc ):
+	if npc.hastag('quests'):
+		quests = str(npc.gettag('quests'))
+		return (len(quests) > 0)
+
+	quests = npc.getstrproperty('quests', '')
+	return (len(quests) > 0)

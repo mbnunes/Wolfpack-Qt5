@@ -1496,7 +1496,7 @@ void cNPC::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	tooltip.addLine( 1050045, QString( "%3\t%1\t%2" ).arg( name_ ).arg( affix ).arg( prefix ) );
 
 	// Add Quest Quest Giver title
-	if ( this->hasTag( "quests" ) )
+	if ( this->hasTag( "quests" ) || this->basedef()->getStrProperty( "quests", "" ).length() > 0 )
 	{
 		tooltip.addLine( 1072269, "" );
 	}

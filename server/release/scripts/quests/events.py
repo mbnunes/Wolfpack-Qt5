@@ -8,7 +8,7 @@
 #===============================================================#
 
 import wolfpack
-from quests.functions import checknpcforquest, checknpcforquestloot
+from quests.functions import checknpcforquest, checknpcforquestloot, hasQuests
 from quests.npcs import openchoicequestmenu
 
 #######################################################################################
@@ -27,5 +27,5 @@ def onDeath(char, source, corpse):
 #######################################################################################
 
 def onShowPaperdoll(char, player):
-	if char.hastag('quests'):
+	if hasQuests( char ):
 		openchoicequestmenu(char, player)

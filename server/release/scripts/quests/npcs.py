@@ -63,8 +63,8 @@ def npcquestmain(npc, player):
 	if not questamount:
 		npc.say("Sorry, I have no Quests for you")
 	else:
-		if not questamount > 1:
-			id = npc.gettag('quests')
+		if questamount == 1:
+			id = str( returnquestlist(npc)[0] )
 
 			if checkquestrequirements(player, id):
 				if not checkifquestcompleted(player, id):
@@ -427,27 +427,33 @@ def npcreportresponse( char, args, target ):
 #######################################################################################
 
 def returnquestlist(npc):
-	if not npc.hastag('quests'):
-		return 0
+	if npc.hastag('quests'):
+		quests = str(npc.gettag('quests'))
 	else:
-		# Picking Quests and making a list
-		quests = npc.gettag('quests')
-		questlist = quests.split(',')
+		quests = npc.getstrproperty('quests','')
 
-		# Returning the amount
-		return questlist
+	if not len(quests):
+		return 0
+
+	questlist = quests.split(',')
+	
+	# Returning the list
+	return questlist
 
 #######################################################################################
 ##############   Return How many Quests a NPC Have   ##################################
 #######################################################################################
 
 def returnamountquests(npc):
-	if not npc.hastag('quests'):
-		return 0
-	else:
-		# Picking Quests and making a list
+	if npc.hastag('quests'):
 		quests = str(npc.gettag('quests'))
-		questlist = quests.split(',')
+	else:
+		quests = npc.getstrproperty('quests','')
 
-		# Returning the amount
-		return len( questlist )
+	if not len(quests):
+		return 0
+	
+	questlist = quests.split(',')
+	
+	# Returning the amount
+	return len( questlist )
