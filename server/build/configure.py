@@ -176,6 +176,13 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			"/usr/lib/libpython2.4*.so", \
 			"/usr/lib/[Pp]ython*/libpython2.4*.so", \
 			"/usr/lib/[Pp]ython*/config/libpython2.4*.so", \
+			# Python 2.5
+			"/usr/local/lib/libpython2.5*.so", \
+			"/usr/local/lib/[Pp]ython*/libpython2.5*.so", \
+			"/usr/local/lib/[Pp]ython*/config/libpython2.5*.so", \
+			"/usr/lib/libpython2.5*.so", \
+			"/usr/lib/[Pp]ython*/libpython2.5*.so", \
+			"/usr/lib/[Pp]ython*/config/libpython2.5*.so", \
 			# Python 2.3
 			"/usr/local/lib/libpython2.3*.so", \
 			"/usr/local/lib/[Pp]ython*/libpython2.3*.so", \
@@ -191,6 +198,13 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			"/usr/lib/libpython2.4*.a", \
 			"/usr/lib/[Pp]ython2.4*/libpython2.4*.a", \
 			"/usr/lib/[Pp]ython2.4*/config/libpython2.4*.a", \
+			# Python 2.5
+			"/usr/local/lib/libpython2.5*.a", \
+			"/usr/local/lib/[Pp]ython2.5*/libpython2.5*.a", \
+			"/usr/local/lib/[Pp]ython2.5*/config/libpython2.5*.a", \
+			"/usr/lib/libpython2.5*.a", \
+			"/usr/lib/[Pp]ython2.5*/libpython2.5*.a", \
+			"/usr/lib/[Pp]ython2.5*/config/libpython2.5*.a", \
 			# Python 2.3
 			"/usr/local/lib/libpython2.3]*.a", \
 			"/usr/local/lib/[Pp]ython2.3]*/libpython2.3*.a", \
@@ -204,6 +218,9 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			# Python 2.4
 			"/usr/local/include/[Pp]ython2.4*/Python.h", \
 			"/usr/include/[Pp]ython2.4*/Python.h" \
+			# Python 2.5
+			"/usr/local/include/[Pp]ython2.5*/Python.h", \
+			"/usr/include/[Pp]ython2.5*/Python.h" \
 			# Python 2.3
 			"/usr/local/include/[Pp]ython2.3*/Python.h", \
 			"/usr/include/[Pp]ython2.3*/Python.h" ]
