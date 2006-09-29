@@ -14,7 +14,7 @@
 	<location id="ilshenar lakeshire center" category="Ilshenar\Cities\LakeShire\Central Area">1203,1124,-25,2</location>
 	<location id="ilshenar mistas center" category="Ilshenar\Cities\Mistas\Central Area">820,1073,-30,2</location>
 	<location id="ilshenar montor center" category="Ilshenar\Cities\Montor\Central Area">1643,310,48,2</location>
-	<location id="ilshenar reg volon center" category="Ilshenar\Cities\Req Volon\Central Area">1362,10733,-13,2</location>
+	<location id="ilshenar reg volon center" category="Ilshenar\Cities\Req Volon\Central Area">1362,1073,-13,2</location>
 	<location id="ilshenar savage camp center" category="Ilshenar\Cities\Savage Camp\Central Area">1251,743,-80,2</location>
 	<location id="ilshenar terort skitas entrance" category="Ilshenar\Cities\Terort Skitas\Entrance">567,437,21,2</location>
 	<location id="ilshenar ankh entrance" category="Ilshenar\Dungeons\Ankh\Entrance">576,1150,-100,2</location>
