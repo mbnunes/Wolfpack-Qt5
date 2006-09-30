@@ -26,7 +26,7 @@
 	<include file="definitions/decoration/Felucca/towns/skara.xml"/>
 	<include file="definitions/decoration/Felucca/towns/serpentshold.xml"/>
 
-	<!-- Dunegons-->
+	<!-- dungeons-->
 	<include file="definitions/decoration/Felucca/dungeons/hythloth.xml"/>
 	<include file="definitions/decoration/Felucca/dungeons/shame.xml"/>
 	<include file="definitions/decoration/Felucca/dungeons/destard.xml"/>
