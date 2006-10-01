@@ -150,9 +150,7 @@ def onUpdateDatabase(current, version):
 # Update Version
 #
 def updateacctversion(version):
-
-	sql = "UPDATE settings SET value = " + str(version) + " WHERE option = 'db_version'"
-	database.execute(sql)
+	database.execute("REPLACE INTO settings VALUES('db_version', '%u');" % version)
 
 #
 # MySQL
