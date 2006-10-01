@@ -143,21 +143,21 @@
 
 	<!-- no draw-->
 	<item id="0x070E">
-		<pos x="1593" y="22488" z="15" map="1" />
+		<pos x="1593" y="2488" z="15" map="1" />
 	</item>
 
 	<!-- no draw-->
 	<item id="0x070F">
-		<pos x="1596" y="22491" z="15" map="1" />
+		<pos x="1596" y="2491" z="15" map="1" />
 	</item>
 
 	<!-- no draw-->
 	<item id="0x0710">
-		<pos x="1596" y="22488" z="15" map="1" />
+		<pos x="1596" y="2488" z="15" map="1" />
 	</item>
 
 	<!-- no draw-->
 	<item id="0x0711">
-		<pos x="1593" y="22491" z="15" map="1" />
+		<pos x="1593" y="2491" z="15" map="1" />
 	</item>
 </decoration>
