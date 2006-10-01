@@ -70,6 +70,12 @@ value varchar(255) NOT NULL default '', \
 PRIMARY KEY (option) \
 );";
 
+const char* createMySqlSettings = "CREATE TABLE `settings` (\
+`option` varchar(255) NOT NULL default '', \
+`value` varchar(255) NOT NULL default '', \
+PRIMARY KEY (`option`) \
+);";
+
 /*****************************************************************************
   cAccount member functions
  *****************************************************************************/
@@ -497,15 +503,22 @@ void cAccounts::load()
 	if ( !PersistentBroker::instance()->tableExists( "settings" ) )
 	{
 		Console::instance()->send( tr( "Account Settings database didn't exist! Creating one\n" ) );
-		acctquery.exec( createSqlSettings );
-		acctquery.exec( "insert into settings (option, value) values ('db_version',0);" );
+		if ( Config::instance()->accountsDriver() == "mysql" )
+		{
+			acctquery.exec( createMySqlSettings );
+			acctquery.exec( "insert into `settings` (`option`, `value`) values ('db_version',0);" );
+		}
+		else { 
+			acctquery.exec( createSqlSettings );
+			acctquery.exec( "insert into settings (option, value) values ('db_version',0);" );
+		}		
 	}
 
 	// Load Options
 	QString settingsSql = "SELECT value FROM settings WHERE option = 'db_version';";
 	if ( Config::instance()->accountsDriver() == "mysql" )
 	{
-		settingsSql = "SELECT `value` FROM `settings` WHERE option = 'db_version';";
+		settingsSql = "SELECT `value` FROM `settings` WHERE `option` = 'db_version';";
 	}
 	acctquery.exec( settingsSql );
 	acctquery.next();
