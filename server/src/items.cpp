@@ -456,7 +456,7 @@ void cItem::save()
 	static bool init = false;
 	static QSqlQuery preparedUpdate;
 	static QSqlQuery preparedInsert;
-	if ( !init || !preparedInsert.isValid() || !preparedUpdate.isValid() )
+	if ( !init )
 	{
 		preparedUpdate.prepare("update items set serial = ?, id = ?, color = ?, cont = ?, layer = ?, amount = ?, hp = ?, maxhp = ?, movable = ?, owner = ?, visible = ?, priv = ?, baseid = ? where serial = ?");
 		preparedInsert.prepare("insert into items values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");

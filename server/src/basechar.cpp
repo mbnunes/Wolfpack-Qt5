@@ -419,10 +419,14 @@ void cBaseChar::save()
 	static bool init = false;
 	static QSqlQuery preparedUpdate;
 	static QSqlQuery preparedInsert;
-	if ( !init || !preparedInsert.isValid() || !preparedUpdate.isValid() )
+	static QSqlQuery skillsPreparedUpdate;
+	static QSqlQuery skillsPreparedInsert;
+	if ( !init  )
 	{
 		preparedUpdate.prepare("update characters set serial = ?, name = ?, title = ?, creationdate = ?, body = ?, orgbody = ?, skin = ?, orgskin = ?, saycolor = ?, emotecolor = ?, strength = ?, strengthmod = ?, dexterity = ?, dexteritymod = ?, intelligence = ?, intelligencemod = ?, maxhitpoints = ?, hitpoints = ?, maxstamina = ?, stamina = ?, maxmana = ?, mana = ?, karma = ?, fame = ?, kills = ?, deaths = ?, hunger = ?, poison = ?, murderertime = ?, criminaltime = ?, gender = ?, propertyflags = ?, murderer = ?, guarding = ?, hitpointsbonus = ?, staminabonus = ?, manabonus = ?,  strcap = ?, dexcap = ?, intcap = ?, statcap = ?, baseid = ?, direction = ? where serial = ?");
 		preparedInsert.prepare("insert into characters values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+		skillsPreparedUpdate.prepare( "REPLACE INTO skills VALUES( ?, ?, ?, ?, ?)" );
+		skillsPreparedInsert.prepare( "INSERT INTO skills VALUES( ?, ?, ?, ?, ?)" );
 		init = true;
 	}
 
@@ -484,9 +488,9 @@ void cBaseChar::save()
 
 	QSqlQuery skillsPreparedQuery;
 	if ( isPersistent )
-		skillsPreparedQuery.prepare( "REPLACE INTO skills VALUES( ?, ?, ?, ?, ?)" );
+		skillsPreparedQuery = skillsPreparedUpdate;
 	else
-		skillsPreparedQuery.prepare( "INSERT INTO skills VALUES( ?, ?, ?, ?, ?)" );
+		skillsPreparedQuery = skillsPreparedInsert;
 
 	QVector<stSkillValue>::iterator it;
 	int i = 0;
