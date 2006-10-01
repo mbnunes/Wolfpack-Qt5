@@ -505,7 +505,7 @@ void cAccounts::load()
 	QString settingsSql = "SELECT value FROM settings WHERE option = 'db_version';";
 	if ( Config::instance()->accountsDriver() == "mysql" )
 	{
-		settingsSql = "SELECT `value` FROM `settings` WHERE option = `db_version`;";
+		settingsSql = "SELECT `value` FROM `settings` WHERE option = 'db_version';";
 	}
 	acctquery.exec( settingsSql );
 	acctquery.next();
