@@ -24,6 +24,16 @@
 		<basescripts>deeds.trophy_deed</basescripts>
 	</item>
 
+	<item id="2258">
+		<id>0x2258</id>
+		<category>Misc\Deeds\Bulk Order Deed</category>
+	</item>
+
+	<item id="2259">
+		<id>0x2259</id>
+		<category>Misc\Deeds\Bulk Order Book</category>
+	</item>
+
 	<!-- Carpentry Deeds -->
 	<!-- small bed deeds -->
 	<item id="ballot_box_deed" inherit="blank_deed">
