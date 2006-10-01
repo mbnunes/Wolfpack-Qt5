@@ -51,7 +51,11 @@ class DecorationHandler( ContentHandler ):
 			if atts.has_key("value") and atts.has_key("key"):
 				self.statements.append( str(atts.getValue("key")) + "," + type + ","+ str(atts.getValue("value")) )
 		elif name == "pos":
-			item = wolfpack.additem( "%x" %  hex2dec( self.itemid ) )
+			if int(hex2dec( self.itemid )) >= 0x4000:
+				item = wolfpack.addmulti( "%x" %  hex2dec( self.itemid ) )
+			else:
+				item = wolfpack.additem( "%x" %  hex2dec( self.itemid ) )
+
 			if not item or item == None:
 				return
 			if self.hue > 0:

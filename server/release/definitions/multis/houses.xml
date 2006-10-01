@@ -350,6 +350,20 @@
 		<nodecay />
 	</multi>
 
+	<multi id="4087">
+		<name>Large Patio House</name>
+		<id>0x4087</id>
+		<nodecay />
+		<category>Empty\Large Patio House</category>
+	</multi>
+
+	<multi id="408c">
+		<name>Large Patio House</name>
+		<id>0x408c</id>
+		<nodecay />
+		<category>Empty\Large Patio House</category>
+	</multi>
+
 	<multi id="408d">
 		<name>Large Patio House</name>
 		<id>0x408d</id>
