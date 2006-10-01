@@ -150,15 +150,20 @@ def JarHoney( char, args, target ):
 		if not tobackpack( sweet_dough, char ):
 			sweet_dough.update()
 	# Bowl Flour
-	if target.item.baseid == "a1e":
+	elif target.item.baseid == "a1e":
 		cookie_mix = wolfpack.additem( "103f" )
 		if not tobackpack( cookie_mix, char ):
 			cookie_mix.update()
 	else:
 		return False
 
-	honey.delete()
-	consume()
+	if honey.amount > 1:
+		honey.amount = honey.amount - 1
+		honey.update()
+	else:
+		honey.delete()
+
+	target.item.delete()
 
 def SackFlourOpen( char, args, target ):
 	item = wolfpack.finditem( args[0] ) 
