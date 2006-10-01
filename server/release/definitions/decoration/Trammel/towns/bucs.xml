@@ -153,47 +153,47 @@
 
 	<!-- wall torch-->
 	<item id="0x0A07">
-		<pos x="2728" y="22187" z="16" map="1" />
+		<pos x="2728" y="2187" z="16" map="1" />
 	</item>
 
 	<!-- wall torch-->
 	<item id="0x0A0C">
-		<pos x="2729" y="22184" z="16" map="1" />
+		<pos x="2729" y="2184" z="16" map="1" />
 	</item>
 
 	<!-- candle-->
 	<item id="0x0A0F">
-		<pos x="2691" y="22200" z="4" map="1" />
+		<pos x="2691" y="2200" z="4" map="1" />
 	</item>
 
 	<!-- lantern-->
 	<item id="0x0A18">
-		<pos x="2744" y="22253" z="10" map="1" />
+		<pos x="2744" y="2253" z="10" map="1" />
 	</item>
 
 	<!-- hanging lantern-->
 	<item id="0x0A1A">
-		<pos x="2717" y="22104" z="9" map="1" />
-		<pos x="2721" y="22085" z="0" map="1" />
-		<pos x="2721" y="22086" z="0" map="1" />
-		<pos x="2722" y="22086" z="0" map="1" />
-		<pos x="2736" y="22158" z="18" map="1" />
+		<pos x="2717" y="2104" z="9" map="1" />
+		<pos x="2721" y="2085" z="0" map="1" />
+		<pos x="2721" y="2086" z="0" map="1" />
+		<pos x="2722" y="2086" z="0" map="1" />
+		<pos x="2736" y="2158" z="18" map="1" />
 	</item>
 
 	<!-- hanging lantern-->
 	<item id="0x0A1D">
-		<pos x="2736" y="22174" z="20" map="1" />
+		<pos x="2736" y="2174" z="20" map="1" />
 	</item>
 
 	<!-- lantern post-->
 	<item id="0x0A20">
-		<pos x="2735" y="22157" z="-1" map="1" />
-		<pos x="2735" y="22173" z="0" map="1" />
+		<pos x="2735" y="2157" z="-1" map="1" />
+		<pos x="2735" y="2173" z="0" map="1" />
 	</item>
 
 	<!-- candle-->
 	<item id="0x0A26">
-		<pos x="2632" y="22086" z="14" map="1" />
+		<pos x="2632" y="2086" z="14" map="1" />
 	</item>
 
 	<!-- stool-->
