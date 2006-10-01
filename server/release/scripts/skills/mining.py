@@ -525,7 +525,6 @@ def successmining(Oretable, char, gem, resname, size):
 
 def respawnvein( vein, args ):
 	if vein and vein.hastag('resource_empty') and vein.gettag('resourcecount') == 0:
-		resname = vein.gettag('resname')
 		vein.settag('resourcecount', args[0])
 		vein.deltag('resource_empty')
 	return True
