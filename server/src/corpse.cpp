@@ -439,6 +439,11 @@ void cCorpse::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	{
 		tooltip.addLine( 1050045, QString( "<basefont color=\"%1\"> \tThe Remains Of %2\t " ).arg( color ).arg( name_ ) );
 	}
+
+	// Add count of items and their total weight.
+	unsigned int count = content_.count();
+	unsigned int weight = ( unsigned int ) floor( totalweight_ );
+	tooltip.addLine( 1050044, QString( "%1\t%2" ).arg( count ).arg( weight ) );
 }
 
 unsigned int cCorpse::decayDelay()
