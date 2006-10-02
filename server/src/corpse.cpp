@@ -190,7 +190,8 @@ void cCorpse::save()
 		q.addBindValue( QString( charbaseid_ ) );
 		q.addBindValue( murderer_ );
 		q.addBindValue( murdertime_ );
-		q.addBindValue( serial() );
+		if ( isPersistent )
+			q.addBindValue( serial() );
 		q.exec();
 	}
 
@@ -201,7 +202,7 @@ void cCorpse::save()
 	}
 
 	QSqlQuery equipmentQuery;
-	equipmentQuery.prepare( "INSERT INTO corpses_equipment VALUES(?,?,?)" );
+	equipmentQuery.prepare( "INSERT INTO corpses_equipment VALUES ( ?, ?, ? )" );
 	for ( QMap<quint8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 	{
 		equipmentQuery.addBindValue( serial() );
