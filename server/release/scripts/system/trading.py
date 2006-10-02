@@ -273,7 +273,7 @@ def pressbutton( player, partner, box1, box2 ):
 	sendtradepacket( partner.socket, 2, box2.serial, button2, button1, "" )
 
 	#To far away for trading ?
-	if player.distanceto( partner ) > 2:
+	if player.distanceto( partner ) > 3:
 		player.socket.clilocmessage( 500295 ) # You are too far away to do that.
 		partner.socket.clilocmessage( 500295 ) # You are too far away to do that.
 		closetrade( player, partner, box1, box2 )
