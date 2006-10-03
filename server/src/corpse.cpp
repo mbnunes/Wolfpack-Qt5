@@ -442,7 +442,7 @@ void cCorpse::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 
 	// Add count of items and their total weight.
 	unsigned int count = content_.count();
-	unsigned int weight = ( unsigned int ) floor( totalweight_ );
+	unsigned int weight = (( totalweight_ >= 0.0f ) ? ( unsigned int ) floor( totalweight_ ) : 0 );
 	tooltip.addLine( 1050044, QString( "%1\t%2" ).arg( count ).arg( weight ) );
 }
 
