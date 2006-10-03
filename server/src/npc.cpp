@@ -227,23 +227,13 @@ void cNPC::load( QSqlQuery& result, quint16& offset )
 
 void cNPC::save()
 {
-	static bool init = false;
-	static QSqlQuery preparedUpdate;
-	static QSqlQuery preparedInsert;
-	if ( !init )
-	{
-		preparedUpdate.prepare("update npcs set serial = ?, summontime = ?, additionalflags = ?, owner = ?, stablemaster = ?, ai = ?, wandertype = ?, wanderx1 = ?, wanderx2 = ?, wandery1 = ?, wandery2 = ?, wanderradius = ? where serial = ?");
-		preparedInsert.prepare("insert into npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-		init = true;
-	}
-
 	if ( changed_ )
 	{
 		QSqlQuery q;
 		if ( isPersistent )
-			q = preparedUpdate;
+			q.prepare("update npcs set serial = ?, summontime = ?, additionalflags = ?, owner = ?, stablemaster = ?, ai = ?, wandertype = ?, wanderx1 = ?, wanderx2 = ?, wandery1 = ?, wandery2 = ?, wanderradius = ? where serial = ?");
 		else
-			q = preparedInsert;
+			q.prepare("insert into npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
 		q.addBindValue( serial() );
 		q.addBindValue( summonTime_ ? summonTime_ - Server::instance()->time() : 0 );

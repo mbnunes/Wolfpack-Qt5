@@ -416,27 +416,13 @@ void cBaseChar::save( cBufferedWriter& writer )
 
 void cBaseChar::save()
 {
-	static bool init = false;
-	static QSqlQuery preparedUpdate;
-	static QSqlQuery preparedInsert;
-	static QSqlQuery skillsPreparedUpdate;
-	static QSqlQuery skillsPreparedInsert;
-	if ( !init  )
-	{
-		preparedUpdate.prepare("update characters set serial = ?, name = ?, title = ?, creationdate = ?, body = ?, orgbody = ?, skin = ?, orgskin = ?, saycolor = ?, emotecolor = ?, strength = ?, strengthmod = ?, dexterity = ?, dexteritymod = ?, intelligence = ?, intelligencemod = ?, maxhitpoints = ?, hitpoints = ?, maxstamina = ?, stamina = ?, maxmana = ?, mana = ?, karma = ?, fame = ?, kills = ?, deaths = ?, hunger = ?, poison = ?, murderertime = ?, criminaltime = ?, gender = ?, propertyflags = ?, murderer = ?, guarding = ?, hitpointsbonus = ?, staminabonus = ?, manabonus = ?,  strcap = ?, dexcap = ?, intcap = ?, statcap = ?, baseid = ?, direction = ? where serial = ?");
-		preparedInsert.prepare("insert into characters values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-		skillsPreparedUpdate.prepare( "REPLACE INTO skills VALUES( ?, ?, ?, ?, ?)" );
-		skillsPreparedInsert.prepare( "INSERT INTO skills VALUES( ?, ?, ?, ?, ?)" );
-		init = true;
-	}
-
 	if ( changed_ )
 	{
 		QSqlQuery q;
 		if ( isPersistent )
-			q = preparedUpdate;
+			q.prepare("update characters set serial = ?, name = ?, title = ?, creationdate = ?, body = ?, orgbody = ?, skin = ?, orgskin = ?, saycolor = ?, emotecolor = ?, strength = ?, strengthmod = ?, dexterity = ?, dexteritymod = ?, intelligence = ?, intelligencemod = ?, maxhitpoints = ?, hitpoints = ?, maxstamina = ?, stamina = ?, maxmana = ?, mana = ?, karma = ?, fame = ?, kills = ?, deaths = ?, hunger = ?, poison = ?, murderertime = ?, criminaltime = ?, gender = ?, propertyflags = ?, murderer = ?, guarding = ?, hitpointsbonus = ?, staminabonus = ?, manabonus = ?,  strcap = ?, dexcap = ?, intcap = ?, statcap = ?, baseid = ?, direction = ? where serial = ?");
 		else
-			q = preparedInsert;
+			q.prepare("insert into characters values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
 		q.addBindValue( serial() );
 		q.addBindValue( orgName_ );
@@ -488,9 +474,9 @@ void cBaseChar::save()
 
 	QSqlQuery skillsPreparedQuery;
 	if ( isPersistent )
-		skillsPreparedQuery = skillsPreparedUpdate;
+		skillsPreparedQuery.prepare( "REPLACE INTO skills VALUES( ?, ?, ?, ?, ?)" );
 	else
-		skillsPreparedQuery = skillsPreparedInsert;
+		skillsPreparedQuery.prepare( "INSERT INTO skills VALUES( ?, ?, ?, ?, ?)" );
 
 	QVector<stSkillValue>::iterator it;
 	int i = 0;

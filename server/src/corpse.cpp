@@ -162,23 +162,13 @@ void cCorpse::load( QSqlQuery& result, ushort& offset )
 
 void cCorpse::save()
 {
-	static bool init = false;
-	static QSqlQuery preparedUpdate;
-	static QSqlQuery preparedInsert;
-	if ( !init )
-	{
-		preparedUpdate.prepare("update corpses set serial = ?, bodyid = ?, hairstyle = ?, haircolor = ?, beardstyle = ?, beardcolor = ?, direction = ?, charbaseid = ?, murderer = ?, murdertime = ? where serial = ?");
-		preparedInsert.prepare("insert into corpses values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-		init = true;
-	}
-
 	if ( changed_ )
 	{
 		QSqlQuery q;
 		if ( isPersistent )
-			q = preparedUpdate;
+			q.prepare("update corpses set serial = ?, bodyid = ?, hairstyle = ?, haircolor = ?, beardstyle = ?, beardcolor = ?, direction = ?, charbaseid = ?, murderer = ?, murdertime = ? where serial = ?");
 		else
-			q = preparedInsert;
+			q.prepare("insert into corpses values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
 		q.addBindValue( serial() );
 		q.addBindValue( bodyId_ );
@@ -202,7 +192,7 @@ void cCorpse::save()
 	}
 
 	QSqlQuery equipmentQuery;
-	equipmentQuery.prepare( "INSERT INTO corpses_equipment VALUES ( ?, ?, ? )" );
+	equipmentQuery.prepare("INSERT INTO corpses_equipment VALUES ( ?, ?, ? )");
 	for ( QMap<quint8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 	{
 		equipmentQuery.addBindValue( serial() );

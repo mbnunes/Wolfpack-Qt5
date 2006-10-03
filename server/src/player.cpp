@@ -192,23 +192,13 @@ void cPlayer::load( QSqlQuery& result, ushort& offset )
 
 void cPlayer::save()
 {
-	static bool init = false;
-	static QSqlQuery preparedUpdate;
-	static QSqlQuery preparedInsert;
-	if ( !init  )
-	{
-		preparedUpdate.prepare("update players set serial = ?, account = ?, additionalflags = ?, visualrange = ?, profile = ?, fixedlight = ?, strlock = ?, dexlock = ?, intlock = ?, maxcontrolslots = ? where serial = ?");
-		preparedInsert.prepare("insert into players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-		init = true;
-	}
-
 	if ( changed_ )
 	{
 		QSqlQuery q;
 		if ( isPersistent )
-			q = preparedUpdate;
+			q.prepare("update players set serial = ?, account = ?, additionalflags = ?, visualrange = ?, profile = ?, fixedlight = ?, strlock = ?, dexlock = ?, intlock = ?, maxcontrolslots = ? where serial = ?");
 		else
-			q = preparedInsert;
+			q.prepare("insert into players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
 		q.addBindValue( serial() );
 

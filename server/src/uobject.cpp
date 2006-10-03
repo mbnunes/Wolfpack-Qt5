@@ -208,7 +208,6 @@ void cUObject::load( QSqlQuery& result, ushort& offset )
 void cUObject::save()
 {
 	bool havetags_ = ( tags_.size() > 0 );
-	// uobjectmap fields
 
 	// If the type is changed somewhere in the code
 	// That part needs to take care of delete/recreate
@@ -216,30 +215,19 @@ void cUObject::save()
 	if ( !isPersistent )
 	{
 		QSqlQuery q;
-		q.prepare( "insert into uobjectmap values ( ?, ? )" );
+		q.prepare("insert into uobjectmap values ( ?, ? )");
 		q.addBindValue( serial_ );
 		q.addBindValue( QString( objectID() ) );
 		q.exec();
-	}
-
-	// uobject fields
-	static bool init = false;
-	static QSqlQuery preparedUpdate;
-	static QSqlQuery preparedInsert;
-	if ( !init )
-	{
-		preparedUpdate.prepare("update uobject set name = ?, serial = ?, multis = ?, pos_x = ?, pos_y = ?, pos_z = ?, pos_map = ?, events = ?, havetags = ? where serial = ?");
-		preparedInsert.prepare("insert into uobject values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-		init = true;
 	}
 
 	if ( changed_ )
 	{
 		QSqlQuery q;
 		if ( isPersistent )
-			q = preparedUpdate;
+			q.prepare("update uobject set name = ?, serial = ?, multis = ?, pos_x = ?, pos_y = ?, pos_z = ?, pos_map = ?, events = ?, havetags = ? where serial = ?");
 		else
-			q = preparedInsert;
+			q.prepare("insert into uobject values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 
 		q.addBindValue( name_ );
 		q.addBindValue( serial_ );
