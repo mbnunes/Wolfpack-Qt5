@@ -90,6 +90,10 @@ cPlayer& cPlayer::operator=( const cPlayer& right )
 	return *this;
 }
 
+// static definitions
+QSqlQuery * cPlayer::insertQuery_ = NULL;
+QSqlQuery * cPlayer::updateQuery_ = NULL;
+
 static FactoryRegistration<cPlayer> registration( "cPlayer" );
 
 unsigned char cPlayer::classid;
@@ -194,34 +198,34 @@ void cPlayer::save()
 {
 	if ( changed_ )
 	{
-		QSqlQuery q;
+		QSqlQuery * q;
 		if ( isPersistent )
-			q.prepare("update players set serial = ?, account = ?, additionalflags = ?, visualrange = ?, profile = ?, fixedlight = ?, strlock = ?, dexlock = ?, intlock = ?, maxcontrolslots = ? where serial = ?");
+			q = cPlayer::getUpdateQuery();
 		else
-			q.prepare("insert into players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+			q = cPlayer::getInsertQuery();
 
-		q.addBindValue( serial() );
+		q->addBindValue( serial() );
 
 		if ( account_ )
 		{
-			q.addBindValue( account_->login() );
+			q->addBindValue( account_->login() );
 		}
 		else
 		{
-			q.addBindValue( QString() );
+			q->addBindValue( QString() );
 		}
 
-		q.addBindValue( additionalFlags_ );
-		q.addBindValue( visualRange_ );
-		q.addBindValue( profile_ );
-		q.addBindValue( fixedLightLevel_ );
-		q.addBindValue( strengthLock_ );
-		q.addBindValue( dexterityLock_ );
-		q.addBindValue( intelligenceLock_ );
-		q.addBindValue( maxControlSlots_ );
+		q->addBindValue( additionalFlags_ );
+		q->addBindValue( visualRange_ );
+		q->addBindValue( profile_ );
+		q->addBindValue( fixedLightLevel_ );
+		q->addBindValue( strengthLock_ );
+		q->addBindValue( dexterityLock_ );
+		q->addBindValue( intelligenceLock_ );
+		q->addBindValue( maxControlSlots_ );
 		if ( isPersistent )
-			q.addBindValue( serial() );
-		q.exec();
+			q->addBindValue( serial() );
+		q->exec();
 	}
 	cBaseChar::save();
 }

@@ -31,6 +31,8 @@
 #include "exceptions.h"
 #include "dbdriver.h"
 #include "console.h"
+#include "player.h"
+#include "items.h"
 
 #include "log.h"
 
@@ -258,4 +260,81 @@ void cPersistentBroker::truncateTable( const QString& table )
 		query += "delete from ";
 	query += table;
 	executeQuery( query );
+}
+
+void cPersistentBroker::prepareQueries() const
+{
+	// prepare all queries needed for one save only one time
+	// this should be done here
+	QSqlQuery * q;
+
+	// Player Queries
+	q = new QSqlQuery();
+	q->prepare("insert into players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	cPlayer::setInsertQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("update players set serial = ?, account = ?, additionalflags = ?, visualrange = ?, profile = ?, fixedlight = ?, strlock = ?, dexlock = ?, intlock = ?, maxcontrolslots = ? where serial = ?");
+	cPlayer::setUpdateQuery(q);
+
+	// Item Queries
+	q = new QSqlQuery();
+	q->prepare("insert into items values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	cItem::setInsertQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("update items set serial = ?, id = ?, color = ?, cont = ?, layer = ?, amount = ?, hp = ?, maxhp = ?, movable = ?, owner = ?, visible = ?, priv = ?, baseid = ? where serial = ?");
+	cItem::setUpdateQuery(q);
+
+	// UObject Queries
+	q = new QSqlQuery();
+	q->prepare("insert into uobject values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	cUObject::setInsertQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("update uobject set name = ?, serial = ?, multis = ?, pos_x = ?, pos_y = ?, pos_z = ?, pos_map = ?, events = ?, havetags = ? where serial = ?");
+	cUObject::setUpdateQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("insert into uobjectmap values ( ?, ? )");
+	cUObject::setUObjectmapQuery(q);
+
+	q = NULL;
+}
+
+void cPersistentBroker::clearQueries() const
+{
+	// delete prepared queries after a save here
+	QSqlQuery * q;
+
+	// Player Queries
+	q = cPlayer::getInsertQuery();
+	cPlayer::setInsertQuery(NULL);
+	delete q;
+
+	q = cPlayer::getUpdateQuery();
+	cPlayer::setUpdateQuery(NULL);
+	delete q;
+
+	// Item Queries
+	q = cPlayer::getInsertQuery();
+	cItem::setInsertQuery(NULL);
+	delete q;
+
+	q = cPlayer::getUpdateQuery();
+	cItem::setUpdateQuery(NULL);
+	delete q;
+
+	// UObject Queries
+	q = cUObject::getInsertQuery();
+	cUObject::setInsertQuery(NULL);
+	delete q;
+
+	q = cUObject::getUpdateQuery();
+	cUObject::setUpdateQuery(NULL);
+	delete q;
+
+	q = cUObject::getUObjectmapQuery();
+	cUObject::setUObjectmapQuery(NULL);
+	delete q;
 }

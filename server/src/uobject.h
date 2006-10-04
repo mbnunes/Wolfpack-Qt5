@@ -225,8 +225,43 @@ public:
 	// Check if any of the scripts assigned to this object can handle the given event,
 	// this returns true even if there is a global handler for the event.
 	virtual bool canHandleEvent( ePythonEvent event ) = 0;
+
+	static void setInsertQuery( QSqlQuery* q ) 
+	{
+		cUObject::insertQuery_ = q;
+	}
+
+	static QSqlQuery* getInsertQuery() 
+	{
+		return cUObject::insertQuery_;
+	}
+
+	static void setUpdateQuery( QSqlQuery* q ) 
+	{
+		cUObject::updateQuery_ = q;
+	}
+
+	static QSqlQuery* getUpdateQuery() 
+	{
+		return cUObject::updateQuery_;
+	}
+
+	static void setUObjectmapQuery( QSqlQuery* q ) 
+	{
+		cUObject::uobjectmapQuery_ = q;
+	}
+
+	static QSqlQuery* getUObjectmapQuery() 
+	{
+		return cUObject::uobjectmapQuery_;
+	}
+
 private:
 	uchar changed_ : 1;
+	static QSqlQuery * insertQuery_;
+	static QSqlQuery * updateQuery_;
+	static QSqlQuery * uobjectmapQuery_;
+
 protected:
 	cCustomTags tags_;
 	uint tooltip_;

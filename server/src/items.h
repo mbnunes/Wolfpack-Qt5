@@ -57,6 +57,8 @@ class cItem : public cUObject
 	friend class cBaseChar;
 private:
 	static unsigned char classid;
+	static QSqlQuery * insertQuery_;
+	static QSqlQuery * updateQuery_;
 	unsigned char changed_ : 1;
 	cItemBaseDef* basedef_;
 
@@ -460,6 +462,26 @@ public:
 	static P_ITEM createFromId( unsigned short id );
 
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+
+	static void setInsertQuery( QSqlQuery* q ) 
+	{
+		cItem::insertQuery_ = q;
+	}
+
+	static QSqlQuery* getInsertQuery() 
+	{
+		return cItem::insertQuery_;
+	}
+
+	static void setUpdateQuery( QSqlQuery* q ) 
+	{
+		cItem::updateQuery_ = q;
+	}
+
+	static QSqlQuery* getUpdateQuery() 
+	{
+		return cItem::updateQuery_;
+	}
 
 protected:
 	// Methods

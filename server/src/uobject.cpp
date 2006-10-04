@@ -109,6 +109,11 @@ cUObject::cUObject( const cUObject& src ) : cDefinable( src ), cPythonScriptable
 	changed_ = true;
 }
 
+// static definitions
+QSqlQuery * cUObject::insertQuery_ = NULL;
+QSqlQuery * cUObject::updateQuery_ = NULL;
+QSqlQuery * cUObject::uobjectmapQuery_ = NULL;
+
 void cUObject::moveTo( const Coord& newpos )
 {
 	if ( pos_ == newpos )
@@ -214,34 +219,33 @@ void cUObject::save()
 	// So we never update the type EVER here..
 	if ( !isPersistent )
 	{
-		QSqlQuery q;
-		q.prepare("insert into uobjectmap values ( ?, ? )");
-		q.addBindValue( serial_ );
-		q.addBindValue( QString( objectID() ) );
-		q.exec();
+		QSqlQuery * q = cUObject::getUObjectmapQuery();
+		q->addBindValue( serial_ );
+		q->addBindValue( QString( objectID() ) );
+		q->exec();
 	}
 
 	if ( changed_ )
 	{
-		QSqlQuery q;
+		QSqlQuery * q;
 		if ( isPersistent )
-			q.prepare("update uobject set name = ?, serial = ?, multis = ?, pos_x = ?, pos_y = ?, pos_z = ?, pos_map = ?, events = ?, havetags = ? where serial = ?");
+			q = cUObject::getUpdateQuery();
 		else
-			q.prepare("insert into uobject values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+			q = cUObject::getInsertQuery();
 
-		q.addBindValue( name_ );
-		q.addBindValue( serial_ );
-		q.addBindValue( multi_ ? multi_->serial() : INVALID_SERIAL );
-		q.addBindValue( pos_.x );
-		q.addBindValue( pos_.y );
-		q.addBindValue( pos_.z );
-		q.addBindValue( pos_.map );
+		q->addBindValue( name_ );
+		q->addBindValue( serial_ );
+		q->addBindValue( multi_ ? multi_->serial() : INVALID_SERIAL );
+		q->addBindValue( pos_.x );
+		q->addBindValue( pos_.y );
+		q->addBindValue( pos_.z );
+		q->addBindValue( pos_.map );
 		QString scriptList = this->scriptList();
-		q.addBindValue( scriptList == QString::null ? QString( "" ) : scriptList );
-		q.addBindValue( havetags_ );
+		q->addBindValue( scriptList == QString::null ? QString( "" ) : scriptList );
+		q->addBindValue( havetags_ );
 		if ( isPersistent )
-			q.addBindValue( serial_ );
-		q.exec();
+			q->addBindValue( serial_ );
+		q->exec();
 	}
 
 	if ( havetags_ )

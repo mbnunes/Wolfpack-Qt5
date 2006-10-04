@@ -69,6 +69,8 @@ public:
 	void rollbackTransaction();
 
 	void truncateTable( const QString& table );
+	void prepareQueries() const;
+	void clearQueries() const;
 };
 
 typedef Singleton<cPersistentBroker> PersistentBroker;

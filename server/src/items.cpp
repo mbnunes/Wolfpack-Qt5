@@ -106,6 +106,10 @@ cItem::cItem( const cItem& src ) : cUObject( src ), totalweight_( 0 ), container
 	pos_.setInternalMap(); // Make absolutly sure that we're not flagged as being in the sector maps yet
 }
 
+// static definitions
+QSqlQuery * cItem::insertQuery_ = NULL;
+QSqlQuery * cItem::updateQuery_ = NULL;
+
 P_CHAR cItem::owner( void ) const
 {
 	return FindCharBySerial( ownserial_ );
@@ -455,33 +459,33 @@ void cItem::save()
 {
 	if ( changed_ )
 	{
-		QSqlQuery q;
+		QSqlQuery * q;
 		if ( isPersistent )
-			q.prepare("update items set serial = ?, id = ?, color = ?, cont = ?, layer = ?, amount = ?, hp = ?, maxhp = ?, movable = ?, owner = ?, visible = ?, priv = ?, baseid = ? where serial = ?");
+			q = cItem::getUpdateQuery();
 		else
-			q.prepare("insert into items values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+			q = cItem::getInsertQuery();
 
-		q.addBindValue( serial() );
-		q.addBindValue( id() );
-		q.addBindValue( color() );
+		q->addBindValue( serial() );
+		q->addBindValue( id() );
+		q->addBindValue( color() );
 		if ( container_ )
-			q.addBindValue( container_->serial() );
+			q->addBindValue( container_->serial() );
 		else
-			q.addBindValue( INVALID_SERIAL );
-		q.addBindValue( layer_ );
-		q.addBindValue( amount_ );
-		q.addBindValue( hp_ );
-		q.addBindValue( maxhp_ );
-		q.addBindValue( movable_ );
-		q.addBindValue( ownserial_ );
-		q.addBindValue( visible_ );
-		q.addBindValue( priv_ );
-		q.addBindValue( QString( baseid() ) );
+			q->addBindValue( INVALID_SERIAL );
+		q->addBindValue( layer_ );
+		q->addBindValue( amount_ );
+		q->addBindValue( hp_ );
+		q->addBindValue( maxhp_ );
+		q->addBindValue( movable_ );
+		q->addBindValue( ownserial_ );
+		q->addBindValue( visible_ );
+		q->addBindValue( priv_ );
+		q->addBindValue( QString( baseid() ) );
 
 		if ( isPersistent )
-			q.addBindValue( serial() );
+			q->addBindValue( serial() );
 
-		q.exec();
+		q->exec();
 	}
 	cUObject::save();
 }

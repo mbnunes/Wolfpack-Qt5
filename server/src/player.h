@@ -238,9 +238,31 @@ public:
 
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
+	static void setInsertQuery( QSqlQuery* q ) 
+	{
+		cPlayer::insertQuery_ = q;
+	}
+
+	static QSqlQuery* getInsertQuery() 
+	{
+		return cPlayer::insertQuery_;
+	}
+
+	static void setUpdateQuery( QSqlQuery* q ) 
+	{
+		cPlayer::updateQuery_ = q;
+	}
+
+	static QSqlQuery* getUpdateQuery() 
+	{
+		return cPlayer::updateQuery_;
+	}
+
 private:
 	bool changed_;
 	static unsigned char classid;
+	static QSqlQuery * insertQuery_;
+	static QSqlQuery * updateQuery_;
 
 protected:
 	// interface implementation

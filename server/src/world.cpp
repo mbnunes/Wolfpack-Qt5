@@ -1062,6 +1062,7 @@ void cWorld::save()
 			p->purgePendingObjects();
 			PersistentBroker::instance()->truncateTable("spawnregions");
 
+			PersistentBroker::instance()->prepareQueries();
 			query.prepare( "INSERT INTO spawnregions VALUES(?,?)" );
 
 			cItemIterator iItems;
@@ -1107,6 +1108,7 @@ void cWorld::save()
 			}
 
 			PersistentBroker::instance()->commitTransaction();
+			PersistentBroker::instance()->clearQueries();
 			PersistentBroker::instance()->disconnect();
 		}
 
