@@ -135,6 +135,9 @@ cBaseChar& cBaseChar::operator=( const cBaseChar& /*right*/ )
 {
 	return *this;
 }
+// static definitions
+QSqlQuery * cBaseChar::insertQuery_ = NULL;
+QSqlQuery * cBaseChar::updateQuery_ = NULL;
 
 void cBaseChar::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
@@ -416,67 +419,67 @@ void cBaseChar::save( cBufferedWriter& writer )
 
 void cBaseChar::save()
 {
+	QSqlQuery * q;
+
 	if ( changed_ )
 	{
-		QSqlQuery q;
 		if ( isPersistent )
-			q.prepare("update characters set serial = ?, name = ?, title = ?, creationdate = ?, body = ?, orgbody = ?, skin = ?, orgskin = ?, saycolor = ?, emotecolor = ?, strength = ?, strengthmod = ?, dexterity = ?, dexteritymod = ?, intelligence = ?, intelligencemod = ?, maxhitpoints = ?, hitpoints = ?, maxstamina = ?, stamina = ?, maxmana = ?, mana = ?, karma = ?, fame = ?, kills = ?, deaths = ?, hunger = ?, poison = ?, murderertime = ?, criminaltime = ?, gender = ?, propertyflags = ?, murderer = ?, guarding = ?, hitpointsbonus = ?, staminabonus = ?, manabonus = ?,  strcap = ?, dexcap = ?, intcap = ?, statcap = ?, baseid = ?, direction = ? where serial = ?");
+			q = cBaseChar::getUpdateQuery();
 		else
-			q.prepare("insert into characters values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+			q = cBaseChar::getInsertQuery();
 
-		q.addBindValue( serial() );
-		q.addBindValue( orgName_ );
-		q.addBindValue( title_ );
-		q.addBindValue( creationDate_.toString( Qt::ISODate ) );
-		q.addBindValue( body_ );
-		q.addBindValue( orgBody_ );
-		q.addBindValue( skin_ );
-		q.addBindValue( orgSkin_ );
-		q.addBindValue( saycolor_ );
-		q.addBindValue( emoteColor_ );
-		q.addBindValue( strength_ );
-		q.addBindValue( strengthMod_ );
-		q.addBindValue( dexterity_ );
-		q.addBindValue( dexterityMod_ );
-		q.addBindValue( intelligence_ );
-		q.addBindValue( intelligenceMod_ );
-		q.addBindValue( maxHitpoints_ );
-		q.addBindValue( hitpoints_ );
-		q.addBindValue( maxStamina_ );
-		q.addBindValue( stamina_ );
-		q.addBindValue( maxMana_ );
-		q.addBindValue( mana_ );
-		q.addBindValue( karma_ );
-		q.addBindValue( fame_ );
-		q.addBindValue( kills_ );
-		q.addBindValue( deaths_ );
-		q.addBindValue( hunger_ );
-		q.addBindValue( poison_ );
-		q.addBindValue( murdererTime_ ? murdererTime_ - Server::instance()->time() : 0 );
-		q.addBindValue( criminalTime_ ? criminalTime_ - Server::instance()->time() : 0 );
-		q.addBindValue( gender_ );
-		q.addBindValue( propertyFlags_ );
-		q.addBindValue( murdererSerial_ );
-		q.addBindValue( guarding_ ? guarding_->serial() : INVALID_SERIAL );
-		q.addBindValue( hitpointsBonus_ );
-		q.addBindValue( staminaBonus_ );
-		q.addBindValue( manaBonus_ );
-		q.addBindValue( strengthCap_ );
-		q.addBindValue( dexterityCap_ );
-		q.addBindValue( intelligenceCap_ );
-		q.addBindValue( statCap_ );
-		q.addBindValue( baseid() );
-		q.addBindValue( direction_ );
+		q->addBindValue( serial() );
+		q->addBindValue( orgName_ );
+		q->addBindValue( title_ );
+		q->addBindValue( creationDate_.toString( Qt::ISODate ) );
+		q->addBindValue( body_ );
+		q->addBindValue( orgBody_ );
+		q->addBindValue( skin_ );
+		q->addBindValue( orgSkin_ );
+		q->addBindValue( saycolor_ );
+		q->addBindValue( emoteColor_ );
+		q->addBindValue( strength_ );
+		q->addBindValue( strengthMod_ );
+		q->addBindValue( dexterity_ );
+		q->addBindValue( dexterityMod_ );
+		q->addBindValue( intelligence_ );
+		q->addBindValue( intelligenceMod_ );
+		q->addBindValue( maxHitpoints_ );
+		q->addBindValue( hitpoints_ );
+		q->addBindValue( maxStamina_ );
+		q->addBindValue( stamina_ );
+		q->addBindValue( maxMana_ );
+		q->addBindValue( mana_ );
+		q->addBindValue( karma_ );
+		q->addBindValue( fame_ );
+		q->addBindValue( kills_ );
+		q->addBindValue( deaths_ );
+		q->addBindValue( hunger_ );
+		q->addBindValue( poison_ );
+		q->addBindValue( murdererTime_ ? murdererTime_ - Server::instance()->time() : 0 );
+		q->addBindValue( criminalTime_ ? criminalTime_ - Server::instance()->time() : 0 );
+		q->addBindValue( gender_ );
+		q->addBindValue( propertyFlags_ );
+		q->addBindValue( murdererSerial_ );
+		q->addBindValue( guarding_ ? guarding_->serial() : INVALID_SERIAL );
+		q->addBindValue( hitpointsBonus_ );
+		q->addBindValue( staminaBonus_ );
+		q->addBindValue( manaBonus_ );
+		q->addBindValue( strengthCap_ );
+		q->addBindValue( dexterityCap_ );
+		q->addBindValue( intelligenceCap_ );
+		q->addBindValue( statCap_ );
+		q->addBindValue( baseid() );
+		q->addBindValue( direction_ );
 		if ( isPersistent )
-			q.addBindValue( serial() );
-		q.exec();
+			q->addBindValue( serial() );
+		q->exec();
 	}
 
-	QSqlQuery skillsPreparedQuery;
 	if ( isPersistent )
-		skillsPreparedQuery.prepare( "REPLACE INTO skills VALUES( ?, ?, ?, ?, ?)" );
+		q = cSkills::getUpdateQuery();
 	else
-		skillsPreparedQuery.prepare( "INSERT INTO skills VALUES( ?, ?, ?, ?, ?)" );
+		q = cSkills::getInsertQuery();
 
 	QVector<stSkillValue>::iterator it;
 	int i = 0;
@@ -484,12 +487,12 @@ void cBaseChar::save()
 	{
 		if ( ( *it ).changed )
 		{
-			skillsPreparedQuery.addBindValue( serial_ );
-			skillsPreparedQuery.addBindValue( i );
-			skillsPreparedQuery.addBindValue( (*it).value );
-			skillsPreparedQuery.addBindValue( (*it).lock );
-			skillsPreparedQuery.addBindValue( (*it).cap );
-			skillsPreparedQuery.exec();
+			q->addBindValue( serial_ );
+			q->addBindValue( i );
+			q->addBindValue( (*it).value );
+			q->addBindValue( (*it).lock );
+			q->addBindValue( (*it).cap );
+			q->exec();
 			( *it ).changed = false;
 		}
 	}

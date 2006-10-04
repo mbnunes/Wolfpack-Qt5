@@ -675,8 +675,26 @@ public:
 	{
 		return ( CharBaseDefs::instance()->getBodyInfo( body() ).flags & 0x04 ) != 0;
 	}
+	static void setInsertQuery( QSqlQuery* q ) 
+	{
+		cBaseChar::insertQuery_ = q;
+	}
+	static QSqlQuery* getInsertQuery() 
+	{
+		return cBaseChar::insertQuery_;
+	}
+	static void setUpdateQuery( QSqlQuery* q ) 
+	{
+		cBaseChar::updateQuery_ = q;
+	}
+	static QSqlQuery* getUpdateQuery() 
+	{
+		return cBaseChar::updateQuery_;
+	}
 private:
 	bool changed_;
+	static QSqlQuery * insertQuery_;
+	static QSqlQuery * updateQuery_;
 
 protected:
 	unsigned char statCap_;

@@ -1812,14 +1812,17 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 	/*
 		\property item.layer The layer of the object, used with equipable objects.
 	*/
-	else if (name == "layer") {
-		if (container_ && container_->isChar()) {
+	else if (name == "layer")
+	{
+		if (container_ && container_->isChar()) 
+		{
 			PROPERTY_ERROR(-3, "You may not change the layer of items that are currently equipped.");
-		} else {
+		} 
+		else 
+		{
 			SET_INT_PROPERTY("layer", layer_);
 		}
 	}
-
 		/*
 		\property item.health The current health or durability of the object.
 		*/

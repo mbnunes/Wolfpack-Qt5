@@ -46,6 +46,10 @@
 // System Includes
 #include <math.h>
 
+// static definitions
+QSqlQuery * cSkills::insertQuery_ = NULL;
+QSqlQuery * cSkills::updateQuery_ = NULL;
+
 void cSkills::SkillUse( cUOSocket* socket, quint16 id ) // Skill is clicked on the skill list
 {
 	P_PLAYER pChar = socket->player();

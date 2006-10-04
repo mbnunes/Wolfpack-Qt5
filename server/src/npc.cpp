@@ -104,6 +104,10 @@ cNPC& cNPC::operator=( const cNPC& right )
 	return *this;
 }
 
+// static definitions
+QSqlQuery * cNPC::insertQuery_ = NULL;
+QSqlQuery * cNPC::updateQuery_ = NULL;
+
 static FactoryRegistration<cNPC> registration( "cNPC" );
 
 unsigned char cNPC::classid;
@@ -229,27 +233,27 @@ void cNPC::save()
 {
 	if ( changed_ )
 	{
-		QSqlQuery q;
+		QSqlQuery * q;
 		if ( isPersistent )
-			q.prepare("update npcs set serial = ?, summontime = ?, additionalflags = ?, owner = ?, stablemaster = ?, ai = ?, wandertype = ?, wanderx1 = ?, wanderx2 = ?, wandery1 = ?, wandery2 = ?, wanderradius = ? where serial = ?");
+			q = cNPC::getUpdateQuery();
 		else
-			q.prepare("insert into npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+			q = cNPC::getInsertQuery();
 
-		q.addBindValue( serial() );
-		q.addBindValue( summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
-		q.addBindValue( additionalFlags_ );
-		q.addBindValue( owner_ ? owner_->serial() : INVALID_SERIAL );
-		q.addBindValue( stablemasterSerial_ );
-		q.addBindValue( aiid_ );
-		q.addBindValue( ( quint8 ) wanderType() );
-		q.addBindValue( wanderX1() );
-		q.addBindValue( wanderX2() );
-		q.addBindValue( wanderY1() );
-		q.addBindValue( wanderY2() );
-		q.addBindValue( wanderRadius() );
+		q->addBindValue( serial() );
+		q->addBindValue( summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
+		q->addBindValue( additionalFlags_ );
+		q->addBindValue( owner_ ? owner_->serial() : INVALID_SERIAL );
+		q->addBindValue( stablemasterSerial_ );
+		q->addBindValue( aiid_ );
+		q->addBindValue( ( quint8 ) wanderType() );
+		q->addBindValue( wanderX1() );
+		q->addBindValue( wanderX2() );
+		q->addBindValue( wanderY1() );
+		q->addBindValue( wanderY2() );
+		q->addBindValue( wanderRadius() );
 		if ( isPersistent )
-			q.addBindValue( serial() );
-		q.exec();
+			q->addBindValue( serial() );
+		q->exec();
 	}
 
 	cBaseChar::save();

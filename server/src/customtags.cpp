@@ -787,6 +787,10 @@ cCustomTags::~cCustomTags()
 		delete tags_;
 }
 
+// static definitions
+QSqlQuery * cCustomTags::insertQuery_ = NULL;
+QSqlQuery * cCustomTags::deleteQuery_ = NULL;
+
 /*!
 	Provides assign semantics for custom tags.
 */
@@ -818,10 +822,10 @@ void cCustomTags::save( SERIAL key )
 {
 	if ( !changed )
 		return;
-	QSqlQuery query;
-	query.prepare( "DELETE FROM tags WHERE serial = ?" );
-	query.addBindValue( key );
-	query.exec();
+	QSqlQuery * q;
+	q = cCustomTags::getDeleteQuery();
+	q->addBindValue( key );
+	q->exec();
 
 	if ( !tags_ )
 	{
@@ -831,7 +835,7 @@ void cCustomTags::save( SERIAL key )
 
 	QMap<QString, cVariant>::const_iterator it( tags_->begin() );
 
-	query.prepare( "insert into tags values( ?, ?, ?, ?)" );
+	q = cCustomTags::getInsertQuery();
 	for ( ; it != tags_->end(); ++it )
 	{
 		// Erase invalid tags.
@@ -841,11 +845,11 @@ void cCustomTags::save( SERIAL key )
 		}
 
 		// Save the Variant type and value
-		query.addBindValue( key );
-		query.addBindValue( it.key() );
-		query.addBindValue( it.value().typeName() );
-		query.addBindValue( it.value().toString() );
-		query.exec();
+		q->addBindValue( key );
+		q->addBindValue( it.key() );
+		q->addBindValue( it.value().typeName() );
+		q->addBindValue( it.value().toString() );
+		q->exec();
 	}
 
 	changed = false;

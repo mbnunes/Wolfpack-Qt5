@@ -45,6 +45,15 @@ class cCorpse : public cItem
 private:
 	bool changed_;
 	static unsigned char classid;
+	static QSqlQuery * insertQuery_;
+	static QSqlQuery * updateQuery_;
+	static QSqlQuery * insertEquipmentQuery_;
+	static QSqlQuery * deleteEquipmentQuery_;
+
+	void flagChanged()
+	{
+		changed_ = true;
+	} // easier to debug, compiler should make it inline;
 
 protected:
 	quint16 bodyId_; // Body id of the corpse
@@ -118,32 +127,66 @@ public:
 	virtual stError* setProperty( const QString& name, const cVariant& value );
 	PyObject* getProperty( const QString& name, uint hash = 0 );
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
+
+	static void setInsertQuery( QSqlQuery* q ) 
+	{
+		cCorpse::insertQuery_ = q;
+	}
+	static QSqlQuery* getInsertQuery() 
+	{
+		return cCorpse::insertQuery_;
+	}
+	static void setUpdateQuery( QSqlQuery* q ) 
+	{
+		cCorpse::updateQuery_ = q;
+	}
+	static QSqlQuery* getUpdateQuery() 
+	{
+		return cCorpse::updateQuery_;
+	}
+	static void setInsertEquipmentQuery( QSqlQuery* q ) 
+	{
+		cCorpse::insertEquipmentQuery_ = q;
+	}
+	static QSqlQuery* getInsertEquipmentQuery() 
+	{
+		return cCorpse::insertEquipmentQuery_;
+	}
+	static void setDeleteEquipmentQuery( QSqlQuery* q ) 
+	{
+		cCorpse::deleteEquipmentQuery_ = q;
+	}
+	static QSqlQuery* getDeleteEquipmentQuery() 
+	{
+		return cCorpse::deleteEquipmentQuery_;
+	}
+
 };
 
 // Inline members
 inline void cCorpse::setBodyId( quint16 data )
 {
-	bodyId_ = data; changed_ = true;
+	bodyId_ = data; flagChanged();
 }
 
 inline void cCorpse::setMurderer( SERIAL data )
 {
-	murderer_ = data; changed_ = true;
+	murderer_ = data; flagChanged();
 }
 
 inline void cCorpse::setMurderTime( uint data )
 {
-	murdertime_ = data; changed_ = true;
+	murdertime_ = data; flagChanged();
 }
 
 inline void cCorpse::setDirection( unsigned char data )
 {
-	direction_ = data;
+	direction_ = data; flagChanged();
 }
 
 inline void cCorpse::setCharBaseid( const QByteArray& baseid )
 {
-	charbaseid_ = baseid;
+	charbaseid_ = baseid; flagChanged();
 }
 
 inline quint16 cCorpse::bodyId() const

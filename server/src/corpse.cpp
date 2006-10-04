@@ -63,6 +63,12 @@ cCorpse::cCorpse( bool init )
 	setBaseid( "2006" );
 }
 
+// static definitions
+QSqlQuery * cCorpse::insertQuery_ = NULL;
+QSqlQuery * cCorpse::updateQuery_ = NULL;
+QSqlQuery * cCorpse::insertEquipmentQuery_ = NULL;
+QSqlQuery * cCorpse::deleteEquipmentQuery_ = NULL;
+
 void cCorpse::buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cItem::buildSqlString( objectid, fields, tables, conditions );
@@ -150,55 +156,56 @@ void cCorpse::load( QSqlQuery& result, ushort& offset )
 	murdertime_ = result.value( offset++ ).toInt();
 
 	// Get the corpse equipment
-	QSqlQuery query( "SELECT serial,layer,item FROM corpses_equipment WHERE serial = '" + QString::number( serial() ) + "'" );
+	QSqlQuery query( QString( "SELECT serial,layer,item FROM corpses_equipment WHERE serial = %1" ).arg( serial() ) );
 
 	if ( !query.isActive() )
 		throw wpException( query.lastError().text() );
 
 	// Fetch row-by-row
 	while ( query.next() )
-		equipment_.insert( query.value( 0 ).toInt(), query.value( 1 ).toInt() );
+		equipment_.insert( query.value( 1 ).toInt(), query.value( 2 ).toInt() );
 }
 
 void cCorpse::save()
 {
+	QSqlQuery * q;
+
 	if ( changed_ )
 	{
-		QSqlQuery q;
 		if ( isPersistent )
-			q.prepare("update corpses set serial = ?, bodyid = ?, hairstyle = ?, haircolor = ?, beardstyle = ?, beardcolor = ?, direction = ?, charbaseid = ?, murderer = ?, murdertime = ? where serial = ?");
+			q = cCorpse::getUpdateQuery();
 		else
-			q.prepare("insert into corpses values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
-
-		q.addBindValue( serial() );
-		q.addBindValue( bodyId_ );
-		q.addBindValue( 0 /*hairStyle_*/ );
-		q.addBindValue( 0 /*hairColor_*/ );
-		q.addBindValue( 0 /*beardStyle_*/ );
-		q.addBindValue( 0 /*beardColor_*/ );
-		q.addBindValue( direction_ );
-		q.addBindValue( QString( charbaseid_ ) );
-		q.addBindValue( murderer_ );
-		q.addBindValue( murdertime_ );
+			q = cCorpse::getInsertQuery();
+		q->addBindValue( serial() );
+		q->addBindValue( bodyId_ );
+		q->addBindValue( 0 /*hairStyle_*/ );
+		q->addBindValue( 0 /*hairColor_*/ );
+		q->addBindValue( 0 /*beardStyle_*/ );
+		q->addBindValue( 0 /*beardColor_*/ );
+		q->addBindValue( direction_ );
+		q->addBindValue( QString( charbaseid_ ) );
+		q->addBindValue( murderer_ );
+		q->addBindValue( murdertime_ );
 		if ( isPersistent )
-			q.addBindValue( serial() );
-		q.exec();
+			q->addBindValue( serial() );
+		q->exec();
 	}
 
 	// Equipment can change as well
 	if ( isPersistent )
 	{
-		PersistentBroker::instance()->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial() ) );
+		q = cCorpse::getDeleteEquipmentQuery();
+		q->addBindValue( serial() );
+		q->exec();
 	}
 
-	QSqlQuery equipmentQuery;
-	equipmentQuery.prepare("INSERT INTO corpses_equipment VALUES ( ?, ?, ? )");
+	q = cCorpse::getInsertEquipmentQuery();
 	for ( QMap<quint8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 	{
-		equipmentQuery.addBindValue( serial() );
-		equipmentQuery.addBindValue( it.key() ); 
-		equipmentQuery.addBindValue( it.value() );
-		equipmentQuery.exec();
+		q->addBindValue( serial() );
+		q->addBindValue( it.key() ); 
+		q->addBindValue( it.value() );
+		q->exec();
 	}
 
 	cItem::save();
@@ -316,6 +323,8 @@ void cCorpse::addEquipment( quint8 layer, SERIAL serial )
 
 stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 {
+	changed( TOOLTIP );
+	flagChanged();
 	/*
 		\property item.bodyid The body if of the dead creature.
 		This property only exists for corpses.
@@ -337,6 +346,7 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 		{
 			murderer_ = INVALID_SERIAL;
 		}
+		return 0;
 	}
 	/*
 		\property item.murdertime The time when the murder was comitted in seconds

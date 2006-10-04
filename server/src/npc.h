@@ -219,9 +219,28 @@ public:
 
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
+	static void setInsertQuery( QSqlQuery* q ) 
+	{
+		cNPC::insertQuery_ = q;
+	}
+	static QSqlQuery* getInsertQuery() 
+	{
+		return cNPC::insertQuery_;
+	}
+	static void setUpdateQuery( QSqlQuery* q ) 
+	{
+		cNPC::updateQuery_ = q;
+	}
+	static QSqlQuery* getUpdateQuery() 
+	{
+		return cNPC::updateQuery_;
+	}
+
 private:
 	bool changed_;
 	static unsigned char classid;
+	static QSqlQuery * insertQuery_;
+	static QSqlQuery * updateQuery_;
 
 protected:
 	// interface implementation

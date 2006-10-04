@@ -111,7 +111,6 @@ public:
 	static Type nameToType( const char* name );
 
 	bool isString();
-
 private:
 	Type typ;
 
@@ -176,7 +175,26 @@ public:
 	cCustomTags& operator=( const cCustomTags& );
 	bool operator==( const cCustomTags& ) const;
 	bool operator!=( const cCustomTags& ) const;
+
+	static void setInsertQuery( QSqlQuery* q ) 
+	{
+		cCustomTags::insertQuery_ = q;
+	}
+	static QSqlQuery* getInsertQuery() 
+	{
+		return cCustomTags::insertQuery_;
+	}
+	static void setDeleteQuery( QSqlQuery* q ) 
+	{
+		cCustomTags::deleteQuery_ = q;
+	}
+	static QSqlQuery* getDeleteQuery() 
+	{
+		return cCustomTags::deleteQuery_;
+	}
 private:
+	static QSqlQuery * deleteQuery_;
+	static QSqlQuery * insertQuery_;
 	QMap<QString, cVariant>* tags_;
 	bool changed : 1;
 };

@@ -52,6 +52,8 @@ class cSkills
 private:
 	QStringList skillRanks;
 	QList<stSkill> skills;
+	static QSqlQuery * insertQuery_;
+	static QSqlQuery * updateQuery_;
 public:
 	// Skill management methods
 	void load();
@@ -72,6 +74,23 @@ public:
 	void Track( P_CHAR pc_i );
 	void SkillUse( cUOSocket*, quint16 );
 	void Snooping( P_PLAYER, P_ITEM );
+
+	static void setInsertQuery( QSqlQuery* q ) 
+	{
+		cSkills::insertQuery_ = q;
+	}
+	static QSqlQuery* getInsertQuery() 
+	{
+		return cSkills::insertQuery_;
+	}
+	static void setUpdateQuery( QSqlQuery* q ) 
+	{
+		cSkills::updateQuery_ = q;
+	}
+	static QSqlQuery* getUpdateQuery() 
+	{
+		return cSkills::updateQuery_;
+	}
 };
 
 typedef Singleton<cSkills> Skills;

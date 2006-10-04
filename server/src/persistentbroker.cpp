@@ -32,7 +32,9 @@
 #include "dbdriver.h"
 #include "console.h"
 #include "player.h"
-#include "items.h"
+#include "npc.h"
+#include "corpse.h"
+#include "skills.h"
 
 #include "log.h"
 
@@ -299,6 +301,59 @@ void cPersistentBroker::prepareQueries() const
 	q->prepare("insert into uobjectmap values ( ?, ? )");
 	cUObject::setUObjectmapQuery(q);
 
+	// CustomTag Queries
+	q = new QSqlQuery();
+	q->prepare("insert into tags values( ?, ?, ?, ?)");
+	cCustomTags::setInsertQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("DELETE FROM tags WHERE serial = ?");
+	cCustomTags::setDeleteQuery(q);
+
+	// Corpse Queries
+	q = new QSqlQuery();
+	q->prepare("insert into corpses values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	cCorpse::setInsertQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("update corpses set serial = ?, bodyid = ?, hairstyle = ?, haircolor = ?, beardstyle = ?, beardcolor = ?, direction = ?, charbaseid = ?, murderer = ?, murdertime = ? where serial = ?");
+	cCorpse::setUpdateQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("INSERT INTO corpses_equipment VALUES ( ?, ?, ? )");
+	cCorpse::setInsertEquipmentQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("DELETE FROM corpses_equipment WHERE serial = ?");
+	cCorpse::setDeleteEquipmentQuery(q);
+
+	// NPC Queries
+	q = new QSqlQuery();
+	q->prepare("insert into npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	cNPC::setInsertQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("update npcs set serial = ?, summontime = ?, additionalflags = ?, owner = ?, stablemaster = ?, ai = ?, wandertype = ?, wanderx1 = ?, wanderx2 = ?, wandery1 = ?, wandery2 = ?, wanderradius = ? where serial = ?");
+	cNPC::setUpdateQuery(q);
+
+	// BaseChar Queries
+	q = new QSqlQuery();
+	q->prepare("insert into characters values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+	cBaseChar::setInsertQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("update characters set serial = ?, name = ?, title = ?, creationdate = ?, body = ?, orgbody = ?, skin = ?, orgskin = ?, saycolor = ?, emotecolor = ?, strength = ?, strengthmod = ?, dexterity = ?, dexteritymod = ?, intelligence = ?, intelligencemod = ?, maxhitpoints = ?, hitpoints = ?, maxstamina = ?, stamina = ?, maxmana = ?, mana = ?, karma = ?, fame = ?, kills = ?, deaths = ?, hunger = ?, poison = ?, murderertime = ?, criminaltime = ?, gender = ?, propertyflags = ?, murderer = ?, guarding = ?, hitpointsbonus = ?, staminabonus = ?, manabonus = ?,  strcap = ?, dexcap = ?, intcap = ?, statcap = ?, baseid = ?, direction = ? where serial = ?");
+	cBaseChar::setUpdateQuery(q);
+
+	// Skills Queries
+	q = new QSqlQuery();
+	q->prepare("INSERT INTO skills VALUES( ?, ?, ?, ?, ?)");
+	cSkills::setInsertQuery(q);
+
+	q = new QSqlQuery();
+	q->prepare("REPLACE INTO skills VALUES( ?, ?, ?, ?, ?)");
+	cSkills::setUpdateQuery(q);
+
 	q = NULL;
 }
 
@@ -317,11 +372,11 @@ void cPersistentBroker::clearQueries() const
 	delete q;
 
 	// Item Queries
-	q = cPlayer::getInsertQuery();
+	q = cItem::getInsertQuery();
 	cItem::setInsertQuery(NULL);
 	delete q;
 
-	q = cPlayer::getUpdateQuery();
+	q = cItem::getUpdateQuery();
 	cItem::setUpdateQuery(NULL);
 	delete q;
 
@@ -337,4 +392,58 @@ void cPersistentBroker::clearQueries() const
 	q = cUObject::getUObjectmapQuery();
 	cUObject::setUObjectmapQuery(NULL);
 	delete q;
+
+	// CustomTag Queries
+	q = cCustomTags::getInsertQuery();
+	cCustomTags::setInsertQuery(NULL);
+	delete q;
+
+	q = cCustomTags::getDeleteQuery();
+	cCustomTags::setDeleteQuery(NULL);
+	delete q;
+
+	// Corpse Queries
+	q = cCorpse::getInsertQuery();
+	cCorpse::setInsertQuery(NULL);
+	delete q;
+
+	q = cCorpse::getUpdateQuery();
+	cCorpse::setUpdateQuery(NULL);
+	delete q;
+
+	q = cCorpse::getInsertEquipmentQuery();
+	cCorpse::setInsertEquipmentQuery(NULL);
+	delete q;
+
+	q = cCorpse::getDeleteEquipmentQuery();
+	cCorpse::setDeleteEquipmentQuery(NULL);
+	delete q;
+
+	// NPC Queries
+	q = cNPC::getInsertQuery();
+	cNPC::setInsertQuery(NULL);
+	delete q;
+
+	q = cNPC::getUpdateQuery();
+	cNPC::setUpdateQuery(NULL);
+	delete q;
+
+	// BaseChar Queries
+	q = cBaseChar::getInsertQuery();
+	cBaseChar::setInsertQuery(NULL);
+	delete q;
+
+	q = cBaseChar::getUpdateQuery();
+	cBaseChar::setUpdateQuery(NULL);
+	delete q;
+
+	// Skills Queries
+	q = cSkills::getInsertQuery();
+	cSkills::setInsertQuery(NULL);
+	delete q;
+
+	q = cSkills::getUpdateQuery();
+	cSkills::setUpdateQuery(NULL);
+	delete q;
+
 }
