@@ -147,7 +147,7 @@ public:
 
 		// Calculate the surface of the circle
 		// 2 * pi * r
-		const float pi = 3.1415926535897932384626433832795;
+		const float pi = 3.1415926535897932384626433832795f;
 		points_ = ( int ) ( pi * ( float ) radius * ( float ) radius );
 	}
 
