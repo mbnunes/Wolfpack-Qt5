@@ -19,9 +19,10 @@ from quests.functions import *
 #######################################################################################
 
 def openchoicequestmenu(char, player):
-	socket = player.socket
+	if player.socket:
+		player.socket.closegump( TYPE_QUEST_CHOICE )
 
-	dialog = cGump( nomove=1, x=100, y=100 )
+	dialog = cGump( x=100, y=100, type=TYPE_QUEST_CHOICE )
 
 	dialog.addResizeGump(7, 6, 9400, 253, 122)
 	dialog.addText(81, 17, "Quest System", 1149)
@@ -33,7 +34,7 @@ def openchoicequestmenu(char, player):
 	dialog.setArgs( [char] )
 	dialog.setCallback( questchoiceresponse )
 
-	dialog.send( player.socket )
+	dialog.send( player )
 
 #######################################################################################
 # Response for Quest List from a NPC
@@ -107,8 +108,10 @@ def npcquestreport(npc, player):
 #######################################################################################
 
 def npcquestmenu(npc, player, questamount):
+	if player.socket:
+		player.socket.closegump( TYPE_QUEST_GUMP )
 
-	dialog = cGump( nomove=1, x=100, y=30 )
+	dialog = cGump( x=100, y=30, type=TYPE_QUEST_GUMP )
 
 	dialog.addResizeGump(37, 14, 9260, 445, 422)
 	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
@@ -158,7 +161,7 @@ def npcquestmenu(npc, player, questamount):
 	dialog.setArgs( [quests, npc] )
 	dialog.setCallback( questlistresponse )
 
-	dialog.send( player.socket )
+	dialog.send( player )
 
 #######################################################################################
 # Response for Quest List from a NPC
@@ -179,9 +182,10 @@ def questlistresponse( char, args, target ):
 #######################################################################################
 
 def showmenuquest(player, id, npc):
-	socket = player.socket
+	if player.socket:
+		player.socket.closegump( TYPE_QUEST_GUMP )
 
-	dialog = cGump( nomove=1, x=100, y=30 )
+	dialog = cGump( x=100, y=30, type=TYPE_QUEST_GUMP )
 
 	dialog.addResizeGump(37, 14, 9260, 445, 422)
 	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
@@ -214,7 +218,7 @@ def showmenuquest(player, id, npc):
 	dialog.setArgs( [npc, id] )
 	dialog.setCallback( questshowresponse )
 
-	dialog.send( player.socket )
+	dialog.send( player )
 
 #######################################################################################
 # Response for Quest Description from a NPC
@@ -241,9 +245,10 @@ def questshowresponse( char, args, target ):
 #######################################################################################
 
 def showquestdetailsnpc(player, id, npc, page):
-	socket = player.socket
+	if player.socket:
+		player.socket.closegump( TYPE_QUEST_GUMP )
 
-	dialog = cGump( nomove=1, x=100, y=30 )
+	dialog = cGump( x=100, y=30,type=TYPE_QUEST_GUMP )
 
 	dialog.addResizeGump(37, 14, 9260, 445, 422)
 	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
@@ -325,7 +330,7 @@ def showquestdetailsnpc(player, id, npc, page):
 	dialog.setArgs( [id, npc, page] )
 	dialog.setCallback( questdetailsresponsenpc )
 
-	dialog.send( player.socket )
+	dialog.send( player )
 
 #######################################################################################
 # Response for Menu with Quest Details from NPC
@@ -357,9 +362,9 @@ def questdetailsresponsenpc( char, args, target ):
 #######################################################################################
 
 def npcreportlist(npc, player):
-	socket = player.socket
-
-	dialog = cGump( nomove=1, x=100, y=30 )
+	if player.socket:
+		player.socket.closegump( TYPE_QUEST_GUMP )
+	dialog = cGump( x=100, y=30, type=TYPE_QUEST_GUMP )
 
 	dialog.addResizeGump(37, 14, 9260, 445, 422)
 	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
@@ -407,7 +412,7 @@ def npcreportlist(npc, player):
 	dialog.setArgs( [npc] )
 	dialog.setCallback( npcreportresponse )
 
-	dialog.send( player.socket )
+	dialog.send( player )
 
 #######################################################################################
 # Response for Quest List from a NPC

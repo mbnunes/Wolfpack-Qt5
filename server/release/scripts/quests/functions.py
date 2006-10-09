@@ -13,7 +13,6 @@
 
 from wolfpack import tr
 import wolfpack
-from wolfpack.gumps import cGump
 from wolfpack.consts import *
 from quests.utils import *
 

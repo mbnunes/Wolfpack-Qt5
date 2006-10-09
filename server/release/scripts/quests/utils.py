@@ -9,10 +9,12 @@
 
 from wolfpack import tr
 import wolfpack
-from wolfpack.gumps import cGump
 from wolfpack.consts import *
 
 from quests import MAXQUESTSPERTAG
+
+TYPE_QUEST_GUMP = 0x8765ca23
+TYPE_QUEST_CHOICE = 0x8765ca24
 
 #######################################################################################################
 #######################################################################################################

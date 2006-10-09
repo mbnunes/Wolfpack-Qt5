@@ -19,9 +19,10 @@ from quests.functions import *
 #######################################################################################
 
 def openquestplayer(player):
-	socket = player.socket
+	if player.socket:
+		player.socket.closegump( TYPE_QUEST_GUMP )
 
-	dialog = cGump( nomove=1, x=100, y=30 )
+	dialog = cGump( x=100, y=30, type=TYPE_QUEST_GUMP )
 
 	dialog.addResizeGump(37, 14, 9260, 445, 422)
 	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
@@ -88,9 +89,10 @@ def questplayerresponse( player, args, target ):
 #######################################################################################
 
 def showquestdescription(player, id, slot):
-	socket = player.socket
+	if player.socket:
+		player.socket.closegump( TYPE_QUEST_GUMP )
 
-	dialog = cGump( nomove=1, x=100, y=30 )
+	dialog = cGump( x=100, y=30, type=TYPE_QUEST_GUMP )
 
 	dialog.addResizeGump(37, 14, 9260, 445, 422)
 	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
@@ -122,7 +124,7 @@ def showquestdescription(player, id, slot):
 	dialog.setArgs( [id, slot] )
 	dialog.setCallback( questdescriptionresponse )
 
-	dialog.send( player.socket )
+	dialog.send( player )
 
 #######################################################################################
 # Response for Menu with Description
@@ -150,9 +152,10 @@ def questdescriptionresponse( char, args, target ):
 #######################################################################################
 
 def showquestdetails(player, id, slot, page):
-	socket = player.socket
+	if player.socket:
+		player.socket.closegump( TYPE_QUEST_GUMP )
 
-	dialog = cGump( nomove=1, x=100, y=30 )
+	dialog = cGump( x=100, y=30, type=TYPE_QUEST_GUMP )
 
 	dialog.addResizeGump(37, 14, 9260, 445, 422)
 	dialog.addTiledGump(81, 35, 358, 386, 5124, 0)
@@ -246,7 +249,7 @@ def showquestdetails(player, id, slot, page):
 	dialog.setArgs( [id, slot, page] )
 	dialog.setCallback( questdetailsresponse )
 
-	dialog.send( player.socket )
+	dialog.send( player )
 
 #######################################################################################
 # Response for Menu with Quest Details
