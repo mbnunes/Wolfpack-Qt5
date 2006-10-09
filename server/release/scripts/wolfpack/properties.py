@@ -1,3 +1,4 @@
+# -*- coding: cp1252 -*-
 
 from math import floor, sqrt, ceil
 import random
@@ -184,12 +185,12 @@ def fromitem(item, property):
 			resboni = wolfpack.armorinfo.ARMOR_RESNAME_BONI
 
 		if resboni and item.hastag('resname'):
-			resname = str(item.gettag('resname'))
+			resname = unicode(item.gettag('resname'))
 			if resboni.has_key(resname) and resboni[resname].has_key(property):
 				value += resboni[resname][property]
 
 		if resboni and item.hastag('resname2'):
-			resname = str(item.gettag('resname2'))
+			resname = unicode(item.gettag('resname2'))
 			if resboni.has_key(resname) and resboni[resname].has_key(property):
 				value += resboni[resname][property]
 
@@ -199,8 +200,8 @@ def fromitem(item, property):
 			#check if both weaponinfos for the resources include a custom damagetype distribution
 			res1_has_damagetypes = False
 			res2_has_damagetypes = False
-			res1name = str(item.gettag('resname'))
-			res2name = str(item.gettag('resname2'))
+			res1name = unicode(item.gettag('resname'))
+			res2name = unicode(item.gettag('resname2'))
 			for dtype in damagetypes:
 				if resboni.has_key(res1name) and resboni[res1name].has_key(dtype):
 					res1_has_damagetypes = True
