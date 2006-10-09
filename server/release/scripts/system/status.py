@@ -133,9 +133,9 @@ def generate(object, arguments):
 			console.log(LOG_PYTHON, "Unable to compile python template file: %s\n" % str(e))
 			templatemodule = None
 			return
-			
+
 	# Re-execute after interval miliseconds
-	wolfpack.addtimer(interval, generate, [magic])			
+	wolfpack.addtimer(interval, generate, [magic])
 
 	# Try to execute the code
 	savedstdout = sys.stdout
