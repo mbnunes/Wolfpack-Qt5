@@ -31,26 +31,26 @@ def mysql_update_7():
 	sql = "ALTER TABLE players ADD `maxcontrolslots` tinyint(4) NOT NULL default '5' AFTER intlock;"
 	database.execute(sql)
 
+	return True
+
 def mysql_update_10():
 	# Create new guild tables
 
-	sql = """CREATE TABLE guilds_enemies (
-		guild unsigned int(10) NOT NULL default '0',
-		enemy unsigned int(10) NOT NULL default '0',
-		PRIMARY KEY(guild,enemy)
-		);"""
-
+	sql = "CREATE TABLE `guilds_enemies` ( `guild` int(10) unsigned NOT NULL default '0', `enemy` int(10) unsigned NOT NULL default '0', PRIMARY KEY(`guild`,`enemy`)) TYPE=MYISAM CHARACTER SET utf8;"
 	database.execute(sql)
 
-	sql = """CREATE TABLE guilds_allies (
-		guild unsigned int(10) NOT NULL default '0',
-		ally unsigned int(10) NOT NULL default '0',
-		PRIMARY KEY(guild,ally)
-		);"""
-
+	sql = "CREATE TABLE `guilds_allies` ( `guild` int(10) unsigned NOT NULL default '0', `ally` int(10) unsigned NOT NULL default '0', PRIMARY KEY(`guild`,`ally`)) TYPE=MYISAM CHARACTER SET utf8;"
 	database.execute(sql)
 
 	return True
+
+def mysql_update_12():
+	# change 'priv' from signed to unsigned
+	sql = "ALTER TABLE `items` MODIFY `priv` tinyint(3) unsigned NOT NULL default '0';"
+	database.execute(sql)
+
+	return True
+
 #
 # SQLite Database Updates
 # Naming convention: sqlite_update_%current version%() - will update to %current version% + 1
@@ -73,9 +73,7 @@ def sqlite_update_8():
 	sql = "drop table tmp_players7;"
 	database.execute(sql)
 
-	#sql = "replace into settings (option, value) values ('db_version',8)"
-	#database.execute(sql)
-
+	# optimize
 	sql = "VACUUM"
 	database.execute(sql)
 
@@ -84,6 +82,27 @@ def sqlite_update_8():
 def sqlite_update_11():
         return True
 
+def sqlite_update_12():
+	sql = "CREATE TABLE tmp_items12 (serial unsigned int(10) NOT NULL default '0',id unsigned smallint(5) NOT NULL default '0',color unsigned smallint(5) NOT NULL default '0',cont unsigned int(10) NOT NULL default '0',layer unsigned tinyint(3) NOT NULL default '0',amount smallint(5)  NOT NULL default '0',hp smallint(6) NOT NULL default '0',maxhp smallint(6) NOT NULL default '0',movable tinyint(3)  NOT NULL default '0',owner unsigned int(10) NOT NULL default '0',visible tinyint(3)  NOT NULL default '0',priv tinyint(3)  NOT NULL default '0',baseid varchar(64) NOT NULL default '',PRIMARY KEY (serial));"
+	database.execute(sql)
+	sql = "insert into tmp_items12 select * from items;"
+	database.execute(sql)
+	sql = "drop table items;"
+	database.execute(sql)
+
+	sql = "CREATE TABLE items (serial unsigned int(10) NOT NULL default '0',id unsigned smallint(5) NOT NULL default '0',color unsigned smallint(5) NOT NULL default '0',cont unsigned int(10) NOT NULL default '0',layer unsigned tinyint(3) NOT NULL default '0',amount smallint(5)  NOT NULL default '0',hp smallint(6) NOT NULL default '0',maxhp smallint(6) NOT NULL default '0',movable tinyint(3)  NOT NULL default '0',owner unsigned int(10) NOT NULL default '0',visible tinyint(3)  NOT NULL default '0',priv unsigned tinyint(3)  NOT NULL default '0',baseid varchar(64) NOT NULL default '',PRIMARY KEY (serial));"
+	database.execute(sql)
+
+	sql = "insert into items select * from tmp_items12"
+	database.execute(sql)
+	sql = "drop table tmp_items12;"
+	database.execute(sql)
+
+	# optimize
+	sql = "VACUUM"
+	database.execute(sql)
+
+	return True
 
 # MySQL and Sqlite version update arrays
 MYSQL_UPDATES = {
@@ -92,6 +111,7 @@ MYSQL_UPDATES = {
 	9: mysql_update_10,
 	10: null_update_procedure,
         11: null_update_procedure,
+        12: mysql_update_12,
 }
 
 SQLITE_UPDATES = {
@@ -100,6 +120,7 @@ SQLITE_UPDATES = {
 	9: null_update_procedure,
 	10: null_update_procedure,
         11: sqlite_update_11,
+        12: sqlite_update_12,
 }
 
 #
@@ -135,7 +156,7 @@ def onUpdateDatabase(current, version):
 		try:
 			if driver == 'mysql':
 				database.execute("REPLACE INTO `settings` VALUES('db_version', '%u');" % (i + 1))
-			elif driver == 'sqlite':
+			else:
 				database.execute("REPLACE INTO settings VALUES('db_version', '%u');" % (i + 1))
 		except Exception, e:
 			console.log(LOG_WARNING, "Unable to update database version to %u:\n%s\n" % (i + 1, str(e)))
@@ -149,8 +170,14 @@ def onUpdateDatabase(current, version):
 #
 # Update Version
 #
-def updateacctversion(version):
-	database.execute("REPLACE INTO settings VALUES('db_version', '%u');" % version)
+def updateacctversion(version, driver):
+	try:
+		if driver == 'mysql':
+			database.execute("REPLACE INTO `settings` VALUES('db_version', '%u');" % version)
+		else:
+			database.execute("REPLACE INTO settings VALUES('db_version', '%u');" % version)
+	except Exception, e:
+		console.log(LOG_WARNING, "Unable to update account database version to %u:\n%s\n" % (i + 1, str(e)))
 
 #
 # MySQL
@@ -195,6 +222,7 @@ ACCT_SQLITE_UPDATES = {
 # Database update event
 #
 def onUpdateAcctDatabase(current, version):
+	database.open(ACCOUNTS)
 
 	driver = database.driver(ACCOUNTS)
 	if driver == 'mysql':
@@ -203,25 +231,31 @@ def onUpdateAcctDatabase(current, version):
 		updates = ACCT_SQLITE_UPDATES
 	else:
 		console.log(LOG_ERROR, "Unknown database driver for Accounts: %s.\n" % driver)
+		database.close(ACCOUNTS)
 		return False
 
 	for i in range(version, current):
 		# No update for this version available
 		if not updates.has_key(i):
 			console.log(LOG_ERROR, "No update available for database version %u.\n" % i)
+			database.close(ACCOUNTS)
 			return False
 
 		console.log(LOG_MESSAGE, "Updating database from version %u to %u.\n" % (i, i+1))
 
 		try:
 			if not updates[i]():
+				database.close(ACCOUNTS)
 				return False
 		except Exception, e:
 			console.log(LOG_ERROR, str(e) + "\n")
+			database.close(ACCOUNTS)
 			return False
 
 		# Updating Version Number
-		updateacctversion(i+1)
+		updateacctversion(i+1, driver)
 
+
+	database.close(ACCOUNTS)
 
 	return True

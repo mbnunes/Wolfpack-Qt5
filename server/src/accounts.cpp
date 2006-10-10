@@ -33,7 +33,6 @@
 #include "console.h"
 #include "commands.h"
 #include "player.h"
-#include "persistentbroker.h"
 #include "world.h"
 #include "md5.h"
 #include "scriptmanager.h"
@@ -481,93 +480,24 @@ void cAccounts::save()
 
 void cAccounts::load()
 {
-	//
-	// Check and Update Database Section
-	//
-
-	// Opening Persistent Broker
-	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
-		return;
-	}
-
-	if ( !PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword(), Config::instance()->accountsPort() ) )
-	{
-		throw wpException( tr( "Unable to open the account database: %1." ).arg(PersistentBroker::instance()->lastError()) );
-	}
-
-	QSqlQuery acctquery;
-
-	// Mounting table if it not exists
-	if ( !PersistentBroker::instance()->tableExists( "settings" ) )
-	{
-		Console::instance()->send( tr( "Account Settings database didn't exist! Creating one\n" ) );
-		if ( Config::instance()->accountsDriver() == "mysql" )
-		{
-			acctquery.exec( createMySqlSettings );
-			acctquery.exec( "insert into `settings` (`option`, `value`) values ('db_version',0);" );
-		}
-		else { 
-			acctquery.exec( createSqlSettings );
-			acctquery.exec( "insert into settings (option, value) values ('db_version',0);" );
-		}		
-	}
-
-	// Load Options
-	QString settingsSql = "SELECT value FROM settings WHERE option = 'db_version';";
-	if ( Config::instance()->accountsDriver() == "mysql" )
-	{
-		settingsSql = "SELECT `value` FROM `settings` WHERE `option` = 'db_version';";
-	}
-	acctquery.exec( settingsSql );
-	acctquery.next();
-	
-	// Get Database Version
-	QString db_version = acctquery.value( 0 ).toString();
-
-	acctquery.clear(); // Lets make this table free
-
-	if ( db_version.toInt() != ACCT_DATABASE_VERSION )
-	{
-		// Call Event
-		cPythonScript *script = ScriptManager::instance()->getGlobalHook( EVENT_UPDATEACCTDATABASE );
-		if ( !script || !script->canHandleEvent( EVENT_UPDATEACCTDATABASE ) )
-		{
-			throw wpException( tr( "Unable to load account database. Version mismatch: %1 != %2." ).arg( db_version.toInt() ).arg( ACCT_DATABASE_VERSION ) );
-		}
-
-		PyObject *args = Py_BuildValue( "(ii)", ACCT_DATABASE_VERSION, db_version.toInt() );
-		bool result = script->callEventHandler( EVENT_UPDATEACCTDATABASE, args );
-		Py_DECREF( args );
-
-		if ( !result )
-		{
-			throw wpException( tr( "Unable to load account database. Version mismatch: %1 != %2." ).arg( db_version.toInt() ).arg( ACCT_DATABASE_VERSION ) );
-		}
-	}
-
-	// Disconnect (For script purpouse?)
-	PersistentBroker::instance()->disconnect();
-
-	//
-	// Now the normal Proccess for Account load
-	//
-
-	// Open the Account Driver
-	QSqlDatabase db = QSqlDatabase::database("accounts");
-	if ( !db.isValid() )
-	{
-		db = QSqlDatabase::addDatabase( QString("q" + Config::instance()->accountsDriver()).toUpper(), "accounts" );
-		if ( !db.isValid() )
-		{
-			throw wpException( tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
-		}
-	}
-	
-	// Load all Accounts
 	try
 	{
+		//
+		// Check and Update Database Section
+		//
+
+		// Open the Account Driver
+		QSqlDatabase db = QSqlDatabase::database("accounts");
+		if ( !db.isValid() )
+		{
+			db = QSqlDatabase::addDatabase( QString("q" + Config::instance()->accountsDriver()).toUpper(), "accounts" );
+			if ( !db.isValid() )
+			{
+				throw wpException( tr( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+			}
+		}
+
+		// Open the Database
 		if ( !db.isOpen() )
 		{
 			db.setHostName( Config::instance()->accountsHost() );
@@ -584,61 +514,140 @@ void cAccounts::load()
 			db.exec( "PRAGMA parser_trace = OFF;" );
 		}
 
-		// Initializing Query
-		QSqlQuery query ( db );
-		query.setForwardOnly( true );
-
 		// Checking for Account Database
+		cAccount* adminAccount = NULL;
+		int db_version = 0;
 		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
 		{
 			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
 			db.exec( createSql );
-			cAccount* account = createAccount( "admin", "admin" );
+			db_version = ACCT_DATABASE_VERSION;
+			unload();
+			adminAccount = createAccount( "admin", "admin" );
 			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
+
+			// reopen the Database, because save closes it
+			if ( !db.isOpen() )
+			{
+				db.setHostName( Config::instance()->accountsHost() );
+				db.setDatabaseName( Config::instance()->accountsName() );
+				db.setUserName( Config::instance()->accountsUsername() );
+				db.setPassword( Config::instance()->accountsPassword() );
+				db.setPort( Config::instance()->accountsPort() );
+				if ( !db.open() )
+					throw wpException( db.lastError().text() );
+				db.exec( "PRAGMA synchronous = OFF;" );
+				db.exec( "PRAGMA default_synchronous = OFF;" );
+				db.exec( "PRAGMA full_column_names = OFF;" );
+				db.exec( "PRAGMA show_datatypes = OFF;" );
+				db.exec( "PRAGMA parser_trace = OFF;" );
+			}
 		}
 
-		// Selecting things to Query
-		query.exec( "SELECT login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots FROM accounts" );
-
-		// Clear Accounts HERE
-		// Here we can be pretty sure that we have a valid datasource for accounts
-		unload();
-
-		while ( query.next() )
+		// Creating settings table if it doesn't exist
+		if ( !db.tables().contains( "settings", Qt::CaseInsensitive ) )
 		{
-			cAccount* account = new cAccount;
-			account->login_ = query.value( 0 ).toString().toLower();
-			account->password_ = query.value( 1 ).toString();
-			account->flags_ = query.value( 2 ).toInt();
-			account->aclName_ = query.value( 3 ).toString();
-			account->refreshAcl();
-			if ( query.value( 4 ).toInt() != 0 )
-				account->lastLogin_.setTime_t( query.value( 4 ).toInt() );
-
-			if ( query.value( 5 ).toInt() != 0 )
-				account->blockUntil.setTime_t( query.value( 5 ).toInt() );
-
-			account->email_ = query.value( 6 ).toByteArray();
-			account->creationdate_ = query.value( 7 ).toString();
-			account->totalgametime_ = query.value( 8 ).toInt();
-			account->charslots_ = query.value( 9 ).toInt();
-
-			// See if the password can and should be hashed,
-			// Md5 hashes are 32 characters long.
-			if ( Config::instance()->hashAccountPasswords() && account->password_.length() != 32 )
+			if ( Config::instance()->accountsDriver() == "mysql" )
 			{
-				if ( Config::instance()->convertUnhashedPasswords() )
-				{
-					account->password_ = cMd5::fastDigest( account->password_ );
-					Console::instance()->log( LOG_NOTICE, tr( "Hashed account password for '%1'.\n" ).arg( account->login_ ) );
-				}
-				else
-				{
-					Console::instance()->log( LOG_NOTICE, tr( "Account '%1' has an unhashed password.\n" ).arg( account->login_ ) );
-				}
+				db.exec( createMySqlSettings );
+				db.exec( QString("insert into `settings` (`option`, `value`) values ('db_version',%1);").arg( db_version ) );
+			}
+			else
+			{ 
+				db.exec( createSqlSettings );
+				db.exec( QString("insert into settings (option, value) values ('db_version',%1);").arg( db_version ) );
+			}
+		}
+		else
+		{
+			// Load DB Version
+			QString settingsSql;
+			if ( Config::instance()->accountsDriver() == "mysql" )
+			{
+				settingsSql = "SELECT `value` FROM `settings` WHERE `option` = 'db_version';";
+			}
+			else
+			{
+				settingsSql = "SELECT value FROM settings WHERE option = 'db_version';";
+			}
+			QSqlQuery acctquery ( db );
+			acctquery.exec( settingsSql );
+			acctquery.first();
+
+			// Get Database Version
+			db_version = acctquery.value( 0 ).toInt();
+		}
+
+		if ( db_version != ACCT_DATABASE_VERSION )
+		{
+			// Call Event
+			cPythonScript *script = ScriptManager::instance()->getGlobalHook( EVENT_UPDATEACCTDATABASE );
+			if ( !script || !script->canHandleEvent( EVENT_UPDATEACCTDATABASE ) )
+			{
+				throw wpException( tr( "Unable to load account database. Version mismatch: %1 != %2." ).arg( db_version ).arg( ACCT_DATABASE_VERSION ) );
 			}
 
-			accounts.insert( account->login_, account );
+			PyObject *args = Py_BuildValue( "(ii)", ACCT_DATABASE_VERSION, db_version );
+			bool result = script->callEventHandler( EVENT_UPDATEACCTDATABASE, args );
+			Py_DECREF( args );
+
+			if ( !result )
+			{
+				throw wpException( tr( "Unable to load account database. Version mismatch: %1 != %2." ).arg( db_version ).arg( ACCT_DATABASE_VERSION ) );
+			}
+		}
+	
+		// Load all Accounts
+
+		// if we have the new created admin account, there aren't any other accounts to load
+		if ( adminAccount == NULL )
+		{
+			// Initializing Query
+			QSqlQuery query ( db );
+			query.setForwardOnly( true );
+
+			// Selecting things to Query
+			query.exec( "SELECT login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots FROM accounts" );
+
+			// Clear Accounts HERE
+			// Here we can be pretty sure that we have a valid datasource for accounts
+			unload();
+			while ( query.next() )
+			{
+				cAccount* account = new cAccount;
+				account->login_ = query.value( 0 ).toString().toLower();
+				account->password_ = query.value( 1 ).toString();
+				account->flags_ = query.value( 2 ).toInt();
+				account->aclName_ = query.value( 3 ).toString();
+				account->refreshAcl();
+				if ( query.value( 4 ).toInt() != 0 )
+					account->lastLogin_.setTime_t( query.value( 4 ).toInt() );
+
+				if ( query.value( 5 ).toInt() != 0 )
+					account->blockUntil.setTime_t( query.value( 5 ).toInt() );
+
+				account->email_ = query.value( 6 ).toByteArray();
+				account->creationdate_ = query.value( 7 ).toString();
+				account->totalgametime_ = query.value( 8 ).toInt();
+				account->charslots_ = query.value( 9 ).toInt();
+
+				// See if the password can and should be hashed,
+				// Md5 hashes are 32 characters long.
+				if ( Config::instance()->hashAccountPasswords() && account->password_.length() != 32 )
+				{
+					if ( Config::instance()->convertUnhashedPasswords() )
+					{
+						account->password_ = cMd5::fastDigest( account->password_ );
+						Console::instance()->log( LOG_NOTICE, tr( "Hashed account password for '%1'.\n" ).arg( account->login_ ) );
+					}
+					else
+					{
+						Console::instance()->log( LOG_NOTICE, tr( "Account '%1' has an unhashed password.\n" ).arg( account->login_ ) );
+					}
+				}
+
+				accounts.insert( account->login_, account );
+			}
 		}
 	}
 	catch ( wpException& error )

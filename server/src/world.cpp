@@ -87,8 +87,8 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 // Don't forget to change the version number before changing tableInfo!
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
-#define DATABASE_VERSION 11
-#define WP_DATABASE_VERSION "12"
+#define DATABASE_VERSION 13
+#define WP_DATABASE_VERSION "13"
 
 unsigned int cWorld::getDatabaseVersion() const {
 	return DATABASE_VERSION;
@@ -99,9 +99,11 @@ struct
 {
 	const char* name;
 	const char* create;
+	const char* mysqlcreate;
 } tableInfo[] =
 {
-{ "guilds", "CREATE TABLE guilds ( \
+{ "guilds",
+"CREATE TABLE guilds ( \
 serial unsigned int(10) NOT NULL default '0', \
 name varchar(255) NOT NULL default '', \
 abbreviation varchar(6) NOT NULL default '', \
@@ -112,36 +114,88 @@ leader unsigned int(10) NOT NULL default '0', \
 founded int(11) NOT NULL default '0', \
 guildstone unsigned int(10) NOT NULL default '0', \
 PRIMARY KEY(serial) \
-);" },
-{ "guilds_members", "CREATE TABLE guilds_members ( \
+);",
+"CREATE TABLE `guilds` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`name` varchar(255) NOT NULL default '', \
+`abbreviation` varchar(6) NOT NULL default '', \
+`charta` longtext NOT NULL, \
+`website` varchar(255) NOT NULL default 'http://www.wpdev.org', \
+`alignment` tinyint(2) NOT NULL default '0', \
+`leader` int(10) unsigned NOT NULL default '0', \
+`founded` int(11) NOT NULL default '0', \
+`guildstone` int(10) unsigned NOT NULL default '0', \
+PRIMARY KEY  (`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "guilds_members",
+"CREATE TABLE guilds_members ( \
 guild unsigned int(10) NOT NULL default '0', \
 player unsigned int(10) NOT NULL default '0', \
 showsign unsigned tinyint(1) NOT NULL default '0', \
 guildtitle varchar(255) NOT NULL default '', \
 joined int(11) NOT NULL default '0', \
 PRIMARY KEY(guild,player) \
-);"},
-{ "guilds_canidates", "CREATE TABLE guilds_canidates ( \
+);", 
+"CREATE TABLE `guilds_members` ( \
+`guild` int(10) unsigned NOT NULL default '0', \
+`player` int(10) unsigned NOT NULL default '0', \
+`showsign` tinyint(1) unsigned NOT NULL default '0', \
+`guildtitle` varchar(255) NOT NULL default '', \
+`joined` int(11) NOT NULL default '0', \
+PRIMARY KEY  (`guild`,`player`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "guilds_canidates",
+"CREATE TABLE guilds_canidates ( \
 guild unsigned int(10) NOT NULL default '0', \
 player unsigned int(10) NOT NULL default '0', \
 PRIMARY KEY(guild,player) \
-);"},
-{ "guilds_enemies", "CREATE TABLE guilds_enemies ( \
+);",
+"CREATE TABLE `guilds_canidates` ( \
+`guild` int(10) unsigned NOT NULL default '0', \
+`player` int(10) unsigned NOT NULL default '0', \
+PRIMARY KEY  (`guild`,`player`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "guilds_enemies",
+"CREATE TABLE guilds_enemies ( \
 guild unsigned int(10) NOT NULL default '0', \
 enemy unsigned int(10) NOT NULL default '0', \
 PRIMARY KEY(guild,enemy) \
-);"},
-{ "guilds_allies", "CREATE TABLE guilds_allies ( \
+);",
+"CREATE TABLE `guilds_enemies` ( \
+`guild` int(10) unsigned NOT NULL default '0', \
+`enemy` int(10) unsigned NOT NULL default '0', \
+PRIMARY KEY(`guild`,`enemy`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "guilds_allies",
+"CREATE TABLE guilds_allies ( \
 guild unsigned int(10) NOT NULL default '0', \
 ally unsigned int(10) NOT NULL default '0', \
 PRIMARY KEY(guild,ally) \
-);"},
-{ "settings", "CREATE TABLE settings ( \
+);",
+"CREATE TABLE `guilds_allies` ( \
+`guild` int(10) unsigned NOT NULL default '0', \
+`ally` int(10) unsigned NOT NULL default '0', \
+PRIMARY KEY(`guild`,`ally`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "settings",
+"CREATE TABLE settings ( \
 option varchar(255) NOT NULL default '', \
 value varchar(255) NOT NULL default '', \
 PRIMARY KEY (option) \
-);" },
-{ "characters", "CREATE TABLE characters (\
+);",
+"CREATE TABLE `settings` ( \
+`option` varchar(255) NOT NULL default '', \
+`value` varchar(255) NOT NULL default '', \
+PRIMARY KEY  (`option`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "characters",
+"CREATE TABLE characters (\
 serial unsigned int(10) NOT NULL default '0',\
 name varchar(255) default NULL,\
 title varchar(255) default NULL,\
@@ -186,8 +240,56 @@ statcap tinyint(4)  NOT NULL default '225',\
 baseid varchar(64) NOT NULL default '',\
 direction unsigned tinyint(1) NOT NULL default '0',\
 PRIMARY KEY (serial)\
-);" },
-{ "corpses", "CREATE TABLE corpses (\
+);",
+"CREATE TABLE `characters` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`name` varchar(255) default NULL, \
+`title` varchar(255) default NULL, \
+`creationdate` varchar(19) default NULL, \
+`body` smallint(5) unsigned NOT NULL default '0', \
+`orgbody` smallint(5) unsigned NOT NULL default '0', \
+`skin` smallint(5) unsigned NOT NULL default '0', \
+`orgskin` smallint(5) unsigned NOT NULL default '0', \
+`saycolor` smallint(5) unsigned NOT NULL default '0', \
+`emotecolor` smallint(5) unsigned NOT NULL default '0', \
+`strength` smallint(6) NOT NULL default '0', \
+`strengthmod` smallint(6) NOT NULL default '0', \
+`dexterity` smallint(6) NOT NULL default '0', \
+`dexteritymod` smallint(6) NOT NULL default '0', \
+`intelligence` smallint(6) NOT NULL default '0', \
+`intelligencemod` smallint(6) NOT NULL default '0', \
+`maxhitpoints` smallint(6) NOT NULL default '0', \
+`hitpoints` smallint(6) NOT NULL default '0', \
+`maxstamina` smallint(6) NOT NULL default '0', \
+`stamina` smallint(6) NOT NULL default '0', \
+`maxmana` smallint(6) default NULL, \
+`mana` smallint(6) default NULL, \
+`karma` int(11) NOT NULL default '0', \
+`fame` int(11) NOT NULL default '0', \
+`kills` int(10) unsigned NOT NULL default '0', \
+`deaths` int(10) unsigned NOT NULL default '0', \
+`hunger` int(10) unsigned NOT NULL default '0', \
+`poison` tinyint(2) NOT NULL default '-1', \
+`murderertime` int(10) unsigned NOT NULL default '0', \
+`criminaltime` int(10) unsigned NOT NULL default '0', \
+`gender` tinyint(1) unsigned NOT NULL default '0', \
+`propertyflags` int(11) NOT NULL default '0', \
+`murderer` int(10) unsigned NOT NULL default '0', \
+`guarding` int(10) unsigned NOT NULL default '0', \
+`hitpointsbonus` smallint(6) NOT NULL default '0', \
+`staminabonus` smallint(6) NOT NULL default '0', \
+`manabonus` smallint(6) NOT NULL default '0', \
+`strcap` smallint(4) NOT NULL default '125', \
+`dexcap` smallint(4) NOT NULL default '125', \
+`intcap` smallint(4) NOT NULL default '125', \
+`statcap` smallint(4) NOT NULL default '225', \
+`baseid` varchar(64) NOT NULL default '', \
+`direction` tinyint(1) unsigned NOT NULL default '0', \
+PRIMARY KEY  (`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "corpses",
+"CREATE TABLE corpses (\
 serial unsigned int(10) NOT NULL default '0',\
 bodyid unsigned smallint(5) NOT NULL default '0',\
 hairstyle unsigned smallint(5) NOT NULL default '0',\
@@ -199,14 +301,37 @@ charbaseid varchar(64) NOT NULL default '',\
 murderer unsigned int(10) NOT NULL default '0',\
 murdertime unsigned int(10) NOT NULL default '0',\
 PRIMARY KEY (serial)\
-);" },
-{ "corpses_equipment", "CREATE TABLE corpses_equipment (\
+);", 
+"CREATE TABLE `corpses` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`bodyid` smallint(5) unsigned NOT NULL default '0', \
+`hairstyle` smallint(5) unsigned NOT NULL default '0', \
+`haircolor` smallint(5) unsigned NOT NULL default '0', \
+`beardstyle` smallint(5) unsigned NOT NULL default '0', \
+`beardcolor` smallint(5) unsigned NOT NULL default '0', \
+`direction` tinyint(1) unsigned NOT NULL default '0', \
+`charbaseid` varchar(64) NOT NULL default '', \
+`murderer` int(10) unsigned NOT NULL default '0', \
+`murdertime` int(10) unsigned NOT NULL default '0', \
+PRIMARY KEY  (`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "corpses_equipment",
+"CREATE TABLE corpses_equipment (\
 serial unsigned int(10) NOT NULL default '0',\
 layer unsigned tinyint(3)  NOT NULL default '0',\
-item unsigned int(10) NOT NULL default '0',  \
+item unsigned int(10) NOT NULL default '0', \
 PRIMARY KEY (serial,layer)\
-);" },
-{ "items", "CREATE TABLE items (\
+);",
+"CREATE TABLE `corpses_equipment` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`layer` tinyint(3) unsigned NOT NULL default '0', \
+`item` int(10) unsigned NOT NULL default '0', \
+PRIMARY KEY  (`serial`,`layer`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "items",
+"CREATE TABLE items (\
 serial unsigned int(10) NOT NULL default '0',\
 id unsigned smallint(5) NOT NULL default '0',\
 color unsigned smallint(5) NOT NULL default '0',\
@@ -218,11 +343,29 @@ maxhp smallint(6) NOT NULL default '0',\
 movable tinyint(3)  NOT NULL default '0',\
 owner unsigned int(10) NOT NULL default '0',\
 visible tinyint(3)  NOT NULL default '0',\
-priv tinyint(3)  NOT NULL default '0',\
+priv unsigned tinyint(3)  NOT NULL default '0',\
 baseid varchar(64) NOT NULL default '',\
 PRIMARY KEY (serial)\
-);" },
-{ "npcs", "CREATE TABLE npcs (\
+);", 
+"CREATE TABLE `items` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`id` smallint(5) unsigned NOT NULL default '0', \
+`color` smallint(5) unsigned NOT NULL default '0', \
+`cont` int(10) unsigned NOT NULL default '0', \
+`layer` tinyint(3) unsigned NOT NULL default '0', \
+`amount` smallint(5) NOT NULL default '0', \
+`hp` smallint(6) NOT NULL default '0', \
+`maxhp` smallint(6) NOT NULL default '0', \
+`movable` tinyint(3) NOT NULL default '0', \
+`owner` int(10) unsigned NOT NULL default '0', \
+`visible` tinyint(3) NOT NULL default '0', \
+`priv` tinyint(3) unsigned NOT NULL default '0', \
+`baseid` varchar(64) NOT NULL default '', \
+PRIMARY KEY  (`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "npcs",
+"CREATE TABLE npcs (\
 serial unsigned int(10) NOT NULL default '0',\
 summontime int(11)  NOT NULL default '0',\
 additionalflags int(11)  NOT NULL default '0',\
@@ -236,8 +379,25 @@ wandery1 smallint(6) NOT NULL default '0',\
 wandery2 smallint(6) NOT NULL default '0',\
 wanderradius smallint(6) NOT NULL default '0',\
 PRIMARY KEY (serial)\
-);" },
-{ "players", "CREATE TABLE players (\
+);",
+"CREATE TABLE `npcs` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`summontime` int(11) NOT NULL default '0', \
+`additionalflags` int(11) NOT NULL default '0', \
+`owner` int(10) unsigned NOT NULL default '0', \
+`stablemaster` int(10) unsigned NOT NULL default '0', \
+`ai` varchar(255) default NULL, \
+`wandertype` smallint(3) NOT NULL default '0', \
+`wanderx1` smallint(6) NOT NULL default '0', \
+`wanderx2` smallint(6) NOT NULL default '0', \
+`wandery1` smallint(6) NOT NULL default '0', \
+`wandery2` smallint(6) NOT NULL default '0', \
+`wanderradius` smallint(6) NOT NULL default '0', \
+PRIMARY KEY  (`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "players",
+"CREATE TABLE players (\
 serial unsigned int(10) NOT NULL default '0',\
 account varchar(16) default NULL,\
 additionalflags int(10) NOT NULL default '0',\
@@ -249,23 +409,56 @@ dexlock tinyint(4) NOT NULL default '0',\
 intlock tinyint(4) NOT NULL default '0',\
 maxcontrolslots tinyint(4) NOT NULL default '5',\
 PRIMARY KEY (serial)\
-);" },
-{ "skills", "CREATE TABLE skills (\
+);",
+"CREATE TABLE `players` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`account` varchar(16) default NULL, \
+`additionalflags` int(10) NOT NULL default '0', \
+`visualrange` tinyint(3) unsigned NOT NULL default '0', \
+`profile` longtext, \
+`fixedlight` tinyint(3) unsigned NOT NULL default '0', \
+`strlock` tinyint(4) NOT NULL default '0', \
+`dexlock` tinyint(4) NOT NULL default '0', \
+`intlock` tinyint(4) NOT NULL default '0', \
+`maxcontrolslots` tinyint(4) NOT NULL default '5', \
+PRIMARY KEY  (`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "skills",
+"CREATE TABLE skills (\
 serial unsigned int(10) NOT NULL default '0',\
 skill unsigned tinyint(2) NOT NULL default '0',\
 value smallint(6) NOT NULL default '0',\
 locktype tinyint(4) default '0',\
 cap smallint(6) default '0',\
 PRIMARY KEY (serial,skill)\
-);" },
-{ "tags", "CREATE TABLE tags (\
+);",
+"CREATE TABLE `skills` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`skill` tinyint(2) unsigned NOT NULL default '0', \
+`value` smallint(6) NOT NULL default '0', \
+`locktype` tinyint(4) default '0', \
+`cap` smallint(6) default '0', \
+PRIMARY KEY  (`serial`,`skill`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "tags",
+"CREATE TABLE tags (\
 serial unsigned int(10) NOT NULL default '0',\
 name varchar(64) NOT NULL default '',\
 type varchar(6) NOT NULL default '',\
 value longtext NOT NULL,\
 PRIMARY KEY (serial,name)\
-);" },
-{ "uobject", "CREATE TABLE uobject (\
+);","CREATE TABLE `tags` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`name` varchar(64) NOT NULL default '', \
+`type` varchar(6) NOT NULL default '', \
+`value` longtext NOT NULL, \
+PRIMARY KEY  (`serial`,`name`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "uobject",
+"CREATE TABLE uobject (\
 name varchar(255) default NULL,\
 serial unsigned int(10) NOT NULL default '0',\
 multis unsigned int(10) NOT NULL default '0',\
@@ -276,13 +469,34 @@ pos_map unsigned tinyint(1) NOT NULL default '0',  \
 events varchar(255) default NULL,\
 havetags unsigned tinyint(1) NOT NULL default '0',\
 PRIMARY KEY (serial)\
-);" },
-{ "uobjectmap", "CREATE TABLE uobjectmap (\
+);",
+"CREATE TABLE `uobject` ( \
+`name` varchar(255) default NULL, \
+`serial` int(10) unsigned NOT NULL default '0', \
+`multis` int(10) unsigned NOT NULL default '0', \
+`pos_x` smallint(6) unsigned NOT NULL default '0', \
+`pos_y` smallint(6) unsigned NOT NULL default '0', \
+`pos_z` tinyint(4) NOT NULL default '0', \
+`pos_map` tinyint(1) unsigned NOT NULL default '0', \
+`events` varchar(255) default NULL, \
+`havetags` tinyint(1) unsigned NOT NULL default '0', \
+PRIMARY KEY  (`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "uobjectmap",
+"CREATE TABLE uobjectmap (\
 serial unsigned int(10) NOT NULL default '0',\
 type varchar(80)  NOT NULL default '',\
 PRIMARY KEY (serial)\
-);" },
-{ "effects", "CREATE TABLE effects (\
+);",
+"CREATE TABLE `uobjectmap` ( \
+`serial` int(10) unsigned NOT NULL default '0', \
+`type` varchar(80) NOT NULL default '', \
+PRIMARY KEY  (`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "effects",
+"CREATE TABLE effects (\
 id unsigned int(10) NOT NULL default '0',\
 objectid varchar(64) NOT NULL,\
 expiretime unsigned int(10) NOT NULL,\
@@ -290,20 +504,46 @@ dispellable tinyint(4) NOT NULL default '0',\
 source unsigned int(10) NOT NULL default '0',\
 destination unsigned int(10) NOT NULL default '0',\
 PRIMARY KEY (id)\
-);" },
-{ "effects_properties", "CREATE TABLE effects_properties (\
+);",
+"CREATE TABLE `effects` ( \
+`id` int(10) unsigned NOT NULL default '0', \
+`objectid` varchar(64) NOT NULL default '', \
+`expiretime` int(10) unsigned NOT NULL default '0', \
+`dispellable` tinyint(4) NOT NULL default '0', \
+`source` int(10) unsigned NOT NULL default '0', \
+`destination` int(10) unsigned NOT NULL default '0', \
+PRIMARY KEY  (`id`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "effects_properties",
+"CREATE TABLE effects_properties (\
 id unsigned int(10) NOT NULL default '0',\
 keyname varchar(64) NOT NULL,\
 type varchar(64) NOT NULL,\
 value text NOT NULL,\
 PRIMARY KEY (id,keyname)\
-);" },
-{ "spawnregions", "CREATE TABLE spawnregions (\
+);", 
+"CREATE TABLE `effects_properties` ( \
+`id` int(10) unsigned NOT NULL default '0', \
+`keyname` varchar(64) NOT NULL default '', \
+`type` varchar(64) NOT NULL default '', \
+`value` text NOT NULL, \
+PRIMARY KEY  (`id`,`keyname`) \
+) TYPE=MYISAM CHARACTER SET utf8;"},
+
+{ "spawnregions",
+"CREATE TABLE spawnregions (\
 spawnregion varchar(64) NOT NULL,\
 serial unsigned int(10) NOT NULL default '0',\
 PRIMARY KEY (spawnregion, serial)\
-);" },
-{ NULL, NULL }
+);",
+"CREATE TABLE `spawnregions` ( \
+`spawnregion` varchar(64) NOT NULL default '', \
+`serial` int(10) unsigned NOT NULL default '0', \
+PRIMARY KEY  (`spawnregion`,`serial`) \
+) TYPE=MYISAM CHARACTER SET utf8;" },
+
+{ NULL, NULL, NULL }
 };
 
 /*****************************************************************************
@@ -647,7 +887,18 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 	{
 		if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
 		{
-			if ( !query.exec( tableInfo[i].create ) )
+			// get create statement for database type
+			const char * create;
+			if ( Config::instance()->databaseDriver() == "mysql" )
+			{
+				create = tableInfo[i].mysqlcreate;
+			}
+			else
+			{
+				create = tableInfo[i].create;
+			}
+
+			if ( !query.exec( create ) )
 			{
 				// Create Database failed, let's figure why
 				QSqlError e = query.lastError();
@@ -655,13 +906,22 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 				{
 					Console::instance()->log( LOG_ERROR, tr("Invalid World database file. The file is either corrupted or in sqlite2 format, which require a conversion step. If this is an sqlite2 database please check this wiki entry: http://www.wpdev.org/wiki/index.php/Convert_sqlite2_to_sqlite3_format") );
 				}
-				throw wpException( tr( "Unable to load world database" ) );
+				throw wpException( tr( "Unable to load world database" ) + "\n" + e.text() + "\n" );
 			}
 
 			// create default settings
 			if ( !strcmp( tableInfo[i].name, "settings" ) )
 			{
 				setOption( "db_version", WP_DATABASE_VERSION );
+				// write database version to settings table
+				if ( Config::instance()->accountsDriver() == "mysql" )
+				{
+					PersistentBroker::instance()->executeQuery( QString("insert into `settings` (`option`, `value`) values ('db_version',%1);").arg( WP_DATABASE_VERSION ) );
+				}
+				else
+				{ 
+					PersistentBroker::instance()->executeQuery( QString("insert into settings (option, value) values ('db_version',%1);").arg( WP_DATABASE_VERSION ) );
+				}
 			}
 		}
 
@@ -1047,7 +1307,17 @@ void cWorld::save()
 			{
 				if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
 				{
-					query.exec( tableInfo[i].create );
+					// get create statement for database type
+					const char * create;
+					if ( Config::instance()->databaseDriver() == "mysql" )
+					{
+						create = tableInfo[i].mysqlcreate;
+					}
+					else
+					{
+						create = tableInfo[i].create;
+					}
+					query.exec( create );
 				}
 
 				++i;

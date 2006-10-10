@@ -2339,10 +2339,20 @@ bool wpOpen( unsigned int database )
 	{
 		if ( database == 1 )
 		{
+			if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
+			{
+				PyErr_SetString( PyExc_RuntimeError, "Error while connecting to the database." );
+				throw_error_already_set();
+			}
 			PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword(), Config::instance()->accountsPort() );
 		}
 		else if ( database == 2 )
 		{
+			if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
+			{
+				PyErr_SetString( PyExc_RuntimeError, "Error while connecting to the database." );
+				throw_error_already_set();
+			}
 			PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword(), Config::instance()->databasePort() );
 		}
 	}

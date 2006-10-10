@@ -72,9 +72,10 @@ cPersistentBroker::~cPersistentBroker()
 
 bool cPersistentBroker::openDriver( const QString& driver )
 {
-	if ( !d->connection.isValid() )
+	QString drivername = QString("q" + driver).toUpper();
+	if ( !d->connection.isValid() || ( QString::compare( d->connection.driverName(), drivername) != 0 ) )
 	{
-		d->connection = QSqlDatabase::addDatabase( QString("q" + driver).toUpper() );
+		d->connection = QSqlDatabase::addDatabase( drivername );
 	}
 
 	if ( driver.toLower() == "sqlite" )

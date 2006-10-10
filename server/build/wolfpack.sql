@@ -129,7 +129,7 @@ CREATE TABLE `items` (
 	`movable` tinyint(3) NOT NULL default '0',
 	`owner` int(10) unsigned NOT NULL default '0',
 	`visible` tinyint(3) NOT NULL default '0',
-	`priv` tinyint(3) NOT NULL default '0',
+	`priv` tinyint(3) unsigned NOT NULL default '0',
 	`baseid` varchar(64) NOT NULL default '',
   PRIMARY KEY  (`serial`)
 ) TYPE=MYISAM CHARACTER SET utf8;
@@ -224,4 +224,4 @@ CREATE TABLE `guilds_allies` (
 	PRIMARY KEY(`guild`,`ally`)
 ) TYPE=MYISAM CHARACTER SET utf8;
 
-REPLACE INTO `settings` VALUES('db_version', '10');
+REPLACE INTO `settings` VALUES('db_version', '13');
