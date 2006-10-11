@@ -194,6 +194,15 @@ def acct_mysql_update_1():
 
 	return True
 
+def acct_mysql_update_2():
+	sql = "ALTER TABLE accounts ADD chatname varchar(255) default '' AFTER slots;"
+	database.execute(sql)
+
+	sql = "ALTER TABLE accounts ADD ignorelist longtext AFTER chatname;"
+	database.execute(sql)
+
+	return True
+
 #
 # SQLite
 #
@@ -209,13 +218,24 @@ def acct_sqlite_update_1():
 
 	return True
 
+def acct_sqlite_update_2():
+	sql = "ALTER TABLE accounts ADD chatname varchar(255) default '';"
+	database.execute(sql)
+
+	sql = "ALTER TABLE accounts ADD ignorelist longtext;"
+	database.execute(sql)
+
+	return True
+
 # MySQL and Sqlite version update arrays
 ACCT_MYSQL_UPDATES = {
 	0: acct_mysql_update_1,
+	1: acct_mysql_update_2,
 }
 
 ACCT_SQLITE_UPDATES = {
 	0: acct_sqlite_update_1,
+	1: acct_sqlite_update_2,
 }
 
 #

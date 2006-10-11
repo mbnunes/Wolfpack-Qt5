@@ -640,6 +640,8 @@ void cUOSocket::receive()
 			case 0xB1:
 				handleGumpResponse( static_cast<cUORxGumpResponse*>( packet ) );
 				break;
+			case 0xB3:
+				break; // Chat Implementation by Python's Packet hook
 			case 0xB5:
 				handleChat( packet ); break;
 			case 0xB8:

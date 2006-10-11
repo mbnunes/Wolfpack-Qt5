@@ -85,10 +85,15 @@ void cTiming::poll()
 	QDate today = QDate::currentDate();
 	if ( currentday != today.day() )
 	{
-		currentday = today.day();
-		cPythonScript* globalsh = ScriptManager::instance()->getGlobalHook( EVENT_REALDAYCHANGE );
-		if ( globalsh )
-			globalsh->callEventHandler( EVENT_REALDAYCHANGE );
+		if ( currentday != 0xFF )
+		{
+			currentday = today.day();
+			cPythonScript* globalsh = ScriptManager::instance()->getGlobalHook( EVENT_REALDAYCHANGE );
+			if ( globalsh )
+				globalsh->callEventHandler( EVENT_REALDAYCHANGE );
+		}
+		else
+			currentday = today.day();
 	}
 
 	// Check for spawn regions

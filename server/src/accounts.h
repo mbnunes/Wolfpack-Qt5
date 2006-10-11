@@ -61,6 +61,8 @@ private:
 	QString creationdate_;
 	int totalgametime_;
 	int charslots_;
+	QString chatname_;
+	QString ignorelist_;
 
 	// Flags for this Account
 	// 0x00000001 blocked
@@ -85,6 +87,8 @@ public:
 	const QString creationdate() const;
 	const int totalgametime() const;
 	const int charslots() const;
+	const QString chatname() const;
+	const QString ignorelist() const;
 	unsigned int rank() const;
 	void remove();
 	QList<P_PLAYER> caracterList() const;
@@ -119,6 +123,8 @@ public:
 	void setCreationDate( const QString creationdate );
 	void setTotalGameTime( const int totalgametime );
 	void setCharSlots( const int charslots );
+	void setChatName( const QString chatname );
+	void setIgnoreList( const QString ignorelist );
 
 	quint32 flags() const;
 	QDateTime blockedUntil() const
@@ -254,6 +260,16 @@ inline const int cAccount::charslots() const
 	return charslots_;
 }
 
+inline const QString cAccount::chatname() const
+{
+	return chatname_;
+}
+
+inline const QString cAccount::ignorelist() const
+{
+	return ignorelist_;
+}
+
 inline void cAccount::setEmail( const QByteArray& email )
 {
 	email_ = email;
@@ -272,6 +288,16 @@ inline void cAccount::setTotalGameTime( const int totalgametime )
 inline void cAccount::setCharSlots( const int charslots )
 {
 	charslots_ = charslots;
+}
+
+inline void cAccount::setChatName( const QString chatname )
+{
+	chatname_ = chatname;
+}
+
+inline void cAccount::setIgnoreList( const QString ignorelist )
+{
+	ignorelist_ = ignorelist;
 }
 
 inline void cAccount::setLastLogin( const QDateTime& d )

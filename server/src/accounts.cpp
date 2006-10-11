@@ -46,7 +46,7 @@
 #include <QSqlError>
 #include <QSqlDatabase>
 
-#define ACCT_DATABASE_VERSION 1
+#define ACCT_DATABASE_VERSION 2
 
 // DB AutoCreation
 const char* createSql = "CREATE TABLE accounts (\
@@ -60,6 +60,8 @@ email varchar(255) NOT NULL default '',\
 creationdate varchar(19) default NULL,\
 totalgametime int NOT NULL default '0',\
 slots smallint(5) NOT NULL default '1',\
+chatname varchar(255) NOT NULL default '',\
+ignorelist longtext,\
 PRIMARY KEY (login)\
 );";
 
@@ -439,7 +441,7 @@ void cAccounts::save()
 		if (!query.exec( "TRUNCATE accounts" )) {
 			query.exec("DELETE FROM accounts");
 		}
-		query.prepare( "insert into accounts values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
+		query.prepare( "insert into accounts values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
 		iterator it = accounts.begin();
 		for ( ; it != accounts.end(); ++it )
 		{
@@ -456,6 +458,8 @@ void cAccounts::save()
 			query.addBindValue( QString(account->creationdate_) );
 			query.addBindValue( account->totalgametime_ );
 			query.addBindValue( account->charslots_ );
+			query.addBindValue( account->chatname_ );
+			query.addBindValue( account->ignorelist_ );
 
 			if (!query.exec()) {
 				Console::instance()->log(LOG_ERROR, tr("Unable to save account '%1' because of the following error: %2").arg( account->login_ ).arg(query.lastError().text()));
@@ -597,8 +601,6 @@ void cAccounts::load()
 			}
 		}
 	
-		// Load all Accounts
-
 		// if we have the new created admin account, there aren't any other accounts to load
 		if ( adminAccount == NULL )
 		{
@@ -630,6 +632,8 @@ void cAccounts::load()
 				account->creationdate_ = query.value( 7 ).toString();
 				account->totalgametime_ = query.value( 8 ).toInt();
 				account->charslots_ = query.value( 9 ).toInt();
+				account->chatname_ = query.value( 10 ).toString();
+				account->ignorelist_ = query.value( 11 ).toString();
 
 				// See if the password can and should be hashed,
 				// Md5 hashes are 32 characters long.
@@ -821,6 +825,8 @@ PyObject* cAccount::getProperty( const QString& name, uint hash )
 	PY_PROPERTY( "creationdate", creationdate() );
 	PY_PROPERTY( "totalgametime", totalgametime() );
 	PY_PROPERTY( "charslots", charslots() );
+	PY_PROPERTY( "chatname", chatname() );
+	PY_PROPERTY( "ignorelist", ignorelist() );
 	/*
 		\rproperty account.characters A tuple of <object id="CHAR">char</object> objects.
 		This tuple contains all characters assigned to this account.
@@ -940,6 +946,22 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 			setCharSlots( 1 );
 		else
 			setCharSlots( value.toInt() );
+		return 0;
+	}
+	/*
+		\rproperty account.chatname The Chat name to this account
+	*/
+	else if ( name == "chatname" )
+	{
+		setChatName( value.toString() );
+		return 0;
+	}
+	/*
+		\rproperty account.ignorelist The Chat's ignore list of this account
+	*/
+	else if ( name == "ignorelist" )
+	{
+		setIgnoreList( value.toString() );
 		return 0;
 	}
 	/*
