@@ -344,7 +344,7 @@ bool Coord::lineOfSight( const Coord& target, bool debug ) const
 	return true;
 }
 
-Coord Coord::null( 0xFFFF, 0xFFFF, 0xFF, 0xFF );
+Coord Coord::null( 0xFFFF, 0xFFFF, 0x7F, 0xFF );
 
 Coord::Coord( void )
 {
