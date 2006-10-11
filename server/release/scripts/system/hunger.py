@@ -4,8 +4,8 @@ import random
 import wolfpack.time
 from wolfpack import tr
 
-hungerrate = int(wolfpack.settings.getstring("Game Speed", "Hunger Rate", "120")) # Every 120 minutes
-hungerdamage = int(wolfpack.settings.getstring("General", "Hunger Damage", "0")) # Damage?
+hungerrate = wolfpack.settings.getnumber("Game Speed", "Hunger Rate", 120) # Every 120 minutes
+hungerdamage = wolfpack.settings.getnumber("General", "Hunger Damage", 0) # Damage?
 
 def onTimeChange( player ):
 	global hungerrate

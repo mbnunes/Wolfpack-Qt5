@@ -14,8 +14,8 @@ import time
 
 magic = 0.0
 interval = 60000
-htmltemplate = 'web/status_template.html'
-outputfile = 'web/status.html'
+htmltemplate = u'web/status_template.html'
+outputfile = u'web/status.html'
 processthread = None
 templatemodule = None
 
