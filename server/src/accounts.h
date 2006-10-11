@@ -120,11 +120,11 @@ public:
 	void setInUse( bool data );
 	void setFlags( quint32 data );
 	void setPassword( const QString& );
-	void setCreationDate( const QString creationdate );
+	void setCreationDate( const QString& creationdate );
 	void setTotalGameTime( const int totalgametime );
 	void setCharSlots( const int charslots );
-	void setChatName( const QString chatname );
-	void setIgnoreList( const QString ignorelist );
+	void setChatName( const QString& chatname );
+	void setIgnoreList( const QString& ignorelist );
 
 	quint32 flags() const;
 	QDateTime blockedUntil() const
@@ -275,7 +275,7 @@ inline void cAccount::setEmail( const QByteArray& email )
 	email_ = email;
 }
 
-inline void cAccount::setCreationDate( const QString creationdate )
+inline void cAccount::setCreationDate( const QString& creationdate )
 {
 	creationdate_ = creationdate;
 }
@@ -290,12 +290,12 @@ inline void cAccount::setCharSlots( const int charslots )
 	charslots_ = charslots;
 }
 
-inline void cAccount::setChatName( const QString chatname )
+inline void cAccount::setChatName( const QString& chatname )
 {
 	chatname_ = chatname;
 }
 
-inline void cAccount::setIgnoreList( const QString ignorelist )
+inline void cAccount::setIgnoreList( const QString& ignorelist )
 {
 	ignorelist_ = ignorelist;
 }

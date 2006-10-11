@@ -728,6 +728,8 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 	d->setCreationDate( (QDateTime::currentDateTime()).toString() );
 	d->setTotalGameTime( 0 );
 	d->setCharSlots( Config::instance()->maxCharsPerAccount() );
+	d->setIgnoreList( QString("") );
+	d->setChatName( QString("") );
 	accounts.insert( d->login(), d );
 	if ( accounts.count() == 1 ) // first account, it must be admin!
 	{
