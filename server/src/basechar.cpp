@@ -870,7 +870,7 @@ bool cBaseChar::resurrect( cUObject* source )
 			{
 				P_ITEM item = atLayer( ( enLayer ) layer );
 
-				if ( item )
+				if ( item && !item->hasTag("dontremoveondeath"))
 				{
 					backpack->addItem( item );
 					item->update();
