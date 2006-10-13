@@ -70,7 +70,7 @@
 		<active />
 		<npc id="spinner_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="spinner_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="3765,1266,0,1" />
+		<point pos="3764,1266,0,1" />
 	</spawnregion>
 
 	<spawnregion inherit="nujelm_vendor" id="nujelm_vendor_9">

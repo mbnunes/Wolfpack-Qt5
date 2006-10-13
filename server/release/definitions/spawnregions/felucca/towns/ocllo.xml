@@ -101,7 +101,7 @@
 		<active />
 		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="3692,2508,0,0" />
+		<point pos="3692,2510,0,0" />
 	</spawnregion>
 
 	<spawnregion inherit="felucca_ocllo_vendor" id="felucca_ocllo_vendor_12">

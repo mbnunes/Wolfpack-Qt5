@@ -70,7 +70,7 @@
 		<active />
 		<npc id="spinner_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="spinner_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="3765,1266,0,0" />
+		<point pos="3764,1266,0,0" />
 	</spawnregion>
 
 	<spawnregion inherit="felucca_nujelm_vendor" id="felucca_nujelm_vendor_9">

@@ -90,7 +90,7 @@
 		<active />
 		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="619,2215,0,0" />
+		<point pos="619,2217,0,0" />
 	</spawnregion>
 
 	<spawnregion inherit="felucca_vendor" id="felucca_vendor_13">
@@ -349,7 +349,7 @@
 		<active />
 		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="1474,1583,20,0" />
+		<point pos="1474,1582,20,0" />
 	</spawnregion>
 
 	<spawnregion inherit="felucca_vendor" id="felucca_vendor_50">
@@ -734,7 +734,7 @@
 		<active />
 		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="2991,835,0,0" />
+		<point pos="2993,835,0,0" />
 	</spawnregion>
 
 	<spawnregion inherit="felucca_vendor" id="felucca_vendor_105">
@@ -1133,6 +1133,6 @@
 		<active />
 		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="2961,624,0,0" />
+		<point pos="2961,625,0,0" />
 	</spawnregion>
 </definitions>
