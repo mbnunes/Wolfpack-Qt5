@@ -81,7 +81,7 @@ PRIMARY KEY (`option`) \
   cAccount member functions
  *****************************************************************************/
 
-cAccount::cAccount() : acl_( 0 ), flags_( 0 ), attempts_( 0 ), inUse_( false )
+cAccount::cAccount() : acl_( 0 ), flags_( 0 ), attempts_( 0 ), inUse_( false ), chatname_( "" ), ignorelist_( "" )
 {
 }
 
@@ -609,7 +609,7 @@ void cAccounts::load()
 			query.setForwardOnly( true );
 
 			// Selecting things to Query
-			query.exec( "SELECT login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots FROM accounts" );
+			query.exec( "SELECT login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots,chatname,ignorelist FROM accounts" );
 
 			// Clear Accounts HERE
 			// Here we can be pretty sure that we have a valid datasource for accounts
@@ -728,8 +728,6 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 	d->setCreationDate( (QDateTime::currentDateTime()).toString() );
 	d->setTotalGameTime( 0 );
 	d->setCharSlots( Config::instance()->maxCharsPerAccount() );
-	d->setIgnoreList( QString("") );
-	d->setChatName( QString("") );
 	accounts.insert( d->login(), d );
 	if ( accounts.count() == 1 ) // first account, it must be admin!
 	{
