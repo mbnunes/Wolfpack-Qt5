@@ -819,21 +819,95 @@ quint32 cPlayer::takeGold( quint32 amount, bool useBank )
 
 	// Count total gold
 	unsigned int totalGold = 0;
-	totalGold = pPack->countItems(0xEED, 0);
 
-	if (useBank && totalGold < amount) {
-		totalGold += pBank->countItems(0xEED, 0);
+	// Change useBank if we have "Pay from pack only" enabled
+	if (Config::instance()->payfrompackonly())
+		useBank = false;
+
+	// Lets try global IDs
+	QString idthird = Config::instance()->defaultThirdCoin();
+	QString idfirst = Config::instance()->defaultFirstCoin();
+
+	// Lets try values
+	if (Config::instance()->usenewmonetary()) {
+
+		// Lets Assign Region
+		cTerritory* Region = this->region();
+
+		if (Config::instance()->usereversedvaluable())
+		{
+			// Region Assignment
+			if ( Region )
+			{
+				idthird = Region->thirdcoin();
+			}
+
+			// Get Amounts
+			totalGold = pPack->countBaseItems( idthird );
+
+			if (useBank && totalGold < amount) {
+				totalGold += pBank->countBaseItems( idthird );
+			}
+		}
+		else
+		{
+			// Region Assignment
+			if ( Region )
+			{
+				idfirst = Region->firstcoin();
+			}
+
+			// Get Amounts
+			totalGold = pPack->countBaseItems( idfirst );
+
+			if (useBank && totalGold < amount) {
+				totalGold += pBank->countBaseItems( idfirst );
+			}
+		}
+	}
+	else
+	{
+		totalGold = pPack->countItems(0xEED, 0);
+
+		if (useBank && totalGold < amount) {
+			totalGold += pBank->countItems(0xEED, 0);
+		}
 	}
 
 	if (totalGold < amount) {
 		return 0;
 	}
 
+	// Amount to Delete
 	quint32 dAmount = 0;
-	dAmount = pPack->deleteAmount( amount, 0xEED, 0 );
 
-	if (useBank && dAmount > 0) {
-		pBank->deleteAmount( dAmount, 0xEED, 0 );
+	// Lets Delete
+	if (Config::instance()->usenewmonetary())
+	{
+		if (Config::instance()->usereversedvaluable())
+		{
+			dAmount = pPack->removeItem( idthird, amount );
+
+			if (useBank && dAmount > 0) {
+				pBank->removeItem( idthird, dAmount );
+			}
+		}
+		else
+		{
+			dAmount = pPack->removeItem( idfirst, amount );
+
+			if (useBank && dAmount > 0) {
+				pBank->removeItem( idfirst, dAmount );
+			}
+		}
+	}
+	else
+	{
+		dAmount = pPack->deleteAmount( amount, 0xEED, 0 );
+
+		if (useBank && dAmount > 0) {
+			pBank->deleteAmount( dAmount, 0xEED, 0 );
+		}
 	}
 
 	goldSound(amount, false);
