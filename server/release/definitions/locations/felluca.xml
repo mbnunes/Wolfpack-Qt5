@@ -3,7 +3,7 @@
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Raptor                         |
 |   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|  ( (  ;._ \\ ctr | Last Modification: Owner_Mutilador         |
 =================================================================
 -->
 
@@ -37,6 +37,10 @@
 	<location id="felluca jhelom fighting pit" category="Felluca\Towns\Jhelom\Fighting Pit">1397,3745,-20,0</location>
 	<location id="felluca jhelom tailor" category="Felluca\Towns\Jhelom\Jheloms Fine Tailoring">1460,4011,0,0</location>
 	<location id="felluca jhelom inn" category="Felluca\Towns\Jhelom\Inn">1376,3817,0,0</location>
+	
+	<!-- Heartwood -->
+	<location id="felluca Heartwood Teleport" category="Felluca\Towns\Heartwood\Teleport">534,992,0,0</location>
+	<location id="felluca Heartwood Entrance" category="Felluca\Towns\Heartwood\Entrance">6984,337,0,0</location>
 
 	<!-- Minoc -->
 	<location id="felluca minoc" category="Felluca\Towns\Minoc\Center">2466,443,15,0</location>
@@ -136,6 +140,10 @@
 	<location id="felluca sight great waterfall" category="Felluca\Misc\Sightings\The great Waterfall">1322,544,30,0</location>
 	<location id="felluca sight trappers camp" category="Felluca\Misc\Sightings\Trappers Camp">3347,572,0,0</location>
 
+	<!-- Dungeons: The Blighted Grove -->
+	<location id="felluca The Blighted Grove Entrance" category="Felluca\Dungeons\The Blighted Grove\Entrance">588,1640,0,0</location>
+	<location id="felluca The Blighted Grove level 1" category="Felluca\Dungeons\The Blighted Grove\Level 1">6472,869,20,0</location>
+
 	<!-- Dungeons: Covetous -->
 	<location id="felluca covetous level 1" category="Felluca\Dungeons\Covetous\Level 1">5456,1862,0,0</location>
 	<location id="felluca covetous level 2" category="Felluca\Dungeons\Covetous\Level 2">5613,1998,0,0</location>
@@ -170,6 +178,21 @@
 	<location id="felluca hythloth level 3" category="Felluca\Dungeons\Hythloth\Level 3">6083,148,-22,0</location>
 	<location id="felluca hythloth level 4" category="Felluca\Dungeons\Hythloth\Level 4">6059,92,22,0</location>
 	<location id="felluca hythloth entrance" category="Felluca\Dungeons\Hythloth\Entrance">4722,3825,0,0</location>
+
+	<!-- Dungeons: Solen Hives -->
+	<location id="felluca Solen Hives Area A Entrance" category="Felluca\Dungeons\Solen Hives\Area A\Entrance">729,1451,0,0</location>
+	<location id="felluca Solen Hives Area A level 1" category="Felluca\Dungeons\Solen Hives\Area A\Level 1">5658,1795,3,0</location>
+	<location id="felluca Solen Hives Area A level 2" category="Felluca\Dungeons\Solen Hives\Area A\Level 2">5726,1891,1,0</location>
+	<location id="felluca Solen Hives Area B Entrance" category="Felluca\Dungeons\Solen Hives\Area B\Entrance">2607,763,0,0</location>
+	<location id="felluca Solen Hives Area B level 1" category="Felluca\Dungeons\Solen Hives\Area B\Level 1">5921,1797,1,0</location>
+	<location id="felluca Solen Hives Area B level 2" category="Felluca\Dungeons\Solen Hives\Area B\Level 2">5875,1866,2,0</location>
+	<location id="felluca Solen Hives Area C Entrance" category="Felluca\Dungeons\Solen Hives\Area C\Entrance">1689,2789,0,0</location>
+	<location id="felluca Solen Hives Area C level 1" category="Felluca\Dungeons\Solen Hives\Area C\Level 1">5659,2022,0,0</location>
+	<location id="felluca Solen Hives Area C level 2" category="Felluca\Dungeons\Solen Hives\Area C\Level 2">5708,1955,0,0</location>
+	<location id="felluca Solen Hives Area D Entrance" category="Felluca\Dungeons\Solen Hives\Area D\Entrance">1723,814,0,0</location>
+	<location id="felluca Solen Hives Area D level 1" category="Felluca\Dungeons\Solen Hives\Area D\Level 1">5916,2019,3,0</location>
+	<location id="felluca Solen Hives Area D level 2" category="Felluca\Dungeons\Solen Hives\Area D\Level 2">5813,2012,-1,0</location>
+	<location id="felluca Solen Hives Area E Entrance" category="Felluca\Dungeons\Solen Hives\Area E\Entrance">5732,1858,0,0</location>
 
 	<!-- Dungeons: Shame -->
 	<location id="felluca shame level 1" category="Felluca\Dungeons\Shame\Level 1">5395,126,0,0</location>

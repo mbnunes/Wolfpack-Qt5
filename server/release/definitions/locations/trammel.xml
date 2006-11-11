@@ -3,7 +3,7 @@
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Raptor                         |
 |   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|  ( (  ;._ \\ ctr | Last Modification: Owner_Mutilador         |
 =================================================================
 -->
 <definitions>
@@ -55,6 +55,10 @@
 	<!-- Haven -->
 	<location id="trammel haven" category="Trammel\Towns\Haven\Bank">3686,2519,0,1</location>
 	<location id="trammel haven smithy" category="Trammel\Towns\Haven\Smithy">3642,2595,0,1</location>
+
+	<!-- Heartwood -->
+	<location id="trammel Heartwood Teleport" category="Trammel\Towns\Heartwood\Teleport">534,992,0,1</location>
+	<location id="trammel Heartwood Entrance" category="Trammel\Towns\Heartwood\Entrance">6984,337,0,1</location>
 
 	<!-- Serpents Hold -->
 	<location id="trammel serpents hold" category="Trammel\Towns\Serpents Hold\Center">3021,3397,15,1</location>
@@ -135,6 +139,10 @@
 	<location id="trammel sight great waterfall" category="Trammel\Misc\Sightings\The great Waterfall">1322,544,30,1</location>
 	<location id="trammel sight trappers camp" category="Trammel\Misc\Sightings\Trappers Camp">3347,572,0,1</location>
 
+	<!-- Dungeons: The Blighted Grove -->
+	<location id="Trammel The Blighted Grove Entrance" category="Trammel\Dungeons\The Blighted Grove\Entrance">588,1640,0,0</location>
+	<location id="Trammel The Blighted Grove level 1" category="Trammel\Dungeons\The Blighted Grove\Level 1">6472,869,20,0</location>
+
 	<!-- Dungeons: Covetous -->
 	<location id="trammel covetous level 1" category="Trammel\Dungeons\Covetous\Level 1">5456,1862,0,1</location>
 	<location id="trammel covetous level 2" category="Trammel\Dungeons\Covetous\Level 2">5613,1998,0,1</location>
@@ -170,6 +178,21 @@
 	<location id="trammel hythloth level 4" category="Trammel\Dungeons\Hythloth\Level 4">6059,92,22,1</location>
 	<location id="trammel hythloth" category="Trammel\Dungeons\Hythloth\Entrance">4722,3825,0,1</location>
 
+	<!-- Dungeons: Solen Hives -->
+	<location id="Solen Hives Area A Entrance" category="Trammel\Dungeons\Solen Hives\Area A\Entrance">729,1451,0,1</location>
+	<location id="Solen Hives Area A level 1" category="Trammel\Dungeons\Solen Hives\Area A\Level 1">5658,1795,3,1</location>
+	<location id="Solen Hives Area A level 2" category="Trammel\Dungeons\Solen Hives\Area A\Level 2">5726,1891,1,1</location>
+	<location id="Solen Hives Area B Entrance" category="Trammel\Dungeons\Solen Hives\Area B\Entrance">2607,763,0,1</location>
+	<location id="Solen Hives Area B level 1" category="Trammel\Dungeons\Solen Hives\Area B\Level 1">5921,1797,1,1</location>
+	<location id="Solen Hives Area B level 2" category="Trammel\Dungeons\Solen Hives\Area B\Level 2">5875,1866,2,1</location>
+	<location id="Solen Hives Area C Entrance" category="Trammel\Dungeons\Solen Hives\Area C\Entrance">1689,2789,0,1</location>
+	<location id="Solen Hives Area C level 1" category="Trammel\Dungeons\Solen Hives\Area C\Level 1">5659,2022,0,1</location>
+	<location id="Solen Hives Area C level 2" category="Trammel\Dungeons\Solen Hives\Area C\Level 2">5708,1955,0,1</location>
+	<location id="Solen Hives Area D Entrance" category="Trammel\Dungeons\Solen Hives\Area D\Entrance">1723,814,0,1</location>
+	<location id="Solen Hives Area D level 1" category="Trammel\Dungeons\Solen Hives\Area D\Level 1">5916,2019,3,1</location>
+	<location id="Solen Hives Area D level 2" category="Trammel\Dungeons\Solen Hives\Area D\Level 2">5813,2012,-1,1</location>
+	<location id="Solen Hives Area E Entrance" category="Trammel\Dungeons\Solen Hives\Area E\Entrance">5732,1858,0,1</location>
+	
 	<!-- Dungeons: Shame -->
 	<location id="trammel shame level 1" category="Trammel\Dungeons\Shame\Level 1">5395,126,0,1</location>
 	<location id="trammel shame level 2" category="Trammel\Dungeons\Shame\Level 2">5515,15,5,1</location>

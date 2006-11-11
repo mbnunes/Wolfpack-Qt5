@@ -3,14 +3,14 @@
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Raptor                         |
 |   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|  ( (  ;._ \\ ctr | Last Modification: Owner_Mutilador         |
 =================================================================
 -->
 <definitions>
 
-	<location id="unnamed1" category="Ilshenar\Cities\Ancient Citadel\Entrance">1518,568,-14,2</location>
-	<location id="unnamed2" category="Ilshenar\Cities\Gargoyle City\Bank">852,602,-40,2</location>
-	<location id="unnamed3" category="Ilshenar\Cities\Gargoyle City\Central Area">836,641,-20,2</location>
+	<location id="Ancient Citadel Entrance" category="Ilshenar\Cities\Ancient Citadel\Entrance">1518,568,-14,2</location>
+	<location id="Gargoyle City Bank" category="Ilshenar\Cities\Gargoyle City\Bank">852,602,-40,2</location>
+	<location id="Gargoyle City Central Area" category="Ilshenar\Cities\Gargoyle City\Central Area">836,641,-20,2</location>
 	<location id="ilshenar lakeshire center" category="Ilshenar\Cities\LakeShire\Central Area">1203,1124,-25,2</location>
 	<location id="ilshenar mistas center" category="Ilshenar\Cities\Mistas\Central Area">820,1073,-30,2</location>
 	<location id="ilshenar montor center" category="Ilshenar\Cities\Montor\Central Area">1643,310,48,2</location>
@@ -51,4 +51,32 @@
 	<location id="ilshenar wisp 6" category="Ilshenar\Dungeons\Wisp\Level 6">866,1434,-28,2</location>
 	<location id="ilshenar wisp 7" category="Ilshenar\Dungeons\Wisp\Level 7">807,1548,-28,2</location>
 	<location id="ilshenar wisp 8" category="Ilshenar\Dungeons\Wisp\Level 8">754,1479,-28,2</location>
+
+	<!-- Caves -->
+	
+	<location id="Acient Lair Entrance" category="Ilshenar\Caves\Ancient Lair\Entrance">940,504,-30,2</location>
+	<location id="Acient Lair Level 1" category="Ilshenar\Caves\Ancient Lair\Level 1">85,746,-28,2</location>
+	<location id="Lizard Passage Entrance" category="Ilshenar\Caves\Lizard Passage\Entrance">314,1334,-36,2</location>
+	<location id="Lizard Passage Level 1" category="Ilshenar\Caves\Lizard Passage\Level 1">329,1589,-18,2</location>
+	<location id="Lizard Passage Level 2" category="Ilshenar\Caves\Lizard Passage\Level 2">227,1337,-18,2</location>
+	<location id="Mushroom Cave Entrance" category="Ilshenar\Caves\Mushroom Cave\Entrance">1459,1329,-24,2</location>
+	<location id="Rat Cave Entrance" category="Ilshenar\Caves\Rat Cave\Entrance">1034,1153,-23,2</location>
+	<location id="Rat Cave Level 1" category="Ilshenar\Caves\Rat Cave\Level 1">1348,1510,-3,2</location>
+	<location id="Rat Cave Level 2" category="Ilshenar\Caves\Rat Cave\Level 2">1247,1511,-28,2</location>
+	<location id="Spider Cave Entrance" category="Ilshenar\Caves\Spider Cave\Entrance">1421,913,-19,2</location>
+	<location id="Spider Cave Level 1" category="Ilshenar\Caves\Spider Cave\Level 1">1786,991,-28,2</location>
+	<location id="Spider Cave Level 2" category="Ilshenar\Caves\Spider Cave\Level 2">1517,877,10,2</location>
+	<location id="Spider Cave Ethereal Keep" category="Ilshenar\Caves\Spider Cave\Ethereal Keep">1365,1102,-26,2</location>
+
+	<!-- Shrines -->
+
+	<location id="Compassion" category="Ilshenar\Shrines\Level 1">1217,469,-13,2</location>
+	<location id="Honesty" category="Ilshenar\Shrines\Level 2">720,1356,-60,2</location>
+	<location id="Honor" category="Ilshenar\Shrines\Level 3">748,728,-29,2</location>
+	<location id="Humility" category="Ilshenar\Shrines\Level 4">287,1016,0,2</location>
+	<location id="Justice" category="Ilshenar\Shrines\Level 5">987,1007,-35,2</location>
+	<location id="Sacrifice" category="Ilshenar\Shrines\Level 6">1175,1287,-30,2</location>
+	<location id="Spirituality" category="Ilshenar\Shrines\Level 7">1532,1341,-3,2</location>
+	<location id="Valor" category="Ilshenar\Shrines\Level 8">527,218,-44,2</location>
+
 </definitions>
