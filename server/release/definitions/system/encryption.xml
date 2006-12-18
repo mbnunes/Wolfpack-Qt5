@@ -11,6 +11,10 @@
 		<!-- High priority first !! -->
 
 		<!-- Client identification string (optional) ; Key1 ; Key2 -->
+		<item> Client 5.0.7 ; 0x2C1BC78D ; 0xA31BFE7F </item>
+		<!-- OSI changed the way client keys are stored after 5.0.6 -->
+		<!-- There are rumours, that they get calculated at runtime from file/clientversion -->
+		<!-- Keys for 5.0.7. are the same as for Client 3.0.7 -->
 		<item> Client 5.0.6 ; 0x2FC3ED9C ; 0xA2F4227F </item>
 		<item> Client 5.0.5 ; 0x2F8B97AC ; 0xA2D0DE7F </item>
 		<item> Client 5.0.4 ; 0x2E7385BC ; 0xA22D127F </item>
