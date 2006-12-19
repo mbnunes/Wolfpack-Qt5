@@ -284,7 +284,7 @@ public:
 	/*
 		Iterate over the content of an item.
 	*/
-	ContainerIterator::ContainerIterator( const cItem* item );
+	ContainerIterator( const cItem* item );
 
 	/*
 		Iterate over a ContainerContent instance.
@@ -359,7 +359,7 @@ public:
 	/*
 		Iterate over the content of an item.
 	*/
-	ContainerCopyIterator::ContainerCopyIterator( const cItem* item );
+	ContainerCopyIterator( const cItem* item );
 
 	/*
 		Iterate over a ContainerContent instance.
