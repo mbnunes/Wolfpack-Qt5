@@ -30,6 +30,11 @@ def onUse(char, item):
 	char.objectdelay = 0
 	protected = False
 
+	# Book cannot be reached
+	if not char.canreach(item, 1):
+		char.socket.clilocmessage(500312) # You cannot reach that.
+		return 1
+
 	# If it's within another characters pack. This is true for player vendors for
 	# instance.
 	outmost = item.getoutmostchar()

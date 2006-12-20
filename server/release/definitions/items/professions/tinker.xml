@@ -15,6 +15,7 @@
 		<category>Professions\Tinker\Clock (W/E)</category>
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
+		<basescripts>wall_clock</basescripts>
 		<weight>2.0</weight>
 	</item>
 

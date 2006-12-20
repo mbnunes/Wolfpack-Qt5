@@ -17,8 +17,8 @@
 	<!-- Boats -->
 	<script>boats</script>
 	<script>boats.deed</script>
-  <script>boats.tillerman</script>
-  <script>boats.plank</script>
+	<script>boats.tillerman</script>
+	<script>boats.plank</script>
 
 	<!-- Housing -->
 	<script>housing</script>
@@ -184,7 +184,7 @@
 	<script>commands.sysmessage</script>
 	<script>commands.tags</script>
 	<script>commands.tele</script>
-  <script>commands.testapi</script>
+	<script>commands.testapi</script>
 	<script>commands.testlos</script>
 	<script>commands.tile</script>
 	<script>commands.tilecolor</script>
