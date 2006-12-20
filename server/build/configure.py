@@ -300,7 +300,7 @@ def main():
 	parser.add_option("--python-includes",  dest="py_incpath", help="Python include path")
 	parser.add_option("--python-libraries", dest="py_libpath", help="Python library path")
 	parser.add_option("--qt-directory", dest="qt_dir", help="Base directory of Qt")
-	parser.add_option("--static", action="store_true", dest="staticlink", help="Build wokfpack using static libraries")
+	parser.add_option("--static", action="store_true", dest="staticlink", help="Build wolfpack using static libraries")
 	parser.add_option("--enable-debug", action="store_true", dest="enable_debug", help="Enables basic debugging support.")
 	parser.add_option("--enable-aidebug", action="store_true", dest="enable_aidebug", help="Enabled debugging of NPC AI.")
 	parser.add_option("--enable-translation", action="store_true", dest="enable_translation", help="Enable non-English language support.")
@@ -369,10 +369,17 @@ def main():
 	if options.enable_debug:
 		DEFINES += "_DEBUG "
 		CONFIG += "debug warn_on "
-		sys.stdout.write("Debug\n")
+		sys.stdout.write("Debug, ")
 	else:
 		CONFIG += "release warn_off "
-		sys.stdout.write("Release\n")
+		sys.stdout.write("Release, ")
+
+	# if --static
+	if options.staticlink:
+		sys.stdout.write("Static Libraries\n")
+	else:
+		DEFINES += "Py_ENABLE_SHARED "
+		sys.stdout.write("Shared Libraries\n")
 
 	# if --enable-gui
 	sys.stdout.write("GUI:                                    ")
