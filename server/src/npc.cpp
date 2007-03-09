@@ -134,7 +134,12 @@ void cNPC::postload( unsigned int version )
 	cBaseChar::postload( version );
 
 	// by Havelock
-	SERIAL owner = owner_->serial();
+	//SERIAL owner = owner_->serial();
+	// khpae
+	SERIAL owner = INVALID_SERIAL;
+	if(NULL != owner_) {
+			owner = owner_->serial();
+	}
 	owner_ = 0;
 	setOwner( dynamic_cast<P_PLAYER>( World::instance()->findChar( owner ) ) );
 	if ( wanderType() == enFollowTarget )
