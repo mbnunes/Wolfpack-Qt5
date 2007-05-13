@@ -7,6 +7,17 @@
 =================================================================
 -->
 <definitions>
+	<npc id="shipwright_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="boat_small"><amount>40</amount></item>
+				<item id="mapmakers_pen"><amount>20</amount></item>
+				<item id="14ec"><amount>20</amount></item>
+			</restockable>
+		</shopkeeper>
+		<skill id="cartography"><random min="900" max="1000" /></skill>
+	</npc>
+
 	<!-- A shipwright vendor -->
 	<npc id="shipwright_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Shipwright</title>
@@ -14,6 +25,7 @@
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
 		<category>Vendors\Shipwright (Male)</category>
+		<inherit id="shipwright_inventory" />
 	</npc>
 	
 	<npc id="shipwright_female" inherit="vendor_female">
@@ -22,6 +34,7 @@
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
 		<category>Vendors\Shipwright (Female)</category>
+		<inherit id="shipwright_inventory" />
 	</npc>
 
 </definitions>

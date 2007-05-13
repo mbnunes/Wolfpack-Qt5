@@ -244,4 +244,67 @@
 		<!-- <intproperty name="hit_poison_level" value="5" /> -->
 	</npc>
 
+	<!-- A Chaos Dragoon -->
+	<npc id="chaos_dragoon">
+		<name>a chaos dragoon</name>
+		<id>0x190</id>
+		<ai>Monster_Mage</ai>
+		<bindmenu>paperdoll_menu</bindmenu>
+		<skin><random list="SKINS_HUMAN" /></skin>
+		<wandertype>1</wandertype>
+		<!-- Facing a random direction -->
+		<direction><random min="0" max="7" /></direction>
+		<gender>male</gender>
+		<haircolor><random list="HAIRCOLOR" /></haircolor>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="176" max="225"/></str>
+		<dex><random min="81" max="95"/></dex>
+		<int><random min="61" max="85"/></int>
+		<maxhitpoints><random min="176" max="225"/></maxhitpoints>
+		<maxstamina><random min="81" max="95"/></maxstamina>
+		<maxmana><random min="61" max="85"/></maxmana>
+		<!-- Skills -->
+		<skill id="wrestling"><random min="0" max="0"/></skill>
+		<skill id="tactics"><random min="776" max="875"/></skill>
+		<skill id="magicresistance"><random min="776" max="975"/></skill>
+		<skill id="anatomy"><random min="776" max="975"/></skill>
+		<!-- Damage -->
+		<mindamage>9</mindamage>
+		<maxdamage>18</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_fire" value="15,25" type="int" />
+		<tag name="res_cold" value="50,50" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<!-- Loot Packs -->
+		<!-- The Equipment for dragoon -->
+		<equipped>
+			<item id="e75" /> <!-- Backpack -->
+			<item list="HAIR" /> <!-- Random Hair -->
+	            <item id="13f2_shadow" /> <!-- gloves -->
+	            <item id="13f0_shadow" /> <!-- legs -->
+	            <item id="13ee_shadow" /> <!-- sleeves -->
+	            <item id="13ec_shadow" /> <!-- tunic -->
+	            <item id="140e_shadow" /> <!-- nose -->
+	            <item id="170b" /> <!-- boots -->
+	            <item id="1401" /> <!-- kyrss -->
+	            <item id="1bc3" /> <!-- chaos sheild -->
+		</equipped>
+		<backpack>
+			<content>
+	                   <item id="eed"><amount><random min="250" max="300" /></amount></item> <!-- Gold -->
+			</content>
+		</backpack>
+		<lootpacks>scroll_medium;scroll_medium;tm_2</lootpacks>
+		<!-- Misc. -->
+		<strproperty name="slayer_group" value="mages" />
+		<strproperty name="food" value="1" />
+		<category>Humans\Evil\chaos dragoon</category>
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
 </definitions>

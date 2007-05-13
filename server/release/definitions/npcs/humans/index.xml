@@ -19,6 +19,9 @@
 	
 	<!-- Vendors -->
 	<include file="definitions/npcs/humans/vendors/index.xml"/>
+
+	<!-- SE Vendors -->
+	<include file="definitions/npcs/humans/SEvendors/index.xml"/>
 	
 	<!-- Playervendors -->
 	<include file="definitions/npcs/humans/playervendors.xml"/>
