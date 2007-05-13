@@ -1,0 +1,95 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<npc id="sealchemist_inventory">
+		<title context="Vendor Male Titles">the Alchemist</title>
+		<shopkeeper>
+			<restockable>
+				<!-- Reagents -->
+				<item id="f7a"><amount>999</amount></item>
+				<item id="f7b"><amount>999</amount></item>
+				<item id="f84"><amount>999</amount></item>
+				<item id="f85"><amount>999</amount></item>
+				<item id="f86"><amount>999</amount></item>
+				<item id="f88"><amount>999</amount></item>
+				<item id="f8c"><amount>999</amount></item>
+				<item id="f8d"><amount>999</amount></item>
+				<item id="f0e"><amount>100</amount></item> <!-- Bottle -->
+				<item id="eff"><amount>10</amount></item> <!-- Hair Dye -->
+				<item id="e9b"><amount>10</amount></item> <!-- Mortar and Pestle -->
+				<!-- Potions -->
+				<item id="potion_nightsight"><amount>10</amount></item>
+				<item id="potion_agility"><amount>10</amount></item>
+				<item id="potion_strength"><amount>10</amount></item>
+				<item id="potion_refresh"><amount>10</amount></item>
+				<item id="potion_lessercure"><amount>10</amount></item>
+				<item id="potion_lesserheal"><amount>10</amount></item>
+				<item id="potion_lesserpoison"><amount>10</amount></item>
+				<item id="potion_lesserexplosion"><amount>10</amount></item>
+			</restockable>
+			<sellable>
+				<!-- Reagents -->
+				<item id="f7a" />
+				<item id="f7b" />
+				<item id="f84" />
+				<item id="f85" />
+				<item id="f86" />
+				<item id="f88" />
+				<item id="f8c" />
+				<item id="f8d" />
+				<item id="f0e" /> <!-- Bottles -->
+				<item id="eff" /> <!-- Hair Dyes -->
+				<item id="e9b" /> <!-- Mortar and Peste -->
+				<!-- Sellable Potions -->
+				<item id="potion_nightsight" />
+				<item id="potion_agility" />
+				<item id="potion_strength" />
+				<item id="potion_refresh" />
+				<item id="potion_lessercure" />
+				<item id="potion_lesserheal" />
+				<item id="potion_lesserpoison" />
+				<item id="potion_lesserexplosion" />
+			</sellable>
+		</shopkeeper>
+		<skill id="alchemy"><random min="850" max="1000" /></skill>
+		<skill id="tasteidentification"><random min="650" max="880" /></skill>
+	</npc>
+
+	<!-- A SE alchemist vendor -->
+	<npc id="sealchemist_male" inherit="vendor_male">
+		<inherit id="sealchemist_inventory" />
+		<category>Vendors\SE Alchemist (Male)</category>
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
+	</npc>
+
+	<npc id="sealchemist_female" inherit="vendor_female">
+		<inherit id="sealchemist_inventory" />
+		<category>Vendors\SE Alchemist (Female)</category>
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
+	</npc>
+
+	<npc id="sealchemist">
+		<inherit><random valuelist="sealchemist_male,sealchemist_female" /></inherit>
+		<category>Vendors\SE Alchemist (Random)</category>
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
+	</npc>
+
+</definitions>

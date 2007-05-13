@@ -1,0 +1,55 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="sestablemaster_inventory">
+		<shopkeeper>
+			<restockable>
+				<!-- Horse (Gray) -->
+				<item id="shrink_horse_1">
+					<name>Horse</name>
+					<amount>10</amount>
+				</item>
+				<!-- Horse (Gray/Brown) -->
+				<item id="shrink_horse_2">
+					<name>Horse</name>
+					<amount>10</amount>
+				</item>
+				<!-- Horse (Light Brown) -->
+				<item id="shrink_horse_3">
+					<name>Horse</name>
+					<amount>10</amount>
+				</item>
+				<!-- Horse (Brown) -->
+				<item id="shrink_horse_4">
+					<name>Horse</name>
+					<amount>10</amount>
+				</item>
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- SE Stablemaster (no real vendor) -->
+	<npc id="sestablemaster_male" inherit="vendor_male">
+		<inherit id="sestablemaster_inventory" />		
+		<ai>Human_Stablemaster</ai>
+		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>
+		<title context="Vendor Male Titles">the Stablemaster</title>
+		<category>Vendors\SE Stablemaster (Male)</category>
+	</npc>
+
+	<npc id="sestablemaster_female" inherit="vendor_female">
+		<inherit id="sestablemaster_inventory" />
+		<ai>Human_Stablemaster</ai>
+		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>
+		<title context="Vendor Female Titles">the Stablemaster</title>
+		<category>Vendors\SE Stablemaster (Female)</category>
+	</npc>
+
+</definitions>

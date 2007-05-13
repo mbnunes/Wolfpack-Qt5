@@ -1,0 +1,113 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="seweaponsmith_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="f47"><amount>20</amount></item> <!-- Battle Axe -->
+				<item id="f4b"><amount>20</amount></item> <!-- Double Axe -->
+				<item id="f45"><amount>20</amount></item> <!-- Executioners Axe -->
+				<item id="13fb"><amount>20</amount></item> <!-- Large Battle Axe -->
+				<item id="e86"><amount>20</amount></item> <!-- Pickaxe -->
+				<item id="1443"><amount>20</amount></item> <!-- Two Handed Axe -->
+				<item id="13b0"><amount>20</amount></item> <!-- War Axe -->
+				<item id="f49"><amount>20</amount></item> <!-- Axe -->
+
+				<item id="13f6"><amount>20</amount></item> <!-- Butcher Knife -->
+				<item id="ec3"><amount>20</amount></item> <!-- Cleaver -->
+				<item id="f52"><amount>20</amount></item> <!-- Dagger -->
+				<item id="ec4"><amount>20</amount></item> <!-- Skinning Knife -->
+
+				<item id="13b4"><amount>20</amount></item> <!-- Club -->
+				<item id="143d"><amount>20</amount></item> <!-- Hammer Pick -->
+				<item id="f5c"><amount>20</amount></item> <!-- Mace -->
+				<item id="143b"><amount>20</amount></item> <!-- Maul -->
+				<item id="1439"><amount>20</amount></item> <!-- War Hammer-->
+				<item id="1407"><amount>20</amount></item> <!-- War Mace -->
+
+				<item id="f4e"><amount>20</amount></item> <!-- Bardiche -->
+				<item id="143e"><amount>20</amount></item> <!-- Halberd -->
+
+				<item id="f63"><amount>20</amount></item> <!-- Spear -->
+				<item id="e88"><amount>20</amount></item> <!-- Pitchfork -->
+				<item id="1403"><amount>20</amount></item> <!-- Short Spear -->
+
+				<item id="f5e"><amount>20</amount></item> <!-- Broadsword -->
+				<item id="1441"><amount>20</amount></item> <!-- Cutlass -->
+				<item id="13ff"><amount>20</amount></item> <!-- Katana -->
+				<item id="1401"><amount>20</amount></item> <!-- Kryss -->
+				<item id="f60"><amount>20</amount></item> <!-- Longsword -->
+				<item id="13b6"><amount>20</amount></item> <!-- Scimitar -->
+				<item id="13b8"><amount>20</amount></item> <!-- Thin Longsword -->
+				<item id="13b9"><amount>20</amount></item> <!-- Viking Sword -->
+			</restockable>
+			<sellable>
+				<item id="f47"/> <!-- Battle Axe -->
+				<item id="f4b"/> <!-- Double Axe -->
+				<item id="f45"/> <!-- Executioners Axe -->
+				<item id="13fb"/> <!-- Large Battle Axe -->
+				<item id="e86"/> <!-- Pickaxe -->
+				<item id="1443"/> <!-- Two Handed Axe -->
+				<item id="13b0"/> <!-- War Axe -->
+				<item id="f49"/> <!-- Axe -->
+
+				<item id="13f6"/> <!-- Butcher Knife -->
+				<item id="ec3"/> <!-- Cleaver -->
+				<item id="f52"/> <!-- Dagger -->
+				<item id="ec4"/> <!-- Skinning Knife -->
+
+				<item id="13b4"/> <!-- Club -->
+				<item id="143d"/> <!-- Hammer Pick -->
+				<item id="f5c"/> <!-- Mace -->
+				<item id="143b"/> <!-- Maul -->
+				<item id="1439"/> <!-- War Hammer-->
+				<item id="1407"/> <!-- War Mace -->
+
+				<item id="f4e"/> <!-- Bardiche -->
+				<item id="143e"/> <!-- Halberd -->
+
+				<item id="f63"/> <!-- Spear -->
+				<item id="e88"/> <!-- Pitchfork -->
+				<item id="1403"/> <!-- Short Spear -->
+
+				<item id="f5e"/> <!-- Broadsword -->
+				<item id="1441"/> <!-- Cutlass -->
+				<item id="13ff"/> <!-- Katana -->
+				<item id="1401"/> <!-- Kryss -->
+				<item id="f60"/> <!-- Longsword -->
+				<item id="13b6"/> <!-- Scimitar -->
+				<item id="13b8"/> <!-- Thin Longsword -->
+				<item id="13b9"/> <!-- Viking Sword -->
+			</sellable>
+		</shopkeeper>
+		<skill id="armslore"><random min="640" max="1000" /></skill>
+		<skill id="blacksmithing"><random min="650" max="880" /></skill>
+	</npc>
+
+	<!-- A SE weaponsmith vendor -->
+	<npc id="seweaponsmith_male" inherit="vendor_male">
+		<title context="Vendor Male Titles">the Weaponsmith</title>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
+		<category>Vendors\SE Weaponsmith (Male)</category>
+		<inherit id="seweaponsmith_inventory" />
+	</npc>
+
+	<npc id="seweaponsmith_female" inherit="vendor_female">
+		<title context="Vendor Female Titles">the Weaponsmith</title>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
+		<category>Vendors\SE Weaponsmith (Female)</category>
+		<inherit id="seweaponsmith_inventory" />
+	</npc>
+
+</definitions>

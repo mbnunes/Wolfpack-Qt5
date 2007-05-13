@@ -1,0 +1,27 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<!-- A SE shipwright vendor -->
+	<npc id="seshipwright_male" inherit="vendor_male">
+		<title context="Vendor Male Titles">the Shipwright</title>
+		<equipped>
+			<item id="13e3" /> <!-- Smith's Hammer -->
+		</equipped>
+		<category>Vendors\SE Shipwright (Male)</category>
+	</npc>
+	
+	<npc id="seshipwright_female" inherit="vendor_female">
+		<title context="Vendor Female Titles">the Shipwright</title>
+		<equipped>
+			<item id="13e3" /> <!-- Smith's Hammer -->
+		</equipped>
+		<category>Vendors\SE Shipwright (Female)</category>
+	</npc>
+
+</definitions>

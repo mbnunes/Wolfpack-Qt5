@@ -1,0 +1,29 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="sescribe_inventory">
+		<title context="Vendor Male Titles">the Scribe</title>
+		<skill id="anatomy"><random min="750" max="980" /></skill>
+	</npc>
+
+	<!-- A SE artist -->
+	<npc id="sescribe_male" inherit="vendor_male">
+		<inherit id="sescribe_inventory" />
+		<category>Vendors\SE Scribe (Male)</category>
+	</npc>
+
+	<npc id="sescribe_female" inherit="vendor_female">
+		<inherit id="sescribe_inventory" />
+		<category>Vendors\SE Scribe (Female)</category>
+	</npc>
+
+</definitions>
+
+

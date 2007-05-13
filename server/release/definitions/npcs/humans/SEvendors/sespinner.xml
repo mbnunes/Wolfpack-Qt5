@@ -1,0 +1,22 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<!-- A SE spinner vendor -->
+	<npc id="sespinner_male" inherit="vendor_male">
+		<title context="Vendor Male Titles">the Spinner</title>
+		<category>Vendors\SE Spinner (Male)</category>
+	</npc>
+	
+	<npc id="sespinner_female" inherit="vendor_female">
+		<title context="Vendor Female Titles">the Spinner</title>
+		<category>Vendors\SE Spinner (Female)</category>
+	</npc>
+
+</definitions>

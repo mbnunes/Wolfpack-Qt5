@@ -1,0 +1,28 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="sebarber_inventory">
+		<basescript>speech.barber</basescript>
+	</npc>
+
+	<!-- SE Barber (no real vendor) -->
+	<npc id="sebarber_male" inherit="vendor_male">
+		<title context="Vendor Male Titles">the Hairstylist</title>
+		<inherit id="sebarber_inventory" />
+		<category>Vendors\SE Barber (Male)</category>
+	</npc>
+
+	<npc id="sebarber_female" inherit="vendor_female">
+		<title context="Vendor Female Titles">the Hairstylist</title>
+		<inherit id="sebarber_inventory" />
+		<category>Vendors\SE Barber (Female)</category>
+	</npc>
+
+</definitions>

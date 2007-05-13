@@ -1,0 +1,66 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="seprovisioner_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="f3f"><amount>20</amount></item> <!-- Arrow -->
+				<item id="1bfb"><amount>20</amount></item> <!-- Bolt -->
+				<item id="9b2"><amount>20</amount></item> <!-- Backpack -->
+				<item id="e79"><amount>20</amount></item> <!-- Pouch -->
+				<item id="e76"><amount>20</amount></item> <!-- Bag -->
+				<item id="a28"><amount>20</amount></item> <!-- Candle -->
+				<item id="f6b"><amount>20</amount></item> <!-- Torch -->
+				<item id="a25"><amount>20</amount></item> <!-- Lantern -->
+				<item id="14fc"><amount>20</amount></item> <!-- Lockpick -->
+				<item id="103b"><amount>20</amount></item> <!-- Bread Loaf -->
+				<item id="160a"><amount>20</amount></item> <!-- Lamb Leg -->
+				<item id="1608"><amount>20</amount></item> <!-- Chicken Leg -->
+				<item id="9b7"><amount>20</amount></item> <!-- Cooked Bird -->
+				<item id="bottle_ale"><amount>20</amount></item> <!-- Bottle of Ale -->
+				<item id="bottle_wine"><amount>20</amount></item> <!-- Bottle of Wine -->
+				<item id="bottle_liquor"><amount>20</amount></item> <!-- Bottle of Liquor -->
+				<item id="994"><amount>20</amount></item> <!-- Pear -->
+				<item id="9d0"><amount>20</amount></item> <!-- Apple -->
+				<item id="f84"><amount>20</amount></item> <!-- Garlic -->
+				<item id="f85"><amount>20</amount></item> <!-- Ginseng -->
+				<item id="1422"><amount>20</amount></item> <!-- Beeswax -->
+				<item id="f0e"><amount>20</amount></item> <!-- Bottle -->
+				<item id="ff1"><amount>20</amount></item> <!-- Red Book -->
+				<item id="ff2"><amount>20</amount></item> <!-- Blue Book -->
+				<item id="ff0"><amount>20</amount></item> <!-- Tan Book -->
+				<item id="e7d"><amount>20</amount></item> <!-- Wooden Box -->
+				<item id="100e"><amount>20</amount></item> <!-- Copper Key -->
+				<item id="de1"><amount>20</amount></item> <!-- Kindling -->
+				<item id="guildstone_deed"><amount>20</amount></item> <!-- Guildstone Deed -->
+				<item id="eff"><amount>20</amount></item> <!-- Hair Dye -->
+				<item id="chessboard"><amount>20</amount></item> <!-- Chessboard -->
+				<item id="checkerboard"><amount>20</amount></item> <!-- Checkerboard -->
+				<item id="e1c"><amount>20</amount></item> <!-- Backgammon -->
+				<item id="fa7"><amount>20</amount></item> <!-- Dices -->
+				<item id="plantbowl"><amount>20</amount></item> <!-- Plant Bowl -->
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A SE provisioner vendor -->
+	<npc id="seprovisioner_male" inherit="vendor_male">
+		<title context="Vendor Male Titles">the Provisioner</title>
+		<category>Vendors\SE Provisioner (Male)</category>
+		<inherit id="seprovisioner_inventory" />
+	</npc>
+
+	<npc id="seprovisioner_female" inherit="vendor_female">
+		<title context="Vendor Female Titles">the Provisioner</title>
+		<category>Vendors\SE Provisioner (Female)</category>
+		<inherit id="seprovisioner_inventory" />
+	</npc>
+
+</definitions>
