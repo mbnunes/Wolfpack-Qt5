@@ -1,0 +1,5 @@
+<decoration>
+	<!-- Misc-->
+	<include file="definitions/decoration/Tokuno/tokuno.xml"/>
+	<include file="definitions/decoration/Tokuno/signs.xml"/>
+</decoration>
