@@ -5,6 +5,7 @@
 	<include file="definitions/decoration/Trammel/signs.xml"/>
 	<include file="definitions/decoration/Trammel/doors.xml"/>
 	<include file="definitions/decoration/Trammel/hedgemaze.xml"/>
+	<include file="definitions/decoration/Trammel/solen_hive.xml"/>
 
 	<!-- towns-->
 	<include file="definitions/decoration/Trammel/towns/britain.xml"/>

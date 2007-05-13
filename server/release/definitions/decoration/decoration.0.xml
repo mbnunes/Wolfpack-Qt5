@@ -5,6 +5,7 @@
 	<include file="definitions/decoration/Felucca/shrines.xml"/>
 	<include file="definitions/decoration/Felucca/minoccamp.xml"/>
 	<include file="definitions/decoration/Felucca/hedgemaze.xml"/>
+	<include file="definitions/decoration/Felucca/solen_hive.xml"/>
 
 	<!-- towns-->
 	<include file="definitions/decoration/Felucca/towns/britain.xml"/>
