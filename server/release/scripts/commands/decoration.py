@@ -158,7 +158,7 @@ def decoration( socket, command, arguments ):
 		maponly = int(arguments)
 		maps.append(maponly)
 	except ValueError:
-                maps = [0, 1, 2, 3]
+                maps = [0, 1, 2, 3, 4]
 		pass
 
 	for map in maps:
