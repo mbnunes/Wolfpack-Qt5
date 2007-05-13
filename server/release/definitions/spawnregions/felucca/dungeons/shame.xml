@@ -1,4 +1,92 @@
 
 <definitions>
+	<spawnregion id="felucca_shame">
+		<inactive />
+		<maxnpcamount>35</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>shame</group>
+		<group>felucca_shame</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_shame2">
+		<inactive />
+		<maxnpcamount>4</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>2</npcspercycle>
+		<group>shame</group>
+		<group>felucca_shame</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_shame3">
+		<inactive />
+		<maxnpcamount>40</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>shame</group>
+		<group>felucca_shame</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_shame" id="felucca_shame_lv1">
+		<active />
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5379,1" to="5495,119" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_shame" id="felucca_shame_lv2">
+		<active />
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5510,1" to="5624,119" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_shame" id="felucca_shame_lv3">
+		<active />
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sea_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="kraken"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5379,136" to="5490,249" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_shame" id="felucca_shame_lv3_2">
+		<active />
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sea_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="kraken"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5521,131" to="5625,249" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_shame2" id="felucca_shame_lv4">
+		<active />
+		<npc id="elder_gazer"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5498,161" to="5515,186" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_shame3" id="felucca_shame_lv5">
+		<active />
+		<npc id="acid_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blood_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="elder_gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5642,3" to="5877,118" map="0" />
+	</spawnregion>
 
 </definitions>

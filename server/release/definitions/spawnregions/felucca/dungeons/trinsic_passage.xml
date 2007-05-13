@@ -1,4 +1,25 @@
 
 <definitions>
+	<spawnregion id="felucca_trinsic_passage">
+		<inactive />
+		<maxnpcamount>35</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>trinsic_passage</group>
+		<group>felucca_trinsic_passage</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_passage" id="felucca_trinsic_passage_lv2">
+		<active />
+		<npc id="dread_spider"><npcwander type="circle" radius="10" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="phoenix"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5891,1284" to="6022,1368" map="0" />
+	</spawnregion>
 
 </definitions>

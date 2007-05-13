@@ -1,0 +1,153 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="Zento_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>Zento_vendors</group>
+		<group>Zento_cove</group>
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_1">
+		<active />
+		<npc id="sebanker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sebanker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="735,1255,30,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_2">
+		<active />
+		<npc id="seleatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="seleatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="727,1213,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_3">
+		<active />
+		<npc id="setanner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="setanner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="742,1216,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_4">
+		<active />
+		<npc id="setinker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="setinker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="724,1221,45,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_5">
+		<active />
+		<npc id="secarpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="secarpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="746,1222,45,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_6">
+		<active />
+		<npc id="searchitect_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="searchitect_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="747,1206,45,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_7">
+		<active />
+		<npc id="seinnkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="seinnkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="679,1207,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_8">
+		<active />
+		<npc id="sebutcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sebutcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="702,1248,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_9">
+		<active />
+		<npc id="sebaker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sebaker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="705,1274,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_10">
+		<active />
+		<npc id="sealchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sealchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="685,1300,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_11">
+		<active />
+		<npc id="sejeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sejeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="727,1300,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_12">
+		<active />
+		<npc id="sestablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sestablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="779,1276,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_13">
+		<active />
+		<npc id="seblacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="seblacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="769,1256,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_14">
+		<active />
+		<npc id="seweaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="seweaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="768,1247,26,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_15">
+		<active />
+		<npc id="searmorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="searmorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="779,1257,26,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_16">
+		<active />
+		<npc id="sehealer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="sehealer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="781,1219,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_17">
+		<active />
+		<npc id="seherbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="seherbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="699,1298,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_18">
+		<active />
+		<npc id="seweaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="seweaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="745,1223,25,4" />
+	</spawnregion>
+
+	<spawnregion inherit="Zento_vendor" id="Zento_vendor_19">
+		<active />
+		<npc id="setailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="setailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="745,1204,25,4" />
+	</spawnregion>
+
+</definitions>

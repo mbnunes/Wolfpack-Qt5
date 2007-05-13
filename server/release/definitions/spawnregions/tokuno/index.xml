@@ -8,5 +8,7 @@
 -->
 
 <definitions>
+	<!-- Town Spawns -->
+	<include file="definitions/spawnregions/tokuno/towns/zento.xml" />
 	
 </definitions>

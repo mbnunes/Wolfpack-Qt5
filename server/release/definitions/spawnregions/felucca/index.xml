@@ -7,9 +7,7 @@
  *=======================================================*/
 -->
 
-<definitions>	
-	<include file="definitions/spawnregions/felucca/vendors.xml" />
-	
+<definitions>		
 	<!-- Town Spawns -->
 	<include file="definitions/spawnregions/felucca/towns/britain.xml" />
 	<include file="definitions/spawnregions/felucca/towns/buccaneers_den.xml" />
