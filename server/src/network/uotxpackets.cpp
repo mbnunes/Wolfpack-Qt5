@@ -32,6 +32,7 @@
 #include "../inlines.h"
 #include "../basechar.h"
 #include "../player.h"
+#include "../serverconfig.h"
 
 #include "../definitions.h"
 #include "../skills.h"
@@ -549,7 +550,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	else
 	{
 		QString title = pChar->title();
-		if ( title.isEmpty() && pChar->showSkillTitles() )
+		if ( title.isEmpty() && Config::instance()->showSkillTitles() )
 		{
 			title = Skills::instance()->getSkillTitle( pChar );
 		}

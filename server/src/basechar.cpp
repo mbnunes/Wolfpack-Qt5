@@ -121,6 +121,7 @@ cBaseChar::cBaseChar()
 	regenHitpointsTime_ = 0;
 	regenStaminaTime_ = 0;
 	regenManaTime_ = 0;
+	setShowSkillTitles(Config::instance()->showSkillTitles());
 }
 
 cBaseChar::cBaseChar( const cBaseChar& right ) : cUObject( right )
@@ -2060,6 +2061,14 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "elf" )
 	{
 		setElf( value.toInt() );
+		return 0;
+	}
+	/*
+		\property char.showskilltitles Indicates whether the skill titles in the paperdoll are visible or not.
+	*/
+	else if ( name == "showskilltitles" )
+	{
+		setShowSkillTitles( value.toInt() );
 		return 0;
 	}
 	/*
