@@ -63,15 +63,21 @@ public:
 		// constructors
 		stWanderType() : type( enHalt )
 		{
+			x1 = x2 = y1 = y2 = 0;
+			followTarget = 0;
 		}
 		stWanderType( enWanderTypes type_ ) : type( type_ )
 		{
+			x1 = x2 = y1 = y2 = 0;
+			followTarget = 0;
 		}
 		stWanderType( quint16 x1_, quint16 x2_, quint16 y1_, quint16 y2_ ) : type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ )
 		{
+			followTarget = 0;
 		}
 		stWanderType( quint16 x_, quint16 y_, quint16 radius_ ) : type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ )
 		{
+			followTarget = 0;
 		}
 
 		// attributes

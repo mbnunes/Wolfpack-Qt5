@@ -56,6 +56,7 @@
 #include "pathfinding.h"
 
 #include <QSqlQuery>
+#include <QSqlError>
 #include <QVariant>
 
 cNPC::cNPC()
@@ -70,6 +71,7 @@ cNPC::cNPC()
 	owner_ = NULL;
 	stablemasterSerial_ = INVALID_SERIAL;
 	wanderType_ = stWanderType();
+
 	aiid_ = "Monster_Aggressive_L1";
 	ai_ = new Monster_Aggressive_L1( this );
 	aiCheckInterval_ = ( quint16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
@@ -259,7 +261,9 @@ void cNPC::save()
 		q->addBindValue( wanderRadius() );
 		if ( isPersistent )
 			q->addBindValue( serial() );
-		q->exec();
+
+		if ( !q->exec() )
+			Console::instance()->log( LOG_ERROR, tr("Error saving NPC id %1, with server error: %2").arg( serial() ).arg( q->lastError().text() ) );
 	}
 
 	cBaseChar::save();
