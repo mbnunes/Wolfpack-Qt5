@@ -162,6 +162,7 @@ public:
 	QString profile() const;
 	qint8 fixedLightLevel() const;
 	quint8 maxControlSlots() const;
+	bool showSkillTitles() const;
 
 	// bit flag getters
 	bool maySnoop() const;
@@ -193,14 +194,15 @@ public:
 	void setProfile( const QString& data );
 	void setFixedLightLevel( quint8 data );
 	// bit flag setters
-	void setMaySnoop( bool data );
-	void setMayBroadcast( bool data );
-	void setShowSerials( bool data );
-	void setKarmaLock( bool data );
-	void setJailed( bool data );
-	void setSquelched( bool data );
-	void setParty( cParty* data );
 	void setGuild( cGuild* data );
+	void setJailed( bool data );
+	void setKarmaLock( bool data );	
+	void setMayBroadcast( bool data );
+	void setMaySnoop( bool data );
+	void setParty( cParty* data );
+	void setShowSerials( bool data );
+	void setShowSkillTitles( bool data );
+	void setSquelched( bool data );
 
 	unsigned char strengthLock() const;
 	unsigned char dexterityLock() const;
@@ -479,6 +481,11 @@ inline bool cPlayer::showSerials() const
 	return additionalFlags_ & 0x0008;
 }
 
+inline bool cPlayer::karmaLock() const
+{
+	return additionalFlags_ & 0x0010;
+}
+
 inline bool cPlayer::isJailed() const
 {
 	return additionalFlags_ & 0x0020;
@@ -489,27 +496,9 @@ inline bool cPlayer::isSquelched() const
 	return additionalFlags_ & 0x0040;
 }
 
-inline bool cPlayer::karmaLock() const
+inline bool cPlayer::showSkillTitles() const
 {
-	return additionalFlags_ & 0x0010;
-}
-
-inline void cPlayer::setJailed( bool data )
-{
-	if ( data )
-		additionalFlags_ |= 0x0020;
-	else
-		additionalFlags_ &= ~0x0020;
-	changed_ = true;
-}
-
-inline void cPlayer::setSquelched( bool data )
-{
-	if ( data )
-		additionalFlags_ |= 0x0040;
-	else
-		additionalFlags_ &= ~0x0040;
-	changed_ = true;
+	return additionalFlags_ & 0x0200;
 }
 
 inline void cPlayer::setMaySnoop( bool data )
@@ -545,6 +534,33 @@ inline void cPlayer::setKarmaLock( bool data )
 		additionalFlags_ |= 0x0010;
 	else
 		additionalFlags_ &= ~0x0010;
+	changed_ = true;
+}
+
+inline void cPlayer::setJailed( bool data )
+{
+	if ( data )
+		additionalFlags_ |= 0x0020;
+	else
+		additionalFlags_ &= ~0x0020;
+	changed_ = true;
+}
+
+inline void cPlayer::setSquelched( bool data )
+{
+	if ( data )
+		additionalFlags_ |= 0x0040;
+	else
+		additionalFlags_ &= ~0x0040;
+	changed_ = true;
+}
+
+inline void cPlayer::setShowSkillTitles( bool data )
+{
+	if ( data )
+		additionalFlags_ |= 0x0200;
+	else
+		additionalFlags_ &= ~0x0200;
 	changed_ = true;
 }
 

@@ -448,7 +448,6 @@ public:
 	bool isInvisible() const;
 	bool isMeditating() const;
 	bool isFrozen() const;
-	bool showSkillTitles() const;
 	bool isDead() const;
 	bool isAtWar() const;
 	bool isInvulnerable() const;
@@ -530,7 +529,6 @@ public:
 	void setInvisible( bool data );
 	void setMeditating( bool data );
 	void setFrozen( bool data );
-	void setShowSkillTitles( bool data );
 	void setDead( bool data );
 	void setAtWar( bool data );
 	void setInvulnerable( bool data );
@@ -1479,11 +1477,6 @@ inline bool cBaseChar::isFrozen() const
 	return propertyFlags_ & 0x0100;
 }
 
-inline bool cBaseChar::showSkillTitles() const
-{
-	return propertyFlags_ & 0x0200;
-}
-
 inline bool cBaseChar::isDead() const
 {
 	return propertyFlags_ & 0x0400;
@@ -1573,15 +1566,6 @@ inline void cBaseChar::setFrozen( bool data )
 		propertyFlags_ |= 0x0100;
 	else
 		propertyFlags_ &= ~0x0100;
-	changed_ = true;
-}
-
-inline void cBaseChar::setShowSkillTitles( bool data )
-{
-	if ( data )
-		propertyFlags_ |= 0x0200;
-	else
-		propertyFlags_ &= ~0x0200;
 	changed_ = true;
 }
 

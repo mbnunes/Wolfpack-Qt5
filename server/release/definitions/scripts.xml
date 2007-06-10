@@ -176,6 +176,7 @@
 	<script>commands.resurrect</script>
 	<script>commands.serverinfo</script>
 	<script>commands.say</script>
+	<script>commands.showskilltitles</script>
 	<script>commands.skillinfo</script>
 	<script>commands.skill</script>
 	<script>commands.sound</script>

@@ -795,13 +795,9 @@ const char* cAccount::className() const
 bool cAccount::implements( const QString& name ) const
 {
 	if ( name == "account" )
-	{
 		return true;
-	}
 	else
-	{
 		return cPythonScriptable::implements( name );
-	}
 }
 
 PyObject* cAccount::getPyObject()
@@ -819,9 +815,7 @@ PyObject* cAccount::getProperty( const QString& name, uint hash )
 	PY_PROPERTY( "password", password() );
 	PY_PROPERTY( "rawpassword", password() );
 	PY_PROPERTY( "flags", flags() );
-	/*
-		\rproperty account.creationdate The Creation date for this account.
-	*/
+	// \rproperty account.creationdate The Creation date for this account.
 	PY_PROPERTY( "creationdate", creationdate() );
 	PY_PROPERTY( "totalgametime", totalgametime() );
 	PY_PROPERTY( "charslots", charslots() );
