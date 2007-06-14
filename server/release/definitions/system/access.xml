@@ -182,6 +182,8 @@
 			<action name="SERVERINFO" permit="true" />
 			<action name="WHERE" permit="true" />
 			<action name="TURNITEM" permit="true" />
+			<action name="SHOWSKILLTITLES" permit="true" />
+			<action name="HIDESKILLTITLE" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>

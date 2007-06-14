@@ -4,27 +4,26 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# .showskilltitles Command                                      #
+# .hideskilltitle Command                                       #
 #===============================================================#
 
 import wolfpack
 from wolfpack.settings import getbool
 
-def showskilltitles( socket, command, arguments ):
+def hideskilltitle( socket, command, arguments ):
 	if getbool( "General", "ShowSkillTitles", True ):
 		pre = "disabled"
-		if socket.player.hastag( "showskilltitles" ):
-			socket.player.deltag( "showskilltitles" )
+		if socket.player.hastag( "hideskilltitle" ):
+			socket.player.deltag( "hideskilltitle" )
 		else:
-			socket.player.settag( "showskilltitles", 1 )
+			socket.player.settag( "hideskilltitle", 1 )
 			pre = "enabled"
-		socket.sysmessage( "ShowSkillTitles is now " + pre + "!" )
+		socket.sysmessage( "HideSkillTitle is now " + pre + "!" )
 
 def onLoad():
-	wolfpack.registercommand( "showskilltitles", showskilltitles )
+	wolfpack.registercommand( "hideskilltitle", hideskilltitle )
 
 """
-	\command showskilltitles
-	\description Indicates if the title of other chars is shown in their paperdolls.
-	\notes The title is not shown if the other char has staff enabled or this setting is disabled in wolfpack.xml.
+	\command hideskilltitle
+	\description Indicates if other players can see the skill title in the paperdoll
 """

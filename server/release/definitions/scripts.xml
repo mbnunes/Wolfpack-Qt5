@@ -157,6 +157,7 @@
 	<script>commands.freeze</script>
 	<script>commands.go</script>
 	<script>commands.hearall</script>
+	<script>commands.hideskilltitle</script>
 	<script>commands.import</script>
 	<script>commands.info</script>
 	<script>commands.invis</script>

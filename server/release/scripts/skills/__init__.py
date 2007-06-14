@@ -2,6 +2,7 @@ import wolfpack
 import random
 import wolfpack.settings
 from wolfpack.consts import *
+from wolfpack import tr
 
 STRGAIN = 0
 DEXGAIN = 1
@@ -77,9 +78,6 @@ def register( id, handler ):
 
 	skills[ id ] = handler
 
-def onLoad():
-	wolfpack.registerglobal( EVENT_SKILLUSE, "skills" )
-
 def onSkillUse( char, skill ):
 	if skills.has_key( skill ):
 		skills[ skill ]( char, skill )
@@ -125,3 +123,66 @@ def antimacrocheck( char, skillid, object ):
 	else:
 		object.settag( tagname, "1" )
 		return True
+
+
+############################################################################
+#									   #
+# Load our skills from skills.xml and save attributes in SKILLS dictionary #
+#									   #
+############################################################################
+#
+# Skill data registry
+#
+SKILLS = {}
+
+#
+# Skill Ranks
+#
+SKILL_RANKS = [tr("Neophyte"), tr("Novice"), tr("Apprentice"), tr("Journeyman"), tr("Expert"), tr("Adept"), tr("Master"), 
+		tr("Grandmaster"), tr("Elder"), tr("Legendary")]
+		
+#
+# Skill Properties
+#
+SKILL_NAME = 1
+SKILL_TITLE = 2
+SKILL_DEFNAME = 3
+SKILL_GAINFACTOR = 4
+SKILL_STRCHANCE = 5
+SKILL_DEXCHANCE = 6
+SKILL_INTCHANCE = 7
+
+#
+# Register our hook and load the skills.xml data.
+#
+def onLoad():
+	wolfpack.registerglobal( EVENT_SKILLUSE, "skills" )
+	# Load all the neccesary data from the definitions
+	for i in range(0, ALLSKILLS):
+		skilldef = wolfpack.getdefinition(WPDT_SKILL, str(i))
+
+		# Load the skill information
+		if skilldef:
+			SKILLS[i] = {
+				SKILL_GAINFACTOR: 1.0,
+				SKILL_STRCHANCE: 0.0,
+				SKILL_DEXCHANCE: 0.0,
+				SKILL_INTCHANCE: 0.0
+			}
+
+			for j in range(0, skilldef.childcount):
+				child = skilldef.getchild(j)
+				if child.name == 'name':
+					SKILLS[i][SKILL_NAME] = child.value
+				elif child.name == 'title':
+					SKILLS[i][SKILL_TITLE] = child.value
+				elif child.name == 'defname':
+					SKILLS[i][SKILL_DEFNAME] = child.value
+				elif child.name == 'gainchance':
+					SKILLS[i][SKILL_GAINFACTOR] = float(child.value)
+				elif child.name == 'strchance':
+					SKILLS[i][SKILL_STRCHANCE] = float(child.value)
+				elif child.name == 'dexchance':
+					SKILLS[i][SKILL_DEXCHANCE] = float(child.value)
+				elif child.name == 'intchance':
+					SKILLS[i][SKILL_INTCHANCE] = float(child.value)

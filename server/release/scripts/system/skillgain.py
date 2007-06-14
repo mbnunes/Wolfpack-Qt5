@@ -4,6 +4,7 @@ from wolfpack.consts import *
 from random import random, randint, choice
 from wolfpack import settings
 from system.debugging import DEBUG_STATS, DEBUG_SKILLS
+from skills import SKILLS
 
 #
 # Skill Properties
@@ -17,11 +18,6 @@ SKILL_DEXCHANCE = 6
 SKILL_INTCHANCE = 7
 
 GLOBAL_FACTOR = 0.5
-
-#
-# Skill data registry
-#
-SKILLS = {}
 
 #
 # Gain in a certain stat
@@ -277,37 +273,8 @@ def onSkillGain(char, skill, lower, higher, success):
 			gainstat(char, 2)
 
 #
-# Register our hook and load the skills.xml data.
+# Register our hook
 #
 def onLoad():
 	wolfpack.registerglobal(EVENT_SKILLGAIN, "system.skillgain")
 
-	# Load all the neccesary data from the definitions
-	for i in range(0, ALLSKILLS):
-		skilldef = wolfpack.getdefinition(WPDT_SKILL, str(i))
-
-		# Load the skill information
-		if skilldef:
-			SKILLS[i] = {
-				SKILL_GAINFACTOR: 1.0,
-				SKILL_STRCHANCE: 0.0,
-				SKILL_DEXCHANCE: 0.0,
-				SKILL_INTCHANCE: 0.0
-			}
-
-			for j in range(0, skilldef.childcount):
-				child = skilldef.getchild(j)
-				if child.name == 'name':
-					SKILLS[i][SKILL_NAME] = child.value
-				elif child.name == 'title':
-					SKILLS[i][SKILL_TITLE] = child.value
-				elif child.name == 'defname':
-					SKILLS[i][SKILL_DEFNAME] = child.value
-				elif child.name == 'gainchance':
-					SKILLS[i][SKILL_GAINFACTOR] = float(child.value)
-				elif child.name == 'strchance':
-					SKILLS[i][SKILL_STRCHANCE] = float(child.value)
-				elif child.name == 'dexchance':
-					SKILLS[i][SKILL_DEXCHANCE] = float(child.value)
-				elif child.name == 'intchance':
-					SKILLS[i][SKILL_INTCHANCE] = float(child.value)
