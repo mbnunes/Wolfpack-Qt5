@@ -1,0 +1,62 @@
+object Form1: TForm1
+  Left = 406
+  Top = 153
+  Width = 285
+  Height = 192
+  VertScrollBar.Range = 173
+  ActiveControl = CheckBox1
+  Caption = 'Form1'
+  Color = clButton
+  Font.Color = clText
+  Font.Height = 11
+  Font.Name = 'MS Sans Serif'
+  Font.Pitch = fpVariable
+  Font.Style = []
+  Font.Weight = 40
+  ParentFont = False
+  Scaled = False
+  OnCreate = FormCreate
+  PixelsPerInch = 75
+  object RadioGroup1: TRadioGroup
+    Left = 176
+    Top = 12
+    Width = 93
+    Height = 133
+    Items.Strings = (
+      'sfNearest'
+      'sfDraft'
+      'sfLinear'
+      'sfCosine'
+      'sfSpline'
+      'sfLanczos'
+      'sfMitchell')
+    Anchors = [akTop, akRight]
+    Caption = 'RadioGroup1'
+    ItemIndex = 0
+    TabOrder = 1
+    OnClick = RadioGroup1Click
+  end
+  object CheckBox1: TCheckBox
+    Left = 176
+    Top = 156
+    Width = 93
+    Height = 17
+    Anchors = [akTop, akRight]
+    Caption = 'FullEdge'
+    Checked = True
+    State = cbChecked
+    TabOrder = 0
+    OnClick = CheckBox1Click
+  end
+  object Image32: TImage32
+    Left = 8
+    Top = 8
+    Width = 160
+    Height = 160
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    BitmapAlign = baTopLeft
+    Scale = 1.000000000000000000
+    ScaleMode = smStretch
+    TabOrder = 2
+  end
+end

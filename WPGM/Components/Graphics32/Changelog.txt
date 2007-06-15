@@ -1,0 +1,15 @@
+Changelog:
+
+1.6:
+
+- CLX/Kylix/QT/Linux port
+- fixed access violations in GR32_Transforms
+- new sfDraft stretchfilter with MMX and 3Dnow optimization
+- new sfCosine stretchfilter
+- new property PixelF/X, which replaces the old SetPixelF/X and also implements an interpolated getter
+- new color algebra ("blendmodes"), MMX optimized
+- feature to change antialiasing-level of polygons at runtime
+- new 4x supersampling antialias for polygons ("much faster but not a beauty")
+- Unicode support for TBitmap32.Text* and TBitmap32.Rendertext methods
+- Performance optimizations (MMX) in blending routines and Transforms
+- Many small additions
