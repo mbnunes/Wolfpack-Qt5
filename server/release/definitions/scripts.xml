@@ -192,7 +192,6 @@
 	<script>commands.tilecolor</script>
 	<script>commands.tilemove</script>
 	<script>commands.tilepattern</script>
-	<script>commands.travel</script>
 	<script>commands.turnitem</script>
 	<script>commands.where</script>
 	<script>commands.who</script>
