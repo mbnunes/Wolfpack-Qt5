@@ -79,11 +79,10 @@ def onUse(player, item):
 			z = target[2]
 			map = target[3]
 
-
 		# create gump
 		gump = cGump( 0, 0, 0, 50, 50 )
 		# Header
-		gump.addBackground( 0x24a4, 300, 200 )
+		gump.addBackground( 0x24a4, 300, 280 )
 		gump.addHtmlGump( 10, 30, 300, 20, tr('<basefont size="7" color="#336699"><center>Set target for teleportaion</center></basefont>') )
 		# Input Fields
 		gump.addHtmlGump( 40, 60, 300, 20, 'x-Pos:' )
@@ -102,8 +101,17 @@ def onUse(player, item):
 		gump.addResizeGump( 90, 120, 0x2486, 156, 26 )
 		gump.addInputField( 93, 123, 150, 20, 0x539, 4, map )
 
-		gump.addButton( 83, 150, 2128, 2129, 1000 ) # Ok
-		gump.addButton( 150, 150, 2119, 2120, 0 ) # Cancel
+		playersonly = item.hastag('playersonly')
+		gump.addCheckbox(40, 160, 0xd2, 0xd3, 1, playersonly )
+		gump.addHtmlGump( 70, 160, 300, 20, 'Players only' )
+		
+		silent = item.hastag('silent')
+		gump.addCheckbox(40, 190, 0xd2, 0xd3, 2, silent )
+		gump.addHtmlGump( 70, 190, 300, 20, 'Silent' )
+
+
+		gump.addButton( 83, 225, 2128, 2129, 1000 ) # Ok
+		gump.addButton( 150, 225, 2119, 2120, 0 ) # Cancel
 
 		gump.setCallback( gate_callback )
 		gump.setArgs( [ item ] )
@@ -119,6 +127,16 @@ def gate_callback( char, args, response ):
 
 	item = args[0]
 
+	if 1 in response.switches:
+		item.settag('playersonly', 1)
+	elif item.hastag('playersonly'):
+		item.deltag('playersonly')
+		
+	if 2 in response.switches:
+		item.settag('silent', 1)
+	elif item.hastag('silent'):
+		item.deltag('silent')
+	
 	posx = response.text[1]
 	posy = response.text[2]
 	posz = response.text[3]
