@@ -656,7 +656,7 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 		resistance = properties.fromchar(target, RESISTANCE_ENERGY) / 100.0
 		damage += max(0, energy - (energy * resistance))
 
-	damage = max(1, damage)
+	damage = int(max(1, damage))
 	return target.damage(damagetype, damage, source)
 
 

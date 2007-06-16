@@ -13,4 +13,4 @@ def onShowTooltip(player, object, tooltip):
 		tooltip.add(int(name), "")
 	else:
 		tooltip.add(1044607, '') # High Qualitiy Granite
-		tooltip.add(1042971, "%s" % name)
+		tooltip.add(1042971, name)
