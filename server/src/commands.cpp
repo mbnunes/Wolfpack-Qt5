@@ -615,29 +615,6 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 }
 
 /*
-	\command allshow
-	\description Reveals the offline characters on your screen.
-*/
-void commandAllShow( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	Q_UNUSED( args );
-
-	P_PLAYER player = socket->player();
-	if ( !player )
-		return;
-
-	MapCharsIterator offlineChars = MapObjects::instance()->listCharsInCircle( player->pos(), player->visualRange(), true );
-	for ( P_CHAR offChar = offlineChars.first(); offChar; offChar = offlineChars.next() )
-	{
-		socket->removeObject( offChar );
-		socket->sendChar( offChar );
-	}
-
-	socket->sysMessage( tr( "The offline characters on your screen have been revealed." ) );
-}
-
-/*
 	\command allmove
 	\description Toggles the allmove flag of your account.
 	\notes The allmove flag determines whether you can move immovable objects.
@@ -1230,7 +1207,6 @@ stCommand cCommands::commands[] =
 { "EXPORTDEFINITIONS", commandExportDefinitions },
 { "EXPORTPLAYER", commandExportPlayer },
 { "IMPORTPLAYER", commandImportPlayer },
-{ "ALLSHOW", commandAllShow },
 { "BROADCAST", commandBroadcast },
 { "DOORGEN", commandDoorGenerator },
 { "GMTALK", commandGmtalk },

@@ -146,7 +146,7 @@ static PyMethodDef wpSpawnRegionMethods[] =
 static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 {
 	/*
-	\rproperty spawnregion.id
+	\rproperty spawnregion.id The id of this region.
 	*/
 	if ( !strcmp( name, "id" ) )
 	{

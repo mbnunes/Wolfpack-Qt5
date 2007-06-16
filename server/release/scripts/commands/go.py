@@ -278,7 +278,7 @@ def generateGoMenu():
 	return
 
 #
-# Kommando registrieren.
+# Register commands.
 #
 def onLoad():
 	wolfpack.registercommand('go', go)

@@ -53,8 +53,9 @@
 	<location id="trammel njuhelm palace" category="Trammel\Towns\Njuhelm\Palace">3703,1282,20,1</location>
 
 	<!-- Haven -->
-	<location id="trammel haven" category="Trammel\Towns\Haven\Bank">3686,2519,0,1</location>
-	<location id="trammel haven smithy" category="Trammel\Towns\Haven\Smithy">3642,2595,0,1</location>
+	<location id="trammel haven" category="Trammel\Towns\Haven\Bank">3496,2572,14,1</location>
+	<location id="trammel haven ruins" category="Trammel\Towns\Haven\Ruins">3630,2597,0,1</location>
+	<location id="trammel haven smithy" category="Trammel\Towns\Haven\Smith">3469,2540,37,1</location>
 
 	<!-- Heartwood -->
 	<location id="trammel Heartwood Teleport" category="Trammel\Towns\Heartwood\Teleport">534,992,0,1</location>

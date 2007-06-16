@@ -162,7 +162,6 @@ public:
 	QString profile() const;
 	qint8 fixedLightLevel() const;
 	quint8 maxControlSlots() const;
-	bool showSkillTitles() const;
 
 	// bit flag getters
 	bool maySnoop() const;
@@ -201,7 +200,6 @@ public:
 	void setMaySnoop( bool data );
 	void setParty( cParty* data );
 	void setShowSerials( bool data );
-	void setShowSkillTitles( bool data );
 	void setSquelched( bool data );
 
 	unsigned char strengthLock() const;
@@ -496,11 +494,6 @@ inline bool cPlayer::isSquelched() const
 	return additionalFlags_ & 0x0040;
 }
 
-inline bool cPlayer::showSkillTitles() const
-{
-	return additionalFlags_ & 0x0200;
-}
-
 inline void cPlayer::setMaySnoop( bool data )
 {
 	if ( data )
@@ -552,15 +545,6 @@ inline void cPlayer::setSquelched( bool data )
 		additionalFlags_ |= 0x0040;
 	else
 		additionalFlags_ &= ~0x0040;
-	changed_ = true;
-}
-
-inline void cPlayer::setShowSkillTitles( bool data )
-{
-	if ( data )
-		additionalFlags_ |= 0x0200;
-	else
-		additionalFlags_ &= ~0x0200;
 	changed_ = true;
 }
 

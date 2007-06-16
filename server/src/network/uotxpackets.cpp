@@ -539,8 +539,6 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 
 void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 {
-	P_PLAYER requester = dynamic_cast<P_PLAYER>(pOrigin);
-
 	setSerial( pChar->serial() );
 
 	QString nameByScript = pChar->onShowPaperdollName( pOrigin );
@@ -553,7 +551,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	else
 	{
 		QString title = pChar->title();
-		if ( title.isEmpty() && Config::instance()->showSkillTitles() && requester->showSkillTitles() )
+		if ( title.isEmpty() && Config::instance()->showSkillTitles() )
 		{
 			title = Skills::instance()->getSkillTitle( pChar );
 		}

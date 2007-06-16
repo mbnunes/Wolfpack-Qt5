@@ -73,7 +73,6 @@ cPlayer::cPlayer()
 	dexterityLock_ = 0;
 	intelligenceLock_ = 0;
 	maxControlSlots_ = 5;
-	setShowSkillTitles(Config::instance()->showSkillTitles());
 }
 
 cPlayer::cPlayer( const cPlayer& right )
@@ -1470,14 +1469,6 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 		setJailed(value.toInt() != 0);
 		return 0;
 	}
-	/*
-		\property char.showskilltitles Indicates whether the skill titles in the paperdoll are visible or not.
-	*/
-	else if ( name == "showskilltitles" )
-	{
-		setShowSkillTitles( value.toInt() );
-		return 0;
-	}
 
 	else if ( name.left( 6 ) == "skill." )
 	{
@@ -1584,9 +1575,6 @@ PyObject* cPlayer::getProperty( const QString& name, uint hash )
 	case 0x70802b4: // jailed	}
 		 return createPyObject( isJailed() );
 
-	// TODO
-	//case 0x????:
-	//	return createPyObject( showSkillTitles() );
 	default:
 
 		// Forward the property to the account
