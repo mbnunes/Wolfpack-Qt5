@@ -1,0 +1,20 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- ChiefParoxysmus -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/chief_paroxysmus.xml" />
+	<!-- BulbousPutrification -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/BulbousPutrification.xml" />
+	<!-- Putrifier -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/Putrifier.xml" />
+	<!-- CorrosiveSlime -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/CorrosiveSlime.xml" />
+
+</definitions>

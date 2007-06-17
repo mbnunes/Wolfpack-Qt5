@@ -1,0 +1,14 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- dread_horn -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Twisted Weald/dread_horn.xml" />
+
+</definitions>

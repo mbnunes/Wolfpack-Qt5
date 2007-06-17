@@ -12,6 +12,7 @@
 	<include file="definitions/npcs/animals/land/cow.xml"/>
 	<include file="definitions/npcs/animals/land/dire_wolf.xml"/>
 	<include file="definitions/npcs/animals/land/dog.xml"/>
+	<include file="definitions/npcs/animals/land/Ferret.xml"/>
 	<include file="definitions/npcs/animals/land/goat.xml"/>
 	<include file="definitions/npcs/animals/land/gorilla.xml"/>
 	<include file="definitions/npcs/animals/land/great_hart.xml"/>
@@ -29,6 +30,7 @@
 	<include file="definitions/npcs/animals/land/sheep.xml"/>
 	<include file="definitions/npcs/animals/land/snake.xml"/>
 	<include file="definitions/npcs/animals/land/snow_leopard.xml"/>
+	<include file="definitions/npcs/animals/land/Squirrel.xml"/>
 	<include file="definitions/npcs/animals/land/timber_wolf.xml"/>
 	<include file="definitions/npcs/animals/land/walrus.xml"/>
 	<include file="definitions/npcs/animals/land/white_wolf.xml"/>

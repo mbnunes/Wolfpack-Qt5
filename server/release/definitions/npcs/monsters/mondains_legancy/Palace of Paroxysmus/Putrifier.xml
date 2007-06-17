@@ -1,0 +1,67 @@
+<!--
+/*=========================================================
+* ) (\_ | WOLFPACK 13.0.0 Scripts
+* (( _/{ "-; | Created by: Owner_Mutilador
+* )).-' {{ ;'` | Revised by:
+* ( ( ;._ \\ | Last modification:
+*=======================================================*/
+-->
+<definitions>
+
+	<!-- Paroxysmus -->
+	<npc id="Putrifier" inherit="monster_base">
+		<name>Putrifier</name>
+		<id>0x28</id>
+		<ai>monster_mage</ai>
+		<skin>0x55C</skin>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="1057" max="1330"/></str>
+		<dex><random min="232" max="450"/></dex>
+		<int><random min="201" max="415"/></int>
+		<maxhitpoints><random min="3010" max="3778"/></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>22</mindamage>
+		<maxdamage>29</maxdamage>
+		<tag name="dmg_poison" value="50" type="int" />
+		<tag name="dmg_physical" value="50" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="1112" max="1280"/></skill>
+		<skill id="tactics"><random min="1156" max="1252"/></skill>
+		<skill id="magicresistance"><random min="1434" max="1630"/></skill>
+		<skill id="anatomy"><random min="446" max="670"/></skill>
+		<skill id="magery"><random min="1176" max="1188"/></skill>
+		<skill id="evaluatingintel"><random min="1130" max="1280"/></skill>
+		<skill id="meditation"><random min="414" max="805"/></skill>
+		<!-- Resists -->
+		<tag name="res_physical" value="65,80" type="int" />
+		<tag name="res_fire" value="65,75" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="90,100" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<!-- Loot -->
+		<!-- Missing: Magic Items, Bonsai Seed -->
+		<backpack>
+			<content>
+				<item id="eed"><amount><random min="2000" max="2500" /></amount></item>
+				<item id="9b5"> <!-- Eggs -->
+					<amount>2</amount>
+				</item>
+			</content>
+		</backpack>
+		<lootpacks>gems;gems;gems;gems;gems;gems;tm_5</lootpacks>
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="50" />
+		<intproperty name="hit_poison_chance" value="50" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="20" />
+		<!-- Misc. -->
+		<strproperty name="food" value="1,2" />
+		<category>Monsters\Mondains Legancy\Palace of Paroxysmus\Putrifier</category>
+		<strproperty name="slayer_group" value="reptile,snake" />
+		<inherit id="speed_fast" />
+	</npc>
+
+</definitions>
