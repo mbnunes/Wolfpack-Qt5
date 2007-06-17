@@ -1,10 +1,10 @@
 #===============================================================#
 #   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
 #  ((    _/{  "-;  | Created by: unknown                        #
-#   )).-' {{ ;'`   | Revised by:                                #
-#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+#   )).-' {{ ;'`   | Revised by: BtbN                           #
+#  ( (  ;._ \\ ctr | Last Modification: Added (un)linkdoors     #
 #===============================================================#
-# Doors                                                         #                    									#
+# Doors                                                         #
 #===============================================================#
 
 import wolfpack
@@ -395,3 +395,53 @@ def onUse(char, item, norange=0):
 
 def onTelekinesis(char, item):
 	return onUse(char, item, 1)
+
+def doLinkDoors(char, args, target):
+	if not target.item or not target.item.hasscript("door"):
+		char.socket.sysmessage(tr("That's not a door!"))
+		return True
+	if not args[0]:
+		char.socket.sysmessage(tr("Now the second door."))
+		char.socket.attachtarget("door.doLinkDoors", [target.item])
+		return True
+	else:
+		args[0].settag("link",target.item.serial)
+		target.item.settag("link",args[0].serial)
+		char.socket.sysmessage(tr("Doors linked successfully."))
+
+def commandLinkDoors(socket, command, arguments):
+	socket.sysmessage(tr("Please select the doors you want to link."))
+	socket.attachtarget("door.doLinkDoors", [False])
+
+def doUnlinkDoors(char, args, target):
+	if not target.item or not target.item.hasscript("door"):
+		char.socket.sysmessage(tr("That's not a door!"))
+		return True
+
+	otherItem = wolfpack.finditem(target.item.gettag("link"))
+	if not otherItem:
+		char.socket.sysmessage( tr("This door seems not to be linked.") )
+		return True
+
+	if otherItem.hastag("link"):
+		otherItem.deltag("link")
+	target.item.deltag("link")
+
+def commandUnlinkDoors(socket, command, arguments):
+	socket.sysmessage(tr("Please select the door you want to unlink."))
+	socket.attachtarget("door.doUnlinkDoors", [])
+
+def onLoad():
+	wolfpack.registercommand("linkdoors", commandLinkDoors)
+	wolfpack.registercommand("unlinkdoors", commandUnlinkDoors)
+
+"""
+	\command linkdoors
+	\description Links two doors together. If one of the linked doors is opened, the other will open, too.
+	If you want to remove the link, use unlinkdoors.
+"""
+
+"""
+	\command unlinkdoors
+	\description Removes the link between two doors. Each door will open alone again.
+"""
