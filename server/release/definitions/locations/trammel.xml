@@ -47,15 +47,24 @@
 	<location id="trammel moonglow lycaeum" category="Trammel\Towns\Moonglow\Lycaeum">4310,1007,0,1</location>
 	<location id="trammel moonglow bank" category="Trammel\Towns\Moonglow\Bank">4471,1178,0,1</location>
 
-	<!-- Njuhelm -->
-	<location id="trammel njuhelm" category="Trammel\Towns\Njuhelm\Center">3756,1244,0,1</location>
-	<location id="trammel njuhelm market" category="Trammel\Towns\Njuhelm\Market">3554,1187,0,1</location>
-	<location id="trammel njuhelm palace" category="Trammel\Towns\Njuhelm\Palace">3703,1282,20,1</location>
+	<!-- Nujhel'm -->
+	<location id="trammel njuhelm" category="Trammel\Towns\Nujhelm\Center">3756,1244,0,1</location>
+	<location id="trammel njuhelm cemetery" category="Trammel\Towns\Nujhelm\Cemetery">3536,1156,20,1</location>
+	<location id="trammel njuhelm chess board" category="Trammel\Towns\Nujhelm\Chess Board">3728,1360,5,1</location>
+	<location id="trammel njuhelm docks" category="Trammel\Towns\Nujhelm\Docks">3803,1279,5,1</location>
+	<location id="trammel njuhelm east" category="Trammel\Towns\Nujhelm\East">3755,1227,0,1</location>
+	<location id="trammel njuhelm north" category="Trammel\Towns\Nujhelm\North">3668,1116,0,1</location>
+	<location id="trammel njuhelm west" category="Trammel\Towns\Nujhelm\West">3572,1211,0,1</location>
+	<location id="trammel njuhelm market" category="Trammel\Towns\Nujhelm\Market">3554,1187,0,1</location>
+	<location id="trammel njuhelm palace" category="Trammel\Towns\Nujhelm\Palace">3703,1282,20,1</location>
 
 	<!-- Haven -->
 	<location id="trammel haven" category="Trammel\Towns\Haven\Bank">3496,2572,14,1</location>
 	<location id="trammel haven ruins" category="Trammel\Towns\Haven\Ruins">3630,2597,0,1</location>
 	<location id="trammel haven smithy" category="Trammel\Towns\Haven\Smith">3469,2540,37,1</location>
+	<location id="trammel haven docks" category="Trammel\Towns\Haven\Docks">3650,2653,0,1</location>
+	<location id="trammel haven farmlands" category="Trammel\Towns\Haven\Farmlands">3722,2647,20,1</location>
+	<location id="trammel haven north" category="Trammel\Towns\Haven\North">3650,2516,0,1</location>
 
 	<!-- Heartwood -->
 	<location id="trammel Heartwood Teleport" category="Trammel\Towns\Heartwood\Teleport">534,992,0,1</location>

@@ -52,10 +52,16 @@
 	<location id="felluca moonglow lycaeum" category="Felluca\Towns\Moonglow\Lycaeum">4310,1007,0,0</location>
 	<location id="felluca moonglow bank" category="Felluca\Towns\Moonglow\Bank">4471,1178,0,0</location>
 
-	<!-- Njuhelm -->
-	<location id="felluca njuhelm" category="Felluca\Towns\Njuhelm\Center">3756,1244,0,0</location>
-	<location id="felluca njuhelm market" category="Felluca\Towns\Njuhelm\Market">3554,1187,0,0</location>
-	<location id="felluca njuhelm palace" category="Felluca\Towns\Njuhelm\Palace">3703,1282,20,0</location>
+	<!-- Nujel'm -->
+	<location id="trammel njuhelm" category="Trammel\Towns\Nujhelm\Center">3756,1244,0,0</location>
+	<location id="trammel njuhelm cemetery" category="Trammel\Towns\Nujhelm\Cemetery">3536,1156,20,0</location>
+	<location id="trammel njuhelm chess board" category="Trammel\Towns\Nujhelm\Chess Board">3728,1360,5,0</location>
+	<location id="trammel njuhelm docks" category="Trammel\Towns\Nujhelm\Docks">3803,1279,5,0</location>
+	<location id="trammel njuhelm east" category="Trammel\Towns\Nujhelm\East">3755,1227,0,0</location>
+	<location id="trammel njuhelm north" category="Trammel\Towns\Nujhelm\North">3668,1116,0,0</location>
+	<location id="trammel njuhelm west" category="Trammel\Towns\Nujhelm\West">3572,1211,0,0</location>
+	<location id="trammel njuhelm market" category="Trammel\Towns\Nujhelm\Market">3554,1187,0,0</location>
+	<location id="trammel njuhelm palace" category="Trammel\Towns\Nujhelm\Palace">3703,1282,20,0</location>
 
 	<!-- Occlo -->
 	<location id="felluca occlo" category="Felluca\Towns\Occlo\Bank">3686,2519,0,0</location>
