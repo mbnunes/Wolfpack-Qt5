@@ -162,6 +162,7 @@ void cConfig::readData()
 
 	// General Group
 	usesMondainsLegacyMap_ = getBool( "General", "Uses Mondains Legacy Map", true, true );
+	usesKingdomRebornMaps_ = getBool( "General", "Uses Kingdom Reborn Maps", true, true );
 	enableFeluccaSeason_ = getBool( "General", "Enable Felucca Season", true, true );
 	enableTrammelSeason_ = getBool( "General", "Enable Trammel Season", true, true );
 	showSkillTitles_ = getBool( "General", "ShowSkillTitles", true, true );

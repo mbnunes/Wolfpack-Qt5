@@ -103,6 +103,7 @@ protected:
 	int niceLevel_;
 	unsigned short loginPort_;
 	bool usesMondainsLegacyMap_;
+	bool usesKingdomRebornMaps_;
 	bool enableFeluccaSeason_;
 	bool enableTrammelSeason_;
 	unsigned int logMask_;
@@ -247,6 +248,7 @@ public:
 
 	// gets
 	bool usesMondainsLegacyMap() const;
+	bool usesKingdomRebornMaps() const;
 	bool enableFeluccaSeason() const;
 	bool enableTrammelSeason() const;
 	bool hashAccountPasswords() const;
@@ -837,6 +839,11 @@ inline bool cConfig::enableIndivNumberSlots() const
 inline bool cConfig::usesMondainsLegacyMap() const
 {
 	return usesMondainsLegacyMap_;
+}
+
+inline bool cConfig::usesKingdomRebornMaps() const
+{
+	return usesKingdomRebornMaps_;
 }
 
 inline bool cConfig::enableFeluccaSeason() const

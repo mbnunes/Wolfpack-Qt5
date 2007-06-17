@@ -57,16 +57,16 @@
 
 	<spawnregion inherit="haven_vendor" id="haven_vendor_5">
 		<active />
-		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="3697,2507,0,1" />
-	</spawnregion>
-
-	<spawnregion inherit="haven_vendor" id="haven_vendor_6">
-		<active />
-		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="3691,2513,0,1" />
+		<npc id="banker_male">
+			<npcwander type="6" />
+		</npc>
+		<npc id="banker_female">
+			<npcwander type="6" />
+		</npc>
+		<maxnpcamount>2</maxnpcamount>
+		<npcspercycle>2</npcspercycle>
+		<delay min="0" max="5" />
+		<rectangle from="3484,2569,20" to="3485,2578,20" map="1" />
 	</spawnregion>
 
 	<spawnregion inherit="haven_vendor" id="haven_vendor_7">
@@ -80,7 +80,7 @@
 		<active />
 		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="3626,2545,0,1" />
+		<point pos="3628,2541,0,1" />
 	</spawnregion>
 
 	<spawnregion inherit="haven_vendor" id="haven_vendor_9">
@@ -109,13 +109,6 @@
 		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
 		<point pos="3626,2573,0,1" />
-	</spawnregion>
-
-	<spawnregion inherit="haven_vendor" id="haven_vendor_13">
-		<active />
-		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="3619,2615,0,1" />
 	</spawnregion>
 
 	<spawnregion inherit="haven_vendor" id="haven_vendor_14">

@@ -109,10 +109,10 @@
                 <rectangle from="5886,1921" to="5886,1921" map="0" />
 	</spawnregion>
 
-	<spawnregion inherit="felucca_solen_hive_ant" id="felucca_solen_hive_area_quest">
+	<!-- <spawnregion inherit="felucca_solen_hive_ant" id="felucca_solen_hive_area_quest">
 		<active />
 		<npc id="black_solen_queen_quest"><npcwander type="circle" radius="10" /></npc>
                 <rectangle from="5775,1897" to="5775,1897" map="0" />
-	</spawnregion>
+	</spawnregion> -->
 
 </definitions>

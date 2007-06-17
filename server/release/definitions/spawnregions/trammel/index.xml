@@ -34,6 +34,7 @@
 	<include file="definitions/spawnregions/trammel/graveyards/cove_graveyard.xml" />
 	<include file="definitions/spawnregions/trammel/graveyards/vesper_graveyard.xml" />
 	<include file="definitions/spawnregions/trammel/graveyards/moonglow_graveyard.xml" />
+	<include file="definitions/spawnregions/trammel/graveyards/haven_graveyard.xml" />
 	<!-- Dungeon Spawns -->
 	<include file="definitions/spawnregions/trammel/dungeons/britain_passage.xml" />
 	<include file="definitions/spawnregions/trammel/dungeons/covetous.xml" />

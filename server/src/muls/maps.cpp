@@ -279,15 +279,19 @@ void cMaps::load()
 {
 	basePath = Config::instance()->mulPath();
 
+	uint tramMapNr = 0;
+	if( Config::instance()->usesKingdomRebornMaps() )
+		tramMapNr = 1;
+
 	if ( Config::instance()->usesMondainsLegacyMap() )
 	{
 		registerMap( 0, "map0.mul", 896, 512, "statics0.mul", "staidx0.mul" );
-		registerMap( 1, "map0.mul", 896, 512, "statics0.mul", "staidx0.mul" );
+		registerMap( 1, QString("map%1.mul").arg(tramMapNr), 896, 512, QString("statics%1.mul").arg(tramMapNr), QString("staidx%1.mul").arg(tramMapNr) );
 	}
 	else
 	{
 		registerMap( 0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul" );
-		registerMap( 1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul" );
+		registerMap( 1, QString("map%1.mul").arg(tramMapNr), 768, 512, QString("statics%1.mul").arg(tramMapNr), QString("staidx%1.mul").arg(tramMapNr) );
 	}
 	registerMap( 2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul" );
 	registerMap( 3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul" );
@@ -367,7 +371,8 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 
 		p->height = mapheight;
 		p->width = mapwidth;
-		p->loadDiffs( basePath, id );
+		if( !Config::instance()->usesKingdomRebornMaps() )
+			p->loadDiffs( basePath, id );
 		d.insert( id, p );
 		return true;
 	}
