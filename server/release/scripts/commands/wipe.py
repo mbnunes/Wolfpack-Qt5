@@ -59,12 +59,16 @@ import string
 import wolfpack.gumps
 from gumps.warning_gump import WarningGump
 import wolfpack.consts
+from wolfpack import tr
 
-def getBoundingBox( socket, callback, args ) :
+def getBoundingBox( socket, callback, args ):
 	socket.attachtarget( "commands.wipe.getBoundingBoxResponse", [0, callback, None, args] )
 	return
 
 def getBoundingBoxResponse( char, args, target ):
+	if target.item and target.item.layer != 0:
+		char.socket.sysmessage( tr("Wiping equipped items is not allowed!") )
+		return
 	if args[0] == 0:
 		char.socket.attachtarget("commands.wipe.getBoundingBoxResponse", [1, args[1], target, args[3]] )
 	else:
@@ -75,34 +79,34 @@ def nuke( socket, command, argstring ):
 	argstring = argstring.strip() # Remove trailing and leading whitespaces
 	if len( argstring ) > 0:
 		if argstring.lower() == "all":
-			gump = WarningGump( 1060635, 30720, "Wiping <i>all</i> items in the world.<br>Do you wish to proceed?", 0xFFC000, 420, 400, wipeAllWorld, [] )
+			gump = WarningGump( 1060635, 30720, tr("Wiping <i>all</i> items in the world.<br>Do you wish to proceed?"), 0xFFC000, 420, 400, wipeAllWorld, [] )
 			gump.send( socket )
 			return
 		elif argstring.lower() == "map":
-			gump = WarningGump( 1060635, 30720, "Wiping <i>all</i> items in this map.<br>Do you wish to proceed?", 0xFFC000, 420, 400, wipeMap, [] )
+			gump = WarningGump( 1060635, 30720, tr("Wiping <i>all</i> items in this map.<br>Do you wish to proceed?"), 0xFFC000, 420, 400, wipeMap, [] )
 			gump.send( socket )
 			return
 		else:
 			if argstring.lower() == "nomulti":
-				socket.sysmessage("You choose to nuke anything except items in multis")
+				socket.sysmessage(tr("You choose to nuke anything except items in multis"))
 				baseid = argstring
 			else:
 				if argstring.lower() == "onlymulti":
-					socket.sysmessage("You choose to nuke just items in multis")
+					socket.sysmessage(tr("You choose to nuke just items in multis"))
 					baseid = argstring
 				else:
 					baseid = argstring
 	else:
 		baseid = None
 
-	socket.sysmessage("Select the area to remove")
+	socket.sysmessage(tr("Select the area to remove"))
 	getBoundingBox( socket, wipeBoundingBox, baseid )
 	return True
 
 def nukez( socket, command, arguments ):
 	arguments = arguments.strip() # Remove trailing and leading whitespaces
 	if( len(arguments) == 0 or arguments.count(' ') > 1 ):
-		socket.sysmessage('Usage: .nukez z [ baseid ]')
+		socket.sysmessage(tr('Usage: .nukez z [ baseid ]'))
 		return
 
 	if( arguments.count(' ') == 1 ):
@@ -113,19 +117,19 @@ def nukez( socket, command, arguments ):
 	try:
 		z = int(z)
 	except:
-		socket.sysmessage('Invalid z value.')
+		socket.sysmessage(tr('Invalid z value.'))
 		return
 
-	socket.sysmessage("Select the area to remove")
+	socket.sysmessage(tr("Select the area to remove"))
 	getBoundingBox( socket, wipeBoundingBox, [z, baseid] )
 	return True
 
 def wipeAllWorld( player, accept, state ):
 	if not accept:
-		player.socket.sysmessage( "Wipe command have been canceled" )
+		player.socket.sysmessage( tr("Wipe command have been canceled") )
 		return 1
 
-	player.socket.sysmessage( "Removing all items from world, this may take a while" )
+	player.socket.sysmessage( tr("Removing all items from world, this may take a while") )
 	iterator = wolfpack.itemiterator()
 	item = iterator.first
 	counter = 0
@@ -135,15 +139,15 @@ def wipeAllWorld( player, accept, state ):
 			counter += 1
 		item = iterator.next
 
-	player.socket.sysmessage( "%i items have been removed from world" % counter )
+	player.socket.sysmessage( tr("%i items have been removed from world") % counter )
 	return
 
 def wipeMap( player, accept, state ):
 	if not accept:
-		player.socket.sysmessage( "Wipe command have been canceled" )
+		player.socket.sysmessage( tr("Wipe command have been canceled") )
 		return 1
 
-	player.socket.sysmessage( "Removing all items from this map, this may take a while" )
+	player.socket.sysmessage( tr("Removing all items from this map, this may take a while") )
 	iterator = wolfpack.itemiterator()
 	item = iterator.first
 	counter = 0
@@ -154,7 +158,7 @@ def wipeMap( player, accept, state ):
 				counter += 1
 		item = iterator.next
 
-	player.socket.sysmessage( "%i items have been removed from this map" % counter )
+	player.socket.sysmessage( tr("%i items have been removed from this map") % counter )
 	return
 
 def wipeBoundingBox( socket, target1, target2, argstring ):
@@ -191,12 +195,12 @@ def wipeBoundingBox( socket, target1, target2, argstring ):
 						count += 1
 
 		item = iterator.next
-	socket.sysmessage( "%i items removed" % count )
+	socket.sysmessage( tr("%i items removed") % count )
 
 	if socket.player:
-		socket.player.log(wolfpack.consts.LOG_MESSAGE,"Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s \n" % (x1,y1,x2,y2,count,argstring) )
+		socket.player.log(wolfpack.consts.LOG_MESSAGE, tr("Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s \n") % (x1,y1,x2,y2,count,argstring) )
 	else:
-		wolfpack.log(wolfpack.consts.LOG_MESSAGE,"Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s (Socket-ID: %s)\n" % (x1,y1,x2,y2,count,argstring,socket.id) )
+		wolfpack.log(wolfpack.consts.LOG_MESSAGE, tr("Nuking from (%d,%d) to (%d,%d). %d items deleted. Arguments given: %s (Socket-ID: %s)\n") % (x1,y1,x2,y2,count,argstring,socket.id) )
 	return True
 
 def onLoad():
