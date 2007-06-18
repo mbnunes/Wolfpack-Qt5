@@ -1,0 +1,50 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Brown Bear -->
+	<npc id="Squirrel" inherit="animal_base">
+		<name>Squirrel</name>
+		<id>0x116</id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L0" />
+		<!-- Stats -->
+		<str><random min="44" max="50" /></str>
+		<dex><random min="33" max="35" /></dex>
+		<int><random min="1" max="5" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="42" max="50" /></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>2</maxdamage>
+		<tag name="dmg_physical" value="100" type="int" />
+		<!-- Defense -->
+		<tag name="res_physical" value="30" type="int" />
+		<tag name="res_fire" value="10,14" type="int" />
+		<tag name="res_cold" value="30,35" type="int" />
+		<tag name="res_poison" value="22,25" type="int" />
+		<tag name="res_energy" value="20,25" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="40" max="45" /></skill>
+		<skill id="tactics"><random min="401" max="450" /></skill>
+		<skill id="magicresistance"><random min="40" max="45" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>200</mintaming>
+		<strproperty name="food" value="2,3,1" />
+		<strproperty name="packinstinct" value="bear" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mondains Legancy\Squirrel</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>
