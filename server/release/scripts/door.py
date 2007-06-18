@@ -1,11 +1,11 @@
-#===============================================================#
-#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  | Created by: unknown                        #
-#   )).-' {{ ;'`   | Revised by: BtbN                           #
-#  ( (  ;._ \\ ctr | Last Modification: Added (un)linkdoors     #
-#===============================================================#
-# Doors                                                         #
-#===============================================================#
+#================================================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts                                     #
+#  ((    _/{  "-;  | Created by: unknown                                         #
+#   )).-' {{ ;'`   | Revised by: BtbN                                            #
+#  ( (  ;._ \\ ctr | Last Modification: Corrected sounds of doors 0x685 to 0x694 #
+#================================================================================#
+# Doors                                                                          #
+#================================================================================#
 
 import wolfpack
 from wolfpack import tr
@@ -35,14 +35,14 @@ doors = [
 			[ 0x681, 0x682, 0, 0, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
 			[ 0x683, 0x684, 0, -1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
 
-			[ 0x685, 0x686, -1, 1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
-			[ 0x687, 0x688, 1, 1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
-			[ 0x689, 0x68A, -1, 0, SOUND_OPENGATE, SOUND_CLOSEGATE ],
-			[ 0x68B, 0x68C, 1, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
-			[ 0x68D, 0x68E, 1, 1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
-			[ 0x68F, 0x690, 1, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
-			[ 0x691, 0x692, 0, 0, SOUND_OPENGATE, SOUND_CLOSEGATE ],
-			[ 0x693, 0x694, 0, -1, SOUND_OPENGATE, SOUND_CLOSEGATE ],
+			[ 0x685, 0x686, -1, 1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+			[ 0x687, 0x688, 1, 1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+			[ 0x689, 0x68A, -1, 0, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+			[ 0x68B, 0x68C, 1, -1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+			[ 0x68D, 0x68E, 1, 1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+			[ 0x68F, 0x690, 1, -1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+			[ 0x691, 0x692, 0, 0, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
+			[ 0x693, 0x694, 0, -1, SOUND_OPENSTEEL, SOUND_CLOSESTEEL ],
 
 			[ 0x695, 0x696, -1, 1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],
 			[ 0x697, 0x698, 1, 1, SOUND_OPENWOOD, SOUND_CLOSEWOOD ],

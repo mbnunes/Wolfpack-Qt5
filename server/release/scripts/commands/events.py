@@ -94,6 +94,53 @@ def commandRemovescript(socket, command, arguments):
 	socket.attachtarget( 'commands.events.removescript_response', [ script ] )
 	return True
 
+def hasscript_response( player, arguments, target ):
+	script = arguments[0]
+	object = None
+
+	if target.item:
+		object = target.item
+	elif target.char:
+		if target.char.rank > player.rank and player != target.char:
+			player.socket.sysmessage( "You've burnt your fingers!" )
+			return False
+
+		object = target.char
+	else:
+		player.socket.sysmessage( 'You have to target a character or item.' )
+		return False
+
+	if object.hasscript( str( script ) ):
+		player.socket.sysmessage( 'True' )
+		return True
+	else:
+		player.socket.sysmessage( 'False' )
+		return False
+
+"""
+	\command hasscript
+	\description Check if an object has a script.
+	\usage - <code>hasscript [script]</code>
+	Script is the id of the script you want to check for.
+"""
+def commandHasscript(socket, command, arguments):
+	if len(arguments) == 0:
+		socket.sysmessage('Usage: hasscript <identifier>')
+		return False
+	
+	script = arguments.strip()
+	
+	try:
+		wolfpack.hasevent( script, EVENT_USE )
+	except:
+		socket.sysmessage( 'No such script: %s.' % script )
+		return False
+	
+	socket.sysmessage( "Please select the object you want to check for '%s'." % script)
+	socket.attachtarget( 'commands.events.hasscript_response', [ script ] )
+	return True
+
 def onLoad():
 	wolfpack.registercommand( 'addscript', commandAddscript )
 	wolfpack.registercommand( 'removescript', commandRemovescript )
+	wolfpack.registercommand( 'hasscript', commandHasscript )
