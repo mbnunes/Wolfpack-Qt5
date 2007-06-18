@@ -8,8 +8,8 @@
 -->
 <definitions>
 
-	<!-- Brown Bear -->
-	<npc id="Squirrel" inherit="animal_base">
+	<!-- squirrel -->
+	<npc id="squirrel" inherit="animal_base">
 		<name>Squirrel</name>
 		<id>0x116</id>
 		<ai>Animal_Wild</ai>
