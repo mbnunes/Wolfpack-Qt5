@@ -46,10 +46,16 @@
 	<location id="Doom Inside" category="Malas\Dungeons\Doom\Inside">381,133,33,3</location>
 	<location id="Doom Gauntlet" category="Malas\Dungeons\Doom\Gauntlet">433,331,-2,3</location>
 
+	<!-- Labyrinth -->
+
+	<location id="malas labyrinth entrance" category="Malas\Dungeons\Labyrinth\Entrance">1732,978,-80,3</location>
+	<location id="malas labyrinth" category="Malas\Dungeons\Labyrinth\Inside">330,1974,0,3</location>
+	<location id="malas labyrinth end of way" category="Malas\Dungeons\Labyrinth\End of way">383,1933,10,3</location>
+
 	<!-- Sites -->
 
 	<!-- Points of Intereset -->
-	
+
 	<location id="Broken Mountains" category="Malas\Points of Interest\Broken Mountains">1111,1461,90,3</location>
 	<location id="Corrupted Forest" category="Malas\Points of Interest\Corrupted Forest">2172,1144,-87,3</location>
 	<location id="Crumbling Continent" category="Malas\Points of Interest\Crumbling Continent">736,1180,-95,3</location>
