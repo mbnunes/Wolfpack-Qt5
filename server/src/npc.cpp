@@ -68,7 +68,7 @@ cNPC::cNPC()
 	nextMoveTime_ = 0;
 	summonTime_ = 0;
 	additionalFlags_ = 0;
-	owner_ = NULL;
+	owner_ = 0;
 	stablemasterSerial_ = INVALID_SERIAL;
 	wanderType_ = stWanderType();
 
@@ -135,11 +135,8 @@ void cNPC::postload( unsigned int version )
 
 	cBaseChar::postload( version );
 
-	// by Havelock
-	//SERIAL owner = owner_->serial();
-	// khpae
 	SERIAL owner = INVALID_SERIAL;
-	if(NULL != owner_) {
+	if(owner_) {
 			owner = owner_->serial();
 	}
 	owner_ = 0;
@@ -181,7 +178,7 @@ void cNPC::load( cBufferedReader& reader, unsigned int version )
 		summonTime_ += Server::instance()->time();
 	}
 	additionalFlags_ = reader.readInt();
-	owner_ = reinterpret_cast<P_PLAYER>( reader.readInt() );
+	owner_ = reinterpret_cast<P_PLAYER>( FindItemBySerial(reader.readInt()) );
 	stablemasterSerial_ = reader.readInt();
 	setAI( reader.readAscii().data() );
 	setWanderType( ( enWanderTypes ) reader.readByte() );
@@ -767,8 +764,8 @@ void cNPC::processNode( const cElement* Tag, uint hash )
 
 #define OUTPUT_HASH(x) QString("%1 = %2, ").arg(x).arg( elfHash( x ), 0, 16)
 	Console::instance()->send(
-		OUTPUT_HASH("npcwander") + 
-		OUTPUT_HASH("shopkeeper") + 
+		OUTPUT_HASH("npcwander") +
+		OUTPUT_HASH("shopkeeper") +
 		OUTPUT_HASH("inherit")
 		);
 #undef OUTPUT_HASH
@@ -777,7 +774,7 @@ void cNPC::processNode( const cElement* Tag, uint hash )
 
 	if ( !hash )
 		hash = Tag->nameHash();
-	
+
 	switch ( hash )
 	{
 	case 0xad83fa2: // npcwander
@@ -1117,7 +1114,7 @@ PyObject* cNPC::getProperty( const QString& name, uint hash )
 	case 0x679: // ai
 		return createPyObject( aiid_ );
 	case 0xc446314: // summoned
-		return createPyObject( summoned() );	
+		return createPyObject( summoned() );
 	default:
 		return cBaseChar::getProperty( name, hash );
 	}
