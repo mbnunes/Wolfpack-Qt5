@@ -225,19 +225,19 @@ public:
 
 	static void buildSqlString( const char* objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
-	static void setInsertQuery( QSqlQuery* q ) 
+	static void setInsertQuery( QSqlQuery* q )
 	{
 		cNPC::insertQuery_ = q;
 	}
-	static QSqlQuery* getInsertQuery() 
+	static QSqlQuery* getInsertQuery()
 	{
 		return cNPC::insertQuery_;
 	}
-	static void setUpdateQuery( QSqlQuery* q ) 
+	static void setUpdateQuery( QSqlQuery* q )
 	{
 		cNPC::updateQuery_ = q;
 	}
-	static QSqlQuery* getUpdateQuery() 
+	static QSqlQuery* getUpdateQuery()
 	{
 		return cNPC::updateQuery_;
 	}
@@ -287,6 +287,9 @@ protected:
 
 	// Owner of this NPC.
 	P_PLAYER owner_;
+
+	// Serial of the owner of this NPC
+	SERIAL ownerSerial_;
 
 	// Serial of the stablemaster that stables the NPC.
 	SERIAL stablemasterSerial_;

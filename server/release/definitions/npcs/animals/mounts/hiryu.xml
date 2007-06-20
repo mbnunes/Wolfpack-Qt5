@@ -44,6 +44,7 @@
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Hiryu</category>
 		<basescript>npc.mount</basescript>
+		<strproperty name="slayer_group" value="reptile" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="60" />
 		<intproperty name="carve_meat" value="16" />

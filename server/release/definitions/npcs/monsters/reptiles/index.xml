@@ -18,5 +18,4 @@
 	<include file="definitions/npcs/monsters/reptiles/lava_serpent.xml" />
 	<include file="definitions/npcs/monsters/reptiles/lava_snake.xml" />
 	<include file="definitions/npcs/monsters/reptiles/silver_serpent.xml" />
-
 </definitions>

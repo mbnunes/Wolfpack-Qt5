@@ -69,6 +69,7 @@ cNPC::cNPC()
 	summonTime_ = 0;
 	additionalFlags_ = 0;
 	owner_ = 0;
+	ownerSerial_ = INVALID_SERIAL;
 	stablemasterSerial_ = INVALID_SERIAL;
 	wanderType_ = stWanderType();
 
@@ -135,12 +136,9 @@ void cNPC::postload( unsigned int version )
 
 	cBaseChar::postload( version );
 
-	SERIAL owner = INVALID_SERIAL;
-	if(owner_) {
-			owner = owner_->serial();
-	}
-	owner_ = 0;
-	setOwner( dynamic_cast<P_PLAYER>( World::instance()->findChar( owner ) ) );
+	if(ownerSerial_ != INVALID_SERIAL)
+		setOwner(dynamic_cast<P_PLAYER>(World::instance()->findChar(ownerSerial_)));
+
 	if ( wanderType() == enFollowTarget )
 		setWanderType( enFreely );
 
@@ -178,7 +176,7 @@ void cNPC::load( cBufferedReader& reader, unsigned int version )
 		summonTime_ += Server::instance()->time();
 	}
 	additionalFlags_ = reader.readInt();
-	owner_ = reinterpret_cast<P_PLAYER>( FindItemBySerial(reader.readInt()) );
+	ownerSerial_ = reader.readInt();
 	stablemasterSerial_ = reader.readInt();
 	setAI( reader.readAscii().data() );
 	setWanderType( ( enWanderTypes ) reader.readByte() );
@@ -221,7 +219,7 @@ void cNPC::load( QSqlQuery& result, quint16& offset )
 	if ( summonTime_ )
 		summonTime_ += Server::instance()->time();
 	additionalFlags_ = result.value( offset++ ).toInt();
-	owner_ = reinterpret_cast<P_PLAYER>( result.value( offset++ ).toInt() );
+	ownerSerial_ = result.value( offset++ ).toInt();
 	stablemasterSerial_ = result.value( offset++ ).toInt();
 	setAI( result.value( offset++ ).toString() );
 	setWanderType( ( enWanderTypes ) result.value( offset++ ).toInt() );
