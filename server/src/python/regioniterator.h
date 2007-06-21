@@ -101,7 +101,8 @@ static PyObject* PyGetItemRegionIterator( unsigned short x1, unsigned short y1, 
 	return reinterpret_cast<PyObject*>( returnVal );
 }
 
-static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
+// Never used? - BtbN
+/* static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
 {
 	// must manually initialize the iterator's state to zero
 	wpRegionIteratorItems* returnVal = PyObject_New( wpRegionIteratorItems, &wpRegionIteratorItemsType );
@@ -110,7 +111,7 @@ static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short 
 	returnVal->iter = MapObjects::instance()->listItemsInBlock( map, xBlock * 8, yBlock * 8 );
 
 	return reinterpret_cast<PyObject*>( returnVal );
-}
+} */
 
 /*
  *	Character Region Iterator
@@ -184,7 +185,8 @@ static PyObject* PyGetCharRegionIterator( unsigned short x1, unsigned short y1, 
 	return reinterpret_cast<PyObject*>( returnVal );
 }
 
-static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map, bool offline = false )
+// Never used? - BtbN
+/* static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map, bool offline = false )
 {
 	// must manually initialize the iterator's state to zero
 	wpRegionIteratorChars* returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
@@ -193,6 +195,6 @@ static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short 
 	returnVal->iter = MapObjects::instance()->listCharsInBlock( map, xBlock * 8, yBlock * 8, offline );
 
 	return reinterpret_cast<PyObject*>( returnVal );
-}
+} */
 
 #endif

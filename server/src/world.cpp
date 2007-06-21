@@ -95,12 +95,13 @@ unsigned int cWorld::getDatabaseVersion() const {
 }
 
 // This is used for autocreating the tables
-struct
+struct dbEntryTripple
 {
 	const char* name;
 	const char* create;
 	const char* mysqlcreate;
-} tableInfo[] =
+};
+dbEntryTripple tableInfo[] =
 {
 { "guilds",
 "CREATE TABLE guilds ( \
@@ -136,7 +137,7 @@ showsign unsigned tinyint(1) NOT NULL default '0', \
 guildtitle varchar(255) NOT NULL default '', \
 joined int(11) NOT NULL default '0', \
 PRIMARY KEY(guild,player) \
-);", 
+);",
 "CREATE TABLE `guilds_members` ( \
 `guild` int(10) unsigned NOT NULL default '0', \
 `player` int(10) unsigned NOT NULL default '0', \
@@ -301,7 +302,7 @@ charbaseid varchar(64) NOT NULL default '',\
 murderer unsigned int(10) NOT NULL default '0',\
 murdertime unsigned int(10) NOT NULL default '0',\
 PRIMARY KEY (serial)\
-);", 
+);",
 "CREATE TABLE `corpses` ( \
 `serial` int(10) unsigned NOT NULL default '0', \
 `bodyid` smallint(5) unsigned NOT NULL default '0', \
@@ -346,7 +347,7 @@ visible tinyint(3)  NOT NULL default '0',\
 priv unsigned tinyint(3)  NOT NULL default '0',\
 baseid varchar(64) NOT NULL default '',\
 PRIMARY KEY (serial)\
-);", 
+);",
 "CREATE TABLE `items` ( \
 `serial` int(10) unsigned NOT NULL default '0', \
 `id` smallint(5) unsigned NOT NULL default '0', \
@@ -522,7 +523,7 @@ keyname varchar(64) NOT NULL,\
 type varchar(64) NOT NULL,\
 value text NOT NULL,\
 PRIMARY KEY (id,keyname)\
-);", 
+);",
 "CREATE TABLE `effects_properties` ( \
 `id` int(10) unsigned NOT NULL default '0', \
 `keyname` varchar(64) NOT NULL default '', \
@@ -919,7 +920,7 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 					PersistentBroker::instance()->executeQuery( QString("insert into `settings` (`option`, `value`) values ('db_version',%1);").arg( WP_DATABASE_VERSION ) );
 				}
 				else
-				{ 
+				{
 					PersistentBroker::instance()->executeQuery( QString("insert into settings (option, value) values ('db_version',%1);").arg( WP_DATABASE_VERSION ) );
 				}
 			}
@@ -964,7 +965,7 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 
 	QStringList types = PersistentFactory::instance()->objectTypes();
 
-	for ( uint j = 0; j < types.count(); ++j )
+	for ( int j = 0; j < types.count(); ++j )
 	{
 		QString type = types[j];
 
@@ -1230,7 +1231,7 @@ void cWorld::save()
 		setOption( "worldtime", QString::number( UoTime::instance()->getMinutes() ) );
 
 		if ( Config::instance()->databaseDriver() == "binary" )
-		{			
+		{
 			// Make a backup of the old world.
 			backupWorld( Config::instance()->binarySavepath(), Config::instance()->binaryBackups(), Config::instance()->binaryCompressBackups() );
 
@@ -1719,7 +1720,7 @@ QMap<QDateTime, QString> listBackups( const QString& filename )
 /*
 	Backup old worldfile
 */
-void cWorld::backupWorld( const QString& filename, unsigned int count, bool compress )
+void cWorld::backupWorld( const QString& filename, int count, bool compress )
 {
 	// Looks like there is nothing to backup
 	if ( count == 0 || !QFile::exists( filename ) )

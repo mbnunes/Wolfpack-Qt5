@@ -262,7 +262,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QList<cUObject*
 
 			// Check every tile of the multi at the current position
 			// The following algorithm is more or less a ripoff of RunUOs idea.
-			for ( unsigned int i = 0; i < multiItems.size(); ++i )
+			for ( int i = 0; i < multiItems.size(); ++i )
 			{
 				multiItem_st multiItem = multiItems[i];
 				tile_st tile = TileCache::instance()->getTile( multiItem.tile );
@@ -569,7 +569,7 @@ bool cMulti::canPlaceBoat( const Coord& pos, unsigned short multiid, QList<cUObj
 
 			// Check every tile of the multi at the current position
 			// The following algorithm is more or less a ripoff of RunUOs idea.
-			for ( unsigned int i = 0; i < multiItems.size(); ++i )
+			for ( int i = 0; i < multiItems.size(); ++i )
 			{
 				multiItem_st multiItem = multiItems[i];
 				tile_st tile = TileCache::instance()->getTile( multiItem.tile );
@@ -662,7 +662,7 @@ bool cMulti::canPlaceBoat( const Coord& pos, unsigned short multiid, QList<cUObj
 
 bool cMulti::canBoatMoveTo( const Coord& pos )
 {
-	
+
 	MultiDefinition *multi = MultiCache::instance()->getMulti( this->id() - 0x4000 );
 
 	if ( !multi )
@@ -760,7 +760,7 @@ bool cMulti::canBoatMoveTo( const Coord& pos )
 					bool skip = false;
 					while ( i <= count && !skip )
 					{
-						skip = getTag( QString("boat_part").append( QString::number( i ) ) ).toInt() == pItem->serial();
+						skip = static_cast<SERIAL>(getTag( QString("boat_part").append( QString::number( i ) ) ).toInt()) == pItem->serial();
 						++i;
 					}
 
@@ -777,7 +777,7 @@ bool cMulti::canBoatMoveTo( const Coord& pos )
 						// Move the item out of the multi space if possible
 						if ( ( pItem->movable() == 0 && itemInfo.weight != 255 ) || pItem->movable() == 1 )
 						{
-							
+
 						}
 						else
 						{

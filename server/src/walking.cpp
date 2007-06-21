@@ -272,7 +272,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 
 		QList<multiItem_st> multi = def->getEntries();
 
-		for ( unsigned int j = 0; j < multi.size(); ++j )
+		for ( int j = 0; j < multi.size(); ++j )
 		{
 			if ( multi[j].visible && ( pMulti->pos().x + multi[j].x == pos.x ) && ( pMulti->pos().y + multi[j].y == pos.y ) )
 			{
@@ -589,8 +589,8 @@ bool cMovement::Walking( P_CHAR pChar, quint8 dir, quint8 sequence )
 			{
 				if (player->pos().map == 0)
 					rightmap = true;
-			}			
-			
+			}
+
 			// Player vs characters Section
 			if ( player->socket() && rightmap )
 			{
@@ -599,7 +599,7 @@ bool cMovement::Walking( P_CHAR pChar, quint8 dir, quint8 sequence )
 				{
 					if ( them == player )
 						continue;
-	
+
 					// Handling onStepChar (Cant call the event it z difference is higher than definition)
 					if ( wpAbs<SI08>( newCoord.z - them->pos().z ) < P_M_MAX_Z_CLIMB )
 					{
@@ -614,7 +614,7 @@ bool cMovement::Walking( P_CHAR pChar, quint8 dir, quint8 sequence )
 							else
 								continue;
 						}
-					}					
+					}
 
 					// If we're dead or Staff, no collisions to check (Unless we have events)
 					if ( player->isDead() || player->account()->isStaff() )
@@ -996,7 +996,7 @@ quint16 DynTile( const Coord& pos )
 				return 0;
 
 			QList<multiItem_st> multi = def->getEntries();
-			for ( quint32 j = 0; j < multi.size(); ++j )
+			for ( qint32 j = 0; j < multi.size(); ++j )
 			{
 				if ( ( multi[j].visible && ( mapitem->pos().x + multi[j].x == pos.x ) && ( mapitem->pos().y + multi[j].y == pos.y ) && ( abs( mapitem->pos().z + multi[j].z - pos.z ) <= 1 ) ) )
 				{

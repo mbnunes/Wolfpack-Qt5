@@ -37,7 +37,7 @@
 #include <QtXml>
 #include <QByteArray>
 
-void cBaseDef::processNode( const cElement* node, uint hash )
+void cBaseDef::processNode( const cElement* node, uint /*hash*/ )
 {
 	if ( node->name() == "intproperty" )
 	{
@@ -152,7 +152,7 @@ void cCharBaseDef::reset()
 	deathSound_.clear();
 }
 
-void cCharBaseDef::processNode( const cElement* node, uint hash )
+void cCharBaseDef::processNode( const cElement* node, uint /*hash*/ )
 {
 	// <basesound>0x12</basesound>
 	if ( node->name() == "basesound" )
@@ -163,7 +163,7 @@ void cCharBaseDef::processNode( const cElement* node, uint hash )
 	else if ( node->name() == "attacksound" )
 	{
 		QStringList parts = node->text().split( "," );
-		for ( unsigned int i = 0; i < parts.size(); ++i )
+		for ( int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			attackSound_.append( value );
@@ -173,7 +173,7 @@ void cCharBaseDef::processNode( const cElement* node, uint hash )
 	else if ( node->name() == "idlesound" )
 	{
 		QStringList parts = node->text().split( "," );
-		for ( unsigned int i = 0; i < parts.size(); ++i )
+		for ( int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			idleSound_.append( value );
@@ -183,7 +183,7 @@ void cCharBaseDef::processNode( const cElement* node, uint hash )
 	else if ( node->name() == "hitsound" )
 	{
 		QStringList parts = node->text().split( "," );
-		for ( unsigned int i = 0; i < parts.size(); ++i )
+		for ( int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			hitSound_.append( value );
@@ -193,7 +193,7 @@ void cCharBaseDef::processNode( const cElement* node, uint hash )
 	else if ( node->name() == "gethitsound" )
 	{
 		QStringList parts = node->text().split( "," );
-		for ( unsigned int i = 0; i < parts.size(); ++i )
+		for ( int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			gethitSound_.append( value );
@@ -203,7 +203,7 @@ void cCharBaseDef::processNode( const cElement* node, uint hash )
 	else if ( node->name() == "deathsound" )
 	{
 		QStringList parts = node->text().split( "," );
-		for ( unsigned int i = 0; i < parts.size(); ++i )
+		for ( int i = 0; i < parts.size(); ++i )
 		{
 			unsigned short value = hex2dec( hex2dec( parts[i] ) ).toUShort();
 			deathSound_.append( value );
@@ -350,7 +350,7 @@ void cCharBaseDefs::loadBodyInfo()
 	QDomNode parent = document.namedItem( "bodyinfo" );
 	if ( parent.isElement() )
 	{
-		for ( unsigned int i = 0; i < parent.childNodes().count(); ++i )
+		for ( int i = 0; i < parent.childNodes().count(); ++i )
 		{
 			QDomElement element = parent.childNodes().item( i ).toElement();
 
@@ -592,7 +592,7 @@ void cItemBaseDef::reset()
 	clilocName_ = 0;
 }
 
-void cItemBaseDef::processNode( const cElement* node, uint hash )
+void cItemBaseDef::processNode( const cElement* node, uint /*hash*/ )
 {
 	// <weight>10.5</weight>
 	if ( node->name() == "weight" )
@@ -769,6 +769,42 @@ wpDealloc,
 0,
 wpBasedef_compare,
 0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+0
 };
 
 /*

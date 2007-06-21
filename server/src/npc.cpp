@@ -1243,7 +1243,7 @@ void cNPC::findPath( const Coord& goal )
 	if ( pos_.map != goal.map )
 		return;
 
-	QList<unsigned char> path = Pathfinding::instance()->find(this, pos_, goal);
+	QList<quint8> path = Pathfinding::instance()->find(this, pos_, goal);
 
 	if ( path.size() < 1 )
 	{
@@ -1253,8 +1253,8 @@ void cNPC::findPath( const Coord& goal )
 
 	Coord coord = pos_;
 
-	for (unsigned int i = 0; i < path.size(); ++i) {
-		unsigned char dir = path[i];
+	for (int i = 0; i < path.size(); ++i) {
+		quint8 dir = path[i];
 
 		Coord newcoord = Movement::instance()->calcCoordFromDir(dir, coord);
 		path_.push_back( newcoord );

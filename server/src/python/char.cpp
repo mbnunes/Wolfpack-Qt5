@@ -380,7 +380,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if ( PyTuple_Size( args ) >= 2 )
 	{
 		if ( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
-		{	
+		{
 			PyErr_BadArgument();
 			Py_RETURN_FALSE;
 		}
@@ -393,7 +393,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if ( PyTuple_Size( args ) >= 3 )
 	{
 		if ( !PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
-		{	
+		{
 			PyErr_BadArgument();
 			Py_RETURN_FALSE;
 		}
@@ -405,7 +405,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 	if ( PyTuple_Size( args ) >= 4 )
 	{
 		if ( !PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
-		{	
+		{
 			PyErr_BadArgument();
 			Py_RETURN_FALSE;
 		}
@@ -1011,7 +1011,7 @@ static PyObject* wpChar_getstrproperty( wpChar* self, PyObject* args )
 	}
 
 	QString name = boost::python::extract<QString>( pyname );
-	
+
 	QString def = QString::null;
 	if ( pydef != Py_None )
 	{
@@ -1743,7 +1743,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 			}
 		}
 
-		for ( uint i = 0; i < effects.size(); ++i )
+		for ( int i = 0; i < effects.size(); ++i )
 		{
 			// No python effect, but we are forcing.
 			if ( ( force || effects[i]->dispellable ) && dispelid.isNull() && effects[i]->objectID() != "cPythonEffect" )
@@ -3086,7 +3086,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		cBaseChar::CharContainer followers = player->pets();
 		PyObject* rVal = PyTuple_New( followers.size() );
 
-		for ( uint i = 0; i < followers.size(); ++i )
+		for ( int i = 0; i < followers.size(); ++i )
 			PyTuple_SetItem( rVal, i, PyGetCharObject( followers[i] ) );
 
 		return rVal;
@@ -3101,7 +3101,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		cBaseChar::CharContainer guards = self->pChar->guardedby();
 		PyObject* rVal = PyTuple_New( guards.size() );
 
-		for ( uint i = 0; i < guards.size(); ++i )
+		for ( int i = 0; i < guards.size(); ++i )
 			PyTuple_SetItem( rVal, i, PyGetCharObject( guards[i] ) );
 
 		return rVal;
@@ -3124,7 +3124,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 			}
 		}
 		PyObject* list = PyTuple_New( scripts.count() );
-		for ( uint i = 0; i < scripts.count(); ++i )
+		for ( int i = 0; i < scripts.count(); ++i )
 			PyTuple_SetItem( list, i, PyString_FromString( scripts[i] ) );
 		return list;
 	}

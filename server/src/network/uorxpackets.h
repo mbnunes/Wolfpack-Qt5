@@ -480,11 +480,11 @@ public:
 	{
 		return this->getAsciiString( 1, 30 );
 	}
-	uint index( void ) const
+	int index( void ) const
 	{
 		return getInt( 31 );
 	}
-	uint ip( void ) const
+	int ip( void ) const
 	{
 		return getInt( 35 );
 	}
@@ -512,7 +512,7 @@ public:
 		return getInt( 37 );
 	}
 
-	uint slot( void ) const
+	int slot( void ) const
 	{
 		return getInt( 65 );
 	}
@@ -1028,7 +1028,7 @@ public:
 	cUORxGumpResponse( const QByteArray& data ) : cUOPacket( data )
 	{
 	}
-	ushort size() const
+	short size() const
 	{
 		return getShort( 1 );
 	}

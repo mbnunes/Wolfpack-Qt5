@@ -69,7 +69,7 @@ void OptionParser::parse()
 		{
 			printUsage();
 		}
-		
+
 		QMap<QString, Option>::iterator it = optionSet.find( args[i] );
 		if ( it != optionSet.end() )
 		{

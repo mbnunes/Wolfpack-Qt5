@@ -167,7 +167,7 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 		return false;
 }
 
-bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm, QList<ushort>& keywords )
+bool Speech::response( cUOSocket* /*socket*/, P_PLAYER pPlayer, const QString& comm, QList<ushort>& keywords )
 {
 	if ( !pPlayer->socket() || pPlayer->isDead() )
 	{
@@ -187,7 +187,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 			PyObject* pkeywords = PyTuple_New( keywords.size() );
 
 			// Set Items
-			for ( unsigned int i = 0; i < keywords.size(); ++i )
+			for ( int i = 0; i < keywords.size(); ++i )
 				PyTuple_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
 
 			PyObject* args = Py_BuildValue( "(NNNO)", pItem->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
@@ -220,7 +220,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 			PyObject* pkeywords = PyTuple_New( keywords.size() );
 
 			// Set Items
-			for ( unsigned int i = 0; i < keywords.size(); ++i )
+			for ( int i = 0; i < keywords.size(); ++i )
 				PyTuple_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
 
 			PyObject* args = Py_BuildValue( "(NNNO)", pNpc->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
@@ -259,20 +259,20 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 		return;
 
 	// Squelched
-	if ( pChar->isSquelched() ) 
+	if ( pChar->isSquelched() )
 	{
 		socket->clilocMessage( 500168 ); // You cannot say anything, you have been squelched.
 		return;
 	}
 
 	// log
-	pChar->log( LOG_SPEECH, 
-		tr( "Character '%1' says '%2' (font=%3, color=0x%4).\n" 
-			).arg( pChar->orgName() 
-			).arg( speech 
-			).arg( font 
-			).arg( color, 0, 16 
-		) 
+	pChar->log( LOG_SPEECH,
+		tr( "Character '%1' says '%2' (font=%3, color=0x%4).\n"
+			).arg( pChar->orgName()
+			).arg( speech
+			).arg( font
+			).arg( color, 0, 16
+		)
 	);
 
 	pChar->unhide();

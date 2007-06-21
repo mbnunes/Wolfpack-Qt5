@@ -41,6 +41,8 @@ class cSpawnPosition
 protected:
 	unsigned int points_; // The number of points
 public:
+	virtual ~cSpawnPosition() {}
+
 	virtual unsigned int points()
 	{
 		return points_;

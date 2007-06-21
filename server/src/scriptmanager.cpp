@@ -139,9 +139,7 @@ void cScriptManager::load()
 	// Each Section is a Script identifier
 	const QList<cElement*>& sections = Definitions::instance()->getDefinitions( WPDT_SCRIPT );
 
-	unsigned int loaded = 0;
-	unsigned int i;
-
+	int i;
 	for ( i = 0; i < sections.size(); ++i )
 	{
 		const cElement* element = sections[i];
@@ -155,7 +153,6 @@ void cScriptManager::load()
 		cPythonScript* script = new cPythonScript;
 		scripts.insert( element->text().toUtf8(), script );
 		script->load( element->text().toLatin1() );
-		++loaded;
 	}
 	cComponent::load();
 }

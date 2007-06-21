@@ -161,7 +161,7 @@ public:
 	double readDouble();
 	QString readUtf8();
 	QByteArray readAscii( bool nodictionary = false );
-	void readRaw( void* data, unsigned int size );
+	void readRaw( void* data, int size );
 
 	unsigned int position();
 	const QMap<unsigned char, QByteArray>& typemap();

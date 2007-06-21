@@ -382,7 +382,7 @@ void cDefinitions::load( void )
 {
 	impl->imports = Config::instance()->getString( "General", "Definitions", "definitions/index.xml", true ).split( ";" );
 
-	for ( unsigned int i = 0; i < impl->imports.size(); ++i )
+	for ( int i = 0; i < impl->imports.size(); ++i )
 	{
 		cXmlHandler handler( impl );
 		handler.load( impl->imports[i] );

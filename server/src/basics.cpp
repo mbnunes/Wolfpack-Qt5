@@ -589,7 +589,7 @@ QByteArray cBufferedReader::readAscii( bool nodictionary )
 	}
 }
 
-void cBufferedReader::readRaw( void* data, unsigned int size )
+void cBufferedReader::readRaw( void* data, int size )
 {
 	unsigned int pos = 0;
 

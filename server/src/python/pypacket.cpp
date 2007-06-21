@@ -201,14 +201,14 @@ static PyObject* wpPacket_getint( PyObject* self, PyObject* args )
 */
 static PyObject* wpPacket_setascii( PyObject* self, PyObject* args )
 {
-	unsigned short pos;
+	short pos;
 	char* buffer;
 
 	if ( !PyArg_ParseTuple( args, "Hs:wppacket.setbuffer(position, value)", &pos, &buffer ) )
 		return 0;
 
 	cUOPacket* packet = ( ( wpPacket* ) self )->packet;
-	unsigned int length = strlen( buffer ) + 1;
+	int length = strlen( buffer ) + 1;
 
 	if ( pos + length > packet->size() )
 	{

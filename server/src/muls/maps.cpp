@@ -765,7 +765,7 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 			staticArray.clear();
 			const uint remainX = x % 8;
 			const uint remainY = y % 8;
-			for (quint32 i = 0; i < p->size(); ++i ) {
+			for (qint32 i = 0; i < p->size(); ++i ) {
 				const staticrecord &r = p->at(i);
 				if (r.xoff == remainX && r.yoff == remainY) {
 					staticArray.append(r);

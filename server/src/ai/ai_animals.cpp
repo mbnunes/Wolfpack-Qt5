@@ -205,7 +205,7 @@ P_CHAR Animal_Predator::findPrey()
 
 	// If we are tamed or there is nothing we like we do not hunt
 	if ( m_npc->isTamed() || prey.isEmpty() )
-	{	
+	{
 		return target;
 	}
 
@@ -268,7 +268,7 @@ void Animal_Predator::initPrey()
 		// build a list of baseids of chars we hunt
 		QString preyProp = m_npc->basedef()->getStrProperty( "prey" );
 		prey = preyProp.split( ",", QString::SkipEmptyParts );
-		
+
 		// player get special handling to lower costs
 		if ( prey.contains( "player" ) )
 		{

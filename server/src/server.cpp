@@ -248,7 +248,7 @@ bool cServer::getSecure()
 	return d->secure;
 }
 
-void myMessageOutput( QtMsgType type, const char *msg )
+void myMessageOutput( QtMsgType /*type*/, const char */*msg*/ )
 {
  /*   switch ( type ) {
         case QtDebugMsg:

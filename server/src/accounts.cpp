@@ -466,7 +466,7 @@ void cAccounts::save()
 			}
 		}
 
-		db.commit();		
+		db.commit();
 	}
 	catch ( wpException& error )
 	{
@@ -557,7 +557,7 @@ void cAccounts::load()
 				db.exec( QString("insert into `settings` (`option`, `value`) values ('db_version',%1);").arg( db_version ) );
 			}
 			else
-			{ 
+			{
 				db.exec( createSqlSettings );
 				db.exec( QString("insert into settings (option, value) values ('db_version',%1);").arg( db_version ) );
 			}
@@ -600,7 +600,7 @@ void cAccounts::load()
 				throw wpException( tr( "Unable to load account database. Version mismatch: %1 != %2." ).arg( db_version ).arg( ACCT_DATABASE_VERSION ) );
 			}
 		}
-	
+
 		// if we have the new created admin account, there aren't any other accounts to load
 		if ( adminAccount == NULL )
 		{
@@ -828,7 +828,7 @@ PyObject* cAccount::getProperty( const QString& name, uint hash )
 	if ( name == "characters" )
 	{
 		PyObject* tuple = PyTuple_New( characters_.size() );
-		for ( uint i = 0; i < characters_.size(); ++i ) {
+		for ( int i = 0; i < characters_.size(); ++i ) {
 			PyTuple_SetItem( tuple, i, characters_[i]->getPyObject() );
 		}
 		return tuple;
@@ -864,8 +864,8 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 	*/
 	else if ( name == "email" )
 	{
-		QString text = value.toString(); 
-		if( text == QString::null )	
+		QString text = value.toString();
+		if( text == QString::null )
 			PROPERTY_ERROR( -2, "String expected" );
 		email_ = text.toLatin1();
 		return 0;

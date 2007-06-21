@@ -158,17 +158,14 @@ cUOPacket* cUORxAosMultiPurpose::packet( const QByteArray& data )
 
 	cUOPacket temp( data );
 
-	switch ( temp.getShort( 7 ) )
+	if(temp.getShort( 7 ) == CHLevel)
 	{
-	case CHLevel:
-		return new cUORxCHLevel( data ); break;
-	default:
-		{
-			//qWarning("Unknown cUORxAosMultiPurpose subcommand");
-			//qWarning( cUOPacket::dump( data ) );
-			return new cUORxAosMultiPurpose( data );
-		}
+		return new cUORxCHLevel( data );
 	}
+
+	//qWarning("Unknown cUORxAosMultiPurpose subcommand");
+	//qWarning( cUOPacket::dump( data ) );
+	return new cUORxAosMultiPurpose( data );
 }
 
 QString cUORxSpeechRequest::message()
@@ -210,7 +207,7 @@ gumpChoice_st cUORxGumpResponse::choice()
 		choice.switches.push_back( getInt( 19 + 4 * i ) );
 	}
 
-	quint32 offset = 19 + 4 * numSwitches;
+	qint32 offset = 19 + 4 * numSwitches;
 
 	if ( offset >= size() )
 	{
@@ -240,13 +237,13 @@ QList< ushort > cUORxSpeechRequest::keywords()
 {
 	QList<ushort> keywords;
 
-	ushort count = keywordCount();
-	ushort offset = 13; // Skip the count
+	short count = keywordCount();
+	short offset = 13; // Skip the count
 
 	for ( ushort i = 0; i < count; ++i )
 	{
 		// Invalid Packet size
-		if ( offset + 2U > size() )
+		if ( offset + 2 > size() )
 			return keywords;
 
 		ushort value;

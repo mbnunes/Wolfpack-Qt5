@@ -40,7 +40,7 @@
 #define PyTrace_C_RETURN 6
 #endif
 
-int PyProfiler::tracefunc( PyObject *obj, PyFrameObject *frame, int what, PyObject *arg )
+int PyProfiler::tracefunc( PyObject */*obj*/, PyFrameObject *frame, int what, PyObject */*arg*/ )
 {
 	PyProfiler* that = PyProfiler::instance();
 	ProfileData* pdata = 0;

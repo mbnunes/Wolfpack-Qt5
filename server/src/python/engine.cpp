@@ -135,7 +135,7 @@ static void startPython( int argc, char* argv[] )
 	{
 		searchPath.insert( 0, str( elements[i].toLatin1() ) );
 	}
-	
+
 	// Import site now
 	object siteModule = extract<object>( PyImport_ImportModule( "site" ) );
 

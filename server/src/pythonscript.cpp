@@ -1118,7 +1118,7 @@ bool cPythonScript::canChainHandleEvent( ePythonEvent event, cPythonScript** cha
 	return result;
 }
 
-PyObject* cPythonScriptable::getProperty( const QString& name, uint hash )
+PyObject* cPythonScriptable::getProperty( const QString& name, uint /*hash*/ )
 {
 	PY_PROPERTY( "classname", className() );
 

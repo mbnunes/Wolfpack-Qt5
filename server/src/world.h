@@ -97,7 +97,7 @@ private:
 	unsigned int _playerCount, _npcCount;
 	void loadTag( cBufferedReader& reader, unsigned int version );
 	QMap<QString, QString> options;
-	void backupWorld( const QString& filename, unsigned int count, bool compress );
+	void backupWorld( const QString& filename, int count, bool compress );
 	QList<cBackupThread*> backupThreads;
 
 public:

@@ -61,7 +61,7 @@ struct QByteArray_from_python_str
 		if ( PyString_Check( obj ) )
 		{
 			const char *value = PyString_AS_STRING(obj);
-			if( !value ) 
+			if( !value )
 				throw_error_already_set();
 			void *storage=((converter::rvalue_from_python_storage<QString> *) data)->storage.bytes;
 			new(storage) QByteArray(value, PyString_GET_SIZE(obj));
@@ -127,7 +127,7 @@ struct QString_from_python_str
 		else if ( PyString_Check( obj ) )
 		{
 			const char *value=PyString_AsString(obj);
-			if( !value ) 
+			if( !value )
 				throw_error_already_set();
 			void *storage=((converter::rvalue_from_python_storage<QString> *) data)->storage.bytes;
 			new(storage) QString(QByteArray(value, PyString_Size(obj)));

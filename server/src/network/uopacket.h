@@ -47,15 +47,15 @@ protected:
 	void init();
 	void compress();
 	void assign( cUOPacket& );
-	void setRawData( uint, const char*, uint );
+	void setRawData( int, const char*, int );
 
 public:
 	cUOPacket( const QByteArray& );
-	cUOPacket( quint32 );
+	cUOPacket( qint32 );
 	cUOPacket( cUOPacket& );
-	cUOPacket( quint8, quint32 );
-	uint size() const;
-	uint count() const;
+	cUOPacket( quint8, qint32 );
+	int size() const;
+	int count() const;
 	virtual ~cUOPacket();
 
 	virtual  QByteArray compressed();
@@ -63,20 +63,20 @@ public:
 	{
 		return rawPacket;
 	}
-	void resize( uint );
-	int getInt( uint ) const;
-	short getShort( uint ) const;
-	QByteArray getAsciiString( uint, uint = 0 ) const;
-	QString getUnicodeString( uint, uint ) const;
-	void setInt( uint, uint );
-	void setShort( uint, ushort );
-	void setUnicodeString( uint, const QString&, uint, bool swapbytes = false );
-	void setAsciiString( uint, const char*, uint );
+	void resize( int );
+	int getInt( int ) const;
+	short getShort( int ) const;
+	QByteArray getAsciiString( int, int = 0 ) const;
+	QString getUnicodeString( int, int ) const;
+	void setInt( int, uint );
+	void setShort( int, unsigned short );
+	void setUnicodeString( int, const QString&, int, bool swapbytes = false );
+	void setAsciiString( int, const char*, int );
 	static QByteArray dump( const QByteArray& );
 
 	// Operators
-	char& operator []( uint );
-	char operator []( uint ) const;
+	char& operator []( int );
+	char operator []( int ) const;
 	cUOPacket& operator=( cUOPacket& p );
 };
 
@@ -85,7 +85,7 @@ public:
 /*!
   Overloaded version for const objects.
 */
-inline char cUOPacket::operator[]( unsigned int index ) const
+inline char cUOPacket::operator[]( int index ) const
 {
 	return rawPacket.at( index );
 }

@@ -1042,7 +1042,7 @@ static PyObject* wpList( PyObject* self, PyObject* args )
 	QStringList list = Definitions::instance()->getList( getArgStr( 0 ) );
 	PyObject* pylist = PyTuple_New( list.count() );
 
-	for ( uint i = 0; i < list.count(); ++i )
+	for ( int i = 0; i < list.count(); ++i )
 		PyTuple_SetItem( pylist, i, QString2Python( list[i] ) );
 
 	return pylist;
@@ -1541,13 +1541,13 @@ static PyObject* wpGetDefinitions( PyObject* /*self*/, PyObject* args )
 
 	PyObject* result = PyTuple_New( elements.size() + sections.size() );
 
-	uint i = 0;
+	int i = 0;
 	for ( ; i < elements.size(); ++i )
 	{
 		PyTuple_SetItem( result, i, elements[i]->getPyObject() );
 	}
 
-	for ( uint j = 0; j < sections.size(); ++j )
+	for ( int j = 0; j < sections.size(); ++j )
 	{
 		cElement* element = const_cast<cElement*>( Definitions::instance()->getDefinition( ( eDefCategory ) type, sections[j] ) );
 		PyTuple_SetItem( result, i++, element->getPyObject() );
@@ -1859,8 +1859,8 @@ static PyMethodDef wpGlobal[] =
 /*
 	\function wolfpack.sockets.first
 	\return A <object id="socket">socket</object> object or None.
-	\description This function is used to iterate thru the ingame sockets. It resets the iterator to the first 
-	available socket and returns it. 
+	\description This function is used to iterate thru the ingame sockets. It resets the iterator to the first
+	available socket and returns it.
 	\sa wolfpack.sockets.next
 */
 QList<cUOSocket*> sockets;
@@ -1902,7 +1902,7 @@ static PyObject* wpSocketsNext( PyObject* /*self*/, PyObject* /*args*/ )
 /*
 	\function wolfpack.sockets.count
 	\return An integer value.
-	\description This function returns how many sockets are connected. There is no distinction 
+	\description This function returns how many sockets are connected. There is no distinction
 	on their state, which could be logging in sockets or ingame sockets.
 */
 static PyObject* wpSocketsCount( PyObject* self, PyObject* args )
@@ -2315,7 +2315,7 @@ QString wpDriver( unsigned int database )
 	\param database The id of the database you want to close. See the "Database Constants" in this module.
 	\description This function closes the connection to the given database.
 */
-void wpClose( unsigned int database )
+void wpClose( unsigned int /*database*/ )
 {
 	try
 	{

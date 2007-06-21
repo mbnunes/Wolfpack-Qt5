@@ -169,7 +169,7 @@ inline QString makeAscii( const QString& input )
 {
 	QString result;
 
-	for ( unsigned int i = 0; i < input.length(); ++i )
+	for ( int i = 0; i < input.length(); ++i )
 	{
 		QChar c = input.at( i );
 

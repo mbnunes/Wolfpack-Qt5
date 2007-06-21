@@ -72,7 +72,7 @@ sizeof( wpDbResultType ),
 	\description This function frees the resources allocated by this dbresult object. Always call this
 	when you no longer need this object.
 */
-static PyObject* wpDbResult_free( wpDbResult* self, PyObject* args )
+static PyObject* wpDbResult_free( wpDbResult* /*self*/, PyObject* args )
 {
 	Q_UNUSED( args );
 	Py_RETURN_NONE;

@@ -324,7 +324,7 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 	cUOTxUnicodeSpeech::eSpeechType speechType;
 
 	// Lets try the Range of Speech
-	int speechrange = Config::instance()->SpeechNormalRange();
+	unsigned int speechrange = Config::instance()->SpeechNormalRange();
 
 	switch ( type )
 	{
@@ -360,7 +360,7 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 	// Generate the ghost-speech *ONCE*
 	if ( isDead() && !gmSpiritSpeak )
 	{
-		for ( quint32 gI = 0; gI < message.length(); ++gI )
+		for ( qint32 gI = 0; gI < message.length(); ++gI )
 		{
 			if ( message[gI].isSpace() )
 				ghostSpeech.append( message[gI] );
@@ -1273,7 +1273,7 @@ bool cPlayer::onBecomeCriminal( unsigned int reason, P_CHAR sourcechar, P_ITEM s
 int cPlayer::onStepChar( P_CHAR pChar )
 {
 	unsigned int retvalue = 0;
-	
+
 	if ( canHandleEvent( EVENT_STEPCHAR ) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pChar );
@@ -1296,7 +1296,7 @@ int cPlayer::onStepChar( P_CHAR pChar )
 int cPlayer::onStepWeightPercent( int percent, bool mounted, bool running )
 {
 	unsigned int retvalue = 0;
-	
+
 	if ( canHandleEvent( EVENT_STEPWEIGHTPERCENT ) )
 	{
 		PyObject* args = Py_BuildValue( "O&iii", PyGetCharObject, this, percent, mounted, running );
@@ -1522,20 +1522,20 @@ PyObject* cPlayer::getProperty( const QString& name, uint hash )
 	/*
 	#define OUTPUT_HASH(x) QString("case 0x%2: // %1\n").arg(x).arg( elfHash( x ), 0, 16)
 	Console::instance()->send(
-	OUTPUT_HASH("account") + 
-	OUTPUT_HASH("controlslots") + 
-	OUTPUT_HASH("logouttime") + 
-	OUTPUT_HASH("npc") + 
-	OUTPUT_HASH("lightbonus") + 
-	OUTPUT_HASH("objectdelay") + 
-	OUTPUT_HASH("visrange") + 
-	OUTPUT_HASH("profile") + 
-	OUTPUT_HASH("strengthlock") + 
-	OUTPUT_HASH("dexteritylock") + 
-	OUTPUT_HASH("intelligencelock") + 
-	OUTPUT_HASH("maxcontrolslots") + 
-	OUTPUT_HASH("karmalock") + 
-	OUTPUT_HASH("squelched") + 
+	OUTPUT_HASH("account") +
+	OUTPUT_HASH("controlslots") +
+	OUTPUT_HASH("logouttime") +
+	OUTPUT_HASH("npc") +
+	OUTPUT_HASH("lightbonus") +
+	OUTPUT_HASH("objectdelay") +
+	OUTPUT_HASH("visrange") +
+	OUTPUT_HASH("profile") +
+	OUTPUT_HASH("strengthlock") +
+	OUTPUT_HASH("dexteritylock") +
+	OUTPUT_HASH("intelligencelock") +
+	OUTPUT_HASH("maxcontrolslots") +
+	OUTPUT_HASH("karmalock") +
+	OUTPUT_HASH("squelched") +
 	OUTPUT_HASH("jailed")
 	);
 	#undef OUTPUT_HASH

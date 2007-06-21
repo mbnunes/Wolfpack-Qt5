@@ -81,7 +81,7 @@ cUOPacket::cUOPacket( cUOPacket& p ) : haveCompressed( false )
 /*!
   Constructs a packet of size \a size and filled with 0's.
 */
-cUOPacket::cUOPacket( quint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
+cUOPacket::cUOPacket( qint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
 {
 	init();
 	rawPacket.fill( ( char ) 0 );
@@ -92,7 +92,7 @@ cUOPacket::cUOPacket( quint32 size ) : rawPacket( size, 0 ), haveCompressed( fal
   with 0's in all positions except for the first byte which contains
   the packet type.
 */
-cUOPacket::cUOPacket( quint8 packetId, quint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
+cUOPacket::cUOPacket( quint8 packetId, qint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
 {
 	init();
 	rawPacket.fill( ( char ) 0 );
@@ -133,7 +133,7 @@ void cUOPacket::assign( cUOPacket& p )
   \internal
   Performs an internal buffer resize.
 */
-void cUOPacket::resize( uint newSize )
+void cUOPacket::resize( int newSize )
 {
 	rawPacket.resize( newSize );
 }
@@ -143,7 +143,7 @@ void cUOPacket::resize( uint newSize )
   type, but rather how many bytes this instance in particular uses. No
   consistency checks are made or enforced here.
 */
-uint cUOPacket::size() const
+int cUOPacket::size() const
 {
 	return rawPacket.size();
 }
@@ -151,7 +151,7 @@ uint cUOPacket::size() const
 /*!
   Returns the same as \sa size().
 */
-uint cUOPacket::count() const
+int cUOPacket::count() const
 {
 	return rawPacket.count();
 }
@@ -161,7 +161,7 @@ uint cUOPacket::count() const
   If the packet's size is not enought to hold the position + data.size(),
   more memory will be allocated automatically.
 */
-void cUOPacket::setRawData( uint pos, const char* data, uint dataSize )
+void cUOPacket::setRawData( int pos, const char* data, int dataSize )
 {
 	haveCompressed = false;
 	if ( size() < pos + dataSize )
@@ -248,7 +248,7 @@ QByteArray cUOPacket::compressed()
 /*!
   Reads a 32 bits integer value from the raw data buffer starting at position \a pos
 */
-int cUOPacket::getInt( uint pos ) const
+int cUOPacket::getInt( int pos ) const
 {
 #if defined(_DEBUG)
 	if ( rawPacket.size() < pos + 3 )
@@ -265,7 +265,7 @@ int cUOPacket::getInt( uint pos ) const
 /*!
   Reads a 16 bits integer value from the raw data buffer starting at position \a pos
 */
-short cUOPacket::getShort( uint pos ) const
+short cUOPacket::getShort( int pos ) const
 {
 #if defined(_DEBUG)
 	if ( rawPacket.size() < pos + 1 )
@@ -285,7 +285,7 @@ short cUOPacket::getShort( uint pos ) const
   and with size no longer than \a fieldLength. If the actual string in buffer
   is longer than the supplied \a fieldLength, it will be truncated.
 */
-QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
+QString cUOPacket::getUnicodeString( int pos, int fieldLength ) const
 {
 	QString result;
 #if defined(_DEBUG)
@@ -295,7 +295,7 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
 		return result;
 	}
 #endif
-	for ( uint i = pos; i < pos + fieldLength; i += 2 )
+	for ( int i = pos; i < pos + fieldLength; i += 2 )
 	{
 		QChar ch( getShort( i ) );
 		if ( ch.isNull() )
@@ -312,7 +312,7 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
   \a fieldLength can be 0, in which case, no size check is performed the string
   is read until a \0 is found.
 */
-QByteArray cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
+QByteArray cUOPacket::getAsciiString( int pos, int fieldLength ) const
 {
 #if defined(_DEBUG)
 	if ( rawPacket.size() < fieldLength + pos )
@@ -339,7 +339,7 @@ QByteArray cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 /*!
   Writes a 32 bits integer \a value to the raw data buffer starting at position \a pos
 */
-void cUOPacket::setInt( unsigned int pos, unsigned int value )
+void cUOPacket::setInt( int pos, uint value )
 {
 	haveCompressed = false; // changed
 	value = B_HOST_TO_BENDIAN_INT32( value );
@@ -349,7 +349,7 @@ void cUOPacket::setInt( unsigned int pos, unsigned int value )
 /*!
   Writes a 16 bits integer \a value to the raw data buffer starting at position \a pos
 */
-void cUOPacket::setShort( unsigned int pos, unsigned short value )
+void cUOPacket::setShort( int pos, unsigned short value )
 {
 	haveCompressed = false; // changed
 	value = B_HOST_TO_BENDIAN_INT16( value );
@@ -361,12 +361,12 @@ void cUOPacket::setShort( unsigned int pos, unsigned short value )
   and with field size \a maxlen. If the actual string \a data is longer than \a maxlen
   it will be truncated.
 */
-void cUOPacket::setUnicodeString( uint pos, const QString& data, uint maxlen, bool swapbytes )
+void cUOPacket::setUnicodeString( int pos, const QString& data, int maxlen, bool swapbytes )
 {
 	haveCompressed = false; // changed
 	const QChar* unicodeData = data.unicode();
-	const uint length = data.length() * 2 > maxlen ? maxlen / 2 : data.length();
-	for ( uint i = 0; i < length; ++i )
+	const int length = data.length() * 2 > maxlen ? maxlen / 2 : data.length();
+	for ( int i = 0; i < length; ++i )
 	{
 		if ( !swapbytes )
 		{
@@ -385,7 +385,7 @@ void cUOPacket::setUnicodeString( uint pos, const QString& data, uint maxlen, bo
   and with field size \a maxlen. If the actual string \a data is longer than \a maxlen
   it will be truncated.
 */
-void cUOPacket::setAsciiString( uint pos, const char* data, uint maxlen )
+void cUOPacket::setAsciiString( int pos, const char* data, int maxlen )
 {
 	haveCompressed = false; // changed
 	qstrncpy( rawPacket.data() + pos, data, maxlen );
@@ -395,7 +395,7 @@ void cUOPacket::setAsciiString( uint pos, const char* data, uint maxlen )
   This is a method added for convinience. It permits read/write access to a single byte
   inside the packet.
 */
-char& cUOPacket::operator[]( unsigned int index )
+char& cUOPacket::operator[]( int index )
 {
 	haveCompressed = false; // better safe than sorry
 	return *(rawPacket.data() + index);

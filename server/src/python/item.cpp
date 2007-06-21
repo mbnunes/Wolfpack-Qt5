@@ -1163,7 +1163,7 @@ static PyObject* wpItem_getstrproperty( wpItem* self, PyObject* args )
 	}
 
 	QString name = boost::python::extract<QString>( pyname );
-	
+
 	QString def = QString::null;
 	if ( pydef != Py_None )
 	{
@@ -1369,7 +1369,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		}
 
 		PyObject* list = PyTuple_New( events.count() );
-		for ( uint i = 0; i < events.count(); ++i )
+		for ( int i = 0; i < events.count(); ++i )
 			PyTuple_SetItem( list, i, PyString_FromString( events[i] ) );
 		return list;
 	}

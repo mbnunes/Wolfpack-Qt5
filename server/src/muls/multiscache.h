@@ -49,12 +49,12 @@ public:
 
 	const QList<multiItem_st>& itemsAt( int x, int y );
 
-	unsigned int getHeight()
+	int getHeight()
 	{
 		return height;
 	}
 
-	unsigned int getWidth()
+	int getWidth()
 	{
 		return width;
 	}
@@ -84,8 +84,8 @@ public:
 	signed char multiHeight( short x, short y, short z ) const;
 	QList<multiItem_st> getEntries() const;
 protected:
-	unsigned int width;
-	unsigned int height;
+	int width;
+	int height;
 	int left;
 	int top;
 	int right;

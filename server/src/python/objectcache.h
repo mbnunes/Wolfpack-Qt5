@@ -33,7 +33,7 @@
 #include <stdexcept>
 #include <QList>
 
-template <class T, unsigned int MAXSIZE>
+template <class T, int MAXSIZE>
 class FixedSizePtrStack
 {
 private:
@@ -80,7 +80,7 @@ public:
 	}
 };
 
-template <class T, unsigned int MAXSIZE>
+template <class T, int MAXSIZE>
 class cObjectCache
 {
 private:

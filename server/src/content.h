@@ -44,6 +44,8 @@ class QString;
 class ContainerComparer
 {
 public:
+	virtual ~ContainerComparer() {}
+
 	virtual bool operator()( cItem* item ) const
 	{
 		Q_UNUSED( item );

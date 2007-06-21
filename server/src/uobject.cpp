@@ -499,7 +499,7 @@ void cUObject::removeScript( const QByteArray& name )
 	}
 }
 
-void cUObject::processNode( const cElement* Tag, uint hash )
+void cUObject::processNode( const cElement* Tag, uint /*hash*/ )
 {
 	QString TagName( Tag->name() );
 	QString Value( Tag->value() );

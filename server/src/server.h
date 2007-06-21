@@ -128,7 +128,7 @@ private:
 	Private* d;
 
 	// Disallow copy constructor
-	cServer( const cServer& )
+	cServer( const QThread& )
 	{
 	}
 

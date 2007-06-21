@@ -78,11 +78,11 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 	if ( !pChar->account()->authorized( "command", pCommand ) )
 	{
 		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.toLower() ) );
-		socket->log( 
+		socket->log(
 			tr( "Character '%1', account '%2' used command '%3', access denied\n"
 				).arg( socket->player()->orgName()
 				).arg( socket->player()->account()->login()
-				).arg( pCommand.toLower() 
+				).arg( pCommand.toLower()
 			)
 		);
 
@@ -90,20 +90,20 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 	}
 
 	// Dispatch the command
-	socket->log( 
+	socket->log(
 		tr( "Character '%1', account '%2' used command '%3'\n"
 			).arg( socket->player()->orgName()
 			).arg( socket->player()->account()->login()
-			).arg( pCommand.toLower() 
+			).arg( pCommand.toLower()
 		)
 	);
 	if ( !dispatch( socket, pCommand, pArgs ) )
 	{
-		socket->log( 
+		socket->log(
 			tr( "Character '%1', account '%2' used unknown command '%3'\n"
 				).arg( socket->player()->orgName()
 				).arg( socket->player()->account()->login()
-				).arg( pCommand.toLower() 
+				).arg( pCommand.toLower()
 			)
 		);
 
@@ -1175,8 +1175,8 @@ public:
 		Coord coord = socket->player()->pos();
 
 		// Show RecallRunes where the stupid thing is
-		for (unsigned int i = 0; i < path.size(); ++i) {
-			unsigned char dir = path[i];
+		for (int i = 0; i < path.size(); ++i) {
+			quint8 dir = path[i];
 			dirs.append(QString::number(path[i]));
 
 			Coord newcoord = Movement::instance()->calcCoordFromDir(dir, coord);
@@ -1193,7 +1193,7 @@ public:
 /*
 	Find a path
 */
-void commandFindPath( cUOSocket* socket, const QString& /*command*/, const QStringList& args ) throw()
+void commandFindPath( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ ) throw()
 {
 	// attach a target to find the target
 	socket->sysMessage("Select the target for the pathfinding calculation.");

@@ -72,7 +72,7 @@ public:
 private:
 	QList<staticrecord> staticArray;
 	uint baseX, baseY;
-	uint pos;
+	int pos;
 
 private:
 	void inc();

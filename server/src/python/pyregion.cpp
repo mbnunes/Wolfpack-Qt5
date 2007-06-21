@@ -82,7 +82,7 @@ wpDealloc,
 	\method region.startrain
 	\description This method make Region begins to rain.
 */
-static PyObject* wpRegion_startrain( wpRegion* self, PyObject* args )
+static PyObject* wpRegion_startrain( wpRegion* self, PyObject* /*args*/ )
 {
 
 	self->pRegion->setIsRaining( true );
@@ -94,7 +94,7 @@ static PyObject* wpRegion_startrain( wpRegion* self, PyObject* args )
 	\method region.stoprain
 	\description This method make Region stops to rain.
 */
-static PyObject* wpRegion_stoprain( wpRegion* self, PyObject* args )
+static PyObject* wpRegion_stoprain( wpRegion* self, PyObject* /*args*/ )
 {
 
 	self->pRegion->setIsRaining( false );
@@ -106,7 +106,7 @@ static PyObject* wpRegion_stoprain( wpRegion* self, PyObject* args )
 	\method region.startsnow
 	\description This method make Region begins to snow.
 */
-static PyObject* wpRegion_startsnow( wpRegion* self, PyObject* args )
+static PyObject* wpRegion_startsnow( wpRegion* self, PyObject* /*args*/ )
 {
 
 	self->pRegion->setIsSnowing( true );
@@ -118,7 +118,7 @@ static PyObject* wpRegion_startsnow( wpRegion* self, PyObject* args )
 	\method region.stopsnow
 	\description This method make Region stops to snow.
 */
-static PyObject* wpRegion_stopsnow( wpRegion* self, PyObject* args )
+static PyObject* wpRegion_stopsnow( wpRegion* self, PyObject* /*args*/ )
 {
 
 	self->pRegion->setIsSnowing( false );
@@ -166,7 +166,8 @@ static PyObject* wpRegion_setweatherhour( wpRegion* self, PyObject* args )
 
 	unsigned char arg = getArgInt( 0 );
 
-	int actualhour = UoTime::instance()->hour();
+	//Why that? - BtbN
+	//int actualhour = UoTime::instance()->hour();
 
 	self->pRegion->setWeatherHour( arg );
 
@@ -250,7 +251,7 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	{
 		QList<cBaseRegion*> children = self->pRegion->children();
 		PyObject* tuple = PyTuple_New( children.size() );
-		for ( uint i = 0; i < children.size(); ++i )
+		for ( int i = 0; i < children.size(); ++i )
 		{
 			cTerritory* pRegion = dynamic_cast<cTerritory*>( children[i] );
 			PyTuple_SetItem( tuple, i, PyGetRegionObject( pRegion ) );
@@ -265,7 +266,7 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 	{
 		QList<cBaseRegion::rect_st> rectangles = self->pRegion->rectangles();
 		PyObject* tuple = PyTuple_New( rectangles.size() );
-		for ( uint i = 0; i < rectangles.size(); ++i )
+		for ( int i = 0; i < rectangles.size(); ++i )
 		{
 			PyObject* subtuple = PyTuple_New( 4 );
 			PyTuple_SetItem( subtuple, 0, PyInt_FromLong( rectangles[i].x1 ) );

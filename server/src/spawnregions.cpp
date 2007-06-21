@@ -266,7 +266,7 @@ void cSpawnRegion::remove( cUObject* object )
 	}
 }
 
-void cSpawnRegion::processNode( const cElement* tag, uint hash )
+void cSpawnRegion::processNode( const cElement* tag, uint /*hash*/ )
 {
 	QString name = tag->name();
 	QString value = tag->value();

@@ -127,13 +127,13 @@ void cSkills::SkillUse( cUOSocket* socket, quint16 id ) // Skill is clicked on t
 		return;
 	}
 
-	/*	if( pVictim->npcaitype() == 17 )
-		{
-			socket->sysMessage( tr( "You cannot steal from Playervendors." ) );
-			return;
-		}
-	*/
-/*	if ( pVictim->objectType() == enPlayer )
+	//if( pVictim->npcaitype() == 17 )
+		//{
+			//socket->sysMessage( tr( "You cannot steal from Playervendors." ) );
+			//return;
+		//}
+
+	if ( pVictim->objectType() == enPlayer )
 	{
 		P_PLAYER pp = dynamic_cast<P_PLAYER>( pVictim );
 		if ( pp->isGMorCounselor() )
@@ -257,6 +257,7 @@ void cSkills::SkillUse( cUOSocket* socket, quint16 id ) // Skill is clicked on t
 	}
 }
 */
+
 void cSkills::Meditation( cUOSocket* socket )
 {
 	P_CHAR pc_currchar = socket->player();
@@ -447,7 +448,7 @@ const QString& cSkills::getSkillName( quint16 skill ) const
 	if ( skill >= skills.size() )
 	{
 		Console::instance()->log( LOG_ERROR, tr( "Skill id out of range: %u" ).arg( skill ) );
-		return QString::null;
+		return QString();
 	}
 
 	return skills[skill].name;
@@ -457,7 +458,7 @@ qint16 cSkills::findSkillByDef( const QString& defname ) const
 {
 	QString defName = defname.toUpper();
 
-	unsigned int i;
+	int i;
 	for ( i = 0; i < skills.size(); ++i )
 	{
 		if ( skills[i].defname == defName )
@@ -471,7 +472,7 @@ const QString& cSkills::getSkillDef( quint16 skill ) const
 	if ( skill >= skills.size() )
 	{
 		Console::instance()->log( LOG_ERROR, tr( "Skill id out of range: %u" ).arg( skill ) );
-		return QString::null;
+		return QString();
 	}
 
 	return skills[skill].defname;

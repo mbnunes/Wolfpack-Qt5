@@ -106,7 +106,7 @@ int cPathfinding::getSuccessors(int node, P_CHAR pChar, int *successors) {
 	#define CHECK_OFFSET(xoff,yoff) coord.z = nodez; \
 		coord.x += xoff; \
 		coord.y += yoff; \
-		if (coord.x >= 0 && coord.y >= 0 && coord.x < xoffset + areaSize && coord.y < yoffset + areaSize) { \
+		if (coord.x < xoffset + areaSize && coord.y < yoffset + areaSize) { \
 			if (mayWalk(pChar, coord)) { \
 				if (goal == coord || !CheckForCharacterAtXYZ(pChar, coord)) { \
 					index = getNodeIndex(coord.x, coord.y, coord.z); \
@@ -144,7 +144,7 @@ QList<unsigned char> cPathfinding::find(P_CHAR pChar, const Coord &from, const C
 	memset(touched, 0, sizeof(bool) * nodeCount); // Clear the touched nodes
 	this->goal = to; // Save the goal
 
-	// Actually thís should be the x/y offset of our area
+	// Actually thï¿½s should be the x/y offset of our area
 	xoffset = (from.x + to.x - areaSize) / 2;
 	yoffset = (from.y + to.y - areaSize) / 2;
 

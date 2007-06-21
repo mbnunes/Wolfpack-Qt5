@@ -1316,7 +1316,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	QList<P_PLAYER> characters = _account->caracterList();
 
 	// If we have more than 6 characters
-	uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+	int maxChars = wpMin<int>( 6, Config::instance()->maxCharsPerAccount() );
 	if ( Config::instance()->enableIndivNumberSlots() )
 	{
 		maxChars = _account->charslots();
@@ -1917,7 +1917,7 @@ void cUOSocket::handleCastSpell( cUORxCastSpell* packet )
 	_player->onCastSpell( packet->spell() );
 }
 
-void cUOSocket::handleCloseQuestArrow( cUORxCloseQuestArrow* packet )
+void cUOSocket::handleCloseQuestArrow( cUORxCloseQuestArrow* /*packet*/ )
 {
 	if ( !_player )
 		return;
@@ -2366,7 +2366,7 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 {
 	if ( packet->isTip() )
 	{
-		UI32 tip = packet->lastTip();
+		int tip = packet->lastTip();
 
 		if ( tip == 0 )
 			tip = 1;
@@ -3450,7 +3450,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	cUOTxVendorBuy vendorBuy;
 	vendorBuy.setSerial( pItem->serial() );
 
-	/* don´t ask me, but the order of the items for vendor buy is reversed */
+	/* donï¿½t ask me, but the order of the items for vendor buy is reversed */
 	QList<buyitem_st> buyitems;
 	QList<buyitem_st>::const_iterator bit;
 	QList<cItem*> items;
@@ -3631,7 +3631,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor, P_CHAR pPlayer )
 	cUOTxVendorBuy vendorBuy;
 	vendorBuy.setSerial( pStock->serial() );
 
-	// This is something i don´t understand. Why does it have to be backwards??
+	// This is something i donï¿½t understand. Why does it have to be backwards??
 	foreach ( cItem* pItem, itemList )
 	{
 		containerContent.setInt( pOffset, pItem->serial() );
@@ -3994,7 +3994,7 @@ void cUOSocket::closeGump( quint32 type, quint32 returnCode )
 	send( &closegump );
 }
 
-void cUOSocket::addTooltip( quint32 data )
+void cUOSocket::addTooltip( qint32 data )
 {
 	if ( data >= tooltipscache_->size() )
 		tooltipscache_->resize( data + 2 );

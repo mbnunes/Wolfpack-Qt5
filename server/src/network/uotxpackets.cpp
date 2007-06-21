@@ -559,7 +559,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 		QStringList titles = Definitions::instance()->getList( "REPUTATION_TITLES" );
 
 		// Calculate the position inside the list
-		unsigned int position;
+		int position;
 
 		if ( pChar->karma() >= 10000 )
 		{
@@ -606,7 +606,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 			position = 5;
 		}
 
-		position = ( position * 5 ) + wpMin<unsigned int>( 4, pChar->fame() / 2500 );
+		position = ( position * 5 ) + wpMin<int>( 4, pChar->fame() / 2500 );
 
 		if ( pChar->objectType() != enNPC && !pChar->isReputationHidden() && position < titles.size() )
 		{

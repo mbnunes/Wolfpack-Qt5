@@ -105,7 +105,7 @@ bool cPersistentBroker::connect( const QString& host, const QString& db, const Q
 	if (port > 0) {
 		d->connection.setPort( port );
 	}
-	
+
 	d->useTransaction = transaction;
 
 	if ( !d->connection.open() )
@@ -207,11 +207,11 @@ QString cPersistentBroker::lastError() const
 	return d->connection.lastError().text();
 }
 
-void cPersistentBroker::lockTable( const QString& table ) const
+void cPersistentBroker::lockTable( const QString& /*table*/ ) const
 {
 }
 
-void cPersistentBroker::unlockTable( const QString& table ) const
+void cPersistentBroker::unlockTable( const QString& /*table*/ ) const
 {
 }
 

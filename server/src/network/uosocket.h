@@ -75,7 +75,7 @@ public:
 		Connecting		= 0,
 		LoggingIn,
 		LoggedIn,
-		InGame, 
+		InGame,
 		Disconnected
 	};
 
@@ -132,15 +132,15 @@ public:
 	{
 		return tooltipscache_;
 	}
-	bool haveTooltip( quint32 data ) const
+	bool haveTooltip( qint32 data ) const
 	{
 		return tooltipscache_->testBit( data );
 	}
-	void delTooltip( quint32 data )
+	void delTooltip( qint32 data )
 	{
 		tooltipscache_->setBit( data, false );
 	}
-	void addTooltip( quint32 );
+	void addTooltip( qint32 );
 
 	quint8 walkSequence( void ) const;
 	void setWalkSequence( quint8 data );

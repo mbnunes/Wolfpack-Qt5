@@ -46,7 +46,7 @@ void MultiDefinition::setItems( const QList<multiItem_st>& items )
 	// try to sort
 	if ( items.empty() )
 		return;
-	unsigned int i = 0;
+	int i = 0;
 	for ( ; i < items.size(); ++i )
 	{
 		if ( items[i].x < left )
@@ -68,7 +68,7 @@ void MultiDefinition::setItems( const QList<multiItem_st>& items )
 	grid.resize( width * height );
 	for ( i = 0; i < items.size(); ++i )
 	{
-		unsigned int index = ( items[i].y - top ) * width + ( items[i].x - left );
+		int index = ( items[i].y - top ) * width + ( items[i].x - left );
 		if ( index < grid.size() )
 		{
 			grid[index].append( items[i] );
@@ -80,7 +80,7 @@ void MultiDefinition::setItems( const QList<multiItem_st>& items )
 
 const QList<multiItem_st>& MultiDefinition::itemsAt( int x, int y )
 {
-	unsigned int index = ( x - left ) + ( y - top ) * width;
+	int index = ( x - left ) + ( y - top ) * width;
 	static QList<multiItem_st> emptyGrid;
 	if ( index >= grid.size() )
 	{
@@ -100,7 +100,7 @@ const QList<multiItem_st>& MultiDefinition::itemsAt( int x, int y )
 bool MultiDefinition::inMulti( short x, short y )
 {
 	if ( abs( x ) > this->width || abs( y ) > this->height )
-		for ( unsigned int i = 0; i < entries.size(); ++i )
+		for ( int i = 0; i < entries.size(); ++i )
 			if ( entries[i].x == x && entries[i].y == y )
 				return true;
 	return false;
@@ -108,7 +108,7 @@ bool MultiDefinition::inMulti( short x, short y )
 
 signed char MultiDefinition::multiHeight( short x, short y, short z ) const
 {
-	for ( uint j = 0; j < entries.size(); ++j )
+	for ( int j = 0; j < entries.size(); ++j )
 	{
 		if ( entries[j].visible && ( x + entries[j].x == x ) && ( y + entries[j].y == y ) )
 		{
