@@ -27,7 +27,6 @@ def onUse(char, item):
 	if northWall and westWall:
 		dir = char.direction
 		if dir == 0: # north
-			char.socket.sysmessage("n")
 			northWall = True
 			westWall = False
 		elif dir == 6: # west

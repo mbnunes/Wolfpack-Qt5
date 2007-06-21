@@ -166,6 +166,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 	if sys.platform == "win32":
 		PYTHONLIBSEARCHPATH += [ sys.prefix + "\Libs\python*.lib" ]
 		PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
+		PYTHONLIBSTATICSEARCHPATH += [ sys.prefix + "\Libs\python*.lib" ]
 	# Linux and BSD Search Paths
 	elif sys.platform in ("linux2", "freebsd4", "freebsd5"):
 		PYTHONLIBSEARCHPATH += [ \
