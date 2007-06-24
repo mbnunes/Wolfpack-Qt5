@@ -29,8 +29,8 @@ payfrompackonly = wolfpack.settings.getbool( "General", "Pay From Pack Only", Fa
 	\return The amount of gold as an integer.
 	\description Counts the amount of gold the character possess. If 'Pay From Pack Only' option is enabled gold in characters bankbox is ignored.
 """
-def countGold( char ):
-	if payfrompackonly:
+def countGold( char, force=False ):
+	if payfrompackonly and not force:
 		return char.countresource( 0xeed )
 	else:
 		return char.countresource( 0xeed ) + char.getbankbox().countresource( 0xeed )
@@ -670,7 +670,7 @@ def createkeysecret():
     for i in range(1,8):
        	rkeyid += random.choice(parts)
     return rkeyid
-    
+
 """
 	\function wolfpack.utilities.createlockandkey
 	\param container The container you want to make lockable.
@@ -949,7 +949,7 @@ def isValidPosition( pos ):
 		# X & Y Checking
 		# Felucca & Trammel
 		if pos.map == 0 or pos.map == 1:
-			if usesMondaingsLegacyMap:		
+			if usesMondaingsLegacyMap:
 				if pos.x >= 7168 or pos.x < 0:
 					return False
 			else:
