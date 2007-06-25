@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2007/06/17 17:45:35.984.pas,E:\RGS\UOEmu\wpdev\WPGM\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\Configuration.pas</Transaction>
+    <Transaction>2007/06/17 17:45:35.984.dfm,E:\RGS\UOEmu\wpdev\WPGM\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\Configuration.dfm</Transaction>
+    <Transaction>2007/06/22 22:06:07.140.dproj,E:\RGS\UOEmu\wpdev\WPGM\WPGM.dproj=E:\RGS\UOEmu\wpdev\WPGM\build\WPGM.dproj</Transaction>
+    <Transaction>2007/06/22 22:23:59.578.pas,E:\RGS\UOEmu\wpdev\WPGM\src\uPatternColor.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.578.dfm,E:\RGS\UOEmu\wpdev\WPGM\src\uPatternColor.dfm=</Transaction>
+    <Transaction>2007/06/22 22:23:59.578.pas,E:\RGS\UOEmu\wpdev\WPGM\UOLib\UOUtilities.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.609.pas,E:\RGS\UOEmu\wpdev\WPGM\UOLib\UOTiledata.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.625.pas,E:\RGS\UOEmu\wpdev\WPGM\src\UORadarCol.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.640.pas,E:\RGS\UOEmu\wpdev\WPGM\src\UOHues.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.656.pas,E:\RGS\UOEmu\wpdev\WPGM\UOLib\UOArt.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.671.pas,E:\RGS\UOEmu\wpdev\WPGM\UOLib\UOAnim.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.687.pas,E:\RGS\UOEmu\wpdev\WPGM\src\uConfig.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.703.pas,E:\RGS\UOEmu\wpdev\WPGM\src\uChooseHue.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.703.dfm,E:\RGS\UOEmu\wpdev\WPGM\src\uChooseHue.dfm=</Transaction>
+    <Transaction>2007/06/22 22:23:59.718.pas,E:\RGS\UOEmu\wpdev\WPGM\src\uCenter.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.718.dfm,E:\RGS\UOEmu\wpdev\WPGM\src\uCenter.dfm=</Transaction>
+    <Transaction>2007/06/22 22:23:59.921.pas,E:\RGS\UOEmu\wpdev\WPGM\src\Spawnregions.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.921.dfm,E:\RGS\UOEmu\wpdev\WPGM\src\Spawnregions.dfm=</Transaction>
+    <Transaction>2007/06/22 22:23:59.937.pas,E:\RGS\UOEmu\wpdev\WPGM\src\Progress.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.937.dfm,E:\RGS\UOEmu\wpdev\WPGM\src\Progress.dfm=</Transaction>
+    <Transaction>2007/06/22 22:23:59.937.pas,E:\RGS\UOEmu\wpdev\WPGM\src\Overview.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.937.dfm,E:\RGS\UOEmu\wpdev\WPGM\src\Overview.dfm=</Transaction>
+    <Transaction>2007/06/22 22:23:59.968.pas,E:\RGS\UOEmu\wpdev\WPGM\src\Main.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.968.dfm,E:\RGS\UOEmu\wpdev\WPGM\src\Main.dfm=</Transaction>
+    <Transaction>2007/06/22 22:23:59.968.pas,E:\RGS\UOEmu\wpdev\WPGM\src\Configuration.pas=</Transaction>
+    <Transaction>2007/06/22 22:23:59.968.dfm,E:\RGS\UOEmu\wpdev\WPGM\src\Configuration.dfm=</Transaction>
+    <Transaction>2007/06/22 22:25:12.406.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLiteTable2.pas=</Transaction>
+    <Transaction>2007/06/22 22:25:12.421.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLiteTable.pas=</Transaction>
+    <Transaction>2007/06/22 22:25:12.453.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLite2.pas=</Transaction>
+    <Transaction>2007/06/22 22:25:12.468.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLite.pas=</Transaction>
+  </Transactions>
+</BorlandProject>

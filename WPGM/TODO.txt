@@ -1,0 +1,6 @@
+TODO:
+	* Better support for Regions creation (Teleport, Spawn and Regions)
+	* Localization
+	* Suggestions?
+	* Multi Preview
+

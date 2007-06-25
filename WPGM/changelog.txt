@@ -1,0 +1,16 @@
+24.06.2007 1.0.1.x:
+	
+	- My mistake.. fix the config screen and the buttons do open the files.
+
+24.06.2007 1.0.1.x:
+
+	- Better UO files handle (I Hope)
+	- some cleanup
+	- Should work with old UO Clients
+
+First Build:
+
+	- Added support to UOML 
+	- Change Database to SQLite3 
+	- Now you can set the size (in blocks) of the maps in config.ini file. 
+ 

@@ -69,19 +69,35 @@ begin
 end;
 
 function TMapReader.Open( FileName: String; MapWidth: Word; MapHeight: Word ): Boolean;
+//var
+//  Height_ : word;
+//  Width_ : word;
 begin
 	Result := False;
   Input := nil;
+  Height := 0;
+  Width := 0;
 
 	try
     Input := TFileStream.Create( FileName, fmOpenRead+fmShareDenyNone );
     Result := True;
 
     // Measure Map Height
-    Height := MapHeight;
-    Width := MapWidth;
+    //Height := MapHeight;
+    //Width := MapWidth;
 
-    if Height = 0 then case Input.Size of
+
+    // Ok I have de map size.. but I have to confirm some misstyped information
+
+    //if Height = 0 then
+    case Input.Size of
+
+    89915392:
+      begin
+        Width := 896;
+        Height := 512;
+        Disabled := False;
+      end;
     77070336:
       begin
         Width := 768;
@@ -111,6 +127,14 @@ begin
       end;
     end;
 
+    // zero? the map is not pre-defined here, let use the information provide by the user.
+    if ( Width = 0) or (Height = 0) then
+    begin
+        Width := Mapwidth;
+        Height := MapHeight;
+        Disabled := False;
+    end;
+
     // Try to read the modify time
     LastModifyTime := FileDateToDateTime(FileAge(FileName));
   except
@@ -120,8 +144,13 @@ end;
 
 procedure TMapReader.Close;
 begin
-	Input.Free;
+//  if input <> nil then
+///  begin
+	  Input.Free;
     Input := nil;
+//  end;
+
+
 end;
 
 procedure TMapReader.ReadBlock(XBlock: Word; YBlock: Word; var MapBlock: TMapBlock);

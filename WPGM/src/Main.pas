@@ -4,9 +4,22 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  VirtualTrees, ComCtrls, ImgList, ExtCtrls, SQLite, SQLiteTable, UOTiledata,
-  GR32, GR32_Image, UOArt, UOAnim, StdCtrls, uConfig, XPMan, UOMap, UOStatics, UORadarCol,
-  Menus, UOHues, Buttons, SyncObjs;
+   ComCtrls, ImgList, ExtCtrls, SQLite3, SQLiteTable3, UOTiledata,
+  GR32, GR32_Image, UOArt, UOAnim, StdCtrls, uConfig, XPMan, UOMap, UOStatics,
+  Menus, UOHues, Buttons, SyncObjs, VirtualTrees, UORadarCol;
+
+type Txy = record
+  x: word;
+  y: word;
+  //map: string;
+  //staidx: string;
+  //stamul: string;
+end;
+
+type Tuofiles = record
+  type_ : string;
+  filename: string;
+end;
 
 type TNode = record
     Id: Cardinal;
@@ -202,6 +215,8 @@ type
     Remove1: TMenuItem;
     Change1: TMenuItem;
     AddButton1: TMenuItem;
+    VirtualStringTree1: TVirtualStringTree;
+    BitFiles: TBitBtn;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure vtCategoriesGetText(Sender: TBaseVirtualTree;
@@ -339,6 +354,7 @@ type
     procedure Change1Click(Sender: TObject);
     procedure AddButton1Click(Sender: TObject);
     procedure tsCustomResize(Sender: TObject);
+    procedure BitFilesClick(Sender: TObject);
   private
     { Private-Deklarationen }
     UpdateMutex: TCriticalSection;
@@ -353,6 +369,15 @@ type
     procedure saveCustomButtons;
     procedure changeCustomButton(Button: TButton; NewButton: Boolean = False);
   end;
+
+const
+  // OK OK I can make it better.. but in the future :D
+  FILESMAX = 28;
+  FILESMIN = 0;
+  UOFILES : array[FILESMIN..FILESMAX] of string = ('TILEDATA.MUL', 'ARTIDX.MUL', 'ART.MUL', 'ANIM.IDX', 'ANIM.MUL', 'ANIM2.IDX', 'ANIM2.MUL', 'ANIM3.IDX', 'ANIM3.MUL', 'ANIM4.IDX', 'ANIM4.MUL', 'ANIM5.IDX', 'ANIM5.MUL', 'BODYCONV.DEF', 'BODY.DEF', 'RADARCOL.MUL', 'HUES.MUL', 'MAP0.MUL', 'STAIDX0.MUL', 'STATICS0.MUL', 'MAP2.MUL', 'STAIDX2.MUL', 'STATICS2.MUL', 'MAP3.MUL', 'STAIDX3.MUL', 'STATICS3.MUL', 'MAP4.MUL', 'STAIDX4.MUL', 'STATICS4.MUL');
+  UOREQ   : array[FILESMIN..FILESMAX] of boolean = (true,           true,          true,        true,         true,      false,          false,           false,       false,           false,       false,        false,         false,       true,         true,       true,           true,      true,       true,            true,          false,        false,         false,         false,      false,          false,         false,        false,       false);
+
+
 
 var
   frmMain: TfrmMain;
@@ -374,13 +399,150 @@ var
   npcPreviewFrame: Integer;
   BuildCurrentX: Integer;
   BuildCurrentY: Integer;
+  MapsSize: Array[0..4] of Txy;
 
 implementation
 
 uses UOUtilities, uChooseHue, Math, uCenter, Overview, Spawnregions,
-  uPatternColor;
+  uPatternColor     , Configuration;
 
 {$R *.DFM}
+
+
+
+function openFiles(var config: tconfig): Integer;
+var
+  i,err : integer;
+  Prgr: TFrmConfig;
+  UOPath: String;
+begin
+    err := 0;
+    // Verify the files
+    UOPath := getUoPath;
+    Tiledata := TTiledataReader.Create;
+    Art := TArtReader.Create;
+    Anim := TAnimReader.Create;
+
+    Hues := THuesReader.Create;
+    Art.hues := Hues; // Tell the art reader about the hues
+    Anim.hues := Hues; // Tell the anim reader about the hues
+
+    for I := FILESMIN to FILESMAX do
+    begin
+
+        //Prgr.Hide;
+        if (not fileexists(Config.getString(UOFILES[i] +' Path',UOPath + UOFILES[i]))) and (UOREQ[i]) then
+        begin
+          err := 1;
+
+        end;
+
+    end;
+    // Require files not found, show the config from
+    if err <> 0 then
+    begin
+      Showmessage('Some required files are missing!');
+      Prgr := Tfrmconfig.Create(nil);
+      Prgr.FormStyle := fsStayOnTop;
+      // TODO load the files on edits...
+      Prgr.ShowModal;
+      // reload?
+      Showmessage('Please reopen WPGM for the new setting be loaded.');
+      result := 0;
+    end
+    else
+    begin
+
+      MapCenterX := 0;
+      MapCenterY := 0;
+      MapCenterZ := 0;
+      MapCenterMap := 0;
+
+      // Should be updated to support multiple maps
+      for i := 0 to 4 do begin
+        Maps[i] := TMapReader.Create;
+        Statics[i] := TStaticReader.Create;
+      end;
+      RadarCol := TRadarColReader.Create;
+
+      Tiledata.Open(Config.getString('TILEDATA.MUL Path',
+          UOPath + 'tiledata.mul'));
+      Art.Open(Config.getString('ARTIDX.MUL Path', UOPath + 'artidx.mul'),
+          Config.getString('ART.MUL Path', UOPath + 'art.mul'));
+      Anim.Open(Config.getString('BODYCONV.DEF Path', UOPath + 'bodyconv.def'),
+          Config.getString('BODY.DEF Path', UOPath + 'body.def'),
+          Config.getString('ANIM.IDX Path', UOPath + 'anim.idx'),
+          Config.getString('ANIM.MUL Path', UOPath + 'anim.mul'),
+          Config.getString('ANIM2.IDX Path', UOPath + 'anim2.idx'),
+          Config.getString('ANIM2.MUL Path', UOPath + 'anim2.mul'),
+          Config.getString('ANIM3.IDX Path', UOPath + 'anim3.idx'),
+          Config.getString('ANIM3.MUL Path', UOPath + 'anim3.mul'),
+          Config.getString('ANIM4.IDX Path', UOPath + 'anim4.idx'),
+          Config.getString('ANIM4.MUL Path', UOPath + 'anim4.mul'),
+          Config.getString('ANIM5.IDX Path', UOPath + 'anim5.idx'),
+          Config.getString('ANIM.MUL Path', UOPath + 'anim5.mul')
+          );
+      RadarCol.Load(Config.getString('RADARCOL.MUL Path',
+          UOPath + 'radarcol.mul'));
+      Hues.Load(Config.getString('HUES.MUL Path',
+          UOPath + 'hues.mul'));
+
+      MapsSize[0].x := Config.getInt('Map 0 Width', 896);
+      MapsSize[0].y := Config.getInt('Map 0 Height', 512);
+      MapsSize[1].x := MapsSize[0].x;
+      MapsSize[1].y := MapsSize[0].y;
+      MapsSize[2].x := Config.getInt('Map 2 Width', 288);
+      MapsSize[2].y := Config.getInt('Map 2 Height', 200);
+      MapsSize[3].x := Config.getInt('Map 3 Width', 320);
+      MapsSize[3].y := Config.getInt('Map 3 Height', 256);
+      MapsSize[4].x := Config.getInt('Map 4 Width', 181);
+      MapsSize[4].y := Config.getInt('Map 4 Height', 181);
+
+      Maps[0].Open(
+          Config.getString('MAP0.MUL Path', UOPath + 'map0.mul'),
+          MapsSize[0].x,
+          MapsSize[0].y);
+
+      Statics[0].Open(
+          Config.getString('STAIDX0.MUL Path', UOPath + 'staidx0.mul'),
+          Config.getString('STATICS0.MUL Path', UOPath + 'statics0.mul'),
+          MapsSize[0].y,
+          MapsSize[0].x);
+      Maps[1] := Maps[0];
+      Statics[1] := Statics[0];
+
+      Maps[2].Open(Config.getString('MAP2.MUL Path', UOPath + 'map2.mul'),
+          MapsSize[2].x,
+          MapsSize[2].y);
+
+      STATICS[2].Open(
+          Config.getString('STAIDX2.MUL Path', UOPath + 'STAIDX2.MUL'),
+          Config.getString('STATICS2.MUL Path', UOPath + 'STATICS2.MUL'),
+          MapsSize[2].y,
+          MapsSize[2].x);
+
+      Maps[3].Open(Config.getString('Map3.MUL Path', UOPath + 'map3.MUL'),
+          MapsSize[3].x,
+          MapsSize[3].y);
+
+      STATICS[3].Open(
+          Config.getString('STAIDX3.MUL Path', UOPath + 'STAIDX3.MUL'),
+          Config.getString('STATICS3.MUL Path', UOPath + 'STATICS3.MUL'),
+          MapsSize[3].y,
+          MapsSize[3].x);
+
+      Maps[4].Open(Config.getString('Map4.MUL Path', UOPath + 'map4.MUL'),
+          MapsSize[4].x,
+          MapsSize[4].y);
+
+      STATICS[4].Open(
+          Config.getString('STAIDX4.MUL Path', UOPath + 'STAIDX4.MUL'),
+          Config.getString('STATICS4.MUL Path', UOPath + 'STATICS4.MUL'),
+          MapsSize[4].y,
+          MapsSize[4].x);
+      result := 0;
+    end;
+end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
@@ -388,7 +550,6 @@ var
     CountQuery: TSQLiteTable;
     Node: PNode;
     TreeNode: PVirtualNode;
-    UOPath: String;
     i: Integer;
     value: String;
 begin
@@ -398,26 +559,7 @@ begin
 
     npcPreview := nil;
     npcPreviewFrame := 0;
-    Tiledata := TTiledataReader.Create;
-    Art := TArtReader.Create;
-    Anim := TAnimReader.Create;
     Config := TConfig.Create;
-    Hues := THuesReader.Create;
-    Art.hues := Hues; // Tell the art reader about the hues
-    Anim.hues := Hues; // Tell the anim reader about the hues
-    
-    MapCenterX := 0;
-    MapCenterY := 0;
-    MapCenterZ := 0;
-    MapCenterMap := 0;
-
-    // Should be updated to support multiple maps
-    for i := 0 to 4 do begin
-      Maps[i] := TMapReader.Create;
-      Statics[i] := TStaticReader.Create;
-    end;
-    RadarCol := TRadarColReader.Create;
-
     Config.Load(ExtractFilePath( Application.ExeName ) + 'config.ini');
 
     vtCategories.NodeDataSize := sizeof( TNode );
@@ -435,17 +577,27 @@ begin
     eCommandPrefix.Text := Config.getString('Command Prefix', '''');
     cbAlwaysOnTop.Checked := Config.getBool('Always On Top', False);
     cbAlwaysOnTopClick(nil); // Refresh the Status
-    UOPath := getUoPath;
+
 
     // Query initial count of Items
     try
+      //    TSQLiteDatabase
     	SQLiteDb := TSQLiteDatabase.Create( 'categories.db' );
         SQLiteDb.ExecSQL( 'PRAGMA default_cache_size = 10000;' );
         SQLiteDb.ExecSQL( 'PRAGMA default_synchronous = OFF;' );
         SQLiteDb.ExecSQL( 'PRAGMA full_column_names = OFF;' );
         SQLiteDb.ExecSQL( 'PRAGMA show_datatypes = OFF;' );
 
+        if not SqLitedb.TableExists('categories') then
+        begin
+          // Table not exists, maybe databse don't exists too
+          Application.MessageBox(PChar('Please check you categories.db, It''s corrupted'), 'Error', MB_OK+MB_ICONERROR );
+          exit;
+        end;
+
+
         RootQuery := TSQLiteTable.Create( SQLiteDb, 'SELECT id,name FROM categories WHERE type = 0 AND parent = 0 ORDER BY name ASC;' );
+        //RootQuery := SQLiteDb.GetTable( 'SELECT id,name FROM categories WHERE type = 0 AND parent = 0 ORDER BY name ASC' );
         while not RootQuery.EOF do
         begin
           TreeNode := vtCategories.AddChild( nil );
@@ -505,42 +657,12 @@ begin
 
         loadMultis;
 
-        { Load UO Files }
-        Tiledata.Open(Config.getString('Tiledata.mul Path',
-          UOPath + 'tiledata.mul'));
-        Art.Open(Config.getString('Artidx.mul Path', UOPath + 'artidx.mul'),
-          Config.getString('Art.mul Path', UOPath + 'art.mul'));
-        Anim.Open(Config.getString('Anim.idx Path', UOPath + 'anim.idx'),
-          Config.getString('Anim.mul Path', UOPath + 'anim.mul'),
-          Config.getString('Anim2.idx Path', UOPath + 'anim2.idx'),
-          Config.getString('Anim2.mul Path', UOPath + 'anim2.mul'),
-          Config.getString('Anim3.idx Path', UOPath + 'anim3.idx'),
-          Config.getString('Anim3.mul Path', UOPath + 'anim3.mul'),
-          Config.getString('Bodyconv.def Path', UOPath + 'bodyconv.def'),
-          Config.getString('Body.def Path', UOPath + 'body.def'));
-        RadarCol.Load(Config.getString('Radarcol.mul Path',
-          UOPath + 'radarcol.mul'));
-        Hues.Load(Config.getString('Hues.mul Path',
-          UOPath + 'hues.mul'));
+        {load UO files}
+        if openFiles(config) <> 0 then
+        begin
+          showmessage('Some errors happen while loading files, please verify the config.ini file');
+        end;
 
-        Maps[0].Open(Config.getString('Map0.mul Path', UOPath + 'map0.mul'));
-        Statics[0].Open(
-          Config.getString('Staidx0.mul Path', UOPath + 'staidx0.mul'),
-          Config.getString('Statics0.mul Path', UOPath + 'statics0.mul'));
-        Maps[1] := Maps[0];
-        Statics[1] := Statics[0];
-        Maps[2].Open(Config.getString('Map2.mul Path', UOPath + 'map2.mul'));
-        Statics[2].Open(
-          Config.getString('Staidx2.mul Path', UOPath + 'staidx2.mul'),
-          Config.getString('Statics2.mul Path', UOPath + 'statics2.mul'));
-        Maps[3].Open(Config.getString('Map3.mul Path', UOPath + 'map3.mul'));
-        Statics[3].Open(
-          Config.getString('Staidx3.mul Path', UOPath + 'staidx3.mul'),
-          Config.getString('Statics3.mul Path', UOPath + 'statics3.mul'));
-        Maps[4].Open(Config.getString('Map4.mul Path', UOPath + 'map4.mul'));
-        Statics[4].Open(
-          Config.getString('Staidx4.mul Path', UOPath + 'staidx4.mul'),
-          Config.getString('Statics4.mul Path', UOPath + 'statics4.mul'));
     except
     	on E: Exception do
         begin
@@ -572,13 +694,16 @@ begin
   end;
 
   rebuildBuildMenu;
-  loadCustomButtons;    
+  loadCustomButtons;
+  ontopTimer.Enabled := true;
 end;
 
 {
 	Handler for WM_DESTROY
 }
 procedure TfrmMain.FormDestroy(Sender: TObject);
+var
+  i : integer;
 begin
 	SQLiteDb.Free;
     Tiledata.Free;
@@ -589,11 +714,24 @@ begin
     Anim.Close;
     Anim.Free;
 
-    Maps[0].Close;
-    Maps[0].Free;
 
-    Statics[0].Close;
-    Statics[0].Free;
+    for I := 0 to 4 do
+    begin
+      if i <> 1 then
+      begin
+        if maps[i] <> nil then
+        begin
+          Maps[i].Close;
+          Maps[i].Free;
+        end;
+
+        if Statics[i] <> nil then
+        begin
+          Statics[i].Close;
+          Statics[i].Free;
+        end;
+      end;
+    end;
 
     RadarCol.Free;
     Hues.Free;
@@ -1868,6 +2006,16 @@ begin
   end;
 end;
 
+procedure TfrmMain.BitFilesClick(Sender: TObject);
+Var
+   prgr : TfrmConfig;
+begin
+  Prgr := TfrmConfig.Create(self);
+  Prgr.FormStyle := fsStayOnTop;
+  prgr.Position :=  poScreenCenter;
+  Prgr.Show;
+end;
+
 procedure TfrmMain.loadMultis;
 var
   Query: TSQLiteTable;
@@ -2095,25 +2243,29 @@ end;
 
 procedure TfrmMain.ontopTimerTimer(Sender: TObject);
 begin
+  try
   // If one of the forms is active, skip this code
-  if frmMain.Active or frmCenter.Active or frmOverview.Active then
-    exit;
+    if frmMain.Active or frmCenter.Active or frmOverview.Active then
+      exit;
 
-  if IsInParent(Screen.ActiveControl) then
-    exit;
+    if IsInParent(Screen.ActiveControl) then
+      exit;
 
-  if cbAlwaysOnTop.Checked then begin
-    if frmMain.Visible then begin
-      SetWindowPos(frmMain.Handle, HWND_TOPMOST, 0, 0, 0, 0, 3 or SWP_NOACTIVATE);
+    if cbAlwaysOnTop.Checked then begin
+      if frmMain.Visible then begin
+        SetWindowPos(frmMain.Handle, HWND_TOPMOST, 0, 0, 0, 0, 3 or SWP_NOACTIVATE);
+      end;
+
+      if frmCenter.Visible then begin
+        SetWindowPos(frmCenter.Handle, HWND_TOPMOST, 0, 0, 0, 0, 3 or SWP_NOACTIVATE);
+      end;
+
+      if frmOverview.Visible then begin
+        SetWindowPos(frmOverview.Handle, HWND_TOPMOST, 0, 0, 0, 0, 3 or SWP_NOACTIVATE);
+      end;
     end;
-
-    if frmCenter.Visible then begin
-      SetWindowPos(frmCenter.Handle, HWND_TOPMOST, 0, 0, 0, 0, 3 or SWP_NOACTIVATE);
-    end;
-
-    if frmOverview.Visible then begin
-      SetWindowPos(frmOverview.Handle, HWND_TOPMOST, 0, 0, 0, 0, 3 or SWP_NOACTIVATE);
-    end;
+  except
+        showmessage('error');
   end;
 end;
 
@@ -2171,7 +2323,7 @@ begin
   BitBtn.SetBounds(BuildCurrentX, BuildCurrentY, 70, 120);
 //  BitBtn.Caption := Text;
   BitBtn.Glyph.Assign(Art.GetTile(ItemId));
-  BitBtn.Layout := blGlyphTop;
+  //BitBtn.Layout := blGlyphTop;
   BitBtn.Hint := id;
   BitBtn.OnClick := clickBuildButton;
   sbBuild.InsertControl(BitBtn);

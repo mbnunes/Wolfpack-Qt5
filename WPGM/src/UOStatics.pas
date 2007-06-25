@@ -224,6 +224,12 @@ begin
     Data := TFileStream.Create( DataName, fmOpenRead+fmShareDenyNone );
 
     if MapHeight = 0 then case Index.Size of
+      5505024:
+      begin
+        MapHeight := 512;
+        MapWidth := 768;
+      end;
+
       4718592:
       begin
         MapHeight := 512;

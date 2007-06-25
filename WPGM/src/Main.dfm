@@ -1,9 +1,9 @@
 object frmMain: TfrmMain
-  Left = 365
-  Top = 496
-  Width = 612
-  Height = 199
+  Left = 391
+  Top = 534
   Caption = 'Wolfpack - GM Tool'
+  ClientHeight = 172
+  ClientWidth = 604
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,8 +22,8 @@ object frmMain: TfrmMain
     Left = 0
     Top = 0
     Width = 604
-    Height = 165
-    ActivePage = tsTags
+    Height = 172
+    ActivePage = tsCommands
     Align = alClient
     RaggedRight = True
     TabOrder = 0
@@ -182,7 +182,7 @@ object frmMain: TfrmMain
       ImageIndex = -1
       DesignSize = (
         596
-        137)
+        144)
       object Label7: TLabel
         Left = 162
         Top = 118
@@ -571,7 +571,7 @@ object frmMain: TfrmMain
       ImageIndex = 6
       DesignSize = (
         596
-        137)
+        144)
       object Label8: TLabel
         Left = 242
         Top = 118
@@ -752,7 +752,7 @@ object frmMain: TfrmMain
       ImageIndex = 7
       DesignSize = (
         596
-        137)
+        144)
       object Panel1: TPanel
         Left = 0
         Top = 0
@@ -1035,13 +1035,29 @@ object frmMain: TfrmMain
           OnChange = eEventNameChange
         end
       end
+      object VirtualStringTree1: TVirtualStringTree
+        Left = 540
+        Top = 88
+        Width = 37
+        Height = 25
+        Header.AutoSizeIndex = 0
+        Header.Font.Charset = DEFAULT_CHARSET
+        Header.Font.Color = clWindowText
+        Header.Font.Height = -11
+        Header.Font.Name = 'Tahoma'
+        Header.Font.Style = []
+        Header.MainColumn = -1
+        Header.Options = [hoColumnResize, hoDrag]
+        TabOrder = 3
+        Columns = <>
+      end
     end
     object TravelMap: TTabSheet
       Caption = 'Travel'
       ImageIndex = 2
       DesignSize = (
         596
-        137)
+        144)
       object pnlTravel: TPanel
         Left = 0
         Top = 0
@@ -1243,13 +1259,22 @@ object frmMain: TfrmMain
         TabOrder = 1
         OnClick = btnRegionsClick
       end
+      object BitFiles: TBitBtn
+        Left = 264
+        Top = 51
+        Width = 75
+        Height = 26
+        Caption = 'Files Config.'
+        TabOrder = 2
+        OnClick = BitFilesClick
+      end
     end
     object TabSheet2: TTabSheet
       Caption = 'Build'
       ImageIndex = 8
       DesignSize = (
         596
-        137)
+        144)
       object GroupBox9: TGroupBox
         Left = 0
         Top = 0
@@ -1393,6 +1418,7 @@ object frmMain: TfrmMain
     Top = 24
   end
   object ontopTimer: TTimer
+    Enabled = False
     Interval = 100
     OnTimer = ontopTimerTimer
     Left = 572
