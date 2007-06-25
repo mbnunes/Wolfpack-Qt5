@@ -36,6 +36,8 @@ type TBodyConv = record
   Body: Integer;
   Anim2: Integer;
   Anim3: Integer;
+  Anim4: Integer;
+  Anim5: Integer;
 end;
 
 type TBodyDef = record
@@ -49,6 +51,8 @@ private
     dStream, iStream: TStream;
     dStream2, iStream2: TStream;
     dStream3, iStream3: TStream;
+    dStream4, iStream4: TStream;
+    dStream5, iStream5: TStream;
     disabled: Boolean;
     BodyConv: Array of TBodyConv;
     BodyDef: Array of TBodyDef;
@@ -63,10 +67,10 @@ public
     destructor Free;
     function GetFrames( Body, Action, Color: Word): TAnimation; overload;
     function GetFrames( Body, Action: Word ): TAnimation; overload;
-    procedure getBodyConv(Body: Word; var Anim2: Integer; var Anim3: Integer);
+    procedure getBodyConv(Body: Word; var Anim2: Integer; var Anim3: Integer; var Anim4: Integer; var Anim5: Integer);
     function getBodyDef(var Body: Word; var Color: Word): Boolean;
 
-    function Open( IndexName1, DataName1, IndexName2, DataName2, IndexName3, DataName3, BodyConv, BodyDef: String ): Boolean;
+    function Open( BodyConv, BodyDef, IndexName1 : string; DataName1 : string; IndexName2 : string = ''; DataName2  : string = ''; IndexName3 : string = ''; DataName3 : string = ''; IndexName4 : string = ''; DataName4 : string = ''; IndexName5 : string = ''; DataName5 : string = '' ): Boolean;
     procedure Close();
 end;
 
@@ -148,11 +152,49 @@ function TAnimReader.GetData( Body: Word; Action: Word; var Length: Cardinal ): 
 var
     IndexRecord: TIndexRecord;
     Offset: Cardinal;
-    Anim2, Anim3: Integer;
+    Anim2, Anim3, Anim4, Anim5: Integer;
 begin
     // CHECK FOR VERDATA HERE
 
-    getBodyConv(Body, Anim2, Anim3);
+    getBodyConv(Body, Anim2, Anim3, Anim4, Anim5);
+
+    // Read From Anim5.mul TODO
+    if (Anim5 <> -1) and (iStream5 <> nil) and (dStream5 <> nil) then begin
+      if (Anim5 < 200) And (Anim5 <> 34) then
+        Offset := Anim5 * 110 + Action
+      else
+        Offset := 35000 + ((Anim5 - 400) * 65) + Action;
+
+      iStream5.Seek( Offset * 12, soFromBeginning );
+      iStream5.Read( IndexRecord, SizeOf( TIndexRecord ) );
+
+      if IndexRecord.Offset <> -1 then begin
+        Length := IndexRecord.Length;
+        dStream5.Seek( IndexRecord.Offset, soFromBeginning );
+        Result := dStream5;
+        exit;
+      end;
+    end;
+
+    // Read From Anim4.mul TODO
+    if (Anim4 <> -1) and (iStream4 <> nil) and (dStream4 <> nil) then begin
+      if Anim4 < 200 then
+        Offset := Anim4 * 110 + Action
+      else if Anim4 < 400 then
+        Offset := 22000 + (Anim4 - 200) * 65 + Action
+      else
+        Offset := 35000 + (Anim4 - 400) * 175 + Action;
+
+      iStream4.Seek( Offset * 12, soFromBeginning );
+      iStream4.Read( IndexRecord, SizeOf( TIndexRecord ) );
+
+      if IndexRecord.Offset <> -1 then begin
+        Length := IndexRecord.Length;
+        dStream4.Seek( IndexRecord.Offset, soFromBeginning );
+        Result := dStream4;
+        exit;
+      end;
+    end;
 
     // Read From Anim3.mul
     if (Anim3 <> -1) and (iStream3 <> nil) and (dStream3 <> nil) then begin
@@ -218,7 +260,7 @@ begin
     Result := dStream;
 end;
 
-function TAnimReader.Open( IndexName1, DataName1, IndexName2, DataName2, IndexName3, DataName3, BodyConv, BodyDef: String ): Boolean;
+function TAnimReader.Open(BodyConv, BodyDef, IndexName1 : string; DataName1 : string; IndexName2 : string = ''; DataName2  : string = ''; IndexName3 : string = ''; DataName3 : string = ''; IndexName4 : string = ''; DataName4 : string = ''; IndexName5 : string = ''; DataName5 : string = ''): Boolean;
 begin
  	Result := False;
   try
@@ -233,6 +275,10 @@ begin
   dStream3 := nil;
   iStream2 := nil;
   iStream3 := nil;
+  dStream4 := nil;
+  dStream5 := nil;
+  iStream4 := nil;
+  iStream5 := nil;
 
   try
     dStream2 := TFileStream.Create( DataName2, fmOpenRead+fmShareDenyNone );
@@ -248,6 +294,22 @@ begin
   except
     FreeAndNil(iStream3);
     FreeAndNil(dStream3);
+  end;
+
+  try
+    dStream4 := TFileStream.Create( DataName4, fmOpenRead+fmShareDenyNone );
+    iStream4 := TFileStream.Create( IndexName4, fmOpenRead+fmShareDenyNone );
+  except
+    FreeAndNil(iStream4);
+    FreeAndNil(dStream4);
+  end;
+
+  try
+    dStream5 := TFileStream.Create( DataName5, fmOpenRead+fmShareDenyNone );
+    iStream5 := TFileStream.Create( IndexName5, fmOpenRead+fmShareDenyNone );
+  except
+    FreeAndNil(iStream5);
+    FreeAndNil(dStream5);
   end;
 
   // Load Bodyconv.def
@@ -397,7 +459,7 @@ procedure TAnimReader.LoadBodyConv(Filename: String);
 var
   Input: TextFile;
   Line: String;
-  Pos, Body, Anim2, Anim3: Integer;
+  Pos, Body, Anim2, Anim3, Anim4, Anim5: Integer;
 begin
   try
     AssignFile(Input, FileName);
@@ -428,12 +490,29 @@ begin
       Pos := AnsiPos(Char($9), Line);
       Anim3 := StrToIntDef(LeftStr(Line, Pos - 1), -1);
 
+      // TODO
+
+      // Get Fourth Token
+      Line := RightStr(Line, Length(Line) - pos);
+      Pos := AnsiPos(Char($9), Line);
+      Anim4 := StrToIntDef(LeftStr(Line, Pos - 1), -1);
+
+      // Get Fifth Token
+      Line := RightStr(Line, Length(Line) - pos);
+      Pos := AnsiPos(Char($9), Line);
+      Anim5 := StrToIntDef(LeftStr(Line, Pos - 1), -1);
+
+      // END TODO
+
+
       // Save Token
       Pos := Length(BodyConv);
       SetLength(BodyConv, Pos + 1);
       BodyConv[Pos].Body := Body;
       BodyConv[Pos].Anim2 := Anim2;
       BodyConv[Pos].Anim3 := Anim3;
+      BodyConv[Pos].Anim4 := Anim4;
+      BodyConv[Pos].Anim5 := Anim5;
     end;
 
     CloseFile(Input);
@@ -500,7 +579,7 @@ end;
 
 
 
-procedure TAnimReader.getBodyConv(Body: Word; var Anim2: Integer; var Anim3: Integer);
+procedure TAnimReader.getBodyConv(Body: Word; var Anim2: Integer; var Anim3: Integer; var Anim4: Integer; var Anim5: Integer);
 var
   i: Integer;
 begin
@@ -508,12 +587,16 @@ begin
     if BodyConv[i].Body = Body then begin
       Anim2 := BodyConv[i].Anim2;
       Anim3 := BodyConv[i].Anim3;
+      Anim4 := BodyConv[i].Anim4;
+      Anim5 := BodyConv[i].Anim5;
       exit;
     end;
   end;
 
   Anim2 := -1;
   Anim3 := -1;
+  Anim4 := -1;
+  Anim5 := -1;
 end;
 
 function TAnimReader.getBodyDef(var Body: Word; var Color: Word): Boolean;
