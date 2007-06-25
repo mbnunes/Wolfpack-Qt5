@@ -2,7 +2,7 @@
 import wolfpack
 import time
 from random import randint, random
-from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS
+from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS, hasHandFree
 from potions.consts import *
 from wolfpack.consts import *
 from wolfpack import properties
@@ -25,21 +25,11 @@ def getPotionType( potion ):
 # You have to have one hand free for using a potion
 # This is not valid for explosion potions
 def canUsePotion( char, item ):
-	firsthand = char.itemonlayer( 1 )
-	secondhand = char.itemonlayer( 2 )
-
-	if not firsthand and not secondhand:
-		return True
-
-	if firsthand and not secondhand and not firsthand.twohanded or properties.fromitem(firsthand, BALANCED):
-		return True
-
-	if not firsthand and secondhand and not secondhand.twohanded or properties.fromitem(secondhand, BALANCED):
-		return True
-
-	# You must have a free hand to drink a potion.
-	char.socket.clilocmessage( 0x7A99C )
-	return False
+	if not hasHandFree(char, item):	
+		# You must have a free hand to drink a potion.
+		char.socket.clilocmessage( 0x7A99C )
+		return False
+	return True
 
 # Consume the potion
 def consumePotion( char, potion, givebottle=True ):

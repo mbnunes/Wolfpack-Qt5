@@ -48,7 +48,7 @@ def selectpotion(char, args, target):
 	return 1
 
 # Check for the following weapons: Butchers Knife, Cleaver, Dagger, Double Bladed Staff, Pike, Kryss
-ALLOWED = [ 0x13f6, 0x13f7, 0xec2, 0xec3, 0xf51, 0xf52, 0x26bf, 0x26c9, 0x26be, 0x26c8, 0x1400, 0x1401 ]
+ALLOWED = [ 0x13f6, 0x13f7, 0xec2, 0xec3, 0xf51, 0xf52, 0x26bf, 0x26c9, 0x26be, 0x26c8, 0x1400, 0x1401, 0x27ac ]
 
 def selecttarget( char, args, target ):
 	# you cannot use skill while dead
@@ -111,10 +111,16 @@ def poisonit( char, args ):
 	item.settag( 'poisoning_char', char.serial )
 	item.settag( 'poisoning_strength', strength )
 	item.settag( 'poisoning_skill', skill )
+	
+	uses_remaining = 0
+	if item.hastag('remaining_uses'):
+		uses_remaining = item.gettag('remaining_uses')
 	# weapon : poison chance when hit % = char.skill[ POISONING ] / 4
 	# 	number of uses before the poison wears off
 	if item.hasscript( 'blades' ):
 		item.settag( 'poisoning_uses', 18 - strength * 2 )
+	elif item.hasscript( 'shuriken' ):
+		item.settag( 'poisoning_uses', min( 18 - strength * 2, uses_remaining) )
 	item.resendtooltip()
 	return 1
 

@@ -66,6 +66,7 @@
 	<script>lockpick</script>
 	<script>map</script>
 	<script>moongate</script>
+	<script>ninja_belt</script>
 	<script>oil_cloth</script>
 	<script>ore</script>
 	<script>pickaxe</script>
@@ -187,6 +188,7 @@
 	<script>commands.sysmessage</script>
 	<script>commands.tags</script>
 	<script>commands.tele</script>
+	<script>commands.test</script>
 	<script>commands.testapi</script>
 	<script>commands.testlos</script>
 	<script>commands.tile</script>

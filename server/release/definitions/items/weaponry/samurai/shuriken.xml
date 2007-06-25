@@ -8,8 +8,6 @@
  *=======================================================*/
 -->
 <definitions>
-
-	<!-- Unknown -->
 	<!-- Shuriken -->
 	<item id="27ac">
 		<id>0x27ac</id>
@@ -19,18 +17,12 @@
 		<sellprice>120</sellprice>
 		<buyprice>40</buyprice>
 		<durability><random min="30" max="60" /></durability>
-		<weight>4.0</weight>
-		<!--<basescripts>equipment,blades</basescripts>-->
-		<!--<type>1001</type>-->
+		<weight>1.0</weight>
+		<basescripts>shuriken</basescripts>
 		<category>Base Weapons\Samurai\Unknown\Shuriken 1</category>
 		<!-- Properties -->
+		<tag name="remaining_uses" type="int" value="1" />
 		<tag name="resname" value="iron" />
-		<!--
-		<intproperty name="req_strength" value="35" />
-		<intproperty name="speed" value="37" />
-		<intproperty name="mindamage" value="14" />
-		<intproperty name="maxdamage" value="16" />
-		-->
 	</item>
 
 	<item id="27f7" inherit="27ac">
@@ -38,5 +30,4 @@
 		<baseid>27ac</baseid>
 		<category>Base Weapons\Samurai\Unknown\Shuriken 2</category>
 	</item>
-
 </definitions>

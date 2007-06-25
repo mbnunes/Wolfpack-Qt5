@@ -1033,3 +1033,23 @@ def staffmessage(char, text, mtype):
 				socket.sysmessage(unicode(char.name) + ': ' + unicode(text), YELLOW)
 		socket = wolfpack.sockets.next()
 	return
+
+"""
+	\function wolfpack.utilities.hasHandFree
+	\param char The char you want to check to have a free hand.
+	\param item May be None. Not used so far.
+	\description Checks if a char has a free hand.
+"""
+def hasHandFree( char, item ):
+	firsthand = char.itemonlayer( 1 )
+	secondhand = char.itemonlayer( 2 )
+
+	if not firsthand and not secondhand:
+		return True
+
+	if firsthand and not secondhand and not firsthand.twohanded or properties.fromitem(firsthand, BALANCED):
+		return True
+
+	if not firsthand and secondhand and not secondhand.twohanded or properties.fromitem(secondhand, BALANCED):
+		return True
+	return False

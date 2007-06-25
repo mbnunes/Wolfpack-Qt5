@@ -18,8 +18,8 @@
 		<smelt>20</smelt>
 		<weight>10.0</weight>
 		<type>1009</type>
-		<basescripts>equipment, shuriken</basescripts>
-		<category>Base Armor\Samurai\Leather\Nina Belt</category>
+		<basescripts>equipment,ninja_belt</basescripts>
+		<category>Base Armor\Samurai\Leather\Ninja Belt</category>
 		<!-- Properties -->
 		<tag name="resname" value="leather" />
 		<tag name="remaining_uses" type="int" value="0" />
@@ -29,17 +29,17 @@
 		<intproperty name="res_cold" value="3" />
 		<intproperty name="res_poison" value="3" />
 		<intproperty name="res_energy" value="3" />
-		<bindmenu>shuriken</bindmenu>
+		<bindmenu>ninja_belt</bindmenu>
 	</item>
 
 	<item id="27db" inherit="2790">
 		<id>0x27db</id>
 		<baseid>2790</baseid>
-		<category>Base Armor\Samurai\Leather\Nina Belt 2</category>
+		<category>Base Armor\Samurai\Leather\Ninja Belt 2</category>
 	</item>
 
-	<contextmenu id="shuriken">
-		<scripts>shuriken</scripts>
+	<contextmenu id="ninja_belt">
+		<scripts>ninja_belt</scripts>
 		<option tag="1" msgid="6222" /> <!-- Load Ninja Belt -->
 		<option tag="2" msgid="6223" checkenabled="true" /> <!-- Unload Ninja Belt -->
 	</contextmenu>
