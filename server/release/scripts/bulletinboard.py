@@ -160,9 +160,9 @@ def bulletinboard(socket, packet):
 				packet.setint(4, board.serial)
 				packet.setint(8, message.serial)
 				packet.setbyte(12, posterlen)
-				packet.setascii(13, poster)
+				packet.setascii(13, poster.encode('utf-8'))
 				packet.setbyte(13 + posterlen, subjectlen)
-				packet.setascii(14 + posterlen, subject)
+				packet.setascii(14 + posterlen, subject.encode('utf-8'))
 				packet.setbyte(14 + posterlen + subjectlen, timestrlen)
 				packet.setascii(15 + posterlen + subjectlen, timestr)
 
@@ -252,9 +252,9 @@ def bulletinboard(socket, packet):
 					packet.setint(12, message.container.serial) # parent
 
 				packet.setbyte(16, posterlen)
-				packet.setascii(17, poster)
+				packet.setascii(17, poster.encode('utf-8'))
 				packet.setbyte(17 + posterlen, subjectlen)
-				packet.setascii(18 + posterlen, subject)
+				packet.setascii(18 + posterlen, subject.encode('utf-8'))
 				packet.setbyte(18 + posterlen + subjectlen, timestrlen)
 				packet.setascii(19 + posterlen + subjectlen, timestr)
 				packet.send(char.socket)
