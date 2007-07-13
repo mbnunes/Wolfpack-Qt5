@@ -50,7 +50,7 @@ MainWindow::MainWindow()
     createMenus();
 
 	// Setup trayicon
-	trayicon = new TrayIcon( QPixmap(":/gui/images/icon_red.png"), tr("Wolfpack"), 0, this );
+	trayicon = new TrayIcon( this );
 	trayicon->show();
 	// Fire up the server thread
 	Server::instance()->start();
@@ -145,12 +145,12 @@ void MainWindow::handleConsoleNotifyState( enServerState s )
 	if ( s == RUNNING )
 	{
 		setWindowIcon(QIcon(":/gui/images/icon_green.png"));
-		trayicon->setIcon( QPixmap(":/gui/images/icon_green.png") );
+		trayicon->setIcon( QIcon(":/gui/images/icon_green.png") );
 	}
 	else
 	{
 		setWindowIcon(QIcon(":/gui/images/icon_red.png"));
-		trayicon->setIcon( QPixmap(":/gui/images/icon_red.png") );
+		trayicon->setIcon( QIcon(":/gui/images/icon_red.png") );
 	}
 }
 
