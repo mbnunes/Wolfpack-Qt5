@@ -267,6 +267,7 @@
 	<script>speech.barber</script>
 	<script>speech.banker</script>
 	<script>speech.healer</script>
+	<script>speech.human</script>
 	<script>speech.pets</script>
 	<script>speech.stablemaster</script>
 	<script>speech.monster</script>

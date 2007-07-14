@@ -160,9 +160,7 @@ void MainWindow::onServerStoped()
 }
 
 /*
-
     Generating all Menus
-
 */
 void MainWindow::createMenus()
 {

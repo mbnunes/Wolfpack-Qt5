@@ -81,7 +81,7 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 			socket->sysMessage( tr( "Enter a description for this item." ) );
 			break;
 
-			// Describing an item
+		// Describing an item
 		case cPlayer::enDescription:
 			socket->sysMessage( "Description is not used anywhere :( not implemented right now" );
 			socket->sysMessage( tr( "This item is now described as %1." ).arg( speech ) );
@@ -89,7 +89,7 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 			pChar->setInputItem( INVALID_SERIAL );
 			break;
 
-			// Renaming ourself
+		// Renaming ourself
 		case cPlayer::enNameDeed:
 			pChar->setName( speech );
 			socket->sysMessage( tr( "Your new name is: %1" ).arg( speech ) );
@@ -97,7 +97,7 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 			pChar->setInputItem( INVALID_SERIAL );
 			break;
 
-			// Renaming a house sign
+		// Renaming a house sign
 		case cPlayer::enHouseSign:
 			pItem->setName( speech );
 			socket->sysMessage( tr( "Your house has been renamed to: %1" ).arg( speech ) );
@@ -110,50 +110,6 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 	}
 
 	return true;
-}
-
-// All this Stuff should be scripted
-bool handleInternalKeywords( P_PLAYER pPlayer, P_NPC pChar, const QString& comm, QList<ushort>& keywords )
-{
-	if ( !pChar->isHuman() || pPlayer->dist( pChar ) > 3 )
-		return false;
-
-	if ( !keywords.isEmpty() )
-	{
-		foreach( ushort keyword, keywords )
-		{
-			switch ( keyword )
-			{
-			case 0x009e: // time
-				pChar->talk( tr( "It is now %1 hours and %2 minutes." ).arg( UoTime::instance()->hour() ).arg( UoTime::instance()->minute() ) );
-				return true;
-			default:
-				break;
-			}
-		}
-	}
-
-	// Tell the questioner our name
-	if ( comm.contains( "NAME" ) )
-	{
-		pChar->talk( tr( "Hello, my name is %1." ).arg( pChar->name() ) );
-		return true;
-	}
-
-	if ( comm.contains( "LOCATION" ) )
-	{
-		cTerritory* Region = pPlayer->region();
-
-		if ( Region )
-			pChar->talk( tr( "You are in %1" ).arg( Region->name() ) );
-		else
-			pChar->talk( tr( "You are in the wilderness" ) );
-
-		return true;
-	}
-
-	// We couldn't handle the speech
-	return false;
 }
 
 bool VendorChkName( P_CHAR pVendor, const QString& comm )
@@ -239,9 +195,6 @@ bool Speech::response( cUOSocket* /*socket*/, P_PLAYER pPlayer, const QString& c
 		{
 			pNpc->ai()->onSpeechInput( pPlayer, speechUpr );
 		}
-
-		if ( handleInternalKeywords( pPlayer, pNpc, speechUpr, keywords ) )
-			return true;
 	}
 
 	return false;
