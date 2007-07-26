@@ -1,10 +1,8 @@
 <decoration>
 	<!-- Misc-->
-	<!-- <include file="definitions/decoration/Malas/luna.xml"/>
-	<include file="definitions/decoration/Malas/luna2.xml"/>
+	<include file="definitions/decoration/Malas/luna.xml"/>
 	<include file="definitions/decoration/Malas/umbra.xml"/>
 	<include file="definitions/decoration/Malas/doom.xml"/>
 	<include file="definitions/decoration/Malas/darktidesquest.xml"/>
-	<include file="definitions/decoration/Malas/signs.xml"/> -->
-	<include file="definitions/decoration/Malas/doors.xml"/>
+	<include file="definitions/decoration/Malas/signs.xml"/>
 </decoration>
