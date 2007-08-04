@@ -1,8 +1,8 @@
 object frmMain: TfrmMain
-  Left = 391
-  Top = 534
+  Left = 343
+  Top = 473
   Caption = 'Wolfpack - GM Tool'
-  ClientHeight = 172
+  ClientHeight = 184
   ClientWidth = 604
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,16 +20,22 @@ object frmMain: TfrmMain
   TextHeight = 13
   object Pages: TPageControl
     Left = 0
-    Top = 0
+    Top = 21
     Width = 604
-    Height = 172
-    ActivePage = tsCommands
+    Height = 163
+    ActivePage = tsNpcs
     Align = alClient
     RaggedRight = True
     TabOrder = 0
+    ExplicitTop = 24
+    ExplicitHeight = 148
     object tsCommands: TTabSheet
       Caption = 'Commands'
       ImageIndex = 3
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object GroupBox1: TGroupBox
         Left = 8
         Top = 8
@@ -182,33 +188,42 @@ object frmMain: TfrmMain
       ImageIndex = -1
       DesignSize = (
         596
-        144)
+        135)
       object Label7: TLabel
         Left = 162
-        Top = 118
+        Top = 109
         Width = 39
         Height = 13
         Anchors = [akLeft, akBottom]
         Caption = 'Z Level:'
+        ExplicitTop = 118
       end
       object pnlItems: TPanel
         Left = 0
         Top = 0
         Width = 594
-        Height = 112
+        Height = 103
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelOuter = bvNone
         TabOrder = 0
         object spItems: TSplitter
           Left = 201
           Top = 0
-          Height = 112
+          Height = 103
+          ExplicitHeight = 112
+        end
+        object Splitter3: TSplitter
+          Left = 477
+          Top = 0
+          Height = 103
+          Align = alRight
+          ExplicitLeft = 480
         end
         object vtCategories: TVirtualStringTree
           Left = 0
           Top = 0
           Width = 201
-          Height = 112
+          Height = 103
           Align = alLeft
           Header.AutoSizeIndex = 0
           Header.Font.Charset = DEFAULT_CHARSET
@@ -230,8 +245,8 @@ object frmMain: TfrmMain
         object vtItems: TVirtualStringTree
           Left = 204
           Top = 0
-          Width = 305
-          Height = 112
+          Width = 273
+          Height = 103
           Align = alClient
           Header.AutoSizeIndex = 0
           Header.Font.Charset = DEFAULT_CHARSET
@@ -264,10 +279,10 @@ object frmMain: TfrmMain
             end>
         end
         object imgItemPreview: TImage32
-          Left = 509
+          Left = 480
           Top = 0
-          Width = 85
-          Height = 112
+          Width = 114
+          Height = 103
           Align = alRight
           BitmapAlign = baCenter
           Scale = 1.000000000000000000
@@ -277,7 +292,7 @@ object frmMain: TfrmMain
       end
       object btnAddItem: TButton
         Left = 0
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -288,7 +303,7 @@ object frmMain: TfrmMain
       end
       object btnRemoveItem: TButton
         Left = 80
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -298,7 +313,7 @@ object frmMain: TfrmMain
       end
       object btnTileItem: TButton
         Left = 249
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Hint = 'Fill a rectangle with items at the given z level.'
@@ -310,7 +325,7 @@ object frmMain: TfrmMain
       end
       object eZLevel: TEdit
         Left = 208
-        Top = 114
+        Top = 105
         Width = 35
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -319,7 +334,7 @@ object frmMain: TfrmMain
       end
       object btnCmdItemNuke: TButton
         Left = 329
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Hint = 'Nuke a rectangle of items.'
@@ -330,7 +345,7 @@ object frmMain: TfrmMain
       end
       object cbStatic: TCheckBox
         Left = 413
-        Top = 116
+        Top = 107
         Width = 49
         Height = 17
         Anchors = [akLeft, akBottom]
@@ -341,6 +356,10 @@ object frmMain: TfrmMain
     object tsItemManip: TTabSheet
       Caption = 'Item Manipulation'
       ImageIndex = 4
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 144
       object GroupBox3: TGroupBox
         Left = 8
         Top = 8
@@ -571,55 +590,60 @@ object frmMain: TfrmMain
       ImageIndex = 6
       DesignSize = (
         596
-        144)
+        135)
       object Label8: TLabel
         Left = 242
-        Top = 118
+        Top = 109
         Width = 36
         Height = 13
         Anchors = [akLeft, akBottom]
         Caption = 'Radius:'
+        ExplicitTop = 118
       end
       object Label9: TLabel
         Left = 330
-        Top = 118
+        Top = 109
         Width = 46
         Height = 13
         Anchors = [akLeft, akBottom]
         Caption = 'Min. Time'
+        ExplicitTop = 118
       end
       object Label10: TLabel
         Left = 426
-        Top = 118
+        Top = 109
         Width = 49
         Height = 13
         Anchors = [akLeft, akBottom]
         Caption = 'Max. Time'
+        ExplicitTop = 118
       end
       object pnNpcs: TPanel
         Left = 0
         Top = 0
         Width = 594
-        Height = 112
+        Height = 103
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelOuter = bvNone
         TabOrder = 0
         object Splitter1: TSplitter
           Left = 201
           Top = 0
-          Height = 112
+          Height = 103
+          ExplicitHeight = 112
         end
         object Splitter2: TSplitter
-          Left = 496
+          Left = 478
           Top = 0
-          Height = 112
+          Height = 103
           Align = alRight
+          ExplicitLeft = 481
         end
         object vtNpcCategories: TVirtualStringTree
           Left = 0
           Top = 0
           Width = 201
-          Height = 112
+          Height = 103
           Align = alLeft
           Header.AutoSizeIndex = 0
           Header.Font.Charset = DEFAULT_CHARSET
@@ -641,8 +665,8 @@ object frmMain: TfrmMain
         object vtNpcs: TVirtualStringTree
           Left = 204
           Top = 0
-          Width = 292
-          Height = 112
+          Width = 274
+          Height = 103
           Align = alClient
           Header.AutoSizeIndex = 0
           Header.Font.Charset = DEFAULT_CHARSET
@@ -675,10 +699,10 @@ object frmMain: TfrmMain
             end>
         end
         object pbNpcPreview: TPaintBox32
-          Left = 499
+          Left = 481
           Top = 0
-          Width = 95
-          Height = 112
+          Width = 113
+          Height = 103
           Align = alRight
           TabOrder = 2
           OnPaintBuffer = pbNpcPreviewPaintBuffer
@@ -686,7 +710,7 @@ object frmMain: TfrmMain
       end
       object btnAddNpc: TButton
         Left = 0
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -697,7 +721,7 @@ object frmMain: TfrmMain
       end
       object btnRemoveNpc: TButton
         Left = 79
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -707,7 +731,7 @@ object frmMain: TfrmMain
       end
       object eSpawnRadius: TEdit
         Left = 288
-        Top = 114
+        Top = 105
         Width = 35
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -717,7 +741,7 @@ object frmMain: TfrmMain
       end
       object eSpawnMin: TEdit
         Left = 384
-        Top = 114
+        Top = 105
         Width = 35
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -727,7 +751,7 @@ object frmMain: TfrmMain
       end
       object eSpawnMax: TEdit
         Left = 480
-        Top = 114
+        Top = 105
         Width = 35
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -737,7 +761,7 @@ object frmMain: TfrmMain
       end
       object btnNpcSpawn: TButton
         Left = 159
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -750,14 +774,18 @@ object frmMain: TfrmMain
     object TabSheet1: TTabSheet
       Caption = 'Multis'
       ImageIndex = 7
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         596
-        144)
+        135)
       object Panel1: TPanel
         Left = 0
         Top = 0
         Width = 594
-        Height = 112
+        Height = 103
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelOuter = bvNone
         TabOrder = 0
@@ -765,7 +793,7 @@ object frmMain: TfrmMain
           Left = 0
           Top = 0
           Width = 594
-          Height = 112
+          Height = 103
           Align = alClient
           Header.AutoSizeIndex = 0
           Header.Font.Charset = DEFAULT_CHARSET
@@ -800,7 +828,7 @@ object frmMain: TfrmMain
       end
       object btnAddMulti: TButton
         Left = 0
-        Top = 115
+        Top = 106
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -811,7 +839,7 @@ object frmMain: TfrmMain
       end
       object btnRemoveMulti: TButton
         Left = 79
-        Top = 115
+        Top = 106
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -820,7 +848,7 @@ object frmMain: TfrmMain
       end
       object btnPreviewMulti: TButton
         Left = 158
-        Top = 115
+        Top = 106
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -833,6 +861,10 @@ object frmMain: TfrmMain
     object tsTags: TTabSheet
       Caption = 'Object Manipulation'
       ImageIndex = 5
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 144
       object GroupBox6: TGroupBox
         Left = 8
         Top = 8
@@ -1030,7 +1062,7 @@ object frmMain: TfrmMain
           Top = 24
           Width = 121
           Height = 21
-          ItemHeight = 13
+          ItemHeight = 0
           TabOrder = 0
           OnChange = eEventNameChange
         end
@@ -1055,33 +1087,39 @@ object frmMain: TfrmMain
     object TravelMap: TTabSheet
       Caption = 'Travel'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       DesignSize = (
         596
-        144)
+        135)
       object pnlTravel: TPanel
         Left = 0
         Top = 0
         Width = 594
-        Height = 112
+        Height = 103
         Anchors = [akLeft, akTop, akRight, akBottom]
         BevelOuter = bvNone
         TabOrder = 0
         object spTravel: TSplitter
           Left = 201
           Top = 0
-          Height = 112
+          Height = 103
+          ExplicitHeight = 112
         end
         object spMap: TSplitter
           Left = 441
           Top = 0
-          Height = 112
+          Height = 103
           Align = alRight
+          ExplicitHeight = 112
         end
         object vtLocCategories: TVirtualStringTree
           Left = 0
           Top = 0
           Width = 201
-          Height = 112
+          Height = 103
           Align = alLeft
           Header.AutoSizeIndex = 0
           Header.Font.Charset = DEFAULT_CHARSET
@@ -1104,7 +1142,7 @@ object frmMain: TfrmMain
           Left = 204
           Top = 0
           Width = 237
-          Height = 112
+          Height = 103
           Align = alClient
           Header.AutoSizeIndex = 0
           Header.Font.Charset = DEFAULT_CHARSET
@@ -1136,7 +1174,7 @@ object frmMain: TfrmMain
           Left = 444
           Top = 0
           Width = 150
-          Height = 112
+          Height = 103
           Align = alRight
           PopupMenu = pmTravel
           TabOrder = 2
@@ -1146,7 +1184,7 @@ object frmMain: TfrmMain
       end
       object btnTravel: TButton
         Left = 0
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -1156,7 +1194,7 @@ object frmMain: TfrmMain
       end
       object btnSend: TButton
         Left = 80
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -1166,7 +1204,7 @@ object frmMain: TfrmMain
       end
       object Button2: TButton
         Left = 160
-        Top = 114
+        Top = 105
         Width = 89
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -1176,7 +1214,7 @@ object frmMain: TfrmMain
       end
       object btnCmdSendOther: TButton
         Left = 254
-        Top = 114
+        Top = 105
         Width = 89
         Height = 21
         Anchors = [akLeft, akBottom]
@@ -1186,7 +1224,7 @@ object frmMain: TfrmMain
       end
       object btnCmdWhere: TButton
         Left = 348
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Hint = 'Show your current position.'
@@ -1197,7 +1235,7 @@ object frmMain: TfrmMain
       end
       object btnMapOverview: TButton
         Left = 428
-        Top = 114
+        Top = 105
         Width = 75
         Height = 21
         Hint = 'Show your current position.'
@@ -1210,6 +1248,10 @@ object frmMain: TfrmMain
     object tsSettings: TTabSheet
       Caption = 'Settings'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
       object gbSettingsGeneral: TGroupBox
         Left = 8
         Top = 8
@@ -1272,17 +1314,22 @@ object frmMain: TfrmMain
     object TabSheet2: TTabSheet
       Caption = 'Build'
       ImageIndex = 8
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 144
       DesignSize = (
         596
-        144)
+        135)
       object GroupBox9: TGroupBox
         Left = 0
         Top = 0
         Width = 89
-        Height = 137
+        Height = 128
         Anchors = [akLeft, akTop, akBottom]
         Caption = 'Settings'
         TabOrder = 0
+        ExplicitHeight = 137
         object Label11: TLabel
           Left = 8
           Top = 18
@@ -1324,18 +1371,18 @@ object frmMain: TfrmMain
         Left = 96
         Top = 0
         Width = 489
-        Height = 137
+        Height = 128
         Anchors = [akLeft, akTop, akRight, akBottom]
         Caption = 'Build'
         TabOrder = 1
         DesignSize = (
           489
-          137)
+          128)
         object sbBuild: TScrollBox
           Left = 8
           Top = 16
           Width = 473
-          Height = 113
+          Height = 104
           HorzScrollBar.Smooth = True
           HorzScrollBar.Tracking = True
           VertScrollBar.Smooth = True
@@ -1355,6 +1402,63 @@ object frmMain: TfrmMain
       Caption = 'Custom'
       ImageIndex = 9
       OnResize = tsCustomResize
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
+    end
+  end
+  object TbQuick: TToolBar
+    Left = 0
+    Top = 0
+    Width = 604
+    Height = 21
+    ButtonHeight = 21
+    ButtonWidth = 83
+    Customizable = True
+    ShowCaptions = True
+    TabOrder = 1
+    object ToolButton1: TToolButton
+      Left = 0
+      Top = 0
+      Caption = 'Last Hue'
+      ImageIndex = 0
+    end
+    object ToolButton2: TToolButton
+      Left = 83
+      Top = 0
+      Caption = 'Last Destination'
+      ImageIndex = 1
+    end
+    object ToolButton3: TToolButton
+      Left = 166
+      Top = 0
+      Caption = 'Last Command'
+      ImageIndex = 2
+    end
+    object ToolButton4: TToolButton
+      Left = 249
+      Top = 0
+      Caption = 'Last NPC'
+      ImageIndex = 3
+    end
+    object ToolButton5: TToolButton
+      Left = 332
+      Top = 0
+      Caption = 'Last Multi'
+      ImageIndex = 4
+    end
+    object ToolButton6: TToolButton
+      Left = 415
+      Top = 0
+      Caption = 'Tele'
+      ImageIndex = 5
+    end
+    object ToolButton7: TToolButton
+      Left = 498
+      Top = 0
+      Caption = 'Save'
+      ImageIndex = 6
     end
   end
   object XPManifest1: TXPManifest

@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
    ComCtrls, ImgList, ExtCtrls, SQLite3, SQLiteTable3, UOTiledata,
   GR32, GR32_Image, UOArt, UOAnim, StdCtrls, uConfig, XPMan, UOMap, UOStatics,
-  Menus, UOHues, Buttons, SyncObjs, VirtualTrees, UORadarCol;
+  Menus, UOHues, Buttons, SyncObjs, VirtualTrees, UORadarCol, ToolWin;
 
 type Txy = record
   x: word;
@@ -217,6 +217,15 @@ type
     AddButton1: TMenuItem;
     VirtualStringTree1: TVirtualStringTree;
     BitFiles: TBitBtn;
+    TbQuick: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    ToolButton7: TToolButton;
+    Splitter3: TSplitter;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure vtCategoriesGetText(Sender: TBaseVirtualTree;
@@ -480,7 +489,7 @@ begin
           Config.getString('ANIM4.IDX Path', UOPath + 'anim4.idx'),
           Config.getString('ANIM4.MUL Path', UOPath + 'anim4.mul'),
           Config.getString('ANIM5.IDX Path', UOPath + 'anim5.idx'),
-          Config.getString('ANIM.MUL Path', UOPath + 'anim5.mul')
+          Config.getString('ANIM5.MUL Path', UOPath + 'anim5.mul')
           );
       RadarCol.Load(Config.getString('RADARCOL.MUL Path',
           UOPath + 'radarcol.mul'));
