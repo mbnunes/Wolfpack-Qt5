@@ -12,12 +12,15 @@
 #include <cstdlib>
 #include <cstring>
 
+#if defined(__QNXNTO__)
+# include <ostream>
+#else                       /*  defined(__QNXNTO__) */
+
 #if !defined(__GNUC__) || __GNUC__ >= 3 || __SGI_STL_PORT || __EDG_VERSION__
 # include <ostream>
 #else 
 # include <ostream.h>
 #endif 
-
 
 #  ifdef BOOST_PYTHON_HAVE_GCC_CP_DEMANGLE
 #   if defined(__GNUC__) &&  __GNUC__ >= 3
@@ -32,27 +35,36 @@ class __class_type_info;
 #    include <cxxabi.h>
 #   endif
 #  endif 
+#endif                      /*  defined(__QNXNTO__) */
 
 namespace boost { namespace python {
 
 #  ifdef BOOST_PYTHON_HAVE_GCC_CP_DEMANGLE
-#   ifdef __GNUC__
-#    if __GNUC__ < 3
+
+#   if defined(__QNXNTO__)
+namespace cxxabi {
+extern "C" char* __cxa_demangle(char const*, char*, std::size_t*, int*);
+}
+#   else                    /*  defined(__QNXNTO__) */
+
+#    ifdef __GNUC__
+#     if __GNUC__ < 3
 
 namespace cxxabi = :: ;
 extern "C" char* __cxa_demangle(char const*, char*, std::size_t*, int*);
-#    else
+#     else
 
 namespace cxxabi = ::abi;       // GCC 3.1 and later
 
-#     if __GNUC__ == 3 && __GNUC_MINOR__ == 0
+#      if __GNUC__ == 3 && __GNUC_MINOR__ == 0
 namespace abi
 {
   extern "C" char* __cxa_demangle(char const*, char*, std::size_t*, int*);
 }
-#     endif 
-#    endif
-#   endif 
+#      endif            /*  __GNUC__ == 3 && __GNUC_MINOR__ == 0    */
+#     endif             /*  __GNUC__ < 3                            */
+#    endif              /*  __GNUC__                                */
+#   endif               /*  defined(__QNXNTO__)                     */
 
 namespace
 {
@@ -76,6 +88,21 @@ namespace
       }
       char* p;
   };
+}
+
+bool cxxabi_cxa_demangle_is_broken()
+{
+    static bool was_tested = false;
+    static bool is_broken = false;
+    if (!was_tested) {
+        int status;
+        free_mem keeper(cxxabi::__cxa_demangle("b", 0, 0, &status));
+        was_tested = true;
+        if (status == -2 || strcmp(keeper.p, "bool") != 0) {
+          is_broken = true;
+        }
+    }
+    return is_broken;
 }
 
 namespace detail
@@ -114,6 +141,44 @@ namespace detail
                   // return it intact.
                   ? mangled
                   : keeper.p;
+
+              // Ult Mundane, 2005 Aug 17
+              // Contributed under the Boost Software License, Version 1.0.
+              // (See accompanying file LICENSE_1_0.txt or copy at
+              // http://www.boost.org/LICENSE_1_0.txt)
+              // The __cxa_demangle function is supposed to translate
+              // builtin types from their one-character mangled names,
+              // but it doesn't in gcc 3.3.5 and gcc 3.4.x.
+              if (cxxabi_cxa_demangle_is_broken()
+                  && status == -2 && strlen(mangled) == 1)
+              {
+                  // list from
+                  // http://www.codesourcery.com/cxx-abi/abi.html
+                  switch (mangled[0])
+                  {
+                      case 'v': demangled = "void"; break;
+                      case 'w': demangled = "wchar_t"; break;
+                      case 'b': demangled = "bool"; break;
+                      case 'c': demangled = "char"; break;
+                      case 'a': demangled = "signed char"; break;
+                      case 'h': demangled = "unsigned char"; break;
+                      case 's': demangled = "short"; break;
+                      case 't': demangled = "unsigned short"; break;
+                      case 'i': demangled = "int"; break;
+                      case 'j': demangled = "unsigned int"; break;
+                      case 'l': demangled = "long"; break;
+                      case 'm': demangled = "unsigned long"; break;
+                      case 'x': demangled = "long long"; break;
+                      case 'y': demangled = "unsigned long long"; break;
+                      case 'n': demangled = "__int128"; break;
+                      case 'o': demangled = "unsigned __int128"; break;
+                      case 'f': demangled = "float"; break;
+                      case 'd': demangled = "double"; break;
+                      case 'e': demangled = "long double"; break;
+                      case 'g': demangled = "__float128"; break;
+                      case 'z': demangled = "..."; break;
+                  }
+              }
 
               p = demangler.insert(p, std::make_pair(mangled, demangled));
               keeper.p = 0;

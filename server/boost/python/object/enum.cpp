@@ -12,9 +12,7 @@
 #include <boost/python/str.hpp>
 #include <boost/python/extract.hpp>
 #include <boost/python/object_protocol.hpp>
-#include <boost/python/detail/api_placeholder.hpp>
 #include <structmember.h>
-#include <cstdio>
 
 namespace boost { namespace python { namespace objects { 
 
@@ -25,30 +23,13 @@ struct enum_object
 };
 
 static PyMemberDef enum_members[] = {
-    {"name", T_OBJECT_EX, offsetof(enum_object,name),READONLY},
-    {0}
+    {"name", T_OBJECT_EX, offsetof(enum_object,name),READONLY, 0},
+    {0, 0, 0, 0, 0}
 };
 
 
 extern "C"
 {
-    static int
-    enum_print(PyObject *v, BOOST_CSTD_::FILE *fp, int flags)
-    {
-        PyObject* s
-            = (flags & Py_PRINT_RAW) ? v->ob_type->tp_str(v) : v->ob_type->tp_repr(v);
-        if (s == 0)
-            return -1;
-        
-        char const* text = PyString_AsString(s);
-        if (text == 0)
-            return -1;
-        
-        BOOST_CSTD_::fprintf(fp, text);
-        return 0;
-    }
-    
-     /* flags -- not used but required by interface */
     static PyObject* enum_repr(PyObject* self_)
     {
         enum_object* self = downcast<enum_object>(self_);
@@ -87,7 +68,7 @@ static PyTypeObject enum_type_object = {
     sizeof(enum_object),                    /* tp_basicsize */
     0,                                      /* tp_itemsize */
     0,                                      /* tp_dealloc */
-    enum_print,                             /* tp_print */
+    0,                                      /* tp_print */
     0,                                      /* tp_getattr */
     0,                                      /* tp_setattr */
     0,                                      /* tp_compare */
@@ -122,7 +103,17 @@ static PyTypeObject enum_type_object = {
     0,                                      /* tp_dictoffset */
     0,                                      /* tp_init */
     0,                                      /* tp_alloc */
-    0                                       /* tp_new */
+    0,                                      /* tp_new */
+    0,                                      /* tp_free */
+    0,                                      /* tp_is_gc */
+    0,                                      /* tp_bases */
+    0,                                      /* tp_mro */
+    0,                                      /* tp_cache */
+    0,                                      /* tp_subclasses */
+    0,                                      /* tp_weaklist */
+#if PYTHON_API_VERSION >= 1012
+    0                                       /* tp_del */
+#endif
 };
 
 object module_prefix();

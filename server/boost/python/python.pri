@@ -1,7 +1,9 @@
 
-SOURCES += $$PWD/aix_init_module.cpp \
+SOURCES += \
            $$PWD/dict.cpp \
            $$PWD/errors.cpp \
+	   $$PWD/exec.cpp \
+	   $$PWD/import.cpp \
            $$PWD/list.cpp \
            $$PWD/long.cpp \
            $$PWD/module.cpp \
@@ -23,4 +25,5 @@ SOURCES += $$PWD/aix_init_module.cpp \
            $$PWD/object/inheritance.cpp \
            $$PWD/object/iterator.cpp \
            $$PWD/object/life_support.cpp \
-           $$PWD/object/pickle_support.cpp
+           $$PWD/object/pickle_support.cpp \
+	   $$PWD/object/stl_iterator.cpp

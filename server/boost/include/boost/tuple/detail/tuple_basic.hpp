@@ -1,6 +1,6 @@
 //  tuple_basic.hpp -----------------------------------------------------
 
-// Copyright (C) 1999, 2000 Jaakko Jï¿½rvi (jaakko.jarvi@cs.utu.fi)
+// Copyright (C) 1999, 2000 Jaakko Järvi (jaakko.jarvi@cs.utu.fi)
 //
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
@@ -213,7 +213,7 @@ struct element_impl<0, T, true /* IsConst */>
 
 
 template<int N, class T>
-struct element:
+struct element: 
   public detail::element_impl<N, T, ::boost::is_const<T>::value>
 {
 };

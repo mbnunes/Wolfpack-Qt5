@@ -20,6 +20,7 @@
 #include <boost/python/self.hpp>
 #include <boost/python/dict.hpp>
 #include <boost/python/str.hpp>
+#include <boost/python/ssize_t.hpp>
 #include <functional>
 #include <vector>
 #include <cstddef>
@@ -69,7 +70,7 @@ extern "C"
   } propertyobject;
 
   static PyObject *
-  static_data_descr_get(PyObject *self, PyObject *obj, PyObject * /*type*/)
+  static_data_descr_get(PyObject *self, PyObject * /*obj*/, PyObject * /*type*/)
   {
       propertyobject *gs = (propertyobject *)self;
 
@@ -77,7 +78,7 @@ extern "C"
   }
 
   static int
-  static_data_descr_set(PyObject *self, PyObject *obj, PyObject *value)
+  static_data_descr_set(PyObject *self, PyObject * /*obj*/, PyObject *value)
   {
       propertyobject *gs = (propertyobject *)self;
       PyObject *func, *res;
@@ -147,6 +148,14 @@ static PyTypeObject static_data_object = {
     0, // filled in with type_new           /* tp_new */
     0, // filled in with __PyObject_GC_Del  /* tp_free */
     (inquiry)type_is_gc,                    /* tp_is_gc */
+    0,                                      /* tp_bases */
+    0,                                      /* tp_mro */
+    0,                                      /* tp_cache */
+    0,                                      /* tp_subclasses */
+    0,                                      /* tp_weaklist */
+#if PYTHON_API_VERSION >= 1012
+    0                                       /* tp_del */
+#endif
 };
 
 namespace objects
@@ -243,6 +252,14 @@ static PyTypeObject class_metatype_object = {
     0, // filled in with type_new           /* tp_new */
     0, // filled in with __PyObject_GC_Del  /* tp_free */
     (inquiry)type_is_gc,                    /* tp_is_gc */
+    0,                                      /* tp_bases */
+    0,                                      /* tp_mro */
+    0,                                      /* tp_cache */
+    0,                                      /* tp_subclasses */
+    0,                                      /* tp_weaklist */
+#if PYTHON_API_VERSION >= 1012
+    0                                       /* tp_del */
+#endif
 };
 
 // Install the instance data for a C++ object into a Python instance
@@ -295,7 +312,7 @@ namespace objects
       }
 
       static PyObject *
-      instance_new(PyTypeObject* type_, PyObject* args, PyObject *kw)
+      instance_new(PyTypeObject* type_, PyObject* /*args*/, PyObject* /*kw*/)
       {
           // Attempt to find the __instance_size__ attribute. If not present, no problem.
           PyObject* d = type_->tp_dict;
@@ -340,14 +357,14 @@ namespace objects
 
 
   static PyGetSetDef instance_getsets[] = {
-      {"__dict__",  instance_get_dict,  instance_set_dict, NULL},
-      {0}
+      {"__dict__",  instance_get_dict,  instance_set_dict, NULL, 0},
+      {0, 0, 0, 0, 0}
   };
 
   
   static PyMemberDef instance_members[] = {
-      {"__weakref__", T_OBJECT, offsetof(instance<>, weakrefs), 0},
-      {0}
+      {"__weakref__", T_OBJECT, offsetof(instance<>, weakrefs), 0, 0},
+      {0, 0, 0, 0, 0}
   };
 
   static PyTypeObject class_type_object = {
@@ -390,7 +407,17 @@ namespace objects
       offsetof(instance<>,dict),              /* tp_dictoffset */
       0,                                      /* tp_init */
       PyType_GenericAlloc,                    /* tp_alloc */
-      instance_new                            /* tp_new */
+      instance_new,                           /* tp_new */
+      0,                                      /* tp_free */
+      0,                                      /* tp_is_gc */
+      0,                                      /* tp_bases */
+      0,                                      /* tp_mro */
+      0,                                      /* tp_cache */
+      0,                                      /* tp_subclasses */
+      0,                                      /* tp_weaklist */
+#if PYTHON_API_VERSION >= 1012
+      0                                       /* tp_del */
+#endif
   };
 
   BOOST_PYTHON_DECL type_handle class_type()
@@ -480,13 +507,14 @@ namespace objects
       // were declared, we'll use our class_type() as the single base
       // class.
       std::size_t const num_bases = (std::max)(num_types - 1, static_cast<std::size_t>(1));
-      handle<> bases(PyTuple_New(num_bases));
+      assert(num_bases <= ssize_t_max);
+      handle<> bases(PyTuple_New(static_cast<ssize_t>(num_bases)));
 
       for (std::size_t i = 1; i <= num_bases; ++i)
       {
           type_handle c = (i >= num_types) ? class_type() : get_class(types[i]);
           // PyTuple_SET_ITEM steals this reference
-          PyTuple_SET_ITEM(bases.get(), i - 1, upcast<PyObject>(c.release()));
+          PyTuple_SET_ITEM(bases.get(), static_cast<ssize_t>(i - 1), upcast<PyObject>(c.release()));
       }
 
       // Call the class metatype to create a new class

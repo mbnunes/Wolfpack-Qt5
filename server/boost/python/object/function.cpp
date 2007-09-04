@@ -3,7 +3,7 @@
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 
-#include <boost/python/object/function.hpp>
+#include <boost/python/docstring_options.hpp>
 #include <boost/python/object/function_object.hpp>
 #include <boost/python/object/function_handle.hpp>
 #include <boost/python/errors.hpp>
@@ -14,8 +14,8 @@
 #include <boost/python/extract.hpp>
 #include <boost/python/tuple.hpp>
 #include <boost/python/list.hpp>
+#include <boost/python/ssize_t.hpp>
 
-#include <boost/python/detail/api_placeholder.hpp>
 #include <boost/python/detail/signature.hpp>
 #include <boost/mpl/vector/vector10.hpp>
 
@@ -27,6 +27,11 @@
 #if BOOST_PYTHON_DEBUG_ERROR_MESSAGES
 # include <cstdio>
 #endif
+
+namespace boost { namespace python {
+  volatile bool docstring_options::show_user_defined_ = true;
+  volatile bool docstring_options::show_signatures_ = true;
+}}
 
 namespace boost { namespace python { namespace objects { 
 
@@ -60,7 +65,7 @@ function::function(
             = max_arity > num_keywords ? max_arity - num_keywords : 0;
 
 
-        unsigned tuple_size = num_keywords ? max_arity : 0;
+        ssize_t tuple_size = num_keywords ? max_arity : 0;
         m_arg_names = object(handle<>(PyTuple_New(tuple_size)));
 
         if (num_keywords != 0)
@@ -154,7 +159,9 @@ PyObject* function::call(PyObject* args, PyObject* keywords) const
                     else
                     {
                         // build a new arg tuple, will adjust its size later
-                        inner_args = handle<>(PyTuple_New(max_arity));
+                        assert(max_arity <= ssize_t_max);
+                        inner_args = handle<>(
+                            PyTuple_New(static_cast<ssize_t>(max_arity)));
 
                         // Fill in the positional arguments
                         for (std::size_t i = 0; i < n_unnamed_actual; ++i)
@@ -228,7 +235,59 @@ PyObject* function::call(PyObject* args, PyObject* keywords) const
     return 0;
 }
 
-void function::argument_error(PyObject* args, PyObject* keywords) const
+object function::signature(bool show_return_type) const
+{
+    py_function const& impl = m_fn;
+    
+    python::detail::signature_element const* return_type = impl.signature();
+    python::detail::signature_element const* s = return_type + 1;
+    
+    list formal_params;
+    if (impl.max_arity() == 0)
+        formal_params.append("void");
+
+    for (unsigned n = 0; n < impl.max_arity(); ++n)
+    {
+        if (s[n].basename == 0)
+        {
+            formal_params.append("...");
+            break;
+        }
+
+        str param(s[n].basename);
+        if (s[n].lvalue)
+            param += " {lvalue}";
+        
+        if (m_arg_names) // None or empty tuple will test false
+        {
+            object kv(m_arg_names[n]);
+            if (kv)
+            {
+                char const* const fmt = len(kv) > 1 ? " %s=%r" : " %s";
+                param += fmt % kv;
+            }
+        }
+        
+        formal_params.append(param);
+    }
+
+    if (show_return_type)
+        return "%s(%s) -> %s" % make_tuple(
+            m_name, str(", ").join(formal_params), return_type->basename);
+    return "%s(%s)" % make_tuple(
+        m_name, str(", ").join(formal_params));
+}
+
+object function::signatures(bool show_return_type) const
+{
+    list result;
+    for (function const* f = this; f; f = f->m_overloads.get()) {
+        result.append(f->signature(show_return_type));
+    }
+    return result;
+}
+
+void function::argument_error(PyObject* args, PyObject* /*keywords*/) const
 {
     static handle<> exception(
         PyErr_NewException("Boost.Python.ArgumentError", PyExc_TypeError, 0));
@@ -237,57 +296,14 @@ void function::argument_error(PyObject* args, PyObject* keywords) const
         % make_tuple(this->m_namespace, this->m_name);
     
     list actual_args;
-    for (int i = 0; i < PyTuple_Size(args); ++i)
+    for (ssize_t i = 0; i < PyTuple_Size(args); ++i)
     {
         char const* name = PyTuple_GetItem(args, i)->ob_type->tp_name;
         actual_args.append(str(name));
     }
     message += str(", ").join(actual_args);
     message += ")\ndid not match C++ signature:\n    ";
-
-    list signatures;
-    for (function const* f = this; f; f = f->m_overloads.get())
-    {
-        py_function const& impl = f->m_fn;
-        
-        python::detail::signature_element const* s
-            = impl.signature() + 1; // skip over return type
-        
-        list formal_params;
-        if (impl.max_arity() == 0)
-            formal_params.append("void");
-
-        for (unsigned n = 0; n < impl.max_arity(); ++n)
-        {
-            if (s[n].basename == 0)
-            {
-                formal_params.append("...");
-                break;
-            }
-
-            str param(s[n].basename);
-            if (s[n].lvalue)
-                param += " {lvalue}";
-            
-            if (f->m_arg_names) // None or empty tuple will test false
-            {
-                object kv(f->m_arg_names[n]);
-                if (kv)
-                {
-                    char const* const fmt = len(kv) > 1 ? " %s=%r" : " %s";
-                    param += fmt % kv;
-                }
-            }
-            
-            formal_params.append(param);
-        }
-
-        signatures.append(
-            "%s(%s)" % make_tuple(f->m_name, str(", ").join(formal_params))
-            );
-    }
-
-    message += str("\n    ").join(signatures);
+    message += str("\n    ").join(signatures());
 
 #if BOOST_PYTHON_DEBUG_ERROR_MESSAGES
     std::printf("\n--------\n%s\n--------\n", extract<const char*>(message)());
@@ -392,6 +408,12 @@ namespace
 void function::add_to_namespace(
     object const& name_space, char const* name_, object const& attribute)
 {
+    add_to_namespace(name_space, name_, attribute, 0);
+}
+
+void function::add_to_namespace(
+    object const& name_space, char const* name_, object const& attribute, char const* doc)
+{
     str const name(name_);
     PyObject* const ns = name_space.ptr();
     
@@ -463,16 +485,11 @@ void function::add_to_namespace(
     PyErr_Clear();
     if (PyObject_SetAttr(ns, name.ptr(), attribute.ptr()) < 0)
         throw_error_already_set();
-}
 
-void function::add_to_namespace(
-    object const& name_space, char const* name_, object const& attribute, char const* doc)
-{
-    add_to_namespace(name_space, name_, attribute);
-    if (doc != 0)
+    object mutable_attribute(attribute);
+    if (doc != 0 && docstring_options::show_user_defined_)
     {
         // Accumulate documentation
-        object mutable_attribute(attribute);
         
         if (
             PyObject_HasAttrString(mutable_attribute.ptr(), "__doc__")
@@ -481,21 +498,36 @@ void function::add_to_namespace(
             mutable_attribute.attr("__doc__") += "\n\n";
             mutable_attribute.attr("__doc__") += doc;
         }
-        else
+        else {
             mutable_attribute.attr("__doc__") = doc;
+        }
+    }
+
+    if (docstring_options::show_signatures_)
+    {
+        if (   PyObject_HasAttrString(mutable_attribute.ptr(), "__doc__")
+            && mutable_attribute.attr("__doc__")) {
+            mutable_attribute.attr("__doc__") += "\n";
+        }
+        else {
+            mutable_attribute.attr("__doc__") = "";
+        }
+        function* f = downcast<function>(attribute.ptr());
+        mutable_attribute.attr("__doc__") += str("\n    ").join(make_tuple(
+          "C++ signature:", f->signature(true)));
     }
 }
 
 BOOST_PYTHON_DECL void add_to_namespace(
     object const& name_space, char const* name, object const& attribute)
 {
-    function::add_to_namespace(name_space, name, attribute);
+    function::add_to_namespace(name_space, name, attribute, 0);
 }
 
 BOOST_PYTHON_DECL void add_to_namespace(
     object const& name_space, char const* name, object const& attribute, char const* doc)
 {
-    function::add_to_namespace(name_space, name, attribute, doc);    
+    function::add_to_namespace(name_space, name, attribute, doc);
 }
 
 
@@ -580,19 +612,19 @@ extern "C"
     // We add a dummy __class__ attribute in order to fool PyDoc into
     // treating these as built-in functions and scanning their
     // documentation
-    static PyObject* function_get_class(PyObject* op, void*)
+    static PyObject* function_get_class(PyObject* /*op*/, void*)
     {
         return python::incref(upcast<PyObject>(&PyCFunction_Type));
     }
 }
-    
+
 static PyGetSetDef function_getsetlist[] = {
-    {"__name__", (getter)function_get_name, 0 },
-    {"func_name", (getter)function_get_name, 0 },
-    {"__class__", (getter)function_get_class, 0 },    // see note above
-    {"__doc__", (getter)function_get_doc, (setter)function_set_doc},
-    {"func_doc", (getter)function_get_doc, (setter)function_set_doc},
-    {NULL} /* Sentinel */
+    {"__name__", (getter)function_get_name, 0, 0, 0 },
+    {"func_name", (getter)function_get_name, 0, 0, 0 },
+    {"__class__", (getter)function_get_class, 0, 0, 0 },    // see note above
+    {"__doc__", (getter)function_get_doc, (setter)function_set_doc, 0, 0},
+    {"func_doc", (getter)function_get_doc, (setter)function_set_doc, 0, 0},
+    {NULL, 0, 0, 0, 0} /* Sentinel */
 };
 
 PyTypeObject function_type = {
@@ -634,8 +666,17 @@ PyTypeObject function_type = {
     0, //offsetof(PyFunctionObject, func_dict),      /* tp_dictoffset */
     0,                                      /* tp_init */
     0,                                      /* tp_alloc */
-    0,
-    0                                       /* tp_new */
+    0,                                      /* tp_new */
+    0,                                      /* tp_free */
+    0,                                      /* tp_is_gc */
+    0,                                      /* tp_bases */
+    0,                                      /* tp_mro */
+    0,                                      /* tp_cache */
+    0,                                      /* tp_subclasses */
+    0,                                      /* tp_weaklist */
+#if PYTHON_API_VERSION >= 1012
+    0                                       /* tp_del */
+#endif
 };
 
 object function_object(
