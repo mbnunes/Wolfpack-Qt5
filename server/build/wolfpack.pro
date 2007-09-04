@@ -23,7 +23,7 @@ MOC_DIR = obj
 
 win32:LIBS += -lws2_32 -lkernel32 -luser32 -lgdi32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lodbc32 -lodbccp32
 
-DEFINES += BOOST_PYTHON_STATIC_LIB
+DEFINES += BOOST_PYTHON_STATIC_LIB BOOST_ALL_NO_LIB
 LIBS += -lboost_python -L../boost/lib/
 INCLUDEPATH += ../boost/include
 PYTHON_CPP = ../src/python
