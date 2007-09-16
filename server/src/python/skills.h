@@ -102,7 +102,7 @@ PyObject* wpSkills_set( wpSkills* self, int skill, PyObject* pValue )
 
 static PySequenceMethods wpSkillsSequence =
 {
-( inquiry ) wpSkills_length,
+wpSkills_length,
 0,
 0,
 ( intargfunc ) wpSkills_get,
