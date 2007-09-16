@@ -51,6 +51,10 @@ class AbstractAI;
 typedef cItem* P_ITEM;
 typedef cMulti* P_MULTI;
 
+#if (PY_VERSION_HEX < 0x02050000)
+typedef int Py_ssize_t;
+#endif
+
 /*!
 	Things commonly used in other python-definition
 	source-files.

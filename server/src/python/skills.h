@@ -54,7 +54,7 @@ typedef struct
 	\description Number of avaliable skills.
 	\return Returns the number of skills.
 */
-Py_ssize_t wpSkills_length( wpSkills* self )
+Py_ssize_t wpSkills_length( PyObject* self )
 {
 	Q_UNUSED( self );
 	return ALLSKILLS;
