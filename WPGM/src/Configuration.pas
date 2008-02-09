@@ -117,6 +117,19 @@ type
     Label37: TLabel;
     Button1: TButton;
     Cancel: TButton;
+    Label38: TLabel;
+    Emap1: TEdit;
+    SBMap1: TSpeedButton;
+    Label39: TLabel;
+    Estaidx1: TEdit;
+    SBStaidx1: TSpeedButton;
+    Label40: TLabel;
+    Estatics1: TEdit;
+    SBStatics1: TSpeedButton;
+    EMap1y: TEdit;
+    Label41: TLabel;
+    EMap1x: TEdit;
+    Label42: TLabel;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
@@ -151,6 +164,9 @@ type
     procedure SBStatics3Click(Sender: TObject);
     procedure SBStatics4Click(Sender: TObject);
     procedure CancelClick(Sender: TObject);
+    procedure SBMap1Click(Sender: TObject);
+    procedure SBStaidx1Click(Sender: TObject);
+    procedure SBStatics1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -190,6 +206,7 @@ var
 begin
   er := true;
   if (EMap0x.Text = '0') or (EMap0y.Text = '0') or
+    (EMap1x.Text = '0') or (EMap1y.Text = '0') or
     (EMap2x.Text = '0') or (EMap2y.Text = '0') or
     (EMap3x.Text = '0') or (EMap3y.Text = '0') or
     (EMap4x.Text = '0') or (EMap4y.Text = '0') then
@@ -200,6 +217,7 @@ begin
 
   if er then
     if (IsNumber(pchar(EMap0x.Text))) or (IsNumber(pchar(EMap0y.Text))) or
+    (IsNumber(pchar(EMap1x.Text))) or (IsNumber(pchar(EMap1y.Text))) or
     (IsNumber(pchar(EMap2x.Text))) or (IsNumber(pchar(EMap2y.Text))) or
     (IsNumber(pchar(EMap3x.Text))) or (IsNumber(pchar(EMap3y.Text))) or
     (IsNumber(pchar(EMap4x.Text))) or (IsNumber(pchar(EMap4y.Text))) then
@@ -209,6 +227,7 @@ begin
     end;
   if er then
     if (strToint(EMap0x.Text) mod 8 <> 0 ) or (strtoint(EMap0y.Text) mod 8 <> 0) or
+    (strToint(EMap1x.Text) mod 8 <> 0) or (strToint(EMap1y.Text) mod 8 <> 0) or
     (strToint(EMap2x.Text) mod 8 <> 0) or (strToint(EMap2y.Text) mod 8 <> 0) or
     (strToint(EMap3x.Text) mod 8 <> 0) or (strToint(EMap3y.Text) mod 8 <> 0) or
     (strToint(EMap4x.Text) mod 8 <> 0) or (strToint(EMap4y.Text) mod 8 <> 0) then
@@ -264,6 +283,8 @@ begin
 
     EMap0x.Text :=  intTOstr(Config.getInt('Map 0 Width', 896) * 8);
     EMap0y.Text :=  intTOstr(Config.getInt('Map 0 Height', 512) * 8);
+    EMap1x.Text :=  intTOstr(Config.getInt('Map 1 Width', 896) * 8);
+    EMap1y.Text :=  intTOstr(Config.getInt('Map 1 Height', 512) * 8);
     EMap2x.Text :=  intTOstr(Config.getInt('Map 2 Width', 288) * 8);
     EMap2y.Text :=  intTOstr(Config.getInt('Map 2 Height', 200) * 8);
     EMap3x.Text :=  intTOstr(Config.getInt('Map 3 Width', 320) * 8);
@@ -277,7 +298,7 @@ end;
 procedure TFrmConfig.FormClose(Sender: TObject; var Action: TCloseAction);
 var
   i,c : integer;
-  texto : string;
+
 begin
   if not canceled then
   begin
@@ -293,6 +314,8 @@ begin
 
     Config.SetInt('Map 0 Width', strTOINt(EMap0x.Text) div 8);
     Config.setInt('Map 0 Height', strTOINt(EMap0y.Text) div 8);
+    Config.SetInt('Map 1 Width', strTOINt(EMap1x.Text) div 8);
+    Config.setInt('Map 1 Height', strTOINt(EMap1y.Text) div 8);
     Config.SetInt('Map 2 Width', strTOINt(EMap2x.Text) div 8);
     Config.SetInt('Map 2 Height', strTOINt(EMap2y.Text) div 8);
     Config.SetInt('Map 3 Width', strTOINt(EMap3x.Text) div 8);
@@ -374,6 +397,15 @@ begin
      emap0.Text := od.FileName;
 end;
 
+procedure TFrmConfig.SBMap1Click(Sender: TObject);
+begin
+  od.InitialDir := UOpath;
+  od.Filter := 'map1.mul';
+  od.DefaultExt := '.mul';
+  if od.Execute then
+     emap1.Text := od.FileName;
+end;
+
 procedure TFrmConfig.SBMap2Click(Sender: TObject);
 begin
   od.InitialDir := UOpath;
@@ -419,6 +451,15 @@ begin
      estaidx0.Text := od.FileName;
 end;
 
+procedure TFrmConfig.SBStaidx1Click(Sender: TObject);
+begin
+  od.InitialDir := UOpath;
+  od.Filter := 'staidx1.mul';
+  od.DefaultExt := '.mul';
+  if od.Execute then
+     estaidx1.Text := od.FileName;
+end;
+
 procedure TFrmConfig.SBStaidx2Click(Sender: TObject);
 begin
   od.InitialDir := UOpath;
@@ -453,6 +494,15 @@ begin
   od.DefaultExt := '.mul';
   if od.Execute then
      estatics0.Text := od.FileName;
+end;
+
+procedure TFrmConfig.SBStatics1Click(Sender: TObject);
+begin
+  od.InitialDir := UOpath;
+  od.Filter := 'statics1.mul';
+  od.DefaultExt := '.mul';
+  if od.Execute then
+     estatics1.Text := od.FileName;
 end;
 
 procedure TFrmConfig.SBStatics2Click(Sender: TObject);

@@ -23,19 +23,13 @@ object frmMain: TfrmMain
     Top = 21
     Width = 604
     Height = 163
-    ActivePage = tsNpcs
+    ActivePage = TravelMap
     Align = alClient
     RaggedRight = True
     TabOrder = 0
-    ExplicitTop = 24
-    ExplicitHeight = 148
     object tsCommands: TTabSheet
       Caption = 'Commands'
       ImageIndex = 3
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object GroupBox1: TGroupBox
         Left = 8
         Top = 8
@@ -356,10 +350,6 @@ object frmMain: TfrmMain
     object tsItemManip: TTabSheet
       Caption = 'Item Manipulation'
       ImageIndex = 4
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 144
       object GroupBox3: TGroupBox
         Left = 8
         Top = 8
@@ -774,10 +764,6 @@ object frmMain: TfrmMain
     object TabSheet1: TTabSheet
       Caption = 'Multis'
       ImageIndex = 7
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         596
         135)
@@ -861,10 +847,6 @@ object frmMain: TfrmMain
     object tsTags: TTabSheet
       Caption = 'Object Manipulation'
       ImageIndex = 5
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 144
       object GroupBox6: TGroupBox
         Left = 8
         Top = 8
@@ -1062,7 +1044,7 @@ object frmMain: TfrmMain
           Top = 24
           Width = 121
           Height = 21
-          ItemHeight = 0
+          ItemHeight = 13
           TabOrder = 0
           OnChange = eEventNameChange
         end
@@ -1087,10 +1069,6 @@ object frmMain: TfrmMain
     object TravelMap: TTabSheet
       Caption = 'Travel'
       ImageIndex = 2
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       DesignSize = (
         596
         135)
@@ -1248,10 +1226,6 @@ object frmMain: TfrmMain
     object tsSettings: TTabSheet
       Caption = 'Settings'
       ImageIndex = 1
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
       object gbSettingsGeneral: TGroupBox
         Left = 8
         Top = 8
@@ -1314,10 +1288,6 @@ object frmMain: TfrmMain
     object TabSheet2: TTabSheet
       Caption = 'Build'
       ImageIndex = 8
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 144
       DesignSize = (
         596
         135)
@@ -1329,7 +1299,6 @@ object frmMain: TfrmMain
         Anchors = [akLeft, akTop, akBottom]
         Caption = 'Settings'
         TabOrder = 0
-        ExplicitHeight = 137
         object Label11: TLabel
           Left = 8
           Top = 18
@@ -1402,10 +1371,6 @@ object frmMain: TfrmMain
       Caption = 'Custom'
       ImageIndex = 9
       OnResize = tsCustomResize
-      ExplicitLeft = 0
-      ExplicitTop = 0
-      ExplicitWidth = 0
-      ExplicitHeight = 0
     end
   end
   object TbQuick: TToolBar

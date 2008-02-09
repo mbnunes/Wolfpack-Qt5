@@ -1,3 +1,6 @@
+08.02.2008 1.0.1.x:
+	- Added support to Map1.mul which came with clients 6.0.0 and above.
+
 24.06.2007 1.0.1.x:
 	
 	- My mistake.. fix the config screen and the buttons do open the files.

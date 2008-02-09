@@ -4,7 +4,7 @@ object FrmConfig: TFrmConfig
   BorderIcons = []
   Caption = 'Configuration'
   ClientHeight = 460
-  ClientWidth = 528
+  ClientWidth = 538
   Color = clWindow
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,19 +19,19 @@ object FrmConfig: TFrmConfig
   PixelsPerInch = 96
   TextHeight = 13
   object ScrollBox1: TScrollBox
-    Left = 8
+    Left = 4
     Top = 8
-    Width = 517
+    Width = 533
     Height = 409
-    VertScrollBar.Position = 916
+    VertScrollBar.Position = 1034
     BevelInner = bvNone
     BevelOuter = bvNone
     TabOrder = 0
     object GroupBox1: TGroupBox
-      Left = 3
-      Top = -916
+      Left = 14
+      Top = -1034
       Width = 489
-      Height = 1200
+      Height = 1319
       TabOrder = 0
       object Label1: TLabel
         Left = 12
@@ -875,14 +875,14 @@ object FrmConfig: TFrmConfig
       end
       object Label21: TLabel
         Left = 13
-        Top = 838
+        Top = 954
         Width = 46
         Height = 13
         Caption = 'map2.mul'
       end
       object SBMap2: TSpeedButton
         Left = 447
-        Top = 851
+        Top = 967
         Width = 25
         Height = 21
         Flat = True
@@ -917,14 +917,14 @@ object FrmConfig: TFrmConfig
       end
       object Label22: TLabel
         Left = 12
-        Top = 878
+        Top = 994
         Width = 55
         Height = 13
         Caption = 'staidx2.mul'
       end
       object SBStaidx2: TSpeedButton
         Left = 447
-        Top = 891
+        Top = 1007
         Width = 25
         Height = 21
         Flat = True
@@ -959,14 +959,14 @@ object FrmConfig: TFrmConfig
       end
       object Label23: TLabel
         Left = 12
-        Top = 918
+        Top = 1034
         Width = 57
         Height = 13
         Caption = 'statics2.mul'
       end
       object SBStatics2: TSpeedButton
         Left = 447
-        Top = 931
+        Top = 1047
         Width = 25
         Height = 21
         Flat = True
@@ -1001,14 +1001,14 @@ object FrmConfig: TFrmConfig
       end
       object Label24: TLabel
         Left = 13
-        Top = 958
+        Top = 1074
         Width = 46
         Height = 13
         Caption = 'map3.mul'
       end
       object SBMap3: TSpeedButton
         Left = 447
-        Top = 971
+        Top = 1087
         Width = 25
         Height = 21
         Flat = True
@@ -1043,14 +1043,14 @@ object FrmConfig: TFrmConfig
       end
       object Label25: TLabel
         Left = 12
-        Top = 998
+        Top = 1114
         Width = 55
         Height = 13
         Caption = 'staidx3.mul'
       end
       object SBStaidx3: TSpeedButton
         Left = 447
-        Top = 1011
+        Top = 1127
         Width = 25
         Height = 21
         Flat = True
@@ -1085,14 +1085,14 @@ object FrmConfig: TFrmConfig
       end
       object Label26: TLabel
         Left = 12
-        Top = 1038
+        Top = 1154
         Width = 57
         Height = 13
         Caption = 'statics3.mul'
       end
       object SBStatics3: TSpeedButton
         Left = 447
-        Top = 1051
+        Top = 1167
         Width = 25
         Height = 21
         Flat = True
@@ -1127,14 +1127,14 @@ object FrmConfig: TFrmConfig
       end
       object Label27: TLabel
         Left = 13
-        Top = 1078
+        Top = 1194
         Width = 46
         Height = 13
         Caption = 'map4.mul'
       end
       object SBMap4: TSpeedButton
         Left = 447
-        Top = 1091
+        Top = 1207
         Width = 25
         Height = 21
         Flat = True
@@ -1169,14 +1169,14 @@ object FrmConfig: TFrmConfig
       end
       object Label28: TLabel
         Left = 12
-        Top = 1118
+        Top = 1234
         Width = 55
         Height = 13
         Caption = 'staidx4.mul'
       end
       object SBStaidx4: TSpeedButton
         Left = 447
-        Top = 1131
+        Top = 1247
         Width = 25
         Height = 21
         Flat = True
@@ -1211,14 +1211,14 @@ object FrmConfig: TFrmConfig
       end
       object Label29: TLabel
         Left = 12
-        Top = 1158
+        Top = 1274
         Width = 57
         Height = 13
         Caption = 'statics4.mul'
       end
       object SBStatics4: TSpeedButton
         Left = 447
-        Top = 1171
+        Top = 1289
         Width = 25
         Height = 21
         Flat = True
@@ -1250,6 +1250,132 @@ object FrmConfig: TFrmConfig
           D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8
           D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
         OnClick = SBStatics4Click
+      end
+      object Label38: TLabel
+        Left = 12
+        Top = 838
+        Width = 46
+        Height = 13
+        Caption = 'map1.mul'
+      end
+      object SBMap1: TSpeedButton
+        Left = 447
+        Top = 851
+        Width = 25
+        Height = 21
+        Flat = True
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000120B0000120B00000000000000000000C8D0D4C8D0D4
+          C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0
+          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D400000000000000000000000000
+          0000000000840000FFFF00FF0000FF0000000000000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484C6C6C6C6C6C6C6C6C6C6C6C6840000FFFF00FF0000FF0000C6C6
+          C6C6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFF84
+          0000FFFF00FF0000FF0000C6C6C6FFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484000000000000848484C6C6C6FF0000FF0000C6C6C6FFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484C6C6C6FFFF00C6C6C600000084
+          8484848484C6C6C6FFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
+          FFFFFFFFFF00C6C6C6FFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4848484FFFF00FFFFFFFFFF00C6C6C6FFFF0000
+          0000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
+          FFFFFFFFFF00FFFFFFFFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484FFFFFFFFFF00FFFFFF000000C6
+          C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484848484000000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFF000000000000000000000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6FFFF
+          FF848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFC6C6C6848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4
+          C8D0D4848484848484848484848484848484848484848484848484848484C8D0
+          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8
+          D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
+        OnClick = SBMap1Click
+      end
+      object Label39: TLabel
+        Left = 12
+        Top = 878
+        Width = 55
+        Height = 13
+        Caption = 'staidx1.mul'
+      end
+      object SBStaidx1: TSpeedButton
+        Left = 447
+        Top = 891
+        Width = 25
+        Height = 21
+        Flat = True
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000120B0000120B00000000000000000000C8D0D4C8D0D4
+          C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0
+          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D400000000000000000000000000
+          0000000000840000FFFF00FF0000FF0000000000000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484C6C6C6C6C6C6C6C6C6C6C6C6840000FFFF00FF0000FF0000C6C6
+          C6C6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFF84
+          0000FFFF00FF0000FF0000C6C6C6FFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484000000000000848484C6C6C6FF0000FF0000C6C6C6FFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484C6C6C6FFFF00C6C6C600000084
+          8484848484C6C6C6FFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
+          FFFFFFFFFF00C6C6C6FFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4848484FFFF00FFFFFFFFFF00C6C6C6FFFF0000
+          0000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
+          FFFFFFFFFF00FFFFFFFFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484FFFFFFFFFF00FFFFFF000000C6
+          C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484848484000000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFF000000000000000000000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6FFFF
+          FF848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFC6C6C6848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4
+          C8D0D4848484848484848484848484848484848484848484848484848484C8D0
+          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8
+          D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
+        OnClick = SBStaidx1Click
+      end
+      object Label40: TLabel
+        Left = 12
+        Top = 918
+        Width = 57
+        Height = 13
+        Caption = 'statics1.mul'
+      end
+      object SBStatics1: TSpeedButton
+        Left = 447
+        Top = 931
+        Width = 25
+        Height = 21
+        Flat = True
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000120B0000120B00000000000000000000C8D0D4C8D0D4
+          C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0
+          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D400000000000000000000000000
+          0000000000840000FFFF00FF0000FF0000000000000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484C6C6C6C6C6C6C6C6C6C6C6C6840000FFFF00FF0000FF0000C6C6
+          C6C6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFF84
+          0000FFFF00FF0000FF0000C6C6C6FFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484000000000000848484C6C6C6FF0000FF0000C6C6C6FFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484C6C6C6FFFF00C6C6C600000084
+          8484848484C6C6C6FFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
+          FFFFFFFFFF00C6C6C6FFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4848484FFFF00FFFFFFFFFF00C6C6C6FFFF0000
+          0000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4848484
+          FFFFFFFFFF00FFFFFFFFFF00C6C6C6000000C6C6C6FFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4848484FFFFFFFFFF00FFFFFF000000C6
+          C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484848484000000C6C6C6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFC6C6C6000000C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFF000000000000000000000000C8D0D4C8D0D4C8D0D4
+          C8D0D4848484FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC6C6C6FFFF
+          FF848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4848484FFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFC6C6C6848484C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4
+          C8D0D4848484848484848484848484848484848484848484848484848484C8D0
+          D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8
+          D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4C8D0D4}
+        OnClick = SBStatics1Click
       end
       object ETiledata: TEdit
         Tag = 1
@@ -1412,204 +1538,258 @@ object FrmConfig: TFrmConfig
         TabOrder = 19
       end
       object Emap2: TEdit
-        Tag = 21
+        Tag = 24
         Left = 12
-        Top = 851
+        Top = 967
         Width = 429
         Height = 21
         TabOrder = 20
       end
       object Estaidx2: TEdit
-        Tag = 22
+        Tag = 25
         Left = 12
-        Top = 891
+        Top = 1007
         Width = 429
         Height = 21
         TabOrder = 21
       end
       object Estatics2: TEdit
-        Tag = 23
+        Tag = 26
         Left = 12
-        Top = 931
+        Top = 1047
         Width = 429
         Height = 21
         TabOrder = 22
       end
       object Emap3: TEdit
-        Tag = 24
+        Tag = 27
         Left = 12
-        Top = 971
+        Top = 1087
         Width = 429
         Height = 21
         TabOrder = 23
       end
       object Estaidx3: TEdit
-        Tag = 25
+        Tag = 28
         Left = 12
-        Top = 1011
+        Top = 1127
         Width = 429
         Height = 21
         TabOrder = 24
       end
       object Estatics3: TEdit
-        Tag = 26
+        Tag = 29
         Left = 12
-        Top = 1051
+        Top = 1167
         Width = 429
         Height = 21
         TabOrder = 25
       end
       object Emap4: TEdit
-        Tag = 27
+        Tag = 30
         Left = 12
-        Top = 1091
+        Top = 1207
         Width = 429
         Height = 21
         TabOrder = 26
       end
       object Estaidx4: TEdit
-        Tag = 28
+        Tag = 31
         Left = 12
-        Top = 1131
+        Top = 1247
         Width = 429
         Height = 21
         TabOrder = 27
       end
       object Estatics4: TEdit
-        Tag = 29
+        Tag = 32
         Left = 12
-        Top = 1171
+        Top = 1289
         Width = 429
         Height = 21
         TabOrder = 28
       end
+      object Emap1: TEdit
+        Tag = 21
+        Left = 12
+        Top = 851
+        Width = 429
+        Height = 21
+        TabOrder = 29
+      end
+      object Estaidx1: TEdit
+        Tag = 22
+        Left = 12
+        Top = 891
+        Width = 429
+        Height = 21
+        TabOrder = 30
+      end
+      object Estatics1: TEdit
+        Tag = 23
+        Left = 12
+        Top = 931
+        Width = 429
+        Height = 21
+        TabOrder = 31
+      end
     end
     object GroupBox2: TGroupBox
-      Left = 3
+      Left = 14
       Top = 290
       Width = 489
       Height = 115
       Caption = 'Maps Size'
       TabOrder = 1
       object Label30: TLabel
-        Left = 49
-        Top = 20
+        Left = 15
+        Top = 16
         Width = 35
         Height = 13
         Caption = 'Map0 X'
       end
       object Label31: TLabel
-        Left = 48
-        Top = 60
+        Left = 14
+        Top = 56
         Width = 35
         Height = 13
         Caption = 'Map0 Y'
       end
       object Label32: TLabel
-        Left = 149
-        Top = 20
+        Left = 204
+        Top = 16
         Width = 35
         Height = 13
         Caption = 'Map2 X'
       end
       object Label33: TLabel
-        Left = 149
-        Top = 60
+        Left = 204
+        Top = 56
         Width = 35
         Height = 13
         Caption = 'Map2 Y'
       end
       object Label34: TLabel
-        Left = 248
-        Top = 20
+        Left = 298
+        Top = 16
         Width = 35
         Height = 13
         Caption = 'Map3 X'
       end
       object Label35: TLabel
-        Left = 248
-        Top = 60
+        Left = 298
+        Top = 56
         Width = 35
         Height = 13
         Caption = 'Map3 Y'
       end
       object Label36: TLabel
-        Left = 348
-        Top = 60
+        Left = 392
+        Top = 56
         Width = 35
         Height = 13
         Caption = 'Map4 Y'
       end
       object Label37: TLabel
-        Left = 348
-        Top = 20
+        Left = 392
+        Top = 16
         Width = 35
         Height = 13
         Caption = 'Map4 X'
       end
+      object Label41: TLabel
+        Left = 109
+        Top = 56
+        Width = 35
+        Height = 13
+        Caption = 'Map1 Y'
+      end
+      object Label42: TLabel
+        Left = 110
+        Top = 16
+        Width = 35
+        Height = 13
+        Caption = 'Map1 X'
+      end
       object EMap0x: TEdit
-        Left = 49
-        Top = 36
+        Left = 15
+        Top = 32
         Width = 88
         Height = 21
         TabOrder = 0
         Text = '7168'
       end
       object EMap0Y: TEdit
-        Left = 49
-        Top = 76
+        Left = 15
+        Top = 72
         Width = 88
         Height = 21
         TabOrder = 1
         Text = '4096'
       end
       object EMap2x: TEdit
-        Left = 149
-        Top = 36
+        Left = 204
+        Top = 32
         Width = 88
         Height = 21
         TabOrder = 2
         Text = '2304'
       end
       object EMap2y: TEdit
-        Left = 149
-        Top = 74
+        Left = 204
+        Top = 72
         Width = 88
         Height = 21
         TabOrder = 3
         Text = '1600'
       end
       object EMap3x: TEdit
-        Left = 248
-        Top = 36
+        Left = 298
+        Top = 32
         Width = 88
         Height = 21
         TabOrder = 4
         Text = '2560'
       end
       object EMap3y: TEdit
-        Left = 248
-        Top = 76
+        Left = 298
+        Top = 72
         Width = 88
         Height = 21
         TabOrder = 5
         Text = '2048'
       end
       object EMap4y: TEdit
-        Left = 348
-        Top = 76
+        Left = 392
+        Top = 72
         Width = 88
         Height = 21
         TabOrder = 6
         Text = '1448'
       end
       object EMap4x: TEdit
-        Left = 348
-        Top = 36
+        Left = 392
+        Top = 32
         Width = 88
         Height = 21
         TabOrder = 7
         Text = '1448'
+      end
+      object EMap1y: TEdit
+        Left = 110
+        Top = 72
+        Width = 88
+        Height = 21
+        TabOrder = 8
+        Text = '4096'
+      end
+      object EMap1x: TEdit
+        Left = 110
+        Top = 32
+        Width = 88
+        Height = 21
+        TabOrder = 9
+        Text = '7168'
       end
     end
   end

@@ -381,10 +381,10 @@ type
 
 const
   // OK OK I can make it better.. but in the future :D
-  FILESMAX = 28;
+  FILESMAX = 31;
   FILESMIN = 0;
-  UOFILES : array[FILESMIN..FILESMAX] of string = ('TILEDATA.MUL', 'ARTIDX.MUL', 'ART.MUL', 'ANIM.IDX', 'ANIM.MUL', 'ANIM2.IDX', 'ANIM2.MUL', 'ANIM3.IDX', 'ANIM3.MUL', 'ANIM4.IDX', 'ANIM4.MUL', 'ANIM5.IDX', 'ANIM5.MUL', 'BODYCONV.DEF', 'BODY.DEF', 'RADARCOL.MUL', 'HUES.MUL', 'MAP0.MUL', 'STAIDX0.MUL', 'STATICS0.MUL', 'MAP2.MUL', 'STAIDX2.MUL', 'STATICS2.MUL', 'MAP3.MUL', 'STAIDX3.MUL', 'STATICS3.MUL', 'MAP4.MUL', 'STAIDX4.MUL', 'STATICS4.MUL');
-  UOREQ   : array[FILESMIN..FILESMAX] of boolean = (true,           true,          true,        true,         true,      false,          false,           false,       false,           false,       false,        false,         false,       true,         true,       true,           true,      true,       true,            true,          false,        false,         false,         false,      false,          false,         false,        false,       false);
+  UOFILES : array[FILESMIN..FILESMAX] of string = ('TILEDATA.MUL', 'ARTIDX.MUL', 'ART.MUL', 'ANIM.IDX', 'ANIM.MUL', 'ANIM2.IDX', 'ANIM2.MUL', 'ANIM3.IDX', 'ANIM3.MUL', 'ANIM4.IDX', 'ANIM4.MUL', 'ANIM5.IDX', 'ANIM5.MUL', 'BODYCONV.DEF', 'BODY.DEF', 'RADARCOL.MUL', 'HUES.MUL', 'MAP0.MUL', 'STAIDX0.MUL', 'STATICS0.MUL', 'MAP1.MUL', 'STAIDX1.MUL', 'STATICS1.MUL', 'MAP2.MUL', 'STAIDX2.MUL', 'STATICS2.MUL', 'MAP3.MUL', 'STAIDX3.MUL', 'STATICS3.MUL', 'MAP4.MUL', 'STAIDX4.MUL', 'STATICS4.MUL');
+  UOREQ   : array[FILESMIN..FILESMAX] of boolean = (true,           true,          true,        true,         true,      false,          false,           false,       false,           false,       false,        false,         false,       true,         true,       true,           true,      true,       true,           false,      false,          false,            true,          false,        false,         false,         false,      false,          false,         false,        false,       false);
 
 
 
@@ -498,8 +498,8 @@ begin
 
       MapsSize[0].x := Config.getInt('Map 0 Width', 896);
       MapsSize[0].y := Config.getInt('Map 0 Height', 512);
-      MapsSize[1].x := MapsSize[0].x;
-      MapsSize[1].y := MapsSize[0].y;
+      MapsSize[1].x := Config.getInt('Map 1 Width', 896);
+      MapsSize[1].y := Config.getInt('Map 1 Height', 512);
       MapsSize[2].x := Config.getInt('Map 2 Width', 288);
       MapsSize[2].y := Config.getInt('Map 2 Height', 200);
       MapsSize[3].x := Config.getInt('Map 3 Width', 320);
@@ -517,8 +517,26 @@ begin
           Config.getString('STATICS0.MUL Path', UOPath + 'statics0.mul'),
           MapsSize[0].y,
           MapsSize[0].x);
-      Maps[1] := Maps[0];
-      Statics[1] := Statics[0];
+
+      if FileExists(Config.getString('MAP1.MUL Path', UOPath + 'map1.mul')) then
+      begin
+          Maps[1].Open(
+            Config.getString('MAP1.MUL Path', UOPath + 'map1.mul'),
+            MapsSize[1].x,
+            MapsSize[1].y);
+
+          Statics[1].Open(
+            Config.getString('STAIDX1.MUL Path', UOPath + 'staidx1.mul'),
+            Config.getString('STATICS1.MUL Path', UOPath + 'statics1.mul'),
+            MapsSize[1].y,
+            MapsSize[1].x);
+      end
+      else
+      begin
+          Maps[1] := Maps[0];
+          Statics[1] := Statics[0];
+      end;
+
 
       Maps[2].Open(Config.getString('MAP2.MUL Path', UOPath + 'map2.mul'),
           MapsSize[2].x,
