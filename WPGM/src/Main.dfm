@@ -23,7 +23,7 @@ object frmMain: TfrmMain
     Top = 21
     Width = 604
     Height = 163
-    ActivePage = TravelMap
+    ActivePage = TabSheet1
     Align = alClient
     RaggedRight = True
     TabOrder = 0
@@ -620,7 +620,7 @@ object frmMain: TfrmMain
           Left = 201
           Top = 0
           Height = 103
-          ExplicitHeight = 112
+          ExplicitLeft = 204
         end
         object Splitter2: TSplitter
           Left = 478
@@ -1490,8 +1490,8 @@ object frmMain: TfrmMain
     Enabled = False
     Interval = 100
     OnTimer = ontopTimerTimer
-    Left = 572
-    Top = 24
+    Left = 576
+    Top = 56
   end
   object btnCustomPopup: TPopupMenu
     Left = 572

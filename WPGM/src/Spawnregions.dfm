@@ -1,9 +1,8 @@
 object frmRegions: TfrmRegions
   Left = 214
   Top = 135
-  AutoScroll = False
   Caption = 'Regions'
-  ClientHeight = 495
+  ClientHeight = 515
   ClientWidth = 756
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -12,44 +11,49 @@ object frmRegions: TfrmRegions
   Font.Name = 'MS Sans Serif'
   Font.Style = []
   OldCreateOrder = False
+  Position = poDesktopCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
   DesignSize = (
     756
-    495)
+    515)
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 161
-    Top = 468
+    Top = 488
     Width = 96
     Height = 13
     Anchors = [akLeft, akBottom]
     Caption = 'Screen Coordinates:'
+    ExplicitTop = 468
   end
   object Label2: TLabel
     Left = 417
-    Top = 468
+    Top = 488
     Width = 83
     Height = 13
     Anchors = [akLeft, akBottom]
     Caption = 'Map Coordinates:'
+    ExplicitTop = 468
   end
   object lblScreen: TLabel
     Left = 264
-    Top = 468
+    Top = 488
     Width = 3
     Height = 13
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 468
   end
   object lblMap: TLabel
     Left = 512
-    Top = 468
+    Top = 488
     Width = 3
     Height = 13
     Anchors = [akLeft, akBottom]
+    ExplicitTop = 468
   end
   object Label3: TLabel
     Left = 624
@@ -67,14 +71,14 @@ object frmRegions: TfrmRegions
   end
   object lblSelected: TLabel
     Left = 624
-    Top = 280
+    Top = 283
     Width = 3
     Height = 13
     Anchors = [akTop, akRight]
   end
   object cbMap: TComboBox
     Left = 8
-    Top = 464
+    Top = 484
     Width = 145
     Height = 21
     Style = csDropDownList
@@ -89,10 +93,11 @@ object frmRegions: TfrmRegions
       'Ilshenar'
       'Malas'
       'Tokuno Islands')
+    ExplicitTop = 464
   end
   object pbMap: TPaintBox32
     Left = 3
-    Top = 8
+    Top = 28
     Width = 597
     Height = 433
     Anchors = [akLeft, akTop, akRight, akBottom]
@@ -104,7 +109,7 @@ object frmRegions: TfrmRegions
   end
   object sbX: TScrollBar
     Left = 4
-    Top = 440
+    Top = 460
     Width = 597
     Height = 17
     Anchors = [akLeft, akRight, akBottom]
@@ -115,7 +120,7 @@ object frmRegions: TfrmRegions
   end
   object sbY: TScrollBar
     Left = 601
-    Top = 8
+    Top = 28
     Width = 17
     Height = 432
     Anchors = [akTop, akRight, akBottom]
@@ -127,9 +132,9 @@ object frmRegions: TfrmRegions
   end
   object lbRects: TListBox
     Left = 624
-    Top = 8
+    Top = 28
     Width = 121
-    Height = 217
+    Height = 198
     Anchors = [akTop, akRight]
     ItemHeight = 13
     TabOrder = 4
@@ -165,6 +170,7 @@ object frmRegions: TfrmRegions
     Anchors = [akTop, akRight]
     Caption = 'Copy as Spawnregion'
     TabOrder = 7
+    Visible = False
     OnClick = Button1Click
   end
   object Button2: TButton
@@ -175,6 +181,7 @@ object frmRegions: TfrmRegions
     Anchors = [akTop, akRight]
     Caption = 'Copy as Region'
     TabOrder = 8
+    Visible = False
     OnClick = Button2Click
   end
   object Button3: TButton
@@ -199,7 +206,7 @@ object frmRegions: TfrmRegions
   end
   object btnZoomOut: TButton
     Left = 624
-    Top = 432
+    Top = 452
     Width = 41
     Height = 25
     Anchors = [akRight, akBottom]
@@ -209,7 +216,7 @@ object frmRegions: TfrmRegions
   end
   object btnZoomIn: TButton
     Left = 672
-    Top = 432
+    Top = 452
     Width = 41
     Height = 25
     Anchors = [akRight, akBottom]
@@ -219,12 +226,81 @@ object frmRegions: TfrmRegions
   end
   object btnRedraw: TButton
     Left = 624
-    Top = 464
+    Top = 484
     Width = 89
     Height = 25
     Anchors = [akRight, akBottom]
     Caption = 'Redraw'
     TabOrder = 13
     OnClick = btnRedrawClick
+  end
+  object ToolBar1: TToolBar
+    Left = 0
+    Top = 0
+    Width = 756
+    Height = 22
+    ButtonHeight = 19
+    ButtonWidth = 79
+    Caption = 'ToolBar1'
+    List = True
+    AllowTextButtons = True
+    TabOrder = 14
+    object ToolButton1: TToolButton
+      Left = 0
+      Top = 0
+      AutoSize = True
+      Caption = 'New Region'
+      ImageIndex = 0
+      Style = tbsTextButton
+      OnClick = ToolButton1Click
+    end
+    object ToolButton2: TToolButton
+      Left = 75
+      Top = 0
+      Caption = 'Edit Region'
+      ImageIndex = 1
+      Style = tbsTextButton
+      OnClick = ToolButton2Click
+    end
+    object ToolButton3: TToolButton
+      Left = 146
+      Top = 0
+      Caption = 'Export Region'
+      ImageIndex = 2
+      Style = tbsTextButton
+      OnClick = ToolButton3Click
+    end
+  end
+  object CDSNpc: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 568
+    Top = 4
+    Data = {
+      7C0000009619E0BD0100000018000000060000000000030000007C0002496402
+      0049000000010005574944544802000200FF000A57616E646572547970650200
+      49000000010005574944544802000200FF000278310400010000000000027931
+      0400010000000000027832040001000000000002793204000100000000000000}
+    object CDSNpcId: TStringField
+      FieldName = 'Id'
+      Size = 255
+    end
+    object CDSNpcWanderType: TStringField
+      FieldName = 'WanderType'
+      Size = 255
+    end
+    object CDSNpcx1: TIntegerField
+      FieldName = 'x1'
+    end
+    object CDSNpcy1: TIntegerField
+      FieldName = 'y1'
+    end
+    object CDSNpcx2: TIntegerField
+      FieldName = 'x2'
+    end
+    object CDSNpcy2: TIntegerField
+      FieldName = 'y2'
+    end
   end
 end

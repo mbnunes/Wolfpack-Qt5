@@ -2,6 +2,7 @@ program WPGM;
 
 uses
   Forms,
+  midaslib,
   Configuration in '..\src\Configuration.pas' {FrmConfig},
   Main in '..\src\Main.pas' {frmMain},
   Overview in '..\src\Overview.pas' {frmOverview},
@@ -19,7 +20,14 @@ uses
   UORadarCol in '..\src\UORadarCol.pas',
   UOStatics in '..\src\UOStatics.pas',
   uPatternColor in '..\src\uPatternColor.pas' {frmPatternColor},
-  XMLReader in '..\src\XMLReader.pas';
+  XMLReader in '..\src\XMLReader.pas',
+  RegionWizard in '..\src\RegionWizard.pas' {frmRegionW1},
+  RegionWizard2Region in '..\src\RegionWizard2Region.pas' {frmRegionW2R},
+  RegionWizard3Region in '..\src\RegionWizard3Region.pas' {FrmRegionW3R},
+  RegionWizard4Region in '..\src\RegionWizard4Region.pas' {frmRergionW4R},
+  RegionWizard2Spawn in '..\src\RegionWizard2Spawn.pas' {frmRegionW2S},
+  RegionWizard3Spawn in '..\src\RegionWizard3Spawn.pas' {FrmRegionW3S},
+  RegionWizard4Spawn in '..\src\RegionWizard4Spawn.pas' {FrmRegionW4S};
 
 {$R *.RES}
 
@@ -32,5 +40,12 @@ begin
   Application.CreateForm(TfrmCenter, frmCenter);
   Application.CreateForm(TfrmChooseHue, frmChooseHue);
   Application.CreateForm(TfrmPatternColor, frmPatternColor);
+  Application.CreateForm(TfrmRegionW1, frmRegionW1);
+  Application.CreateForm(TfrmRegionW2R, frmRegionW2R);
+  Application.CreateForm(TFrmRegionW3R, FrmRegionW3R);
+  Application.CreateForm(TfrmRergionW4R, frmRergionW4R);
+  Application.CreateForm(TfrmRegionW2S, frmRegionW2S);
+  Application.CreateForm(TFrmRegionW3S, FrmRegionW3S);
+  Application.CreateForm(TFrmRegionW4S, FrmRegionW4S);
   Application.Run;
 end.

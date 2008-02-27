@@ -31,5 +31,19 @@
     <Transaction>2007/06/22 22:25:12.421.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLiteTable.pas=</Transaction>
     <Transaction>2007/06/22 22:25:12.453.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLite2.pas=</Transaction>
     <Transaction>2007/06/22 22:25:12.468.pas,E:\RGS\UOEmu\wpdev\WPGM\src\SQLite.pas=</Transaction>
+    <Transaction>2008/02/24 00:30:34.609.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard.pas</Transaction>
+    <Transaction>2008/02/24 00:30:34.609.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard.dfm</Transaction>
+    <Transaction>2008/02/24 00:43:24.703.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard2Region.pas</Transaction>
+    <Transaction>2008/02/24 00:43:24.703.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard2Region.dfm</Transaction>
+    <Transaction>2008/02/24 00:57:14.171.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Region.pas</Transaction>
+    <Transaction>2008/02/24 00:57:14.171.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Region.dfm</Transaction>
+    <Transaction>2008/02/24 01:24:29.718.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Region.pas</Transaction>
+    <Transaction>2008/02/24 01:24:29.718.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Region.dfm</Transaction>
+    <Transaction>2008/02/24 17:23:19.734.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard2Spawn.pas</Transaction>
+    <Transaction>2008/02/24 17:23:19.734.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard2Spawn.dfm</Transaction>
+    <Transaction>2008/02/24 17:28:36.281.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Spawn.pas</Transaction>
+    <Transaction>2008/02/24 17:28:36.281.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Spawn.dfm</Transaction>
+    <Transaction>2008/02/24 17:56:39.390.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Spawn.pas</Transaction>
+    <Transaction>2008/02/24 17:56:39.390.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Spawn.dfm</Transaction>
   </Transactions>
 </BorlandProject>

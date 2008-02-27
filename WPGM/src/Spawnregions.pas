@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, GR32, GR32_Blend, GR32_Image, UOMap, UOStatics, ClipBrd;
+  Dialogs, StdCtrls, GR32, GR32_Blend, GR32_Image, UOMap, UOStatics, ClipBrd,
+  ComCtrls, ToolWin, DB, DBClient;
 
 type
   TfrmRegions = class(TForm)
@@ -28,6 +29,17 @@ type
     btnZoomOut: TButton;
     btnZoomIn: TButton;
     btnRedraw: TButton;
+    ToolBar1: TToolBar;
+    ToolButton1: TToolButton;
+    ToolButton2: TToolButton;
+    ToolButton3: TToolButton;
+    CDSNpc: TClientDataSet;
+    CDSNpcId: TStringField;
+    CDSNpcWanderType: TStringField;
+    CDSNpcx1: TIntegerField;
+    CDSNpcy1: TIntegerField;
+    CDSNpcx2: TIntegerField;
+    CDSNpcy2: TIntegerField;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure pbMapPaintBuffer(Sender: TObject);
@@ -55,12 +67,36 @@ type
     procedure btnZoomOutClick(Sender: TObject);
     procedure btnZoomInClick(Sender: TObject);
     procedure btnRedrawClick(Sender: TObject);
+    procedure ToolButton1Click(Sender: TObject);
+    procedure ToolButton3Click(Sender: TObject);
+    procedure ToolButton2Click(Sender: TObject);
   private
     { Private declarations }
     Places: Array of TRect;
 
   public
     { Public declarations }
+    regiontype: boolean; // true: region, false: spawnregion
+    // for region
+    flags : tstringList;
+    regionname : string; // for spawnregion too
+    isguarded : boolean;
+    guardowner : string;
+    midlist : string;
+    resores : string;
+    snowchancemin: integer;
+    snowchancemax: integer;
+    rainchancemin: integer;
+    rainchancemax: integer;
+    //spawnregion
+    active : boolean;
+    maxnpcamount : integer;
+    delaymin : integer;
+    delaymax : integer;
+    npcspercycle : integer;
+    group : tstringlist;
+
+
     procedure ChangeMap(MapId: Byte);
     procedure RedrawBuffer(Buffer: TBitmap32; StartX: Integer; StartY: Integer; Width: Integer; Height: Integer);
 
@@ -68,6 +104,8 @@ type
     function BufferToMap(Point: TPoint): TPoint;
     procedure AddRect(X1: Integer; Y1: Integer; X2: Integer; Y2: Integer);
     procedure UpdateSelectionLabel;
+
+
   end;
 
 var
@@ -83,7 +121,7 @@ implementation
 
 {$R *.dfm}
 
-uses Main, Math, XMLReader, StrLib, UORadarCol;
+uses Main, Math, XMLReader, StrLib, UORadarCol, RegionWizard;
 
 function TfrmRegions.MapToBuffer(Point: TPoint): TPoint;
 begin
@@ -325,6 +363,165 @@ begin
     sbY.Position := OldPos;
     pbMap.Flush;
   end;
+end;
+
+procedure TfrmRegions.ToolButton1Click(Sender: TObject);
+begin
+  if not cdsnpc.Active then
+    cdsnpc.Open;
+  cdsnpc.EmptyDataSet;
+  
+  frmRegionW1.Show;
+end;
+
+procedure TfrmRegions.ToolButton2Click(Sender: TObject);
+begin
+  Application.MessageBox('Not yet implemented', 'Error', MB_OK+MB_ICONERROR);
+end;
+
+procedure TfrmRegions.ToolButton3Click(Sender: TObject);
+var
+  i: Integer;
+  Result: String;
+  ClipBoard: TClipboard;
+begin
+{
+
+<region name="Maiha">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<guardowner>Maiha Elite</guardowner>
+		<rainchance><random min="30" max="40" /></rainchance>
+		<snowchance><random min="45" max="55" /></snowchance>
+
+    <rectangle x1="396" y1="628" x2="396" y2="628" map="0" />
+</region>
+
+
+  regiontype: boolean; // true: region, false: spawnregion
+    // for region
+    flags : tstringList;
+    regionname : string; // for spawnregion too
+    isguarded : boolean;
+    guardowner : string;
+    midlist : string;
+    resores : string;
+    snowchancemin: integer;
+    snowchancemax: integer;
+    rainchancemin: integer;
+    rainchancemax: integer;
+    //spawnregion
+    active : boolean;
+    maxnpcamount : integer;
+    delaymin : integer;
+    delaymax : integer;
+    npcspercycle : integer;
+    group : tstringlist;
+
+}
+
+
+  ClipBoard := TClipBoard.Create;
+
+  if regiontype then
+  begin
+    result := format( #9 + ' <region name="%s">' + #13, [regionname]);
+
+    result := result + #9 +  #9 + '<flags>' + #13;
+    for I := 0 to flags.Count - 1 do
+    begin
+      Result := Result + Format( #9 + #9 + #9 + '<%s />' + #13, [flags.Strings[i]]);
+    end;
+
+    if isguarded then
+      Result := Result + #9 +  #9 + #9 + '<guarded />' + #13;
+       
+    result := Result +  #9 + #9 + '</flags>' + #13;
+
+
+    if isguarded then
+    begin
+      result := Result +  #9 + #9 + '<guards>' + #13 + #9 +  #9 +#9 + '<list id="standard_guards" />' + #13 +  #9 + #9 +	'</guards>' + #13;
+    end;
+
+    result := result +  #9 + #9 + Format('<guardowner>%s</guardowner>' + #13,[guardowner]);
+    result := result +  #9 + #9 + Format('<rainchance><random min="%d" max="%d" /></rainchance>' + #13,[rainchancemin,rainchancemax]);
+    result := result +  #9 + #9 + Format('<snowchance><random min="%d" max="%d" /></snowchance>' + #13,[snowchancemin,snowchancemax]);
+
+    for i := 0 to Length(Places) - 1 do begin
+      Result := Result + Format( #9 + #9 + '<rectangle x1="%d" y1="%d" x2="%d" y2="%d" map="%u" />' + #13, [Places[i].Left, Places[i].Top, Places[i].Right, Places[i].Bottom, cbMap.ItemIndex]);
+    end;
+    result := result +  #9 + '</region>' + #13;
+    showmessage('Region copied to clipboard!');
+  end
+  else
+  begin
+  {
+  <spawnregion id="Ice_0">
+		<active />
+		<maxnpcamount>45</maxnpcamount>
+		<delay min="2" max="10" />
+		<npcspercycle>3</npcspercycle>
+		<npc id="crystal_elemental"><npcwander type="circle" radius="5" /></npc>
+		<npc id="frost_spider"><npcwander type="circle" radius="5" /></npc>
+		<npc id="giant_ice_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="5" /></npc>
+		<rectangle from="5355,166" to="5485,362" map="0" />
+		<rectangle from="5326,292" to="5355,362" map="0" />
+		<rectangle from="5372,5" to="5475,109" map="0" />
+	</spawnregion>
+
+
+
+
+  }
+    result := Format( #9 + '<spawnregion id="%s">' + #13,[regionname]);
+    if active then
+      result := result +  #9 + #9 + '<active />' + #13
+    else
+      result := result + #9 +  #9 + '<inactive />' + #13;
+
+    for I := 0 to group.Count - 1 do
+    begin
+      Result := Result + Format( #9 + #9 + '<group>%s</group>' + #13, [group.Strings[i]]);
+    end;
+
+    result := result + Format( #9 + #9 + '<maxnpcamount>%d</maxnpcamount>' + #13,[maxnpcamount]);
+    result := result + Format( #9 + #9 + '<delay min="%d" max="%d" />' + #13,[delaymin,delaymax]);
+    result := result + Format( #9 + #9 + '<npcspercycle>%d</npcspercycle>' + #13,[npcspercycle]);
+
+    cdsnpc.First;
+    while not CDSnpc.Eof do
+    begin
+      result := result + Format( #9 + #9 + '<npc id="%s">',[CDSNpcId.AsString]);
+      if CDSNPCWanderType.AsString = 'circle' then
+        result := result + Format('<npcwander type="%s" radius="%d" />',[CDSNPCWanderType.AsString,CDSNpcx1.AsInteger])
+      else if CDSNPCWanderType.AsString = 'rectangle' then
+        result := result + Format('<npcwander type="%s" x1="%d" x2="%d" y1="%d" y2="%d" />',[CDSNPCWanderType.AsString,CDSNpcx1.AsInteger,CDSNpcy1.AsInteger,CDSNpcx2.AsInteger,CDSNpcy2.AsInteger])
+      else if CDSNPCWanderType.AsString = 'freely' then
+        result := result + '<npcwander type="freely" />'
+      else if CDSNPCWanderType.AsString = 'none' then
+        result := result + '<npcwander type="none" />';
+      result := result + '</npc>' + #13;
+      cdsnpc.Next;
+    end;
+
+    for i := 0 to Length(Places) - 1 do begin
+      Result := Result + Format( #9 + #9 + '<rectangle from="%d,%d" to="%d,%d" map="%u" />' + #13, [Places[i].Left, Places[i].Top, Places[i].Right, Places[i].Bottom, cbMap.ItemIndex]);
+    end;
+    Result := result +  #9 + '</spawnregion>' +#13;
+    showmessage('Spawnregion copied to clipboard!');
+  end;
+
+
+  ClipBoard.SetTextBuf(PChar(result));
+
+
 end;
 
 procedure TfrmRegions.FormDestroy(Sender: TObject);

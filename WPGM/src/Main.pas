@@ -413,7 +413,7 @@ var
 implementation
 
 uses UOUtilities, uChooseHue, Math, uCenter, Overview, Spawnregions,
-  uPatternColor     , Configuration;
+  uPatternColor     , Configuration, RegionWizard4Spawn;
 
 {$R *.DFM}
 
