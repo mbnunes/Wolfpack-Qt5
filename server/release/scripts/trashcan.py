@@ -13,7 +13,7 @@ def onDropOnItem( target, item ):
 	return False
 
 def timerPass( trashcan, args ):
-	if not trashcan or not trashcan.baseid != "trashcan":
+	if not trashcan or not trashcan.baseid == "trashcan":
 		return False
 
 	if trashcan.hastag( 'trash_timer' ) and trashcan.gettag( 'trash_timer' ) <= wolfpack.time.currenttime():
@@ -33,5 +33,5 @@ def onUse( char, item ):
 	if item.type != 1 or item.baseid != 'trashcan':
 		return False
 	item.settag( 'trash_timer', int( wolfpack.time.currenttime() + delete_time ) )
-	wolfpack.addtimer( delete_time, timerPass, [ item.serial ] )
+	item.addtimer( delete_time, timerPass, [ item.serial ] )
 	return False
