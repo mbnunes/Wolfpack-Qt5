@@ -320,6 +320,7 @@ def onDelete(object):
 		return 0
 
 	object.removescript('system.spawns')
+	object.deltag('spawner')
 	return 0
 
 #
