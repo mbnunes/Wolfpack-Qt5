@@ -37,6 +37,7 @@
 #include "basechar.h"
 #include "mapobjects.h"
 #include "timers.h"
+#include "basics.h"
 #include <QList>
 
 void cMulti::remove()
@@ -125,6 +126,8 @@ void cMulti::removeObject( cUObject* object )
 
 bool cMulti::inMulti( const Coord& pos )
 {
+	short x1t,y1t,x2t,y2t;
+
 	// Seek tiles with same x,y as pos
 	// Items on tables are 6 z higher than the ground
 	// Seek for tile which z value <= pos.z + 6 && z value >= pos.z - 6
@@ -135,7 +138,7 @@ bool cMulti::inMulti( const Coord& pos )
 	{
 		return false;
 	}
-
+		
 	bool itemunder = false;
 	bool itemabove = false;
 	QList<multiItem_st> items = multi->getEntries();
@@ -165,6 +168,25 @@ bool cMulti::inMulti( const Coord& pos )
 		{
 			if ( itemabove ) return true;
 			itemunder = true;
+		}
+	}
+
+	// I'm not in a multi, but I could be in a extended area...
+	// If this multi has the tag 'MultiArea' defined we can use this to know if
+	// we are inside a multi or not.
+	if (this->hasTag("MultiArea") )
+	{
+		x1t = pos_.x + x1_;
+		y1t = pos_.y + y1_;
+		x2t = pos_.x + x2_;
+		y2t = pos_.y + y2_;
+		
+		if ( ( ( pos.x >= x1t && pos.x <= x2t )	|| ( pos.x >= x2t && pos.x <= x2t ) ) 
+			&& ( ( pos.y >= y1t && pos.y <= y2t ) 
+			|| ( pos.y >= y2t && pos.y <= y1t ) ) 
+			&& ((pos.z <= (h_ + 6 )) && (pos.z >= (pos_.z - 6))) ) 
+		{
+			return true;
 		}
 	}
 
@@ -806,4 +828,101 @@ bool cMulti::canBoatMoveTo( const Coord& pos )
 	}
 
 	return true;
+}
+ 
+void cMulti::processNode( const cElement* Tag, uint hash )
+{
+/*
+#define OUTPUT_HASH(x) QString("%1 = %2\n").arg(x).arg( elfHash( x ), 0, 16)
+	Console::instance()->send(
+		OUTPUT_HASH("rectangle")
+		);
+#undef OUTPUT_HASH
+*/
+
+	flagChanged();
+	// we do this as we're going to modify the element
+	QString Value = Tag->value();
+
+	if ( !hash )
+		hash = Tag->nameHash();
+
+	switch ( hash )
+	{
+
+		case 0xaa83695: // rectangle
+		
+			//TODO: Support multiple rectangle tags
+			// <rectangle x1="-3" y1="-4" x2="+2" y2="+6" h="30" />
+			this->setX1( Tag->getAttribute( "x1" ).toShort());
+			this->setX2( Tag->getAttribute( "x2" ).toShort());
+			this->setY1( Tag->getAttribute( "y1" ).toShort());
+			this->setY2( Tag->getAttribute( "y2" ).toShort());
+			this->setHeight( Tag->getAttribute( "h" ).toUShort());
+
+			if ( y1_ > y2_ )
+			{
+				std::swap( y1_, y2_ );
+			}
+
+			if ( x1_ > x2_ )
+			{
+				std::swap( x1_, x2_ );
+			}
+
+			// Lets store the MultiArea
+			if (this->hasTag( "MultiArea" ))
+			{
+				this->removeTag("MultiArea");
+			}
+
+			this->setTag("MultiArea",QString("%1,%2,%3,%4,%5").arg(x1_).arg(y1_).arg(x2_).arg(y2_).arg(h_));
+			
+			break;
+
+		default:
+		{
+			cItem::processNode( Tag );
+		}
+		break;
+	}
+}
+
+void cMulti::postload( unsigned int /*version*/ )
+{
+
+	if ( container_ )
+	{
+		pos_.setInternalMap();
+	}
+
+	if ( !container_ && !pos_.isInternalMap() )
+	{
+		MapObjects::instance()->add( this );
+	}
+
+	// Lets load the data from MultiArea tag.
+	if (this->hasTag("MultiArea"))
+	{
+		//" 1; 2; 3; 4; 5"
+		// x1,y1,x2,y2,h
+		QString multiarea("");
+		
+		multiarea.append(this->getTag("MultiArea").toString());
+		QStringList elements = multiarea.split(",");
+		
+		if (elements.count() == 5)
+		{
+			this->setX1(elements.at(0).toShort());
+			this->setY1(elements.at(1).toShort());
+			this->setX2(elements.at(2).toShort());
+			this->setY2(elements.at(3).toShort());
+			this->setHeight(elements.at(4).toUShort());
+		}
+		else
+		{
+			Console::instance()->log( LOG_WARNING, tr("The TAG 'MultiArea' is mal-formed for multi <%1> at <%2,%3,%4,%5>").arg(this->id_).arg(this->pos_.x).arg(this->pos_.y).arg(this->pos_.z).arg(this->pos_.map)  + "\n" );
+		}
+
+	}
 }

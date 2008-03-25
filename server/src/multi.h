@@ -37,12 +37,30 @@ class cMulti : public cItem
 {
 private:
 	static unsigned char classid;
+	unsigned char changed_ : 1;
+
+	void flagChanged()
+	{
+		changed_ = true;
+	} // easier to debug, compiler should make it inline;
 
 protected:
 	// Objects in the Multi.
 	// Items that are in the Multi
 	// are removed along with it.
 	QList<cUObject*> objects;
+	
+	// To read the rectangle tag.
+	virtual void processNode( const cElement* Tag, uint hash = 0 );
+	// To load data from MultiArea tag.
+	virtual void postload( unsigned int version );
+	// Multi size and height
+	short x1_;
+	short y1_;
+	short x2_;
+	short y2_;
+	
+	ushort h_;
 
 public:
 	static void setClassid( unsigned char id )
@@ -108,6 +126,50 @@ public:
 
 	// Boat Specifics
 	bool canBoatMoveTo( const Coord& pos );
+
+	// Multi size and height
+	void setX1(short value)
+	{
+		this->x1_ = value;
+	} 
+	void setY1(short value)
+	{
+		this->y1_ = value;
+	} 
+	void setX2(short value)
+	{
+		this->x2_ = value;
+	} 
+	void setY2(short value)
+	{
+		this->y2_ = value;
+	} 
+	void setHeight(ushort value)
+	{
+		this->h_ = value;
+	}
+
+	short getX1() const
+	{
+		return x1_;
+	} 
+	short getY1() const
+	{
+		return y1_;
+	} 
+	short getX2() const
+	{
+		return x2_;
+	} 
+	short getY2() const
+	{
+		return y2_;
+	} 
+	ushort getHeight() const
+	{
+		return h_;
+	} 
+	
 };
 
 #endif

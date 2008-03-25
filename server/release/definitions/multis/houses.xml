@@ -1250,4 +1250,101 @@
 		<category>Foundation 3Story 18x18</category>
 	</multi>
 
+	<!-- 
+	
+		MultiArea example
+
+	-->
+	<multi id="small_stone_and_plaster_house_fence">
+		<inherit id="smallhouse_items" />
+		<name>Small Stone and Plaster House</name>
+		<id>0x4064</id>
+		<nodecay />
+
+		<item x="-3" y="4" z="0" id="3b5" />
+		<item x="-3" y="5" z="0" id="3b5" /> 
+		<item x="-3" y="6" z="0" id="3b5" /> 
+		<item x="-3" y="7" z="0" id="3b5" /> 
+		<item x="-3" y="8" z="0" id="3b5" /> 
+		
+		<item x="3" y="8" z="0" id="3b3" />
+
+		<item x="3" y="4" z="0" id="3b5" />
+		<item x="3" y="5" z="0" id="3b5" /> 
+		<item x="3" y="6" z="0" id="3b5" /> 
+		<item x="3" y="7" z="0" id="3b5" /> 
+		
+		<item x="3" y="8" z="0" id="3b4" /> 
+
+		<item x="2" y="8" z="0" id="3b4" />
+		<item x="1" y="8" z="0" id="3b4" /> 
+		
+		<door x="0" y="8" z="0" id="0x83b" />
+
+		<item x="-1" y="8" z="0" id="3b4" />
+		<item x="-2" y="8" z="0" id="3b4" />
+
+		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+
+		<!-- Custom area for a multi -->
+		<rectangle x1="-3" y1="8" x2="3" y2="-3" h="30"/>
+
+		<category>Special Small Stone and Plaster House</category>
+		
+	</multi>
+
+	<multi id="special_large_tower">
+		<name>Special Large Tower</name>
+		<id>0x407a</id>
+		<nodecay />
+		<door x="0" y="6" z="7" id="0x6c5" /> <!-- Iron door facing south -->
+		<door x="1" y="6" z="7" id="0x6c7" /> <!-- Wooden door facing south -->
+		<sign x="4" y="7" z="5" id="0xbd0" />
+		<door x="1" y="4" z="46" id="0x67d" />
+		<door x="1" y="4" z="26" id="0x67d" />
+		<door x="3" y="-2" z="7" id="0x6c5" />
+		<!-- Fence -->
+		<!-- Top -->
+		<item x="-7" y="7" z="0" id="864" />
+		<item x="-7" y="8" z="0" id="864" />
+		<item x="-7" y="9" z="0" id="864" />
+		<item x="-7" y="10" z="0" id="864" />
+		<item x="-7" y="11" z="0" id="864" />
+		<item x="-7" y="12" z="0" id="864" />
+		<item x="-7" y="13" z="0" id="864" />
+		<!-- Bottom -->
+		<item x="8" y="7" z="0" id="864" />
+		<item x="8" y="8" z="0" id="864" />
+		<item x="8" y="9" z="0" id="864" />
+		<item x="8" y="10" z="0" id="864" />
+		<item x="8" y="11" z="0" id="864" />
+		<item x="8" y="12" z="0" id="864" />
+		<!-- Bottom to Front -->
+		<item x="8" y="13" z="0" id="862" />
+		<!-- Front -->
+		<item x="7" y="13" z="0" id="863" />
+		<item x="6" y="13" z="0" id="863" />
+		<item x="5" y="13" z="0" id="863" />
+		<item x="4" y="13" z="0" id="863" />
+		<item x="3" y="13" z="0" id="863" />
+		<item x="2" y="13" z="0" id="863" />
+		<item x="1" y="13" z="0" id="863" />
+		<item x="-1" y="13" z="0" id="863" />
+		<item x="-2" y="13" z="0" id="863" />
+		<item x="-3" y="13" z="0" id="863" />
+		<item x="-4" y="13" z="0" id="863" />
+		<item x="-5" y="13" z="0" id="863" />
+		<item x="-6" y="13" z="0" id="863" />
+		<!-- Gate -->
+		<item x="0" y="13" z="0" id="868" />
+
+		<!-- Custom area for a multi -->
+		<rectangle x1="-7" y1="13" x2="8" y2="-7" h="70"/>
+
+		<scripts>housing.house</scripts> <!-- Because of onAttach this is not a basescript -->
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Special Large Tower</category>
+	</multi>
+
 </definitions>
