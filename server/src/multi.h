@@ -55,12 +55,16 @@ protected:
 	// To load data from MultiArea tag.
 	virtual void postload( unsigned int version );
 	// Multi size and height
-	short x1_;
-	short y1_;
-	short x2_;
-	short y2_;
-	
-	ushort h_;
+	struct rect_st
+	{
+		short x1;
+		short x2;
+		short y1;
+		short y2;
+		ushort height;
+	};
+
+	QList<rect_st> rectangles_;
 
 public:
 	static void setClassid( unsigned char id )
@@ -128,46 +132,14 @@ public:
 	bool canBoatMoveTo( const Coord& pos );
 
 	// Multi size and height
-	void setX1(short value)
+	void setRectangles(QList<rect_st> value)
 	{
-		this->x1_ = value;
+		this->rectangles_ = value;
 	} 
-	void setY1(short value)
+	
+	QList<rect_st> getRectangles() const
 	{
-		this->y1_ = value;
-	} 
-	void setX2(short value)
-	{
-		this->x2_ = value;
-	} 
-	void setY2(short value)
-	{
-		this->y2_ = value;
-	} 
-	void setHeight(ushort value)
-	{
-		this->h_ = value;
-	}
-
-	short getX1() const
-	{
-		return x1_;
-	} 
-	short getY1() const
-	{
-		return y1_;
-	} 
-	short getX2() const
-	{
-		return x2_;
-	} 
-	short getY2() const
-	{
-		return y2_;
-	} 
-	ushort getHeight() const
-	{
-		return h_;
+		return rectangles_;
 	} 
 	
 };

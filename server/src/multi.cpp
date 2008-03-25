@@ -127,6 +127,7 @@ void cMulti::removeObject( cUObject* object )
 bool cMulti::inMulti( const Coord& pos )
 {
 	short x1t,y1t,x2t,y2t;
+	ushort h;
 
 	// Seek tiles with same x,y as pos
 	// Items on tables are 6 z higher than the ground
@@ -172,24 +173,24 @@ bool cMulti::inMulti( const Coord& pos )
 	}
 
 	// I'm not in a multi, but I could be in a extended area...
-	// If this multi has the tag 'MultiArea' defined we can use this to know if
-	// we are inside a multi or not.
-	if (this->hasTag("MultiArea") )
+	// If there is a rectangles set we could be in a Multi area.
+	for(int i = 0; i < this->rectangles_.count(); i++)
 	{
-		x1t = pos_.x + x1_;
-		y1t = pos_.y + y1_;
-		x2t = pos_.x + x2_;
-		y2t = pos_.y + y2_;
-		
+		x1t = pos_.x + this->rectangles_.at(i).x1;
+		y1t = pos_.y + this->rectangles_.at(i).y1;
+		x2t = pos_.x + this->rectangles_.at(i).x2;
+		y2t = pos_.y + this->rectangles_.at(i).y2;
+		h = this->rectangles_.at(i).height;
+					
 		if ( ( ( pos.x >= x1t && pos.x <= x2t )	|| ( pos.x >= x2t && pos.x <= x2t ) ) 
 			&& ( ( pos.y >= y1t && pos.y <= y2t ) 
 			|| ( pos.y >= y2t && pos.y <= y1t ) ) 
-			&& ((pos.z <= (h_ + 6 )) && (pos.z >= (pos_.z - 6))) ) 
+			&& ((pos.z <= (h + 6 )) && (pos.z >= (pos_.z - 6))) ) 
 		{
 			return true;
 		}
 	}
-
+	
 	return false;
 }
 
@@ -852,32 +853,41 @@ void cMulti::processNode( const cElement* Tag, uint hash )
 
 		case 0xaa83695: // rectangle
 		
-			//TODO: Support multiple rectangle tags
 			// <rectangle x1="-3" y1="-4" x2="+2" y2="+6" h="30" />
-			this->setX1( Tag->getAttribute( "x1" ).toShort());
-			this->setX2( Tag->getAttribute( "x2" ).toShort());
-			this->setY1( Tag->getAttribute( "y1" ).toShort());
-			this->setY2( Tag->getAttribute( "y2" ).toShort());
-			this->setHeight( Tag->getAttribute( "h" ).toUShort());
+			rect_st toinsert_;
+			toinsert_.x1 = Tag->getAttribute( "x1" ).toShort();
+			toinsert_.x2 = Tag->getAttribute( "x2" ).toShort();
+			toinsert_.y1 = Tag->getAttribute( "y1" ).toShort();
+			toinsert_.y2 = Tag->getAttribute( "y2" ).toShort();
+			toinsert_.height = Tag->getAttribute( "h" ).toUShort();
 
-			if ( y1_ > y2_ )
+			if ( toinsert_.y1 > toinsert_.y2 )
 			{
-				std::swap( y1_, y2_ );
+				std::swap( toinsert_.y1, toinsert_.y2 );
 			}
 
-			if ( x1_ > x2_ )
+			if ( toinsert_.x1 > toinsert_.x2 )
 			{
-				std::swap( x1_, x2_ );
+				std::swap( toinsert_.x1, toinsert_.x2 );
 			}
 
-			// Lets store the MultiArea
-			if (this->hasTag( "MultiArea" ))
-			{
-				this->removeTag("MultiArea");
-			}
+			this->rectangles_.push_back( toinsert_ );
 
-			this->setTag("MultiArea",QString("%1,%2,%3,%4,%5").arg(x1_).arg(y1_).arg(x2_).arg(y2_).arg(h_));
+			ushort rectcount;
 			
+			if (this->hasTag("rect_count"))
+			{
+				rectcount = this->getTag("rect_count").toInt();
+			}
+			else
+			{
+				this->setTag("rect_count",0);
+				rectcount = 0;
+			}
+			
+			this->setTag(QString("MultiArea.%1").arg(rectcount),QString("%1,%2,%3,%4,%5").arg(toinsert_.x1).arg(toinsert_.y1).arg(toinsert_.x2).arg(toinsert_.y2).arg(toinsert_.height));
+			this->setTag("rect_count",++rectcount);
+
 			break;
 
 		default:
@@ -901,28 +911,39 @@ void cMulti::postload( unsigned int /*version*/ )
 		MapObjects::instance()->add( this );
 	}
 
-	// Lets load the data from MultiArea tag.
+	// If we have an old MultiArea tag we have to convert it to the new format.
 	if (this->hasTag("MultiArea"))
+	{
+		QString tmp = this->getTag("MultiArea").toString();
+		this->setTag("MultiArea.0",tmp);
+		this->removeTag("MultiArea");
+	}
+	// Lets load the data from MultiArea tags.
+	int i = 0;
+	while (this->hasTag(QString("MultiArea.%1").arg(i)))
 	{
 		//" 1; 2; 3; 4; 5"
 		// x1,y1,x2,y2,h
-		QString multiarea("");
+		QString multiarea = this->getTag(QString("MultiArea.%1").arg(i)).toString();
 		
-		multiarea.append(this->getTag("MultiArea").toString());
 		QStringList elements = multiarea.split(",");
 		
 		if (elements.count() == 5)
 		{
-			this->setX1(elements.at(0).toShort());
-			this->setY1(elements.at(1).toShort());
-			this->setX2(elements.at(2).toShort());
-			this->setY2(elements.at(3).toShort());
-			this->setHeight(elements.at(4).toUShort());
+			rect_st toinsert_;
+			toinsert_.x1 = elements.at(0).toShort();
+			toinsert_.x2 = elements.at(2).toShort();
+			toinsert_.y1 = elements.at(1).toShort();
+			toinsert_.y2 = elements.at(3).toShort();
+			toinsert_.height = elements.at(4).toUShort();
+
+			this->rectangles_.push_back( toinsert_ );
 		}
 		else
 		{
-			Console::instance()->log( LOG_WARNING, tr("The TAG 'MultiArea' is mal-formed for multi <%1> at <%2,%3,%4,%5>").arg(this->id_).arg(this->pos_.x).arg(this->pos_.y).arg(this->pos_.z).arg(this->pos_.map)  + "\n" );
+			Console::instance()->log( LOG_WARNING, tr("The TAG 'MultiArea.%1' is mal-formed for multi <%2> at <%3,%4,%5,%6>").arg(i).arg(this->id_).arg(this->pos_.x).arg(this->pos_.y).arg(this->pos_.z).arg(this->pos_.map)  + "\n" );
 		}
+		i++;
 
 	}
 }
