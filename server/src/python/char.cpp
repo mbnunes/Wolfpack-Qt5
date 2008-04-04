@@ -2147,7 +2147,7 @@ static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 
 	if ( pos.map != self->pChar->pos().map )
 	{
-		PyErr_Warn( PyExc_Warning, "Cannot move to a different map using goto." );
+		PyErr_WarnEx( PyExc_Warning, "Cannot move to a different map using goto." , 1);
 		Py_RETURN_FALSE;
 	}
 
