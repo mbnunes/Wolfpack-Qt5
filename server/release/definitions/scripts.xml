@@ -188,7 +188,6 @@
 	<script>commands.sysmessage</script>
 	<script>commands.tags</script>
 	<script>commands.tele</script>
-	<script>commands.test</script>
 	<script>commands.testapi</script>
 	<script>commands.testlos</script>
 	<script>commands.tile</script>
