@@ -2,8 +2,8 @@
 SOURCES += \
            $$PWD/dict.cpp \
            $$PWD/errors.cpp \
-	   $$PWD/exec.cpp \
-	   $$PWD/import.cpp \
+		   $$PWD/exec.cpp \
+	       $$PWD/import.cpp \
            $$PWD/list.cpp \
            $$PWD/long.cpp \
            $$PWD/module.cpp \
@@ -22,8 +22,9 @@ SOURCES += \
            $$PWD/object/class.cpp \
            $$PWD/object/enum.cpp \
            $$PWD/object/function.cpp \
+           $$PWD/object/function_doc_signature.cpp \
            $$PWD/object/inheritance.cpp \
            $$PWD/object/iterator.cpp \
            $$PWD/object/life_support.cpp \
            $$PWD/object/pickle_support.cpp \
-	   $$PWD/object/stl_iterator.cpp
+	       $$PWD/object/stl_iterator.cpp
