@@ -25,6 +25,8 @@
 * Wolfpack Homepage: http://developer.berlios.de/projects/wolfpack/
 */
 #include <QtGui>
+#include <QUrl>
+#include <QDesktopServices>
 
 #include "mainwindow.h"
 #include "qwpevents.h"
@@ -328,17 +330,9 @@ void MainWindow::listusers()
 	Console::instance()->send( tr( "Total Users Online: %1\n" ).arg( i ) );
 }
 
-#if defined( Q_OS_WIN )
-#include <windows.h>
-#endif
-
 void MainWindow::homepage()
 {
-#if defined ( Q_OS_WIN )
-	ShellExecuteA(NULL, "open", "http://www.wpdev.org", NULL, NULL, SW_SHOWNORMAL);
-#else
-	QMessageBox::information( this, tr("Wolfpack homepage"), tr("Wolfpack doesn't know how to start your default browser\nPlease access http://www.wpdev.org/ manually") );
-#endif
+	QDesktopServices::openUrl( QString("http://www.wpdev.org") );
 }
 
 void MainWindow::about()
@@ -379,7 +373,7 @@ void cConsole::send( const QString& sMessage )
 	// Append to the linebuffer
 	linebuffer_.append( sMessage );
 
-	// Resend the Progress message if neccesary.
+	// Resend the Progress message if necessary.
 	if ( !progress.isEmpty() )
 	{
 		QString temp = progress;

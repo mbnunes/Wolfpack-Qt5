@@ -29,8 +29,7 @@ TrayIcon::TrayIcon (QObject *parent) : QSystemTrayIcon (parent)
 	setContextMenu (systray_menu);
 }
 
-void
-TrayIcon::build_menu ()
+void TrayIcon::build_menu ()
 {
 	MainWindow *mw = dynamic_cast<MainWindow*> (parent ());
 
@@ -41,8 +40,7 @@ TrayIcon::build_menu ()
 	}
 }
 
-void
-TrayIcon::toggle_hide ()
+void TrayIcon::toggle_hide ()
 {
 	MainWindow *pw = dynamic_cast<MainWindow*> (parent ());
 	if (pw->isHidden ()) {
@@ -54,8 +52,7 @@ TrayIcon::toggle_hide ()
 	}
 }
 
-void 
-TrayIcon::systray_trigger (QSystemTrayIcon::ActivationReason reason)
+void TrayIcon::systray_trigger (QSystemTrayIcon::ActivationReason reason)
 {
 	MainWindow *pw = dynamic_cast<MainWindow*> (parent ());
 
