@@ -99,7 +99,6 @@ HEADERS += \
 	../src/items.h \
 	../src/log.h \
 	../src/mapobjects.h \
-	../src/md5.h \
 	../src/multi.h \
 	../src/npc.h \
 	../src/optionparser.h \
@@ -157,7 +156,6 @@ SOURCES += \
 	../src/items.cpp \
 	../src/log.cpp \
 	../src/mapobjects.cpp \
-	../src/md5.cpp \
 	../src/multi.cpp \
 	../src/npc.cpp \
 	../src/optionparser.cpp \

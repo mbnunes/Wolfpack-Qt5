@@ -32,11 +32,11 @@
 
 #include <QString>
 #include <QDataStream>
+#include <QCryptographicHash>
 
 #include "encryption.h"
 #include "../definitions.h"
 #include "../console.h"
-#include "../md5.h"
 #include "../log.h"
 #include "../basics.h"
 
@@ -153,10 +153,7 @@ void cGameEncryption::init( unsigned int seed )
 
 	// Create a MD5 hash of the twofish crypt data and use it as a 16-byte xor table
 	// for encrypting the server->client stream.
-	cMd5 md5;
-	md5.update(tmpBuffer, 0x100);
-	md5.finalize();
-	md5.rawDigest(xorData);
+	memcpy( xorData, QCryptographicHash::hash( QByteArray( (char*)tmpBuffer, 0x100 ), QCryptographicHash::Md5 ).data(), 16 );
 }
 
 /*!

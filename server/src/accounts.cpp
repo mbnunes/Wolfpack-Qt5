@@ -34,7 +34,6 @@
 #include "commands.h"
 #include "player.h"
 #include "world.h"
-#include "md5.h"
 #include "scriptmanager.h"
 #include "pythonscript.h"
 #include "network/network.h"
@@ -45,6 +44,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlDatabase>
+#include <QCryptographicHash>
 
 #define ACCT_DATABASE_VERSION 2
 
@@ -89,7 +89,7 @@ void cAccount::setPassword( const QString& password )
 {
 	if ( Config::instance()->hashAccountPasswords() )
 	{
-		password_ = cMd5::fastDigest( password );
+		password_ = QLatin1String( QCryptographicHash::hash( password.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
 	}
 	else
 	{
@@ -358,7 +358,7 @@ cAccount* cAccounts::authenticate( const QString& login, const QString& password
 		// Regard hashed passwords
 		if ( Config::instance()->hashAccountPasswords() )
 		{
-			authorized = it.value()->password() == cMd5::fastDigest( password );
+			authorized = it.value()->password() == QCryptographicHash::hash( password.toLocal8Bit(), QCryptographicHash::Md5 ).toHex();
 		}
 		else
 		{
@@ -641,7 +641,7 @@ void cAccounts::load()
 				{
 					if ( Config::instance()->convertUnhashedPasswords() )
 					{
-						account->password_ = cMd5::fastDigest( account->password_ );
+						account->password_ = QLatin1String( QCryptographicHash::hash( account->password_.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
 						Console::instance()->log( LOG_NOTICE, tr( "Hashed account password for '%1'.\n" ).arg( account->login_ ) );
 					}
 					else

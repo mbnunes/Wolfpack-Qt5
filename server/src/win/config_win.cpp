@@ -39,7 +39,7 @@
 
 /*!
 	\internal
-	Tries to figure where UO client was instaled, thru the registry keys
+	Tries to figure where UO client was installed, using the registry keys
 */
 static QString getUOPath()
 {

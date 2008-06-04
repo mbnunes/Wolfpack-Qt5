@@ -27,13 +27,13 @@
 
 #include <QString>
 #include <QByteArray>
+#include <QCryptographicHash>
 #include <limits.h>
 
 #include "engine.h"
 #include "utilities.h"
 #include "../accounts.h"
 #include "../basechar.h"
-#include "../md5.h"
 #include "../serverconfig.h"
 
 #include "../player.h"
@@ -231,7 +231,7 @@ static PyObject* wpAccount_checkpassword( wpAccount* self, PyObject* args )
 
 	if ( Config::instance()->hashAccountPasswords() )
 	{
-		authorized = cMd5::fastDigest( password ) == self->account->password();
+		authorized = QCryptographicHash::hash( password, QCryptographicHash::Md5 ).toHex() == self->account->password();
 	}
 	else
 	{
