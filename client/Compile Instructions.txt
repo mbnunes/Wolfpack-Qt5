@@ -1,21 +1,26 @@
 
---------------------------------------------------------------------
-Using Microsoft Visual Sutdio .NET
---------------------------------------------------------------------
+1. Please download Qt 4.4
 
-1. Please download QT 4.0.1 from http://www.trolltech.com/download/qt/windows.html
-and install it. Then download the patch from http://andy.jgknet.de/misc/msvc-bcc32-Qt-4.0.1patch.zip
-and apply it to your QT installation and compile. (Both Debug and Release binaries). Once you are done with that,
-make sure QTDIR is set to your QT directory and QMAKESPEC is set to win32-msvc.net (Both are environmental
-variables). If you change those variables, you have to restart your IDE.
+1.1. Download from Trolltech
+http://www.trolltech.com
+This is appropiate if you are not on the Windows platform or if you are using MinGW on windows.
 
-2. You need OpenAL to compile the client (with sound). Get that at http://www.openal.org and put 
-the libs/ and include/ directory into your library and header search path.
+1.2. Download precompiled for Microsoft Visual Studio
+If you are using Microsoft Visual Studio (Or the Intel compiler) and find compiling Qt
+yourself tiresome, you can download a precompiled version of Qt 4.4 for Visual Studio here:
+http://pallas.copai.de/index.php?option=com_content&view=article&id=49&Itemid=58
 
-3. Download the Python 2.4.1 source package from http://www.python.org and compile it with Visual Studio.
-(Open PCBuil/python.sln and compile the entire solution in both debug and release mode. Ignore errors for
-certain projects since only pythoncore is important). Once you're done, make sure that Include/ and Pc/
-are included in your header search path and that PCBuild/ is included in your library search path.
+2. Download Python 2.5 from http://www.python.org (Not neccessary if your system already
+includes the Python 2.5 libraries). If you want to compile the client in debug mode, you 
+will need to build Python yourself. Please follow their build instructions for this. If you
+only want to build the release version, the Python 2.5 Windows installer includes a precompiled
+python25.lib for you.
 
-4. Open the UoClient.sln with the IDE and press compile. It should work
-out of the box.
+4. Compile the client
+
+4.1 Using Visual Studio
+Run "qmake -tp vc" in the client directory and open the resulting uoclient.vcproj file with your IDE.
+
+4.2 Using QMake
+Run "qmake" in the client directory and run either "nmake" to build everything or any other appropiate
+build command for your platform (i.e. "make" on Linux).
