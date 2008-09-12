@@ -59,6 +59,8 @@
 
 #if defined(Q_CC_MSVC)
 #pragma warning(disable: 4146)
+// The following line disables the MSVC++ warning about fopen_s
+#pragma warning(disable: 4996)
 #endif
 
 // Not thread safe (unless auto-initialization is avoided and each thread has

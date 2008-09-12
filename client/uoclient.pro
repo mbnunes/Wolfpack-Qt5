@@ -10,12 +10,15 @@ CONFIG += debug
 win32:CONFIG += windows
 unix:CONFIG += x11 
 unix:INCLUDEPATH += /usr/include/GL /usr/include/X11 /usr/include
-win32:INCLUDEPATH += C:/openal/include
-win32:LIBPATH+= C:/openal/libs
-
+win32:INCLUDEPATH += 3rdparty/openal/include C:/Python25/include/
+# FIXME: 64bit windows
+win32:LIBPATH+= 3rdparty/openal/libs/Win32/ C:/Python25/libs/
 
 # No idea what it does
 #DEFINES += QT_CLEAN_NAMESPACE QT_COMPAT_WARNINGS
+
+# Take care of dual cores
+win32:QMAKE_CXXFLAGS_RELEASE += -MP
 
 RC_FILE = uoclient.rc
 CONFIG(release, debug|release):OBJECTS_DIR = obj/release
@@ -26,7 +29,7 @@ win32:DEFINES -= UNICODE
 #win32:LIBS += advapi32.lib shell32.lib openal32.lib
 win32:LIBS += -ladvapi32 -lshell32 -lopenal32
 
-unix:LIBS += -lGL -lGLU -lpython2.4 -lopenal
+unix:LIBS += -lGL -lGLU -lpython2.5 -lopenal
 
 DEPENDPATH += src
 INCLUDEPATH += include;libs/include

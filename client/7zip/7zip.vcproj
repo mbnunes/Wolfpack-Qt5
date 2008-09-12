@@ -1,72 +1,123 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="9,00"
 	Name="7zip"
 	ProjectGUID="{44B19E5A-1B74-4F77-8B62-10780FF50D00}"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	TargetFrameworkVersion="131072"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
 			ConfigurationType="2"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".;7zip\Bundles\Format7zExtract"
 				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_USRDLL;MY7Z_EXPORTS;EXCLUDE_COM;NO_REGISTRY;EXTRACT_ONLY;FORMAT_7Z;COMPRESS_LZMA;COMPRESS_COPY;COMPRESS_MF_MT;COMPRESS_BCJ_X86;COMPRESS_BCJ2;_NO_CRYPTO"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(SolutionDir)/release/7zipd.dll"
 				LinkIncremental="2"
 				ModuleDefinitionFile="7Zip\archive\archive.def"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/7zip.pdb"
 				SubSystem="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				ImportLibrary="$(SolutionDir)/7zipd.lib"
-				TargetMachine="1"/>
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="Release"
 			IntermediateDirectory="Release"
 			ConfigurationType="2"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories=".;7zip\Bundles\Format7zExtract"
@@ -74,41 +125,53 @@
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(SolutionDir)/release/7zip.dll"
 				LinkIncremental="1"
 				ModuleDefinitionFile="7Zip\archive\archive.def"
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				RandomizedBaseAddress="1"
+				DataExecutionPrevention="0"
 				ImportLibrary="$(SolutionDir)/7zip.lib"
-				TargetMachine="1"/>
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -116,358 +179,462 @@
 	<Files>
 		<Filter
 			Name="Spec"
-			Filter="">
+			>
 			<File
-				RelativePath=".\7zip\Archive\7z\7z.ico">
+				RelativePath=".\7zip\Archive\7z\7z.ico"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Archive.def">
+				RelativePath=".\7zip\Archive\Archive.def"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\DllExports.cpp">
+				RelativePath=".\7zip\Archive\7z\DllExports.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Bundles\Format7zExtract\resource.rc">
+				RelativePath=".\7zip\Bundles\Format7zExtract\resource.rc"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Bundles\Format7zExtract\StdAfx.cpp">
+				RelativePath=".\7zip\Bundles\Format7zExtract\StdAfx.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Bundles\Format7zExtract\StdAfx.h">
+				RelativePath=".\7zip\Bundles\Format7zExtract\StdAfx.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Common"
-			Filter="">
+			>
 			<File
-				RelativePath=".\Common\Alloc.cpp">
+				RelativePath=".\Common\Alloc.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\Alloc.h">
+				RelativePath=".\Common\Alloc.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\AutoPtr.h">
+				RelativePath=".\Common\AutoPtr.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\Buffer.h">
+				RelativePath=".\Common\Buffer.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\CRC.cpp">
+				RelativePath=".\Common\CRC.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\CRC.h">
+				RelativePath=".\Common\CRC.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\Defs.h">
+				RelativePath=".\Common\Defs.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\IntToString.cpp">
+				RelativePath=".\Common\IntToString.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\IntToString.h">
+				RelativePath=".\Common\IntToString.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\MyCom.h">
+				RelativePath=".\Common\MyCom.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\MyGuidDef.h">
+				RelativePath=".\Common\MyGuidDef.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\MyInitGuid.h">
+				RelativePath=".\Common\MyInitGuid.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\MyUnknown.h">
+				RelativePath=".\Common\MyUnknown.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\NewHandler.cpp">
+				RelativePath=".\Common\NewHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\NewHandler.h">
+				RelativePath=".\Common\NewHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\String.cpp">
+				RelativePath=".\Common\String.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\String.h">
+				RelativePath=".\Common\String.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\StringConvert.cpp">
+				RelativePath=".\Common\StringConvert.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\StringConvert.h">
+				RelativePath=".\Common\StringConvert.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\StringToInt.cpp">
+				RelativePath=".\Common\StringToInt.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\StringToInt.h">
+				RelativePath=".\Common\StringToInt.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\Types.h">
+				RelativePath=".\Common\Types.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\Vector.cpp">
+				RelativePath=".\Common\Vector.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\Vector.h">
+				RelativePath=".\Common\Vector.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\Wildcard.cpp">
+				RelativePath=".\Common\Wildcard.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Common\Wildcard.h">
+				RelativePath=".\Common\Wildcard.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Windows"
-			Filter="">
+			>
 			<File
-				RelativePath=".\Windows\FileDir.cpp">
+				RelativePath=".\Windows\FileDir.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\FileDir.h">
+				RelativePath=".\Windows\FileDir.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\FileFind.cpp">
+				RelativePath=".\Windows\FileFind.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\FileFind.h">
+				RelativePath=".\Windows\FileFind.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\FileIO.cpp">
+				RelativePath=".\Windows\FileIO.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\FileIO.h">
+				RelativePath=".\Windows\FileIO.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\PropVariant.cpp">
+				RelativePath=".\Windows\PropVariant.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\PropVariant.h">
+				RelativePath=".\Windows\PropVariant.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\Synchronization.cpp">
+				RelativePath=".\Windows\Synchronization.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Windows\Synchronization.h">
+				RelativePath=".\Windows\Synchronization.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Archive common"
-			Filter="">
+			>
 			<File
-				RelativePath=".\7zip\Archive\Common\CoderMixer2.cpp">
+				RelativePath=".\7zip\Archive\Common\CoderMixer2.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\CoderMixer2.h">
+				RelativePath=".\7zip\Archive\Common\CoderMixer2.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\CoderMixer2MT.cpp">
+				RelativePath=".\7zip\Archive\Common\CoderMixer2MT.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\CoderMixer2MT.h">
+				RelativePath=".\7zip\Archive\Common\CoderMixer2MT.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\CrossThreadProgress.cpp">
+				RelativePath=".\7zip\Archive\Common\CrossThreadProgress.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\CrossThreadProgress.h">
+				RelativePath=".\7zip\Archive\Common\CrossThreadProgress.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\FilterCoder.cpp">
+				RelativePath=".\7zip\Archive\Common\FilterCoder.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\FilterCoder.h">
+				RelativePath=".\7zip\Archive\Common\FilterCoder.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\ItemNameUtils.cpp">
+				RelativePath=".\7zip\Archive\Common\ItemNameUtils.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\ItemNameUtils.h">
+				RelativePath=".\7zip\Archive\Common\ItemNameUtils.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\OutStreamWithCRC.cpp">
+				RelativePath=".\7zip\Archive\Common\OutStreamWithCRC.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\Common\OutStreamWithCRC.h">
+				RelativePath=".\7zip\Archive\Common\OutStreamWithCRC.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Compress"
-			Filter="">
+			>
 			<Filter
 				Name="LZMA"
-				Filter="">
+				>
 				<File
-					RelativePath=".\7zip\Compress\Lzma\LZMA.h">
+					RelativePath=".\7zip\Compress\Lzma\LZMA.h"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Lzma\LZMADecoder.cpp">
+					RelativePath=".\7zip\Compress\Lzma\LZMADecoder.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Lzma\LZMADecoder.h">
+					RelativePath=".\7zip\Compress\Lzma\LZMADecoder.h"
+					>
 				</File>
 			</Filter>
 			<Filter
 				Name="Copy"
-				Filter="">
+				>
 				<File
-					RelativePath=".\7zip\Compress\Copy\CopyCoder.cpp">
+					RelativePath=".\7zip\Compress\Copy\CopyCoder.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Copy\CopyCoder.h">
+					RelativePath=".\7zip\Compress\Copy\CopyCoder.h"
+					>
 				</File>
 			</Filter>
 			<Filter
 				Name="LZ"
-				Filter="">
+				>
 				<File
-					RelativePath=".\7zip\Compress\Lz\IMatchFinder.h">
+					RelativePath=".\7zip\Compress\Lz\IMatchFinder.h"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Lz\LZOutWindow.cpp">
+					RelativePath=".\7zip\Compress\Lz\LZOutWindow.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Lz\LZOutWindow.h">
+					RelativePath=".\7zip\Compress\Lz\LZOutWindow.h"
+					>
 				</File>
 			</Filter>
 			<Filter
 				Name="BCJ"
-				Filter="">
+				>
 				<File
-					RelativePath=".\7zip\Compress\Branch\BranchCoder.cpp">
+					RelativePath=".\7zip\Compress\Branch\BranchCoder.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Branch\BranchCoder.h">
+					RelativePath=".\7zip\Compress\Branch\BranchCoder.h"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Branch\BranchX86.h">
+					RelativePath=".\7zip\Compress\Branch\BranchX86.h"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Branch\x86.cpp">
+					RelativePath=".\7zip\Compress\Branch\x86.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Branch\x86.h">
+					RelativePath=".\7zip\Compress\Branch\x86.h"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Branch\x86_2.cpp">
+					RelativePath=".\7zip\Compress\Branch\x86_2.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\7zip\Compress\Branch\x86_2.h">
+					RelativePath=".\7zip\Compress\Branch\x86_2.h"
+					>
 				</File>
 			</Filter>
 		</Filter>
 		<Filter
 			Name="7z"
-			Filter="">
+			>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zDecode.cpp">
+				RelativePath=".\7zip\Archive\7z\7zDecode.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zDecode.h">
+				RelativePath=".\7zip\Archive\7z\7zDecode.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zExtract.cpp">
+				RelativePath=".\7zip\Archive\7z\7zExtract.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zFolderOutStream.cpp">
+				RelativePath=".\7zip\Archive\7z\7zFolderOutStream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zFolderOutStream.h">
+				RelativePath=".\7zip\Archive\7z\7zFolderOutStream.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zHandler.cpp">
+				RelativePath=".\7zip\Archive\7z\7zHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zHandler.h">
+				RelativePath=".\7zip\Archive\7z\7zHandler.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zHeader.cpp">
+				RelativePath=".\7zip\Archive\7z\7zHeader.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zHeader.h">
+				RelativePath=".\7zip\Archive\7z\7zHeader.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zIn.cpp">
+				RelativePath=".\7zip\Archive\7z\7zIn.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zIn.h">
+				RelativePath=".\7zip\Archive\7z\7zIn.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zItem.h">
+				RelativePath=".\7zip\Archive\7z\7zItem.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zMethodID.cpp">
+				RelativePath=".\7zip\Archive\7z\7zMethodID.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zMethodID.h">
+				RelativePath=".\7zip\Archive\7z\7zMethodID.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zMethods.h">
+				RelativePath=".\7zip\Archive\7z\7zMethods.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zProperties.cpp">
+				RelativePath=".\7zip\Archive\7z\7zProperties.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Archive\7z\7zProperties.h">
+				RelativePath=".\7zip\Archive\7z\7zProperties.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="7zip common"
-			Filter="">
+			>
 			<File
-				RelativePath=".\7zip\Common\InBuffer.cpp">
+				RelativePath=".\7zip\Common\InBuffer.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\InBuffer.h">
+				RelativePath=".\7zip\Common\InBuffer.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\LimitedStreams.cpp">
+				RelativePath=".\7zip\Common\LimitedStreams.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\LimitedStreams.h">
+				RelativePath=".\7zip\Common\LimitedStreams.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\LockedStream.cpp">
+				RelativePath=".\7zip\Common\LockedStream.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\LockedStream.h">
+				RelativePath=".\7zip\Common\LockedStream.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\LSBFDecoder.cpp">
+				RelativePath=".\7zip\Common\LSBFDecoder.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\LSBFDecoder.h">
+				RelativePath=".\7zip\Common\LSBFDecoder.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\OutBuffer.cpp">
+				RelativePath=".\7zip\Common\OutBuffer.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\OutBuffer.h">
+				RelativePath=".\7zip\Common\OutBuffer.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\ProgressUtils.cpp">
+				RelativePath=".\7zip\Common\ProgressUtils.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\ProgressUtils.h">
+				RelativePath=".\7zip\Common\ProgressUtils.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\StreamBinder.cpp">
+				RelativePath=".\7zip\Common\StreamBinder.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\StreamBinder.h">
+				RelativePath=".\7zip\Common\StreamBinder.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\StreamObjects.cpp">
+				RelativePath=".\7zip\Common\StreamObjects.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\StreamObjects.h">
+				RelativePath=".\7zip\Common\StreamObjects.h"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\StreamUtils.cpp">
+				RelativePath=".\7zip\Common\StreamUtils.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\7zip\Common\StreamUtils.h">
+				RelativePath=".\7zip\Common\StreamUtils.h"
+				>
 			</File>
 		</Filter>
 	</Files>

@@ -5,11 +5,6 @@
 // Include first to get the real functionality
 #include "AL/al.h"
 #include "AL/alc.h"
-#if defined(Q_OS_WIN32)
-#include "ALUT/alut.h"
-#else
-#include "AL/alut.h"
-#endif
 
 #include "exceptions.h"
 #include "sound.h"

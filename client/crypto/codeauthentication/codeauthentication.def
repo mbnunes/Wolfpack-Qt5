@@ -1,3 +1,0 @@
-LIBRARY	"codeauthentication"
-EXPORTS
-verifySignature

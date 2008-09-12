@@ -250,14 +250,6 @@ void cUoClient::run()
 
 	qInstallMsgHandler(myMessageOutput); // Install handler
 
-	// Check for updates here (before we load)
-#if defined(Q_OS_WIN32)
-	if (cUpdater::checkForUpdates()) {
-		Config->save();
-		return;
-	}
-#endif
-
 	Log->print("-----------------------------------------------------------------------------\n", false);
 	Log->print(tr("Starting Session (%1)\n").arg(QDateTime::currentDateTime().toString()), false);
 	Log->print("-----------------------------------------------------------------------------\n\n", false);
