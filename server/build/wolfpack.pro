@@ -15,7 +15,7 @@ QT += network xml sql
 CONFIG -= flat
 DESTDIR = ../release
 
-VERSION = 12.9.16
+VERSION = 12.9.17
 
 RC_FILE = res.rc
 OBJECTS_DIR = obj

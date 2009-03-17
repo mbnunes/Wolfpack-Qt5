@@ -335,9 +335,7 @@
 	<!-- Testing Scripts -->
 	<script>testing</script>
 	<script>testing.multibag</script>
-	<script>testing.nobowusingplate</script> 
-	<script>testing.noplateusingbow</script>
-
+	
 	<!-- Plants -->
 	<script>plants</script>
 	<script>plants.bowl</script>
