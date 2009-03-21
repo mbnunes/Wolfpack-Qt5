@@ -1,3 +1,6 @@
+21.03.2009 1.0.1.x:
+	- Minor changes on regions editor, but it is incomplete yet
+
 26.02.2008 1.0.1.x:
 	- Added a wizard for region and spawnregion creation. Use "New Region" button
 	- Added "Export Region" Button which copies a complete region/spawnregion to clipboard

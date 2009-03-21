@@ -27,7 +27,9 @@ uses
   RegionWizard4Region in '..\src\RegionWizard4Region.pas' {frmRergionW4R},
   RegionWizard2Spawn in '..\src\RegionWizard2Spawn.pas' {frmRegionW2S},
   RegionWizard3Spawn in '..\src\RegionWizard3Spawn.pas' {FrmRegionW3S},
-  RegionWizard4Spawn in '..\src\RegionWizard4Spawn.pas' {FrmRegionW4S};
+  RegionWizard4Spawn in '..\src\RegionWizard4Spawn.pas' {FrmRegionW4S},
+  RegionEditR in '..\src\RegionEditR.pas' {FrmRegionEdit},
+  RegionEditS in '..\src\RegionEditS.pas' {FrmRegionEditS};
 
 {$R *.RES}
 
@@ -47,5 +49,7 @@ begin
   Application.CreateForm(TfrmRegionW2S, frmRegionW2S);
   Application.CreateForm(TFrmRegionW3S, FrmRegionW3S);
   Application.CreateForm(TFrmRegionW4S, FrmRegionW4S);
+  Application.CreateForm(TFrmRegionEdit, FrmRegionEdit);
+  Application.CreateForm(TFrmRegionEditS, FrmRegionEditS);
   Application.Run;
 end.

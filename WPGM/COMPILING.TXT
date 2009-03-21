@@ -4,5 +4,5 @@ Delphi 2007 - Maybe older
 Graphics32 Components - http://graphics32.org
 VirtualTreeview - http://www.soft-gems.net/
 
-The two required compents are with teh package, Graphics32 was modified to work with Delphi 2007 and
+The two required compents are with the package, Graphics32 was modified to work with Delphi 2007 and
 VirtualTreeview the instaler is provider.

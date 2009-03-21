@@ -1,39 +1,58 @@
-unit RegionWizard4Spawn;
+unit RegionEditS;
 
 interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, GR32,GR32_Image, ExtCtrls, VirtualTrees, Grids, DBGrids, SQLite3, SQLiteTable3, UOAnim, uConfig,
-  DB;
+  Dialogs, ExtCtrls, StdCtrls, Buttons, DB, Grids, DBGrids, GR32_Image,
+  VirtualTrees, GR32, SQLite3, SQLiteTable3, UOAnim, uConfig;
 
 type
-  TFrmRegionW4S = class(TForm)
-    Button2: TButton;
-    Button1: TButton;
-    Button3: TButton;
+  TFrmRegionEditS = class(TForm)
+    GroupBox2: TGroupBox;
+    BitBtn1: TBitBtn;
+    BitBtn2: TBitBtn;
     Panel1: TPanel;
-    vtNpcCategories: TVirtualStringTree;
+    Label1: TLabel;
+    ERegionName: TEdit;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    SpeedButton1: TSpeedButton;
+    Label7: TLabel;
+    SpeedButton2: TSpeedButton;
+    CheckBox1: TCheckBox;
+    EMaxnpcamount: TEdit;
+    Edelaymin: TEdit;
+    Edelaymax: TEdit;
+    Enpcspercycle: TEdit;
+    ListBox1: TListBox;
+    Edit1: TEdit;
+    Panel2: TPanel;
     Splitter1: TSplitter;
-    vtNpcs: TVirtualStringTree;
     Splitter2: TSplitter;
+    vtNpcCategories: TVirtualStringTree;
+    vtNpcs: TVirtualStringTree;
     pbNpcPreview: TPaintBox32;
     GroupBox1: TGroupBox;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
     ComboBox1: TComboBox;
     Ex1: TEdit;
     Ey1: TEdit;
     Ex2: TEdit;
     Ey2: TEdit;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
     DBGNpc: TDBGrid;
     Badd: TButton;
     bdel: TButton;
-    animtimer: TTimer;
     DataSource1: TDataSource;
-    procedure vtNpcCategoriesChange(Sender: TBaseVirtualTree;
+    animtimer: TTimer;
+    procedure ComboBox1Change(Sender: TObject);
+     procedure vtNpcCategoriesChange(Sender: TBaseVirtualTree;
       Node: PVirtualNode);
     procedure vtNpcsChange(Sender: TBaseVirtualTree; Node: PVirtualNode);
     procedure vtNpcsCompareNodes(Sender: TBaseVirtualTree; Node1,
@@ -44,7 +63,6 @@ type
       Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
     procedure pbNpcPreviewPaintBuffer(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure vtNpcCategoriesExpanding(Sender: TBaseVirtualTree;
       Node: PVirtualNode; var Allowed: Boolean);
@@ -52,25 +70,22 @@ type
       Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
       var CellText: WideString);
     procedure animtimerTimer(Sender: TObject);
-    procedure ComboBox1Change(Sender: TObject);
     procedure BaddClick(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure bdelClick(Sender: TObject);
+    procedure BitBtn1Click(Sender: TObject);
+    procedure BitBtn2Click(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
-    active : boolean;
-    maxnpcamount : integer;
-    delaymin : integer;
-    delaymax : integer;
-    npcpercycle : integer;
-    group : tstringlist;
-    regionName : string;
-
   end;
 
+
+
 var
-  FrmRegionW4S: TFrmRegionW4S;
+  FrmRegionEditS: TFrmRegionEditS;
   npcPreview: Array of TAnimation;
   npcPreviewFrame: Integer;
   selectedId : string;
@@ -82,22 +97,24 @@ uses Main,Math, Spawnregions;
 
 {$R *.dfm}
 
-procedure TFrmRegionW4S.animtimerTimer(Sender: TObject);
+procedure TFrmRegionEditS.animtimerTimer(Sender: TObject);
 begin
   if (npcPreview <> nil) and (npcPreview[0].frameCount > 0) then begin
     npcPreviewFrame := (npcPreviewFrame + 1) mod npcPreview[0].frameCount;
     pbNpcPreview.Invalidate;
   end;
 end;
+  
 
-procedure TFrmRegionW4S.BaddClick(Sender: TObject);
+
+procedure TFrmRegionEditS.BaddClick(Sender: TObject);
 begin
   if combobox1.ItemIndex = -1 then
   begin
     showmessage('You must select a wandertype!');
     exit;
   end;
-    
+
   frmRegions.CDSNpc.Append;
   frmregions.CDSNpcId.AsString := selectedId;
   frmregions.CDSNpcWanderType.AsString := combobox1.Items.Strings[combobox1.ItemIndex];
@@ -109,66 +126,77 @@ begin
 
 end;
 
-procedure TFrmRegionW4S.Button1Click(Sender: TObject);
+procedure TFrmRegionEditS.bdelClick(Sender: TObject);
 begin
+  if not frmRegions.CDSNpc.Eof then
+    frmregions.cdsnpc.Delete;
+
+end;
+
+procedure TFrmRegionEditS.BitBtn1Click(Sender: TObject);
+begin
+  frmRegions.regionname := Eregionname.Text;
+
+  if frmRegions.group = nil then
+    frmRegions.group := tstringList.Create
+  else
+    frmRegions.group.Clear;
+
+  frmRegions.group.AddStrings(listbox1.Items);
 
 
-    frmregions.active := active;
-    frmregions.maxnpcamount := maxnpcamount;
-    frmregions.delaymin := delaymin;
-    frmregions.delaymax := delaymax;
-    frmregions.npcspercycle := npcpercycle;
-    frmregions.group := tstringlist.create;
-    frmregions.group.AddStrings(group);
-    frmregions.regionname := regionname;
-    group.Destroy;
+  frmregions.active := active;
+  frmregions.maxnpcamount := strtoint(emaxnpcamount.Text);
+  frmregions.delaymin := strtoint(edelaymin.Text);
+  frmregions.delaymax := strtoint(edelaymax.Text);
+  frmregions.npcspercycle := strtoint(enpcspercycle.Text);
+  close;
 
+end;
+
+procedure TFrmRegionEditS.BitBtn2Click(Sender: TObject);
+begin
   close;
 end;
 
-procedure TFrmRegionW4S.Button2Click(Sender: TObject);
-begin
-  close;
-end;
-
-procedure TFrmRegionW4S.ComboBox1Change(Sender: TObject);
+procedure TFrmRegionEditS.ComboBox1Change(Sender: TObject);
 begin
     case combobox1.ItemIndex  of
       0: begin
-            label1.Visible := true;
-            label2.Visible := true;
-            label3.Visible := true;
-            label4.Visible := true;
+            label8.Visible := true;
+            label9.Visible := true;
+            label10.Visible := true;
+            label11.Visible := true;
             ex1.Visible := true;
             ey1.Visible := true;
             ex2.Visible := true;
             ey2.Visible := true;
          end;
       1: begin
-            label1.Visible := true;
-            label2.Visible := false;
-            label3.Visible := false;
-            label4.Visible := false;
+            label8.Visible := true;
+            label9.Visible := false;
+            label10.Visible := false;
+            label11.Visible := false;
             ex1.Visible := true;
             ey1.Visible := false;
             ex2.Visible := false;
             ey2.Visible := false;
          end;
       2: begin
-            label1.Visible := false;
-            label2.Visible := false;
-            label3.Visible := false;
-            label4.Visible := false;
+            label8.Visible := false;
+            label9.Visible := false;
+            label10.Visible := false;
+            label11.Visible := false;
             ex1.Visible := false;
             ey1.Visible := false;
             ex2.Visible := false;
             ey2.Visible := false;
           end;
       3: begin
-            label1.Visible := false;
-            label2.Visible := false;
-            label3.Visible := false;
-            label4.Visible := false;
+            label8.Visible := false;
+            label9.Visible := false;
+            label10.Visible := false;
+            label11.Visible := false;
             ex1.Visible := false;
             ey1.Visible := false;
             ex2.Visible := false;
@@ -178,19 +206,18 @@ begin
     end;
 end;
 
-procedure TFrmRegionW4S.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TFrmRegionEditS.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   cafree;
 end;
 
-procedure TFrmRegionW4S.FormCreate(Sender: TObject);
+procedure TFrmRegionEditS.FormCreate(Sender: TObject);
 var
   Config: TConfig;
       RootQuery: TSQLiteTable;
     CountQuery: TSQLiteTable;
     Node: PNode;
     TreeNode: PVirtualNode;
-
 begin
     frmRegions.CDSNpc.Open;
 
@@ -251,7 +278,7 @@ begin
     end;
  end;
 
-procedure TFrmRegionW4S.pbNpcPreviewPaintBuffer(Sender: TObject);
+procedure TFrmRegionEditS.pbNpcPreviewPaintBuffer(Sender: TObject);
 var
   pb: TPaintBox32;
   totalHeight, totalWidth, i, xpos, ypos: Integer;
@@ -287,7 +314,19 @@ begin
   end;
 end;
 
-procedure TFrmRegionW4S.vtNpcCategoriesChange(Sender: TBaseVirtualTree;
+procedure TFrmRegionEditS.SpeedButton1Click(Sender: TObject);
+begin
+  if length(trim(edit1.Text)) <> 0 then
+    listbox1.Items.Add(edit1.text);
+end;
+
+procedure TFrmRegionEditS.SpeedButton2Click(Sender: TObject);
+begin
+    if listbox1.ItemIndex <> -1 then
+    listbox1.DeleteSelected;
+end;
+
+procedure TFrmRegionEditS.vtNpcCategoriesChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
 	MyData: PNode;
@@ -343,7 +382,7 @@ begin
     end;
 end;
 
-procedure TFrmRegionW4S.vtNpcCategoriesExpanding(Sender: TBaseVirtualTree;
+procedure TFrmRegionEditS.vtNpcCategoriesExpanding(Sender: TBaseVirtualTree;
   Node: PVirtualNode; var Allowed: Boolean);
 var
 	MyData: PNode;
@@ -391,7 +430,7 @@ begin
 end;
 
 
-procedure TFrmRegionW4S.vtNpcCategoriesGetText(Sender: TBaseVirtualTree;
+procedure TFrmRegionEditS.vtNpcCategoriesGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: WideString);
 begin
@@ -399,7 +438,7 @@ begin
   	CellText := PNode( Sender.GetNodeData( Node ) ).Name;
 end;
 
-procedure TFrmRegionW4S.vtNpcsChange(Sender: TBaseVirtualTree;
+procedure TFrmRegionEditS.vtNpcsChange(Sender: TBaseVirtualTree;
   Node: PVirtualNode);
 var
 	MyItemData: PNpcNode;
@@ -463,7 +502,7 @@ begin
   end;
 end;
 
-procedure TFrmRegionW4S.vtNpcsCompareNodes(Sender: TBaseVirtualTree; Node1,
+procedure TFrmRegionEditS.vtNpcsCompareNodes(Sender: TBaseVirtualTree; Node1,
   Node2: PVirtualNode; Column: TColumnIndex; var Result: Integer);
 var
 	MyData1, MyData2: PNpcNode;
@@ -478,7 +517,7 @@ begin
 
 end;
 
-procedure TFrmRegionW4S.vtNpcsGetText(Sender: TBaseVirtualTree;
+procedure TFrmRegionEditS.vtNpcsGetText(Sender: TBaseVirtualTree;
   Node: PVirtualNode; Column: TColumnIndex; TextType: TVSTTextType;
   var CellText: WideString);
 var
@@ -492,7 +531,7 @@ begin
     end;
 end;
 
-procedure TFrmRegionW4S.vtNpcsHeaderClick(Sender: TVTHeader;
+procedure TFrmRegionEditS.vtNpcsHeaderClick(Sender: TVTHeader;
   Column: TColumnIndex; Button: TMouseButton; Shift: TShiftState; X,
   Y: Integer);
 begin
@@ -508,6 +547,10 @@ begin
 
   	Sender.SortColumn := Column;
     Sender.SortDirection := sdAscending;
+
+
 end;
+
+
 
 end.

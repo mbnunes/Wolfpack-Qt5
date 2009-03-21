@@ -45,5 +45,9 @@
     <Transaction>2008/02/24 17:28:36.281.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard3Spawn.dfm</Transaction>
     <Transaction>2008/02/24 17:56:39.390.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Spawn.pas</Transaction>
     <Transaction>2008/02/24 17:56:39.390.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionWizard4Spawn.dfm</Transaction>
+    <Transaction>2008/02/28 20:38:57.796.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionEditR.pas</Transaction>
+    <Transaction>2008/02/28 20:38:57.812.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionEditR.dfm</Transaction>
+    <Transaction>2008/02/29 19:56:05.718.pas,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.pas=E:\RGS\UOEmu\wpdev\WPGM\src\RegionEditS.pas</Transaction>
+    <Transaction>2008/02/29 19:56:05.734.dfm,E:\RGS\UOEmu\wpdev\WPGM\build\Unit1.dfm=E:\RGS\UOEmu\wpdev\WPGM\src\RegionEditS.dfm</Transaction>
   </Transactions>
 </BorlandProject>

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, GR32, GR32_Blend, GR32_Image, UOMap, UOStatics, ClipBrd,
-  ComCtrls, ToolWin, DB, DBClient;
+  ComCtrls, ToolWin, DB, DBClient, ExtCtrls, Grids, DBGrids;
 
 type
   TfrmRegions = class(TForm)
@@ -20,12 +20,6 @@ type
     lbRects: TListBox;
     btnAdd: TButton;
     btnRemove: TButton;
-    Label3: TLabel;
-    lblSelected: TLabel;
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
-    Button4: TButton;
     btnZoomOut: TButton;
     btnZoomIn: TButton;
     btnRedraw: TButton;
@@ -33,6 +27,34 @@ type
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     ToolButton3: TToolButton;
+    Panel1: TPanel;
+    Label3: TLabel;
+    Label5: TLabel;
+    Label4: TLabel;
+    lblSelected: TLabel;
+    ToolButton4: TToolButton;
+    ToolButton5: TToolButton;
+    ToolButton6: TToolButton;
+    Label6: TLabel;
+    DBGrid1: TDBGrid;
+    Button1: TButton;
+    CDSRegion: TClientDataSet;
+    CDSRegionId: TIntegerField;
+    CDSRegionName: TStringField;
+    Label7: TLabel;
+    CDSRegionmidilist: TStringField;
+    CDSRegionresores: TStringField;
+    CDSRegionsnowmin: TIntegerField;
+    CDSRegionsnowmax: TIntegerField;
+    CDSRegionrainmin: TIntegerField;
+    CDSRegionrainmax: TIntegerField;
+    CDSRegionguardowner: TStringField;
+    CDSRegiontype: TBooleanField;
+    CDSRegionactive: TBooleanField;
+    CDSRegionmaxnpc: TIntegerField;
+    CDSRegiondelaymin: TIntegerField;
+    CDSRegiondelaymax: TIntegerField;
+    CDSRegionnpccycle: TIntegerField;
     CDSNpc: TClientDataSet;
     CDSNpcId: TStringField;
     CDSNpcWanderType: TStringField;
@@ -40,6 +62,14 @@ type
     CDSNpcy1: TIntegerField;
     CDSNpcx2: TIntegerField;
     CDSNpcy2: TIntegerField;
+    CDSNpcRegionID: TIntegerField;
+    CDSFlags: TClientDataSet;
+    CDSFlagsFlag: TStringField;
+    CDSFlagsRegionId: TIntegerField;
+    CDSGroup: TClientDataSet;
+    CDSGroupGroup: TStringField;
+    CDSGroupRegionId: TIntegerField;
+    DSRegion: TDataSource;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure pbMapPaintBuffer(Sender: TObject);
@@ -70,6 +100,9 @@ type
     procedure ToolButton1Click(Sender: TObject);
     procedure ToolButton3Click(Sender: TObject);
     procedure ToolButton2Click(Sender: TObject);
+    procedure ToolButton5Click(Sender: TObject);
+    procedure ToolButton6Click(Sender: TObject);
+    procedure cbMapChange(Sender: TObject);
   private
     { Private declarations }
     Places: Array of TRect;
@@ -121,7 +154,8 @@ implementation
 
 {$R *.dfm}
 
-uses Main, Math, XMLReader, StrLib, UORadarCol, RegionWizard;
+uses Main, Math, XMLReader, StrLib, UORadarCol, RegionWizard, RegionEditR,
+  RegionEditS;
 
 function TfrmRegions.MapToBuffer(Point: TPoint): TPoint;
 begin
@@ -367,16 +401,58 @@ end;
 
 procedure TfrmRegions.ToolButton1Click(Sender: TObject);
 begin
+  if not cdsregion.Active then
+    cdsregion.Open;
+
   if not cdsnpc.Active then
     cdsnpc.Open;
-  cdsnpc.EmptyDataSet;
-  
+
+  if not cdsflags.Active then
+    cdsflags.Open;
+
+  if not cdsgroup.Active then
+    cdsgroup.Open;
+
   frmRegionW1.Show;
 end;
 
 procedure TfrmRegions.ToolButton2Click(Sender: TObject);
+var
+  i,u: integer;
 begin
-  Application.MessageBox('Not yet implemented', 'Error', MB_OK+MB_ICONERROR);
+  if regiontype then
+  begin
+    frmregionedit.ERegionName.Text := regionname;
+    frmregionedit.Eguardowner.Text  := guardowner;
+    frmregionedit.Emidilist.Text := midlist;
+    frmregionedit.Erainchancemin.Text  := inttostr(rainchancemin);
+    frmregionedit.Erainchancemax.Text  := inttostr(rainchancemax);
+    frmregionedit.ESnowChancemin.Text  := inttostr(snowchancemin);
+    frmregionedit.ESnowChancemax.Text  := inttostr(snowchancemax);
+    frmregionedit.LBSelected.Items.AddStrings(flags);
+    for I := 0 to frmregionedit.LBSelected.Items.Count - 1 do
+    begin
+      u := frmregionedit.LBAvaible.Items.IndexOfName(frmregionedit.LBSelected.Items.Strings[i]);
+      if u <> -1 then      
+        frmregionedit.LBAvaible.Items.Delete(u);
+    end;
+
+    frmregionedit.EResores.Text := resores;
+    frmregionedit.ShowModal;
+  end
+  else
+  begin
+    //frmregioneditS.ShowModal;
+    FrmRegionEditS.ERegionName.Text := RegionName;
+    FrmRegionEditS.EMaxnpcamount.Text := inttostr(Maxnpcamount);
+    FrmRegionEditS.Edelaymin.Text := inttostr(delaymin);
+    FrmRegionEditS.Edelaymax.Text := inttostr(delaymax);
+    FrmRegionEditS.Enpcspercycle.Text := inttostr(npcspercycle);
+    FrmRegionEditS.CheckBox1.Checked := active;
+    // group
+    FrmRegionEditS.ListBox1.Items.AddStrings(group);
+    FrmRegionEditS.showmodal;
+  end;
 end;
 
 procedure TfrmRegions.ToolButton3Click(Sender: TObject);
@@ -524,6 +600,121 @@ begin
 
 end;
 
+procedure TfrmRegions.ToolButton5Click(Sender: TObject);
+var
+  ClipBoard: TClipboard;
+  Content: String;
+  Reader: TXMLReader;
+  Document, Node: TXMLNode;
+  i: Integer;
+  sFrom, sTo: String;
+  Parts: TStringList;
+  x1, x2, y1, y2: Integer;
+begin
+  ClipBoard := TClipBoard.Create;
+  Content := '<rectangles>' + ClipBoard.AsText + '</rectangles>';
+
+  Reader := nil;
+  Document := nil;
+  Parts := TStringList.Create;
+
+  try
+    Reader := TXMLStringReader.Create(Content);
+    Document := Reader.ParseDocument.Nodes[0];
+
+    // Iterate over the rectangle nodes
+    for i := 0 to Document.NodeCount - 1 do begin
+      Node := Document.Nodes[i];
+
+      if Node.Name <> 'rectangle' then
+        continue; // Skip this node
+
+      // Look up From + To
+      Node.LookupBasicData('from', sFrom);
+      Node.LookupBasicData('to', sTo);
+
+      Parts.Clear;
+      Split(sFrom, ',', Parts);
+      if Parts.Count <> 2 then
+        continue; // From attribute is incorrect
+
+      x1 := StrToIntDef(Parts[0], 0);
+      y1 := StrToIntDef(Parts[1], 0);
+
+      Parts.Clear;
+      Split(sTo, ',', Parts);
+      if Parts.Count <> 2 then
+        continue; // To attribute is incorrect
+
+      x2 := StrToIntDef(Parts[0], 0);
+      y2 := StrToIntDef(Parts[1], 0);
+
+      AddRect(x1, y1, x2, y2);
+    end;
+  except
+    on e: Exception do begin
+      Application.MessageBox(PAnsiChar('The following error occured while parsing the XML definition: ' + #13 + e.Message), 'Error', MB_OK+MB_ICONERROR);
+    end;
+  end;
+
+  Reader.Free;
+  Document.Free;
+  Parts.Free;
+  ClipBoard.Free;
+end;
+
+procedure TfrmRegions.ToolButton6Click(Sender: TObject);
+var
+  ClipBoard: TClipboard;
+  Content: String;
+  Reader: TXMLReader;
+  Document, Node: TXMLNode;
+  i: Integer;
+  Temp: String;
+  x1, x2, y1, y2: Integer;
+begin
+  ClipBoard := TClipBoard.Create;
+  Content := '<rectangles>' + ClipBoard.AsText + '</rectangles>';
+
+  Reader := nil;
+  Document := nil;
+
+  try
+    Reader := TXMLStringReader.Create(Content);
+    Document := Reader.ParseDocument.Nodes[0];
+
+    // Iterate over the rectangle nodes
+    for i := 0 to Document.NodeCount - 1 do begin
+      Node := Document.Nodes[i];
+
+      if Node.Name <> 'rectangle' then
+        continue; // Skip this node
+
+      Node.LookupBasicData('x1', temp);
+      x1 := StrToIntDef(temp, 0);
+
+      Node.LookupBasicData('x2', temp);
+      x2 := StrToIntDef(temp, 0);
+
+      Node.LookupBasicData('y1', temp);
+      y1 := StrToIntDef(temp, 0);
+
+      Node.LookupBasicData('y2', temp);
+      y2 := StrToIntDef(temp, 0);
+
+      AddRect(x1, y1, x2, y2);
+    end;
+  except
+    on e: Exception do begin
+      Application.MessageBox(PAnsiChar('The following error occured while parsing the XML definition: ' + #13 + e.Message), 'Error', MB_OK+MB_ICONERROR);
+    end;
+  end;
+
+  Reader.Free;
+  Document.Free;
+  ClipBoard.Free;
+end;
+
 procedure TfrmRegions.FormDestroy(Sender: TObject);
 begin
   Buffer.Free;
@@ -563,7 +754,7 @@ var
   i: Integer;
 begin
   if lbRects.ItemIndex <> -1 then begin
-    if lbRects.ItemIndex < Length(Places) - 1 then begin
+    if lbRects.ItemIndex <= Length(Places) - 1 then begin
       // Copy Downwards
       for i := lbRects.ItemIndex to Length(Places) - 2 do begin
         Places[i] := Places[i+1];
@@ -793,6 +984,14 @@ begin
   Reader.Free;
   Document.Free;
   ClipBoard.Free;
+end;
+
+procedure TfrmRegions.cbMapChange(Sender: TObject);
+begin
+  if cbmap.ItemIndex <> -1 then
+    ChangeMap(cbmap.ItemIndex);
+
+
 end;
 
 procedure TfrmRegions.lbRectsKeyDown(Sender: TObject; var Key: Word;
