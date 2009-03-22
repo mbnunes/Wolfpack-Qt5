@@ -87,7 +87,7 @@ def titheGoldCallback(player, arguments, response):
 	elif response.button == 4:
 		showTitheGump(player, ankh, gold) # Set to Maximum
 	elif response.button == 5:
-		amount = max(0, min(gold, amount)) # Normalize the amount of gold to tithe		
+		amount = max(0, min(gold, amount)) # Normalize the amount of gold to tithe
 
 		# Get the tithing points of the user
 		tithing_points = player.gettag('tithing_points')

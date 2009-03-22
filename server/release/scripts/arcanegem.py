@@ -7,7 +7,7 @@ DefaultArcaneHue = 2117
 
 # leather gloves, cloaks, robe, tigh boots
 arcaneequip = [
-		[0x13c6, 0x26b0], 
+		[0x13c6, 0x26b0],
 		[0x1515, 0x26ad],
 		[0x1f04, 0x26ae],
 		[0x1711, 0x1712]
