@@ -1633,3 +1633,15 @@ void cNPC::moveTo( const Coord& newpos )
 		cBaseChar::moveTo( newpos );
 	}
 }
+
+bool cNPC::onReachDestination()
+{
+	bool result = false;
+	if ( canHandleEvent( EVENT_ONREACHDESTINATION ) )
+	{
+		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
+		result = callEventHandler( EVENT_ONREACHDESTINATION, args );
+		Py_DECREF( args );
+	}
+	return result;
+}

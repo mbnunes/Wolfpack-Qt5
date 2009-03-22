@@ -839,6 +839,13 @@ If you return 0, the core will call the remaining scripts in the chain.
 */
 "onStepWeightPercent",
 
+/*
+\event onReachDestination
+\param npc The NPC who reached his destination.
+\condition Triggered when a NPC reaches his given destination.
+*/
+"onReachDestination",
+
 
 0
 };

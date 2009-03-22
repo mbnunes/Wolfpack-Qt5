@@ -144,6 +144,8 @@ public:
 
 	virtual void moveTo( const Coord& pos );
 
+	virtual bool onReachDestination();
+
 	// getters
 	quint32 additionalFlags() const;
 	quint32 nextBeggingTime() const;

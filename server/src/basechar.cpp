@@ -2652,7 +2652,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		return 0;
 	}
 
-	// Sending for Victim too
+	// Show the amount of damage dealt over the head of the victim
 	if ( Config::instance()->showDamageReceived() )
 	{
 		P_PLAYER pvictim = dynamic_cast<P_PLAYER>( this );
@@ -2678,7 +2678,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		}
 	}
 
-	// Show the amount of damage dealt over the head of the victim
+	// Show the amount of damage dealt over the head of the attacker
 	if ( Config::instance()->showDamageDone() )
 	{
 		if ( player && player->socket() )

@@ -612,8 +612,11 @@ float Action_Wander::postCondition()
 		return 1.0f;
 
 	case enDestination:
-		if ( m_npc->wanderDestination() == m_npc->pos() )
+		if ( m_npc->wanderDestination() == m_npc->pos() ) {
+			m_npc->setWanderType(enFreely);
+			m_npc->onReachDestination();
 			return 1.0f;
+		}
 		break;
 
 	case enFollowTarget:
