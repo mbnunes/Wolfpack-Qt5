@@ -28,7 +28,7 @@
 		<weight>1.0</weight>
 	</item>
 
-	<item id="14ec">
+	<item id="14ec" inherit="14eb">
 		<id>0x14ec</id>
 		<category>Professions\Mapmaker\Map (W/E)</category>
 	</item>
@@ -89,6 +89,8 @@
 	<item id="mapmakers_pen" inherit="fbf">
 		<id>0xfbf</id>
 		<name>#1044167</name>
+		<tag name="remaining_uses" type="int" value="35" />
+		<basescripts>equipment,skills.cartography</basescripts>
 		<category>Professions\Mapmaker\Pen &amp; Ink</category>
 	</item>
 
@@ -293,7 +295,7 @@
 	</item>
 
 	<item id="map_world" inherit="14eb">
-		<name>map of The World</name>
+		<name>#1015233</name>
 		<basescripts>map</basescripts>
 		<tag name="type" value="preset" />
 		<tag name="preset" value="world" />
@@ -370,6 +372,24 @@
 		<buyprice>15</buyprice>
 		<sellprice>6</sellprice>
 		<category>Professions\Mapmaker\Maps\Yew to Britain</category>
+	</item>
+
+	<item id="map_local" inherit="14eb">
+		<name>#1015230</name>
+		<basescripts>map</basescripts>
+		<tag name="type" value="custom" />
+	</item>
+
+	<item id="map_city" inherit="14eb">
+		<name>#1015231</name>
+		<basescripts>map</basescripts>
+		<tag name="type" value="custom" />
+	</item>
+
+	<item id="sea_chart" inherit="14eb">
+		<name>#1015232</name>
+		<basescripts>map</basescripts>
+		<tag name="type" value="custom" />
 	</item>
 
 	<!-- Treasure Map Section -->

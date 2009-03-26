@@ -201,6 +201,6 @@ def onUse(player, item):
 	if maptype != '':
 		sendmap(player, item, maptype)
 	else:
-		player.socket.clilocmessage(500208)
+		player.socket.clilocmessage(500208) # It appears to be blank.
 
 	return 1

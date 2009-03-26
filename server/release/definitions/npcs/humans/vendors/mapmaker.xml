@@ -12,7 +12,7 @@
 			<restockable>
 				<item id="ef3"><amount>40</amount></item> <!-- Empty Scrool -->
 				<item id="mapmakers_pen"><amount>20</amount></item> <!-- Mapmaker's Pen -->
-				<item id="14ec"><amount>20</amount></item> <!-- Blank Map -->
+				<item id="14eb"><amount>20</amount></item> <!-- Blank Map -->
 			</restockable>
 		</shopkeeper>
 		<skill id="cartography"><random min="900" max="1000" /></skill>

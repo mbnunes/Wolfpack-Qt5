@@ -11,6 +11,8 @@
 		<!-- High priority first !! -->
 
 		<!-- Client identification string (optional) ; Key1 ; Key2 -->
+		<item> Client 6.0.13 ; 0x2DCAF72D ; 0xA3F71E7F </item>
+		<item> Client 6.0.12 ; 0x2F2BA7ED ; 0xA2817E7F </item>
 		<item> Client 6.0.8 ; 0x2ED3257D ; 0xA27F527F </item>
 		<item> Client 6.0.7 ; 0x2E9BC78D ; 0xA25BFE7F </item>
 		<item> Client 6.0.6 ; 0x2E43ED9D ; 0xA234227F </item>
