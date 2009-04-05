@@ -34,7 +34,7 @@ def stroke(char, arguments):
 			char.addscript( 'system.poison' )
 		return
 
-	if not POISONS.has_key(char.poison):
+	if not char.poison in POISONS:
 		if char.poison != -1:
 			char.poison = -1
 			char.updateflags()
@@ -104,11 +104,11 @@ def cure(char):
 # Apply the required tags and start the timer.
 #
 def poison(char, level):
-	if not POISONS.has_key(level):
+	if not level in POISONS:
 		return False
 
 	if char.hasscript('magic.evilomen'):
-		if POISONS.has_key(level + 1): # check if it's possible to increase the poison
+		if (level+1) in POISONS: # check if it's possible to increase the poison
 			level += 1
 
 	# Level is smaller than old poison
@@ -140,7 +140,7 @@ def poison(char, level):
 def onLogin(char):
 	char.removescript( 'system.poison' )
 
-	if not POISONS.has_key(char.poison):
+	if not char.poison in POISONS:
 		if char.poison != -1:
 			char.poison = -1
 			char.updateflags()

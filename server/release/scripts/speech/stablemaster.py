@@ -240,7 +240,7 @@ def addStableButtons( gump, active=0 ):
 
 
 def getStableTilePic( id ):
-	if stables.has_key( id ):
+	if id in stables:
 		return stables[ id ]
 	else:
 		return False
@@ -266,15 +266,15 @@ def gump_callback( char, args, response ):
 	if id == 0:
 		return
 
-	if not prices.has_key( id ):
+	if not id in prices:
 		vendor.say( "I can't sell this!", 5 )
 		return
 
 	id_npc = idnpc[ id ]
 	id_shrink = idshrink[ id ]
 
-	if ( button == 0x0000 ):  	#shrink
-		if not shrinks.has_key( id ):
+	if ( button == 0x0000 ): # shrink
+		if not id in shrinks:
 			vendor.say( tr("That is not shrinkable..."), 5 )
 			return
 		count = prices[ id ] + prices_shrinks
@@ -287,7 +287,7 @@ def gump_callback( char, args, response ):
 			console.send( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_shrink, vendor) )
 			return
 		item.settag( "npc_id", "%s" % id_npc )
-		if rideables.has_key( id ):
+		if id in rideables:
 			item.settag( "npc_type", "mount" )
 		else:
 			item.settag( "npc_type", "follow" )
@@ -296,8 +296,8 @@ def gump_callback( char, args, response ):
 			item.update()
 		return
 
-	elif ( button == 0x0001 ):  	#tamed
-		if not tamed.has_key( id ):
+	elif ( button == 0x0001 ): # tamed
+		if not id in tamed:
 			vendor.say( tr("That is not tamed..."), 5 )
 			return
 
@@ -315,8 +315,8 @@ def gump_callback( char, args, response ):
 		npc.follow( char )
 		return
 
-	elif ( button == 0x0002 ):  	#rideable
-		if ( rideables.has_key( id ) != 1 ):
+	elif ( button == 0x0002 ): # rideable
+		if ( id in rideables != 1 ):
 			vendor.say( tr("That is not rideable..."), 5 )
 			return
 

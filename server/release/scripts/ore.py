@@ -17,7 +17,7 @@ def onShowTooltip(player, object, tooltip):
 
 	if object.hastag('resname'):
 		resname = unicode(object.gettag('resname'))
-		if mining.ORES.has_key(resname):
+		if resname in mining.ORES:
 			name = mining.ORES[resname][mining.ORENAME]
 
 	tooltip.reset()
@@ -302,7 +302,7 @@ def dosmelt(char, args):
 	ore = args[0]
 	resname = args[1]
 
-	if not mining.ORES.has_key(resname):
+	if not resname in mining.ORES:
 		char.socket.sysmessage( tr('You cannot smelt that kind of ore.') )
 		return 0
 

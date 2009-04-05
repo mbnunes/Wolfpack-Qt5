@@ -10,29 +10,29 @@ def onShowTooltip( viewer, object, tooltip ):
 		prefix1 = None
 		if object.hastag('resname'):
 			resname = str(object.gettag('resname'))
-			if RESNAME_BONI.has_key(resname):
+			if resname in RESNAME_BONI:
 				resinfo = RESNAME_BONI[resname]
-				if resinfo.has_key(MATERIALPREFIX):
+				if MATERIALPREFIX in resinfo:
 					prefix1 = resinfo[MATERIALPREFIX]
 		elif object.hasstrproperty( 'resname' ):
 			resname = str( object.getstrproperty( 'resname' ) )
-			if RESNAME_BONI.has_key(resname):
+			if resname in RESNAME_BONI:
 				resinfo = RESNAME_BONI[resname]
-				if resinfo.has_key(MATERIALPREFIX):
+				if MATERIALPREFIX in resinfo:
 					prefix1 = resinfo[MATERIALPREFIX]
 
 		prefix2 = None
 		if object.hastag('resname2'):
 			resname = str(object.gettag('resname2'))
-			if RESNAME_BONI.has_key(resname):
+			if resname in RESNAME_BONI:
 				resinfo = RESNAME_BONI[resname]
-				if resinfo.has_key(MATERIALPREFIX):
+				if MATERIALPREFIX in resinfo:
 					prefix2 = resinfo[MATERIALPREFIX]
 		elif object.hasstrproperty( 'resname2' ):
 			resname = str( object.getstrproperty( 'resname2' ) )
-			if RESNAME_BONI.has_key(resname):
+			if resname in RESNAME_BONI:
 				resinfo = RESNAME_BONI[resname]
-				if resinfo.has_key(MATERIALPREFIX):
+				if MATERIALPREFIX in resinfo:
 					prefix2 = resinfo[MATERIALPREFIX]
 
 		if len(object.name) == 0:

@@ -34,23 +34,24 @@ class DecorationHandler( ContentHandler ):
 		self.statements = []
 		self.doLink = False
 		self.linkTo = None
+
 	def startElement( self, name, atts ):
 		if name == "item":
 			self.itemid = str(atts.getValue("id"));
-			if atts.has_key("hue"):
+			if "hue" in atts:
 				self.hue = int(hex2dec(str(atts.getValue("hue"))));
 			else:
 				self.hue = 0
-			if atts.has_key("amount"):
+			if "amount" in atts:
 				self.amount = int(atts.getValue("amount"));
 			else:
 				self.amount = 0
 			self.statements = []
 		elif name == "attribute":
 			type = "str"
-			if atts.has_key("type"):
+			if "type" in atts:
 				type = str(atts.getValue("type"))
-			if atts.has_key("value") and atts.has_key("key"):
+			if "value" in atts and "key" in atts:
 				self.statements.append( str(atts.getValue("key")) + "," + type + ","+ str(atts.getValue("value")) )
 		elif name == "pos":
 			if int(hex2dec( self.itemid )) >= 0x4000:
@@ -101,9 +102,9 @@ class DecorationSaveHandler:
 		item = it.first
 		while item:
 			if not self.filter(item):
-				if not self.maps.has_key(item.pos.map):
+				if not item.pos.map in self.maps:
 					self.maps[item.pos.map] = {}
-				if not self.maps[item.pos.map].has_key(item.id):
+				if not item.id in self.maps[item.pos.map]:
 					self.maps[item.pos.map][item.id] = []
 				self.maps[item.pos.map][item.id].append(item)
 			item = it.next
@@ -120,7 +121,7 @@ class DecorationSaveHandler:
 			for id in self.maps[map]:
 				itemsbyhue = {}
 				for item in self.maps[map][id]:
-					if not itemsbyhue.has_key(item.color):
+					if not item.color in itemsbyhue:
 						itemsbyhue[item.color] = []
 					itemsbyhue[item.color].append(item)
 				tiledata = wolfpack.tiledata(id)
@@ -147,9 +148,9 @@ class DoorSaveHandler:
 		item = it.first
 		while item:
 			if not self.filter(item):
-				if not self.maps.has_key(item.pos.map):
+				if not item.pos.map in self.maps:
 					self.maps[item.pos.map] = {}
-				if not self.maps[item.pos.map].has_key(item.id):
+				if not item.id in self.maps[item.pos.map]:
 					self.maps[item.pos.map][item.id] = []
 				self.maps[item.pos.map][item.id].append(item)
 			item = it.next
@@ -166,7 +167,7 @@ class DoorSaveHandler:
 			for id in self.maps[map]:
 				itemsbyhue = {}
 				for item in self.maps[map][id]:
-					if not itemsbyhue.has_key(item.color):
+					if not item.color in itemsbyhue:
 						itemsbyhue[item.color] = []
 					itemsbyhue[item.color].append(item)
 				tiledata = wolfpack.tiledata(id)

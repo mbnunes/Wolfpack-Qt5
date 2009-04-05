@@ -12,7 +12,7 @@ spells = {}
 def registerspell( id, spell ):
 	global spells
 
-	if spells.has_key( id ):
+	if id in spells:
 		return
 
 	spells[ id ] = spell
@@ -37,7 +37,7 @@ def castSpell( char, spell, mode = 0, args = [], target = None, item = None ):
 
 	socket = char.socket
 
-	if not spells.has_key(spell):
+	if not spell in spells:
 		if socket:
 			socket.log(LOG_ERROR, "Trying to cast unknown spell: %d.\n" % spell)
 			socket.sysmessage('ERROR: Unknown Spell')

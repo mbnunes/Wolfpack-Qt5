@@ -98,7 +98,7 @@ def weaponskill(char, weapon, bestskill = False):
 		if bestskill and properties.fromitem(weapon, BESTSKILL):
 			return getbestskill(char)
 
-		if not WEAPON_INFORMATION.has_key(weapon.type):
+		if not weapon.type in WEAPON_INFORMATION:
 			return WRESTLING
 		else:
 			return WEAPON_INFORMATION[weapon.type][SKILL]

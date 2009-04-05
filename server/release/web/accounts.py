@@ -34,7 +34,7 @@ if session == None:
 username = session[ 'username' ]
 
 # Try to add an account
-if form.has_key( 'add' ):
+if 'add' in form:
 	name = form.getvalue( 'add', '' )
 	password1 = form.getvalue( 'password1', '' )
 	password2 = form.getvalue( 'password2', '' )
@@ -61,7 +61,7 @@ if form.has_key( 'add' ):
 			message = "The account has been added."
 
 # Try to delete an account
-if form.has_key( 'delete' ):
+if 'delete' in form:
 	record = wolfpack.accounts.find( form.getvalue( 'delete', '' ) )
 
 	if form[ 'delete' ] == username:

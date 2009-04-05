@@ -73,13 +73,13 @@ skilltable = {
 skills = {}
 
 def register( id, handler ):
-	if skills.has_key( id ):
+	if id in skills:
 		raise Exception, "Duplicate Skill: " + str( id )
 
 	skills[ id ] = handler
 
 def onSkillUse( char, skill ):
-	if skills.has_key( skill ):
+	if skill in skills:
 		skills[ skill ]( char, skill )
 		return True
 

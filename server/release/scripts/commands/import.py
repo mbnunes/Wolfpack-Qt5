@@ -204,12 +204,12 @@ def parseSphere51a(file, map):
 			(key, value) = line.split('=', 1)
 			props[key.lower()] = value
 		elif itemid != -1 and len(line) == 0:
-			if props.has_key('p'):
+			if 'p' in props:
 				(x, y, z) = props['p'].split(',')
 				x = int(x)
 				y = int(y)
 				z = int(z)
-				if props.has_key('color'):
+				if 'color' in props:
 			 		color = int(props['color'], 16)
 			 	else:
 			 		color = 0
@@ -254,12 +254,12 @@ def parseSphere55i(file, map):
 			(key, value) = line.split('=', 1)
 			props[key.lower()] = value
 		elif itemid != -1 and len(line) == 0:
-			if props.has_key('p'):
+			if 'p' in props:
 				(x, y, z) = props['p'].split(',')
 				x = int(x)
 				y = int(y)
 				z = int(z)
-				if props.has_key('color'):
+				if 'color' in props:
 			 		color = int(props['color'], 16)
 			 	else:
 			 		color = 0
@@ -323,56 +323,56 @@ def parseWsc( file, map ):
 
 			# Check if we can import this item
 			serial = 'Unset'
-			if item.has_key( 'SERIAL' ):
+			if 'SERIAL' in item:
 				serial = hex( int( item[ 'SERIAL' ] ) )
 
-			if item.has_key( 'BASEID' ):
+			if 'BASEID' in item:
 				baseid = item[ 'BASEID' ]
 			else:
 				baseid = ''
 
-			if not item.has_key( 'ID' ):
+			if not 'ID' in item:
 				warnings += 'Item (%s) has no ID property. Skipping.<br>' % ( serial )
 				continue
 
 			id = int( item['ID'] )
 
-			if not item.has_key( 'X' ) or not item.has_key( 'Y' ):
+			if not 'X' in item or not 'Y' in item:
 				warnings += 'Item (Serial: %s, ID: %x) has no X or Y property. Skipping.<br>' % ( serial, id )
 				continue
 
-			if item.has_key('X'):
+			if 'X' in item:
 				x = int( item['X'] )
 			else:
 				x = 0
-			if item.has_key('Y'):
+			if 'Y' in item:
 				y = int( item['Y'] )
 			else:
 				y = 0
-			if item.has_key('Z'):
+			if 'Z' in item:
 				z = int( item['Z'] )
 			else:
 				z = 0
-			if item.has_key('MAP'):
+			if 'MAP' in item:
 				map = int( item['MAP'] )
 
 			color = 0
-			if item.has_key( 'COLOR' ):
+			if 'COLOR' in item:
 				color = int( item[ 'COLOR' ] )
 
-			if item.has_key( 'CONT' ) and item[ 'CONT' ] != '-1':
+			if 'CONT' in item and item[ 'CONT' ] != '-1':
 				# warnings += 'Item (Serial: %s, ID: %x) is contained in container %s. Skipping' % ( serial, id, item[ 'CONT' ] )
 				continue
 
 			amount = 1
-			if item.has_key( 'AMOUNT' ):
+			if 'AMOUNT' in item:
 				amount = int( item[ 'AMOUNT' ] )
 
 			name = '#'
-			if item.has_key( 'NAME' ):
+			if 'NAME' in item:
 				name = item[ 'NAME' ]
 
-			if item.has_key( 'TYPE' ):
+			if 'TYPE' in item:
 				type = item[ 'TYPE' ]
 
 			#print 'Item %x, Color %x, Pos %i,%i,%i<br>' % ( id, color, x, y, z )

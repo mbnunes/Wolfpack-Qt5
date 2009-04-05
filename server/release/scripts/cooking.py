@@ -55,7 +55,7 @@ def onUse( char, item ):
 		char.socket.clilocmessage( 0x7A258 ) # That doesnt belong to you
 		return 1
 
-	if ids.has_key( item.id ):
+	if item.id in ids:
 		char.socket.clilocmessage( 0x7A1FE ) # What should i cook this on
 		char.socket.attachtarget( "cooking.response", [ item.serial ] )
 		return 1

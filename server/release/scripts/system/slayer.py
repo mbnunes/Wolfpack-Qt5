@@ -108,7 +108,7 @@ for group in GROUPS:
 #
 def findEntry(id):
 	id = id.lower()
-	if not SLAYERS.has_key(id):
+	if not id in SLAYERS:
 		return None
 	else:
 		return SLAYERS[id]

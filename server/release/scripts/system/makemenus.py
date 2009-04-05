@@ -14,7 +14,7 @@ menus = {}
 # Return a menu
 def findmenu(id):
 	global menus
-	if not menus.has_key(id):
+	if not id in menus:
 		return None
 	else:
 		return menus[id]
@@ -64,7 +64,7 @@ def MakeActionResponse(player, arguments, response):
 	(menu, action) = arguments[0].split(':')
 	action = int(action)
 	global menus
-	if menus.has_key(menu):
+	if menu in menus:
 		menu = menus[menu]
 		if action < len(menu.subactions):
 			menu.subactions[action].response(player, response, list(arguments)[1:])
@@ -834,7 +834,7 @@ def MakeMenuResponse(player, arguments, response):
 	arguments = list(arguments)[1:]
 
 	global menus
-	if not menus.has_key(menu):
+	if not menu in menus:
 		raise RuntimeError, "Unknown makemenu: %s" % menu
 	else:
 		menus[menu].response(player, response, arguments)
@@ -849,7 +849,7 @@ def MakeMenuTarget(player, arguments, target):
 	arguments = list(arguments)[2:]
 
 	global menus
-	if not menus.has_key(menu):
+	if not menu in menus:
 		raise RuntimeError, "Unknown makemenu: %s." % menu
 	else:
 		if action == 1:
@@ -1005,7 +1005,7 @@ class MakeMenu:
 				(menu, action) = item.split(':')
 				action = int(action)
 				global menus
-				if menus.has_key(menu):
+				if menu in menus:
 					menu = menus[menu]
 					if action < len(menu.subactions):
 						gump.addButton(220, yoffset, 4005, 4007, 0x10000000 | j)
@@ -1507,7 +1507,7 @@ class MakeMenu:
 			if len(history) > 0:
 				(menu, action) = history[0].split(":")
 				global menus
-				if menus.has_key(menu):
+				if menu in menus:
 					menu = menus[menu]
 					action = int(action)
 					if action < len(menu.subactions):
@@ -1628,7 +1628,7 @@ class MakeMenu:
 					(menu, action) = history[subaction].split(':')
 					action = int(action)
 					global menus
-					if menus.has_key(menu) and action < len(menus[menu].subactions):
+					if menu in menus and action < len(menus[menu].subactions):
 						menus[menu].subactions[action].make(player, arguments)
 
 		# MakeHistory: Show Detail Page
@@ -1645,7 +1645,7 @@ class MakeMenu:
 					(menu, action) = history[subaction].split(':')
 					action = int(action)
 					global menus
-					if menus.has_key(menu) and action < len(menus[menu].subactions):
+					if menu in menus and action < len(menus[menu].subactions):
 						menus[menu].subactions[action].details(player, arguments)
 
 		# MaterialSelection: Primary Material

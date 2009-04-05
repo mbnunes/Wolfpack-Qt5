@@ -72,7 +72,7 @@ class TinkerItemAction(CraftItemAction):
 		if not self.markable:
 			return False
 
-		if not self.skills.has_key(TINKERING):
+		if not TINKERING in self.skills:
 			return False
 
 		minskill = self.skills[TINKERING][0]

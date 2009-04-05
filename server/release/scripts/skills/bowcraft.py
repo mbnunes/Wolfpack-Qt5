@@ -56,7 +56,7 @@ class FletchItemAction(CraftItemAction):
 	# Check if we did an exceptional job.
 	#
 	def getexceptionalchance(self, player, arguments):
-		if not self.skills.has_key(BOWCRAFT):
+		if not BOWCRAFT in self.skills:
 			return False
 
 		minskill = self.skills[BOWCRAFT][0]

@@ -60,13 +60,13 @@ class CarpItemAction(CraftItemAction):
 	#
 	def getexceptionalchance(self, player, arguments):
 		# Only works if this item requires carpentry
-		if not self.skills.has_key(CARPENTRY):
+		if not CARPENTRY in self.skills:
 			return False
 
 		minskill = self.skills[CARPENTRY][0]
 		maxskill = self.skills[CARPENTRY][1]
 
-		if self.skills.has_key(TINKERING):
+		if TINKERING in self.skills:
 			minskill -= self.skills[TINKERING][0]
 			maxskill -= self.skills[TINKERING][1]
 

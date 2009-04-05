@@ -146,7 +146,7 @@ def onDamage(char, type, amount, source):
 
 	speech = char.getstrproperty('monsterspeech', '')
 	global speechbuilders
-	if not speechbuilders.has_key(speech):
+	if not speech in speechbuilders:
 		return amount
 	speechbuilder = speechbuilders[speech]
 
@@ -168,7 +168,7 @@ def onWalk(char, dir, sequence):
 
 	speech = char.getstrproperty('monsterspeech', '')
 	global speechbuilders
-	if not speechbuilders.has_key(speech):
+	if not speech in speechbuilders:
 		console.log(LOG_MESSAGE, speech + "\n")
 		return False
 	speechbuilder = speechbuilders[speech]	

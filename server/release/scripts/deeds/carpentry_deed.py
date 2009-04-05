@@ -69,7 +69,7 @@ def onShowTooltip( sender, target, tooltip ):
 	if not target.hastag( 'carpentry_type' ):
 		return
 	name = target.gettag( 'carpentry_type' )
-	if not deeds.has_key( name ):
+	if not name in deeds:
 		return
 	tooltip_id = deeds[ name ][ TOOLTIP ]
 	tooltip.add( tooltip_id, "" )
@@ -141,7 +141,7 @@ def check_room( item, pos ):
 	if not item.hastag( 'carpentry_type' ):
 		return False
 	name = item.gettag( 'carpentry_type' )
-	if not deeds.has_key( name ):
+	if not name in deeds:
 		return False
 	dir = deeds[ name ][ DIRECTION ]
 	items = deeds[ name ][ DEED_ITEMS ]
@@ -202,7 +202,7 @@ def setup_item( item, pos ):
 	if not item.hastag( 'carpentry_type' ):
 		return
 	name = item.gettag( 'carpentry_type' )
-	if not deeds.has_key( name ):
+	if not name in deeds:
 		return
 	dir = deeds[ name ][ DIRECTION ]
 	items = deeds[ name ][ DEED_ITEMS ]

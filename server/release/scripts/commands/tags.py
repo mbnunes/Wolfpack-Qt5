@@ -51,7 +51,7 @@ def taginfo_callback(player, tagnames, response):
 			object.resendtooltip()
 			continue
 
-		if response.text.has_key(i * 2 + 0) and response.text.has_key(i * 2 + 1):
+		if (i * 2, i * 2 + 1) in response.text:
 			# Get value and name of the tag
 			name = response.text[i * 2]
 			value = response.text[i * 2 + 1]

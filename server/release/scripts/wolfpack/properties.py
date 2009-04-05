@@ -138,7 +138,7 @@ def fromitem(item, property):
 	if property == MAGEARMOR and item.allowmeditation:
 		return True
 
-	if not PROPERTIES.has_key(property):
+	if not property in PROPERTIES:
 		raise Exception, "Unknown property value %u" % property
 
 	info = PROPERTIES[property]
@@ -161,7 +161,7 @@ def fromitem(item, property):
 	else:
 		# Take three properties from the hardcoded property list for weapons
 		if property in [HITSOUND, MISSSOUND, SWING]:
-			if not wolfpack.weaponinfo.WEAPONINFO.has_key(item.baseid):
+			if not item.baseid in wolfpack.weaponinfo.WEAPONINFO:
 				return info[1]
 			else:
 				return wolfpack.weaponinfo.WEAPONINFO[item.baseid][property]
@@ -186,12 +186,12 @@ def fromitem(item, property):
 
 		if resboni and item.hastag('resname'):
 			resname = unicode(item.gettag('resname'))
-			if resboni.has_key(resname) and resboni[resname].has_key(property):
+			if resname in resboni and property in resboni[resname]:
 				value += resboni[resname][property]
 
 		if resboni and item.hastag('resname2'):
 			resname = unicode(item.gettag('resname2'))
-			if resboni.has_key(resname) and resboni[resname].has_key(property):
+			if resname in resboni and property in resboni[resname]:
 				value += resboni[resname][property]
 
 		# Special Treatment for Damagetypes, if item hast 2 restypes (they are not cumulative)
@@ -203,12 +203,12 @@ def fromitem(item, property):
 			res1name = unicode(item.gettag('resname'))
 			res2name = unicode(item.gettag('resname2'))
 			for dtype in damagetypes:
-				if resboni.has_key(res1name) and resboni[res1name].has_key(dtype):
+				if res1name in resboni and dtype in resboni[res1name]:
 					res1_has_damagetypes = True
-				if resboni.has_key(res2name) and resboni[res2name].has_key(dtype):
+				if res2name in resboni and dtype in resboni[res2name]:
 					res2_has_damagetypes = True
 			#if both resources have a own damagedistribution use the average
-			if 	res1_has_damagetypes and res2_has_damagetypes:
+			if res1_has_damagetypes and res2_has_damagetypes:
 				#the value already contains the sum of the 2, so here it must only be divided by 2
 				value = value/2
 			#if only one resource contains a damagedistribution use only this and this is already done
@@ -222,7 +222,7 @@ def fromitem(item, property):
 # Get a property bonus from a given resource
 #
 def fromresource(resource, property, type):
-	if not PROPERTIES.has_key(property):
+	if not property in PROPERTIES:
 		raise Exception, "Unknown property value %u" % property
 
 	info = PROPERTIES[property]
@@ -235,13 +235,13 @@ def fromresource(resource, property, type):
 		return info[1]
 
 	# Default value for unknown resources
-	if not resboni.has_key(resource):
+	if not resource in resboni:
 		return info[1]
 
 	resboni = resboni[resource]
 
 	# Unkown property for this resource
-	if not resboni.has_key(property):
+	if not property in resboni:
 		return info[1]
 
 	return resboni[property]
@@ -252,7 +252,7 @@ def fromresource(resource, property, type):
 #
 def fromchar(char, property):
 	# Check for unknown property
-	if not PROPERTIES.has_key(property):
+	if not property in PROPERTIES:
 		raise Exception, "Unknown property value %u" % property
 
 	info = PROPERTIES[property]
@@ -573,7 +573,7 @@ def applyArmorRandom(item, props, minintensity, maxintensity, luckchance):
 		property = random.choice(properties)
 		properties.remove(property)
 
-		if not PROPERTIES.has_key(property):
+		if not property in PROPERTIES:
 			continue
 
 		# Scale the value for the property
@@ -617,7 +617,7 @@ def applyShieldRandom(item, props, minintensity, maxintensity, luckchance):
 		property = random.choice(properties)
 		properties.remove(property)
 
-		if not PROPERTIES.has_key(property):
+		if not property in PROPERTIES:
 			continue
 
 		# Scale the value for the property
@@ -702,7 +702,7 @@ def applyJuwelRandom(item, props, minintensity, maxintensity, luckchance):
 			item.settag('skillbonus_%u' % (property - 1000), '%u,%u' % (skill, value * 10))
 			continue
 
-		if not PROPERTIES.has_key(property):
+		if not property in PROPERTIES:
 			continue
 
 		# Scale the value for the property
@@ -771,7 +771,7 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 	for i in range(0, props):
 		property = random.choice(properties)
 
-		if not PROPERTIES.has_key(property):
+		if not property in PROPERTIES:
 			continue
 
 		# Special handling for slayers

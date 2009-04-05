@@ -10,7 +10,7 @@ from time import strftime, localtime
 # Main Menu Constants
 MAINMENU_GENERALPROPERTIES = 1
 MAINMENU_MEMBERS = 2
-MAINMENU_CANIDATES = 3
+MAINMENU_CANDIDATES = 3
 MAINMENU_DIPLOMACY = 4
 MAINMENU_MEMBERSHIP = 5
 MAINMENU_DISBANDGUILD = 6
@@ -140,33 +140,33 @@ def guildMemberDetailsResponse(player, arguments, response):
 			# Count votes and see if someone has more than 50% of all members votes
 			# NOTE: He has to vote for himself to accept the leadership offer
 			membercount = len(guild.members)
-			canidates = {}
+			candidates = {}
 			members = guild.members
 			for member in members:
-				canidate = wolfpack.findchar(getVote(member, guild))
-				if canidate in members:
-					if canidates.has_key(canidate):
-						canidates[canidate] += 1
+				candidate = wolfpack.findchar(getVote(member, guild))
+				if candidate in members:
+					if candidate in candidates:
+						candidates[candidate] += 1
 					else:
-						canidates[canidate] = 1
+						candidates[candidate] = 1
 
-			for (canidate, votes) in canidates.items():
+			for (candidate, votes) in candidates.items():
 				if votes > floor(membercount * 0.50):
 					# Member has enough votes to be a leader
 					# Check if he voted for himself
-					canidatevote = getVote(canidate, guild)
-					if canidatevote == canidate.serial:
+					candidatevote = getVote(candidate, guild)
+					if candidatevote == candidate.serial:
 						for member in guild.members:
-							if member != canidate:
-								sendMessage(member, tr('%s has been elected as the new leader of your guild.') % canidate.name)
+							if member != candidate:
+								sendMessage(member, tr('%s has been elected as the new leader of your guild.') % candidate.name)
 							else:
-								sendMessage(canidate, tr('You have been elected as the new leader of your guild.'))
-						guild.leader = canidate
-						canidate.resendtooltip()
+								sendMessage(candidate, tr('You have been elected as the new leader of your guild.'))
+						guild.leader = candidate
+						candidate.resendtooltip()
 						if guild.guildstone:
 							guild.guildstone.resendtooltip()
 					else:
-						sendMessage(canidate, tr('You have enough votes to become the new leader of your guild. To accept this result, please vote for yourself at your guildstone.'))
+						sendMessage(candidate, tr('You have enough votes to become the new leader of your guild. To accept this result, please vote for yourself at your guildstone.'))
 					break
 
 			guildMembers(player, guild)
@@ -318,11 +318,11 @@ def guildMemberDetails(player, guild, char):
 		color[7] = 980
 
 	dialog.addText(150, 190, tr("May edit the guild properties."), color[0])
-	dialog.addText(152, 224, tr("May recruit new canidates for the guild."), color[1])
-	dialog.addText(152, 256, tr("May promote canidates to full member status."), color[2])
+	dialog.addText(152, 224, tr("May recruit new candidates for the guild."), color[1])
+	dialog.addText(152, 256, tr("May promote candidates to full member status."), color[2])
 	dialog.addText(152, 288, tr("May act as an diplomat for this guild."), color[3])
 	dialog.addText(152, 320, tr("May kick members out of this guild."), color[4])
-	dialog.addText(152, 352, tr("May expel canidates from the guild."), color[5])
+	dialog.addText(152, 352, tr("May expel candidates from the guild."), color[5])
 	dialog.addText(152, 384, tr("May grant guild titles to members of this guild."), color[6])
 	dialog.addText(152, 416, tr("May grant permissions to other guild members."), color[7])
 
@@ -457,13 +457,13 @@ def guildMembers(player, guild):
 	dialog.send(player)
 
 # Simply return to the main menu
-def guildCanidatesOverviewResponse(player, arguments, response):
+def guildCandidatesOverviewResponse(player, arguments, response):
 	guild = wolfpack.findguild(arguments[0])
 	if guild:
 		mainMenu(player, guild)
 
-# Display a read only list of canidates
-def guildCanidatesOverview(player, guild):
+# Display a read only list of candidates
+def guildCandidatesOverview(player, guild):
 	name = guild.name
 	abbreviation = ''
 	if len(guild.abbreviation) > 0:
@@ -471,11 +471,11 @@ def guildCanidatesOverview(player, guild):
 
 	offline = []
 	online = []
-	for canidate in guild.canidates:
-		if canidate.socket:
-			online.append(canidate.name)
+	for candidate in guild.candidates:
+		if candidate.socket:
+			online.append(candidate.name)
 		else:
-			offline.append(canidate.name)
+			offline.append(candidate.name)
 
 	html = ''
 
@@ -492,7 +492,7 @@ def guildCanidatesOverview(player, guild):
 		html += tr('<br>')
 
 	if len(offline) == 0 and len(online) == 0:
-		html += tr('There are currently no known canidates for a membership in this guild.')
+		html += tr('There are currently no known candidates for a membership in this guild.')
 		html += tr('<br><br>')
 
 	# Append a list of Members responsible for recruitment
@@ -509,11 +509,11 @@ def guildCanidatesOverview(player, guild):
 			html += tr('%s<br>') % member
 		html += tr('<br><br>')
 	else:
-		html += tr('There is currently no one responsible for recruiting canidates.')
+		html += tr('There is currently no one responsible for recruiting candidates.')
 		html += tr('<br><br>')
 
 	dialog = wolfpack.gumps.cGump()
-	dialog.setCallback(guildCanidatesOverviewResponse)
+	dialog.setCallback(guildCandidatesOverviewResponse)
 	dialog.setArgs([guild.serial])
 	dialog.startPage(0)
 	dialog.addResizeGump(64, 34, 9260, 464, 462)
@@ -523,11 +523,11 @@ def guildCanidatesOverview(player, guild):
 	dialog.addResizeGump(100, 79, 9200, 405, 65)
 	dialog.addTilePic(106, 49, 3805)
 	dialog.addText(160, 90, tr("Guildstone for %s%s") % (name, abbreviation), 380)
-	dialog.addText(160, 113, tr("Canidate Overview"), 2100)
+	dialog.addText(160, 113, tr("Candidate Overview"), 2100)
 	dialog.addResizeGump(100, 149, 9200, 404, 283)
 	dialog.addGump(13, 339, 10402, 0)
 	dialog.addButton(102, 450, 247, 248, 0)
-	dialog.addText(113, 158, tr("Canidates"), 2100)
+	dialog.addText(113, 158, tr("Candidates"), 2100)
 	dialog.addHtmlGump(110, 180, 384, 240, html, 1, 1)
 
 	dialog.send(player)
@@ -540,7 +540,7 @@ def recruitResponse(player, arguments, target):
 		return
 
 	if not checkPermission(player, guild, PERMISSION_RECRUIT):
-		player.socket.sysmessage(tr('You are not allowed to recruit canidates for this guild.'))
+		player.socket.sysmessage(tr('You are not allowed to recruit candidates for this guild.'))
 	else:
 		if not target.char or not target.char.player or not target.char.socket:
 			player.socket.sysmessage(tr('You can only recruit players for your guild.'))
@@ -549,17 +549,17 @@ def recruitResponse(player, arguments, target):
 				player.socket.sysmessage(tr('That character is already in a guild.'))
 			else:
 				for member in guild.members:
-					sendMessage(member, tr("A new canidate %s has been recruited into your guild by %s.") % (target.char.name, player.name))
+					sendMessage(member, tr("A new candidate %s has been recruited into your guild by %s.") % (target.char.name, player.name))
 
-				sendMessage(target.char, tr('You have been recruited as a canidate for %s by %s.') % (guild.name, player.name))
-				guild.addcanidate(target.char)
+				sendMessage(target.char, tr('You have been recruited as a candidate for %s by %s.') % (guild.name, player.name))
+				guild.addcandidate(target.char)
 				target.char.addscript( 'guilds.member' )
 				target.char.resendtooltip()
 				if guild.guildstone:
 					guild.guildstone.resendtooltip()
-				guildCanidates(player, guild)
+				guildCandidates(player, guild)
 
-def guildCanidatesResponse(player, arguments, response):
+def guildCandidatesResponse(player, arguments, response):
 	guild = wolfpack.findguild(arguments[0])
 
 	if not guild:
@@ -572,34 +572,34 @@ def guildCanidatesResponse(player, arguments, response):
 		if len(response.switches) == 1:
 			switch = response.switches[0]
 
-			# Expel a canidate
+			# Expel a candidate
 			if switch & 0x80000000:
 				if checkPermission(player, guild, PERMISSION_EXPEL):
 					switch &= ~0x80000000
 					char = wolfpack.findchar(switch)
-					if char.player and char in guild.canidates:
-						guild.removecanidate(char)
+					if char.player and char in guild.candidates:
+						guild.removecandidate(char)
 						sendMessage(char, tr("You have been expelled from your guild by %s.") % player.name)
 						for member in guild.members:
-							sendMessage(member, tr("The canidate %s has been expelled from your guild by %s.") % (char.name, player.name))
+							sendMessage(member, tr("The candidate %s has been expelled from your guild by %s.") % (char.name, player.name))
 						char.resendtooltip()
 						if guild.guildstone:
 							guild.guildstone.resendtooltip()
 					else:
-						player.socket.sysmessage(tr('The selected player is not a canidate of this guild.'))
+						player.socket.sysmessage(tr('The selected player is not a candidate of this guild.'))
 				else:
-					player.socket.sysmessage(tr('You are not allowed to expel canidates in this guild.'))
+					player.socket.sysmessage(tr('You are not allowed to expel candidates in this guild.'))
 
-			# Promote a canidate
+			# Promote a candidate
 			elif switch & 0x40000000:
 				if checkPermission(player, guild, PERMISSION_PROMOTE):
 					switch &= ~0x40000000
 					char = wolfpack.findchar(switch)
-					if char.player and char in guild.canidates:
-						guild.removecanidate(char)
+					if char.player and char in guild.candidates:
+						guild.removecandidate(char)
 						sendMessage(char, tr("You have been promoted to be a full member of your guild by %s.") % player.name)
 						for member in guild.members:
-							sendMessage(member, tr("The canidate %s has been promoted to full member status by %s.") % (char.name, player.name))
+							sendMessage(member, tr("The candidate %s has been promoted to full member status by %s.") % (char.name, player.name))
 						guild.addmember(char)
 
 						# Clean voting and or permissions
@@ -612,14 +612,14 @@ def guildCanidatesResponse(player, arguments, response):
 						if guild.guildstone:
 							guild.guildstone.resendtooltip()
 					else:
-						player.socket.sysmessage(tr('The selected player is not a canidate of this guild.'))
+						player.socket.sysmessage(tr('The selected player is not a candidate of this guild.'))
 				else:
-					player.socket.sysmessage(tr('You are not allowed to promote canidates in this guild.'))
+					player.socket.sysmessage(tr('You are not allowed to promote candidates in this guild.'))
 
 			# Show a target for inviting someone into the guild
 			elif switch == 1:
 				if not checkPermission(player, guild, PERMISSION_RECRUIT):
-					player.socket.sysmessage(tr('You are not allowed to recruit canidates for this guild.'))
+					player.socket.sysmessage(tr('You are not allowed to recruit candidates for this guild.'))
 				else:
 					player.socket.sysmessage('Choose the player you want to recruit for your guild.')
 					player.socket.attachtarget('guilds.stone.recruitResponse', [guild.serial])
@@ -630,9 +630,9 @@ def guildCanidatesResponse(player, arguments, response):
 			mainMenu(player, guild)
 			return
 
-		guildCanidates(player, guild)
+		guildCandidates(player, guild)
 
-def guildCanidates(player, guild):
+def guildCandidates(player, guild):
 	if checkPermission(player, guild, PERMISSION_RECRUIT|PERMISSION_EXPEL|PERMISSION_PROMOTE):
 		name = guild.name
 		abbreviation = ''
@@ -640,7 +640,7 @@ def guildCanidates(player, guild):
 			abbreviation = tr(' [%s]') % guild.abbreviation
 
 		dialog = wolfpack.gumps.cGump()
-		dialog.setCallback(guildCanidatesResponse)
+		dialog.setCallback(guildCandidatesResponse)
 		dialog.setArgs([guild.serial])
 
 		dialog.startPage(0)
@@ -651,7 +651,7 @@ def guildCanidates(player, guild):
 		dialog.addResizeGump(100, 79, 9200, 405, 65)
 		dialog.addTilePic(106, 49, 3805)
 		dialog.addText(160, 90, tr("Guildstone for %s%s") % (name, abbreviation), 380)
-		dialog.addText(160, 113, tr("Canidate Management"), 2100)
+		dialog.addText(160, 113, tr("Candidate Management"), 2100)
 		dialog.addResizeGump(100, 149, 9200, 404, 240)
 		dialog.addGump(13, 339, 10402, 0)
 		dialog.addButton(102, 450, 247, 248, 1)
@@ -660,18 +660,18 @@ def guildCanidates(player, guild):
 		dialog.startGroup(0)
 
 		if checkPermission(player, guild, PERMISSION_RECRUIT):
-			dialog.addText(152, 406, tr("Recruit a new canidate for this guild."), 2100)
+			dialog.addText(152, 406, tr("Recruit a new candidate for this guild."), 2100)
 			dialog.addRadioButton(114, 401, 9721, 9724, 1, 0)
 		else:
 			dialog.addText(152, 406, tr("Recruit a new member for this guild."), 980)
 			dialog.addGump(114, 401, 9721, 980)
 
-		canidates = guild.canidates
+		candidates = guild.candidates
 		offset = 0
 		page = 0
-		pages = ceil(len(canidates) / 3.0)
+		pages = ceil(len(candidates) / 3.0)
 
-		for canidate in canidates:
+		for candidate in candidates:
 			if offset == 0:
 				page += 1
 				dialog.startPage(page)
@@ -685,20 +685,20 @@ def guildCanidates(player, guild):
 					dialog.addText(388, 358, tr("Next Page"), 905)
 
 			dialog.addResizeGump(110, 157 + offset, 9350, 387, 62)
-			dialog.addText(118, 162 + offset, canidate.name, 2100)
+			dialog.addText(118, 162 + offset, candidate.name, 2100)
 
 			if checkPermission(player, guild, PERMISSION_EXPEL):
-				dialog.addText(151, 189 + offset, tr("Expel this canidate"), 2100)
-				dialog.addRadioButton(114, 185 + offset, 9721, 9724, 0x80000000|canidate.serial, 0)
+				dialog.addText(151, 189 + offset, tr("Expel this candidate"), 2100)
+				dialog.addRadioButton(114, 185 + offset, 9721, 9724, 0x80000000|candidate.serial, 0)
 			else:
-				dialog.addText(151, 189 + offset, tr("Expel this canidate"), 980)
+				dialog.addText(151, 189 + offset, tr("Expel this candidate"), 980)
 				dialog.addGump(114, 185 + offset, 9721, 980)
 
 			if checkPermission(player, guild, PERMISSION_PROMOTE):
-				dialog.addText(338, 189 + offset, tr("Accept this canidate"), 2100)
-				dialog.addRadioButton(301, 185 + offset, 9721, 9724, 0x40000000|canidate.serial, 0)
+				dialog.addText(338, 189 + offset, tr("Accept this candidate"), 2100)
+				dialog.addRadioButton(301, 185 + offset, 9721, 9724, 0x40000000|candidate.serial, 0)
 			else:
-				dialog.addText(338, 189 + offset, tr("Accept this canidate"), 980)
+				dialog.addText(338, 189 + offset, tr("Accept this candidate"), 980)
 				dialog.addGump(301, 185 + offset, 9721, 980)
 
 			if offset == 134:
@@ -709,7 +709,7 @@ def guildCanidates(player, guild):
 		dialog.send(player)
 
 	else:
-		guildCanidatesOverview(player, guild)
+		guildCandidatesOverview(player, guild)
 
 def guildDiplomacy(player, guild):
 	pass
@@ -869,7 +869,7 @@ def guildMembershipResponse(player, arguments, response):
 		player.socket.sysmessage(tr('The guild you try to manage has already been disbanded.'))
 		return
 
-	if response.button == 1 and (player in guild.members or player in guild.canidates):
+	if response.button == 1 and (player in guild.members or player in guild.candidates):
 		# Toggle Guildsign
 		if 1 in response.switches:
 			if player in guild.members:
@@ -886,8 +886,8 @@ def guildMembershipResponse(player, arguments, response):
 		# Resign from the guild
 		elif 3 in response.switches:
 			members = guild.members
-			canidates = guild.canidates
-			if player in members or player in canidates:
+			candidates = guild.candidates
+			if player in members or player in candidates:
 				guild.removemember(player)
 
 				for member in members:
@@ -952,7 +952,7 @@ def guildMembership(player, guild):
 		dialog.addText(156, 172, tr("Enable your guildsign."), 980)
 		dialog.addGump(116, 168, 9721, 980)
 
-	if player in guild.members or player in guild.canidates:
+	if player in guild.members or player in guild.candidates:
 		dialog.addText(156, 212, tr("Resign from this guild."), 2100)
 		dialog.addRadioButton(116, 208, 9721, 9724, 3, 0)
 	else:
@@ -989,13 +989,13 @@ def mainMenuResponse(player, arguments, response):
 				player.socket.sysmessage(tr('You need to be the leader of this guild or a gamemaster to disband it.'))
 			else:
 				members = guild.members
-				canidates = guild.canidates
+				candidates = guild.candidates
 
 				if guild.guildstone:
 					guild.guildstone.delete()
 				guild.delete()
 
-				for char in members + canidates:
+				for char in members + candidates:
 					sendMessage(char, tr("Your guild has been disbanded by %s!") % player.name)
 					if char.socket:
 						char.resendtooltip()
@@ -1004,9 +1004,9 @@ def mainMenuResponse(player, arguments, response):
 		elif MAINMENU_MEMBERS in response.switches:
 			guildMembers(player, guild)
 
-		# Show a page with canidate information
-		elif MAINMENU_CANIDATES in response.switches:
-			guildCanidates(player, guild)
+		# Show a page with candidate information
+		elif MAINMENU_CANDIDATES in response.switches:
+			guildCandidates(player, guild)
 
 		# Show a page with ally/enemy information:
 		elif MAINMENU_DIPLOMACY in response.switches:
@@ -1025,7 +1025,7 @@ def mainMenu(player, guild):
 		abbreviation = tr(' [%s]') % guild.abbreviation
 
 	members = guild.members
-	canidates = guild.canidates
+	candidates = guild.candidates
 
 	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback(mainMenuResponse)
@@ -1062,11 +1062,11 @@ def mainMenu(player, guild):
 		dialog.addRadioButton(116, 208, 9721, 9724, MAINMENU_MEMBERS, 0)
 
 	if checkPermission(player, guild, PERMISSION_RECRUIT|PERMISSION_EXPEL|PERMISSION_PROMOTE):
-		dialog.addText(156, 252, tr("Manage the canidates of this guild."), 2100)
-		dialog.addRadioButton(116, 248, 9721, 9724, MAINMENU_CANIDATES, 0)
+		dialog.addText(156, 252, tr("Manage the candidates of this guild."), 2100)
+		dialog.addRadioButton(116, 248, 9721, 9724, MAINMENU_CANDIDATES, 0)
 	else:
-		dialog.addText(156, 252, tr("View the canidates of this guild."), 2100)
-		dialog.addRadioButton(116, 248, 9721, 9724, MAINMENU_CANIDATES, 0)
+		dialog.addText(156, 252, tr("View the candidates of this guild."), 2100)
+		dialog.addRadioButton(116, 248, 9721, 9724, MAINMENU_CANDIDATES, 0)
 
 	# Diplomatic relations are not done yet
 	dialog.addText(156, 292, tr("View the diplomatic relations of this guild."), 980)
@@ -1080,7 +1080,7 @@ def mainMenu(player, guild):
 	#	dialog.addRadioButton(116, 288, 9721, 9724, MAINMENU_DIPLOMACY, 0)
 
 	# You can only resign from a guild you are a member of
-	if player in members or player in canidates:
+	if player in members or player in candidates:
 		dialog.addText(156, 332, tr("Membership options."), 2100)
 		dialog.addRadioButton(116, 328, 9721, 9724, MAINMENU_MEMBERSHIP, 0)
 	else:
@@ -1130,7 +1130,7 @@ def onShowTooltip(sender, target, tooltip):
 				appendix = tr("%s [%s]") % (guild.name, guild.abbreviation)
 
 			appendix += "\n" + tr("Members: %u") % len(guild.members)
-			appendix += "\n" + tr("Canidates: %u") % len(guild.canidates)
+			appendix += "\n" + tr("Candidates: %u") % len(guild.candidates)
 
 			if guild.leader:
 				appendix += "\n" + tr("Leader: %s") % guild.leader.name

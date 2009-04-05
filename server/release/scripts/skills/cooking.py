@@ -37,13 +37,13 @@ def onUse( char, item ):
 		item.update()
 		return True
 
-	if not actions.has_key( item.baseid ):
+	if not item.baseid in ACTIONS:
 		menu = findmenu('COOKING')
 		if menu:
 			menu.send(char, [item.serial])
 		return True
 
-	char.socket.attachtarget( "skills.cooking.%s" % actions[ item.baseid ], [item.serial] )
+	char.socket.attachtarget( "skills.cooking.%s" % ACTIONS[ item.baseid ], [item.serial] )
 	return True
 
 def Dough( char, args, target ):
@@ -197,7 +197,7 @@ def SackFlourOpen( char, args, target ):
 	consume(item)
 
 # Table of IDs mapped to handler functions
-actions =	{
+ACTIONS =	{
 			"103d": "Dough",
 
 			"sweet_dough": "SweetDough",

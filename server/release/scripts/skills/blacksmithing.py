@@ -107,7 +107,7 @@ class SmithItemAction(CraftItemAction):
 	#
 	def getexceptionalchance(self, player, arguments):
 		# Only works if this item requires blacksmithing
-		if not self.skills.has_key(BLACKSMITHING):
+		if not BLACKSMITHING in self.skills:
 			return False
 
 		minskill = self.skills[BLACKSMITHING][0]

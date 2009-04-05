@@ -140,7 +140,7 @@ def onUpdateDatabase(current, version):
 
 	for i in range(version, current):
 		# No update for this version available
-		if not updates.has_key(i):
+		if not i in updates:
 			console.log(LOG_ERROR, "No update available for database version %u.\n" % i)
 			return False
 
@@ -257,7 +257,7 @@ def onUpdateAcctDatabase(current, version):
 
 	for i in range(version, current):
 		# No update for this version available
-		if not updates.has_key(i):
+		if not i in updates:
 			console.log(LOG_ERROR, "No update available for database version %u.\n" % i)
 			database.close(ACCOUNTS)
 			return False

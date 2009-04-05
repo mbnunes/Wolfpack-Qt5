@@ -298,8 +298,8 @@ class CraftRunebook(CraftItemAction):
 	# Check if we did an exceptional job.
 	#
 	def getexceptionalchance(self, player, arguments):
-		# Only works if this item requires blacksmithing
-		if not self.skills.has_key(INSCRIPTION):
+		# Only works if this item requires inscription
+		if not INSCRIPTION in self.skills:
 			return 0.0
 
 		minskill = self.skills[INSCRIPTION][0]

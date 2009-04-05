@@ -169,7 +169,7 @@ def getvein(Oretable, pos, char):
 	gems = wolfpack.items(gem_x, gem_y, pos.map, 0)
 	for gem in gems:
 		if gem.hastag('resource') and gem.gettag('resource') == 'ore' and gem.hastag('resname') and gem.hastag('resname2'):
-			if Oretable.has_key(gem.gettag('resname')) and Oretable.has_key(gem.gettag('resname2')):
+			if (gem.gettag('resname'), gem.gettag('resname2')) in Oretable:
 				return gem
 			else:
 				gem.delete()
@@ -193,7 +193,7 @@ def getsandvein(socket, pos):
 	pos.y = gem_y
 	return createsandgem(pos)
 
-#Response from mining tool
+# Response from mining tool
 def response( char, args, target ):
 	socket = char.socket
 	if not socket:

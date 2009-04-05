@@ -164,7 +164,7 @@ def onSkillGain(char, skill, lower, higher, success):
 	if char.dead or char.gm or char.polymorph:
 		return
 
-	if not SKILLS.has_key(skill):
+	if not skill in SKILLS:
 		char.log(LOG_ERROR, "Is using an unidentified skill: %u\n" % skill)
 		return
 

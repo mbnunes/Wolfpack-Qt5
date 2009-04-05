@@ -250,7 +250,7 @@ def generateGoMenu():
 					parent = None
 					if len(category) == 0:
 						parent = gomenu
-					elif submenus.has_key(category):
+					elif category in submenus:
 						parent = submenus[category]
 
 					category += subcategory + '\\'

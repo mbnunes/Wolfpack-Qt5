@@ -18,14 +18,14 @@ def addnpc(player, arguments, target):
 	npc = wolfpack.addnpc(str(arguments[0]), target.pos)
 	npc.update()
 
-	player.log(LOG_MESSAGE, "Adds npc %s (0x%x) at %s.\n" % (str(arguments[0]), npc.serial, str(target.pos)))
+	player.log(LOG_MESSAGE, tr("Adds npc %s (0x%x) at %s.\n") % (str(arguments[0]), npc.serial, str(target.pos)))
 
 #
 # Target response for adding a multi
 #
 def addmulti(player, arguments, target):
 	if target.item and target.item.container:
-		player.socket.sysmessage("You can't add the multi there.")
+		player.socket.sysmessage(tr("You can't add the multi there."))
 		return
 
 	multi = wolfpack.addmulti(str(arguments[0]))
@@ -39,7 +39,7 @@ def addmulti(player, arguments, target):
 	multi.moveto(target.pos)
 	multi.update()
 
-	player.log(LOG_MESSAGE, "Adds multi %s (0x%x) at %s.\n" % (str(arguments[0]), multi.serial, target.pos))
+	player.log(LOG_MESSAGE, tr("Adds multi %s (0x%x) at %s.\n") % (str(arguments[0]), multi.serial, target.pos))
 
 #
 # Target response for adding an item
@@ -58,39 +58,39 @@ def additem(player, arguments, target):
 			target.item.additem(item, 1, 1, 0)
 
 			if arguments[1]:
-				player.log(LOG_MESSAGE, "Adds static item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.serial))
+				player.log(LOG_MESSAGE, tr("Adds static item %s (0x%x) into 0x%x.\n") % (str(arguments[0]), item.serial, target.item.serial))
 			else:
-				player.log(LOG_MESSAGE, "Adds item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.serial))
+				player.log(LOG_MESSAGE, tr("Adds item %s (0x%x) into 0x%x.\n") % (str(arguments[0]), item.serial, target.item.serial))
 		elif target.item.container:
 			if target.item.layer:
 				return False
 			target.item.container.additem(item, 1, 1, 0)
 
 			if arguments[1]:
-				player.log(LOG_MESSAGE, "Adds static item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.container.serial))
+				player.log(LOG_MESSAGE, tr("Adds static item %s (0x%x) into 0x%x.\n") % (str(arguments[0]), item.serial, target.item.container.serial))
 			else:
-				player.log(LOG_MESSAGE, "Adds item %s (0x%x) into 0x%x.\n" % (str(arguments[0]), item.serial, target.item.container.serial))
+				player.log(LOG_MESSAGE, tr("Adds item %s (0x%x) into 0x%x.\n") % (str(arguments[0]), item.serial, target.item.container.serial))
 		else:
 			item.moveto(target.item.pos)
 
 			if arguments[1]:
-				player.log(LOG_MESSAGE, "Adds static item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.item.pos)))
+				player.log(LOG_MESSAGE, tr("Adds static item %s (0x%x) at %s.\n") % (str(arguments[0]), item.serial, str(target.item.pos)))
 			else:
-				player.log(LOG_MESSAGE, "Adds item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.item.pos)))			
+				player.log(LOG_MESSAGE, tr("Adds item %s (0x%x) at %s.\n") % (str(arguments[0]), item.serial, str(target.item.pos)))
 	elif target.char:
 		item.moveto(target.char.pos)
 
 		if arguments[1]:
-			player.log(LOG_MESSAGE, "Adds static item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.char.pos)))
+			player.log(LOG_MESSAGE, tr("Adds static item %s (0x%x) at %s.\n") % (str(arguments[0]), item.serial, str(target.char.pos)))
 		else:
-			player.log(LOG_MESSAGE, "Adds item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.char.pos)))
+			player.log(LOG_MESSAGE, tr("Adds item %s (0x%x) at %s.\n") % (str(arguments[0]), item.serial, str(target.char.pos)))
 	else:
 		item.moveto(target.pos)
 
 		if arguments[1]:
-			player.log(LOG_MESSAGE, "Adds static item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.pos)))
+			player.log(LOG_MESSAGE, tr("Adds static item %s (0x%x) at %s.\n") % (str(arguments[0]), item.serial, str(target.pos)))
 		else:
-			player.log(LOG_MESSAGE, "Adds item %s (0x%x) at %s.\n" % (str(arguments[0]), item.serial, str(target.pos)))
+			player.log(LOG_MESSAGE, tr("Adds item %s (0x%x) at %s.\n") % (str(arguments[0]), item.serial, str(target.pos)))
 
 	item.update()
 
@@ -100,7 +100,7 @@ def additem(player, arguments, target):
 def static(socket, command, arguments):
 	if len(arguments) > 0:
 		if wolfpack.getdefinition(WPDT_ITEM, arguments):
-			socket.sysmessage("Where do you want to place the item '%s'?" % arguments)
+			socket.sysmessage(tr("Where do you want to place the item '%s'?") % arguments)
 			socket.attachtarget("commands.add.additem", [arguments, True])
 		elif wolfpack.getdefinition(WPDT_MULTI, arguments):
 			node = wolfpack.getdefinition(WPDT_MULTI, arguments)
@@ -109,13 +109,12 @@ def static(socket, command, arguments):
 				subnode = node.getchild(i)
 				if subnode.name == 'id': # Found the display id
 					dispid = hex2dec(subnode.value)
-			socket.sysmessage("tet")
-			socket.sysmessage("Where do you want to place the multi '%s'?" % arguments)
+			socket.sysmessage(tr("Where do you want to place the multi '%s'?") % arguments)
 			socket.attachmultitarget("commands.add.addmulti",  dispid - 0x4000, [arguments, True], 0, 0, 0)
 		else:
-			socket.sysmessage('No Item, NPC or Multi definition by that name found.')
+			socket.sysmessage(tr('No Item, NPC or Multi definition by that name found.'))
 	else:
-		socket.sysmessage('Usage: static <id>')
+		socket.sysmessage(tr('Usage: static <id>'))
 
 #
 # Add an item or character or
@@ -124,10 +123,10 @@ def static(socket, command, arguments):
 def add(socket, command, arguments):
 	if len(arguments) > 0:
 		if wolfpack.getdefinition(WPDT_ITEM, arguments):
-			socket.sysmessage("Where do you want to place the item '%s'?" % arguments)
+			socket.sysmessage(tr("Where do you want to place the item '%s'?") % arguments)
 			socket.attachtarget("commands.add.additem", [arguments, False])
 		elif wolfpack.getdefinition(WPDT_NPC, arguments):
-			socket.sysmessage("Where do you want to spawn the npc '%s'?" % arguments)
+			socket.sysmessage(tr("Where do you want to spawn the npc '%s'?") % arguments)
 			socket.attachtarget("commands.add.addnpc", [arguments])
 		elif wolfpack.getdefinition(WPDT_MULTI, arguments):
 			node = wolfpack.getdefinition(WPDT_MULTI, arguments)
@@ -136,17 +135,17 @@ def add(socket, command, arguments):
 				subnode = node.getchild(i)
 				if subnode.name == 'id': # Found the display id
 					dispid = hex2dec(subnode.value)
-			socket.sysmessage("Where do you want to place the multi '%s'?" % arguments)
+			socket.sysmessage(tr("Where do you want to place the multi '%s'?") % arguments)
 			socket.attachmultitarget("commands.add.addmulti",  dispid - 0x4000, [arguments, False], 0, 0, 0)
 		else:
-			socket.sysmessage('No Item, NPC or Multi definition by that name found.')
+			socket.sysmessage(tr('No Item, NPC or Multi definition by that name found.'))
 		return
 
 	global generated
 	if not generated:
 		generated = True
-		socket.sysmessage('Generating add menu.')
-		socket.sysmessage('Please wait...')
+		socket.sysmessage(tr('Generating add menu.'))
+		socket.sysmessage(tr('Please wait...'))
 		generateAddMenu(socket.player.serial)
 		return
 
@@ -154,7 +153,7 @@ def add(socket, command, arguments):
 	if menu:
 		menu.send(socket.player)
 	else:
-		socket.sysmessage('No ADDMENU menu found.')
+		socket.sysmessage(tr('No ADDMENU menu found.'))
 
 #
 # This action creates a npc.
@@ -169,7 +168,7 @@ class AddNpcAction(MakeNPCAction):
 		self.skills = ''
 
 	def make(self, player, arguments, nodelay=0):
-		player.socket.sysmessage("Where do you want to spawn the npc '%s'?" % self.definition)
+		player.socket.sysmessage(tr("Where do you want to spawn the npc '%s'?") % self.definition)
 		player.socket.attachtarget("commands.add.addnpc", [self.definition])
 		MakeAction.make(self, player, arguments, nodelay)
 
@@ -181,7 +180,7 @@ class AddItemAction(MakeItemAction):
 		MakeItemAction.__init__(self, parent, title, itemid, definition)
 
 	def make(self, player, arguments, nodelay=0):
-		player.socket.sysmessage("Where do you want to place the item '%s'?" % self.definition)
+		player.socket.sysmessage(tr("Where do you want to place the item '%s'?") % self.definition)
 		player.socket.attachtarget("commands.add.additem", [self.definition, False])
 		MakeAction.make(self, player, arguments, nodelay)
 
@@ -199,7 +198,7 @@ class AddMultiAction(MakeItemAction):
 			subnode = node.getchild(i)
 			if subnode.name == 'id': # Found the display id
 				dispid = hex2dec(subnode.value)
-		player.socket.sysmessage("Where do you want to place the multi '%s'?" % self.definition)
+		player.socket.sysmessage(tr("Where do you want to place the multi '%s'?") % self.definition)
 		player.socket.attachmultitarget("commands.add.addmulti",  dispid - 0x4000, [self.definition, False], 0, 0, 0)
 		MakeAction.make(self, player, arguments, nodelay)
 
@@ -248,7 +247,7 @@ def generateAddMenu(serial = 0, items = None):
 					parent = None
 					if len(category) == 0:
 						parent = addmenu
-					elif submenus.has_key(category):
+					elif category in submenus:
 						parent = submenus[category]
 
 					category += subcategory + '\\'
@@ -323,7 +322,7 @@ def generateAddMenu(serial = 0, items = None):
 					parent = None
 					if len(category) == 0:
 						parent = addmenu
-					elif submenus.has_key(category):
+					elif category in submenus:
 						parent = submenus[category]
 
 					category += subcategory + '\\'
@@ -372,7 +371,7 @@ def generateAddMenu(serial = 0, items = None):
 					parent = None
 					if len(category) == 0:
 						parent = addmenu
-					elif submenus.has_key(category):
+					elif category in submenus:
 						parent = submenus[category]
 
 					category += subcategory + '\\'
@@ -425,7 +424,7 @@ def onUnload():
         If no additional parameters are passed to the add command, it will generate a menu with all
 	categorized item and npc definitions. The entries of the menu are automatically generated
 	based on the loaded definitions <pre><category></pre> tag.
-	The object's ids are can be found in the definitions, such as:
+	The object's ids can be found in the definitions, such as:
 	<code>
 		&lt;!-- Random Horse --&gt;
         	&lt;npc id="horse" inherit="animal_base"&gt;

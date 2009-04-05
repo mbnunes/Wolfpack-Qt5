@@ -105,7 +105,7 @@ def consumeUse(item):
 		quantity = int(item.gettag('quantity'))
 
 	if quantity == 0:
-		if CONTAINERS.has_key(item.id):
+		if item.id in CONTAINERS:
 			cprops = CONTAINERS[item.id]
 
 			if cprops[3]:
@@ -133,7 +133,7 @@ def onUse(char, item):
 		quantity = int(item.gettag('quantity'))
 	cprops = CONTAINERS[item.id]
 	if quantity == 0:
-		if CONTAINERS.has_key(item.id):
+		if item.id in CONTAINERS:
 			cprops = CONTAINERS[item.id]
 
 			if cprops[3]:
@@ -178,7 +178,7 @@ def water(char, args, target):
 # Find a valid container item id for the given fluid
 # 
 def updateItemIdFromFluid(item, fluid):
-	if not FLUIDS.has_key(fluid):
+	if not fluid in FLUIDS:
 		return
 
 	origid = item.id
@@ -201,7 +201,7 @@ def refill_target(char, args, target):
 	if not item:
 		return
 
-	if not CONTAINERS.has_key(item.id):
+	if not item.id in CONTAINERS:
 		return
 
 	cprops = CONTAINERS[item.id]
@@ -226,7 +226,7 @@ def fillfromitem( target, item, cprops ):
 	if target.item == item:
 		return False
 
-	if CONTAINERS.has_key(target.item.id):
+	if target.item.id in CONTAINERS:
 		quantity = 0
 		if target.item.hastag('quantity'):
 			quantity = int(target.item.gettag('quantity'))
@@ -235,7 +235,7 @@ def fillfromitem( target, item, cprops ):
 		if target.item.hastag('fluid'):
 			fluid = str(target.item.gettag('fluid'))
 
-		if quantity > 0 and FLUIDS.has_key(fluid):
+		if quantity > 0 and fluid in FLUIDS:
 
 			# completely refill the empty pitcher
 			if not item.hastag('quantity'):	
@@ -355,10 +355,10 @@ def consume(item):
 	if item.hastag('fluid'):
 		btype = unicode(item.gettag('fluid'))
 
-	if not FLUIDS.has_key(btype):
+	if not btype in FLUIDS:
 		return True
 
-	if not CONTAINERS.has_key(item.id):
+	if not item.id in CONTAINERS:
 		return False
 
 	cprops = CONTAINERS[item.id]
@@ -386,11 +386,11 @@ def drink(char, item):
 	if item.hastag('fluid'):
 		btype = unicode(item.gettag('fluid'))
 
-	if not FLUIDS.has_key(btype):
+	if not btype in FLUIDS:
 		char.socket.sysmessage( tr("You shouldn't drink this strange fluid.") )
 		return True
 
-	if not CONTAINERS.has_key(item.id):
+	if not item.id in CONTAINERS:
 		return False
 
 	cprops = CONTAINERS[item.id]
@@ -428,7 +428,7 @@ def drink(char, item):
 # Show the tooltip for the item
 #
 def onShowTooltip(player, object, tooltip):
-	if not CONTAINERS.has_key(object.id):
+	if not object.id in CONTAINERS:
 		return
 
 	cprop = CONTAINERS[object.id]
@@ -437,7 +437,7 @@ def onShowTooltip(player, object, tooltip):
 	if object.hastag('fluid'):
 		btype = unicode(object.gettag('fluid'))
 
-	if object.name == '' and FLUIDS.has_key(btype):
+	if object.name == '' and btype in FLUIDS:
 		fprop = FLUIDS[btype]
 
 		tooltip.reset()

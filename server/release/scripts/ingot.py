@@ -9,7 +9,7 @@ def onShowTooltip(player, object, tooltip):
 
 	if object.hastag('resname'):
 		resname = str(object.gettag('resname'))
-		if mining.ORES.has_key(resname):
+		if resname in mining.ORES:
 			name = mining.ORES[resname][mining.INGOTNAME]
 
 	tooltip.reset()

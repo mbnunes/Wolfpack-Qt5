@@ -1,4 +1,5 @@
 import wolfpack
+from wolfpack import tr
 
 """
 	\command findlock
@@ -9,7 +10,7 @@ import wolfpack
 
 def findlock(socket, command, arguments):
 	if len(arguments) == 0:
-		socket.sysmessage('Usage: findlock <lock>')
+		socket.sysmessage( tr('Usage: findlock <lock>') )
 		return
 
 	lock = arguments.strip().lower()
@@ -24,7 +25,7 @@ def findlock(socket, command, arguments):
 				if container.container:
 					container = container.container
 
-				socket.sysmessage("Going to item '%s' [Serial: 0x%x; Top: 0x%x]." % (item.getname(), item.serial, container.serial))
+				socket.sysmessage( tr("Going to item '%s' [Serial: 0x%x; Top: 0x%x]." % (item.getname(), item.serial, container.serial)) )
 				pos = container.pos
 				socket.player.removefromview()
 				socket.player.moveto(pos)

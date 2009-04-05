@@ -169,7 +169,6 @@
 	</define>
 
 	<!-- Leathers -->
-
 	<define id="leather_armor">
 		<color>0x0</color>
 		<tag name="resname" value="leather" />
@@ -191,7 +190,6 @@
 	</define>
 
 	<!-- Dragon Scales -->
-
 	<define id="red_scaled_armor">
 		<color>0x66d</color>
 		<tag name="resname2" value="red_scales" />
@@ -223,7 +221,6 @@
 	</define>
 
 	<!-- Wooden -->
-
 	<define id="wood_armor">
 		<color>0x0</color>
 		<tag name="resname" value="plainwood" />

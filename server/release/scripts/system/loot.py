@@ -624,7 +624,7 @@ def onDeath(char, killer, corpse):
 
 	# Create the items for each pack
 	for pack in packs:
-		if not PACKS.has_key( pack ):
+		if not pack in PACKS:
 			console.log(LOG_ERROR, "Trying to create an unknown loot pack %s.\n" % pack)
 			continue
 		createpack( char, killer, corpse, PACKS[ pack ] )

@@ -42,3 +42,9 @@ def boom(socket, command, arguments):
 
 def onLoad():
 	wolfpack.registercommand('boom', boom)
+
+"""
+	\command boom
+	\description Generates an explosion around the own character.
+	\usage - <code>boom</code>
+"""

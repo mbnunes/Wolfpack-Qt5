@@ -1,6 +1,7 @@
 
 import wolfpack
 from wolfpack.consts import LOG_MESSAGE, EVENT_USE
+from wolfpack import tr
 
 def addscript_response( player, arguments, target ):
 	script = arguments[0]
@@ -10,17 +11,17 @@ def addscript_response( player, arguments, target ):
 		object = target.item
 	elif target.char:
 		if target.char.rank > player.rank and player != target.char:
-			player.socket.sysmessage( "You've burnt your fingers!" )
+			player.socket.sysmessage( tr("You've burnt your fingers!") )
 			return False
 		object = target.char
 	else:
-		player.socket.sysmessage( 'You have to target a character or item.' )
+		player.socket.sysmessage( tr('You have to target a character or item.') )
 		return False
 
-	player.log( LOG_MESSAGE, "Adds script '%s' to object 0x%x.\n" % ( script, object.serial ) )
+	player.log( LOG_MESSAGE, tr("Adds script '%s' to object 0x%x.\n" % ( script, object.serial )) )
 	object.addscript( str( script ) )
 	object.resendtooltip()
-	player.socket.sysmessage( 'You add the script to your target.' )
+	player.socket.sysmessage( tr('You add the script to your target.') )
 	return True
 
 """
@@ -31,7 +32,7 @@ def addscript_response( player, arguments, target ):
 """
 def commandAddscript( socket, command, arguments ):
 	if len(arguments) == 0:
-		socket.sysmessage( 'Usage: addscript <identifier>' )
+		socket.sysmessage( tr('Usage: addscript <identifier>') )
 		return False
 
 	script = arguments.strip()
@@ -39,10 +40,10 @@ def commandAddscript( socket, command, arguments ):
 	try:
 		wolfpack.hasevent( script, EVENT_USE )
 	except:
-		socket.sysmessage( 'No such script: %s.' % script )
+		socket.sysmessage( tr('No such script: %s.' % script) )
 		return False
 
-	socket.sysmessage( "Please select the object you want to add the script '%s' to." % script)
+	socket.sysmessage( tr("Please select the object you want to add the script '%s' to." % script) )
 	socket.attachtarget( 'commands.events.addscript_response', [ script ] )
 
 def removescript_response( player, arguments, target ):
@@ -53,22 +54,22 @@ def removescript_response( player, arguments, target ):
 		object = target.item
 	elif target.char:
 		if target.char.rank > player.rank and player != target.char:
-			player.socket.sysmessage( "You've burnt your fingers!" )
+			player.socket.sysmessage( tr("You've burnt your fingers!") )
 			return False
 
 		object = target.char
 	else:
-		player.socket.sysmessage( 'You have to target a character or item.' )
+		player.socket.sysmessage( tr('You have to target a character or item.') )
 		return False
 
 	if object.hasscript( str( script ) ):
-		player.log( LOG_MESSAGE, "Removes script '%s' from object 0x%x.\n" % ( script, object.serial ) )
+		player.log( LOG_MESSAGE, tr("Removes script '%s' from object 0x%x.\n" % ( script, object.serial )) )
 		object.removescript( str( script ) )
 		object.resendtooltip()
-		player.socket.sysmessage( 'You remove the script from your target.' )
+		player.socket.sysmessage( tr('You remove the script from your target.') )
 		return True
 	else:
-		player.socket.sysmessage( 'Your target does not have the given script.' )
+		player.socket.sysmessage( tr('Your target does not have the given script.') )
 		return False
 
 """
@@ -79,7 +80,7 @@ def removescript_response( player, arguments, target ):
 """
 def commandRemovescript(socket, command, arguments):
 	if len(arguments) == 0:
-		socket.sysmessage('Usage: removescript <identifier>')
+		socket.sysmessage( tr('Usage: removescript <identifier>') )
 		return False
 
 	script = arguments.strip()
@@ -87,10 +88,10 @@ def commandRemovescript(socket, command, arguments):
 	try:
 		wolfpack.hasevent( script, EVENT_USE )
 	except:
-		socket.sysmessage( 'No such script: %s.' % script )
+		socket.sysmessage( tr('No such script: %s.' % script) )
 		return False
 
-	socket.sysmessage( "Please select the object you want to remove the script '%s' from." % script)
+	socket.sysmessage( tr("Please select the object you want to remove the script '%s' from." % script) )
 	socket.attachtarget( 'commands.events.removescript_response', [ script ] )
 	return True
 
@@ -102,19 +103,19 @@ def hasscript_response( player, arguments, target ):
 		object = target.item
 	elif target.char:
 		if target.char.rank > player.rank and player != target.char:
-			player.socket.sysmessage( "You've burnt your fingers!" )
+			player.socket.sysmessage( tr("You've burnt your fingers!") )
 			return False
 
 		object = target.char
 	else:
-		player.socket.sysmessage( 'You have to target a character or item.' )
+		player.socket.sysmessage( tr('You have to target a character or item.') )
 		return False
 
 	if object.hasscript( str( script ) ):
-		player.socket.sysmessage( 'True' )
+		player.socket.sysmessage( tr('True') )
 		return True
 	else:
-		player.socket.sysmessage( 'False' )
+		player.socket.sysmessage( tr('False') )
 		return False
 
 """
@@ -125,7 +126,7 @@ def hasscript_response( player, arguments, target ):
 """
 def commandHasscript(socket, command, arguments):
 	if len(arguments) == 0:
-		socket.sysmessage('Usage: hasscript <identifier>')
+		socket.sysmessage( tr('Usage: hasscript <identifier>') )
 		return False
 	
 	script = arguments.strip()
@@ -133,10 +134,10 @@ def commandHasscript(socket, command, arguments):
 	try:
 		wolfpack.hasevent( script, EVENT_USE )
 	except:
-		socket.sysmessage( 'No such script: %s.' % script )
+		socket.sysmessage( tr('No such script: %s.' % script) )
 		return False
 	
-	socket.sysmessage( "Please select the object you want to check for '%s'." % script)
+	socket.sysmessage( tr("Please select the object you want to check for '%s'." % script) )
 	socket.attachtarget( 'commands.events.hasscript_response', [ script ] )
 	return True
 

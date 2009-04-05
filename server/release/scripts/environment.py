@@ -222,7 +222,7 @@ actions =	{
 		}
 
 def onUse( char, item ):
-	if not actions.has_key( item.id ):
+	if not item.id in actions:
 		return 0
 
 	return actions[ item.id ]( char, item )

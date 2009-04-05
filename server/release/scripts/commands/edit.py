@@ -127,7 +127,7 @@ def showEditGump(player, target):
 			dialog.addResizeGump(64, 108 + yoffset, 9200, 405, 82)
 			dialog.addTilePic(92, 127 + yoffset, item.id)
 
-			if LAYERNAMES.has_key(item.layer):
+			if item.layer in LAYERNAMES:
 				layername = LAYERNAMES[item.layer]
 			else:
 				layername = 'Unknown'

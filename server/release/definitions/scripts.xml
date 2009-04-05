@@ -153,6 +153,7 @@
 	<script>commands.export</script>
 	<script>commands.exportmissingids</script>
 	<script>commands.exportstatics</script>
+	<script>commands.find</script>
 	<script>commands.findlock</script>
 	<script>commands.fix</script>
 	<script>commands.follow</script>

@@ -133,7 +133,7 @@ def onLoad():
 def sendmap(player, item, maptype):
 	if maptype == 'preset' and item.hastag('preset'):
 		preset = item.gettag('preset')
-		if not MAP_PRESETS.has_key(preset):
+		if not preset in MAP_PRESETS:
 			player.socket.sysmessage( tr('Unknown map preset: %s.') % preset)
 			return
 		(width, height, xtop, ytop, xbottom, ybottom) = MAP_PRESETS[preset]

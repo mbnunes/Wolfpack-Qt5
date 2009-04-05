@@ -14,11 +14,8 @@ import wolfpack
 import wolfpack.utilities
 
 def onShowTooltip( sender, target, tooltip ):
-	tooltip.reset()
-	tooltip.add( 1041361, "" ) # A Bank Check
-	tooltip.add( 1038021, "" ) # Blessed
 	if target.hastag('value'):
-		tooltip.add( 1060738, str( target.gettag( "value") ) )
+		tooltip.add( 1060738, str( target.gettag("value") ) )
 
 def onUse( char, item ):
 	if not char.canreach(item, -1):

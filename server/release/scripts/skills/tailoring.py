@@ -168,7 +168,7 @@ class TailorItemAction(CraftItemAction):
 	#
 	def getexceptionalchance(self, player, arguments):
 		# Only works if this item requires tailoring
-		if not self.skills.has_key(TAILORING):
+		if not TAILORING in self.skills:
 			return False
 
 		minskill = self.skills[TAILORING][0]

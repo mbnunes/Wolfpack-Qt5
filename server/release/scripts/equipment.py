@@ -2,8 +2,8 @@ import wolfpack
 import wolfpack.time
 from wolfpack.utilities import *
 from wolfpack.consts import *
-import wolfpack.weaponinfo
-import wolfpack.armorinfo
+from wolfpack.weaponinfo import WEAPON_RESNAME_BONI
+from wolfpack.armorinfo import ARMOR_RESNAME_BONI
 from wolfpack import properties, tr
 from combat.utilities import weaponskill
 from math import ceil
@@ -138,45 +138,45 @@ def onShowTooltip(viewer, object, tooltip):
 		prefix1 = None
 		if object.hastag('resname'):
 			resname = str(object.gettag('resname'))
-			if (armor or shield or footwear) and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname]
-				if resinfo.has_key(MATERIALPREFIX):
+			if (armor or shield or footwear) and resname in ARMOR_RESNAME_BONI:
+				resinfo = ARMOR_RESNAME_BONI[resname]
+				if MATERIALPREFIX in resinfo:
 					prefix1 = resinfo[MATERIALPREFIX]
-			if weapon and wolfpack.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
-				resinfo = wolfpack.weaponinfo.WEAPON_RESNAME_BONI[resname]
-				if resinfo.has_key(MATERIALPREFIX):
+			if weapon and resname in WEAPON_RESNAME_BONI:
+				resinfo = WEAPON_RESNAME_BONI[resname]
+				if MATERIALPREFIX in resinfo:
 					prefix1 = resinfo[MATERIALPREFIX]
 		elif object.hasstrproperty( 'resname' ):
 			resname = str( object.getstrproperty( 'resname' ) )
-			if (armor or shield or footwear) and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
-				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname]
-				if resinfo.has_key(MATERIALPREFIX):
+			if (armor or shield or footwear) and resname in ARMOR_RESNAME_BONI:
+				resinfo = ARMOR_RESNAME_BONI[resname]
+				if MATERIALPREFIX in resinfo:
 					prefix1 = resinfo[MATERIALPREFIX]
-			if weapon and wolfpack.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
-				resinfo = wolfpack.weaponinfo.WEAPON_RESNAME_BONI[resname]
-				if resinfo.has_key(MATERIALPREFIX):
+			if weapon and resname in WEAPON_RESNAME_BONI:
+				resinfo = WEAPON_RESNAME_BONI[resname]
+				if MATERIALPREFIX in resinfo:
 					prefix1 = resinfo[MATERIALPREFIX]
 
 		prefix2 = None
 		if object.hastag('resname2'):
 			resname2 = str(object.gettag('resname2'))
-			if (armor or shield or footwear) and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
-				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname2]
-				if resinfo.has_key(MATERIALPREFIX):
+			if (armor or shield or footwear) and resname2 in ARMOR_RESNAME_BONI:
+				resinfo = ARMOR_RESNAME_BONI[resname2]
+				if MATERIALPREFIX in resinfo:
 					prefix2 = resinfo[MATERIALPREFIX]
-			if weapon and wolfpack.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
-				resinfo = wolfpack.weaponinfo.WEAPON_RESNAME_BONI[resname2]
-				if resinfo.has_key(MATERIALPREFIX):
+			if weapon and resname2 in WEAPON_RESNAME_BONI:
+				resinfo = WEAPON_RESNAME_BONI[resname2]
+				if MATERIALPREFIX in resinfo:
 					prefix2 = resinfo[MATERIALPREFIX]
 		elif object.hasstrproperty( 'resname2' ):
 			resname2 = str( object.getstrproperty( 'resname2' ) )
-			if (armor or shield or footwear) and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
-				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname2]
-				if resinfo.has_key(MATERIALPREFIX):
+			if (armor or shield or footwear) and resname2 in ARMOR_RESNAME_BONI:
+				resinfo = ARMOR_RESNAME_BONI[resname2]
+				if MATERIALPREFIX in resinfo:
 					prefix2 = resinfo[MATERIALPREFIX]
-			if weapon and wolfpack.weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
-				resinfo = wolfpack.weaponinfo.WEAPON_RESNAME_BONI[resname2]
-				if resinfo.has_key(MATERIALPREFIX):
+			if weapon and resname2 in WEAPON_RESNAME_BONI:
+				resinfo = WEAPON_RESNAME_BONI[resname2]
+				if MATERIALPREFIX in resinfo:
 					prefix2 = resinfo[MATERIALPREFIX]
 
 		if len(object.name) == 0:
@@ -829,7 +829,7 @@ def onUse(player, item):
 		player.objectdelay = 0
 		return True
 
-	if not tile.has_key('layer'):
+	if not 'layer' in tile:
 		return False
 
 	layer = tile['layer']

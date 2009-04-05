@@ -143,7 +143,7 @@ def addresource(object):
 
 # If we double click on an item (tree e.g.)
 def onUse(player, item):
-	if not actions.has_key( item.baseid ):
+	if not item.baseid in ACTIONS:
 		return False
 	if not player.canreach(item, 2):
 		player.socket.clilocmessage(500295) # You are too far away to do that.
@@ -187,7 +187,7 @@ def grapevines(char, item):
 	return True
 
 def onShowPaperdoll(char, player):
-	if not actions.has_key( char.baseid ):
+	if not char.baseid in ACTIONS:
 		return False
 	if not player.canreach(char, 2):
 		player.socket.clilocmessage(500295) # You are too far away to do that.
@@ -244,7 +244,7 @@ def checkresource(object, player):
 	return True
 
 # Table of IDs mapped to handler functions
-actions = {
+ACTIONS = {
 		# Baseid: [function, max resource amount]
 		# NPCs
 		"cow": [cow, 30],

@@ -711,6 +711,7 @@ def demolish( char, item ):
 
 def switchgump( char, target, args ):
 	item = args[0]
+
 	gumphandler = {
 	2: gump0, #information
 	17: gump1, #security
@@ -720,20 +721,21 @@ def switchgump( char, target, args ):
 	4: gump10, #list co owner
 	34: gump11, #remove a co owner
 	64: gump12, #list friend
-	94: gump13}  #remove a friend
+	94: gump13 }  #remove a friend
+
 	actionhandler = {
 	7: demolish, 
 	21: customize,
 	19: addcoown,
 	49: removeallcoown,
 	79: addfriend,
-	109: removeallfriend}
+	109: removeallfriend }
 
 	button = target.button
-	if gumphandler.has_key( button ):
+	if button in gumphandler:
 		gumphandler[ button ]( char, gumpcallback, item )
 	else:
-		if actionhandler.has_key( button ):
+		if button in actionhandler:
 			actionhandler[ button ]( char, item )
 		elif button == 0:
 			return

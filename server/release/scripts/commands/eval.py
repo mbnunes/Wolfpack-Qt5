@@ -23,3 +23,10 @@ def evalcommand(socket, command, arguments):
 
 def onLoad():
 	wolfpack.registercommand('eval', evalcommand)
+
+"""
+	\command eval
+	\description Executes python scriptlets.
+	\usage - <code>eval [code]</code>
+	Code is the python code which is executed.
+"""
