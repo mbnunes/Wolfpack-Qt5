@@ -332,7 +332,7 @@ void MainWindow::listusers()
 
 void MainWindow::homepage()
 {
-	QDesktopServices::openUrl( QString("http://www.wpdev.org") );
+	QDesktopServices::openUrl( QString(DEFAULTWEBPAGE) );
 }
 
 void MainWindow::about()

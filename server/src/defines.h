@@ -108,7 +108,7 @@ enum eSkills
 	ALLSKILLS
 };
 
-#define DEFAULTWEBPAGE "http://www.wpdev.org/"
+#define DEFAULTWEBPAGE "http://wolfpack.berlios.de/"
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL 0

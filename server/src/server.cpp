@@ -493,7 +493,7 @@ void cServer::setupConsole()
 	Console::instance()->setAttributes( false, false, false, 0xAF, 0xAF, 0xAF, 0, FONT_FIXEDWIDTH );
 
 	Console::instance()->send( "Copyright (C) 2000-2010 Wolfpack Development Team\n" );
-	Console::instance()->send( "Wolfpack Homepage: http://wolfpack.berlios.de/\n" );
+	Console::instance()->send( QString( "Wolfpack Homepage: %1 \n" ).arg( DEFAULTWEBPAGE ));
 	Console::instance()->send( tr( "By using this software you agree to the license accompanying this release.\n" ) );
 	Console::instance()->send( tr( "Compiled on %1 %2\n" ).arg( __DATE__, __TIME__ ) );
 	Console::instance()->send( tr( "Compiled for Qt %1 (Using: %2 %3)\n" ).arg( QT_VERSION_STR, qVersion(), qSharedBuild() ? " Shared" : " Static" ) );

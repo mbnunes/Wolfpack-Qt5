@@ -391,12 +391,12 @@ def main():
 		sys.stdout.write("Enabled\n")
 
         # if --enable-translations
-        sys.stdout.write("Translation:                            ")
-        if not options.enable_translation:
+	sys.stdout.write("Translation:                            ")
+	if not options.enable_translation:
 		DEFINES += "QT_NO_TRANSLATION "
-                sys.stdout.write("Disabled\n")
-        else:
-                sys.stdout.write("Enabled\n")
+		sys.stdout.write("Disabled\n")
+	else:
+		sys.stdout.write("Enabled\n")
 	
 	# if --aidebug
 	sys.stdout.write("AI debugging:                           ")
