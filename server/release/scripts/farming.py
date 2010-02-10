@@ -6,6 +6,7 @@ from wolfpack.consts import *
 import crops
 import wolfpack.utilities
 import beverage
+from environment import actions
 
 # How often should the object checks be started
 # Default is once every 30 minutes

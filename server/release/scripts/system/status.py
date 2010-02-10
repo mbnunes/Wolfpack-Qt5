@@ -13,7 +13,7 @@ from threading import Thread, Event, Lock
 import time
 
 magic = 0.0
-interval = 60000
+interval = 6000
 htmltemplate = u'web/status_template.html'
 outputfile = u'web/status.html'
 processthread = None
@@ -44,7 +44,7 @@ class ProcessThread(Thread):
 			if data:
 				global outputfile
 				try:
-					fp = file(outputfile, 'wu')
+					fp = file(outputfile, 'w')
 					fp.write(data.encode('utf-8'))
 					fp.close()
 				except Exception, e:
@@ -67,7 +67,7 @@ def generate(object, arguments):
 	if not templatemodule:
 		global htmltemplate
 		try:
-			fp = file(htmltemplate, 'ru')
+			fp = file(htmltemplate, 'rU')
 			template = fp.read()
 			fp.close()
 			console.log(LOG_MESSAGE, "Loaded status template from '%s'.\n" % htmltemplate)
