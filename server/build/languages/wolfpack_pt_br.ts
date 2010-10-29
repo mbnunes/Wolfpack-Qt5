@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="pt_BR">
 <context>
     <name>@default</name>
     <message>
@@ -5154,38 +5156,38 @@ This is very usefull for new shards without account policy
 </translation>
     </message>
     <message>
-        <source><byte value="x9"/>Q: Shutdown the server.
+        <source>	Q: Shutdown the server.
 </source>
-        <translation><byte value="x9"/>Q: Desconecta o server.
+        <translation>	Q: Desconecta o server.
 </translation>
     </message>
     <message>
-        <source><byte value="x9"/># - Save world
+        <source>	# - Save world
 </source>
-        <translation><byte value="x9"/># - Salva o mundo
+        <translation>	# - Salva o mundo
 </translation>
     </message>
     <message>
-        <source><byte value="x9"/>W - Display logged in characters
+        <source>	W - Display logged in characters
 </source>
-        <translation><byte value="x9"/>W - Mostra os players logados
+        <translation>	W - Mostra os players logados
 </translation>
     </message>
     <message>
-        <source><byte value="x9"/>A - Reload accounts
+        <source>	A - Reload accounts
 </source>
-        <translation><byte value="x9"/>A - Reload nas contas
+        <translation>	A - Reload nas contas
 </translation>
     </message>
     <message>
-        <source><byte value="x9"/>R - Reload scripts
+        <source>	R - Reload scripts
 </source>
-        <translation><byte value="x9"/>R - Reload nos Scripts
+        <translation>	R - Reload nos Scripts
 </translation>
     </message>
     <message>
-        <source><byte value="x9"/>S - Toggle Secure mode </source>
-        <translation><byte value="x9"/>S - Modo seguro de alavanca
+        <source>	S - Toggle Secure mode </source>
+        <translation>	S - Modo seguro de alavanca
 </translation>
     </message>
     <message>
@@ -5201,9 +5203,9 @@ This is very usefull for new shards without account policy
 </translation>
     </message>
     <message>
-        <source><byte value="x9"/>? - Commands list (this)
+        <source>	? - Commands list (this)
 </source>
-        <translation><byte value="x9"/>? - Lista de comandos
+        <translation>	? - Lista de comandos
 </translation>
     </message>
     <message>
@@ -5438,7 +5440,7 @@ LoginServer running on port %1
         <translation></translation>
     </message>
     <message>
-        <source><byte value="x9"/>%1 using address %2
+        <source>	%1 using address %2
 </source>
         <translation></translation>
     </message>
@@ -5568,11 +5570,11 @@ GameServer rodando na porta %1
         <translation>Luta começada com char %1 (0x%2).</translation>
     </message>
     <message>
-        <source>Lady <byte value="x9"/>%1<byte value="x9"/>%2</source>
+        <source>Lady 	%1	%2</source>
         <translation></translation>
     </message>
     <message>
-        <source>Lord <byte value="x9"/>%1<byte value="x9"/>%2</source>
+        <source>Lord 	%1	%2</source>
         <translation></translation>
     </message>
     <message>
