@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Script que recebe como argumento a pasta aonde se encontra os arquivos de decoração do RunUO .cfg 
+# e converte todos eles para .xml com as tags necessarias.
+
 import re
 import sys
 if len(sys.argv) < 3:
@@ -68,16 +71,16 @@ def roda_arquivo(nome_input, nome_output, map):
     output.write("<decoration>\n")
     for l in result:
         output.write(l + "\n")
-    output.write("</decoration>\n")
+    output.write("\t</item\n</decoration>\n")
     output.close()
 
 import os
 files = os.listdir(path)
 for file in files:
-    match = re.match(r'_(?P<name>.*)\.cfg$', file)
+    match = re.match(r'(?P<name>.*)\.cfg$', file)
     if match:
         name = match.groupdict()['name']
-        input_name = '_%s.cfg' % (name,)
+        input_name = '%s.cfg' % (name,)
         output_name = '%s.xml' % (name,)
         roda_arquivo(input_name, output_name, map)
 
