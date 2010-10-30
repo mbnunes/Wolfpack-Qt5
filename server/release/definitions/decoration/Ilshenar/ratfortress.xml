@@ -1,0 +1,23 @@
+<decoration>
+	<!-- metal door-->
+	<item id="0x0675">
+		<pos x="642" y="843" z="-54" map="2" />
+		<pos x="645" y="830" z="-44" map="2" />
+	</item>
+
+	<!-- metal door-->
+	<item id="0x0677">
+		<pos x="637" y="816" z="-44" map="2" />
+		<pos x="643" y="843" z="-54" map="2" />
+	</item>
+
+	<!-- rattan door-->
+	<item id="0x0697">
+		<pos x="646" y="830" z="-44" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06E7">
+		<pos x="646" y="816" z="-44" map="2" />
+	</item>
+</decoration>

@@ -1,60 +1,66 @@
 <decoration>
-	<!-- wooden door (Facing=SouthCW) -->
+	<!-- wooden door-->
 	<item id="0x06AD">
 		<pos x="989" y="519" z="-30" map="3" />
 		<pos x="999" y="527" z="-50" map="3" />
 	</item>
-	<!-- wooden door (Facing=NorthCCW) -->
+
+	<!-- wooden door-->
 	<item id="0x06AF">
 		<pos x="999" y="512" z="-50" map="3" />
 		<pos x="989" y="518" z="-30" map="3" />
 	</item>
-	<!-- wooden door ((Facing=EastCCW) -->
+
+	<!-- wooden door-->
 	<item id="0x06A7">
 		<pos x="991" y="522" z="-30" map="3" />
-		<pos x="978" y="517" z="-50" map="3" />
+		<pos x="978" y="522" z="-50" map="3" />
 		<pos x="1002" y="522" z="-50" map="3" />
-		<pos x="1002" y="522" z="-30" map="3" />		
-		<pos x="1002" y="517" z="-50" map="3" />
+		<pos x="1002" y="522" z="-30" map="3" />
 	</item>
-	<!-- backpack -->
+
+	<!-- backpack-->
 	<item id="0x0E75">
 		<pos x="992" y="509" z="-47" map="3" />
 	</item>
-	<!-- LibraryBookcase -->
+
+	<!-- bookcase-->
 	<item id="0x0A9B">
 		<pos x="950" y="493" z="-30" map="3" />
 		<pos x="951" y="498" z="-30" map="3" />
 		<pos x="953" y="493" z="-30" map="3" />
-		<pos x="952" y="496" z="-30" map="3" />		
+		<pos x="952" y="496" z="-30" map="3" />
 		<pos x="952" y="498" z="-30" map="3" />
 		<pos x="953" y="496" z="-30" map="3" />
 		<pos x="986" y="525" z="-30" map="3" />
-		<pos x="1004" y="523" z="-50" map="3" />	
+		<pos x="1004" y="523" z="-50" map="3" />
 	</item>
-	<!-- EmptyBookcase -->
+
+	<!-- wooden shelf-->
 	<item id="0x0A9E" hue="0x47E">
 		<pos x="947" y="496" z="-70" map="3" />
 		<pos x="947" y="498" z="-70" map="3" />
 		<pos x="947" y="499" z="-70" map="3" />
-		<pos x="947" y="540" z="-70" map="3" />		
+		<pos x="947" y="540" z="-70" map="3" />
 		<pos x="947" y="542" z="-70" map="3" />
 		<pos x="948" y="543" z="-30" map="3" />
 		<pos x="949" y="541" z="-50" map="3" />
-		<pos x="947" y="544" z="-70" map="3" />	
+		<pos x="947" y="544" z="-70" map="3" />
 		<pos x="1022" y="494" z="-50" map="3" />
-		<pos x="1022" y="495" z="-50" map="3" />		
+		<pos x="1022" y="495" z="-50" map="3" />
 		<pos x="1022" y="543" z="-70" map="3" />
 		<pos x="1022" y="544" z="-70" map="3" />
 		<pos x="1024" y="499" z="-50" map="3" />
 		<pos x="949" y="543" z="-50" map="3" />
 		<pos x="1024" y="500" z="-50" map="3" />
 	</item>
-	<!-- empty tub -->
+
+	<!-- empty tub-->
 	<item id="0x0E83" hue="0x47E">
 		<pos x="947" y="497" z="-70" map="3" />
 	</item>
-	<!-- Barrel -->
+
+	<!-- barrel-->
 	<item id="0x0FAE" hue="0x47E">
 		<pos x="947" y="538" z="-70" map="3" />
 		<pos x="948" y="538" z="-70" map="3" />
@@ -62,131 +68,162 @@
 		<pos x="1028" y="542" z="-64" map="3" />
 		<pos x="1028" y="542" z="-70" map="3" />
 	</item>
-	<!-- EmptyBookcase -->
+
+	<!-- wooden shelf-->
 	<item id="0x0A9D" hue="0x47E">
 		<pos x="954" y="538" z="-30" map="3" />
 		<pos x="1025" y="493" z="-30" map="3" />
 		<pos x="1028" y="493" z="-30" map="3" />
 		<pos x="1026" y="538" z="-30" map="3" />
 	</item>
-	<!-- SmallForgeAddon -->
+
+	<!-- forge-->
 	<item id="0x0FB1">
 		<pos x="974" y="509" z="-50" map="3" />
 		<pos x="977" y="509" z="-50" map="3" />
 	</item>
-	<!-- AnvilSouthAddon -->
+
+	<!-- anvil-->
 	<item id="0x0FB0">
 		<pos x="975" y="509" z="-50" map="3" />
 		<pos x="976" y="509" z="-50" map="3" />
 	</item>
-	<!-- AnvilEastAddon -->
+
+	<!-- anvil-->
 	<item id="0x0FAF">
 		<pos x="973" y="513" z="-50" map="3" />
 	</item>
-	<!-- Below -->
+
+	<!-- bellows-->
 	<item id="0x1986">
 		<pos x="973" y="514" z="-50" map="3" />
 	</item>
-	<!-- Forge -->
+
+	<!-- forge-->
 	<item id="0x198A">
 		<pos x="973" y="515" z="-50" map="3" />
 	</item>
-	<!-- Forge -->
+
+	<!-- forge-->
 	<item id="0x198E">
 		<pos x="973" y="516" z="-50" map="3" />
 	</item>
-	<!-- MetalChest -->
+
+	<!-- metal chest-->
 	<item id="0x09AB" hue="0x47E">
 		<pos x="987" y="516" z="-44" map="3" />
 		<pos x="993" y="516" z="-44" map="3" />
 		<pos x="994" y="516" z="-44" map="3" />
 		<pos x="1004" y="509" z="-30" map="3" />
 	</item>
-	<!-- MetalChest -->
+
+	<!-- metal chest-->
 	<item id="0x0E7C" hue="0x47E">
 		<pos x="985" y="523" z="-40" map="3" />
 		<pos x="985" y="523" z="-45" map="3" />
 		<pos x="985" y="523" z="-50" map="3" />
 	</item>
-	<!-- dresser -->
+
+	<!-- dresser-->
 	<item id="0x0A3D">
 		<pos x="987" y="525" z="-30" map="3" />
 	</item>
-	<!-- dresser -->
+
+	<!-- dresser-->
 	<item id="0x0A3C">
 		<pos x="988" y="525" z="-30" map="3" />
 	</item>
-	<!-- Armoire -->
+
+	<!-- armoire-->
 	<item id="0x0A4F">
 		<pos x="999" y="523" z="-30" map="3" />
 		<pos x="1001" y="523" z="-30" map="3" />
 	</item>
-	<!-- chest of drawers -->
+
+	<!-- chest of drawers-->
 	<item id="0x0A34">
 		<pos x="996" y="530" z="-30" map="3" />
 	</item>
-	<!-- LibraryBookcase -->
+
+	<!-- bookcase-->
 	<item id="0x0A99">
 		<pos x="1000" y="524" z="-50" map="3" />
 		<pos x="1000" y="525" z="-50" map="3" />
 		<pos x="1000" y="529" z="-50" map="3" />
 		<pos x="1000" y="530" z="-50" map="3" />
 	</item>
-	<!-- Barrel -->
+
+	<!-- barrel-->
 	<item id="0x0E77" hue="0x47E">
 		<pos x="1022" y="538" z="-70" map="3" />
 		<pos x="1022" y="538" z="-64" map="3" />
 		<pos x="1022" y="539" z="-70" map="3" />
 		<pos x="1022" y="540" z="-70" map="3" />
-		<pos x="1022" y="538" z="-70" map="3" />		
-	</item>	
-	<!-- spinning wheel -->
+		<pos x="1023" y="538" z="-70" map="3" />
+	</item>
+
+	<!-- spinning wheel-->
 	<item id="0x1015">
 		<pos x="973" y="530" z="-50" map="3" />
 	</item>
-	<!-- upright loom -->
-	<item id="0x1061">
+
+	<!-- upright loom-->
+	<item id="0x1065">
 		<pos x="975" y="523" z="-50" map="3" />
 	</item>
-	<!-- upright loom -->
-	<item id="0x1062">
-		<pos x="976" y="523" z="-50" map="3" />
-	</item>
-	<!-- DarkWoodDoor  -->
+
+	<!-- wooden door-->
 	<item id="0x06AB">
-		<pos x="978" y="522" z="-50" map="3" />
+		<pos x="978" y="517" z="-50" map="3" />
 		<pos x="994" y="516" z="-30" map="3" />
-	</item>	
-	<!-- DarkWoodDoor  -->
+	</item>
+
+	<!-- wooden door-->
 	<item id="0x06B3">
 		<pos x="980" y="527" z="-50" map="3" />
-	</item>	
-	<!-- DarkWoodDoor  -->
+	</item>
+
+	<!-- wooden door-->
 	<item id="0x06B1">
 		<pos x="980" y="512" z="-50" map="3" />
-	</item>	
-	<!-- LightWoodDoor -->
+	</item>
+
+	<!-- wooden door-->
 	<item id="0x06D5">
 		<pos x="926" y="642" z="-90" map="3" />
-	</item>	
-	<!-- Bakery-LocalizedSign  -->
+	</item>
+
+	<!-- Bakery-->
 	<item id="0x0BA3">
 		<pos x="962" y="633" z="-90" map="3" />
-	</item>	
-	<!-- Tavern-LocalizedSign  -->
+	</item>
+
+	<!-- Tavern-->
 	<item id="0x0BC3">
 		<pos x="962" y="641" z="-90" map="3" />
-	</item>	
-	<!-- LightWoodDoor  -->
+	</item>
+
+	<!-- wooden door-->
 	<item id="0x06D7">
 		<pos x="927" y="642" z="-90" map="3" />
 	</item>
-	<!-- LightWoodDoor  -->
+
+	<!-- wooden gate-->
 	<item id="0x0843">
 		<pos x="952" y="637" z="-90" map="3" />
-	</item>		
-	<!-- LightWoodDoor  -->
+	</item>
+
+	<!-- wooden door-->
 	<item id="0x06DD">
 		<pos x="928" y="637" z="-90" map="3" />
-	</item>			
+	</item>
+	
+	<!-- Shrine of Wisdom-->
+	<item id="0x0004" hue="0x47E">
+		<pos x="975" y="508" z="-30" map="3" />
+	</item>
+
+	<item id="0x14C3">
+		<pos x="975" y="509" z="-30" map="3" />
+	</item>
 </decoration>

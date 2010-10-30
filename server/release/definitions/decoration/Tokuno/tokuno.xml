@@ -1,134 +1,156 @@
 <decoration>
-	<!-- ankh -->
+	<!-- ankh-->
 	<item id="0x0002">
 		<pos x="296" y="712" z="55" map="4" />
 		<pos x="780" y="1219" z="46" map="4" />
 		<pos x="1042" y="508" z="15" map="4" />
 		<pos x="1051" y="508" z="15" map="4" />
 	</item>
-	<!-- ankh -->
+
+	<!-- ankh-->
 	<item id="0x0003">
 		<pos x="296" y="711" z="55" map="4" />
 		<pos x="780" y="1218" z="46" map="4" />
 		<pos x="1042" y="507" z="15" map="4" />
 		<pos x="1051" y="507" z="15" map="4" />
 	</item>
-	<!-- ankh -->
+
+	<!-- ankh-->
 	<item id="0x0004">
 		<pos x="717" y="1158" z="27" map="4" />
 	</item>
-	<!-- ankh -->
+
+	<!-- ankh-->
 	<item id="0x0005">
 		<pos x="718" y="1158" z="27" map="4" />
 	</item>
-	<!-- backgammon board -->
+
+	<!-- backgammon board-->
 	<item id="0x0E1C">
 		<pos x="691" y="1255" z="48" map="4" />
 	</item>
-	<!-- backgammon game -->
+
+	<!-- backgammon game-->
 	<item id="0x0FAD">
 		<pos x="668" y="1258" z="47" map="4" />
 	</item>
-	<!-- archery butte -->
+
+	<!-- archery butte-->
 	<item id="0x100B">
 		<pos x="660" y="1193" z="25" map="4" />
 		<pos x="663" y="1193" z="25" map="4" />
 	</item>
-	<!-- spinning wheel -->
+
+	<!-- spinning wheel-->
 	<item id="0x1019">
 		<pos x="742" y="1205" z="25" map="4" />
 		<pos x="749" y="1203" z="25" map="4" />
 	</item>
-	<!-- spinning wheel -->
-	<item id="0x1019">
-		<pos x="742" y="1205" z="25" map="4" />
-		<pos x="749" y="1203" z="25" map="4" />
-	</item>
-	<!-- upright loom -->
+
+	<!-- upright loom-->
 	<item id="0x1060">
 		<pos x="742" y="1208" z="25" map="4" />
 		<pos x="742" y="1219" z="25" map="4" />
 		<pos x="750" y="1208" z="25" map="4" />
 	</item>
-	<!-- upright loom -->
+
+	<!-- upright loom-->
 	<item id="0x1061">
-		<pos x="746" y="1213" z="25" map="4" />
 		<pos x="746" y="1218" z="25" map="4" />
+		<pos x="746" y="1213" z="25" map="4" />
 	</item>
-	<!-- training dummy -->
+
+	<!-- training dummy-->
 	<item id="0x1074">
 		<pos x="662" y="1206" z="25" map="4" />
 		<pos x="662" y="1212" z="25" map="4" />
 	</item>
-	<!-- Valor -> Shrine of Isamu -->
+
+	<!-- Valor -> Shrine of Isamu-->
 	<item id="0x14B7">
 		<pos x="1050" y="517" z="15" map="4" />
 	</item>
-	<!-- Valor -> Shrine of Isamu -->
+
+	<!-- Valor -> Shrine of Isamu-->
 	<item id="0x14B8">
 		<pos x="1050" y="518" z="15" map="4" />
 	</item>
-	<!-- Valor -> Shrine of Isamu -->
+
+	<!-- Valor -> Shrine of Isamu-->
 	<item id="0x14B9">
 		<pos x="1051" y="518" z="15" map="4" />
 	</item>
-	<!-- Valor -> Shrine of Isamu -->
+
+	<!-- Valor -> Shrine of Isamu-->
 	<item id="0x14BA">
 		<pos x="1051" y="517" z="15" map="4" />
 	</item>
-	<!-- bellows -->
+
+	<!-- bellows-->
 	<item id="0x197A">
 		<pos x="767" y="1257" z="25" map="4" />
 		<pos x="767" y="1262" z="25" map="4" />
 	</item>
-	<!-- bellows -->
+
+	<!-- bellows-->
 	<item id="0x197D">
 		<pos x="767" y="1257" z="25" map="4" />
 	</item>
-	<!-- forge -->
+
+	<!-- forge-->
 	<item id="0x197E">
 		<pos x="768" y="1257" z="25" map="4" />
 		<pos x="768" y="1262" z="25" map="4" />
 	</item>
-	<!-- forge -->
+
+	<!-- forge-->
 	<item id="0x1982">
 		<pos x="769" y="1257" z="25" map="4" />
 		<pos x="769" y="1262" z="25" map="4" />
-	</item> 
-	<!-- bellows -->
+	</item>
+
+	<!-- bellows-->
 	<item id="0x1986">
 		<pos x="638" y="1204" z="52" map="4" />
 		<pos x="638" y="1208" z="32" map="4" />
 	</item>
-	<!-- forge -->
+
+	<!-- forge-->
 	<item id="0x198A">
 		<pos x="638" y="1205" z="52" map="4" />
 		<pos x="638" y="1209" z="32" map="4" />
-	</item> 
-	<!-- forge -->
+	</item>
+
+	<!-- forge-->
 	<item id="0x198E">
 		<pos x="764" y="1258" z="25" map="4" />
-	</item> 
-	<!-- forge -->
+	</item>
+
+	<!-- forge-->
 	<item id="0x1991">
 		<pos x="764" y="1258" z="25" map="4" />
-	</item> 
-	<!-- bellows -->
+	</item>
+
+	<!-- bellows-->
 	<item id="0x1992">
 		<pos x="638" y="1207" z="52" map="4" />
 		<pos x="638" y="1211" z="32" map="4" />
 	</item>
-	<!-- forge -->
+
+	<!-- forge-->
 	<item id="0x1996">
 		<pos x="638" y="1206" z="52" map="4" />
 		<pos x="638" y="1210" z="32" map="4" />
-	</item> 
-	<!-- forge -->
+	</item>
+
+	<!-- forge-->
 	<item id="0x199D">
 		<pos x="764" y="1257" z="25" map="4" />
-	</item> 
-	<!-- tower sculpture -->
+	</item>
+
+	<!-- tower sculpture-->
+	<!-- May the town of Zento prosper.  Memorial tree planted by Dept and maha.-->
 	<item id="0x241A">
 		<pos x="748" y="1231" z="25" map="4" />
-	</item> 
+	</item>
 </decoration>

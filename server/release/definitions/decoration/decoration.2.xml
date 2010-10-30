@@ -7,15 +7,11 @@
 	<include file="definitions/decoration/Ilshenar/ratcave.xml"/>
 	<include file="definitions/decoration/Ilshenar/regvolom.xml"/>
 	<include file="definitions/decoration/Ilshenar/serpentine.xml"/>
-	<include file="definitions/decoration/Ilshenar/sheepfarm.xml"/>
-	<include file="definitions/decoration/Ilshenar/sorcerers.xml"/>
-	<include file="definitions/decoration/Ilshenar/terortskitas.xml"/>
 	<include file="definitions/decoration/Ilshenar/enslavedgargs.xml"/>
-	<include file="definitions/decoration/Ilshenar/twinoaks.xml"/>
 	<include file="definitions/decoration/Ilshenar/camp.xml"/>
 	<include file="definitions/decoration/Ilshenar/camp2.xml"/>
 	<include file="definitions/decoration/Ilshenar/gargoylecity.xml"/>
-	<include file="definitions/decoration/Ilshenar/golemsandjuka.xml"/>
+	<include file="definitions/decoration/Ilshenar/golemsandjukas.xml"/>
 	<include file="definitions/decoration/Ilshenar/lakeshire.xml"/>
 	<include file="definitions/decoration/Ilshenar/meercatacombs.xml"/>
 	<include file="definitions/decoration/Ilshenar/mistas.xml"/>
@@ -25,5 +21,8 @@
 	<include file="definitions/decoration/Ilshenar/savagecamp.xml"/>
 	<include file="definitions/decoration/Ilshenar/shrines.xml"/>
 	<include file="definitions/decoration/Ilshenar/vinculuminn.xml"/>
-	<include file="definitions/decoration/Ilshenar/wispdungeon.xml"/>
+	<include file="definitions/decoration/Ilshenar/twinoaks.xml"/>
+	<include file="definitions/decoration/Ilshenar/terortskitas.xml"/>
+	<include file="definitions/decoration/Ilshenar/sorcerers.xml"/>
+	<include file="definitions/decoration/Ilshenar/sheepfarm.xml"/>
 </decoration>

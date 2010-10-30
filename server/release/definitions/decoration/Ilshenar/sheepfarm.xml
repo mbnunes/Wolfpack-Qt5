@@ -1,0 +1,41 @@
+<decoration>
+	<!-- wooden gate-->
+	<item id="0x086E">
+		<pos x="1311" y="1325" z="-14" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x086C">
+		<pos x="1328" y="1321" z="-14" map="2" />
+	</item>
+
+	<!-- upright loom-->
+	<item id="0x1060">
+		<pos x="1305" y="1319" z="-14" map="2" />
+	</item>
+
+	<!-- spinning wheel-->
+	<item id="0x1015">
+		<pos x="1306" y="1316" z="-14" map="2" />
+	</item>
+
+	<!-- chest of drawers-->
+	<item id="0x0A2C">
+		<pos x="1308" y="1314" z="6" map="2" />
+	</item>
+
+	<!-- scissors-->
+	<item id="0x0F9E">
+		<pos x="1309" y="1319" z="-10" map="2" />
+	</item>
+
+	<!-- dyeing tub-->
+	<item id="0x0FAB" hue="0x15C">
+		<pos x="1311" y="1319" z="-14" map="2" />
+	</item>
+
+	<!-- upright loom-->
+	<item id="0x105F">
+		<pos x="1305" y="1320" z="-14" map="2" />
+	</item>
+</decoration>

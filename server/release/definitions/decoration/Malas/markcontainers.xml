@@ -1,0 +1,22 @@
+<decoration>
+	<!-- Standard pouches-->
+	<item id="0xE79">
+		<pos x="951" y="546" z="-70" map="3" />
+		<pos x="914" y="192" z="-79" map="3" />
+		<pos x="1614" y="143" z="-90" map="3" />
+		<pos x="2176" y="324" z="-90" map="3" />
+		<pos x="864" y="812" z="-90" map="3" />
+		<pos x="1326" y="523" z="-87" map="3" />
+		<pos x="1313" y="1115" z="-85" map="3" />
+	</item>
+
+	<!-- Auto-lock pouch-->
+	<item id="0xE79">
+		<pos x="1051" y="1434" z="-85" map="3" />
+	</item>
+
+	<!-- Bone container-->
+	<item id="0xECA">
+		<pos x="424" y="189" z="-1" map="3" />
+	</item>
+</decoration>

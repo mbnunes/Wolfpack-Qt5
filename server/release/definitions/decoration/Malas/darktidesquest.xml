@@ -1,12 +1,27 @@
 <decoration>
-	<!-- ONLY ITEMS -->
-	<!-- a magical teleporter -->
+	<!-- a magical teleporter-->
 	<item id="0x1822">
 		<pos x="2105" y="1307" z="-50" map="3" />
 		<pos x="2018" y="1226" z="-90" map="3" />
-		<pos x="2018" y="458" z="-90" map="3" />
+		<pos x="1068" y="458" z="-90" map="3" />
 	</item>
-	<!-- Crystal cave barrier -->
+
+	<!-- Mardoth-->
+	<item id="0x1F13">
+		<pos x="2110" y="1306" z="-50" map="3" />
+	</item>
+
+	<!-- Maabus coffin-->
+	<item id="0x0">
+		<pos x="2023" y="1223" z="-83" map="3" />
+	</item>
+
+	<!-- Horus-->
+	<item id="0x1F13">
+		<pos x="1192" y="513" z="-90" map="3" />
+	</item>
+
+	<!-- Crystal cave barrier-->
 	<item id="0x3967">
 		<pos x="1193" y="512" z="-90" map="3" />
 		<pos x="1194" y="512" z="-90" map="3" />
@@ -14,11 +29,13 @@
 		<pos x="1196" y="512" z="-90" map="3" />
 		<pos x="1197" y="512" z="-90" map="3" />
 	</item>
-	<!-- Kronus scroll box  - CREATE ITEM-->
+
+	<!-- Kronus scroll box-->
 	<item id="0xE80">
-		<pos x="1185" y="451" z="-50" map="3" />
+		<pos x="1185" y="451" z="-90" map="3" />
 	</item>
-	<!-- Vault of secrets barrier -->
+
+	<!-- Vault of secrets barrier-->
 	<item id="0x49E">
 		<pos x="1073" y="450" z="-90" map="3" />
 		<pos x="1073" y="451" z="-90" map="3" />
@@ -27,16 +44,23 @@
 		<pos x="1078" y="451" z="-90" map="3" />
 		<pos x="1078" y="452" z="-90" map="3" />
 	</item>
-	<!-- metal chest -->
-	<item id="0x1822" hue="0x499">
+
+	<!-- metal chest-->
+	<item id="0x09AB" hue="0x499">
 		<pos x="1076" y="453" z="-84" map="3" />
 		<pos x="1076" y="449" z="-84" map="3" />
 	</item>
-	<!-- Vault of secrets sign -->
+
+	<!-- Vault of secrets sign-->
 	<item id="0x0BD0" hue="0x482">
 		<pos x="1079" y="454" z="-84" map="3" />
 	</item>
-	<!-- crate -->
+
+	<!-- metal signpost-->
+	<item id="0x0B9E">
+	</item>
+
+	<!-- crate-->
 	<item id="0x0E3E">
 		<pos x="1185" y="450" z="-90" map="3" />
 		<pos x="1185" y="450" z="-87" map="3" />
@@ -44,7 +68,8 @@
 		<pos x="1203" y="439" z="-90" map="3" />
 		<pos x="1185" y="454" z="-87" map="3" />
 	</item>
-	<!-- crate -->
+
+	<!-- crate-->
 	<item id="0x0E3F">
 		<pos x="1185" y="448" z="-90" map="3" />
 		<pos x="1186" y="439" z="-87" map="3" />
@@ -52,13 +77,15 @@
 		<pos x="1194" y="447" z="-90" map="3" />
 		<pos x="1194" y="448" z="-90" map="3" />
 	</item>
-	<!-- metal chest -->
+
+	<!-- metal chest-->
 	<item id="0x0E40" hue="0x835">
 		<pos x="1185" y="447" z="-90" map="3" />
 		<pos x="1184" y="446" z="-90" map="3" />
 		<pos x="1184" y="443" z="-86" map="3" />
 	</item>
-	<!-- metal chest -->
+
+	<!-- metal chest-->
 	<item id="0x0E41" hue="0x835">
 		<pos x="1184" y="445" z="-90" map="3" />
 		<pos x="1188" y="437" z="-90" map="3" />
@@ -66,19 +93,23 @@
 		<pos x="1189" y="437" z="-90" map="3" />
 		<pos x="1194" y="438" z="-90" map="3" />
 	</item>
-	<!-- metal chest -->
+
+	<!-- metal chest-->
 	<item id="0x0E40">
 		<pos x="1184" y="444" z="-90" map="3" />
 	</item>
-	<!-- metal chest -->
+
+	<!-- metal chest-->
 	<item id="0x0E40" hue="0x849">
 		<pos x="1184" y="443" z="-90" map="3" />
 	</item>
-	<!-- bookcase -->
+
+	<!-- bookcase-->
 	<item id="0x0A9A">
 		<pos x="1185" y="440" z="-90" map="3" />
 	</item>
-	<!-- crate -->
+
+	<!-- crate-->
 	<item id="0x0E3D">
 		<pos x="1186" y="439" z="-90" map="3" />
 		<pos x="1200" y="438" z="-90" map="3" />
@@ -90,20 +121,24 @@
 		<pos x="1186" y="453" z="-87" map="3" />
 		<pos x="1186" y="453" z="-90" map="3" />
 	</item>
-	<!--  metal chest -->
+
+	<!-- metal chest-->
 	<item id="0x0E41" hue="0x849">
 		<pos x="1188" y="437" z="-82" map="3" />
 		<pos x="1190" y="437" z="-90" map="3" />
 	</item>
-	<!--  metal chest -->
+
+	<!-- metal chest-->
 	<item id="0x0E41" hue="0x482">
 		<pos x="1189" y="437" z="-86" map="3" />
 	</item>
-	<!--  small fish -->
+
+	<!-- small fish-->
 	<item id="0x0DD9">
 		<pos x="1192" y="438" z="-90" map="3" />
 	</item>
-	<!--  bookcase -->
+
+	<!-- bookcase-->
 	<item id="0x0A97">
 		<pos x="1197" y="437" z="-90" map="3" />
 	</item>

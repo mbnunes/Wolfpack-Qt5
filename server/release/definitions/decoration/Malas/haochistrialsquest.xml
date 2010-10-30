@@ -1,0 +1,102 @@
+<decoration>
+	<!-- Candle-->
+	<item id="0x1433">
+		<pos x="419" y="731" z="17" map="3" />
+		<pos x="420" y="731" z="17" map="3" />
+		<pos x="422" y="731" z="17" map="3" />
+		<pos x="421" y="731" z="17" map="3" />
+	</item>
+
+	<!-- stone pavers-->
+	<item id="0x051C" hue="0xFA">
+		<pos x="389" y="704" z="-1" map="3" />
+		<pos x="426" y="780" z="-1" map="3" />
+		<pos x="331" y="769" z="-1" map="3" />
+		<pos x="355" y="745" z="-1" map="3" />
+		<pos x="330" y="706" z="-1" map="3" />
+	</item>
+
+	<item id="0x1BC3">
+		<pos x="389" y="704" z="-1" map="3" />
+		<pos x="426" y="780" z="-1" map="3" />
+		<pos x="331" y="769" z="-1" map="3" />
+		<pos x="355" y="745" z="-1" map="3" />
+		<pos x="330" y="706" z="-1" map="3" />
+	</item>
+
+	<!-- moongate-->
+	<item id="0x1FD7" hue="0xFA">
+		<pos x="391" y="777" z="-1" map="3" />
+	</item>
+
+	<item id="0x1BC3">
+		<pos x="391" y="777" z="-1" map="3" />
+	</item>
+
+	<!-- ankh-->
+	<item id="0x0004" hue="0xFA">
+		<pos x="351" y="733" z="18" map="3" />
+		<pos x="388" y="724" z="13" map="3" />
+	</item>
+
+	<!-- brass sign-->
+	<!-- Welcome to your new home, Samurai.-->
+	<item id="0x0BD1">
+		<pos x="369" y="777" z="-1" map="3" />
+	</item>
+
+	<!-- chest-->
+	<item id="0x2811">
+		<pos x="424" y="704" z="8" map="3" />
+		<pos x="424" y="705" z="8" map="3" />
+		<pos x="424" y="706" z="8" map="3" />
+	</item>
+
+	<!-- katana-->
+	<item id="0x13FF" hue="0x482">
+		<pos x="414" y="703" z="9" map="3" />
+	</item>
+
+	<!-- Haochi's katana generator-->
+	<item id="0x1B7B">
+		<pos x="415" y="703" z="1" map="3" />
+	</item>
+
+	<!--Haochi-->
+	<item id="0x1F13">
+		<pos x="377" y="742" z="1" map="3" />
+	</item>
+
+	<!--Haochi's Guardsmen-->
+	<item id="0x1F13">
+		<pos x="367" y="749" z="-1" map="3" />
+		<pos x="367" y="750" z="-1" map="3" />
+		<pos x="367" y="739" z="-1" map="3" />
+		<pos x="367" y="740" z="-1" map="3" />
+		<pos x="367" y="730" z="-1" map="3" />
+		<pos x="367" y="729" z="-1" map="3" />
+		<pos x="379" y="727" z="-1" map="3" />
+		<pos x="380" y="727" z="-1" map="3" />
+		<pos x="392" y="730" z="-1" map="3" />
+		<pos x="392" y="731" z="-1" map="3" />
+		<pos x="392" y="739" z="-1" map="3" />
+		<pos x="392" y="740" z="-1" map="3" />
+		<pos x="397" y="749" z="-1" map="3" />
+		<pos x="398" y="748" z="-1" map="3" />
+	</item>
+
+	<!--Deadly Imp-->
+	<item id="0x1F13">
+		<pos x="342" y="736" z="-1" map="3" />
+	</item>
+
+	<!--Fierce Dragon-->
+	<item id="0x1F13">
+		<pos x="339" y="741" z="-1" map="3" />
+	</item>
+
+	<!--Relnia-->
+	<item id="0x1F13">
+		<pos x="379" y="710" z="-1" map="3" />
+	</item>
+</decoration>

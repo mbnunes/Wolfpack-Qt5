@@ -1,0 +1,124 @@
+<decoration>
+	<!-- fireplace-->
+	<item id="0x0959">
+		<pos x="1547" y="1050" z="-7" map="2" />
+		<pos x="1547" y="1050" z="13" map="2" />
+	</item>
+
+	<!-- fireplace-->
+	<item id="0x0961">
+		<pos x="1556" y="1038" z="13" map="2" />
+	</item>
+
+	<!-- crate-->
+	<item id="0x0E3E">
+		<pos x="1549" y="1040" z="-1" map="2" />
+	</item>
+
+	<!-- clock-->
+	<item id="0x104B">
+		<pos x="1548" y="1051" z="8" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06A7">
+		<pos x="1549" y="1048" z="13" map="2" />
+		<pos x="1556" y="1048" z="13" map="2" />
+		<pos x="1562" y="1048" z="13" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06AB">
+		<pos x="1556" y="1043" z="13" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06EF">
+		<pos x="1565" y="1046" z="-7" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06ED">
+		<pos x="1565" y="1047" z="-7" map="2" />
+	</item>
+
+	<!-- dartboard-->
+	<item id="0x1E2F">
+		<pos x="1547" y="1046" z="-7" map="2" />
+	</item>
+
+	<!-- crate-->
+	<item id="0x0E3C">
+		<pos x="1549" y="1040" z="-4" map="2" />
+		<pos x="1549" y="1040" z="-7" map="2" />
+		<pos x="1549" y="1051" z="-27" map="2" />
+		<pos x="1549" y="1052" z="-27" map="2" />
+		<pos x="1549" y="1052" z="-24" map="2" />
+	</item>
+
+	<!-- dartboard w/knives-->
+	<item id="0x1E33">
+		<pos x="1547" y="1048" z="-7" map="2" />
+	</item>
+
+	<!-- crate-->
+	<item id="0x0E3F">
+		<pos x="1549" y="1049" z="-27" map="2" />
+	</item>
+
+	<!-- chest of drawers-->
+	<item id="0x0A34">
+		<pos x="1553" y="1049" z="13" map="2" />
+	</item>
+
+	<!-- armoire-->
+	<item id="0x0A53">
+		<pos x="1553" y="1052" z="13" map="2" />
+		<pos x="1560" y="1054" z="13" map="2" />
+	</item>
+
+	<!-- dresser-->
+	<item id="0x0A3D">
+		<pos x="1558" y="1038" z="13" map="2" />
+	</item>
+
+	<!-- dresser-->
+	<item id="0x0A3C">
+		<pos x="1559" y="1038" z="13" map="2" />
+	</item>
+
+	<!-- armoire-->
+	<item id="0x0A4D">
+		<pos x="1561" y="1038" z="13" map="2" />
+	</item>
+
+	<!-- bottle of liquor-->
+	<item id="0x099B">
+		<pos x="1555" y="1052" z="-21" map="2" />
+	</item>
+
+	<!-- chest of drawers-->
+	<item id="0x0A2C">
+		<pos x="1564" y="1049" z="13" map="2" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0x0BC3">
+		<pos x="1566" y="1049" z="-6" map="2" />
+	</item>
+
+	<!-- water barrel-->
+	<item id="0x154D">
+		<pos x="1555" y="1041" z="-7" map="2" />
+	</item>
+
+	<!-- fireplace-->
+	<item id="0x0960">
+		<pos x="1555" y="1038" z="13" map="2" />
+	</item>
+
+	<!-- fireplace-->
+	<item id="0x095F">
+		<pos x="1556" y="1038" z="13" map="2" />
+	</item>
+</decoration>

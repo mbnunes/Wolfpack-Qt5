@@ -1,0 +1,34 @@
+<decoration>
+	<!-- chest of drawers-->
+	<item id="0x0A34">
+		<pos x="658" y="662" z="-15" map="2" />
+	</item>
+
+	<!-- The Deuce's Vinculum Inn-->
+	<item id="0x0BC4">
+		<pos x="667" y="680" z="-24" map="2" />
+	</item>
+
+	<!-- skull with candle-->
+	<item id="0x1853">
+		<pos x="658" y="675" z="-29" map="2" />
+		<pos x="663" y="672" z="-30" map="2" />
+		<pos x="664" y="670" z="-29" map="2" />
+		<pos x="666" y="676" z="-29" map="2" />
+		<pos x="668" y="672" z="-30" map="2" />
+		<pos x="670" y="675" z="-29" map="2" />
+	</item>
+
+	<!-- skull with candle-->
+	<item id="0x1854">
+		<pos x="660" y="661" z="-29" map="2" />
+	</item>
+
+	<!-- skull with candle-->
+	<item id="0x1857">
+		<pos x="659" y="670" z="-29" map="2" />
+		<pos x="662" y="676" z="-29" map="2" />
+		<pos x="666" y="661" z="-29" map="2" />
+		<pos x="669" y="670" z="-29" map="2" />
+	</item>
+</decoration>

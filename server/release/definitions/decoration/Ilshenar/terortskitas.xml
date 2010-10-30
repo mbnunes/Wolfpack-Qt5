@@ -1,0 +1,91 @@
+<decoration>
+	<!-- fire-->
+	<item id="0x19AB">
+		<pos x="579" y="408" z="33" map="2" />
+		<pos x="580" y="408" z="33" map="2" />
+	</item>
+
+	<!-- stone stairs-->
+	<item id="0x0753" hue="0x849">
+		<pos x="555" y="425" z="-13" map="2" />
+	</item>
+
+	<!-- stone stairs-->
+	<item id="0x0753" hue="0x84A">
+		<pos x="556" y="425" z="-13" map="2" />
+	</item>
+
+	<!-- stone stairs-->
+	<item id="0x0753" hue="0x847">
+		<pos x="557" y="425" z="-13" map="2" />
+	</item>
+
+	<!-- magical crystal-->
+	<item id="0x1F19">
+		<pos x="570" y="414" z="47" map="2" />
+		<pos x="570" y="415" z="47" map="2" />
+		<pos x="578" y="409" z="67" map="2" />
+		<pos x="578" y="410" z="67" map="2" />
+	</item>
+
+	<!-- chest of drawers-->
+	<item id="0x0A38">
+		<pos x="572" y="412" z="41" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A9A">
+		<pos x="576" y="423" z="41" map="2" />
+		<pos x="576" y="426" z="41" map="2" />
+		<pos x="576" y="429" z="41" map="2" />
+		<pos x="579" y="421" z="61" map="2" />
+		<pos x="579" y="425" z="61" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A9C">
+		<pos x="576" y="424" z="41" map="2" />
+		<pos x="576" y="428" z="41" map="2" />
+		<pos x="579" y="422" z="61" map="2" />
+		<pos x="579" y="424" z="61" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A99">
+		<pos x="576" y="425" z="41" map="2" />
+		<pos x="576" y="427" z="41" map="2" />
+		<pos x="576" y="430" z="41" map="2" />
+		<pos x="579" y="423" z="61" map="2" />
+		<pos x="579" y="426" z="61" map="2" />
+	</item>
+
+	<!-- dresser-->
+	<item id="0x0A3D">
+		<pos x="577" y="408" z="41" map="2" />
+	</item>
+
+	<!-- dresser-->
+	<item id="0x0A3C">
+		<pos x="578" y="408" z="41" map="2" />
+	</item>
+
+	<!-- cactus-->
+	<item id="0x0D26" hue="0x847">
+		<pos x="579" y="408" z="26" map="2" />
+		<pos x="580" y="408" z="26" map="2" />
+	</item>
+
+	<!-- book-->
+	<item id="0x0FBE">
+		<pos x="579" y="409" z="26" map="2" />
+		<pos x="580" y="409" z="26" map="2" />
+	</item>
+
+	<!-- magical crystal-->
+	<item id="0x1F1C">
+		<pos x="579" y="428" z="67" map="2" />
+		<pos x="579" y="429" z="67" map="2" />
+		<pos x="585" y="416" z="47" map="2" />
+		<pos x="586" y="416" z="47" map="2" />
+	</item>
+</decoration>

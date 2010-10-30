@@ -3,6 +3,10 @@
 	<include file="definitions/decoration/Malas/luna.xml"/>
 	<include file="definitions/decoration/Malas/umbra.xml"/>
 	<include file="definitions/decoration/Malas/doom.xml"/>
-	<include file="definitions/decoration/Malas/darktidesquest.xml"/>
 	<include file="definitions/decoration/Malas/signs.xml"/>
+	<include file="definitions/decoration/Malas/darktidesquest.xml"/>
+	<include file="definitions/decoration/Malas/eminosundertakingquest.xml"/>
+	<include file="definitions/decoration/Malas/haochistrialsquest.xml"/>
+	<include file="definitions/decoration/Malas/markcontainers.xml"/>
+	<include file="definitions/decoration/Malas/summoningquest.xml"/>
 </decoration>

@@ -1,0 +1,37 @@
+<decoration>
+	<!-- lute-->
+	<item id="0x0EB3">
+		<pos x="426" y="1557" z="-23" map="2" />
+	</item>
+
+	<!-- lap harp-->
+	<item id="0x0EB2">
+		<pos x="426" y="1558" z="-23" map="2" />
+	</item>
+
+	<!-- tambourine-->
+	<item id="0x0E9E">
+		<pos x="427" y="1560" z="-23" map="2" />
+	</item>
+
+	<!-- standing harp-->
+	<item id="0x0EB1">
+		<pos x="434" y="1557" z="-22" map="2" />
+		<pos x="436" y="1557" z="-22" map="2" />
+	</item>
+
+	<!-- metal door-->
+	<item id="0x0675" hue="0x8AB">
+		<pos x="478" y="1527" z="-27" map="2" />
+	</item>
+
+	<!-- metal door-->
+	<item id="0x0677" hue="0x8AB">
+		<pos x="479" y="1527" z="-27" map="2" />
+	</item>
+
+	<!-- drum-->
+	<item id="0x0E9C">
+		<pos x="427" y="1557" z="-23" map="2" />
+	</item>
+</decoration>

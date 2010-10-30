@@ -1,0 +1,108 @@
+<decoration>
+	<!-- stalagmites-->
+	<item id="0x08E1">
+		<pos x="707" y="667" z="-37" map="2" />
+		<pos x="709" y="667" z="-16" map="2" />
+	</item>
+
+	<!-- flowstone-->
+	<item id="0x08E2">
+		<pos x="708" y="667" z="-38" map="2" />
+	</item>
+
+	<!-- stalagmites-->
+	<item id="0x08E4">
+		<pos x="710" y="667" z="-10" map="2" />
+		<pos x="714" y="668" z="-29" map="2" />
+	</item>
+
+	<!-- stalagmites-->
+	<item id="0x08E5">
+		<pos x="712" y="667" z="-9" map="2" />
+	</item>
+
+	<!-- flowstone-->
+	<item id="0x08E6">
+		<pos x="710" y="667" z="-17" map="2" />
+		<pos x="712" y="667" z="-15" map="2" />
+	</item>
+
+	<!-- flowstone-->
+	<item id="0x08E8">
+		<pos x="712" y="667" z="-38" map="2" />
+		<pos x="713" y="667" z="-37" map="2" />
+	</item>
+
+	<!-- anvil-->
+	<item id="0x0FAF">
+		<pos x="947" y="413" z="-80" map="2" />
+		<pos x="958" y="421" z="-80" map="2" />
+		<pos x="958" y="422" z="-80" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x0FB1">
+		<pos x="946" y="413" z="-80" map="2" />
+	</item>
+
+	<!-- sledge hammer-->
+	<item id="0x0FB4">
+		<pos x="957" y="427" z="-74" map="2" />
+	</item>
+
+	<!-- sledge hammer-->
+	<item id="0x0FB5">
+		<pos x="955" y="415" z="-74" map="2" />
+	</item>
+
+	<!-- tapestry-->
+	<item id="0x0FE1" hue="0x1">
+		<pos x="709" y="667" z="-42" map="2" />
+	</item>
+
+	<!-- tapestry-->
+	<item id="0x0FE2" hue="0x1">
+		<pos x="710" y="667" z="-42" map="2" />
+		<pos x="711" y="667" z="-42" map="2" />
+	</item>
+
+	<!-- butcher knife-->
+	<item id="0x13F6">
+		<pos x="864" y="468" z="7" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x1774">
+		<pos x="706" y="668" z="-36" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x1776">
+		<pos x="711" y="667" z="-16" map="2" />
+	</item>
+
+	<!-- bellows-->
+	<item id="0x1992">
+		<pos x="958" y="420" z="-80" map="2" />
+		<pos x="958" y="425" z="-80" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x1996">
+		<pos x="958" y="419" z="-80" map="2" />
+		<pos x="958" y="424" z="-80" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x199A">
+		<pos x="958" y="418" z="-80" map="2" />
+		<pos x="958" y="423" z="-80" map="2" />
+	</item>
+
+	<!-- nodraw-->
+	<item id="0x2198">
+		<pos x="911" y="451" z="-80" map="2" />
+		<pos x="911" y="452" z="-80" map="2" />
+		<pos x="911" y="453" z="-80" map="2" />
+	</item>
+</decoration>
