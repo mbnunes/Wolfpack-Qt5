@@ -446,7 +446,7 @@
 	</item>
 
 	<!-- Field of Poison-->
-	<item id="0x3921" hue="0x6">
+	<item id="0x3920" hue="0x6">
 		<pos x="2031" y="48" z="-20" map="2" />
 		<pos x="2032" y="48" z="-20" map="2" />
 		<pos x="2032" y="180" z="-20" map="2" />
@@ -827,7 +827,7 @@
 	</item>
 
 	<!-- winch-->
-	<item id="0x1EAF" hue="0x839">
+	<item id="0x1EAD" hue="0x839">
 		<pos x="2074" y="123" z="-22" map="2" />
 	</item>
 
@@ -869,7 +869,7 @@
 	</item>
 
 	<!-- magical crystal-->
-	<item id="0x1F1A" hue="0x835">
+	<item id="0x1F19" hue="0x835">
 		<pos x="1872" y="112" z="-8" map="2" />
 		<pos x="1872" y="119" z="-8" map="2" />
 		<pos x="1873" y="112" z="-8" map="2" />
@@ -990,7 +990,7 @@
 	</item>
 
 	<!-- lava-->
-	<item id="0x12EF" hue="0x6">
+	<item id="0x12EE" hue="0x6">
 		<pos x="1851" y="115" z="-17" map="2" />
 		<pos x="1852" y="115" z="-17" map="2" />
 		<pos x="1850" y="115" z="-17" map="2" />
@@ -998,7 +998,7 @@
 	</item>
 
 	<!-- lava-->
-	<item id="0x1307" hue="0x6">
+	<item id="0x1306" hue="0x6">
 		<pos x="1855" y="109" z="-17" map="2" />
 		<pos x="1855" y="110" z="-17" map="2" />
 		<pos x="1855" y="111" z="-17" map="2" />

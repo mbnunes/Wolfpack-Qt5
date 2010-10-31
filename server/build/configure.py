@@ -358,12 +358,12 @@ def main():
 		PY_LIBDIR = distutils.sysconfig.get_config_vars("LINKFORSHARED")[0]
 		PY_LIBDIR += " -flat_namespace"
 	else:
-		PY_LIBDIR = buildLibLine( py_libpath, py_libfile )
+		PY_LIBDIR = buildLibLine( py_libpath, py_libfile ).replace("\\","/")
 	config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
-	config.write("PY_INCDIR = %s\n" % py_incpath )
+	config.write("PY_INCDIR = %s\n" % py_incpath.replace("\\","/"))
 
 	# QT stuff
-	config.write("QTDIR = %s\n" % qt_dir )
+	config.write("QTDIR = %s\n" % qt_dir.replace("\\","/") )
 
 	# if --debug
 	sys.stdout.write("Build mode:                             ")
