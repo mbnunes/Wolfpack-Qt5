@@ -17,14 +17,14 @@ INCLUDEPATH += include $$PY_INCDIR
 
 DEPENDPATH += . \
               python \
-              python\converter \
-              python\object \
-              include\boost\python \
-              include\boost\python\converter \
-              include\boost\python\detail \
-              include\boost\python\object \
-              include\boost\python\suite\indexing \
-              include\boost\python\suite\indexing\detail
+              python/converter \
+              python/object \
+              include/boost/python \
+              include/boost/python/converter \
+              include/boost/python/detail \
+              include/boost/python/object \
+              include/boost/python/suite/indexing \
+              include/boost/python/suite/indexing/detail
 INCLUDEPATH += .
 
 # Input
