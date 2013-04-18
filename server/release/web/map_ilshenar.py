@@ -39,7 +39,7 @@ numero = 0
 socket = wolfpack.sockets.first()
 nextsocket = wolfpack.sockets.next()
 while socket:
-	if( socket.player and not socket.player.invisible ):
+	if( socket.player and socket.player.pos.map == 2 and not socket.player.invisible ):
 		
 		numero += 1
 
