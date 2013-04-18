@@ -119,6 +119,8 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 		return new cUORxRequestTooltips( data );
 	case 0xD7:
 		return cUORxAosMultiPurpose::packet( data );
+	case 0xEF:
+		return new cUORxNewSetVersion( data );
 	default:
 		return new cUOPacket( data );
 	};

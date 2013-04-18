@@ -755,6 +755,38 @@ public:
 	}
 };
 
+// 0xEF New Client Version
+class cUORxNewSetVersion : public cUOPacket
+{
+public:
+	cUORxNewSetVersion() : cUOPacket( 0xEF, 21 )
+	{
+	}
+	cUORxNewSetVersion( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	uint getIp( void ) const
+	{
+		return getInt( 1 );
+	}
+	uint getMajor( void ) const
+	{
+		return getInt( 5 );
+	}
+	uint getMinor( void ) const
+	{
+		return getInt( 9 );
+	}
+	uint getRevision( void ) const
+	{
+		return getInt( 13 );
+	}
+	uint getBuild( void ) const
+	{
+		return getInt( 17 );
+	}
+};
+
 // 0x02 Walk Request.
 class cUORxWalkRequest : public cUOPacket
 {

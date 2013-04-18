@@ -79,6 +79,45 @@ public:
 		Disconnected
 	};
 
+	enum ClientVersions
+	{
+		CVS_DEFAULT = 0,
+		CVS_400,
+		CVS_407a,
+		CVS_4011c,
+		CVS_500a,
+		CVS_502a,
+		CVS_5082,
+		CVS_6000,
+		CVS_6017,
+		CVS_6050,
+		CVS_60142,
+		CVS_7000,
+		CVS_7090,
+		CVS_70130,
+		CVS_70151,
+		CVS_70160,
+		CVS_70240,
+		CVS_COUNT
+	};
+			
+	enum ClientTypes
+	{
+		CV_DEFAULT = 0,
+		CV_UNKNOWN,
+		CV_KRRIOS,
+		CV_T2A,		// From 4.0.0p to 4.0.11c
+		CV_UO3D,	// Third Dawn 3D client
+		CV_ML,		// From 4.0.11f to 5.0.9.1
+		CV_KR2D,	// From 6.0.0.0+ to 6.0.14.1, first packet sent is 0xEF. 
+		CV_KR3D,
+		CV_SA2D,	// From 6.0.14.2 to 7.0.8.2, Stygian Abyss expansion client. First patcket sent is 0xEF, requires 0xB9 size-change from 3 to 5, new 0xF3 packet replacex 0x1A
+		CV_SA3D,
+		CV_HS2D,	// From 7.0.9.0 to infinity (so far), High Seas expansion client
+		CV_HS3D,
+		CV_COUNT
+	};
+
 public:
 
 	cUOSocket( QTcpSocket* s );
@@ -232,6 +271,7 @@ public:
 	void allowMove( quint8 sequence );
 	void denyMove( quint8 sequence );
 
+
 private:
 	void updateCharList();
 	void setPlayer( P_PLAYER player );
@@ -290,7 +330,7 @@ private:
 	void handleParty( cUOPacket* packet );
 	void handleChat( cUOPacket* packet );
 	void handleRequestTooltips( cUORxRequestTooltips* packet );
-
+	void handleNewSetVersion( cUORxNewSetVersion* packet );
 
 private slots:
 	void receive(); // Tries to recieve one packet and process it

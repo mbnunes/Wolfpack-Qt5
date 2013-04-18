@@ -116,7 +116,7 @@ const quint16 packetLengths[256] =
 		0x0000, 0x0002, 0x0019, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, // 0xD0
 		0x0000, 0x010C, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xD8
 		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xE0
-		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xE8
+		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0x0015, // 0xE8
 		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF0
 		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8
 };
@@ -350,6 +350,7 @@ void cUOSocket::buildPackets()
 			incomingBuffer.resize(incomingBuffer.size() - size);
 
 			cUOPacket* packet = getUORxPacket( packetData );
+			
 			if (packet)
 				incomingQueue.append(packet);
 			continue; // See if there's another packet waiting
@@ -364,16 +365,16 @@ void cUOSocket::buildPackets()
 */
 void cUOSocket::receive()
 {
-	if ( !skippedUOHeader )
-	{
-		if (_socket->bytesAvailable() >= 4) {
-			_socket->read( (char*)&seed, 4 );
-			seed = B_BENDIAN_TO_HOST_INT32(seed);
-			skippedUOHeader = true;
-		} else {
-			return;
-		}
-	}
+	//if ( !skippedUOHeader )
+	//{
+	//	if (_socket->bytesAvailable() >= 4) {
+	//		_socket->read( (char*)&seed, 4 );
+	//		seed = B_BENDIAN_TO_HOST_INT32(seed);
+	//		skippedUOHeader = true;
+	//	} else {
+	//		return;
+	//	}
+	//}
 
 	// Check for possible encryption
 	if (!encryption) {
@@ -385,9 +386,10 @@ void cUOSocket::receive()
 
 			// The 0x80 packet is 62 byte, but we want to have everything
 			QByteArray buf = _socket->readAll();
+			Console::instance()->log(LOG_ERROR, cUOPacket::dump(buf));
 
 			// Check if it could be *not* encrypted
-			if ( buf[0] == '\x80' && buf[30] == '\x00' && buf[60] == '\x00' ) {
+			if ( buf[0] == '\xEF' && buf[21] == '\x80' ) {
 				// Is no Encryption allowed?
 				if ( !Config::instance()->allowUnencryptedClients() )
 				{
@@ -399,7 +401,7 @@ void cUOSocket::receive()
 
 				encryption = new cNoEncryption;
 			} else {
-				cLoginEncryption* crypt = new cLoginEncryption;
+ 				cLoginEncryption* crypt = new cLoginEncryption;
 				if ( !crypt->init(seed, buf.data(), buf.size())) {
 					delete crypt;
 
@@ -415,6 +417,7 @@ void cUOSocket::receive()
 			// Append to the buffer decrypted
 			encryption->clientDecrypt(buf.data(), buf.size());
 			incomingBuffer.append(buf);
+			Console::instance()->log(LOG_WARNING, cUOPacket::dump(buf));
 		// Game Server
 		} else if (Config::instance()->gamePort() == _socket->localPort()) {
 			if (_socket->bytesAvailable() < 65) {
@@ -452,6 +455,7 @@ void cUOSocket::receive()
 		QByteArray temp = _socket->readAll();
 		encryption->clientDecrypt(temp.data(), temp.size());
 		incomingBuffer.append(temp);
+		Console::instance()->log(LOG_WARNING, cUOPacket::dump(temp));
 	}
 
 	buildPackets();
@@ -466,18 +470,20 @@ void cUOSocket::receive()
 
 		unsigned char packetId = ( *packet )[0];
 
-		// Disconnect harmful clients
-		if ( ( _account == 0 ) && ( packetId != 0x80 ) && ( packetId != 0x91 ) )
-		{
-			log( tr( "Communication error: 0x%1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
+		if (packetId != 0xEF) {
+			// Disconnect harmful clients
+			if ( ( _account == 0 ) && ( (packetId != 0x80)  ) && ( packetId != 0x91 ) )
+			{
+				log( tr( "Communication error: 0x%1 instead of 0x80 or 0x91\n" ).arg( packetId, 2, 16 ) );
 
-			cUOTxDenyLogin denyLogin;
-			denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
-			send( &denyLogin );
+				cUOTxDenyLogin denyLogin;
+				denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION );
+				send( &denyLogin );
 
-			disconnect();
+				disconnect();
 
-			return;
+				return;
+			}
 		}
 
 		// Switch to encrypted mode if one of the advanced packets is received
@@ -487,7 +493,7 @@ void cUOSocket::receive()
 		// Check for a list of packets that may be sent while no player has been selected
 		if ( !_player )
 		{
-			if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xD9 )
+			if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xD9 && packetId != 0xEF)
 			{
 				return;
 			}
@@ -666,6 +672,8 @@ void cUOSocket::receive()
 				break; // Completely ignore the packet.
 			case 0xBB:
 				break; // Completely ignore the packet.
+			case 0xEF:
+				handleNewSetVersion( static_cast<cUORxNewSetVersion*>( packet ) );
 			default:
 				Console::instance()->send( packet->dump( packet->uncompressed() ) );
 				delete packet;
@@ -1672,6 +1680,14 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange* packet )
 		update[1] = data;
 	}
 	send( &update );
+}
+
+/*!
+  \sa cUORxNewSetClient
+*/
+void cUOSocket::handleNewSetVersion( cUORxNewSetVersion* packet )
+{
+	// IMPLEMENTAR
 }
 
 /*!
@@ -4410,3 +4426,4 @@ void cUOSocket::handleRequestTooltips( cUORxRequestTooltips *packet) {
 		}
 	}
 }
+
