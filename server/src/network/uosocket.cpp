@@ -916,13 +916,14 @@ void cUOSocket::sendCharList(const uint maxChars)
 	vector<StartLocation_st> startLocations = Config::instance()->startLocation();
 	for (i = 0; i < startLocations.size(); ++i)
 	{
-		//charList.addTown(i, startLocations[i].name, startLocations[i].name);
-		charList.addTown(i, startLocations[i].name, startLocations[i].name, startLocations[i].pos.x, startLocations[i].pos.y, startLocations[i].pos.z, startLocations[i].pos.map, startLocations[i].Desc);
+		charList.addTown(i, startLocations[i].name, startLocations[i].name);
+		//function is news Clientes progress UOHS
+		//charList.addTown(i, startLocations[i].name, startLocations[i].name, startLocations[i].pos.x, startLocations[i].pos.y, startLocations[i].pos.z, startLocations[i].pos.map, startLocations[i].Desc);
 	}
 		
-
-	charList.compile();
-	//charList.compileOld();
+	//function compile is news Clientes progress UOHS
+	//charList.compile();
+	charList.compileOld();
 
 	send( &charList );
 
