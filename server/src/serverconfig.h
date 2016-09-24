@@ -49,6 +49,7 @@ struct StartLocation_st
 {
 	QString name;
 	Coord pos;
+	int Desc;
 };
 
 struct ServerList_st

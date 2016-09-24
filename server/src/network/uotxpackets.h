@@ -117,6 +117,7 @@ class cUOTxCharTownList : public cUOPacket
 	{
 		unsigned char index;
 		QString town, area;
+		unsigned int x, y, z, MapID, Desc;
 	};
 
 protected:
@@ -131,10 +132,15 @@ public:
 
 	void addCharacter( const QString& name );
 	void addTown( unsigned char index, const QString& name, const QString& area );
+
+	void addTown(unsigned char index, const QString& name, const QString& area, unsigned int x, unsigned int y, unsigned int z, unsigned int MapID, unsigned int Desc);
+
 	void setCharLimit( short limit = -1 )
 	{
 		charLimit = limit;
 	}
+
+	virtual void compileOld();
 	virtual void compile();
 };
 
@@ -433,6 +439,66 @@ public:
 	void setAos( bool enable )
 	{
 		enable ? ( *this )[1] |= 0x80 : ( *this )[1] &= ~0x80;
+	}
+
+	void setEigthAge(bool enable)
+	{
+		enable ? (*this)[1] |= 0x100 : (*this)[1] &= ~0x100;
+	}
+
+	void setNinthAge(bool enable)
+	{
+		enable ? (*this)[1] |= 0x200 : (*this)[1] &= ~0x200;
+	}
+
+	void setTenthAge(bool enable)
+	{
+		enable ? (*this)[1] |= 0x400 : (*this)[1] &= ~0x400;
+	}
+
+	void setIncreasedStorage(bool enable)
+	{
+		enable ? (*this)[1] |= 0x800 : (*this)[1] &= ~0x800;
+	}
+
+	void setSeventhCharacterSlot(bool enable)
+	{
+		enable ? (*this)[1] |= 0x1000 : (*this)[1] &= ~0x1000;
+	}
+
+	void setRoleplayFaces(bool enable)
+	{
+		enable ? (*this)[1] |= 0x2000 : (*this)[1] &= ~0x2000;
+	}
+
+	void setTrialAccount(bool enable)
+	{
+		enable ? (*this)[1] |= 0x4000 : (*this)[1] &= ~0x4000;
+	}
+
+	void setLiveAccount(bool enable)
+	{
+		enable ? (*this)[1] |= 0x8000 : (*this)[1] &= ~0x8000;
+	}
+
+	void setSA(bool enable)
+	{
+		enable ? (*this)[1] |= 0x10000 : (*this)[1] &= ~0x10000;
+	}
+
+	void setHS(bool enable)
+	{
+		enable ? (*this)[1] |= 0x20000 : (*this)[1] &= ~0x20000;
+	}
+
+	void setGothic(bool enable)
+	{
+		enable ? (*this)[1] |= 0x40000 : (*this)[1] &= ~0x40000;
+	}
+
+	void setRustic(bool enable)
+	{
+		enable ? (*this)[1] |= 0x80000 : (*this)[1] &= ~0x80000;
 	}
 };
 

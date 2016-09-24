@@ -221,6 +221,7 @@ void cUOSocket::clearPacketHandlers()
 */
 void cUOSocket::send( cUOPacket* packet )
 {
+	Console::instance()->log(LOG_ERROR, "Out: " + QString::number(packet->uncompressed()[0], 16) + " | "+ QString::number(packet->size()));
 	// Don't send when we're already disconnected
 	if ( !_socket || !_socket->isOpen() )
 		return;
@@ -365,31 +366,36 @@ void cUOSocket::buildPackets()
 */
 void cUOSocket::receive()
 {
-	//if ( !skippedUOHeader )
-	//{
-	//	if (_socket->bytesAvailable() >= 4) {
-	//		_socket->read( (char*)&seed, 4 );
-	//		seed = B_BENDIAN_TO_HOST_INT32(seed);
-	//		skippedUOHeader = true;
-	//	} else {
-	//		return;
-	//	}
-	//}
+	
+	if ( !skippedUOHeader )
+	{
+		if (_socket->bytesAvailable() == 21)
+		{	
+			skippedUOHeader = true;
+		}
+		else if (_socket->bytesAvailable() >= 4) {
+			_socket->read( (char*)&seed, 4 );
+			seed = B_BENDIAN_TO_HOST_INT32(seed);
+			skippedUOHeader = true;
+		} else {
+			return;
+		}
+	}
 
 	// Check for possible encryption
 	if (!encryption) {
 		// Login Server
 		if (Config::instance()->loginPort() == _socket->localPort()) {
-			if (_socket->bytesAvailable() < 62) {
+			if (_socket->bytesAvailable() < 62 && _socket->bytesAvailable() != 21 ) {
 				return; // Not enough data for the login packet
 			}
 
 			// The 0x80 packet is 62 byte, but we want to have everything
 			QByteArray buf = _socket->readAll();
-			Console::instance()->log(LOG_ERROR, cUOPacket::dump(buf));
+			Console::instance()->log(LOG_WARNING, "In: " + QString::number(buf[0], 16) + " | " + QString::number(buf.size()));
 
 			// Check if it could be *not* encrypted
-			if ( buf[0] == '\xEF' && buf[21] == '\x80' ) {
+			if ( buf[0] == '\xEF' || buf[21] == '\x80' || buf[0] == '\x80') {
 				// Is no Encryption allowed?
 				if ( !Config::instance()->allowUnencryptedClients() )
 				{
@@ -417,7 +423,7 @@ void cUOSocket::receive()
 			// Append to the buffer decrypted
 			encryption->clientDecrypt(buf.data(), buf.size());
 			incomingBuffer.append(buf);
-			Console::instance()->log(LOG_WARNING, cUOPacket::dump(buf));
+
 		// Game Server
 		} else if (Config::instance()->gamePort() == _socket->localPort()) {
 			if (_socket->bytesAvailable() < 65) {
@@ -425,7 +431,7 @@ void cUOSocket::receive()
 			}
 
 			QByteArray buf = _socket->readAll();
-
+			Console::instance()->log(LOG_WARNING, "In: " +QString::number(buf[0], 16) + " | " + QString::number(buf.size()));
 			// The 0x91 packet is 65 byte
 			// This should be no encryption
 			if ( buf[0] == '\x91' && buf[1] == '\xFF' && buf[2] == '\xFF' && buf[3] == '\xFF' && buf[4] == '\xFF' )
@@ -455,7 +461,7 @@ void cUOSocket::receive()
 		QByteArray temp = _socket->readAll();
 		encryption->clientDecrypt(temp.data(), temp.size());
 		incomingBuffer.append(temp);
-		Console::instance()->log(LOG_WARNING, cUOPacket::dump(temp));
+		Console::instance()->log(LOG_WARNING, "In: "+QString::number(temp[0], 16) + " | " + QString::number(temp.size()));
 	}
 
 	buildPackets();
@@ -886,11 +892,14 @@ void cUOSocket::sendCharList(const uint maxChars)
 	// Send the server/account features here as well
 	// AoS needs it most likely for account creation
 	cUOTxClientFeatures clientFeatures;
-	unsigned short flags = 0x3 | 0x40 | 0x801c | 0x80;	// Added 0x80 to Enable the ML Features
+	unsigned short flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x8000 | 0x40 | 0x80 | 0x200 | 0x10000 | 0x40000 | 0x80000 | 0x20000;	// Added 0x80 to Enable the ML Features //0x3 | 0x40 | 0x801c | 0x80 | 0x100 | 0x1000
+	
+	/*
 	if (maxChars == 6) {
 		flags |= 0x8020;
 		flags &= ~ 0x4;
-	}
+	}*/
+
 	clientFeatures.setShort( 1, flags );
 	send( &clientFeatures );
 
@@ -905,10 +914,16 @@ void cUOSocket::sendCharList(const uint maxChars)
 
 	// Add the Starting Locations
 	vector<StartLocation_st> startLocations = Config::instance()->startLocation();
-	for ( i = 0; i < startLocations.size(); ++i )
-		charList.addTown( i, startLocations[i].name, startLocations[i].name );
+	for (i = 0; i < startLocations.size(); ++i)
+	{
+		//charList.addTown(i, startLocations[i].name, startLocations[i].name);
+		charList.addTown(i, startLocations[i].name, startLocations[i].name, startLocations[i].pos.x, startLocations[i].pos.y, startLocations[i].pos.z, startLocations[i].pos.map, startLocations[i].Desc);
+	}
+		
 
 	charList.compile();
+	//charList.compileOld();
+
 	send( &charList );
 
 	// Ask the client for a viewrange

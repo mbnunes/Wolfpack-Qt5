@@ -81,7 +81,21 @@ void cUOTxCharTownList::addTown( unsigned char index, const QString& name, const
 	towns.push_back( town );
 }
 
-void cUOTxCharTownList::compile( void )
+void cUOTxCharTownList::addTown(unsigned char index, const QString& name, const QString& area, unsigned int x, unsigned int y, unsigned int z, unsigned int MapID, unsigned int Desc)
+{
+	stTown town;
+	town.town = (name.length() > 30) ? name.left(30) : name;
+	town.area = (area.length() > 30) ? area.left(30) : area;
+	town.index = index;
+	town.x = x;
+	town.y = y;
+	town.z = z;
+	town.MapID = MapID;
+	town.Desc = Desc;
+	towns.push_back(town);
+}
+
+void cUOTxCharTownList::compileOld( void )
 {
 	resize( 309 + ( towns.size() * 63 ) );
 	( *this )[0] = ( unsigned char ) 0xA9;
@@ -125,6 +139,80 @@ void cUOTxCharTownList::compile( void )
 
 	// New Packet Size
 	setShort( 1, count() );
+}
+
+void cUOTxCharTownList::compile(void)
+{
+	//characters.size() nao funciona 
+	resize((11 + ((7 * 60) + (towns.size() * 89))));
+
+	(*this)[0] = (unsigned char)0xA9;
+
+	//characters.size()
+	(*this)[3] = characters.size();
+
+	for (unsigned char c = 0; c < characters.size(); ++c)
+	{
+		if (c < characters.size())
+		{
+			setAsciiString(4 + (c * 60), characters[c].left(29).toLatin1(), 30);
+			(*this)[4 + (c * 60) + 30] = 0x00; // No Password (!)
+		}
+		else
+		{
+			(*this)[4 + (c * 60)] = 0x00; // "Pad-out" the char
+		}
+	}
+
+	int offset;
+	if ((*this)[3] > 6)
+	{
+		offset = 424;
+	}
+	else if ((*this)[3] < 6)
+	{
+		offset = 364;
+	}
+	else
+	{
+		offset = 304;
+	}
+
+	offset = 424;
+	(*this)[offset++] = towns.size();
+
+	for (unsigned char t = 0; t < towns.size(); ++t)
+	{
+		(*this)[offset + 1] = towns[t].index;
+		setAsciiString(offset + 2, towns[t].town.left(31).toLatin1(), 32);
+		setAsciiString(offset + 33, towns[t].area.left(31).toLatin1(), 32);
+		setInt(offset + 66, towns[t].x);
+		setInt(offset + 70, towns[t].y);
+		setInt(offset + 74, towns[t].z);
+		setInt(offset + 78, towns[t].MapID);
+		setInt(offset + 82, towns[t].Desc);
+		setInt(offset + 86, 0);
+		offset += 89;
+	}
+
+	//To run Old Clients the flags = 0x1A8
+	unsigned short flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x8000 | 0x40 | 0x80 | 0x200 | 0x10000 | 0x40000 | 0x80000 | 0x20000;
+
+	if (charLimit > 6) {
+		flags |= 0x1000 | 0x40;
+	}
+	else if (charLimit == 6) {
+		flags |= 0x40;
+	}
+	else if (charLimit == 1) {
+		flags |= 0x14;
+	}
+	
+	setInt(offset, flags);
+	
+	// New Packet Size
+	setShort(1, count());
+
 }
 
 void cUOTxUpdateCharList::setCharacter( unsigned char index, QString name )

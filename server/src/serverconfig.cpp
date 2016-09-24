@@ -334,12 +334,14 @@ std::vector<StartLocation_st>& cConfig::startLocation()
 					StartLocation_st loc;
 					loc.name = strList[0];
 					QStringList strList2 = strList[1].trimmed().split( "," );
-					if ( strList2.size() == 4 )
+					
+					if ( strList2.size() == 5 )
 					{
 						loc.pos.x = strList2[0].toUShort();
 						loc.pos.y = strList2[1].toUShort();
 						loc.pos.z = strList2[2].toShort();
 						loc.pos.map = strList2[3].toUShort();
+						loc.Desc = strList2[4].toUInt();
 						startLocation_.push_back( loc );
 					}
 				}
@@ -352,15 +354,15 @@ std::vector<StartLocation_st>& cConfig::startLocation()
 
 void cConfig::setDefaultStartLocation()
 {
-	setString( "StartLocation", "Location 1", "Yew=567,978,0,1" );
-	setString( "StartLocation", "Location 2", "Minoc=2477,407,15,1" );
-	setString( "StartLocation", "Location 3", "Britain=1496,1629,10,1" );
-	setString( "StartLocation", "Location 4", "Moonglow=4404,1169,0,1" );
-	setString( "StartLocation", "Location 5", "Trinsic=1844,2745,0,1" );
-	setString( "StartLocation", "Location 6", "Magincia=3738,2223,20,1" );
-	setString( "StartLocation", "Location 7", "Jhelom=1378,3817,0,1" );
-	setString( "StartLocation", "Location 8", "Skara Brae=594,2227,0,1" );
-	setString( "StartLocation", "Location 9", "Vesper=2771,977,0,1" );
+	setString( "StartLocation", "Location 1", "Yew=567,978,0,1,1075072");
+	setString( "StartLocation", "Location 2", "Minoc=2477,407,15,1,1075073"  );
+	setString( "StartLocation", "Location 3", "Britain=1496,1629,10,1,1075074" );
+	setString( "StartLocation", "Location 4", "Moonglow=4404,1169,0,1,1075075" );
+	setString( "StartLocation", "Location 5", "Trinsic=1844,2745,0,1,1075076" );
+	setString( "StartLocation", "Location 6", "New Haven=3667,2625,0,1,1150168" );
+	setString( "StartLocation", "Location 7", "Jhelom=1378,3817,0,1,1075078" );
+	setString( "StartLocation", "Location 8", "Skara Brae=594,2227,0,1,1075079" );
+	setString( "StartLocation", "Location 9", "Vesper=2771,977,0,1,1075080" );
 	flush(); // save
 }
 
