@@ -73,7 +73,7 @@ protected:
 	int openlist;
 	Coord goal; // target coordinate
 	bool ignoreDoors; // Should doors be ignored?
-	bool ignoreMovableImpassables; // Should movable impassable´s be ignored?
+	bool ignoreMovableImpassables; // Should movable impassables be ignored?
 
 	int getNodeIndex(int x, int y, int z);
 	int heuristic(int x, int y, int z);
