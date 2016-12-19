@@ -24,7 +24,7 @@ MOC_DIR = obj
 win32:LIBS += -lws2_32 -lkernel32 -luser32 -lgdi32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lodbc32 -lodbccp32
 
 DEFINES += BOOST_PYTHON_STATIC_LIB BOOST_ALL_NO_LIB
-LIBS += -lboost_python -L../boost/lib/
+LIBS += -lboost_python -L../boost/lib/ -lz
 INCLUDEPATH += ../boost/include
 PYTHON_CPP = ../src/python
 PYTHON_H = ../src/python
@@ -215,7 +215,7 @@ DISTFILES += \
 unix {
 	confclean.depends += clean
 	confclean.commands += $(DEL_FILE) config.pri 
-	QMAKE_EXTRA_UNIX_TARGETS += confclean 
+	QMAKE_EXTRA_TARGETS += confclean 
 }
 
 # used by tools/translationupdate, our own version of lupdate

@@ -29,10 +29,10 @@ import re
 try:
     import distutils.sysconfig
 except:
-    sys.stdout.write("Invalid Python instalation. It's missing the distutils package\n")
+    sys.stdout.write("Invalid Python installation. It's missing the distutils package\n")
     sys.stdout.write("If you are using linux, check for python dev packages, or consider switching to some other distro without morron packagers" )
     sys.exit( 1 )
-    
+
 
 # Older Python lib work arounds...
 try:
@@ -140,7 +140,6 @@ class AbstractExternalLibrary:
 		except:
 			pass
 
-
 		for pathexp in dirs:
 			for dir in glob.glob( pathexp ):
 				shared = os.path.join(dir, shared_f)
@@ -194,17 +193,22 @@ class PythonLibrary( AbstractExternalLibrary ):
 		# Attept to find the system's configuration
 		PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + "Python.h" ]
 
-		if "DESTSHARED" in distutils.sysconfig.get_config_vars():
-			PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] ]
-		if "DESTLIB" in distutils.sysconfig.get_config_vars():
-			PYTHONLIBSEARCHPATH.append( distutils.sysconfig.get_config_vars()["DESTLIB"] )
-		
+		CONFIGVARS = distutils.sysconfig.get_config_vars()
+		if "DESTSHARED" in CONFIGVARS:
+			PYTHONLIBSEARCHPATH = [ CONFIGVARS["DESTSHARED"] ]
+		if "DESTLIB" in CONFIGVARS:
+			PYTHONLIBSEARCHPATH.append( CONFIGVARS["DESTLIB"] )
+
 		# Windows Search Paths
 		if sys.platform == "win32":
 			PYTHONLIBSEARCHPATH += [ sys.prefix + "\libs" ]
 			PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
 		# Linux and BSD Search Paths
 		elif sys.platform in ("linux2", "freebsd4", "freebsd5", "openbsd3"):
+
+			if "MULTIARCH" in CONFIGVARS and "DESTLIB" in CONFIGVARS:
+				PYTHONLIBSEARCHPATH.append( CONFIGVARS["DESTLIB"] + "/config-" + CONFIGVARS["MULTIARCH"] )
+
 			PYTHONLIBSEARCHPATH += [ \
 				# Python 2.6 - Look for this first
 				"/usr/local/lib/", \
@@ -216,12 +220,16 @@ class PythonLibrary( AbstractExternalLibrary ):
 			PYTHONINCSEARCHPATH += [ \
 				"/usr/local/include/Python.h", \
 				"/usr/include/Python.h", \
+				# Python 2.7
+				"/usr/local/include/[Pp]ython2.7*/Python.h", \
+				"/usr/include/[Pp]ython2.7*/Python.h" \
 				# Python 2.6
 				"/usr/local/include/[Pp]ython2.6*/Python.h", \
 				"/usr/include/[Pp]ython2.6*/Python.h" \
 				# Python 2.4
 				"/usr/local/include/[Pp]ython2.4*/Python.h", \
 				"/usr/include/[Pp]ython2.4*/Python.h" ]
+
 		# MacOSX Search Paths
 		elif sys.platform == "darwin":
 			PYTHONINCSEARCHPATH += [ \
@@ -269,8 +277,12 @@ class PythonLibrary( AbstractExternalLibrary ):
 			else:
 				library24 = "python2.4"
 				library26 = "python2.6"
-			path = self.find_library_file( PYTHONLIBSEARCHPATH, library26, static = options.staticlink )
-			self.libs = [ library26 ]
+				library27 = "python2.7"
+			path = self.find_library_file( PYTHONLIBSEARCHPATH, library27, static = options.staticlink )
+			self.libs = [ library27 ]
+			if not path:
+				path = self.find_library_file( PYTHONLIBSEARCHPATH, library26, static = options.staticlink )
+				self.libs = [ library26 ]
 			if not path:
 				path = self.find_library_file( PYTHONLIBSEARCHPATH, library24, static = options.staticlink )
 				self.libs = [ library24 ]
