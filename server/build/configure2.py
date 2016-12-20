@@ -119,14 +119,15 @@ class AbstractExternalLibrary:
 		"""
 		path = ""
 		file = ""
+		searched = set()
 		for entry in searchpath:
-			del searchpath[-1] # remove entry from list
+			searched.add(entry)
 			pathexp, fileexp = os.path.split( entry )
 			for path in glob.glob( pathexp ):
 				if os.path.exists( path ):
 					for file in os.listdir( path ):
 						if fnmatch.fnmatch( file, fileexp ):
-							return ( file, path, searchpath )
+							return ( file, path, set(searchpath) - searched )
 		return ( None, None, None )
 
 	def find_library_file( self, dirs, lib, debug = False, static = False ):
@@ -496,7 +497,7 @@ def main():
 		checkQt.runQMake( "wolfpack.pro", "-t vcapp" )
 	sys.stdout.write(bold(green("Done\n")))
 	sys.stdout.write(bold("Configure finished. Please run 'make' now.\n"))
-	sys.stdout.write("To reconfigure, run /usr/bin/gmake confclean and configure.py\n")
+	sys.stdout.write("To reconfigure, run 'make confclean' and configure2.py\n")
 	sys.stdout.write("\n")
 
 if __name__ == "__main__":
