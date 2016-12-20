@@ -77,12 +77,12 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 #  define WP_TR_FUNCTIONS(classname) \
 	static QString tr( const char* s, const char* c = 0 ) \
 	{ \
-		return QString::fromAscii( s ); \
+		return QString::fromLatin1( s ); \
 	} \
 	\
 	static QString trUtf8( const char* s, const char* c = 0 ) \
 	{ \
-		return QString::fromAscii(s); \
+		return QString::fromLatin1( s ); \
 	}
 #endif
 
