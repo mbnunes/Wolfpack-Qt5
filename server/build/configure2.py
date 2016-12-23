@@ -275,6 +275,7 @@ class PythonLibrary( AbstractExternalLibrary ):
 			if sys.platform == "win32":
 				library24 = "python24"
 				library26 = "python26"
+				library27 = "python27"
 			else:
 				library24 = "python2.4"
 				library26 = "python2.6"
@@ -302,6 +303,7 @@ class QtLibrary( AbstractExternalLibrary ):
 	def __init__( self, minversion ):
 		AbstractExternalLibrary.__init__( self )
 		self.minversion = minversion
+		self.major = "?"
 		if sys.platform == "win32":
 			self.qmakeExecutable = "qmake.exe"
 		else:
@@ -367,6 +369,7 @@ class QtLibrary( AbstractExternalLibrary ):
 			self.out( red("Fail") + "\n" )
 			self.out( "Unrecognized output from qmake -v\n" )
 			return False
+		self.major = version.split('.')[0]
 		if version >= self.minversion:
 			self.out( green("Pass") + "\n" )
 		else:
@@ -444,6 +447,8 @@ def main():
 
 	# QT stuff
 	#config.write("QTDIR = %s\n" % checkQt.librarySearchPath() )
+	if checkQt.major == "4":
+		DEFINES += "QT_VERSION_4 "
 
 	# if --debug
 	sys.stdout.write("Build mode:                             ")

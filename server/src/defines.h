@@ -108,7 +108,7 @@ enum eSkills
 	ALLSKILLS
 };
 
-#define DEFAULTWEBPAGE "http://wolfpack.berlios.de/"
+#define DEFAULTWEBPAGE "http://www.hoogi.de/wolfpack/"
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL 0

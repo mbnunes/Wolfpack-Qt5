@@ -2156,4 +2156,17 @@
 		<pos x="1435" y="1570" z="45" map="1" />
 		<pos x="1432" y="1538" z="42" map="1" />
 	</item>
+
+	<!-- Britain road signs -->
+	<!-- The Great Southern Way -->
+	<item id="0x129d">
+		<attribute key="name" value="#1016310" />
+		<pos x="1485" y="1709" z="16" map="1" />
+	</item>
+
+	<item id="0x1299">
+		<attribute key="name" value="#1016310" />
+		<pos x="1488" y="1731" z="16" map="1" />
+	</item>
+
 </decoration>

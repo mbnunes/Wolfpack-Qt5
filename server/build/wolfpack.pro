@@ -11,6 +11,7 @@ TEMPLATE = app
 
 CONFIG *= qt thread exceptions rtti 
 QT += network xml sql
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG -= flat
 DESTDIR = ../release
@@ -21,10 +22,12 @@ RC_FILE = res.rc
 OBJECTS_DIR = obj
 MOC_DIR = obj
 
-win32:LIBS += -lws2_32 -lkernel32 -luser32 -lgdi32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lodbc32 -lodbccp32
+win32:LIBS += -lws2_32 -lkernel32 -luser32 -lgdi32 -ladvapi32 -lshell32 -lole32\
+	-loleaut32 -luuid -lodbc32 -lodbccp32
+unix:LIBS += -lz
 
 DEFINES += BOOST_PYTHON_STATIC_LIB BOOST_ALL_NO_LIB
-LIBS += -lboost_python -L../boost/lib/ -lz
+LIBS += -lboost_python -L../boost/lib/
 INCLUDEPATH += ../boost/include
 PYTHON_CPP = ../src/python
 PYTHON_H = ../src/python
@@ -228,4 +231,4 @@ WPSCRIPTS = ../release/scripts
 QMAKE_TARGET_COMPANY = Wolfpack Development Team
 QMAKE_TARGET_PRODUCT = Wolfpack
 QMAKE_TARGET_DESCRIPTION = Ultima Online(tm) Server Software
-QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2009 Wolfpack Development Team
+QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2016 Wolfpack Development Team
