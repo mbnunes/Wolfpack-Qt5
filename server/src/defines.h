@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * Copyright 2001-2016 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -108,7 +108,7 @@ enum eSkills
 	ALLSKILLS
 };
 
-#define DEFAULTWEBPAGE "http://wolfpack.berlios.de/"
+#define DEFAULTWEBPAGE "http://www.hoogi.de/wolfpack/"
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL 0

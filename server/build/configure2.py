@@ -29,10 +29,10 @@ import re
 try:
     import distutils.sysconfig
 except:
-    sys.stdout.write("Invalid Python instalation. It's missing the distutils package\n")
+    sys.stdout.write("Invalid Python installation. It's missing the distutils package\n")
     sys.stdout.write("If you are using linux, check for python dev packages, or consider switching to some other distro without morron packagers" )
     sys.exit( 1 )
-    
+
 
 # Older Python lib work arounds...
 try:
@@ -119,14 +119,15 @@ class AbstractExternalLibrary:
 		"""
 		path = ""
 		file = ""
+		searched = set()
 		for entry in searchpath:
-			del searchpath[-1] # remove entry from list
+			searched.add(entry)
 			pathexp, fileexp = os.path.split( entry )
 			for path in glob.glob( pathexp ):
 				if os.path.exists( path ):
 					for file in os.listdir( path ):
 						if fnmatch.fnmatch( file, fileexp ):
-							return ( file, path, searchpath )
+							return ( file, path, set(searchpath) - searched )
 		return ( None, None, None )
 
 	def find_library_file( self, dirs, lib, debug = False, static = False ):
@@ -139,7 +140,6 @@ class AbstractExternalLibrary:
 			dylib_f = compiler.library_filename( lib, lib_type='dylib' )
 		except:
 			pass
-
 
 		for pathexp in dirs:
 			for dir in glob.glob( pathexp ):
@@ -194,17 +194,22 @@ class PythonLibrary( AbstractExternalLibrary ):
 		# Attept to find the system's configuration
 		PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + "Python.h" ]
 
-		if "DESTSHARED" in distutils.sysconfig.get_config_vars():
-			PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] ]
-		if "DESTLIB" in distutils.sysconfig.get_config_vars():
-			PYTHONLIBSEARCHPATH.append( distutils.sysconfig.get_config_vars()["DESTLIB"] )
-		
+		CONFIGVARS = distutils.sysconfig.get_config_vars()
+		if "DESTSHARED" in CONFIGVARS:
+			PYTHONLIBSEARCHPATH = [ CONFIGVARS["DESTSHARED"] ]
+		if "DESTLIB" in CONFIGVARS:
+			PYTHONLIBSEARCHPATH.append( CONFIGVARS["DESTLIB"] )
+
 		# Windows Search Paths
 		if sys.platform == "win32":
 			PYTHONLIBSEARCHPATH += [ sys.prefix + "\libs" ]
 			PYTHONINCSEARCHPATH += [ sys.prefix + "\include\Python.h" ]
 		# Linux and BSD Search Paths
 		elif sys.platform in ("linux2", "freebsd4", "freebsd5", "openbsd3"):
+
+			if "MULTIARCH" in CONFIGVARS and "DESTLIB" in CONFIGVARS:
+				PYTHONLIBSEARCHPATH.append( CONFIGVARS["DESTLIB"] + "/config-" + CONFIGVARS["MULTIARCH"] )
+
 			PYTHONLIBSEARCHPATH += [ \
 				# Python 2.6 - Look for this first
 				"/usr/local/lib/", \
@@ -216,12 +221,16 @@ class PythonLibrary( AbstractExternalLibrary ):
 			PYTHONINCSEARCHPATH += [ \
 				"/usr/local/include/Python.h", \
 				"/usr/include/Python.h", \
+				# Python 2.7
+				"/usr/local/include/[Pp]ython2.7*/Python.h", \
+				"/usr/include/[Pp]ython2.7*/Python.h" \
 				# Python 2.6
 				"/usr/local/include/[Pp]ython2.6*/Python.h", \
 				"/usr/include/[Pp]ython2.6*/Python.h" \
 				# Python 2.4
 				"/usr/local/include/[Pp]ython2.4*/Python.h", \
 				"/usr/include/[Pp]ython2.4*/Python.h" ]
+
 		# MacOSX Search Paths
 		elif sys.platform == "darwin":
 			PYTHONINCSEARCHPATH += [ \
@@ -266,11 +275,16 @@ class PythonLibrary( AbstractExternalLibrary ):
 			if sys.platform == "win32":
 				library24 = "python24"
 				library26 = "python26"
+				library27 = "python27"
 			else:
 				library24 = "python2.4"
 				library26 = "python2.6"
-			path = self.find_library_file( PYTHONLIBSEARCHPATH, library26, static = options.staticlink )
-			self.libs = [ library26 ]
+				library27 = "python2.7"
+			path = self.find_library_file( PYTHONLIBSEARCHPATH, library27, static = options.staticlink )
+			self.libs = [ library27 ]
+			if not path:
+				path = self.find_library_file( PYTHONLIBSEARCHPATH, library26, static = options.staticlink )
+				self.libs = [ library26 ]
 			if not path:
 				path = self.find_library_file( PYTHONLIBSEARCHPATH, library24, static = options.staticlink )
 				self.libs = [ library24 ]
@@ -289,6 +303,7 @@ class QtLibrary( AbstractExternalLibrary ):
 	def __init__( self, minversion ):
 		AbstractExternalLibrary.__init__( self )
 		self.minversion = minversion
+		self.major = "?"
 		if sys.platform == "win32":
 			self.qmakeExecutable = "qmake.exe"
 		else:
@@ -354,6 +369,7 @@ class QtLibrary( AbstractExternalLibrary ):
 			self.out( red("Fail") + "\n" )
 			self.out( "Unrecognized output from qmake -v\n" )
 			return False
+		self.major = version.split('.')[0]
 		if version >= self.minversion:
 			self.out( green("Pass") + "\n" )
 		else:
@@ -431,6 +447,8 @@ def main():
 
 	# QT stuff
 	#config.write("QTDIR = %s\n" % checkQt.librarySearchPath() )
+	if checkQt.major == "4":
+		DEFINES += "QT_VERSION_4 "
 
 	# if --debug
 	sys.stdout.write("Build mode:                             ")
@@ -484,7 +502,7 @@ def main():
 		checkQt.runQMake( "wolfpack.pro", "-t vcapp" )
 	sys.stdout.write(bold(green("Done\n")))
 	sys.stdout.write(bold("Configure finished. Please run 'make' now.\n"))
-	sys.stdout.write("To reconfigure, run /usr/bin/gmake confclean and configure.py\n")
+	sys.stdout.write("To reconfigure, run 'make confclean' and configure2.py\n")
 	sys.stdout.write("\n")
 
 if __name__ == "__main__":

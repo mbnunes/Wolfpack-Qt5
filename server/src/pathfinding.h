@@ -2,7 +2,7 @@
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
- * Copyright 2001-2007 by holders identified in AUTHORS.txt
+ * Copyright 2001-2016 by holders identified in AUTHORS.txt
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -73,7 +73,7 @@ protected:
 	int openlist;
 	Coord goal; // target coordinate
 	bool ignoreDoors; // Should doors be ignored?
-	bool ignoreMovableImpassables; // Should movable impassable´s be ignored?
+	bool ignoreMovableImpassables; // Should movable impassables be ignored?
 
 	int getNodeIndex(int x, int y, int z);
 	int heuristic(int x, int y, int z);
