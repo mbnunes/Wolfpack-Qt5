@@ -221,7 +221,7 @@ void cUOSocket::clearPacketHandlers()
 */
 void cUOSocket::send( cUOPacket* packet )
 {
-	Console::instance()->log(LOG_ERROR, "Out: " + QString::number(packet->uncompressed()[0], 16) + " | "+ QString::number(packet->size()));
+	
 	// Don't send when we're already disconnected
 	if ( !_socket || !_socket->isOpen() )
 		return;
@@ -392,7 +392,6 @@ void cUOSocket::receive()
 
 			// The 0x80 packet is 62 byte, but we want to have everything
 			QByteArray buf = _socket->readAll();
-			Console::instance()->log(LOG_WARNING, "In: " + QString::number(buf[0], 16) + " | " + QString::number(buf.size()));
 
 			// Check if it could be *not* encrypted
 			if ( buf[0] == '\xEF' || buf[21] == '\x80' || buf[0] == '\x80') {
@@ -431,7 +430,7 @@ void cUOSocket::receive()
 			}
 
 			QByteArray buf = _socket->readAll();
-			Console::instance()->log(LOG_WARNING, "In: " +QString::number(buf[0], 16) + " | " + QString::number(buf.size()));
+			
 			// The 0x91 packet is 65 byte
 			// This should be no encryption
 			if ( buf[0] == '\x91' && buf[1] == '\xFF' && buf[2] == '\xFF' && buf[3] == '\xFF' && buf[4] == '\xFF' )
