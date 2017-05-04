@@ -120,7 +120,9 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 	case 0xD7:
 		return cUORxAosMultiPurpose::packet( data );
 	case 0xEF:
-		return new cUORxNewSetVersion( data );
+		return new cUORxNewSetVersion(data);
+	case 0xF8:
+		return new cUORxCreateCharNew(data);
 	default:
 		return new cUOPacket( data );
 	};

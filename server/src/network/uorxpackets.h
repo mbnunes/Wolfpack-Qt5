@@ -313,6 +313,292 @@ public:
 	}
 };
 
+// 0xF8: Create Char New
+class cUORxCreateCharNew : public cUOPacket
+{
+public:
+	cUORxCreateCharNew() : cUOPacket(0xF8, 106)
+	{
+	}
+	cUORxCreateCharNew(const QByteArray& data) : cUOPacket(data)
+	{
+	}
+
+	uint pattern1(void) const
+	{
+		return getInt(1);
+	}
+	uint pattern2(void) const
+	{
+		return getInt(5);
+	}
+	uchar pattern3(void) const
+	{
+		return (*this)[9];
+	}
+	QByteArray name(void) const
+	{
+		return this->getAsciiString(10, 30);
+	}
+	// Here are 2 unkown bytes
+	ushort Unknown2(void) const
+	{
+		return getShort(40);
+	}
+	uint flags(void) const
+	{
+		return getInt(42);
+	}
+	// Here are 24 unkown bytes
+	uint Unknown3(void) const
+	{
+		return getInt(46);
+	}
+
+	uint ClientLoginCount(void) const
+	{
+		return getInt(50);
+	}
+
+	uchar Profession(void) const
+	{
+		return (*this)[54];
+	}
+
+	uchar genderRace(void) const
+	{
+		return (*this)[70];
+	} // 0 = Human male, 1 = Human female, 2 = Human Male, 3 = Human Female, 4 = Elf Male, 5 = Elf Female, 6 = Gargoyle Male, 7 = Gargoyle Female
+
+	uchar strength(void) const
+	{
+		return (*this)[71];
+	}
+	uchar dexterity(void)	const
+	{
+		return (*this)[72];
+	}
+	uchar intelligence(void) const
+	{
+		return (*this)[73];
+	}
+	uchar skillId1(void) const
+	{
+		return (*this)[74];
+	}
+	uchar skillValue1(void) const
+	{
+		return (*this)[75];
+	}
+	uchar skillId2(void) const
+	{
+		return (*this)[76];
+	}
+	uchar skillValue2(void) const
+	{
+		return (*this)[77];
+	}
+	uchar skillId3(void) const
+	{
+		return (*this)[78];
+	}
+	uchar skillValue3(void) const
+	{
+		return (*this)[79];
+	}
+	uchar skillId4(void) const
+	{
+		return (*this)[80];
+	}
+	uchar skillValue4(void) const
+	{
+		return (*this)[81];
+	}
+	ushort skinColor(void) const
+	{
+		return getShort(82);
+	}
+	ushort hairStyle(void) const
+	{
+		return getShort(84);
+	}
+	ushort hairColor(void) const
+	{
+		return getShort(86);
+	}
+
+	ushort beardStyle(void) const
+	{
+		return getShort(88);
+	}
+	ushort beardColor(void) const
+	{
+		return getShort(90);
+	}
+	uchar shardIndex(void) const
+	{
+		return (*this)[92];
+	}
+	// Here is an unkown byte (!)
+	uchar startTown(void) const
+	{
+		return (*this)[93];
+	}
+	uint slot(void) const
+	{
+		return getInt(94);
+	}
+	uint ip(void) const
+	{
+		return getInt(98);
+	}
+	ushort shirtColor(void) const
+	{
+		return getShort(102);
+	}
+	ushort pantsColor(void) const
+	{
+		return getShort(104);
+	}
+
+	void setPattern1(uint d)
+	{
+		setInt(1, d);
+	}
+	void setPattern2(uint d)
+	{
+		setInt(5, d);
+	}
+	void setPattern3(uchar d)
+	{
+		(*this)[9] = d;
+	}
+	void setName(const QByteArray& d)
+	{
+		this->setAsciiString(10, d.data(), 30);
+	}
+	void setUnknown2(ushort d)
+	{
+		setShort(40, d);
+	}
+	// Here are 4 unkown bytes
+	void setFlags(uint d)
+	{
+		setInt(42, d);
+	}
+	void setUnknown3(uint d)
+	{
+		setInt(46, d);
+	}
+	void setClientLoginCount(uint d)
+	{
+		setInt(50, d);
+	}
+
+	void setProfession(uchar d)
+	{
+		(*this)[54] = d;
+	}
+
+	// Here are 24 unkown bytes
+	void setGenderRace(uchar d)
+	{
+		(*this)[70] = d;
+	}
+	void setStrength(uchar d)
+	{
+		(*this)[71] = d;
+	}
+	void setDexterity(uchar d)
+	{
+		(*this)[72] = d;
+	}
+	void setIntelligence(uchar d)
+	{
+		(*this)[73] = d;
+	}
+	void setSkillId1(uchar d)
+	{
+		(*this)[74] = d;
+	}
+	void setSkillValue1(uchar d)
+	{
+		(*this)[75] = d;
+	}
+	void setSkillId2(uchar d)
+	{
+		(*this)[76] = d;
+	}
+	void setSkillValue2(uchar d)
+	{
+		(*this)[77] = d;
+	}
+	void setSkillId3(uchar d)
+	{
+		(*this)[78] = d;
+	}
+	void setSkillValue3(uchar d)
+	{
+		(*this)[79] = d;
+	}
+	void setSkillId4(uchar d)
+	{
+		(*this)[80] = d;
+	}
+	void setSkillValue4(uchar d)
+	{
+		(*this)[81] = d;
+	}
+	void setSkinColor(ushort d)
+	{
+		setShort(82, d);
+
+	}
+	void sethairStyle(ushort d)
+	{
+		setShort(84, d);
+	}
+	void setHairColor(ushort d)
+	{
+		setShort(86, d);
+	}
+	void setBeardStyle(ushort d)
+	{
+		setShort(88, d);
+	}
+	void setBeardColor(ushort d)
+	{
+		setShort(90, d);
+	}
+	// Here is an unkown byte (!)
+	void setUnknown1(uchar d)
+	{
+		(*this)[92] = d;
+	}
+
+	void setStartTown(uchar d)
+	{
+		(*this)[93] = d;
+	}
+
+	void slot(uint d)
+	{
+		setInt(94, d);
+	}
+	void setIP(uint d)
+	{
+		setInt(98, d);
+	}
+	void setShirtColor(ushort d)
+	{
+		setShort(102, d);
+	}
+	void setPantsColor(ushort d)
+	{
+		setShort(104, d);
+	}
+};
+
 // 0xC8: UpdateRange
 class cUORxUpdateRange : public cUOPacket
 {
@@ -794,13 +1080,13 @@ public:
 	cUORxWalkRequest( const QByteArray& data ) : cUOPacket( data )
 	{
 	}
+	uchar direction() const
+	{
+		return (*this)[1];
+	}
 	uchar key() const
 	{
 		return ( *this )[2];
-	}
-	uchar direction() const
-	{
-		return ( *this )[1];
 	}
 	uint fastWalkKey() const
 	{

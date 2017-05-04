@@ -143,15 +143,15 @@ void cUOTxCharTownList::compileOld( void )
 
 void cUOTxCharTownList::compile(void)
 {
-	//characters.size() nao funciona 
+	//characters.size(); //nao funciona 
 	resize((11 + ((7 * 60) + (towns.size() * 89))));
 
 	(*this)[0] = (unsigned char)0xA9;
 
 	//characters.size()
-	(*this)[3] = characters.size();
+	(*this)[3] = 7;
 
-	for (unsigned char c = 0; c < characters.size(); ++c)
+	for (unsigned char c = 0; c < 7; ++c)
 	{
 		if (c < characters.size())
 		{
@@ -165,11 +165,11 @@ void cUOTxCharTownList::compile(void)
 	}
 
 	int offset;
-	if ((*this)[3] > 6)
+	if ((*this)[3] == 7)
 	{
 		offset = 424;
 	}
-	else if ((*this)[3] < 6)
+	else if ((*this)[3] <= 6)
 	{
 		offset = 364;
 	}
@@ -178,25 +178,24 @@ void cUOTxCharTownList::compile(void)
 		offset = 304;
 	}
 
-	offset = 424;
-	(*this)[offset++] = towns.size();
+	(*this)[offset++] = towns.size(); //9
 
 	for (unsigned char t = 0; t < towns.size(); ++t)
 	{
-		(*this)[offset + 1] = towns[t].index;
-		setAsciiString(offset + 2, towns[t].town.left(31).toLatin1(), 32);
-		setAsciiString(offset + 33, towns[t].area.left(31).toLatin1(), 32);
-		setInt(offset + 66, towns[t].x);
-		setInt(offset + 70, towns[t].y);
-		setInt(offset + 74, towns[t].z);
-		setInt(offset + 78, towns[t].MapID);
-		setInt(offset + 82, towns[t].Desc);
-		setInt(offset + 86, 0);
+		(*this)[offset] = towns[t].index; //426//515
+		setAsciiString(offset + 1, towns[t].town.left(31).toLatin1(), 32); //458//542
+		setAsciiString(offset + 32, towns[t].area.left(31).toLatin1(), 32);//490
+		setInt(offset + 65, towns[t].x);//494
+		setInt(offset + 69, towns[t].y);//498
+		setInt(offset + 73, towns[t].z);//502
+		setInt(offset + 77, towns[t].MapID);//506
+		setInt(offset + 81, towns[t].Desc);//510
+		setInt(offset + 85, 0);//514
 		offset += 89;
 	}
 
 	//To run Old Clients the flags = 0x1A8
-	unsigned short flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x8000 | 0x40 | 0x80 | 0x200 | 0x10000 | 0x40000 | 0x80000 | 0x20000;
+	unsigned int flags = 0x1A8;
 
 	if (charLimit > 6) {
 		flags |= 0x1000 | 0x40;
@@ -208,10 +207,12 @@ void cUOTxCharTownList::compile(void)
 		flags |= 0x14;
 	}
 	
-	setInt(offset, flags);
-	
-	// New Packet Size
-	setShort(1, count());
+	setInt(offset, 4584); //1230 no RunUO é 4584
+
+	//Last Character Slot
+	setShort(offset + 4, -1);
+						   // New Packet Size 
+	setShort(1, count()); //1232
 
 }
 
@@ -422,7 +423,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 
 void cUOTxDrawChar::addEquipment( unsigned int serial, unsigned short model, unsigned char layer, unsigned short color )
 {
-	// Overwrite the last 4 bytes (terminator) and readd them later
+	// Overwrite the last 4 bytes (terminator) and read them later
 	int offset = count() - 4;
 	resize( count() + 9 );
 	setShort( 1, count() );
@@ -526,6 +527,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 
 		addEquipment( pItem->serial(), pItem->id(), pItem->layer(), pItem->color() );
 	}
+	
 }
 
 void cUOTxCharEquipment::fromItem( P_ITEM pItem )
@@ -856,6 +858,13 @@ void cUOTxSendItem::setCoord( const Coord& coord )
 	setShort( 11, coord.x | 0x8000 );
 	setShort( 13, coord.y | 0xC000 );
 	( *this )[16] = coord.z;
+}
+
+void cUOTxNewSendItem::setCoord(const Coord& coord)
+{
+	setShort(15, coord.x);
+	setShort(17, coord.y);
+	(*this)[19] = coord.z;
 }
 
 void cUOTxSoundEffect::setCoord( const Coord& coord )

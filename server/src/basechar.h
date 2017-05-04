@@ -533,6 +533,7 @@ public:
 	void setAtWar( bool data );
 	void setInvulnerable( bool data );
 	void setElf( bool data );
+	void setGargoyle(bool data);
 	void setHitpointsBonus( short data );
 	void setStaminaBonus( short data );
 	void setManaBonus( short data );
@@ -1599,6 +1600,15 @@ inline void cBaseChar::setInvulnerable( bool data )
 inline void cBaseChar::setElf( bool data )
 {
 	if ( data )
+		propertyFlags_ |= 0x800000;
+	else
+		propertyFlags_ &= ~0x800000;
+	changed_ = true;
+}
+
+inline void cBaseChar::setGargoyle(bool data)
+{
+	if (data)
 		propertyFlags_ |= 0x800000;
 	else
 		propertyFlags_ &= ~0x800000;

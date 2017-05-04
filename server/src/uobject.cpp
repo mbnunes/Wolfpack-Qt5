@@ -878,7 +878,7 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 	}
 
 	if (Config::instance()->newTooltipPackets()) {
-		cUOTxNewAttachTooltip tooltip;
+		cUOTxNewAttachTooltip tooltip;		
 		tooltip.setId( tooltip_ );
 		tooltip.setSerial( serial() );
 		mSock->addTooltip( tooltip_ );

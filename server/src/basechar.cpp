@@ -2063,6 +2063,14 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		return 0;
 	}
 	/*
+	\property char.gargoyle Indicates if the Character is a Elf or Not.
+	*/
+	else if (name == "gargoyle")
+	{
+		setGargoyle(value.toInt());
+		return 0;
+	}
+	/*
 		\property char.invisible Indicates whether the character is invisible or not.
 	*/
 	else if ( name == "invisible" )

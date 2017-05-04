@@ -285,7 +285,8 @@ private:
 	void handleServerAttach( cUORxServerAttach* packet );
 	void handleDeleteCharacter( cUORxDeleteCharacter* packet );
 	void handlePlayCharacter( cUORxPlayCharacter* packet );
-	void handleCreateChar( cUORxCreateChar* packet );
+	void handleCreateCharNew(cUORxCreateCharNew* packet);
+	void handleCreateCharOld(cUORxCreateChar* packet);
 	void handleUpdateRange( cUORxUpdateRange* packet );
 	void handleQuery( cUORxQuery* packet );
 	void handleRequestLook( cUORxRequestLook* packet );
@@ -366,6 +367,7 @@ private:
 	QList<cContextMenu*> contextMenu_;
 	QMap<SERIAL, cGump*> gumps;
 	bool skippedUOHeader;
+	bool isNewVersion;
 	qint32 seed;
 	unsigned int flags_;
 	cClientEncryption *encryption;

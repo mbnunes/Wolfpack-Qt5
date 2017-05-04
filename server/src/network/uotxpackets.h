@@ -399,7 +399,8 @@ class cUOTxClientFeatures : public cUOPacket
 {
 public:
 
-	cUOTxClientFeatures() : cUOPacket( 0xB9, 3 )
+	//to Old Versions u have change the 5 bytes to 3 bytes
+	cUOTxClientFeatures() : cUOPacket( 0xB9, 5 )
 	{
 	}
 
@@ -409,27 +410,27 @@ public:
 
 	void setT2a( bool enable )
 	{
-		enable ? ( *this )[2] |= 0x01 : ( *this )[2] &= ~0x01;
+		enable ? ( *this )[1] |= 0x01 : ( *this )[1] &= ~0x01;
 	}
 
 	void setLbr( bool enable )
 	{
-		enable ? ( *this )[2] |= 0x02 : ( *this )[2] &= ~0x02;
+		enable ? ( *this )[1] |= 0x02 : ( *this )[1] &= ~0x02;
 	}
 
 	void setSixthCharacterSlot( bool enable )
 	{
-		enable ? ( *this )[2] |= 0x20 : ( *this )[2] &= ~0x20;
+		enable ? ( *this )[1] |= 0x20 : ( *this )[1] &= ~0x20;
 	}
 
 	void setAllowPaladinNecromancer( bool enable )
 	{
-		enable ? ( *this )[2] |= 0x10 : ( *this )[2] &= ~0x10;
+		enable ? ( *this )[1] |= 0x10 : ( *this )[1] &= ~0x10;
 	}
 
 	void setML( bool enable )
 	{
-		enable ? ( *this )[2] |= 0x80 : ( *this )[2] &= ~0x80;
+		enable ? ( *this )[1] |= 0x80 : ( *this )[1] &= ~0x80;
 	}
 
 	/*!
@@ -502,10 +503,10 @@ public:
 	}
 };
 
-// 0x24 Draw Container
+// 0x24 Draw Container - Old Client Version
 class cUOTxDrawContainer : public cUOPacket
 {
-public:
+public:	
 	cUOTxDrawContainer() : cUOPacket( 0x24, 7 )
 	{
 	}
@@ -517,6 +518,28 @@ public:
 	void setGump( unsigned short gump )
 	{
 		setShort( 5, gump );
+	}
+};
+
+// 0x24 New Draw Container
+class cUOTxNewDrawContainer : public cUOPacket
+{
+public:
+	cUOTxNewDrawContainer() : cUOPacket(0x24, 9)
+	{
+	}
+
+	void setSerial(unsigned int serial)
+	{
+		setInt(1, serial);
+	}
+	void setGump(unsigned short gump)
+	{
+		setShort(5, gump);
+	}
+	void setType(unsigned short type)
+	{
+		setShort(7, type);
 	}
 };
 
@@ -1379,6 +1402,65 @@ public:
 	}
 };
 
+// 0xF3 SendItem
+class cUOTxNewSendItem : public cUOPacket
+{
+public:
+	cUOTxNewSendItem() : cUOPacket(0xF3, 26)
+	{
+		setShort(1, 26);
+	}
+	void setUnknown1(unsigned short data)
+	{
+		setShort(1, data);
+	}
+	void setDataType(unsigned char data)
+	{
+		(*this)[3] = data;
+	}
+	void setSerial(unsigned int data)
+	{
+		setInt(4, data );
+	}
+	void setId(unsigned short data)
+	{
+		setShort(8, data);
+	}
+	void setIdOffset(unsigned char data)
+	{
+		(*this)[10] = data;
+	}
+	void setAmount1(unsigned short data)
+	{
+		setShort(11, data);
+	}
+	void setAmount2(unsigned short data)
+	{
+		setShort(13, data);
+	}
+	void setCoord(const Coord& coord);
+	void setLightLevel(unsigned char data)
+	{
+		(*this)[20] = data;
+	}
+	void setColor(unsigned short data)
+	{
+		setShort(21, data);
+	}
+	void setFlags(unsigned char data)
+	{
+		(*this)[23] = data;
+	}
+	unsigned char flags() const
+	{
+		return (*this)[23];
+	}
+	void setAccess(unsigned short data)
+	{
+		setShort(24, data);
+	}
+};
+
 // 0x6C Target
 class cUOTxTarget : public cUOPacket
 {
@@ -1562,7 +1644,7 @@ class cUOTxWarmode : public cUOPacket
 public:
 	cUOTxWarmode() : cUOPacket( 0x72, 5 )
 	{
-		( *this )[3] = 0x33;
+		( *this )[3] = 0x32;
 	}
 	void setStatus( unsigned char data )
 	{
