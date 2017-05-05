@@ -586,6 +586,54 @@ public:
 	void fromItem( P_ITEM pItem );
 };
 
+// 0x25 AddNewContainerItem
+// Old Client - the Size is 20 and not 21
+class cUOTxAddNewContainerItem : public cUOPacket
+{
+public:
+	cUOTxAddNewContainerItem() : cUOPacket(0x25, 21)
+	{
+	}
+
+	void setSerial(unsigned int serial)
+	{
+		setInt(1, serial);
+	}
+	void setModel(unsigned short model)
+	{
+		setShort(5, model);
+	}
+	void setModelOffset(unsigned char data)
+	{
+		(*this)[7] = data;
+	}
+	void setAmount(unsigned short amount)
+	{
+		setShort(8, amount);
+	}
+	void setX(unsigned short data)
+	{
+		setShort(10, data);
+	}
+	void setY(unsigned short data)
+	{
+		setShort(12, data);
+	}
+	void setGridLocation(unsigned char data)
+	{
+		(*this)[14] = data;
+	}
+	void setContainer(unsigned int data)
+	{
+		setInt(15, data);
+	}
+	void setColor(unsigned short data)
+	{
+		setShort(19, data);
+	}
+	void fromItem(P_ITEM pItem);
+};
+
 // 0x26 KickPlayer
 
 // 0x27 RejectDrag
@@ -1794,6 +1842,7 @@ public:
 };
 
 // 0x3C ItemContent
+//Old Client Version
 class cUOTxItemContent : public cUOPacket
 {
 public:
@@ -1803,6 +1852,18 @@ public:
 	}
 	void addItem( P_ITEM pItem );
 	void addItem( SERIAL serial, unsigned short id, unsigned short color, unsigned short x, unsigned short y, unsigned short amount, unsigned int container );
+};
+
+// 0x3C ItemContent
+class cUOTxNewItemContent : public cUOPacket
+{
+public:
+	cUOTxNewItemContent() : cUOPacket(0x3C, 5)
+	{
+		setShort(1, 5);
+	}
+	void addItem(P_ITEM pItem);
+	void addItem(SERIAL serial, unsigned short id, unsigned short color, unsigned short x, unsigned short y, unsigned short amount, unsigned char gridLocation, unsigned int container);
 };
 
 // 0x74 VendorBuy

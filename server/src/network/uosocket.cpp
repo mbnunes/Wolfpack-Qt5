@@ -88,10 +88,10 @@ Client Version: UO: LBR (Thrid Dawn) 3.0.8d
 const quint16 packetLengths[256] =
 {
 		0x0068, 0x0005, 0x0007, 0x0000, 0x0002, 0x0005, 0x0005, 0x0007, // 0x00
-		0x000e, 0x0005, 0x0007, 0x010a, 0x0000, 0x0003, 0x0000, 0x003d, // 0x08
+		0x000f, 0x0005, 0x0007, 0x010a, 0x0000, 0x0003, 0x0000, 0x003d, // 0x08 //Old Client 0x000f is 0x000e
 		0x00d7, 0x0000, 0x0000, 0x000a, 0x0006, 0x0009, 0x0001, 0x0000, // 0x10
 		0x0000, 0x0000, 0x0000, 0x0025, 0x0000, 0x0005, 0x0004, 0x0008, // 0x18
-		0x0013, 0x0008, 0x0003, 0x001a, 0x0007, 0x0014, 0x0005, 0x0002, // 0x20
+		0x0013, 0x0008, 0x0003, 0x001a, 0x0009, 0x0015, 0x0005, 0x0002, // 0x20 //Old Client 0x0009 is 0x0007 and 0x0015 is 0x0014
 		0x0005, 0x0001, 0x0005, 0x0002, 0x0002, 0x0011, 0x000f, 0x000a, // 0x28
 		0x0005, 0x0001, 0x0002, 0x0002, 0x000a, 0x028d, 0x0000, 0x0008, // 0x30
 		0x0007, 0x0009, 0x0000, 0x0000, 0x0000, 0x0002, 0x0025, 0x0000, // 0x38
@@ -365,12 +365,17 @@ void cUOSocket::buildPackets()
   Tries to receive and dispatch a packet.
 */
 void cUOSocket::receive()
-{
-	
+{	
+	qint32 teste;
 	if ( !skippedUOHeader )
 	{
-		if (_socket->bytesAvailable() == 21)
+		if (_socket->bytesAvailable() == 21 )
 		{	
+			skippedUOHeader = true;
+		}
+		else if (_socket->bytesAvailable() == 83)
+		{
+			_socket->read((char*)&teste, 21);			
 			skippedUOHeader = true;
 		}
 		else if (_socket->bytesAvailable() >= 4) {
@@ -388,13 +393,13 @@ void cUOSocket::receive()
 	if (!encryption) {
 		// Login Server
 		if (Config::instance()->loginPort() == _socket->localPort()) {
-			if (_socket->bytesAvailable() < 62 && _socket->bytesAvailable() != 21 ) {
+			if (_socket->bytesAvailable() < 62 && _socket->bytesAvailable() != 21) {
 				return; // Not enough data for the login packet
 			}
 
 			// The 0x80 packet is 62 byte, but we want to have everything
 			QByteArray buf = _socket->readAll();
-
+			
 			// Check if it could be *not* encrypted
 			if ( buf[0] == '\xEF' || buf[21] == '\x80' || buf[0] == '\x80') {
 				// Is no Encryption allowed?
@@ -578,7 +583,8 @@ void cUOSocket::receive()
 				DragAndDrop::grabItem( this, static_cast<cUORxDragItem*>( packet ) );
 				break;
 			case 0x08:
-				DragAndDrop::dropItem( this, static_cast<cUORxDropItem*>( packet ) );
+				//Old Client DragAndDrop::dropItem( this, static_cast<cUORxDropItem*>( packet ) );
+				DragAndDrop::newDropItem(this, static_cast<cUORxNewDropItem*>(packet));
 				break;
 			case 0x09:
 				handleRequestLook( static_cast<cUORxRequestLook*>( packet ) );
@@ -3087,7 +3093,8 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	send( &dContainer );
 
 	// Add all items to the container
-	cUOTxItemContent itemContent;
+	//Old Client- cUOTxItemContent itemContent;
+	cUOTxNewItemContent itemContent;
 	qint32 count = 0;
 
 	QList<cItem*> tooltipItems;
@@ -3850,7 +3857,8 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	pItem->update( this ); // Make sure it's visible to the client
 
 	// Only allowed for pItem's contained by a character
-	cUOTxItemContent itemContent;
+	//Old Client - cUOTxItemContent itemContent;
+	cUOTxNewItemContent itemContent;
 	cUOTxVendorBuy vendorBuy;
 	vendorBuy.setSerial( pItem->serial() );
 
@@ -3892,7 +3900,8 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 		unsigned short amount = pItem->layer() == cBaseChar::BuyRestockContainer ? mItem->restock() : mItem->amount();
 		if ( amount >= 1 && mItem->buyprice() > 0 )
 		{
-			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i + 1, 1, amount, pItem->serial() );
+			//Old Client - itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i + 1, 1, amount, pItem->serial() );
+			itemContent.addItem( mItem->serial(), mItem->id(), mItem->color(), i + 1, 1, amount, pItem->getGridLocation(), pItem->serial() );
 			items.append( mItem );
 			++i;
 		}
@@ -4024,8 +4033,10 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor, P_CHAR pPlayer )
 	qSort( itemList.begin(), itemList.end(), SortedSerialPredicate<cItem*>() );
 
 	// Create the container content
-	cUOTxItemContent containerContent;
-	containerContent.resize( 5 + itemList.count() * 19 );
+	//Old Client Version -cUOTxItemContent containerContent;
+	cUOTxNewItemContent containerContent;
+	//Old Client Version - containerContent.resize( 5 + itemList.count() * 19 );
+	containerContent.resize(5 + itemList.count() * 20);
 	containerContent.setShort( 1, containerContent.size() );
 	containerContent.setShort( 3, itemList.count() );
 	unsigned int pOffset = containerContent.size() - 19; // Start at the last item
@@ -4052,9 +4063,14 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor, P_CHAR pPlayer )
 		}
 		containerContent.setShort( pOffset + 9, i-- ); // Item Id in packet (1 to n)
 		containerContent.setShort( pOffset + 11, pItem->amount() );
-		containerContent.setInt( pOffset + 13, pStock->serial() );
-		containerContent.setShort( pOffset + 17, pItem->color() );
-		pOffset -= 19; // Previous item
+		//Old Client Version - 
+		//containerContent.setInt( pOffset + 13, pStock->serial() );
+		//containerContent.setShort( pOffset + 17, pItem->color() );
+		//pOffset -= 19; // Previous item
+		containerContent[pOffset + 13] = pItem->getGridLocation();
+		containerContent.setInt(pOffset + 14, pStock->serial());
+		containerContent.setShort( pOffset + 18, pItem->color() );
+		pOffset -= 20; // Previous item
 
 		if ( !pItem->name().isEmpty() )
 			vendorBuy.addItem( pItem->getBuyPrice( pVendor, pPlayer ), pItem->name() ); // add it to the other packet as well

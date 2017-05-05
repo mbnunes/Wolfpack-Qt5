@@ -1290,6 +1290,7 @@ public:
 };
 
 // 0x08 Drop Items
+// Old Clients
 class cUORxDropItem : public cUOPacket
 {
 public:
@@ -1315,6 +1316,38 @@ public:
 	uint cont() const
 	{
 		return getInt( 10 );
+	}
+};
+
+class cUORxNewDropItem : public cUOPacket
+{
+public:
+	cUORxNewDropItem(const QByteArray& data) : cUOPacket(data)
+	{
+	}
+	uint serial() const
+	{
+		return getInt(1);
+	}
+	ushort x() const
+	{
+		return getShort(5);
+	}
+	ushort y() const
+	{
+		return getShort(7);
+	}
+	signed char z() const
+	{
+		return (*this)[9];
+	}
+	unsigned char gridLocation() const
+	{
+		return (*this)[10];
+	}
+	uint cont() const
+	{
+		return getInt(11);
 	}
 };
 

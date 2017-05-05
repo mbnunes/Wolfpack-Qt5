@@ -509,7 +509,7 @@ void DragAndDrop::equipItem( cUOSocket* socket, cUORxWearItem* packet )
 		}
 	}
 }
-
+//Old Client
 void DragAndDrop::dropItem( cUOSocket* socket, cUORxDropItem* packet )
 {
 	P_PLAYER pChar = socket->player();
@@ -568,6 +568,73 @@ void DragAndDrop::dropItem( cUOSocket* socket, cUORxDropItem* packet )
 
 	// Update our weight.
 	if ( weight != pChar->weight() )
+		socket->sendStatWindow();
+}
+
+//New Client
+void DragAndDrop::newDropItem(cUOSocket* socket, cUORxNewDropItem* packet)
+{
+	P_PLAYER pChar = socket->player();
+
+	if (!pChar)
+		return;
+
+	// Get the data
+	//SERIAL contId = packet->cont();
+
+	Coord dropPos = pChar->pos(); // plane
+	dropPos.x = packet->x();
+	dropPos.y = packet->y();
+	dropPos.z = packet->z();
+
+	// Get possible containers
+	P_ITEM pItem = FindItemBySerial(packet->serial());	
+
+	if (!pItem)
+		return;
+
+	if (pItem->getGridLocation() != NULL)
+	{
+		pItem->setGridLocation(packet->gridLocation());
+	}
+
+	// If the item is not dragged by us, dont even bother
+	if (pItem->container() != pChar)
+	{
+		socket->bounceItem(pItem, BR_NO_REASON);
+		return;
+	}
+
+	P_ITEM iCont = FindItemBySerial(packet->cont());
+	P_CHAR cCont = FindCharBySerial(packet->cont());
+
+	// A completely invalid Drop packet
+	if (!iCont && !cCont && (dropPos.x == 0xFFFF) && (dropPos.y == 0xFFFF))
+	{
+		socket->bounceItem(pItem, BR_NO_REASON);
+		return;
+	}
+
+	float weight = pChar->weight();
+
+	// Item dropped on Ground
+	if (!iCont && !cCont)
+		dropOnGround(socket, pItem, dropPos);
+
+	// Item dropped on another item
+	else if (iCont)
+		dropOnItem(socket, pItem, iCont, dropPos);
+
+	// Item dropped on char
+	else if (cCont)
+		dropOnChar(socket, pItem, cCont);
+
+	// Handle the sound-effect
+	if (pItem->id() == 0xEED)
+		pChar->goldSound(pItem->amount());
+
+	// Update our weight.
+	if (weight != pChar->weight())
 		socket->sendStatWindow();
 }
 

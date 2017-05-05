@@ -39,7 +39,10 @@ namespace DragAndDrop
 {
 void grabItem( cUOSocket*, cUORxDragItem* );
 void equipItem( cUOSocket*, cUORxWearItem* );
+//to Old Client
 void dropItem( cUOSocket*, cUORxDropItem* );
+//to New Client
+void newDropItem( cUOSocket*, cUORxNewDropItem* );
 
 // Sub-drop Functions
 void dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, const Coord& dropPos );

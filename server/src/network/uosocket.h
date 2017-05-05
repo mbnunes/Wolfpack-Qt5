@@ -137,6 +137,8 @@ public:
 	*/
 	static void clearPacketHandlers();
 
+	
+
 	/*!
 		\brief Let this socket use a given item.
 	*/
@@ -342,7 +344,7 @@ signals:
 
 private:
 	QList<cUORxWalkRequest> packetQueue;
-	unsigned int _uniqueId;
+	unsigned int _uniqueId;	
 	unsigned int _lastActivity;
 	quint8 _walkSequence;
 	quint8 lastPacket;
@@ -355,6 +357,7 @@ private:
 	unsigned int _txBytes;
 	unsigned int _txBytesRaw;
 	QTcpSocket* _socket;
+	QTcpSocket *_socketTmp;
 	QByteArray incomingBuffer;
 	QQueue<cUOPacket*> incomingQueue;
 	unsigned short _screenWidth;

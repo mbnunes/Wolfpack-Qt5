@@ -1220,7 +1220,9 @@ void cItem::update( cUOSocket* singlesocket )
 	}
 	else if ( container_ && container_->isItem() )
 	{
-		cUOTxAddContainerItem contItem;
+		//Old Client Version
+		//cUOTxAddContainerItem contItem;
+		cUOTxAddNewContainerItem contItem;
 		contItem.fromItem( this );
 
 		if ( singlesocket )
@@ -2391,6 +2393,19 @@ unsigned int cItem::countItems( const QStringList& baseids ) const
 		count += ( *it )->countItems( baseids );
 	}
 	return count;
+}
+
+void cItem::setGridLocation(unsigned char value)
+{
+	if (value >= 0 && value < 126)
+	{
+		gridLocation = value;
+	}
+}
+
+unsigned char cItem::getGridLocation()
+{
+	return gridLocation;
 }
 
 unsigned int cItem::countItems( short id, short color ) const

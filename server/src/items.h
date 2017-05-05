@@ -61,6 +61,7 @@ private:
 	static QSqlQuery * updateQuery_;
 	unsigned char changed_ : 1;
 	cItemBaseDef* basedef_;
+	unsigned char gridLocation;
 
 	void flagChanged()
 	{
@@ -363,6 +364,8 @@ public:
 	}
 	quint16 getWeaponSkill();
 
+	void setGridLocation(unsigned char value);
+	unsigned char getGridLocation();
 	void moveTo( const Coord& pos );
 	long reduceAmount( unsigned int amount = 1 );
 	short containerGumpType() const;

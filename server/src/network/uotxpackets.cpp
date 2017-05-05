@@ -627,6 +627,22 @@ void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
 	setColor( pItem->color() );
 }
 
+void cUOTxAddNewContainerItem::fromItem(P_ITEM pItem)
+{
+	setSerial(pItem->serial());
+	setModel(pItem->id());
+	setAmount(pItem->amount());
+	setX(pItem->pos().x);
+	setY(pItem->pos().y);
+	setGridLocation(pItem->getGridLocation());
+	if (pItem->container())
+		setContainer(pItem->container()->serial());
+	else
+		setContainer(INVALID_SERIAL);
+
+	setColor(pItem->color());
+}
+
 void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 {
 	setSerial( pChar->serial() );
@@ -763,6 +779,8 @@ void cUOTxCorpseEquipment::addItem( unsigned char layer, unsigned int serial )
 	( *this )[offset + 5] = 0;
 }
 
+
+//Old Client Version
 void cUOTxItemContent::addItem( P_ITEM pItem )
 {
 	if ( !pItem )
@@ -774,6 +792,7 @@ void cUOTxItemContent::addItem( P_ITEM pItem )
 	addItem( pItem->serial(), pItem->id(), pItem->color(), pItem->pos().x, pItem->pos().y, pItem->amount(), contserial );
 }
 
+//Old Client Version
 void cUOTxItemContent::addItem( SERIAL serial, unsigned short id, unsigned short color, unsigned short x, unsigned short y, unsigned short amount, unsigned int container )
 {
 	int offset = size();
@@ -790,6 +809,36 @@ void cUOTxItemContent::addItem( SERIAL serial, unsigned short id, unsigned short
 	setInt( offset + 13, container );
 	setShort( offset + 17, color );
 }
+
+void cUOTxNewItemContent::addItem(P_ITEM pItem)
+{
+	if (!pItem)
+		return;
+	SERIAL contserial = INVALID_SERIAL;
+	if (pItem->container())
+		contserial = pItem->container()->serial();
+
+	addItem(pItem->serial(), pItem->id(), pItem->color(), pItem->pos().x, pItem->pos().y, pItem->amount(), pItem->getGridLocation() ,contserial);
+}
+
+void cUOTxNewItemContent::addItem(SERIAL serial, unsigned short id, unsigned short color, unsigned short x, unsigned short y, unsigned short amount, unsigned char gridLocation, unsigned int container)
+{
+	int offset = size();
+	resize(size() + 20);
+	setShort(1, size());
+	setShort(3, getShort(3) + 1);
+
+	setInt(offset, serial);
+	setShort(offset + 4, id);
+	(*this)[offset + 6] = 0;
+	setShort(offset + 7, amount);
+	setShort(offset + 9, x);
+	setShort(offset + 11, y);
+	(*this)[offset + 13] = gridLocation;
+	setInt(offset + 14, container);
+	setShort(offset + 18, color);
+}
+
 
 void cUOTxVendorBuy::addItem( unsigned int price, const QString& description )
 {
