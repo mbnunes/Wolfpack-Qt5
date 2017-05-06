@@ -4039,7 +4039,8 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor, P_CHAR pPlayer )
 	containerContent.resize(5 + itemList.count() * 20);
 	containerContent.setShort( 1, containerContent.size() );
 	containerContent.setShort( 3, itemList.count() );
-	unsigned int pOffset = containerContent.size() - 19; // Start at the last item
+	//Old Client Version - unsigned int pOffset = containerContent.size() - 19;
+	unsigned int pOffset = containerContent.size() - 20; // Start at the last item
 	unsigned int i = itemList.count();
 
 	// This packet has the pricing information
