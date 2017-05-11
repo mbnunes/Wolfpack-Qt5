@@ -129,7 +129,9 @@ void cUOTxCharTownList::compileOld( void )
 
 	unsigned int flags = 0x1A8; // Samurai Empire + Context Menus + AOS + Mondain's Legacy
 
-	if (charLimit == 6) {
+	if (charLimit > 6) {
+		flags |= 0x1000 | 0x40;
+	} else if (charLimit == 6) {
 		flags |= 0x40;
 	} else if (charLimit == 1) {
 		flags |= 0x14;
@@ -207,7 +209,7 @@ void cUOTxCharTownList::compile(void)
 		flags |= 0x14;
 	}
 	
-	setInt(offset, 4584); //1230 no RunUO é 4584
+	setInt(offset, flags); //1230 no RunUO é 4584
 
 	//Last Character Slot
 	setShort(offset + 4, -1);

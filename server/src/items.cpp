@@ -1101,6 +1101,7 @@ void cItem::update( cUOSocket* singlesocket )
 	{
 		// we change the packet during iteration, so we have to
 		// recompress it
+		//Old Client Version
 		cUOTxSendItem sendItem;
 		sendItem.setSerial( serial_ );
 		sendItem.setId( id_ );
@@ -1108,6 +1109,16 @@ void cItem::update( cUOSocket* singlesocket )
 		sendItem.setColor( color_ );
 		sendItem.setCoord( pos_ );
 		sendItem.setDirection( lightsource() );
+		
+		/*cUOTxNewSendItem sendItem;
+		sendItem.setSerial(serial_);
+		sendItem.setId(id_);
+		sendItem.setIdOffset(id_);
+		sendItem.setAmount1(amount_);
+		sendItem.setAmount2(amount_);
+		sendItem.setColor(color_);
+		sendItem.setCoord(pos_);
+		sendItem.setLightLevel(lightsource());		*/
 
 		// Send to one person only
 		if ( !singlesocket )
@@ -1119,17 +1130,20 @@ void cItem::update( cUOSocket* singlesocket )
 				{
 					P_PLAYER player = socket->player();
 					unsigned char flags = 0;
+					//Old Client Version
 					cUOTxSendItem packetCopy( sendItem );
+					//cUOTxNewSendItem packetCopy(sendItem);
 
 					if ( socket->account()->isMultiGems() && isMulti() )
 					{
 						packetCopy.setId( 0x1ea7 );
-					}
+					//	packetCopy.setDataType(0x02);
+					}					
 
 					// Always Movable Flag
 					if ( !isLockedDown() && isAllMovable() )
 					{
-						flags |= 0x20;
+						flags |= 0x20;						
 					}
 					else if ( player->account()->isAllMove() )
 					{

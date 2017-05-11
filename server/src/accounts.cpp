@@ -934,7 +934,9 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 	*/
 	else if ( name == "charslots" )
 	{
-		if ( value.toInt() > 6 )
+		if (value.toInt() > 6)
+			setCharSlots(7);
+		else if ( value.toInt() == 6 )
             setCharSlots( 6 );
 		else if ( value.toInt() < 1 )
 			setCharSlots( 1 );

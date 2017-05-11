@@ -242,7 +242,7 @@ void cCorpse::update( cUOSocket* mSock )
 	} else {
 		cUOTxCorpseEquipment corpseEquip;
 		//Old Client - cUOTxItemContent corpseContent;
-		cUOTxNewItemContent corpseContent;
+		cUOTxItemContent corpseContent;
 		cUOTxSendItem sendItem;
 
 		corpseEquip.setSerial( serial() );

@@ -399,7 +399,7 @@ class cUOTxClientFeatures : public cUOPacket
 {
 public:
 
-	//to Old Versions u have change the 5 bytes to 3 bytes
+	//to Old Client Versions u have change the 5 bytes to 3 bytes
 	cUOTxClientFeatures() : cUOPacket( 0xB9, 5 )
 	{
 	}
@@ -1411,6 +1411,7 @@ public:
 	}
 };
 
+//Old Client Version
 // 0x1A SendItem
 class cUOTxSendItem : public cUOPacket
 {

@@ -975,6 +975,12 @@ def isValidPosition( pos ):
 				return False
 			if pos.y >= 1448 or pos.y < 0:
 				return False
+		# Tokuno Islands
+		elif pos.map == 5:
+			if pos.x >= 1280 or pos.x < 0:
+				return False
+			if pos.y >= 4096 or pos.y < 0:
+				return False
 	else:
 		return False
 
@@ -998,6 +1004,9 @@ def isMapAvailableTo(player, mapid):
 			return False
 		elif mapid == 4 and player.socket.flags & 0x10 == 0:
 			player.socket.sysmessage( tr('You have to install Samurai Empire or above to use this gate.') )
+			return False
+		elif mapid == 5 and player.socket.flags & 0x20 == 0:
+			player.socket.sysmessage( tr('You have to install High Seas or above to use this gate.') )
 			return False
 
 	return True

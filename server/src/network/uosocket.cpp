@@ -373,11 +373,6 @@ void cUOSocket::receive()
 		{	
 			skippedUOHeader = true;
 		}
-		else if (_socket->bytesAvailable() == 83)
-		{
-			_socket->read((char*)&teste, 21);			
-			skippedUOHeader = true;
-		}
 		else if (_socket->bytesAvailable() >= 4) {
 
 			_socket->read( (char*)&seed, 4 );
@@ -721,7 +716,9 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 {
 	if ( _account )
 	{
-		uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+		//Old Client Version
+		//uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+		uint maxChars = Config::instance()->maxCharsPerAccount();
 
 		if ( Config::instance()->enableIndivNumberSlots() )
 		{
@@ -882,7 +879,9 @@ void cUOSocket::handleServerAttach( cUORxServerAttach* packet )
 		disconnect();
 	else
 	{
-		uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+		//Old Clients Version
+		//uint maxChars = wpMin<uint>( 6, Config::instance()->maxCharsPerAccount() );
+		uint maxChars = Config::instance()->maxCharsPerAccount();
 
 		if ( Config::instance()->enableIndivNumberSlots() )
 		{
@@ -905,7 +904,7 @@ void cUOSocket::sendCharList(const uint maxChars)
 	// AoS needs it most likely for account creation
 	cUOTxClientFeatures clientFeatures;
 	unsigned int flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x40 | 0x80 | 0x200 | 0x8000 | 0x10000 | 0x20000 | 0x40000 | 0x80000;	// Added 0x80 to Enable the ML Features //0x3 | 0x40 | 0x801c | 0x80 | 0x100 | 0x1000
-	
+		
 	/*
 	if (maxChars >= 6) {
 		flags |= 0x8000;
@@ -2077,7 +2076,7 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange* packet )
 */
 void cUOSocket::handleNewSetVersion( cUORxNewSetVersion* packet )
 {
-	// IMPLEMENTAR
+	//Not yet implemented
 }
 
 /*!

@@ -1066,7 +1066,9 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 	/*
 		\rproperty socket.flags This is the bitfield sent by the client on character selection.
 		Propable flags:
-		<code>0x100 - 3d Client
+		<code>		
+		0x100 - 3d Client
+		0x20 - High Seas
 		0x10 - Samurai Empire
 		0x08 - Age of Shadows
 		0x04 - Lord Blackthornes Revenge

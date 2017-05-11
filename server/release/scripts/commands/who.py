@@ -105,6 +105,7 @@ def callbackWho( char, args, choice ):
 	return
 
 def details(char, player):
+	
 	if not player.socket:
 		char.socket.sysmessage('The player is currently offline.')
 		return
@@ -173,7 +174,10 @@ def details(char, player):
 
 	# Get the installation from the client flags
 	flags = player.socket.flags
-	if flags & 0x10:
+	
+	if flags & 0x20:
+		installation = 'High Seas'
+	elif flags & 0x10:
 		installation = 'Samurai Empire'
 	elif flags & 0x08:
 		installation = 'Age of Shadows'

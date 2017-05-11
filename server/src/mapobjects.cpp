@@ -481,6 +481,7 @@ void MapObjects::load()
 	addMap( 2, 2304, 1600 );
 	addMap( 3, 2560, 2048 );
 	addMap( 4, 1448, 1448 );
+	addMap( 5, 1280, 4096 );
 
 	cComponent::load();
 }

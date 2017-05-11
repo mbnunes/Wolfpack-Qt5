@@ -121,7 +121,8 @@ void cConfig::readData()
 	accountsPort_ = getNumber("Accounts", "Database Port", 3306, true);	
 	hashAccountPasswords_ = getBool( "Accounts", "Use MD5 Hashed Passwords", false, true );
 	convertUnhashedPasswords_ = getBool( "Accounts", "Automatically Hash Loaded Passwords", false, true );
-	maxCharsPerAccount_ = wpMin<unsigned char>( 6, getNumber( "Accounts", "Maximum Number of Characters", 6, true ) );
+	//Old Clients Version - maxCharsPerAccount_ = wpMin<unsigned char>( 6, getNumber( "Accounts", "Maximum Number of Characters", 7, true ) );
+	maxCharsPerAccount_ = getNumber( "Accounts", "Maximum Number of Characters", 7, true );
 	enableIndivNumberSlots_ = getBool( "Accounts", "Enable Individual Number for Characters Slots", false, true );
 
 	// AI
