@@ -366,10 +366,9 @@ void cUOSocket::buildPackets()
 */
 void cUOSocket::receive()
 {	
-	qint32 teste;
 	if ( !skippedUOHeader )
 	{
-		if (_socket->bytesAvailable() == 21 )
+		if (_socket->bytesAvailable() == 21 || _socket->bytesAvailable() == 83 )
 		{	
 			skippedUOHeader = true;
 		}
@@ -1114,9 +1113,14 @@ void cUOSocket::playChar( P_PLAYER pChar )
 			if ( Maps::instance()->hasMap( 3 ) )
 			{
 				diffs.addEntry( Maps::instance()->mapPatches( 3 ), Maps::instance()->staticPatches( 3 ) );
-			}
-			else {
-				diffs.addEntry(Maps::instance()->mapPatches(4), Maps::instance()->staticPatches(4));
+				if (Maps::instance()->hasMap(4))
+				{
+					diffs.addEntry(Maps::instance()->mapPatches(4), Maps::instance()->staticPatches(4) );
+					if (Maps::instance()->hasMap(5)) 
+					{
+						diffs.addEntry(Maps::instance()->mapPatches(5), Maps::instance()->staticPatches(5) );
+					}
+				}				
 			}
 		}
 	}
@@ -1225,7 +1229,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	pChar->setAttackTarget( 0 );
 
 	// This is required to display strength requirements correctly etc.
-	//sendStatWindow();
+	sendStatWindow();
 
 	// Reset the party
 	cUOTxPartyRemoveMember updateparty;

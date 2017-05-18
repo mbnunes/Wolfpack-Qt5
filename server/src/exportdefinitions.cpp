@@ -402,9 +402,11 @@ static void processNpc(cNpcInfo &npc, const cElement *node) {
 
 					// Get the layer and animation for the item and save it
 					tile_st tile = TileCache::instance()->getTile(item.dispid);
-					if (tile.layer != 0 && tile.layer < 0x19 && tile.animation != 0) {
+					//Old Client Version
+					if (tile.layer != 0 && tile.layer < 0x19 /*&& tile.animation != 0*/) {
 						npc.equipment[tile.layer].color = item.color;
-						npc.equipment[tile.layer].anim = tile.animation;
+						//Old Client Version
+						//npc.equipment[tile.layer].anim = tile.animation;
 					}
 				}
 			}

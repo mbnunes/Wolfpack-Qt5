@@ -137,7 +137,10 @@ class ItemdefSection(Section):
 			itemdef.resolve()
 
 		if not hasattr(self, 'dye'):
-			self.dye = itemdef.dye
+			try:
+				self.dye = itemdef.dye
+			except:
+				print "itemdef.dye: NULL"
 
 		if not hasattr(self, 'type'):
 			self.type = itemdef.type
@@ -158,7 +161,9 @@ class ItemdefSection(Section):
 	# Process a line from the scripts.
 	#
 	def processline(self, line):
-		assert(self.state != ItemdefSection.FINISHED, 'Processing lines after itemdef was finalized.')
+		if self.state != ItemdefSection.FINISHED:
+			pass
+			#print 'Processing lines after itemdef was finalized.'
 		
 		if self.state == ItemdefSection.PROPERTIES:
 			if '=' in line:
@@ -172,7 +177,10 @@ class ItemdefSection(Section):
 			value = value.strip()
 
 			if key == 'DYE':
-				self.dye = value.upper != 'N' and value != '0'
+				try:
+					self.dye = value.upper != 'N' and value != '0'
+				except:
+					print "Dye: NULL"
 			elif key == 'ID':
 				# Complicated inheritance stuff
 				# For baseitems setting ID= is stupid
@@ -190,7 +198,10 @@ class ItemdefSection(Section):
 			elif key == 'DEFNAME2':
 				self.defname2 = value
 			elif key == 'REQSTR':
-				self.reqstr = int(value)
+				try:
+					self.reqstr = int(value)
+				except:
+					print "Reqstr: NULL"
 			elif key == 'RESMAKE':
 				self.resmake = value
 			elif key == 'SKILL':
@@ -219,7 +230,10 @@ class ItemdefSection(Section):
 				self.price = value
 			elif key == 'WEIGHT':
 				if not '.' in value:
-					self.weight = int(value) / 10.0
+					try:
+						self.weight = int(value) / 10.0
+					except:
+						print "Weight: NULL"
 				else:
 					self.weight = float(value)
 
@@ -315,7 +329,8 @@ class ChardefSection(Section):
 	# Process a line from the scripts.
 	#
 	def processline(self, line):
-		assert(self.state != ChardefSection.FINISHED, 'Processing lines after chardef was finalized.')
+		if not self.state != ChardefSection.FINISHED:
+			print 'Processing lines after chardef was finalized.'
 		
 		if self.state == ChardefSection.PROPERTIES:
 			if '=' in line:
@@ -390,8 +405,9 @@ class ChardefSection(Section):
 # This section contains a lot of filenames.
 #
 class Resources(Section):
-	def __init__(self, name):
-		assert(len(name) == 0, 'Invalid resource section name: ' + name)
+	def __init__(self, name): 
+		if not len(name) == 0:
+			print 'Invalid resource section name: ' + name
 		Section.__init__(self, RES_RESOURCES)
 		self.files = []
 
@@ -499,7 +515,8 @@ class WorlditemSection(Section):
 			self.attr = self.hex2dec(value)
 		elif key == 'P':
 			values = map(lambda x: int(x), value.split(','))
-			assert(len(values) > 0 and len(values) < 5, 'Invalid position for item %x' % self.serial)
+			if len(values) > 0 and len(values) < 5:
+				print 'Invalid position for item %x' % self.serial
 			for i in range(0, len(values)):
 				self.pos[i] = values[i]
 			restock = self.pos[2] # Z Value = Restock
@@ -529,9 +546,13 @@ class WorlditemSection(Section):
 		# Lost item
 		if self.container == -1:
 			return
-
-		assert((self.pos[0] != 0) or (self.pos[1] != 0), 'Invalid position for object 0x%x' % self.serial)
-		assert(self.serial != 0, 'Serial not set for object.')
+		
+		if not (self.pos[0] != 0) or (self.pos[1] != 0):
+			print 'Invalid position for object 0x%x' % self.serial
+		
+		if not self.serial != 0:
+			print 'Serial not set for object.'
+			
 
 		if not self.container:
 			WORLDITEMS.append(self)
@@ -626,7 +647,8 @@ class WorldcharSection(Section):
 			self.events.append(value.upper())
 		elif key == 'P':
 			values = map(lambda x: int(x), value.split(','))
-			assert(len(values) > 0 and len(values) < 5, 'Invalid position for char %x' % self.serial)
+			if not (len(values) > 0 and len(values) < 5):
+				print 'Invalid position for char %x' % self.serial
 			for i in range(0, len(values)):
 				self.pos[i] = values[i]
 		elif key == 'SERIAL':
@@ -654,8 +676,10 @@ class WorldcharSection(Section):
 			return self.properties[name]
 
 	def finalize(self):
-		assert((self.pos[0] != 0) or (self.pos[1] != 0), 'Invalid position for object 0x%x' % self.serial)
-		assert(self.serial != 0, 'Serial not set for object.')
+		if not ((self.pos[0] != 0) or (self.pos[1] != 0)):
+			print 'Invalid position for object 0x%x' % self.serial
+		if not self.serial != 0: 
+			print 'Serial not set for object.'
 
 		WORLDCHARS.append(self)
 		registerobject(self)

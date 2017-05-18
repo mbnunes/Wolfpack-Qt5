@@ -421,7 +421,8 @@ void cTerritories::load()
 {
 	// Make sure that there is one top level region for each map
 	// Insert it at the beginning (last overrides first).
-	for ( unsigned char i = 0; i <= 4; ++i )
+	// Old Clients Version for ( unsigned char i = 0; i <= 4; ++i )
+	for ( unsigned char i = 0; i <= 5; ++i )
 	{
 		if ( Maps::instance()->hasMap( i ) )
 		{

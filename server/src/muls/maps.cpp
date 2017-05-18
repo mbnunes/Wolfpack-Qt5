@@ -297,7 +297,7 @@ void cMaps::load()
 	registerMap( 2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul" );
 	registerMap( 3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul" );
 	registerMap( 4, "map4.mul", 181, 181, "statics4.mul", "staidx4.mul" );
-	registerMap( 5, "map5.mul", 160, 512, "statics5.mul", "staidx5.mul");
+	registerMap( 5, "map5.mul", 160, 512, "statics5.mul", "staidx5.mul" );
 
 	cComponent::load();
 }
@@ -500,12 +500,17 @@ signed char cMaps::mapAverageElevation( const Coord& p, int* top /* = 0 */, int*
 	if ( map1.id > 2 && ILLEGAL_Z != mapElevation( p ) )
 	{
 		// get three other nearby titles to decide on an average z?
+		// map1 -> top
+		// map2z -> right.z
+		// map3z -> left.z
+		// map4z -> bottom.z
 		qint8 map2z = mapElevation( p + Coord( 1, 0, 0 ) );
 		qint8 map3z = mapElevation( p + Coord( 0, 1, 0 ) );
 		qint8 map4z = mapElevation( p + Coord( 1, 1, 0 ) );
-		qint8 map5z = mapElevation( p + Coord( 1, 1, 0 ) );
 
 		qint8 testz = 0;
+		//Old Clients Version
+		//if ( abs( map1.z - map4z ) <= abs( map2z - map3z ) )
 		if ( abs( map1.z - map4z ) <= abs( map2z - map3z ) )
 		{
 			if ( ILLEGAL_Z == map4z )
@@ -529,8 +534,6 @@ signed char cMaps::mapAverageElevation( const Coord& p, int* top /* = 0 */, int*
 				*top = map3z;
 			if ( map4z > *top )
 				*top = map4z;
-			if ( map5z > *top )
-				*top = map5z;
 		}
 		if ( botton )
 		{
@@ -541,8 +544,6 @@ signed char cMaps::mapAverageElevation( const Coord& p, int* top /* = 0 */, int*
 				*botton = map3z;
 			if ( map4z < *botton )
 				*botton = map4z;
-			if ( map5z > *botton )
-				*botton = map5z;
 		}
 		return testz;
 	}

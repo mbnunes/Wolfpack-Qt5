@@ -74,22 +74,29 @@
 #define dSTAIRBACK 0x40000000
 #define dSTAIRRIGHT 0x80000000
 
+//New Client Version
 struct tile_st
 {
 	char flag1;
 	char flag2;
 	char flag3;
 	char flag4;
+	char flag5;
+	char flag6;
+	char flag7;
+	char flag8;	
 	unsigned char weight;
 	char layer;
-	short unknown1;
+	char unknown1;
 	char unknown2;
-	char quantity;
-	short animation;
 	char unknown3;
-	char hue;
+	char quantity;
 	char unknown4;
 	char unknown5;
+	char unknown6;
+	char unknown7;
+	char unknown8;
+	char hue;
 	char height;
 	char name[20];
 
@@ -99,6 +106,33 @@ struct tile_st
 	bool isTransparent() const;
 	bool isNoShoot() const;
 };
+
+//Old Client Version
+//struct tile_st
+//{
+//	char flag1;
+//	char flag2;
+//	char flag3;
+//	char flag4;
+//	unsigned char weight;
+//	char layer;
+//	short unknown1;
+//	char unknown2;
+//	char quantity;
+//	short animation;
+//	char unknown3;
+//	char hue;
+//	char unknown4;
+//	char unknown5;
+//	char height;
+//	char name[20];
+//
+//	bool isWet() const;
+//	bool isBlocking() const;
+//	bool isRoofOrFloorTile() const;
+//	bool isTransparent() const;
+//	bool isNoShoot() const;
+//};
 
 // Inline Methods
 inline bool tile_st::isNoShoot() const
@@ -126,12 +160,41 @@ inline bool tile_st::isTransparent() const
 	return flag1 & 0x4;
 }
 
+// Old Client Version
+//struct land_st
+//{
+//	char flag1;
+//	char flag2;
+//	char flag3;
+//	char flag4;
+//	char unknown1;
+//	char unknown;
+//	char name[20];
+//
+//	bool isBlocking() const
+//	{
+//		return flag1 & 0x40;
+//	}
+//	bool isWet() const
+//	{
+//		return flag1 & 0x80;
+//	}
+//	bool isRoofOrFloorTile() const
+//	{
+//		return flag1 & 0x01;
+//	}
+//};
+
 struct land_st
 {
 	char flag1;
 	char flag2;
 	char flag3;
 	char flag4;
+	char flag5;
+	char flag6;
+	char flag7;
+	char flag8;
 	char unknown1;
 	char unknown2;
 	char name[20];
@@ -154,7 +217,7 @@ class cTileCache : public cComponent
 {
 private:
 	QString path;
-	tile_st staticTiles[0x4000];
+	tile_st staticTiles[0x10000];
 	land_st landTiles[0x4000];
 	tile_st emptyStaticTile;
 	land_st emptyLandTile;
@@ -168,7 +231,7 @@ public:
 	}
 
 	inline const tile_st &getTile( quint16 tileId ) {
-		if (tileId < 0x4000) {
+		if (tileId < 0x10000) {
 			return staticTiles[tileId];
 		} else {
 			return emptyStaticTile;
