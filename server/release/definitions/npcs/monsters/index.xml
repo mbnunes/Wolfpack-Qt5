@@ -3,7 +3,7 @@
  *   )      (\_     | WOLFPACK 13.0.0 Scripts
  *  ((    _/{  "-;  | Created by: Dreoth
  *   )).-' {{ ;'`   | Revised by:
- *  ( (  ;._ \\     | Last modification:
+ *  ( (  ;._ \\     | Last modification: Mutilador
  *=======================================================*/
 -->
 <definitions>
@@ -82,5 +82,8 @@
 	
 	<!-- SA -->
 	<include file="definitions/npcs/monsters/stygian_abyss/index.xml"/>
+	
+	<!-- HS -->
+	<include file="definitions/npcs/monsters/high_seas/index.xml"/>
 
 </definitions>
