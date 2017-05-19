@@ -79,5 +79,8 @@
 
 	<!-- Undead -->
 	<include file="definitions/npcs/monsters/undead/index.xml"/>
+	
+	<!-- SA -->
+	<include file="definitions/npcs/monsters/stygian_abyss/index.xml"/>
 
 </definitions>
