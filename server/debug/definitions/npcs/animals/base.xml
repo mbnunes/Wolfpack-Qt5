@@ -1,0 +1,39 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh                           |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+=================================================================
+-->
+<definitions>
+
+	<!-- animal_base -->
+	<npc id="animal_base">
+    <gender>
+      <random list="GENDER_LIST" />
+    </gender>
+		<name>unknown animal</name>
+		<wandertype>1</wandertype>
+		<direction><random min="0" max="7" /></direction>
+		<mindamage>1</mindamage>
+		<maxdamage>3</maxdamage>
+		<mintaming>2000</mintaming>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<basescripts>speech.pets,quests.events</basescripts>
+		<ai>Animal_Wild</ai>
+		<inherit id="speed_medium" />
+		<!-- Animals should at least have 0 skill and be able to gain. -->
+		<skill id="wrestling">0</skill>
+		<skill id="tactics">0</skill>
+		<skill id="magicresistance">0</skill>
+		<skill id="anatomy">0</skill>
+	</npc>
+
+	<npc id="animal_base_magi" inherit="animal_base">
+		<skill id="meditation">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="magery">0</skill>
+	</npc>
+
+</definitions>

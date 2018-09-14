@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Bear Mask n/s -->
+	<item id="1545">
+		<id>0x1545</id>
+		<weight>5.0</weight>
+		<nodye />
+		<durability><random min="20" max="25" /></durability>
+		<decay />
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+		<allowmeditation />
+		<category>Clothes\Headwear\Bear Mask (N/S)</category>
+		<category>Armor\Headwear\Bear Mask (N/S)</category>
+		<category>Base Armor\Headwear\Bear Mask (N/S)</category>
+	</item>
+
+	<!-- Bear Mask w/e -->
+	<item id="1546" inherit="1545">
+		<id>0x1546</id>
+		<baseid>1545</baseid>
+		<category>Clothes\Headwear\Bear Mask (W/E)</category>
+		<category>Armor\Headwear\Bear Mask (W/E)</category>
+	</item>
+
+</definitions>

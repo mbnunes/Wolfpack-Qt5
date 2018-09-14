@@ -1,0 +1,54 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Dark Father -->
+	<npc id="dark_father" inherit="monster_base">
+		<name>dark father</name>
+		<id>318</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str>500</str>
+		<dex>100</dex>
+		<int>1000</int>
+		<maxhitpoints>30000</maxhitpoints>
+		<maxmana>5000</maxmana>
+		<!-- Skills -->
+		<skill id="magicresistance">1500</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">1200</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="evaluatingintelligence">1000</skill>
+		<skill id="magery">1000</skill>
+		<skill id="meditation">1200</skill>
+		<!-- Damage -->
+		<mindamage>56</mindamage>
+		<maxdamage>67</maxdamage>
+		<tag name="dmg_fire" value="20" type="int" />
+		<tag name="dmg_cold" value="20" type="int" />
+		<tag name="dmg_poison" value="20" type="int" />
+		<tag name="dmg_energy" value="20" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="30" type="int" />
+		<tag name="res_fire" value="30" type="int" />
+		<tag name="res_cold" value="30" type="int" />
+		<tag name="res_poison" value="30" type="int" />
+		<tag name="res_energy" value="30" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 20-40 High Level Scrolls -->
+		<lootpacks>lootpack_super_boss;lootpack_super_boss</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Shadows\Dark Father</category>
+		<strproperty name="slayer_group" value="daemons" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+	</npc>
+
+</definitions>

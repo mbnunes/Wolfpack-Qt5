@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Bone Armor -->
+	<item id="144f_barbed" inherit="144f">
+		<baseid>144f</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Armor</category>
+	</item>
+
+	<item id="1454_barbed" inherit="1454">
+		<baseid>144f</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Armor 2</category>
+	</item>
+
+	<!-- Bone Arms -->
+	<item id="144e_barbed" inherit="144e">
+		<baseid>144e</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Arms</category>
+	</item>
+
+	<item id="1453_barbed" inherit="1453">
+		<baseid>144e</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Arms 2</category>
+	</item>
+
+	<!-- Bone Gloves -->
+	<item id="1450_barbed" inherit="1450">
+		<baseid>1450</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Gloves</category>
+	</item>
+
+	<item id="1455_barbed" inherit="1455">
+		<baseid>1450</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Gloves 2</category>
+	</item>
+
+	<!-- Bone Helm -->
+	<item id="1451_barbed" inherit="1451">
+		<baseid>1451</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Helm</category>
+	</item>
+
+	<item id="1456_barbed" inherit="1456">
+		<baseid>1451</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Helm 2</category>
+	</item>
+
+	<!-- Bone Leggings -->
+	<item id="1452_barbed" inherit="1452">
+		<baseid>1452</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Leggings</category>
+	</item>
+
+	<item id="1457_barbed" inherit="1457">
+		<baseid>1452</baseid>
+		<barbed_leather_armor />
+		<category>Armor\Bone Armor\Barbed Leather\Bone Leggings 2</category>
+	</item>
+
+</definitions>

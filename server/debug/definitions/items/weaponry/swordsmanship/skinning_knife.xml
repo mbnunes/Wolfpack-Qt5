@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Skinning Knife -->
+	<item id="ec4">
+		<id>0xec4</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>6</sellprice>
+		<buyprice>13</buyprice>
+		<durability><random min="30" max="35" /></durability>
+		<weight>1.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Swordsmanship\Skinning Knife (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="5" />
+		<intproperty name="speed" value="49" />
+		<intproperty name="mindamage" value="9" />
+		<intproperty name="maxdamage" value="11" />
+	</item>
+
+	<item id="ec5" inherit="ec4">
+		<id>0xec5</id>
+		<baseid>ec4</baseid>
+		<category>Base Weapons\Swordsmanship\Skinning Knife (E/W)</category>
+	</item>
+
+</definitions>

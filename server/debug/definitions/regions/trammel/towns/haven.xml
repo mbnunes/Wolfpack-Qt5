@@ -1,0 +1,17 @@
+
+<definitions>
+	<!-- Haven -->
+	<region name="Haven">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<guardowner>the city</guardowner>
+		<rainchance><random min="40" max="60" /></rainchance>
+		<snowchance><random min="35" max="50" /></snowchance>
+		<rectangle x1="3401" y1="2620" x2="3551" y2="2479" map="1" />
+	</region>
+</definitions>

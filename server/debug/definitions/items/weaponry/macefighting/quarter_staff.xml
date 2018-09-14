@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Quarter Staff -->
+	<item id="e89">
+		<id>0xe89</id>
+		<decay />
+		<nodye />
+		<sellprice>11</sellprice>
+		<buyprice>22</buyprice>
+		<durability><random min="30" max="60" /></durability>
+		<weight>4.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1003</type>
+		<twohanded />
+		<category>Base Weapons\Staves\Quarter Staff (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="48" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="e8a" inherit="e89">
+		<id>0xe8a</id>
+		<baseid>e89</baseid>
+		<category>Base Weapons\Staves\Quarter Staff (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Fencing -->
+	<!-- Tekagi -->
+	<item id="27ab">
+		<id>0x27ab</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>120</sellprice>
+		<buyprice>40</buyprice>
+		<durability><random min="30" max="60" /></durability>
+		<weight>4.0</weight>
+		<basescripts>equipment,blades</basescripts>
+		<type>1005</type>
+		<category>Base Weapons\Samurai\Fencing\Tekagi 1</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+	</item>
+
+	<item id="27f6" inherit="27ab">
+		<id>0x27f6</id>
+		<baseid>27ab</baseid>
+		<category>Base Weapons\Samurai\Fencing\Tekagi 2</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,89 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification: Created
+ *=======================================================*/
+-->
+<definitions>
+	<menu id="GLASSBLOWING" name="1044622"> <!-- <CENTER>Glassblowing MENU</CENTER> -->
+		<menu id="GLASSBLOWING_BOTTLES" />
+	</menu>
+
+	<!-- Miscellaneous -->
+	<menu id="GLASSBLOWING_BOTTLES" name="1044050">
+		<!--Empty bottle-->
+		<glassblowing definition="f0e">
+			<percentage value="95" />
+			<sand amount="1" />
+		</glassblowing>
+
+		<!--Small flask-->
+		<glassblowing definition="182e" name="1044610">
+			<percentage value="95" />
+			<sand amount="2" />
+		</glassblowing>
+
+		<!--Medium flask-->
+		<glassblowing definition="182a" name="1044611">
+			<percentage value="95" />
+			<sand amount="3" />
+		</glassblowing>
+
+		<!--Curved flask-->
+		<glassblowing definition="1832" name="1044612">
+			<percentage value="90" />
+			<sand amount="2" />
+		</glassblowing>
+
+		<!--Large flask-->
+		<glassblowing definition="183b" name="1044613">
+			<percentage value="85" />
+			<sand amount="4" />
+		</glassblowing>
+
+		<!--Large flask-->
+		<glassblowing definition="1838" name="1044623">
+			<percentage value="80" />
+			<sand amount="5" />
+		</glassblowing>
+
+		<!--Bubbling blue flask-->
+		<glassblowing definition="1844" name="1044614">
+			<percentage value="80" />
+			<sand amount="5" />
+		</glassblowing>
+
+		<!--Bubbling purple flask-->
+		<glassblowing definition="1841" name="1044615">
+			<percentage value="80" />
+			<sand amount="5" />
+		</glassblowing>
+
+		<!--Bubbling red flask-->
+		<glassblowing definition="183e" name="1044624">
+			<percentage value="80" />
+			<sand amount="7" />
+		</glassblowing>
+
+		<!--Empty vials-->
+		<glassblowing definition="185b">
+			<percentage value="70" />
+			<sand amount="8" />
+		</glassblowing>
+
+		<!--Full vials-->
+		<glassblowing definition="185d">
+			<percentage value="70" />
+			<sand amount="9" />
+		</glassblowing>
+
+		<!--Spinning hourglass-->
+		<glassblowing definition="1811">
+			<percentage value="50" />
+			<sand amount="10" />
+		</glassblowing>
+	</menu>
+
+</definitions>

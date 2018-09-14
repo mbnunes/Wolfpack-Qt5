@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Bone Arms North-South -->
+	<item id="144e">
+		<id>0x144e</id>
+		<decay />
+		<nodye />
+		<durability><random min="25" max="30" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<sellprice>15</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Bone\Bone Arms (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="55" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="2" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<!-- Bone Arms East-West -->
+	<item id="1453" inherit="144e">
+		<id>0x1453</id>
+		<baseid>144e</baseid>
+		<category>Base Armor\Bone\Bone Arms (E/W)</category>
+	</item>
+
+</definitions>

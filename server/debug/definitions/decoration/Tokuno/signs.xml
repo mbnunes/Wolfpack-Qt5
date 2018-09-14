@@ -1,0 +1,61 @@
+<decoration>
+	<!-- SIGNS -->
+	<!-- Kuku Kitchens -->
+	<item id="0xBD1">
+		<attribute key="name" value="Kuku Kitchens" />
+		<pos x="710" y="1270" z="25" map="4" />
+		<pos x="710" y="1257" z="25" map="4" />
+		<pos x="710" y="1251" z="25" map="4" />
+	</item>
+	<!-- Mage -->
+	<item id="0xBAD">
+		<pos x="707" y="1300" z="25" map="4" />
+	</item>
+	<!-- Provisoner -->
+	<item id="0xBCB">
+		<pos x="736" y="1281" z="25" map="4" />
+	</item>
+	<!-- Healing -->
+	<item id="0xBAC">
+		<pos x="780" y="1227" z="25" map="4" />
+	</item>
+	<!-- Blacksmithing -->
+	<item id="0xBC8">
+		<pos x="764" y="1255" z="25" map="4" />
+	</item>
+	<!-- Inkeeper -->
+	<item id="0xBB4">
+		<pos x="677" y="1220" z="25" map="4" />
+	</item>
+	<!-- Taming -->
+	<item id="0xBB8">
+		<pos x="790" y="1284" z="25" map="4" />
+	</item>
+	<!-- Bowyer -->
+	<item id="0xBCD">
+		<pos x="789" y="1302" z="25" map="4" />
+	</item>
+	<!-- Iroha Dojo -->
+	<item id="0xBD1">
+		<attribute key="name" value="Iroha Armorer And Musha-Shugyu Dojo" />
+		<pos x="768" y="1298" z="25" map="4" />
+	</item>
+	<!-- Suteki Na Craftworks -->
+	<item id="0xBD0">
+		<attribute key="name" value="Suteki Na Craftworks" />
+		<pos x="729" y="1229" z="25" map="4" />
+	</item>
+	<!-- Jowyler -->
+	<item id="0xBC2">
+		<pos x="718" y="1301" z="25" map="4" />
+	</item>
+	<!-- Traveler -->
+	<item id="0xBC4">
+		<pos x="694" y="1229" z="25" map="4" />
+	</item>
+	<!-- Library -->
+	<item id="0xB96">
+		<pos x="675" y="1280" z="25" map="4" />
+		<pos x="680" y="1280" z="25" map="4" />
+	</item>
+</decoration>

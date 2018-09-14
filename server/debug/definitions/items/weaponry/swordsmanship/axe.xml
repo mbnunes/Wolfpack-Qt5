@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Axe -->
+	<item id="f49">
+		<id>0xf49</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>24</sellprice>
+		<buyprice>48</buyprice>
+		<durability><random min="30" max="60" /></durability>
+		<weight>4.0</weight>
+		<basescripts>equipment,blades</basescripts>
+		<type>1002</type>
+		<category>Base Weapons\Swordsmanship\Axes\Axe (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="37" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="16" />
+	</item>
+
+	<item id="f4a" inherit="f49">
+		<id>0xf4a</id>
+		<baseid>f49</baseid>
+		<category>Base Weapons\Swordsmanship\Axes\Axe (E/W)</category>
+	</item>
+
+</definitions>

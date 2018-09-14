@@ -1,0 +1,44 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- black solen infiltrator warrior -->
+	<npc id="black_solen_infiltrator_warrior" inherit="monster_base">
+		<name>black solen infiltrator</name>
+		<id>806</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="206" max="230"/></str>
+		<dex><random min="121" max="145"/></dex>
+		<int><random min="66" max="90"/></int>
+		<maxhitpoints><random min="96" max="107" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance">800</skill>
+		<skill id="tactics">800</skill>
+		<skill id="wrestling">800</skill>
+		<!-- Damage -->
+		<mindamage>11</mindamage>
+		<maxdamage>33</maxdamage>
+		<tag name="dmg_poison" value="20" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="10,25" type="int" />
+		<tag name="res_energy" value="10,25" type="int" />
+		<tag name="res_fire" value="20,35" type="int" />
+		<tag name="res_physical" value="20,35" type="int" />
+		<tag name="res_poison" value="20,35" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 3 or 13 Zoogi Fungus, Picnic Basket -->
+		<lootpacks>gold_rich;gems;gems_poor</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Solen\Black Solen Infiltrator (Warrior)</category>
+		<strproperty name="food" value="1" />
+	</npc>
+
+</definitions>

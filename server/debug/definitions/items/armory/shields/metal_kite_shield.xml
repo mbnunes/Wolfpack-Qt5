@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+ <definitions>
+
+	<!-- metal kite shield -->
+	<item id="1b74">
+		<id>0x1b74</id>
+		<decay />
+		<dye />
+		<durability><random min="45" max="60" /></durability>
+		<restock>10</restock>
+		<smelt>13</smelt>
+		<weight>7</weight>
+		<buyprice>135</buyprice>
+		<sellprice>67</sellprice>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Shields\Metal Kite (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="res_energy" value="1" />
+	</item>
+
+	<item id="1b75" inherit="1b74">
+		<id>0x1b75</id>
+		<baseid>1b74</baseid>
+		<category>Base Armor\Shields\Metal Kite (E/W)</category>
+	</item>
+
+</definitions>

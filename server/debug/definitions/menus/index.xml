@@ -1,0 +1,17 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<!--
+	Menus Index File
+-->
+<definitions>
+	<include file="definitions/menus/addmenu.xml"/>
+	<include file="definitions/menus/contextmenu.xml"/>
+	<!-- Crafting Menu Index -->
+	<include file="definitions/menus/crafting/index.xml" />
+</definitions>

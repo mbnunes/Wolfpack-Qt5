@@ -1,0 +1,61 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- orc chopper -->
+	<npc id="orc_chopper" inherit="monster_base">
+		<basescript>speech.monster</basescript>
+		<strproperty name="monsterspeech" value="orc" />
+		<name>orc chopper</name>
+		<id>139</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="147" max="245"/></str>
+		<dex><random min="91" max="115"/></dex>
+		<int><random min="61" max="85"/></int>
+		<maxhitpoints><random min="97" max="139"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="601" max="850"/></skill>
+		<skill id="swordsmanship"><random min="601" max="850"/></skill>
+		<skill id="tactics"><random min="751" max="900"/></skill>
+		<skill id="wrestling"><random min="601" max="850"/></skill>
+		<!-- Damage -->
+		<mindamage>32</mindamage>
+		<maxdamage>37</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="15,25" type="int" />
+		<tag name="res_energy" value="25,30" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_poison" value="15,20" type="int" />
+		<!-- Misc. -->
+		<!-- Missing: Log or Board -->
+		<lootpacks>lootpack_average</lootpacks>
+		<backpack>
+			<content>
+				<item id="1bdd" > <!-- Log -->
+					<amount><random min="1" max="10"/></amount>
+				</item>
+				<item id="1bd7" > <!-- Board -->
+					<amount><random min="20" max="30"/></amount>
+				</item>
+				<item id="13ec" /> <!-- Ringmail Tunic -->
+				<item id="f45" /> <!-- Executioner's Axe -->
+				<item id="1609"> <!-- Legs of Lamb -->
+					<amount><random min="1" max="3"/></amount>
+				</item>
+			</content>
+		</backpack>
+		<category>Monsters\Orcs\Orc Chopper</category>
+		<strproperty name="slayer_group" value="orcs" />
+		<intproperty name="food" value="1" />
+	</npc>
+
+</definitions>

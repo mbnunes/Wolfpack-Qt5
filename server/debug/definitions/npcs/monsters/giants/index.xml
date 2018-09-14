@@ -1,0 +1,21 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Giants -->
+	<include file="definitions/npcs/monsters/giants/arctic_ogre_lord.xml" />
+	<include file="definitions/npcs/monsters/giants/cyclopian_warrior.xml" />
+	<include file="definitions/npcs/monsters/giants/ettin.xml" />
+	<include file="definitions/npcs/monsters/giants/frost_troll.xml" />
+	<include file="definitions/npcs/monsters/giants/ogre.xml" />
+	<include file="definitions/npcs/monsters/giants/ogre_lord.xml" />
+	<include file="definitions/npcs/monsters/giants/titan.xml" />
+	<include file="definitions/npcs/monsters/giants/troll.xml" />
+
+</definitions>

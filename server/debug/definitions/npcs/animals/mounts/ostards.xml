@@ -1,0 +1,120 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Desert Ostards -->
+	<npc id="ostard_desert" inherit="animal_base">
+		<name>desert ostard</name>
+		<id>210</id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="94" max="170" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="71" max="88" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>8</mindamage>
+		<maxdamage>18</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_fire" value="5,15" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="293" max="440" /></skill>
+		<skill id="tactics"><random min="253" max="400" /></skill>
+		<skill id="magicresistance"><random min="251" max="300" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>291</mintaming>
+		<strproperty name="food" value="3,5" />
+		<strproperty name="packinstinct" value="ostard" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Desert Ostard</category>
+		<basescript>npc.mount</basescript>
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="3" />
+	</npc>
+
+	<!-- Forest Ostards -->
+	<npc id="ostard_forest" inherit="animal_base">
+		<name>forest ostard</name>
+		<id>218</id>
+		<ai>Animal_Wild</ai>
+		<skin><random list="SKINS_BIRD" /></skin>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="94" max="170" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="71" max="88" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>13</mindamage>
+		<maxdamage>23</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="15,20" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="293" max="440" /></skill>
+		<skill id="tactics"><random min="293" max="440" /></skill>
+		<skill id="magicresistance"><random min="271" max="320" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>291</mintaming>
+		<strproperty name="food" value="3,5" />
+		<strproperty name="packinstinct" value="ostard" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Forest Ostard</category>
+		<basescript>npc.mount</basescript>
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="3" />
+	</npc>
+
+	<!-- Frenzied Ostard -->
+	<npc id="ostard_frenzied" inherit="monster_base">
+		<name>frenzied ostard</name>
+		<id>219</id>
+		<skin><random list="SKINS_BIRD" /></skin>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
+		<!-- Stats -->
+		<str><random min="94" max="170" /></str>
+		<dex><random min="96" max="115" /></dex>
+		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="71" max="110" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>25</mindamage>
+		<maxdamage>35</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_fire" value="10,15" type="int" />
+		<tag name="res_poison" value="20,25" type="int" />
+		<tag name="res_energy" value="20,25" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="793" max="940" /></skill>
+		<skill id="tactics"><random min="793" max="940" /></skill>
+		<skill id="magicresistance"><random min="751" max="800" /></skill>
+		<!-- Misc. -->
+		<controlslots>2</controlslots>
+		<mintaming>771</mintaming>
+		<strproperty name="food" value="1,2,4,3" />
+		<strproperty name="packinstinct" value="ostard" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Frenzied Ostard</category>
+		<intproperty name="carve_meat" value="3" />
+		<basescript>npc.mount</basescript>
+	</npc>
+
+</definitions>

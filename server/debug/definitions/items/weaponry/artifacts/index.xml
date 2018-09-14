@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+	<include file="definitions/items/weaponry/artifacts/axe_of_the_heavens.xml"/>
+	<include file="definitions/items/weaponry/artifacts/blade_of_insanity.xml"/>
+	<include file="definitions/items/weaponry/artifacts/blade_of_the_righteous.xml"/>
+	<include file="definitions/items/weaponry/artifacts/bone_crusher.xml"/>
+	<include file="definitions/items/weaponry/artifacts/breath_of_the_dead.xml"/>
+	<include file="definitions/items/weaponry/artifacts/frostbringer.xml"/>
+	<include file="definitions/items/weaponry/artifacts/legacy_of_the_dread_lord.xml"/>
+	<include file="definitions/items/weaponry/artifacts/serpents_fang.xml"/>
+	<include file="definitions/items/weaponry/artifacts/staff_of_the_magi.xml"/>
+	<include file="definitions/items/weaponry/artifacts/the_berserkers_maul.xml"/>
+	<include file="definitions/items/weaponry/artifacts/the_dragon_slayer.xml"/>
+	<include file="definitions/items/weaponry/artifacts/the_dryad_bow.xml"/>
+	<include file="definitions/items/weaponry/artifacts/the_taskmaster.xml"/>
+	<include file="definitions/items/weaponry/artifacts/titans_hammer.xml"/>
+	<include file="definitions/items/weaponry/artifacts/zyronic_claw.xml"/>
+</definitions>

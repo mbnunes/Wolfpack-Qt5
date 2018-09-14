@@ -1,0 +1,89 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification: Mutilador
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Base Includes -->
+	<include file="definitions/npcs/monsters/base.xml"/>
+
+	<!-- Beasts -->
+	<include file="definitions/npcs/monsters/beasts/index.xml" />
+
+	<!-- Clockwork -->
+	<include file="definitions/npcs/monsters/clockwork/index.xml" />
+
+	<!-- Champions -->
+	<include file="definitions/npcs/monsters/champions/index.xml" />
+
+	<!-- Common -->
+	<include file="definitions/npcs/monsters/common/index.xml" />
+
+	<!-- Daemonic -->
+	<include file="definitions/npcs/monsters/daemonic/index.xml" />
+
+	<!-- Dragons -->
+	<include file="definitions/npcs/monsters/dragons/index.xml" />
+
+	<!-- Elemental -->
+	<include file="definitions/npcs/monsters/elemental/index.xml" />
+
+	<!-- Giants -->
+	<include file="definitions/npcs/monsters/giants/index.xml" />
+
+	<!-- Insect / Arachnid -->
+	<include file="definitions/npcs/monsters/insect/index.xml" />
+
+	<!-- Juka -->
+	<include file="definitions/npcs/monsters/juka/index.xml" />
+
+	<!-- Lizardmen -->
+	<include file="definitions/npcs/monsters/lizardmen/index.xml" />
+
+	<!-- Meer -->
+	<include file="definitions/npcs/monsters/meer/index.xml" />
+
+	<!-- Ophidian -->
+	<include file="definitions/npcs/monsters/ophidian/index.xml" />
+
+	<!-- Orc -->
+	<include file="definitions/npcs/monsters/orc/index.xml" />
+
+	<!-- Ratmen -->
+	<include file="definitions/npcs/monsters/ratmen/index.xml" />
+
+	<!-- Reptiles -->
+	<include file="definitions/npcs/monsters/reptiles/index.xml" />
+
+	<!-- Sea Creatures -->
+	<include file="definitions/npcs/monsters/sea/index.xml" />
+
+	<!-- Shadows -->
+	<include file="definitions/npcs/monsters/shadows/index.xml"/>
+
+	<!-- Second Empire Monsters -->
+	<include file="definitions/npcs/monsters/samurai_empire/index.xml" />
+
+	<!-- Summoned -->
+	<include file="definitions/npcs/monsters/summoned/index.xml"/>
+	
+	<!-- Mondain's Legancy -->
+	<include file="definitions/npcs/monsters/mondains_legancy/index.xml"/>
+
+	<!-- Terathan -->
+	<include file="definitions/npcs/monsters/terathan/index.xml"/>
+
+	<!-- Undead -->
+	<include file="definitions/npcs/monsters/undead/index.xml"/>
+	
+	<!-- SA -->
+	<include file="definitions/npcs/monsters/stygian_abyss/index.xml"/>
+	
+	<!-- HS -->
+	<include file="definitions/npcs/monsters/high_seas/index.xml"/>
+
+</definitions>

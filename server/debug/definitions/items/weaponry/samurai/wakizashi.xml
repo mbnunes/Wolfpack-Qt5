@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Swordsmanship -->
+	<!-- Wakizashi -->
+	<item id="27a4">
+		<id>0x27a4</id>
+		<decay />
+		<nodye />
+		<sellprice>120</sellprice>
+		<buyprice>40</buyprice>
+		<durability><random min="30" max="60" /></durability>
+		<weight>4.0</weight>
+		<basescripts>equipment,blades</basescripts>
+		<type>1001</type>
+		<category>Base Weapons\Samurai\Swordsmanship\Wakizashi 1</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="44" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="13" />
+	</item>
+
+	<item id="27ef" inherit="27a4">
+		<id>0x27ef</id>
+		<baseid>27a4</baseid>
+		<category>Base Weapons\Samurai\Swordsmanship\Wakizashi 2</category>
+	</item>
+
+</definitions>

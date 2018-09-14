@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Macefighting -->
+	<!-- Tessen -->
+	<item id="27a3">
+		<id>0x27a3</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>120</sellprice>
+		<buyprice>40</buyprice>
+		<durability><random min="30" max="60" /></durability>
+		<weight>4.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1004</type>
+		<category>Base Weapons\Samurai\Macefighting\Tessen 1</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="45" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="27ee" inherit="27a3">
+		<id>0x27ee</id>
+		<baseid>27a3</baseid>
+		<category>Base Weapons\Samurai\Macefighting\Tessen 2</category>
+	</item>
+
+</definitions>

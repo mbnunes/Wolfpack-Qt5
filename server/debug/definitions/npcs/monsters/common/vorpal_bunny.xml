@@ -1,0 +1,45 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- vorpal bunny -->
+	<npc id="vorpal_bunny" inherit="monster_base">
+		<name>vorpal bunny</name>
+		<id>205</id>
+		<skin>0x480</skin>
+		<karma>0</karma>
+		<inherit id="FAME_L1" />
+		<str>15</str>
+		<dex>2000</dex>
+		<int>1000</int>
+		<maxhitpoints>2000</maxhitpoints>
+		<maxstamina>500</maxstamina>
+		<maxmana>0</maxmana>
+		<!-- Skills -->
+		<skill id="wrestling">50</skill>
+		<skill id="tactics">50</skill>
+		<skill id="magicresistance">2000</skill>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>1</maxdamage>
+		<!-- Lootpacks -->
+		<lootpacks>lootpack_filthy_rich;lootpack_rich;lootpack_rich;lootpack_rich;vorpal_bunny;statue</lootpacks>
+		<backpack>
+			<content>
+				<item id="c77"> <!-- carrots -->
+					<amount><random min="5" max="10" /></amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Common\Vorpal Bunny</category>
+		<inherit id="speed_veryfast" />
+	</npc>
+
+</definitions>

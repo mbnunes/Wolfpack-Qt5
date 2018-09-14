@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Fletcher                                                      |
+=================================================================
+-->
+<definitions>
+
+	<item id="dfa">
+		<id>0xdfa</id>
+		<category>Professions\Fletcher\Decorative Feathers 1</category>
+	</item>
+
+	<item id="dfb">
+		<id>0xdfb</id>
+		<category>Professions\Fletcher\Decorative Feathers 2</category>
+	</item>
+
+	<!-- arrows -->
+	<item id="f3f">
+		<id>0xf3f</id>
+		<weight>0.1</weight>
+		<category>Professions\Fletcher\Arrow</category>
+		<buyprice>12</buyprice>
+		<intproperty name="min_restock_amount" value="50" />
+	</item>
+
+	<item id="f40">
+		<id>0xf40</id>
+		<category>Professions\Fletcher\Arrows 1</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f41" inherit="f40">
+		<baseid>f40</baseid>
+		<id>0xf41</id>
+		<category>Professions\Fletcher\Arrows 2</category>
+	</item>
+
+	<item id="1020">
+		<id>0x1020</id>
+		<category>Professions\Fletcher\Decorative Feathers 3</category>
+	</item>
+
+	<item id="1021">
+		<id>0x1021</id>
+		<category>Professions\Fletcher\Decorative Feathers 4</category>
+	</item>
+
+	<item id="1022">
+		<id>0x1022</id>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
+		<category>Professions\Fletcher\Fletching Tools 1</category>
+		<weight>2.0</weight>
+		<basescripts>equipment,skills.bowcraft</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
+	</item>
+
+	<item id="1023" inherit="1022">
+		<id>0x1023</id>
+		<category>Professions\Fletcher\Fletching Tools 2</category>
+	</item>
+
+	<item id="1024">
+		<id>0x1024</id>
+		<category>Professions\Fletcher\Arrow Shafts 1</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1025">
+		<id>0x1025</id>
+		<category>Professions\Fletcher\Arrow Shafts 2</category>
+		<weight>0.1</weight>
+	</item>
+
+	<!-- crossbow bolts -->
+	<item id="1bfb">
+		<id>0x1bfb</id>
+		<weight>0.1</weight>
+		<category>Professions\Fletcher\Crossbow Bolt</category>
+		<buyprice>16</buyprice>
+		<intproperty name="min_restock_amount" value="50" />
+	</item>
+
+	<item id="1bfc">
+		<id>0x1bfc</id>
+		<category>Professions\Fletcher\Crossbow Bolts 1</category>
+	</item>
+
+	<item id="1bfd">
+		<id>0x1bfd</id>
+		<category>Professions\Fletcher\Crossbow Bolts 2</category>
+	</item>
+
+	<item id="1bd1">
+		<id>0x1bd1</id>
+		<category>Professions\Fletcher\Feather</category>
+		<weight>0.1</weight>
+		<sellprice>1</sellprice>
+		<buyprice>2</buyprice>
+	</item>
+
+	<item id="1bd2">
+		<id>0x1bd2</id>
+		<category>Professions\Fletcher\Feathers 1</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1bd3">
+		<id>0x1bd3</id>
+		<category>Professions\Fletcher\Feathers 2</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1bd4">
+		<id>0x1bd4</id>
+		<category>Professions\Fletcher\Shaft</category>
+		<weight>0.1</weight>
+		<sellprice>1</sellprice>
+		<buyprice>3</buyprice>
+	</item>
+
+	<item id="1bd5">
+		<id>0x1bd5</id>
+		<category>Professions\Fletcher\Shafts 1</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1bd6">
+		<id>0x1bd6</id>
+		<category>Professions\Fletcher\Shafts 2</category>
+		<weight>0.1</weight>
+	</item>
+
+</definitions>
+

@@ -1,0 +1,330 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: khpae                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<menu id="COOKING" name="1044003"> <!-- <CENTER>COOKING MENU</CENTER> -->
+		<menu id="COOKING_INGREDIENTS" />
+		<menu id="COOKING_PREPARATIONS" />
+		<menu id="COOKING_BAKING" />
+		<menu id="COOKING_BARBECUE" />
+	</menu>
+
+	<!-- Ingredients -->
+	<menu id="COOKING_INGREDIENTS" name="1044495">
+		<!--Dough-->
+		<cook definition="103d">
+			<cooking min="0" max="1000" />
+			<flour />
+			<water />
+		</cook>
+
+		<!--Sweet Dough-->
+		<cook definition="sweet_dough">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="9ec" amount="1" name="Honey" />
+		</cook>
+
+		<!--Cake Mix-->
+		<cook definition="cake_mix">
+			<cooking min="0" max="1000" />
+			<flour />
+			<material id="sweet_dough" amount="1" name="Sweet Dough" />
+		</cook>		
+
+		<!--Cookie Mix-->
+		<cook definition="103f">
+			<cooking min="0" max="1000" />
+			<flour />
+			<material id="sweet_dough" amount="1" name="Sweet Dough" />
+		</cook>
+	</menu>
+
+	<!-- Preparations -->
+	<menu id="COOKING_PREPARATIONS" name="1044496">
+		<!--Unbaked Quiche-->
+		<cook definition="unbaked_quiche">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="9b5" amount="1" name="Eggs" />
+		</cook>
+
+		<!--Unbaked Meat Pie-->
+		<cook definition="unbaked_meatpie">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="1609;1607;9f1;9f2" amount="1" name="Raw Meat" />
+		</cook>
+
+		<!--Uncooked Sausage Pizza-->
+		<cook definition="unbaked_sausagepizza">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="9c0;9c1" amount="1" name="Sausage" />
+		</cook>
+
+		<!--Uncooked Cheese Pizza-->
+		<cook definition="unbaked_cheesepizza">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="97e" amount="1" name="Cheese" />
+		</cook>
+
+		<!--Unbaked Fruit Pie-->
+		<cook definition="unbaked_fruitpie">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="994;172d" amount="1" name="Pear" />
+		</cook>
+
+		<!--Unbaked Peach Cobbler-->
+		<cook definition="unbaked_peachcobbler">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="9d2;172c" amount="1" name="Peach" />
+		</cook>
+
+		<!--Unbaked Apple Pie-->
+		<cook definition="unbaked_applepie">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="9d0" amount="1" name="Apple" />
+		</cook>
+
+		<!--Unbaked Pumpkin Pie-->
+		<cook definition="unbaked_pumpkinpie">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<material id="c6a;c6b;c6c" amount="1" name="Pumpkin" />
+		</cook>
+		
+		<!--Green Tea-->
+		<!--
+		<secook definition="">
+			<cooking min="800" max="1200" />
+			<material id="284c" amount="1" name="Green Tea" />
+			<water />
+		</secook>
+		-->
+		<!--Wasabi Clumps-->
+		<secook definition="24eb">
+			<cooking min="700" max="1100" />
+			<material id="15fc" amount="3" name="Bowls of Peas" />
+			<water />
+		</secook>
+
+		<!--Sushi Rolls-->
+		<secook definition="283e">
+			<cooking min="900" max="1200" />
+			<material id="97a" amount="10" name="Raw Fish Steaks" />
+			<water />
+		</secook>
+
+		<!--Sushi Platter-->
+		<secook definition="2840">
+			<cooking min="900" max="1200" />
+			<material id="97a" amount="10" name="Raw Fish Steaks" />
+			<water />
+		</secook>
+
+		<!--Savage Kin Paint-->
+		<cook definition="tribal_paint">
+			<cooking min="800" max="1100" />
+			<flour />
+			<material id="tribal_berry" amount="1" name="Tribal Berry" />
+			<nomark />
+		</cook>
+
+		<!--Egg Bomb-->
+		<secook definition="2809">
+			<cooking min="900" max="1200" />
+			<material id="9b5" amount="1" name="Egg" />
+			<flour amount="3" />
+		</secook>
+	</menu>
+
+	<!-- Baking -->
+	<menu id="COOKING_BAKING" name="1044497">
+		<!--Bread Loaf-->
+		<cook definition="103b">
+			<cooking min="0" max="1000" />
+			<material id="103d" amount="1" name="Dough" />
+			<needheat />
+			<nomark />
+		</cook>
+
+		<!--Pan of Cookies-->
+		<cook definition="160b">
+			<cooking min="0" max="1000" />
+			<material id="103f" amount="1" name="Cookie Mix" />
+			<needheat />
+		</cook>
+
+		<!--Cake-->
+		<cook definition="9e9">
+			<cooking min="0" max="1000" />
+			<material id="cake_mix" amount="1" name="Cake Mix" />
+			<needheat />
+		</cook>
+
+		<!--Muffins-->
+		<cook definition="9eb">
+			<cooking min="0" max="1000" />
+			<material id="sweet_dough" amount="1" name="Sweet Dough" />
+			<needheat />
+			<nomark />
+		</cook>
+
+		<!--Baked Quiche-->
+		<cook definition="baked_quiche">
+			<cooking min="0" max="1000" />
+			<material id="unbaked_quiche" amount="1" name="Uncooked Quiche" />
+			<needheat />
+		</cook>
+
+		<!--Baked Meat Pie-->
+		<cook definition="baked_meatpie">
+			<cooking min="0" max="1000" />
+			<material id="unbaked_meatpie" amount="1" name="Uncooked Meat Pie" />
+			<needoven />
+		</cook>
+
+		<!--Sausage Pizza-->
+		<cook definition="baked_sausagepizza">
+			<cooking min="0" max="1000" />
+			<material id="unbaked_sausagepizza" amount="1" name="Uncooked Sausage Pizza" />
+			<needheat />
+		</cook>
+
+		<!--Cheese Pizza-->
+		<cook definition="baked_cheesepizza">
+			<cooking min="0" max="1000" />
+			<material id="unbaked_cheesepizza" amount="1" name="Uncooked Cheese Pizza" />
+			<needheat />
+		</cook>
+
+		<!--Baked Fruit Pie-->
+		<cook definition="baked_fruitpie">
+			<cooking min="0" max="1000" />
+			<material id="unbaked_fruitpie" amount="1" name="Unbaked Fruit Pie" />
+			<needoven />
+		</cook>
+
+		<!--Baked Peach Cobbler-->
+		<cook definition="baked_peachcobbler">
+			<cooking min="0" max="1000" />
+			<material id="unbaked_peachcobbler" amount="1" name="Unbaked Peach Cobbler" />
+			<needheat />
+		</cook>
+
+		<!--Baked Apple Pie-->
+		<cook definition="baked_applepie">
+			<cooking min="0" max="1000" />
+			<material id="unbaked_applepie" amount="1" name="Unbaked Apple Pie" />
+			<needoven />
+		</cook>
+
+		<!--Baked Pumpkin Pie-->
+		<cook definition="baked_pumpkinpie">
+			<cooking min="0" max="1000" />
+			<material id="unbaked_pumpkinpie" amount="1" name="Unbaked Pumpkin Pie" />
+			<needoven />
+		</cook>
+
+		<!--Miso Soup-->
+		<secook definition="284d">
+			<cooking min="600" max="1000" />
+			<material id="97a" amount="1" name="Raw Fish Steaks" />
+			<needheat />
+			<water />
+		</secook>
+
+		<!--White Miso Soup-->
+		<secook definition="284e">
+			<cooking min="600" max="1000" />
+			<material id="97a" amount="1" name="Raw Fish Steaks" />
+			<needheat />
+			<water />
+		</secook>
+
+		<!--Red Miso Soup-->
+		<secook definition="284f">
+			<cooking min="600" max="1000" />
+			<material id="97a" amount="1" name="Raw Fish Steaks" />
+			<needheat />
+			<water />
+		</secook>
+
+		<!--Awase Miso Soup-->
+		<secook definition="2850">
+			<cooking min="600" max="1000" />
+			<material id="97a" amount="1" name="Raw Fish Steaks" />
+			<needheat />
+			<water />
+		</secook>
+
+	</menu>
+
+	<!-- Barbecue -->
+	<menu id="COOKING_BARBECUE" name="1044498">
+		<!--Cooked Bird-->
+		<cook definition="9b7">
+			<cooking min="0" max="1000" />
+			<material id="9b9" amount="1" name="Raw Bird" />
+			<nomark />
+			<useallres />
+			<needheat />
+		</cook>
+
+		<!--Chicken Leg-->
+		<cook definition="1608">
+			<cooking min="0" max="1000" />
+			<material id="1607" amount="1" name="Raw Chicken Leg" />
+			<nomark />
+			<useallres />
+			<needheat />
+		</cook>
+
+		<!--Fish Steak-->
+		<cook definition="97b">
+			<cooking min="0" max="1000" />
+			<material id="97a" amount="1" name="Fish Steak" />
+			<nomark />
+			<useallres />
+			<needheat />
+		</cook>
+
+		<!--Fried Eggs-->
+		<cook definition="9b6">
+			<cooking min="0" max="1000" />
+			<material id="9b5" amount="1" name="Egg" />
+			<nomark />
+			<useallres />
+			<needheat />
+		</cook>
+
+		<!--Leg of Lamb-->
+		<cook definition="160a">
+			<cooking min="0" max="1000" />
+			<material id="1609" amount="1" name="Raw Leg of Lamb" />
+			<nomark />
+			<useallres />
+			<needheat />
+		</cook>
+
+		<!--Cut of Ribs-->
+		<cook definition="9f2">
+			<cooking min="0" max="1000" />
+			<material id="9f1" amount="1" name="Raw Rib" />
+			<nomark />
+			<useallres />
+			<needheat />
+		</cook>
+
+	</menu>	
+</definitions>

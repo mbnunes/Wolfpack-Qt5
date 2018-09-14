@@ -1,0 +1,143 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<!--
+	NPC IDs List for multiple IDs
+-->
+<definitions>
+
+	<!-- Horse IDs -->
+	<list id="NPCIDS_HORSE">
+		<item>200</item>
+		<item>204</item>
+		<item>226</item>
+		<item>228</item>
+	</list>
+
+	<!-- Nightmare IDs -->
+	<list id="NPCIDS_NIGHTMARE">
+		<item>116</item>
+		<item>177</item>
+		<item>178</item>
+		<item>179</item>
+	</list>
+
+	<!-- Bull IDs -->
+	<list id="NPCIDS_BULL">
+		<item>232</item>
+		<item>233</item>
+	</list>
+
+	<!-- Cow IDs -->
+	<list id="NPCIDS_COW">
+		<item>216</item>
+		<item>231</item>
+	</list>
+
+	<!-- Grey Wolf IDs -->
+	<list id="NPCIDS_GREYWOLF">
+		<item>25</item>
+		<item>27</item>
+	</list>
+
+	<!-- Snow Leopard IDs -->
+	<list id="NPCIDS_SNOWLEOPARD">
+		<item>64</item>
+		<item>65</item>
+	</list>
+
+	<!-- White Wolf IDs -->
+	<list id="NPCIDS_WHITEWOLF">
+		<item>34</item>
+		<item>37</item>
+	</list>
+
+	<!-- Swamp Dragon IDs -->
+	<list id="NPCIDS_SWAMPDRAGON">
+		<item>794</item>
+		<item>799</item>
+	</list>
+
+	<!-- War Horse IDs -->
+	<list id="NPCIDS_WARHORSE">
+		<item>118</item>
+		<item>119</item>
+		<item>120</item>
+		<item>121</item>
+	</list>
+
+	<!-- Daemon IDs -->
+	<list id="NPCIDS_DAEMON">
+		<item>9</item>
+		<item>10</item>
+	</list>
+
+	<!-- Dragon IDs -->
+	<list id="NPCIDS_DRAGON">
+		<item>12</item>
+		<item>59</item>
+	</list>
+
+	<!-- Drake IDs -->
+	<list id="NPCIDS_DRAKE">
+		<item>60</item>
+		<item>61</item>
+	</list>
+
+	<!-- White Wyrm IDs -->
+	<list id="NPCIDS_WHITEWYRM">
+		<item>49</item>
+		<item>180</item>
+	</list>
+
+	<!-- Lizardman IDs -->
+	<list id="NPCIDS_LIZARDMAN">
+		<item>33</item>
+		<item>35</item>
+		<item>36</item>
+	</list>
+
+	<!-- Orc IDs -->
+	<list id="NPCIDS_ORC">
+		<item>17</item>
+		<item>41</item>
+	</list>
+
+	<!-- Ratman IDs -->
+	<list id="NPCIDS_RATMAN">
+		<item>42</item>
+		<item>44</item>
+		<item>45</item>
+	</list>
+
+	<!-- Hell Hound IDs -->
+	<list id="NPCIDS_HELLHOUND">
+		<item>97</item>
+		<item>98</item>
+	</list>
+
+	<!-- Ettin IDs -->
+	<list id="NPCIDS_ETTIN">
+		<item>2</item>
+		<item>18</item>
+	</list>
+
+	<!-- Troll IDs -->
+	<list id="NPCIDS_TROLL">
+		<item>53</item>
+		<item>54</item>
+		<item>55</item>
+	</list>
+
+	<!-- Sheep IDs -->
+	<list id="NPCIDS_SHEEP">
+		<item>223</item>
+		<item>207</item>
+	</list>
+
+</definitions>

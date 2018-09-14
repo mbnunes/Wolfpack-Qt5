@@ -1,0 +1,23 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<!--
+	Craft Menu Index File
+-->
+<definitions>
+	<include file="definitions/menus/crafting/alchemy.xml" />
+	<include file="definitions/menus/crafting/blacksmithing.xml"/>
+	<include file="definitions/menus/crafting/bowcraft.xml" />
+	<include file="definitions/menus/crafting/carpentry.xml"/>
+	<include file="definitions/menus/crafting/cartography.xml"/>
+	<include file="definitions/menus/crafting/glassblowing.xml" />
+	<include file="definitions/menus/crafting/masonry.xml" />
+	<include file="definitions/menus/crafting/tailoring.xml" />
+	<include file="definitions/menus/crafting/tinkering.xml" />
+	<include file="definitions/menus/crafting/cooking.xml" />
+</definitions>

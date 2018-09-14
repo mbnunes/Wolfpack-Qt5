@@ -1,0 +1,1223 @@
+Wolfpack 12.9.16 Beta (SVN)
+ * Core Changes:
+  - Fixed a bug Loading binary saves where npcs have no region pointer when emulator restarts.
+  - Fixed char.getstrproperty and item.getstrproperty crashing the server, when optional parameter 'default' was missing.
+  - Fixed bug #0000096 "Wolfpack does not use "Compress Backups" Option".
+  - Fixed wolfpack.statics ignoring "exact" parameter in some occasions.
+  - Fixed MySql world saves.
+  - Added suport for multi area
+ * Definition Changes:
+ * Python Script Changes:
+  - Fixed a bug in animal taming that prevented taming from gaining on some configurations of python/operating system.
+  - Added support for 'strproperties' to quest system.
+  - Added <requiredskills> and <requiredskillamounts> to quest system.
+ * Misc. Changes:
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Multis (Houses/Boats) are not completly supported.
+  - "Infused with Magic" and "Perception" (Elves Features from Mondain's Legacy) are not implemented yet
+  - "Workhorse" and "Jack of all trades" (Human Features from Mondain's Legacy) are not implemented yet
+  - For latest information check out: http://bugs.wpdev.org
+
+Wolfpack 12.9.14 Beta (SVN)
+ * Core Changes:
+  - Changed python callbacks to use the function object instead of a string containing hardcoded paths.
+    It is backwards compatible with the old scheme, for now.
+  - Fixed onDeath being called after the npc was already deleted.
+  - Added a basedef property "min_restock_amount" that is used by the restocking code to never let
+  	the restock amount of a specific item type go below the given amount. (Integer property)
+  - Added a basedef property "max_restock_amount" that is used by the restocking code to never let
+    the restock amount of a specific item type go above the given amount. (Integer property)
+  - Fixed bug #0000387 and # 0000366 ( saying 'guard' in a guarded region hang the server )
+  - Reimplemented different corpse decay times for players and npcs.
+  - Picking up items from and dropping items into the corpses of other players is logged now in the LOG_TRACE mask.
+  - Implemented an onLog event.
+  - GMs can now drop items everywhere without a LOS check.
+  - Added a property flag for hiding the reputation titles and white underwear per character.
+  - Added lists of enemy and allied guilds to the core and added the appropriate python interfaces.
+  - Added several socket properties and ignored packet 0xbb.
+  - Fatal XML parsing errors no longer crash the server.
+  - Added a squelched and a jailed property to player objects.
+  - Added an option to wolfpack.xml for sending ASCII name packets for incoming characters.
+  - Added an option to wolfpack.xml to use post 4.0.8 tooltip packets which are a lot faster.
+  - Added wolfpack.definitionsiterator(type) for fast iteration of definitions of a certain type.
+  - Fixed several major memory leaks.
+  - Fixed all crashes related to iterating over non existing maps.
+  - Fixed a bug related to pets not being teleported along with you.
+  - Moved the definition export to a separate file and made it more than 10 times faster.
+  - Added wolfpack.exportdefinitions() to the python api.
+  - Added export definitions to the file menu of the windows gui.
+  - Fixed another major memory leak in definitions reloading.
+  - Removed redundant skill tag use:
+    Replaced with <skill id="skillname">value</skill>
+  - Fixed a SQL tag loading issue.
+  - Fixed a broken else if chain in cAccount::setProperty
+  - Added a define for tracking.h
+  - Fixed snooping.
+  - You only become criminal/a murderer if you kill a human being.
+  - Added the command showserials.
+  - Implemented nodecay flag for regions.
+  - Fixed kills (it was not possible to become a murderer).
+  - Implemented a method to send a client an url to open in a webbrowser.
+  - Fixed monsters starting to attack players even if there was no line of sight.
+  - Activated new pathfinding algorithm.
+  - Cleaned up npc movement speed. ( For fast npcs lower your 'NPCs Check Time' in wolfpack.xml )
+  - It is possible to dupe the content of containers.
+  - Added char.awardfame() and char.awardkarma() to the python api.
+  - NPC can be overloaded now.
+  - Items will fall to ground if you are overloaded and want to put it in your backpack.
+  - Fixed items decaying in multis, if they lay on tables.
+  - Added support for regional mining in regions with <RESORES></RESORES>. (thx to MagnusBr)
+  - Added "pay from pack only" option. (thx to MagnusBr)
+  - Fixed uo version not detected on character creation.
+  - OnWearItem is called for the character the item is equiped on too.
+  - Added some new flags for regions:
+    <instalogout />, <noteleport />, <safe />, <nocriminalcombat /> and <nokillcount />
+  - Added "Insta Logout from Guarded Regions" option, to enable or disable the InstaLogout from Guarded Areas
+  - Added "Percent Hits after Ress", "Percent Mana after Ress" and "Percent Stamina after Ress"
+  - Added Support to Elves as a Playable Race (From UO:Mondain's Legacy)
+  - Added support for Mondain's Legacy Map. (Map 0 and Map 1 are larger)
+    If your server doesn't have the new map disable this in wolfpack.xml.
+  - Removed unused server options in wolfpack.xml.
+  - Added "advance" parameter to char.skillcheck, that allows skillchecks without the possibility of skillgains.
+  - Fixed summontime property. If it's 0, the NPC will never disappear.
+  - Fixed having no LoS on floor tiles (that do not block sight) build on black map (dirt e.g.)
+  - Implemented onRegenHitpoints, onRegenMana, onRegenStamina events.
+  - Added "Factor for MaxHitPoints Calculation", "Factor for MaxMana Calculation", "Factor for MaxStamina Calculation".
+  - Implemented onBecomeCriminal event.
+  - Implemented some Racial Features for Elves from Mondain's Legacy
+  - Implemented some Racial Features for Humans from Mondain's Legacy
+  - Added "name.prefix" and "name.suffix" tags to prefix and suffix for names, like in Sphere revisions.
+  - Added "Simple MaxHitPoints Calculation", to enable the MaxHits Calculation = Str * Factor and not Str/2 * Factor + 50
+  - Added tags "modmaxhitsfactor", "modmaxstamfactor" and "modmaxmanafactor" as a modification for these Factors
+  - Added tag "dontremoveondeath" for items to have a permanent item on char (Not removed on death)
+  - Added "onQuestButton"
+  - Fixed: Gender was not working on npcs
+  - OnTimeChange now works for NPCs too
+  - Added an optional new monetary system (Copper, Silver and gold)
+  - Added support for regional monetary with new monetary system (Every region could have your own money)
+  - Added new parameters in XML regions for new monetary: <firstcoin>,<secondcoin> and <thirdcoin>
+  - onSpeech event will work for items too
+  - Fixed bug #0000026. (Indentation in generated wolfpack.xml broken)
+  - Fixed bug #0000038. (Server crashed when saving freed item, that was still linked to a multi)
+  - Fixed bug #0000003. (Server crashed after tag mismatch)
+  - Rewrote GUI using Qt, now it's possible to have GUI on all platforms.
+  - Added Python profiler
+ * Definition Changes:
+  - Tinker buy some items now
+  - Bench (0x1049) which was crafted was "unusable"
+  - fixed bug #0000381 ("potion_keg" and "potionkeg")
+  - Set the minimum restock amount of reagents, arrows and bolts to 50.
+  - Fixed the name of sheep.
+  - Fixed bug #0000386 (missing tongs sellprice tag)
+  - Fixed light radius for certain lightsources.
+  - Removed carve tags (and related files) which are no longer used.
+  - Added Samurai Empire craftables to the tailoring menu.
+  - Added watersource tags (bug #0000399)
+  - Converted NPC skill tags to <skill id="skillname">value</skill>
+  - Fix for skills.xml and NPCs: magicresist is now magicresistance.
+  - Fixed weaponsmith not buying weapons.
+  - Adjusted light radius of some items.
+  - Added books to learn special abilities (mining sand/stone; glassblowing; masonry)
+  - Added granite and sand definitions
+  - Added craftmenu for glassblowing
+  - Support up to client 5.0.0.
+  - Added Multis and Multi deeds.
+  - Implemented some new npcs (thx to idget).
+  - Implemented SE items for crafting.
+  - Growable and harvestable hay, wheat, cotton, flax, hops.
+  - Grapevines got the farming script.
+  - Misc. id typos fixed.
+  - Added Mondain's Legacy Weapons
+  - Implemented "Quest Definitions", for Quest System
+ * Python Script Changes:
+  - Improved/fixed goitem and gouid command in relation to containers (sending content).
+  - Added an follow button to who menu.
+  - Added a follow command.
+  - Tinkers can now choose a second material.
+  - Swingspeed is now limited to 1 swing per second.
+  - Implemented several item property caps.
+  - Archers now only need to stand still for 500 ms before they can fire.
+  - Parried special abilities don't consume mana anymore.
+  - Using a special ability 3 seconds after the last special ability consumes twice
+    the mana.
+  - Fixed an issue with the spell Telekinesis
+  - Fix for Detecting Hidden
+  - Fixed bug #0000380 (potionkeg was not usable with nightsight potion)
+  - Fixed an issue with nuke <baseid> not working if the baseid had two characters.
+  - Improved goname command (you can not only go the first char; e.g. use the command twice to go to
+    the second char with the same name etc.)
+  - Added a goitem <name> command (same function as goname, but for items)
+  - Fixed a bug in the nukez command.
+  - Fixed an issue with skillgain in the low levels.
+  - Its no longer possible to equip movable>=2 items with doubleclicks.
+  - Added the tilepattern command.
+  - Fixed an issue with the magic property generator (splash damage and hit spell effects were happening far too often)
+  - Tracking skill now does something. It's not yet OSI compatible. Thanks to Surcouf.
+  - Implemented smove command to move yourself relatively to your current position without interrupting the current target.
+  - Fixed an encoding issue in bulletin boards.
+  - Fixed an issue with pets and gate travel gates.
+  - Fixed an issue with special moves on already killed characters. (Spamming the log)
+  - Remoteadmin port can now be set via wolfpack.xml
+  - Fixed a bug related to gaining skills with skillbonus juwelry equipped.
+  - Added Leather Dyes.
+  - Added Rune and Special Dyes.
+  - Added a bankself command.
+  - Rewrote the inscription menu.
+  - Finished a conversion of the plant system from RunUO.
+  - Implemented correct logging of changes on the info gump.
+  - Fixed bug #0000382 (pets stayed after released)
+  - Added playervendors from Ancient-Realms.org
+  - Added isValidPosition to wolfpack.utilities to check if a coord is valid.
+  - Applied isValidPosition to moongates and go menu.
+  - Added the client version and installation version to the who gump.
+  - Connected the who gump with the jail system.
+  - Added mute, unmute, jail and forgive commands.
+  - Added checks to the gate and to recall so players cannot travel to facets their client does not support.
+  - Its now possilbe to carve human corpses.
+  - Taming now removes NPCs from spawn gems too.
+  - Updated the add menu to the new definition iteration system.
+  - Updated the decoration script.
+  - Updated the allskills command to account for the ALLSKILLS constant.
+  - Tweaked the plant system a little so pressing the water button searches for water in the backpack.
+  - Tinker can repair items.
+  - Added scripts for special books (learning special abilities).
+  - Miners can dig sand if they learned it from a book (sandmining_book).
+  - Implemented masonry.
+  - implemented Orneriness for pets (There is now a chance, that a pet do not follow their orders, based
+    on animal taming and animal lore of the owner)
+  - Implemented glassblowing.
+  - Fixed .kick / .ban commands.
+  - Spawngems support items now (patch by ste).
+  - Implemented stealing skill.
+  - You can use static forges to smelt ore now.
+  - Fixed bug #0000405.
+  - If poisoning fails, there is a 5% chance to poison yourself.
+  - New formula for detecting hidden.
+  - Fixed multis and deeds.
+  - Graphical preview for creating Multis.
+  - Fix for Plants (menu didn't open when they were grown).
+  - Fix: Candidates could not resign by themselves from their guild
+  - Implemented stonemining (50:50 chance for ore:gem if activated through the contextmenu of tool).
+  - Implemented ballot box.
+  - Added a gobaseid command.
+  - Implemented arcane gem.
+  - Added NIGHTSIGHT property for armory and jewelery.
+  - Gave GMs the ability to command npcs with "All .." commands.
+  - Music instruments do wear out.
+  - Added a sysmessage command.
+  - Added Bola.
+  - Added Tribal Paint.
+  - Added Oil Cloth.
+  - Improved edit command for containers (the content is shown in a list).
+  - Implemented Cooking.
+  - Dupe command will dupe content of containers, if GMs have the privilege to
+  - Fixed issue with tooltip of runebooks if there was a description.
+  - Added support for regional mining in mining.py (thx to MagnusBr)
+  - Remaining tool uses for different skills were not handled
+  - Added a findlock command.
+  - Added cliloc support for crafting menues.
+  - Fixed metals in carpentry menu and tinkering menu requiring blacksmithing skill.
+  - Adapted scripts to new elven bodies.
+  - Animals can eat hay sheafs now.
+  - Implemented growable and harvestable hay, hops, wheat, cotton and flax.
+  - Grapevines and fruit trees can be harvested if they have resources.
+  - If enhancing an item fails and the item breaks, chars in range of 5 tiles and if in LoS will notice that.
+  - Cows will give milk, chicken eggs (on double click).
+  - If you use wheat sheafs near a flour mill, you will get a sack of flour.
+  - Added an optional extended carpentry system that uses different wood types. This has to be enabled in wolfpack.xml
+  - Disabled animal taming gain for creatures a character had already tamed.
+  - Fixed gates with invalid positions crashing the server when used.
+  - Implemented some Racial Features for Elves from Mondain's Legacy
+  - Fixed: Combat ignored DamageTypes from Weapons (only dealing physical damage from weapons)
+  - Added a system in Remote Administration to show all the players on a map (Via browser)
+  - Added restock command
+  - Implemented modules for Kill NPCs and have certain items to quest system from UO:ML
+  - Changed how damagetypes are treated for weapons with 2 resources, that each have a damagetypedistribution
+    (before the values were just added, sometimes resulting in negative physical damage, now the average is used)
+ * Misc. Changes:
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Multis (Houses/Boats) are not completly supported.
+  - "Infused with Magic" and "Perception" (Elves Features from Mondain's Legacy) are not implemented yet
+  - "Workhorse" and "Jack of all trades" (Human Features from Mondain's Legacy) are not implemented yet
+  - For latest information check out: http://bugs.wpdev.org
+
+Wolfpack 12.9.13 Beta (25. December 2004)
+ * Core Changes:
+  - Fixed meditation skillcheck in mana regeneration code.
+  - Changed GM talk color.
+  - Implemented the onCheckVictim event.
+  - Implemented the onDoDamage event.
+  - Stablemasters now remove the stabled pets from the follower list.
+  - Corpses now decay in multis too.
+  - Implemented a walktest command for testing walking.
+  - Fixed several other walking bugs.
+  - Implemented onRemoteUse for checking if an object that is in the belonging
+    of another char may be used. First called for the using char, then for the
+    owner of the object.
+  - Implemented onSnooping that is called for the owner and for the player trying to
+    open a container.
+  - Fixed shop restock.
+  - Fixed bug #0000364. (Vendors not selling items they bought)
+  - Rewrote the vendor buy handler code.
+  - Improved the configure script:
+    Translations are disabled by default now.
+    Cleaner output.
+    Fixed a bug with MySQL library reporting.
+  - The SectorMaps singleton has been renamed to MapObjects.
+  - The deprecated RegionIterators have been removed.
+  - The SectorIterators have also been replaced with a much faster iterator.
+  - The new iterators don't allocate/copy memory anymore.
+  - The "range" lookup now looks for items within a real circle.
+  - Multis now have their own structure, and are now separate from items.
+  - Region calls now list online and offline chars in sperate lists.
+  - Implemented player collision stamina loss in Felucca.
+  - Fixed lightlevel calculation.
+  - Fixed the pythonscript* <-> integer conversion warnings by using size_t instead.
+  - Fixed adding items to the MapObjects.
+  - Fixed a bug in the new ContainerCopyIterator.
+  - Fixed movement not correctly being sent to other characters.
+  - Fixed Multi Update range.
+  - Added .reload muls and added a broadcast message to the reload commands.
+  - Fixed handling of a fixed z value for spawnregions.
+  - Fixed an exploit (dropping without dragging first)
+  - Changed the semantics of onLogin/onLogout (character entering/leaving the world).
+  - Added onConnect/onDisconnect (socket attaching/detaching to/from a player).
+  - It's no longer possible to login with a char if another char in
+    the same account is still online.
+  - Fixed a bug that would cause onLogout not to be called.
+  - A skill of 100% or more in Spirit Speaking now allows you to talk
+    freely as a ghost and hear everything dead players have to say.
+  - All geometrical bodies for spawnregions now support the except="true"
+    tag that makes the rectangle, circle or point not be included in finding
+    a random position within the region.
+  - Fix with spawnregion data. UShort != UInt
+  - Added socket.denymove to send packets to deny movement
+  - Fixed a crashbug with invalid function names passed to .addtimer()
+  - Added the ability to make yourself visible to other players.
+  - Guildbutton now triggers onGuildButton(player) python event.
+  - Fixed bug #0000376. (Stablemasters don't take money from the bank)
+  - Added "Refresh Characters Maximum Values" setting. Setting this to "false"
+    will disable the automatic recalculation of Maxhitpoints/Maxmana/Maxstamina.
+  - Added a warning in the console if translation file could not be found.
+  - Fixed monsters not attacking players pets.
+  - Fixed bug #0000363. (Pets don't attack a target if it's already fighting)
+  - More tag documentation in the code.
+  - Definition Tag Cleanups.
+  - Using skills no longer unhides by default, unhide moved to python.
+  - Fixed a nasty bug in the map sector code which caused objects not
+    to be in the map objects when moved between maps.
+  - Fixed a walking bug that caused monsters to walk trough certain objects.
+  - type="3" in bodyinfo.xml is now correctly interpreted by the core.
+  - Exploit bugfix for locked containers.
+  - The status only shows the gold directly in your backpack now. (performance issues)
+  - Added bladespirit and energyvortex ai.
+  - Fixed a vision range bug with walking.
+  - Fixed many compiler warnings for GCC 3.4 versions, and general warnings.
+  - Updated SQLite to 2.8.15 and defaulted SQLite to encode data with UTF-8.
+  - Added a new feature to random: <random randomlist="list1,list2" />
+    This will select a random value from a random list.
+  - Added new features to container items (made list work as well):
+    <container><item list="list" /><item randomlist="list1,list2" /></container>
+  - Disabled verdata.mul support as this is no longer included in the latest
+    releases of Ultima Online. Note: Commented out the source code only.
+  - Implemented an onSelectAbility event for the weapon special moves.
+  - Corrected the NINJITSU and BUSHIDO skill ids.
+  - Small cleanup to wolfpack.xml: Database options follow the same option
+    names are are given in account options.
+  - Implemented a "karmalock" property to player objects. If it's True, the player will not
+    gain any positive karma anymore.
+  - Added Commoner AI.
+  - Fixed mul path detection on windows in release builds.
+ * Definition Changes:
+  - Added the mage AI to most creatures.
+  - Adjusted carving sheep.
+  - Fixed leatherworkers and tanners not buying leather and hides.
+  - Male NPCs now have a 75% chance of getting a beard when created.
+  - Made shrink potions craftable.
+  - Changed the color of shrink potions.
+  - Added Tokuno includes for regions and spawnregions.
+  - Removed the "Pink Spawn" from decoration.
+  - Fixed skeletal steeds stats and skills.
+  - Added stackable burned food that is used when cooking fails.
+  - Added ranged weapons + ammo to orc scout, ratmen archer, meer captain and juka lord.
+  - Added colored samurai armor.
+  - Reorganized base armor categories.
+  - New folder for defines: definitions/defines/
+  - Applied the index.xml branches to colored armor.
+  - Added lightsources to fire elementals, wisps and horde minions.
+  - Added bones to bone_magi and body parts to horde minions, zombies and others.
+  - Added colored weapons. Note: Only the metallic weapons.
+  - Sorted out the samurai weapons by type and fixed properties.
+  - Ranged weapons set to 10 instead of 12.
+  - Price fixes for arrows/bolts.
+  - Fixed potion kegs.
+  - Gave guards colored hair.
+  - NPC skill defines are now: <skill id="skilldef">value</skill>
+  - Gold now has weight.
+  - Corrected the bushido and ninjitsu skill ids.
+  - All mounts now have the event npc.mount
+ * Python Script Changes:
+  - Fixed bug #0000369. (Equip possible although item.movable = 3)
+  - Fixed bug #0000361. (Pets don't follow trough gate)
+  - Added xoffset, yoffset and zoffset to socket.attachmultitarget. (housing.deed)
+  - Fixed a runebook bug. (Refuses to work when full)
+  - Rewrote parts of the runebook.
+  - Added support for creature based poison immunity.
+  - Added support for hit based poisoning.
+  - Fixed several bugs in lumberjacking.
+  - Chars will now get revealed when using training dummy or archery butte.
+  - Fixed blood created at carving not decaying for a long time.
+  - Fixed fishing pole not wearing out.
+  - Fixed gainfactor for skills always beeing 1.0
+  - Fixed a skill check bug with lumberjacking.
+  - Implemented shrink potions.
+  - Fixed the tooltip of alchemy tools not being resend.
+  - Fixed the input system trying to call not existent scripts.
+  - Fixed the color of shrunken pets.
+  - Implemented shrink command.
+  - Implemented telem command.
+  - Added onConnect to system.players
+  - Fixes for moongate.py
+  - Guild button now opens guildstone menu by default.
+  - Fixed resistances for dragon scale armors.
+  - Fixed the open door macro.
+  - Fixed bug #0000310. (Invis spell duration too brief, Players will now be able to use stealth
+    if they are hidden by the invisibility spell, even if they don't have 80.0 Hiding )
+  - Fixed bug #0000321. (Info Gump not setting boolean values to True if input is 1)
+  - Poisoning now accepts stacked potions.
+  - Reorganized the potion scripts.
+  - Added possibility to cut bone parts into usable bones using scissors.
+  - Fixed potion kegs.
+  - Added tilecolorz command. Same as tilecolor, but limited to one z coordinate.
+  - Added nukez command. Same as nuke, but limited to one z coordinate.
+  - Added tilemove command.
+  - Increased energyvortex and bladespirit casting time.
+  - Implemented the bleeding wound system.
+  - Implemented the weapon special moves.
+  - Implemented the SelfRepair item property.
+  - Implemented the Enhance Potions item property.
+  - Implemented the Splash Damage item properties.
+  - Implemented the On Hit spell effect item properties.
+  - Implemented support for dispel difficulty/dispel focus (see playguide).
+  - Enabled tithing of gold, resurrection and karma locking at ankhs.
+ * Misc. Changes:
+  - FAQ Updates.
+  - Now compiling with the KDE Cygwin QT version on Windows. (http://kde-cygwin.sf.net)
+  - Updated the gm tool a little. It now has support for the samurai empire maps.
+  	In addition to fixing some bugs, it also has an experimental region rectangle generator
+  	on the settings tab.
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.12 Beta (18. October 2004)
+ * Core Changes:
+  - Fixed a Unix console error
+  - Fixed a NPC title loading problem (UTF-8)
+  - Added an onResurrection event.
+  - Hopefully fixed crashbug for NPC pathfinding.
+  - Fix bug #0000342 ( "Show Npc Titles" treated as numeric value, instead of boolean )
+  - Fix bug #0000341 ( set char.orgname on char creation )
+  - The bloodcolor for NPCs can now be defined.
+  - Containers and corpses ignore the object delay.
+  - Fixed base definitions for multis.
+  - Fixed items in multis being lost after two saves.
+  - Fixed issues with walking (especially stairs).
+  - Fixed bug #0000323. (World time not being loaded with binary saves)
+  - Fixed bug #0000335. (Riding liches + toads)
+  - Fixed bug #0000340. (Showing unicode properties crashes the server)
+  - Allowed global teleporter tags.
+  - Static tile color can now be retrieved via wolfpack.statics()
+  - Only 100 spawnregions per cycle are respawned now.
+  - Fixed even more UCS4 problems.
+  - Fixed documentation for the socket object.
+  - Changed some return values from true to none for socket methods.
+  - Spawnregions have been rewritten for more speed and functionality.
+    Because of that the format changed, please hop on IRC and ask for details if you want
+    to convert your scripts.
+  - Guards now run towards their targets.
+  - Fixed bug #0000345.
+  - Python now allows effects and sounds on coords.
+  - Corrected the default season for map 2, 3 and 4.
+  - Made the spring season for the trammel map a configuration option.
+  - SIGPIPE is now ignored on Unix systems.
+  - Bugfix for the Unix console.
+  - Added several logging features.
+  - Added the ability to sell items from subpacks.
+  - Fixed a bug (Exploit) related to consumeResource.
+  - Removed old page system from core.
+  - onCreate is now called for players on character creation.
+  - Fixed sending the tooltips of equipment when using the go menu or teleportation.
+  - Fixed "lingering" characters at the border of the screen if they walk away.
+  - Fixed bug #0000348 (  Guards should kill instantly )
+  - Improved NPC movement and allowed custom speeds per npc.
+  - Reduced network latency.
+  - Made AI checks occur more often if the npc moves faster.
+  - Added an option to disable spawnregions alltogether for build servers etc.
+  - GMs now can really move everything.
+  - Logged out characters are no longer shown in gray because of client bugs.
+  - Invis items can now be used to block the line of sight.
+  - Fixed the spawnregion python interface and added documentation.
+  - Made the spawnregion info gump show the active/inactive state and the groups for spawnregions.
+  - Fix for items on very high z values interfering with walking.
+  - Fix bug #0000302 ( Char should face mount's direction after mouting )
+  - Moved the mount item information from the core to the bodyinfo file.
+  - Overhauled the body sound system. Now allows for every sound to be overriden individually in the bodyinfo or
+    in the base definition.
+  - The <include> tag is now context-sensitive (i.e. can be used within definition elements to include child elements).
+  - Fixed bug #0000355. (Animation translation incorrect on horses)
+  - Fixed bug #0000353. (Riding horses not possible with body 0x3db)
+  - Fixed command processing with command char . and body 0x3db.
+  - Added AI Monster_Mage.
+  - Hitpoints are now unsigned.
+  - Empty context menus are no longer send to the client.
+  - Added the onCheckSecurity event for housing.
+ * Definition Changes:
+  - Made leather armors and hats auto mage armors.
+  - Fixed a category error with some champions.
+  - Fixed prices for jewels.
+  - Added data for item flipping for carpentry items.
+  - Added bloodcolor for undeads.
+  - Made leather containers dyeable.
+  - Fixed categories for curtains.
+  - Defined all teleporters thanks to bugging and work from DrkCodeman.
+  - Added teleporter stairs to Ilshenar decoration.
+  - Added index.xml files to armor categories. (Cleanups)
+  - Began to add new Samurai armor and weapons (not complete).
+  - Added most of the new Samurai Empire artwork (not yet sorted).
+  - Added slayer weapon properties to NPCs.
+  - Fixed bug #0000347. (Campfires not disappearing, wrong light id)
+  - Added different NPC speeds.
+  - Added encryption keys for 4.0.5
+  - Fixed a carpentry resource bug.
+  - Added mountids for all known mountables.
+  - Fixed a lot of the monster sounds.
+  - Fixed bug #0000242 (Missing Vendor: Mapmaker)
+  - Corrected Evaluating Intelligence for all NPCs.
+  - Defined a few unscripted items (non UO:SE related).
+ * Python Script Changes:
+  - Fixed BONUS* properties.
+  - Fixed other property issues.
+  - Fixed spellchanneling property for shields.
+  - Added random property generation for shields and armors.
+  - Fixed bug #0000336. (Exploitation of stat bonuses)
+  - Fixed bug #0000333. (Implemented lower mana cost)
+  - Fixed bug #0000332. (Implemented lower reagent cost)
+  - Fixed bug #0000334. (Implemented spell damage bonus)
+  - Random magic item loot.
+  - Runebook fixes.
+  - Fixed bug #0000329. (fix for the isTree function)
+  - Fixed bug #0000328. (adddecor command not able to place jungle trees)
+  - Fixed bug #0000331. (archery butte broken)
+  - Fixed bug #0000330. (carpentry deeds broken)
+  - Fixed statgain.
+  - Fixed cutting up leather.
+  - Fixed bug #0000325. (furniture not showing exceptional mark)
+  - Fixed repairing bows.
+  - Carving now takes bloodcolor into account.
+  - Import now imports multis from WSC files and makes all items non movable.
+  - Fixed bug #0000311. (Hiding and invisibility in combat)
+  - Static tile color now included in .info.
+  - Allowed decorating only one facet using .decoration <map>.
+  - The character info page now logs every changed property.
+  - The characters weight is now being resent on lumberjacking and other skills.
+  - Fixed bug #0000346. (Unmovable items crafted by carpenters)
+  - Fixed a bug with loot (typo)
+  - Fixed a bug with the who menu related to more than 10 players connected.
+  - Implemented random generation of slayer weapons for magic loot.
+  - Added slayer weapons. See ./scripts/system/slayer.py
+  - Added two new skill numbers for bushido and ninjitsu.
+  - Added template weaponinfo for new samurai weapons.
+  - Fixed incognito bug.
+  - Fixed a bug in the remove command (Players without accounts caused errors)
+  - Fixed foreign characters for the page system.
+  - Fixed bandages for logged out chars.
+  - Rewrote the bandages script.
+  - Added macro support for bowing and salutes.
+  - Removed the deprecated WEIGHTBONUS property.
+  - Fixed client crashes related to the page menu.
+  - Crashfix for wipe all in certain situations.
+  - Blacksmithing now logs smelting and repairing and allows using static forges and anvils.
+  - Withdraw now updates the gold put into the players backpack.
+  - Allowed translation of the base makemenu.
+  - Added tilecolor command.
+  - Making runebooks now allows to use all 4 types of runes.
+  - Implemented item enhancement via tailoring and blacksmithing.
+  - Fixed hunger for players.
+  - Fixed a bug in trainmenus (training above skillcap)
+  - Invis GMs are not shown on server status anymore.
+  - Fixed bug #0000359. (Mana consumption on fizzle)
+  - Fixed bug #0000349. (No movement during casting)
+  - Victims of harmfull spells will now defend themself.
+  - Most monster cast magic spells no longer send socket messages to NPCs.
+  - Fixed bug #0000360. (Problem with duping spawngems)
+  - Fixed a bug in inscription. (Mana being used even on failure)
+ * Misc. Changes:
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.11 Beta (26. September 2004)
+ * Core Changes:
+  - Fixed a crashbug related to NPC ai storing invalidated character pointers.
+    This will slow AI down a little but crash prevention is well worth it.
+  - Fixed a crashbug with the delayed onCreate call.
+  - Fixed a bug with configure.py and static libraries.
+  - Added a bodytype property.
+  - The server will now only process one action per loop.
+  - Fixed bug #0000305. (Documentation fix)
+  - Fixed a memory leak in char.dispel.
+  - Fixed bug #0000307. (Timers not being deleted with character)
+  - Added socket.removeobject() + socket.sendobject() methods.
+  - Fixed bug #0000273. (Felucca doesnt have the felucca desolation season)
+  - Added the option "Enable Felucca Season" to the "General" group of the wolfpack.xml configuration file.
+    If enabled the desolation season will be sent to players on the felucca facet.
+  - Fixed bug #0000253. (Invalid drop sound for items dropped to ground)
+  - Fixed bug #0000309. (Console in web administration caused endless loop)
+  - Fixed a crashbug related to trying to remove basescripts from objects.
+  - Fixed a crash bug related to players being removed and the owner property of their
+    pets not being reset.
+  - Added support for the Samurai Empire map.
+  - Fixed negative z values for spawnregion xml files.
+  - Improved NPC walking functionality, greatly increased all character walking efficiency
+  - Fixed bug #0000317. (Server not refusing to load even when accounts DB corrupt)
+  - Fixed bug #0000187. (Land and Static targets on height -1 were broken)
+  - Resolved an issue with extreme lag and NPC ai.
+  - Added a rudimentary method for profiling parts of the code.
+  - Complete LoS Rewrite (works much better and faster now)
+  - Fixed persistency issue for dupe() and SQL saves.
+  - Fixed issues with large packet and encryption.
+  - Animals no longer flee from approaching players.
+  - Fixed several python reference count issues.
+  - Fixed a stamina loss bug on damage.
+  - Changed the amount of recovered mana and stamina from 10% to 50% on resurrection.
+  - Fixed a bug related to NPCs not loosing their target even if the target is not valid anymore.
+  - Made mapdiff *, staidx * and friends case insensitive, so under  *nix
+    they don't have to be renamed.
+  - Fixed crash under windows when the server terminates unexpectedly
+  - Console will show which unicode format was compiled in Python UCS2 or UCS4
+  - Fixed compile error on FreeBSD.
+  - Exposed the base definition class to python.
+  - Added wolfpack.bodyinfo(id)
+  - Added/Changed wolfpack.itembase(def), wolfpack.charbase(def)
+  - Fixed a base definition bug related to property not loading the base definition.
+  - Fixed a bug with multis that would be put into themselves if moved.
+  - Fixed a crashbug related to vendors.
+  - Added the ability to dynamically determine the sell value of an item using the
+    onGetSellPrice event.
+  - Fixed translation support.
+  - Added ability to disable translation support during compile time thru configure.py
+  - Fixed a log rotation bug related to uninitialized variables (valgrind.kde.org)
+  - Fixed memory leaks in Territories, ACLs and Python Scripts. (valgrind.kde.org)
+  - Added an onShowVirtueGump event.
+  - Fixed the emotecolor property not being set on speech.
+  - Fixed a gump response vulnerability.
+  - Fixed console bugs.
+  - Added translation support to Python scripts.
+  - Fixed stablemaster speech handling ( Stablemasters are also vendors )
+  - Fixed bug #0000326. (onAttach not being called on startup)
+ * Definition Changes:
+  - Fixed minimum taming for NPCs.
+  - Added the shopkeeper inventory for many vendors.
+  - Fixed bug #0000289 - Fixed/added weight values for many items.
+  - Fixed bug #0000288 - All monsters should have 2000 mintaming.
+  - Fixed bug part 2 of #0000283 - Occlo renamed to Haven in locations.
+  - Fixed bug #0000304. (Cast animations for non humans)
+  - Fishing pole now should have the twohanded flag.
+  - Fishing now shows the success cliloc message correctly.
+  - Fixed the dyeable attribute for certain new items.
+  - Allowed more cloth resource types for tailoring.
+  - Loot fixes for daemons.
+  - Added carve information to all NPCs.
+  - Fixed reagent requirements for cure potions.
+  - Fixed the shopkeeper inventory for mages.
+  - Fixed the lightsource id for braziers.
+ * Python Script Changes:
+  - Removed weight from the info menu.
+  - The info command now correctly resends the changed players.
+  - Fixed bug #0000287 (weaponinfo.py values not being used)
+  - Fixed healing potions.
+  - Fixed ore smelting.
+  - Fixed dye tubs.
+  - Fixed bug #0000295 (Missing MEDITATION cost import)
+  - Characters with an enabled staff flag can cast spells
+    without any requirements now (even when using books and other
+    items).
+  - Fixed bug #0000308. (Using blades on items not possible)
+  - Fixed bug #0000290. (Running doesn't reveal stealthed players)
+  - Fixed bug #0000296. (Arms Lore/Item ID not possible on items equipped by others)
+  - Fixed bug #0000297. (Messages for Anatomy/Eval Int only showing up in journal)
+  - Fixed bug #0000301. (Spellbook not reopening after using it once)
+  - Added a goname <name> command to find players and NPCs.
+  - Fixed magic resistance penalty for the protection spell.
+  - Fixed the mindamage/maxdamage for NPCs.
+  - Fixed the barber vendor responding to all text.
+  - Rewrote the barber/hairstylist.
+  - Fixed the trainmenu.
+  - Added a say <text> command
+  - Fixed add and craft menus for the 3d client.
+  - Added defense and hit bonus properties for items.
+  - Fixed loot random amount problems.
+  - Fixed NPC damage.
+  - Fixed crafting of stackable bowcrafting items.
+  - Fix for evaluating intelligence. (Skill delay message not being shown)
+  - Fixed Python loglevel constants.
+  - Fixed a clilocmessage in dyes.py.
+  - If a carpenter makes boards that now consumes all resources available.
+  - Fixed bug #0000322. (Carpentry menu details page has a broken exceptional chance)
+  - Fixed bug #0000313. (Parrying bugs and misconceptions)
+  - Rewrote npc carving.
+  - Added a "static" command.
+  - Made .move work correctly on players again.
+  - Nuke also works from bottom right to top left now.
+  - Removed spell cast animation while mounted.
+  - Fixed a lumberjacking bug.
+  - Fixed a bug with kindling.
+  - Fixed a bug with canceling a magery target not canceling the spell.
+  - Fixed a bug where the send command didn't resend the world to the target.
+  - Fixed bug #0000314. (Fix for the info command)
+  - Exploit fix for ore smelting. Unlimited mining skill checks.
+ * Misc. Changes:
+  - Fixed configure.py for FreeBSD 5
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Teleport Scripts are incomplete.
+    We welcome donated OSI-like teleport scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Reloading Python too many times can crash the server.
+  - There are still some memory leaks.
+  - Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.10 Beta (10. September 2004)
+ * Core Changes:
+  - Made the maximum number of controlled pets a dynamic property for players.
+    Name: maxcontrolslots
+  - Implemented the event onUpdateDatabase for database updating.
+  - Exceptions thrown during server startup are now caught correctly.
+  - The victim selection code for monsters is now standardized and more
+    sophisticated than before.
+  - Stablemasters now respond to stabling requests.  No charge yet!
+  - Fixed a bug where an error message for missing python gump
+    callbacks led to a crash.
+  - Added a property system bound to the definitions.
+    <intproperty name="..." value="..." /> and
+    <strproperty name="..." value="..." /> define properties that can be
+    accessed via the methods getstrproperty, getintproperty, hasstrproperty,
+    hasintproperty from items and chars.
+  - Serials of objects can now be correctly changed via the script interface.
+    But be careful not to create two objects with the same serial.
+  - Fixed contextmenus to use <scripts></scripts>, this was missed.
+  - Removed old macros that interfered with the new property system.
+  - Allowed the range for weapons to be a property which can be overriden
+    with a tag.
+  - Fixed a tooltip bug that made players lords and ladies with only 1000 points
+    of fame.
+  - Fixed a bug where tooltips were sent before the actual character.
+  - Logged out players are no longer visible to GMs without the allshow flag.
+  - Python objects of the type "long" can now be assigned to integer properties
+    without explicit casting.
+  - Implemented a fix for the allshow command not showing characters by letting them
+    stay in the sector map. Please note that this will have a performance impact but
+    it will be optimized later on.
+  - Corrected the return values of the setattr functions for items and characters.
+    They now correctly return -1 if an exception has been raised.
+  - Python longs passed to item.settag and char.settag are now interpreted as integers.
+  - Char.settag and item.settag now correctly fail if the type of the value is not supported.
+  - Fixed bug #0000252. (Negative parameters to char.checkskill got casted to unsigned short)
+  - Fixed item names for item.say
+  - The default worldsave driver is now binary.
+  - Improved the Python interface Unicode support.
+  - Pets should now no longer fight if their owners tell them to stay/stop.
+  - NPCs owned by GMs no longer suffer hunger effects.
+  - Added <basescript>a</basescript> which will prepend the script a to the basescripts list of
+    a basedefinition.
+  - Moved several methods to a common baseclass for char and item base definitions.
+  - Added support for a separate file to define properties for certain bodies. (Sounds, Flags, Figurines)
+ * Definition Changes:
+  - Added random speech for lizardmen, ratmen and orcs.
+  - Fixed Fame and Karma for all NPCs.
+  - Moved equipment properties to the definitions again.
+  - Added several small testing items.
+  - Fixed blue moongate definitions.
+  - Pet commands are now processed by all NPCs to allow GM control.
+  - Corrected shopkeeper inventory of the tailor vendor.
+ * Python Script Changes:
+  - Added a script for database structure updates (system/dbupdate.py).
+  - Added an event for database updates (onUpdateDatabase).
+  - The system.trading event is now removed on login from the characters who
+    have it.
+  - Added speech.monster.
+  - Fixed a chance calculation bug with bowcraft.
+  - Updated equipment.py and related scripts for equipment property changes.
+  - Fixed bug #0000269. Hunger script adjustments.
+  - Fixed bug #0000255. Smelting/Melting ingot combine fix.
+  - Resurrection now can affect dead chars.
+  - Fixed multibags.
+  - Fixed nightsight potions.
+  - Casting now clears hands if the weapon doesnt have the SpellChannelling property.
+  - Cast recovery times are now correct and take the CastRecoveryBonus properties into account.
+  - Spellcasting speeds are now corrected and take bonuses into account.
+  - Fixed the skillinfo command gump for remote clients.
+  - Fixed gatetravel spell.
+  - Tele and other spells no longer show a smoke puff if you're invisible.
+  - Rewrote properties.fromitem
+  - Fixed mining.
+  - The heal command now resends the healthbar.
+  - Fixed another trading issue.
+  - Fixed bug #0000278. (Weapon not being unequipped)
+  - Pet commands now always allow control by GMs.
+  - Fixes for remove:
+    Remove now gives a warning about deletion of players.
+    Remove should only delete player characters under the player ACL.
+  - New commands: kick, ban, unban.
+  - Fixed bug #0000280. (Tooltip not being resent in wolfpack.utilities.tocontainer)
+  - Summoning spells and the animal taming skill now take the player.maxcontrolslots property
+    into account.
+ * Misc. Changes:
+  - Fixed bug #0000279. (Memory leak in the npc preview of the GM tool)
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Teleport Scripts are incomplete.
+    We welcome donated OSI-like teleport scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Reloading Python too many times can crash the server.
+  - There are still some memory leaks.
+  - Large gumps can potentially crash remote clients.
+  - Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.9 Beta (4. September 2004)
+ * Core Changes:
+  - Allowed viewing and setting account properties via .set and .show.
+    Replace <property> with the name of the account property and <value>
+    with the value you want to set:
+    .set account.<property> <value>
+    .show account.<property>
+  - Moved the account property getters and setters into the cAccount class.
+  - Added an e-mail field to the account database.
+  - Added the "email" property for accounts to the python interface.
+  - .exportdefinitions now exports data about NPCS and their equipment to the
+    categories.db database.
+  - .exportdefinitions now exports data about multis to the
+    categories.db database.
+  - Backup functionality for the binary save driver.
+  - Binary backups can automatically be compressed using gzip.
+  - The number of backups kept can be limited.
+  - Allowed scripts to be attached to base definitions by using <basescripts>a,b,c</basescripts>.
+    Those scripts are attached to objects by using their baseid property. If you change the <basescripts>
+    tags in the definition, all objects using that definition will use the new scripts automatically.
+  - onDetach and onAttach are not called for those scripts.
+  - hasscript(a) will return true if a is in the basescripts.
+  - addscript now prepends a new script rather than appending it.
+  - the python .scripts property includes all script names, including the scripts in basescripts.
+  - added a new property .basescripts to get a comma separated list of all scripts in the
+    basescripts list.
+  - New property: char.overweight Returns true if the character is overloaded.
+  - New property: char.maxweight Returns the maximum stones a character can carry.
+  - Stamina loss while walking.
+  - Stamina loss when taking damage.
+  - Overweight prevents walking now.
+  - Walking is denied if stamina is 0.
+  - Fixed an issue with account names containing foreign characters on save.
+  - Fixed an issue with walking/running not being sent to other clients.
+  - Added wolfpack.queuecode to queue a python function for the next mainloop iteration.
+  - Ignore a 4.0.4a multi purpose packet that doesn't make sense.
+  - Fixed a bug related to serverlists duplication on configuration reload.
+  - Documentation fixes for item.addtimer.
+  - Item Base Definitions are now reloaded correctly.
+  - Fixed bug #0000267. (Max. falling height is now infinite).
+  - Fixed bug #0000268. (coord.validspawnspot() now corrects the z value of coordinates)
+  - Made startup more fault tolerant.
+  - Fixed a bug where the skin hue of mobiles was not being sent to clients in range.
+  - Fix for the Unix console crashing if a QString::null was sent.
+ * Definition Changes:
+  - Tag Changes:
+    <events></events> is now <scripts></scripts>
+  - Basescripts added to many scripts. Read only assigned scripts.
+    Format is: <basescripts></basescripts>
+  - Removed the last occurrences of <inherit id="" />
+  - Fix for bug #0000258. (Stablemaster doesn't sell horses)
+ * Python Script Changes:
+  - Function Changes:
+    Old: addevent() hasevent() removeevent()
+    New: addscript() hasscript() removescript()
+    Note: hasevent still exists, but has another purpose.
+  - Added the bolt command, just lightnings the target.
+  - Added the email command, changes your account email.
+  - Added sparkle effects to the heal/restore commands.
+  - Fixes for the account command:
+    Fixed a few typos.
+    Fixed a bug in updating the passwords of accounts.
+    Added support for the email field.
+  - Tweaked the hunger script to affect hunger less often.
+  - Fixed an update bug with NPCs and the dye command.
+  - Fixed a bug with the dupe command.
+  - Fixed bugs with the fishing skill.
+  - Fixed several magic related bugs.
+  - Adjusted timers in several skills to be item/char.addtimer.
+  - Improved/Fixed pet control functionality through word commands.
+  - Fixed a bug where equipment didn't update stats if double clicked to equip.
+  - Implemented a new page system.
+  - Fix for bug #0000270. (.controlslots for blade spirits)
+  - Fix for bug #0000263. (casting with weapon allowed although weapon is not spell channeling)
+  - Fix for bug #0000260. (.tile now caps at 250 items if the ACL doesn't allow unlimited items)
+  - Fix for bug #0000266. (summoned NPCs had loot)
+  - Fix for bug #0000256. (Not checking for second submaterial in craftmenus)
+  - Fix for bug #0000128. (Trademenu leading to client crash)
+ * Misc. Changes:
+  - Experimental Mac OSX Support
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Teleport Scripts are incomplete.
+    We welcome donated OSI-like teleport scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Reloading Python too many times can crash the server.
+  - There are still some memory leaks.
+  - Large gumps can potentially crash remote clients.
+  - Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.8 Beta (19. August 2004)
+ * Core Changes:
+  - Save fixes
+  - Cleanups and general fixes.
+  - Gump Responses are now passed on as Unicode rather than in the
+    local codepage.
+  - Floating point tags are now saved correctly.
+  - Removed commands: tags, addevent, removeevent, account,
+    resurrect, password, tele, invis, kill, fix, resend,
+    allskills, remove, move, who
+  - Region Updates/Fixes.
+    Added flags: noentermessage and noguardmessage
+    Fixed guardowner messages
+  - Removed <gold></gold> support.
+    Item baseid 'eed' should be used instead.
+  - Documentation Updates
+  - More warning fixes
+  - Added Py_RETURN_NONE/TRUE/FALSE as in Python 2.4
+  - Added status on MySQL/SQLite modules.
+  - New Python getProperty method.
+  - Fixed a possible bug with the Python interface
+    ( Possibly source of crashing bugs )
+  - Property item.magic is now item.movable
+  - (Configurable) Speedhack Countermeasure
+    (See Anti Speed Hack settings in the General group)
+  - Added some additional checking to wolfpack.pro
+  - Binary save driver. Use "binary" as your database save driver.
+    No support for accounts (and none planned).
+  - Fixes for mul and diff files.
+    Haven should now work.
+  - Database Change:
+    items.magic is now items.movable
+  - QT_CLEAN_NAMESPACE Cleanups
+  - Python UCS4 Support
+ * Definition Changes:
+  - Fixed Sheep definitions
+  - Regions are split up facet/type/name.xml
+    This gives a better overview of what we have and do not have.
+  - Fixed regions so they work properly again.
+  - Moved windows from walls. New file: windows.xml
+  - Changed direction to lightvalue in light objects.
+  - Cleanups to prevent add menu crashes/hangs.
+  - Split Food/Drinks into separate files.
+  - Added trashcan
+  - Inscription Added
+  - Controlslot values added to many NPCs related to taming.
+  - More NPCs were added and updated.
+ * Python Script Changes:
+  - New Function: wolfpack.findobject(serial)
+  - New Function: wolfpack.charbase(baseid)
+  - New function: wolfpack.playercount()
+  - New function: wolfpack.npccount()
+  - New function: wolfpack.accounts.count()
+  - New function: wolfpack.utilities.booleantoggle( boolean )
+  - New property: socket.address
+  - Moved property: item.magic -> item.movable
+  - Moved wolfpack.servertime() / wolfpack.currenttime() to
+    wolfpack.time.servertime() / wolfpack.currenttime()
+  - New commands: taginfo, addevent, removeevent, account,
+    resurrect, password, tele, invis, kill, fix, resend,
+    allskills, remove, move, who
+  - New script: trashcan
+    This is a trashcan script, the item must be a container to work.
+  - New script: system.regionchange
+    This overrides the core region change messages.
+  - New script: system.hunger
+    This allows players to suffer from hunger once again.
+  - New script: system.players
+    This has basic onLogin() onLogout() hooks for players.
+  - New script: wolfpack.locales
+    This will be an index with messages in many languages for easy
+    configuration for the server's non-cliloc messages.
+  - Removed script: commands.addtree
+  - New script: commands.adddecor
+    This replaces addtree and expands the usage.
+  - Script Fixes:
+    Eating food no longer animates a character if on a mount.
+    Carving was fixed.
+    Potion Kegs now work.
+    Door fixes for blocking check speed.
+  - Cleanups to help reduce memory consumption.
+  - NPC Related: Fixed sheering of sheep and wool regrowing,
+    Healers will now resurrect through the context menu.
+  - Rudimentarily Implemented Map Plotting
+  - Export command updates.
+    Checks for doors and corpses.
+    Does not save spawnregion items.
+  - Timer fixes for database scripts. (Still Buggy)
+  - Fixed recalling to areas outside of a region.
+  - Fixed renaming runes
+  - Made runebooks function again.
+    Gate/Recall still not functional, charges work however.
+  - Fixed a bug with smelting ore.
+  - Skill Fixes:
+    Provocation - Thanks to Kid_Sk8
+    Inscription - Thanks to khpae
+  - Decoration Saving
+  - Magic fixes:
+    Fire, Poison, Energy and Paralyze fields should work better.
+    Mass dispell can now wipe out these fields.
+    Fixes for controlslots with summon spells.
+  - Scrolls are now usable and actually cast the spell.
+    For scrolls the following rules are in effect:
+    50% decreased mana usage.
+    The effective circle for measuring the skill requirement
+      is lowered by two.
+    when casting from a scroll.
+  - Fixed a timing issue with onCreate() and items.
+ * Misc. Changes:
+  - New Features:
+    Farm animals will eat spawned crops!
+    Potion Kegs now work.
+    Player Hunger now works again.
+  - New look for the remote administration console.
+  - New Windows Release builds should now include
+    MySQL support by default.
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+    We welcome donated OSI-like spawn scripts!
+  - Town/World regions are incomplete.
+    We welcome donated OSI-like region scripts!
+  - Teleport Scripts are incomplete.
+    We welcome donated OSI-like teleport scripts!
+  - Possible that a few monsters are missing and/or incomplete.
+  - Reloading Python too many times can crash the server.
+  - There are still some memory leaks.
+  - Large gumps can potentially crash remote clients.
+  - Multis (Houses) are not currently supported.
+
+Wolfpack 12.9.7 Beta (4. July 2004)
+ * Core Changes:
+   * Region/Spawn Region Updates:
+    - Fixed bugs that caused segfaults.
+    - Added wandering controls to keep spawns in their regions.
+   * Database Changes:
+    - NPC baseids are now saved.
+    - Spawnregions save spawned NPCs.
+    - Multi tables removed, being redone.
+    - Item.type and other properties are no longer saved,
+      uses base definitions.
+    - Removed the `spawnregion` field from the `items`,`NPCs`
+      database tables.
+   * Code Changes:
+    - Major cleanups and structure changes, much cleaner and more sane.
+    - Numerous compile warning cleanups.
+    - Support for Client 4.0.3a.
+    - Support for 6th character slot.
+    - Support for the new All Names macro. (CTRL + SHIFT).
+ * Definition Changes:
+   * Item Updates:
+    - Colored platemail baseid mapping. This was overlooked and
+      should fix armor bugs.
+    - Added the new artwork/items from client 4.0.3a.
+   * NPC Updates:
+    - Several AoS NPCs added. Most NPCs should be added now.
+    - Some NPCs such as orcs and lizardmen can now pull their id
+      and skin from a list.
+    - Lootlist improvements.
+    - Stat adjustments. ( UO Stratics Data )
+    - Fame/Karma adjustments. ( UO Stratics Data )
+    - Basic loot list implimentation, most monsters should drop
+      some gold/gems.
+   * Region/Spawn Region Updates:
+    - Template structure added for regions.
+    - Template structure added for spawn regions.
+    - Updated town spawns for felucca and trammel towns.
+   * Misc. Updates:
+    - Organized scripts.xml to be easier to read/check
+      for missing scripts.
+ * Python Script Changes:
+   * Commands:
+    - import/export now saves/imports the baseid and map
+      values with WSC and TXT.
+    - info updated, supports NPC properties a bit better.
+    - freeze command added, toggles the frozen value.
+    - dye updated to modify character skins. 'dye 0x0 will replace
+      the skin with char.orgskin.
+   * Loot System:
+    - Index for loot lists in system.loot and system.lootlists.
+   * Magic:
+    - Updated summoned monsters, balance fix.
+    - Spell casting delay adjustments.
+   * Skill Changes:
+    - Inscription Skill Updated
+   * System:
+    - SQLite database optimization added.
+    - Script system.debugging created to set different
+      debugging options.
+    - Support for the Open Door Macro
+ * Misc. Changes:
+  - FAQ.html included in the documentation.
+  - ChangeLog.wolfpack included in the documentation.
+  - Massive Documentation Update
+ * Known Issues, Bugs, and Missing Features:
+  - Some skills are still incomplete.
+  - Spawn regions are incomplete.
+  - Town/World regions are incomplete.
+  - Teleport Scripts are incomplete.
+  - Possible that a few monsters are missing.
+  - Reloading python too many times crashes the server.
+  - There are still some memory leaks.
+
+Wolfpack 12.9.6 Beta (18. May 2004)
+ * Numerous crash fixes.
+  - Python memory improvements.
+  - NPC related crash fixes.
+  - Worldsave error improvements.
+ * Skill Fixes and Improvements
+  - Alchemy added/redone.
+  - Fixes for Carpentry, Blacksmithing, Tailoring, Tinkering, Bowcraft
+  - Improvement and fixes with Item Identification, Spirit Speak,
+    Evaluating Intelligence, Taste Identification, Animal Taming,
+    Hiding, Stealth, Snooping.
+  - Lumberjacking fixes.
+  - Mining fixes.
+  - Healing with bandages fixes for bloody bandages.
+ * Command fixes
+  - Travel fixes.
+  - Add fixes.
+ * Definitions cleanup
+  - Reorganized the definitions to be cleaner and easier to
+    manage with updates.
+  - Note: ./definitions.xml moved to ./definitions/index.xml
+ * Item Improvements and Fixes
+  - Various price fixes.
+  - Definition fixes.
+  - Explosion potions can trigger chain explosions.
+  - All potions should work.
+  - Potion kegs work for pouring potions from a full keg..
+  - Food now works.
+  - Multis were recoded.
+ * NPC Improvements and Fixes
+  - Tinkered Golem name fix.
+  - Blacksmith male vendor fix.
+  - Frenzied ostard is no longer invulnerable.
+  - swamp_dragon_2 no longer has the wrong inherit definition.
+  - Fixes to prevent creatures from being invisible.
+  - Pet feeding is now possible.
+  - NPC AI Speed adjustments.
+  - Fixed a bug with vendor displayed prices.
+ * Python Engine Improvements
+  - item.say() and item.effect() added.
+  - Double-clicking weapons should auto-equip if possible.
+  - Makemenus now support a configurable delay.
+ * Spell Improvements
+  - The 8th circle magic has been implemented
+  - Line of Sight fixes.
+ * Known bugs:
+  - Necromancy/Paladin spells do not function, still in the works.
+  - Non-functioning skills:
+    Snooping, Inscription, Cartography,
+    Animal Lore, Arms Lore, Enticement.
+  - Reload (python) memory leak.
+  - Line of Sight blocks even if it shouldn't.
+  - The "Open Door" macro doesn't work.
+  - Drinks do not function, including alcohol.
+  - Creature AI is getting stuck on objects.
+  - Trading crashes the client.
+  - Deeded objects don't work.
+  - Potion kegs can not be refilled.
+  - Explosion potions can detonate other potions through walls/objects.
+
+Wolfpack 12.9.5 Beta (8. May 2004)
+ * Misc. Updates
+  - Many misc. updates
+  - Several new commands (Documentation here: http://www.wpdev.org/docs/)
+ * Python Engine
+  - Rewrote spell circles 1 to 7 including AoS support.
+  - Rewrote most of the makemenus using a python-based class system and populated them.
+  - Centralized most of the ore information and made it easier for shards to override the ores without changing the core scripts.
+  - Several fixes to the tooltip system.
+  - Added new events (Documentation here: http://www.wpdev.org/docs/)
+  - Several new library functions. (No documentation yet but efforts to document have been started)
+  - Added several new AoS magic properties to the combat system.
+  - Added AoS style regeneration of health, stamina and mana.
+  - Fixes to mining and other parts of the resource skill system.
+  - Poison has been implemented (no onhit poisoning yet)
+  - A script to export sphere 55i saves to a compatible wolfpack output is now in the CVS. (Works quite well but isn't finished yet)
+  - Added shrunk figurines for NPCs like Sphere has. Used to convert stablemasters and shrinked NPCs from Sphere.
+  - Food is now edible again. (But not feedable yet)
+  - Added a "shrine" script for resurrection upon collision.
+  - Fixed context menus and speech for bankers.
+  - Support for Guilds (No Wars/Alliances yet)
+  - Party System
+  - NPCs should now be able to train players.
+  - Spawngem system. (Similar to sphere's but with a gump for GMs on doubleclick): "system.spawns"
+  - Statlocks are now accessible via python and work.
+  - Stat and Skillgain has been rewritten in Python.
+ * Definitions
+  - General definition updates and corrections.
+ * Server Core
+  - Several core fixes regarding the "update player" network protocol and problems that arose from it.
+  - Included a scaled night/day system with real dawn and sunset.
+  - Finally made the ingame time progress.
+  - Fixed several issues with NPC Ai and NPCs not attacking players.
+  - Fixed an issue with corpses where equipment information wasn't stored correctly.
+  - Raising from corpse should now be possible (if the player is standing on the corpse, he gets raised with all of his old equipment which is still on the corpse and a "stand up" animation is played). Much like sphere.
+  - New "Monster_Berserk" AI for Blade Spirits.
+  - New line of sight code from Varan Dar (not perfect yet)
+  - New changes to the Windows GUI
+  - Players no longer should see other logged out characters. Visibility to other players got a major rewrite and should function a lot better now.
+  - Made sure that the bankbox can now be used.
+  - Support for UOGateway Status requests.
+  - Small console output changes (linux + windows).
+  - Fixes for Python Unicode support (foreign languages are now better supported)
+  - Regions support has been improved. It's not required to have a single topregion anymore and region changes are processed whenever the character position is changed automatically.
+  - The .tags command is now declared deprecated except for the ".tags info" subcommand. Please use the python versions now: .deltag, .settag, .gettag.
+  - If wolfpack is daemonized on Linux it won't try to read from stdin anymore.
+  - SQLite has been updated.
+  - Fixed a drag and drop problem (bouncing).
+  - NPC kills no longer crash the server

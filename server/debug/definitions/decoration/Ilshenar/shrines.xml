@@ -1,0 +1,37 @@
+<decoration>
+	<!-- Compassion-->
+	<item id="0x0003">
+		<pos x="1209" y="476" z="-14" map="2" />
+	</item>
+
+	<!-- Honesty-->
+	<item id="0x0004">
+		<pos x="718" y="1350" z="-55" map="2" />
+	</item>
+
+	<!-- Humility-->
+	<item id="0x0003">
+		<pos x="286" y="1013" z="5" map="2" />
+	</item>
+
+	<!-- Justice-->
+	<item id="0x0004">
+		<pos x="986" y="996" z="-22" map="2" />
+	</item>
+
+	<!-- Sacrifice-->
+	<item id="0x0003">
+		<pos x="1170" y="1287" z="-30" map="2" />
+	</item>
+
+	<!-- Spirituality-->
+	<item id="0x0003">
+		<pos x="1525" y="1340" z="4" map="2" />
+	</item>
+
+	<!-- Valor-->
+	<item id="0x0004">
+		<pos x="524" y="211" z="-49" map="2" />
+		<pos x="532" y="211" z="-44" map="2" />
+	</item>
+</decoration>

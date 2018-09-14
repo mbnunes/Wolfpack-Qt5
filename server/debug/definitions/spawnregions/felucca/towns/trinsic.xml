@@ -1,0 +1,166 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_trinsic_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>felucca_trinsic_vendors</group>
+		<group>felucca_trinsic</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_1">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1816,2828,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_2">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1848,2796,-2,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_3">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1847,2740,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_4">
+		<active />
+		<npc id="stablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1822,2735,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_5">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1847,2716,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_6">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1846,2705,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_7">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1887,2653,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_8">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1899,2649,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_9">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1898,2683,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_10">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1881,2808,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_11">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1897,2806,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_12">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1913,2807,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_13">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1927,2796,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_14">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1935,2766,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_15">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1986,2841,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_16">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1980,2842,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_17">
+		<active />
+		<npc id="stablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2009,2806,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_18">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2035,2809,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_19">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1991,2889,5,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_20">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1987,2868,20,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_trinsic_vendor" id="felucca_trinsic_vendor_21">
+		<active />
+		<npc id="tanner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tanner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1991,2873,20,0" />
+	</spawnregion>
+</definitions>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Bow right -->
+	<item id="13b1">
+		<id>0x13b1</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>18</sellprice>
+		<buyprice>36</buyprice>
+		<durability><random min="30" max="50" /></durability>
+		<weight>7.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1006</type>
+		<category>Base Weapons\Bows\Bow (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="projectile" value="0xf42" />
+		<strproperty name="ammunition" value="f3f" />
+		<intproperty name="req_strength" value="30" />
+		<intproperty name="range" value="10" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="18" />
+	</item>
+
+	<item id="13b2" inherit="13b1">
+		<id>0x13b2</id>
+		<baseid>13b1</baseid>
+		<category>Base Weapons\Bows\Bow (E/W)</category>
+	</item>
+
+ </definitions>

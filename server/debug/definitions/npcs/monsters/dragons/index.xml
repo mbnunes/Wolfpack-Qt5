@@ -1,0 +1,21 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Dragons -->
+	<include file="definitions/npcs/monsters/dragons/ancient_wyrm.xml" />
+	<include file="definitions/npcs/monsters/dragons/dragon.xml" />
+	<include file="definitions/npcs/monsters/dragons/drake.xml" />
+	<include file="definitions/npcs/monsters/dragons/serpentine_dragon.xml" />
+	<include file="definitions/npcs/monsters/dragons/skeletal_dragon.xml"/>
+	<include file="definitions/npcs/monsters/dragons/shadow_wyrm.xml" />
+	<include file="definitions/npcs/monsters/dragons/white_wyrm.xml" />
+	<include file="definitions/npcs/monsters/dragons/wyvern.xml" />
+
+</definitions>

@@ -1,0 +1,51 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Ophidian Justicar -->
+	<npc id="ophidian_justicar" inherit="monster_base">
+		<name>ophidian justicar</name>
+		<id>85</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="281" max="305"/></str>
+		<dex><random min="191" max="215"/></dex>
+		<int><random min="64" max="160"/></int>
+		<maxhitpoints><random min="169" max="183"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="evaluatingintelligence"><random min="951" max="1000"/></skill>
+		<skill id="magery"><random min="951" max="1000"/></skill>
+		<skill id="magicresistance"><random min="750" max="975"/></skill>
+		<skill id="tactics"><random min="650" max="875"/></skill>
+		<skill id="wrestling"><random min="202" max="600"/></skill>
+		<skill id="meditation">0</skill>
+		<!-- Damage -->
+		<mindamage>12</mindamage>
+		<maxdamage>27</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_physical" value="40,45" type="int" />
+		<tag name="res_poison" value="35,40" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_rich;scroll_medium;scroll_medium;regs_high;regs_high;necroregs_high;necroregs_high</lootpacks>
+		<!-- Misc. -->
+		<desc>Magi who ascend to the top of their order may one day become Arch Mage. An Ophidian Arch Mage has access to the rarest of spells, and will use them freely in battle. Arch Magi are 12 warrior mages who seek out intruders into the land of the Ophidian. An Ophidian Arch Mage attacks on sight, and gives no warning. It is said that a chill in the air is the only thing that heralds such an attack, and few enough have lived to tell such tales.</desc>
+		<category>Monsters\Ophidians\Ophidian Justicar</category>
+		<strproperty name="slayer_group" value="ophidians" />
+		<intproperty name="food" value="1" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

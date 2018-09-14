@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Shepherd's Crook -->
+	<item id="13f5">
+		<id>0x13f5</id>
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<durability><random min="30" max="50" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment,skills.herding</basescripts>
+		<type>1003</type>
+		<twohanded />
+		<category>Base Weapons\Staves\Crook (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="40" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="15" />
+	</item>
+
+	<item id="13f4" inherit="13f5">
+		<id>0x13f4</id>
+		<baseid>13f5</baseid>
+		<category>Base Weapons\Staves\Crook (E/W)</category>
+	</item>
+
+</definitions>

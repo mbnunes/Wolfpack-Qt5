@@ -1,0 +1,64 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<npc id="cook_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="97e"><amount>20</amount></item>
+				<item id="97f"><amount>20</amount></item>
+				<item id="9b7"><amount>20</amount></item>
+				<item id="9bb"><amount>20</amount></item>
+				<item id="9e9"><amount>20</amount></item>
+				<item id="9ec"><amount>20</amount></item>
+				<item id="1039"><amount>20</amount></item>
+				<item id="103b"><amount>20</amount></item>
+				<item id="1041"><amount>20</amount></item>
+				<item id="1043"><amount>20</amount></item>
+				<item id="1608"><amount>20</amount></item>
+				<item id="1609"><amount>20</amount></item>
+			</restockable>
+			<sellable>
+				<item id="97e" />
+				<item id="97f" />
+				<item id="9b7" />
+				<item id="9bb" />
+				<item id="9e9" />
+				<item id="9ec" />
+				<item id="1039" />
+				<item id="103b" />
+				<item id="1041" />
+				<item id="1043" />
+				<item id="1608" />
+				<item id="1609" />
+			</sellable>
+		</shopkeeper>
+		<skill id="cooking"><random min="900" max="1000" /></skill>
+		<skill id="tasteidentification"><random min="750" max="980" /></skill>
+	</npc>
+
+	<!-- A cook vendor -->
+	<npc id="cook_male" inherit="vendor_male">
+		<inherit id="cook_inventory" />
+		<title context="Vendor Male Titles">the Cook</title>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
+		<category>Vendors\Cook (Male)</category>
+	</npc>
+
+	<npc id="cook_female" inherit="vendor_female">
+		<inherit id="cook_inventory" />
+		<title context="Vendor Female Titles">the Cook</title>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
+		<category>Vendors\Cook (Female)</category>
+	</npc>
+
+</definitions>

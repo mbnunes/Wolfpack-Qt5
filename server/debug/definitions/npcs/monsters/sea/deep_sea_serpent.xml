@@ -1,0 +1,66 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- deep sea serpent -->
+	<npc id="deep_sea_serpent" inherit="monster_base">
+		<name>deep sea serpent</name>
+		<id>150</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="251" max="425"/></str>
+		<dex><random min="87" max="135"/></dex>
+		<int><random min="87" max="155"/></int>
+		<maxhitpoints><random min="151" max="255"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="601" max="750"/></skill>
+		<skill id="tactics"><random min="601" max="700"/></skill>
+		<skill id="wrestling"><random min="601" max="700"/></skill>
+		<skill id="magery">0</skill>
+		<skill id="meditation">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<!-- Damage -->
+		<mindamage>15</mindamage>
+		<maxdamage>37</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_energy" value="15,20" type="int" />
+		<tag name="res_fire" value="70,80" type="int" />
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<!-- Missing: Level 2 Map (Fishing only), Special Fishing Net (Fishing only), MIB (Fishing only) -->
+		<lootpacks>lootpack_meager</lootpacks>
+		<backpack>
+			<content>
+				<item id="f7a"> <!-- Black Pearl -->
+					<amount>4</amount>
+				</item>
+				<item id="f8c"> <!-- Sulphurous Ash -->
+					<amount>4</amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Sea Monsters\Deep Sea Serpent</category>
+		<strproperty name="slayer_group" value="snakes" />
+		<intproperty name="food" value="1" />
+		<ai>Monster_Mage</ai>
+		<!-- Carve -->
+		<intproperty name="carve_scales" value="8" />
+		<strproperty name="carve_scales_type" value="blue" />
+		<intproperty name="carve_hides" value="10" />
+		<strproperty name="carve_hides_type" value="horned" />
+		<intproperty name="carve_meat" value="10" />
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

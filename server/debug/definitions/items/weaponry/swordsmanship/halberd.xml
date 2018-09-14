@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Halberd -->
+	<item id="143f">
+		<id>0x143f</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>19</sellprice>
+		<buyprice>38</buyprice>
+		<durability><random min="30" max="60" /></durability>
+		<weight>16.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Swordsmanship\Halberd (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="mindamage" value="18" />
+		<intproperty name="maxdamage" value="19" />
+	</item>
+
+	<item id="143e" inherit="143f">
+		<id>0x143e</id>
+		<baseid>143f</baseid>
+		<category>Base Weapons\Swordsmanship\Halberd (E/W)</category>
+	</item>
+
+</definitions>

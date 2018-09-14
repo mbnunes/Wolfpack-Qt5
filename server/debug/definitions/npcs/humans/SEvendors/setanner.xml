@@ -1,0 +1,60 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<npc id="setanner_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="e76"><amount>20</amount></item> <!-- Bag -->
+				<item id="e79"><amount>20</amount></item> <!-- Pouch -->
+				<item id="leather_hides"><amount>20</amount></item> <!-- Leather -->
+				<item id="taxidermy_kit"><amount>20</amount></item> <!-- Taxidermy Kit -->
+				<item id="ec4"><amount>20</amount></item> <!-- Skinning Knife -->
+				<item id="13cb"><amount>20</amount></item> <!-- Leather Legs -->
+				<item id="1c00"><amount>20</amount></item> <!-- Leather Shorts -->
+				<item id="1c08"><amount>20</amount></item> <!-- Leather Skirt -->
+				<item id="1db9"><amount>20</amount></item> <!-- Leather Cap -->
+				<item id="13c6"><amount>20</amount></item> <!-- Leather Gloves -->
+				<item id="13c7"><amount>20</amount></item> <!-- Leather Gorget -->
+				<item id="13cc"><amount>20</amount></item> <!-- Leather Chest -->
+				<item id="1c0a"><amount>20</amount></item> <!-- Leather Bustier Arms -->
+				<item id="13cd"><amount>20</amount></item> <!-- Leather Arms -->
+				<item id="13da"><amount>20</amount></item> <!-- Studded Legs -->
+				<item id="13d5"><amount>20</amount></item> <!-- Studded Gloves -->
+				<item id="13d6"><amount>20</amount></item> <!-- Studded Gorget -->
+				<item id="13db"><amount>20</amount></item> <!-- Studded Chest -->
+				<item id="1c0c"><amount>20</amount></item> <!-- Studded Bustier Arms -->
+				<item id="13dc"><amount>20</amount></item> <!-- Studded Arms -->
+				<item id="1c02"><amount>20</amount></item> <!-- Female Studded Chest -->
+				<item id="1c04"><amount>20</amount></item> <!-- Female Plate Chest -->
+				<item id="1c06"><amount>20</amount></item> <!-- Female Leather Chest -->
+				<item id="9b2"><amount>20</amount></item> <!-- Backpack -->
+			</restockable>
+			<sellable>
+				<item id="1078"/>
+				<item id="1081"/>
+				<item id="leather_cut"/>
+				<item id="leather_hides"/>		
+			</sellable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A SE tanner vendor -->
+	<npc id="setanner_male" inherit="vendor_male">
+		<title context="Vendor Male Titles">the Tanner</title>
+		<category>Vendors\SE Tanner (Male)</category>
+		<inherit id="setanner_inventory" />
+	</npc>
+
+	<npc id="setanner_female" inherit="vendor_female">
+		<title context="Vendor Female Titles">the Tanner</title>
+		<category>Vendors\SE Tanner (Female)</category>
+		<inherit id="setanner_inventory" />
+	</npc>
+
+</definitions>

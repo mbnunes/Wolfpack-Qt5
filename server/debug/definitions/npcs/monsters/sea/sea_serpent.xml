@@ -1,0 +1,49 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- sea serpent -->
+	<npc id="sea_serpent" inherit="monster_base">
+		<name>sea serpent</name>
+		<id>145</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="168" max="225"/></str>
+		<dex><random min="58" max="85"/></dex>
+		<int><random min="53" max="95"/></int>
+		<maxhitpoints><random min="110" max="127"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="601" max="750"/></skill>
+		<skill id="tactics"><random min="601" max="700"/></skill>
+		<skill id="wrestling"><random min="601" max="700"/></skill>
+		<!-- Damage -->
+		<mindamage>16</mindamage>
+		<maxdamage>26</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_energy" value="15,20" type="int" />
+		<tag name="res_fire" value="50,60" type="int" />
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<!-- Missing: Level 1 Map (Fishing only), Special Fishing Net (Fishing only), MIB (Fishing only) -->
+		<lootpacks>lootpack_meager;tm_2</lootpacks>
+		<!-- Misc. -->
+		<desc>Perhaps the greatest of all Britannia's creatures, the sea serpent can enwrap and crush a warship whole. Despite these serpents' terrible size, they are actively hunted for their scales, which are needed in the performance of certain Magical spells.</desc>
+		<category>Monsters\Sea Monsters\Sea Serpent</category>
+		<strproperty name="slayer_group" value="snakes" />
+		<intproperty name="food" value="1" />
+		<!-- Carve -->
+		<intproperty name="carve_scales" value="8" />
+		<strproperty name="carve_scales_type" value="blue" />
+		<intproperty name="carve_hides" value="10" />
+		<strproperty name="carve_hides_type" value="horned" />
+	</npc>
+
+</definitions>

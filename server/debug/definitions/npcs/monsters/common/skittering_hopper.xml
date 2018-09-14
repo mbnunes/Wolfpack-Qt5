@@ -1,0 +1,40 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- skittering hopper -->
+	<npc id="skittering_hopper" inherit="monster_base">
+		<name>skittering hopper</name>
+		<id>302</id>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="41" max="65"/></str>
+		<dex><random min="91" max="115"/></dex>
+		<int><random min="26" max="50"/></int>
+		<maxhitpoints><random min="31" max="45"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="anatomy">0</skill>
+		<skill id="magicresistance"><random min="301" max="450"/></skill>
+		<skill id="tactics"><random min="451" max="700"/></skill>
+		<skill id="wrestling"><random min="401" max="600"/></skill>
+		<!-- Damage -->
+		<mindamage>4</mindamage>
+		<maxdamage>7</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="5,10" type="int" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="5,10" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>gold_meager;gold_meager</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Common\Skittering Hopper</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,840 @@
+<decoration>
+	<!-- decorative weapons -->
+	<item id="0x1568">
+		<pos x="5422" y="1344" z="0" map="0" />
+		<pos x="5410" y="1360" z="0" map="0" />
+		<pos x="5410" y="1344" z="0" map="0" />
+	</item>
+
+	<!-- tavara's journal -->
+	<item id="0x0FF2">
+		<pos x="5486" y="1295" z="0" map="0" />
+	</item>
+
+	<!-- tavara's journal -->
+	<item id="0x0FF2">
+		<pos x="5437" y="1337" z="0" map="0" />
+	</item>
+
+	<!-- tavara's journal -->
+	<item id="0x0FF2">
+		<pos x="5440" y="1290" z="0" map="0" />
+	</item>
+
+	<!-- tavara's journal -->
+	<item id="0x0FF1">
+		<pos x="5540" y="1288" z="0" map="0" />
+	</item>
+
+	<!-- tavara's journal -->
+	<item id="0x0FF1">
+		<pos x="5531" y="1303" z="8" map="0" />
+	</item>
+
+	<!-- tavara's journal -->
+	<item id="0x0FF1">
+		<pos x="5440" y="1326" z="0" map="0" />
+	</item>
+
+	<!-- tavara's journal -->
+	<item id="0x0FF1">
+		<pos x="5394" y="1312" z="0" map="0" />
+	</item>
+
+	<!-- tavara's journal -->
+	<item id="0x0FF1">
+		<pos x="5433" y="1339" z="0" map="0" />
+	</item>
+
+	<!-- crate -->
+	<item id="0x0E7E">
+		<pos x="5432" y="1346" z="6" map="0" />
+		<pos x="5517" y="1296" z="4" map="0" />
+	</item>
+
+	<!-- crate -->
+	<item id="0x0E3E">
+		<pos x="5432" y="1346" z="3" map="0" />
+		<pos x="5544" y="1290" z="3" map="0" />
+		<pos x="5518" y="1296" z="1" map="0" />
+	</item>
+
+	<!-- crate -->
+	<item id="0x0E3C">
+		<pos x="5432" y="1346" z="0" map="0" />
+		<pos x="5432" y="1345" z="6" map="0" />
+		<pos x="5432" y="1345" z="3" map="0" />
+		<pos x="5432" y="1345" z="0" map="0" />
+		<pos x="5520" y="1289" z="0" map="0" />
+	</item>
+
+	<!-- scimitar -->
+	<item id="0x13B6">
+		<pos x="5405" y="1352" z="5" map="0" />
+		<pos x="5405" y="1352" z="6" map="0" />
+		<pos x="5409" y="1352" z="5" map="0" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E40" hue="0x973">
+		<pos x="5432" y="1348" z="5" map="0" />
+		<pos x="5416" y="1487" z="0" map="0" />
+		<pos x="5416" y="1481" z="0" map="0" />
+		<pos x="5416" y="1484" z="0" map="0" />
+		<pos x="5392" y="1444" z="0" map="0" />
+		<pos x="5448" y="1443" z="0" map="0" />
+	</item>
+
+	<!-- sledge hammer -->
+	<item id="0x0FB4">
+		<pos x="5384" y="1341" z="5" map="0" />
+		<pos x="5386" y="1336" z="5" map="0" />
+		<pos x="5386" y="1342" z="0" map="0" />
+	</item>
+
+	<!-- magical door -->
+	<item id="0x1EF4">
+		<pos x="5520" y="1299" z="10" map="0" />
+		<pos x="5520" y="1306" z="10" map="0" />
+	</item>
+
+	<!-- viking sword -->
+	<item id="0x13B9">
+		<pos x="5407" y="1352" z="5" map="0" />
+		<pos x="5391" y="1340" z="6" map="0" />
+	</item>
+
+	<!-- scimitar -->
+	<item id="0x13B5">
+		<pos x="5391" y="1338" z="5" map="0" />
+		<pos x="5456" y="1408" z="4" map="0" />
+		<pos x="5410" y="1352" z="5" map="0" />
+		<pos x="5410" y="1352" z="6" map="0" />
+		<pos x="5391" y="1339" z="5" map="0" />
+	</item>
+
+	<!-- magical door -->
+	<item id="0x1EE2">
+		<pos x="5528" y="1288" z="10" map="0" />
+		<pos x="5535" y="1288" z="10" map="0" />
+		<pos x="5548" y="1296" z="10" map="0" />
+		<pos x="5547" y="1296" z="10" map="0" />
+	</item>
+
+	<!-- bucket -->
+	<item id="0x14E0">
+		<pos x="5539" y="1288" z="0" map="0" />
+	</item>
+
+	<!-- fur%s% -->
+	<item id="0x11F7">
+		<pos x="5539" y="1289" z="0" map="0" />
+	</item>
+
+	<!-- fur%s% -->
+	<item id="0x11F8">
+		<pos x="5540" y="1291" z="0" map="0" />
+	</item>
+
+	<!-- bone armor -->
+	<item id="0x144F" hue="0x835">
+		<pos x="5384" y="1338" z="5" map="0" />
+		<pos x="5517" y="1340" z="5" map="0" />
+	</item>
+
+	<!-- bone gloves -->
+	<item id="0x1450" hue="0x835">
+		<pos x="5384" y="1336" z="5" map="0" />
+		<pos x="5515" y="1339" z="5" map="0" />
+	</item>
+
+	<!-- bone leggings -->
+	<item id="0x1452" hue="0x835">
+		<pos x="5385" y="1336" z="5" map="0" />
+	</item>
+
+	<!-- pickaxe -->
+	<item id="0x0E86">
+		<pos x="5544" y="1289" z="9" map="0" />
+	</item>
+
+	<!-- bone armor -->
+	<item id="0x1454" hue="0x835">
+		<pos x="5391" y="1336" z="5" map="0" />
+		<pos x="5389" y="1336" z="5" map="0" />
+	</item>
+
+	<!-- crate -->
+	<item id="0x0E3D">
+		<pos x="5544" y="1289" z="0" map="0" />
+		<pos x="5544" y="1289" z="3" map="0" />
+		<pos x="5544" y="1290" z="0" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12CC" hue="0x978">
+		<pos x="5431" y="1287" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12CC" hue="0x978">
+		<pos x="5395" y="1311" z="2" map="0" />
+	</item>
+
+	<!-- sparkle -->
+	<item id="0x375A">
+		<pos x="5557" y="1316" z="0" map="0" />
+		<pos x="5543" y="1355" z="0" map="0" />
+		<pos x="5527" y="1340" z="0" map="0" />
+		<pos x="5566" y="1336" z="0" map="0" />
+	</item>
+
+	<!-- brass sign -->
+	<item id="0x0BD2" hue="0x835">
+		<pos x="5448" y="1483" z="-6" map="0" />
+	</item>
+
+	<!-- brass sign -->
+	<item id="0x0BD2" hue="0x835">
+		<pos x="5452" y="1481" z="-6" map="0" />
+	</item>
+
+	<!-- brass sign -->
+	<item id="0x0BD2" hue="0x835">
+		<pos x="5456" y="1483" z="-6" map="0" />
+	</item>
+
+	<!-- brass sign -->
+	<item id="0x0BD2" hue="0x835">
+		<pos x="5445" y="1487" z="-6" map="0" />
+	</item>
+
+	<!-- brass sign -->
+	<item id="0x0BD2" hue="0x835">
+		<pos x="5459" y="1487" z="-6" map="0" />
+	</item>
+
+	<!-- broadsword -->
+	<item id="0x0F5F">
+		<pos x="5456" y="1406" z="4" map="0" />
+	</item>
+
+	<!-- swamp -->
+	<item id="0x326A" hue="0x21">
+		<pos x="5606" y="1344" z="0" map="0" />
+		<pos x="5604" y="1344" z="0" map="0" />
+		<pos x="5604" y="1342" z="0" map="0" />
+		<pos x="5422" y="1491" z="0" map="0" />
+		<pos x="5423" y="1492" z="0" map="0" />
+		<pos x="5421" y="1491" z="0" map="0" />
+		<pos x="5423" y="1491" z="0" map="0" />
+		<pos x="5422" y="1489" z="0" map="0" />
+		<pos x="5420" y="1490" z="0" map="0" />
+		<pos x="5423" y="1489" z="0" map="0" />
+		<pos x="5424" y="1490" z="0" map="0" />
+		<pos x="5424" y="1491" z="0" map="0" />
+		<pos x="5606" y="1343" z="0" map="0" />
+		<pos x="5606" y="1342" z="0" map="0" />
+		<pos x="5605" y="1342" z="0" map="0" />
+		<pos x="5605" y="1344" z="0" map="0" />
+		<pos x="5423" y="1490" z="0" map="0" />
+		<pos x="5604" y="1343" z="0" map="0" />
+		<pos x="5605" y="1343" z="0" map="0" />
+	</item>
+
+	<!-- blank scroll -->
+	<item id="0x0E34" hue="0x66D">
+		<pos x="5561" y="1352" z="5" map="0" />
+	</item>
+
+	<!-- viking sword -->
+	<item id="0x13BA">
+		<pos x="5456" y="1407" z="4" map="0" />
+		<pos x="5402" y="1352" z="6" map="0" />
+		<pos x="5402" y="1352" z="7" map="0" />
+		<pos x="5391" y="1340" z="5" map="0" />
+		<pos x="5402" y="1352" z="5" map="0" />
+	</item>
+
+	<!-- blank scroll -->
+	<item id="0x0EF3" hue="0x978">
+		<pos x="5562" y="1352" z="6" map="0" />
+	</item>
+
+	<!-- blank scroll -->
+	<item id="0x0EF3" hue="0x8AE">
+		<pos x="5562" y="1352" z="5" map="0" />
+	</item>
+
+	<!-- kryss -->
+	<item id="0x1400">
+		<pos x="5564" y="1352" z="5" map="0" />
+		<pos x="5616" y="1331" z="6" map="0" />
+	</item>
+
+	<!-- skull -->
+	<item id="0x1AE2">
+		<pos x="5369" y="1343" z="16" map="0" />
+		<pos x="5369" y="1343" z="6" map="0" />
+		<pos x="5369" y="1368" z="22" map="0" />
+		<pos x="5369" y="1368" z="11" map="0" />
+		<pos x="5369" y="1343" z="22" map="0" />
+		<pos x="5369" y="1368" z="16" map="0" />
+		<pos x="5369" y="1368" z="6" map="0" />
+		<pos x="5369" y="1343" z="11" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12D3" hue="0x978">
+		<pos x="5391" y="1296" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12D3" hue="0x978">
+		<pos x="5407" y="1308" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x1265" hue="0x978">
+		<pos x="5391" y="1297" z="2" map="0" />
+	</item>
+
+	<!-- bone gloves -->
+	<item id="0x1455" hue="0x835">
+		<pos x="5391" y="1338" z="6" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x1563">
+		<pos x="5416" y="1359" z="0" map="0" />
+	</item>
+
+	<!-- glowing rune -->
+	<item id="0x0E68">
+		<pos x="5453" y="1360" z="5" map="0" />
+		<pos x="5451" y="1360" z="5" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x156A">
+		<pos x="5416" y="1356" z="0" map="0" />
+	</item>
+
+	<!-- mushroom -->
+	<item id="0x0D18">
+		<pos x="5480" y="1329" z="0" map="0" />
+		<pos x="5473" y="1329" z="0" map="0" />
+	</item>
+
+	<!-- skull mug -->
+	<item id="0x0FFB">
+		<pos x="5544" y="1290" z="7" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12CF" hue="0x978">
+		<pos x="5441" y="1287" z="3" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12CF" hue="0x978">
+		<pos x="5556" y="1313" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12D0" hue="0x978">
+		<pos x="5443" y="1287" z="3" map="0" />
+		<pos x="5442" y="1287" z="3" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12D0" hue="0x978">
+		<pos x="5557" y="1313" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12CE" hue="0x978">
+		<pos x="5558" y="1313" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12CE" hue="0x978">
+		<pos x="5433" y="1287" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12CE" hue="0x978">
+		<pos x="5397" y="1311" z="2" map="0" />
+	</item>
+
+	<!-- puzzlechest -->
+	<item id="0x0E40" hue="0x839">
+		<pos x="5392" y="1468" z="0" map="0" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E40" hue="0x96F">
+		<pos x="5400" y="1408" z="5" map="0" />
+	</item>
+
+	<!-- skull with candle -->
+	<item id="0x1854">
+		<pos x="5400" y="1410" z="5" map="0" />
+		<pos x="5432" y="1343" z="5" map="0" />
+		<pos x="5432" y="1337" z="7" map="0" />
+		<pos x="5435" y="1339" z="5" map="0" />
+		<pos x="5432" y="1340" z="5" map="0" />
+		<pos x="5434" y="1336" z="20" map="0" />
+		<pos x="5400" y="1405" z="5" map="0" />
+		<pos x="5515" y="1338" z="5" map="0" />
+		<pos x="5525" y="1352" z="6" map="0" />
+		<pos x="5389" y="1343" z="5" map="0" />
+		<pos x="5547" y="1330" z="6" map="0" />
+		<pos x="5547" y="1334" z="6" map="0" />
+		<pos x="5396" y="1290" z="20" map="0" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E40">
+		<pos x="5456" y="1367" z="0" map="0" />
+		<pos x="5456" y="1362" z="0" map="0" />
+		<pos x="5448" y="1362" z="0" map="0" />
+		<pos x="5448" y="1371" z="0" map="0" />
+		<pos x="5610" y="1339" z="0" map="0" />
+	</item>
+
+	<!-- khaldun puzzle chest -->
+	<item id="0x0E40">
+		<pos x="5448" y="1367" z="0" map="0" />
+		<pos x="5610" y="1343" z="0" map="0" />
+	</item>
+
+	<!-- skull with candle -->
+	<item id="0x1858">
+		<pos x="5439" y="1337" z="5" map="0" />
+		<pos x="5439" y="1343" z="5" map="0" />
+		<pos x="5439" y="1340" z="5" map="0" />
+		<pos x="5437" y="1336" z="5" map="0" />
+		<pos x="5516" y="1340" z="5" map="0" />
+		<pos x="5550" y="1334" z="6" map="0" />
+		<pos x="5550" y="1330" z="6" map="0" />
+		<pos x="5547" y="1332" z="6" map="0" />
+		<pos x="5389" y="1348" z="5" map="0" />
+	</item>
+
+	<!-- spike trap -->
+	<item id="0x0">
+		<pos x="5442" y="1395" z="0" map="0" />
+		<pos x="5443" y="1395" z="0" map="0" />
+		<pos x="5444" y="1395" z="0" map="0" />
+		<pos x="5445" y="1395" z="0" map="0" />
+	</item>
+
+	<!-- mushroom -->
+	<item id="0x0D19">
+		<pos x="5472" y="1335" z="0" map="0" />
+	</item>
+
+	<!-- coffin -->
+	<item id="0x1C53">
+		<pos x="5491" y="1393" z="-4" map="0" />
+	</item>
+
+	<!-- coffin -->
+	<item id="0x1C52">
+		<pos x="5491" y="1392" z="-4" map="0" />
+	</item>
+
+	<!-- double axe -->
+	<item id="0x0F4C">
+		<pos x="5456" y="1409" z="3" map="0" />
+		<pos x="5408" y="1352" z="5" map="0" />
+	</item>
+
+	<!-- kryss -->
+	<item id="0x1401">
+		<pos x="5523" y="1352" z="5" map="0" />
+		<pos x="5623" y="1330" z="5" map="0" />
+	</item>
+
+	<!-- stone pavers -->
+	<item id="0x0519">
+		<pos x="5491" y="1394" z="-7" map="0" />
+		<pos x="5491" y="1393" z="-7" map="0" />
+		<pos x="5491" y="1392" z="-7" map="0" />
+	</item>
+
+	<!-- stone wall -->
+	<item id="0x01D0">
+		<pos x="5524" y="1367" z="-20" map="0" />
+	</item>
+
+	<!-- cutlass -->
+	<item id="0x1440">
+		<pos x="5456" y="1411" z="5" map="0" />
+		<pos x="5616" y="1328" z="5" map="0" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E41">
+		<pos x="5605" y="1348" z="2" map="0" />
+		<pos x="5542" y="1287" z="0" map="0" />
+	</item>
+
+	<!-- flask -->
+	<item id="0x1841">
+		<pos x="5432" y="1338" z="5" map="0" />
+	</item>
+
+	<!-- mortar and pestle -->
+	<item id="0x0E9B">
+		<pos x="5432" y="1339" z="5" map="0" />
+	</item>
+
+	<!-- scales -->
+	<item id="0x1852">
+		<pos x="5432" y="1342" z="5" map="0" />
+	</item>
+
+	<!-- book -->
+	<item id="0x0FF4">
+		<pos x="5436" y="1340" z="5" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x121E">
+		<pos x="5406" y="1295" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x121E">
+		<pos x="5573" y="1299" z="34" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x121F">
+		<pos x="5407" y="1295" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x121F">
+		<pos x="5574" y="1299" z="34" map="0" />
+	</item>
+
+	<!-- shovel -->
+	<item id="0x0F3A">
+		<pos x="5537" y="1298" z="0" map="0" />
+	</item>
+
+	<!-- pickaxe -->
+	<item id="0x0E85">
+		<pos x="5536" y="1299" z="4" map="0" />
+	</item>
+
+	<!-- platemail gloves -->
+	<item id="0x1414">
+		<pos x="5391" y="1343" z="5" map="0" />
+	</item>
+
+	<!-- bone arms -->
+	<item id="0x1453" hue="0x835">
+		<pos x="5384" y="1339" z="5" map="0" />
+	</item>
+
+	<!-- swamp -->
+	<item id="0x326D" hue="0x21">
+		<pos x="5424" y="1489" z="0" map="0" />
+		<pos x="5420" y="1492" z="0" map="0" />
+		<pos x="5421" y="1492" z="0" map="0" />
+		<pos x="5421" y="1489" z="0" map="0" />
+	</item>
+
+	<!-- swamp -->
+	<item id="0x326E" hue="0x21">
+		<pos x="5424" y="1488" z="0" map="0" />
+		<pos x="5422" y="1488" z="0" map="0" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E41" hue="0x973">
+		<pos x="5416" y="1343" z="5" map="0" />
+		<pos x="5444" y="1392" z="5" map="0" />
+		<pos x="5443" y="1392" z="5" map="0" />
+		<pos x="5442" y="1392" z="5" map="0" />
+		<pos x="5445" y="1392" z="20" map="0" />
+		<pos x="5443" y="1392" z="20" map="0" />
+		<pos x="5442" y="1392" z="20" map="0" />
+		<pos x="5445" y="1392" z="5" map="0" />
+		<pos x="5418" y="1343" z="5" map="0" />
+		<pos x="5444" y="1392" z="20" map="0" />
+		<pos x="5420" y="1440" z="0" map="0" />
+	</item>
+
+	<!-- blank scroll%s% -->
+	<item id="0x0EF3">
+		<pos x="5436" y="1336" z="7" map="0" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E40" hue="0x974">
+		<pos x="5400" y="1407" z="5" map="0" />
+	</item>
+
+	<!-- light -->
+	<item id="0x1ED0">
+		<pos x="5536" y="1337" z="0" map="0" />
+		<pos x="5537" y="1336" z="0" map="0" />
+		<pos x="5537" y="1337" z="0" map="0" />
+		<pos x="5536" y="1336" z="0" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x121D">
+		<pos x="5405" y="1295" z="2" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x121D">
+		<pos x="5572" y="1299" z="34" map="0" />
+	</item>
+
+	<!-- executioner's axe -->
+	<item id="0x0F45">
+		<pos x="5456" y="1409" z="3" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x1566">
+		<pos x="5416" y="1358" z="0" map="0" />
+	</item>
+
+	<!-- large battle axe -->
+	<item id="0x13FA" hue="0x835">
+		<pos x="5395" y="1448" z="5" map="0" />
+	</item>
+
+	<!-- dagger -->
+	<item id="0x0F52">
+		<pos x="5623" y="1329" z="5" map="0" />
+	</item>
+
+	<!-- bone legs -->
+	<item id="0x1457" hue="0x835">
+		<pos x="5517" y="1338" z="5" map="0" />
+	</item>
+
+	<!-- bone arms -->
+	<item id="0x144E" hue="0x835">
+		<pos x="5516" y="1339" z="5" map="0" />
+	</item>
+
+	<!-- viking sword -->
+	<item id="0x13BA" hue="0x835">
+		<pos x="5517" y="1339" z="5" map="0" />
+	</item>
+
+	<!-- khaldun puzzle chest -->
+	<item id="0x0E80" hue="0x66D">
+		<pos x="5537" y="1337" z="9" map="0" />
+	</item>
+
+	<!-- candelabra -->
+	<item id="0x0B1D">
+		<pos x="5470" y="1331" z="0" map="0" />
+	</item>
+
+	<!-- candle -->
+	<item id="0x0A0F">
+		<pos x="5451" y="1375" z="-3" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x1562">
+		<pos x="5416" y="1354" z="0" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12CD" hue="0x978">
+		<pos x="5432" y="1287" z="2" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x156B">
+		<pos x="5416" y="1355" z="0" map="0" />
+	</item>
+
+	<!-- statue -->
+	<item id="0x139D" hue="0x96E">
+		<pos x="5491" y="1395" z="6" map="0" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E40" hue="0x962">
+		<pos x="5400" y="1409" z="5" map="0" />
+	</item>
+
+	<!-- Corpser Frame -->
+	<item id="0x20D2" hue="0x482">
+		<pos x="5564" y="1354" z="6" map="0" />
+	</item>
+
+	<!-- fur%s% -->
+	<item id="0x11F6">
+		<pos x="5543" y="1291" z="0" map="0" />
+	</item>
+
+	<!-- bellows -->
+	<item id="0x1986">
+		<pos x="5387" y="1339" z="0" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x12D4" hue="0x978">
+		<pos x="5407" y="1307" z="2" map="0" />
+	</item>
+
+	<!-- blank scroll%s% -->
+	<item id="0x0E34">
+		<pos x="5566" y="1352" z="5" map="0" />
+	</item>
+
+	<!-- platemail gloves -->
+	<item id="0x1418">
+		<pos x="5391" y="1341" z="5" map="0" />
+	</item>
+
+	<!-- swamp -->
+	<item id="0x326B">
+		<pos x="5420" y="1489" z="0" map="0" />
+	</item>
+
+	<!-- statue -->
+	<item id="0x1226">
+		<pos x="5552" y="1333" z="16" map="0" />
+	</item>
+
+	<!-- lantern -->
+	<item id="0x0A25">
+		<pos x="5543" y="1287" z="5" map="0" />
+	</item>
+
+	<!-- khaldun puzzle chest -->
+	<item id="0x0E7C" hue="0x89E">
+		<pos x="5445" y="1503" z="0" map="0" />
+		<pos x="5457" y="1503" z="0" map="0" />
+	</item>
+
+	<!-- wave -->
+	<item id="0x1FBC" hue="0x21">
+		<pos x="5422" y="1491" z="0" map="0" />
+	</item>
+
+	<!-- wooden chest -->
+	<item id="0x0E43">
+		<pos x="5541" y="1287" z="4" map="0" />
+		<pos x="5541" y="1287" z="0" map="0" />
+	</item>
+
+	<!-- swamp -->
+	<item id="0x3241" hue="0x21">
+		<pos x="5423" y="1488" z="0" map="0" />
+		<pos x="5422" y="1492" z="0" map="0" />
+	</item>
+
+	<!-- swamp -->
+	<item id="0x3228" hue="0x21">
+		<pos x="5420" y="1491" z="0" map="0" />
+	</item>
+
+	<!-- no draw -->
+	<item id="0x21A4" hue="0x44">
+		<pos x="5392" y="1290" z="0" map="0" />
+	</item>
+
+	<!-- wave -->
+	<item id="0x1FA3" hue="0x21">
+		<pos x="5422" y="1489" z="0" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x1567">
+		<pos x="5416" y="1357" z="0" map="0" />
+	</item>
+
+	<!-- axe -->
+	<item id="0x0F4A">
+		<pos x="5456" y="1410" z="3" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x1569">
+		<pos x="5411" y="1360" z="0" map="0" />
+		<pos x="5411" y="1344" z="0" map="0" />
+		<pos x="5423" y="1344" z="0" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x1560">
+		<pos x="5414" y="1360" z="0" map="0" />
+	</item>
+
+	<!-- table -->
+	<item id="0x0B34">
+		<pos x="5517" y="1296" z="0" map="0" />
+	</item>
+
+	<!-- Pot%s% of Wax -->
+	<item id="0x142A" hue="0x835">
+		<pos x="5389" y="1347" z="5" map="0" />
+	</item>
+
+	<!-- coffin -->
+	<item id="0x1C54">
+		<pos x="5491" y="1394" z="-5" map="0" />
+	</item>
+
+	<!-- swamp -->
+	<item id="0x3236" hue="0x21">
+		<pos x="5422" y="1490" z="0" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x1220">
+		<pos x="5417" y="1295" z="3" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x1221">
+		<pos x="5418" y="1295" z="3" map="0" />
+	</item>
+
+	<!-- wall carving -->
+	<item id="0x1222">
+		<pos x="5419" y="1295" z="3" map="0" />
+	</item>
+
+	<!-- blank scroll%s% -->
+	<item id="0x0EF3" hue="0x44E">
+		<pos x="5562" y="1352" z="7" map="0" />
+	</item>
+
+	<!-- statue -->
+	<item id="0x139B">
+		<pos x="5552" y="1331" z="16" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x155E">
+		<pos x="5400" y="1350" z="0" map="0" />
+	</item>
+
+	<!-- decorative weapons -->
+	<item id="0x155F">
+		<pos x="5400" y="1347" z="0" map="0" />
+	</item>
+
+	<!-- stone -->
+	<item id="0x0788" hue="0x1">
+		<pos x="5564" y="1354" z="-3" map="0" />
+	</item>
+</decoration>

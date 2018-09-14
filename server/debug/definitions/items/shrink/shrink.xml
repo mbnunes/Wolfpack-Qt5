@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ambassador Kosh                |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+
+	<item id="shrink_pig">
+		<id>0x2101</id>
+		<basescripts>shrink</basescripts>
+		<name>pig</name>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="shrink_cow">
+		<id>0x2103</id>
+		<basescripts>shrink</basescripts>
+		<name>cow</name>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="shrink_llama">
+		<id>0x20f6</id>
+		<basescripts>shrink</basescripts>
+		<name>llama</name>
+		<weight>0.1</weight>
+		<tag name="npc_id" value="ridable_llama" />
+	</item>
+
+	<item id="shrink_sheep">
+		<id>0x20e6</id>
+		<basescripts>shrink</basescripts>
+		<name>sheep</name>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="shrink_cat">
+		<id>0x211b</id>
+		<basescripts>shrink</basescripts>
+		<name>Cat</name>
+		<weight>0.1</weight>
+		<buyprice>138</buyprice>
+		<tag name="npc_id" value="cat" />
+	</item>
+
+	<item id="shrink_dog">
+		<id>0x211c</id>
+		<basescripts>shrink</basescripts>
+		<name>dog</name>
+		<weight>0.1</weight>
+		<buyprice>181</buyprice>
+		<tag name="npc_id" value="dog" />
+	</item>
+
+	<item id="shrink_horse_1">
+		<id>0x211f</id>
+		<basescripts>shrink</basescripts>
+		<name>horse 1</name>
+		<weight>0.1</weight>
+		<tag name="npc_id" value="horse_1" />
+		<buyprice>602</buyprice>
+	</item>
+
+	<item id="shrink_horse_2">
+		<id>0x2120</id>
+		<basescripts>shrink</basescripts>
+		<name>horse 2</name>
+		<weight>0.1</weight>
+		<tag name="npc_id" value="horse_2" />
+		<buyprice>602</buyprice>
+	</item>
+
+	<item id="shrink_horse_3">
+		<id>0x2121</id>
+		<basescripts>shrink</basescripts>
+		<name>horse 3</name>
+		<weight>0.1</weight>
+		<tag name="npc_id" value="horse_3" />
+		<buyprice>602</buyprice>
+	</item>
+
+	<item id="shrink_horse_4">
+		<id>0x2124</id>
+		<basescripts>shrink</basescripts>
+		<name>horse 4</name>	
+		<weight>0.1</weight>
+		<tag name="npc_id" value="horse_4" />
+		<buyprice>602</buyprice>
+	</item>
+
+	<item id="shrink_packhorse">
+		<id>0x2126</id>
+		<basescripts>shrink</basescripts>
+		<name>packhorse</name>
+		<weight>0.1</weight>
+		<tag name="npc_id" value="pack_llama" />
+		<buyprice>606</buyprice>
+	</item>
+
+	<item id="shrink_packllama">
+		<id>0x2127</id>
+		<basescripts>shrink</basescripts>
+		<name>packllama</name>
+		<weight>0.1</weight>
+		<tag name="npc_id" value="pack_llama" />
+		<buyprice>491</buyprice>
+	</item>
+
+	<item id="shrink_wooly_sheep">
+		<id>0x20eb</id>
+		<basescripts>shrink</basescripts>
+		<name>wooly sheep</name>
+		<weight>0.1</weight>
+	</item>
+
+</definitions>

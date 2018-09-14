@@ -1,0 +1,60 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<npc id="skeleton_base" inherit="undead_base">
+		<name>skeleton</name>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="56" max="80"/></str>
+		<dex><random min="56" max="75"/></dex>
+		<int><random min="16" max="40"/></int>
+		<maxhitpoints><random min="34" max="48"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="451" max="600"/></skill>
+		<skill id="tactics"><random min="451" max="600"/></skill>
+		<skill id="wrestling"><random min="451" max="550"/></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>5</mindamage>
+		<maxdamage>11</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="25,40" type="int" />
+		<tag name="res_energy" value="5,15" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_poor;armor_bonemail_med</lootpacks>
+		<!-- Misc. -->
+		<desc>The animated bones of the dead are terrible to behold, but truth to tell they are not formidable warriors, being able to overcome awell-trained fighter only in large groups. Like ghouls, they appear to ingest meat in some supernatural fashion. The bones of a formerly animated skeleton are desired for certain dark magicks.</desc>
+		<strproperty name="slayer_group" value="undeads" />
+		<inherit id="speed_slow" />
+	</npc>
+
+	<!-- skeleton -->
+	<npc id="skeleton" inherit="skeleton_base">
+		<id>0x32</id>
+		<category>Monsters\Undead\Skeleton</category>
+	</npc>
+
+	<!-- skeleton (with axe) -->
+	<npc id="skeleton_axe" inherit="skeleton_base">
+		<id>0x38</id>
+		<category>Monsters\Undead\Skeleton (with Axe)</category>
+	</npc>
+
+	<!-- skeleton (with sword) -->
+	<npc id="skeleton_sword" inherit="skeleton_base">
+		<id>0x39</id>
+		<category>Monsters\Undead\Skeleton (with Sword)</category>
+	</npc>
+
+</definitions>

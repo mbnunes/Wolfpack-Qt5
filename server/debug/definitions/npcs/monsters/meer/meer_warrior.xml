@@ -1,0 +1,48 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by:
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Meer Warrior -->
+	<npc id="meer_warrior" inherit="monster_base">
+		<name>meer warrior</name>
+		<id>771</id>
+		<inherit id="KARMA_NL4" />
+		<inherit id="FAME_L2" />
+		<!-- Stats -->
+		<str><random min="86" max="100"/></str>
+		<dex><random min="186" max="200"/></dex>
+		<int><random min="86" max="100"/></int>
+		<maxhitpoints><random min="52" max="60"/></maxhitpoints>
+		<maxstamina><random min="186" max="200"/></maxstamina>
+		<maxmana><random min="86" max="100"/></maxmana>
+		<!-- Skills -->
+		<skill id="wrestling"><random min="910" max="1000"/></skill>
+		<skill id="tactics"><random min="910" max="1000"/></skill>
+		<skill id="magicresistance"><random min="910" max="1000"/></skill>
+		<skill id="anatomy"><random min="0" max="0"/></skill>
+		<!-- Damage -->
+		<mindamage>22</mindamage>
+		<maxdamage>34</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="35,45" type="int" />
+		<tag name="res_fire" value="5,15" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>gold_meager</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Meer\Meer Warrior</category>
+		<strproperty name="slayer_group" value="meers" />
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Kryss -->
+	<item id="1401">
+		<id>0x1401</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>16</sellprice>
+		<buyprice>37</buyprice>
+		<durability><random min="50" max="85" /></durability>
+		<weight>1.0</weight>
+		<tag name="resname" value="iron" />
+		<basescripts>equipment,blades</basescripts>
+		<type>1005</type>
+		<category>Base Weapons\Fencing\Kryss (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+	</item>
+
+	<item id="1400" inherit="1401">
+		<id>0x1400</id>
+		<baseid>1401</baseid>
+		<category>Base Weapons\Fencing\Kryss (E/W)</category>
+	</item>
+
+</definitions>

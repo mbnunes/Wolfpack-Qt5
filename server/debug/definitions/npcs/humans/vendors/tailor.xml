@@ -1,0 +1,105 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<!-- The inventory of a tailor -->
+	<npc id="tailor_inventory">
+		<shopkeeper>
+			<!-- Stuff that is constantly being restocked by the vendor -->
+			<restockable>
+				<item id="f9e"><amount>20</amount></item> <!-- Scissors -->
+				<item id="f9d"><amount>20</amount></item> <!-- Sewing Kit -->
+				<item id="fa9"><amount>20</amount></item> <!-- Dyes -->
+				<item id="fab"><amount>20</amount></item> <!-- Dye Tub  -->
+				<item id="f95"><amount>20</amount><color>0</color></item> <!-- Bolt Of Cloth -->
+				<item id="1efd"><amount>20</amount><color>0</color></item> <!-- Fancy Shirt -->
+				<item id="1517"><amount>20</amount><color>0</color></item> <!-- Shirt -->
+				<item id="152e"><amount>20</amount><color>0</color></item> <!-- Short Pants -->
+				<item id="1539"><amount>20</amount><color>0</color></item> <!-- Long Pants -->
+				<item id="1515"><amount>20</amount><color>0</color></item> <!-- Cloak -->
+				<item id="1eff"><amount>20</amount><color>0</color></item> <!-- Fancy Dress -->
+				<item id="1f03"><amount>20</amount><color>0</color></item> <!-- Robe -->
+				<item id="1516"><amount>20</amount><color>0</color></item> <!-- Skirt -->
+				<item id="1537"><amount>20</amount><color>0</color></item> <!-- Kilt -->
+				<item id="153d"><amount>20</amount><color>0</color></item> <!-- Full Apron -->
+				<item id="153b"><amount>20</amount><color>0</color></item> <!-- Half Apron -->
+				<item id="1f7b"><amount>20</amount><color>0</color></item> <!-- Doublet -->
+				<item id="1fa1"><amount>20</amount><color>0</color></item> <!-- Tunic -->
+				<item id="1f9f"><amount>20</amount><color>0</color></item> <!-- Jester Suit -->
+				<item id="171c"><amount>20</amount><color>0</color></item> <!-- Jester Hat -->
+				<item id="1713"><amount>20</amount><color>0</color></item> <!-- Floppy Hat -->
+				<item id="1714"><amount>20</amount><color>0</color></item> <!-- Wide Brim Hat -->
+				<item id="1715"><amount>20</amount><color>0</color></item> <!-- Cap -->
+				<item id="1543"><amount>20</amount><color>0</color></item> <!-- Skull Cap -->
+				<item id="153f"><amount>20</amount><color>0</color></item> <!-- Bandana -->
+				<item id="1716"><amount>20</amount><color>0</color></item> <!-- Tall Straw Hat -->
+				<item id="1717"><amount>20</amount><color>0</color></item> <!-- Straw Hat -->
+				<item id="1718"><amount>20</amount><color>0</color></item> <!-- Wizards Hat -->
+				<item id="1719"><amount>20</amount><color>0</color></item> <!-- Bonnet -->
+				<item id="171a"><amount>20</amount><color>0</color></item> <!-- Feathered Hat -->
+				<item id="171b"><amount>20</amount><color>0</color></item> <!-- Tricorne Hat -->
+				<item id="fa0"><amount>20</amount></item> <!-- Spool Of Thread -->
+				<item id="1a9c"><amount>20</amount></item> <!-- Flax -->
+				<item id="df9"><amount>20</amount></item> <!-- Cotton -->
+				<item id="df8"><amount>20</amount></item> <!-- Wool -->
+			</restockable>
+			<sellable>
+				<item id="f9e" /> <!-- Scissors -->
+				<item id="f9d" /> <!-- Sewing Kit -->
+				<item id="fa9" /> <!-- Dyes -->
+				<item id="fab" /> <!-- Dye Tub  -->
+				<item id="f95" /> <!-- Bolt Of Cloth -->
+				<item id="1efd" /> <!-- Fancy Shirt -->
+				<item id="1517" /> <!-- Shirt -->
+				<item id="152e" /> <!-- Short Pants -->
+				<item id="1539" /> <!-- Long Pants -->
+				<item id="1515" /> <!-- Cloak -->
+				<item id="1eff" /> <!-- Fancy Dress -->
+				<item id="1f03" /> <!-- Robe -->
+				<item id="1516" /> <!-- Skirt -->
+				<item id="1537" /> <!-- Kilt -->
+				<item id="153d" /> <!-- Full Apron -->
+				<item id="153b" /> <!-- Half Apron -->
+				<item id="1f7b" /> <!-- Doublet -->
+				<item id="1fa1" /> <!-- Tunic -->
+				<item id="1f9f" /> <!-- Jester Suit -->
+				<item id="171c" /> <!-- Jester Hat -->
+				<item id="1713" /> <!-- Floppy Hat -->
+				<item id="1714" /> <!-- Wide Brim Hat -->
+				<item id="1715" /> <!-- Cap -->
+				<item id="1543" /> <!-- Skull Cap -->
+				<item id="153f" /> <!-- Bandana -->
+				<item id="1716" /> <!-- Tall Straw Hat -->
+				<item id="1717" /> <!-- Straw Hat -->
+				<item id="1718" /> <!-- Wizards Hat -->
+				<item id="1719" /> <!-- Bonnet -->
+				<item id="171a" /> <!-- Feathered Hat -->
+				<item id="171b" /> <!-- Tricorne Hat -->
+				<item id="fa0" /> <!-- Spool Of Thread -->
+				<item id="1a9c" /> <!-- Flax -->
+				<item id="df9" /> <!-- Cotton -->
+				<item id="df8" /> <!-- Wool -->
+			</sellable>
+		</shopkeeper>
+		<skill id="tailoring"><random min="640" max="1000"/></skill>
+	</npc>
+
+	<!-- A Tailor vendor -->
+	<npc id="tailor_male" inherit="vendor_male">
+		<title context="Vendor Male Titles">the Tailor</title>
+		<inherit id="tailor_inventory" />
+		<category>Vendors\Tailor (Male)</category>
+	</npc>
+
+	<npc id="tailor_female" inherit="vendor_female">
+		<title context="Vendor Female Titles">the Tailor</title>
+		<inherit id="tailor_inventory" />
+		<category>Vendors\Tailor (Female)</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,69 @@
+
+<definitions>
+	<spawnregion id="delucia_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>delucia_vendors</group>
+		<group>delucia</group>
+	</spawnregion>
+
+	<spawnregion inherit="delucia_vendor" id="delucia_vendor_1">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5272,3980,37,1" />
+	</spawnregion>
+
+	<spawnregion inherit="delucia_vendor" id="delucia_vendor_2">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5286,3980,37,1" />
+	</spawnregion>
+
+	<spawnregion inherit="delucia_vendor" id="delucia_vendor_3">
+		<active />
+		<npc id="stablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5294,4008,40,1" />
+	</spawnregion>
+
+	<spawnregion inherit="delucia_vendor" id="delucia_vendor_4">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5217,4011,37,1" />
+	</spawnregion>
+
+	<spawnregion inherit="delucia_vendor" id="delucia_vendor_5">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5226,4005,37,1" />
+	</spawnregion>
+
+	<spawnregion inherit="delucia_vendor" id="delucia_vendor_6">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5189,3989,37,1" />
+	</spawnregion>
+
+	<spawnregion inherit="delucia_vendor" id="delucia_vendor_7">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5233,4020,37,1" />
+	</spawnregion>
+
+	<spawnregion inherit="delucia_vendor" id="delucia_vendor_8">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5197,4060,37,1" />
+	</spawnregion>
+
+</definitions>

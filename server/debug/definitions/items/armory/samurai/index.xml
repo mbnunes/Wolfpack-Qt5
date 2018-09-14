@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<include file="definitions/items/armory/samurai/kasa.xml" />
+
+	<include file="definitions/items/armory/samurai/cloth_ninja_hood.xml" />
+	<include file="definitions/items/armory/samurai/cloth_ninja_jacket.xml" />
+
+	<include file="definitions/items/armory/samurai/leather_do.xml" />
+	<include file="definitions/items/armory/samurai/leather_hiadate.xml" />
+	<include file="definitions/items/armory/samurai/leather_hiro_sode.xml" />
+	<include file="definitions/items/armory/samurai/leather_jingasa.xml" />
+	<include file="definitions/items/armory/samurai/leather_mempo.xml" />
+
+	<include file="definitions/items/armory/samurai/leather_ninja_belt.xml" />
+	<include file="definitions/items/armory/samurai/leather_ninja_mitts.xml" />
+	<include file="definitions/items/armory/samurai/leather_ninja_hood.xml" />
+	<include file="definitions/items/armory/samurai/leather_ninja_jacket.xml" />
+	<include file="definitions/items/armory/samurai/leather_ninja_pants.xml" />
+	<include file="definitions/items/armory/samurai/leather_suneate.xml" />
+
+	<include file="definitions/items/armory/samurai/mail_hatsuburi.xml" />
+
+	<include file="definitions/items/armory/samurai/plate_do.xml" />
+	<include file="definitions/items/armory/samurai/plate_hatsuburi.xml" />
+	<include file="definitions/items/armory/samurai/plate_hiadate.xml" />
+	<include file="definitions/items/armory/samurai/plate_hiro_sode.xml" />
+	<include file="definitions/items/armory/samurai/plate_jingasa.xml" />
+	<include file="definitions/items/armory/samurai/plate_mempo.xml" />
+	<include file="definitions/items/armory/samurai/plate_suneate.xml" />
+
+	<include file="definitions/items/armory/samurai/studded_leather_do.xml" />
+	<include file="definitions/items/armory/samurai/studded_leather_hiadate.xml" />
+	<include file="definitions/items/armory/samurai/studded_leather_hiro_sode.xml" />
+	<include file="definitions/items/armory/samurai/studded_leather_mempo.xml" />
+	<include file="definitions/items/armory/samurai/studded_leather_suneate.xml" />
+
+</definitions>

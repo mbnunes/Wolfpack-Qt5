@@ -1,0 +1,40 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<npc id="cobbler_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="170f"><amount>20</amount></item>
+				<item id="170b"><amount>20</amount></item>
+				<item id="1711"><amount>20</amount></item>
+				<item id="170d"><amount>20</amount></item>
+			</restockable>
+			<sellable>
+				<item id="170f" />
+				<item id="170b" />
+				<item id="1711" />
+				<item id="170d" />
+			</sellable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A cobbler vendor -->
+	<npc id="cobbler_male" inherit="vendor_male">
+		<inherit id="cobbler_inventory" />
+		<title context="Vendor Male Titles">the Cobbler</title>
+		<category>Vendors\Cobbler (Male)</category>
+	</npc>
+	
+	<npc id="cobbler_female" inherit="vendor_female">
+		<inherit id="cobbler_inventory" />
+		<title context="Vendor Female Titles">the Cobbler</title>
+		<category>Vendors\Cobbler (Female)</category>
+	</npc>
+
+</definitions>

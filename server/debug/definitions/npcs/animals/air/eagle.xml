@@ -1,0 +1,60 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+	<!-- eagle -->
+	<npc id="eagle" inherit="animal_base">
+		<name>eagle</name>
+		<ai>Animal_Wild</ai>
+		<id>5</id>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="31" max="47" /></str>
+		<dex><random min="36" max="60" /></dex>
+		<int><random min="8" max="20" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="20" max="27" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>6</mindamage>
+		<maxdamage>13</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_fire" value="10,15" type="int" />
+		<tag name="res_cold" value="20,25" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<tag name="res_energy" value="5,10" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="201" max="300" /></skill>
+		<skill id="tactics"><random min="181" max="370" /></skill>
+		<skill id="magicresistance"><random min="181" max="370" /></skill>
+		<!-- Misc -->
+		<controlslots>1</controlslots>
+		<mintaming>171</mintaming>
+		<strproperty name="food" value="1,2" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Birds\Eagle</category>
+		<!-- Loot Packs -->
+		<backpack>
+			<content>
+				<item id="f7a"> <!-- black pearl -->
+					<amount>4</amount>
+				</item>
+				<item id="eed">
+					<amount><random min="50" max="100" /></amount>
+				</item>
+			</content>
+		</backpack>	
+		<!-- Carve -->
+		<intproperty name="carve_feathers" value="36" />
+		<intproperty name="carve_meat" value="1" />
+		<strproperty name="carve_meat_type" value="bird" />
+	</npc>
+
+</definitions>

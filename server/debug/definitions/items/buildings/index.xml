@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<!--
+	Buildings Index File
+-->
+<definitions>
+	<include file="definitions/items/buildings/banisters.xml"/>
+	<include file="definitions/items/buildings/banners.xml"/>
+	<include file="definitions/items/buildings/carpets.xml"/>
+	<include file="definitions/items/buildings/chairs.xml"/>
+	<include file="definitions/items/buildings/curtains.xml"/>
+	<include file="definitions/items/buildings/doors.xml"/>
+	<include file="definitions/items/buildings/dungeon.xml"/>
+	<include file="definitions/items/buildings/fences.xml"/>
+	<include file="definitions/items/buildings/fireplaces.xml"/>
+	<include file="definitions/items/buildings/floors.xml"/>
+	<include file="definitions/items/buildings/furniture.xml"/>
+	<include file="definitions/items/buildings/lightsources.xml"/>
+	<include file="definitions/items/buildings/misc.xml"/>
+	<include file="definitions/items/buildings/roofs.xml"/>
+	<include file="definitions/items/buildings/shrines.xml"/>
+	<include file="definitions/items/buildings/stairs.xml"/>
+	<include file="definitions/items/buildings/trophies.xml"/>
+	<include file="definitions/items/buildings/walls.xml"/>
+	<include file="definitions/items/buildings/weapons.xml"/>
+	<include file="definitions/items/buildings/windows.xml"/>
+</definitions>

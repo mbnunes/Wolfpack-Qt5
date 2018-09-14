@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Baker                                                         |
+=================================================================
+-->
+<definitions>
+
+	<item id="1039">
+		<id>0x1039</id>
+		<category>Professions\Baker\Sack of Flour (W/E)</category>
+		<basescripts>skills.cooking</basescripts>
+		<tag name="quantity" type="int" value="20" />
+	</item>
+
+	<item id="103a" inherit="1039">
+		<id>0x103a</id>
+		<category>Professions\Baker\Open Sack of Flour (W/E)</category>
+	</item>
+
+	<item id="1045" inherit="1039">
+		<id>0x1045</id>
+		<category>Professions\Baker\Sack of Flour (N/S)</category>
+	</item>
+
+	<item id="1046" inherit="1039">
+		<id>0x1046</id>
+		<category>Professions\Baker\Open Sack of Flour (N/S)</category>
+	</item>
+
+	<item id="103e">
+		<id>0x103e</id>
+		<category>Professions\Baker\Tools\Flour Sifter</category>		
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>equipment,skills.cooking</basescripts>
+		<tag name="remaining_uses" type="int" value="50" />
+	</item>
+
+	<item id="1043">
+		<id>0x1043</id>
+		<category>Professions\Baker\Tools\Rolling Pin</category>		
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>equipment,skills.cooking</basescripts>
+		<tag name="remaining_uses" type="int" value="50" />
+	</item>
+
+	<item id="1044">
+		<id>0x1044</id>
+		<category>Professions\Baker\Spam</category>
+	</item>
+
+	<item id="14e0">
+		<id>0x14e0</id>
+		<category>Professions\Baker\Bucket</category>
+	</item>
+
+	<item id="14e9">
+		<id>0x14e9</id>
+		<category>Professions\Baker\Moulding Board (N/S)</category>
+	</item>
+
+	<item id="14ea">
+		<id>0x14ea</id>
+		<category>Professions\Baker\Moulding Board (W/E)</category>
+	</item>
+
+	<item id="10e3">
+		<id>0x10e3</id>
+		<category>Professions\Baker\Dough Bowl</category>
+	</item>
+
+	<item id="187e">
+		<id>0x187e</id>
+		<category>Professions\Baker\Spilled Flour 1</category>
+	</item>
+
+	<item id="187f">
+		<id>0x187f</id>
+		<category>Professions\Baker\Spilled Flour 2</category>
+	</item>
+
+	<item id="1880">
+		<id>0x1880</id>
+		<category>Professions\Baker\Spilled Flour 3</category>
+	</item>
+
+	<item id="1881">
+		<id>0x1881</id>
+		<category>Professions\Baker\Spilled Flour 4</category>
+	</item>
+
+	<item id="1882">
+		<id>0x1882</id>
+		<category>Professions\Baker\Winnowing Basket</category>
+	</item>
+
+	<item id="1883">
+		<id>0x1883</id>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 1</category>
+	</item>
+
+	<item id="1884">
+		<id>0x1884</id>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 2</category>
+	</item>
+
+	<item id="1885">
+		<id>0x1885</id>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 3</category>
+	</item>
+
+	<item id="1886">
+		<id>0x1886</id>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 4</category>
+	</item>
+
+	<item id="1887">
+		<id>0x1887</id>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 5</category>
+	</item>
+
+	<item id="1888">
+		<id>0x1888</id>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 6</category>
+	</item>
+
+	<item id="1889">
+		<id>0x1889</id>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 7</category>
+	</item>
+
+	<item id="188a">
+		<id>0x188a</id>
+		<nodecay />
+		<category>Professions\Baker\Millstone\Millstone 8</category>
+	</item>
+
+	<item id="1920">
+		<id>0x1920</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 1 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1921">
+		<id>0x1921</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 2 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1922">
+		<id>0x1922</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 1 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1923">
+		<id>0x1923</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 2 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1924">
+		<id>0x1924</id>
+		<nodecay />
+		<category>Professions\Baker\Crank (W/E)</category>
+	</item>
+
+	<item id="1925">
+		<id>0x1925</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 3 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1926">
+		<id>0x1926</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 3 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1928">
+		<id>0x1928</id>
+		<category>Professions\Baker\Rotating Crank (W/E)</category>
+	</item>
+
+	<item id="192c">
+		<id>0x192c</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 1 (N/S) (1/2)</category>
+	</item>
+
+	<item id="192d">
+		<id>0x192d</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 2 (N/S) (1/2)</category>
+	</item>
+
+	<item id="192e">
+		<id>0x192e</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 1 (N/S) (2/2)</category>
+	</item>
+
+	<item id="192f">
+		<id>0x192f</id>
+		<nodecay />
+		<category>Professions\Baker\Flour Mill\Flour Mill 2 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1930">
+		<id>0x1930</id>
+		<category>Professions\Baker\Crank (N/S)</category>
+	</item>
+
+	<item id="1931">
+		<id>0x1931</id>
+		<category>Professions\Baker\Flour Mill\Flour Mill 3 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1932">
+		<id>0x1932</id>
+		<category>Professions\Baker\Flour Mill\Flour Mill 3 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1934">
+		<id>0x1934</id>
+		<category>Professions\Baker\Rotating Crank (N/S)</category>
+	</item>
+
+	<item id="1e26">
+		<id>0x1e26</id>
+		<nodecay />
+		<category>Professions\Baker\Oar\Oar (N/S) (1/2)</category>
+	</item>
+
+	<item id="1e27">
+		<id>0x1e27</id>
+		<nodecay />
+		<category>Professions\Baker\Oar\Oar (N/S) (2/2)</category>
+	</item>
+
+	<item id="1e28">
+		<id>0x1e28</id>
+		<nodecay />
+		<category>Professions\Baker\Oar\Oar (W/E) (1/2)</category>
+	</item>
+
+	<item id="1e29">
+		<id>0x1e29</id>
+		<category>Professions\Baker\Oar\Oar (W/E) (2/2)</category>
+	</item>
+
+	<item id="1e2a">
+		<id>0x1e2a</id>
+		<category>Professions\Baker\Oar\Oars (N/S)</category>
+	</item>
+
+	<item id="1e2b">
+		<id>0x1e2b</id>
+		<category>Professions\Baker\Oar\Oars (W/E)</category>
+	</item>
+
+	<item id="1ebd">
+		<id>0x1ebd</id>
+		<category>Professions\Baker\Sheaf of Wheat</category>
+		<basescripts>wheat</basescripts>
+	</item>
+
+</definitions>

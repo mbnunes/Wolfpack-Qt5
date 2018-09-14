@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Artifacts -->
+	<include file="definitions/items/weaponry/artifacts/index.xml"/>
+
+	<!-- Archery -->
+	<include file="definitions/items/weaponry/archery/index.xml"/>
+
+	<!-- Fencing -->
+	<include file="definitions/items/weaponry/fencing/index.xml"/>
+
+	<!-- Macefighting -->
+	<include file="definitions/items/weaponry/macefighting/index.xml"/>
+
+	<!-- Swordsmanship -->
+	<include file="definitions/items/weaponry/swordsmanship/index.xml"/>
+
+	<!-- Samurai Empire New Weapons -->
+	<include file="definitions/items/weaponry/samurai/index.xml"/>
+
+	<!-- Colored Weapons -->
+	<include file="definitions/items/weaponry/colored/index.xml"/>
+
+</definitions>

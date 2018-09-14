@@ -1,0 +1,61 @@
+<!--
+/*=========================================================
+* ) (\_ | WOLFPACK 13.0.0 Scripts
+* (( _/{ "-; | Created by: Owner_Mutilador
+* )).-' {{ ;'` | Revised by:
+* ( ( ;._ \\ | Last modification:
+*=======================================================*/
+-->
+<definitions>
+
+	<!-- Paroxysmus -->
+	<npc id="Grobu" inherit="monster_base">
+		<name>Grobu</name>
+		<id>0xD3</id>
+		<skin>0x455</skin>
+		<inherit id="KARMA_L1" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="192" max="210"/></str>
+		<dex><random min="132" max="150"/></dex>
+		<int><random min="50" max="52"/></int>
+		<maxhitpoints><random min="1244" max="129"/></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>6</mindamage>
+		<maxdamage>12</maxdamage>
+		<tag name="dmg_physical" value="100" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="1074" max="1190"/></skill>
+		<skill id="tactics"><random min="973" max="1165"/></skill>
+		<skill id="magicresistance"><random min="662" max="837"/></skill>
+		<!-- Resists -->
+		<tag name="res_physical" value="40,45" type="int" />
+		<tag name="res_fire" value="20,32" type="int" />
+		<tag name="res_cold" value="32,35" type="int" />
+		<tag name="res_poison" value="25,29" type="int" />
+		<tag name="res_energy" value="22,34" type="int" />
+		<!-- Loot -->
+		<!-- Missing: Magic Items, Bonsai Seed -->
+		<backpack>
+			<content>
+				<item id="eed"><amount><random min="2000" max="2500" /></amount></item>
+				<item id="9b5"> <!-- Eggs -->
+					<amount>2</amount>
+				</item>
+			</content>
+		</backpack>
+		<lootpacks>gems;gems;gems;gems;gems;gems;tm_5</lootpacks>
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="50" />
+		<intproperty name="hit_poison_chance" value="50" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="20" />
+		<!-- Misc. -->
+		<strproperty name="food" value="1,2" />
+		<category>Monsters\Mondains Legancy\Painted Caves\Grobu</category>
+		<strproperty name="slayer_group" value="reptile,snake" />
+		<inherit id="speed_fast" />
+	</npc>
+
+</definitions>

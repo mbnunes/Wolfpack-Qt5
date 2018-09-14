@@ -1,0 +1,31 @@
+<decoration>
+	<!-- wooden gate-->
+	<item id="0x0839">
+		<pos x="1400" y="433" z="-6" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x083B">
+		<pos x="1401" y="433" z="-6" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x0841">
+		<pos x="1395" y="441" z="13" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x0843">
+		<pos x="1395" y="440" z="13" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x0866">
+		<pos x="1390" y="432" z="-16" map="2" />
+	</item>
+
+	<!-- bag-->
+	<item id="0x0E76" hue="0x10">
+		<pos x="1391" y="439" z="19" map="2" />
+	</item>
+</decoration>

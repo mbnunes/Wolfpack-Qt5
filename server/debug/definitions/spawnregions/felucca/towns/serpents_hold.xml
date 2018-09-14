@@ -1,0 +1,47 @@
+
+<definitions>
+	<spawnregion id="felucca_serpents_hold_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>felucca_serpents_hold_vendors</group>
+		<group>felucca_serpents_hold</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_serpents_hold_vendor" id="felucca_serpents_hold_vendor_1">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3051,3370,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_serpents_hold_vendor" id="felucca_serpents_hold_vendor_2">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3005,3387,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_serpents_hold_vendor" id="felucca_serpents_hold_vendor_3">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2994,3433,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_serpents_hold_vendor" id="felucca_serpents_hold_vendor_4">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2970,3418,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_serpents_hold_vendor" id="felucca_serpents_hold_vendor_5">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2964,3408,15,0" />
+	</spawnregion>
+</definitions>

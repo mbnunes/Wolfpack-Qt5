@@ -1,0 +1,44 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- patchwork skeleton -->
+	<npc id="patchwork_skeleton" inherit="monster_base">
+		<name>patchwork skeleton</name>
+		<id>309</id>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="96" max="120"/></str>
+		<dex><random min="71" max="95"/></dex>
+		<int><random min="16" max="40"/></int>
+		<maxhitpoints><random min="58" max="72"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="701" max="950"/></skill>
+		<skill id="tactics"><random min="551" max="800"/></skill>
+		<skill id="wrestling"><random min="501" max="700"/></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>31</mindamage>
+		<maxdamage>41</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_cold" value="15" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="55,65" type="int" />
+		<tag name="res_fire" value="50,60" type="int" />
+		<tag name="res_cold" value="70,80" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Undead\Patchwork Skeleton</category>
+	</npc>
+
+</definitions>

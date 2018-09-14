@@ -1,0 +1,61 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Random Cow -->
+	<npc id="cow" inherit="animal_base">
+		<name>cow</name>
+		<id><random valuelist="231,216" /></id>
+		<ai>Animal_Domestic</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str>30</str>
+		<dex>15</dex>
+		<int>5</int>
+		<!-- Status -->
+		<maxhitpoints>18</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>4</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,15" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling">55</skill>
+		<skill id="tactics">55</skill>
+		<skill id="magicresistance">55</skill>
+		<!-- Misc. -->
+		<basescripts>npc.cow</basescripts>
+		<scripts>farming</scripts>
+		<controlslots>1</controlslots>
+		<mintaming>111</mintaming>
+		<strproperty name="food" value="3,5" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Cow (Random)</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_meat" value="8" />
+	</npc>
+
+	<!-- Cow (black & white) -->
+	<npc id="cow_black" inherit="cow">
+		<id>231</id>
+		<baseid>cow</baseid>
+		<category>Animals\Land\Cow (Black)</category>
+	</npc>
+
+	<!-- Cow (brown) -->
+	<npc id="cow_brown" inherit="cow">
+		<id>216</id>
+		<baseid>cow</baseid>
+		<category>Animals\Land\Cow (Brown)</category>
+	</npc>
+
+</definitions>

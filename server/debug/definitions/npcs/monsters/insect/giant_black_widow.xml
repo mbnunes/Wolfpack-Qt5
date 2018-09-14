@@ -1,0 +1,59 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- giant black widow -->
+	<!-- Large Version ID: 173 -->
+	<npc id="giant_black_widow" inherit="monster_base">
+		<name>giant black widow</name>
+		<id>157</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="76" max="100" /></str>
+		<dex><random min="96" max="115" /></dex>
+		<int><random min="36" max="60" /></int>
+		<maxhitpoints><random min="46" max="60" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="anatomy"><random min="303" max="750"/></skill>
+		<skill id="poisoning"><random min="601" max="800"/></skill>
+		<skill id="magicresistance"><random min="451" max="600"/></skill>
+		<skill id="tactics"><random min="651" max="800"/></skill>
+		<skill id="wrestling"><random min="701" max="850"/></skill>
+		<!-- Damage -->
+		<mindamage>11</mindamage>
+		<maxdamage>35</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="20,30" type="int" />
+		<tag name="res_poison" value="50,60" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_average</lootpacks>
+		<backpack>
+			<content>
+				<item id="potion_lesserpoison" />
+				<item id="potion_lesserpoison" />
+				<item id="f8d"> <!-- Spiders Silk -->
+					<amount>5</amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Insects\Giant Black Widow</category>
+		<strproperty name="food" value="1" />
+		<strproperty name="slayer_group" value="spiders" />
+		<inherit id="speed_fast" />
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="3" />
+	</npc>
+
+</definitions>

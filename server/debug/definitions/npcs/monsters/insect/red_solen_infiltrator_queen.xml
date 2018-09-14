@@ -1,0 +1,43 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- red solen infiltrator queen -->
+	<npc id="red_solen_infiltrator_queen" inherit="monster_base">
+		<name>red solen infiltrator</name>
+		<id>783</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="326" max="350"/></str>
+		<dex><random min="141" max="165"/></dex>
+		<int><random min="96" max="120"/></int>
+		<maxhitpoints><random min="151" max="162"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance">900</skill>
+		<skill id="tactics">900</skill>
+		<skill id="wrestling">900</skill>
+		<!-- Damage -->
+		<mindamage>26</mindamage>
+		<maxdamage>39</maxdamage>
+		<tag name="dmg_poison" value="30" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="25,30" type="int" />
+		<tag name="res_fire" value="30,35" type="int" />
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_poison" value="35,40" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 4 to 16 Zoogi Fungus, Picnic Basket -->
+		<lootpacks>gold_rich</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Solen\Red Solen Infiltrator (Queen)</category>
+	</npc>
+
+</definitions>

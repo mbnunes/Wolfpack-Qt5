@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Spirit of the Totem -->
+	<item id="spirit_of_the_totem">
+		<id>0x1547</id>
+		<name>#1061599</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<weight>4.0</weight>
+		<durability>255</durability>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Spirit of the Totem</category>
+		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="res_physical" value="20" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="req_strength" value="10" />
+	</item>
+
+</definitions>

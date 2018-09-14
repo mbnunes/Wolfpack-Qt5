@@ -1,0 +1,53 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- an earth elemental -->
+	<npc id="earth_elemental" inherit="monster_base">
+		<name>earth elemental</name>
+		<id>14</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="126" max="155"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="71" max="92"/></int>
+		<maxhitpoints><random min="76" max="93"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="501" max="950"/></skill>
+		<skill id="tactics"><random min="601" max="1000"/></skill>
+		<skill id="wrestling"><random min="601" max="1000"/></skill>
+		<!-- Damage -->
+		<mindamage>17</mindamage>
+		<maxdamage>32</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="15,25" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="30,35" type="int" />
+		<tag name="res_poison" value="15,25" type="int" />
+		<!-- Dispel Difficulty -->
+		<intproperty name="dispeldifficulty" value="1175" />
+		<intproperty name="dispelfocus" value="450" />
+		<!-- Missing: 5 Iron Ore -->
+		<lootpacks>lootpack_average;lootpack_average;gems;tm_1</lootpacks>
+		<backpack>
+			<content>
+				<item id="f81"><amount><random min="1" max="4"/></amount></item> <!-- fertile death -->
+				<item id="f86" /> <!-- mandrake root -->
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<desc>These beings embody the element of Earth, and as the Air Elementals dwell naturally on a plane devoid of solidity, the Earth Elementals are native to a world devoid of air. They are mighty engines of destruction indeed, possessing both the crushing power of the avalanche and the steadfast endurance of the mountain. Furthermore, they command magicks allowing them to twist the earth to their will.</desc>
+		<category>Monsters\Elementals\Earth Elemental</category>
+		<strproperty name="slayer_group" value="earthelementals" />
+		<inherit id="speed_slow" />
+	</npc>
+
+</definitions>

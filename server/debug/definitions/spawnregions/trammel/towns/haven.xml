@@ -1,0 +1,148 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="trammel_animalhaven_1">
+		<active />
+		<maxnpcamount>35</maxnpcamount>
+                <delay min="2" max="5" />
+		<npcspercycle>10</npcspercycle>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="3601,2463" to="3759,2689" map="0" />
+	</spawnregion>
+
+	<spawnregion id="haven_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>haven_vendors</group>
+		<group>haven</group>
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_1">
+		<active />
+		<npc id="spinner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spinner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3692,2474,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_2">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3690,2483,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_3">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3685,2475,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_4">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3642,2499,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_5">
+		<active />
+		<npc id="banker_male">
+			<npcwander type="6" />
+		</npc>
+		<npc id="banker_female">
+			<npcwander type="6" />
+		</npc>
+		<maxnpcamount>2</maxnpcamount>
+		<npcspercycle>2</npcspercycle>
+		<delay min="0" max="5" />
+		<rectangle from="3484,2569,20" to="3485,2578,20" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_7">
+		<active />
+		<npc id="bard_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bard_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3665,2531,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_8">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3628,2541,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_9">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3664,2582,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_10">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3625,2568,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_11">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3636,2568,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_12">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3626,2573,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_14">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3642,2618,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_15">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3666,2619,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_16">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3676,2594,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_17">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3666,2650,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="haven_vendor" id="haven_vendor_18">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3712,2651,20,1" />
+	</spawnregion>
+</definitions>

@@ -1,0 +1,87 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by: King Falcon                    |
+|  ( (  ;._ \\ ctr | Last Modification: 05/24/05                |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_deceit">
+		<inactive />
+		<maxnpcamount>35</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>deceit</group>
+		<group>felucca_deceit</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_deceitlvl4">
+		<inactive />
+		<maxnpcamount>25</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>deceit</group>
+		<group>felucca_deceit_lvl4</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_deceit" id="felucca_deceit_lvl1_1">
+		<active />
+		<npc id="bone_knight"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton_axe"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton_sword"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5134,527" to="5229,621" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_deceit" id="felucca_deceit_lvl2_2">
+		<active />
+		<npc id="bone_knight"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton_axe"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton_sword"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5280,536" to="5345,626" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_deceit" id="felucca_deceit_lvl3_3">
+		<active />
+		<npc id="bone_knight"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton_axe"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton_sword"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5130,648" to="5230,748" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_deceitlvl4" id="felucca_deceit_lvl4_4">
+		<active />
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5256,648" to="5336,754" map="0" />
+	</spawnregion>
+</definitions>

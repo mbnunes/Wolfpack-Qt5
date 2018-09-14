@@ -1,0 +1,68 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Ratman Base -->
+	<npc id="ratman" inherit="monster_base">
+		<!-- Monsterspeech -->
+		<strproperty name="monsterspeech" value="ratman" />
+		<basescript>speech.monster</basescript>
+		<name><random list="NAMES_RATMAN" /></name>
+		<id><random list="NPCIDS_RATMAN" /></id>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
+		<!-- Stats -->
+		<str><random min="96" max="120"/></str>
+		<dex><random min="81" max="100"/></dex>
+		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="58" max="72" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="351" max="600"/></skill>
+		<skill id="tactics"><random min="501" max="750"/></skill>
+		<skill id="wrestling"><random min="501" max="750"/></skill>
+		<!-- Damage -->
+		<mindamage>7</mindamage>
+		<maxdamage>9</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager</lootpacks>
+		<!-- Misc. -->
+		<desc>Surely the product of some foul sorcery, the rat man truly has the features of a rat, but walks about like a man. Rat men wear garments, wield weapons and give every sign of possessing intelligence. They arevicious, thieving creatures, and cowards if pressed in battle.</desc>
+		<category>Monsters\Ratmen\Ratman (Random)</category>
+		<strproperty name="slayer_group" value="ratmen" />
+		<intproperty name="food" value="1" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="8" />
+		<strproperty name="carve_hides_type" value="spined" />
+	</npc>
+
+	<!-- a ratman -->
+	<npc id="ratman_1" inherit="ratman">
+		<id>45</id>
+		<category>Monsters\Ratmen\Ratman 1</category>
+	</npc>
+
+	<!-- a ratman -->
+	<npc id="ratman_2" inherit="ratman">
+		<id>42</id>
+		<category>Monsters\Ratmen\Ratman 2</category>
+	</npc>
+
+	<!-- a ratman -->
+	<npc id="ratman_3" inherit="ratman">
+		<id>44</id>
+		<category>Monsters\Ratmen\Ratman 3</category>
+	</npc>
+
+</definitions>

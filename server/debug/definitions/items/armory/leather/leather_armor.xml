@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Female Tunic -->
+	<item id="1c06">
+		<id>0x1c06</id>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>116</buyprice>
+		<sellprice>58</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leather\Female Leather Armor (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="25" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+		<allowmeditation />
+	</item>
+
+	<item id="1c07" inherit="1c06">
+		<id>0x1c07</id>
+		<baseid>1c06</baseid>
+		<category>Base Armor\Leather\Female Leather Armor (E/W)</category>
+	</item>
+
+ </definitions>

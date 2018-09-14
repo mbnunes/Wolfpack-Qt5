@@ -1,0 +1,2154 @@
+<decoration>
+	<!-- Bakery-->
+	<item id="0xba3">
+		<attribute key="name" value="#1016317" />
+		<pos x="557" y="1000" z="0" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba3">
+		<pos x="561" y="986" z="10" map="0" />
+		<pos x="1460" y="1610" z="20" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba3">
+		<attribute key="name" value="#1016049" />
+		<pos x="1368" y="3733" z="0" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0x0be9">
+		<attribute key="name" value="#1023049" />
+		<pos x="3632" y="2537" z="0" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016284" />
+		<pos x="3681" y="2176" z="20" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016049" />
+		<pos x="3753" y="2232" z="20" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016193" />
+		<pos x="5744" y="3209" z="16" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016220" />
+		<pos x="2977" y="3360" z="15" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<pos x="5744" y="3209" z="17" map="0" />
+		<pos x="1881" y="2814" z="6" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016373" />
+		<pos x="2995" y="768" z="0" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016165" />
+		<pos x="4390" y="1072" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba5">
+		<attribute key="name" value="#1016361" />
+		<pos x="2840" y="878" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba5">
+		<attribute key="name" value="#1016256" />
+		<pos x="2888" y="3502" z="10" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba5">
+		<attribute key="name" value="#1016263" />
+		<pos x="3672" y="2232" z="20" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba5">
+		<attribute key="name" value="#1016271" />
+		<pos x="3784" y="1264" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba5">
+		<attribute key="name" value="#1016038" />
+		<pos x="1360" y="3786" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016350" />
+		<pos x="1555" y="1665" z="37" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016251" />
+		<pos x="648" y="2192" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016361" />
+		<pos x="2969" y="624" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016037" />
+		<pos x="1986" y="2846" z="15" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="A Stitch in Time Tailor Shop" />
+		<pos x="3680" y="2480" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016323" />
+		<pos x="1470" y="1696" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016426" />
+		<pos x="5200" y="98" z="5" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016238" />
+		<pos x="4459" y="1072" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016038" />
+		<pos x="1458" y="4008" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016350" />
+		<pos x="1555" y="1665" z="37" map="0" />
+	</item>
+
+	<!-- Tinker-->
+	<item id="0xba7">
+		<attribute key="name" value="#1016308" />
+		<pos x="2904" y="794" z="0" map="0" />
+	</item>
+
+	<!-- Tinker-->
+	<item id="0xba8">
+		<attribute key="name" value="#1016124" />
+		<pos x="2472" y="458" z="15" map="0" />
+	</item>
+
+	<!-- Tinker-->
+	<item id="0xba8">
+		<attribute key="name" value="#1016123" />
+		<pos x="1411" y="3808" z="0" map="0" />
+	</item>
+
+	<!-- Tinker-->
+	<item id="0xba8">
+		<attribute key="name" value="#1016391" />
+		<pos x="5729" y="3250" z="15" map="26" />
+	</item>
+
+	<!-- Tinker-->
+	<item id="0xba8">
+		<attribute key="name" value="#1016390" />
+		<pos x="2931" y="3512" z="10" map="0" />
+	</item>
+
+	<!-- Tinker-->
+	<item id="0xba8">
+		<attribute key="name" value="#1016368" />
+		<pos x="3712" y="2136" z="20" map="0" />
+	</item>
+
+	<!-- Tinker-->
+	<item id="0xba8">
+		<attribute key="name" value="#1016391" />
+		<pos x="5729" y="3250" z="26" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xba9">
+		<attribute key="name" value="#1016372" />
+		<pos x="2000" y="2888" z="5" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xba9">
+		<attribute key="name" value="#1016114" />
+		<pos x="1464" y="4024" z="0" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xba9">
+		<attribute key="name" value="#1016289" />
+		<pos x="3000" y="777" z="0" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xba9">
+		<attribute key="name" value="#1016497" />
+		<pos x="4400" y="1132" z="0" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xba9">
+		<attribute key="name" value="#1016270" />
+		<pos x="3720" y="2650" z="20" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xba9">
+		<attribute key="name" value="#1016069" />
+		<pos x="592" y="2185" z="0" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xba9">
+		<attribute key="name" value="#1016436" />
+		<pos x="544" y="1008" z="0" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xba9">
+		<attribute key="name" value="#1016204" />
+		<pos x="3554" y="1175" z="0" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xbaa">
+		<attribute key="name" value="#1016360" />
+		<pos x="5698" y="3289" z="24" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xbaa">
+		<attribute key="name" value="#1016295" />
+		<pos x="1449" y="1728" z="1" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xbaa">
+		<attribute key="name" value="#1016069" />
+		<pos x="582" y="2192" z="0" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xbaa">
+		<attribute key="name" value="#1016360" />
+		<pos x="5698" y="3289" z="24" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xbaa">
+		<attribute key="name" value="#1016358" />
+		<pos x="2442" y="416" z="15" map="0" />
+	</item>
+
+	<!-- Butcher-->
+	<item id="0xbaa">
+		<attribute key="name" value="#1016244" />
+		<pos x="2909" y="3496" z="10" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbab">
+		<attribute key="name" value="#1016142" />
+		<pos x="2928" y="852" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbab">
+		<attribute key="name" value="#1016313" />
+		<pos x="2248" y="1227" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbab">
+		<attribute key="name" value="#1016099" />
+		<pos x="3720" y="1380" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbab">
+		<attribute key="name" value="#1016425" />
+		<pos x="5267" y="131" z="20" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbab">
+		<attribute key="name" value="#1016143" />
+		<pos x="544" y="970" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbab">
+		<attribute key="name" value="#1016313" />
+		<pos x="5740" y="3216" z="6" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbab">
+		<attribute key="name" value="#1016137" />
+		<pos x="1480" y="1610" z="20" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016139" />
+		<pos x="3685" y="2231" z="20" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016313" />
+		<pos x="2576" y="603" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016141" />
+		<pos x="621" y="2224" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016185" />
+		<pos x="4396" y="1088" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016157" />
+		<pos x="1409" y="3792" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016138" />
+		<pos x="2706" y="2152" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016405" />
+		<pos x="1914" y="2813" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016246" />
+		<pos x="2994" y="3440" z="15" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbad">
+		<attribute key="name" value="#1016277" />
+		<pos x="5305" y="94" z="19" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbad">
+		<attribute key="name" value="#1016173" />
+		<pos x="3712" y="2215" z="20" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbad">
+		<attribute key="name" value="#1016148" />
+		<pos x="5291" y="3982" z="37" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbad">
+		<attribute key="name" value="#1016107" />
+		<pos x="1852" y="2709" z="10" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbad">
+		<attribute key="name" value="#1016148" />
+		<pos x="5291" y="3982" z="37" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016359" />
+		<pos x="1488" y="1572" z="30" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016286" />
+		<pos x="2894" y="664" z="0" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016424" />
+		<pos x="5152" y="77" z="28" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016151" />
+		<pos x="1590" y="1665" z="22" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016188" />
+		<pos x="4451" y="1096" z="0" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016151" />
+		<pos x="1590" y="1665" z="22" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016168" />
+		<pos x="609" y="2184" z="0" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016403" />
+		<pos x="5730" y="3204" z="19" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016247" />
+		<pos x="3005" y="3360" z="15" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016191" />
+		<pos x="656" y="2144" z="0" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016325" />
+		<pos x="2912" y="680" z="0" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016159" />
+		<pos x="1427" y="3993" z="10" map="0" />
+	</item>
+
+	<!-- Mage-->
+	<item id="0xbae">
+		<attribute key="name" value="#1016403" />
+		<pos x="5730" y="3204" z="19" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbaf">
+		<attribute key="name" value="#1016067" />
+		<pos x="576" y="1009" z="0" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbaf">
+		<attribute key="name" value="#1016417" />
+		<pos x="2632" y="2102" z="10" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbaf">
+		<attribute key="name" value="#1016290" />
+		<pos x="5703" y="3210" z="10" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbb0">
+		<attribute key="name" value="#1016084" />
+		<pos x="633" y="2168" z="0" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbb0">
+		<attribute key="name" value="#1016312" />
+		<pos x="2913" y="808" z="0" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbb0">
+		<attribute key="name" value="#1016339" />
+		<pos x="2510" y="482" z="15" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0x0bca">
+		<attribute key="name" value="#1016211" />
+		<pos x="3646" y="2512" z="0" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbb0">
+		<attribute key="name" value="#1016353" />
+		<pos x="1433" y="1600" z="20" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbb0">
+		<attribute key="name" value="#1016067" />
+		<pos x="561" y="1016" z="0" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbb0">
+		<attribute key="name" value="#1016502" />
+		<pos x="4414" y="1096" z="0" map="0" />
+	</item>
+
+	<!-- Woodworker-->
+	<item id="0xbb0">
+		<attribute key="name" value="#1016122" />
+		<pos x="1425" y="3824" z="0" map="0" />
+	</item>
+
+	<!-- Customs-->
+	<item id="0xbb1">
+		<attribute key="name" value="#1016414" />
+		<pos x="2952" y="929" z="0" map="0" />
+	</item>
+
+	<!-- Customs-->
+	<item id="0xbb1">
+		<attribute key="name" value="#1022993" />
+		<pos x="1480" y="1746" z="0" map="0" />
+		<pos x="3720" y="1224" z="0" map="0" />
+	</item>
+
+	<!-- Customs-->
+	<item id="0xbb2">
+		<attribute key="name" value="#1016327" />
+		<pos x="2993" y="824" z="0" map="0" />
+	</item>
+
+	<!-- Customs-->
+	<item id="0xbb2">
+		<attribute key="name" value="#1016215" />
+		<pos x="5804" y="3282" z="16" map="0" />
+	</item>
+
+	<!-- Customs-->
+	<item id="0xbb2">
+		<pos x="679" y="2240" z="7" map="0" />
+		<pos x="713" y="2236" z="7" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016362" />
+		<pos x="3704" y="2167" z="20" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016427" />
+		<pos x="5222" y="183" z="8" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016243" />
+		<pos x="5168" y="35" z="22" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016334" />
+		<pos x="1368" y="3829" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016416" />
+		<pos x="2976" y="875" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016285" />
+		<pos x="2976" y="3406" z="15" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016299" />
+		<pos x="616" y="2232" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016334" />
+		<pos x="1376" y="3814" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016232" />
+		<pos x="3740" y="1314" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016278" />
+		<pos x="5204" y="4060" z="37" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb3">
+		<attribute key="name" value="#1016377" />
+		<pos x="1600" y="1589" z="20" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016283" />
+		<pos x="3670" y="2624" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016351" />
+		<pos x="2030" y="2813" z="9" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016345" />
+		<pos x="2714" y="2104" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<pos x="1500" y="1626" z="14" map="0" />
+		<pos x="5773" y="3174" z="9" map="0" />
+		<pos x="3670" y="2624" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016338" />
+		<pos x="1474" y="1520" z="20" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016354" />
+		<pos x="4407" y="1168" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016187" />
+		<pos x="4483" y="1072" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016315" />
+		<pos x="2769" y="976" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016318" />
+		<pos x="5774" y="3175" z="20" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016371" />
+		<pos x="1841" y="2744" z="0" map="0" />
+	</item>
+
+	<!-- Inn-->
+	<item id="0xbb4">
+		<attribute key="name" value="#1016269" />
+		<pos x="1501" y="1627" z="25" map="0" />
+	</item>
+
+	<!-- Shipwright-->
+	<item id="0xbb5">
+		<attribute key="name" value="#1016239" />
+		<pos x="3704" y="1213" z="0" map="0" />
+	</item>
+
+	<!-- Shipwright-->
+	<item id="0xbb5">
+		<attribute key="name" value="#1016267" />
+		<pos x="608" y="2273" z="0" map="0" />
+	</item>
+
+	<!-- Shipwright-->
+	<item id="0xbb5">
+		<attribute key="name" value="#1016340" />
+		<pos x="1424" y="1747" z="10" map="0" />
+	</item>
+
+	<!-- Shipwright-->
+	<item id="0xbb6">
+		<attribute key="name" value="#1016237" />
+		<pos x="1449" y="3752" z="0" map="0" />
+	</item>
+
+	<!-- Shipwright-->
+	<item id="0xbb6">
+		<attribute key="name" value="#1016042" />
+		<pos x="3634" y="2648" z="0" map="0" />
+	</item>
+
+	<!-- Shipwright-->
+	<item id="0xbb6">
+		<attribute key="name" value="#1016130" />
+		<pos x="626" y="1040" z="0" map="0" />
+	</item>
+
+	<!-- Shipwright-->
+	<item id="0xbb6">
+		<attribute key="name" value="#1016307" />
+		<pos x="3669" y="2261" z="20" map="0" />
+	</item>
+
+	<!-- Shipwright-->
+	<item id="0xbb6">
+		<pos x="2993" y="824" z="0" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb7">
+		<attribute key="name" value="#1016408" />
+		<pos x="1828" y="2743" z="0" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb7">
+		<pos x="1305" y="1760" z="14" map="0" />
+		<pos x="2912" y="3517" z="10" map="0" />
+		<pos x="3043" y="3463" z="25" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb7">
+		<attribute key="name" value="#1016260" />
+		<pos x="1306" y="1761" z="25" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb7">
+		<attribute key="name" value="#1016261" />
+		<pos x="5678" y="3286" z="10" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb8">
+		<attribute key="name" value="#1016262" />
+		<pos x="5304" y="3997" z="37" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb8">
+		<pos x="1515" y="1552" z="25" map="0" />
+		<pos x="2521" y="379" z="23" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb8">
+		<attribute key="name" value="#1016118" />
+		<pos x="2005" y="2813" z="-1" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb8">
+		<attribute key="name" value="#1016262" />
+		<pos x="1386" y="1664" z="30" map="0" />
+	</item>
+
+	<!-- Stables-->
+	<item id="0xbb8">
+		<pos x="2005" y="2813" z="0" map="0" />
+		<pos x="1516" y="1553" z="36" map="0" />
+	</item>
+
+	<!-- Bard-->
+	<item id="0xbbb">
+		<attribute key="name" value="#1016336" />
+		<pos x="2432" y="555" z="0" map="0" />
+	</item>
+
+	<!-- Bard-->
+	<item id="0xbbc">
+		<attribute key="name" value="#1016163" />
+		<pos x="1454" y="1561" z="30" map="0" />
+	</item>
+
+	<!-- Bard-->
+	<item id="0xbbc">
+		<attribute key="name" value="#1016057" />
+		<pos x="3743" y="1207" z="0" map="0" />
+	</item>
+
+	<!-- Fletcher-->
+	<item id="0xbbe">
+		<attribute key="name" value="#1016203" />
+		<pos x="3551" y="1194" z="0" map="0" />
+	</item>
+
+	<!-- Fletcher-->
+	<item id="0xbbe">
+		<attribute key="name" value="#1016255" />
+		<pos x="3053" y="3376" z="15" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016265" />
+		<pos x="1489" y="1587" z="32" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016248" />
+		<pos x="3024" y="3430" z="15" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016375" />
+		<pos x="2224" y="1165" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016349" />
+		<pos x="5802" y="3287" z="13" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016154" />
+		<pos x="1464" y="3849" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<pos x="1488" y="1586" z="21" map="0" />
+		<pos x="2840" y="801" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016098" />
+		<pos x="1368" y="3752" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016189" />
+		<pos x="592" y="2170" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016045" />
+		<pos x="1640" y="1688" z="32" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016331" />
+		<pos x="4400" y="1115" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbbf">
+		<attribute key="name" value="#1016242" />
+		<pos x="1448" y="3721" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016085" />
+		<pos x="1472" y="3872" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016154" />
+		<pos x="1449" y="3864" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016145" />
+		<pos x="1446" y="1654" z="10" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016252" />
+		<pos x="1899" y="2664" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016098" />
+		<pos x="1362" y="3768" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016422" />
+		<pos x="2525" y="578" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016127" />
+		<pos x="648" y="2168" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016322" />
+		<pos x="1370" y="1584" z="30" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<attribute key="name" value="#1016241" />
+		<pos x="4436" y="1168" z="0" map="0" />
+	</item>
+
+	<!-- Armourer-->
+	<item id="0xbc0">
+		<pos x="1376" y="3752" z="0" map="0" />
+	</item>
+
+	<!-- Jeweler-->
+	<item id="0xbc1">
+		<attribute key="name" value="#1016356" />
+		<pos x="2888" y="721" z="0" map="0" />
+	</item>
+
+	<!-- Jeweler-->
+	<item id="0xbc1">
+		<attribute key="name" value="#1016222" />
+		<pos x="1458" y="1683" z="0" map="0" />
+	</item>
+
+	<!-- Jeweler-->
+	<item id="0xbc1">
+		<attribute key="name" value="#1016300" />
+		<pos x="3673" y="2184" z="30" map="0" />
+	</item>
+
+	<!-- Jeweler-->
+	<item id="0xbc1">
+		<attribute key="name" value="#1016264" />
+		<pos x="5671" y="3148" z="21" map="0" />
+	</item>
+
+	<!-- Jeweler-->
+	<item id="0xbc2">
+		<attribute key="name" value="#1016153" />
+		<pos x="3778" y="1176" z="0" map="0" />
+	</item>
+
+	<!-- Jeweler-->
+	<item id="0xbc2">
+		<attribute key="name" value="#1016018" />
+		<pos x="1660" y="1648" z="0" map="0" />
+	</item>
+
+	<!-- Jeweler-->
+	<item id="0xbc2">
+		<attribute key="name" value="#1016344" />
+		<pos x="1901" y="2814" z="0" map="0" />
+	</item>
+
+	<!-- Jeweler-->
+	<item id="0xbc2">
+		<attribute key="name" value="#1016343" />
+		<pos x="1443" y="3993" z="10" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016328" />
+		<pos x="2916" y="905" z="0" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016355" />
+		<pos x="568" y="2177" z="0" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016192" />
+		<pos x="3784" y="1231" z="0" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016281" />
+		<pos x="1502" y="1689" z="20" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016346" />
+		<pos x="2688" y="2232" z="-4" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016319" />
+		<pos x="1942" y="2791" z="0" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016128" />
+		<pos x="3736" y="2230" z="20" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016352" />
+		<pos x="1632" y="1586" z="0" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc3">
+		<attribute key="name" value="#1016291" />
+		<pos x="1432" y="1730" z="20" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<attribute key="name" value="#1016298" />
+		<pos x="2970" y="3432" z="15" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<attribute key="name" value="#1016314" />
+		<pos x="1433" y="3776" z="0" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<attribute key="name" value="#1016119" />
+		<pos x="3011" y="3464" z="15" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<attribute key="name" value="#1016357" />
+		<pos x="3748" y="1256" z="0" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<attribute key="name" value="#1016276" />
+		<pos x="3665" y="2657" z="4" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<attribute key="name" value="#1016374" />
+		<pos x="1549" y="1776" z="10" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<attribute key="name" value="#1016352" />
+		<pos x="1610" y="1592" z="0" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<attribute key="name" value="#1016279" />
+		<pos x="2474" y="405" z="15" map="0" />
+	</item>
+
+	<!-- Tavern-->
+	<item id="0xbc4">
+		<pos x="2470" y="413" z="15" map="0" />
+	</item>
+
+	<!-- Reagent Shop-->
+	<item id="0xbc5">
+		<pos x="5719" y="3204" z="8" map="0" />
+		<pos x="5720" y="3205" z="19" map="0" />
+	</item>
+
+	<!-- Reagent Shop-->
+	<item id="0xbc5">
+		<attribute key="name" value="#1016326" />
+		<pos x="3000" y="833" z="0" map="0" />
+	</item>
+
+	<!-- Reagent Shop-->
+	<item id="0xbc5">
+		<attribute key="name" value="#1016110" />
+		<pos x="1508" y="1662" z="20" map="0" />
+	</item>
+
+	<!-- Reagent Shop-->
+	<item id="0xbc5">
+		<attribute key="name" value="#1016186" />
+		<pos x="4424" y="1108" z="0" map="0" />
+	</item>
+
+	<!-- Reagent Shop-->
+	<item id="0xbc6">
+		<attribute key="name" value="#1016146" />
+		<pos x="4419" y="1136" z="0" map="0" />
+	</item>
+
+	<!-- Reagent Shop-->
+	<item id="0xbc6">
+		<attribute key="name" value="#1016077" />
+		<pos x="3009" y="3360" z="15" map="0" />
+	</item>
+
+	<!-- Reagent Shop-->
+	<item id="0xbc6">
+		<attribute key="name" value="#1016170" />
+		<pos x="5217" y="124" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc7">
+		<attribute key="name" value="#1016224" />
+		<pos x="3554" y="1199" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc7">
+		<attribute key="name" value="#1016208" />
+		<pos x="632" y="2185" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc7">
+		<attribute key="name" value="#1016311" />
+		<pos x="1428" y="1546" z="30" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc7">
+		<attribute key="name" value="#1016420" />
+		<pos x="1424" y="3859" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016147" />
+		<pos x="1933" y="2776" z="10" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016306" />
+		<pos x="2470" y="569" z="5" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016095" />
+		<pos x="2634" y="2088" z="10" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016117" />
+		<pos x="1385" y="3712" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016316" />
+		<pos x="2857" y="856" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016439" />
+		<pos x="5228" y="4008" z="37" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016202" />
+		<pos x="3551" y="1186" z="0" map="0" />
+	</item>
+
+	<!-- Painter-->
+	<item id="0xbc9">
+		<attribute key="name" value="#1016184" />
+		<pos x="4528" y="1069" z="0" map="0" />
+	</item>
+
+	<!-- Painter-->
+	<item id="0xbca">
+		<attribute key="name" value="#1016296" />
+		<pos x="2905" y="720" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcb">
+		<attribute key="name" value="#1016506" />
+		<pos x="4424" y="1062" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcb">
+		<attribute key="name" value="#1016169" />
+		<pos x="5158" y="107" z="5" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcb">
+		<attribute key="name" value="#1016268" />
+		<pos x="3016" y="3386" z="15" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcb">
+		<attribute key="name" value="#1016274" />
+		<pos x="2840" y="873" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcb">
+		<attribute key="name" value="#1016266" />
+		<pos x="592" y="2225" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcb">
+		<attribute key="name" value="#1016217" />
+		<pos x="2744" y="2248" z="-4" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcb">
+		<attribute key="name" value="#1016036" />
+		<pos x="5740" y="3267" z="13" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016366" />
+		<pos x="2534" y="560" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016078" />
+		<pos x="1851" y="2800" z="-8" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016341" />
+		<pos x="2459" y="432" z="15" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016194" />
+		<pos x="1434" y="3800" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016223" />
+		<pos x="1602" y="1720" z="20" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016365" />
+		<pos x="5217" y="4019" z="48" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016073" />
+		<pos x="1468" y="1676" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<pos x="5216" y="4018" z="37" map="0" />
+		<pos x="2977" y="640" z="0" map="0" />
+	</item>
+
+	<!-- Bowyer-->
+	<item id="0xbcd">
+		<attribute key="name" value="#1016066" />
+		<pos x="600" y="2209" z="0" map="0" />
+	</item>
+
+	<!-- Bowyer-->
+	<item id="0xbcd">
+		<attribute key="name" value="#1016347" />
+		<pos x="2860" y="801" z="0" map="0" />
+	</item>
+
+	<!-- Bowyer-->
+	<item id="0xbce">
+		<attribute key="name" value="#1016129" />
+		<pos x="618" y="1152" z="0" map="0" />
+	</item>
+
+	<!-- Bowyer-->
+	<item id="0xbce">
+		<attribute key="name" value="#1016364" />
+		<pos x="563" y="976" z="0" map="0" />
+	</item>
+
+	<!-- Bowyer-->
+	<item id="0xbce">
+		<attribute key="name" value="#1016066" />
+		<pos x="593" y="2216" z="0" map="0" />
+	</item>
+
+	<!-- Bowyer-->
+	<item id="0xbce">
+		<attribute key="name" value="#1016225" />
+		<pos x="1472" y="1584" z="20" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbcf">
+		<pos x="1904" y="2686" z="10" map="0" />
+		<pos x="1939" y="2701" z="30" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbcf">
+		<attribute key="name" value="#1016280" />
+		<pos x="1440" y="1611" z="20" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbcf">
+		<pos x="5206" y="3600" z="0" map="0" />
+		<pos x="2712" y="2178" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbcf">
+		<attribute key="name" value="#1016258" />
+		<pos x="576" y="2209" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbcf">
+		<attribute key="name" value="#1016404" />
+		<pos x="1997" y="2864" z="10" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbcf">
+		<pos x="1912" y="2713" z="20" map="0" />
+		<pos x="2221" y="1193" z="4" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbcf">
+		<pos x="624" y="2112" z="0" map="0" />
+		<pos x="616" y="2154" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbcf">
+		<pos x="1400" y="3825" z="0" map="0" />
+		<pos x="1440" y="3746" z="0" map="0" />
+		<pos x="2863" y="989" z="0" map="0" />
+		<pos x="4400" y="1115" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016236" />
+		<pos x="1575" y="1721" z="46" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<pos x="637" y="857" z="15" map="0" />
+		<pos x="2505" y="560" z="0" map="0" />
+		<pos x="1850" y="2777" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016058" />
+		<pos x="1947" y="2691" z="30" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016111" />
+		<pos x="610" y="2168" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016058" />
+		<pos x="1938" y="2694" z="20" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<pos x="5221" y="3597" z="-1" map="0" />
+		<pos x="1505" y="1528" z="40" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016236" />
+		<pos x="1575" y="1721" z="46" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016058" />
+		<pos x="1959" y="2695" z="20" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016181" />
+		<pos x="2428" y="536" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016060" />
+		<pos x="578" y="2128" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="##1016111" />
+		<pos x="610" y="2168" z="0" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016164" />
+		<pos x="5351" y="64" z="15" map="0" />
+	</item>
+
+	<!-- wooden sign-->
+	<item id="0xbd0">
+		<attribute key="name" value="#1016376" />
+		<pos x="1619" y="1769" z="70" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016199" />
+		<pos x="3561" y="1174" z="9" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016120" />
+		<pos x="3024" y="777" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016091" />
+		<pos x="2968" y="3367" z="15" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016272" />
+		<pos x="2863" y="989" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016216" />
+		<pos x="2664" y="2192" z="4" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016091" />
+		<pos x="624" y="2112" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016198" />
+		<pos x="3732" y="1394" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016292" />
+		<pos x="1557" y="1613" z="21" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016076" />
+		<pos x="4537" y="1376" z="23" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016111" />
+		<pos x="1400" y="3825" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<pos x="1360" y="1776" z="15" map="0" />
+		<pos x="520" y="986" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<pos x="1328" y="3771" z="0" map="0" />
+		<pos x="1440" y="1611" z="20" map="0" />
+		<pos x="1912" y="2713" z="20" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016071" />
+		<pos x="1420" y="1595" z="30" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016091" />
+		<pos x="2848" y="929" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016432" />
+		<pos x="624" y="886" z="2" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016091" />
+		<pos x="1505" y="1528" z="40" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016434" />
+		<pos x="547" y="832" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016106" />
+		<pos x="636" y="856" z="5" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<pos x="595" y="2152" z="0" map="0" />
+		<pos x="617" y="2144" z="0" map="0" />
+		<pos x="1634" y="1673" z="26" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016363" />
+		<pos x="2523" y="536" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<pos x="3778" y="2256" z="20" map="0" />
+		<pos x="1896" y="2842" z="20" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016111" />
+		<pos x="3019" y="768" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016156" />
+		<pos x="1376" y="3752" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016091" />
+		<pos x="1425" y="3704" z="0" map="0" />
+		<pos x="616" y="984" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016111" />
+		<pos x="1391" y="3832" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016074" />
+		<pos x="1505" y="1576" z="20" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016082" />
+		<pos x="2666" y="2096" z="5" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<pos x="578" y="2128" z="0" map="0" />
+		<pos x="3720" y="2184" z="20" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016205" />
+		<pos x="3551" y="1178" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<pos x="1633" y="1672" z="15" map="0" />
+		<pos x="4518" y="1402" z="21" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016111" />
+		<pos x="4478" y="1092" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0x0c0c">
+		<attribute key="name" value="#1016054" />
+		<pos x="3690" y="2520" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<pos x="1493" y="1724" z="5" map="0" />
+		<pos x="2436" y="443" z="15" map="0" />
+		<pos x="3776" y="1196" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016324" />
+		<pos x="4308" y="1012" z="0" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd2">
+		<attribute key="name" value="#1016091" />
+		<pos x="4477" y="1130" z="0" map="0" />
+	</item>
+
+	<!-- Armaments Guild-->
+	<item id="0xbd4">
+		<attribute key="name" value="#1016309" />
+		<pos x="2500" y="440" z="15" map="0" />
+	</item>
+
+	<!-- Armourers' Guild-->
+	<item id="0xbd5">
+		<attribute key="name" value="#1016133" />
+		<pos x="1440" y="3864" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmiths' Guild-->
+	<item id="0xbd8">
+		<attribute key="name" value="#1016093" />
+		<pos x="373" y="904" z="-1" map="0" />
+	</item>
+
+	<!-- Weapons Guild-->
+	<item id="0xbd9">
+		<attribute key="name" value="#1016080" />
+		<pos x="1368" y="3713" z="0" map="0" />
+	</item>
+
+	<!-- Bardic Guild-->
+	<item id="0xbdb">
+		<attribute key="name" value="#1016335" />
+		<pos x="2904" y="737" z="0" map="0" />
+	</item>
+
+	<!-- Bardic Guild-->
+	<item id="0xbdc">
+		<attribute key="name" value="#1016057" />
+		<pos x="3658" y="2536" z="0" map="0" />
+	</item>
+
+	<!-- Barters' Guild-->
+	<item id="0xbdd">
+		<pos x="1531" y="1677" z="27" map="0" />
+		<pos x="1518" y="1676" z="15" map="0" />
+	</item>
+
+	<!-- Cooks' Guild-->
+	<item id="0xbe3">
+		<pos x="1519" y="1710" z="15" map="0" />
+		<pos x="1506" y="1710" z="15" map="0" />
+	</item>
+
+	<!-- Healers' Guild-->
+	<item id="0xbe5">
+		<pos x="1534" y="1633" z="6" map="0" />
+		<pos x="1521" y="1633" z="6" map="0" />
+	</item>
+
+	<!-- Mages' Guild-->
+	<item id="0xbe7">
+		<pos x="1536" y="1582" z="22" map="0" />
+		<pos x="1521" y="1582" z="19" map="0" />
+	</item>
+
+	<!-- Mages' Guild-->
+	<item id="0xbe8">
+		<attribute key="name" value="#1016107" />
+		<pos x="4548" y="873" z="37" map="0" />
+	</item>
+
+	<!-- Sorcerers' Guild-->
+	<item id="0xbe9">
+		<pos x="1378" y="1744" z="-5" map="0" />
+		<pos x="1396" y="1744" z="-5" map="0" />
+		<pos x="1396" y="1756" z="-5" map="0" />
+	</item>
+
+	<!-- Sorcerers' Guild-->
+	<item id="0xbe9" hue="0x489">
+		<pos x="1378" y="1756" z="-5" map="0" />
+	</item>
+
+	<!-- Sorcerer's Guild-->
+	<item id="0xbea">
+		<attribute key="name" value="#1016294" />
+		<pos x="2919" y="680" z="0" map="0" />
+	</item>
+
+	<!-- Sorcerer's Guild-->
+	<item id="0xbea">
+		<attribute key="name" value="#1023050" />
+		<pos x="4686" y="1423" z="0" map="0" />
+	</item>
+
+	<!-- Illusionist Guild-->
+	<item id="0xbeb">
+		<attribute key="name" value="#1016149" />
+		<pos x="4632" y="1200" z="0" map="0" />
+	</item>
+
+	<!-- Miners' Guild-->
+	<item id="0xbed">
+		<attribute key="name" value="#1016072" />
+		<pos x="1360" y="1776" z="15" map="0" />
+	</item>
+
+	<!-- Miners' Guild-->
+	<item id="0xbed">
+		<attribute key="name" value="#1016342" />
+		<pos x="2864" y="731" z="0" map="0" />
+	</item>
+
+	<!-- Miners' Guild-->
+	<item id="0xbed">
+		<attribute key="name" value="#1016245" />
+		<pos x="3054" y="3408" z="15" map="0" />
+	</item>
+
+	<!-- Miners' Guild-->
+	<item id="0xbed">
+		<attribute key="name" value="#1016329" />
+		<pos x="2459" y="492" z="15" map="0" />
+	</item>
+
+	<!-- Miners' Guild-->
+	<item id="0xbed">
+		<attribute key="name" value="#1016171" />
+		<pos x="3673" y="2138" z="24" map="0" />
+	</item>
+
+	<!-- Miners' Guild-->
+	<item id="0xbee">
+		<attribute key="name" value="#1016332" />
+		<pos x="1425" y="1584" z="30" map="0" />
+	</item>
+
+	<!-- Miners' Guild-->
+	<item id="0xbee">
+		<pos x="2500" y="440" z="15" map="0" />
+	</item>
+
+	<!-- Archers' Guild-->
+	<item id="0xbef">
+		<attribute key="name" value="#1016229" />
+		<pos x="576" y="2145" z="0" map="0" />
+	</item>
+
+	<!-- Archers' Guild-->
+	<item id="0xbf0">
+		<attribute key="name" value="#1016229" />
+		<pos x="745" y="2160" z="0" map="0" />
+	</item>
+
+	<!-- Seamens' Guild-->
+	<item id="0xbf1">
+		<attribute key="name" value="#1016305" />
+		<pos x="2976" y="817" z="0" map="0" />
+	</item>
+
+	<!-- Fishermens' Guild-->
+	<item id="0xbf3">
+		<attribute key="name" value="#1016259" />
+		<pos x="2037" y="2843" z="0" map="0" />
+	</item>
+
+	<!-- Fishermens' Guild-->
+	<item id="0xbf3">
+		<attribute key="name" value="#1016206" />
+		<pos x="1440" y="3746" z="0" map="0" />
+	</item>
+
+	<!-- Fishermens' Guild-->
+	<item id="0xbf4">
+		<attribute key="name" value="#1016121" />
+		<pos x="3682" y="2261" z="20" map="0" />
+	</item>
+
+	<!-- Rogues' Guild-->
+	<item id="0xbfe">
+		<attribute key="name" value="#1016046" />
+		<pos x="1444" y="1670" z="10" map="0" />
+	</item>
+
+	<!-- Tinkers' Guild-->
+	<item id="0xc01">
+		<attribute key="name" value="#1016369" />
+		<pos x="1432" y="1656" z="10" map="0" />
+	</item>
+
+	<!-- Tinkers' Guild-->
+	<item id="0xc02">
+		<attribute key="name" value="#1016392" />
+		<pos x="1844" y="2688" z="0" map="0" />
+		<pos x="1855" y="2688" z="0" map="0" />
+	</item>
+
+	<!-- Warriors' Guild-->
+	<item id="0xc03">
+		<attribute key="name" value="#1016293" />
+		<pos x="2856" y="910" z="0" map="0" />
+	</item>
+
+	<!-- Warriors' Guild-->
+	<item id="0xc03">
+		<attribute key="name" value="#1016079" />
+		<pos x="1942" y="2736" z="10" map="0" />
+	</item>
+
+	<!-- Warriors' Guild-->
+	<item id="0xc04">
+		<attribute key="name" value="#1016409" />
+		<pos x="2016" y="2753" z="30" map="0" />
+	</item>
+
+	<!-- Warriors' Guild-->
+	<item id="0xc04">
+		<attribute key="name" value="#1016337" />
+		<pos x="2482" y="440" z="15" map="0" />
+	</item>
+
+	<!-- Warriors' Guild-->
+	<item id="0xc04">
+		<attribute key="name" value="#1023075" />
+		<pos x="1342" y="1744" z="20" map="0" />
+	</item>
+
+	<!-- Cavalry Guild-->
+	<item id="0xc05">
+		<attribute key="name" value="#1016089" />
+		<pos x="1592" y="1562" z="20" map="0" />
+	</item>
+
+	<!-- Merchants' Guild-->
+	<item id="0xc09">
+		<attribute key="name" value="#1016178" />
+		<pos x="3712" y="2242" z="20" map="0" />
+	</item>
+
+	<!-- Merchants' Guild-->
+	<item id="0xc0a">
+		<attribute key="name" value="#1016178" />
+		<pos x="1477" y="1600" z="20" map="0" />
+	</item>
+
+	<!-- Merchants' Guild-->
+	<item id="0xc0a">
+		<pos x="4469" y="1176" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0b">
+		<attribute key="name" value="#1016053" />
+		<pos x="3768" y="1313" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0b">
+		<attribute key="name" value="#1016333" />
+		<pos x="2896" y="673" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0b">
+		<attribute key="name" value="Bank of Cove" />
+		<pos x="2232" y="1199" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0b">
+		<attribute key="name" value="#1016155" />
+		<pos x="1328" y="3771" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0b">
+		<attribute key="name" value="#1016050" />
+		<pos x="1819" y="2825" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0b">
+		<attribute key="name" value="#1016407" />
+		<pos x="1904" y="2686" z="10" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<pos x="5675" y="3140" z="21" map="0" />
+		<pos x="3728" y="2160" z="20" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<attribute key="name" value="#1016055" />
+		<pos x="595" y="2152" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<attribute key="name" value="#1016052" />
+		<pos x="2505" y="560" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<attribute key="name" value="#1016430" />
+		<pos x="5270" y="3988" z="36" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<attribute key="name" value="#1016431" />
+		<pos x="5674" y="3139" z="10" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<attribute key="name" value="#1023083" />
+		<pos x="2732" y="2192" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<attribute key="name" value="#1016116" />
+		<pos x="4469" y="1176" z="0" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<attribute key="name" value="#1023083" />
+		<pos x="2890" y="3479" z="15" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<pos x="5270" y="3988" z="37" map="0" />
+	</item>
+
+	<!-- Bank-->
+	<item id="0xc0c">
+		<attribute key="name" value="#1016302" />
+		<pos x="1436" y="1693" z="0" map="0" />
+	</item>
+
+	<!-- Theatre-->
+	<item id="0xc0d">
+		<attribute key="name" value="#1016201" />
+		<pos x="3753" y="1240" z="14" map="0" />
+	</item>
+
+	<!-- Theatre-->
+	<item id="0xc0d">
+		<attribute key="name" value="#1016214" />
+		<pos x="1441" y="4010" z="10" map="0" />
+	</item>
+
+	<!-- Theatre-->
+	<item id="0xc0e">
+		<attribute key="name" value="#1016320" />
+		<pos x="1441" y="1584" z="20" map="0" />
+		<pos x="1454" y="1600" z="20" map="0" />
+	</item>
+
+	<!-- road sign-->
+	<item id="0xc0e">
+		<attribute key="name" value="#1016419" />
+		<pos x="1428" y="1622" z="32" map="0" />
+	</item>
+
+	<!-- road sign 1-->
+	<item id="0xc0e">
+		<attribute key="name" value="#1016504" />
+		<pos x="1428" y="1622" z="37" map="0" />
+	</item>
+
+	<!-- road sign 2-->
+	<item id="0x129a">
+		<attribute key="name" value="#1016419" />
+		<pos x="1459" y="1622" z="35" map="0" />
+		<pos x="1489" y="1627" z="34" map="0" />
+	</item>
+
+	<!-- road sign 3-->
+	<item id="0x129d">
+		<attribute key="name" value="#1016504" />
+		<pos x="1424" y="1701" z="18" map="0" />
+		<pos x="1432" y="1538" z="42" map="0" />
+		<pos x="1422" y="1672" z="25" map="0" />
+	</item>
+
+	<!-- road sign 4-->
+	<item id="0x129c">
+		<attribute key="name" value="#1016500" />
+		<pos x="1439" y="1585" z="35" map="0" />
+		<pos x="1435" y="1570" z="45" map="0" />
+		<pos x="1432" y="1538" z="42" map="0" />
+	</item>
+
+	<!-- brass sign-->
+	<item id="0xbd1">
+		<attribute key="name" value="#1016061" />
+		<pos x="3608" y="2609" z="0" map="0" />
+	</item>
+
+	<!-- Bakery-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016197" />
+		<pos x="3602" y="2584" z="0" map="0" />
+	</item>
+
+	<!-- library-->
+	<item id="0xba4">
+		<attribute key="name" value="#1016207" />
+		<pos x="3617" y="2480" z="0" map="0" />
+	</item>
+
+	<!-- Healer-->
+	<item id="0xbac">
+		<attribute key="name" value="#1016140" />
+		<pos x="3625" y="2616" z="0" map="0" />
+	</item>
+
+	<!-- Provisioner-->
+	<item id="0xbcc">
+		<attribute key="name" value="#1016162" />
+		<pos x="3634" y="2584" z="0" map="0" />
+	</item>
+
+	<!-- Bard-->
+	<item id="0xbbc">
+		<attribute key="name" value="#1016115" />
+		<pos x="3675" y="2480" z="0" map="0" />
+	</item>
+
+	<!-- Blacksmith-->
+	<item id="0xbc8">
+		<attribute key="name" value="#1016132" />
+		<pos x="3647" y="2600" z="0" map="0" />
+	</item>
+
+	<!-- Tailor-->
+	<item id="0xba6">
+		<attribute key="name" value="#1016022" />
+		<pos x="3656" y="2592" z="0" map="0" />
+	</item>
+</decoration>

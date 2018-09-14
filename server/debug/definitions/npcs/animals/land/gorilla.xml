@@ -1,0 +1,47 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Gorilla -->
+	<npc id="gorilla" inherit="animal_base">
+		<name>gorilla</name>
+		<id>29</id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="53" max="95" /></str>
+		<dex><random min="36" max="55" /></dex>
+		<int><random min="36" max="60" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="38" max="51" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>6</mindamage>
+		<maxdamage>16</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_cold" value="10,15" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="433" max="580" /></skill>
+		<skill id="tactics"><random min="433" max="580" /></skill>
+		<skill id="magicresistance"><random min="451" max="600" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>0</mintaming>
+		<strproperty name="food" value="3,5" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Gorilla</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="6" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

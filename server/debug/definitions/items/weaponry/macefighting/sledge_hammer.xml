@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Sledge Hammer -->
+	<item id="fb4">
+		<id>0xfb4</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<type>1004</type>
+		<sellprice>16</sellprice>
+		<buyprice>32</buyprice>
+		<weight>9.0</weight>
+		<durability><random min="30" max="40" /></durability>
+		<basescripts>equipment,skills.blacksmithing</basescripts>
+		<category>Base Weapons\Maces\Sledge Hammer (W/E)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="45" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="15" />
+	</item>
+
+	<!-- Sledge Hammer -->
+	<item id="fb5" inherit="fb4">
+		<id>0xfb5</id>
+		<baseid>fb4</baseid>
+		<category>Base Weapons\Maces\Sledge Hammer (N/S)</category>
+	</item>
+
+</definitions>

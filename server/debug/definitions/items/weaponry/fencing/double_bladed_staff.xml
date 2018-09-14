@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Double Bladed Staff -->
+	<item id="26c9">
+		<id>0x26c9</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<durability><random min="30" max="40" /></durability>
+		<weight>7.0</weight>
+		<basescripts>equipment,blades</basescripts>
+		<type>1005</type>
+		<category>Base Weapons\Fencing\Double Bladed Staff (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="50" />
+		<intproperty name="speed" value="49" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="13" />
+	</item>
+
+	<item id="26bf" inherit="26c9">
+		<id>0x26bf</id>
+		<baseid>26c9</baseid>
+		<category>Base Weapons\Fencing\Double Bladed Staff (E/W)</category>
+	</item>
+
+</definitions>

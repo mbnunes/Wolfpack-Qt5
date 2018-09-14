@@ -1,0 +1,55 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh                           |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+=================================================================
+-->
+<definitions>
+	<!-- monster base -->
+	<npc id="monster_base">
+		<inherit id="speed_medium" /> <!-- Default Speed -->
+		<ai>Monster_Aggressive_L1</ai>
+		<name>unknown monster</name>
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Base Stats -->
+		<str><random min="10" max="50" /></str>
+		<dex><random min="10" max="50" /></dex>
+		<int><random min="10" max="50" /></int>
+		<!-- lets give base creatures a chance! -->
+		<mindamage>1</mindamage>
+		<maxdamage>10</maxdamage>
+		<!-- Skills -->
+		<skill id="wrestling">0</skill>
+		<skill id="tactics">0</skill>
+		<skill id="magicresistance">0</skill>
+		<skill id="anatomy">0</skill>
+		<!-- Misc -->
+		<wandertype>1</wandertype>
+		<direction><random min="0" max="7"/></direction>
+		<mintaming>2000</mintaming>
+		<basescripts>npc.monster,speech.pets,quests.events</basescripts>
+	</npc>
+
+	<npc id="monster_base_magi" inherit="monster_base">
+		<skill id="meditation">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="magery">0</skill>
+	</npc>
+
+	<!-- undead_base-->
+	<npc id="undead_base" inherit="monster_base">
+		<ai>Monster_Aggressive_L1</ai>
+		<wandertype>1</wandertype>
+		<strproperty name="bloodcolor" value="1401,1447" />
+	</npc>
+
+	<npc id="undead_base_magi" inherit="undead_base">
+		<skill id="meditation">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="magery">0</skill>
+	</npc>
+
+</definitions>

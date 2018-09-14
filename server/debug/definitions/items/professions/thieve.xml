@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Thieve                                                        |
+=================================================================
+-->
+<definitions>
+
+	<item id="14fb">
+		<id>0x14fb</id>
+		<category>Professions\Thieve\Lockpick (W/E)</category>
+		<basescripts>lockpick</basescripts>
+		<buyprice>12</buyprice>
+		<sellprice>7</sellprice>
+	</item>
+
+	<item id="14fc" inherit="14fb">
+		<id>0x14fc</id>
+		<category>Professions\Thieve\Lockpick (E/W)</category>		
+	</item>
+
+	<item id="14fd">
+		<id>0x14fd</id>
+		<category>Professions\Thieve\Lockpicks (W/E)</category>
+		<basescripts>lockpick</basescripts>
+	</item>
+
+	<item id="14fe" inherit="14fd">
+		<id>0x14fe</id>
+		<category>Professions\Thieve\Lockpicks (N/S)</category>
+	</item>
+
+	<item id="1ec0">
+		<id>0x1ec0</id>
+		<category>Professions\Thieve\Pickpocket Dip</category>
+		<basescripts>pickpocket_dip</basescripts>
+	</item>
+
+	<item id="1ec1">
+		<id>0x1ec1</id>
+		<category>Professions\Thieve\Pickpocket Dip (Animated)</category>
+	</item>
+
+	<item id="1ec3">
+		<id>0x1ec3</id>
+		<category>Professions\Thieve\Pickpocket Dip 2</category>
+		<basescripts>pickpocket_dip</basescripts>
+	</item>
+
+</definitions>

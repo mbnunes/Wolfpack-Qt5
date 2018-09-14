@@ -1,0 +1,62 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by:
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Meer Captain -->
+	<npc id="meer_captain" inherit="monster_base">
+		<name>meer captain</name>
+		<id>773</id>
+		<inherit id="KARMA_NL4" />
+		<inherit id="FAME_L2" />
+		<!-- Stats -->
+		<str><random min="96" max="110"/></str>
+		<dex><random min="186" max="200"/></dex>
+		<int><random min="96" max="110"/></int>
+		<maxhitpoints><random min="58" max="66"/></maxhitpoints>
+		<maxstamina><random min="186" max="200"/></maxstamina>
+		<maxmana><random min="96" max="110"/></maxmana>
+		<!-- Skills -->
+		<skill id="archery"><random min="809" max="899"/></skill>
+		<skill id="wrestling"><random min="809" max="899"/></skill>
+		<skill id="tactics"><random min="910" max="1000"/></skill>
+		<skill id="magicresistance"><random min="910" max="1000"/></skill>
+		<skill id="anatomy"><random min="0" max="0"/></skill>
+		<!-- Damage -->
+		<mindamage>34</mindamage>
+		<maxdamage>39</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="35,45" type="int" />
+		<tag name="res_energy" value="35,45" type="int" />
+		<!-- Equipped -->
+		<equipped>
+			<item id="f50" /> <!-- Crossbow -->
+		</equipped>
+		<!-- Loot Packs -->
+		<lootpacks>gold_meager;regs_med;regs_high</lootpacks>
+		<backpack>
+			<content>
+				<item id="1bfb"> <!-- Bolts -->
+					<amount><random min="40" max="60"/></amount>
+				</item>
+				<item id="f61" /> <!-- Longsword -->
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Meer\Meer Captain</category>
+		<strproperty name="slayer_group" value="meers" />
+		<ai>Monster_Mage</ai>
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

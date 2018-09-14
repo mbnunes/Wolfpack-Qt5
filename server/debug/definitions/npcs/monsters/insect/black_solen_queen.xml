@@ -1,0 +1,44 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- black solen queen -->
+	<npc id="black_solen_queen" inherit="monster_base">
+		<name>black solen infiltrator</name>
+		<id>807</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="296" max="320"/></str>
+		<dex><random min="121" max="145"/></dex>
+		<int><random min="76" max="100"/></int>
+		<maxhitpoints><random min="151" max="162" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance">700</skill>
+		<skill id="tactics">900</skill>
+		<skill id="wrestling">900</skill>
+		<!-- Damage -->
+		<mindamage>26</mindamage>
+		<maxdamage>39</maxdamage>
+		<tag name="dmg_poison" value="30" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="25,30" type="int" />
+		<tag name="res_fire" value="30,35" type="int" />
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_poison" value="35,40" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 5 or 25 Zoogi fungus, Picnic Basket, Crystal Ball of Pet Summoning -->
+		<lootpacks>gold_rich</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Solen\Black Solen Queen</category>
+		<strproperty name="food" value="1" />
+	</npc>
+
+</definitions>

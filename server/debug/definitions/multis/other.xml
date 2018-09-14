@@ -1,0 +1,274 @@
+<definitions>
+	<!-- Wooden Stairs -->
+	<multi id="5db0">
+		<name>Stairs</name>
+		<id>0x5db0</id>
+		<nodecay />
+		<category>Stairs\Wood\Stairs 1-1</category>
+	</multi>
+
+	<multi id="5db1">
+		<name>Stairs</name>
+		<id>0x5db1</id>
+		<nodecay />
+		<category>Stairs\Wood\Stairs 1-2</category>
+	</multi>
+
+	<multi id="5db2">
+		<name>Stairs</name>
+		<id>0x5db2</id>
+		<nodecay />
+		<category>Stairs\Wood\Stairs 1-3</category>
+	</multi>
+
+	<multi id="5db3">
+		<name>Stairs</name>
+		<id>0x5db3</id>
+		<nodecay />
+		<category>Stairs\Wood\Stairs 1-4</category>
+	</multi>
+
+	<multi id="5dbc">
+		<name>Stairs</name>
+		<id>0x5dbc</id>
+		<nodecay />
+		<category>Stairs\Wood\Stairs 2-1</category>
+	</multi>
+
+	<multi id="5dbd">
+		<name>Stairs</name>
+		<id>0x5dbd</id>
+		<nodecay />
+		<category>Stairs\Wood\Stairs 2-2</category>
+	</multi>
+
+	<multi id="5dbe">
+		<name>Stairs</name>
+		<id>0x5dbe</id>
+		<nodecay />
+		<category>Stairs\Wood\Stairs 2-3</category>
+	</multi>
+
+	<multi id="5dbf">
+		<name>Stairs</name>
+		<id>0x5dbf</id>
+		<nodecay />
+		<category>Stairs\Wood\Stairs 2-4</category>
+	</multi>
+
+
+	<!-- Stone Stairs -->
+	<multi id="5db4">
+		<name>Stairs</name>
+		<id>0x5db4</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 1-1</category>
+	</multi>
+
+	<multi id="5db5">
+		<name>Stairs</name>
+		<id>0x5db5</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 1-2</category>
+	</multi>
+
+	<multi id="5db6">
+		<name>Stairs</name>
+		<id>0x5db6</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 1-3</category>
+	</multi>
+
+	<multi id="5db7">
+		<name>Stairs</name>
+		<id>0x5db7</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 1-4</category>
+	</multi>
+
+	<multi id="5db8">
+		<name>Stairs</name>
+		<id>0x5db8</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 2-1</category>
+	</multi>
+
+	<multi id="5db9">
+		<name>Stairs</name>
+		<id>0x5db9</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 2-2</category>
+	</multi>
+
+	<multi id="5dba">
+		<name>Stairs</name>
+		<id>0x5dba</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 2-3</category>
+	</multi>
+
+	<multi id="5dbb">
+		<name>Stairs</name>
+		<id>0x5dbb</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 2-4</category>
+	</multi>
+
+	<multi id="5dc0">
+		<name>Stairs</name>
+		<id>0x5dc0</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 3-1</category>
+	</multi>
+
+	<multi id="5dc1">
+		<name>Stairs</name>
+		<id>0x5dc1</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 3-2</category>
+	</multi>
+
+	<multi id="5dc2">
+		<name>Stairs</name>
+		<id>0x5dc2</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 3-3</category>
+	</multi>
+
+	<multi id="5dc3">
+		<name>Stairs</name>
+		<id>0x5dc3</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 3-4</category>
+	</multi>
+	<multi id="5dd0">
+		<name>Stairs</name>
+		<id>0x5dc0</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 4-1</category>
+	</multi>
+
+	<multi id="5dd1">
+		<name>Stairs</name>
+		<id>0x5dc1</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 4-2</category>
+	</multi>
+
+	<multi id="5dd2">
+		<name>Stairs</name>
+		<id>0x5dc2</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 4-3</category>
+	</multi>
+
+	<multi id="5dd3">
+		<name>Stairs</name>
+		<id>0x5dc3</id>
+		<nodecay />
+		<category>Stairs\Stone\Stairs 4-4</category>
+	</multi>
+
+	<!-- Marble -->
+	<multi id="5dc4">
+		<name>Stairs</name>
+		<id>0x5dc4</id>
+		<nodecay />
+		<category>Stairs\Marble\Stairs 1-1</category>
+	</multi>
+
+	<multi id="5dc5">
+		<name>Stairs</name>
+		<id>0x5dc5</id>
+		<nodecay />
+		<category>Stairs\Marble\Stairs 1-2</category>
+	</multi>
+
+	<multi id="5dc6">
+		<name>Stairs</name>
+		<id>0x5dc6</id>
+		<nodecay />
+		<category>Stairs\Marble\Stairs 1-3</category>
+	</multi>
+
+	<multi id="5dc7">
+		<name>Stairs</name>
+		<id>0x5dc7</id>
+		<nodecay />
+		<category>Stairs\Marble\Stairs 1-4</category>
+	</multi>
+
+	<!-- Sandstone -->
+	<multi id="5dc8">
+		<name>Stairs</name>
+		<id>0x5dc8</id>
+		<nodecay />
+		<category>Stairs\Sandstone\Stairs 1-1</category>
+	</multi>
+
+	<multi id="5dc9">
+		<name>Stairs</name>
+		<id>0x5dc9</id>
+		<nodecay />
+		<category>Stairs\Sandstone\Stairs 1-2</category>
+	</multi>
+
+	<multi id="5dca">
+		<name>Stairs</name>
+		<id>0x5dca</id>
+		<nodecay />
+		<category>Stairs\Sandstone\Stairs 1-3</category>
+	</multi>
+
+	<multi id="5dcb">
+		<name>Stairs</name>
+		<id>0x5dcb</id>
+		<nodecay />
+		<category>Stairs\Sandstone\Stairs 1-4</category>
+	</multi>
+
+	<!-- Sandstone 2 -->
+	<multi id="5dcc">
+		<name>Stairs</name>
+		<id>0x5dcc</id>
+		<nodecay />
+		<category>Stairs\Sandstone\Stairs 2-1</category>
+	</multi>
+
+	<multi id="5dcd">
+		<name>Stairs</name>
+		<id>0x5dcd</id>
+		<nodecay />
+		<category>Stairs\Sandstone\Stairs 2-2</category>
+	</multi>
+
+	<multi id="5dce">
+		<name>Stairs</name>
+		<id>0x5dce</id>
+		<nodecay />
+		<category>Stairs\Sandstone\Stairs 2-3</category>
+	</multi>
+
+	<multi id="5dcf">
+		<name>Stairs</name>
+		<id>0x5dcf</id>
+		<nodecay />
+		<category>Stairs\Sandstone\Stairs 2-4</category>
+	</multi>
+
+	<!-- Carpet -->
+	<multi id="5dd4">
+		<name>Stairs</name>
+		<id>0x5dd4</id>
+		<nodecay />
+		<category>Stairs\Carpet\Stairs 1</category>
+	</multi>
+
+	<multi id="5dd7">
+		<name>Stairs</name>
+		<id>0x5dd7</id>
+		<nodecay />
+		<category>Stairs\Carpet\Stairs 2</category>
+	</multi>
+
+</definitions>

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Valorite Red Scales -->
+	<item id="2641_valorite_red" inherit="2641">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Breastplate 1</category>
+	</item>
+
+	<item id="2642_valorite_red" inherit="2642">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Breastplate 2</category>
+	</item>
+
+	<item id="2643_valorite_red" inherit="2643">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Gloves 1</category>
+	</item>
+
+	<item id="2644_valorite_red" inherit="2644">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Gloves 2</category>
+	</item>
+
+	<item id="2645_valorite_red" inherit="2645">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Helm 1</category>
+	</item>
+
+	<item id="2646_valorite_red" inherit="2646">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Helm 2</category>
+	</item>
+
+	<item id="2647_valorite_red" inherit="2647">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Leggings 1</category>
+	</item>
+
+	<item id="2648_valorite_red" inherit="2648">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Leggings 2</category>
+	</item>
+
+	<item id="2657_valorite_red" inherit="2657">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Sleeves 1</category>
+	</item>
+
+	<item id="2658_valorite_red" inherit="2658">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<red_scaled_armor />
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Sleeves 2</category>
+	</item>
+
+	<!-- Valorite Yellow Scales -->
+	<item id="2641_valorite_yellow" inherit="2641">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Breastplate 1</category>
+	</item>
+
+	<item id="2642_valorite_yellow" inherit="2642">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Breastplate 2</category>
+	</item>
+
+	<item id="2643_valorite_yellow" inherit="2643">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Gloves 1</category>
+	</item>
+
+	<item id="2644_valorite_yellow" inherit="2644">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Gloves 2</category>
+	</item>
+
+	<item id="2645_valorite_yellow" inherit="2645">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Helm 1</category>
+	</item>
+
+	<item id="2646_valorite_yellow" inherit="2646">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Helm 2</category>
+	</item>
+
+	<item id="2647_valorite_yellow" inherit="2647">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Leggings 1</category>
+	</item>
+
+	<item id="2648_valorite_yellow" inherit="2648">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Leggings 2</category>
+	</item>
+
+	<item id="2657_valorite_yellow" inherit="2657">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Sleeves 1</category>
+	</item>
+
+	<item id="2658_valorite_yellow" inherit="2658">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<yellow_scaled_armor />
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Sleeves 2</category>
+	</item>
+
+	<!-- Valorite Black Scales -->
+	<item id="2641_valorite_black" inherit="2641">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Breastplate 1</category>
+	</item>
+
+	<item id="2642_valorite_black" inherit="2642">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Breastplate 2</category>
+	</item>
+
+	<item id="2643_valorite_black" inherit="2643">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Gloves 1</category>
+	</item>
+
+	<item id="2644_valorite_black" inherit="2644">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Gloves 2</category>
+	</item>
+
+	<item id="2645_valorite_black" inherit="2645">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Helm 1</category>
+	</item>
+
+	<item id="2646_valorite_black" inherit="2646">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Helm 2</category>
+	</item>
+
+	<item id="2647_valorite_black" inherit="2647">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Leggings 1</category>
+	</item>
+
+	<item id="2648_valorite_black" inherit="2648">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Leggings 2</category>
+	</item>
+
+	<item id="2657_valorite_black" inherit="2657">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Sleeves 1</category>
+	</item>
+
+	<item id="2658_valorite_black" inherit="2658">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<black_scaled_armor />
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Sleeves 2</category>
+	</item>
+
+	<!-- Valorite Green Scales -->
+	<item id="2641_valorite_green" inherit="2641">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Breastplate 1</category>
+	</item>
+
+	<item id="2642_valorite_green" inherit="2642">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Breastplate 2</category>
+	</item>
+
+	<item id="2643_valorite_green" inherit="2643">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Gloves 1</category>
+	</item>
+
+	<item id="2644_valorite_green" inherit="2644">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Gloves 2</category>
+	</item>
+
+	<item id="2645_valorite_green" inherit="2645">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Helm 1</category>
+	</item>
+
+	<item id="2646_valorite_green" inherit="2646">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Helm 2</category>
+	</item>
+
+	<item id="2647_valorite_green" inherit="2647">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Leggings 1</category>
+	</item>
+
+	<item id="2648_valorite_green" inherit="2648">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Leggings 2</category>
+	</item>
+
+	<item id="2657_valorite_green" inherit="2657">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Sleeves 1</category>
+	</item>
+
+	<item id="2658_valorite_green" inherit="2658">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<green_scaled_armor />
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Sleeves 2</category>
+	</item>
+
+	<!-- Valorite White Scales -->
+	<item id="2641_valorite_white" inherit="2641">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Breastplate 1</category>
+	</item>
+
+	<item id="2642_valorite_white" inherit="2642">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Breastplate 2</category>
+	</item>
+
+	<item id="2643_valorite_white" inherit="2643">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Gloves 1</category>
+	</item>
+
+	<item id="2644_valorite_white" inherit="2644">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Gloves 2</category>
+	</item>
+
+	<item id="2645_valorite_white" inherit="2645">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Helm 1</category>
+	</item>
+
+	<item id="2646_valorite_white" inherit="2646">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Helm 2</category>
+	</item>
+
+	<item id="2647_valorite_white" inherit="2647">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Leggings 1</category>
+	</item>
+
+	<item id="2648_valorite_white" inherit="2648">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Leggings 2</category>
+	</item>
+
+	<item id="2657_valorite_white" inherit="2657">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Sleeves 1</category>
+	</item>
+
+	<item id="2658_valorite_white" inherit="2658">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<white_scaled_armor />
+		<category>Armor\Valorite\Dragon\White\White Dragon Sleeves 2</category>
+	</item>
+
+	<!-- Valorite Blue Scales -->
+	<item id="2641_valorite_blue" inherit="2641">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Breastplate 1</category>
+	</item>
+
+	<item id="2642_valorite_blue" inherit="2642">
+		<baseid>2641</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Breastplate 2</category>
+	</item>
+
+	<item id="2643_valorite_blue" inherit="2643">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Gloves 1</category>
+	</item>
+
+	<item id="2644_valorite_blue" inherit="2644">
+		<baseid>2643</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Gloves 2</category>
+	</item>
+
+	<item id="2645_valorite_blue" inherit="2645">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Helm 1</category>
+	</item>
+
+	<item id="2646_valorite_blue" inherit="2646">
+		<baseid>2645</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Helm 2</category>
+	</item>
+
+	<item id="2647_valorite_blue" inherit="2647">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Leggings 1</category>
+	</item>
+
+	<item id="2648_valorite_blue" inherit="2648">
+		<baseid>2647</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Leggings 2</category>
+	</item>
+
+	<item id="2657_valorite_blue" inherit="2657">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Sleeves 1</category>
+	</item>
+
+	<item id="2658_valorite_blue" inherit="2658">
+		<baseid>2657</baseid>
+		<valorite_armor />
+		<blue_scaled_armor />
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Sleeves 2</category>
+	</item>
+
+</definitions>

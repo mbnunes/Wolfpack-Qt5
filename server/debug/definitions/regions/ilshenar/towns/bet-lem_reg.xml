@@ -1,0 +1,9 @@
+
+<definitions>
+
+	<!-- Bet-Lem Reg -->
+	<region name="Bet-Lem Reg">
+		<rectangle x1="1232" y1="936" x2="1272" y2="984" map="2" />
+	</region>
+
+</definitions>

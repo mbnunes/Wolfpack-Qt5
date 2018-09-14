@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Straw Hat -->
+	<item id="1717">
+		<id>0x1717</id>
+		<dye />
+		<durability><random min="20" max="25" /></durability>
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="9" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<allowmeditation />
+		<category>Clothes\Headwear\Straw Hat</category>
+		<category>Armor\Headwear\Straw Hat</category>
+		<category>Base Armor\Headwear\Straw Hat</category>
+	</item>
+
+</definitions>

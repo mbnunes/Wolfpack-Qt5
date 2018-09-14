@@ -1,0 +1,52 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by: King Falcon                    |
+|  ( (  ;._ \\ ctr | Last Modification: 05/24/05                |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="trammel_despise">
+		<inactive />
+		<maxnpcamount>35</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>despise</group>
+		<group>trammel_despise</group>
+		<group>trammel</group>
+	</spawnregion>
+
+	<spawnregion id="trammel_despiselvl3">
+		<inactive />
+		<maxnpcamount>50</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>despise</group>
+		<group>trammel_despiselvl3</group>
+		<group>trammel</group>
+	</spawnregion>
+
+	<spawnregion inherit="trammel_despise" id="trammel_despise_lvl1_1">
+		<active />
+		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5384,519" to="5509,628" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_despise" id="trammel_despise_lvl2_2">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5382,655" to="5514,760" map="1" />
+	</spawnregion>
+
+	<spawnregion inherit="trammel_despiselvl3" id="trammel_despise_lvl3_3">
+		<active />
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="titan"><npcwander type="circle" radius="10" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cyclops"><npcwander type="circle" radius="10" /></npc>
+		<npc id="acid_elemental"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5391,776" to="5608,1010" map="1" />
+	</spawnregion>
+</definitions>

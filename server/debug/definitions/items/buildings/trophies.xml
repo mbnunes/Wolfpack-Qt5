@@ -1,0 +1,100 @@
+<definition>
+
+	<!-- Trophies -->
+	<item id="2234">
+		<id>0x2234</id>
+		<nodecay />
+		<basescripts>trophy</basescripts>
+		<category>Decoration\Trophies\Dragon (N/S)</category>
+	</item>
+
+	<item id="2235" inherit="2234">
+		<id>0x2235</id>
+		<category>Decoration\Trophies\Dragon (W/E)</category>
+	</item>
+
+	<item id="1e60">
+		<id>0x1e60</id>
+		<nodecay />
+		<basescripts>trophy</basescripts>
+		<category>Decoration\Trophies\Bear (N/S)</category>
+	</item>
+
+	<item id="1e61">
+		<id>0x1e61</id>
+		<nodecay />
+		<basescripts>trophy</basescripts>
+		<category>Decoration\Trophies\Deer (N/S)</category>
+	</item>
+
+	<item id="1e62">
+		<id>0x1e62</id>
+		<nodecay />
+		<basescripts>trophy</basescripts>
+		<category>Decoration\Trophies\Fish (N/S)</category>
+	</item>
+
+	<item id="1e63">
+		<id>0x1e63</id>
+		<nodecay />
+		<basescripts>trophy</basescripts>
+		<category>Decoration\Trophies\Gorilla (N/S)</category>
+	</item>
+
+	<item id="1e64">
+		<id>0x1e64</id>
+		<nodecay />
+		<basescripts>trophy</basescripts>
+		<category>Decoration\Trophies\Orc (N/S)</category>
+	</item>
+
+	<item id="1e65">
+		<id>0x1e65</id>
+		<nodecay />
+		<basescripts>trophy</basescripts>
+		<category>Decoration\Trophies\Polar Bear (N/S)</category>
+	</item>
+
+	<item id="1e66">
+		<id>0x1e66</id>
+		<nodecay />
+		<basescripts>trophy</basescripts>
+		<category>Decoration\Trophies\Troll (N/S)</category>
+	</item>
+
+	<item id="1e67" inherit="1e60">
+		<id>0x1e67</id>
+		<category>Decoration\Trophies\Bear (W/E)</category>
+	</item>
+
+	<item id="1e68" inherit="1e61">
+		<id>0x1e68</id>
+		<category>Decoration\Trophies\Deer (W/E)</category>
+	</item>
+
+	<item id="1e69" inherit="1e62">
+		<id>0x1e69</id>
+		<category>Decoration\Trophies\Fish (W/E)</category>
+	</item>
+
+	<item id="1e6a" inherit="1e63">
+		<id>0x1e6a</id>
+		<category>Decoration\Trophies\Gorilla (W/E)</category>
+	</item>
+
+	<item id="1e6b" inherit="1e64">
+		<id>0x1e6b</id>
+		<category>Decoration\Trophies\Orc (W/E)</category>
+	</item>
+
+	<item id="1e6c" inherit="1e65">
+		<id>0x1e6c</id>
+		<category>Decoration\Trophies\Polar Bear (W/E)</category>
+	</item>
+
+	<item id="1e6d" inherit="1e66">
+		<id>0x1e6d</id>
+		<category>Decoration\Trophies\Troll (W/E)</category>
+	</item>
+
+</definition>

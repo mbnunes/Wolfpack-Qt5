@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Gnarled Staff -->
+	<item id="13f8">
+		<id>0x13f8</id>
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<durability><random min="30" max="49" /></durability>
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1003</type>
+		<twohanded />
+		<category>Base Weapons\Staves\Grarled Staff (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="17" />
+	</item>
+
+	<item id="13f9" inherit="13f8">
+		<id>0x13f9</id>
+		<baseid>13f8</baseid>
+		<category>Base Weapons\Staves\Grarled Staff (E/W)</category>
+	</item>
+
+</definitions>

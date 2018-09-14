@@ -1,0 +1,63 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- lich lord -->
+	<!-- Two more IDs: 79 and 82 -->
+	<npc id="lich_lord" inherit="undead_base">
+		<name>lich lord</name>
+		<id><random valuelist="78,79,82" /></id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<maxhitpoints><random min="250" max="303"/></maxhitpoints>
+		<str><random min="416" max="505"/></str>
+		<dex><random min="146" max="165"/></dex>
+		<int><random min="566" max="655"/></int>
+		<!-- Skills -->
+		<skill id="evaluatingintelligence"><random min="901" max="1000"/></skill>
+		<skill id="magery"><random min="901" max="1000"/></skill>
+		<skill id="magicresistance"><random min="1505" max="2000"/></skill>
+		<skill id="tactics"><random min="501" max="700"/></skill>
+		<skill id="wrestling"><random min="601" max="800"/></skill>
+		<skill id="anatomy">0</skill>
+		<skill id="meditation">0</skill>
+		<!-- Damage -->
+		<mindamage>30</mindamage>
+		<maxdamage>38</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_cold" value="60" type="int" />
+		<tag name="dmg_energy" value="40" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_poison" value="50,60" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_filthy_rich;scroll_medium;scroll_medium;tm_4</lootpacks>
+		<backpack>
+			<content>
+				<item list="NECRO_REAGENTS">
+					<amount><random min="50" max="80"/></amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<desc>In the deepest, darkest dungeons of Britannia lurks the lich lord, an abomination of all that is safe and true. Lich lords are created of the most powerful spell casters, stronger than their lesser lich counterparts, but no less ruthless.</desc>
+		<category>Monsters\Undead\Lich Lord</category>
+		<strproperty name="slayer_group" value="undeads" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

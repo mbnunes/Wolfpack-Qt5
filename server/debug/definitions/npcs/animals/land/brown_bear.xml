@@ -1,0 +1,48 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Brown Bear -->
+	<npc id="brown_bear" inherit="animal_base">
+		<name>brown bear</name>
+		<id>167</id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="76" max="100" /></str>
+		<dex><random min="26" max="46" /></dex>
+		<int><random min="23" max="47" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="50" max="64" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>9</mindamage>
+		<maxdamage>19</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,30" type="int" />
+		<tag name="res_cold" value="15,20" type="int" />
+		<tag name="res_poison" value="10,15" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="401" max="600" /></skill>
+		<skill id="tactics"><random min="401" max="600" /></skill>
+		<skill id="magicresistance"><random min="251" max="350" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>411</mintaming>
+		<strproperty name="food" value="2,3,1" />
+		<strproperty name="packinstinct" value="bear" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Bears\Brown Bear</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

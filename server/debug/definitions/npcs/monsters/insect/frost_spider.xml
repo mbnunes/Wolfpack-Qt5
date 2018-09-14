@@ -1,0 +1,56 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- frost spider -->
+	<npc id="frost_spider" inherit="monster_base">
+		<name>frost spider</name>
+		<id>20</id>
+		<inherit id="KARMA_L1" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="76" max="100"/></str>
+		<dex><random min="126" max="145"/></dex>
+		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="251" max="400"/></skill>
+		<skill id="tactics"><random min="351" max="500"/></skill>
+		<skill id="wrestling"><random min="501" max="650"/></skill>
+		<!-- Damage -->
+		<mindamage>9</mindamage>
+		<maxdamage>28</maxdamage>
+		<tag name="dmg_fire" value="80" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager;lootpack_poor</lootpacks>
+		<backpack>
+			<content>
+				<item id="f8d"> <!-- Spiders Silk -->
+					<amount>7</amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<desc>The giant spider of the tundra hunts by burrowing into the snow and waiting to trap passers by. Unfortunate creatures caught by the spider are often paralyzed by its venom. The spider then envelops the victimin a cocoon of silk. Victims are then used over time to feed the spider. When the victim is used up, only the desiccated husk and their possessions remain.</desc>
+		<mintaming>747</mintaming>
+		<strproperty name="food" value="1" />
+		<strproperty name="packinstinct" value="arachnid" />
+		<category>Monsters\Insects\Frost Spider</category>
+		<strproperty name="slayer_group" value="spiders" />
+	</npc>
+
+</definitions>

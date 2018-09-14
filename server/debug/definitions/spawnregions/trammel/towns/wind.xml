@@ -1,0 +1,152 @@
+
+<definitions>
+	<spawnregion id="wind_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>wind_vendors</group>
+		<group>wind</group>
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_1">
+		<active />
+		<npc id="scribe_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="scribe_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5242,180,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_2">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5161,32,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_3">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5148,60,25,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_4">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5148,60,25,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_5">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5347,76,25,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_6">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5263,129,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_7">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5202,88,5,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_8">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5202,88,5,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_9">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5218,175,5,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_10">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5300,90,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_11">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5300,90,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_12">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5306,37,40,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_13">
+		<active />
+		<npc id="scribe_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="scribe_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5236,142,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_14">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="4465,1161,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_15">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5351,56,15,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_16">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5154,97,5,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_17">
+		<active />
+		<npc id="cobbler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cobbler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5154,97,5,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_18">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5215,117,1,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_19">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5215,117,1,1" />
+	</spawnregion>
+
+	<spawnregion inherit="wind_vendor" id="wind_vendor_20">
+		<active />
+		<npc id="barber_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="barber_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5215,117,1,1" />
+	</spawnregion>
+</definitions>

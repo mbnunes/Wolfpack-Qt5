@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<definitions>
+
+	<!-- Studded Leather Armor -->
+	<include file="definitions/items/armory/colored/studded/leather.xml"/>
+	<include file="definitions/items/armory/colored/studded/spined_leather.xml"/>
+	<include file="definitions/items/armory/colored/studded/horned_leather.xml"/>
+	<include file="definitions/items/armory/colored/studded/barbed_leather.xml"/>
+
+
+</definitions>

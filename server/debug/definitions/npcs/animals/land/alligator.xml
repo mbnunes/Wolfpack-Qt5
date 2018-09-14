@@ -1,0 +1,49 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Aligator -->
+	<npc id="alligator" inherit="animal_base">
+		<name>alligator</name>
+		<id>202</id>
+		<ai>Animal_Aggressive</ai>
+		<inherit id="KARMA_L1" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="76" max="100" /></str>
+		<dex><random min="6" max="25" /></dex>
+		<int><random min="11" max="20" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="46" max="60" /></maxhitpoints>
+		<maxstamina><random min="46" max="65" /></maxstamina>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>7</mindamage>
+		<maxdamage>24</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="401" max="600" /></skill>
+		<skill id="tactics"><random min="401" max="600" /></skill>
+		<skill id="magicresistance"><random min="251" max="400" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>471</mintaming>
+		<strproperty name="food" value="1,2" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Alligator</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<strproperty name="carve_hides_type" value="spined" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

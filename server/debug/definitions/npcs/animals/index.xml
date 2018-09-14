@@ -1,0 +1,26 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Base, Very Important -->
+	<include file="definitions/npcs/animals/base.xml"/>
+
+	<!-- Air -->
+	<include file="definitions/npcs/animals/air/index.xml"/>
+
+	<!-- Land -->
+	<include file="definitions/npcs/animals/land/index.xml"/>
+
+	<!-- Mounts -->
+	<include file="definitions/npcs/animals/mounts/index.xml" />
+
+	<!-- Sea -->
+	<include file="definitions/npcs/animals/sea/index.xml" />
+
+</definitions>

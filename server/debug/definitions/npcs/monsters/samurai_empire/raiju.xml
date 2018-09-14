@@ -1,0 +1,54 @@
+<!--
+/*=========================================================
+* ) (\_ | WOLFPACK 13.0.0 Scripts
+* (( _/{ "-; | Created by: Idget
+* )).-' {{ ;'` | Revised by:
+* ( ( ;._ \\ | Last modification:
+*=======================================================*/
+-->
+<definitions>
+
+	<!-- Rai-Ju -->
+	<npc id="raiju" inherit="monster_base">
+		<name>a Rai-Ju</name>
+		<id>199</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="155" max="225"/></str>
+		<dex><random min="85" max="135"/></dex>
+		<int><random min="175" max="180"/></int>
+		<maxhitpoints><random min="200" max="280"/></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>24</mindamage>
+		<maxdamage>30</maxdamage>
+		<tag name="dmg_fire" value="60" type="int" />
+		<tag name="dmg_cold" value="10" type="int" />
+		<tag name="dmg_poison" value="10" type="int" />
+		<tag name="dmg_energy" value="10" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="850" max="950"/></skill>
+		<skill id="tactics"><random min="550" max="650"/></skill>
+		<skill id="magicresistance"><random min="1100" max="1200"/></skill>
+		<skill id="anatomy"><random min="250" max="350"/></skill>
+		<!-- Resists -->
+		<tag name="res_physical" value="45,65" type="int" />
+		<tag name="res_fire" value="70,85" type="int" />
+		<tag name="res_cold" value="30,60" type="int" />
+		<tag name="res_poison" value="50,70" type="int" />
+		<tag name="res_energy" value="60,80" type="int" />
+		<!-- Loot -->
+		<!-- Missing: Magic Items -->
+		<backpack>
+			<content>
+				<item id="eed"><amount><random min="550" max="650" /></amount></item>
+			</content>
+		</backpack>
+		<lootpacks>gems;gems</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\SE\Rai-Ju</category>
+		<strproperty name="slayer_group" value="elementals" />
+		<strproperty name="food" value="1" />
+	</npc>
+
+</definitions>

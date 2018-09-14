@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- ring armor -->
+	<!-- ring gloves -->
+	<item id="13eb_dull_copper" inherit="13eb">
+		<dull_copper_armor />
+		<baseid>13eb</baseid>
+		<category>Armor\Dull Copper\Ringmail\Gloves (N/S)</category>
+	</item>
+
+	<item id="13f2_dull_copper" inherit="13f2">
+		<dull_copper_armor />
+		<baseid>13eb</baseid>
+		<category>Armor\Dull Copper\Ringmail\Gloves (E/W)</category>
+	</item>
+
+	<!-- ring leggings -->
+	<item id="13f0_dull_copper" inherit="13f0">
+		<dull_copper_armor />
+		<baseid>13f0</baseid>
+		<category>Armor\Dull Copper\Ringmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="13f1_dull_copper" inherit="13f1">
+		<dull_copper_armor />
+		<baseid>13f0</baseid>
+		<category>Armor\Dull Copper\Ringmail\Leggings (E/W)</category>
+	</item>
+
+	<!-- ring sleeves -->
+	<item id="13ee_dull_copper" inherit="13ee">
+		<dull_copper_armor />
+		<baseid>13ee</baseid>
+		<category>Armor\Dull Copper\Ringmail\Sleeves (N/S)</category>
+	</item>
+
+	<item id="13ef_dull_copper" inherit="13ef">
+		<dull_copper_armor />
+		<baseid>13ee</baseid>
+		<category>Armor\Dull Copper\Ringmail\Sleeves (E/W)</category>
+	</item>
+
+	<!-- ring tunic -->
+	<item id="13ec_dull_copper" inherit="13ec">
+		<dull_copper_armor />
+		<baseid>13ec</baseid>
+		<category>Armor\Dull Copper\Ringmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="13ed_dull_copper" inherit="13ed">
+		<dull_copper_armor />
+		<baseid>13ec</baseid>
+		<category>Armor\Dull Copper\Ringmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- ring armor -->
+	<!-- ring gloves -->
+	<item id="13eb_bronze" inherit="13eb">
+		<bronze_armor />
+		<baseid>13eb</baseid>
+		<category>Armor\Bronze\Ringmail\Gloves (N/S)</category>
+	</item>
+
+	<item id="13f2_bronze" inherit="13f2">
+		<bronze_armor />
+		<baseid>13eb</baseid>
+		<category>Armor\Bronze\Ringmail\Gloves (E/W)</category>
+	</item>
+
+	<!-- ring leggings -->
+	<item id="13f0_bronze" inherit="13f0">
+		<bronze_armor />
+		<baseid>13f0</baseid>
+		<category>Armor\Bronze\Ringmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="13f1_bronze" inherit="13f1">
+		<bronze_armor />
+		<baseid>13f0</baseid>
+		<category>Armor\Bronze\Ringmail\Leggings (E/W)</category>
+	</item>
+
+	<!-- ring sleeves -->
+	<item id="13ee_bronze" inherit="13ee">
+		<bronze_armor />
+		<baseid>13ee</baseid>
+		<category>Armor\Bronze\Ringmail\Sleeves (N/S)</category>
+	</item>
+
+	<item id="13ef_bronze" inherit="13ef">
+		<bronze_armor />
+		<baseid>13ee</baseid>
+		<category>Armor\Bronze\Ringmail\Sleeves (E/W)</category>
+	</item>
+
+	<!-- ring tunic -->
+	<item id="13ec_bronze" inherit="13ec">
+		<bronze_armor />
+		<baseid>13ec</baseid>
+		<category>Armor\Bronze\Ringmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="13ed_bronze" inherit="13ed">
+		<bronze_armor />
+		<baseid>13ec</baseid>
+		<category>Armor\Bronze\Ringmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>

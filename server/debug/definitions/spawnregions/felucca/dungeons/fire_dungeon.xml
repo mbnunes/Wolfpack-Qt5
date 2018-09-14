@@ -1,0 +1,53 @@
+
+<definitions>
+	<spawnregion id="felucca_fire_dungeon">
+		<inactive />
+		<maxnpcamount>35</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>fire_dungeon</group>
+		<group>felucca_fire_dungeon</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_fire_dungeon2">
+		<inactive />
+		<maxnpcamount>15</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>fire_dungeon</group>
+		<group>felucca_fire_dungeon</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_fire_dungeon" id="felucca_fire_dungeon_lv1">
+		<active />
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5764,1285" to="5883,1518" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_fire_dungeon2" id="felucca_fire_dungeon_lv1_2">
+		<active />
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5669,1405" to="5763,1481" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_fire_dungeon" id="felucca_fire_dungeon_lv2">
+		<active />
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="10" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5634,1284" to="5755,1397" map="0" />
+	</spawnregion>
+
+</definitions>

@@ -1,0 +1,28 @@
+<decoration>
+	<!-- Misc-->
+	<include file="definitions/decoration/Ilshenar/blood.xml"/>
+	<include file="definitions/decoration/Ilshenar/central.xml"/>
+	<include file="definitions/decoration/Ilshenar/exodus.xml"/>
+	<include file="definitions/decoration/Ilshenar/gwenno.xml"/>
+	<include file="definitions/decoration/Ilshenar/ratcave.xml"/>
+	<include file="definitions/decoration/Ilshenar/regvolom.xml"/>
+	<include file="definitions/decoration/Ilshenar/serpentine.xml"/>
+	<include file="definitions/decoration/Ilshenar/enslavedgargs.xml"/>
+	<include file="definitions/decoration/Ilshenar/camp.xml"/>
+	<include file="definitions/decoration/Ilshenar/camp2.xml"/>
+	<include file="definitions/decoration/Ilshenar/gargoylecity.xml"/>
+	<include file="definitions/decoration/Ilshenar/golemsandjukas.xml"/>
+	<include file="definitions/decoration/Ilshenar/lakeshire.xml"/>
+	<include file="definitions/decoration/Ilshenar/meercatacombs.xml"/>
+	<include file="definitions/decoration/Ilshenar/mistas.xml"/>
+	<include file="definitions/decoration/Ilshenar/misc.xml"/>
+	<include file="definitions/decoration/Ilshenar/patches.xml"/>
+	<include file="definitions/decoration/Ilshenar/ratfortress.xml"/>
+	<include file="definitions/decoration/Ilshenar/savagecamp.xml"/>
+	<include file="definitions/decoration/Ilshenar/shrines.xml"/>
+	<include file="definitions/decoration/Ilshenar/vinculuminn.xml"/>
+	<include file="definitions/decoration/Ilshenar/twinoaks.xml"/>
+	<include file="definitions/decoration/Ilshenar/terortskitas.xml"/>
+	<include file="definitions/decoration/Ilshenar/sorcerers.xml"/>
+	<include file="definitions/decoration/Ilshenar/sheepfarm.xml"/>
+</decoration>

@@ -1,0 +1,93 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Owner_Mutilador         |
+=================================================================
+-->
+<definitions>
+
+	<!-- Luna -->
+
+	<location id="malas luna gate" category="Malas\Towns\Luna\Moongate">1015,527,-65,3</location>
+	<location id="malas luna bank" category="Malas\Towns\Luna\Bank">991,519,-50,3</location>
+	<location id="malas luna chothier colors" category="Malas\Towns\Luna\Chothier Colors">976,527,-50,3</location>
+	<location id="malas luna grand arena" category="Malas\Towns\Luna\Grand Arena">961,638,-90,3</location>
+	<location id="Hardwoods and More" category="Malas\Towns\Luna\Hardwoods and More">1002,512,-50,3</location>
+	<location id="Paladin's Stopover" category="Malas\Towns\Luna\Paladin's Stopover">1005,519,-30,3</location>
+	<location id="Proud Bridle" category="Malas\Towns\Luna\Proud Bridle">1023,503,-70,3</location>
+	<location id="Open Market" category="Malas\Towns\Luna\Open Market">992,512,-50,3</location>
+	<location id="Sage's Refuge" category="Malas\Towns\Luna\Sage's Refuge">1002,527,-50,3</location>
+	<location id="Shining Blades" category="Malas\Towns\Luna\Shining Blades">976,512,-50,3</location>
+	<location id="Shrine of Wisdom" category="Malas\Towns\Luna\Shrine of Wisdom">976,510,-30,3</location>
+	<location id="Vault of Secrets" category="Malas\Towns\Luna\Vault of Secrets">1072,457,-90,3</location>
+
+	<!-- Umbra -->
+
+	<location id="malas umbra gate" category="Malas\Towns\Umbra\Moongate">1998,1387,-85,3</location>
+	<location id="Umbra Bridge" category="Malas\Towns\Umbra\Umbra Bridge">1941,1321,-88,3</location>
+	<location id="Armoury of Souls" category="Malas\Towns\Umbra\Armoury of Souls">1984,1367,-80,3</location>
+	<location id="Bloodletter's Guild" category="Malas\Towns\Umbra\Bloodletter's Guild">2084,1372,-75,3</location>
+	<location id="Critter Pens" category="Malas\Towns\Umbra\Critter Pens">1992,1326,-90,3</location>
+	<location id="Darkweave" category="Malas\Towns\Umbra\Darkweave">2079,1338,-81,3</location>
+	<location id="Ghast Refectory" category="Malas\Towns\Umbra\Ghast Refectory">2017,1354,-90,3</location>
+	<location id="Gravedigger's Apparatus" category="Malas\Towns\Umbra\Gravedigger's Apparatus">2016,1328,-80,3</location>
+	<location id="Lich's Hoard" category="Malas\Towns\Umbra\Lich's Hoard">2051,1398,-90,3</location>
+	<location id="Necromancer Ampitheater" category="Malas\Towns\Umbra\Necromancer Ampitheater">2024,1383,-80,3</location>
+	<location id="Skeleton Swill" category="Malas\Towns\Umbra\Skeleton Swill">2030,1350,-90,3</location>
+	<location id="Wailing Banshee Inn" category="Malas\Towns\Umbra\Wailing Banshee Inn">2039,1317,-84,3</location>
+	<location id="Warped Woodworks" category="Malas\Towns\Umbra\Warped Woodworks">2066,1288,-80,3</location>
+
+	<!-- Doom -->
+
+	<location id="Doom Entrance" category="Malas\Dungeons\Doom\Entrance">2367,1268,-85,3</location>
+	<location id="Doom Tunnel" category="Malas\Dungeons\Doom\Tunnel">2352,1267,-110,3</location>
+	<location id="Doom Inside" category="Malas\Dungeons\Doom\Inside">381,133,33,3</location>
+	<location id="Doom Gauntlet" category="Malas\Dungeons\Doom\Gauntlet">433,331,-2,3</location>
+
+	<!-- Labyrinth -->
+
+	<location id="malas labyrinth entrance" category="Malas\Dungeons\Labyrinth\Entrance">1732,978,-80,3</location>
+	<location id="malas labyrinth" category="Malas\Dungeons\Labyrinth\Inside">330,1974,0,3</location>
+	<location id="malas labyrinth end of way" category="Malas\Dungeons\Labyrinth\End of way">383,1933,10,3</location>
+
+	<!-- Sites -->
+
+	<!-- Points of Intereset -->
+
+	<location id="Broken Mountains" category="Malas\Points of Interest\Broken Mountains">1111,1461,90,3</location>
+	<location id="Corrupted Forest" category="Malas\Points of Interest\Corrupted Forest">2172,1144,-87,3</location>
+	<location id="Crumbling Continent" category="Malas\Points of Interest\Crumbling Continent">736,1180,-95,3</location>
+	<location id="Crystal Fens" category="Malas\Points of Interest\Crystal Fens">1388,616,-85,3</location>
+	<location id="Divide of the Abyss" category="Malas\Points of Interest\Divide of the Abyss">1545,877,-85,3</location>
+	<location id="Dry Highlands" category="Malas\Points of Interest\Dry Highlands">2128,1668,-90,3</location>
+	<location id="Forgotten Pyramid" category="Malas\Points of Interest\Forgotten Pyramid">1825,1799,-50,3</location>
+	<location id="Gravewater Lake" category="Malas\Points of Interest\Gravewater Lake">1596,1656,-115,3</location>
+	<location id="Grimswind Ruins" category="Malas\Points of Interest\Grimswind Ruins">2192,330,-90,3</location>
+	<location id="Northern Crags" category="Malas\Points of Interest\Northern Crags">1580,384,-50,3</location>
+	<location id="Orc Fortress" category="Malas\Points of Interest\Orc Fortress">1340,1226,-90,3</location>
+	<location id="Hanse's Hostel" category="Malas\Points of Interest\Hanse's Hostel">1065,1435,-90,3</location>
+
+	<!-- Caves and Mines -->
+
+	<location id="Mine 1" category="Malas\Caves and Mines\Mine 1">2082,574,-90,3</location>
+	<location id="Mine 2" category="Malas\Caves and Mines\Mine 2">2157,456,-90,3</location>
+	<location id="Mine 3" category="Malas\Caves and Mines\Mine 3">1811,359,-90,3</location>
+	<location id="Mine 4" category="Malas\Caves and Mines\Mine 4">1790,475,-90,3</location>
+	<location id="Mine 5" category="Malas\Caves and Mines\Mine 5">1628,432,-86,3</location>
+	<location id="Mine 6" category="Malas\Caves and Mines\Mine 6">1658,304,-90,3</location>
+	<location id="Mine 7" category="Malas\Caves and Mines\Mine 7">1071,247,-90,3</location>
+	<location id="Mine 8" category="Malas\Caves and Mines\Mine 8">1095,197,-90,3</location>
+	<location id="Mine 9" category="Malas\Caves and Mines\Mine 9">1195,511,-90,3</location>
+
+	<!-- Orcs Forts -->
+
+	<location id="Fort 1" category="Malas\Orcs Forts\Fort 1">912,193,-79,3</location>
+	<location id="Fort 2" category="Malas\Orcs Forts\Fort 2">1666,362,-50,3</location>
+	<location id="Fort 3" category="Malas\Orcs Forts\Fort 3">1364,599,-86,3</location>
+	<location id="Fort 4" category="Malas\Orcs Forts\Fort 4">1205,705,-88,3</location>
+	<location id="Fort 5" category="Malas\Orcs Forts\Fort 5">1257,1331,-90,3</location>
+	<location id="Fort 6" category="Malas\Orcs Forts\Fort 6">1598,1825,-110,3</location>
+
+</definitions>

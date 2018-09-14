@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Hammer Pick -->
+	<item id="143d">
+		<id>0x143d</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>15</sellprice>
+		<buyprice>31</buyprice>
+		<durability><random min="30" max="35" /></durability>
+		<weight>9.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1004</type>
+		<category>Base Weapons\Maces\Hammer Pick (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="28" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="17" />
+	</item>
+
+	<item id="143c" inherit="143d">
+		<id>0x143c</id>
+		<baseid>143d</baseid>
+		<category>Base Weapons\Maces\Hammer Pick (E/W)</category>
+	</item>
+
+</definitions>

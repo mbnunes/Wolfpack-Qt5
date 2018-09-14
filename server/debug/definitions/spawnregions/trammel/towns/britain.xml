@@ -1,0 +1,272 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="britain_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>britain_vendors</group>
+		<group>britain</group>
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_1">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1494,1615,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_2">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1472,1611,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_3">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1482,1588,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_4">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1482,1551,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_5">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1493,1553,30,1" />
+	</spawnregion>
+
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_6">
+		<active />
+		<npc id="stablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1412,1548,25,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_7">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1470,1578,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_8">
+		<active />
+		<npc id="bard_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bard_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1455,1550,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_9">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1418,1554,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_10">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1420,1547,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_11">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1422,1580,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_12">
+		<active />
+		<npc id="architect_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="architect_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1435,1593,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_13">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1429,1596,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_14">
+		<active />
+		<npc id="tanner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tanner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1433,1609,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_15">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1429,1610,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_16">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1450,1610,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_17">
+		<active />
+		<npc id="stablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1388,1653,30,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_18">
+		<active />
+		<npc id="tinker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tinker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1426,1654,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_19">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1448,1648,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_20">
+		<active />
+		<npc id="artist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="artist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1444,1664,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_21">
+		<active />
+		<npc id="fisherman_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fisherlady_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1482,1672,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_22">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1466,1672,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_23">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1497,1658,27,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_24">
+		<active />
+		<npc id="barber_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="barber_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1504,1657,27,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_25">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1491,1688,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_26">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1467,1692,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_27">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1475,1686,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_28">
+		<active />
+		<npc id="spinner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spinner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1468,1685,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_29">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1452,1680,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_30">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1427,1679,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_31">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1436,1686,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_32">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1427,1716,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_33">
+		<active />
+		<npc id="shipwright_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shipwright_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1417,1755,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_34">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1451,1723,6,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_35">
+		<active />
+		<npc id="stablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1295,1761,10,1" />
+	</spawnregion>
+
+	<spawnregion inherit="britain_vendor" id="britain_vendor_36">
+		<active />
+		<npc id="cobbler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cobbler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1470,1667,10,0" />
+	</spawnregion>
+</definitions>

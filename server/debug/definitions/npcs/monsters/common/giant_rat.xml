@@ -1,0 +1,44 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a rat (giant) -->
+	<npc id="rat_giant" inherit="monster_base">
+		<name>giant rat</name>
+		<id>215</id>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="32" max="74"/></str>
+		<dex><random min="46" max="65"/></dex>
+		<int><random min="16" max="30"/></int>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="251" max="300"/></skill>
+		<skill id="tactics"><random min="293" max="440"/></skill>
+		<skill id="wrestling"><random min="293" max="440"/></skill>
+		<!-- Damage -->
+		<mindamage>5</mindamage>
+		<maxdamage>11</maxdamage>
+		<!-- Resists -->
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<!-- Lootpacks  -->
+		<lootpacks>lootpack_poor</lootpacks>
+		<!-- Misc. -->
+		<desc>Giant rats are, as their name implies, simply vermin increased to the size of a panther. They tend to congregate in the foulest, most eldritch regions of the dungeons they inhabit.</desc>
+		<mintaming>291</mintaming>
+		<strproperty name="food" value="2,1,3,4" />
+		<category>Monsters\Common\Giant Rat</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="6" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

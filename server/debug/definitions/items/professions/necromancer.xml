@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Radiant                        |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Necromancer                                                   |
+=================================================================
+-->
+<definitions>
+	<!-- Spellbook -->
+	<item id="2253">
+		<id>0x2253</id>
+		<onehanded />
+		<newbie />
+		<decay />
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
+		<category>Professions\Necromancer\Spellbook</category>
+		<basescripts>magic.necrospellbook</basescripts>
+	</item>
+
+	<item id="2260">
+		<id>0x2260</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Animate Dead</category>
+	</item>
+
+	<item id="2261">
+		<id>0x2261</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Blood Oath</category>
+	</item>
+
+	<item id="2262">
+		<id>0x2262</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Corpse Skin</category>
+	</item>
+
+	<item id="2263">
+		<id>0x2263</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Curse Weapon</category>
+	</item>
+
+	<item id="2264">
+		<id>0x2264</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Evil Omen</category>
+	</item>
+
+	<item id="2265">
+		<id>0x2265</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Horrific Beast</category>
+	</item>
+
+	<item id="2266">
+		<id>0x2266</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Lich Form</category>
+	</item>
+
+	<item id="2267">
+		<id>0x2267</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Mind Rot</category>
+	</item>
+
+	<item id="2268">
+		<id>0x2268</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Pain Spike</category>
+	</item>
+
+	<item id="2269">
+		<id>0x2269</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Poison Strike</category>
+	</item>
+
+	<item id="226a">
+		<id>0x226a</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Strangle</category>
+	</item>
+
+	<item id="226b">
+		<id>0x226b</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Summon Familiar</category>
+	</item>
+
+	<item id="226c">
+		<id>0x226c</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Vampiric Embrace</category>
+	</item>
+
+	<item id="226d">
+		<id>0x226d</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Vengeful Spirit</category>
+	</item>
+
+	<item id="226e">
+		<id>0x226e</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Wither</category>
+	</item>
+
+	<item id="226f">
+		<id>0x226f</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Wraith Form</category>
+	</item>
+
+	<item id="2270">
+		<id>0x2270</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Necromancer\Scrolls\Exorzism</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Nose Helmet North-South -->
+	<item id="140f">
+		<id>0x140f</id>
+		<decay />
+		<nodye />
+		<durability><random min="45" max="60" /></durability>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>145</buyprice>
+		<sellprice>72</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Helmets\Nose Helm (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="55" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="1" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<!-- Nose Helmet East-West -->
+	<item id="140e" inherit="140f">
+		<id>0x140e</id>
+		<baseid>140f</baseid>
+		<category>Base Armor\Helmets\Nose Helm (E/W)</category>
+	</item>
+
+</definitions>

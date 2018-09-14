@@ -1,0 +1,226 @@
+<decoration>
+	<!-- metal door-->
+	<item id="0x0675" hue="0x835">
+		<pos x="856" y="677" z="-40" map="2" />
+	</item>
+
+	<!-- metal door-->
+	<item id="0x0677" hue="0x835">
+		<pos x="853" y="672" z="-40" map="2" />
+	</item>
+
+	<!-- metal door-->
+	<item id="0x067B" hue="0x835">
+		<pos x="856" y="606" z="-40" map="2" />
+		<pos x="859" y="611" z="-40" map="2" />
+	</item>
+
+	<!-- barred metal door-->
+	<item id="0x1FED" hue="0x835">
+		<pos x="892" y="674" z="-40" map="2" />
+	</item>
+
+	<!-- barred metal door-->
+	<item id="0x1FF5" hue="0x835">
+		<pos x="896" y="657" z="-40" map="2" />
+		<pos x="896" y="662" z="-40" map="2" />
+		<pos x="896" y="667" z="-40" map="2" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x09AB">
+		<pos x="848" y="719" z="0" map="2" />
+		<pos x="850" y="719" z="0" map="2" />
+		<pos x="854" y="607" z="-40" map="2" />
+		<pos x="854" y="607" z="-35" map="2" />
+		<pos x="857" y="670" z="-40" map="2" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x0E40">
+		<pos x="828" y="725" z="0" map="2" />
+		<pos x="844" y="717" z="0" map="2" />
+		<pos x="852" y="608" z="-40" map="2" />
+		<pos x="852" y="609" z="-40" map="2" />
+		<pos x="852" y="609" z="-36" map="2" />
+		<pos x="852" y="609" z="-32" map="2" />
+		<pos x="852" y="611" z="-40" map="2" />
+		<pos x="852" y="611" z="-36" map="2" />
+		<pos x="852" y="613" z="-40" map="2" />
+		<pos x="852" y="613" z="-36" map="2" />
+		<pos x="852" y="675" z="-40" map="2" />
+		<pos x="852" y="675" z="-36" map="2" />
+		<pos x="852" y="676" z="-40" map="2" />
+		<pos x="852" y="676" z="-36" map="2" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x0E41">
+		<pos x="832" y="712" z="0" map="2" />
+		<pos x="856" y="670" z="-40" map="2" />
+		<pos x="856" y="670" z="-36" map="2" />
+		<pos x="856" y="670" z="-32" map="2" />
+		<pos x="858" y="670" z="-40" map="2" />
+		<pos x="858" y="670" z="-36" map="2" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x0E7C">
+		<pos x="852" y="612" z="-40" map="2" />
+		<pos x="852" y="675" z="-32" map="2" />
+	</item>
+
+	<!-- skinning knife-->
+	<item id="0x0EC5">
+		<pos x="864" y="583" z="-34" map="2" />
+	</item>
+
+	<!-- anvil-->
+	<item id="0x0FB0">
+		<pos x="786" y="662" z="0" map="2" />
+		<pos x="786" y="671" z="0" map="2" />
+		<pos x="791" y="662" z="0" map="2" />
+		<pos x="791" y="671" z="0" map="2" />
+		<pos x="796" y="662" z="0" map="2" />
+		<pos x="796" y="671" z="0" map="2" />
+	</item>
+
+	<!-- spinning wheel-->
+	<item id="0x1019">
+		<pos x="893" y="620" z="-40" map="2" />
+		<pos x="893" y="622" z="-40" map="2" />
+		<pos x="893" y="624" z="-40" map="2" />
+	</item>
+
+	<!-- upright loom-->
+	<item id="0x1060">
+		<pos x="893" y="617" z="-40" map="2" />
+		<pos x="893" y="626" z="-40" map="2" />
+	</item>
+
+	<!-- lever-->
+	<item id="0x1093">
+		<pos x="760" y="645" z="10" map="2" />
+	</item>
+
+	<!-- butcher knife-->
+	<item id="0x13F7">
+		<pos x="864" y="582" z="-34" map="2" />
+	</item>
+
+	<!-- platemail arms-->
+	<item id="0x1417" hue="0x44E">
+		<pos x="768" y="631" z="5" map="2" />
+	</item>
+
+	<!-- map-->
+	<item id="0x14EB">
+		<pos x="876" y="661" z="-34" map="2" />
+	</item>
+
+	<!-- bellows-->
+	<item id="0x1986">
+		<pos x="786" y="659" z="0" map="2" />
+		<pos x="786" y="668" z="0" map="2" />
+		<pos x="791" y="659" z="0" map="2" />
+		<pos x="791" y="668" z="0" map="2" />
+		<pos x="796" y="659" z="0" map="2" />
+		<pos x="796" y="668" z="0" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x198A">
+		<pos x="786" y="660" z="0" map="2" />
+		<pos x="786" y="669" z="0" map="2" />
+		<pos x="791" y="660" z="0" map="2" />
+		<pos x="791" y="669" z="0" map="2" />
+		<pos x="796" y="660" z="0" map="2" />
+		<pos x="796" y="669" z="0" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x198E">
+		<pos x="786" y="661" z="0" map="2" />
+		<pos x="786" y="670" z="0" map="2" />
+		<pos x="791" y="661" z="0" map="2" />
+		<pos x="791" y="670" z="0" map="2" />
+		<pos x="796" y="661" z="0" map="2" />
+		<pos x="796" y="670" z="0" map="2" />
+	</item>
+
+	<!-- bellows-->
+	<item id="0x1992">
+		<pos x="786" y="665" z="0" map="2" />
+		<pos x="786" y="674" z="0" map="2" />
+		<pos x="791" y="665" z="0" map="2" />
+		<pos x="791" y="674" z="0" map="2" />
+		<pos x="796" y="665" z="0" map="2" />
+		<pos x="796" y="674" z="0" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x1996">
+		<pos x="786" y="664" z="0" map="2" />
+		<pos x="786" y="673" z="0" map="2" />
+		<pos x="791" y="664" z="0" map="2" />
+		<pos x="791" y="673" z="0" map="2" />
+		<pos x="796" y="664" z="0" map="2" />
+		<pos x="796" y="673" z="0" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x199A">
+		<pos x="786" y="663" z="0" map="2" />
+		<pos x="786" y="672" z="0" map="2" />
+		<pos x="791" y="663" z="0" map="2" />
+		<pos x="791" y="672" z="0" map="2" />
+		<pos x="796" y="663" z="0" map="2" />
+		<pos x="796" y="672" z="0" map="2" />
+	</item>
+
+	<!-- heater shield-->
+	<item id="0x1B76" hue="0x44E">
+		<pos x="766" y="630" z="6" map="2" />
+	</item>
+
+	<!-- heater shield-->
+	<item id="0x1B77" hue="0x44E">
+		<pos x="768" y="630" z="5" map="2" />
+	</item>
+
+	<!-- Bell of Courage-->
+	<item id="0x1C12">
+		<pos x="846" y="601" z="-34" map="2" />
+		<pos x="846" y="682" z="-34" map="2" />
+	</item>
+
+	<!-- brain-->
+	<item id="0x1CF0" hue="0x96E">
+		<pos x="771" y="631" z="11" map="2" />
+	</item>
+
+	<!-- table leg-->
+	<item id="0x1E7D" hue="0x451">
+		<pos x="766" y="631" z="6" map="2" />
+	</item>
+
+	<!-- barrel staves-->
+	<item id="0x1EB1" hue="0x44E">
+		<pos x="775" y="632" z="-1" map="2" />
+	</item>
+
+	<!-- barrel staves-->
+	<item id="0x1EB2" hue="0x44E">
+		<pos x="773" y="632" z="-1" map="2" />
+	</item>
+
+	<!-- barrel staves-->
+	<item id="0x1EB3" hue="0x44E">
+		<pos x="767" y="631" z="2" map="2" />
+	</item>
+
+	<!-- statue-->
+	<item id="0x1F18" hue="0x451">
+		<pos x="767" y="630" z="6" map="2" />
+	</item>
+</decoration>

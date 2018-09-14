@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!--  Chainmail Leggings North-South-->
+	<item id="13be">
+		<id>0x13be</id>
+		<decay />
+		<nodye />
+		<durability><random min="45" max="60" /></durability>
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>7.0</weight>
+		<buyprice>166</buyprice>
+		<sellprice>107</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Chainmail\Leggings (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="60" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="1" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<!--  Chainmail Leggings East-West -->
+	<item id="13c3" inherit="13be">
+		<id>0x13c3</id>
+		<baseid>13be</baseid>
+		<category>Base Armor\Chainmail\Leggings (E/W)</category>
+	</item>
+
+</definitions>

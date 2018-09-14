@@ -1,0 +1,33 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh                           |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+
+	<menu id="CARTOGRAPHY" name="1044008">
+		<menu id="MAPS" />
+	</menu>
+
+	<menu id="MAPS" name="1044448">
+		<craft definition="map_local" name="1015230" itemid="0x14EB">
+			<cartography min="100" max="700" />
+			<material id="14eb;14ec" amount="1" name="Blank Map" />
+		</craft>
+		<craft definition="map_city" name="1015231" itemid="0x14EB">
+			<cartography min="250" max="850" />
+			<material id="14eb;14ec" amount="1" name="Blank Map" />
+		</craft>
+		<craft definition="sea_chart" name="1015232" itemid="0x14EB">
+			<cartography min="350" max="950" />
+			<material id="14eb;14ec" amount="1" name="Blank Map" />
+		</craft>
+		<craft definition="map_world" name="1015233" itemid="0x14EB">
+			<cartography min="395" max="995" />
+			<material id="14eb;14ec" amount="1" name="Blank Map" />
+		</craft>
+	</menu>
+</definitions>

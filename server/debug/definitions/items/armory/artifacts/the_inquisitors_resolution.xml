@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- The Inquisitor's Resolution -->
+	<item id="the_inquisitors_resolution">
+		<id>0x1414</id>
+		<name>#1060206</name>
+		<decay />
+		<nodye />
+		<color>0x4f2</color>
+		<weight>2.0</weight>
+		<durability>255</durability>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\The Inquisitor's Resolution</category>
+		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="10" />
+		<intproperty name="castrecoverybonus" value="3" />
+		<intproperty name="lowermanacost" value="8" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="22" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="17" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="req_strength" value="70" />
+	</item>
+
+</definitions>

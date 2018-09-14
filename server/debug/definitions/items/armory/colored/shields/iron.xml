@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- shields -->
+	<!-- buckler -->
+	<item id="1b73_iron" inherit="1b73">
+		<iron_armor />
+		<baseid>1b73</baseid>
+		<category>Armor\Iron\Shields\Buckler</category>
+	</item>
+
+	<!-- bronze shield -->
+	<item id="1b72_iron" inherit="1b72">
+		<iron_armor />
+		<baseid>1b72</baseid>
+		<category>Armor\Iron\Shields\Bronze</category>
+	</item>
+
+	<!-- heater -->
+	<item id="1b76_iron" inherit="1b76">
+		<iron_armor />
+		<baseid>1b76</baseid>
+		<category>Armor\Iron\Shields\Heater (N/S)</category>
+	</item>
+
+	<item id="1b77_iron" inherit="1b77">
+		<iron_armor />
+		<baseid>1b76</baseid>
+		<category>Armor\Iron\Shields\Heater (E/W)</category>
+	</item>
+
+	<!-- metal shield -->
+	<item id="1b7b_iron" inherit="1b7b">
+		<iron_armor />
+		<baseid>1b7b</baseid>
+		<category>Armor\Iron\Shields\Metal Shield</category>
+	</item>
+
+	<!-- metal kite shield -->
+	<item id="1b74_iron" inherit="1b74">
+		<baseid>1b74</baseid>
+		<iron_armor />
+		<category>Armor\Iron\Shields\Metal Kite (N/S)</category>
+	</item>
+
+	<item id="1b75_iron" inherit="1b75">
+		<iron_armor />
+		<baseid>1b74</baseid>
+		<category>Armor\Iron\Shields\Metal Kite (E/W)</category>
+	</item>
+
+	<!-- wooden kite shield -->
+	<item id="1b78_iron" inherit="1b78">
+		<iron_armor />
+		<baseid>1b78</baseid>
+		<category>Armor\Iron\Shields\Wooden Kite (N/S)</category>
+	</item>
+
+	<item id="1b79_iron" inherit="1b79">
+		<iron_armor />
+		<baseid>1b78</baseid>
+		<category>Armor\Iron\Shields\Wooden Kite (E/W)</category>
+	</item>
+
+	<!-- chaos shield -->
+	<item id="1bc3_iron" inherit="1bc3">
+		<iron_armor />
+		<baseid>1bc3</baseid>
+		<category>Armor\Iron\Shields\Chaos Shield</category>
+	</item>
+
+	<!-- order shield -->
+	<item id="1bc4_iron" inherit="1bc4">
+		<iron_armor />
+		<baseid>1bc4</baseid>
+		<category>Armor\Iron\Shields\Order Shield (N/S)</category>
+	</item>
+
+	<item id="1bc5_iron" inherit="1bc5">
+		<iron_armor />
+		<baseid>1bc4</baseid>
+		<category>Armor\Iron\Shields\Order Shield (E/W)</category>
+	</item>
+
+</definitions>

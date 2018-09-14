@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Naddel                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Paladin                                                       |
+=================================================================
+-->
+<definitions>
+	<!-- Spellbook -->
+	<item id="2252">
+		<id>0x2252</id>
+		<onehanded />
+		<newbie />
+		<decay />
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
+		<category>Professions\Paladin\Spellbook</category>
+		<basescripts>magic.chivalryspellbook</basescripts>
+	</item>
+
+	<item id="227c">
+		<id>0x227c</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Cleanse by fire</category>
+	</item>
+
+	<item id="227d">
+		<id>0x227d</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Close Wounds</category>
+	</item>
+
+	<item id="227e">
+		<id>0x227e</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Consecrate Weapon</category>
+	</item>
+
+	<item id="227f">
+		<id>0x227f</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Dispel Evil</category>
+	</item>
+
+	<item id="2280">
+		<id>0x2280</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Divine Fury</category>
+	</item>
+
+	<item id="2281">
+		<id>0x2281</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Enemy of one</category>
+	</item>
+
+	<item id="2282">
+		<id>0x2282</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Holy Light</category>
+	</item>
+
+	<item id="2283">
+		<id>0x2283</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Noble Sacrifice</category>
+	</item>
+
+	<item id="2284">
+		<id>0x2284</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Remove Curse</category>
+	</item>
+
+	<item id="2285">
+		<id>0x2285</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Paladin\Scrolls\Sacred Journey</category>
+	</item>
+
+</definitions>

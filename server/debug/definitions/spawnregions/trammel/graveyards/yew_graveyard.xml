@@ -1,0 +1,26 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="trammel_yew_graveyard">
+		<inactive />
+		<maxnpcamount>10</maxnpcamount>
+                <delay min="55" max="60" />
+		<npcspercycle>5</npcspercycle>
+		<group>yew</group>
+		<group>trammel_yew_graveyard</group>
+		<group>trammel</group>
+	</spawnregion>
+
+	<spawnregion inherit="trammel_yew_graveyard" id="trammel_yew_graveyard_1">
+		<active />
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="711,1103" to="734,1134" map="1" />
+	</spawnregion>
+</definitions>

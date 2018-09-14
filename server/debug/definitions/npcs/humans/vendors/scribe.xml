@@ -1,0 +1,29 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="scribe_inventory">
+		<title context="Vendor Male Titles">the Scribe</title>
+		<skill id="anatomy"><random min="750" max="980" /></skill>
+	</npc>
+
+	<!-- A artist -->
+	<npc id="scribe_male" inherit="vendor_male">
+		<inherit id="scribe_inventory" />
+		<category>Vendors\Scribe (Male)</category>
+	</npc>
+
+	<npc id="scribe_female" inherit="vendor_female">
+		<inherit id="scribe_inventory" />
+		<category>Vendors\Scribe (Female)</category>
+	</npc>
+
+</definitions>
+
+

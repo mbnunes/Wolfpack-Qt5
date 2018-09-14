@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Bone Helm North-South -->
+	<item id="1451">
+		<id>0x1451</id>
+		<decay />
+		<nodye />
+		<durability><random min="25" max="30" /></durability>
+		<restock>10</restock>
+		<weight>3.0</weight>
+		<sellprice>15</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Bone\Bone Helmet (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="2" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<!-- Bone Helm East-West -->
+	<item id="1456" inherit="1451">
+		<id>0x1456</id>
+		<baseid>1451</baseid>
+		<category>Base Armor\Bone\Bone Helmet (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="definitions" type="definitionsType">
+		<xs:annotation>
+			<xs:documentation>Definitions root element</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:simpleType name="HexOrDecNumber">
+		<xs:annotation>
+			<xs:documentation>Numbers that can be either expressed in decimal or in hex notation preceeded by "0x"</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:pattern value="([0-9]* | 0x[0-9a-fA-F]*)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="bindmenuType" mixed="true">
+		<xs:attribute name="id">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="item_menu"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="buypriceType" mixed="true">
+		<xs:attribute name="value">
+			<xs:simpleType>
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="colorType" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="random" type="randomType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="contentType">
+		<xs:sequence>
+			<xs:element name="item" type="itemType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="definitionsType">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="item" type="itemType"/>
+			<xs:element name="include" type="includeType"/>
+			<xs:element name="list">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="item" type="itemType"/>
+					</xs:sequence>
+					<xs:attribute name="id" use="required" type="xs:string">
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="contextmenu">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="scripts"/>
+						<xs:element name="option" type="optionType"/>
+					</xs:sequence>
+					<xs:attribute name="id" use="required" type="xs:string">
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="durabilityType">
+		<xs:sequence>
+			<xs:element name="random" type="randomType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="includeType">
+		<xs:attribute name="file" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="intpropertyType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:byte" use="required"/>
+		<xs:attribute name="type">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="int"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="itemType">
+		<xs:annotation>
+			<xs:documentation>Item type elements</xs:documentation>
+		</xs:annotation>
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="id" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="nodye" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="dye" type="xs:string"/>
+			<xs:element name="category" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Item's category used to build in-game add menu. Subcategories are separated by back-slash character: \</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gold_armor" type="xs:string"/>
+			<xs:element name="gold_weapon" type="xs:string"/>
+			<xs:element name="green_scaled_armor" type="xs:string"/>
+			<xs:element name="horned_leather_armor" type="xs:string"/>
+			<xs:element name="color" type="colorType"/>
+			<xs:element name="durability" type="durabilityType"/>
+			<xs:element name="weight" type="xs:decimal"/>
+			<xs:element name="buyprice" type="buypriceType"/>
+			<!-- <xs:element ref="mythril_armor"/> -->
+			<xs:element name="baseid" type="xs:string"/>
+			<xs:element name="tag" type="tagType">
+				<xs:annotation>
+					<xs:documentation>Definitions defined tags</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intproperty" type="intpropertyType"/>
+			<xs:element name="health">
+				<xs:simpleType>
+					<xs:restriction base="xs:nonNegativeInteger"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="maxhealth" type="xs:nonNegativeInteger"/>
+			<xs:element name="flip" type="HexOrDecNumber"/>
+			<xs:element name="lightsource" type="xs:string"/>
+			<xs:element name="decaytime" type="xs:nonNegativeInteger"/>
+			<xs:element name="newbie" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Whether the item should be marked as newbie/blessed ( remains in backpack after death )</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="watersource">
+				<xs:simpleType>
+					<xs:restriction base="xs:string"/>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="note" type="noteType"/>
+			<xs:element name="bindmenu" type="bindmenuType"/>
+			<xs:element name="scriptlist" type="xs:string"/>
+			<xs:element name="content" type="contentType"/>
+			<xs:element name="strproperty" type="strpropertyType"/>
+			<xs:element name="carve" type="xs:string"/>
+			<xs:element name="morex">
+				<xs:simpleType>
+					<xs:restriction base="xs:byte">
+						<xs:enumeration value="3"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="morey">
+				<xs:simpleType>
+					<xs:restriction base="xs:byte">
+						<xs:enumeration value="6"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="invisible" type="xs:string"/>
+			<xs:element name="agapite_armor" type="xs:string"/>
+			<xs:element name="agapite_weapon" type="xs:string"/>
+			<xs:element name="allowmeditation" type="xs:string"/>
+			<xs:element name="amount" type="xs:short"/>
+			<xs:element name="barbed_leather_armor" type="xs:string"/>
+			<xs:element name="basescript" type="xs:string"/>
+			<xs:element name="basescripts" type="xs:string"/>
+			<xs:element name="black_scaled_armor" type="xs:string"/>
+			<xs:element name="blue_scaled_armor" type="xs:string"/>
+			<xs:element name="bronze_armor" type="xs:string"/>
+			<xs:element name="bronze_weapon" type="xs:string"/>
+			<xs:element name="copper_armor" type="xs:string"/>
+			<xs:element name="copper_weapon" type="xs:string"/>
+			<xs:element name="decaydelay" type="xs:nonNegativeInteger" />
+			<xs:element name="dull_copper_armor" type="xs:string"/>
+			<xs:element name="decay" type="xs:string"/>
+			<xs:element name="dull_copper_weapon" type="xs:string"/>
+			<xs:element name="iron_armor" type="xs:string"/>
+			<xs:element name="iron_weapon" type="xs:string"/>
+			<xs:element name="leather_armor" type="xs:string"/>
+			<xs:element name="merkite_armor" type="xs:string"/>
+			<xs:element name="movable" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="nodecay" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Used for items that should not decay</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="onehanded" type="xs:string"/>
+			<xs:element name="red_scaled_armor" type="xs:string"/>
+			<xs:element name="restock" type="xs:nonNegativeInteger"/>
+			<xs:element name="sellprice" type="xs:string"/>
+			<xs:element name="shadow_armor" type="xs:string"/>
+			<xs:element name="shadow_weapon" type="xs:string"/>
+			<xs:element name="silver_armor" type="xs:string"/>
+			<xs:element name="smelt" type="xs:byte"/>
+			<xs:element name="spined_leather_armor" type="xs:string"/>
+			<xs:element name="twohanded" type="xs:string"/>
+			<xs:element name="valorite_armor" type="xs:string"/>
+			<xs:element name="valorite_weapon" type="xs:string"/>
+			<xs:element name="verite_armor" type="xs:string"/>
+			<xs:element name="verite_weapon" type="xs:string"/>
+			<xs:element name="white_scaled_armor" type="xs:string"/>
+			<xs:element name="yellow_scaled_armor" type="xs:string"/>
+			<xs:element name="scripts" type="xs:string"/>
+			<xs:element name="type" type="xs:string"/>
+			<xs:element name="value" type="xs:string"/>
+		</xs:choice>
+		<xs:attribute name="id" type="xs:string" use="required"/>
+		<xs:attribute name="inherit" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<!-- <xs:element name="mythril_armor" type="xs:string"/> -->
+	<xs:complexType name="noteType" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="ref" type="refType"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="optionType">
+		<xs:attribute name="tag" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="1"/>
+					<xs:enumeration value="2"/>
+					<xs:enumeration value="3"/>
+					<xs:enumeration value="4"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="msgid" type="xs:nonNegativeInteger" use="required"/>
+		<xs:attribute name="checkvisible">
+			<xs:simpleType>
+				<xs:restriction base="xs:boolean"/>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="checkenabled">
+			<xs:simpleType>
+				<xs:restriction base="xs:boolean"/>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="randomType">
+		<xs:attribute name="min" type="xs:byte"/>
+		<xs:attribute name="max" type="xs:byte"/>
+		<xs:attribute name="list" type="xs:string"/>
+	</xs:complexType>
+	<xs:complexType name="refType">
+		<xs:attribute name="id" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="strpropertyType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="tagType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="value" type="xs:string" use="required"/>
+		<xs:attribute name="type">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="int"/>
+					<xs:enumeration value="str"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,61 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by: King Falcon                    |
+|  ( (  ;._ \\ ctr | Last Modification: 05/24/05                |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_destard">
+		<inactive />
+		<maxnpcamount>45</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>destard</group>
+		<group>felucca_destard</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_destardlvl2">
+		<inactive />
+		<maxnpcamount>10</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>destard</group>
+		<group>felucca_destardlvl2</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_destardlvl3">
+		<inactive />
+		<maxnpcamount>3</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>destard</group>
+		<group>felucca_destardlvl3</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_destard" id="felucca_destard_lvl1_1">
+		<active />
+		<npc id="dragon"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5181,772" to="5351,985" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_destardlvl2" id="felucca_destard_lvl2_2">
+		<active />
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shadow_wyrm"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5124,797" to="5174,878" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_destardlvl3" id="felucca_destard_lvl3_3">
+		<active />
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ancient_wyrm"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5129,968" to="5183,1015" map="0" />
+	</spawnregion>
+</definitions>

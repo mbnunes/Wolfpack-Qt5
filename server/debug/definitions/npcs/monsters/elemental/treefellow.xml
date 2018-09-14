@@ -1,0 +1,49 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Treefellow -->
+	<npc id="treefellow" inherit="monster_base">
+		<name>treefellow</name>
+		<id>301</id>
+		<inherit id="KARMA_NL2" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="196" max="220"/></str>
+		<dex><random min="31" max="55"/></dex>
+		<int><random min="66" max="90"/></int>
+		<maxhitpoints><random min="118" max="132"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="401" max="550"/></skill>
+		<skill id="tactics"><random min="651" max="900"/></skill>
+		<skill id="wrestling"><random min="651" max="850"/></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>26</mindamage>
+		<maxdamage>35</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="30,35" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_average;lootpack_average</lootpacks>
+		<backpack>
+			<content>
+				<item id="1bdd" > <!-- Log -->
+					<amount><random min="20" max="35"/></amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Elementals\Treefellow</category>
+		<strproperty name="slayer_group" value="feys" />
+	</npc>
+
+</definitions>

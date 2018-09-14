@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Repeating Crossbow -->
+	<item id="26cd">
+		<id>0x26cd</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>25</sellprice>
+		<buyprice>50</buyprice>
+		<durability><random min="30" max="49" /></durability>
+		<weight>7.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1007</type>
+		<category>Base Weapons\Bows\Repeating Crossbow (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="projectile" value="0x1bfe" />
+		<strproperty name="ammunition" value="1bfb" />
+		<intproperty name="req_strength" value="30" />
+		<intproperty name="speed" value="41" />
+		<intproperty name="range" value="10" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+	</item>
+
+	<item id="26c3" inherit="26cd">
+		<id>0x26c3</id>
+		<baseid>26cd</baseid>
+		<category>Base Weapons\Bows\Repeating Crossbow (E/W)</category>
+	</item>
+
+</definitions>

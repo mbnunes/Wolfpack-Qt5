@@ -1,0 +1,63 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- dark guardian -->
+	<npc id="dark_guardian" inherit="monster_base">
+		<name>dark guardian</name>
+		<id>79</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="126" max="150"/></str>
+		<dex><random min="101" max="120"/></dex>
+		<int><random min="201" max="235"/></int>
+		<maxhitpoints><random min="153" max="179"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="501" max="700"/></skill>
+		<skill id="tactics"><random min="501" max="700"/></skill>
+		<skill id="wrestling">0</skill>
+		<skill id="evaluatingintelligence"><random min="401" max="500"/></skill>
+		<skill id="magery"><random min="601" max="700"/></skill>
+		<skill id="meditation"><random min="851" max="950"/></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>43</mindamage>
+		<maxdamage>48</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_cold" value="40" type="int" />
+		<tag name="dmg_energy" value="50" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_fire" value="20,45" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="20,45" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>scroll_medium;scroll_medium;tm_1;tm_2;tm_3</lootpacks>
+		<backpack>
+			<content>
+				<item id="eed">
+					<amount><random min="400" max="500"/></amount>
+				</item>
+				<item list="NECRO_REAGENTS">
+					<amount><random min="15" max="25"/></amount>
+				</item>
+				<item id="f80"> <!-- Daemon Bones -->
+					<amount>30</amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Undead\Dark Guardian</category>
+		<strproperty name="slayer_group" value="undeads" />
+		<ai>Monster_Mage</ai>
+	</npc>
+
+</definitions>

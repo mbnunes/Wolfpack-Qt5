@@ -1,0 +1,124 @@
+
+<definitions>
+	<spawnregion id="yew_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>yew_vendors</group>
+		<group>yew</group>
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_1">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="624,1145,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_2">
+		<active />
+		<npc id="shipwright_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shipwright_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="624,1145,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_3">
+		<active />
+		<npc id="mapmaker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mapmaker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="631,1034,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_4">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="540,966,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_5">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="553,985,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_6">
+		<active />
+		<npc id="bowyer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bowyer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="570,969,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_7">
+		<active />
+		<npc id="tanner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tanner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="517,986,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_8">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="517,986,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_9">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="529,1008,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_10">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="652,820,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_11">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="610,810,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_12">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="535,867,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_13">
+		<active />
+		<npc id="cobbler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cobbler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="535,867,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_14">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="564,1011,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_15">
+		<active />
+		<npc id="architect_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="architect_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="564,1011,0,1" />
+	</spawnregion>
+
+	<spawnregion inherit="yew_vendor" id="yew_vendor_16">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="643,1083,0,1" />
+	</spawnregion>
+</definitions>

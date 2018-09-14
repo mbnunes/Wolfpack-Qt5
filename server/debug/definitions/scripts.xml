@@ -1,0 +1,383 @@
+<!--
+=================================================================
+|   )      (\_     |  WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Python Scripts
+|   )).-' {{ ;'`   |
+|  ( (  ;._ \\     |
+=================================================================
+-->
+<!--
+	This file contains a simple file-list of all scripts
+	you want to load on startup. The name between the tags
+	is automatically the script-name used internally (for
+	other scripts or eventlists).
+-->
+<definitions>
+
+	<!-- Boats -->
+	<script>boats</script>
+	<script>boats.deed</script>
+	<script>boats.tillerman</script>
+	<script>boats.plank</script>
+
+	<!-- Housing -->
+	<script>housing</script>
+	<script>housing.deed</script>
+	<script>housing.house</script>
+	<script>housing.sign</script>
+	<script>housing.security</script>
+	<script>ankh</script>
+	<script>arcanegem</script>
+	<script>archery_butte</script>
+	<script>ballotbox</script>
+	<script>bandages</script>
+	<script>beverage</script>
+	<script>bigfish</script>
+	<script>blades</script>
+	<script>bola</script>
+	<script>book</script>
+	<script>bracelet_of_binding</script>
+	<script>bulletinboard</script>
+	<script>check</script>
+	<script>clockwork_assembly</script>
+	<script>comcrystals</script>
+	<script>cooking</script>
+	<script>cotton</script>
+	<script>dicecup</script>
+	<script>door</script>
+	<script>dyes</script>
+	<script>environment</script>
+	<script>equipment</script>
+	<script>farming</script>
+	<script>figurine</script>
+	<script>firehorn</script>
+	<script>furniture</script>
+	<script>food</script>
+	<script>gate</script>
+	<script>granite</script>
+	<script>guillotine</script>
+	<script>ingot</script>
+	<script>key</script>
+	<script>keyring</script>
+	<script>kindling</script>
+	<script>leatherdye</script>
+	<script>lightsource</script>
+	<script>lock</script>
+	<script>lockpick</script>
+	<script>map</script>
+	<script>moongate</script>
+	<script>ninja_belt</script>
+	<script>oil_cloth</script>
+	<script>ore</script>
+	<script>pickaxe</script>
+	<script>pickpocket_dip</script>
+	<script>potionkeg</script>
+	<script>power_crystal</script>
+	<script>runedye</script>
+	<script>sextant</script>
+	<script>scissors</script>
+	<script>shrine</script>
+	<script>shrink</script>
+	<script>shuriken</script>
+	<script>signpost</script>
+	<script>slotmachine</script>
+	<script>spawngem</script>
+	<script>specialdye</script>
+	<script>spiderweb</script>
+	<script>statscroll</script>
+	<script>statuette</script>
+	<script>taxidermykit</script>
+	<script>training_dummy</script>
+	<script>trashcan</script>
+	<script>tribal_paint</script>
+	<script>trophy</script>
+	<script>wall_clock</script>
+	<script>weather</script>
+	<script>wheat</script>
+	<script>wool</script>
+	<script>worldsave</script>
+<!--	<script>xmlconfig</script> -->
+	<script>yarn</script>
+
+	<!-- Special Books -->
+	<script>books.glassblowing</script>
+	<script>books.masonry</script>
+	<script>books.sandmining</script>
+	<script>books.stonemining</script>
+
+	<!-- Potions -->
+	<script>potions</script>
+
+	<!-- Deeds -->
+	<script>deeds.carpentry_deed</script>
+	<script>deeds.clothing_bless_deed</script>
+	<script>deeds.commoditydeed</script>
+	<script>deeds.hairstyle</script>
+	<script>deeds.item_bless_deed</script>
+	<script>deeds.multideed</script>
+	<script>deeds.trophy_deed</script>
+
+	<!-- Combat -->
+	<script>combat</script>
+	<script>combat.specialmoves</script>
+	<script>combat.hiteffects</script>
+	<script>combat.paralyze_blow</script>
+
+	<!-- Guilds -->
+	<script>guilds</script>
+	<script>guilds.commands</script>
+	<script>guilds.deed</script>
+	<script>guilds.member</script>
+	<script>guilds.stone</script>
+
+	<!-- Commands -->
+	<script>commands</script>
+	<script>commands.account</script>
+	<script>commands.action</script>
+	<script>commands.add</script>
+	<script>commands.adddecor</script>
+	<script>commands.allshow</script>
+	<script>commands.bank</script>
+	<script>commands.boom</script>
+	<script>commands.build</script>
+	<script>commands.cast</script>
+	<script>commands.decoration</script>
+	<script>commands.disconnect</script>
+	<script>commands.dupe</script>
+	<script>commands.dye</script>
+	<script>commands.edit</script>
+	<script>commands.effect</script>
+	<script>commands.email</script>
+	<script>commands.eval</script>
+	<script>commands.events</script>
+	<script>commands.export</script>
+	<script>commands.exportmissingids</script>
+	<script>commands.exportstatics</script>
+	<script>commands.find</script>
+	<script>commands.findlock</script>
+	<script>commands.fix</script>
+	<script>commands.follow</script>
+	<script>commands.freeze</script>
+	<script>commands.go</script>
+	<script>commands.hearall</script>
+	<script>commands.hideskilltitle</script>
+	<script>commands.import</script>
+	<script>commands.info</script>
+	<script>commands.invis</script>
+	<script>commands.invul</script>
+	<script>commands.kickban</script>
+	<script>commands.kill</script>
+	<script>commands.makestatic</script>
+	<script>commands.move</script>
+	<script>commands.mute</script>
+	<script>commands.jail</script>
+	<script>commands.password</script>
+	<script>commands.remove</script>
+	<script>commands.removedupes</script>
+	<script>commands.removemulti</script>
+	<script>commands.restock</script>
+	<script>commands.restore</script>
+	<script>commands.resurrect</script>
+	<script>commands.serverinfo</script>
+	<script>commands.say</script>
+	<script>commands.showskilltitles</script>
+	<script>commands.skillinfo</script>
+	<script>commands.skill</script>
+	<script>commands.sound</script>
+	<script>commands.spawn</script>
+	<script>commands.stat</script>
+	<script>commands.sysmessage</script>
+	<script>commands.tags</script>
+	<script>commands.tele</script>
+	<script>commands.testapi</script>
+	<script>commands.testlos</script>
+	<script>commands.tile</script>
+	<script>commands.tilecolor</script>
+	<script>commands.tilemove</script>
+	<script>commands.tilepattern</script>
+	<script>commands.turnitem</script>
+	<script>commands.where</script>
+	<script>commands.who</script>
+	<script>commands.wipe</script>
+
+	<!-- Magic -->
+	<script>magic</script>
+	<script>magic.arcane</script>
+	<script>magic.arcanespellbook</script>
+	<script>magic.bushido</script>
+	<script>magic.bushidospellbook</script>
+	<script>magic.circle1</script>
+	<script>magic.circle2</script>
+	<script>magic.circle3</script>
+	<script>magic.circle4</script>
+	<script>magic.circle5</script>
+	<script>magic.circle6</script>
+	<script>magic.circle7</script>
+	<script>magic.circle8</script>
+	<script>magic.chivalry</script>
+	<script>magic.chivalryspellbook</script>
+	<script>magic.firefield</script>
+	<script>magic.gate</script>
+	<script>magic.necromancy</script>
+	<script>magic.necrospellbook</script>
+	<script>magic.ninjitsu</script>
+	<script>magic.ninjitsuspellbook</script>
+	<script>magic.nightsight</script>
+	<script>magic.paralyzefield</script>
+	<script>magic.poisonfield</script>
+	<script>magic.rune</script>
+	<script>magic.runebook</script>
+	<script>magic.scroll</script>
+	<script>magic.spell</script>
+	<script>magic.spellbook</script>
+	<script>magic.trap</script>
+	<script>magic.bloodoath</script>
+	<script>magic.corpseskin</script>
+	<script>magic.evilomen</script>
+	<script>magic.curseweapon</script>
+	<script>magic.vampiricembrace</script>
+	<script>magic.vengefulspirit</script>
+	<script>magic.strangle</script>
+	<script>magic.mindrot</script>
+	<script>magic.horrificbeast</script>
+	<script>magic.divinefury</script>
+	<script>magic.lichform</script>
+	<script>magic.wraithform</script>
+
+	<!-- NPC -->
+	<script>npc.healer</script>
+	<script>npc.poison</script>
+	<script>npc.mount</script>
+	<script>npc.cow</script>
+	<script>npc.chicken</script>
+	<script>npc.monster</script>
+
+	<!-- Context menu scripts -->
+	<script>contextmenus.bankermenu</script>
+	<script>contextmenus.healermenu</script>
+	<script>contextmenus.paperdollmenu</script>
+	<script>contextmenus.petmenu</script>
+	<script>contextmenus.tamemenu</script>
+	<script>contextmenus.stablermenu</script>
+	<script>contextmenus.trainmenu</script>
+	<script>contextmenus.vendormenu</script>
+	<script>contextmenus.questmenu</script>
+
+	<!-- Speech Scripts -->
+	<script>speech.barber</script>
+	<script>speech.banker</script>
+	<script>speech.healer</script>
+	<script>speech.human</script>
+	<script>speech.pets</script>
+	<script>speech.stablemaster</script>
+	<script>speech.monster</script>
+
+	<!-- System Scripts -->
+	<script>system.dbupdate</script>
+	<script>system.input</script>
+	<script>system.slayer</script>
+	<script>system.hardwareinfo</script>
+	<script>system.status</script>
+	<script>system.hunger</script>
+	<script>system.loot</script>
+	<script>system.clientmacros</script>
+	<script>system.makemenus</script>
+	<!-- These require testing -->
+	<!--
+	<script>system.mysql_backup_db</script>
+
+	-->
+	<script>system.pages</script>
+	<script>system.players</script>
+	<script>system.poison</script>
+	<script>system.regionchange</script>
+	<script>system.skillgain</script>
+	<script>system.spawns</script>
+	<script>system.trading</script>
+	<script>system.uogstatus</script>
+	<script>system.webadmin</script>
+
+	<!-- Skills -->
+	<script>skills</script>
+	<script>skills.alchemy</script>
+	<script>skills.anatomy</script>
+	<script>skills.animallore</script>
+	<script>skills.animaltaming</script>
+	<script>skills.armslore</script>
+	<script>skills.begging</script>
+	<script>skills.blacksmithing</script>
+	<script>skills.bowcraft</script>
+	<script>skills.carpentry</script>
+	<script>skills.cartography</script>
+	<script>skills.cooking</script>
+	<script>skills.detectinghidden</script>
+	<script>skills.evaluatingintel</script>
+	<script>skills.fishing</script>
+	<script>skills.glassblowing</script>
+	<script>skills.healing</script>
+	<script>skills.herding</script>
+	<script>skills.hiding</script>
+	<script>skills.inscription</script>
+	<script>skills.itemid</script>
+	<script>skills.lumberjacking</script>
+	<script>skills.masonry</script>
+	<script>skills.mining</script>
+	<script>skills.musicianship</script>
+	<script>skills.peacemaking</script>
+	<script>skills.poisoning</script>
+	<script>skills.provocation</script>
+	<script>skills.spiritspeak</script>
+	<script>skills.stealing</script>
+	<script>skills.stealth</script>
+	<script>skills.tailoring</script>
+	<script>skills.tasteid</script>
+	<script>skills.tinkering</script>
+	<script>skills.tracking</script>
+
+	<!-- Testing Scripts -->
+	<script>testing</script>
+	<script>testing.multibag</script>
+	
+	<!-- Plants -->
+	<script>plants</script>
+	<script>plants.bowl</script>
+	<script>plants.plant</script>
+	<script>plants.seed</script>
+	<script>plants.greenthorns</script>
+	<script>plants.redleaves</script>
+	<script>plants.orangepetals</script>
+
+	<!-- Plants -->
+	<script>crops.growing</script>
+	<script>crops.harvest</script>
+
+	<!-- Playervendors -->
+	<script>npc.playervendor</script>
+	<script>npc.playervendor.item</script>
+	<script>npc.playervendor.backpack</script>
+	<script>npc.playervendor.buygump</script>
+	<script>npc.playervendor.statusgump</script>
+	<script>npc.playervendor.customizegump</script>
+	<script>npc.playervendor.payment</script>
+	<script>npc.playervendor.addplayervendor</script>
+
+	<!-- Quest System -->
+	<script>quests</script>
+	<script>quests.players</script>
+	<script>quests.npcs</script>
+	<script>quests.utils</script>
+	<script>quests.functions</script>
+	<script>quests.events</script>
+
+	<!-- Treasure System -->
+	<script>treasure.treasure_chest</script>
+	<script>treasure.treasure_coords</script>
+	<script>treasure.treasure_map</script>
+	<script>treasure.treasure_spawn</script>
+	<script>treasure.treasure_templates</script>
+
+	<!-- Gumps -->
+	<script>gumps.confirm_release_gump</script>
+	<script>gumps.notice_gump</script>
+	<script>gumps.warning_gump</script>
+</definitions>

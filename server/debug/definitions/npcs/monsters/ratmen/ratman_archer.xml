@@ -1,0 +1,61 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a ratman archer-->
+	<npc id="ratman_archer" inherit="monster_base">
+		<basescript>speech.monster</basescript>
+		<strproperty name="monsterspeech" value="ratman" />
+		<name><random list="NAMES_RATMAN" /></name>
+		<id>142</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="146" max="180"/></str>
+		<dex><random min="101" max="130"/></dex>
+		<int><random min="116" max="140"/></int>
+		<maxhitpoints><random min="88" max="108"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="anatomy"><random min="602" max="1000"/></skill>
+		<skill id="magicresistance"><random min="651" max="900"/></skill>
+		<skill id="tactics"><random min="501" max="750"/></skill>
+		<skill id="wrestling"><random min="501" max="750"/></skill>
+		<skill id="archery"><random min="801" max="900"/></skill>
+		<!-- Damage -->
+		<mindamage>36</mindamage>
+		<maxdamage>42</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="40,55" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<!-- Equiped -->
+		<equipped>
+			<item id="13b1" /> <!-- Bow -->
+		</equipped>
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_rich</lootpacks>
+		<backpack>
+			<content>
+				<item id="f3f"> <!-- Arrows -->
+					<amount><random min="50" max="70"/></amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Ratmen\Ratman Archer</category>
+		<strproperty name="slayer_group" value="ratmen" />
+		<intproperty name="food" value="1" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="8" />
+		<strproperty name="carve_hides_type" value="spined" />
+	</npc>
+
+</definitions>

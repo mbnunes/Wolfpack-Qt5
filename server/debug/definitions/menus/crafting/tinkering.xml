@@ -1,0 +1,515 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: DarkStorm
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification: Created/Redone
+ *=======================================================*/
+-->
+<definitions>
+	<menu id="TINKERING" name="1044007"> <!-- <CENTER>TINKERING MENU</CENTER>" -->
+		<menu id="TINKERING_WOODEN" />
+		<menu id="TINKERING_TOOLS" />
+		<menu id="TINKERING_PARTS" />
+		<menu id="TINKERING_UTENSILS" />
+		<menu id="TINKERING_MISC" />
+		<menu id="TINKERING_ASSEMBLIES" />
+		<menu id="TINKERING_JEWELRY" />
+	</menu>
+
+	<!-- Wooden Items -->
+	<menu id="TINKERING_WOODEN" name="1044042">
+		<!--Jointing Plane-->
+		<tinker definition="1030">
+			<tinkering min="0" max="500" />
+			<logs amount="4" />
+		</tinker>
+
+		<!--Moulding Plane-->
+		<tinker definition="102c">
+			<tinkering min="0" max="500" />
+			<logs amount="4" />
+		</tinker>
+
+		<!--Smoothing Plane-->
+		<tinker definition="1032">
+			<tinkering min="0" max="500" />
+			<logs amount="4" />
+		</tinker>
+
+		<!--Clock Frame-->
+		<tinker definition="104d">
+			<tinkering min="0" max="500" />
+			<logs amount="6" />
+			<nomark />
+		</tinker>
+
+		<!--Axle-->
+		<tinker definition="105b">
+			<tinkering min="-250" max="250" />
+			<logs amount="2" />
+			<nomark />
+		</tinker>
+
+		<!--Rolling Pin-->
+		<tinker definition="1043">
+			<tinkering min="0" max="500" />
+			<logs amount="5" />
+		</tinker>
+
+		<!--Nunchaku-->
+		<setinker definition="27ae">
+			<tinkering min="700" max="1200" />
+			<logs amount="8" />
+			<ingots amount="3" />
+			<retaincolor />
+		</setinker>
+	</menu>
+
+	<!-- Tools -->
+	<menu id="TINKERING_TOOLS" name="1044046">
+		<!--Scissors-->
+		<tinker definition="f9e">
+			<tinkering min="50" max="550" />
+			<ingots amount="2" />
+		</tinker>
+
+		<!--Mortar and Pestle-->
+		<tinker definition="e9b">
+			<tinkering min="200" max="700" />
+			<ingots amount="3" />
+		</tinker>
+
+		<!--Scorp-->
+		<tinker definition="10e7">
+			<tinkering min="300" max="800" />
+			<ingots amount="2" />
+		</tinker>
+
+		<!--Tinker Tools-->
+		<tinker definition="1ebc">
+			<tinkering min="100" max="600" />
+			<ingots amount="2" />
+		</tinker>
+
+		<!--Hatchet-->
+		<tinker definition="f43">
+			<tinkering min="300" max="800" />
+			<ingots amount="4" />
+		</tinker>
+
+		<!--Draw Knife-->
+		<tinker definition="10e4">
+			<tinkering min="300" max="800" />
+			<ingots amount="2" />
+		</tinker>
+
+		<!--Sewing Kit-->
+		<tinker definition="f9d">
+			<tinkering min="100" max="700" />
+			<ingots amount="2" />
+		</tinker>
+
+		<!--Saw-->
+		<tinker definition="1034">
+			<tinkering min="300" max="800" />
+			<ingots amount="4" />
+		</tinker>
+
+		<!--Dovetail Saw-->
+		<tinker definition="1028">
+			<tinkering min="300" max="800" />
+			<ingots amount="4" />
+		</tinker>
+
+		<!--Froe-->
+		<tinker definition="10e5">
+			<tinkering min="300" max="800" />
+			<ingots amount="2" />
+		</tinker>
+
+		<!--Shovel-->
+		<tinker definition="f39">
+			<tinkering min="400" max="900" />
+			<ingots amount="4" />
+		</tinker>
+
+		<!--Hammer-->
+		<tinker definition="102a">
+			<tinkering min="300" max="800" />
+			<ingots amount="1" />
+		</tinker>
+
+		<!--Tongs-->
+		<tinker definition="fbc">
+			<tinkering min="350" max="850" />
+			<ingots amount="1" />
+		</tinker>
+
+		<!--Smith Hammer-->
+		<tinker definition="13e3">
+			<tinkering min="400" max="900" />
+			<ingots amount="4" />
+		</tinker>
+
+		<!--Inshave-->
+		<tinker definition="10e6">
+			<tinkering min="300" max="800" />
+			<ingots amount="2" />
+		</tinker>
+
+		<!--Pickaxe-->
+		<tinker definition="e86">
+			<tinkering min="400" max="900" />
+			<ingots amount="4" />
+		</tinker>
+
+		<!--Lockpick-->
+		<tinker definition="14fb">
+			<tinkering min="450" max="950" />
+			<ingots amount="1" />
+			<nomark />
+		</tinker>
+
+		<!--Skillet-->
+		<tinker definition="97f">
+			<tinkering min="300" max="800" />
+			<ingots amount="4" />
+		</tinker>
+
+		<!--Flour Sifter-->
+		<tinker definition="103e">
+			<tinkering min="500" max="1000" />
+			<ingots amount="3" />
+		</tinker>
+
+		<!--Fletcher Tools-->
+		<tinker definition="1022">
+			<tinkering min="350" max="850" />
+			<ingots amount="3" />
+		</tinker>
+
+		<!--Mapmakers Pen-->
+		<tinker definition="mapmakers_pen">
+			<tinkering min="250" max="750" />
+			<ingots amount="1" />
+		</tinker>
+
+		<!--Scribes Pen-->
+		<tinker definition="scribes_pen">
+			<tinkering min="250" max="750" />
+			<ingots amount="1" />
+		</tinker>
+	</menu>
+
+	<!-- Parts -->
+	<menu id="TINKERING_PARTS" name="1044047">
+		<!--Gears-->
+		<tinker definition="1054">
+			<tinkering min="5" max="550" />
+			<ingots amount="2" />
+			<nomark />
+		</tinker>
+
+		<!--Clock Parts-->
+		<tinker definition="104f">
+			<tinkering min="250" max="750" />
+			<ingots amount="1" />
+			<nomark />
+		</tinker>
+
+		<!--Barrel Tap-->
+		<tinker definition="1004">
+			<tinkering min="350" max="850" />
+			<ingots amount="2" />
+		</tinker>
+
+		<!--Springs-->
+		<tinker definition="105d">
+			<tinkering min="50" max="550" />
+			<ingots amount="2" />
+			<nomark />
+		</tinker>
+
+		<!--Sextant Parts-->
+		<tinker definition="1059">
+			<tinkering min="300" max="800" />
+			<ingots amount="4" />
+			<nomark />
+		</tinker>
+
+		<!--Barrel Hoops-->
+		<tinker definition="10e1">
+			<tinkering min="-150" max="350" />
+			<ingots amount="5" />
+			<nomark />
+		</tinker>
+
+		<!--Hinge-->
+		<tinker definition="1055">
+			<tinkering min="50" max="550" />
+			<ingots amount="2" />
+			<nomark />
+		</tinker>
+
+		<!--Bola Ball-->
+		<setinker definition="bola_ball">
+			<tinkering min="450" max="950" />
+			<ingots amount="10" />
+			<nomark />
+		</setinker>
+	</menu>
+
+	<!-- Utensils -->
+	<menu id="TINKERING_UTENSILS" name="1044048">
+		<!--Butcher's Knife-->
+		<tinker definition="13f6">
+			<tinkering min="250" max="750" />
+			<ingots amount="2" />
+			<retaincolor />
+		</tinker>
+
+		<!--Spoon-->
+		<tinker definition="9c2">
+			<tinkering min="0" max="500" />
+			<ingots amount="1" />
+			<retaincolor />
+		</tinker>
+
+		<!--Plate-->
+		<tinker definition="9d7">
+			<tinkering min="0" max="500" />
+			<ingots amount="2" />
+			<retaincolor />
+		</tinker>
+
+		<!--Fork-->
+		<tinker definition="9a3">
+			<tinkering min="0" max="500" />
+			<ingots amount="1" />
+			<retaincolor />
+		</tinker>
+
+		<!--Cleaver-->
+		<tinker definition="ec3">
+			<tinkering min="200" max="700" />
+			<ingots amount="3" />
+			<retaincolor />
+		</tinker>
+
+		<!--Knife-->
+		<tinker definition="9a5">
+			<tinkering min="0" max="500" />
+			<ingots amount="1" />
+			<retaincolor />
+		</tinker>
+
+		<!--Goblet-->
+		<tinker definition="99a">
+			<tinkering min="100" max="600" />
+			<ingots amount="2" />
+			<retaincolor />
+		</tinker>
+
+		<!--Pewter Mug-->
+		<tinker definition="fff">
+			<tinkering min="100" max="600" />
+			<ingots amount="2" />
+			<retaincolor />
+		</tinker>
+
+		<!--Skinning Knife-->
+		<tinker definition="ec4">
+			<tinkering min="250" max="750" />
+			<ingots amount="1" />
+			<retaincolor />
+		</tinker>
+	</menu>
+
+	<!--Miscellaneous-->
+	<menu id="TINKERING_MISC" name="1044050">
+		<!--Key Ring-->
+		<tinker definition="1011">
+			<tinkering min="100" max="600" />
+			<ingots amount="2" />
+			<retaincolor />
+		</tinker>
+
+		<!--Candelabra-->
+		<tinker definition="a27">
+			<tinkering min="550" max="1050" />
+			<ingots amount="4" />
+			<retaincolor />
+		</tinker>
+
+		<!--Scales-->
+		<tinker definition="1852">
+			<tinkering min="600" max="1100" />
+			<ingots amount="4" />
+			<retaincolor />
+		</tinker>
+
+		<!--Iron Key-->
+		<tinker definition="1010">
+			<tinkering min="550" max="1050" />
+			<ingots amount="3" />
+			<retaincolor />
+		</tinker>
+
+		<!--Globe-->
+		<tinker definition="1047">
+			<tinkering min="550" max="1050" />
+			<ingots amount="4" />
+			<retaincolor />
+		</tinker>
+
+		<!--Spyglass-->
+		<tinker definition="14f5">
+			<tinkering min="600" max="1100" />
+			<ingots amount="4" />
+			<retaincolor />
+		</tinker>
+
+		<!--Lantern-->
+		<tinker definition="a25">
+			<tinkering min="300" max="800" />
+			<ingots amount="2" />
+			<retaincolor />
+		</tinker>
+
+		<!--Heating Stand-->
+		<tinker definition="1849">
+			<tinkering min="600" max="1100" />
+			<ingots amount="4" />
+			<retaincolor />
+		</tinker>
+
+		<!--Shoji Lantern-->
+		<setinker definition="24bb">
+			<tinkering min="650" max="1150" />
+			<logs amount="5" />
+			<ingots amount="10" />
+		</setinker>
+
+		<!--Paper Lantern-->
+		<setinker definition="24bd">
+			<tinkering min="650" max="1150" />
+			<logs amount="5" />
+			<ingots amount="10" />
+		</setinker>
+
+		<!--Round Paper Lantern-->
+		<setinker definition="24c9">
+			<tinkering min="650" max="1150" />
+			<logs amount="5" />
+			<ingots amount="10" />
+		</setinker>
+
+		<!--Wind Chimes-->
+		<setinker definition="2832">
+			<tinkering min="800" max="1200" />
+			<ingots amount="15" />
+		</setinker>
+
+		<!--Fancy Wind Chimes-->
+		<setinker definition="2833">
+			<tinkering min="800" max="1200" />
+			<ingots amount="15" />
+		</setinker>
+	</menu>
+
+	<!-- Assemblies -->
+	<menu id="TINKERING_ASSEMBLIES" name="1044051">
+		<!--Axle Gears-->
+		<tinker definition="1051">
+			<material id="105b;105c" amount="1" name="Axle" /> <!-- Axle -->
+			<material id="1053;1054" amount="1" name="Gears" /> <!-- Gears -->
+			<nomark />
+		</tinker>
+
+		<!--Clock Parts-->
+		<tinker definition="104f">
+			<material id="1051;1052" amount="1" name="Axle &amp; Gears" /> <!-- Axle + Gears -->
+			<material id="105d;105e" amount="1" name="Spring"  /> <!-- Spring -->
+			<nomark />
+		</tinker>
+
+		<!--Sextant Parts-->
+		<tinker definition="1059">
+			<material id="1051;1052" amount="1" name="Axle &amp; Gears" /> <!-- Axle + Gears -->
+			<material id="1055;1056" amount="1" name="Hinge" /> <!-- Hinge -->
+			<nomark />
+		</tinker>
+
+		<!--Clock-->
+		<tinker definition="104b">
+			<material id="104d;104e" amount="1" name="Clock Frame" /> <!-- Clock Frame -->
+			<material id="104f;1050" amount="1" name="Clock Parts" /> <!-- Clock Parts -->
+		</tinker>
+
+		<!--Sextant-->
+		<tinker definition="1057">
+			<material id="1059;105a" amount="1" name="Sextant Parts" /> <!-- Sextant Parts -->
+		</tinker>
+
+		<!--Bola-->
+		<setinker definition="26ac">
+			<tinkering min="600" max="1100" />
+			<material id="leather_cut" amount="3" name="Leather" />
+			<material id="bola_ball" amount="4" name="Bola Balls" />
+		</setinker>
+
+		<!--Potion Keg-->
+		<tinker definition="potion_keg_empty" itemid="0x1940">
+			<tinkering min="750" max="1000" />
+			<material id="e7f" amount="1" name="Keg" /> <!-- Keg -->
+			<material id="1004" amount="1" name="Barrel Tap" /> <!-- Barrel Tap -->
+			<material id="1db8" amount="1" name="Barrel Lid" /> <!-- Barrel Lid -->
+			<material id="f0e" amount="10" name="Bottles" /> <!-- Bottle -->
+		</tinker>
+	</menu>
+
+	<!-- Jewelry -->
+	<menu id="TINKERING_JEWELRY" name="1011172">
+		<!--Ring-->
+		<tinker definition="1f09">
+			<tinkering min="400" max="900" />
+			<ingots amount="2" />
+			<gems amount="1" />
+			<retaincolor />
+		</tinker>
+
+		<!--Bead Necklace-->
+		<tinker definition="1f05">
+			<tinkering min="400" max="900" />
+			<ingots amount="2" />
+			<gems amount="1" />
+			<retaincolor />
+		</tinker>
+
+		<!--Necklace-->
+		<tinker definition="1f08">
+			<tinkering min="400" max="900" />
+			<ingots amount="2" />
+			<gems amount="1" />
+			<retaincolor />
+		</tinker>
+
+		<!--Earrings-->
+		<tinker definition="1f07">
+			<tinkering min="400" max="900" />
+			<ingots amount="2" />
+			<gems amount="1" />
+			<retaincolor />
+		</tinker>
+
+		<!--Bracelet-->
+		<tinker definition="1f06">
+			<tinkering min="400" max="900" />
+			<ingots amount="2" />
+			<gems amount="1" />
+			<retaincolor />
+		</tinker>
+	</menu>
+
+</definitions>

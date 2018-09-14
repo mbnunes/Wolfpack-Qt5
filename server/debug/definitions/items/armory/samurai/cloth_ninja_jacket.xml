@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Cloth Nina Jacket -->
+	<item id="2794">
+		<id>0x2794</id>
+		<decay />
+		<weight>5.0</weight>
+		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<category>Base Armor\Samurai\Cloth\Nina Jacket</category>
+		<category>Clothes\Nina Jacket</category>
+	</item>
+
+	<item id="27df" inherit="2794">
+		<id>0x27df</id>
+		<baseid>2794</baseid>
+		<category>Base Armor\Samurai\Cloth\Nina Jacket 2</category>
+		<category>Clothes\Nina Jacket 2</category>
+	</item>
+
+</definitions>

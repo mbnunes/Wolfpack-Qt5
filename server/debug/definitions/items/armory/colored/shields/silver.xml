@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- shields -->
+	<!-- buckler -->
+	<item id="1b73_silver" inherit="1b73">
+		<silver_armor />
+		<baseid>1b73</baseid>
+		<category>Armor\Silver\Shields\Buckler</category>
+	</item>
+
+	<!-- bronze shield -->
+	<item id="1b72_silver" inherit="1b72">
+		<silver_armor />
+		<baseid>1b72</baseid>
+		<category>Armor\Silver\Shields\Bronze</category>
+	</item>
+
+	<!-- heater -->
+	<item id="1b76_silver" inherit="1b76">
+		<silver_armor />
+		<baseid>1b76</baseid>
+		<category>Armor\Silver\Shields\Heater (N/S)</category>
+	</item>
+
+	<item id="1b77_silver" inherit="1b77">
+		<silver_armor />
+		<baseid>1b76</baseid>
+		<category>Armor\Silver\Shields\Heater (E/W)</category>
+	</item>
+
+	<!-- metal shield -->
+	<item id="1b7b_silver" inherit="1b7b">
+		<silver_armor />
+		<baseid>1b7b</baseid>
+		<category>Armor\Silver\Shields\Metal Shield</category>
+	</item>
+
+	<!-- metal kite shield -->
+	<item id="1b74_silver" inherit="1b74">
+		<baseid>1b74</baseid>
+		<silver_armor />
+		<category>Armor\Silver\Shields\Metal Kite (N/S)</category>
+	</item>
+
+	<item id="1b75_silver" inherit="1b75">
+		<silver_armor />
+		<baseid>1b74</baseid>
+		<category>Armor\Silver\Shields\Metal Kite (E/W)</category>
+	</item>
+
+	<!-- wooden kite shield -->
+	<item id="1b78_silver" inherit="1b78">
+		<silver_armor />
+		<baseid>1b78</baseid>
+		<category>Armor\Silver\Shields\Wooden Kite (N/S)</category>
+	</item>
+
+	<item id="1b79_silver" inherit="1b79">
+		<silver_armor />
+		<baseid>1b78</baseid>
+		<category>Armor\Silver\Shields\Wooden Kite (E/W)</category>
+	</item>
+
+	<!-- chaos shield -->
+	<item id="1bc3_silver" inherit="1bc3">
+		<silver_armor />
+		<baseid>1bc3</baseid>
+		<category>Armor\Silver\Shields\Chaos Shield</category>
+	</item>
+
+	<!-- order shield -->
+	<item id="1bc4_silver" inherit="1bc4">
+		<silver_armor />
+		<baseid>1bc4</baseid>
+		<category>Armor\Silver\Shields\Order Shield (N/S)</category>
+	</item>
+
+	<item id="1bc5_silver" inherit="1bc5">
+		<silver_armor />
+		<baseid>1bc4</baseid>
+		<category>Armor\Silver\Shields\Order Shield (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,48 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: DarkStorm
+|   )).-' {{ ;'`   | Revised by: Dreoth
+|  ( (  ;._ \\ ctr | Last Modification: 01/31/2004
+=================================================================
+-->
+<definitions>
+	<!-- Vendor Include List -->
+	<include file="definitions/npcs/humans/SEvendors/sealchemist.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/searchitect.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/searmorer.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seartist.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sebaker.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sebanker.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sebarber.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sebard.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seblacksmith.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sebowyer.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sebutcher.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/secarpenter.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/secobbler.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/secook.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sefarmer.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sefishermen.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sehealer.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seherbalist.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seinnkeeper.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sejeweler.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seleatherworker.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/semage.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/semapmaker.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seprovisioner.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seranger.xml"/>
+      <include file="definitions/npcs/humans/SEvendors/sescribe.xml"/>
+      <include file="definitions/npcs/humans/SEvendors/seshipwright.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sespinner.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/sestablemaster.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/setailor.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/setanner.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/setavernkeeper.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/setinker.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seveterinarian.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seweaponsmith.xml"/>
+	<include file="definitions/npcs/humans/SEvendors/seweaver.xml"/>
+
+</definitions>

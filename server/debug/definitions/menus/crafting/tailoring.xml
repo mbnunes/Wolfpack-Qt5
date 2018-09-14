@@ -1,0 +1,632 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: DarkStorm
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification: Created/Redone
+ *=======================================================*/
+-->
+<definitions>
+	<menu id="TAILORING" name="1044005"> <!-- <CENTER>TAILORING MENU</CENTER> -->
+		<menu id="TAILORING_HATS" />
+		<menu id="TAILORING_SHIRTS" />
+		<menu id="TAILORING_PANTS" />
+		<menu id="TAILORING_MISC" />
+		<menu id="TAILORING_FOOTWEAR" />
+		<menu id="TAILORING_LEATHERARMOR" />
+		<menu id="TAILORING_STUDDEDARMOR" />
+		<menu id="TAILORING_FEMALEARMOR" />
+		<menu id="TAILORING_BONEARMOR" />
+	</menu>
+
+	<!-- Hats -->
+	<menu id="TAILORING_HATS" name="1011375">
+		<!--Skull Cap-->
+		<tailor definition="1543">
+			<tailoring min="0" max="250" />
+			<cloth amount="2" />
+		</tailor>
+
+		<!--Bandana-->
+		<tailor definition="153f">
+			<tailoring min="0" max="250" />
+			<cloth amount="2" />
+		</tailor>
+
+		<!--Floppy Hat-->
+		<tailor definition="1713">
+			<tailoring min="62" max="312" />
+			<cloth amount="11" />
+		</tailor>
+
+		<!--Cap-->
+		<tailor definition="1715">
+			<tailoring min="62" max="312" />
+			<cloth amount="11" />
+		</tailor>
+
+		<!--Wide Brim Hat-->
+		<tailor definition="1714">
+			<tailoring min="62" max="312" />
+			<cloth amount="12" />
+		</tailor>
+
+		<!--Straw Hat-->
+		<tailor definition="1717">
+			<tailoring min="62" max="312" />
+			<cloth amount="10" />
+		</tailor>
+
+		<!--Tall Straw Hat-->
+		<tailor definition="1716">
+			<tailoring min="67" max="317" />
+			<cloth amount="13" />
+		</tailor>
+
+		<!--Wizards Hat-->
+		<tailor definition="1718">
+			<tailoring min="72" max="322" />
+			<cloth amount="15" />
+		</tailor>
+
+		<!--Bonnet-->
+		<tailor definition="1719">
+			<tailoring min="62" max="312" />
+			<cloth amount="11" />
+		</tailor>
+
+		<!--Feathered Hat-->
+		<tailor definition="171a">
+			<tailoring min="62" max="312" />
+			<cloth amount="12" />
+		</tailor>
+
+		<!--Tricorne Hat-->
+		<tailor definition="171b">
+			<tailoring min="62" max="312" />
+			<cloth amount="12" />
+		</tailor>
+
+		<!--Jesters Hat-->
+		<tailor definition="172e">
+			<tailoring min="72" max="322" />
+			<cloth amount="15" />
+		</tailor>
+
+		<!--Flower Garland-->
+		<tailor definition="2305">
+			<tailoring min="100" max="350" />
+			<cloth amount="5" />
+		</tailor>
+		
+		<!-- Samurai Empire -->
+		<!--Cloth Ninja Hood-->
+		<setailor definition="278f">
+			<tailoring min="800" max="1050" />
+			<cloth amount="13" />
+		</setailor>
+
+		<!--Kasa-->
+		<setailor definition="2798">
+			<tailoring min="600" max="850" />
+			<cloth amount="12" />
+		</setailor>
+	</menu>
+
+	<!-- Shirts -->
+	<menu id="TAILORING_SHIRTS" name="1015269">
+		<!--Doublet-->
+		<tailor definition="1f7b">
+			<tailoring min="0" max="250" />
+			<cloth amount="8" />
+		</tailor>
+
+		<!--Shirt-->
+		<tailor definition="1517">
+			<tailoring min="207" max="457" />
+			<cloth amount="8" />
+		</tailor>
+
+		<!--Fancy Shirt-->
+		<tailor definition="1efd">
+			<tailoring min="248" max="498" />
+			<cloth amount="12" />
+		</tailor>
+
+		<!--Tunic-->
+		<tailor definition="1fa1">
+			<tailoring min="0" max="250" />
+			<cloth amount="12" />
+		</tailor>
+
+		<!--Surcoat-->
+		<tailor definition="1ffd">
+			<tailoring min="82" max="332" />
+			<cloth amount="14" />
+		</tailor>
+
+		<!--Plain Dress-->
+		<tailor definition="1f01">
+			<tailoring min="124" max="374" />
+			<cloth amount="10" />
+		</tailor>
+
+		<!--Fancy Dress-->
+		<tailor definition="1eff">
+			<tailoring min="331" max="581" />
+			<cloth amount="12" />
+		</tailor>
+
+		<!--Cloak-->
+		<tailor definition="1515">
+			<tailoring min="414" max="664" />
+			<cloth amount="14" />
+		</tailor>
+
+		<!--Robe-->
+		<tailor definition="1f03">
+			<tailoring min="539" max="789" />
+			<cloth amount="16" />
+		</tailor>
+
+		<!--Jester Suit-->
+		<tailor definition="1f9f">
+			<tailoring min="82" max="332" />
+			<cloth amount="24" />
+		</tailor>
+
+		<!--Fur Cape-->
+		<tailor definition="2309">
+			<tailoring min="350" max="600" />
+			<cloth amount="13" />
+		</tailor>
+
+		<!--Gilded Dress-->
+		<tailor definition="230d">
+			<tailoring min="375" max="625" />
+			<cloth amount="16" />
+		</tailor>
+
+		<!--Formal Shirt-->
+		<tailor definition="230f">
+			<tailoring min="260" max="510" />
+			<cloth amount="16" />
+		</tailor>
+
+		<!-- Samurai Empire -->
+		<!--Cloth Ninja Jacket-->
+		<setailor definition="2794">
+			<tailoring min="750" max="1000" />
+			<cloth amount="12" />
+		</setailor>
+
+		<!--Kamishimo-->
+		<setailor definition="2799">
+			<tailoring min="750" max="1000" />
+			<cloth amount="15" />
+		</setailor>
+
+		<!--Hakama Shita-->
+		<setailor definition="279c">
+			<tailoring min="400" max="650" />
+			<cloth amount="14" />
+		</setailor>
+
+		<!--Male Kimono-->
+		<setailor definition="2782">
+			<tailoring min="500" max="750" />
+			<cloth amount="16" />
+		</setailor>
+
+		<!--Female Kimono-->
+		<setailor definition="2783">
+			<tailoring min="500" max="750" />
+			<cloth amount="16" />
+		</setailor>
+
+		<!--Jin Baori-->
+		<setailor definition="27a1">
+			<tailoring min="300" max="550" />
+			<cloth amount="12" />
+		</setailor>
+	</menu>
+
+	<!-- Pants -->
+	<menu id="TAILORING_PANTS" name="1015279">
+		<!--Short Pants-->
+		<tailor definition="152e">
+			<tailoring min="248" max="498" />
+			<cloth amount="6" />
+		</tailor>
+
+		<!--Long Pants-->
+		<tailor definition="1539">
+			<tailoring min="248" max="498" />
+			<cloth amount="8" />
+		</tailor>
+
+		<!--Kilt-->
+		<tailor definition="1537">
+			<tailoring min="207" max="457" />
+			<cloth amount="8" />
+		</tailor>
+
+		<!--Skirt-->
+		<tailor definition="1516">
+			<tailoring min="290" max="540" />
+			<cloth amount="10" />
+		</tailor>
+
+		<!--Fur Sarong-->
+		<tailor definition="230b">
+			<tailoring min="350" max="600" />
+			<cloth amount="12" />
+		</tailor>
+
+		<!--Hakama-->
+		<setailor definition="279a">
+			<tailoring min="500" max="750" />
+			<cloth amount="16" />
+		</setailor>
+
+		<!--Tattsuke Hakama-->
+		<setailor definition="279b">
+			<tailoring min="500" max="750" />
+			<cloth amount="16" />
+		</setailor>				
+	</menu>
+
+	<!-- Misc -->
+	<menu id="TAILORING_MISC" name="1015283">
+		<!--Body Sash-->
+		<tailor definition="1541">
+			<tailoring min="41" max="291" />
+			<cloth amount="4" />
+		</tailor>
+
+		<!--Half Apron-->
+		<tailor definition="153b">
+			<tailoring min="207" max="457" />
+			<cloth amount="6" />
+		</tailor>
+
+		<!--Full Apron-->
+		<tailor definition="153d">
+			<tailoring min="290" max="540" />
+			<cloth amount="10" />
+		</tailor>
+
+		<!--Oil Cloth-->
+		<tailor definition="oil_cloth">
+			<tailoring min="746" max="1046" />
+			<cloth amount="1" />
+		</tailor>
+
+		<!--Obi-->
+		<setailor definition="27a0">
+			<tailoring min="200" max="450" />
+			<cloth amount="6" />
+		</setailor>
+
+		<!--Goza Mat East Deed-->
+		<setailor definition="goza_east_deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+
+		<!--Goza Mat South Deed-->
+		<setailor definition="goza_south_deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+
+		<!--Square Goza Mat East Deed-->
+		<setailor definition="square_goza_east_deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+
+		<!--Square Goza Mat South Deed-->
+		<setailor definition="square_goza_south_deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+
+		<!--Brocade Square Goza Mat East Deed-->
+		<setailor definition="brocade_square_goza_east_deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+
+		<!--Brocade Square Goza Mat South Deed-->
+		<setailor definition="brocade_square_goza_south_deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+	</menu>
+
+	<!-- Footwear -->
+	<menu id="TAILORING_FOOTWEAR" name="1015288">
+		<!--Fur Boots-->
+		<tailor definition="2307">
+			<tailoring min="500" max="750" />
+			<cloth amount="12" />
+		</tailor>
+
+		<!--Sandals-->
+		<tailor definition="170d">
+			<tailoring min="124" max="374" />
+			<leather amount="4" />
+		</tailor>
+
+		<!--Shoes-->
+		<tailor definition="170f">
+			<tailoring min="165" max="415" />
+			<leather amount="6" />
+		</tailor>
+
+		<!--Boots-->
+		<tailor definition="170b">
+			<tailoring min="331" max="581" />
+			<leather amount="8" />
+		</tailor>
+
+		<!--Thigh Boots-->
+		<tailor definition="1711">
+			<tailoring min="414" max="664" />
+			<leather amount="10" />
+		</tailor>
+
+		<!--Ninja Tabi-->
+		<setailor definition="2797">
+			<tailoring min="700" max="950" />
+			<cloth amount="10" />
+		</setailor>
+
+		<!--Samurai Tabi-->
+		<setailor definition="2796">
+			<tailoring min="200" max="450" />
+			<cloth amount="6" />
+		</setailor>				
+	</menu>
+
+	<!-- Leather Armor -->
+	<menu id="TAILORING_LEATHERARMOR" name="1015293">
+		<!--Leather Gorget-->
+		<tailor definition="13c7">
+			<tailoring min="539" max="789" />
+			<leather amount="4" />
+		</tailor>
+
+		<!--Leather Cap-->
+		<tailor definition="1db9">
+			<tailoring min="62" max="312" />
+			<leather amount="2" />
+		</tailor>
+
+		<!--Leather Gloves-->
+		<tailor definition="13c6">
+			<tailoring min="518" max="768" />
+			<leather amount="3" />
+		</tailor>
+
+		<!--Leather Sleeves-->
+		<tailor definition="13c5">
+			<tailoring min="539" max="789" />
+			<leather amount="4" />
+		</tailor>
+
+		<!--Leather Leggings-->
+		<tailor definition="13cb">
+			<tailoring min="663" max="913" />
+			<leather amount="10" />
+		</tailor>
+
+		<!--Leather Tunic-->
+		<tailor definition="13cc">
+			<tailoring min="705" max="955" />
+			<leather amount="12" />
+		</tailor>
+
+		<!--Leather Jingasa-->
+		<setailor definition="2776">
+			<tailoring min="450" max="700" />
+			<leather amount="4" />
+		</setailor>
+
+		<!--Leather Mempo-->
+		<setailor definition="277a">
+			<tailoring min="800" max="1050" />
+			<leather amount="8" />
+		</setailor>
+
+		<!--Leather Do-->
+		<setailor definition="277b">
+			<tailoring min="750" max="1000" />
+			<leather amount="12" />
+		</setailor>
+
+		<!--Leather Hiro Sode-->
+		<setailor definition="277e">
+			<tailoring min="550" max="800" />
+			<leather amount="5" />
+		</setailor>
+
+		<!--Leather Suneate-->
+		<setailor definition="2786">
+			<tailoring min="680" max="930" />
+			<leather amount="12" />
+		</setailor>		
+
+		<!--Leather Haidate-->
+		<setailor definition="278a">
+			<tailoring min="680" max="930" />
+			<leather amount="12" />
+		</setailor>				
+
+		<!--Leather Ninja Pants-->
+		<setailor definition="2791">
+			<tailoring min="800" max="1050" />
+			<leather amount="13" />
+		</setailor>				
+
+		<!--Leather Ninja Jacket-->
+		<setailor definition="2793">
+			<tailoring min="850" max="1100" />
+			<leather amount="13" />
+		</setailor>				
+
+		<!--Leather Ninja Mitts-->
+		<setailor definition="2792">
+			<tailoring min="650" max="900" />
+			<leather amount="12" />
+		</setailor>						
+
+		<!--Leather Ninja Hood-->
+		<setailor definition="278e">
+			<tailoring min="900" max="1150" />
+			<leather amount="14" />
+		</setailor>								
+	</menu>
+
+	<!-- Studded Armor -->
+	<menu id="TAILORING_STUDDEDARMOR" name="1015300">
+		<!--Studded Gorget-->
+		<tailor definition="13d6">
+			<tailoring min="788" max="1038" />
+			<leather amount="6" />
+		</tailor>
+
+		<!--Studded Gloves-->
+		<tailor definition="13d5">
+			<tailoring min="829" max="1079" />
+			<leather amount="8" />
+		</tailor>
+
+		<!--Studded Sleeves-->
+		<tailor definition="13d4">
+			<tailoring min="871" max="1121" />
+			<leather amount="10" />
+		</tailor>
+
+		<!--Studded Leggings-->
+		<tailor definition="13da">
+			<tailoring min="912" max="1162" />
+			<leather amount="12" />
+		</tailor>
+
+		<!--Studded Tunic-->
+		<tailor definition="13db">
+			<tailoring min="940" max="1190" />
+			<leather amount="14" />
+		</tailor>
+
+		<!--Studded Mempo-->
+		<setailor definition="279d">
+			<tailoring min="800" max="1050" />
+			<leather amount="8" />
+		</setailor>		
+
+		<!--Studded Do-->
+		<setailor definition="277c">
+			<tailoring min="950" max="1200" />
+			<leather amount="14" />
+		</setailor>		
+
+		<!--Studded Hiro Sode-->
+		<setailor definition="277f">
+			<tailoring min="850" max="1100" />
+			<leather amount="8" />
+		</setailor>		
+
+		<!--Studded Suneate-->
+		<setailor definition="2787">
+			<tailoring min="920" max="1170" />
+			<leather amount="14" />
+		</setailor>		
+
+		<!--Studded Haidate-->
+		<setailor definition="278b">
+			<tailoring min="920" max="1170" />
+			<leather amount="14" />
+		</setailor>								
+	</menu>
+
+	<!-- Female Armor -->
+	<menu id="TAILORING_FEMALEARMOR" name="1015306">
+		<!--Leather Shorts-->
+		<tailor definition="1c00">
+			<tailoring min="622" max="872" />
+			<leather amount="8" />
+		</tailor>
+
+		<!--Leather Skirt-->
+		<tailor definition="1c08">
+			<tailoring min="580" max="830" />
+			<leather amount="6" />
+		</tailor>
+
+		<!--Leather Bustier-->
+		<tailor definition="1c0a">
+			<tailoring min="580" max="830" />
+			<leather amount="6" />
+		</tailor>
+
+		<!--Leather Tunic-->
+		<tailor definition="1c06">
+			<tailoring min="622" max="872" />
+			<leather amount="8" />
+		</tailor>
+
+		<!--Studded Bustier-->
+		<tailor definition="1c0c">
+			<tailoring min="829" max="1079" />
+			<leather amount="8" />
+		</tailor>
+
+		<!--Studded Tunic-->
+		<tailor definition="1c02">
+			<tailoring min="871" max="1121" />
+			<leather amount="10" />
+		</tailor>
+	</menu>
+
+	<!-- Bone Armor -->
+	<menu id="TAILORING_BONEARMOR" name="1049149">
+		<!--Bone Helm-->
+		<tailor definition="1451">
+			<tailoring min="850" max="1100" />
+			<leather amount="4" />
+			<material id="f7e" amount="2" name="Bones" /> <!-- Bones -->
+		</tailor>
+
+		<!--Bone Gloves-->
+		<tailor definition="1450">
+			<tailoring min="590" max="1140" />
+			<leather amount="6" />
+			<material id="f7e" amount="2" name="Bones" /> <!-- Bones -->
+		</tailor>
+
+		<!--Bone Arms-->
+		<tailor definition="144e">
+			<tailoring min="920" max="1170" />
+			<leather amount="8" />
+			<material id="f7e" amount="4" name="Bones" /> <!-- Bones -->
+		</tailor>
+
+		<!--Bone Legs-->
+		<tailor definition="1452">
+			<tailoring min="950" max="1200" />
+			<leather amount="10" />
+			<material id="f7e" amount="6" name="Bones" /> <!-- Bones -->
+		</tailor>
+
+		<!--Bone Armor-->
+		<tailor definition="144f">
+			<tailoring min="960" max="1210" />
+			<leather amount="12" />
+			<material id="f7e" amount="10" name="Bones" /> <!-- Bones -->
+		</tailor>
+	</menu>
+
+</definitions>

@@ -1,0 +1,48 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a hell cat (small) -->
+	<npc id="hellcat" inherit="monster_base">
+		<name>hellcat</name>
+		<id>201</id>
+		<skin>0x485</skin>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="51" max="100"/></str>
+		<dex><random min="52" max="150"/></dex>
+		<int><random min="13" max="85"/></int>
+		<maxhitpoints><random min="48" max="67" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="451" max="600"/></skill>
+		<skill id="tactics"><random min="401" max="550"/></skill>
+		<skill id="wrestling"><random min="301" max="400"/></skill>
+		<mintaming>711</mintaming>
+		<!-- Damage -->
+		<mindamage>9</mindamage>
+		<maxdamage>18</maxdamage>
+		<tag name="dmg_fire" value="60" type="int" />
+		<!-- Resists -->
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_fire" value="80,90" type="int" />
+		<tag name="res_energy" value="15,20" type="int" />
+		<!-- Loot Packs  -->
+		<lootpacks>lootpack_meager</lootpacks>
+		<!-- Misc. -->
+		<desc>These cats hail from another plane. Why they were brought to ours is a mystery. The hellcat does not make a good pet, as they are likely to immolate at inopportune times. Balls of yarn are nothing more than a waiting fuse.</desc>
+		<category>Monsters\Daemonic\Hellcat (Small)</category>
+		<strproperty name="food" value="1" />
+		<strproperty name="packinstinct" value="feline" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="10" />
+		<strproperty name="carve_hides_type" value="spined" />
+	</npc>
+
+</definitions>

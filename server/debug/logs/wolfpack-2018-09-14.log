@@ -1,0 +1,12 @@
+20:02: WARNING: Couldn't find Language File: wolfpack_pt_BR.qm
+20:03: The world loaded in 0 ms.
+20:03: Starting remote admin on port 2594.
+20:04: Loaded status template from 'web/status_template.html'.
+20:05:80c: Client '::ffff:127.0.0.1' connected to login server.
+20:05:80c: Client '::ffff:127.0.0.1' logged in as 'admin'.
+20:06:80c: Client '::ffff:127.0.0.1' connected to game server.
+20:06:80c: Client '::ffff:127.0.0.1' disconnected from loginserver.
+20:06:80c: Client '::ffff:127.0.0.1' logged in as 'admin'.
+20:06:80c: Submitted wrong hair style (16984) or wrong hair color (1801) during char creation.
+20:06:80c: Client '::ffff:127.0.0.1' disconnected from gameserver.
+20:06: Stopping remote admin.

@@ -1,0 +1,43 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+	<npc id="fisher_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="97a"><amount>20</amount></item>
+				<item id="9cc"><amount>20</amount></item>
+				<item id="dc0"><amount>20</amount></item>
+			</restockable>
+			<sellable>
+				<item id="97a" />
+				<item id="9cc" />
+				<item id="dc0" />
+			</sellable>
+		</shopkeeper>
+		<equipped>
+			<item id="dbf" /> <!-- Fishing Pole -->
+		</equipped>
+		<skill id="fishing"><random min="750" max="980" /></skill>
+	</npc>
+
+	<!-- A fisherman vendor -->
+	<npc id="fisherman_male" inherit="vendor_male">
+		<inherit id="fisher_inventory" />
+		<title context="Vendor Male Titles">the Fisherman</title>
+		<category>Vendors\Fisherman (Male)</category>
+	</npc>
+
+	<!-- A fisherlady vendor -->
+	<npc id="fisherlady_female" inherit="vendor_female">
+		<inherit id="fisher_inventory" />
+		<title context="Vendor Female Titles">the Fisherlady</title>
+		<category>Vendors\Fisherlady (Female)</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,43 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a copper elemental -->
+	<npc id="copper_elemental" inherit="monster_base">
+		<name>copper elemental</name>
+		<id>109</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="226" max="255"/></str>
+		<dex><random min="126" max="145"/></dex>
+		<int><random min="71" max="92"/></int>
+		<maxhitpoints><random min="136" max="153"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="501" max="950"/></skill>
+		<skill id="tactics"><random min="601" max="1000"/></skill>
+		<skill id="wrestling"><random min="601" max="1000"/></skill>
+		<!-- Damage -->
+		<mindamage>20</mindamage>
+		<maxdamage>37</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 25 Copper Ore -->
+		<lootpacks>lootpack_average;gems;gems;tm_1</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Elementals\Copper Elemental</category>
+		<strproperty name="slayer_group" value="earthelementals" />
+	</npc>
+
+</definitions>

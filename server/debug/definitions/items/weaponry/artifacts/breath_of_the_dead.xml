@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Breath of the Dead -->
+	<item id="breath_of_the_dead">
+		<id>0x26bb</id>
+		<name>#1061109</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<weight>3.0</weight>
+		<durability>255</durability>
+		<type>1001</type>
+		<basescripts>equipment</basescripts>
+		<category>Weapons\Artifacts\Breath of the Dead</category>
+		<!-- Properties -->
+		<intproperty name="artifact_rarity" value="11" />
+		<intproperty name="hitharm" value="25" />
+		<intproperty name="lifeleech" value="100" />
+		<intproperty name="spelldamagebonus" value="5" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="dmg_physical" value="100" />
+		<intproperty name="maxdamage" value="13" />
+		<intproperty name="maxdamage" value="15" />
+		<intproperty name="speed" value="36" />
+		<intproperty name="req_strength" value="25" />
+		<onehanded />
+	</item>
+
+</definitions>

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Blacksmith                                                    |
+=================================================================
+-->
+<definitions>
+
+	<item id="faf" inherit="ITEM_NO_DECAY">
+		<id>0xfaf</id>
+		<category>Professions\Blacksmith\Anvil (N/S)</category>
+	</item>
+
+	<item id="fb0" inherit="ITEM_NO_DECAY">
+		<id>0xfb0</id>
+		<category>Professions\Blacksmith\Anvil (W/E)</category>
+	</item>
+
+	<!-- Elven Anvil -->
+	<item id="2dd5" inherit="ITEM_NO_DECAY">
+		<id>0x2dd5</id>
+		<category>Professions\Blacksmith\Elven Anvil (N/S)</category>
+	</item>
+
+	<item id="2dd6" inherit="ITEM_NO_DECAY">
+		<id>0x2dd6</id>
+		<category>Professions\Blacksmith\Elven Anvil (W/E)</category>
+	</item>
+
+	<!-- Elven Forge -->
+	<item id="2dd8" inherit="ITEM_NO_DECAY">
+		<id>0x2dd8</id>
+		<category>Professions\Blacksmith\Elven Forge</category>
+	</item>
+
+	<item id="fb1" inherit="ITEM_NO_DECAY">
+		<id>0xfb1</id>
+		<category>Professions\Blacksmith\Small Forge</category>
+	</item>
+
+	<item id="fb6" inherit="ITEM_NO_DECAY">
+		<id>0xfb6</id>
+		<category>Professions\Blacksmith\Horse Shoes</category>
+	</item>
+
+	<item id="fb7">
+		<id>0xfb7</id>
+		<category>Professions\Blacksmith\Forged Metal (W/E)</category>
+	</item>
+
+	<item id="fb8">
+		<id>0xfb8</id>
+		<category>Professions\Blacksmith\Forged Metal (N/S)</category>
+	</item>
+
+	<item id="fbb">
+		<id>0xfbb</id>
+		<basescripts>equipment,skills.blacksmithing</basescripts>
+		<category>Professions\Blacksmith\Tongs (W/E)</category>
+		<tag name="remaining_uses" type="int" value="35" />
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>2.0</weight>
+	</item>
+
+	<item id="fbc" inherit="fbb">
+		<baseid>fbb</baseid>
+		<id>0xfbc</id>
+		<category>Professions\Blacksmith\Tongs (N/S)</category>
+	</item>
+
+	<item id="13bc" inherit="ITEM_NO_DECAY">
+		<id>0x13bc</id>
+		<category>Professions\Blacksmith\Hanging Chainmail Leggings (N/S)</category>
+	</item>
+
+	<item id="13bd" inherit="ITEM_NO_DECAY">
+		<id>0x13bd</id>
+		<category>Professions\Blacksmith\Hanging Chainmail Tunic (N/S)</category>
+	</item>
+
+	<item id="13c1" inherit="ITEM_NO_DECAY">
+		<id>0x13c1</id>
+		<category>Professions\Blacksmith\Hanging Chainmail Leggings (W/E)</category>
+	</item>
+
+	<item id="13c2" inherit="ITEM_NO_DECAY">
+		<id>0x13c2</id>
+		<category>Professions\Blacksmith\Hanging Chainmail Tunic (W/E)</category>
+	</item>
+
+	<item id="13e5" inherit="ITEM_NO_DECAY">
+		<id>0x13e5</id>
+		<category>Professions\Blacksmith\Hanging Ringmail Leggings (N/S)</category>
+	</item>
+
+	<item id="13e6" inherit="ITEM_NO_DECAY">
+		<id>0x13e6</id>
+		<category>Professions\Blacksmith\Hanging Ringmail Leggings (W/E)</category>
+	</item>
+
+	<item id="13e7" inherit="ITEM_NO_DECAY">
+		<id>0x13e7</id>
+		<category>Professions\Blacksmith\Hanging Ringmail Tunic (N/S)</category>
+	</item>
+
+	<item id="13e8" inherit="ITEM_NO_DECAY">
+		<id>0x13e8</id>
+		<category>Professions\Blacksmith\Hanging Ringmail Tunic (W/E)</category>
+	</item>
+
+	<item id="13e9" inherit="ITEM_NO_DECAY">
+		<id>0x13e9</id>
+		<category>Professions\Blacksmith\Hanging Ringmail Sleeves (N/S)</category>
+	</item>
+
+	<item id="13ea" inherit="ITEM_NO_DECAY">
+		<id>0x13ea</id>
+		<category>Professions\Blacksmith\Hanging Ringmail Sleeves (W/E)</category>
+	</item>
+
+	<item id="197a" inherit="ITEM_NO_DECAY">
+		<id>0x197a</id>
+		<category>Professions\Blacksmith\Forge (W/E) (1/3)</category>
+	</item>
+
+	<item id="197b" inherit="ITEM_NO_DECAY">
+		<id>0x197b</id>
+	</item>
+
+	<item id="197c" inherit="ITEM_NO_DECAY">
+		<id>0x197c</id>
+	</item>
+
+	<item id="197d" inherit="ITEM_NO_DECAY">
+		<id>0x197d</id>
+	</item>
+
+	<item id="197e" inherit="ITEM_NO_DECAY">
+		<id>0x197e</id>
+		<lightsource>0x2</lightsource>
+		<category>Professions\Blacksmith\Forge (W/E) (2/3)</category>
+	</item>
+
+	<item id="197f" inherit="ITEM_NO_DECAY">
+		<id>0x197f</id>
+	</item>
+
+	<item id="1980" inherit="ITEM_NO_DECAY">
+		<id>0x1980</id>
+	</item>
+
+	<item id="1981" inherit="ITEM_NO_DECAY">
+		<id>0x1981</id>
+	</item>
+
+	<item id="1982" inherit="ITEM_NO_DECAY">
+		<id>0x1982</id>
+		<category>Professions\Blacksmith\Forge (W/E) (3/3)</category>
+	</item>
+
+	<item id="1983" inherit="ITEM_NO_DECAY">
+		<id>0x1983</id>
+	</item>
+
+	<item id="1984" inherit="ITEM_NO_DECAY">
+		<id>0x1984</id>
+	</item>
+
+	<item id="1985" inherit="ITEM_NO_DECAY">
+		<id>0x1985</id>
+	</item>
+
+	<item id="1986" inherit="ITEM_NO_DECAY">
+		<id>0x1986</id>
+		<category>Professions\Blacksmith\Forge (N/S) (1/3)</category>
+	</item>
+
+	<item id="1987" inherit="ITEM_NO_DECAY">
+		<id>0x1987</id>
+	</item>
+
+	<item id="1988" inherit="ITEM_NO_DECAY">
+		<id>0x1988</id>
+	</item>
+
+	<item id="1989" inherit="ITEM_NO_DECAY">
+		<id>0x1989</id>
+	</item>
+
+	<item id="198a" inherit="ITEM_NO_DECAY">
+		<id>0x198a</id>
+		<lightsource>0x2</lightsource>
+		<category>Professions\Blacksmith\Forge (N/S) (2/3)</category>
+	</item>
+
+	<item id="198b" inherit="ITEM_NO_DECAY">
+		<id>0x198b</id>
+	</item>
+
+	<item id="198c" inherit="ITEM_NO_DECAY">
+		<id>0x198c</id>
+	</item>
+
+	<item id="198d" inherit="ITEM_NO_DECAY">
+		<id>0x198d</id>
+	</item>
+
+	<item id="198e" inherit="ITEM_NO_DECAY">
+		<id>0x198e</id>
+		<category>Professions\Blacksmith\Forge (N/S) (3/3)</category>
+	</item>
+
+	<item id="198f" inherit="ITEM_NO_DECAY">
+		<id>0x198f</id>
+	</item>
+
+	<item id="1990" inherit="ITEM_NO_DECAY">
+		<id>0x1990</id>
+	</item>
+
+	<item id="1991" inherit="ITEM_NO_DECAY">
+		<id>0x1991</id>
+	</item>
+
+	<item id="1992" inherit="ITEM_NO_DECAY">
+		<id>0x1992</id>
+		<category>Professions\Blacksmith\Forge (S/N) (1/3)</category>
+	</item>
+
+	<item id="1993" inherit="ITEM_NO_DECAY">
+		<id>0x1993</id>
+	</item>
+
+	<item id="1994" inherit="ITEM_NO_DECAY">
+		<id>0x1994</id>
+	</item>
+
+	<item id="1995" inherit="ITEM_NO_DECAY">
+		<id>0x1995</id>
+	</item>
+
+	<item id="1996" inherit="ITEM_NO_DECAY">
+		<id>0x1996</id>
+		<category>Professions\Blacksmith\Forge (S/N) (2/3)</category>
+	</item>
+
+	<item id="1997" inherit="ITEM_NO_DECAY">
+		<id>0x1997</id>
+	</item>
+
+	<item id="1998" inherit="ITEM_NO_DECAY">
+		<id>0x1998</id>
+	</item>
+
+	<item id="1999" inherit="ITEM_NO_DECAY">
+		<id>0x1999</id>
+	</item>
+
+	<item id="199a" inherit="ITEM_NO_DECAY">
+		<id>0x199a</id>
+		<category>Professions\Blacksmith\Forge (S/N) (3/3)</category>
+	</item>
+
+	<item id="199b" inherit="ITEM_NO_DECAY">
+		<id>0x199b</id>
+	</item>
+
+	<item id="199c" inherit="ITEM_NO_DECAY">
+		<id>0x199c</id>
+	</item>
+
+	<item id="199d" inherit="ITEM_NO_DECAY">
+		<id>0x199d</id>
+	</item>
+
+	<item id="199e" inherit="ITEM_NO_DECAY">
+		<id>0x199e</id>
+		<category>Professions\Blacksmith\Forge (E/W) (1/3)</category>
+	</item>
+
+	<item id="199f" inherit="ITEM_NO_DECAY">
+		<id>0x199f</id>
+	</item>
+
+	<item id="19a0" inherit="ITEM_NO_DECAY">
+		<id>0x19a0</id>
+	</item>
+
+	<item id="19a1" inherit="ITEM_NO_DECAY">
+		<id>0x19a1</id>
+	</item>
+
+	<item id="19a2" inherit="ITEM_NO_DECAY">
+		<id>0x19a2</id>
+		<category>Professions\Blacksmith\Forge (E/W) (2/3)</category>
+	</item>
+
+	<item id="19a3" inherit="ITEM_NO_DECAY">
+		<id>0x19a3</id>
+	</item>
+
+	<item id="19a4" inherit="ITEM_NO_DECAY">
+		<id>0x19a4</id>
+	</item>
+
+	<item id="19a5" inherit="ITEM_NO_DECAY">
+		<id>0x19a5</id>
+	</item>
+
+	<item id="19a6" inherit="ITEM_NO_DECAY">
+		<id>0x19a6</id>
+		<category>Professions\Blacksmith\Forge (E/W) (3/3)</category>
+	</item>
+
+	<item id="19a7" inherit="ITEM_NO_DECAY">
+		<id>0x19a7</id>
+	</item>
+
+	<item id="19a8" inherit="ITEM_NO_DECAY">
+		<id>0x19a8</id>
+	</item>
+
+	<item id="19a9" inherit="ITEM_NO_DECAY">
+		<id>0x19a9</id>
+	</item>
+
+	<!-- Sledge Hammer -->
+	<item id="sledge_hammer" inherit="fb4">
+		<baseid>fb4</baseid>
+		<id>0xfb4</id>
+		<category>Professions\Blacksmith\Sledge Hammer (W/E)</category>
+		<weight>9.0</weight>
+	</item>
+
+	<!-- Sledge Hammer -->
+	<item id="sledge_hammer_2" inherit="sledge_hammer">
+		<baseid>fb5</baseid>
+		<id>0xfb5</id>
+		<category>Professions\Blacksmith\Sledge Hammer (N/S)</category>
+	</item>
+
+	<!-- Smith's Hammer -->
+	<item id="smiths_hammer" inherit="13e3">
+		<baseid>13e3</baseid>
+		<id>0x13e3</id>
+		<category>Professions\Blacksmith\Smith's Hammer (W/E)</category>
+		<weight>8.0</weight>
+	</item>
+
+	<item id="smiths_hammer_2" inherit="smiths_hammer">
+		<baseid>13e4</baseid>
+		<id>0x13e4</id>
+		<category>Professions\Blacksmith\Smith's Hammer (N/S)</category>
+	</item>
+
+	<!-- Red Scales -->
+	<item id="red_scales">
+		<name>#1053129</name>
+		<id>0x26b4</id>
+		<color>0x66D</color>
+		<category>Professions\Blacksmith\Scales\Red Scales</category>
+		<weight>0.2</weight>
+	</item>
+
+	<!-- Yellow Scales -->
+	<item id="yellow_scales">
+		<name>#1053130</name>
+		<id>0x26b4</id>
+		<color>0x8A8</color>
+		<category>Professions\Blacksmith\Scales\Yellow Scales</category>
+		<weight>0.2</weight>
+	</item>
+
+	<!-- Black Scales -->
+	<item id="black_scales">
+		<name>#1053131</name>
+		<id>0x26b4</id>
+		<color>0x455</color>
+		<category>Professions\Blacksmith\Scales\Black Scales</category>
+		<weight>0.2</weight>
+	</item>
+
+	<!-- Green Scales -->
+	<item id="green_scales">
+		<name>#1053132</name>
+		<id>0x26b4</id>
+		<color>0x851</color>
+		<category>Professions\Blacksmith\Scales\Green Scales</category>
+		<weight>0.2</weight>
+	</item>
+
+	<!-- White Scales -->
+	<item id="white_scales">
+		<name>#1053133</name>
+		<id>0x26b4</id>
+		<color>0x8FD</color>
+		<category>Professions\Blacksmith\Scales\White Scales</category>
+		<weight>0.2</weight>
+	</item>
+
+	<!-- Blue Scales -->
+	<item id="blue_scales">
+		<name>#1053134</name>
+		<id>0x26b4</id>
+		<color>0x8B0</color>
+		<category>Professions\Blacksmith\Scales\Blue Scales</category>
+		<weight>0.2</weight>
+	</item>
+	
+	<!-- Rewards -->
+	<item id="ancient_smiths_hammer">
+		<id>0x13e3</id>
+		<weight>8.0</weight>
+		<color>0x482</color>
+		<name>#1045127</name>		
+		<tag name="remaining_uses" type="int" value="600" />
+		<basescripts>equipment,skills.blacksmithing</basescripts>
+	</item>
+	
+	<item id="ancient_smiths_hammer_10" inherit="ancient_smiths_hammer">
+		<category>Professions\Blacksmith\Rewards\Ancient Smiths Hammer (10)</category>
+		<tag name="skillbonus_0" value="7,100" />
+	</item>
+	
+	<item id="ancient_smiths_hammer_15" inherit="ancient_smiths_hammer">
+		<category>Professions\Blacksmith\Rewards\Ancient Smiths Hammer (15)</category>
+		<tag name="skillbonus_0" value="7,150" />
+	</item>
+	
+	<item id="ancient_smiths_hammer_30" inherit="ancient_smiths_hammer">
+		<category>Professions\Blacksmith\Rewards\Ancient Smiths Hammer (30)</category>
+		<tag name="skillbonus_0" value="7,300" />
+	</item>
+	
+	<item id="ancient_smiths_hammer_60" inherit="ancient_smiths_hammer">
+		<category>Professions\Blacksmith\Rewards\Ancient Smiths Hammer (60)</category>
+		<tag name="skillbonus_0" value="7,600" />
+	</item>
+</definitions>

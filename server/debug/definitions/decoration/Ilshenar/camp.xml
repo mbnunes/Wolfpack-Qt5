@@ -1,0 +1,136 @@
+<decoration>
+	<!-- wooden gate-->
+	<item id="0x0839">
+		<pos x="1234" y="543" z="-6" map="2" />
+		<pos x="1253" y="588" z="-11" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x083B">
+		<pos x="1235" y="543" z="-6" map="2" />
+		<pos x="1254" y="588" z="-11" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x0841">
+		<pos x="1227" y="555" z="-11" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x0843">
+		<pos x="1227" y="554" z="-11" map="2" />
+	</item>
+
+	<!-- wooden gate-->
+	<item id="0x0872">
+		<pos x="1229" y="563" z="-19" map="2" />
+	</item>
+
+	<!-- flowstone-->
+	<item id="0x08E2">
+		<pos x="1237" y="582" z="-19" map="2" />
+		<pos x="1237" y="586" z="-19" map="2" />
+	</item>
+
+	<!-- pickaxe-->
+	<item id="0x0E85">
+		<pos x="1238" y="580" z="-19" map="2" />
+	</item>
+
+	<!-- pickaxe-->
+	<item id="0x0E86">
+		<pos x="1239" y="586" z="-19" map="2" />
+	</item>
+
+	<!-- anvil-->
+	<item id="0x0FAF">
+		<pos x="1260" y="583" z="-19" map="2" />
+	</item>
+
+	<!-- tapestry-->
+	<item id="0x0FE3" hue="0x1">
+		<pos x="1237" y="585" z="-22" map="2" />
+	</item>
+
+	<!-- tapestry-->
+	<item id="0x0FE4" hue="0x1">
+		<pos x="1237" y="583" z="-22" map="2" />
+	</item>
+
+	<!-- boulder-->
+	<item id="0x1355">
+		<pos x="1237" y="585" z="5" map="2" />
+	</item>
+
+	<!-- boulder-->
+	<item id="0x1356">
+		<pos x="1237" y="584" z="5" map="2" />
+	</item>
+
+	<!-- boulder-->
+	<item id="0x1361">
+		<pos x="1236" y="586" z="-6" map="2" />
+	</item>
+
+	<!-- boulder-->
+	<item id="0x1362">
+		<pos x="1237" y="586" z="-6" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x1363">
+		<pos x="1237" y="582" z="-1" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x1364">
+		<pos x="1237" y="583" z="4" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x136B">
+		<pos x="1237" y="583" z="1" map="2" />
+	</item>
+
+	<!-- rocks-->
+	<item id="0x136D">
+		<pos x="1237" y="586" z="1" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x1772">
+		<pos x="1237" y="583" z="1" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x1773">
+		<pos x="1237" y="585" z="0" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x1775">
+		<pos x="1237" y="585" z="4" map="2" />
+		<pos x="1237" y="586" z="3" map="2" />
+	</item>
+
+	<!-- rock-->
+	<item id="0x1777">
+		<pos x="1236" y="584" z="-1" map="2" />
+	</item>
+
+	<!-- bellows-->
+	<item id="0x197A">
+		<pos x="1258" y="585" z="-19" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x197E">
+		<pos x="1259" y="585" z="-19" map="2" />
+	</item>
+
+	<!-- forge-->
+	<item id="0x1982">
+		<pos x="1260" y="585" z="-19" map="2" />
+	</item>
+
+</decoration>

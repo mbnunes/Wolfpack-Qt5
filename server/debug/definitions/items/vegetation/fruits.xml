@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Fruits and Vegetables                                         |
+=================================================================
+-->
+<definitions>
+
+	<item id="d1b">
+		<id>0xd1b</id>
+		<nodecay />
+		<scripts>farming</scripts>
+		<category>Vegetation\Fruits\Grapevines 1</category>
+	</item>
+
+	<item id="d1c" inherit="d1b">
+		<id>0xd1c</id>
+		<category>Vegetation\Fruits\Grapevines 2</category>
+	</item>
+
+	<item id="d1d" inherit="d1b">
+		<id>0xd1d</id>
+		<category>Vegetation\Fruits\Grapevines 3</category>
+	</item>
+
+	<item id="d1e" inherit="d1b">
+		<id>0xd1e</id>
+		<category>Vegetation\Fruits\Grapevines 4</category>
+	</item>
+
+	<item id="d1f" inherit="d1b">
+		<id>0xd1f</id>
+		<category>Vegetation\Fruits\Grapevines 5</category>
+	</item>
+
+	<item id="d20" inherit="d1b">
+		<id>0xd20</id>
+		<category>Vegetation\Fruits\Grapevines 6</category>
+	</item>
+
+	<item id="d21" inherit="d1b">
+		<id>0xd21</id>
+		<category>Vegetation\Fruits\Grapevines 7</category>
+	</item>
+
+	<item id="d22" inherit="d1b">
+		<id>0xd22</id>
+		<category>Vegetation\Fruits\Grapevines 8</category>
+	</item>
+
+	<item id="d23" inherit="d1b">
+		<id>0xd23</id>
+		<category>Vegetation\Fruits\Grapevines 9</category>
+	</item>
+
+	<item id="d24" inherit="d1b">
+		<id>0xd24</id>
+		<category>Vegetation\Fruits\Grapevines 10</category>
+	</item>
+
+	<item id="3d12" inherit="d1b">
+		<id>0x3d12</id>
+		<category>Vegetation\Fruits\Grapevines 11</category>
+	</item>
+
+</definitions>

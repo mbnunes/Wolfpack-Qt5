@@ -1,0 +1,75 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="Felucca_bucs_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>Felucca_bucs_vendors</group>
+		<group>Felucca_bucs</group>
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_bucs_vendor" id="Felucca_bucs_vendor_1">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2678,2236,2,0" />
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_bucs_vendor" id="Felucca_bucs_vendor_2">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2734,2251,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_bucs_vendor" id="Felucca_bucs_vendor_3">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2707,2138,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_bucs_vendor" id="Felucca_bucs_vendor_4">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2708,2179,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_bucs_vendor" id="Felucca_bucs_vendor_5">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2731,2188,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_bucs_vendor" id="Felucca_bucs_vendor_6">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2715,2098,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_bucs_vendor" id="Felucca_bucs_vendor_7">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2627,2098,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_bucs_vendor" id="Felucca_bucs_vendor_8">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2635,2084,10,0" />
+	</spawnregion>
+</definitions>

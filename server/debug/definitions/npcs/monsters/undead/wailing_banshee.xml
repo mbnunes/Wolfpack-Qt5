@@ -1,0 +1,45 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Wailing Banshee -->
+	<npc id="wailing_banshee" inherit="monster_base">
+		<name>wailing banshee</name>
+		<id>310</id>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
+		<!-- Stats -->
+		<str><random min="126" max="150"/></str>
+		<dex><random min="76" max="100"/></dex>
+		<int><random min="86" max="110"/></int>
+		<maxhitpoints><random min="76" max="90"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="701" max="950"/></skill>
+		<skill id="tactics"><random min="451" max="700"/></skill>
+		<skill id="wrestling"><random min="501" max="700"/></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>18</mindamage>
+		<maxdamage>26</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_cold" value="60" type="int" />
+		<tag name="dmg_poison" value="20" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="25,30" type="int" />
+		<tag name="res_cold" value="70,80" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Undead\Wailing Banshee</category>
+	</npc>
+
+</definitions>

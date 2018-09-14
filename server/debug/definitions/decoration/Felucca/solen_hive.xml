@@ -1,0 +1,101 @@
+<decoration>
+	<!-- Area A black hole-->
+	<item id="0x30ef">
+		<pos x="729" y="1451" z="0" map="0" />
+	</item>
+
+	<!-- Area A left dirt-->
+	<item id="0xee0">
+		<pos x="730" y="1451" z="0" map="0" />
+	</item>
+
+	<!-- Area A right dirt-->
+	<item id="0xee2">
+		<pos x="728" y="1451" z="0" map="0" />
+	</item>
+
+	<!-- Area A top dirt-->
+	<item id="0xee1">
+		<pos x="729" y="1450" z="0" map="0" />
+	</item>
+
+	<!-- Area A bottom dirt-->
+	<item id="0xed3">
+		<pos x="729" y="1452" z="0" map="0" />
+	</item>
+
+	<!-- Area B black hole-->
+	<item id="0x30ef">
+		<pos x="2607" y="763" z="0" map="0" />
+	</item>
+
+	<!-- Area B left dirt-->
+	<item id="0xee0">
+		<pos x="2608" y="763" z="0" map="0" />
+	</item>
+
+	<!-- Area B right dirt-->
+	<item id="0xee2">
+		<pos x="2606" y="763" z="0" map="0" />
+	</item>
+
+	<!-- Area B top dirt-->
+	<item id="0xee1">
+		<pos x="2607" y="762" z="0" map="0" />
+	</item>
+
+	<!-- Area B bottom dirt-->
+	<item id="0xed3">
+		<pos x="2607" y="764" z="0" map="0" />
+	</item>
+
+	<!-- Area C black hole-->
+	<item id="0x30ef">
+		<pos x="1689" y="2789" z="0" map="0" />
+	</item>
+
+	<!-- Area C left dirt-->
+	<item id="0xee0">
+		<pos x="1690" y="2789" z="0" map="0" />
+	</item>
+
+	<!-- Area C right dirt-->
+	<item id="0xee2">
+		<pos x="1688" y="2789" z="0" map="0" />
+	</item>
+
+	<!-- Area C top dirt-->
+	<item id="0xee1">
+		<pos x="1689" y="2788" z="0" map="0" />
+	</item>
+
+	<!-- Area C bottom dirt-->
+	<item id="0xed3">
+		<pos x="1689" y="2790" z="0" map="0" />
+	</item>
+
+	<!-- Area D black hole-->
+	<item id="0x30ef">
+		<pos x="1723" y="814" z="0" map="0" />
+	</item>
+
+	<!-- Area D left dirt-->
+	<item id="0xee0">
+		<pos x="1724" y="814" z="0" map="0" />
+	</item>
+
+	<!-- Area D right dirt-->
+	<item id="0xee2">
+		<pos x="1722" y="814" z="0" map="0" />
+	</item>
+
+	<!-- Area D top dirt-->
+	<item id="0xee1">
+		<pos x="1723" y="813" z="0" map="0" />
+	</item>
+
+	<!-- Area D bottom dirt-->
+	<item id="0xed3">
+		<pos x="1723" y="815" z="0" map="0" />
+	</item>
+</decoration>

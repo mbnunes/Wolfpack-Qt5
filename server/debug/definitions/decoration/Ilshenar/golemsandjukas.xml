@@ -1,0 +1,158 @@
+<decoration>
+	<!-- metal door-->
+	<item id="0x067D">
+		<pos x="1089" y="707" z="-80" map="2" />
+		<pos x="1094" y="699" z="-60" map="2" />
+		<pos x="1094" y="708" z="-60" map="2" />
+		<pos x="1103" y="704" z="-80" map="2" />
+	</item>
+
+	<!-- metal door-->
+	<item id="0x067F">
+		<pos x="1089" y="706" z="-80" map="2" />
+		<pos x="1094" y="707" z="-60" map="2" />
+		<pos x="1094" y="698" z="-60" map="2" />
+		<pos x="1103" y="703" z="-80" map="2" />
+	</item>
+
+	<!-- metal door-->
+	<item id="0x06CD">
+		<pos x="1103" y="652" z="-80" map="2" />
+		<pos x="1111" y="652" z="-80" map="2" />
+	</item>
+
+	<!-- metal door-->
+	<item id="0x06CF">
+		<pos x="1103" y="651" z="-80" map="2" />
+		<pos x="1111" y="651" z="-80" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06E5">
+		<pos x="1071" y="671" z="-80" map="2" />
+		<pos x="1083" y="632" z="-60" map="2" />
+		<pos x="1083" y="658" z="-80" map="2" />
+		<pos x="1083" y="671" z="-80" map="2" />
+		<pos x="1083" y="671" z="-60" map="2" />
+		<pos x="1096" y="671" z="-80" map="2" />
+		<pos x="1097" y="658" z="-80" map="2" />
+		<pos x="1098" y="632" z="-60" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06E7">
+		<pos x="1062" y="635" z="-80" map="2" />
+		<pos x="1062" y="635" z="-60" map="2" />
+		<pos x="1062" y="635" z="-40" map="2" />
+		<pos x="1062" y="667" z="-80" map="2" />
+		<pos x="1062" y="667" z="-60" map="2" />
+		<pos x="1062" y="667" z="-40" map="2" />
+		<pos x="1083" y="632" z="-80" map="2" />
+		<pos x="1083" y="645" z="-80" map="2" />
+		<pos x="1096" y="632" z="-80" map="2" />
+		<pos x="1097" y="645" z="-80" map="2" />
+		<pos x="1105" y="635" z="-60" map="2" />
+		<pos x="1105" y="668" z="-80" map="2" />
+		<pos x="1105" y="668" z="-60" map="2" />
+		<pos x="1105" y="668" z="-40" map="2" />
+		<pos x="1105" y="635" z="-80" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06E9">
+		<pos x="1071" y="634" z="-40" map="2" />
+		<pos x="1074" y="669" z="-40" map="2" />
+		<pos x="1090" y="634" z="-40" map="2" />
+		<pos x="1092" y="669" z="-40" map="2" />
+		<pos x="1092" y="679" z="-40" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06EB">
+		<pos x="1105" y="635" z="-40" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06ED">
+		<pos x="1064" y="651" z="-80" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06F1">
+		<pos x="1067" y="630" z="-80" map="2" />
+		<pos x="1067" y="630" z="-60" map="2" />
+		<pos x="1067" y="673" z="-80" map="2" />
+		<pos x="1067" y="673" z="-60" map="2" />
+		<pos x="1100" y="630" z="-80" map="2" />
+		<pos x="1100" y="630" z="-60" map="2" />
+		<pos x="1100" y="673" z="-80" map="2" />
+		<pos x="1100" y="673" z="-60" map="2" />
+		<pos x="1100" y="673" z="-40" map="2" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06F3">
+		<pos x="1103" y="643" z="-60" map="2" />
+		<pos x="1103" y="660" z="-60" map="2" />
+	</item>
+
+	<!-- iron gate-->
+	<item id="0x082C">
+		<pos x="1064" y="644" z="-40" map="2" />
+		<pos x="1064" y="659" z="-40" map="2" />
+		<pos x="1081" y="644" z="-40" map="2" />
+		<pos x="1081" y="659" z="-40" map="2" />
+		<pos x="1086" y="644" z="-40" map="2" />
+		<pos x="1086" y="659" z="-40" map="2" />
+		<pos x="1103" y="644" z="-40" map="2" />
+		<pos x="1103" y="659" z="-40" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A97">
+		<pos x="1092" y="696" z="-60" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A98">
+		<pos x="1086" y="703" z="-80" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A99">
+		<pos x="1081" y="707" z="-60" map="2" />
+		<pos x="1081" y="708" z="-80" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A9A">
+		<pos x="1081" y="699" z="-60" map="2" />
+		<pos x="1081" y="704" z="-80" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A9B">
+		<pos x="1082" y="703" z="-80" map="2" />
+		<pos x="1088" y="696" z="-60" map="2" />
+	</item>
+
+	<!-- bookcase-->
+	<item id="0x0A9C">
+		<pos x="1081" y="706" z="-60" map="2" />
+	</item>
+
+	<!-- khabur's journal-->
+	<item id="0x0FF1">
+		<pos x="1073" y="633" z="-74" map="2" />
+	</item>
+
+	<!-- fropoz's journal-->
+	<item id="0x0FF1">
+		<pos x="1084" y="707" z="-74" map="2" />
+	</item>
+
+	<!-- translated gargoyle journal-->
+	<item id="0x0FF2">
+		<pos x="1089" y="708" z="-54" map="2" />
+	</item>
+</decoration>

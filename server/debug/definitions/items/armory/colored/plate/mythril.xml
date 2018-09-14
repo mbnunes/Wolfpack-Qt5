@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- plate armor -->
+	<!-- female plate armor -->
+	<item id="1c04_mythril" inherit="1c04">
+		<baseid>1c04</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Female Armor (N/S)</category>
+	</item>
+
+	<item id="1c05_mythril" inherit="1c05">
+		<baseid>1c04</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Female Armor (E/W)</category>
+	</item>
+
+	<!-- male plate armor -->
+	<item id="1415_mythril" inherit="1415">
+		<baseid>1415</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Male Armor (N/S)</category>
+	</item>
+
+	<item id="1416_mythril" inherit="1416">
+		<baseid>1415</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Male Armor (E/W)</category>
+	</item>
+
+	<!-- plate arms -->
+	<item id="1410_mythril" inherit="1410">
+		<baseid>1410</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Arms (N/S)</category>
+	</item>
+
+	<item id="1417_mythril" inherit="1417">
+		<baseid>1410</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Arms (E/W)</category>
+	</item>
+
+	<!-- plate gloves -->
+	<item id="1414_mythril" inherit="1414">
+		<baseid>1414</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Gloves (N/S)</category>
+	</item>
+
+	<item id="1418_mythril" inherit="1418">
+		<baseid>1414</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Gloves (E/W)</category>
+	</item>
+
+	<!-- plate gorget -->
+	<item id="1413_mythril" inherit="1413">
+		<baseid>1413</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Gorget</category>
+	</item>
+
+	<!-- plate helmet -->
+	<item id="1412_mythril" inherit="1412">
+		<baseid>1412</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Helm (N/S)</category>
+	</item>
+
+	<item id="1419_mythril" inherit="1419">
+		<baseid>1412</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Helm (E/W)</category>
+	</item>
+
+	<!-- plate leggings -->
+	<item id="1411_mythril" inherit="1411">
+		<mythril_armor />
+		<baseid>1411</baseid>
+		<category>Armor\Mythril\Platemail\Legs (N/S)</category>
+	</item>
+
+	<item id="141a_mythril" inherit="141a">
+		<baseid>1411</baseid>
+		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Legs (E/W)</category>
+	</item>
+
+</definitions>

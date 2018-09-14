@@ -1,0 +1,23 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Misc Equipment                                                |
+=================================================================
+-->
+<definitions>
+
+	<!-- Kindling -->
+	<item id="de1">
+		<id>0xde1</id>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.02</weight>
+		<category>Equipment\Misc\Kindling</category>
+		<basescripts>kindling</basescripts>
+	</item>
+
+</definitions>

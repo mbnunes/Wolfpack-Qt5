@@ -1,0 +1,63 @@
+<!--
+/*=========================================================
+* ) (\_ | WOLFPACK 13.0.0 Scripts
+* (( _/{ "-; | Created by: Owner_Mutilador
+* )).-' {{ ;'` | Revised by:
+* ( ( ;._ \\ | Last modification:
+*=======================================================*/
+-->
+<definitions>
+
+	<!-- Paroxysmus -->
+	<npc id="Lurg" inherit="monster_base">
+		<name>Lurg</name>
+		<id>0x10B</id>
+		<skin>0x455</skin>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="584" max="625"/></str>
+		<dex><random min="163" max="176"/></dex>
+		<int><random min="102" max="106"/></int>
+		<maxhitpoints><random min="3034" max="3189"/></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>12</mindamage>
+		<maxdamage>24</maxdamage>
+		<tag name="dmg_physical" value="100" type="int" />
+		<!-- Skills -->
+		<skill id="tactics"><random min="1093" max="1185"/></skill>
+		<skill id="wrestling"><random min="1227" max="1305"/></skill>
+		<skill id="magicresistance"><random min="729" max="876"/></skill>
+		<skill id="anatomy"><random min="1105" max="1240"/></skill>
+		<skill id="healing"><random min="936" max="996"/></skill>
+		<!-- Resists -->
+		<tag name="res_physical" value="50,53" type="int" />
+		<tag name="res_fire" value="45,47" type="int" />
+		<tag name="res_cold" value="56,57" type="int" />
+		<tag name="res_poison" value="50,60" type="int" />
+		<tag name="res_energy" value="41,54" type="int" />
+		<!-- Loot -->
+		<!-- Missing: Magic Items, Bonsai Seed -->
+		<backpack>
+			<content>
+				<item id="eed"><amount><random min="2000" max="2500" /></amount></item>
+				<item id="9b5"> <!-- Eggs -->
+					<amount>2</amount>
+				</item>
+			</content>
+		</backpack>
+		<lootpacks>gems;gems;gems;gems;gems;gems;tm_5</lootpacks>
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="50" />
+		<intproperty name="hit_poison_chance" value="50" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="20" />
+		<!-- Misc. -->
+		<strproperty name="food" value="1,2" />
+		<category>Monsters\Mondains Legancy\Painted Caves\Lurg</category>
+		<strproperty name="slayer_group" value="reptile,snake" />
+		<inherit id="speed_fast" />
+	</npc>
+
+</definitions>

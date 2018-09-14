@@ -1,0 +1,57 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Ophidian Knight-Errant -->
+	<npc id="ophidian_knight_errant" inherit="monster_base">
+		<name>ophidian knight-errant</name>
+		<id>86</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="417" max="595"/></str>
+		<dex><random min="166" max="175"/></dex>
+		<int><random min="46" max="70"/></int>
+		<maxhitpoints><random min="266" max="342"/></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Skills -->
+		<skill id="poisoning"><random min="601" max="800"/></skill>
+		<skill id="magicresistance"><random min="651" max="800"/></skill>
+		<skill id="tactics"><random min="901" max="1000"/></skill>
+		<skill id="wrestling"><random min="901" max="1000"/></skill>
+		<!-- Damage -->
+		<mindamage>49</mindamage>
+		<maxdamage>65</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="35,45" type="int" />
+		<tag name="res_energy" value="35,45" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="35,40" type="int" />
+		<tag name="res_poison" value="90,100" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_rich;lootpack_rich;tm_3</lootpacks>
+		<backpack>
+			<content>
+				<item id="potion_lesserpoison" />
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<desc>The Ophidian knight is the royal protector. Wielding magic weapons, Ophidian knights defend their territory with frightening skill. The most important thing to remember is that the Ophidian knight is charged with guarding the secret of the Ophidian race.</desc>
+		<category>Monsters\Ophidians\Ophidian Knight-Errant</category>
+		<strproperty name="slayer_group" value="ophidians" />
+		<intproperty name="food" value="1" />
+		<inherit id="speed_fast" />
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="4" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="2" />
+	</npc>
+
+</definitions>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Musician                                                      |
+=================================================================
+-->
+<definitions>
+
+	<item id="eb5">
+		<id>0xeb5</id>
+		<category>Professions\Musician\Music Stand 1</category>
+	</item>
+
+	<item id="eb6">
+		<id>0xeb6</id>
+		<category>Professions\Musician\Music Stand 2</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="eb7">
+		<id>0xeb7</id>
+		<category>Professions\Musician\Music Stand 3</category>
+	</item>
+
+	<item id="eb8">
+		<id>0xeb8</id>
+		<category>Professions\Musician\Music Stand 4</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="eb9">
+		<id>0xeb9</id>
+		<category>Professions\Musician\Music Stand 5</category>
+	</item>
+
+	<item id="eba">
+		<id>0xeba</id>
+		<category>Professions\Musician\Music Stand 6</category>
+	</item>
+
+	<item id="ebb">
+		<id>0xebb</id>
+		<category>Professions\Musician\Music Stand 7</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="ebc">
+		<id>0xebc</id>
+		<category>Professions\Musician\Music Stand 8</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="ebd">
+		<id>0xebd</id>
+		<category>Professions\Musician\Music Sheet 1</category>
+	</item>
+
+	<item id="ebe">
+		<id>0xebe</id>
+		<category>Professions\Musician\Music Sheet 2</category>
+	</item>
+
+	<item id="ebf">
+		<id>0xebf</id>
+		<category>Professions\Musician\Music Sheet 3</category>
+	</item>
+
+	<item id="ec0">
+		<id>0xec0</id>
+		<category>Professions\Musician\Music Sheet 4</category>
+	</item>
+
+	<!-- Drum -->
+	<item id="e9c">
+		<id>0xe9c</id>
+		<decay/>
+		<buyprice>50</buyprice>
+		<sellprice>25</sellprice>
+		<category>Professions\Musician\Instruments\Drum</category>
+		<basescripts>equipment,skills.musicianship</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
+	</item>
+
+	<!-- Tamberine -->
+	<item id="e9d">
+		<id>0xe9d</id>
+		<decay/>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
+		<category>Professions\Musician\Instruments\Tambourine</category>
+		<basescripts>equipment,skills.musicianship</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
+	</item>
+
+	<!-- Tamberine with Ribbon -->
+	<item id="e9e">
+		<id>0xe9e</id>
+		<decay/>
+		<buyprice>60</buyprice>
+		<sellprice>30</sellprice>
+		<category>Professions\Musician\Instruments\Fancy Tambourine</category>
+		<basescripts>equipment,skills.musicianship</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
+	</item>
+
+	<!-- Standing Harp -->
+	<item id="eb1">
+		<id>0xeb1</id>
+		<decay/>
+		<buyprice>90</buyprice>
+		<sellprice>45</sellprice>
+		<category>Professions\Musician\Instruments\Standing Harp</category>
+		<basescripts>equipment,skills.musicianship</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
+	</item>
+
+	<!-- Harp -->
+	<item id="eb2">
+		<id>0xeb2</id>
+		<decay/>
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
+		<category>Professions\Musician\Instruments\Harp</category>
+		<basescripts>equipment,skills.musicianship</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
+	</item>
+
+	<!-- Lute -->
+	<item id="eb3">
+		<id>0xeb3</id>
+		<decay/>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
+		<category>Professions\Musician\Instruments\Lute (N/S)</category>
+		<basescripts>equipment,skills.musicianship</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
+	</item>
+
+	<!-- Lute -->
+	<item id="eb4" inherit="eb3">
+		<id>0xeb4</id>
+		<category>Professions\Musician\Instruments\Lute (W/E)</category>
+	</item>
+
+	<!-- Bamboo Flute -->
+	<item id="2805">
+		<id>0x2805</id>
+		<decay/>
+		<category>Professions\Musician\Instruments\Lute (N/S)</category>
+		<basescripts>equipment,skills.musicianship</basescripts>
+		<tag name="remaining_uses" type="int" value="35" />
+	</item>
+
+</definitions>

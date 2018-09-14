@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Mage                                                          |
+=================================================================
+-->
+<definitions>
+
+	<item id="1f19">
+		<id>0x1f19</id>
+		<category>Professions\Mage\Green Magical Crystal</category>
+	</item>
+
+	<item id="1f1c">
+		<id>0x1f1c</id>
+		<category>Professions\Mage\Purple Magical Crystal</category>
+	</item>
+
+	<!-- Spellbook -->
+	<item id="efa">
+		<id>0xefa</id>
+		<onehanded />
+		<newbie />
+		<decay />
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
+		<category>Professions\Mage\Spellbook (N/S)</category>
+		<basescripts>magic.spellbook</basescripts>
+		<weight>0.0</weight>
+	</item>
+
+	<!-- Runebook -->
+	<item id="22c5">
+		<name>#1028901</name>
+		<id>0x22c5</id>
+		<color>0x461</color>
+		<onehanded />
+		<decay />
+		<newbie />
+		<category>Professions\Mage\Runebook </category>
+		<basescripts>housing.security,magic.runebook</basescripts>
+		<weight>3.0</weight>
+		<bindmenu>security_menu</bindmenu>
+		<tag name="max_charges" value="6" type="int" />
+		<tag name="security_level" value="1" type="int" /> <!-- default: coowner -->
+	</item>
+
+	<!-- Recall Runes -->
+	<item id="1f14">
+		<category>Professions\Mage\Runes\Recall Rune (1)</category>
+		<id>0x1f14</id>
+		<decay />
+		<buyprice>15</buyprice>
+		<sellprice>8</sellprice>
+		<basescripts>magic.rune</basescripts>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="1f15" inherit="1f14">
+		<id>0x1f15</id>
+		<category>Professions\Mage\Runes\Recall Rune (2)</category>
+	</item>
+
+	<item id="1f16" inherit="1f14">
+		<id>0x1f16</id>
+		<category>Professions\Mage\Runes\Recall Rune (3)</category>
+	</item>
+
+	<item id="1f17" inherit="1f14">
+		<id>0x1f17</id>
+		<category>Professions\Mage\Runes\Recall Rune (4)</category>
+	</item>
+
+	<!-- Scrolls -->
+	<!-- Base scroll for circle 1 -->
+	<item id="base_scroll">
+		<bindmenu>scroll_menu</bindmenu>
+		<decay/>
+		<weight>1.0</weight>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
+		<basescripts>magic.scroll</basescripts>
+	</item>
+
+	<!-- Clumsy Scroll -->
+	<item id="1f2e" inherit="base_scroll">
+		<id>0x1f2e</id>
+		<category>Professions\Mage\Scrolls\Clumsy</category>
+	</item>
+
+	<!-- Create Food Scroll -->
+	<item id="1f2f" inherit="base_scroll">
+		<id>0x1f2f</id>
+		<category>Professions\Mage\Scrolls\Create Food</category>
+	</item>
+
+	<!-- Feeblemind Scroll -->
+	<item id="1f30" inherit="base_scroll">
+		<id>0x1f30</id>
+		<category>Professions\Mage\Scrolls\Feeblemind</category>
+	</item>
+
+	<!-- Heal Scroll -->
+	<item id="1f31" inherit="base_scroll">
+		<id>0x1f31</id>
+		<category>Professions\Mage\Scrolls\Heal</category>
+	</item>
+
+	<!-- Magic Arrow Scroll -->
+	<item id="1f32" inherit="base_scroll">
+		<id>0x1f32</id>
+		<category>Professions\Mage\Scrolls\Magic Arrow</category>
+	</item>
+
+	<!-- Night Sight Scroll -->
+	<item id="1f33" inherit="base_scroll">
+		<id>0x1f33</id>
+		<category>Professions\Mage\Scrolls\Night Sight</category>
+	</item>
+
+	<!-- Reactive Armor Scroll -->
+	<item id="1f2d" inherit="base_scroll">
+		<id>0x1f2d</id>
+		<category>Professions\Mage\Scrolls\Reactive Armor</category>
+	</item>
+
+	<!-- Weaken Scroll -->
+	<item id="1f34" inherit="base_scroll">
+		<id>0x1f34</id>
+		<category>Professions\Mage\Scrolls\Weaken</category>
+	</item>
+
+	<!-- Base scroll for circle 2 -->
+	<item id="base_scroll2" inherit="base_scroll">
+		<buyprice>22</buyprice>
+		<sellprice>11</sellprice>
+	</item>
+
+	<!-- Agility Scroll -->
+	<item id="1f35" inherit="base_scroll2">
+		<id>0x1f35</id>
+		<category>Professions\Mage\Scrolls\Agility</category>
+	</item>
+
+	<!-- Cunning Scroll -->
+	<item id="1f36" inherit="base_scroll2">
+		<id>0x1f36</id>
+		<category>Professions\Mage\Scrolls\Cunning</category>
+	</item>
+
+	<!-- Cure Scroll -->
+	<item id="1f37" inherit="base_scroll2">
+		<id>0x1f37</id>
+		<category>Professions\Mage\Scrolls\Cure</category>
+	</item>
+
+	<!-- Harm Scroll -->
+	<item id="1f38" inherit="base_scroll2">
+		<id>0x1f38</id>
+		<category>Professions\Mage\Scrolls\Harm</category>
+	</item>
+
+	<!-- Magic Trap Scroll -->
+	<item id="1f39" inherit="base_scroll2">
+		<id>0x1f39</id>
+		<category>Professions\Mage\Scrolls\Magic Trap</category>
+	</item>
+
+	<!-- Magic Untrap Scroll -->
+	<item id="1f3a" inherit="base_scroll2">
+		<id>0x1f3a</id>
+		<category>Professions\Mage\Scrolls\Magic Untrap</category>
+	</item>
+
+	<!-- Protection Scroll -->
+	<item id="1f3b" inherit="base_scroll2">
+		<id>0x1f3b</id>
+		<category>Professions\Mage\Scrolls\Protection</category>
+	</item>
+
+	<!-- Strength Scroll -->
+	<item id="1f3c" inherit="base_scroll2">
+		<id>0x1f3c</id>
+		<category>Professions\Mage\Scrolls\Strength</category>
+	</item>
+
+	<!-- Base scroll for circle 3 -->
+	<item id="base_scroll3" inherit="base_scroll">
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
+	</item>
+
+	<!-- Bless Scroll -->
+	<item id="1f3d" inherit="base_scroll3">
+		<id>0x1f3d</id>
+		<category>Professions\Mage\Scrolls\Bless</category>
+	</item>
+
+	<!-- Fireball Scroll -->
+	<item id="1f3e" inherit="base_scroll3">
+		<id>0x1f3e</id>
+		<category>Professions\Mage\Scrolls\Fireball</category>
+	</item>
+
+	<!-- Magic Lock Scroll -->
+	<item id="1f3f" inherit="base_scroll3">
+		<id>0x1f3f</id>
+		<category>Professions\Mage\Scrolls\Magic Lock</category>
+	</item>
+
+	<!-- Poison Scroll -->
+	<item id="1f40" inherit="base_scroll3">
+		<id>0x1f40</id>
+		<category>Professions\Mage\Scrolls\Poison</category>
+	</item>
+
+	<!-- Telekinesis Scroll -->
+	<item id="1f41" inherit="base_scroll3">
+		<id>0x1f41</id>
+		<category>Professions\Mage\Scrolls\Telekinesis</category>
+	</item>
+
+	<!-- Teleport Scroll -->
+	<item id="1f42" inherit="base_scroll3">
+		<id>0x1f42</id>
+		<category>Professions\Mage\Scrolls\Teleport</category>
+	</item>
+
+	<!-- Unlock Scroll -->
+	<item id="1f43" inherit="base_scroll3">
+		<id>0x1f43</id>
+		<category>Professions\Mage\Scrolls\Unlock</category>
+	</item>
+
+	<!-- Wall of Stone Scroll -->
+	<item id="1f44" inherit="base_scroll3">
+		<id>0x1f44</id>
+		<category>Professions\Mage\Scrolls\Wall of Stone</category>
+	</item>
+
+	<!-- Base scroll for circle 4 -->
+	<item id="base_scroll4" inherit="base_scroll">
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
+	</item>
+
+	<!-- Archcure Scroll -->
+	<item id="1f45" inherit="base_scroll4">
+		<id>0x1f45</id>
+		<category>Professions\Mage\Scrolls\Arch Cure</category>
+	</item>
+
+	<!-- Arch Protection Scroll -->
+	<item id="1f46" inherit="base_scroll4">
+		<id>0x1f46</id>
+		<category>Professions\Mage\Scrolls\Arch Protection</category>
+	</item>
+
+	<!-- Curse Scroll -->
+	<item id="1f47" inherit="base_scroll4">
+		<id>0x1f47</id>
+		<category>Professions\Mage\Scrolls\Curse</category>
+	</item>
+
+	<!-- Fire Field Scroll -->
+	<item id="1f48" inherit="base_scroll4">
+		<id>0x1f48</id>
+		<category>Professions\Mage\Scrolls\Fire Field</category>
+	</item>
+
+	<!-- Greater Heal Scroll -->
+	<item id="1f49" inherit="base_scroll4">
+		<id>0x1f49</id>
+		<category>Professions\Mage\Scrolls\Greater Heal</category>
+	</item>
+
+	<!-- Lightning Scroll -->
+	<item id="1f4a" inherit="base_scroll4">
+		<id>0x1f4a</id>
+		<category>Professions\Mage\Scrolls\Lightning</category>
+	</item>
+
+	<!-- Mana Drain Scroll -->
+	<item id="1f4b" inherit="base_scroll4">
+		<id>0x1f4b</id>
+		<category>Professions\Mage\Scrolls\Mana Drain</category>
+	</item>
+
+	<!-- Recall Scroll -->
+	<item id="1f4c" inherit="base_scroll4">
+		<id>0x1f4c</id>
+		<category>Professions\Mage\Scrolls\Recall</category>
+	</item>
+
+	<!-- Base scroll for circle 5 -->
+	<item id="base_scroll5" inherit="base_scroll">
+		<buyprice>52</buyprice>
+		<sellprice>26</sellprice>
+	</item>
+
+	<!-- Blade Spirits Scroll -->
+	<item id="1f4d" inherit="base_scroll5">
+		<id>0x1f4d</id>
+		<category>Professions\Mage\Scrolls\Blade Spirits</category>
+	</item>
+
+	<!-- Dispel Field Scroll -->
+	<item id="1f4e" inherit="base_scroll5">
+		<id>0x1f4e</id>
+		<category>Professions\Mage\Scrolls\Dispel Field</category>
+	</item>
+
+	<!-- Incognito Scroll -->
+	<item id="1f4f" inherit="base_scroll5">
+		<id>0x1f4f</id>
+		<category>Professions\Mage\Scrolls\Incognito</category>
+	</item>
+
+	<!-- Magic Reflection Scroll -->
+	<item id="1f50" inherit="base_scroll5">
+		<id>0x1f50</id>
+		<category>Professions\Mage\Scrolls\Magic Reflection</category>
+	</item>
+
+	<!-- Mind Blast Scroll -->
+	<item id="1f51" inherit="base_scroll5">
+		<id>0x1f51</id>
+		<category>Professions\Mage\Scrolls\Mind Blast</category>
+	</item>
+
+	<!-- Paralyze Scroll -->
+	<item id="1f52" inherit="base_scroll5">
+		<id>0x1f52</id>
+		<category>Professions\Mage\Scrolls\Paralyze</category>
+	</item>
+
+	<!-- Poison Field Scroll -->
+	<item id="1f53" inherit="base_scroll5">
+		<id>0x1f53</id>
+		<category>Professions\Mage\Scrolls\Poison Field</category>
+	</item>
+
+	<!-- Summon Creature Scroll -->
+	<item id="1f54" inherit="base_scroll5">
+		<id>0x1f54</id>
+		<category>Professions\Mage\Scrolls\Summon Creature</category>
+	</item>
+
+	<!-- Base scroll for circle 6 -->
+	<item id="base_scroll6" inherit="base_scroll">
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
+	</item>
+
+	<!-- Dispel Scroll -->
+	<item id="1f55" inherit="base_scroll6">
+		<id>0x1f55</id>
+		<category>Professions\Mage\Scrolls\Dispel Scroll</category>
+	</item>
+
+	<!-- Energy Bolt Scroll -->
+	<item id="1f56" inherit="base_scroll6">
+		<id>0x1f56</id>
+		<category>Professions\Mage\Scrolls\Energy Bolt</category>
+	</item>
+
+	<!-- Explosion Scroll -->
+	<item id="1f57" inherit="base_scroll6">
+		<id>0x1f57</id>
+		<category>Professions\Mage\Scrolls\Explosion</category>
+	</item>
+
+	<!-- Invisibility Scroll -->
+	<item id="1f58" inherit="base_scroll6">
+		<id>0x1f58</id>
+		<category>Professions\Mage\Scrolls\Invisibility</category>
+	</item>
+
+	<!-- Mark Scroll -->
+	<item id="1f59" inherit="base_scroll6">
+		<id>0x1f59</id>
+		<category>Professions\Mage\Scrolls\Mark</category>
+	</item>
+
+	<!-- Mass Curse Scroll -->
+	<item id="1f5a" inherit="base_scroll6">
+		<id>0x1f5a</id>
+		<category>Professions\Mage\Scrolls\Mass Curse</category>
+	</item>
+
+	<!-- Paralyze Field Scroll -->
+	<item id="1f5b" inherit="base_scroll6">
+		<id>0x1f5b</id>
+		<category>Professions\Mage\Scrolls\Paralyze Field</category>
+	</item>
+
+	<!-- Reveal Scroll -->
+	<item id="1f5c" inherit="base_scroll6">
+		<id>0x1f5c</id>
+		<category>Professions\Mage\Scrolls\Reveal</category>
+	</item>
+
+	<!-- Base scroll for circle 7 -->
+	<item id="base_scroll7" inherit="base_scroll">
+		<buyprice>72</buyprice>
+		<sellprice>36</sellprice>
+	</item>
+
+	<!-- Chain Lightning Scroll -->
+	<item id="1f5d" inherit="base_scroll7">
+		<id>0x1f5d</id>
+		<category>Professions\Mage\Scrolls\Chain Lightning</category>
+	</item>
+
+	<!-- Energy Field Scroll -->
+	<item id="1f5e" inherit="base_scroll7">
+		<id>0x1f5e</id>
+		<category>Professions\Mage\Scrolls\Energy Field</category>
+	</item>
+
+	<!-- Flamestrike Scroll -->
+	<item id="1f5f" inherit="base_scroll7">
+		<id>0x1f5f</id>
+		<category>Professions\Mage\Scrolls\Flamestrike</category>
+	</item>
+
+	<!-- Gate Travel Scroll -->
+	<item id="1f60" inherit="base_scroll7">
+		<id>0x1f60</id>
+		<category>Professions\Mage\Scrolls\Gate Travel</category>
+	</item>
+
+	<!-- Mana Vampire Scroll -->
+	<item id="1f61" inherit="base_scroll7">
+		<id>0x1f61</id>
+		<category>Professions\Mage\Scrolls\Mana Vampire</category>
+	</item>
+
+	<!-- Mass Dispel Scroll -->
+	<item id="1f62" inherit="base_scroll7">
+		<id>0x1f62</id>
+		<category>Professions\Mage\Scrolls\Mass Dispel</category>
+	</item>
+
+	<!-- Meteor Swarm Scroll -->
+	<item id="1f63" inherit="base_scroll7">
+		<id>0x1f63</id>
+		<category>Professions\Mage\Scrolls\Meteor Swarm</category>
+	</item>
+
+	<!-- Polymorph Scroll -->
+	<item id="1f64" inherit="base_scroll7">
+		<id>0x1f64</id>
+		<category>Professions\Mage\Scrolls\Polymorph</category>
+	</item>
+
+	<!-- Base scroll for circle 8 -->
+	<item id="base_scroll8" inherit="base_scroll">
+		<buyprice>82</buyprice>
+		<sellprice>41</sellprice>
+	</item>
+
+	<!-- Earthquake Scroll -->
+	<item id="1f65" inherit="base_scroll8">
+		<id>0x1f65</id>
+		<category>Professions\Mage\Scrolls\Earthquake</category>
+	</item>
+
+	<!-- Energy Vortex Scroll -->
+	<item id="1f66" inherit="base_scroll8">
+		<id>0x1f66</id>
+		<category>Professions\Mage\Scrolls\Energy Vortex</category>
+	</item>
+
+	<!-- Resurrection Scroll -->
+	<item id="1f67" inherit="base_scroll8">
+		<id>0x1f67</id>
+		<category>Professions\Mage\Scrolls\Resurrection</category>
+	</item>
+
+	<!-- Summon Air Elemental Scroll -->
+	<item id="1f68" inherit="base_scroll8">
+		<id>0x1f68</id>
+		<category>Professions\Mage\Scrolls\Summon Air Elemental</category>
+	</item>
+
+	<!-- Summon Daemon Scroll -->
+	<item id="1f69" inherit="base_scroll8">
+		<id>0x1f69</id>
+		<category>Professions\Mage\Scrolls\Summon Daemon</category>
+	</item>
+
+	<!-- Summon Earth Elemental Scroll -->
+	<item id="1f6a" inherit="base_scroll8">
+		<id>0x1f6a</id>
+		<category>Professions\Mage\Scrolls\Summon Earth Elemental</category>
+	</item>
+
+	<!-- Summon Fire Elemental Scroll -->
+	<item id="1f6b" inherit="base_scroll8">
+		<id>0x1f6b</id>
+		<category>Professions\Mage\Scrolls\Summon Fire Elemental</category>
+	</item>
+
+	<!-- Summon Water Elemental Scroll -->
+	<item id="1f6c" inherit="base_scroll8">
+		<id>0x1f6c</id>
+		<category>Professions\Mage\Scrolls\Summon Water Elemental</category>
+	</item>
+
+	<!-- Wands -->
+	<item id="df2">
+		<id>0xdf2</id>
+		<category>Professions\Mage\Wands\Wand 1</category>
+	</item>
+
+	<item id="df3">
+		<id>0xdf3</id>
+		<category>Professions\Mage\Wands\Wand 2</category>
+	</item>
+
+	<item id="df4">
+		<id>0xdf4</id>
+		<category>Professions\Mage\Wands\Wand 3</category>
+	</item>
+
+	<item id="df5">
+		<id>0xdf5</id>
+		<category>Professions\Mage\Wands\Wand 4</category>
+	</item>
+
+	<!-- Another Spellbook + Empty Scrolls -->
+	<item id="e34">
+		<id>0xe34</id>
+		<decay />
+		<category>Professions\Mage\Empty Scroll (W/E)</category>
+		<weight>1.0</weight>
+		<buyprice>5</buyprice>
+		<sellprice>3</sellprice>
+	</item>
+
+	<item id="e35">
+		<id>0xe35</id>
+		<category>Professions\Mage\Misc.\Scroll 1 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="e36">
+		<id>0xe36</id>
+		<category>Professions\Mage\Misc.\Scroll 2 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="e37">
+		<id>0xe37</id>
+		<category>Professions\Mage\Misc.\Scroll 3 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="e38">
+		<id>0xe38</id>
+		<category>Professions\Mage\Misc.\Scroll 4 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="e39">
+		<id>0xe39</id>
+		<category>Professions\Mage\Misc.\Scroll 5 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="e3a">
+		<id>0xe3a</id>
+		<category>Professions\Mage\Misc.\Scroll 6 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="e3b" inherit="efa">
+		<id>0xe3b</id>
+		<category>Professions\Mage\Spellbook (W/E)</category>
+	</item>
+
+	<item id="ef3">
+		<id>0xef3</id>
+		<category>Professions\Mage\Empty Scroll (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="ef4">
+		<id>0xef4</id>
+		<category>Professions\Mage\Misc.\Scroll 1 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="ef5">
+		<id>0xef5</id>
+		<category>Professions\Mage\Misc.\Scroll 2 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="ef6">
+		<id>0xef6</id>
+		<category>Professions\Mage\Misc.\Scroll 3 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="ef7">
+		<id>0xef7</id>
+		<category>Professions\Mage\Misc.\Scroll 4 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="ef8">
+		<id>0xef8</id>
+		<category>Professions\Mage\Misc.\Scroll 5 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="ef9">
+		<id>0xef9</id>
+		<category>Professions\Mage\Misc.\Scroll 6 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="1f6d">
+		<id>0x1f6d</id>
+		<category>Professions\Mage\Misc.\Scroll 7 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="1f6e">
+		<id>0x1f6e</id>
+		<category>Professions\Mage\Misc.\Scroll 7 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="1f6f">
+		<id>0x1f6f</id>
+		<category>Professions\Mage\Misc.\Scroll 8 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="1f70">
+		<id>0x1f70</id>
+		<category>Professions\Mage\Misc.\Scroll 8 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="1f71">
+		<id>0x1f71</id>
+		<category>Professions\Mage\Misc.\Scroll 9 (N/S)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="1f72">
+		<id>0x1f72</id>
+		<category>Professions\Mage\Misc.\Scroll 9 (W/E)</category>
+		<weight>1.0</weight>
+	</item>
+
+	<!-- Inscription Tool ? -->
+	<item id="scribes_pen">
+		<name>#1044168</name>
+		<id>0xfbf</id>
+		<category>Professions\Mage\Pen &amp; Ink (N/S)</category>
+		<basescripts>equipment,skills.inscription</basescripts>
+		<tag name="remaining_uses" type="int" value="50" />
+		<weight>1.0</weight>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+	</item>
+
+	<!-- Blue Moongates -->
+	<item id="f6c">
+		<id>0xf6c</id>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="f6d">
+		<id>0xf6d</id>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="f6e">
+		<id>0xf6e</id>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="f6f">
+		<id>0xf6f</id>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="f70">
+		<id>0xf70</id>
+		<lightsource>0x2</lightsource>
+	</item>
+
+</definitions>

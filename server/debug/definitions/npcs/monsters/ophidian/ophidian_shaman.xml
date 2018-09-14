@@ -1,0 +1,53 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Ophidian Shaman -->
+	<npc id="ophidian_shaman" inherit="monster_base">
+		<name>ophidian shaman</name>
+		<id>85</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="181" max="205"/></str>
+		<dex><random min="191" max="215"/></dex>
+		<int><random min="96" max="120"/></int>
+		<maxhitpoints><random min="109" max="123"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="evaluatingintelligence"><random min="851" max="1000"/></skill>
+		<skill id="magery"><random min="851" max="1000"/></skill>
+		<skill id="magicresistance"><random min="750" max="975"/></skill>
+		<skill id="tactics"><random min="650" max="875"/></skill>
+		<skill id="wrestling"><random min="202" max="600"/></skill>
+		<skill id="meditation">0</skill>
+		<!-- Damage -->
+		<mindamage>10</mindamage>
+		<maxdamage>20</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="35,45" type="int" />
+		<tag name="res_energy" value="35,45" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="25,35" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_average;scroll_low;scroll_medium;regs_high;tm_2</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Ophidians\Ophidian Shaman</category>
+		<strproperty name="slayer_group" value="ophidians" />
+		<intproperty name="food" value="1" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

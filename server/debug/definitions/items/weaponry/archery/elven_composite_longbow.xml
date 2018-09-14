@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Incanus
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Elven Composite Longbow -->
+	<item id="2d1e">
+		<id>0x2d1e</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<durability><random min="30" max="70" /></durability>
+		<weight>8.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1006</type>
+		<category>Base Weapons\Bows\Elven Composite Longbow (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="projectile" value="0xf42" />
+		<strproperty name="ammunition" value="f3f" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="27" />
+		<intproperty name="range" value="10" />
+		<intproperty name="mindamage" value="19" />
+		<intproperty name="maxdamage" value="22" />
+	</item>
+
+	<item id="2d2a" inherit="2d1e">
+		<id>0x2d2a</id>
+		<baseid>2d1e</baseid>
+		<category>Base Weapons\Bows\Elven Composite Longbow (E/W)</category>
+	</item>
+
+ </definitions>

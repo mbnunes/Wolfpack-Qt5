@@ -1,0 +1,81 @@
+<definitions>
+	<spawnregion id="ilshenar_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>ilshenar</group>
+		<group>ilshenar_vendors</group>
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_1">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="810,694,-40,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_2">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="811,591,-40,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_3">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="868,692,-20,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_4">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="892,615,-40,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_5">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="891,611,-40,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_6">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1085,656,-80,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_7">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1515,541,85,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_8">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1516,540,85,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_9">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1518,542,35,2" />
+	</spawnregion>
+
+	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_10">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1517,540,85,2" />
+	</spawnregion>
+</definitions>

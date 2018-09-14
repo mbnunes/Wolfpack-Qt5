@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Serpent's Fang -->
+	<item id="serpents_fang">
+		<id>0x1400</id>
+		<name>#1061601</name>
+		<decay />
+		<nodye />
+		<color>0x488</color>
+		<weight>1.0</weight>
+		<durability>255</durability>
+		<type>1005</type>
+		<basescripts>equipment</basescripts>
+		<category>Weapons\Artifacts\Serpent's Fang</category>
+		<!-- Properties -->
+		<intproperty name="splashpoison" value="100" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="dmg_physical" value="25" />
+		<intproperty name="dmg_poison" value="75" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="req_strength" value="10" />
+		<onehanded />
+	</item>
+
+</definitions>

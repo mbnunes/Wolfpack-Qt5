@@ -1,0 +1,190 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_animaljhelom_1">
+		<active />
+		<maxnpcamount>35</maxnpcamount>
+                <delay min="2" max="5" />
+		<npcspercycle>10</npcspercycle>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="1337,1443" to="893,534" map="0" />
+	</spawnregion>
+
+	<spawnregion id="felucca_jhemlom_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>felucca_jhemlom_vendors</group>
+		<group>felucca_jhemlom</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_1">
+		<active />
+		<npc id="farmer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="farmer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1386,3826,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_2">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1371,3811,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_3">
+		<active />
+		<npc id="tinker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tinker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1399,3804,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_4">
+		<active />
+		<npc id="architect_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="architect_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1428,3819,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_5">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1436,3827,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_6">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1419,3857,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_7">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1424,3850,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_8">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1450,3851,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_9">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1477,3859,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_10">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1443,3802,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_11">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1445,3778,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_12">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1410,3775,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_13">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1386,3771,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_14">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1356,3787,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_15">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1356,3780,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_16">
+		<active />
+		<npc id="spinner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spinner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1364,3779,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_17">
+		<active />
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1354,3754,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_18">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1316,3776,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_19">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1356,3732,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_20">
+		<active />
+		<npc id="blacksmith_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blacksmith_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1394,3710,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_21">
+		<active />
+		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1444,3715,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_22">
+		<active />
+		<npc id="leatherworker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="leatherworker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1433,3720,0,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_jhemlom_vendor" id="felucca_jhemlom_vendor_23">
+		<active />
+		<npc id="shipwright_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shipwright_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="1451,3741,0,0" />
+	</spawnregion>
+</definitions>

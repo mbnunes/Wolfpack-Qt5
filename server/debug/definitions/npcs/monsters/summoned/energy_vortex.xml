@@ -1,0 +1,52 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: rad1ant
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Energy Vortex -->
+	<npc id="summoned_energy_vortex">
+		<name>energy vortex</name>
+		<wandertype>1</wandertype>
+		<ai>Monster_EnergyVortex</ai>
+		<id>164</id>
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Stats -->
+		<str>200</str>
+		<dex>200</dex>
+		<int>100</int>
+		<maxhitpoints>70</maxhitpoints>
+		<maxstamina>250</maxstamina>
+		<maxmana>0</maxmana>
+		<!-- Skills -->
+		<skill id="magicresistance">999</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">1200</skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>33</mindamage>
+		<maxdamage>40</maxdamage>
+		<tag name="dmg_energy" value="100" type="int" />
+		<!-- Resists -->
+		<tag name="res_physical" value="60,70" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+		<tag name="res_energy" value="90,100" type="int" />
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<category>Summoned\Energy Vortex</category>
+		<inherit id="speed_veryfast" />
+		<!-- Dispel Difficulty -->
+		<intproperty name="dispelfocus" value="200" />
+		<intproperty name="dispeldifficulty" value="800" />
+		<!-- Poison immunity -->
+		<intproperty name="poison_immunity" value="4" />
+	</npc>
+
+</definitions>

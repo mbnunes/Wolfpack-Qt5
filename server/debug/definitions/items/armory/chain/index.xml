@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+
+	<!-- Chainmail Armor -->
+	<include file="definitions/items/armory/chain/chain_coif.xml"/>
+	<include file="definitions/items/armory/chain/chain_leggings.xml"/>
+	<include file="definitions/items/armory/chain/chain_tunic.xml"/>
+
+</definitions>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- chainmail armor -->
+	<!-- chainmail coif -->
+	<item id="13bb_verite"  inherit="13bb">
+		<verite_armor />
+		<baseid>13bb</baseid>
+		<category>Armor\Verite\Chainmail\Coif (N/S)</category>
+	</item>
+
+	<item id="13c0_verite"  inherit="13c0">
+		<verite_armor />
+		<baseid>13bb</baseid>
+		<category>Armor\Verite\Chainmail\Coif (E/W)</category>
+	</item>
+
+	<!-- chainmail leggings -->
+	<item id="13be_verite" inherit="13be">
+		<verite_armor />
+		<baseid>13be</baseid>
+		<category>Armor\Verite\Chainmail\Leggings (N/S)</category>
+	</item>
+
+	<item id="13c3_verite" inherit="13c3">
+		<verite_armor />
+		<baseid>13be</baseid>
+		<category>Armor\Verite\Chainmail\Leggings (E/W)</category>
+	</item>
+
+	<!-- chainmail tunic -->
+	<item id="13bf_verite" inherit="13bf">
+		<verite_armor />
+		<baseid>13bf</baseid>
+		<category>Armor\Verite\Chainmail\Tunic (N/S)</category>
+	</item>
+
+	<item id="13c4_verite" inherit="13c4">
+		<verite_armor />
+		<baseid>13bf</baseid>
+		<category>Armor\Verite\Chainmail\Tunic (E/W)</category>
+	</item>
+
+</definitions>

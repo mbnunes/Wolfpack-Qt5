@@ -1,0 +1,31 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Mutilador
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- High Seas -->
+	<include file="definitions/npcs/monsters/high_seas/baby_tiger.xml" />
+	<include file="definitions/npcs/monsters/high_seas/canine_wildrunner.xml" />
+	<include file="definitions/npcs/monsters/high_seas/dino_tiger.xml" />
+	<include file="definitions/npcs/monsters/high_seas/dino_triceratops.xml" />
+	<include file="definitions/npcs/monsters/high_seas/dragon_ele_crimson.xml" />
+	<include file="definitions/npcs/monsters/high_seas/dragon_ele_platinum.xml" />
+	<include file="definitions/npcs/monsters/high_seas/dragon_ele_stygian.xml" />
+	<include file="definitions/npcs/monsters/high_seas/dragon_hildebrandt.xml" />
+	<include file="definitions/npcs/monsters/high_seas/dragon_small_crimson.xml" />	
+	<include file="definitions/npcs/monsters/high_seas/dragon_small_platinum.xml" />
+	<include file="definitions/npcs/monsters/high_seas/dragon_small_stygian.xml" />
+	<include file="definitions/npcs/monsters/high_seas/drspector.xml" />
+	<include file="definitions/npcs/monsters/high_seas/golem_aztec.xml" />
+	<include file="definitions/npcs/monsters/high_seas/gorilla_giant.xml" />
+	<include file="definitions/npcs/monsters/high_seas/myrmidex_drone.xml" />
+	<include file="definitions/npcs/monsters/high_seas/myrmidex_queen.xml" />
+	<include file="definitions/npcs/monsters/high_seas/myrmidex_warrior.xml" />
+	<include file="definitions/npcs/monsters/high_seas/tiger_sabertooth.xml" />
+
+</definitions>

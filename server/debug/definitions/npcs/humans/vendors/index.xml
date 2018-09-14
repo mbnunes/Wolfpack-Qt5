@@ -1,0 +1,48 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: DarkStorm
+|   )).-' {{ ;'`   | Revised by: Dreoth
+|  ( (  ;._ \\ ctr | Last Modification: 01/31/2004
+=================================================================
+-->
+<definitions>
+	<!-- Vendor Include List -->
+	<include file="definitions/npcs/humans/vendors/alchemist.xml"/>
+	<include file="definitions/npcs/humans/vendors/architect.xml"/>
+	<include file="definitions/npcs/humans/vendors/armorer.xml"/>
+	<include file="definitions/npcs/humans/vendors/artist.xml"/>
+	<include file="definitions/npcs/humans/vendors/baker.xml"/>
+	<include file="definitions/npcs/humans/vendors/banker.xml"/>
+	<include file="definitions/npcs/humans/vendors/barber.xml"/>
+	<include file="definitions/npcs/humans/vendors/bard.xml"/>
+	<include file="definitions/npcs/humans/vendors/blacksmith.xml"/>
+	<include file="definitions/npcs/humans/vendors/bowyer.xml"/>
+	<include file="definitions/npcs/humans/vendors/butcher.xml"/>
+	<include file="definitions/npcs/humans/vendors/carpenter.xml"/>
+	<include file="definitions/npcs/humans/vendors/cobbler.xml"/>
+	<include file="definitions/npcs/humans/vendors/cook.xml"/>
+	<include file="definitions/npcs/humans/vendors/farmer.xml"/>
+	<include file="definitions/npcs/humans/vendors/fishermen.xml"/>
+	<include file="definitions/npcs/humans/vendors/healer.xml"/>
+	<include file="definitions/npcs/humans/vendors/herbalist.xml"/>
+	<include file="definitions/npcs/humans/vendors/innkeeper.xml"/>
+	<include file="definitions/npcs/humans/vendors/jeweler.xml"/>
+	<include file="definitions/npcs/humans/vendors/leatherworker.xml"/>
+	<include file="definitions/npcs/humans/vendors/mage.xml"/>
+	<include file="definitions/npcs/humans/vendors/mapmaker.xml"/>
+	<include file="definitions/npcs/humans/vendors/provisioner.xml"/>
+	<include file="definitions/npcs/humans/vendors/ranger.xml"/>
+  <include file="definitions/npcs/humans/vendors/scribe.xml"/>
+  <include file="definitions/npcs/humans/vendors/shipwright.xml"/>
+	<include file="definitions/npcs/humans/vendors/spinner.xml"/>
+	<include file="definitions/npcs/humans/vendors/stablemaster.xml"/>
+	<include file="definitions/npcs/humans/vendors/tailor.xml"/>
+	<include file="definitions/npcs/humans/vendors/tanner.xml"/>
+	<include file="definitions/npcs/humans/vendors/tavernkeeper.xml"/>
+	<include file="definitions/npcs/humans/vendors/tinker.xml"/>
+	<include file="definitions/npcs/humans/vendors/veterinarian.xml"/>
+	<include file="definitions/npcs/humans/vendors/weaponsmith.xml"/>
+	<include file="definitions/npcs/humans/vendors/weaver.xml"/>
+
+</definitions>

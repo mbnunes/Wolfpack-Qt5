@@ -1,0 +1,39 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: Dreoth
+|   )).-' {{ ;'`   | Revised by:
+|  ( (  ;._ \\ ctr | Last Modification:
+=================================================================
+-->
+<definitions>
+	<npc id="speed_frozen">
+		<speed action="500" wander="800" />
+	</npc>
+
+	<npc id="speed_slow">
+		<speed action="300" wander="600" />
+	</npc>
+
+	<npc id="speed_medium">
+		<speed action="250" wander="500" />
+	</npc>
+
+	<npc id="speed_fast">
+		<speed action="200" wander="400" />
+	</npc>
+
+	<npc id="speed_veryfast">
+		<speed action="175" wander="350" />
+	</npc>
+
+	<!-- Animals -->
+	<include file="definitions/npcs/animals/index.xml"/>
+
+	<!-- Humans -->
+	<include file="definitions/npcs/humans/index.xml"/>
+
+	<!-- Monsters -->
+	<include file="definitions/npcs/monsters/index.xml"/>
+
+</definitions>

@@ -1,0 +1,62 @@
+
+<definitions>
+	<spawnregion id="felucca_ice_dungeon">
+		<inactive />
+		<maxnpcamount>25</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>ice_dungeon</group>
+		<group>felucca_ice_dungeon</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_ice_dungeon2">
+		<inactive />
+		<maxnpcamount>10</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>ice_dungeon</group>
+		<group>felucca_ice_dungeon</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_ice_dungeon3">
+		<inactive />
+		<maxnpcamount>5</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>2</npcspercycle>
+		<group>ice_dungeon</group>
+		<group>felucca_ice_dungeon</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ice_dungeon" id="felucca_ice_dungeon_lv1">
+		<active />
+		<npc id="arctic_ogre_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="frost_ooze"><npcwander type="circle" radius="10" /></npc>
+		<npc id="frost_spider"><npcwander type="circle" radius="10" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="10" /></npc>
+		<npc id="giant_ice_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ice_fiend"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="white_wyrm"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5666,136" to="5885,252" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ice_dungeon2" id="felucca_ice_dungeon_lv2">
+		<active />
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5809,343" to="5854,375" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_ice_dungeon3" id="felucca_ice_dungeon_lv3">
+		<active />
+		<npc id="ice_fiend"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5655,301" to="5690,332" map="0" />
+	</spawnregion>
+
+</definitions>

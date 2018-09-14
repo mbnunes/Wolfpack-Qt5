@@ -1,0 +1,51 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Owner_Mutilador
+ *   )).-' {{ ;'`   | Revised by: SCRIPT INCOMPLET
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- EnslavedSatyr -->
+	<npc id="EnslavedSatyr" inherit="animal_base">
+		<name>Enslaved Satyr</name>
+		<id>0x10F</id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="178" max="194" /></str>
+		<dex><random min="254" max="268" /></dex>
+		<int><random min="151" max="169" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="356" max="400" /></maxhitpoints>
+		<maxmana><random min="356" max="400" /></maxmana>
+		<!-- Damage -->
+		<mindamage>20</mindamage>
+		<maxdamage>25</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="55,60" type="int" />
+		<tag name="res_cold" value="30,39" type="int" />
+		<tag name="res_fire" value="30,35" type="int" />
+		<tag name="res_energy" value="31,39" type="int" />
+		<tag name="res_poison" value="31,39" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="812" max="951" /></skill>
+		<skill id="tactics"><random min="819" max="980" /></skill>
+		<skill id="magicresistance"><random min="553" max="639" /></skill>
+		<!-- Misc. -->
+		<strproperty name="food" value="2,3,1" />
+		<strproperty name="packinstinct" value="bear" />
+		<category>Monsters\Mondains Legancy\Blighted Grove\Enslaved Satyr</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>
+
+		
+
+		

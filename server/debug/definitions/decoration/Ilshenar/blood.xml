@@ -1,0 +1,67 @@
+<decoration>
+	<!-- stone pavers-->
+	<item id="0x0521" hue="0x1">
+		<pos x="1745" y="1236" z="-30" map="2" />
+		<pos x="1746" y="1236" z="-30" map="2" />
+		<pos x="1747" y="1236" z="-30" map="2" />
+		<pos x="1748" y="1236" z="-30" map="2" />
+	</item>
+
+	<!-- studded gloves-->
+	<item id="0x13D5">
+		<pos x="2057" y="937" z="-28" map="2" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x0E40">
+		<pos x="2051" y="932" z="-23" map="2" />
+		<pos x="2051" y="933" z="-23" map="2" />
+		<pos x="2153" y="907" z="-23" map="2" />
+		<pos x="2153" y="917" z="-23" map="2" />
+		<pos x="2177" y="932" z="-23" map="2" />
+		<pos x="2051" y="931" z="-23" map="2" />
+		<pos x="2075" y="906" z="-23" map="2" />
+		<pos x="2075" y="907" z="-23" map="2" />
+		<pos x="2075" y="908" z="-23" map="2" />
+		<pos x="2075" y="917" z="-23" map="2" />
+		<pos x="2075" y="918" z="-23" map="2" />
+		<pos x="2075" y="919" z="-23" map="2" />
+		<pos x="2153" y="906" z="-23" map="2" />
+		<pos x="2153" y="908" z="-23" map="2" />
+		<pos x="2153" y="918" z="-23" map="2" />
+		<pos x="2153" y="919" z="-23" map="2" />
+		<pos x="2177" y="931" z="-23" map="2" />
+		<pos x="2177" y="933" z="-23" map="2" />
+	</item>
+
+	<!-- bones-->
+	<item id="0x0ED2">
+		<pos x="2110" y="903" z="-28" map="2" />
+	</item>
+
+	<!-- barred metal door-->
+	<item id="0x1FF7">
+		<pos x="2046" y="835" z="-28" map="2" />
+		<pos x="2046" y="841" z="-28" map="2" />
+	</item>
+
+	<!-- barred metal door-->
+	<item id="0x1FEF">
+		<pos x="2048" y="832" z="-28" map="2" />
+		<pos x="2052" y="832" z="-28" map="2" />
+		<pos x="2056" y="832" z="-28" map="2" />
+		<pos x="2172" y="832" z="-28" map="2" />
+		<pos x="2176" y="832" z="-28" map="2" />
+		<pos x="2180" y="832" z="-28" map="2" />
+		<pos x="2184" y="832" z="-28" map="2" />
+	</item>
+
+	<!-- stone stairs-->
+	<item id="0x0789" hue="0x96C">
+		<pos x="2112" y="829" z="-13" map="2" />
+		<pos x="2113" y="829" z="-13" map="2" />
+		<pos x="2114" y="829" z="-13" map="2" />
+		<pos x="2115" y="829" z="-13" map="2" />
+		<pos x="2116" y="829" z="-13" map="2" />
+	</item>
+</decoration>

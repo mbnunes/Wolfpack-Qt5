@@ -1,0 +1,41 @@
+<!--
+#################################################################
+#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  | Created by: BtbN                           #
+#   )).-' {{ ;'`   | Revised by:                                #
+#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+#################################################################
+-->
+<definitions>
+	<spawnregion id="trammel_haven_graveyard_1">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="50" max="60" />
+		<npc id="lich">
+			<npcwander type="circle" radius="5" />
+		</npc>
+		<rectangle from="3590,2457,25" to="3595,2460,25" map="1" />
+	</spawnregion>
+
+	<spawnregion id="trammel_haven_graveyard_2">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="25" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="zombie">
+			<npcwander type="circle" radius="10" />
+		</npc>
+		<rectangle from="3591,2442" to="3599,2452" map="1" />
+	</spawnregion>
+
+	<spawnregion id="trammel_haven_graveyard_3">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="25" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="skeleton">
+			<npcwander type="circle" radius="10" />
+		</npc>
+		<rectangle from="3599,2452" to="3606,2460" map="1" />
+	</spawnregion>
+</definitions>

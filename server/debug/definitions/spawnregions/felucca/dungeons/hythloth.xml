@@ -1,0 +1,63 @@
+
+<definitions>
+	<spawnregion id="felucca_hythloth">
+		<inactive />
+		<maxnpcamount>25</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>hythloth</group>
+		<group>felucca_hythloth</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_hythloth2">
+		<inactive />
+		<maxnpcamount>15</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>hythloth</group>
+		<group>felucca_hythloth</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_hythloth" id="felucca_hythloth_lv1">
+		<active />
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5904,14" to="5997,110" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_hythloth" id="felucca_hythloth_lv2">
+		<active />
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<npc id="elder_gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5913,146" to="5990,236" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_hythloth" id="felucca_hythloth_lv3">
+		<active />
+		<npc id="balron"><npcwander type="circle" radius="10" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<npc id="elder_gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="6035,145" to="6124,230" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_hythloth2" id="felucca_hythloth_lv4">
+		<active />
+		<npc id="balron"><npcwander type="circle" radius="10" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="6048,32" to="6117,98" map="0" />
+	</spawnregion>
+
+</definitions>

@@ -1,0 +1,68 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="herbalist_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="f7a">
+					<amount>50</amount>
+				</item>
+				<item id="f7b">
+					<amount>50</amount>
+				</item>
+				<item id="f84">
+					<amount>50</amount>
+				</item>
+				<item id="f85">
+					<amount>50</amount>
+				</item>
+				<item id="f86">
+					<amount>50</amount>
+				</item>
+				<item id="f88">
+					<amount>50</amount>
+				</item>
+				<item id="f8c">
+					<amount>50</amount>
+				</item>
+				<item id="f8d">
+					<amount>50</amount>
+				</item>
+			</restockable>
+			<sellable>
+				<item id="f7a"/>
+				<item id="f7b"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f86"/>
+				<item id="f88"/>
+				<item id="f8c"/>
+				<item id="f8d"/>
+			</sellable>
+		</shopkeeper>
+		<skill id="alchemy"><random min="800" max="1000" /></skill>
+		<skill id="cooking"><random min="800" max="1000" /></skill>
+		<skill id="tasteidentification"><random min="800" max="1000" /></skill>
+	</npc>
+
+	<!-- A herbalist vendor -->
+	<npc id="herbalist_male" inherit="vendor_male">
+		<inherit id="herbalist_inventory" />
+		<title context="Vendor Male Titles">the Herbalist</title>
+		<category>Vendors\Herbalist (Male)</category>
+	</npc>
+
+	<npc id="herbalist_female" inherit="vendor_female">
+		<inherit id="herbalist_inventory" />
+		<title context="Vendor Female Titles">the Herbalist</title>
+		<category>Vendors\Herbalist (Female)</category>
+	</npc>
+
+</definitions>

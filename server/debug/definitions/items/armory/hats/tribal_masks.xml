@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Tribal Mask Horned n/s -->
+	<item id="1549">
+		<durability><random min="20" max="25" /></durability>
+		<id>0x1549</id>
+		<weight>4.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="5" />
+		<allowmeditation />
+		<category>Clothes\Headwear\Tribal Mask, Horned (N/S)</category>
+		<category>Armor\Headwear\Tribal Mask, Horned (N/S)</category>
+		<category>Base Armor\Headwear\Tribal Mask, Horned (N/S)</category>
+	</item>
+
+	<!-- Tribal Mask Horned w/e -->
+	<item id="154a" inherit="1549">
+		<id>0x154a</id>
+		<baseid>1549</baseid>
+		<category>Clothes\Headwear\Tribal Mask, Horned (W/E)</category>
+		<category>Armor\Headwear\Tribal Mask, Horned (W/E)</category>
+		<category>Base Armor\Headwear\Tribal Mask, Horned (W/E)</category>
+	</item>
+
+	<!-- Tribal Mask Red n/s -->
+	<item id="154b">
+		<id>0x154b</id>
+		<weight>4.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="5" />
+		<allowmeditation />
+		<durability><random min="20" max="25" /></durability>
+		<category>Clothes\Headwear\Tribal Mask, Red (N/S)</category>
+		<category>Armor\Headwear\Tribal Mask, Red (N/S)</category>
+		<category>Base Armor\Headwear\Tribal Mask, Red (N/S)</category>
+	</item>
+
+	<!-- Tribal Mask Red w/e -->
+	<item id="154c" inherit="154b">
+		<id>0x154c</id>
+		<baseid>154b</baseid>
+		<category>Clothes\Headwear\Tribal Mask, Red (W/E)</category>
+		<category>Armor\Headwear\Tribal Mask, Red (W/E)</category>
+		<category>Base Armor\Headwear\Tribal Mask, Red (W/E)</category>
+	</item>
+
+</definitions>

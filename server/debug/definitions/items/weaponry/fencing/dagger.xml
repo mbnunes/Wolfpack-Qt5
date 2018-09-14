@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Dagger -->
+	<item id="f51">
+		<id>0xf51</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>10</sellprice>
+		<buyprice>21</buyprice>
+		<durability><random min="30" max="39" /></durability>
+		<weight>1.0</weight>
+		<basescripts>equipment,blades</basescripts>
+		<type>1005</type>
+		<category>Base Weapons\Fencing\Dagger (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="56" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="11" />
+	</item>
+
+	<item id="f52" inherit="f51">
+		<id>0xf52</id>
+		<baseid>f51</baseid>
+		<category>Base Weapons\Fencing\Dagger (E/W)</category>
+	</item>
+
+</definitions>

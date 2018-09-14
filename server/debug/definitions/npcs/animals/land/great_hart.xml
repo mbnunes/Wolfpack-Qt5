@@ -1,0 +1,46 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by: DarkStorm
+ *  ( (  ;._ \\     | Last modification: Name fix
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Great Hart -->
+	<npc id="great_hart" inherit="animal_base">
+		<name>great hart</name>
+		<id>234</id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="41" max="71" /></str>
+		<dex><random min="47" max="77" /></dex>
+		<int><random min="27" max="57" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="27" max="41" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>7</mindamage>
+		<maxdamage>13</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_cold" value="5,10" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="298" max="475" /></skill>
+		<skill id="tactics"><random min="298" max="475" /></skill>
+		<skill id="magicresistance"><random min="268" max="445" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>591</mintaming>
+		<strproperty name="food" value="3,5" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Great Hart</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="15" />
+		<intproperty name="carve_meat" value="6" />
+	</npc>
+
+</definitions>

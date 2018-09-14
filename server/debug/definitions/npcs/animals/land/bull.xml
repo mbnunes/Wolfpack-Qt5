@@ -1,0 +1,61 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Random Bull -->
+	<npc id="bull" inherit="animal_base">
+		<name>bull</name>
+		<id><random valuelist="233,232" /></id>
+		<ai>Animal_Domestic</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="77" max="111" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="47" max="75" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="50" max="64" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>7</mindamage>
+		<maxdamage>17</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_cold" value="10,15" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="401" max="575" /></skill>
+		<skill id="tactics"><random min="676" max="850" /></skill>
+		<skill id="magicresistance"><random min="176" max="250" /></skill>
+		<!-- Misc. -->
+		<controlslots>2</controlslots>
+		<mintaming>711</mintaming>
+		<strproperty name="food" value="5" />
+		<strproperty name="packinstinct" value="bull" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Bull (Random)</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="15" />
+		<intproperty name="carve_meat" value="10" />
+	</npc>
+
+	<!-- Bull (black & white) -->
+	<npc id="bull_black" inherit="bull">
+		<id>233</id>
+		<baseid>bull</baseid>
+		<category>Animals\Land\Bull (Black)</category>
+	</npc>
+
+	<!-- Bull brown -->
+	<npc id="bull_brown" inherit="bull">
+		<id>232</id>
+		<baseid>bull</baseid>
+		<category>Animals\Land\Bull (Brown)</category>
+	</npc>
+
+</definitions>

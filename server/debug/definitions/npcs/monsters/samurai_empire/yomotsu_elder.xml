@@ -1,0 +1,55 @@
+<!--
+/*=========================================================
+* ) (\_ | WOLFPACK 13.0.0 Scripts
+* (( _/{ "-; | Created by: Idget
+* )).-' {{ ;'` | Revised by:
+* ( ( ;._ \\ | Last modification:
+*=======================================================*/
+-->
+<definitions>
+
+	<!-- Yomotsu Elder -->
+	<npc id="yomotsu_elder" inherit="monster_base">
+		<name>a yomotsu elder</name>
+		<id>255</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="695" max="825"/></str>
+		<dex><random min="250" max="365"/></dex>
+		<int><random min="15" max="40"/></int>
+		<maxhitpoints><random min="820" max="895" /></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>50</mindamage>
+		<maxdamage>100</maxdamage>
+		<!-- Skills -->
+		<skill id="wrestling"><random min="1100" max="1300"/></skill>
+		<skill id="tactics"><random min="1150" max="1300"/></skill>
+		<skill id="magicresistance"><random min="1000" max="1150"/></skill>
+		<skill id="anatomy"><random min="1150" max="1300"/></skill>
+		<!-- Resists -->
+		<tag name="res_physical" value="65,85" type="int" />
+		<tag name="res_fire" value="30,50" type="int" />
+		<tag name="res_cold" value="45,65" type="int" />
+		<tag name="res_poison" value="35,55" type="int" />
+		<tag name="res_energy" value="25,50" type="int" />
+		<!-- Loot -->
+		<!-- Missing: Bonsai Seed, Magic Items, Random Item -->
+		<backpack>
+			<content>
+				<item id="eed">
+					<amount><random min="1500" max="1800" /></amount>
+				</item>
+				<item id="f46" /> <!-- executioners axe -->
+				<item id="c64" /> <!-- Gourd -->
+				<item list="PANTS" />
+				<item list="SHOES" />
+			</content>
+		</backpack>
+		<lootpacks>gems;gems</lootpacks>
+		<!-- Misc -->
+		<strproperty name="food" value="1,2" />
+		<category>Monsters\SE\Yomotsu Elder</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<!--
+	Items Base Index File
+-->
+<definitions>
+	<include file="definitions/items/core.xml"/>
+	<include file="definitions/items/groundtiles.xml"/>
+	<include file="definitions/items/magic.xml"/>
+	<include file="definitions/items/rocks.xml"/>
+	<include file="definitions/items/signs.xml"/>
+	<include file="definitions/items/ship.xml"/>
+	<include file="definitions/items/slotmachine.xml"/>
+	<include file="definitions/items/system.xml"/>
+	<include file="definitions/items/unsorted.xml"/>
+	<!-- Please remove stuff from this file as it is assigned -->
+	<include file="definitions/items/not_assigned.xml"/>
+</definitions>

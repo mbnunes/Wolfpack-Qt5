@@ -1,0 +1,67 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a shade -->
+	<npc id="shade" inherit="undead_base">
+		<name>shade</name>
+		<id>153</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="76" max="100"/></str>
+		<dex><random min="76" max="95"/></dex>
+		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="46" max="60"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="wrestling"><random min="451" max="550"/></skill>
+		<skill id="tactics"><random min="451" max="600"/></skill>
+		<skill id="magicresistance"><random min="551" max="700"/></skill>
+		<skill id="magery"><random min="551" max="700"/></skill>
+		<skill id="evaluatingintelligence"><random min="551" max="700"/></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>11</mindamage>
+		<maxdamage>18</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_cold" value="50" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_cold" value="15,25" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager</lootpacks>
+		<backpack>
+			<content>
+				<item list="REAGENTS">
+					<amount>10</amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Undead\Shade</category>
+		<strproperty name="slayer_group" value="undeads" />
+		<ai>Monster_Mage</ai>
+		<intproperty name="poison_immunity" value="4" />
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+	<npc id="spectre" inherit="shade">
+		<name>spectre</name>
+		<category>Monsters\Undead\Spectre</category>
+	</npc>
+
+	<npc id="wraith" inherit="shade">
+		<name>wraith</name>
+		<category>Monsters\Undead\Wraith</category>
+	</npc>
+
+</definitions>

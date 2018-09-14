@@ -1,0 +1,176 @@
+<decoration>
+	<!-- moongate-->
+	<item id="0x1FD7" hue="0x3F1">
+		<pos x="375" y="802" z="1" map="3" />
+	</item>
+
+	<item id="0x1BC3">
+		<pos x="375" y="802" z="1" map="3" />
+	</item>
+
+	<!-- ankh-->
+	<item id="0x0004" hue="0xFA">
+		<pos x="397" y="801" z="4" map="3" />
+	</item>
+
+	<!--Emino-->
+	<item id="0x1F13">
+		<pos x="411" y="810" z="-1" map="3" />
+	</item>
+
+	<!--Zoel-->
+	<item id="0x1F13">
+		<pos x="388" y="817" z="-1" map="3" />
+	</item>
+
+	<!--Hidden figures-->
+	<item id="0x1F13">
+		<pos x="403" y="1118" z="0" map="3" />
+		<pos x="405" y="1118" z="0" map="3" />
+		<pos x="403" y="1110" z="0" map="3" />
+		<pos x="403" y="1112" z="0" map="3" />
+		<pos x="403" y="1103" z="0" map="3" />
+		<pos x="404" y="1101" z="0" map="3" />
+		<pos x="419" y="1118" z="0" map="3" />
+		<pos x="418" y="1120" z="0" map="3" />
+		<pos x="419" y="1111" z="0" map="3" />
+		<pos x="418" y="1109" z="0" map="3" />
+		<pos x="419" y="1102" z="0" map="3" />
+		<pos x="418" y="1103" z="0" map="3" />
+	</item>
+
+	<!--Enshrouded figure-->
+	<item id="0x1F13">
+		<pos x="403" y="1094" z="0" map="3" />
+	</item>
+
+	<!--Jedah Entille-->
+	<item id="0x1F13">
+		<pos x="404" y="1093" z="0" map="3" />
+	</item>
+
+	<!--Guardian barrier-->
+	<item id="0x3967">
+		<pos x="404" y="1140" z="0" map="3" />
+		<pos x="405" y="1140" z="0" map="3" />
+		<pos x="406" y="1140" z="0" map="3" />
+		<pos x="407" y="1140" z="0" map="3" />
+		<pos x="408" y="1140" z="0" map="3" />
+		<pos x="409" y="1140" z="0" map="3" />
+	</item>
+
+	<!-- Green teleporters-->
+	<item id="0x051C">
+		<pos x="418" y="804" z="-1" map="3" />
+	</item>
+
+	<item id="0x051C" hue="0x17E">
+		<pos x="412" y="1123" z="0" map="3" />
+	</item>
+
+	<item id="0x1BC3">
+		<pos x="412" y="1123" z="0" map="3" />
+	</item>
+
+	<!-- Blue teleporters-->
+	<item id="0x051C">
+		<pos x="423" y="805" z="-1" map="3" />
+	</item>
+
+	<item id="0x051C" hue="0x2">
+		<pos x="411" y="1117" z="0" map="3" />
+	</item>
+
+	<item id="0x1BC3">
+		<pos x="411" y="1117" z="0" map="3" />
+	</item>
+
+	<!-- Red teleporter-->
+	<item id="0x051C" hue="0x21">
+		<pos x="421" y="1092" z="0" map="3" />
+	</item>
+
+	<item id="0x1BC3">
+		<pos x="421" y="1092" z="0" map="3" />
+	</item>
+
+	<!-- White teleporters-->
+	<item id="0x051C">
+		<pos x="392" y="802" z="-1" map="3" />
+	</item>
+
+	<item id="0x051C" hue="0x47E">
+		<pos x="412" y="1086" z="0" map="3" />
+	</item>
+
+	<item id="0x1BC3">
+		<pos x="412" y="1086" z="0" map="3" />
+	</item>
+
+	<!-- wooden chest-->
+	<item id="0x0E42">
+		<pos x="393" y="989" z="-15" map="3" />
+	</item>
+
+	<!-- floor spikes-->
+	<item id="0x119A">
+		<pos x="418" y="1084" z="0" map="3" />
+	</item>
+
+	<!-- floor saw-->
+	<item id="0x11AC">
+		<pos x="421" y="1077" z="0" map="3" />
+	</item>
+
+	<!-- hole-->
+	<item id="0x1B71">
+		<pos x="403" y="1073" z="0" map="3" />
+		<pos x="410" y="1050" z="0" map="3" />
+		<pos x="408" y="1044" z="0" map="3" />
+		<pos x="409" y="1044" z="0" map="3" />
+		<pos x="410" y="1044" z="0" map="3" />
+		<pos x="411" y="1044" z="0" map="3" />
+		<pos x="412" y="1044" z="0" map="3" />
+		<pos x="413" y="1044" z="0" map="3" />
+	</item>
+
+	<!-- haramaki-do-->
+	<item id="0x2674" hue="0x48C">
+		<pos x="409" y="1009" z="-13" map="3" />
+	</item>
+
+	<!-- war mace-->
+	<item id="0x1406" hue="0x47E">
+		<pos x="409" y="1008" z="-13" map="3" />
+	</item>
+
+	<!-- kabuto-->
+	<item id="0x236D" hue="0x48C">
+		<pos x="409" y="1008" z="-13" map="3" />
+	</item>
+
+	<!-- chest-->
+	<item id="0x280D">
+		<pos x="436" y="999" z="-15" map="3" />
+	</item>
+
+	<!-- kimono-->
+	<item id="0x2681">
+		<pos x="396" y="1149" z="0" map="3" />
+	</item>
+
+	<!-- ninja pants-->
+	<item id="0x2651" hue="0x530">
+		<pos x="397" y="1146" z="1" map="3" />
+	</item>
+
+	<!-- ninja mask-->
+	<item id="0x26A4" hue="0x530">
+		<pos x="395" y="1146" z="0" map="3" />
+	</item>
+
+	<!-- ninja shirt-->
+	<item id="0x2668" hue="0x530">
+		<pos x="396" y="1146" z="0" map="3" />
+	</item>
+</decoration>

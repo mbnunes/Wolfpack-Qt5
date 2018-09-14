@@ -1,0 +1,21 @@
+<!-- Don't categorize them, they need special scripts to add them -->
+<definitions>
+
+	<npc id="playervendor_base">
+		<basescript>npc.playervendor</basescript>
+		<equipped>
+			<item id="pv_pack"/>
+		</equipped>
+		<invulnerable/>
+		<controlslots>0</controlslots>
+	</npc>
+
+	<npc id="playervendor_male" inherit="base_male">
+		<inherit id="playervendor_base"/>
+	</npc>
+
+	<npc id="playervendor_female" inherit="base_female">
+		<inherit id="playervendor_base"/>
+	</npc>
+
+</definitions>

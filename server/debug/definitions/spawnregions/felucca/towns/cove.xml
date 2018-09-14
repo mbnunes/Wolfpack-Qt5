@@ -1,0 +1,45 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_animalcove_1">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+                <delay min="2" max="5" />
+		<npcspercycle>10</npcspercycle>
+		<npc id="dog"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2203,1128" to="2288,1232" map="0" />
+	</spawnregion>
+
+	<spawnregion id="Felucca_Felucca_cove_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>Felucca_Felucca_cove_vendors</group>
+		<group>Felucca_Felucca_cove</group>
+	</spawnregion>
+
+	<spawnregion inherit="Felucca_cove_vendor" id="Felucca_cove_vendor_1">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2227,1197,0,0" />
+	</spawnregion>
+
+
+	<spawnregion inherit="Felucca_cove_vendor" id="Felucca_cove_vendor_2">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="2243,1234,0,0" />
+	</spawnregion>
+
+</definitions>

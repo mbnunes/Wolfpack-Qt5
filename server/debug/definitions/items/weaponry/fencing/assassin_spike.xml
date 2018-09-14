@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Incanus
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Assassin Spike -->
+	<item id="2d21">
+		<id>0x2d21</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<durability><random min="30" max="39" /></durability>
+		<weight>4.0</weight>
+		<basescripts>equipment,blades</basescripts>
+		<type>1005</type>
+		<category>Base Weapons\Fencing\Assassin Spike (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="15" />
+		<intproperty name="speed" value="50" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+	</item>
+
+	<item id="2d2d" inherit="2d21">
+		<id>0x2d2d</id>
+		<baseid>2d21</baseid>
+		<category>Base Weapons\Fencing\Assassin Spike (E/W)</category>
+	</item>
+
+</definitions>

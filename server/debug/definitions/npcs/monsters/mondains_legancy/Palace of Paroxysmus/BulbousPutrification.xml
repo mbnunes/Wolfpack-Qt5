@@ -1,0 +1,64 @@
+<!--
+/*=========================================================
+* ) (\_ | WOLFPACK 13.0.0 Scripts
+* (( _/{ "-; | Created by: Owner_Mutilador
+* )).-' {{ ;'` | Revised by:
+* ( ( ;._ \\ | Last modification:
+*=======================================================*/
+-->
+<definitions>
+
+	<!-- Paroxysmus -->
+	<npc id="BulbousPutrification" inherit="monster_base">
+		<name>Bulbous Putrification</name>
+		<id>0x28</id>
+		<skin>0x55C</skin>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="755" max="800"/></str>
+		<dex><random min="53" max="60"/></dex>
+		<int><random min="51" max="59"/></int>
+		<maxhitpoints><random min="1211" max="1231"/></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>22</mindamage>
+		<maxdamage>29</maxdamage>
+		<tag name="dmg_poison" value="40" type="int" />
+		<tag name="dmg_physical" value="60" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="1048" max="1147"/></skill>
+		<skill id="tactics"><random min="1150" max="1191"/></skill>
+		<skill id="magicresistance"><random min="555" max="641"/></skill>
+		<skill id="anatomy"><random min="1050" max="1100"/></skill>
+		<skill id="poisoning"><random min="790" max="800"/></skill>
+		<!-- Resists -->
+		<tag name="res_physical" value="55,65" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="55,70" type="int" />
+		<tag name="res_energy" value="50,60" type="int" />
+		<!-- Loot -->
+		<!-- Missing: Magic Items, Bonsai Seed -->
+		<backpack>
+			<content>
+				<item id="eed"><amount><random min="2000" max="2500" /></amount></item>
+				<item id="9b5"> <!-- Eggs -->
+					<amount>2</amount>
+				</item>
+			</content>
+		</backpack>
+		<lootpacks>gems;gems;gems;gems;gems;gems;tm_5</lootpacks>
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="50" />
+		<intproperty name="hit_poison_chance" value="50" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="20" />
+		<!-- Misc. -->
+		<strproperty name="food" value="1,2" />
+		<category>Monsters\Mondains Legancy\Palace of Paroxysmus\BulbosPutrification</category>
+		<strproperty name="slayer_group" value="reptile,snake" />
+		<inherit id="speed_fast" />
+	</npc>
+
+</definitions>

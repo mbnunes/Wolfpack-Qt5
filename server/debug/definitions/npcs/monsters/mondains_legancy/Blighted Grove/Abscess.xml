@@ -1,0 +1,46 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- an orc captain -->
+	<npc id="abscess" inherit="monster_base">
+		<name>Abscess</name>
+		<id>0x109</id>
+		<skin>0x8FD</skin>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="845" max="871"/></str>
+		<dex><random min="121" max="134"/></dex>
+		<int><random min="128" max="142"/></int>
+		<maxhitpoints><random min="7470" max="7540"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="890" max="890"/></skill>
+		<skill id="wrestling"><random min="1100" max="1100"/></skill>
+		<skill id="tactics"><random min="1090" max="1090"/></skill>
+		<skill id="anatomy"><random min="760" max="760"/></skill>
+		<!-- Damage -->
+		<mindamage>26</mindamage>
+		<maxdamage>31</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="35,45" type="int" />
+		<tag name="res_fire" value="70,80" type="int" />
+		<tag name="res_physical" value="65,75" type="int" />
+		<tag name="res_poison" value="35,45" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_ultra_rich</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Mondains Legancy\Blighted Grove\Abscess</category>
+		<intproperty name="food" value="1" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

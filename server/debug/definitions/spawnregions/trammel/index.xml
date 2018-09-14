@@ -1,0 +1,56 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+
+<definitions>
+	<!-- <include file="definitions/spawnregions/trammel/vendors.xml" /> -->
+	
+	<!-- Town Spawns -->
+	<include file="definitions/spawnregions/trammel/towns/britain.xml" />
+	<include file="definitions/spawnregions/trammel/towns/buccaneers_den.xml" />
+	<include file="definitions/spawnregions/trammel/towns/cove.xml" />
+	<include file="definitions/spawnregions/trammel/towns/delucia.xml" />
+	<include file="definitions/spawnregions/trammel/towns/jhelom.xml" />
+	<include file="definitions/spawnregions/trammel/towns/magincia.xml" />
+	<include file="definitions/spawnregions/trammel/towns/minoc.xml" />
+	<include file="definitions/spawnregions/trammel/towns/moonglow.xml" />
+	<include file="definitions/spawnregions/trammel/towns/nujelm.xml" />
+	<include file="definitions/spawnregions/trammel/towns/haven.xml" />
+	<include file="definitions/spawnregions/trammel/towns/papua.xml" />
+	<include file="definitions/spawnregions/trammel/towns/serpents_hold.xml" />
+	<include file="definitions/spawnregions/trammel/towns/skara_brae.xml" />
+	<include file="definitions/spawnregions/trammel/towns/trinsic.xml" />
+	<include file="definitions/spawnregions/trammel/towns/vesper.xml" />
+	<include file="definitions/spawnregions/trammel/towns/wind.xml" />
+	<include file="definitions/spawnregions/trammel/towns/yew.xml" />
+	<!-- Graveyards Spawns -->
+	<include file="definitions/spawnregions/trammel/graveyards/britain_graveyard.xml" />
+	<include file="definitions/spawnregions/trammel/graveyards/yew_graveyard.xml" />
+	<include file="definitions/spawnregions/trammel/graveyards/cove_graveyard.xml" />
+	<include file="definitions/spawnregions/trammel/graveyards/vesper_graveyard.xml" />
+	<include file="definitions/spawnregions/trammel/graveyards/moonglow_graveyard.xml" />
+	<include file="definitions/spawnregions/trammel/graveyards/haven_graveyard.xml" />
+	<!-- Dungeon Spawns -->
+	<include file="definitions/spawnregions/trammel/dungeons/britain_passage.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/covetous.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/deceit.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/despise.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/destard.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/fire_dungeon.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/hythloth.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/ice_dungeon.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/khaldun.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/orc_caves.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/shame.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/solen_hive.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/terathan_keep.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/trinsic_passage.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/wrong.xml" />
+	<!-- Wilderness Spawns -->
+	<include file="definitions/spawnregions/trammel/wilderness.xml" />
+</definitions>

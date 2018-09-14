@@ -1,0 +1,28 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                        |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="felucca_vesper_graveyard">
+		<inactive />
+		<maxnpcamount>20</maxnpcamount>
+                <delay min="55" max="60" />
+		<npcspercycle>5</npcspercycle>
+		<group>vesper</group>
+		<group>felucca_vesper_graveyard</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_vesper_graveyard" id="felucca_vesper_graveyard_1">
+		<active />
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="2729,839" to="2782,892" map="0" />
+	</spawnregion>
+</definitions>

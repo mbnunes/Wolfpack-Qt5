@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Incanus
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Radiant Scimitar -->
+	<item id="2d27">
+		<id>0x2d27</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<durability><random min="30" max="76" /></durability>
+		<weight>9.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Swordsmanship\Radiant Scimitar (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="43" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="2d33" inherit="2d27">
+		<id>0x2d33</id>
+		<baseid>2d27</baseid>
+		<category>Base Weapons\Swordsmanship\Radiant Scimitar (E/W)</category>
+	</item>
+
+</definitions>

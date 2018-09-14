@@ -1,0 +1,32 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Crafted Tinker Golem -->
+	<npc id="summoned_golem" inherit="golem">
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Stats -->
+		<str><random min="251" max="350" /></str>
+		<dex><random min="76" max="100" /></dex>
+		<int><random min="101" max="150" /></int>
+		<!-- Skills -->
+		<skill id="wrestling"><random min="601" max="1000" /></skill>
+		<skill id="tactics"><random min="601" max="1000" /></skill>
+		<skill id="magicresistance"><random min="1501" max="1900" /></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Loot Packs -->
+		<lootpacks></lootpacks>
+		<!-- Misc. -->
+		<controlslots>4</controlslots>
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Summoned\Golem (Tinkered)</category>
+	</npc>
+
+</definitions>

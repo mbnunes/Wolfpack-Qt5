@@ -1,0 +1,89 @@
+
+<definitions>
+	<spawnregion id="felucca_papua_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>felucca_papua_vendors</group>
+		<group>felucca_papua</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_1">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5769,3156,14,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_2">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5745,3198,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_3">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5735,3219,19,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_4">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5729,3193,9,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_5">
+		<active />
+		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5734,3192,9,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_6">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5713,3203,12,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_7">
+		<active />
+		<npc id="carpenter_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="carpenter_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5694,3208,10,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_8">
+		<active />
+		<npc id="provisioner_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="provisioner_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5735,3265,15,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_9">
+		<active />
+		<npc id="tinker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tinker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5727,3244,16,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_10">
+		<active />
+		<npc id="stablemaster_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stablemaster_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5675,3294,-4,0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_papua_vendor" id="felucca_papua_vendor_11">
+		<active />
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="5698,3283,15,0" />
+	</spawnregion>
+</definitions>

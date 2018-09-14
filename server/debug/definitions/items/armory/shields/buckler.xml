@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Buckler -->
+	<item id="1b73">
+		<id>0x1b73</id>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<restock>10</restock>
+		<smelt>8</smelt>
+		<weight>5</weight>
+		<buyprice>66</buyprice>
+		<sellprice>33</sellprice>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Shields\Buckler</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="res_cold" value="1" />
+	</item>
+
+</definitions>

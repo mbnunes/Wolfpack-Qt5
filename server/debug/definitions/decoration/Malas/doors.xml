@@ -1,0 +1,22 @@
+<decoration>
+	<!-- wooden door -->
+	<item id="0x6a7">
+		<pos x="1002" y="522" z="-50" map="3" />
+		<pos x="1002" y="517" z="-50" map="3" />
+		<pos x="991" y="522" z="-30" map="3" />
+		<pos x="1002" y="522" z="-30" map="3" />
+		<pos x="994" y="516" z="-30" map="3" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6a5">
+		<pos x="978" y="517" z="-50" map="3" />
+		<pos x="978" y="522" z="-50" map="3" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6af">
+		<pos x="980" y="512" z="-50" map="3" />
+		<pos x="980" y="527" z="-50" map="3" />
+		<pos x="999" y="527" z="-50" map="3" />
+		<pos x="999" y="512" z="-50" map="3" />
+	</item>
+</decoration>

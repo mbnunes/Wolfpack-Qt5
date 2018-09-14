@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Leather Sleeves -->
+	<item id="13c5">
+		<id>0x13c5</id>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>80</buyprice>
+		<sellprice>40</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leather\Sleeves (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+		<allowmeditation />
+	</item>
+
+	<item id="13cd" inherit="13c5">
+		<id>0x13cd</id>
+		<baseid>13c5</baseid>
+		<category>Base Armor\Leather\Sleeves (E/W)</category>
+	</item>
+
+</definitions>

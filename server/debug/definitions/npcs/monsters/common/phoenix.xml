@@ -1,0 +1,55 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- phoenix -->
+	<npc id="phoenix" inherit="monster_base">
+		<name>phoenix</name>
+		<id>5</id>
+		<skin>0x66d</skin>
+		<karma>0</karma>
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="504" max="700"/></str>
+		<dex><random min="202" max="300"/></dex>
+		<int><random min="902" max="1000"/></int>
+		<maxhitpoints><random min="340" max="383" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="evaluatingintelligence"><random min="902" max="1000"/></skill>
+		<skill id="magery"><random min="902" max="1000"/></skill>
+		<skill id="meditation"><random min="751" max="1000"/></skill>
+		<skill id="magicresistance"><random min="860" max="1350"/></skill>
+		<skill id="tactics"><random min="801" max="900"/></skill>
+		<skill id="wrestling"><random min="901" max="1000"/></skill>
+		<!-- Damage -->
+		<mindamage>77</mindamage>
+		<maxdamage>92</maxdamage>
+		<tag name="dmg_fire" value="50" type="int" />
+		<!-- Resists -->
+		<tag name="dmg_energy" value="40,50" type="int" />
+		<tag name="dmg_fire" value="60,70" type="int" />
+		<tag name="dmg_physical" value="45,55" type="int" />
+		<tag name="dmg_poison" value="25,35" type="int" />
+		<!-- Lootpacks -->
+		<lootpacks>lootpack_filthy_rich;lootpack_rich</lootpacks>
+		<!-- Misc. -->
+		<desc>For aeons the phoenix has been a symbol of hope. Looking much like the majestic eagle, the phoenix has wings of flame. Those foolish enough to hope to kill a phoenix for the feathers will find the phoenix is noeasy target. Talons of the phoenix are harder than steel and can rend even plate armor. Few can best the phoenix in one-on-one battle.</desc>
+		<category>Monsters\Common\Phoenix</category>
+		<inherit id="speed_veryfast" />
+		<ai>Monster_Mage</ai>
+		<!-- Carve -->
+		<intproperty name="carve_feathers" value="36" />
+		<intproperty name="carve_meat" value="1" />
+		<strproperty name="carve_meat_type" value="bird" />
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

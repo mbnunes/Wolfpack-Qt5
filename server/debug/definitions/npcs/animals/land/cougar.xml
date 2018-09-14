@@ -1,0 +1,49 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Cougar -->
+	<npc id="cougar" inherit="animal_base">
+		<name>cougar</name>
+		<id>63</id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="56" max="80" /></str>
+		<dex><random min="66" max="85" /></dex>
+		<int><random min="26" max="50" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="34" max="48" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>6</mindamage>
+		<maxdamage>16</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<tag name="res_cold" value="10,15" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="451" max="600" /></skill>
+		<skill id="tactics"><random min="451" max="600" /></skill>
+		<skill id="magicresistance"><random min="151" max="300" /></skill>
+		<!-- Misc. -->
+		<controlslots>2</controlslots>
+		<mintaming>411</mintaming>
+		<strproperty name="food" value="2,1" />
+		<strproperty name="packinstinct" value="feline" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Cougar</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="10" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

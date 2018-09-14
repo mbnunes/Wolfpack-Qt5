@@ -1,0 +1,90 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by: King Falcon                    |
+|  ( (  ;._ \\ ctr | Last Modification: 05/24/05                |
+=================================================================
+-->
+<definitions>
+        <spawnregion id="felucca_covetous">
+		<inactive />
+		<maxnpcamount>40</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>covetous</group>
+		<group>felucca_covetous</group>
+		<group>felucca</group>
+	</spawnregion>
+
+        <spawnregion id="felucca_covetouslvl3">
+		<inactive />
+		<maxnpcamount>25</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>covetous</group>
+		<group>felucca_covetouslvl3</group>
+		<group>felucca</group>
+	</spawnregion>
+
+        <spawnregion id="felucca_covetouslvl4">
+		<inactive />
+		<maxnpcamount>10</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>covetous</group>
+		<group>felucca_covetouslvl4</group>
+		<group>felucca</group>
+	</spawnregion>
+
+        <spawnregion id="felucca_covetouslvl5">
+		<inactive />
+		<maxnpcamount>4</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>covetous</group>
+		<group>felucca_covetouslvl5</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_covetous" id="felucca_covetous_lvl1_1">
+		<active />
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5384,1847" to="5500,1936" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_covetous" id="felucca_covetous_lvl2_2">
+		<active />
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="elder_gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="nightmare"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5387,1962" to="5602,2028" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_covetouslvl3" id="felucca_covetous_lvl3_3">
+		<active />
+		<npc id="bone_knight"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5549,1825" to="5619,1914" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_covetouslvl4" id="felucca_covetous_lvl4_4">
+		<active />
+		<npc id="mummy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5501,1801" to="5552,1815" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_covetouslvl5" id="felucca_covetous_lvl5_5">
+		<active />
+		<npc id="dragon"><npcwander type="circle" radius="10" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5443,1793" to="5475,1825" map="0" />
+	</spawnregion>
+</definitions>

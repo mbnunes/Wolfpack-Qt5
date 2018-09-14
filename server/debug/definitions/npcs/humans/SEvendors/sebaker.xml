@@ -1,0 +1,67 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="sebaker_inventory">
+		<title context="Vendor Male Titles">the Baker</title>
+		<shopkeeper>
+			<restockable>
+				<item id="98c"><amount>10</amount></item>
+				<item id="9e9"><amount>10</amount></item>
+				<item id="9ea"><amount>10</amount></item>
+				<item id="9eb"><amount>10</amount></item>
+				<item id="9ec"><amount>10</amount></item>
+				<item id="103b"><amount>10</amount></item>
+				<item id="103c"><amount>10</amount></item>
+				<item id="1039"><amount>10</amount></item>
+				<item id="ff8"><amount>10</amount></item>
+				<item id="ff9"><amount>10</amount></item>
+				<item id="9f0"><amount>10</amount></item>
+				<item id="9d6"><amount>10</amount></item>
+				<item id="103e"><amount>10</amount></item>
+				<item id="1043"><amount>10</amount></item>
+			</restockable>
+			<sellable>
+				<item id="98c"/>
+				<item id="9e9"/>
+				<item id="9ea"/>
+				<item id="9eb"/>
+				<item id="9ec"/>
+				<item id="103b"/>
+				<item id="103c"/>
+				<item id="1039"/>
+				<item id="ff8"/>
+				<item id="ff9"/>
+				<item id="9f0"/>
+				<item id="9d6"/>
+				<item id="103e"/>
+				<item id="1043"/>
+			</sellable>
+		</shopkeeper>
+		<skill id="cooking"><random min="750" max="980" /></skill>
+	</npc>
+
+	<!-- A SE baker vendor -->
+	<npc id="sebaker_male" inherit="vendor_male">
+		<inherit id="sebaker_inventory" />
+		<category>Vendors\SE Baker (Male)</category>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
+	</npc>
+
+	<npc id="sebaker_female" inherit="vendor_female">
+		<inherit id="sebaker_inventory" />
+		<category>Vendors\SE Baker (Female)</category>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
+	</npc>
+
+</definitions>

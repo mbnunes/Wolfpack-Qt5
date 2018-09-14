@@ -1,0 +1,40 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- mongbat (strong) -->
+	<npc id="mongbat_strong" inherit="mongbat">
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="56" max="80"/></str>
+		<dex><random min="61" max="80"/></dex>
+		<int><random min="26" max="50"/></int>
+		<maxhitpoints><random min="34" max="48" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="151" max="300"/></skill>
+		<skill id="tactics"><random min="351" max="500"/></skill>
+		<skill id="wrestling"><random min="201" max="350"/></skill>
+		<mintaming>771</mintaming>
+		<!-- Damage -->
+		<mindamage>7</mindamage>
+		<maxdamage>10</maxdamage>
+		<!-- Resists -->
+		<tag name="res_physical" value="10,20" type="int" />
+		<!-- Lootpacks -->
+		<lootpacks>lootpack_poor</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Daemonic\Mongbat (Strong)</category>
+		<strproperty name="food" value="1" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="6" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

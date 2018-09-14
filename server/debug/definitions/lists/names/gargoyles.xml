@@ -1,0 +1,23 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: DarkStorm
+|   )).-' {{ ;'`   | Revised by: White Wolf, Dreoth
+|  ( (  ;._ \\ ctr | Last Modification: Split
+=================================================================
+-->
+<definitions>
+
+	<list id="NAMES_GARGOYLE">
+		<item>blistering gargoyle</item>
+		<item>burning gargoyle</item>
+		<item>fiery gargoyle</item>
+		<item>flaming gargoyle</item>
+		<item>scalding gargoyle</item>
+		<item>scorching gargoyle</item>
+		<item>searing gargoyle</item>
+		<item>smoldering gargoyle</item>
+		<item>sweltering gargoyle</item>
+	</list>
+
+</definitions>

@@ -1,0 +1,35 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts
+|  ((    _/{  "-;  | Created by: DarkStorm
+|   )).-' {{ ;'`   | Revised by: White Wolf, Dreoth
+|  ( (  ;._ \\ ctr | Last Modification: Split
+=================================================================
+-->
+<definitions>
+
+	<list id="NAMES_BIRDS">
+		<item>chickadee</item>
+		<item>crossbill</item>
+		<item>cuckoo</item>
+		<item>finch</item>
+		<item>hawk</item>
+		<item>kingfisher</item>
+		<item>lapwing</item>
+		<item>nightingale</item>
+		<item>nuthatch</item>
+		<item>plover</item>
+		<item>skylark</item>
+		<item>sparrow</item>
+		<item>starling</item>
+		<item>swallow</item>
+		<item>swift</item>
+		<item>tern</item>
+		<item>thrush</item>
+		<item>towhee</item>
+		<item>warbler</item>
+		<item>woodpecker</item>
+		<item>wren</item>
+	</list>
+
+</definitions>

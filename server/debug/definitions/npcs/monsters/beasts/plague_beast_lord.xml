@@ -1,0 +1,41 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- plague beast lord -->
+	<npc id="plague_beast_lord" inherit="monster_base">
+		<name>plague beast lord</name>
+		<id>775</id>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
+		<!-- Stats -->
+		<str>500</str>
+		<dex>100</dex>
+		<int>30</int>
+		<maxhitpoints>1800</maxhitpoints>
+		<!-- Skills -->
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling">1000</skill>
+		<!-- Damage -->
+		<mindamage>66</mindamage>
+		<maxdamage>78</maxdamage>
+		<tag name="dmg_fire" value="25" type="int" />
+		<tag name="dmg_poison" value="25" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_poison" value="75,85" type="int" />
+		<!-- Misc. -->
+		<category>Monsters\Beasts\Plague Beast Lord</category>
+		<!-- Missing Loot: Special: A Plague Beast Mutation Core -->
+	</npc>
+
+</definitions>

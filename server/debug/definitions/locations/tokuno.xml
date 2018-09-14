@@ -1,0 +1,47 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Dreoth                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Owner_Mutilador         |
+=================================================================
+-->
+<definitions>
+
+	<!-- Towns -->
+
+	<location id="Zento Moongate" category="Tokuno\Towns\Zento\Zento Moongate">802,1204,25,4</location>
+	<location id="Zento Bank" category="Tokuno\Towns\Zento\Zento Bank">735,1255,30,4</location>
+
+	<!-- Dungeons -->
+
+	<location id="Fan Dancer's Dojo" category="Tokuno\Dungeons\Fan Dancer's Dojo\Entrance">977,218,23,4</location>
+	<location id="Yomotsu Mines" category="Tokuno\Dungeons\Yomotsu Mines\Entrance">259,785,64,4</location>
+
+	<!-- Sites -->
+
+	<!-- Makoto-Jima -->
+
+	<location id="Makoto-Jima Moongate" category="Tokuno\Sites\Makoto-Jima\Moongate">802,1204,25,4</location>
+	<location id="Makoto-Jima Shrine" category="Tokuno\Sites\Makoto-Jima\Shrine">718,1161,25,4</location>
+	<location id="Makoto-Jima The Waste" category="Tokuno\Sites\Makoto-Jima\The Waste">724,943,42,4</location>
+
+	<!-- Isamu-Jima -->
+
+	<location id="Isamu-Jima Moongate" category="Tokuno\Sites\Isamu-Jima\Moongate">1169,998,41,4</location>
+	<location id="Isamu-Jima Shrine" category="Tokuno\Sites\Isamu-Jima\Shrine">1047,512,15,4</location>
+	<location id="Isamu-Jima Lotus Lakes" category="Tokuno\Sites\Isamu-Jima\Lotus Lakes">1066,817,20,4</location>
+	<location id="Isamu-Jima Mount Sho" category="Tokuno\Sites\Isamu-Jima\Mount Sho">1159,696,70,4</location>
+	<location id="Isamu-Jima Dragon Valley" category="Tokuno\Sites\Isamu-Jima\Dragon Valley">948,432,8,4</location>
+	<location id="Isamu-Jima Winter Spur" category="Tokuno\Sites\Isamu-Jima\Winter Spur">926,162,34,4</location>
+
+	<!-- Homare-Jima -->
+
+	<location id="Homare-Jima Moongate" category="Tokuno\Sites\Homare-Jima\Moongate">270,628,15,4</location>
+	<location id="Homare-Jima Shrine" category="Tokuno\Sites\Homare-Jima\Shrine">295,712,55,4</location>
+	<location id="Homare-Jima Field of Echoes" category="Tokuno\Sites\Homare-Jima\Field of Echoes">160,654,36,4</location>
+	<location id="Homare-Jima Crane Marsh" category="Tokuno\Sites\Homare-Jima\Crane Marsh">232,1107,10,4</location>
+	<location id="Homare-Jima Bushido Dojo" category="Tokuno\Sites\Homare-Jima\Bushido Dojo">334,407,32,4</location>
+	<location id="Homare-Jima Kitsune Woods" category="Tokuno\Sites\Homare-Jima\Kitsune Woods">523,520,32,4</location>
+
+</definitions>

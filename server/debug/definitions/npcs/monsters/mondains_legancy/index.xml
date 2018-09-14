@@ -1,0 +1,17 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<include file="definitions/npcs/monsters/mondains_legancy/Palace of Paroxysmus/index.xml" />
+	<include file="definitions/npcs/monsters/mondains_legancy/Twisted Weald/index.xml" />
+	<include file="definitions/npcs/monsters/mondains_legancy/Blighted Grove/index.xml" />
+	<include file="definitions/npcs/monsters/mondains_legancy/Painted Caves/index.xml" />
+	<include file="definitions/npcs/monsters/mondains_legancy/Labyrinth/index.xml" />
+
+</definitions>

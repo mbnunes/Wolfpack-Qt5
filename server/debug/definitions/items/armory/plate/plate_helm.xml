@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Plate Helmet NS -->
+	<item id="1412">
+		<id>0x1412</id>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>7.0</weight>
+		<buyprice>170</buyprice>
+		<sellprice>85</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Platemail\Helm (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="60" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<!-- Plate Helmet EW -->
+	<item id="1419" inherit="1412">
+		<id>0x1419</id>
+		<baseid>1412</baseid>
+		<category>Base Armor\Platemail\Helm (E/W)</category>
+	</item>
+
+</definitions>

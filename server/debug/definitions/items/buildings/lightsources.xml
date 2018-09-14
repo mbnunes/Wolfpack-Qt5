@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Light sources (equipable and not equipable)                   |
+=================================================================
+-->
+<definitions>
+
+	<item id="9fb">
+		<id>0x9fb</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Sconce (W/E) (Off)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="9fc">
+		<id>0x9fc</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Wall Sconce (W/E) (Empty)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="9fd">
+		<id>0x9fd</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Sconce (W/E) (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a00">
+		<id>0xa00</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Sconce (N/S) (Off)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a01">
+		<id>0xa01</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Wall Sconce (W/E) (Empty)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a02">
+		<id>0xa02</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Sconce (W/E) (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a05">
+		<id>0xa05</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Torch (W/E) (Off)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a06">
+		<id>0xa06</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Torch (W/E) (Empty)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a07">
+		<id>0xa07</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Torch (W/E) (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a08">
+		<id>0xa08</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a09">
+		<id>0xa09</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a0a">
+		<id>0xa0a</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Torch (N/S) (Off)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a0b">
+		<id>0xa0b</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Torch (N/S) (Empty)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a0c">
+		<id>0xa0c</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Wall Torch (N/S) (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a0d">
+		<id>0xa0d</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a0e">
+		<id>0xa0e</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a18">
+		<id>0xa18</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Hanging Lantern 1 (Off)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="a15">
+		<id>0xa15</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Hanging Lantern 1 (On)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="a16">
+		<id>0xa16</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="a17">
+		<id>0xa17</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="a1d">
+		<id>0xa1d</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Hanging Lantern 2 (Off)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="a1a">
+		<id>0xa1a</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Hanging Lantern 2 (On)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="a1b">
+		<id>0xa1b</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a1c">
+		<id>0xa1c</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a1f">
+		<id>0xa1f</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Lantern Post (W/E)</category>
+	</item>
+
+	<item id="a20">
+		<id>0xa20</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Lantern Post (N/S)</category>
+	</item>
+
+	<item id="a25">
+		<id>0xa25</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Lantern (Off)</category>
+		<lightsource>29</lightsource>
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<weight>2.0</weight>
+	</item>
+
+	<item id="a22" inherit="a25">
+		<id>0xa22</id>
+		<category>Decoration\Lightsources\Lantern (On)</category>
+	</item>
+
+	<item id="a28">
+		<id>0xa28</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 1 (Off)</category>
+		<lightsource>0x2</lightsource>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<weight>2.0</weight>
+	</item>
+
+	<item id="a0f">
+		<id>0xa0f</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 1 (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a10">
+		<id>0xa10</id>
+		<nodecay />
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a11">
+		<id>0xa11</id>
+		<nodecay />
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a26">
+		<id>0xa26</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 2 (Off)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="b1a">
+		<id>0xb1a</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 2 (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="b1b">
+		<id>0xb1b</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="b1c">
+		<id>0xb1c</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="a27">
+		<id>0xa27</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Small Candelabra (Off)</category>
+		<lightsource>1</lightsource>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="b1d">
+		<id>0xb1d</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Small Candelabra (On)</category>
+		<lightsource>1</lightsource>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="b1e">
+		<id>0xb1e</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>1</lightsource>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="b1f">
+		<id>0xb1f</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x1</lightsource>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="a29">
+		<id>0xa29</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Big Candlabra (Off)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="b26">
+		<id>0xb26</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Big Candlabra (On)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="b27" inherit="b26">
+	</item>
+
+	<item id="b28" inherit="b26">
+	</item>
+
+	<item id="b21">
+		<id>0xb21</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Lamp Post 1 (Off)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="b20">
+		<id>0xb20</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Lamp Post 1 (On)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="b22">
+		<id>0xb22</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Lamp Post 2 (Off)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="b23">
+		<id>0xb23</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Lamp Post 2 (On)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="b24">
+		<id>0xb24</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Lamp Post 3 (Off)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="b25">
+		<id>0xb25</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Lamp Post 3 (On)</category>
+		<lightsource>29</lightsource>
+	</item>
+
+	<item id="e31">
+		<id>0xe31</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Brazier 1</category>
+		<lightsource>1</lightsource>
+	</item>
+
+	<item id="e32">
+		<id>0xe32</id>
+		<nodecay />
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="e33">
+		<id>0xe33</id>
+		<nodecay />
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="19aa">
+		<id>0x19aa</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Brazier 2</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="19bb">
+		<id>0x19bb</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Brazier 3</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="1f2b">
+		<id>0x1f2b</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Brazier 4</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="142c">
+		<id>0x142c</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 3 (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="142f">
+		<id>0x142f</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 3 (Off)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="1430">
+		<id>0x1430</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 4 (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="1433">
+		<id>0x1433</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 4 (Off)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="1434">
+		<id>0x1434</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 5 (On)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<item id="1437">
+		<id>0x1437</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Candle 5 (Off)</category>
+		<lightsource>0x2</lightsource>
+	</item>
+
+	<!-- Skull Candle -->
+	<item id="1853">
+		<id>0x1853</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 1 (W/E) (Off)</category>
+	</item>
+
+	<item id="1854">
+		<id>0x1854</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 1 (W/E) (On)</category>
+	</item>
+
+	<item id="1855">
+		<id>0x1855</id>
+		<nodecay />
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 2 (W/E) (On)</category>
+	</item>
+
+	<item id="1856">
+		<id>0x1856</id>
+		<nodecay />
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 3 (W/E) (On)</category>
+	</item>
+
+	<item id="1857">
+		<id>0x1857</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (Off)</category>
+	</item>
+
+	<item id="1858">
+		<id>0x1858</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (On)</category>
+	</item>
+
+	<item id="1859">
+		<id>0x1859</id>
+		<nodecay />
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 2 (N/S) (On)</category>
+	</item>
+
+	<item id="185a">
+		<id>0x185a</id>
+		<nodecay />
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Skullcandle 3 (N/S) (On)</category>
+	</item>
+
+	<!-- Torches -->
+	<item id="a12">
+		<id>0xa12</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<lightsource>0x2</lightsource>
+		<category>Decoration\Lightsources\Torch (On)</category>
+	</item>
+
+	<item id="a13">
+		<id>0xa13</id>
+		<nodecay />
+	</item>
+
+	<item id="a14">
+		<id>0xa14</id>
+		<nodecay />
+	</item>
+
+	<item id="f64">
+		<id>0xf64</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Torch (W/E) (Off)</category>
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="f6b" inherit="f64">
+		<id>0xf6b</id>
+		<category>Decoration\Lightsources\Torch (N/S) (Off)</category>
+	</item>
+
+	<!-- Samurai Empire -->
+
+	<item id="24bb">
+		<id>0x24bb</id>
+		<lightsource>0x2</lightsource>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Latern 01\On</category>
+	</item>
+
+	<item id="24bc" inherit="24bb">
+		<id>0x24bc</id>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 01\Off</category>
+	</item>
+
+	<item id="24bd">
+		<id>0x24bd</id>
+		<lightsource>0x2</lightsource>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 02\On</category>
+	</item>
+
+	<item id="24be" inherit="24bd">
+		<id>0x24be</id>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 02\Off</category>
+	</item>
+
+	<item id="24bf">
+		<id>0x24bf</id>
+		<lightsource>0x2</lightsource>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Lantern 01\On</category>
+	</item>
+
+	<item id="24c0">
+		<id>0x24c0</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Lantern 01\Off</category>
+	</item>
+
+	<item id="24c1">
+		<id>0x24c1</id>
+		<lightsource>0x2</lightsource>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 03\On</category>
+	</item>
+
+	<item id="24c2">
+		<id>0x24c2</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 03\Off</category>
+	</item>
+
+	<item id="24c3">
+		<id>0x24c3</id>
+		<lightsource>0x2</lightsource>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 04\On</category>
+	</item>
+
+	<item id="24c4">
+		<id>0x24c4</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 04\Off</category>
+	</item>
+
+	<item id="24c5">
+		<id>0x24c5</id>
+		<lightsource>0x2</lightsource>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 05\On</category>
+	</item>
+
+	<item id="24c6">
+		<id>0x24c6</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 05\Off</category>
+		<weight>10.0</weight>
+	</item>
+
+	<item id="24c7">
+		<id>0x24c7</id>
+		<lightsource>0x2</lightsource>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 06\On</category>
+	</item>
+
+	<item id="24c8">
+		<id>0x24c8</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 06\Off</category>
+	</item>
+
+	<item id="24c9">
+		<id>0x24c9</id>
+		<lightsource>0x2</lightsource>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 07\On</category>
+	</item>
+
+	<item id="24ca">
+		<id>0x24ca</id>
+		<nodecay />
+		<basescripts>lightsource</basescripts>
+		<category>Decoration\Lightsources\Samurai\Paper Lantern 07\Off</category>
+	</item>
+
+</definitions>

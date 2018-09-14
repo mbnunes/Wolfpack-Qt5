@@ -1,0 +1,58 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="bowyer_inventory">
+		<title context="Vendor Male Titles">the Bowyer</title>
+		<shopkeeper>
+			<restockable>
+				<item id="1022"><amount>20</amount></item>
+				<item id="1bfb"><amount>60</amount></item>
+				<item id="f3f"><amount>60</amount></item>
+				<item id="1bd1"><amount>60</amount></item>
+				<item id="1bd4"><amount>60</amount></item>
+				<item id="13fd"><amount>20</amount></item>
+				<item id="13b2"><amount>20</amount></item>
+				<item id="f50"><amount>20</amount></item>
+			</restockable>
+			<sellable>
+				<item id="1022" />
+				<item id="1bfb" />
+				<item id="f3f" />
+				<item id="1bd1" />
+				<item id="1bd4" />
+				<item id="13fd" />
+				<item id="13b2" />
+				<item id="f50" />
+			</sellable>
+		</shopkeeper>
+		<skill id="archery"><random min="600" max="830" /></skill>
+		<skill id="bowcrafting"><random min="900" max="1000" /></skill>
+	</npc>
+
+	<!-- A bowyer vendor -->
+	<npc id="bowyer_male" inherit="vendor_male">
+		<inherit id="bowyer_inventory" />
+		<category>Vendors\Bowyer (Male)</category>
+		<equipped>
+			<item id="13b1" /> <!-- Bow -->
+			<item id="13c7" /> <!-- Leather Gorget -->
+		</equipped>
+	</npc>
+
+	<npc id="bowyer_female" inherit="vendor_female">
+		<inherit id="bowyer_inventory" />
+		<category>Vendors\Bowyer (Female)</category>
+		<equipped>
+			<item id="13b1" /> <!-- Bow -->
+			<item id="13c7" /> <!-- Leather Gorget -->
+		</equipped>
+	</npc>
+
+</definitions>

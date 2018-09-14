@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Incanus
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Wild Staff -->
+	<item id="2d25">
+		<id>0x2d25</id>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="60" /></durability>
+		<weight>8.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1003</type>
+		<twohanded />
+		<category>Base Weapons\Staves\Wild Staff (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="15" />
+		<intproperty name="speed" value="48" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+	</item>
+
+	<item id="2d31" inherit="2d25">
+		<id>0x2d31</id>
+		<baseid>2d25</baseid>
+		<category>Base Weapons\Staves\Wild Staff (E/W)</category>
+	</item>
+
+</definitions>

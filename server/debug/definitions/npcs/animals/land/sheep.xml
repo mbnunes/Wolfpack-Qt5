@@ -1,0 +1,61 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Sheep (sheered) -->
+	<npc id="sheep_sheered" inherit="animal_base">
+		<baseid>sheep_sheered</baseid>
+		<name>sheep</name>
+		<id>223</id>
+		<ai>Animal_Domestic</ai>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str>19</str>
+		<dex>25</dex>
+		<int>5</int>
+		<!-- Status -->
+		<maxhitpoints>12</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>2</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,10" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling">50</skill>
+		<skill id="tactics">60</skill>
+		<skill id="magicresistance">50</skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>111</mintaming>
+		<strproperty name="food" value="3,5" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Farm\Sheep (Sheered)</category>
+		<intproperty name="carve_meat" value="3" />
+		<strproperty name="carve_meat_type" value="lambleg" />
+	</npc>
+
+	<!-- Sheep (unsheered) -->
+	<npc id="sheep_unsheered" inherit="sheep_sheered">
+		<baseid>sheep_unsheered</baseid>
+		<id>207</id>
+		<category>Animals\Land\Sheep (Unsheered)</category>
+		<intproperty name="carve_meat" value="4" />
+		<strproperty name="carve_meat_type" value="lambleg" />
+		<!-- Carve -->
+		<intproperty name="carve_wool" value="1" />
+	</npc>
+
+	<npc id="sheep">
+		<inherit><random valuelist="sheep_unsheered,sheep_sheered" /></inherit>
+		<category>Animals\Land\Sheep (Random)</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Pitchfork -->
+	<item id="e87">
+		<id>0xe87</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>9</sellprice>
+		<buyprice>18</buyprice>
+		<durability><random min="30" max="41" /></durability>
+		<weight>10.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1005</type>
+		<category>Base Weapons\Fencing\Pitchfork (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="50" />
+		<intproperty name="speed" value="43" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="e88" inherit="e87">
+		<id>0xe88</id>
+		<baseid>e87</baseid>
+		<category>Base Weapons\Fencing\Pitchfork (E/W)</category>
+	</item>
+
+</definitions>

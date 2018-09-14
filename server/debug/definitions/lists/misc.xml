@@ -1,0 +1,29 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+
+	<list id="TEST_CARVE">
+		<item>9f1,10</item>
+	</list>
+
+	<!-- Page Categories -->
+	<list id="PAGE_CATEGORIES">
+		<item>BUG</item>
+		<item>STUCK</item>
+		<item>GAMEPLAY</item>
+		<item>BUILD</item>
+	</list>
+  
+  <!-- Gender List -->
+  <list id="GENDER_LIST">
+    <item>male</item>
+    <item>female</item>
+  </list>
+
+</definitions>

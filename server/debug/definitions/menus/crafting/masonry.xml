@@ -1,0 +1,90 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Naddel
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification: Created
+ *=======================================================*/
+-->
+<definitions>
+	<menu id="MASONRY" name="1044500"> <!-- <CENTER>MASONRY MENU</CENTER> -->
+		<menu id="MASONRY_VASES" />
+		<menu id="MASONRY_FURNITURE" />
+		<menu id="MASONRY_STATUES" />
+	</menu>
+
+	<!-- Decorations -->
+	<menu id="MASONRY_VASES" name="1044501">
+		<!--Vase-->
+		<masonry definition="b46">
+			<percentage value="95" />
+			<granite amount="1" />
+		</masonry>
+
+		<!--Large Vase-->
+		<masonry definition="b45">
+			<percentage value="95" />
+			<granite amount="3" />
+		</masonry>
+	</menu>
+
+	<!-- Furniture -->
+	<menu id="MASONRY_FURNITURE" name="1044502">
+		<!--Stone Chair-->
+		<masonry definition="1218">
+			<percentage value="90" />
+			<granite amount="4" />
+		</masonry>
+
+		<!--Medium Stone Table-->
+		<masonry definition="stonetable_medium_s_deed">
+			<percentage value="70" />
+			<granite amount="6" />
+		</masonry>
+
+		<!--Large Stone Table-->
+		<masonry definition="stonetable_large_s_deed">
+			<percentage value="50" />
+			<granite amount="9" />
+		</masonry>
+	</menu>
+
+	<!-- Statues -->
+	<menu id="MASONRY_STATUES" name="1044503">
+		<!--Small Statue-->
+		<masonry definition="139a">
+			<percentage value="80" />
+			<granite amount="3" />
+		</masonry>
+
+		<!--Small Statue-->
+		<masonry definition="139b">
+			<percentage value="80" />
+			<granite amount="3" />
+		</masonry>
+
+		<!--Small Statue-->
+		<masonry definition="139c">
+			<percentage value="80" />
+			<granite amount="3" />
+		</masonry>
+
+		<!--Pegasus Statue-->
+		<masonry definition="139d">
+			<percentage value="60" />
+			<granite amount="4" />
+		</masonry>
+
+		<!--Tower Sculpture-->
+		<semasonry definition="241a">
+			<percentage value="36" />
+			<granite amount="3" />
+		</semasonry>
+
+		<!--Small Urn-->
+		<semasonry definition="241c">
+			<percentage value="36" />
+			<granite amount="3" />
+		</semasonry>
+	</menu>
+</definitions>

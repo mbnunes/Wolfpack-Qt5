@@ -1,0 +1,54 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Bullfrog -->
+	<npc id="bullfrog" inherit="animal_base">
+		<name>bullfrog</name>
+		<id>81</id>
+		<ai>Animal_Wild</ai>
+		<skin><random list="SKINS_SNAKE" /></skin>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="46" max="70" /></str>
+		<dex><random min="6" max="25" /></dex>
+		<int><random min="11" max="20" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="28" max="42" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>3</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,10" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="401" max="600" /></skill>
+		<skill id="tactics"><random min="401" max="600" /></skill>
+		<skill id="magicresistance"><random min="251" max="400" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>231</mintaming>
+		<strproperty name="food" value="2,1" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Land\Bullfrog</category>
+		<!-- Lootpacks -->
+		<backpack>
+			<content>
+				<item id="eed">
+					<amount><random min="25" max="50" /></amount>
+				</item>
+			</content>
+		</backpack>	
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="4" />
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Lance -->
+	<item id="26ca">
+		<id>0x26ca</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>19</sellprice>
+		<buyprice>38</buyprice> />
+		<durability><random min="50" max="81" /></durability>
+		<weight>12.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1005</type>
+		<category>Base Weapons\Fencing\Lance (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="speed" value="24" />
+		<intproperty name="mindamage" value="17" />
+		<intproperty name="maxdamage" value="18" />
+	</item>
+
+	<item id="26c0" inherit="26ca">
+		<id>0x26c0</id>
+		<baseid>26ca</baseid>
+		<category>Base Weapons\Fencing\Lance (E/W)</category>
+	</item>
+
+</definitions>

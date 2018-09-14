@@ -1,0 +1,55 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Skeletal Dragon -->
+	<npc id="skeletal_dragon" inherit="monster_base">
+		<name>skeletal dragon</name>
+		<id>104</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="898" max="1030" /></str>
+		<dex><random min="68" max="200" /></dex>
+		<int><random min="488" max="620" /></int>
+		<maxhitpoints><random min="558" max="599"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="wrestling"><random min="984" max="997" /></skill>
+		<skill id="tactics"><random min="981" max="992" /></skill>
+		<skill id="magicresistance"><random min="1175" max="1224" /></skill>
+		<skill id="anatomy"><random min="0" max="0" /></skill>
+		<skill id="magery"><random min="894" max="998" /></skill>
+		<skill id="evaluatingintelligence"><random min="729" max="768" /></skill>
+		<skill id="meditation"><random min="624" max="673" /></skill>
+		<!-- Damage -->
+		<mindamage>127</mindamage>
+		<maxdamage>166</maxdamage>
+		<tag name="dmg_fire" value="25" type="int" />
+		<!-- Resists -->
+		<tag name="res_physical" value="75,80" type="int" />
+		<tag name="res_fire" value="40,60" type="int" />
+		<tag name="res_cold" value="40,60" type="int" />
+		<tag name="res_poison" value="70,80" type="int" />
+		<tag name="res_energy" value="40,60" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;gems;gems;gems;gems;gems;tm_5</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Dragons\Skeletal Dragon</category>
+		<strproperty name="slayer_group" value="dragons" />
+		<strproperty name="food" value="1" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="20" />
+		<strproperty name="carve_hides_type" value="barbed" />
+		<ai>Monster_Mage</ai>
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

@@ -1,0 +1,53 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Lord Oaks -->
+	<npc id="lord_oaks" inherit="monster_base_magi">
+		<name>Lord Oaks</name>
+		<id>175</id>
+		<inherit id="KARMA_NL5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="403" max="850"/></str>
+		<dex><random min="101" max="150"/></dex>
+		<int><random min="503" max="800"/></int>
+		<maxhitpoints>3000</maxhitpoints>
+		<!-- Skills -->
+		<skill id="wrestling"><random min="1000" max="1000"/></skill>
+		<skill id="tactics"><random min="1000" max="1000"/></skill>
+		<skill id="magicresistance"><random min="1005" max="1500"/></skill>
+		<skill id="anatomy"><random min="751" max="1000"/></skill>
+		<skill id="magery"><random min="1200" max="1200"/></skill>
+		<skill id="evaluatingintelligence"><random min="1201" max="1300"/></skill>
+		<skill id="meditation"><random min="1201" max="1300" /></skill>
+		<!-- Damage -->
+		<mindamage>71</mindamage>
+		<maxdamage>157</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_fire" value="25" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="85,90" type="int" />
+		<tag name="res_fire" value="60,70" type="int" />
+		<tag name="res_cold" value="60,70" type="int" />
+		<tag name="res_poison" value="80,90" type="int" />
+		<tag name="res_energy" value="80,90" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;tm_5</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Champions\Lord Oaks</category>
+		<strproperty name="slayer_group" value="feys" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

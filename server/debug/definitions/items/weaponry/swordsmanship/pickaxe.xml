@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Pickaxe -->
+	<item id="e86">
+		<id>0xe86</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>11</sellprice>
+		<buyprice>32</buyprice>
+		<durability><random min="30" max="55" /></durability>
+		<weight>11.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,pickaxe</basescripts>
+		<bindmenu>pickaxe_menu</bindmenu>
+		<category>Base Weapons\Swordsmanship\Pickaxe (N/S)</category>
+		<category>Professions\Miner\Tools\Pickaxe (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="35" />
+		<intproperty name="req_strength" value="50" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="15" />
+	</item>
+
+	<item id="e85" inherit="e86">
+		<id>0xe85</id>
+		<baseid>e86</baseid>
+		<category>Base Weapons\Swordsmanship\Pickaxe (E/W)</category>
+		<category>Professions\Miner\Tools\Pickaxe (E/W)</category>
+	</item>
+
+</definitions>

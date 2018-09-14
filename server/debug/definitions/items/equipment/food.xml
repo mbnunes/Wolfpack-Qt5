@@ -1,0 +1,1193 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+
+<definitions>
+
+	<!-- Stew -->
+	<item id="970">
+		<id>0x970</id>
+		<category>Equipment\Food\Stew</category>
+		<basescripts>food</basescripts> <!-- You can eat stew out of the cauldrons -->
+		<intproperty name="fillfactor" value="4" />
+		<note>Use in conjunction with <ref id="item:974">cauldron n/s</ref> and <ref id="item:975">cauldron w/e</ref></note>
+	</item>
+
+	<!-- Slab of Bacon n/s -->
+	<item id="976">
+		<id>0x976</id>
+		<category>Equipment\Food\Slab of Bacon (N/S)</category>
+		<basescripts>food</basescripts>
+		<buyprice>10</buyprice>
+		<sellprice>5</sellprice>
+		<weight>0.2</weight>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<!-- Slab of Bacon w/e -->
+	<item id="977" inherit="976">
+		<baseid>976</baseid>
+		<id>0x977</id>
+		<category>Equipment\Food\Slab of Bacon (W/E)</category>
+	</item>
+
+	<!-- Slice of Bacon n/s -->
+	<item id="978">
+		<category>Equipment\Food\Slice of Bacon (N/S)</category>
+		<id>0x978</id>
+		<basescripts>food</basescripts>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<!-- Slice of Bacon w/e -->
+	<item id="979" inherit="978">
+		<baseid>978</baseid>
+		<id>0x979</id>
+		<category>Equipment\Food\Slice of Bacon (W/E)</category>
+	</item>
+
+	<!-- Raw Fish Steak -->
+	<item id="97a">
+		<id>0x97a</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Raw Fish Steak</category>
+		<basescripts>cooking,food</basescripts>
+	</item>
+
+	<!-- Dough -->
+	<item id="103d">
+		<id>0x103d</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>skills.cooking</basescripts>
+		<category>Equipment\Food\Dough</category>
+	</item>
+	
+	<item id="sweet_dough">
+		<name>#1041340</name>
+		<color>150</color>
+		<id>0x103d</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>skills.cooking</basescripts>
+		<category>Equipment\Food\Sweet Dough</category>
+	</item>	
+
+	<!-- Fish Steak -->
+	<item id="97b">
+		<id>0x97b</id>
+		<basescripts>food</basescripts>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Fish Steak</category>
+		<intproperty name="fillfactor" value="3" />
+	</item>
+
+	<!-- Wedge of Cheese (small) -->
+	<item id="97c">
+		<id>0x97c</id>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<category>Equipment\Food\Wedge of Cheese (small)</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<!-- Wedge of Cheese (big) -->
+	<item id="97d">
+		<id>0x97d</id>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
+		<category>Equipment\Food\Wedge of Cheese (big)</category>
+		<intproperty name="fillfactor" value="3" />
+	</item>
+
+	<!-- Wheel of Cheese -->
+	<item id="97e">
+		<id>0x97e</id>
+		<basescripts>food</basescripts>
+		<buyprice>25</buyprice>
+		<sellprice>12</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Wheel of Cheese</category>
+		<intproperty name="fillfactor" value="3" />
+	</item>
+
+	<!-- French Bread -->
+	<item id="98c">
+		<id>0x98c</id>
+		<basescripts>food</basescripts>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<weight>0.2</weight>
+		<category>Equipment\Food\French Bread</category>
+		<intproperty name="fillfactor" value="3" />
+	</item>
+
+	<!-- Fruit Basket -->
+	<item id="993">
+		<category>Equipment\Food\Fruit Basket</category>
+		<id>0x993</id>
+		<basescripts>food</basescripts>
+		<buyprice>10</buyprice>
+		<sellprice>5</sellprice>
+		<weight>1.5</weight>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<!-- Pear -->
+	<item id="994">
+		<category>Equipment\Food\Pear 1</category>
+		<id>0x994</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>11</weight>
+		<weight>0.1</weight>
+		<basescripts>food</basescripts>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="172d" inherit="994">
+		<baseid>994</baseid>
+		<id>0x172d</id>
+		<category>Equipment\Food\Pear 2</category>
+	</item>
+
+	<!-- Eggs -->
+	<item id="9b5">
+		<id>0x9b5</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Eggs</category>
+		<basescripts>cooking,food</basescripts>
+	</item>
+	
+	<list id="bce_colors">
+		<item>3</item>
+		<item>8</item>
+		<item>13</item>
+		<item>18</item>
+		<item>23</item>
+		<item>28</item>
+		<item>33</item>
+		<item>38</item>
+		<item>43</item>
+		<item>48</item>
+		<item>53</item>
+		<item>58</item>
+		<item>63</item>
+		<item>68</item>
+		<item>73</item>
+		<item>78</item>
+		<item>83</item>
+		<item>88</item>
+		<item>93</item>
+		<item>98</item>	
+	</list>
+	
+	<!-- Eggs -->
+	<item id="brightly_colored_eggs">
+		<name>brightly colored eggs</name>
+		<id>0x9b5</id>
+		<color><random list="bce_colors" /></color>
+		<weight>0.5</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Brighly Colored Eggs</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>	
+
+	<!-- Fried Eggs -->
+	<item id="9b6">
+		<id>0x9b6</id>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
+		<weight>0.1</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Fried Eggs</category>
+		<intproperty name="fillfactor" value="4" />
+	</item>
+
+	<!-- Cooked bird w/e -->
+	<item id="9b7">
+		<id>0x9b7</id>
+		<buyprice>17</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Cooked Bird (W/E)</category>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<!-- Cooked bird n/s -->
+	<item id="9b8" inherit="9b7">
+		<baseid>9b7</baseid>
+		<id>0x9b8</id>
+		<category>Equipment\Food\Cooked Bird (N/S)</category>
+	</item>
+
+	<!-- Raw bird w/e -->
+	<item id="9b9">
+		<category>Equipment\Food\Raw Bird (W/E)</category>
+		<id>0x9b9</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>cooking,food</basescripts>
+	</item>
+
+	<!-- Raw bird n/s -->
+	<item id="9ba" inherit="9b9">
+		<baseid>9b9</baseid>
+		<id>0x9ba</id>
+		<category>Equipment\Food\Uncooked\Raw Bird (N/S)</category>
+	</item>
+
+	<!-- Roast pig w/e -->
+	<item id="9bb">
+		<id>0x9bb</id>
+		<buyprice>128</buyprice>
+		<sellprice>64</sellprice>
+		<basescripts>food</basescripts>
+		<weight>4.5</weight>
+		<category>Equipment\Food\Roast Pig (W/E)</category>
+		<intproperty name="fillfactor" value="20" />
+	</item>
+
+	<!-- Roast pig n/s -->
+	<item id="9bc" inherit="9bb">
+		<baseid>9bb</baseid>
+		<id>0x9bc</id>
+		<category>Equipment\Food\Roast Pig (N/S)</category>
+	</item>
+
+	<!-- Sausage w/e -->
+	<item id="9c0">
+		<id>0x9c0</id>
+		<buyprice>17</buyprice>
+		<sellprice>8</sellprice>
+		<basescripts>food</basescripts>
+		<weight>0.2</weight>
+		<category>Equipment\Food\Sausage (W/E)</category>
+		<intproperty name="fillfactor" value="4" />
+	</item>
+
+	<!-- Sausage n/s -->
+	<item id="9c1" inherit="9c0">
+		<baseid>9c0</baseid>
+		<id>0x9c1</id>
+		<category>Equipment\Food\Sausage (N/S)</category>
+	</item>
+
+	<!-- Ham w/e -->
+	<item id="9c9">
+		<id>0x9c9</id>
+		<category>Equipment\Food\Ham (E/W)</category>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<!-- Ham n/s -->
+	<item id="9d3" inherit="9c9">
+		<baseid>9c9</baseid>
+		<id>0x9d3</id>
+		<category>Equipment\Food\Ham (N/S)</category>
+	</item>
+
+	<!-- Fish 1 -->
+	<item id="9cc">
+		<category>Equipment\Food\Fish 1</category>
+		<id>0x9cc</id>
+		<weight>1.0</weight>
+	</item>
+
+	<!-- Fish 2 -->
+	<item id="9cd" inherit="9cc">
+		<baseid>9cc</baseid>
+		<id>0x9cd</id>
+		<category>Equipment\Food\Fish 2</category>
+	</item>
+
+	<!-- Fish 3 -->
+	<item id="9ce" inherit="9cc">
+		<baseid>9cc</baseid>
+		<id>0x9ce</id>
+		<category>Equipment\Food\Fish 3</category>
+	</item>
+
+	<!-- Fish 4 -->
+	<item id="9cf" inherit="9cc">
+		<baseid>9cc</baseid>
+		<id>0x9cf</id>
+		<category>Equipment\Food\Fish 4</category>
+	</item>
+
+	<!-- Apple -->
+	<item id="9d0">
+		<id>0x9d0</id>
+		<category>Equipment\Food\Apple</category>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<!-- Grape bunch -->
+	<item id="9d1">
+		<category>Equipment\Food\Grape Bunch 1</category>
+		<id>0x9d1</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<!-- Peach 1 -->
+	<item id="9d2">
+		<category>Equipment\Food\Peach 1</category>
+		<id>0x9d2</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<!-- Peach 2 -->
+	<item id="172c" inherit="9d2">
+		<baseid>9d2</baseid>
+		<id>0x172c</id>
+		<category>Equipment\Food\Peach 2</category>
+	</item>
+
+	<!-- Cake -->
+	<item id="9e9">
+		<category>Equipment\Food\Cake</category>
+		<id>0x9e9</id>
+		<buyprice>11</buyprice>
+		<sellprice>5</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<intproperty name="fillfactor" value="10" />
+	</item>
+
+	<!-- Muffin -->
+	<item id="9ea">
+		<category>Equipment\Food\Muffin</category>
+		<id>0x9ea</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="4" />
+	</item>
+
+	<!-- Muffins 1 -->
+	<item id="9eb" inherit="9ea">
+		<id>0x9eb</id>
+		<category>Equipment\Food\Muffins 1</category>
+	</item>
+
+	<!-- Muffins 2 -->
+	<item id="9fa" inherit="9ea">
+		<id>0x9fa</id>
+		<category>Equipment\Food\Muffins 2</category>
+	</item>
+
+	<!-- Jar of Honey -->
+	<item id="9ec">
+		<category>Equipment\Food\Jar of Honey</category>
+		<id>0x9ec</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>skills.cooking</basescripts>
+		<weight>2</weight>
+	</item>
+
+	<!-- Kettle -->
+	<item id="9ed">
+		<category>Decoration\Kitchen\Kettle</category>
+		<id>0x9ed</id>
+	</item>
+
+	<!-- Mug of Ale 1 -->
+	<item id="9ee" inherit="drinks_base">
+		<category>Equipment\Food\Mug of Ale 1</category>
+		<id>0x9ee</id>
+		<weight>0.1</weight>
+	</item>
+
+	<!-- Mug of Ale 2 -->
+	<item id="9ef" inherit="drinks_base">
+		<category>Equipment\Food\Mug of Ale 2</category>
+		<id>0x9ef</id>
+		<weight>0.1</weight>
+	</item>
+
+	<!-- Cut of Raw Rips -->
+	<item id="9f1">
+		<category>Equipment\Food\Cut of Raw Ribs</category>
+		<id>0x9f1</id>
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<weight>0.2</weight>
+		<basescripts>cooking,food</basescripts>
+	</item>
+
+	<!-- Cut of Rips -->
+	<item id="9f2">
+		<category>Equipment\Food\Cut of Ribs</category>
+		<id>0x9f2</id>
+		<buyprice>11</buyprice>
+		<sellprice>5</sellprice>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<!-- Watermelon -->
+	<item id="c5c">
+		<id>0xc5c</id>
+		<category>Equipment\Food\Watermelon 1</category>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
+		<basescripts>food</basescripts>
+		<weight>5</weight>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<!-- Watermelon -->
+	<item id="c5d" inherit="c5c">
+		<baseid>c5c</baseid>
+		<id>0xc5d</id>
+		<category>Equipment\Food\Watermelon 2</category>
+	</item>
+
+	<!-- Turnips -->
+	<item id="c61">
+		<category>Equipment\Food\Turnip 1</category>
+		<id>0xc61</id>
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c62" inherit="c61">
+		<id>0xc62</id>
+		<category>Equipment\Food\Turnip 2</category>
+	</item>
+
+	<item id="c63" inherit="c61">
+		<id>0xc63</id>
+		<category>Equipment\Food\Turnip 3</category>
+	</item>
+
+	<item id="d39" inherit="c61">
+		<id>0xd39</id>
+		<category>Equipment\Food\Turnip 4</category>
+	</item>
+
+	<item id="d3a" inherit="c61">
+		<id>0xd3a</id>
+		<category>Equipment\Food\Turnip 5</category>
+	</item>
+
+	<!-- Gourds -->
+	<item id="c64">
+		<category>Equipment\Food\Gourd 1</category>
+		<id>0xc64</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c65" inherit="c64">
+		<id>0xc65</id>
+		<category>Equipment\Food\Gourd 2</category>
+	</item>
+
+	<item id="c66" inherit="c64">
+		<id>0xc66</id>
+		<category>Equipment\Food\Gourd 3</category>
+	</item>
+
+	<item id="c67" inherit="c64">
+		<id>0xc67</id>
+		<category>Equipment\Food\Gourd 4</category>
+	</item>
+
+	<!-- Pumpkins -->
+	<item id="c6a">
+		<id>0xc6a</id>
+		<buyprice>13</buyprice>
+		<sellprice>6</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<category>Equipment\Food\Pumpkin 1</category>
+
+	</item>
+
+	<item id="c6b" inherit="c6a">
+		<id>0xc6b</id>
+		<category>Equipment\Food\Pumpkin 2</category>
+	</item>
+
+	<item id="c6c" inherit="c6a">
+		<id>0xc6c</id>
+		<category>Equipment\Food\Pumpkin 3</category>
+	</item>
+
+	<!-- Onions -->
+	<item id="c6d">
+		<category>Equipment\Food\Onion 1</category>
+		<id>0xc6d</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c6e" inherit="c6d">
+		<id>0xc6e</id>
+		<category>Equipment\Food\Onion 2</category>
+	</item>
+
+	<!-- Lettuce -->
+	<item id="c70">
+		<id>0xc70</id>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Head of Lettuce 1</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c71" inherit="c70">
+		<id>0xc71</id>
+		<category>Equipment\Food\Head of Lettuce 2</category>
+	</item>
+
+	<!-- Squash -->
+	<item id="c72">
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<id>0xc72</id>
+		<category>Equipment\Food\Squash 1</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c73" inherit="c72">
+		<id>0xc73</id>
+		<category>Equipment\Food\Squash 2</category>
+	</item>
+
+	<!-- Honeydew Melon -->
+	<item id="c74">
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<id>0xc74</id>
+		<category>Equipment\Food\Honeydew Melon 1</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c75" inherit="c74">
+		<id>0xc75</id>
+		<category>Equipment\Food\Honeydew Melon 2</category>
+	</item>
+
+	<!-- Carrots -->
+	<item id="c77">
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<id>0xc77</id>
+		<category>Equipment\Food\Carrots 1</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c78" inherit="c77">
+		<id>0xc78</id>
+		<category>Equipment\Food\Carrots 2</category>
+	</item>
+
+	<!-- Canteloupe -->
+	<item id="c79">
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<id>0xc79</id>
+		<category>Equipment\Food\Canteloupe 1</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c7a" inherit="c79">
+		<id>0xc7a</id>
+		<category>Equipment\Food\Canteloupe 2</category>
+	</item>
+
+	<!-- Heads of Cabbage -->
+	<item id="c7b">
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<id>0xc7b</id>
+		<category>Equipment\Food\Head of Cabbage 1</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c7c" inherit="c7b">
+		<id>0xc7c</id>
+		<category>Equipment\Food\Head of Cabbage 2</category>
+	</item>
+
+	<!-- Ears of Corn -->
+	<item id="c7f">
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<id>0xc7f</id>
+		<category>Equipment\Food\Ear of Corn 1</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="c80" inherit="c7f">
+		<id>0xc80</id>
+		<category>Equipment\Food\Ear of Corn 2</category>
+	</item>
+
+	<item id="c81" inherit="c7f">
+		<id>0xc81</id>
+		<category>Equipment\Food\Ear of Corn 3</category>
+	</item>
+
+	<item id="c82" inherit="c7f">
+		<id>0xc82</id>
+		<category>Equipment\Food\Ear of Corn 4</category>
+	</item>
+
+	<!-- Grape Bunch -->
+	<item id="d1a" inherit="9d1">
+		<id>0xd1a</id>
+		<category>Equipment\Food\Grape Bunch 2</category>
+	</item>
+
+	<!-- Bread -->
+	<item id="103b">
+		<id>0x103b</id>
+		<buyprice>7</buyprice>
+		<sellprice>3</sellprice>
+		<weight>0.2</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Bread 1</category>
+		<intproperty name="fillfactor" value="3" />
+	</item>
+
+	<item id="103c" inherit="103b">
+		<id>0x103c</id>
+		<category>Equipment\Food\Bread 2</category>
+	</item>
+
+	<item id="1040">
+		<id>0x1040</id>
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Pizza</category>
+		<intproperty name="fillfactor" value="6" />
+	</item>
+
+	<item id="1041">
+		<id>0x1041</id>
+		<basescripts>food</basescripts>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked Pie</category>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<item id="15f9">
+		<id>0x15f9</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Bowl of Carrots 1</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<item id="15fe" inherit="15f9">
+		<id>0x15fe</id>
+		<category>Equipment\Food\Bowl of Carrots 2</category>
+	</item>
+
+	<item id="15fa">
+		<id>0x15fa</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Bowl of Corn 1</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<item id="15ff" inherit="15fa">
+		<id>0x15ff</id>
+		<category>Equipment\Food\Bowl of Corn 2</category>
+	</item>
+
+	<item id="15fb">
+		<id>0x15fb</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Bowl of Lettuce 1</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<item id="1600" inherit="15fb">
+		<id>0x1600</id>
+		<category>Equipment\Food\Bowl of Lettuce 2</category>
+	</item>
+
+	<item id="15fc">
+		<id>0x15fc</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Bowl of Peas 1</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<item id="1601" inherit="15fc">
+		<id>0x1601</id>
+		<category>Equipment\Food\Bowl of Peas 2</category>
+	</item>
+
+	<item id="1602">
+		<id>0x1602</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Bowl of Potatoes</category>
+		<intproperty name="fillfactor" value="4" />
+	</item>
+
+	<item id="1604">
+		<id>0x1604</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Bowl of Stew</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<item id="1606">
+		<id>0x1606</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Tomato Soup</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<item id="1608">
+		<id>0x1608</id>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<weight>0.2</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Chicken Leg</category>
+		<intproperty name="fillfactor" value="4" />
+	</item>
+
+	<item id="160a">
+		<id>0x160a</id>
+		<basescripts>food</basescripts>
+		<weight>0.2</weight>
+		<category>Equipment\Food\Leg of Lamb</category>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<item id="160b">
+		<id>0x160b</id>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Pan of Cookies</category>
+		<intproperty name="fillfactor" value="4" />
+	</item>
+
+	<item id="160c">
+		<id>0x160c</id>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Plate of Cookies</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<item id="171d">
+		<id>0x171d</id>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Banana 1 (N/S)</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="171e" inherit="171d">
+		<baseid>171d</baseid>
+		<id>0x171e</id>
+		<category>Equipment\Food\Banana 1 (W/E)</category>
+	</item>
+
+	<item id="171f" inherit="171d">
+		<baseid>171d</baseid>
+		<id>0x171f</id>
+		<category>Equipment\Food\Banana 2 (N/S)</category>
+	</item>
+
+	<item id="1720" inherit="171d">
+		<baseid>171d</baseid>
+		<id>0x1720</id>
+		<category>Equipment\Food\Banana 2 (W/E)</category>
+	</item>
+
+	<item id="1721" inherit="171d">
+		<id>0x1721</id>
+		<category>Equipment\Food\Banana 3 (W/E)</category>
+	</item>
+
+	<item id="1722" inherit="171d">
+		<baseid>171d</baseid>
+		<id>0x1722</id>
+		<category>Equipment\Food\Banana 3 (N/S)</category>
+	</item>
+
+	<item id="1723">
+		<id>0x1723</id>
+		<basescripts>food</basescripts>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Coconut 1 (W/E)</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="1724" inherit="1723">
+		<baseid>1723</baseid>
+		<id>0x1724</id>
+		<category>Equipment\Food\Coconut 1 (N/S)</category>
+	</item>
+
+	<item id="1725" inherit="1723">
+		<baseid>1723</baseid>
+		<id>0x1725</id>
+		<category>Equipment\Food\Coconut 2</category>
+	</item>
+
+	<item id="1726" inherit="1723">
+		<baseid>1723</baseid>
+		<id>0x1726</id>
+		<category>Equipment\Food\Coconut 3</category>
+	</item>
+
+	<item id="1727">
+		<id>0x1727</id>
+		<weight>0.1</weight>
+		<basescripts>food</basescripts>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<category>Equipment\Food\Bunch of Dates</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="1728">
+		<id>0x1728</id>
+		<basescripts>food</basescripts>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Lemon</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="1729" inherit="1728">
+		<id>0x1729</id>
+		<weight>0.2</weight>
+		<category>Equipment\Food\Lemons</category>
+	</item>
+
+	<item id="172a">
+		<id>0x172a</id>
+		<basescripts>food</basescripts>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Lime</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="172b" inherit="172a">
+		<id>0x172b</id>
+		<weight>0.2</weight>
+		<category>Equipment\Food\Limes</category>
+	</item>
+
+	<item id="1ad3">
+		<id>0x1ad3</id>
+		<basescripts>food</basescripts>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Donuts</category>
+		<intproperty name="fillfactor" value="2" />
+	</item>
+
+	<item id="1e1c">
+		<id>0x1e1c</id>
+		<basescripts>food</basescripts>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Cooked Fish 1</category>
+		<intproperty name="fillfactor" value="3" />
+	</item>
+
+	<item id="1e1d" inherit="1e1c">
+		<baseid>1e1c</baseid>
+		<id>0x1e1d</id>
+		<category>Equipment\Food\Cooked Fish 2</category>
+	</item>
+
+	<item id="1e1e" inherit="1e1c">
+		<baseid>1e1c</baseid>
+		<id>0x1e1e</id>
+		<category>Equipment\Food\Cooked Fish 3</category>
+	</item>
+
+	<item id="1e1f">
+		<id>0x1e1f</id>
+		<basescripts>food</basescripts>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
+		<weight>0.1</weight>
+		<category>Equipment\Food\Sliced Ham</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<item id="1eb0">
+		<id>0x1eb0</id>
+		<category>Equipment\Food\Misc\Burned Food</category>
+	</item>
+
+	<!-- Burned Food (stackable) -->
+	<item id="burned_rib">
+		<id>0x9f2</id>
+		<name>#1027856</name>
+		<color>0x762</color>
+		<weight>0.2</weight>
+		<category>Equipment\Food\Misc\Burned Rib</category>
+	</item>
+
+	<item id="burned_bird" inherit="burned_rib">
+		<id>0x9b9</id>
+		<category>Equipment\Food\Misc\Burned Bird</category>
+	</item>
+
+	<item id="burned_fish" inherit="burned_rib">
+		<id>0x97b</id>
+		<category>Equipment\Food\Misc\Burned Fish</category>
+	</item>
+
+	<item id="burned_chickenleg" inherit="burned_rib">
+		<id>0x1608</id>
+		<category>Equipment\Food\Misc\Burned Chicken Leg</category>
+	</item>
+
+	<item id="burned_lambleg" inherit="burned_rib">
+		<id>0x160a</id>
+		<category>Equipment\Food\Misc\Burned Lamb Leg</category>
+	</item>
+
+	<!-- baked Quiche -->
+	<item id="baked_quiche">
+		<name>#1041345</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Quiche</category>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<item id="baked_meatpie">
+		<name>#1041347</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Meat Pie</category>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<item id="baked_fruitpie">
+		<name>#1041346</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Fruit Pie</category>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<item id="baked_peachcobbler">
+		<name>#1041344</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Peach Cobbler</category>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<item id="baked_applepie">
+		<name>#1041343</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Apple Pie</category>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<item id="baked_pumpkinpie">
+		<name>#1041348</name>
+		<id>0x1041</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Pumpkin Pie</category>
+		<intproperty name="fillfactor" value="5" />
+	</item>
+
+	<item id="baked_sausagepizza">
+		<name>#1044517</name>
+		<id>0x1040</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Sausage Pizza</category>
+		<intproperty name="fillfactor" value="6" />
+	</item>
+
+	<item id="baked_cheesepizza">
+		<name>#1044516</name>
+		<id>0x1040</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Baked Cheese Pizza</category>
+		<intproperty name="fillfactor" value="6" />
+	</item>
+
+	<!-- Wasabi Clumps -->
+	<item id="24eb">
+		<id>0x24eb</id>
+		<weight>1.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Wasabi Clumps</category>
+		<intproperty name="fillfactor" value="1" />
+	</item>
+
+	<!-- Eggbomb -->
+	<item id="2809">
+		<id>0x2809</id>
+		<weight>2.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Eggbomb</category>
+	</item>
+
+	<!-- Begin Sushi -->
+	<item id="283e">
+		<id>0x283e</id>
+		<weight>3.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Sushi Rolls 1</category>
+		<intproperty name="fillfactor" value="3" />
+	</item>
+
+	<item id="283f" inherit="283e">
+		<id>0x283f</id>
+		<category>Equipment\Food\Sushi Rolls 2</category>
+	</item>
+
+	<item id="2840" inherit="283e">
+		<id>0x2840</id>
+		<category>Equipment\Food\Sushi Platter 1</category>
+	</item>
+
+	<item id="2841" inherit="283e">
+		<id>0x2841</id>
+		<category>Equipment\Food\Sushi Platter 2</category>
+	</item>
+	<!-- End Sushi -->
+
+	<!-- Miso Soup -->
+	<item id="284d">
+		<id>0x284d</id>
+		<weight>3.0</weight>
+		<basescripts>food</basescripts>
+		<category>Equipment\Food\Baked\Miso Soup</category>
+		<intproperty name="fillfactor" value="3" />
+	</item>
+
+	<!-- White Miso Soup -->
+	<item id="284e" inherit="284d">
+		<id>0x284e</id>
+		<category>Equipment\Food\Baked\White Miso Soup</category>
+	</item>
+
+	<!-- Red Miso Soup -->
+	<item id="284f" inherit="284d">
+		<id>0x284f</id>
+		<category>Equipment\Food\Baked\Red Miso Soup</category>
+	</item>
+
+	<!-- Awase Miso Soup -->
+	<item id="2850" inherit="284d">
+		<id>0x2850</id>
+		<category>Equipment\Food\Baked\Awase Miso Soup</category>
+	</item>
+
+</definitions>

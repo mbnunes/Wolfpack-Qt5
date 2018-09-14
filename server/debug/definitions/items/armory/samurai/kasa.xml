@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Kasa -->
+	<item id="2798">
+		<id>0x2798</id>
+		<dye />
+		<durability><random min="20" max="30" /></durability>
+		<weight>3.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="9" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<allowmeditation />
+		<category>Clothes\Headwear\Samurai\Kasa</category>
+		<category>Armor\Headwear\Samurai\Kasa</category>
+		<category>Base Armor\Headwear\Samurai\Kasa</category>
+	</item>
+
+	<item id="27e3" inherit="2798">
+		<id>0x27e3</id>
+		<baseid>2798</baseid>
+		<category>Clothes\Headwear\Samurai\Kasa 2</category>
+		<category>Armor\Headwear\Samurai\Kasa 2</category>
+		<category>Base Armor\Headwear\Samurai\Kasa 2</category>
+	</item>
+
+</definitions>

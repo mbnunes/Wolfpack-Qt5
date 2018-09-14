@@ -1,0 +1,49 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Giant Ice Worm -->
+	<npc id="giant_ice_worm" inherit="monster_base">
+		<name>giant ice worm</name>
+		<id>89</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="216" max="245"/></str>
+		<dex><random min="76" max="100"/></dex>
+		<int><random min="66" max="85"/></int>
+		<maxmana>0</maxmana>
+		<maxhitpoints><random min="130" max="147"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="151" max="200"/></skill>
+		<skill id="tactics"><random min="393" max="540"/></skill>
+		<skill id="wrestling"><random min="393" max="540"/></skill>
+		<!-- Damage -->
+		<mindamage>15</mindamage>
+		<maxdamage>35</maxdamage>
+		<tag name="dmg_cold" value="90" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="80,90" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_fire" value="-10,0" type="int" />
+		<tag name="res_physical" value="20,25" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
+		<!-- Misc. -->
+		<category>Monsters\Reptiles\Giant Ice Worm</category>
+		<strproperty name="slayer_group" value="snakes" />
+		<mintaming>711</mintaming>
+		<strproperty name="food" value="1" />
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="2" />
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="15" />
+	</npc>
+
+</definitions>

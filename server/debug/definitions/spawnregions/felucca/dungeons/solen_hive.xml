@@ -1,0 +1,118 @@
+
+<definitions>
+	<spawnregion id="felucca_solen_hive">
+		<inactive />
+		<maxnpcamount>30</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>solen_hive</group>
+		<group>felucca_solen_hive</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_solen_hive_ant">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>solen_hive</group>
+		<group>felucca_solen_hive</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_solen_hive_quest">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>solen_hive</group>
+		<group>felucca_solen_hive</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive" id="felucca_solen_hive_area_a_lv1">
+		<active />
+		<npc id="black_solen_worker"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5650,1786" to="5761,1842" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive" id="felucca_solen_hive_area_a_lv2">
+		<active />
+		<npc id="black_solen_warrior"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5654,1906" to="5785,1821" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive" id="felucca_solen_hive_area_b_lv1">
+		<active />
+		<npc id="black_solen_worker"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5898,1793" to="5925,1876" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive" id="felucca_solen_hive_area_b_lv2">
+		<active />
+		<npc id="black_solen_warrior"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_solen_worker"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_solen_queen"><npcwander type="circle" radius="10" /></npc>
+		<npc id="giant_beetle"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5785,1786" to="5905,1866" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive_ant" id="felucca_solen_hive_area_b_ant">
+		<active />
+		<npc id="ant_lion"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5888,1842" to="5888,1842" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive" id="felucca_solen_hive_area_c_lv1">
+		<active />
+		<npc id="black_solen_warrior"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_solen_worker"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5651,2029" to="5783,1950" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive" id="felucca_solen_hive_area_c_lv2">
+		<active />
+		<npc id="black_solen_warrior"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_solen_worker"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_solen_queen"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5652,1918" to="5749,1954" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive_ant" id="felucca_solen_hive_area_c_ant">
+		<active />
+		<npc id="ant_lion"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5783,2022" to="5783,2022" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive" id="felucca_solen_hive_area_d_lv1">
+		<active />
+		<npc id="black_solen_warrior"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_solen_worker"><npcwander type="circle" radius="10" /></npc>
+		<npc id="giant_beetle"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5924,2030" to="5873,1910" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive" id="felucca_solen_hive_area_d_lv2">
+		<active />
+		<npc id="black_solen_warrior"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_solen_worker"><npcwander type="circle" radius="10" /></npc>
+		<npc id="black_solen_queen"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5822,2014" to="5789,1936" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_solen_hive_ant" id="felucca_solen_hive_area_d_ant">
+		<active />
+		<npc id="ant_lion"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5886,1921" to="5886,1921" map="0" />
+	</spawnregion>
+
+	<!-- <spawnregion inherit="felucca_solen_hive_ant" id="felucca_solen_hive_area_quest">
+		<active />
+		<npc id="black_solen_queen_quest"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5775,1897" to="5775,1897" map="0" />
+	</spawnregion> -->
+
+</definitions>

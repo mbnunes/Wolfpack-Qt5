@@ -1,0 +1,52 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- efreet -->
+	<npc id="efreet" inherit="monster_base">
+		<name>efreet</name>
+		<id>131</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="326" max="355" /></str>
+		<dex><random min="266" max="285" /></dex>
+		<int><random min="171" max="195" /></int>
+		<maxhitpoints><random min="196" max="213" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="evaluatingintelligence"><random min="601" max="750"/></skill>
+		<skill id="magery"><random min="601" max="750"/></skill>
+		<skill id="magicresistance"><random min="601" max="750"/></skill>
+		<skill id="tactics"><random min="601" max="800"/></skill>
+		<skill id="wrestling"><random min="601" max="800"/></skill>
+		<skill id="meditation">0</skill>
+		<!-- Damage -->
+		<mindamage>27</mindamage>
+		<maxdamage>32</maxdamage>
+		<tag name="dmg_energy" value="50" type="int" />
+		<tag name="dmg_fire" value="50" type="int" />
+		<!-- Resists -->
+		<tag name="res_energy" value="40,50" type="int" />
+		<tag name="res_fire" value="60,70" type="int" />
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Daemon Bone Armor -->
+		<lootpacks>lootpack_rich;lootpack_average;tm_5</lootpacks>
+		<!-- Misc. -->
+		<desc>Legends say that the Efreet will grant a wish to those who retrieve them from their home of flames. This is the truth only if the wish is a wish for death. The Efreet has a heart of flame and a countenance to match. An Efreet will attack with flame and magic, and few can stand against them. There is an ancient tome that tells of an Efreet Overlord who leads an army of the Efreeti. If the overlord exists still, none have seen him and returned.</desc>
+		<category>Monsters\Elementals\Efreet</category>
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

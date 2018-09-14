@@ -1,0 +1,117 @@
+<decoration>
+	<!-- spinning wheel-->
+	<item id="0x1015">
+		<pos x="2088" y="1318" z="-80" map="3" />
+	</item>
+
+	<!-- upright loom-->
+	<item id="0x1060">
+		<pos x="2088" y="1326" z="-80" map="3" />
+		<pos x="2088" y="1329" z="-80" map="3" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06EB" hue="0x497">
+		<pos x="2038" y="1320" z="-85" map="3" />
+		<pos x="2041" y="1321" z="-85" map="3" />
+	</item>
+
+	<!-- oven-->
+	<item id="0x092C" hue="0x44E">
+		<pos x="2015" y="1360" z="-90" map="3" />
+	</item>
+
+	<!-- training dummy-->
+	<item id="0x1074" hue="0x44F">
+		<pos x="1961" y="1339" z="-75" map="3" />
+		<pos x="1977" y="1307" z="-75" map="3" />
+	</item>
+
+	<!-- wooden bench-->
+	<item id="0x0B2D" hue="0x1A">
+		<pos x="2040" y="1326" z="-65" map="3" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06EF" hue="0x497">
+		<pos x="2036" y="1317" z="-85" map="3" />
+		<pos x="2036" y="1323" z="-65" map="3" />
+	</item>
+
+	<!-- barrel-->
+	<item id="0x0E77" hue="0x497">
+		<pos x="2059" y="1281" z="-80" map="3" />
+		<pos x="2059" y="1280" z="-80" map="3" />
+		<pos x="2061" y="1290" z="-80" map="3" />
+		<pos x="2062" y="1291" z="-80" map="3" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x0E40" hue="0x497">
+		<pos x="1975" y="1365" z="-74" map="3" />
+		<pos x="1975" y="1366" z="-74" map="3" />
+		<pos x="2034" y="1321" z="-65" map="3" />
+	</item>
+
+	<!-- barrel-->
+	<item id="0x0FAE" hue="0x497">
+		<pos x="1975" y="1369" z="-80" map="3" />
+		<pos x="1975" y="1370" z="-80" map="3" />
+		<pos x="1975" y="1370" z="-73" map="3" />
+		<pos x="1991" y="1315" z="-90" map="3" />
+		<pos x="2013" y="1365" z="-90" map="3" />
+		<pos x="2013" y="1366" z="-90" map="3" />
+		<pos x="2014" y="1366" z="-90" map="3" />
+	</item>
+
+	<!-- stone wall-->
+	<item id="0x005A" hue="0x451">
+		<pos x="1994" y="1325" z="-90" map="3" />
+	</item>
+
+	<!-- chest of drawers-->
+	<item id="0x0A2C" hue="0x497">
+		<pos x="2035" y="1311" z="-65" map="3" />
+		<pos x="2041" y="1311" z="-65" map="3" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x0E41" hue="0x497">
+		<pos x="2033" y="1313" z="-65" map="3" />
+		<pos x="2039" y="1313" z="-65" map="3" />
+	</item>
+
+	<!-- wooden door-->
+	<item id="0x06E5" hue="0x497">
+		<pos x="2035" y="1315" z="-65" map="3" />
+		<pos x="2040" y="1315" z="-65" map="3" />
+	</item>
+
+	<!-- chest of drawers-->
+	<item id="0x0A34" hue="0x497">
+		<pos x="2032" y="1323" z="-65" map="3" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x09AB" hue="0x455">
+		<pos x="2042" y="1339" z="-80" map="3" />
+		<pos x="2043" y="1339" z="-80" map="3" />
+		<pos x="2048" y="1344" z="-80" map="3" />
+		<pos x="2048" y="1344" z="-76" map="3" />
+	</item>
+
+	<!-- cleaver-->
+	<item id="0x0EC3">
+		<pos x="2066" y="1372" z="-74" map="3" />
+	</item>
+
+	<!-- bottles of liquor-->
+	<item id="0x099E">
+		<pos x="2028" y="1354" z="-81" map="3" />
+	</item>
+
+	<!-- butcher knife-->
+	<item id="0x13F7">
+		<pos x="2070" y="1370" z="-74" map="3" />
+	</item>
+</decoration>

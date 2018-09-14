@@ -1,0 +1,51 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a snow elemental -->
+	<npc id="snow_elemental" inherit="monster_base">
+		<name>snow elemental</name>
+		<id>163</id>
+		<inherit id="KARMA_L4" />
+		<inherit id="FAME_L4" />
+		<!-- Stats -->
+		<str><random min="326" max="355"/></str>
+		<dex><random min="166" max="185"/></dex>
+		<int><random min="71" max="95"/></int>
+		<maxhitpoints><random min="196" max="213"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="501" max="650"/></skill>
+		<skill id="tactics"><random min="801" max="1000"/></skill>
+		<skill id="wrestling"><random min="801" max="1000"/></skill>
+		<!-- Damage -->
+		<mindamage>31</mindamage>
+		<maxdamage>45</maxdamage>
+		<tag name="dmg_cold" value="80" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="60,70" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<tag name="res_fire" value="10,15" type="int" />
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 3 Iron Ore, Reagent -->
+		<lootpacks>lootpack_rich;tm_2</lootpacks>
+		<backpack>
+			<content>
+				<item id="f7a"><amount>3</amount></item> <!-- black pearl -->
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<desc>Those who have returned from Ice Island warn of the blizzard stalker. It is not known if the snow elemental shares the same goal as the ice elemental, but certainly there are just as terrible in their wrath. Snow elementals can call upon the full fury of nature to bring about the end of any that should cross them.</desc>
+		<category>Monsters\Elementals\Snow Elemental</category>
+		<strproperty name="slayer_group" value="snowelementals" />
+		<inherit id="speed_fast" />
+	</npc>
+
+</definitions>

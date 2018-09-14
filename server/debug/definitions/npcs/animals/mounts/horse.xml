@@ -1,0 +1,74 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Random Horse -->
+	<npc id="horse" inherit="animal_base">
+		<name>horse</name>
+		<id><random list="NPCIDS_HORSE" /></id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_NL0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="22" max="98" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="6" max="10" /></int>
+		<!-- Status -->
+		<maxhitpoints><random min="28" max="45" /></maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>4</mindamage>
+		<maxdamage>6</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="15,20" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="293" max="440" /></skill>
+		<skill id="tactics"><random min="293" max="440" /></skill>
+		<skill id="magicresistance"><random min="251" max="300" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>291</mintaming>
+		<strproperty name="food" value="3,5" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\Horse (Random)</category>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="10" />
+		<intproperty name="carve_meat" value="3" />
+		<basescript>npc.mount</basescript>
+	</npc>
+
+	<!-- Gray Horses -->
+	<npc id="horse_1" inherit="horse">
+		<baseid>horse</baseid>
+		<id>226</id>
+		<category>Animals\Mounts\Horse 1 (Gray)</category>
+	</npc>
+
+	<!-- Gray Brown Horses -->
+	<npc id="horse_2" inherit="horse">
+		<baseid>horse</baseid>
+		<id>200</id>
+		<category>Animals\Mounts\Horse 2 (Gray/Brown)</category>
+	</npc>
+
+	<!-- Light Brown Horses -->
+	<npc id="horse_3" inherit="horse">
+		<baseid>horse</baseid>
+		<id>228</id>
+		<category>Animals\Mounts\Horse 3 (Light Brown)</category>
+	</npc>
+
+	<!-- Brown Horses -->
+	<npc id="horse_4" inherit="horse">
+		<baseid>horse</baseid>
+		<id>204</id>
+		<category>Animals\Mounts\Horse 4 (Brown)</category>
+	</npc>
+
+</definitions>

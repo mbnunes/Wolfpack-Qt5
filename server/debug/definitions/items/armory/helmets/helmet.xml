@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Helmet North-South -->
+	<item id="140b">
+		<id>0x140b</id>
+		<decay />
+		<nodye />
+		<durability><random min="45" max="60" /></durability>
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>116</buyprice>
+		<sellprice>58</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Helmets\Normal Helm (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<!-- Helmet East-West -->
+	<item id="140a" inherit="140b">
+		<id>0x140a</id>
+		<baseid>140b</baseid>
+		<category>Base Armor\Helmets\Normal Helm (E/W)</category>
+	</item>
+
+</definitions>

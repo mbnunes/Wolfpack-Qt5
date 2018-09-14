@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Butcher Knife -->
+	<item id="13f6">
+		<id>0x13f6</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>13</sellprice>
+		<buyprice>21</buyprice>
+		<durability><random min="30" max="50" /></durability>
+		<weight>1.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Swordsmanship\Butcher Knife (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="5" />
+		<intproperty name="speed" value="49" />
+		<intproperty name="mindamage" value="9" />
+		<intproperty name="maxdamage" value="11" />
+	</item>
+
+	<item id="13f7" inherit="13f6">
+		<id>0x13f7</id>
+		<baseid>13f6</baseid>
+		<category>Base Weapons\Swordsmanship\Butcher Knife (E/W)</category>
+	</item>
+
+</definitions>

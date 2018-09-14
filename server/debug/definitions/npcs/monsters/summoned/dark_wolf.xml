@@ -1,0 +1,43 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Summoned Only?  -->
+	<npc id="summoned_dark_wolf">
+		<name>dark wolf</name>
+		<id>99</id>
+		<skin>0x0</skin>
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Stats -->
+		<str>100</str>
+		<dex>90</dex>
+		<int>90</int>
+		<maxhitpoints>60</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Skills -->
+		<skill id="anatomy">0</skill>
+		<skill id="magicresistance">0</skill>
+		<skill id="tactics">500</skill>
+		<skill id="wrestling"><random min="851" max="900"/></skill>
+		<!-- Damage -->
+		<mindamage>15</mindamage>
+		<maxdamage>33</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_fire" value="25,40" type="int" />
+		<tag name="res_cold" value="25,40" type="int" />
+		<tag name="res_poison" value="25,40" type="int" />
+		<tag name="res_energy" value="25,40" type="int" />
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<category>Summoned\Dark Wolf</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,739 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification: Created/Redone
+ *=======================================================*/
+-->
+<!--
+	<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="0" />
+	<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="0" />
+	<ingots id="1765;1766;1767;1768" amount="0" />
+	<cloth id="1765;1766;1767;1768" amount="0" />
+-->
+
+<definitions>
+
+	<menu id="CARPENTRY" name="1044004"> <!-- <CENTER>CARPENTRY MENU</CENTER> -->
+		<menu id="CARPENTRY_BOARDS" />
+		<menu id="CARPENTRY_OTHER" />
+		<menu id="CARPENTRY_FURNITURE" />
+		<menu id="CARPENTRY_CONTAINERS" />
+		<menu id="CARPENTRY_WEAPONSNARMOR" />
+		<menu id="CARPENTRY_INSTRUMENTS" />
+		<menu id="CARPENTRY_MISCADDONS" />
+		<menu id="CARPENTRY_BLACKSMITHY" />
+		<menu id="CARPENTRY_TRAINING" />
+		<menu id="CARPENTRY_TAILORING" />
+		<menu id="CARPENTRY_COOKING" />
+	</menu>
+
+	<!-- Other Items -->
+	<menu id="CARPENTRY_BOARDS" name="1027128"> <!-- Boards -->
+		<carpenter definition="1bd7">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="1" name="log" />
+		</carpenter>
+		<carpenter definition="board_apple">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_apple" amount="1" name="Apple Log" />
+		</carpenter>
+		<carpenter definition="board_peach">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_peach" amount="1" name="Peach Log" />
+		</carpenter>
+		<carpenter definition="board_pear">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_pear" amount="1" name="Pear Log" />
+		</carpenter>
+		<carpenter definition="board_cedar">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_cedar" amount="1" name="Cedar Log" />
+		</carpenter>
+		<carpenter definition="board_willow">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_willow" amount="1" name="Willow Log" />
+		</carpenter>
+		<carpenter definition="board_cypress">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_cypress" amount="1" name="Cypress Log" />
+		</carpenter>
+		<carpenter definition="board_oak">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_oak" amount="1" name="Oak Log" />
+		</carpenter>
+		<carpenter definition="board_walnut">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_walnut" amount="1" name="Walnut Log" />
+		</carpenter>
+		<carpenter definition="board_yew">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_yew" amount="1" name="Yew Log" />
+		</carpenter>
+		<carpenter definition="board_tropical">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<nomark />
+			<wood id="log_tropical" amount="1" name="Tropical Log" />
+		</carpenter>
+	</menu>
+
+	<!-- Other Items -->
+	<menu id="CARPENTRY_OTHER" name="1044294">
+		<!--Board-->
+		<carpenter definition="1bd7">
+			<carpentry min="-250" max="250" />
+			<stackable />
+			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="1" name="Logs" />
+		</carpenter>
+
+		<!--Barrel Staves-->
+		<carpenter definition="1eb1">
+			<carpentry min="-250" max="250" />
+			<boards amount="5" />
+		</carpenter>
+
+		<!--Barrel Lid-->
+		<carpenter definition="1db8">
+			<carpentry min="-140" max="360" />
+			<boards amount="4" />
+		</carpenter>
+
+		<!--Short Music Stand-->
+		<carpenter definition="eb6">
+			<carpentry min="539" max="1039" />
+			<boards amount="15" />
+		</carpenter>
+
+		<!--Tall Music Stand-->
+		<carpenter definition="ebc">
+			<carpentry min="565" max="1065" />
+			<boards amount="20" />
+		</carpenter>
+
+		<!--Easel-->
+		<carpenter definition="f65">
+			<carpentry min="618" max="1118" />
+			<boards amount="20" />
+		</carpenter>
+
+		<!--Red Hanging Lantern-->
+		<secarpenter definition="24c2">
+			<carpentry min="650" max="1150" />
+			<boards amount="20" />
+			<material id="ef3" amount="10" name="Scrolls" />
+		</secarpenter>
+
+		<!--White Hanging Lantern-->
+		<secarpenter definition="24c6">
+			<carpentry min="650" max="1150" />
+			<boards amount="5" />
+			<material id="ef3" amount="10" name="Scrolls" />
+		</secarpenter>
+
+		<!--Shoji Screen-->
+		<secarpenter definition="24cb">
+			<carpentry min="800" max="1200" />
+			<tailoring min="500" max="1000" />
+			<boards amount="75" />
+			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
+		</secarpenter>
+
+		<!--Fishing Pole-->
+		<carpenter definition="dbf">
+			<carpentry min="684" max="1284" />
+			<tailoring min="400" max="900" />
+			<boards amount="5" />
+			<cloth id="1765;1766;1767;1768" amount="5" name="Cloth" />
+		</carpenter>
+	</menu>
+
+	<!-- Furniture -->
+	<menu id="CARPENTRY_FURNITURE" name="1044291">
+		<!--Foot Stool-->
+		<carpenter definition="b5e">
+			<carpentry min="110" max="610" />
+			<boards amount="9" />
+		</carpenter>
+
+		<!--Stool-->
+		<carpenter definition="a2a">
+			<carpentry min="110" max="610" />
+			<boards amount="9" />
+		</carpenter>
+
+		<!--Straw Chair-->
+		<carpenter definition="b5a">
+			<carpentry min="210" max="710" />
+			<boards amount="13" />
+		</carpenter>
+
+		<!--Wooden Chair-->
+		<carpenter definition="b56">
+			<carpentry min="210" max="710" />
+			<boards amount="13" />
+		</carpenter>
+
+		<!--Vesper-Style Chair-->
+		<carpenter definition="b4e">
+			<carpentry min="421" max="921" />
+			<boards amount="15" />
+		</carpenter>
+
+		<!--Trinsic-Style Chair-->
+		<carpenter definition="b52">
+			<carpentry min="421" max="921" />
+			<boards amount="15" />
+		</carpenter>
+
+		<!--Wooden Bench-->
+		<carpenter definition="b2c">
+			<carpentry min="526" max="1026" />
+			<boards amount="17" />
+		</carpenter>
+
+		<!--Wooden Throne-->
+		<carpenter definition="b2e">
+			<carpentry min="526" max="1026" />
+			<boards amount="17" />
+		</carpenter>
+
+		<!--Magincia-Style Throne-->
+		<carpenter definition="b32">
+			<carpentry min="736" max="1236" />
+			<boards amount="19" />
+		</carpenter>
+
+		<!--Small Table-->
+		<carpenter definition="b34">
+			<carpentry min="421" max="921" />
+			<boards amount="17" />
+		</carpenter>
+
+		<!--Writing Table-->
+		<carpenter definition="b49">
+			<carpentry min="631" max="1131" />
+			<boards amount="17" />
+		</carpenter>
+
+		<!--Large Table-->
+		<carpenter definition="b7c">
+			<carpentry min="631" max="1131" />
+			<boards amount="23" />
+		</carpenter>
+
+		<!--Yew-Wood Table-->
+		<carpenter definition="b7d">
+			<carpentry min="842" max="1342" />
+			<boards amount="27" />
+		</carpenter>
+
+		<!--Elegant Low Table-->
+		<secarpenter definition="2819">
+			<carpentry min="800" max="1300" />
+			<boards amount="35" />
+		</secarpenter>
+
+		<!--Plain Low Table-->
+		<secarpenter definition="281a">
+			<carpentry min="800" max="1300" />
+			<boards amount="35" />
+		</secarpenter>
+	</menu>
+
+	<!-- Tinkering in here signals for lockable containers -->
+	<!-- Containers -->
+	<menu id="CARPENTRY_CONTAINERS" name="1044292">
+		<!--Wooden Box-->
+		<carpenter definition="9aa">
+			<carpentry min="210" max="710" />
+			<tinkering min="210" max="210" />
+			<boards amount="10" />
+		</carpenter>
+
+		<!--Small Crate-->
+		<carpenter definition="9a9">
+			<carpentry min="100" max="600" />
+			<tinkering min="100" max="100" />
+			<boards amount="8" />
+		</carpenter>
+
+		<!--Medium Crate-->
+		<carpenter definition="e3f">
+			<carpentry min="315" max="815" />
+			<tinkering min="315" max="315"/>
+			<boards amount="15" />
+		</carpenter>
+
+		<!--Large Crate-->
+		<carpenter definition="e3d">
+			<carpentry min="473" max="973" />
+			<tinkering min="473" max="473" />
+			<boards amount="18" />
+		</carpenter>
+
+		<!--Wooden Chest-->
+		<carpenter definition="e42">
+			<carpentry min="736" max="1200" />
+			<tinkering min="736" max="736" />
+			<boards amount="10" />
+		</carpenter>
+
+		<!--Wooden Shelf-->
+		<carpenter definition="a9d">
+			<carpentry min="315" max="815" />
+			<boards amount="25" />
+		</carpenter>
+
+		<!--Fancy Armoire-->
+		<carpenter definition="a4d">
+			<carpentry min="842" max="1200" />
+			<tinkering min="842" max="842" />
+			<boards amount="35" />
+		</carpenter>
+
+		<!--Armoire-->
+		<carpenter definition="a4f">
+			<carpentry min="842" max="1200" />
+			<tinkering min="842" max="842" />
+			<boards amount="35" />
+		</carpenter>
+
+		<!--Plain Wooden Chest-->
+		<secarpenter definition="280b">
+			<carpentry min="900" max="1200" />
+			<boards amount="30" />
+		</secarpenter>
+
+		<!--Ornate Wooden Chest-->
+		<secarpenter definition="280d">
+			<carpentry min="900" max="1200" />
+			<boards amount="30" />
+		</secarpenter>
+
+		<!--Gilded Wooden Chest-->
+		<secarpenter definition="280f">
+			<carpentry min="900" max="1200" />
+			<boards amount="30" />
+		</secarpenter>
+
+		<!--Wooden Footlocker-->
+		<secarpenter definition="2811">
+			<carpentry min="900" max="1200" />
+			<boards amount="30" />
+		</secarpenter>
+
+		<!--Finished Wooden Chest-->
+		<secarpenter definition="2813">
+			<carpentry min="900" max="1200" />
+			<boards amount="30" />
+		</secarpenter>
+
+		<!--Tall Cabinet-->
+		<secarpenter definition="2815">
+			<carpentry min="900" max="1200" />
+			<boards amount="35" />
+		</secarpenter>
+
+		<!--Short Cabinet-->
+		<secarpenter definition="2817">
+			<carpentry min="900" max="1200" />
+			<boards amount="35" />
+		</secarpenter>
+
+		<!--Red Armoire-->
+		<secarpenter definition="2857">
+			<carpentry min="900" max="1200" />
+			<boards amount="40" />
+		</secarpenter>
+
+		<!--Elegant Armoire-->
+		<secarpenter definition="2859">
+			<carpentry min="900" max="1200" />
+			<boards amount="40" />
+		</secarpenter>
+
+		<!--Maple Armoire-->
+		<secarpenter definition="285b">
+			<carpentry min="900" max="1200" />
+			<boards amount="40" />
+		</secarpenter>
+
+		<!--Cherry Armoire-->
+		<secarpenter definition="285d">
+			<carpentry min="900" max="1200" />
+			<boards amount="40" />
+		</secarpenter>
+
+		<!--Keg-->
+		<carpenter definition="e7f">
+			<carpentry min="578" max="1078" />
+			<material id="1eb1" amount="3" name="Barrel Staves" /> <!-- Barrel Staves -->
+			<material id="10e1;10e2" amount="1" name="Barrel Hoops" /> <!-- Barrel Hoops -->
+			<material id="1db8" amount="1" name="Barrel Lid" /> <!-- Barrel Lid -->
+		</carpenter>
+	</menu>
+
+	<!-- Weapons and Armor -->
+	<menu id="CARPENTRY_WEAPONSNARMOR" name="1044295">
+		<!--Shepherd's Crook-->
+		<carpenter definition="13f5">
+			<carpentry min="789" max="1289" />
+			<boards amount="7" />
+		</carpenter>
+
+		<!--Quarter Staff-->
+		<carpenter definition="e89">
+			<carpentry min="736" max="786" />
+			<boards amount="6" />
+		</carpenter>
+
+		<!--Gnarled Staff-->
+		<carpenter definition="13f8">
+			<carpentry min="789" max="1289" />
+			<boards amount="7" />
+		</carpenter>
+
+		<!--Wooden Shield-->
+		<carpenter definition="1b7a">
+			<carpentry min="526" max="776" />
+			<boards amount="9" />
+		</carpenter>
+
+		<!--Bokuto-->
+		<secarpenter definition="27a8">
+			<carpentry min="700" max="900" />
+			<boards amount="6" />
+		</secarpenter>
+
+		<!--Fukiya-->
+		<secarpenter definition="27aa">
+			<carpentry min="600" max="800" />
+			<boards amount="8" />
+		</secarpenter>
+
+		<!--Tetsubo-->
+		<secarpenter definition="27f1">
+			<carpentry min="800" max="1000" />
+			<tinkering min="400" max="600" />
+			<boards amount="8" />
+			<ingots amount="5" />
+		</secarpenter>
+	</menu>
+
+	<!-- Extra Skill Based Objects -->
+	<!-- Instruments -->
+	<menu id="CARPENTRY_INSTRUMENTS" name="1044293">
+		<!--Lap Harp-->
+		<carpenter definition="eb2">
+			<carpentry min="631" max="1131" />
+			<musicianship min="450" max="950" />
+			<boards amount="20" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
+		</carpenter>
+
+		<!--Standing Harp-->
+		<carpenter definition="eb1">
+			<carpentry min="789" max="1289" />
+			<musicianship min="450" max="950" />
+			<boards amount="35" />
+			<cloth id="1765;1766;1767;1768" amount="15" />
+		</carpenter>
+
+		<!--Drum-->
+		<carpenter definition="e9c">
+			<carpentry min="578" max="1078" />
+			<musicianship min="450" max="950" />
+			<boards amount="20" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
+		</carpenter>
+
+		<!--Lute-->
+		<carpenter definition="eb3">
+			<carpentry min="684" max="1184" />
+			<musicianship min="450" max="950" />
+			<boards amount="25" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
+		</carpenter>
+
+		<!--Tambourine-->
+		<carpenter definition="e9d">
+			<carpentry min="578" max="1078" />
+			<musicianship min="450" max="950" />
+			<boards amount="15" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
+		</carpenter>
+
+		<!--Fancy Tambourine-->
+		<carpenter definition="e9e">
+			<carpentry min="578" max="1078" />
+			<musicianship min="450" max="950" />
+			<boards amount="15" />
+			<cloth id="1765;1766;1767;1768" amount="15" name="Cloth" />
+		</carpenter>
+
+		<!--Bamboo Flute-->
+		<secarpenter definition="2805">
+			<carpentry min="800" max="1200" />
+			<musicianship min="450" max="950" />
+			<boards amount="15" />
+		</secarpenter>
+	</menu>
+
+	<!-- Misc. Add-ons -->
+	<menu id="CARPENTRY_MISCADDONS" name="1044290">
+		<!--Small Bed South-->
+		<carpenter definition="small_bed_s_deed" name="1015123" itemid="0x14ef">
+			<carpentry min="947" max="1100" />
+			<tailoring min="750" max="1000" />
+			<boards amount="100" />
+			<cloth id="1765;1766;1767;1768" amount="100" name="Cloth" />
+		</carpenter>
+
+		<!--Small Bed East-->
+		<carpenter definition="small_bed_e_deed" name="1015124" itemid="0x14ef">
+			<carpentry min="947" max="1100" />
+			<tailoring min="750" max="1000" />
+			<boards amount="100" />
+			<cloth id="1765;1766;1767;1768" amount="100" name="Cloth" />
+		</carpenter>
+
+		<!--Large Bed South-->
+		<carpenter definition="large_bed_s_deed" name="1015125" itemid="0x14ef">
+			<carpentry min="947" max="1100" />
+			<tailoring min="750" max="1000" />
+			<boards amount="150" />
+			<cloth id="1765;1766;1767;1768" amount="150" name="Cloth" />
+		</carpenter>
+
+		<!--Large Bed East-->
+		<carpenter definition="large_bed_e_deed" name="1015126" itemid="0x14ef">
+			<carpentry min="947" max="1100" />
+			<tailoring min="750" max="1000" />
+			<boards amount="150" />
+			<cloth id="1765;1766;1767;1768" amount="150" name="Cloth" />
+		</carpenter>
+
+		<!--Dart Board South-->
+		<carpenter definition="dart_board_s_deed" name="1015127" itemid="0x14ef">
+			<carpentry min="157" max="657" />
+			<boards amount="5" />
+		</carpenter>
+
+		<!--Dart Board East-->
+		<carpenter definition="dart_board_e_deed" name="1015128" itemid="0x14ef">
+			<carpentry min="157" max="657" />
+			<boards amount="5" />
+		</carpenter>
+
+		<!--Ballot Box-->
+		<carpenter definition="ballot_box_deed" name="1015129" itemid="0x14ef">
+			<carpentry min="473" max="973" />
+			<boards amount="5" />
+		</carpenter>
+
+		<!--Pentagram-->
+		<carpenter definition="pentagram_deed" name="1015130" itemid="0x14ef">
+			<carpentry min="1000" max="1000" />
+			<magery min="750" max="750" />
+			<boards amount="100" />
+			<ingots amount="40" />
+		</carpenter>
+
+		<!--Arbattoir-->
+		<carpenter definition="abattoir_deed" name="1015131" itemid="0x14ef">
+			<carpentry min="1000" max="1000" />
+			<magery min="500" max="500" />
+			<boards amount="100" />
+			<ingots amount="40" />
+		</carpenter>
+
+		<!--Bulletin Board-->
+		<carpenter definition="bulletin_board_deed" name="1027774" itemid="0x14ef">
+			<carpentry min="850" max="1000" />
+			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="50" name="Logs" />
+		</carpenter>
+	</menu>
+
+	<!-- Blacksmithy -->
+	<menu id="CARPENTRY_BLACKSMITHY" name="1044296">
+		<!--Anvil East-->
+		<carpenter definition="anvil_e_deed" name="1015136" itemid="0x14ef">
+			<carpentry min="736" max="1200" />
+			<blacksmithing min="750" max="1000" />
+			<boards amount="5" />
+			<ingots amount="150" />
+		</carpenter>
+
+		<!--Anvil South-->
+		<carpenter definition="anvil_s_deed" name="1015137" itemid="0x14ef">
+			<carpentry min="736" max="1200" />
+			<blacksmithing min="750" max="1000" />
+			<boards amount="5" />
+			<ingots amount="150" />
+		</carpenter>
+
+		<!--Small Forge-->
+		<carpenter definition="small_forge_deed" name="1015133" itemid="0x14ef">
+			<carpentry min="736" max="1200" />
+			<blacksmithing min="750" max="1000" />
+			<boards amount="5" />
+			<ingots amount="75" />
+		</carpenter>
+
+		<!--Large Forge South-->
+		<carpenter definition="large_forge_s_deed" name="1015135" itemid="0x14ef">
+			<carpentry min="789" max="1200" />
+			<blacksmithing min="800" max="1000" />
+			<boards amount="5" />
+			<ingots amount="100" />
+		</carpenter>
+
+		<!--Large Forge East-->
+		<carpenter definition="large_forge_e_deed" name="1015134" itemid="0x14ef">
+			<carpentry min="789" max="1200" />
+			<blacksmithing min="800" max="1000" />
+			<boards amount="5" />
+			<ingots amount="100" />
+		</carpenter>
+	</menu>
+
+	<!-- Training -->
+	<menu id="CARPENTRY_TRAINING" name="1044297">
+		<!--Training Dummy South-->
+		<carpenter definition="training_dummy_s_deed" name="1015144" itemid="0x14ef">
+			<carpentry min="684" max="1184" />
+			<tailoring min="500" max="1000" />
+			<boards amount="55" />
+			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
+		</carpenter>
+
+		<!--Training Dummy East-->
+		<carpenter definition="training_dummy_e_deed" name="1015143" itemid="0x14ef">
+			<carpentry min="684" max="1184" />
+			<tailoring min="500" max="1000" />
+			<boards amount="55" />
+			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
+		</carpenter>
+
+		<!--Pickpockets Dip-->
+		<carpenter definition="pickpocket_dip_e_deed" name="1015145" itemid="0x14ef">
+			<carpentry min="736" max="1200" />
+			<tailoring min="500" max="1000" />
+			<boards amount="65" />
+			<cloth id="1765;1766;1767;1768" amount="60" name="Cloth" />
+		</carpenter>
+	</menu>
+
+	<!-- Tailoring -->
+	<menu id="CARPENTRY_TAILORING" name="1044298">
+		<!--Dressform-->
+		<carpenter definition="ec6">
+			<carpentry min="631" max="1100" />
+			<tailoring min="650" max="1150" />
+			<boards amount="25" />
+			<cloth id="1765;1766;1767;1768" amount="10" name="Cloth" />
+		</carpenter>
+
+		<!--Spinning Wheel South-->
+		<carpenter definition="spinning_wheel_s_deed" name="1015140" itemid="0x14ef">
+			<carpentry min="736" max="1200" />
+			<tailoring min="650" max="1150" />
+			<boards amount="75" />
+			<cloth id="1765;1766;1767;1768" amount="25" name="Cloth" />
+		</carpenter>
+
+		<!--Spinning Wheel East-->
+		<carpenter definition="spinning_wheel_e_deed" name="1015139" itemid="0x14ef">
+			<carpentry min="736" max="1200" />
+			<tailoring min="650" max="1150" />
+			<boards amount="75" />
+			<cloth id="1765;1766;1767;1768" amount="25" name="Cloth" />
+		</carpenter>
+
+		<!--Loom South-->
+		<carpenter definition="loom_s_deed" name="1015141" itemid="0x14ef">
+			<carpentry min="842" max="1100" />
+			<tailoring min="650" max="1000" />
+			<boards amount="85" />
+			<cloth id="1765;1766;1767;1768" amount="25" name="Cloth" />
+		</carpenter>
+
+		<!--Loom East-->
+		<carpenter definition="loom_e_deed" name="1015142" itemid="0x14ef">
+			<carpentry min="842" max="1100" />
+			<tailoring min="650" max="1000" />
+			<boards amount="85" />
+			<cloth id="1765;1766;1767;1768" amount="25" name="Cloth" />
+		</carpenter>
+	</menu>
+
+	<!-- Cooking -->
+	<menu id="CARPENTRY_COOKING" name="1044299">
+		<!--Stone Oven South-->
+		<carpenter definition="stone_oven_s_deed" name="1015149" itemid="0x14ef">
+			<carpentry min="684" max="1184" />
+			<tinkering min="500" max="1000" lock="0" />
+			<boards amount="85" />
+			<ingots amount="125" />
+		</carpenter>
+
+		<!--Stone Oven East-->
+		<carpenter definition="stone_oven_e_deed" name="1015150" itemid="0x14ef">
+			<carpentry min="684" max="1184" />
+			<tinkering min="500" max="1000" lock="0" />
+			<boards amount="85" />
+			<ingots amount="125" />
+		</carpenter>
+
+		<!--Flour Mill South-->
+		<carpenter definition="flour_mill_s_deed" name="1015152" itemid="0x14ef">
+			<carpentry min="736" max="1200" />
+			<tinkering min="500" max="1000" lock="0" />
+			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="100" />
+			<ingots amount="50" />
+		</carpenter>
+
+		<!--Flour Mill East-->
+		<carpenter definition="flour_mill_e_deed" name="1015151" itemid="0x14ef">
+			<carpentry min="736" max="1200" />
+			<tinkering min="500" max="1000" lock="0" />
+			<boards amount="100" />
+			<ingots amount="50" />
+		</carpenter>
+
+		<!--Water Trough South-->
+		<carpenter definition="water_trough_s_deed" name="1015154" itemid="0x14ef">
+			<carpentry min="947" max="1200" />
+			<boards amount="150" />
+		</carpenter>
+
+		<!--Water Trough East-->
+		<carpenter definition="water_trough_e_deed" name="1015153" itemid="0x14ef">
+			<carpentry min="947" max="1200" />
+			<boards amount="150" />
+		</carpenter>
+	</menu>
+
+</definitions>

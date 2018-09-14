@@ -1,0 +1,22 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Hydra -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Blighted Grove/Abscess.xml" />
+	<!-- Coil -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Blighted Grove/Coil.xml" />
+	<!-- Hydra -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Blighted Grove/Hydra.xml" />
+	<!-- InsaneDryad -->
+	<include file="definitions/npcs/monsters/mondains_legancy/Blighted Grove/InsaneDryad.xml" />
+	<!-- EnslavedSatyr-->
+	<include file="definitions/npcs/monsters/mondains_legancy/Blighted Grove/EnslavedSatyr.xml" />
+
+</definitions>

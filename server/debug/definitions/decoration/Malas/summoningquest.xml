@@ -1,0 +1,56 @@
+<decoration>
+	<!-- Victoria spawner-->
+	<item id="0x1F13">
+		<pos x="423" y="195" z="-1" map="3" />
+	</item>
+
+	<!-- Altar for summoning bone demons-->
+	<item id="0x1216">
+		<pos x="441" y="205" z="-1" map="3" />
+	</item>
+
+	<!-- Bell for summoning Chyloth-->
+	<item id="0x091A">
+		<pos x="417" y="246" z="23" map="3" />
+	</item>
+
+	<!-- No teleporting on Chyloth's spot-->
+	<item id="0x21A4">
+		<pos x="417" y="246" z="7" map="3" />
+	</item>
+
+	<!-- Teleporter (pad) from first boat to second-->
+	<item id="0x1822" hue="0x44E">
+		<pos x="408" y="254" z="2" map="3" />
+	</item>
+
+	<!-- Teleporter (obj) from first boat to second-->
+	<item id="0x1BC3">
+		<pos x="407" y="254" z="2" map="3" />
+		<pos x="408" y="254" z="2" map="3" />
+		<pos x="409" y="254" z="2" map="3" />
+	</item>
+
+	<!-- Teleporter (pad) from second boat to land-->
+	<item id="0x1822" hue="0x44E">
+		<pos x="428" y="321" z="2" map="3" />
+	</item>
+
+	<!-- Teleporter (obj) from second boat to land-->
+	<item id="0x1BC3">
+		<pos x="427" y="321" z="2" map="3" />
+		<pos x="428" y="321" z="2" map="3" />
+		<pos x="429" y="321" z="2" map="3" />
+	</item>
+
+	<!-- Daemon Bones-->
+	<item id="0x0F80">
+		<pos x="421" y="198" z="-1" map="3" />
+		<pos x="422" y="195" z="-1" map="3" />
+	</item>
+
+	<!-- book - The Akashic Records-->
+	<item id="0x0FBE" hue="0x482">
+		<pos x="420" y="192" z="8" map="3" />
+	</item>
+</decoration>

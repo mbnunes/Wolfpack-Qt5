@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Smith's Hammer -->
+	<item id="13e3">
+		<id>0x13e3</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<basescripts>equipment,skills.blacksmithing</basescripts>
+		<type>1004</type>
+		<category>Base Weapons\Maces\Smith's Hammer (W/E)</category>
+		<sellprice>15</sellprice>
+		<buyprice>30</buyprice>
+		<weight>5.0</weight>
+		<durability><random min="30" max="40" /></durability>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<tag name="remaining_uses" type="int" value="45" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="15" />
+	</item>
+
+	<item id="13e4" inherit="13e3">
+		<id>0x13e4</id>
+		<baseid>13e3</baseid>
+		<category>Base Weapons\Maces\Smith's Hammer (N/S)</category>
+	</item>
+
+</definitions>

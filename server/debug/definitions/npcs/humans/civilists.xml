@@ -1,0 +1,142 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+
+	<npc id="npc_empty">
+		<!-- Empty NPC definition, works as a NOOP for inheritance. -->
+	</npc>
+
+	<!-- NPC with a beard -->
+	<npc id="npc_with_beard">
+		<equipped>
+			<item list="FACIAL_HAIR"/>
+		</equipped>
+	</npc>
+
+	<!-- Male Base -->
+	<npc id="base_male">
+		<id>0x190</id>
+		<ai></ai>
+		<bindmenu>paperdoll_menu</bindmenu>
+		<gender>male</gender>
+		<name><random list="NAMES_MALE" /></name>
+		<skin><random list="SKINS_HUMAN" /></skin>
+		<saycolor><random min="2" max="1000" /></saycolor>
+		<wandertype>1</wandertype>
+		<!-- Facing a random direction -->
+		<direction><random min="0" max="7" /></direction>
+		<!-- The Equipment of a standard human -->
+		<equipped>
+			<item id="e75" /> <!-- Backpack -->
+			<item list="HAIR" /> <!-- Random Hair -->
+			<item list="SHIRTS" /> <!-- Random Shirts -->
+			<item list="PANTS" /> <!-- Random Pants -->
+			<item list="SHOES" /> <!-- Random Shoes -->
+		</equipped>
+
+		<!-- 75% chance for beards -->
+		<inherit><random valuelist="npc_empty,npc_with_beard,npc_with_beard,npc_with_beard"/></inherit>
+		<haircolor><random list="HAIRCOLOR" /></haircolor>
+
+		<str><random min="71" max="85" /></str>
+		<dex><random min="66" max="80" /></dex>
+		<int><random min="66" max="80" /></int>
+		<!-- Skills -->
+		<skill id="parrying">0</skill>
+		<skill id="magery">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="meditation">0</skill>
+		<skill id="magicresistance">0</skill>
+		<skill id="tactics">0</skill>
+		<skill id="wrestling">0</skill>
+		<skill id="swordsmanship">0</skill>
+		<skill id="fencing">0</skill>
+		<skill id="macefighting">0</skill>
+		<skill id="archery">0</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="necromancy">0</skill>
+		<skill id="focus">0</skill>
+		<basescripts>speech.pets,speech.human,quests.events</basescripts>
+		<mintaming>2000</mintaming>
+	</npc>
+
+	<!-- Female Base -->
+	<npc id="base_female">
+		<id>0x191</id>
+		<ai></ai>
+		<bindmenu>paperdoll_menu</bindmenu>
+		<gender>female</gender>
+		<name><random list="NAMES_FEMALE" /></name>
+		<skin><random list="SKINS_HUMAN" /></skin>
+		<saycolor><random min="2" max="1000" /></saycolor>
+		<wandertype>1</wandertype>
+		<!-- Facing a random direction -->
+		<direction><random min="0" max="7" /></direction>
+		<!-- The Equipment of a standard human -->
+		<equipped>
+			<item id="e75" /> 			<!-- Backpack -->
+			<item list="HAIR_FEMALE" /> 	<!-- Random Hair -->
+			<item list="DRESS" /> 		<!-- Random Dress`s -->
+			<item list="PANTS" /> 		<!-- Random Pants -->
+			<item list="SHOES" /> 		<!-- Random Shoes -->
+		</equipped>
+		<haircolor><random list="HAIRCOLOR" /></haircolor>
+		<str><random min="71" max="85" /></str>
+		<dex><random min="66" max="80" /></dex>
+		<int><random min="66" max="80" /></int>
+		<!-- Skills -->
+		<skill id="parrying">0</skill>
+		<skill id="magery">0</skill>
+		<skill id="evaluatingintelligence">0</skill>
+		<skill id="meditation">0</skill>
+		<skill id="magicresistance">0</skill>
+		<skill id="tactics">0</skill>
+		<skill id="wrestling">0</skill>
+		<skill id="swordsmanship">0</skill>
+		<skill id="fencing">0</skill>
+		<skill id="macefighting">0</skill>
+		<skill id="archery">0</skill>
+		<skill id="anatomy">0</skill>
+		<skill id="necromancy">0</skill>
+		<skill id="focus">0</skill>
+		<basescripts>speech.pets,speech.human,quests.events</basescripts>
+		<mintaming>2000</mintaming>
+	</npc>
+
+	<!-- Pirate -->
+	<npc id="pirate_male" inherit="base_male">
+		<name><random list="NAMES_PIRATE_MALE" /></name>
+		<karma>500</karma>
+		<title>the Pirate</title>
+	</npc>
+
+	<npc id="pirate_female" inherit="base_female">
+		<name><random list="NAMES_PIRATE_FEMALE" /></name>
+		<karma>500</karma>
+		<title>the Pirate</title>
+	</npc>
+
+	<!-- Vendor -->
+	<npc id="vendor_male" inherit="base_male">
+		<ai>Human_Vendor</ai>
+		<bindmenu>paperdoll_menu,vendor_menu,train_menu</bindmenu>
+		<basescript>contextmenus.trainmenu</basescript>
+		<invulnerable />
+		<wandertype>0</wandertype>
+	</npc>
+
+	<npc id="vendor_female" inherit="base_female">
+		<ai>Human_Vendor</ai>
+		<bindmenu>paperdoll_menu,vendor_menu,train_menu</bindmenu>
+		<basescript>contextmenus.trainmenu</basescript>
+		<invulnerable />
+		<wandertype>0</wandertype>
+	</npc>
+
+</definitions>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Plate Gorget -->
+	<item id="1413">
+		<id>0x1413</id>
+		<decay />
+		<nodye />
+		<durability><random min="60" max="100" /></durability>
+		<tag name="resname" value="iron" />
+		<restock>10</restock>
+		<smelt>8</smelt>
+		<weight>2.0</weight>
+		<buyprice>124</buyprice>
+		<sellprice>62</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Platemail\Gorget</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+</definitions>

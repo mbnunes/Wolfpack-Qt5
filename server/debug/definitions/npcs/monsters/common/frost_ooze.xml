@@ -1,0 +1,44 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a frost ooze -->
+	<npc id="frost_ooze" inherit="monster_base">
+		<name>frost ooze</name>
+		<id>94</id>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="18" max="30"/></str>
+		<dex><random min="16" max="21"/></dex>
+		<int><random min="16" max="20"/></int>
+		<maxhitpoints><random min="13" max="17" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="51" max="100"/></skill>
+		<skill id="tactics"><random min="193" max="340"/></skill>
+		<skill id="wrestling"><random min="253" max="400"/></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>3</mindamage>
+		<maxdamage>11</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<!-- Lootpacks  -->
+		<lootpacks>gems</lootpacks>
+		<!-- Misc. -->
+		<desc>The name of the Frost Ooze is somewhat misleading. The frost ooze has developed in the frozen wastes and is actually a unique form of fungus. Due to the lack of available material needed for the fungus to propagate, the fungus developed the unique ability to move. The frost ooze absorbs moisture from the air. It secretes this moisture in the form of an ooze tendril that freezes itself to the ground. With this attachment, it drags its center forward. Though motivation is slow, the ooze can consume almost anything it touches.</desc>
+		<category>Monsters\Common\Frost Ooze</category>
+		<strproperty name="food" value="1" />
+		<inherit id="speed_slow" />
+	</npc>
+
+</definitions>

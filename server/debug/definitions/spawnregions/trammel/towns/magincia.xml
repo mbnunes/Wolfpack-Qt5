@@ -1,0 +1,124 @@
+
+<definitions>
+	<spawnregion id="magincia_vendor">
+		<inactive />
+		<maxnpcamount>1</maxnpcamount>
+		<delay value="3600" />
+		<npcspercycle>1</npcspercycle>
+		<group>vendors</group>
+		<group>magincia_vendors</group>
+		<group>magincia</group>
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_1">
+		<active />
+		<npc id="innkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="innkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3699,2163,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_2">
+		<active />
+		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3666,2235,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_3">
+		<active />
+		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3666,2235,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_4">
+		<active />
+		<npc id="tinker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tinker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3720,2126,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_5">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3755,2227,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_6">
+		<active />
+		<npc id="banker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="banker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3734,2149,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_7">
+		<active />
+		<npc id="baker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="baker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3683,2171,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_8">
+		<active />
+		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3661,2183,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_9">
+		<active />
+		<npc id="shipwright_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shipwright_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3667,2252,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_10">
+		<active />
+		<npc id="mapmaker_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mapmaker_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3667,2252,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_11">
+		<active />
+		<npc id="tavernkeeper_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tavernkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3727,2224,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_12">
+		<active />
+		<npc id="cook_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cook_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3727,2224,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_13">
+		<active />
+		<npc id="healer_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="healer_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3687,2227,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_14">
+		<active />
+		<npc id="fisherman_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fisherlady_female"><npcwander type="circle" radius="10" /></npc>
+                <point pos="3674,2140,30,0" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_15">
+		<active />
+		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3699,2218,20,1" />
+	</spawnregion>
+
+	<spawnregion inherit="magincia_vendor" id="magincia_vendor_16">
+		<active />
+		<npc id="alchemist_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="alchemist_female"><npcwander type="circle" radius="10" /></npc>
+		<point pos="3699,2218,20,1" />
+	</spawnregion>
+</definitions>

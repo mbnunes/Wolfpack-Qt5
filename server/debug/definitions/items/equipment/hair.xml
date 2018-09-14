@@ -1,0 +1,152 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Finished all other Beards&Hair (DarkStorm)                    |
+=================================================================
+-->
+<definitions>
+
+	<!-- Hair -->
+	<item id="203b">
+		<id>0x203b</id>
+		<category>Equipment\Hair\Short Hair</category>
+	</item>
+
+	<item id="203c">
+		<id>0x203c</id>
+		<category>Equipment\Hair\Long Hair</category>
+	</item>
+
+	<item id="203d">
+		<id>0x203d</id>
+		<category>Equipment\Hair\Pony Tail</category>
+	</item>
+
+	<item id="2044">
+		<id>0x2044</id>
+		<category>Equipment\Hair\Mohawk</category>
+	</item>
+
+	<item id="2045">
+		<id>0x2045</id>
+		<category>Equipment\Hair\Pageboy</category>
+	</item>
+
+	<item id="2046">
+		<id>0x2046</id>
+		<category>Equipment\Hair\Buns hair</category>
+	</item>
+
+	<item id="2047">
+		<id>0x2047</id>
+		<category>Equipment\Hair\Afro</category>
+	</item>
+
+	<item id="2048">
+		<id>0x2048</id>
+		<category>Equipment\Hair\Receding Hair</category>
+	</item>
+
+	<item id="2049">
+		<id>0x2049</id>
+		<category>Equipment\Hair\2 pig-tails</category>
+	</item>
+
+	<item id="204a">
+		<id>0x204a</id>
+		<category>Equipment\Hair\Krisna Hair</category>
+	</item>
+
+	<!-- Beards -->
+	<item id="203e">
+		<id>0x203e</id>
+		<category>Equipment\Beards\Long Beard</category>
+	</item>
+
+	<item id="203f">
+		<id>0x203f</id>
+		<category>Equipment\Beards\Short Beard</category>
+	</item>
+
+	<item id="2040">
+		<id>0x2040</id>
+		<category>Equipment\Beards\Goatee</category>
+	</item>
+
+	<item id="2041">
+		<id>0x2041</id>
+		<category>Equipment\Beards\Mustache</category>
+	</item>
+
+	<item id="204b">
+		<id>0x204b</id>
+		<category>Equipment\Beards\Med Short Beard</category>
+	</item>
+
+	<item id="204c">
+		<id>0x204c</id>
+		<category>Equipment\Beards\Med Long Beard</category>
+	</item>
+
+	<item id="204d">
+		<id>0x204d</id>
+		<category>Equipment\Beards\Vandyke</category>
+	</item>
+
+	<!-- Elf's Hairs -->
+
+	<item id="2fbf">
+		<id>0x2fbf</id>
+		<category>Equipment\Elf Hairs\Mid-Long</category>
+	</item>
+
+	<item id="2fc0">
+		<id>0x2fc0</id>
+		<category>Equipment\Elf Hairs\Long Feather</category>
+	</item>
+
+	<item id="2fc1">
+		<id>0x2fc1</id>
+		<category>Equipment\Elf Hairs\Short</category>
+	</item>
+
+	<item id="2fc2">
+		<id>0x2fc2</id>
+		<category>Equipment\Elf Hairs\Mullet</category>
+	</item>
+
+	<item id="2fcc">
+		<id>0x2fcc</id>
+		<category>Equipment\Elf Hairs\Flower</category>
+	</item>
+
+	<item id="2fcd">
+		<id>0x2fcd</id>
+		<category>Equipment\Elf Hairs\Long-Knob</category>
+	</item>
+
+	<item id="2fce">
+		<id>0x2fce</id>
+		<category>Equipment\Elf Hairs\Long-Big Knob</category>
+	</item>
+
+	<item id="2fcf">
+		<id>0x2fcf</id>
+		<category>Equipment\Elf Hairs\Long-Big Braid</category>
+	</item>
+
+	<item id="2fd0">
+		<id>0x2fd0</id>
+		<category>Equipment\Elf Hairs\Long-Big Bun</category>
+	</item>
+
+	<item id="2fd1">
+		<id>0x2fd1</id>
+		<category>Equipment\Elf Hairs\Spiked</category>
+	</item>
+
+</definitions>

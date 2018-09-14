@@ -1,0 +1,51 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Mutilador
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- SA -->
+	<include file="definitions/npcs/monsters/stygian_abyss/abyssal_infernal.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/animated_weapon.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/beetle_iron.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/blood_worm.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/boura.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/clockwork_scorpion.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/chicken_lizard.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/dragon_faerie.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/dragon_wolf.xml" />	
+	<include file="definitions/npcs/monsters/stygian_abyss/elemental_lava.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/flayer.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/gargoyle_pet.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/gargoyle_undead.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/gray_goblin.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/green_goblin.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/gremlin.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/humunculous.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/kepetch.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/kepetch_shorn.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/medusa.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/mimic.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/primevil_lich.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/raptor.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/rising_colosus.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/rotworm.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/rotworm_juvenile.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/shadow_dweller.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/skree.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/slasher_of_veils.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/slith.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/spider_female.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/spider_male.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/spider_trapdoor.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/stygian_dragon.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/tunnel_spirit_body.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/tunnel_spirit_tentacle.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/trapdoor_creature.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/wolf_leather.xml" />	
+
+</definitions>

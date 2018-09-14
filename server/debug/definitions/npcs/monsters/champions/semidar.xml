@@ -1,0 +1,53 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Semidar -->
+	<npc id="semidar" inherit="monster_base_magi">
+		<name>Semidar</name>
+		<title>the Succubus</title>
+		<id>174</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="502" max="600"/></str>
+		<dex><random min="102" max="200"/></dex>
+		<int><random min="601" max="750"/></int>
+		<maxhitpoints><random min="1500" max="1500"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="wrestling"><random min="901" max="1050"/></skill>
+		<skill id="tactics"><random min="901" max="1050"/></skill>
+		<skill id="magicresistance"><random min="1202" max="1400"/></skill>
+		<skill id="magery"><random min="900" max="1050"/></skill>
+		<skill id="evaluatingintelligence"><random min="951" max="1000"/></skill>
+		<skill id="meditation"><random min="951" max="1000" /></skill>
+		<!-- Damage -->
+		<mindamage>92</mindamage>
+		<maxdamage>123</maxdamage>
+		<!-- Damage Properties -->
+		<tag name="dmg_fire" value="25" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="20,30" type="int" />
+		<tag name="res_fire" value="50,60" type="int" />
+		<tag name="res_cold" value="20,30" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich;tm_5</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Champions\Semidar</category>
+		<strproperty name="slayer_group" value="daemons" />
+		<inherit id="speed_veryfast" />
+		<ai>Monster_Mage</ai>
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

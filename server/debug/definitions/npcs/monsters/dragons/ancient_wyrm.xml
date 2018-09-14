@@ -1,0 +1,60 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- an ancient wyrm -->
+	<npc id="ancient_wyrm" inherit="monster_base">
+		<name>ancient wyrm</name>
+		<id>798</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="1096" max="1185"/></str>
+		<dex><random min="86" max="175"/></dex>
+		<int><random min="686" max="775"/></int>
+		<maxhitpoints><random min="658" max="711" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="evaluatingintelligence"><random min="801" max="1000"/></skill>
+		<skill id="magery"><random min="801" max="1000"/></skill>
+		<skill id="meditation"><random min="525" max="750"/></skill>
+		<skill id="magicresistance"><random min="1005" max="1500"/></skill>
+		<skill id="tactics"><random min="976" max="1000"/></skill>
+		<skill id="wrestling"><random min="976" max="1000"/></skill>
+		<!-- Damage -->
+		<mindamage>146</mindamage>
+		<maxdamage>182</maxdamage>
+		<tag name="dmg_fire" value="25" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="70,80" type="int" />
+		<tag name="res_energy" value="60,70" type="int" />
+		<tag name="res_fire" value="80,90" type="int" />
+		<tag name="res_physical" value="65,75" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;gems;gems;gems;gems;gems;tm_5</lootpacks>
+		<!-- Misc. -->
+		<desc>The eldest of the Draconian race are rarely seen by any other than drake eyes. Ancient in origin, the wizened Elder is said to long for the days when the reptile was the guardian of the land now known as Britannia. Patience is not a virtue of the Elder Wyrm, and disturbing one may lead to a quick death. Death, of course, being the quickest way for these ancient ones to be rid of the intruder and get back to their studies.</desc>
+		<category>Monsters\Dragons\Ancient Wyrm</category>
+		<strproperty name="slayer_group" value="dragons" />
+		<strproperty name="food" value="1" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+		<intproperty name="poison_immunity" value="2" />
+		<!-- Carve -->
+		<intproperty name="carve_scales" value="12" />
+		<strproperty name="carve_scales_type" value="red,yellow,black,green" />
+		<intproperty name="carve_hides" value="40" />
+		<strproperty name="carve_hides_type" value="barbed" />
+		<intproperty name="carve_meat" value="19" />
+		<!-- Poisoning -->
+		<!-- <basescript>npc.poison</basescript> -->
+		<!-- <intproperty name="hit_poison_level" value="5" /> -->
+	</npc>
+
+</definitions>

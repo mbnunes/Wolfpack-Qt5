@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth              |
+|  ( (  ;._ \\ ctr | Last Modification: Color Split, both IDs |
+=================================================================
+-->
+<definitions>
+
+	<!-- chainmail armor -->
+	<!-- chainmail coif -->
+	<item id="13bb_shadow"  inherit="13bb">
+		<shadow_armor />
+		<baseid>13bb</baseid>
+		<category>Armor\Shadow Iron\Chainmail\Coif (N/S)</category>
+	</item>
+
+	<!-- chainmail leggings -->
+	<item id="13be_shadow" inherit="13be">
+		<shadow_armor />
+		<baseid>13be</baseid>
+		<category>Armor\Shadow Iron\Chainmail\Leggings (N/S)</category>
+	</item>
+
+	<!-- chainmail tunic -->
+	<item id="13bf_shadow" inherit="13bf">
+		<shadow_armor />
+		<baseid>13bf</baseid>
+		<category>Armor\Shadow Iron\Chainmail\Tunic (N/S)</category>
+	</item>
+
+</definitions>

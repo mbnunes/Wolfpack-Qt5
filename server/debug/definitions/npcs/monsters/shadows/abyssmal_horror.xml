@@ -1,0 +1,49 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Also a champion -->
+	<!-- Abyssmal Horror -->
+	<npc id="abyssmal_horror" inherit="monster_base">
+		<name>abyssmal horror</name>
+		<id>312</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="401" max="421"/></str>
+		<dex><random min="81" max="90"/></dex>
+		<int><random min="401" max="420"/></int>
+		<maxhitpoints>6000</maxhitpoints>
+		<!-- Skills -->
+		<skill id="evaluatingintelligence">2000</skill>
+		<skill id="magicresistance"><random min="1176" max="1200"/></skill>
+		<skill id="tactics">1000</skill>
+		<skill id="wrestling"><random min="841" max="880"/></skill>
+		<skill id="magery"><random min="1126" max="1175"/></skill>
+		<skill id="anatomy">0</skill>
+		<skill id="meditation">2000</skill>
+		<!-- Damage -->
+		<mindamage>39</mindamage>
+		<maxdamage>49</maxdamage>
+		<tag name="dmg_poison" value="50" type="int" />
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="30,35" type="int" />
+		<tag name="res_fire" value="100" type="int" />
+		<tag name="res_cold" value="50,55" type="int" />
+		<tag name="res_poison" value="60,65" type="int" />
+		<tag name="res_energy" value="77,80" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_ultra_rich</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Shadows\Abyssmal Horror</category>
+		<strproperty name="slayer_group" value="daemons" />
+		<ai>Monster_Mage</ai>
+	</npc>
+
+</definitions>

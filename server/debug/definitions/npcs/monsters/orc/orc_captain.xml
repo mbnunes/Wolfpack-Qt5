@@ -1,0 +1,55 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- an orc captain -->
+	<npc id="orc_captain" inherit="monster_base">
+		<strproperty name="monsterspeech" value="orc" />
+		<basescript>speech.monster</basescript>
+		<name>orc captain</name>
+		<id>7</id>
+		<inherit id="KARMA_L2" />
+		<inherit id="FAME_L2" />
+		<!-- Stats -->
+		<str><random min="111" max="145"/></str>
+		<dex><random min="101" max="135"/></dex>
+		<int><random min="86" max="110"/></int>
+		<maxhitpoints><random min="67" max="87"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="701" max="850"/></skill>
+		<skill id="swordsmanship"><random min="701" max="950"/></skill>
+		<skill id="tactics"><random min="851" max="1000"/></skill>
+		<!-- Damage -->
+		<mindamage>11</mindamage>
+		<maxdamage>31</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="15,25" type="int" />
+		<tag name="res_energy" value="5,10" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="30,35" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_meager;lootpack_meager</lootpacks>
+		<backpack>
+			<content>
+				<item id="13ec" /> <!-- Ringmail Tunic -->
+				<item id="1443" /> <!-- Two-handed axe -->
+				<item id="1f0b" /> <!-- Orc Helm -->
+				<item id="1711" /> <!-- Tigh Boots -->
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Orcs\Orc Captain</category>
+		<strproperty name="slayer_group" value="orcs" />
+		<intproperty name="food" value="1" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

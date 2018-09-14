@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Heavy Cross Bow left -->
+	<item id="13fd">
+		<id>0x13fd</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>26</sellprice>
+		<buyprice>53</buyprice>
+		<durability><random min="30" max="55" /></durability>
+		<weight>9.0</weight>
+		<basescripts>equipment</basescripts>
+		<type>1007</type>
+		<category>Base Weapons\Bows\Heavy Crossbow (N/S)</category>
+		<!-- Properties -->
+		<intproperty name="projectile" value="0x1bfe" />
+		<strproperty name="ammunition" value="1bfb" />
+		<intproperty name="req_strength" value="80" />
+		<intproperty name="speed" value="22" />
+		<intproperty name="range" value="10" />
+		<intproperty name="mindamage" value="19" />
+		<intproperty name="maxdamage" value="20" />
+	</item>
+
+	<item id="13fc" inherit="13fd">
+		<id>0x13fc</id>
+		<baseid>13fd</baseid>
+		<category>Base Weapons\Bows\Heavy Crossbow (E/W)</category>
+	</item>
+
+</definitions>

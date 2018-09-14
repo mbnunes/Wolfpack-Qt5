@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Archery -->
+	<include file="definitions/items/weaponry/archery/bow.xml"/>
+	<include file="definitions/items/weaponry/archery/composite_bow.xml"/>
+	<include file="definitions/items/weaponry/archery/crossbow.xml"/>
+	<include file="definitions/items/weaponry/archery/elven_composite_longbow.xml"/>
+	<include file="definitions/items/weaponry/archery/heavy_crossbow.xml"/>
+	<include file="definitions/items/weaponry/archery/magical_shortbow.xml"/>
+	<include file="definitions/items/weaponry/archery/repeating_crossbow.xml"/>
+
+</definitions>

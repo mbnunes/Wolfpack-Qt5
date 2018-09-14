@@ -1,0 +1,57 @@
+
+<definitions>
+	<spawnregion id="felucca_orc_caves">
+		<inactive />
+		<maxnpcamount>15</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>orc_caves</group>
+		<group>felucca_orc_caves</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion id="felucca_orc_caves1">
+		<inactive />
+		<maxnpcamount>30</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>orc_caves</group>
+		<group>felucca_orc_caves</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_orc_caves" id="felucca_orc_caves_lv1">
+		<active />
+		<npc id="dire_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_chopper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_scout"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5130,1944" to="5157,2017" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_orc_caves1" id="felucca_orc_caves_lv2">
+		<active />
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="10" /></npc>
+		<npc id="rat_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spider_giant"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_bomber"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_chopper"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_scout"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5289,1285" to="5369,1381" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_orc_caves1" id="felucca_orc_caves_lv3">
+		<active />
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_bomber"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_brute"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5280,1958" to="5360,2032" map="0" />
+	</spawnregion>
+
+</definitions>

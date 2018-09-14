@@ -1,0 +1,34 @@
+
+<definitions>
+	<spawnregion id="felucca_wrong">
+		<inactive />
+		<maxnpcamount>20</maxnpcamount>
+                <delay min="20" max="30" />
+		<npcspercycle>5</npcspercycle>
+		<group>wrong</group>
+		<group>felucca_wrong</group>
+		<group>felucca</group>
+	</spawnregion>
+
+	<spawnregion inherit="felucca_wrong" id="felucca_wrong_lv1">
+		<active />
+		<npc id="exodus_overseer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_warrior"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5781,515" to="5875,618" map="0" />
+	</spawnregion>
+
+	<spawnregion inherit="felucca_wrong" id="felucca_wrong_lv2">
+		<active />
+		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_warrior"><npcwander type="circle" radius="10" /></npc>
+                <rectangle from="5642,515" to="5739,578" map="0" />
+	</spawnregion>
+
+</definitions>

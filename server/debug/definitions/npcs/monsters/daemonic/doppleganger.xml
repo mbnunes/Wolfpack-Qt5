@@ -1,0 +1,42 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Doppleganger -->
+	<npc id="doppleganger" inherit="monster_base">
+		<name>doppleganger</name>
+		<id>777</id>
+		<inherit id="KARMA_L1" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="81" max="110"/></str>
+		<dex><random min="56" max="75"/></dex>
+		<int><random min="81" max="105"/></int>
+		<maxhitpoints><random min="101" max="120"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="751" max="850"/></skill>
+		<skill id="tactics"><random min="701" max="800"/></skill>
+		<skill id="wrestling"><random min="801" max="900"/></skill>
+		<skill id="anatomy">0</skill>
+		<!-- Damage -->
+		<mindamage>14</mindamage>
+		<maxdamage>22</maxdamage>
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="50,60" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_average</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Daemonic\Doppleganger</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,60 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- a poison elemental -->
+	<npc id="poison_elemental" inherit="monster_base">
+		<name>poison elemental</name>
+		<id>162</id>
+		<inherit id="KARMA_L5" />
+		<inherit id="FAME_L5" />
+		<!-- Stats -->
+		<str><random min="426" max="515"/></str>
+		<dex><random min="166" max="185"/></dex>
+		<int><random min="361" max="435"/></int>
+		<maxhitpoints><random min="256" max="309"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="evaluatingintelligence"><random min="801" max="950"/></skill>
+		<skill id="magery"><random min="801" max="950"/></skill>
+		<skill id="meditation"><random min="802" max="1200"/></skill>
+		<skill id="poisoning"><random min="901" max="1000"/></skill>
+		<skill id="magicresistance"><random min="852" max="1150"/></skill>
+		<skill id="tactics"><random min="801" max="1000"/></skill>
+		<skill id="wrestling"><random min="701" max="900"/></skill>
+		<!-- Damage -->
+		<mindamage>36</mindamage>
+		<maxdamage>57</maxdamage>
+		<tag name="dmg_poison" value="90" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="20,30" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_physical" value="60,70" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_filthy_rich;lootpack_rich;scroll_medium;tm_5</lootpacks>
+		<backpack>
+			<content>
+				<item id="f88"><amount>4</amount></item> <!-- night shade -->
+				<item id="potion_lesserpoison" />
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<desc>Poison Elementals are the result of corruption of Air Elementals by horrific magic. It is believed that air elementals that disobey an evil summoner are sometimes punished in this fashion. If such is the case, poison elementals hate their very existence, as it is anabomination of everything they were as an air elemental. Those unlucky enough to see a poison elemental should immediately turn tail lest they become an outlet for the revenge of the cursed elemental.</desc>
+		<category>Monsters\Elementals\Poison Elemental</category>
+		<strproperty name="slayer_group" value="poisonelementals" />
+		<inherit id="speed_fast" />
+		<ai>Monster_Mage</ai>
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="4" />
+		<intproperty name="hit_poison_chance" value="75" />
+	</npc>
+
+</definitions>

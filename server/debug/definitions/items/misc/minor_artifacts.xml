@@ -1,0 +1,451 @@
+
+<definitions>
+
+	<!-- Alchemist's Bauble -->
+	<item id="alchemists_bauble" inherit="1086">
+		<category>Misc\Minor Artifacts\Alchemist's Bauble</category>
+		<id>0x1086</id>
+		<name>#1070638</name>
+		<color>0x290</color>
+		<tag name="skillbonus_0" value="25,100" /> <!-- Magery -->
+		<intproperty name="enhancepotions" value="30" />
+		<intproperty name="lowerreagentcost" value="20" />
+		<intproperty name="res_poison" value="10" />
+	</item>
+
+	<!-- Arctic Death Dealer -->
+	<item id="arctic_death_dealer" inherit="1407">
+		<id>0x1407</id>
+		<name>#1063481</name>
+		<color>0x480</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Arctic Death Dealer</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="hitharm" value="33" />
+		<intproperty name="hitlowerattack" value="40" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="dmg_cold" value="50" />
+	</item>
+
+	<!-- Blaze of Death -->
+	<item id="blaze_death" inherit="143f">
+		<id>0x143f</id>
+		<name>#1063486</name>
+		<color>0x501</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Blaze of Death</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="splashfire" value="50" />
+		<intproperty name="hitfireball" value="50" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="dmg_fire" value="50" />
+	</item>
+
+	<!-- Bow Of The Juka King -->
+	<item id="bow_of_the_juka_king" inherit="13b1">
+		<id>0x13b1</id>
+		<name>#1070636</name>
+		<color>0x460</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Bow of the Juka King</category>
+		<!-- Properties -->
+		<strproperty name="slayer" value="reptiliandeath" />
+		<intproperty name="hitmagicarrow" value="25" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="40" />
+	</item>
+
+	<!-- Burglar's Bandana -->
+	<item id="burglars_bandana" inherit="153f">
+		<id>0x153f</id>
+		<name>#1063473</name>
+		<color>0x58c</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Burglar's Bandana</category>
+		<!-- Properties -->
+		<tag name="skillbonus_0" value="28,100" /> <!-- Snooping -->
+		<tag name="skillbonus_1" value="33,100" /> <!-- Stealing -->
+		<tag name="skillbonus_2" value="47,100" /> <!-- Stealth -->
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="10" />
+	</item>
+
+	<!-- Candelabra of Souls -->
+	<item id="candelabra_souls" inherit="b26">
+		<id>0xb26</id>
+		<name>#1063478</name>
+		<category>Misc\Minor Artifacts\Candelabra of Souls</category>
+	</item>
+
+	<!-- Captain Quacklebush's Cutlass -->
+	<item id="captain_quacklebushs_cutlass" inherit="1441">
+		<id>0x1441</id>
+		<name>#1063474</name>
+		<color>0x66c</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Captain Quacklebush's Cutlass</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="bestskill" value="1" />
+	</item>
+
+	<!-- Cavorting Club -->
+	<item id="cavorting_club" inherit="13b4">
+		<id>0x13b4</id>
+		<name>#1063472</name>
+		<color>0x593</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Cavorting Club</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="res_fire" value="8" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="8" />
+	</item>
+
+	<!-- Cold Blood -->
+	<item id="cold_blood" inherit="ec3">
+		<id>0xec3</id>
+		<name>#1070818</name>
+		<color>0x4f2</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Cold Blood</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="bonushitpoints" value="6" />
+		<intproperty name="bonusstamina" value="6" />
+		<intproperty name="bonusmana" value="6" />
+		<intproperty name="aos_boni_speed" value="40" />
+		<intproperty name="dmg_cold" value="100" />
+	</item>
+
+	<!-- Dread Pirate Hat -->
+	<item id="dread_pirate_hat" inherit="171b">
+		<id>0x171b</id>
+		<name>#1063467</name>
+		<color>0x497</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Dread Pirate Hat</category>
+		<!-- Properties -->
+		<!-- MISSING: Random Combat Skill +10 -->
+		<intproperty name="bonusdexterity" value="8" />
+		<intproperty name="nightsight" value="1" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="14" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Enchanted Titan Leg Bone -->
+	<item id="enchanted_titan_leg_bone" inherit="1403">
+		<id>0x1403</id>
+		<name>#1063482</name>
+		<color>0x8a5</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Enchanted Titan Leg Bone</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="hitlightning" value="40" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="aos_boni_damage" value="20" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="req_strength" value="10" />
+	</item>
+
+	<!-- Ghost Ship Anchor -->
+	<item id="ghost_ship_anchor" inherit="14f7">
+		<id>0x14f7</id>
+		<name>#1070816</name>
+		<color>0x47e</color>
+		<category>Misc\Minor Artifacts\Ghost Ship Anchor</category>
+	</item>
+
+	<!-- Gloves of the Pugilist -->
+	<item id="gloves_of_the_pugilist" inherit="13c6">
+		<id>0x13c6</id>
+		<name>#1070690</name>
+		<color>0x6d1</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Gloves of the Pugilist</category>
+		<!-- Properties -->
+		<tag name="skillbonus_0" value="43,100" /> <!-- Wrestling -->
+		<intproperty name="bonusdexterity" value="8" />
+		<intproperty name="aos_boni_damage" value="15" />
+		<intproperty name="res_physical" value="18" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+	</item>
+
+	<!-- Gold Bricks -->
+	<item id="gold_bricks" inherit="1beb">
+		<id>0x1beb</id>
+		<name>#1063489</name>
+		<category>Misc\Minor Artifacts\Gold Bricks</category>
+	</item>
+
+
+	<!-- Gwenno's Harp -->
+	<item id="gwennos_harp" inherit="eb2">
+		<id>0xeb2</id>
+		<name>#1063480</name>
+		<color>0x47e</color>
+		<category>Misc\Minor Artifacts\Gwenno's Harp</category>
+		<tag name="remaining_uses" type="int" value="1600" />
+		<strproperty name="slayer" value="repond,reptiliandeath" />
+	</item>
+
+	<!-- Heart of the Lion -->
+	<item id="heart_of_the_lion" inherit="1415">
+		<id>0x1415</id>
+		<name>#1070690</name>
+		<color>0x501</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Heart of the Lion</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="luck" value="95" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="15" />
+		<intproperty name="res_physical" value="15" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="lower_reqs" value="100" />
+		<intproperty name="magearmor" value="1" />
+	</item>
+
+	<!-- Iolo's Lute -->
+	<item id="iolos_lute" inherit="eb3">
+		<id>0xeb3</id>
+		<category>Misc\Minor Artifacts\Iolo's Lute</category>
+		<tag name="remaining_uses" type="int" value="1600" />
+		<strproperty name="slayer" value="daemondismissal,silver" />
+	</item>
+
+	<!-- Luna Lance -->
+	<item id="luna_lance" inherit="26ca">
+		<id>0x26ca</id>
+		<name>#1063469</name>
+		<color>0x47e</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Luna Lance</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<tag name="skillbonus_0" value="51,100" /> <!-- Chivalry -->
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="bestskill" value="1" />
+		<intproperty name="dmg_cold" value="100" />
+	</item>
+
+	<!-- Night's Kiss -->
+	<item id="nights_kiss" inherit="f51">
+		<id>0xf51</id>
+		<name>#1063475</name>
+		<color>0x455</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Night's Kiss</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<strproperty name="slayer" value="repond" />
+		<intproperty name="lifeleech" value="40" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="aos_boni_damage" value="35" />
+	</item>
+
+	<!-- Nox Ranger's Heavy Crossbow -->
+	<item id="nox_rangers_heavy_crossbow" inherit="13fd">
+		<id>0x13fd</id>
+		<name>#1063485</name>
+		<color>0x58c</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Nox Ranger's Heavy Crossbow</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="spellchanneling" value="1" />
+		<intproperty name="staminaleech" value="40" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="aos_boni_damage" value="20" />
+		<intproperty name="bestskill" value="1" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="dmg_poison" value="50" />
+		<intproperty name="range" value="8" />
+	</item>
+
+	<!-- Orcish Visage -->
+	<item id="orcish_visage" inherit="1f0b">
+		<id>0x1f0b</id>
+		<name>#1070691</name>
+		<color>0x592</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Orcish Visage</category>
+		<!-- Properties -->
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="bonusstamina" value="5" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="range" value="8" />
+	</item>
+
+	<!-- Phillip's Wooden Steed -->
+	<item id="phillips_wooden_steed" inherit="base_statuette">
+		<id>0x3ffe</id>
+		<category>Misc\Minor Artifacts\Phillip's Wooden Steed</category>
+	</item>
+
+	<!-- Pixie Swatter -->
+	<item id="pixie_swatter" inherit="26c6">
+		<id>0x26c6</id>
+		<name>#1070854</name>
+		<color>0x8a</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Pixie Swatter</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<strproperty name="slayer" value="fey" />
+		<intproperty name="splashpoison" value="75" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="res_fire" value="12" />
+		<intproperty name="res_energy" value="12" />		
+		<intproperty name="bestskill" value="1" />
+		<intproperty name="dmg_fire" value="100" />
+	</item>
+
+	<!-- Polar Bear Mask -->
+	<item id="polar_bear_mask" inherit="26c6">
+		<id>0x26c6</id>
+		<name>#1070637</name>
+		<color>0x481</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Polar Bear Mask</category>
+		<!-- Properties -->
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="nightsight" value="1" />
+		<intproperty name="res_physical" value="15" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="21" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+
+	<!-- Seahorse Statuette -->
+	<item id="seahorse_statuette" inherit="base_statuette">
+		<id>0x25ba</id>
+		<category>Misc\Minor Artifacts\Seahorse Statuette</category>
+	</item>
+
+	<!-- Shield of Invulnerability -->
+	<item id="shield_of_invulnerability" inherit="1bc4">
+		<id>0x1bc4</id>
+		<name>#1070693</name>
+		<color>0x4f2</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Shield of Invulnerability</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="spellchanneling" value="1" />
+		<intproperty name="reflectphysical" value="10" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="lower_reqs" value="100" />
+	</item>
+
+	<!-- Ship Model Of The HMS Cape -->
+	<item id="ship_model_of_the_hms_cape" inherit="14f3">
+		<id>0x14f3</id>
+		<name>#1063476</name>
+		<color>0x37b</color>
+		<category>Misc\Minor Artifacts\Ship Model Of The HMS Cape</category>
+	</item>
+
+	<!-- Staff of Power -->
+	<item id="staff_of_power" inherit="df1">
+		<id>0xdf1</id>
+		<name>#1070692</name>
+		<color>0x4f2</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Staff of Power</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="spellchanneling" value="1" />
+		<intproperty name="mageweapon" value="15" /> <!-- Mage Weapon -15 Skill -->
+		<intproperty name="spelldamagebonus" value="5" />
+		<intproperty name="castrecoverybonus" value="2" />
+		<intproperty name="lowermanacost" value="5" />
+	</item>
+
+	<!-- The Admiral's Hearty Rum -->
+	<item id="admirals_hearty_rum" inherit="99f">
+		<id>0x99f</id>
+		<name>#1063477</name>
+		<color>0x66c</color>
+		<category>Misc\Minor Artifacts\The Admiral's Hearty Rum</category>
+	</item>
+
+	<!-- Violet Courage -->
+	<item id="violet_courage" inherit="1c04">
+		<id>0x1c04</id>
+		<name>#1063471</name>
+		<color>0x486</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Violet Courage</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="luck" value="95" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="res_physical" value="14" />
+		<intproperty name="res_fire" value="12" />
+		<intproperty name="res_cold" value="12" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="9" />
+		<intproperty name="lower_reqs" value="100" />
+		<intproperty name="magearmor" value="1" />
+	</item>
+
+	<!-- Wrath of the Dryad -->
+	<item id="wrath_of_the_dryad" inherit="13f8">
+		<id>0x13f8</id>
+		<name>#1070853</name>
+		<color>0x29c</color>
+		<durability>255</durability>
+		<category>Misc\Minor Artifacts\Wrath of the Dryad</category>
+		<!-- Properties -->
+		<tag name="resname" value="none" />
+		<intproperty name="hitlightning" value="33" />
+		<intproperty name="manaleech" value="50" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="dmg_poison" value="100" />
+	</item>
+
+</definitions>

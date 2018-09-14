@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Studded Armor -->
+	<item id="1c02">
+		<id>0x1c02</id>
+		<decay />
+		<nodye />
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>6.0</weight>
+		<buyprice>142</buyprice>
+		<sellprice>71</sellprice>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Studded Leather\Female Armor (N/S)</category>
+		<!-- Properties -->
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<item id="1c03" inherit="1c02">
+		<id>0x1c03</id>
+		<baseid>1c02</baseid>
+		<category>Base Armor\Studded Leather\Female Armor (E/W)</category>
+	</item>
+
+ </definitions>

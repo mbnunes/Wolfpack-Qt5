@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Deer Mask n/s -->
+	<item id="1547">
+		<id>0x1547</id>
+		<nodye />
+		<durability><random min="20" max="25" /></durability>
+		<weight>4.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="1" />
+		<intproperty name="res_energy" value="7" />
+		<allowmeditation />
+		<category>Clothes\Headwear\Deer Mask (N/S)</category>
+		<category>Armor\Headwear\Deer Mask (N/S)</category>
+		<category>Base Armor\Headwear\Deer Mask (N/S)</category>
+	</item>
+
+	<!-- Deer Mask w/e -->
+	<item id="1548" inherit="1547">
+		<id>0x1548</id>
+		<baseid>1547</baseid>
+		<category>Clothes\Headwear\Deer Mask (W/E)</category>
+		<category>Armor\Headwear\Deer Mask (W/E)</category>
+		<category>Base Armor\Headwear\Deer Mask (W/E)</category>
+	</item>
+
+</definitions>

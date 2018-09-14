@@ -1,0 +1,31 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="architect_inventory">
+		<title context="Vendor Female Titles">the Architect</title>
+		<shopkeeper>
+			<restockable>
+				<item id="house"><amount>20</amount></item>
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A architect vendor -->
+	<npc id="architect_male" inherit="vendor_male">
+		<inherit id="architect_inventory" />
+		<category>Vendors\Architect (Male)</category>
+	</npc>
+
+	<npc id="architect_female" inherit="vendor_female">
+		<inherit id="architect_inventory" />
+		<category>Vendors\Architect (Female)</category>
+	</npc>
+
+</definitions>

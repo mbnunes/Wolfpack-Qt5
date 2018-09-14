@@ -1,0 +1,22 @@
+<decoration>
+	<!-- stone stairs-->
+	<item id="0x78A">
+		<pos x="5572" y="628" z="45" map="1" />
+		<pos x="5572" y="629" z="45" map="1" />
+		<pos x="5572" y="630" z="45" map="1" />
+		<pos x="5505" y="570" z="39" map="1" />
+	</item>
+
+	<!-- stone stairs-->
+	<item id="0x78C">
+		<pos x="5571" y="633" z="10" map="1" />
+		<pos x="5523" y="673" z="35" map="1" />
+		<pos x="5385" y="756" z="-15" map="1" />
+		<pos x="5411" y="859" z="60" map="1" />
+	</item>
+
+	<!-- stone-->
+	<item id="0x788">
+		<pos x="5507" y="568" z="54" map="1" />
+	</item>
+</decoration>

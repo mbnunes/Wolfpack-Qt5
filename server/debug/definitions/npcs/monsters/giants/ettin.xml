@@ -1,0 +1,56 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- an ettin -->
+	<npc id="ettin" inherit="monster_base">
+		<name>ettin</name>
+		<id><random list="NPCIDS_ETTIN" /></id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="136" max="165"/></str>
+		<dex><random min="56" max="75"/></dex>
+		<int><random min="31" max="55"/></int>
+		<maxhitpoints><random min="82" max="99"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance"><random min="401" max="550"/></skill>
+		<skill id="tactics"><random min="501" max="700"/></skill>
+		<skill id="wrestling"><random min="501" max="600"/></skill>
+		<!-- Damage -->
+		<mindamage>13</mindamage>
+		<maxdamage>35</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_energy" value="15,25" type="int" />
+		<tag name="res_fire" value="15,25" type="int" />
+		<tag name="res_physical" value="35,40" type="int" />
+		<tag name="res_poison" value="15,25" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>lootpack_average;lootpack_meager;potion;tm_1</lootpacks>
+		<!-- Misc. -->
+		<desc>Ettins are the largest of Britannia's humanoid races by far, but their great size is less remarkable than their two heads. It is said that the heads of an Ettin often quarrel together, but this may be a fancy. Ettins live together in family groups, and are most numerous along the Serpent Spine mountains. They are stupid and vicious creatures, buthave some degree of reason and speak a debased dialect of Britannian. Ettins are common brigands, who slay travelers for their gold, which they love dearly and hoard whenever they may. (Some of the wilder tribes hew gold directly from the ground in crude mines.) They are most notorious for their cowardly habit of hurling boulders of greatsize down on travelers in the high mountain passes.</desc>
+		<category>Monsters\Giants\Ettin (Random)</category>
+		<strproperty name="food" value="1" />
+		<inherit id="speed_slow" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="4" />
+	</npc>
+
+	<npc id="ettin_1" inherit="ettin">
+		<id>2</id>
+		<category>Monsters\Giants\Ettin (Without Axe)</category>
+	</npc>
+
+	<npc id="ettin_2" inherit="ettin">
+		<id>18</id>
+		<category>Monsters\Giants\Ettin (With Axe)</category>
+	</npc>
+
+</definitions>

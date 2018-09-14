@@ -1,0 +1,190 @@
+<decoration>
+	<!-- flag stones -->
+	<item id="0x4FE">
+		<pos x="5837" y="330" z="40" map="1" />
+		<pos x="5838" y="329" z="40" map="1" />
+	</item>
+
+	<!-- wooden wall -->
+	<item id="0x0336">
+		<pos x="5831" y="367" z="0" map="1" />
+	</item>
+
+	<!-- wooden fence -->
+	<item id="0x0864">
+		<pos x="5820" y="357" z="1" map="1" />
+		<pos x="5836" y="360" z="6" map="1" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x09AB">
+		<pos x="5832" y="240" z="-3" map="1" />
+		<pos x="5750" y="147" z="9" map="1" />
+		<pos x="5682" y="181" z="-3" map="1" />
+		<pos x="5763" y="145" z="-3" map="1" />
+		<pos x="5822" y="359" z="-1" map="1" />
+	</item>
+
+	<!-- crate -->
+	<item id="0x0E3C">
+		<pos x="5682" y="332" z="0" map="1" />
+		<pos x="5681" y="329" z="0" map="1" />
+		<pos x="5681" y="330" z="0" map="1" />
+		<pos x="5681" y="330" z="3" map="1" />
+		<pos x="5681" y="331" z="0" map="1" />
+		<pos x="5681" y="331" z="3" map="1" />
+		<pos x="5681" y="332" z="0" map="1" />
+		<pos x="5681" y="332" z="3" map="1" />
+		<pos x="5681" y="333" z="0" map="1" />
+		<pos x="5682" y="330" z="0" map="1" />
+		<pos x="5682" y="331" z="0" map="1" />
+	</item>
+
+	<!-- crate -->
+	<item id="0x0E3E">
+		<pos x="5686" y="321" z="0" map="1" />
+		<pos x="5686" y="322" z="0" map="1" />
+	</item>
+
+	<!-- bookcase -->
+	<item id="0x0A9B">
+		<pos x="5658" y="320" z="0" map="1" />
+		<pos x="5657" y="320" z="0" map="1" />
+		<pos x="5659" y="320" z="0" map="1" />
+		<pos x="5660" y="320" z="0" map="1" />
+		<pos x="5661" y="320" z="0" map="1" />
+		<pos x="5662" y="320" z="0" map="1" />
+	</item>
+
+	<!-- wooden fence -->
+	<item id="0x0863">
+		<pos x="5839" y="349" z="1" map="1" />
+		<pos x="5823" y="349" z="1" map="1" />
+		<pos x="5834" y="345" z="6" map="1" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E41">
+		<pos x="5717" y="144" z="-16" map="1" />
+		<pos x="5851" y="227" z="0" map="1" />
+		<pos x="5701" y="305" z="0" map="1" />
+		<pos x="5659" y="302" z="0" map="1" />
+		<pos x="5661" y="302" z="0" map="1" />
+		<pos x="5852" y="231" z="-9" map="1" />
+		<pos x="5687" y="311" z="0" map="1" />
+		<pos x="5833" y="247" z="-2" map="1" />
+		<pos x="5688" y="311" z="0" map="1" />
+		<pos x="5689" y="311" z="0" map="1" />
+	</item>
+
+	<!-- palisade -->
+	<item id="0x0223">
+		<pos x="5843" y="367" z="0" map="1" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E40">
+		<pos x="5702" y="306" z="0" map="1" />
+		<pos x="5727" y="147" z="-2" map="1" />
+		<pos x="5759" y="144" z="-4" map="1" />
+		<pos x="5753" y="211" z="-7" map="1" />
+	</item>
+
+	<!-- wooden chest -->
+	<item id="0x0E42">
+		<pos x="5828" y="364" z="0" map="1" />
+		<pos x="5832" y="242" z="-4" map="1" />
+		<pos x="5760" y="187" z="-4" map="1" />
+		<pos x="5656" y="305" z="0" map="1" />
+		<pos x="5656" y="307" z="0" map="1" />
+		<pos x="5768" y="189" z="-5" map="1" />
+	</item>
+
+	<!-- death vortex -->
+	<item id="0x3798">
+		<pos x="5673" y="325" z="-3" map="1" />
+	</item>
+
+	<!-- wooden chest -->
+	<item id="0x0E43">
+		<pos x="5840" y="357" z="0" map="1" />
+		<pos x="5770" y="185" z="-1" map="1" />
+		<pos x="5849" y="233" z="-16" map="1" />
+		<pos x="5840" y="358" z="1" map="1" />
+		<pos x="5683" y="188" z="-2" map="1" />
+	</item>
+
+	<!-- wooden door -->
+	<item id="0x06E5">
+		<pos x="5831" y="346" z="15" map="1" />
+	</item>
+
+	<!-- wooden wall -->
+	<item id="0x0334">
+		<pos x="5830" y="367" z="0" map="1" />
+	</item>
+
+	<!-- bookcase -->
+	<item id="0x0A99">
+		<pos x="5656" y="332" z="0" map="1" />
+		<pos x="5656" y="329" z="0" map="1" />
+		<pos x="5656" y="321" z="0" map="1" />
+		<pos x="5656" y="323" z="0" map="1" />
+		<pos x="5656" y="325" z="0" map="1" />
+		<pos x="5656" y="327" z="0" map="1" />
+	</item>
+
+	<!-- bookcase -->
+	<item id="0x0A9A">
+		<pos x="5656" y="328" z="0" map="1" />
+		<pos x="5656" y="330" z="0" map="1" />
+		<pos x="5656" y="331" z="0" map="1" />
+		<pos x="5656" y="333" z="0" map="1" />
+		<pos x="5656" y="322" z="0" map="1" />
+		<pos x="5656" y="324" z="0" map="1" />
+		<pos x="5656" y="326" z="0" map="1" />
+	</item>
+
+	<!-- wooden door -->
+	<item id="0x06E7">
+		<pos x="5832" y="346" z="15" map="1" />
+	</item>
+
+	<!-- wooden gate -->
+	<item id="0x0866">
+		<pos x="5839" y="363" z="0" map="1" />
+	</item>
+
+	<!-- wooden gate -->
+	<item id="0x0868">
+		<pos x="5840" y="363" z="0" map="1" />
+	</item>
+
+	<!-- metal chest -->
+	<item id="0x0E7C">
+		<pos x="5686" y="312" z="0" map="1" />
+		<pos x="5686" y="313" z="0" map="1" />
+		<pos x="5686" y="314" z="0" map="1" />
+		<pos x="5756" y="203" z="-2" map="1" />
+	</item>
+
+	<!-- stone wall -->
+	<item id="0x0354">
+		<pos x="5687" y="319" z="0" map="1" />
+	</item>
+
+	<!-- stone wall -->
+	<item id="0x0356">
+		<pos x="5688" y="319" z="0" map="1" />
+	</item>
+
+	<!-- palisade -->
+	<item id="0x0424">
+		<pos x="5819" y="361" z="20" map="1" />
+	</item>
+
+	<!-- wood -->
+	<item id="0x0738">
+		<pos x="5851" y="233" z="-13" map="1" />
+	</item>
+</decoration>

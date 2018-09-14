@@ -1,0 +1,16 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Juka -->
+	<include file="definitions/npcs/monsters/juka/juka_lord.xml" />
+	<include file="definitions/npcs/monsters/juka/juka_mage.xml" />
+	<include file="definitions/npcs/monsters/juka/juka_warrior.xml" />
+
+</definitions>

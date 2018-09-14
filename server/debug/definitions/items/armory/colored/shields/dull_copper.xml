@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                   |
+|  ( (  ;._ \\ ctr | Last Modification: Split, both IDs     |
+=================================================================
+-->
+<definitions>
+
+	<!-- shields -->
+	<!-- buckler -->
+	<item id="1b73_dull_copper" inherit="1b73">
+		<dull_copper_armor />
+		<baseid>1b73</baseid>
+		<category>Armor\Dull Copper\Shields\Buckler</category>
+	</item>
+
+	<!-- bronze shield -->
+	<item id="1b72_dull_copper" inherit="1b72">
+		<dull_copper_armor />
+		<baseid>1b72</baseid>
+		<category>Armor\Dull Copper\Shields\Bronze</category>
+	</item>
+
+	<!-- heater -->
+	<item id="1b76_dull_copper" inherit="1b76">
+		<dull_copper_armor />
+		<baseid>1b76</baseid>
+		<category>Armor\Dull Copper\Shields\Heater (N/S)</category>
+	</item>
+
+	<item id="1b77_dull_copper" inherit="1b77">
+		<dull_copper_armor />
+		<baseid>1b76</baseid>
+		<category>Armor\Dull Copper\Shields\Heater (E/W)</category>
+	</item>
+
+	<!-- metal shield -->
+	<item id="1b7b_dull_copper" inherit="1b7b">
+		<dull_copper_armor />
+		<baseid>1b7b</baseid>
+		<category>Armor\Dull Copper\Shields\Metal Shield</category>
+	</item>
+
+	<!-- metal kite shield -->
+	<item id="1b74_dull_copper" inherit="1b74">
+		<baseid>1b74</baseid>
+		<dull_copper_armor />
+		<category>Armor\Dull Copper\Shields\Metal Kite (N/S)</category>
+	</item>
+
+	<item id="1b75_dull_copper" inherit="1b75">
+		<dull_copper_armor />
+		<baseid>1b74</baseid>
+		<category>Armor\Dull Copper\Shields\Metal Kite (E/W)</category>
+	</item>
+
+	<!-- wooden kite shield -->
+	<item id="1b78_dull_copper" inherit="1b78">
+		<dull_copper_armor />
+		<baseid>1b78</baseid>
+		<category>Armor\Dull Copper\Shields\Wooden Kite (N/S)</category>
+	</item>
+
+	<item id="1b79_dull_copper" inherit="1b79">
+		<dull_copper_armor />
+		<baseid>1b78</baseid>
+		<category>Armor\Dull Copper\Shields\Wooden Kite (E/W)</category>
+	</item>
+
+	<!-- chaos shield -->
+	<item id="1bc3_dull_copper" inherit="1bc3">
+		<dull_copper_armor />
+		<baseid>1bc3</baseid>
+		<category>Armor\Dull Copper\Shields\Chaos Shield</category>
+	</item>
+
+	<!-- order shield -->
+	<item id="1bc4_dull_copper" inherit="1bc4">
+		<dull_copper_armor />
+		<baseid>1bc4</baseid>
+		<category>Armor\Dull Copper\Shields\Order Shield (N/S)</category>
+	</item>
+
+	<item id="1bc5_dull_copper" inherit="1bc5">
+		<dull_copper_armor />
+		<baseid>1bc4</baseid>
+		<category>Armor\Dull Copper\Shields\Order Shield (E/W)</category>
+	</item>
+
+</definitions>

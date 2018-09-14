@@ -1,0 +1,49 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Rat -->
+	<npc id="rat" inherit="animal_base">
+		<name>rat</name>
+		<id>238</id>
+		<ai>Animal_Wild</ai>
+		<skin><random list="SKINS_ANIMAL" /></skin>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str>9</str>
+		<dex>35</dex>
+		<int>5</int>
+		<!-- Status -->
+		<maxhitpoints>6</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>2</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="5,10" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling">40</skill>
+		<skill id="tactics">40</skill>
+		<skill id="magicresistance">40</skill>
+		<!-- Loot Packs  -->
+		<lootpacks>lootpack_poor</lootpacks>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>0</mintaming>
+		<strproperty name="food" value="1,2,4,5" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Rats\Rat</category>
+		<inherit id="speed_slow" />
+		<!-- Carve -->
+		<intproperty name="carve_meat" value="1" />
+	</npc>
+
+</definitions>

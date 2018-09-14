@@ -1,0 +1,27 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
+=================================================================
+-->
+<definitions>
+
+	<npc id="seartist_inventory">
+		<title context="Vendor Male Titles">the Artist</title>
+		<skill id="anatomy"><random min="750" max="980" /></skill>
+	</npc>
+
+	<!-- A SE artist -->
+	<npc id="seartist_male" inherit="vendor_male">
+		<inherit id="seartist_inventory" />
+		<category>Vendors\SE Artist (Male)</category>
+	</npc>
+
+	<npc id="seartist_female" inherit="vendor_female">
+		<inherit id="seartist_inventory" />
+		<category>Vendors\SE Artist (Female)</category>
+	</npc>
+
+</definitions>

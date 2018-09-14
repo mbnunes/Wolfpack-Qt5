@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Cloth Nina Hood -->
+	<item id="278f">
+		<id>0x278f</id>
+		<decay />
+		<durability><random min="20" max="30" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<!-- Properties -->
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="9" />
+		<intproperty name="res_energy" value="9" />
+		<category>Base Armor\Samurai\Headwear\Cloth\Nina Hood</category>
+		<category>Base Armor\Headwear\Nina Hood</category>
+		<category>Armor\Headwear\Nina Hood</category>
+		<category>Clothes\Headwear\Nina Hood</category>
+	</item>
+
+	<item id="27da" inherit="278f">
+		<id>0x27da</id>
+		<baseid>278f</baseid>
+		<category>Base Armor\Samurai\Headwear\Cloth\Nina Hood 2</category>
+		<category>Base Armor\Headwear\Nina Hood 2</category>
+		<category>Armor\Headwear\Nina Hood 2</category>
+		<category>Clothes\Headwear\Nina Hood 2</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,49 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Slime -->
+	<npc id="slime" inherit="monster_base">
+		<name>slime</name>
+		<id>0x33</id>
+		<skin><random list="SKINS_SLIME" /></skin>
+		<inherit id="KARMA_L0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str><random min="22" max="34"/></str>
+		<dex><random min="16" max="21"/></dex>
+		<int><random min="16" max="20"/></int>
+		<maxhitpoints><random min="15" max="19"/></maxhitpoints>
+		<!-- Skills -->
+		<skill id="poisoning"><random min="301" max="500"/></skill>
+		<skill id="magicresistance"><random min="151" max="200"/></skill>
+		<skill id="tactics"><random min="193" max="340"/></skill>
+		<skill id="wrestling"><random min="193" max="340"/></skill>
+		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>6</maxdamage>
+		<tag name="mindamage" value="1" type="int" />
+		<tag name="maxdamage" value="5" type="int" />
+		<!-- Resists -->
+		<tag name="res_physical" value="5,10" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<!-- Lootpacks  -->
+		<lootpacks>lootpack_poor;gems</lootpacks>
+		<!-- Misc. -->
+		<desc>Slimes are creatures of pure instinct, lacking even the intelligence of a fish or tiny vermin. They live by dissolving anything that comes into contact with them, living or dead. Gold is one of the few things their acids cannot touch, and they are often found in its presence. Perhaps over the centuries they have come to dimly recognize that gold will lure their prey to them.</desc>
+		<mintaming>231</mintaming>
+		<strproperty name="food" value="1,2,3,5,4" />
+		<category>Monsters\Common\Slime</category>
+		<inherit id="speed_slow" />
+		<!-- Poisoning -->
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="0" />
+	</npc>
+
+</definitions>

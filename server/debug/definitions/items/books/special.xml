@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<definitions>
+	<item id="masonry_book">
+		<id>0xfbe</id>
+		<name>Making Valuables With Stonecrafting</name>
+		<weight>1.0</weight>
+		<category>Equipment\Books\Special\Masonry Book</category>
+		<basescripts>books.masonry</basescripts>
+	</item>
+
+	<item id="stonemining_book">
+		<id>0xfbe</id>
+		<name>Mining For Quality Stone</name>
+		<weight>1.0</weight>
+		<category>Equipment\Books\Special\Stone Mining Book</category>
+		<basescripts>books.stonemining</basescripts>
+	</item>
+
+	<item id="sandmining_book">
+		<id>0xfbe</id>
+		<name>Find Glass-Quality Sand</name>
+		<weight>1.0</weight>
+		<category>Equipment\Books\Special\Sand Mining Book</category>
+		<basescripts>books.sandmining</basescripts>
+	</item>
+
+	<item id="glassblowing_book">
+		<id>0xff4</id>
+		<name>Crafting Glass With Glassblowing</name>
+		<weight>1.0</weight>
+		<category>Equipment\Books\Special\Glassblowing Book</category>
+		<basescripts>books.glassblowing</basescripts>
+	</item>
+</definitions>

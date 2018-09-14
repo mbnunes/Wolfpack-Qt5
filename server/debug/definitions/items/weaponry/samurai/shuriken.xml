@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Shuriken -->
+	<item id="27ac">
+		<id>0x27ac</id>
+		<twohanded />
+		<decay />
+		<nodye />
+		<sellprice>120</sellprice>
+		<buyprice>40</buyprice>
+		<durability><random min="30" max="60" /></durability>
+		<weight>1.0</weight>
+		<basescripts>shuriken</basescripts>
+		<category>Base Weapons\Samurai\Unknown\Shuriken 1</category>
+		<!-- Properties -->
+		<tag name="remaining_uses" type="int" value="1" />
+		<tag name="resname" value="iron" />
+	</item>
+
+	<item id="27f7" inherit="27ac">
+		<id>0x27f7</id>
+		<baseid>27ac</baseid>
+		<category>Base Weapons\Samurai\Unknown\Shuriken 2</category>
+	</item>
+</definitions>

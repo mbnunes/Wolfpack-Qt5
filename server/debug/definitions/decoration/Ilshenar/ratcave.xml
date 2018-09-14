@@ -1,0 +1,86 @@
+<decoration>
+	<!-- crate-->
+	<item id="0x0E3E">
+		<pos x="1307" y="1568" z="0" map="2" />
+		<pos x="1307" y="1528" z="-25" map="2" />
+	</item>
+
+	<!-- crate-->
+	<item id="0x0E3C">
+		<pos x="1307" y="1568" z="-3" map="2" />
+		<pos x="1308" y="1569" z="-3" map="2" />
+		<pos x="1307" y="1527" z="-28" map="2" />
+		<pos x="1307" y="1528" z="-28" map="2" />
+		<pos x="1308" y="1528" z="-28" map="2" />
+	</item>
+
+	<!-- crate-->
+	<item id="0x0E7E">
+		<pos x="1308" y="1568" z="-3" map="2" />
+		<pos x="1308" y="1528" z="-25" map="2" />
+	</item>
+
+	<!-- small crate-->
+	<item id="0x09A9">
+		<pos x="1308" y="1569" z="0" map="2" />
+	</item>
+
+	<!-- iron ore-->
+	<item id="0x19B7">
+		<pos x="1284" y="1538" z="-3" map="2" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x0E40">
+		<pos x="1165" y="1513" z="-68" map="2" />
+		<pos x="1170" y="1508" z="-68" map="2" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x09AB">
+		<pos x="1173" y="1504" z="-68" map="2" />
+	</item>
+
+	<!-- wooden chest-->
+	<item id="0x0E42">
+		<pos x="1169" y="1516" z="-68" map="2" />
+	</item>
+
+	<!-- metal chest-->
+	<item id="0x0E41">
+		<pos x="1171" y="1518" z="-68" map="2" />
+	</item>
+
+	<!-- crumbling floor-->
+	<item id="0x11C5">
+		<pos x="1183" y="1477" z="-36" map="2" />
+		<pos x="1188" y="1504" z="-62" map="2" />
+		<pos x="1198" y="1473" z="-23" map="2" />
+		<pos x="1199" y="1513" z="-44" map="2" />
+		<pos x="1197" y="1546" z="-26" map="2" />
+		<pos x="1200" y="1530" z="-25" map="2" />
+		<pos x="1208" y="1502" z="-28" map="2" />
+		<pos x="1219" y="1517" z="-25" map="2" />
+		<pos x="1231" y="1529" z="-25" map="2" />
+		<pos x="1232" y="1472" z="-22" map="2" />
+		<pos x="1244" y="1474" z="-22" map="2" />
+		<pos x="1241" y="1504" z="-25" map="2" />
+	</item>
+
+	<!-- crate-->
+	<item id="0x0E3F">
+		<pos x="1281" y="1494" z="15" map="2" />
+		<pos x="1307" y="1527" z="-25" map="2" />
+		<pos x="1309" y="1528" z="-28" map="2" />
+	</item>
+
+	<!-- crate-->
+	<item id="0x0E3D">
+		<pos x="1281" y="1494" z="12" map="2" />
+	</item>
+
+	<!-- wooden chest-->
+	<item id="0x0E43">
+		<pos x="1283" y="1492" z="12" map="2" />
+	</item>
+</decoration>

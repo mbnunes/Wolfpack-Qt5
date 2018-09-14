@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<!--
+	Misc. Index File
+-->
+<definitions>
+	<include file="definitions/items/misc/animations.xml"/>
+	<include file="definitions/items/misc/ankhs.xml"/>
+	<include file="definitions/items/misc/figurines.xml"/>
+	<include file="definitions/items/misc/holiday.xml"/>
+	<include file="definitions/items/misc/minor_artifacts.xml"/>
+	<include file="definitions/items/misc/misc.xml"/>
+	<include file="definitions/items/misc/orccamp.xml"/>
+	<include file="definitions/items/misc/siegeweapons.xml"/>
+	<include file="definitions/items/misc/spellicons.xml"/>
+	<include file="definitions/items/misc/deeds.xml"/>
+	<include file="definitions/items/misc/statuettes.xml"/>
+	<include file="definitions/items/misc/testing.xml"/>
+	<include file="definitions/items/misc/plantgrowing.xml"/>
+</definitions>

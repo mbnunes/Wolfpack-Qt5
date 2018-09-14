@@ -1,0 +1,18 @@
+<decoration>
+	<!-- Ihara Soko-->
+	<item id="0x1F13">
+		<pos x="678" y="1277" z="47" map="4" />
+	</item>
+
+	<!--blockers around him-->
+	<item id="0x21A4">
+		<pos x="677" y="1277" z="47" map="4" />
+		<pos x="679" y="1277" z="47" map="4" />
+		<pos x="678" y="1276" z="47" map="4" />
+		<pos x="678" y="1278" z="47" map="4" />
+		<pos x="677" y="1276" z="47" map="4" />
+		<pos x="677" y="1278" z="47" map="4" />
+		<pos x="679" y="1276" z="47" map="4" />
+		<pos x="679" y="1278" z="47" map="4" />
+	</item>
+</decoration>

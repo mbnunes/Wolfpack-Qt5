@@ -1,0 +1,29 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Insect / Arachnid -->
+	<include file="definitions/npcs/monsters/insect/ant_lion.xml" />
+	<include file="definitions/npcs/monsters/insect/black_solen_infiltrator_queen.xml" />
+	<include file="definitions/npcs/monsters/insect/black_solen_infiltrator_warrior.xml" />
+	<include file="definitions/npcs/monsters/insect/black_solen_queen.xml" />
+	<include file="definitions/npcs/monsters/insect/black_solen_warrior.xml" />
+	<include file="definitions/npcs/monsters/insect/black_solen_worker.xml" />
+	<include file="definitions/npcs/monsters/insect/dread_spider.xml" />
+	<include file="definitions/npcs/monsters/insect/frost_spider.xml" />
+	<include file="definitions/npcs/monsters/insect/giant_black_widow.xml" />
+	<include file="definitions/npcs/monsters/insect/giant_spider.xml" />
+	<include file="definitions/npcs/monsters/insect/red_solen_infiltrator_queen.xml" />
+	<include file="definitions/npcs/monsters/insect/red_solen_infiltrator_warrior.xml" />
+	<include file="definitions/npcs/monsters/insect/red_solen_queen.xml" />
+	<include file="definitions/npcs/monsters/insect/red_solen_warrior.xml" />
+	<include file="definitions/npcs/monsters/insect/red_solen_worker.xml" />
+	<include file="definitions/npcs/monsters/insect/scorpion.xml" />
+
+</definitions>

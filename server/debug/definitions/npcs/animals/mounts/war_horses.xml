@@ -1,0 +1,73 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<npc id="war_horse" inherit="animal_base">
+		<name>war horse</name>
+		<id><random list="NPCIDS_WARHORSE" /></id>
+		<ai>Animal_Wild</ai>
+		<inherit id="KARMA_NL0" />
+		<inherit id="FAME_L1" />
+		<!-- Stats -->
+		<str>400</str>
+		<dex>125</dex>
+		<int><random min="51" max="55" /></int>
+		<!-- Status -->
+		<maxhitpoints>240</maxhitpoints>
+		<maxmana>0</maxmana>
+		<!-- Damage -->
+		<mindamage>12</mindamage>
+		<maxdamage>20</maxdamage>
+		<!-- Defense -->
+		<tag name="res_physical" value="40,50" type="int" />
+		<!-- Skills -->
+		<skill id="wrestling"><random min="393" max="463" /></skill>
+		<skill id="tactics"><random min="259" max="422" /></skill>
+		<skill id="magicresistance"><random min="255" max="297" /></skill>
+		<!-- Misc. -->
+		<controlslots>1</controlslots>
+		<mintaming>291</mintaming>
+		<strproperty name="food" value="3,5" />
+		<bindmenu>tame_menu,pet_menu</bindmenu>
+		<category>Animals\Mounts\War Horses\Warhorse (Random)</category>
+		<basescript>npc.mount</basescript>
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="5" />
+		<intproperty name="carve_meat" value="3" />
+	</npc>
+
+	<!-- Britannian Warhorse -->
+	<npc id="britannian_war_horse" inherit="war_horse">
+		<id>118</id>
+		<baseid>war_horse</baseid>
+		<category>Animals\Mounts\War Horses\Britannian Warhorse</category>
+	</npc>
+
+	<!-- Council of Mages Warhorse -->
+	<npc id="magecouncil_war_horse" inherit="war_horse">
+		<id>119</id>
+		<baseid>war_horse</baseid>
+		<category>Animals\Mounts\War Horses\Council of Mages Warhorse</category>
+	</npc>
+
+	<!-- Followers of Minax Warhorse -->
+	<npc id="minax_war_horse" inherit="war_horse">
+		<id>120</id>
+		<baseid>war_horse</baseid>
+		<category>Animals\Mounts\War Horses\Minax Warhorse</category>
+	</npc>
+
+	<!-- Shadowlords Warhorse -->
+	<npc id="shadowlord_war_horse" inherit="war_horse">
+		<id>121</id>
+		<baseid>war_horse</baseid>
+		<category>Animals\Mounts\War Horses\Shadowlord Warhorse</category>
+	</npc>
+
+</definitions>

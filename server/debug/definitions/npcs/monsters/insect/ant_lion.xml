@@ -1,0 +1,55 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- an ant lion -->
+	<npc id="ant_lion" inherit="monster_base">
+		<inherit id="speed_slow" />
+		<name>ant lion</name>
+		<id>787</id>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<!-- Stats -->
+		<str><random min="296" max="320"/></str>
+		<dex><random min="81" max="105"/></dex>
+		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="151" max="162" /></maxhitpoints>
+		<!-- Skills -->
+		<skill id="magicresistance">700</skill>
+		<skill id="tactics">900</skill>
+		<skill id="wrestling">900</skill>
+		<!-- Damage -->
+		<mindamage>21</mindamage>
+		<maxdamage>54</maxdamage>
+		<tag name="dmg_poison" value="30" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_energy" value="30,35" type="int" />
+		<tag name="res_fire" value="25,35" type="int" />
+		<tag name="res_physical" value="45,60" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: Adventurers Skeleton, Dull Copper or Shadow or Copper or Bronze Ore  -->
+		<lootpacks>gold_average;bones</lootpacks>
+		<backpack>
+			<content>
+				<item id="f81"> <!-- Fertile Dirt -->
+					<amount><random min="1" max="5" /></amount>
+				</item>
+			</content>
+		</backpack>
+		<!-- Misc. -->
+		<category>Monsters\Insects\Ant Lion</category>
+		<strproperty name="food" value="1" />
+		<!-- Poisoning -->
+		<intproperty name="hit_poison_level" value="2" />
+		<basescript>npc.poison</basescript>
+	</npc>
+
+</definitions>

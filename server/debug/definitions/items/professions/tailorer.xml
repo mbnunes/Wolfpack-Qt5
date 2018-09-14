@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Tailorer                                                      |
+=================================================================
+-->
+<definitions>
+	<item id="def">
+		<id>0xdef</id>
+		<category>Professions\Tailorer\Resources\Raw Cotton 1</category>
+		<basescripts>cotton</basescripts>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="df6">
+		<id>0xdf6</id>
+		<category>Professions\Tailorer\Decoration\Knitting (N/S)</category>
+	</item>
+
+	<item id="df7">
+		<id>0xdf7</id>
+		<category>Professions\Tailorer\Decoration\Knitting (W/E)</category>
+	</item>
+
+	<item id="ec6">
+		<id>0xec6</id>
+		<category>Professions\Tailorer\Decoration\Dress Form (N/S)</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="ec7">
+		<id>0xec7</id>
+		<category>Professions\Tailorer\Decoration\Dress Form (W/E)</category>
+		<basescripts>furniture</basescripts>
+	</item>
+
+	<item id="1069">
+		<id>0x1069</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 1 (W/E)</category>
+	</item>
+
+	<item id="106a">
+		<id>0x106a</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 2 (W/E)</category>
+	</item>
+
+	<item id="106b">
+		<id>0x106b</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 3 (W/E)</category>
+	</item>
+
+	<item id="106c">
+		<id>0x106c</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 4 (W/E) (1/2)</category>
+	</item>
+
+	<item id="106d">
+		<id>0x106d</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 4 (W/E) (2/2)</category>
+	</item>
+
+	<item id="106e">
+		<id>0x106e</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 5 (W/E) (1/2)</category>
+	</item>
+
+	<item id="106f">
+		<id>0x106f</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 5 (W/E) (2/2)</category>
+	</item>
+
+
+	<item id="107a">
+		<id>0x107a</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 1 (N/S)</category>
+	</item>
+
+	<item id="107b">
+		<id>0x107b</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 2 (N/S)</category>
+	</item>
+
+	<item id="107c">
+		<id>0x107c</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 3 (N/S)</category>
+	</item>
+
+	<item id="107d">
+		<id>0x107d</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 4 (N/S) (1/2)</category>
+	</item>
+
+	<item id="107e">
+		<id>0x107e</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 4 (N/S) (2/2)</category>
+	</item>
+
+	<item id="107f">
+		<id>0x107f</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 5 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1080">
+		<id>0x1080</id>
+		<category>Professions\Tailorer\Decoration\Stretched Hide 5 (N/S) (2/2)</category>
+	</item>
+
+	<item id="13c8">
+		<id>0x13c8</id>
+		<category>Professions\Tailorer\Decoration\Hanging Leather Sleeves (N/S)</category>
+	</item>
+
+	<item id="13c9">
+		<id>0x13c9</id>
+		<category>Professions\Tailorer\Decoration\Hanging Leather Leggings (N/S)</category>
+	</item>
+
+	<item id="13ca">
+		<id>0x13ca</id>
+		<category>Professions\Tailorer\Decoration\Hanging Leather Tunic (N/S)</category>
+	</item>
+
+	<item id="13cf">
+		<id>0x13cf</id>
+		<category>Professions\Tailorer\Decoration\Hanging Leather Sleeves (W/E)</category>
+	</item>
+
+	<item id="13d0">
+		<id>0x13d0</id>
+		<category>Professions\Tailorer\Decoration\Hanging Leather Leggings (W/E)</category>
+	</item>
+
+	<item id="13d1">
+		<id>0x13d1</id>
+		<category>Professions\Tailorer\Decoration\Hanging Leather Sleeves (W/E)</category>
+	</item>
+
+	<item id="13d7">
+		<id>0x13d7</id>
+		<category>Professions\Tailorer\Decoration\Hanging Studded Sleeves (N/S)</category>
+	</item>
+
+	<item id="13d8">
+		<id>0x13d8</id>
+		<category>Professions\Tailorer\Decoration\Hanging Studded Leggings (N/S)</category>
+	</item>
+
+	<item id="13d9">
+		<id>0x13d9</id>
+		<category>Professions\Tailorer\Decoration\Hanging Studded Tunic (N/S)</category>
+	</item>
+
+	<item id="13de">
+		<id>0x13de</id>
+		<category>Professions\Tailorer\Decoration\Hanging Studded Sleeves (W/E)</category>
+	</item>
+
+	<item id="13df">
+		<id>0x13df</id>
+		<category>Professions\Tailorer\Decoration\Hanging Studded Leggings (W/E)</category>
+	</item>
+
+	<item id="13e0">
+		<id>0x13e0</id>
+		<category>Professions\Tailorer\Decoration\Hanging Studded Tunic (W/E)</category>
+	</item>
+
+	<item id="175d">
+		<id>0x175d</id>
+		<category>Professions\Tailorer\Supplies\Folded Cloth 1 (W/E)</category>
+		<weight>0.1</weight>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+	</item>
+
+	<item id="175e" inherit="175d">
+		<id>0x175e</id>
+		<category>Professions\Tailorer\Supplies\Folded Cloth 2 (W/E)</category>
+	</item>
+
+	<item id="175f" inherit="175d">
+		<id>0x175f</id>
+		<category>Professions\Tailorer\Supplies\Folded Cloth 3 (W/E)</category>
+	</item>
+
+	<item id="1760">
+		<id>0x1760</id>
+		<category>Professions\Tailorer\Supplies\Folded Cloth 4 (W/E)</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1761" inherit="175d">
+		<id>0x1761</id>
+		<category>Professions\Tailorer\Supplies\Folded Cloth 1 (N/S)</category>
+	</item>
+
+	<item id="1762" inherit="175d">
+		<id>0x1762</id>
+		<category>Professions\Tailorer\Supplies\Folded Cloth 2 (N/S)</category>
+	</item>
+
+	<item id="1763" inherit="175d">
+		<id>0x1763</id>
+		<category>Professions\Tailorer\Supplies\Folded Cloth 3 (N/S)</category>
+	</item>
+
+	<item id="1764" inherit="175d">
+		<id>0x1764</id>
+		<category>Professions\Tailorer\Supplies\Folded Cloth 4 (N/S)</category>
+	</item>
+
+	<item id="1765">
+		<id>0x1765</id>
+		<category>Professions\Tailorer\Cloth (W/E)</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1766">
+		<id>0x1766</id>
+		<category>Professions\Tailorer\Cut Cloth (N/S)</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1767">
+		<id>0x1767</id>
+		<category>Professions\Tailorer\Cloth (N/S)</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1768">
+		<id>0x1768</id>
+		<category>Professions\Tailorer\Cut Cloth (W/E)</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="1a9c">
+		<id>0x1a9c</id>
+		<category>Professions\Tailorer\Resources\Flax</category>
+		<buyprice>102</buyprice>
+		<sellprice>51</sellprice>
+		<basescripts>cotton</basescripts>
+		<weight>1.0</weight>
+	</item>
+
+	<!-- Raw Cotton -->
+	<item id="df9">
+		<id>0xdf9</id>
+		<category>Professions\Tailorer\Resources\Raw Cotton 2</category>
+		<buyprice>102</buyprice>
+		<sellprice>51</sellprice>
+		<basescripts>cotton</basescripts>
+		<weight>3.0</weight>
+	</item>
+
+	<!-- Pile of Wool -->
+	<item id="df8">
+		<id>0xdf8</id>
+		<category>Professions\Tailorer\Resources\Pile of Wool 1</category>
+		<basescripts>wool</basescripts>
+		<buyprice>62</buyprice>
+		<sellprice>31</sellprice>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="101f" inherit="df8">
+		<id>0x101f</id>
+		<category>Professions\Tailorer\Resources\Pile of Wool 2</category>
+	</item>
+
+	<!-- Ball of Yarn -->
+	<item id="e1d">
+		<id>0xe1d</id>
+		<category>Professions\Tailorer\Resources\Ball of Yarn 1</category>
+		<basescripts>yarn</basescripts>
+		<buyprice>21</buyprice>
+		<sellprice>10</sellprice>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="e1e" inherit="e1d">
+		<id>0xe1e</id>
+		<category>Professions\Tailorer\Resources\Ball of Yarn 2</category>
+	</item>
+
+	<item id="e1f" inherit="e1d">
+		<id>0xe1f</id>
+		<category>Professions\Tailorer\Resources\Ball of Yarn 3</category>
+	</item>
+
+	<!-- Bolt of Cloth -->
+	<item id="f95">
+		<id>0xf95</id>
+		<category>Professions\Tailorer\Bolt of Cloth 1</category>
+		<buyprice>120</buyprice>
+		<sellprice>60</sellprice>
+		<weight>5.0</weight>
+	</item>
+
+	<item id="f96" inherit="f95">
+		<id>0xf96</id>
+		<category>Professions\Tailorer\Bolt of Cloth 2</category>
+	</item>
+
+	<item id="f97" inherit="f95">
+		<id>0xf97</id>
+		<category>Professions\Tailorer\Bolt of Cloth 3</category>
+	</item>
+
+	<item id="f98" inherit="f95">
+		<id>0xf98</id>
+		<category>Professions\Tailorer\Bolt of Cloth 4</category>
+	</item>
+
+	<item id="f99" inherit="f95">
+		<id>0xf99</id>
+		<category>Professions\Tailorer\Bolt of Cloth 5</category>
+	</item>
+
+	<item id="f9a" inherit="f95">
+		<id>0xf9a</id>
+		<category>Professions\Tailorer\Bolt of Cloth 6</category>
+	</item>
+
+	<item id="f9b" inherit="f95">
+		<id>0xf9b</id>
+		<category>Professions\Tailorer\Bolt of Cloth 7</category>
+	</item>
+
+	<item id="f9c" inherit="f95">
+		<id>0xf9c</id>
+		<category>Professions\Tailorer\Bolt of Cloth 8</category>
+	</item>
+
+	<item id="f9d">
+		<id>0xf9d</id>
+		<category>Professions\Tailorer\Sewing Kit</category>
+		<tag name="remaining_uses" type="int" value="35" />
+		<basescripts>equipment,skills.tailoring</basescripts>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<weight>2.0</weight>
+	</item>
+
+	<item id="f9e">
+		<id>0xf9e</id>
+		<category>Professions\Tailorer\Scissors (N/S)</category>
+		<basescripts>scissors</basescripts>
+		<buyprice>13</buyprice>
+		<sellprice>6</sellprice>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="f9f" inherit="f9e">
+		<id>0xf9f</id>
+		<category>Professions\Tailorer\Scissors (W/E)</category>
+	</item>
+
+	<item id="fa0">
+		<id>0xfa0</id>
+		<category>Professions\Tailorer\Resources\Spool of Thread (N/S)</category>
+		<basescripts>yarn</basescripts>
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="fa1" inherit="fa0">
+		<id>0xfa1</id>
+		<category>Professions\Tailorer\Resources\Spool of Thread (W/E)</category>
+	</item>
+
+	<item id="fa9">
+		<id>0xfa9</id>
+		<category>Professions\Tailorer\Dyes</category>
+		<tag name="remaining_uses" type="int" value="30" />
+		<basescripts>dyes</basescripts>
+		<buyprice>8</buyprice>
+		<sellprice>4</sellprice>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="fab">
+		<id>0xfab</id>
+		<category>Professions\Tailorer\Dying Tub</category>
+		<basescripts>environment</basescripts>
+		<buyprice>9</buyprice>
+		<sellprice>4</sellprice>
+		<weight>10.0</weight>
+	</item>
+	
+	<item id="leatherdye">
+		<name>#1041284</name>
+		<id>0xfab</id>
+		<category>Professions\Tailorer\Leather Dye Tub</category>
+		<basescripts>leatherdye</basescripts>
+		<weight>10.0</weight>
+		<newbie />
+	</item>
+	
+	<item id="specialdye">
+		<name>#1041285</name>
+		<id>0xfab</id>
+		<category>Professions\Tailorer\Special Dye Tub</category>
+		<basescripts>specialdye</basescripts>
+		<weight>10.0</weight>
+		<newbie />
+	</item>
+	
+	<item id="runedye">
+		<name>#1049740</name>
+		<id>0xfab</id>
+		<category>Professions\Tailorer\Rune Dye Tub</category>
+		<basescripts>runedye</basescripts>
+		<weight>10.0</weight>
+		<newbie />
+	</item>		
+
+	<item id="1015">
+		<id>0x1015</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (N/S)</category>
+	</item>
+
+	<item id="1016">
+		<id>0x1016</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (N/S) (Animated)</category>
+	</item>
+
+	<item id="1017">
+		<id>0x1017</id>
+	</item>
+
+	<item id="1019">
+		<id>0x1019</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (W/E)</category>
+	</item>
+
+	<item id="101a">
+		<id>0x101a</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (W/E) (Animated)</category>
+	</item>
+
+	<item id="101b">
+		<id>0x101b</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (W/E)</category>
+	</item>
+
+	<item id="101c">
+		<id>0x101c</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (S/N)</category>
+	</item>
+
+	<item id="101d">
+		<id>0x101d</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (S/N) (Animated)</category>
+	</item>
+
+	<item id="10a4">
+		<id>0x10a4</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (E/W)</category>
+	</item>
+
+	<item id="10a5">
+		<id>0x10a5</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (E/W) (Animated)</category>
+	</item>
+
+	<item id="10a6">
+		<id>0x10a6</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (E/W)</category>
+	</item>
+
+	<item id="105f">
+		<id>0x105f</id>
+		<category>Professions\Tailorer\Decoration\Upright Loom 1 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1060">
+		<id>0x1060</id>
+		<category>Professions\Tailorer\Decoration\Upright Loom 1 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1061">
+		<id>0x1061</id>
+		<category>Professions\Tailorer\Decoration\Upright Loom 1 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1062">
+		<id>0x1062</id>
+		<category>Professions\Tailorer\Decoration\Upright Loom 1 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1063">
+		<id>0x1063</id>
+		<category>Professions\Tailorer\Decoration\Upright Loom 2 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1064">
+		<id>0x1064</id>
+		<category>Professions\Tailorer\Decoration\Upright Loom 2 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1065">
+		<id>0x1065</id>
+		<category>Professions\Tailorer\Decoration\Upright Loom 2 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1066">
+		<id>0x1066</id>
+		<category>Professions\Tailorer\Decoration\Upright Loom 2 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1067">
+		<id>0x1067</id>
+		<tag name="resname" value="leather" />
+		<category>Professions\Tailorer\Cut Up Leather (N/S)</category>
+		<buyprice>4</buyprice>
+		<sellprice>2</sellprice>
+		<weight>1.0</weight>
+	</item>
+
+	<item id="1068" inherit="1067">
+		<id>0x1068</id>
+		<category>Professions\Tailorer\Cut Up Leather (W/E)</category>
+	</item>
+
+	<item id="1078">
+		<id>0x1078</id>
+		<tag name="resname" value="leather" />
+		<category>Professions\Tailorer\Pile of Hides 1 (W/E)</category>
+		<buyprice>4</buyprice>
+		<sellprice>2</sellprice>
+		<weight>5.0</weight>
+	</item>
+
+	<item id="1079" inherit="1078">
+		<id>0x1079</id>
+		<category>Professions\Tailorer\Pile of Hides 1 (N/S)</category>
+	</item>
+
+	<item id="1081" inherit="1078">
+		<id>0x1081</id>
+		<category>Professions\Tailorer\Pile of Hides 2 (W/E)</category>
+	</item>
+
+	<item id="1082" inherit="1078">
+		<id>0x1082</id>
+		<category>Professions\Tailorer\Pile of Hides 2 (N/S)</category>
+	</item>
+
+  <!-- Resources -->
+	<item id="leather_cut" inherit="1067">
+		<category>Professions\Tailorer\Supplies\Leather\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="spined_leather_cut" inherit="1067">
+		<color>0x8ad</color>
+		<name>spined cut leather</name>
+		<tag name="resname" value="spined_leather" />
+		<category>Professions\Tailorer\Supplies\Spined Leather\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="horned_leather_cut" inherit="1067">
+		<color>0x846</color>
+		<name>horned cut leather</name>
+		<tag name="resname" value="horned_leather" />
+		<category>Professions\Tailorer\Supplies\Horned Leather\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="barbed_leather_cut" inherit="1067">
+		<color>0x8a4</color>
+		<name>barbed cut leather</name>
+		<tag name="resname" value="barbed_leather" />
+		<category>Professions\Tailorer\Supplies\Barbed Leather\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="leather_hides" inherit="1079">
+		<tag name="resname" value="leather" />
+		<category>Professions\Tailorer\Supplies\Leather\Pile of Hides (N/S)</category>
+	</item>
+
+	<item id="spined_leather_hides" inherit="1079">
+		<color>0x8ad</color>
+		<name>spined pile of hides</name>
+		<tag name="resname" value="spined_leather" />
+		<category>Professions\Tailorer\Supplies\Spined Leather\Pile of Hides (N/S)</category>
+	</item>
+
+	<item id="horned_leather_hides" inherit="1079">
+		<color>0x846</color>
+		<name>horned pile of hides</name>
+		<tag name="resname" value="horned_leather" />
+		<category>Professions\Tailorer\Supplies\Horned Leather\Pile of Hides (N/S)</category>
+	</item>
+
+	<item id="barbed_leather_hides" inherit="1079">
+		<color>0x8a4</color>
+		<name>barbed pile of hides</name>
+		<tag name="resname" value="barbed_leather" />
+		<category>Professions\Tailorer\Supplies\Barbed Leather\Pile of Hides (N/S)</category>
+	</item>
+
+</definitions>

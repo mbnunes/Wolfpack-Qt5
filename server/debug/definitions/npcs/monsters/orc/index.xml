@@ -1,0 +1,21 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  |
+ *   )).-' {{ ;'`   |
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Orc -->
+	<include file="definitions/npcs/monsters/orc/orc_bomber.xml" />
+	<include file="definitions/npcs/monsters/orc/orc_brute.xml" />
+	<include file="definitions/npcs/monsters/orc/orc_captain.xml" />
+	<include file="definitions/npcs/monsters/orc/orc_chopper.xml" />
+	<include file="definitions/npcs/monsters/orc/orc_mage.xml" />
+	<include file="definitions/npcs/monsters/orc/orc_scout.xml" />
+	<include file="definitions/npcs/monsters/orc/orcish_lord.xml" />
+	<include file="definitions/npcs/monsters/orc/orcs.xml" />
+
+</definitions>
