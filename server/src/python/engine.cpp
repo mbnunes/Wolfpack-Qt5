@@ -109,10 +109,10 @@ static void stopPython()
 	Starts the python interpreter
 */
 extern "C"  void init_wolfpack();
-static void startPython( int argc, char* argv[] )
+static void startPython( QStringList arguments )
 {
 	using namespace boost::python;
-	Py_SetProgramName( argv[0] );
+    Py_SetProgramName( arguments.at(0).toLocal8Bit().data());
 
 	Py_NoSiteFlag = 1; // No import because we need to set the search path first
 
@@ -123,7 +123,14 @@ static void startPython( int argc, char* argv[] )
 #endif
 		PyEval_InitThreads();
 
-	PySys_SetArgv( argc, argv );
+    char** argv = new char*[arguments.size()];
+
+    for(int i=0;i<arguments.size();i++)
+    {
+        argv[i] = arguments[i].toLocal8Bit().data();
+    }
+
+    PySys_SetArgv( arguments.size(), argv);
 
 	// Modify our search-path
 	list searchPath = extract<list>( object( handle<>( borrowed( PySys_GetObject( "path" ) ) ) ) );
@@ -293,7 +300,7 @@ cPythonEngine::~cPythonEngine()
 
 void cPythonEngine::load()
 {
-	startPython( QCoreApplication::argc(), QCoreApplication::argv() );
+    startPython( QCoreApplication::arguments() );
 	cComponent::load();
 }
 

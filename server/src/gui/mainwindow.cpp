@@ -24,7 +24,7 @@
 *
 * Wolfpack Homepage: https://github.com/Mutilador/Wolfpack
 */
-#include <QtGui>
+#include <QtWidgets>
 #include <QUrl>
 #include <QDesktopServices>
 

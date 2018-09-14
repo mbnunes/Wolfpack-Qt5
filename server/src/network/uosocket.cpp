@@ -121,6 +121,10 @@ const quint16 packetLengths[256] =
 		0x006A, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8
 };
 
+
+
+
+
 /*****************************************************************************
   cUOSocket member functions
  *****************************************************************************/
@@ -1666,19 +1670,13 @@ void cUOSocket::handleCreateCharNew(cUORxCreateCharNew* packet)
 	bool isHuman = true;
 	bool isElf = false;
 	bool isGargoyle = false;
-	int profession = packet->Profession();
-
-	enum RaceType {
-		HUMAN = 0,
-		ELF = 1,
-		GARGOYLE = 2
-	};
+	int profession = packet->Profession();    
 
 	// The Gender (True to Woman, False to man)
 	if (packet->genderRace() % 2 == 0)
 	{
 		tGender = false;			// Its a Man!
-	}
+	} 
 
 	// Pickin the Race (True to human, False to Elf)
 	if (packet->genderRace() <= 3)
@@ -1686,21 +1684,21 @@ void cUOSocket::handleCreateCharNew(cUORxCreateCharNew* packet)
 		isHuman = true;			// Its a Human!
 		isElf = false;
 		isGargoyle = false;
-		tRace = RaceType::HUMAN;
+        tRace = static_cast<int>(HUMAN);
 	}
 	else if (packet->genderRace() > 3 && packet->genderRace() < 6)
 	{
 		isHuman = false;
 		isElf = true;			// Its a Elf!
 		isGargoyle = false;
-		tRace = RaceType::ELF;
+        tRace = static_cast<int>(ELF);
 	}
 	else
 	{
 		isHuman = false;
 		isElf = false;
 		isGargoyle = true;		// Its a Gargoyle!
-		tRace = RaceType::GARGOYLE;
+        tRace = static_cast<int>(GARGOYLE);
 	}
 
 	// Check the stats

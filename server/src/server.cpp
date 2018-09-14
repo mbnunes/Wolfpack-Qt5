@@ -273,7 +273,8 @@ void myMessageOutput( QtMsgType /*type*/, const char */*msg*/ )
 void cServer::run()
 {
 #if !defined( DEBUG )
-	qInstallMsgHandler(myMessageOutput);
+    //qInstallMsgHandler(myMessageOutput);
+    qInstallMessageHandler(0);
 #endif
 	// If have no idea where i should put this otherwise
 #if defined(Q_OS_UNIX)

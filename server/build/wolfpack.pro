@@ -10,7 +10,7 @@ TARGET = wolfpack
 TEMPLATE = app
 
 CONFIG *= qt thread exceptions rtti 
-QT += network xml sql
+QT += network xml sql widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG -= flat
@@ -23,7 +23,7 @@ OBJECTS_DIR = obj
 MOC_DIR = obj
 
 win32:LIBS += -lws2_32 -lkernel32 -luser32 -lgdi32 -ladvapi32 -lshell32 -lole32\
-	-loleaut32 -luuid -lodbc32 -lodbccp32
+        -loleaut32 -luuid -lodbc32 -lodbccp32 -lz
 unix:LIBS += -lz
 
 DEFINES += BOOST_PYTHON_STATIC_LIB BOOST_ALL_NO_LIB

@@ -1,0 +1,13 @@
+23:46: WARNING: Unable to load body information from definitions/system/bodyinfo.xml.
+23:46: WARNING: Couldn't find Language File: wolfpack_pt_BR.qm
+23:46: WARNING: UO Mul files not found at '.\muls\', trying to locate...
+23:46: ERROR: Unable to find *.mul files path. Please check wolfpack.xml, section "General", key "MulPath"
+23:46: WARNING: Unable to find the files for map 0.
+23:46: WARNING: Unable to find the files for map 1.
+23:46: WARNING: Unable to find the files for map 2.
+23:46: WARNING: Unable to find the files for map 3.
+23:46: WARNING: Unable to find the files for map 4.
+23:46: WARNING: Unable to find the files for map 5.
+23:46: WARNING: UO Mul files not found at '.\muls\', trying to locate...
+23:46: ERROR: Unable to find *.mul files path. Please check wolfpack.xml, section "General", key "MulPath"
+23:46: ERROR: Error opening file .\muls\tiledata.mul for reading.

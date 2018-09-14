@@ -1,0 +1,242 @@
+<!DOCTYPE preferences>
+<preferences version="1.0" application="Wolfpack">
+
+  <!--
+  This group configures the NPC AI.
+  -->
+  <group name="AI">
+    <option key="Default AI Check Time" value="0.5"/>
+    <option key="Default AI Items Check Range" value="9"/>
+    <option key="Default AI Items Check Time" value="0"/>
+    <option key="Default AI NPCs Check Range" value="12"/>
+    <option key="Default AI NPCs Check Time" value="0"/>
+    <option key="Guard dispel time (sec)" value="25"/>
+    <option key="Wild animals flee range" value="8"/>
+  </group>
+
+  <!--
+  This group configures the account management.
+  -->
+  <group name="Accounts">
+
+    <!--  If active login attempts with non-existing login names will create a new account automatically
+    This is very usefull for new shards without account policy  -->
+    <option key="Auto Create" value="false"/>
+    <option key="Auto Create ACL" value="player"/>
+
+    <!--  If active, will convert older plain text passwords into MD5 hash  -->
+    <option key="Automatically Hash Loaded Passwords" value="false"/>
+
+    <!--  Possible values are: sqlite, mysql, oci for oracle, odbc, psql for PostgreSQL, tds for Sybase Adaptative Server, db2 for IBM DB2 (v7.1 or higher), sqlite2 for Sqlite version 2.x and ibase for Borland Interbase
+    Avaliable drivers depends on your Qt Instalation thought  -->
+    <option key="Database Driver" value="sqlite"/>
+    <option key="Database Host" value=""/>
+    <option key="Database Name" value="accounts.db"/>
+    <option key="Database Password" value=""/>
+    <option key="Database Port" value="3306"/>
+    <option key="Database Username" value=""/>
+    <option key="Enable Individual Number for Characters Slots" value="false"/>
+
+    <!--  Should not be more than 6, due to client restrictions  -->
+    <option key="Maximum Number of Characters" value="7"/>
+
+    <!--  This will store hashed passwords, increasing password security.  -->
+    <option key="Use MD5 Hashed Passwords" value="false"/>
+  </group>
+
+  <!--
+  This group configures binary save driver options. You can skip these if you are not using "binary" as worldsave driver
+  -->
+  <group name="Binary Save Driver">
+    <option key="Compress Backups" value="false"/>
+    <option key="Number Of Backups" value="5"/>
+    <option key="Save Path" value="world.bin"/>
+  </group>
+
+  <!--
+  Combat tweaking options
+  -->
+  <group name="Combat">
+    <option key="Attack Distance" value="13"/>
+    <option key="Show Damage Done" value="true"/>
+    <option key="Show Damage Received" value="true"/>
+  </group>
+
+  <!--
+  This group configures access to the worldsave database.
+  -->
+  <group name="Database">
+    <option key="Database Driver" value="binary"/>
+    <option key="Database Host" value=""/>
+    <option key="Database Name" value="world.db"/>
+    <option key="Database Password" value=""/>
+    <option key="Database Port" value="3306"/>
+    <option key="Database Username" value=""/>
+    <option key="Use Transactions" value="false"/>
+  </group>
+
+  <!--
+  Game speed and timming settings. Change with caution, misconfiguration may cause lag or cpu hog
+  -->
+  <group name="Game Speed">
+    <option key="Hunger Rate" value="120"/>
+    <option key="Item Decay Time" value="300"/>
+    <option key="NPC Corpse Decay Time" value="600"/>
+    <option key="NPCs Check Time" value="0.2"/>
+    <option key="Nice Level" value="2"/>
+    <option key="ObjectDelay" value="1"/>
+    <option key="Player Corpse Decay Time" value="1200"/>
+    <option key="Seconds Per UO Minute" value="5"/>
+    <option key="SkillDelay" value="7"/>
+    <option key="SpawnRegion Check Time" value="5"/>
+    <option key="Tamed Check Time" value="0.6"/>
+  </group>
+
+  <!--
+  General settings
+  -->
+  <group name="General">
+    <option key="Anti Speed Hack" value="true"/>
+    <option key="Anti Speed Hack Delay" value="175"/>
+    <option key="Anti Speed Hack Delay Mounted" value="75"/>
+    <option key="Bodyinfo File" value="definitions/system/bodyinfo.xml"/>
+    <option key="Char Time Out" value="300"/>
+    <option key="Check Collision at All Maps" value="false"/>
+    <option key="Command Prefix" value="'"/>
+    <option key="Disable Fame" value="false"/>
+    <option key="Disable Karma" value="false"/>
+    <option key="Enable Felucca Season" value="true"/>
+    <option key="Enable Trammel Season" value="true"/>
+    <option key="Enable Young Status" value="true"/>
+    <option key="Enable onTimeChange for Items" value="false"/>
+    <option key="Factor for MaxHitPoints Calculation" value="1"/>
+    <option key="Factor for MaxMana Calculation" value="1"/>
+    <option key="Factor for MaxStamina Calculation" value="1"/>
+    <option key="Guards Enabled" value="true"/>
+    <option key="Hunger Damage" value="0"/>
+    <option key="Insta Logout from Guarded Regions" value="true"/>
+    <option key="Language File" value="wolfpack_pt_BR.qm"/>
+    <option key="LogPath" value="./logs/"/>
+    <option key="LogRotate" value="true"/>
+    <option key="Logging Mask" value="255"/>
+    <option key="Minutes to Delete Character" value="1440"/>
+    <option key="Mount Range" value="2"/>
+    <option key="MulPath" value="./muls/"/>
+    <option key="New Tooltip Packets" value="true"/>
+    <option key="Overwrite Definitions" value="false"/>
+    <option key="Pay From Pack Only" value="false"/>
+    <option key="Percent Hits after Ress" value="10"/>
+    <option key="Percent Mana after Ress" value="50"/>
+    <option key="Percent Stamina after Ress" value="50"/>
+    <option key="Python Searchpath" value="./scripts;."/>
+    <option key="Refresh Characters Maximum Values" value="true"/>
+    <option key="Save Interval" value="900"/>
+    <option key="Send ASCII Character Names" value="false"/>
+    <option key="Shop Restock" value="60"/>
+    <option key="Show Npc Titles" value="true"/>
+    <option key="ShowSkillTitles" value="true"/>
+    <option key="Simple MaxHitPoints Calculation" value="false"/>
+    <option key="SkillCap" value="700"/>
+    <option key="Speech Normal Range" value="18"/>
+    <option key="Speech Whisper Range" value="1"/>
+    <option key="Speech Yell Range" value="54"/>
+    <option key="StatsCap" value="225"/>
+    <option key="Tamed Disappear" value="0"/>
+    <option key="Uses Kingdom Reborn Maps" value="true"/>
+    <option key="Uses Mondains Legacy Map" value="true"/>
+    <option key="Weight Percent to Active Event" value="0"/>
+  </group>
+  <group name="Light">
+    <option key="Dungeon Level" value="18"/>
+    <option key="World Bright Level" value="1"/>
+    <option key="World Dark Level" value="18"/>
+    <option key="World Fixed Level" value="0"/>
+  </group>
+
+  <!--
+  Configures the list of servers shown during the login process.
+  -->
+  <group name="LoginServer">
+    <option key="Shard 1" value="Your Shard Name=127.0.0.1,2592"/>
+  </group>
+  <group name="Monetary">
+    <option key="Default First Coin" value="eed"/>
+    <option key="Default Second Coin" value="ef0"/>
+    <option key="Default Third Coin" value="eea"/>
+    <option key="Use New Monetary" value="false"/>
+    <option key="Use Reversed Valuable Base" value="false"/>
+  </group>
+
+  <!--
+  Network settings.
+  -->
+  <group name="Network">
+    <option key="Allow Stat Request" value="true"/>
+    <option key="Allow Unencrypted Clients" value="true"/>
+    <option key="Enable Gameserver" value="true"/>
+    <option key="Enable Loginserver" value="true"/>
+    <option key="Gameserver Port" value="2592"/>
+    <option key="Loginserver Port" value="2593"/>
+  </group>
+
+  <!--
+  AI Path finding algorithm tweaks. Change with caution.
+  -->
+  <group name="Path Finding">
+    <option key="Activate for Combat" value="false"/>
+    <option key="Activate for Following" value="true"/>
+    <option key="Flee Radius" value="10"/>
+    <option key="Follow Radius" value="10"/>
+  </group>
+  <group name="Racial Features">
+    <option key="Elven Wisdom Bonus" value="1.2"/>
+    <option key="Elves always have full nightsight" value="true"/>
+    <option key="Human Strong Back" value="1.5"/>
+    <option key="Human Tough" value="0.6"/>
+  </group>
+  <group name="Repsys">
+    <option key="Criminal Time" value="120"/>
+    <option key="Max Kills" value="5"/>
+    <option key="Murder Decay" value="28800"/>
+  </group>
+  <group name="Season">
+    <option key="Days to Change Season" value="90"/>
+    <option key="Enable Desolation as Season" value="false"/>
+    <option key="Enable Season System" value="false"/>
+  </group>
+  <group name="Skills">
+    <option key="Default Focus Value" value="500"/>
+    <option key="Disable Focus" value="false"/>
+    <option key="Snoop Delay" value="7"/>
+    <option key="Stealing Enabled" value="true"/>
+  </group>
+  <group name="StartLocation">
+    <option key="Location 1" value="Yew=567,978,0,1,1075072"/>
+    <option key="Location 2" value="Minoc=2477,407,15,1,1075073"/>
+    <option key="Location 3" value="Britain=1496,1629,10,1,1075074"/>
+    <option key="Location 4" value="Moonglow=4404,1169,0,1,1075075"/>
+    <option key="Location 5" value="Trinsic=1844,2745,0,1,1075076"/>
+    <option key="Location 6" value="New Haven=3667,2625,0,1,1150168"/>
+    <option key="Location 7" value="Jhelom=1378,3817,0,1,1075078"/>
+    <option key="Location 8" value="Skara Brae=594,2227,0,1,1075079"/>
+    <option key="Location 9" value="Vesper=2771,977,0,1,1075080"/>
+  </group>
+  <group name="Weather">
+    <option key="Default Dry Duration" value="4"/>
+    <option key="Default Dry Duration Range" value="1"/>
+    <option key="Default Rain Chance" value="10"/>
+    <option key="Default Rain Duration" value="2"/>
+    <option key="Default Rain Duration Range" value="1"/>
+    <option key="Default Snow Chance" value="2"/>
+    <option key="Default Snow Duration" value="2"/>
+    <option key="Default Snow Duration Range" value="1"/>
+    <option key="Default Thunder Chance" value="25"/>
+    <option key="Enable Weather Sounds" value="false"/>
+    <option key="Enable Weather System" value="false"/>
+    <option key="Intensity Value to Rain Becomes Storm" value="100"/>
+    <option key="Maximum Default Intensity" value="112"/>
+    <option key="Minimum Default Intensity" value="16"/>
+    <option key="Ray Chance on Thunder" value="8"/>
+    <option key="Weather Sounds Interval" value="20000"/>
+  </group>
+</preferences>

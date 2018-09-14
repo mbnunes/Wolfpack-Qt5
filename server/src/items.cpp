@@ -523,7 +523,7 @@ QString cItem::getName( bool shortName )
 	{
 		// Test if we have a %.../...% form or a simple %
 		QRegExp simple( "%([^/]+)%" );
-		simple.setMinimal( TRUE );
+        simple.setMinimal( true );
 
 		if ( itemname.contains( simple ) )
 			itemname.replace( simple, simple.cap( 1 ) );

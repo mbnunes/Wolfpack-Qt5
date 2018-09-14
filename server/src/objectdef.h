@@ -49,12 +49,12 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 #  define WP_TR_FUNCTIONS(classname) \
 	static QString tr( const char* s, const char* c = 0 ) \
 	{ \
-		return QCoreApplication::translate( #classname, s, c, QCoreApplication::DefaultCodec ); \
+                return QCoreApplication::translate( #classname, s, c, 0 ); \
 	} \
 	\
 	static QString trUtf8( const char* s, const char* c = 0 ) \
 	{ \
-		return QCoreApplication::translate( #classname, s, c, QCoreApplication::UnicodeUTF8 ); \
+                return QCoreApplication::translate( #classname, s, c, 0 ); \
 	}
 
 # else
@@ -62,7 +62,7 @@ inline QString tr( const QString& text, const char* comment = 0, const char* con
 #  define WP_TR_FUNCTIONS \
 	static QString tr( const char* s, const char* c = 0 ) \
 	{ \
-		return QCoreApplication::translate( #classname, s, c, QCoreApplication::DefaultCodec ); \
+                return QCoreApplication::translate( #classname, s, c, 0 ); \
 	}
 
 # endif

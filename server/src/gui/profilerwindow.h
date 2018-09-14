@@ -38,7 +38,7 @@ class ProfilerWindow : public QMainWindow
 	Q_OBJECT
 	Ui::ProfilerWindow ui;
 public:
-	explicit ProfilerWindow(QWidget *parent = 0, Qt::WFlags flags = 0);
+    explicit ProfilerWindow(QWidget *parent = 0, Qt::WindowFlags flags = 0);
 	void setProfileSession( const ProfileSession& d );
 };
 

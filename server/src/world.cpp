@@ -1708,7 +1708,7 @@ QMap<QDateTime, QString> listBackups( const QString& filename )
 			continue;
 		}
 
-		date.setYMD( year, month, day );
+        date.setDate( year, month, day );
 		time.setHMS( hour, minute, 0 );
 
 		backups.insert( QDateTime( date, time ), *sit );

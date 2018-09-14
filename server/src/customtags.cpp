@@ -584,21 +584,21 @@ double& cVariant::asDouble()
 bool cVariant::canCast( Type t ) const
 {
 	if ( typ == t )
-		return TRUE;
+        return true;
 	if ( t == IntType && ( typ == IntType || typ == LongType || typ == BaseCharType || typ == ItemType || typ == StringType || typ == DoubleType ) )
-		return TRUE;
+        return true;
 	if ( t == DoubleType && ( typ == BaseCharType || typ == ItemType || typ == LongType || typ == StringType || typ == IntType ) )
-		return TRUE;
+        return true;
 	if ( t == StringType && ( typ == BaseCharType || typ == ItemType || typ == LongType || typ == IntType || typ == DoubleType ) )
-		return TRUE;
+        return true;
 	if ( t == BaseCharType && ( typ == BaseCharType || typ == IntType || typ == DoubleType || typ == StringType || typ == LongType ) )
-		return TRUE;
+        return true;
 	if ( t == ItemType && ( typ == ItemType || typ == IntType || typ == DoubleType || typ == StringType || typ == LongType ) )
-		return TRUE;
+        return true;
 	if ( t == CoordType && ( typ == StringType || typ == CoordType ) )
-		return TRUE;
+        return true;
 
-	return FALSE;
+    return false;
 }
 
 /*!

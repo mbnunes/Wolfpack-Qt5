@@ -65,6 +65,10 @@ struct stTargetItem
 	quint16 hue;
 };
 
+
+
+
+
 class cUOSocket : public QObject
 {
 	Q_OBJECT
@@ -78,6 +82,12 @@ public:
 		InGame,
 		Disconnected
 	};
+
+    enum RaceTypes {
+        HUMAN = 0,
+        ELF = 1,
+        GARGOYLE = 2
+    };
 
 	enum ClientVersions
 	{
@@ -100,7 +110,8 @@ public:
 		CVS_70240,
 		CVS_COUNT
 	};
-			
+
+
 	enum ClientTypes
 	{
 		CV_DEFAULT = 0,
@@ -186,7 +197,7 @@ public:
 	quint8 walkSequence( void ) const;
 	void setWalkSequence( quint8 data );
 
-	eSocketState state( void ) const;
+    eSocketState state( void ) const;
 	void setState( eSocketState data );
 
 	unsigned int flags() const;
