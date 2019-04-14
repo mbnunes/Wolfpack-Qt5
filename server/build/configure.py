@@ -184,6 +184,20 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			"/usr/lib/libpython2.5*.so", \
 			"/usr/lib/[Pp]ython*/libpython2.5*.so", \
 			"/usr/lib/[Pp]ython*/config/libpython2.5*.so", \
+			# Python 2.6
+			"/usr/local/lib/libpython2.6*.so", \
+			"/usr/local/lib/[Pp]ython*/libpython2.6*.so", \
+			"/usr/local/lib/[Pp]ython*/config/libpython2.6*.so", \
+			"/usr/lib/libpython2.6*.so", \
+			"/usr/lib/[Pp]ython*/libpython2.6*.so", \
+			"/usr/lib/[Pp]ython*/config/libpython2.6*.so", \
+			# Python 2.7
+			"/usr/local/lib/libpython2.7*.so", \
+			"/usr/local/lib/[Pp]ython*/libpython2.7*.so", \
+			"/usr/local/lib/[Pp]ython*/config/libpython2.7*.so", \
+			"/usr/lib/x86_64-linux-gnu/libpython2.7*.so", \
+			"/usr/lib/[Pp]ython*/libpython2.7*.so", \
+			"/usr/lib/[Pp]ython*/config/libpython2.7*.so", \
 			# Python 2.3
 			"/usr/local/lib/libpython2.3*.so", \
 			"/usr/local/lib/[Pp]ython*/libpython2.3*.so", \
@@ -192,6 +206,20 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			"/usr/lib/[Pp]ython*/libpython2.3*.so", \
 			"/usr/lib/[Pp]ython*/config/libpython2.3*.so" ]
 		PYTHONLIBSTATICSEARCHPATH += [ \
+			# Python 2.6
+			"/usr/local/lib/libpython2.6*.a", \
+			"/usr/local/lib/[Pp]ython2.6*/libpython2.6*.a", \
+			"/usr/local/lib/[Pp]ython2.6*/config/libpython2.6*.a", \
+			"/usr/lib/libpython2.6*.a", \
+			"/usr/lib/[Pp]ython2.6*/libpython2.6*.a", \
+			"/usr/lib/[Pp]ython2.6*/config/libpython2.6*.a", \
+			# Python 2.7
+			"/usr/local/lib/libpython2.7*.a", \
+			"/usr/local/lib/[Pp]ython2.7*/libpython2.7*.a", \
+			"/usr/local/lib/[Pp]ython2.7*/config/libpython2.7*.a", \
+			"/usr/lib/x86_64-linux-gnu/libpython2.7*.a", \
+			"/usr/lib/[Pp]ython2.7*/libpython2.7*.a", \
+			"/usr/lib/[Pp]ython2.7*/config/libpython2.7*.a", \
 			# Python 2.4
 			"/usr/local/lib/libpython2.4*.a", \
 			"/usr/local/lib/[Pp]ython2.4*/libpython2.4*.a", \
@@ -222,6 +250,12 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			# Python 2.5
 			"/usr/local/include/[Pp]ython2.5*/Python.h", \
 			"/usr/include/[Pp]ython2.5*/Python.h" \
+			# Python 2.6
+			"/usr/local/include/[Pp]ython2.6*/Python.h", \
+			"/usr/include/[Pp]ython2.6*/Python.h" \
+			# Python 2.7
+			"/usr/local/include/[Pp]ython2.7*/Python.h", \
+			"/usr/include/[Pp]ython2.7*/Python.h" \
 			# Python 2.3
 			"/usr/local/include/[Pp]ython2.3*/Python.h", \
 			"/usr/include/[Pp]ython2.3*/Python.h" ]
@@ -415,6 +449,7 @@ def main():
 	sys.stdout.write("\nGenerating makefile... ")
 	sys.stdout.flush()
 	exitcode = os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro"])
+
 	if exitcode != 0:
                 sys.stdout.write("Error generating Makefile!\n")
                 sys.exit(1)        

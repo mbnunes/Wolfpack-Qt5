@@ -231,4 +231,4 @@ WPSCRIPTS = ../release/scripts
 QMAKE_TARGET_COMPANY = Wolfpack Development Team
 QMAKE_TARGET_PRODUCT = Wolfpack
 QMAKE_TARGET_DESCRIPTION = Ultima Online(tm) Server Software
-QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2016 Wolfpack Development Team
+QMAKE_TARGET_COPYRIGHT = Copyright (c) 2000-2019 Wolfpack Development Team
