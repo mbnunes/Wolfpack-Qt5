@@ -1,4 +1,4 @@
-/*
+﻿/*
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
@@ -156,7 +156,7 @@ protected:
 	}
 };
 
-cConsoleThread* thread = 0;
+cConsoleThread* threadWp = nullptr;
 
 void daemonize()
 {
@@ -222,8 +222,8 @@ void cConsole::start()
 	if ( CommandLineOptions::instance()->value("pidFile").isValid() )
 		pidfile_add( CommandLineOptions::instance()->value("pidFile").toString() );
 
-	thread = new cConsoleThread;
-	thread->start();
+    threadWp = new cConsoleThread();
+    threadWp->start();
 }
 
 void cConsole::poll()
@@ -243,8 +243,8 @@ void cConsole::poll()
 
 void cConsole::stop()
 {
-	thread->wait();
-	delete thread;
+    threadWp->wait();
+    delete threadWp;
 	if ( CommandLineOptions::instance()->value("pidFile").isValid() )
 		pidfile_del( CommandLineOptions::instance()->value("pidFile").toString() );
 }
