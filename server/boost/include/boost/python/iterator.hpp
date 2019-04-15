@@ -8,11 +8,19 @@
 # include <boost/python/detail/prefix.hpp>
 
 # include <boost/python/detail/target.hpp>
+# include <boost/python/detail/type_traits.hpp>
 # include <boost/python/object/iterator.hpp>
 # include <boost/python/object_core.hpp>
 
-# include <boost/type_traits/cv_traits.hpp>
-# include <boost/type_traits/transform_traits.hpp>
+# if defined(BOOST_MSVC) && (BOOST_MSVC == 1400) /*
+> warning C4180: qualifier applied to function type has no meaning; ignored
+Peter Dimov wrote:
+This warning is caused by an overload resolution bug in VC8 that cannot be
+worked around and will probably not be fixed by MS in the VC8 line. The
+problematic overload is only instantiated and never called, and the code
+works correctly. */
+#  pragma warning(disable: 4180)
+# endif
 
 # include <boost/bind.hpp>
 # include <boost/bind/protect.hpp>
@@ -70,7 +78,7 @@ namespace detail
 template <class T>
 struct iterators
     : detail::iterators_impl<
-        boost::is_const<T>::value
+        detail::is_const<T>::value
       >::template apply<T>
 {
 };

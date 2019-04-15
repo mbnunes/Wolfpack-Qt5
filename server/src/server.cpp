@@ -322,7 +322,7 @@ void cServer::run()
 	// ISO-8859-15 (MIB: 111)
 #if defined(Q_OS_UNIX)
 	QTextCodec::setCodecForLocale( QTextCodec::codecForMib(111) );
-	QTextCodec::setCodecForCStrings( QTextCodec::codecForMib(111) );
+    //QTextCodec::setCodecForCStrings( QTextCodec::codecForMib(111) );
 #endif
 
 	// Load wolfpack.xml

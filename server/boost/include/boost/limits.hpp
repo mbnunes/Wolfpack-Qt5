@@ -6,7 +6,7 @@
 //
 // use this header as a workaround for missing <limits>
 
-//  See http://www.boost.org/libs/utility/limits.html for documentation.
+//  See http://www.boost.org/libs/compatibility/index.html for documentation.
 
 #ifndef BOOST_LIMITS
 #define BOOST_LIMITS
@@ -14,7 +14,7 @@
 #include <boost/config.hpp>
 
 #ifdef BOOST_NO_LIMITS
-# include <boost/detail/limits.hpp>
+#  error "There is no std::numeric_limits suppport available."
 #else
 # include <limits>
 #endif

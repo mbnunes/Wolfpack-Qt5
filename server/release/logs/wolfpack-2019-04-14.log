@@ -1,0 +1,592 @@
+21:11: WARNING: Couldn't find Language File: wolfpack_pt_BR.qm
+21:11: WARNING: Unable to find the files for map 0.
+21:11: WARNING: Unable to find the files for map 1.
+21:11: WARNING: Unable to find the files for map 2.
+21:11: WARNING: Unable to find the files for map 3.
+21:11: WARNING: Unable to find the files for map 4.
+21:11: WARNING: Unable to find the files for map 5.
+21:11: ERROR: Error opening file ./muls/tiledata.mul for reading.
+21:12: WARNING: Couldn't find Language File: wolfpack_pt_BR.qm
+21:12: WARNING: Unable to find the files for map 0.
+21:12: WARNING: Unable to find the files for map 1.
+21:12: WARNING: Unable to find the files for map 2.
+21:12: WARNING: Unable to find the files for map 3.
+21:12: WARNING: Unable to find the files for map 4.
+21:12: WARNING: Unable to find the files for map 5.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area10_18'.
+21:12: WARNING: Active spawnregion 'felucca_Area10_18' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area11_19'.
+21:12: WARNING: Active spawnregion 'felucca_Area11_19' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area11_20'.
+21:12: WARNING: Active spawnregion 'felucca_Area11_20' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area12_21'.
+21:12: WARNING: Active spawnregion 'felucca_Area12_21' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area12_22'.
+21:12: WARNING: Active spawnregion 'felucca_Area12_22' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area12_23'.
+21:12: WARNING: Active spawnregion 'felucca_Area12_23' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area12_24'.
+21:12: WARNING: Active spawnregion 'felucca_Area12_24' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area12_25'.
+21:12: WARNING: Active spawnregion 'felucca_Area12_25' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area13_26'.
+21:12: WARNING: Active spawnregion 'felucca_Area13_26' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area13_27'.
+21:12: WARNING: Active spawnregion 'felucca_Area13_27' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area14_28'.
+21:12: WARNING: Active spawnregion 'felucca_Area14_28' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area15_29'.
+21:12: WARNING: Active spawnregion 'felucca_Area15_29' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area16_30'.
+21:12: WARNING: Active spawnregion 'felucca_Area16_30' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area17_31'.
+21:12: WARNING: Active spawnregion 'felucca_Area17_31' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area18_32'.
+21:12: WARNING: Active spawnregion 'felucca_Area18_32' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area18_33'.
+21:12: WARNING: Active spawnregion 'felucca_Area18_33' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area19_33'.
+21:12: WARNING: Active spawnregion 'felucca_Area19_33' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area1_1'.
+21:12: WARNING: Active spawnregion 'felucca_Area1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area20_34'.
+21:12: WARNING: Active spawnregion 'felucca_Area20_34' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area20_35'.
+21:12: WARNING: Active spawnregion 'felucca_Area20_35' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area20_36'.
+21:12: WARNING: Active spawnregion 'felucca_Area20_36' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area20_37'.
+21:12: WARNING: Active spawnregion 'felucca_Area20_37' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area21_38'.
+21:12: WARNING: Active spawnregion 'felucca_Area21_38' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area22_39'.
+21:12: WARNING: Active spawnregion 'felucca_Area22_39' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area23_40'.
+21:12: WARNING: Active spawnregion 'felucca_Area23_40' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area24_41'.
+21:12: WARNING: Active spawnregion 'felucca_Area24_41' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area24_42'.
+21:12: WARNING: Active spawnregion 'felucca_Area24_42' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area26_43'.
+21:12: WARNING: Active spawnregion 'felucca_Area26_43' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area26_44'.
+21:12: WARNING: Active spawnregion 'felucca_Area26_44' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area26_45'.
+21:12: WARNING: Active spawnregion 'felucca_Area26_45' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area26_46'.
+21:12: WARNING: Active spawnregion 'felucca_Area26_46' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area27_47'.
+21:12: WARNING: Active spawnregion 'felucca_Area27_47' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area28_48'.
+21:12: WARNING: Active spawnregion 'felucca_Area28_48' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area28_49'.
+21:12: WARNING: Active spawnregion 'felucca_Area28_49' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area28_50'.
+21:12: WARNING: Active spawnregion 'felucca_Area28_50' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area29_51'.
+21:12: WARNING: Active spawnregion 'felucca_Area29_51' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area2_2'.
+21:12: WARNING: Active spawnregion 'felucca_Area2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area2_3'.
+21:12: WARNING: Active spawnregion 'felucca_Area2_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area2_4'.
+21:12: WARNING: Active spawnregion 'felucca_Area2_4' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area30_52'.
+21:12: WARNING: Active spawnregion 'felucca_Area30_52' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area31_53'.
+21:12: WARNING: Active spawnregion 'felucca_Area31_53' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area31_54'.
+21:12: WARNING: Active spawnregion 'felucca_Area31_54' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area32_55'.
+21:12: WARNING: Active spawnregion 'felucca_Area32_55' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area32_56'.
+21:12: WARNING: Active spawnregion 'felucca_Area32_56' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area32_57'.
+21:12: WARNING: Active spawnregion 'felucca_Area32_57' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area32_58'.
+21:12: WARNING: Active spawnregion 'felucca_Area32_58' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area33_59'.
+21:12: WARNING: Active spawnregion 'felucca_Area33_59' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area34_60'.
+21:12: WARNING: Active spawnregion 'felucca_Area34_60' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area34_61'.
+21:12: WARNING: Active spawnregion 'felucca_Area34_61' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area35_62'.
+21:12: WARNING: Active spawnregion 'felucca_Area35_62' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area36_63'.
+21:12: WARNING: Active spawnregion 'felucca_Area36_63' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area37_64'.
+21:12: WARNING: Active spawnregion 'felucca_Area37_64' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area38_65'.
+21:12: WARNING: Active spawnregion 'felucca_Area38_65' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area38_66'.
+21:12: WARNING: Active spawnregion 'felucca_Area38_66' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area39_67'.
+21:12: WARNING: Active spawnregion 'felucca_Area39_67' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area39_68'.
+21:12: WARNING: Active spawnregion 'felucca_Area39_68' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area3_5'.
+21:12: WARNING: Active spawnregion 'felucca_Area3_5' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area3_6'.
+21:12: WARNING: Active spawnregion 'felucca_Area3_6' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area40_69'.
+21:12: WARNING: Active spawnregion 'felucca_Area40_69' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area42_70'.
+21:12: WARNING: Active spawnregion 'felucca_Area42_70' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area43_71'.
+21:12: WARNING: Active spawnregion 'felucca_Area43_71' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area43_72'.
+21:12: WARNING: Active spawnregion 'felucca_Area43_72' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area45_73'.
+21:12: WARNING: Active spawnregion 'felucca_Area45_73' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area46_74'.
+21:12: WARNING: Active spawnregion 'felucca_Area46_74' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area46_75'.
+21:12: WARNING: Active spawnregion 'felucca_Area46_75' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area46_76'.
+21:12: WARNING: Active spawnregion 'felucca_Area46_76' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area46_77'.
+21:12: WARNING: Active spawnregion 'felucca_Area46_77' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area47_78'.
+21:12: WARNING: Active spawnregion 'felucca_Area47_78' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area48_79'.
+21:12: WARNING: Active spawnregion 'felucca_Area48_79' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area49_80'.
+21:12: WARNING: Active spawnregion 'felucca_Area49_80' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area49_81'.
+21:12: WARNING: Active spawnregion 'felucca_Area49_81' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area4_10'.
+21:12: WARNING: Active spawnregion 'felucca_Area4_10' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area4_11'.
+21:12: WARNING: Active spawnregion 'felucca_Area4_11' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area4_12'.
+21:12: WARNING: Active spawnregion 'felucca_Area4_12' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area4_7'.
+21:12: WARNING: Active spawnregion 'felucca_Area4_7' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area4_8'.
+21:12: WARNING: Active spawnregion 'felucca_Area4_8' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area4_9'.
+21:12: WARNING: Active spawnregion 'felucca_Area4_9' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area50_82'.
+21:12: WARNING: Active spawnregion 'felucca_Area50_82' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area51_83'.
+21:12: WARNING: Active spawnregion 'felucca_Area51_83' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area52_84'.
+21:12: WARNING: Active spawnregion 'felucca_Area52_84' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area54_85'.
+21:12: WARNING: Active spawnregion 'felucca_Area54_85' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area54_86'.
+21:12: WARNING: Active spawnregion 'felucca_Area54_86' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area54_87'.
+21:12: WARNING: Active spawnregion 'felucca_Area54_87' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area6_13'.
+21:12: WARNING: Active spawnregion 'felucca_Area6_13' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area6_14'.
+21:12: WARNING: Active spawnregion 'felucca_Area6_14' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area7_15'.
+21:12: WARNING: Active spawnregion 'felucca_Area7_15' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area8_16'.
+21:12: WARNING: Active spawnregion 'felucca_Area8_16' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_Area9_17'.
+21:12: WARNING: Active spawnregion 'felucca_Area9_17' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_animalcove_1'.
+21:12: WARNING: Active spawnregion 'felucca_animalcove_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_animalfelucca_ocllo_1'.
+21:12: WARNING: Active spawnregion 'felucca_animalfelucca_ocllo_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_animaljhelom_1'.
+21:12: WARNING: Active spawnregion 'felucca_animaljhelom_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_animalskare_1'.
+21:12: WARNING: Active spawnregion 'felucca_animalskare_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_britain_graveyard_1'.
+21:12: WARNING: Active spawnregion 'felucca_britain_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_britain_graveyard_2'.
+21:12: WARNING: Active spawnregion 'felucca_britain_graveyard_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_cove_graveyard_1'.
+21:12: WARNING: Active spawnregion 'felucca_cove_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_covetous_lvl1_1'.
+21:12: WARNING: Active spawnregion 'felucca_covetous_lvl1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_covetous_lvl2_2'.
+21:12: WARNING: Active spawnregion 'felucca_covetous_lvl2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_covetous_lvl3_3'.
+21:12: WARNING: Active spawnregion 'felucca_covetous_lvl3_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_covetous_lvl4_4'.
+21:12: WARNING: Active spawnregion 'felucca_covetous_lvl4_4' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_covetous_lvl5_5'.
+21:12: WARNING: Active spawnregion 'felucca_covetous_lvl5_5' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_deceit_lvl1_1'.
+21:12: WARNING: Active spawnregion 'felucca_deceit_lvl1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_deceit_lvl2_2'.
+21:12: WARNING: Active spawnregion 'felucca_deceit_lvl2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_deceit_lvl3_3'.
+21:12: WARNING: Active spawnregion 'felucca_deceit_lvl3_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_deceit_lvl4_4'.
+21:12: WARNING: Active spawnregion 'felucca_deceit_lvl4_4' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_despise_lvl1_1'.
+21:12: WARNING: Active spawnregion 'felucca_despise_lvl1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_despise_lvl2_2'.
+21:12: WARNING: Active spawnregion 'felucca_despise_lvl2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_despise_lvl3_3'.
+21:12: WARNING: Active spawnregion 'felucca_despise_lvl3_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_destard_lvl1_1'.
+21:12: WARNING: Active spawnregion 'felucca_destard_lvl1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_destard_lvl2_2'.
+21:12: WARNING: Active spawnregion 'felucca_destard_lvl2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_destard_lvl3_3'.
+21:12: WARNING: Active spawnregion 'felucca_destard_lvl3_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_fire_dungeon_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_fire_dungeon_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_fire_dungeon_lv1_2'.
+21:12: WARNING: Active spawnregion 'felucca_fire_dungeon_lv1_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_fire_dungeon_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_fire_dungeon_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_hythloth_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_hythloth_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_hythloth_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_hythloth_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_hythloth_lv3'.
+21:12: WARNING: Active spawnregion 'felucca_hythloth_lv3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_hythloth_lv4'.
+21:12: WARNING: Active spawnregion 'felucca_hythloth_lv4' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_ice_dungeon_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_ice_dungeon_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_ice_dungeon_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_ice_dungeon_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_ice_dungeon_lv3'.
+21:12: WARNING: Active spawnregion 'felucca_ice_dungeon_lv3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_moonglow_graveyard_1'.
+21:12: WARNING: Active spawnregion 'felucca_moonglow_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_moonglow_graveyard_2'.
+21:12: WARNING: Active spawnregion 'felucca_moonglow_graveyard_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_orc_caves_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_orc_caves_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_orc_caves_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_orc_caves_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_orc_caves_lv3'.
+21:12: WARNING: Active spawnregion 'felucca_orc_caves_lv3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_shame_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_shame_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_shame_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_shame_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_shame_lv3'.
+21:12: WARNING: Active spawnregion 'felucca_shame_lv3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_shame_lv3_2'.
+21:12: WARNING: Active spawnregion 'felucca_shame_lv3_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_shame_lv4'.
+21:12: WARNING: Active spawnregion 'felucca_shame_lv4' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_shame_lv5'.
+21:12: WARNING: Active spawnregion 'felucca_shame_lv5' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_a_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_a_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_a_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_a_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_b_ant'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_b_ant' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_b_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_b_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_b_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_b_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_c_ant'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_c_ant' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_c_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_c_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_c_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_c_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_d_ant'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_d_ant' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_d_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_d_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_solen_hive_area_d_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_solen_hive_area_d_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_trinsic_passage_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_trinsic_passage_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_vesper_graveyard_1'.
+21:12: WARNING: Active spawnregion 'felucca_vesper_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_wrong_lv1'.
+21:12: WARNING: Active spawnregion 'felucca_wrong_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_wrong_lv2'.
+21:12: WARNING: Active spawnregion 'felucca_wrong_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'felucca_yew_graveyard_1'.
+21:12: WARNING: Active spawnregion 'felucca_yew_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'haven_vendor_5'.
+21:12: WARNING: Active spawnregion 'haven_vendor_5' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area10_18'.
+21:12: WARNING: Active spawnregion 'trammel_Area10_18' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area11_19'.
+21:12: WARNING: Active spawnregion 'trammel_Area11_19' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area11_20'.
+21:12: WARNING: Active spawnregion 'trammel_Area11_20' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area12_21'.
+21:12: WARNING: Active spawnregion 'trammel_Area12_21' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area12_22'.
+21:12: WARNING: Active spawnregion 'trammel_Area12_22' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area12_23'.
+21:12: WARNING: Active spawnregion 'trammel_Area12_23' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area12_24'.
+21:12: WARNING: Active spawnregion 'trammel_Area12_24' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area13_26'.
+21:12: WARNING: Active spawnregion 'trammel_Area13_26' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area13_27'.
+21:12: WARNING: Active spawnregion 'trammel_Area13_27' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area14_28'.
+21:12: WARNING: Active spawnregion 'trammel_Area14_28' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area15_29'.
+21:12: WARNING: Active spawnregion 'trammel_Area15_29' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area16_30'.
+21:12: WARNING: Active spawnregion 'trammel_Area16_30' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area17_31'.
+21:12: WARNING: Active spawnregion 'trammel_Area17_31' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area18_32'.
+21:12: WARNING: Active spawnregion 'trammel_Area18_32' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area18_33'.
+21:12: WARNING: Active spawnregion 'trammel_Area18_33' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area19_33'.
+21:12: WARNING: Active spawnregion 'trammel_Area19_33' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area1_1'.
+21:12: WARNING: Active spawnregion 'trammel_Area1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area20_34'.
+21:12: WARNING: Active spawnregion 'trammel_Area20_34' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area20_35'.
+21:12: WARNING: Active spawnregion 'trammel_Area20_35' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area20_36'.
+21:12: WARNING: Active spawnregion 'trammel_Area20_36' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area20_37'.
+21:12: WARNING: Active spawnregion 'trammel_Area20_37' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area21_38'.
+21:12: WARNING: Active spawnregion 'trammel_Area21_38' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area22_39'.
+21:12: WARNING: Active spawnregion 'trammel_Area22_39' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area23_40'.
+21:12: WARNING: Active spawnregion 'trammel_Area23_40' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area24_41'.
+21:12: WARNING: Active spawnregion 'trammel_Area24_41' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area24_42'.
+21:12: WARNING: Active spawnregion 'trammel_Area24_42' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area26_43'.
+21:12: WARNING: Active spawnregion 'trammel_Area26_43' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area26_44'.
+21:12: WARNING: Active spawnregion 'trammel_Area26_44' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area26_45'.
+21:12: WARNING: Active spawnregion 'trammel_Area26_45' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area26_46'.
+21:12: WARNING: Active spawnregion 'trammel_Area26_46' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area27_47'.
+21:12: WARNING: Active spawnregion 'trammel_Area27_47' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area28_48'.
+21:12: WARNING: Active spawnregion 'trammel_Area28_48' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area28_49'.
+21:12: WARNING: Active spawnregion 'trammel_Area28_49' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area28_50'.
+21:12: WARNING: Active spawnregion 'trammel_Area28_50' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area29_51'.
+21:12: WARNING: Active spawnregion 'trammel_Area29_51' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area2_2'.
+21:12: WARNING: Active spawnregion 'trammel_Area2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area2_3'.
+21:12: WARNING: Active spawnregion 'trammel_Area2_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area2_4'.
+21:12: WARNING: Active spawnregion 'trammel_Area2_4' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area30_52'.
+21:12: WARNING: Active spawnregion 'trammel_Area30_52' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area31_53'.
+21:12: WARNING: Active spawnregion 'trammel_Area31_53' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area31_54'.
+21:12: WARNING: Active spawnregion 'trammel_Area31_54' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area32_55'.
+21:12: WARNING: Active spawnregion 'trammel_Area32_55' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area32_56'.
+21:12: WARNING: Active spawnregion 'trammel_Area32_56' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area32_57'.
+21:12: WARNING: Active spawnregion 'trammel_Area32_57' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area32_58'.
+21:12: WARNING: Active spawnregion 'trammel_Area32_58' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area33_59'.
+21:12: WARNING: Active spawnregion 'trammel_Area33_59' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area34_60'.
+21:12: WARNING: Active spawnregion 'trammel_Area34_60' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area34_61'.
+21:12: WARNING: Active spawnregion 'trammel_Area34_61' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area35_62'.
+21:12: WARNING: Active spawnregion 'trammel_Area35_62' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area36_63'.
+21:12: WARNING: Active spawnregion 'trammel_Area36_63' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area37_64'.
+21:12: WARNING: Active spawnregion 'trammel_Area37_64' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area38_65'.
+21:12: WARNING: Active spawnregion 'trammel_Area38_65' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area38_66'.
+21:12: WARNING: Active spawnregion 'trammel_Area38_66' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area39_67'.
+21:12: WARNING: Active spawnregion 'trammel_Area39_67' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area39_68'.
+21:12: WARNING: Active spawnregion 'trammel_Area39_68' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area3_5'.
+21:12: WARNING: Active spawnregion 'trammel_Area3_5' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area3_6'.
+21:12: WARNING: Active spawnregion 'trammel_Area3_6' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area40_69'.
+21:12: WARNING: Active spawnregion 'trammel_Area40_69' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area42_70'.
+21:12: WARNING: Active spawnregion 'trammel_Area42_70' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area43_71'.
+21:12: WARNING: Active spawnregion 'trammel_Area43_71' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area43_72'.
+21:12: WARNING: Active spawnregion 'trammel_Area43_72' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area45_73'.
+21:12: WARNING: Active spawnregion 'trammel_Area45_73' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area46_74'.
+21:12: WARNING: Active spawnregion 'trammel_Area46_74' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area46_75'.
+21:12: WARNING: Active spawnregion 'trammel_Area46_75' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area46_76'.
+21:12: WARNING: Active spawnregion 'trammel_Area46_76' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area46_77'.
+21:12: WARNING: Active spawnregion 'trammel_Area46_77' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area47_78'.
+21:12: WARNING: Active spawnregion 'trammel_Area47_78' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area48_79'.
+21:12: WARNING: Active spawnregion 'trammel_Area48_79' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area49_80'.
+21:12: WARNING: Active spawnregion 'trammel_Area49_80' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area49_81'.
+21:12: WARNING: Active spawnregion 'trammel_Area49_81' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area4_10'.
+21:12: WARNING: Active spawnregion 'trammel_Area4_10' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area4_11'.
+21:12: WARNING: Active spawnregion 'trammel_Area4_11' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area4_12'.
+21:12: WARNING: Active spawnregion 'trammel_Area4_12' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area4_7'.
+21:12: WARNING: Active spawnregion 'trammel_Area4_7' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area4_8'.
+21:12: WARNING: Active spawnregion 'trammel_Area4_8' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area4_9'.
+21:12: WARNING: Active spawnregion 'trammel_Area4_9' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area50_82'.
+21:12: WARNING: Active spawnregion 'trammel_Area50_82' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area51_83'.
+21:12: WARNING: Active spawnregion 'trammel_Area51_83' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area52_84'.
+21:12: WARNING: Active spawnregion 'trammel_Area52_84' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area54_85'.
+21:12: WARNING: Active spawnregion 'trammel_Area54_85' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area54_86'.
+21:12: WARNING: Active spawnregion 'trammel_Area54_86' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area54_87'.
+21:12: WARNING: Active spawnregion 'trammel_Area54_87' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area6_13'.
+21:12: WARNING: Active spawnregion 'trammel_Area6_13' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area6_14'.
+21:12: WARNING: Active spawnregion 'trammel_Area6_14' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area7_15'.
+21:12: WARNING: Active spawnregion 'trammel_Area7_15' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area8_16'.
+21:12: WARNING: Active spawnregion 'trammel_Area8_16' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_Area9_17'.
+21:12: WARNING: Active spawnregion 'trammel_Area9_17' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'trammel_animalcove_1'.
+21:12: WARNING: Active spawnregion 'trammel_animalcove_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'trammel_animalhaven_1'.
+21:12: WARNING: Active spawnregion 'trammel_animalhaven_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'trammel_animaljhelom_1'.
+21:12: WARNING: Active spawnregion 'trammel_animaljhelom_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'trammel_animalskare_1'.
+21:12: WARNING: Active spawnregion 'trammel_animalskare_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_britain_graveyard_1'.
+21:12: WARNING: Active spawnregion 'trammel_britain_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_britain_graveyard_2'.
+21:12: WARNING: Active spawnregion 'trammel_britain_graveyard_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_cove_graveyard_1'.
+21:12: WARNING: Active spawnregion 'trammel_cove_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_deceit_lvl1_1'.
+21:12: WARNING: Active spawnregion 'trammel_deceit_lvl1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_deceit_lvl2_2'.
+21:12: WARNING: Active spawnregion 'trammel_deceit_lvl2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_deceit_lvl3_3'.
+21:12: WARNING: Active spawnregion 'trammel_deceit_lvl3_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_deceit_lvl4_4'.
+21:12: WARNING: Active spawnregion 'trammel_deceit_lvl4_4' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_despise_lvl1_1'.
+21:12: WARNING: Active spawnregion 'trammel_despise_lvl1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_despise_lvl2_2'.
+21:12: WARNING: Active spawnregion 'trammel_despise_lvl2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_despise_lvl3_3'.
+21:12: WARNING: Active spawnregion 'trammel_despise_lvl3_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_destard_lvl1_1'.
+21:12: WARNING: Active spawnregion 'trammel_destard_lvl1_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_destard_lvl2_2'.
+21:12: WARNING: Active spawnregion 'trammel_destard_lvl2_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_destard_lvl3_3'.
+21:12: WARNING: Active spawnregion 'trammel_destard_lvl3_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_haven_graveyard_1'.
+21:12: WARNING: Active spawnregion 'trammel_haven_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_haven_graveyard_2'.
+21:12: WARNING: Active spawnregion 'trammel_haven_graveyard_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_haven_graveyard_3'.
+21:12: WARNING: Active spawnregion 'trammel_haven_graveyard_3' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 0 for spawnregion 'trammel_moonglow_graveyard_1'.
+21:12: WARNING: Active spawnregion 'trammel_moonglow_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_moonglow_graveyard_2'.
+21:12: WARNING: Active spawnregion 'trammel_moonglow_graveyard_2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_a_lv1'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_a_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_a_lv2'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_a_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_b_ant'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_b_ant' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_b_lv1'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_b_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_b_lv2'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_b_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_c_ant'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_c_ant' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_c_lv1'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_c_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_c_lv2'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_c_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_d_ant'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_d_ant' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_d_lv1'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_d_lv1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_solen_hive_area_d_lv2'.
+21:12: WARNING: Active spawnregion 'trammel_solen_hive_area_d_lv2' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_vesper_graveyard_1'.
+21:12: WARNING: Active spawnregion 'trammel_vesper_graveyard_1' has been flagged inactive because its incomplete.
+21:12: WARNING: Ignoring rectangle with unknown map 1 for spawnregion 'trammel_yew_graveyard_1'.
+21:12: WARNING: Active spawnregion 'trammel_yew_graveyard_1' has been flagged inactive because its incomplete.
+21:12: The world loaded in 0 ms.
+21:12: Starting remote admin on port 2594.
+21:12: Stopping remote admin.
+21:18: WARNING: Couldn't find Language File: wolfpack_pt_BR.qm
+21:18: The world loaded in 0 ms.
+21:18: Starting remote admin on port 2594.
+21:18: Stopping remote admin.
+21:24: WARNING: Couldn't find Language File: wolfpack_pt_BR.qm
+21:24: The world loaded in 0 ms.
+21:24: Starting remote admin on port 2594.
+21:24:28: Client '::ffff:127.0.0.1' connected to login server.
+21:24:28: Client '::ffff:127.0.0.1' logged in as 'admin'.
+21:24:29: Client '::ffff:127.0.0.1' connected to game server.
+21:24:28: Client '::ffff:127.0.0.1' disconnected from loginserver.
+21:24:29: Client '::ffff:127.0.0.1' logged in as 'admin'.
+21:24:29: Client '::ffff:127.0.0.1', account 'admin', created character 'Mutilador' (serial=0x5b).
+21:25:29: Character [5b] gained 0.2% Focus [0.2%].
+21:25:29: Character 'Mutilador' says 'teste' (font=3, color=0x34).
+21:25: Loaded status template from 'web/status_template.html'.
+21:28: WARNING: Unable to find valid spot for spawnregion felucca_magincia_vendor_10.
+21:28: WARNING: Unable to find valid spot for spawnregion felucca_magincia_vendor_15.
+21:28: WARNING: Unable to find valid spot for spawnregion felucca_magincia_vendor_16.
+21:29: WARNING: Unable to find valid spot for spawnregion felucca_magincia_vendor_9.
+21:29:29: Character [5b] gained 0.2% Focus [0.4%].
+21:29:29: Character 'Mutilador' says '.tele' (font=3, color=0x34).
+21:29:29: Character 'Mutilador', account 'admin' used command 'tele'
+21:29:29: Character [5b] gained 0.4% Focus [0.8%].
+21:29:29: Character [5b] gained 0.1% Focus [0.9%].
+21:29:29: Character [5b] gained 0.5% Focus [1.4%].
+21:33: WARNING: Unable to find valid spot for spawnregion ilshenar_vendor_1.
+21:33: WARNING: Unable to find valid spot for spawnregion ilshenar_vendor_2.
+21:33: WARNING: Unable to find valid spot for spawnregion magincia_vendor_10.
+21:33: WARNING: Unable to find valid spot for spawnregion magincia_vendor_15.
+21:33: WARNING: Unable to find valid spot for spawnregion magincia_vendor_16.
+21:33: WARNING: Unable to find valid spot for spawnregion magincia_vendor_9.
+21:37:29: Client '::ffff:127.0.0.1' disconnected from gameserver.
+21:37: Stopping remote admin.

@@ -44,11 +44,8 @@ BOOST_PYTHON_DECL rvalue_from_python_stage1_data rvalue_from_python_stage1(
     // First check to see if it's embedded in an extension class
     // instance, as a special case.
     data.convertible = objects::find_instance_impl(source, converters.target_type, converters.is_shared_ptr);
-    if (data.convertible)
-    {
         data.construct = 0;
-    }
-    else
+    if (!data.convertible)
     {
         for (rvalue_from_python_chain const* chain = converters.rvalue_chain;
              chain != 0;
@@ -96,7 +93,12 @@ BOOST_PYTHON_DECL void* rvalue_from_python_stage2(
     if (!data.convertible)
     {
         handle<> msg(
-            ::PyString_FromFormat(
+#if PY_VERSION_HEX >= 0x03000000
+            ::PyUnicode_FromFormat
+#else
+            ::PyString_FromFormat
+#endif
+                (
                 "No registered converter was able to produce a C++ rvalue of type %s from this Python object of type %s"
                 , converters.target_type.name()
                 , source->ob_type->tp_name
@@ -196,7 +198,12 @@ namespace
   void throw_no_lvalue_from_python(PyObject* source, registration const& converters, char const* ref_type)
   {
       handle<> msg(
-          ::PyString_FromFormat(
+#if PY_VERSION_HEX >= 0x03000000
+          ::PyUnicode_FromFormat
+#else
+          ::PyString_FromFormat
+#endif
+              (
               "No registered converter was able to extract a C++ %s to type %s"
               " from this Python object of type %s"
               , ref_type
@@ -218,7 +225,12 @@ namespace
       if (source->ob_refcnt <= 1)
       {
           handle<> msg(
-              ::PyString_FromFormat(
+#if PY_VERSION_HEX >= 0x3000000
+              ::PyUnicode_FromFormat
+#else
+              ::PyString_FromFormat
+#endif
+                  (
                   "Attempt to return dangling %s to object of type: %s"
                   , ref_type
                   , converters.target_type.name()));

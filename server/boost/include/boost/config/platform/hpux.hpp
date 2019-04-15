@@ -23,6 +23,8 @@
 
 #if !(defined(__HP_aCC) || !defined(_INCLUDE__STDC_A1_SOURCE))
 #  define BOOST_NO_SWPRINTF
+#endif
+#if defined(__HP_aCC) && !defined(_INCLUDE__STDC_A1_SOURCE)
 #  define BOOST_NO_CWCTYPE
 #endif
 
@@ -41,7 +43,7 @@
 
 // boilerplate code:
 #define BOOST_HAS_UNISTD_H
-#include <boost/config/posix_features.hpp>
+#include <boost/config/detail/posix_features.hpp>
 
 // the following are always available:
 #ifndef BOOST_HAS_GETTIMEOFDAY
@@ -82,3 +84,4 @@
 #ifndef BOOST_HAS_EXPM1
 #  define BOOST_HAS_EXPM1
 #endif
+

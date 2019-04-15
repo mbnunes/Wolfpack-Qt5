@@ -33,11 +33,7 @@
 
 namespace boost { namespace python { namespace objects { 
 
-#  if BOOST_WORKAROUND(__GNUC__, == 2)
-#   define BOOST_PYTHON_UNFORWARD_LOCAL(z, n, _) BOOST_PP_COMMA_IF(n) (typename unforward<A##n>::type)objects::do_unforward(a##n,0)
-#  else
-#   define BOOST_PYTHON_UNFORWARD_LOCAL(z, n, _) BOOST_PP_COMMA_IF(n) objects::do_unforward(a##n,0)
-#  endif 
+#define BOOST_PYTHON_UNFORWARD_LOCAL(z, n, _) BOOST_PP_COMMA_IF(n) objects::do_unforward(a##n,0)
 
 template <class Value>
 struct value_holder : instance_holder
@@ -117,7 +113,10 @@ void* value_holder_back_reference<Value,Held>::holds(
 
 // --------------- value_holder ---------------
 
-#elif BOOST_PP_ITERATION_DEPTH() == 1 && BOOST_PP_ITERATION_FLAGS() == 1
+// For gcc 4.4 compatability, we must include the
+// BOOST_PP_ITERATION_DEPTH test inside an #else clause.
+#else // BOOST_PP_IS_ITERATING
+#if BOOST_PP_ITERATION_DEPTH() == 1 && BOOST_PP_ITERATION_FLAGS() == 1
 # if !(BOOST_WORKAROUND(__MWERKS__, > 0x3100)                      \
         && BOOST_WORKAROUND(__MWERKS__, BOOST_TESTED_AT(0x3201)))
 #  line BOOST_PP_LINE(__LINE__, value_holder.hpp(value_holder))
@@ -163,4 +162,5 @@ void* value_holder_back_reference<Value,Held>::holds(
 
 # undef N
 
+#endif // BOOST_PP_ITERATION_DEPTH()
 #endif

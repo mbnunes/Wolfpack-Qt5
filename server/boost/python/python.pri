@@ -7,7 +7,7 @@ SOURCES += \
            $$PWD/list.cpp \
            $$PWD/long.cpp \
            $$PWD/module.cpp \
-           $$PWD/numeric.cpp \
+           $$PWD/numpy/numpy.cpp \
            $$PWD/object_operators.cpp \
            $$PWD/object_protocol.cpp \
            $$PWD/slice.cpp \

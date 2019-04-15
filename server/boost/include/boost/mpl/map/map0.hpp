@@ -11,14 +11,15 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Source$
-// $Date: 2004-09-02 11:41:37 -0400 (Thu, 02 Sep 2004) $
-// $Revision: 24874 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/map/aux_/contains_impl.hpp>
 #include <boost/mpl/map/aux_/at_impl.hpp>
 //#include <boost/mpl/map/aux_/O1_size.hpp>
 #include <boost/mpl/map/aux_/insert_impl.hpp>
+#include <boost/mpl/map/aux_/insert_range_impl.hpp>
 #include <boost/mpl/map/aux_/erase_impl.hpp>
 #include <boost/mpl/map/aux_/erase_key_impl.hpp>
 #include <boost/mpl/map/aux_/has_key_impl.hpp>

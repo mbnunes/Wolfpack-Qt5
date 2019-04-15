@@ -4,9 +4,11 @@
 #ifndef BOOST_CONCEPT_DETAIL_HAS_CONSTRAINTS_DWA2006429_HPP
 # define BOOST_CONCEPT_DETAIL_HAS_CONSTRAINTS_DWA2006429_HPP
 
-# include <boost/mpl/bool.hpp>
-# include <boost/detail/workaround.hpp>
-namespace boost { namespace concept {
+# include <boost/type_traits/integral_constant.hpp>
+# include <boost/config/workaround.hpp>
+# include <boost/concept/detail/backward_compatibility.hpp>
+
+namespace boost { namespace concepts {
 
 namespace detail
 { 
@@ -19,7 +21,7 @@ namespace detail
   template <class Model, void (Model::*)()>
   struct wrap_constraints {};
     
-#if BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580)
+#if BOOST_WORKAROUND(__SUNPRO_CC, <= 0x580) || defined(__CUDACC__)
   // Work around the following bogus error in Sun Studio 11, by
   // turning off the has_constraints function entirely:
   //    Error: complex expression not allowed in dependent template
@@ -40,9 +42,9 @@ struct not_satisfied
     BOOST_STATIC_CONSTANT(
         bool
       , value = sizeof( detail::has_constraints_((Model*)0) ) == sizeof(detail::yes) );
-    typedef mpl::bool_<value> type;
+    typedef boost::integral_constant<bool, value> type;
 };
 
-}} // namespace boost::concept::detail
+}} // namespace boost::concepts::detail
 
 #endif // BOOST_CONCEPT_DETAIL_HAS_CONSTRAINTS_DWA2006429_HPP

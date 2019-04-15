@@ -1,11 +1,11 @@
 //=======================================================================
-// Copyright (C) 2005 Jong Soo Park <jongsoo.park -at- gmail.com>
+// Copyright (C) 2005-2009 Jongsoo Park <jongsoo.park -at- gmail.com>
 //
 // Distributed under the Boost Software License, Version 1.0.
 // (See accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
 //=======================================================================
-// Dominator tree computation
+
 #ifndef BOOST_GRAPH_DOMINATOR_HPP
 #define BOOST_GRAPH_DOMINATOR_HPP
 
@@ -13,6 +13,9 @@
 #include <deque>
 #include <set>
 #include <boost/graph/depth_first_search.hpp>
+#include <boost/concept/assert.hpp>
+
+// Dominator tree computation
 
 namespace boost {
   namespace detail {
@@ -26,13 +29,13 @@ namespace boost {
     {
     public :
       typedef Tag event_filter;
-      time_stamper_with_vertex_vector(TimeMap timeMap, VertexVector& v, 
+      time_stamper_with_vertex_vector(TimeMap timeMap, VertexVector& v,
                                       TimeT& t)
         : timeStamper_(timeMap, t), v_(v) { }
 
       template<class Graph>
-      void 
-      operator()(const typename property_traits<TimeMap>::key_type& v, 
+      void
+      operator()(const typename property_traits<TimeMap>::key_type& v,
                  const Graph& g)
       {
         timeStamper_(v, g);
@@ -52,7 +55,7 @@ namespace boost {
     stamp_times_with_vertex_vector(TimeMap timeMap, VertexVector& v, TimeT& t,
                                    Tag)
     {
-      return time_stamper_with_vertex_vector<TimeMap, VertexVector, TimeT, 
+      return time_stamper_with_vertex_vector<TimeMap, VertexVector, TimeT,
                                              Tag>(timeMap, v, t);
     }
 
@@ -67,38 +70,40 @@ namespace boost {
       /**
        * @param g [in] the target graph of the dominator tree
        * @param entry [in] the entry node of g
+       * @param indexMap [in] the vertex index map for g
        * @param domTreePredMap [out] the immediate dominator map
        *                             (parent map in dominator tree)
        */
       dominator_visitor(const Graph& g, const Vertex& entry,
+                        const IndexMap& indexMap,
                         DomTreePredMap domTreePredMap)
         : semi_(num_vertices(g)),
           ancestor_(num_vertices(g), graph_traits<Graph>::null_vertex()),
           samedom_(ancestor_),
           best_(semi_),
-          semiMap_(make_iterator_property_map(semi_.begin(), 
-                                              get(vertex_index, g))),
-          ancestorMap_(make_iterator_property_map(ancestor_.begin(), 
-                                                  get(vertex_index, g))),
-          bestMap_(make_iterator_property_map(best_.begin(), 
-                                              get(vertex_index, g))),
+          semiMap_(make_iterator_property_map(semi_.begin(),
+                                              indexMap)),
+          ancestorMap_(make_iterator_property_map(ancestor_.begin(),
+                                                  indexMap)),
+          bestMap_(make_iterator_property_map(best_.begin(),
+                                              indexMap)),
           buckets_(num_vertices(g)),
-          bucketMap_(make_iterator_property_map(buckets_.begin(), 
-                                                get(vertex_index, g))),
+          bucketMap_(make_iterator_property_map(buckets_.begin(),
+                                                indexMap)),
           entry_(entry),
           domTreePredMap_(domTreePredMap),
-          samedomMap(make_iterator_property_map(samedom_.begin(), 
-                                                get(vertex_index, g)))
+          numOfVertices_(num_vertices(g)),
+          samedomMap(make_iterator_property_map(samedom_.begin(),
+                                                indexMap))
       {
       }
-                
-      void 
-      operator()(const Vertex& n, const TimeMap& dfnumMap, 
+
+      void
+      operator()(const Vertex& n, const TimeMap& dfnumMap,
                  const PredMap& parentMap, const Graph& g)
       {
         if (n == entry_) return;
 
-        const VerticesSizeType numOfVertices = num_vertices(g);
         const Vertex p(get(parentMap, n));
         Vertex s(p);
 
@@ -113,14 +118,14 @@ namespace boost {
         //    Let semi(u) be a candidate for semi(n)
         //   of all these candidates, the one with lowest dfnum is
         //   the semidominator of n.
-                                
+
         // For each predecessor of n
         typename graph_traits<Graph>::in_edge_iterator inItr, inEnd;
-        for (tie(inItr, inEnd) = in_edges(n, g); inItr != inEnd; ++inItr)
+        for (boost::tie(inItr, inEnd) = in_edges(n, g); inItr != inEnd; ++inItr)
           {
             const Vertex v = source(*inItr, g);
             // To deal with unreachable nodes
-            if (get(dfnumMap, v) < 0 || get(dfnumMap, v) >= numOfVertices)
+            if (get(dfnumMap, v) < 0 || get(dfnumMap, v) >= numOfVertices_)
               continue;
 
             Vertex s2;
@@ -147,7 +152,7 @@ namespace boost {
         // * Dominator thm. : On the spanning-tree path below semi(n) and
         //   above or including n, let y be the node
         //   with the smallest-numbered semidominator. Then,
-        //      
+        //
         //  idom(n) = semi(n) if semi(y)=semi(n) or
         //            idom(y) if semi(y) != semi(n)
         typename std::deque<Vertex>::iterator buckItr;
@@ -171,7 +176,7 @@ namespace boost {
       /**
        * Evaluate function in Tarjan's path compression
        */
-      const Vertex 
+      const Vertex
       ancestor_with_lowest_semi_(const Vertex& v, const TimeMap& dfnumMap)
       {
         const Vertex a(get(ancestorMap_, v));
@@ -199,9 +204,10 @@ namespace boost {
 
       const Vertex& entry_;
       DomTreePredMap domTreePredMap_;
+      const VerticesSizeType numOfVertices_;
 
     public :
-                        
+
       PredMap samedomMap;
     };
 
@@ -219,7 +225,7 @@ namespace boost {
    *      graph_traits<Graph>::null_vertex in parentMap.
    * @pre Unreachable nodes must be masked as
    *      (std::numeric_limits<VerticesSizeType>::max)() in dfnumMap.
-   * 
+   *
    * @param domTreePredMap [out] : immediate dominator map (parent map
    * in dom. tree)
    *
@@ -227,7 +233,7 @@ namespace boost {
    *
    * @todo : Optimization in Finding Dominators in Practice, Loukas Georgiadis
    */
-  template<class Graph, class IndexMap, class TimeMap, class PredMap, 
+  template<class Graph, class IndexMap, class TimeMap, class PredMap,
            class VertexVector, class DomTreePredMap>
   void
   lengauer_tarjan_dominator_tree_without_dfs
@@ -241,14 +247,14 @@ namespace boost {
     typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
     typedef typename graph_traits<Graph>::vertices_size_type VerticesSizeType;
 
-    function_requires< BidirectionalGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<Graph> ));
 
     const VerticesSizeType numOfVertices = num_vertices(g);
     if (numOfVertices == 0) return;
 
     // 1. Visit each vertex in reverse post order and calculate sdom.
     detail::dominator_visitor<Graph, IndexMap, TimeMap, PredMap, DomTreePredMap>
-      visitor(g, entry, domTreePredMap);
+      visitor(g, entry, indexMap, domTreePredMap);
 
     VerticesSizeType i;
     for (i = 0; i < numOfVertices; ++i)
@@ -274,7 +280,7 @@ namespace boost {
           }
       }
   }
-  
+
   /**
    * Unlike lengauer_tarjan_dominator_tree_without_dfs,
    * dfs is run in this function and
@@ -283,7 +289,7 @@ namespace boost {
    * If the result of dfs required after this algorithm,
    * this function can eliminate the need of rerunning dfs.
    */
-  template<class Graph, class IndexMap, class TimeMap, class PredMap, 
+  template<class Graph, class IndexMap, class TimeMap, class PredMap,
            class VertexVector, class DomTreePredMap>
   void
   lengauer_tarjan_dominator_tree
@@ -296,7 +302,7 @@ namespace boost {
     // Typedefs and concept check
     typedef typename graph_traits<Graph>::vertices_size_type VerticesSizeType;
 
-    function_requires< BidirectionalGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<Graph> ));
 
     // 1. Depth first visit
     const VerticesSizeType numOfVertices = num_vertices(g);
@@ -304,7 +310,7 @@ namespace boost {
 
     VerticesSizeType time =
       (std::numeric_limits<VerticesSizeType>::max)();
-    std::vector<default_color_type> 
+    std::vector<default_color_type>
       colors(numOfVertices, color_traits<default_color_type>::white());
     depth_first_visit
       (g, entry,
@@ -315,8 +321,8 @@ namespace boost {
        make_iterator_property_map(colors.begin(), indexMap));
 
     // 2. Run main algorithm.
-    lengauer_tarjan_dominator_tree_without_dfs(g, entry, indexMap, dfnumMap, 
-                                               parentMap, verticesByDFNum, 
+    lengauer_tarjan_dominator_tree_without_dfs(g, entry, indexMap, dfnumMap,
+                                               parentMap, verticesByDFNum,
                                                domTreePredMap);
   }
 
@@ -353,7 +359,7 @@ namespace boost {
     std::vector<VerticesSizeType> dfnum(numOfVertices, 0);
     TimeMap dfnumMap(make_iterator_property_map(dfnum.begin(), indexMap));
 
-    std::vector<Vertex> parent(numOfVertices, 
+    std::vector<Vertex> parent(numOfVertices,
                                graph_traits<Graph>::null_vertex());
     PredMap parentMap(make_iterator_property_map(parent.begin(), indexMap));
 
@@ -361,7 +367,7 @@ namespace boost {
 
     // Run main algorithm
     lengauer_tarjan_dominator_tree(g, entry,
-                                   indexMap, dfnumMap, parentMap, 
+                                   indexMap, dfnumMap, parentMap,
                                    verticesByDFNum, domTreePredMap);
   }
 
@@ -385,7 +391,7 @@ namespace boost {
       iterator_property_map<typename std::vector< std::set<Vertex> >::iterator,
                             IndexMap> vertexSetMap;
 
-    function_requires<BidirectionalGraphConcept<Graph> >();
+    BOOST_CONCEPT_ASSERT(( BidirectionalGraphConcept<Graph> ));
 
     // 1. Finding dominator
     // 1.1. Initialize
@@ -393,11 +399,11 @@ namespace boost {
     if (numOfVertices == 0) return;
 
     vertexItr vi, viend;
-    tie(vi, viend) = vertices(g);
+    boost::tie(vi, viend) = vertices(g);
     const std::set<Vertex> N(vi, viend);
 
     bool change = true;
-                
+
     std::vector< std::set<Vertex> > dom(numOfVertices, N);
     vertexSetMap domMap(make_iterator_property_map(dom.begin(), indexMap));
     get(domMap, entry).clear();
@@ -406,20 +412,20 @@ namespace boost {
     while (change)
       {
         change = false;
-        for (tie(vi, viend) = vertices(g); vi != viend; ++vi)
+        for (boost::tie(vi, viend) = vertices(g); vi != viend; ++vi)
           {
             if (*vi == entry) continue;
 
             std::set<Vertex> T(N);
-                                
+
             typename graph_traits<Graph>::in_edge_iterator inItr, inEnd;
-            for (tie(inItr, inEnd) = in_edges(*vi, g); inItr != inEnd; ++inItr)
+            for (boost::tie(inItr, inEnd) = in_edges(*vi, g); inItr != inEnd; ++inItr)
               {
                 const Vertex p = source(*inItr, g);
 
                 std::set<Vertex> tempSet;
-                std::set_intersection(T.begin(), T.end(), 
-                                      get(domMap, p).begin(), 
+                std::set_intersection(T.begin(), T.end(),
+                                      get(domMap, p).begin(),
                                       get(domMap, p).end(),
                                       std::inserter(tempSet, tempSet.begin()));
                 T.swap(tempSet);
@@ -431,16 +437,16 @@ namespace boost {
                 change = true;
                 get(domMap, *vi).swap(T);
               }
-          } // end of for (tie(vi, viend) = vertices(g)
+          } // end of for (boost::tie(vi, viend) = vertices(g)
       } // end of while(change)
 
     // 2. Build dominator tree
-    for (tie(vi, viend) = vertices(g); vi != viend; ++vi)
+    for (boost::tie(vi, viend) = vertices(g); vi != viend; ++vi)
       get(domMap, *vi).erase(*vi);
 
     Graph domTree(numOfVertices);
 
-    for (tie(vi, viend) = vertices(g); vi != viend; ++vi)
+    for (boost::tie(vi, viend) = vertices(g); vi != viend; ++vi)
       {
         if (*vi == entry) continue;
 
@@ -461,7 +467,7 @@ namespace boost {
           }
       }
 
-    for (tie(vi, viend) = vertices(g); vi != viend; ++vi)
+    for (boost::tie(vi, viend) = vertices(g); vi != viend; ++vi)
       {
         if (*vi != entry && get(domMap, *vi).size() == 1)
           {
@@ -480,7 +486,7 @@ namespace boost {
   {
     typename property_map<Graph, vertex_index_t>::const_type
       indexMap = get(vertex_index, g);
-    
+
     iterative_bit_vector_dominator_tree(g, entry, indexMap, domTreePredMap);
   }
 } // namespace boost

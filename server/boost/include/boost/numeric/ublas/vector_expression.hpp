@@ -188,8 +188,16 @@ namespace boost { namespace numeric { namespace ublas {
             return expression ().begin ();
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return expression ().end ();
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         BOOST_UBLAS_INLINE
@@ -210,9 +218,18 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
         }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
+        }
+
         BOOST_UBLAS_INLINE
         reverse_iterator rbegin () {
             return reverse_iterator (end ());
@@ -422,8 +439,16 @@ namespace boost { namespace numeric { namespace ublas {
             return find (0); 
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return find (size ());
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // Reverse iterator
@@ -434,8 +459,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
 
     private:
@@ -706,11 +739,11 @@ namespace boost { namespace numeric { namespace ublas {
             }
             BOOST_UBLAS_INLINE
             value_type dereference (packed_random_access_iterator_tag) const {
-                value_type t1 = value_type/*zero*/();
+                typename E1::value_type t1 = typename E1::value_type/*zero*/();
                 if (it1_ != it1_end_)
                     if (it1_.index () == i_)
                         t1 = *it1_;
-                value_type t2 = value_type/*zero*/();
+                typename E2::value_type t2 = typename E2::value_type/*zero*/();
                 if (it2_ != it2_end_)
                     if (it2_.index () == i_)
                         t2 = *it2_;
@@ -778,15 +811,15 @@ namespace boost { namespace numeric { namespace ublas {
             }
             BOOST_UBLAS_INLINE
             value_type dereference (sparse_bidirectional_iterator_tag) const {
-                value_type t1 = value_type/*zero*/();
+                typename E1::value_type t1 = typename E1::value_type/*zero*/();
                 if (it1_ != it1_end_)
                     if (it1_.index () == i_)
                         t1 = *it1_;
-                value_type t2 = value_type/*zero*/();
+                typename E2::value_type t2 = typename E2::value_type/*zero*/();
                 if (it2_ != it2_end_)
                     if (it2_.index () == i_)
                         t2 = *it2_;
-                return functor_type::apply (t1, t2);
+                return static_cast<value_type>(functor_type::apply (t1, t2));
             }
 
         public: 
@@ -871,8 +904,16 @@ namespace boost { namespace numeric { namespace ublas {
             return find (0);
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return find (size ());
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // Reverse iterator
@@ -883,8 +924,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
 
     private:
@@ -1136,8 +1185,16 @@ namespace boost { namespace numeric { namespace ublas {
             return find (0); 
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return find (size ()); 
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // Reverse iterator
@@ -1148,8 +1205,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return end ();
         }
 
     private:
@@ -1170,7 +1235,9 @@ namespace boost { namespace numeric { namespace ublas {
     // (t * v) [i] = t * v [i]
     template<class T1, class E2>
     BOOST_UBLAS_INLINE
+    typename boost::enable_if< is_convertible<T1, typename E2::value_type >,
     typename vector_binary_scalar1_traits<const T1, E2, scalar_multiplies<T1, typename E2::value_type> >::result_type
+    >::type
     operator * (const T1 &e1,
                 const vector_expression<E2> &e2) {
         typedef typename vector_binary_scalar1_traits<const T1, E2, scalar_multiplies<T1, typename E2::value_type> >::expression_type expression_type;
@@ -1361,8 +1428,16 @@ namespace boost { namespace numeric { namespace ublas {
             return find (0);
         }
         BOOST_UBLAS_INLINE
+        const_iterator cbegin () const {
+            return begin ();
+        }
+        BOOST_UBLAS_INLINE
         const_iterator end () const {
             return find (size ());
+        }
+        BOOST_UBLAS_INLINE
+        const_iterator cend () const {
+            return end ();
         }
 
         // Reverse iterator
@@ -1373,8 +1448,16 @@ namespace boost { namespace numeric { namespace ublas {
             return const_reverse_iterator (end ());
         }
         BOOST_UBLAS_INLINE
+        const_reverse_iterator crbegin () const {
+            return rbegin ();
+        }
+        BOOST_UBLAS_INLINE
         const_reverse_iterator rend () const {
             return const_reverse_iterator (begin ());
+        }
+        BOOST_UBLAS_INLINE
+        const_reverse_iterator crend () const {
+            return rend ();
         }
 
     private:
@@ -1395,7 +1478,9 @@ namespace boost { namespace numeric { namespace ublas {
     // (v * t) [i] = v [i] * t
     template<class E1, class T2>
     BOOST_UBLAS_INLINE
+    typename boost::enable_if< is_convertible<T2, typename E1::value_type >,
     typename vector_binary_scalar2_traits<E1, const T2, scalar_multiplies<typename E1::value_type, T2> >::result_type
+    >::type
     operator * (const vector_expression<E1> &e1,
                 const T2 &e2) {
         typedef typename vector_binary_scalar2_traits<E1, const T2, scalar_multiplies<typename E1::value_type, T2> >::expression_type expression_type;
@@ -1405,7 +1490,9 @@ namespace boost { namespace numeric { namespace ublas {
     // (v / t) [i] = v [i] / t
     template<class E1, class T2>
     BOOST_UBLAS_INLINE
+    typename boost::enable_if< is_convertible<T2, typename E1::value_type >,
     typename vector_binary_scalar2_traits<E1, const T2, scalar_divides<typename E1::value_type, T2> >::result_type
+    >::type
     operator / (const vector_expression<E1> &e1,
                 const T2 &e2) {
         typedef typename vector_binary_scalar2_traits<E1, const T2, scalar_divides<typename E1::value_type, T2> >::expression_type expression_type;
@@ -1424,6 +1511,7 @@ namespace boost { namespace numeric { namespace ublas {
         typedef vector_scalar_unary<E, F> self_type;
     public:
         typedef typename F::result_type value_type;
+        typedef typename E::difference_type difference_type;
         typedef const self_type const_closure_type;
         typedef const_closure_type closure_type;
         typedef unknown_storage_tag storage_category;
@@ -1521,6 +1609,16 @@ namespace boost { namespace numeric { namespace ublas {
         return expression_type (e ());
     }
 
+    // real: norm_2_square v = sum(v [i] * v [i])
+    // complex: norm_2_square v = sum(v [i] * conj (v [i]))
+    template<class E>
+    BOOST_UBLAS_INLINE
+    typename vector_scalar_unary_traits<E, vector_norm_2_square<E> >::result_type
+    norm_2_square (const vector_expression<E> &e) {
+        typedef typename vector_scalar_unary_traits<E, vector_norm_2_square<E> >::expression_type expression_type;
+        return expression_type (e ());
+    }
+
     // real: norm_inf v = maximum (abs (v [i]))
     // complex: norm_inf v = maximum (maximum (abs (real (v [i])), abs (imag (v [i]))))
     template<class E>
@@ -1555,6 +1653,7 @@ namespace boost { namespace numeric { namespace ublas {
     public:
         static const unsigned complexity = 1;
         typedef typename F::result_type value_type;
+        typedef typename E1::difference_type difference_type;
         typedef const self_type const_closure_type;
         typedef const_closure_type closure_type;
         typedef unknown_storage_tag storage_category;

@@ -3,7 +3,7 @@
 
 PY_LIBDIR = -L"/usr/lib/x86_64-linux-gnu" -lpython2.7
 PY_INCDIR = /usr/include/python2.7
-QTDIR = /opt/Qt/5.12.2/gcc_64
+QTDIR = /opt/Qt/5.12.2/gcc_64/
 DEFINES += _DEBUG 
 CONFIG += debug warn_on 
 LIBS += $$PY_LIBDIR $$MySQL_LIBDIR 

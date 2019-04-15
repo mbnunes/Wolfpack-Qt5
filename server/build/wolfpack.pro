@@ -9,6 +9,7 @@ PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
 
+
 CONFIG *= qt thread exceptions rtti 
 QT += network xml sql widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

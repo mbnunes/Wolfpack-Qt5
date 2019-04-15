@@ -66,7 +66,7 @@ HEADERS += include/boost/python/arg_from_python.hpp \
            include/boost/python/manage_new_object.hpp \
            include/boost/python/module.hpp \
            include/boost/python/module_init.hpp \
-           include/boost/python/numeric.hpp \
+           include/boost/python/numpy.hpp \
            include/boost/python/object.hpp \
            include/boost/python/object_attributes.hpp \
            include/boost/python/object_call.hpp \

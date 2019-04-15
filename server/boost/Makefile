@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = boost_python1.0.0
-DISTDIR = /home/mnunes/Wolfpack-Qt5/server/boost/.tmp/boost_python1.0.0
+DISTDIR = /home/mnunes/Wolfpack-Qt5/server/boost_new/.tmp/boost_python1.0.0
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -56,7 +56,7 @@ SOURCES       = python/dict.cpp \
 		python/list.cpp \
 		python/long.cpp \
 		python/module.cpp \
-		python/numeric.cpp \
+		python/numpy/numpy.cpp \
 		python/object_operators.cpp \
 		python/object_protocol.cpp \
 		python/slice.cpp \
@@ -84,7 +84,7 @@ OBJECTS       = dict.o \
 		list.o \
 		long.o \
 		module.o \
-		numeric.o \
+		numpy.o \
 		object_operators.o \
 		object_protocol.o \
 		slice.o \
@@ -322,7 +322,7 @@ DIST          = /opt/Qt/5.12.2/gcc_64/mkspecs/features/spec_pre.prf \
 		include/boost/python/manage_new_object.hpp \
 		include/boost/python/module.hpp \
 		include/boost/python/module_init.hpp \
-		include/boost/python/numeric.hpp \
+		include/boost/python/numpy.hpp \
 		include/boost/python/object.hpp \
 		include/boost/python/object_attributes.hpp \
 		include/boost/python/object_call.hpp \
@@ -490,7 +490,7 @@ DIST          = /opt/Qt/5.12.2/gcc_64/mkspecs/features/spec_pre.prf \
 		python/list.cpp \
 		python/long.cpp \
 		python/module.cpp \
-		python/numeric.cpp \
+		python/numpy/numpy.cpp \
 		python/object_operators.cpp \
 		python/object_protocol.cpp \
 		python/slice.cpp \
@@ -937,20 +937,76 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -968,30 +1024,155 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -1002,59 +1183,35 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -1062,85 +1219,19 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -1149,47 +1240,39 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -1221,26 +1304,20 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -1248,65 +1325,86 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -1314,14 +1412,42 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -1330,14 +1456,10 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -1345,6 +1467,7 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -1354,6 +1477,7 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -1370,6 +1494,8 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -1394,6 +1520,7 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -1403,12 +1530,10 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -1456,10 +1581,7 @@ dict.o: python/dict.cpp include/boost/python/dict.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -1489,174 +1611,277 @@ errors.o: python/errors.cpp include/boost/python/errors.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/function/function0.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
 		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/enable_if.hpp \
+		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
+		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
+		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
+		include/boost/bind/mem_fn_template.hpp \
+		include/boost/bind/mem_fn_vw.hpp \
+		include/boost/bind/mem_fn_cc.hpp \
+		include/boost/preprocessor/enum.hpp \
+		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/debug/error.hpp \
+		include/boost/preprocessor/detail/auto_rec.hpp \
+		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
+		include/boost/preprocessor/control/iif.hpp \
+		include/boost/preprocessor/punctuation/comma_if.hpp \
+		include/boost/preprocessor/control/if.hpp \
+		include/boost/preprocessor/logical/bool.hpp \
+		include/boost/preprocessor/facilities/empty.hpp \
+		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repetition/repeat.hpp \
+		include/boost/preprocessor/tuple/eat.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/preprocessor/repeat.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/core/no_exceptions_support.hpp \
+		include/boost/cast.hpp \
+		include/boost/polymorphic_cast.hpp \
+		include/boost/numeric/conversion/cast.hpp \
+		include/boost/numeric/conversion/detail/old_numeric_cast.hpp \
+		include/boost/type.hpp \
+		include/boost/numeric/conversion/converter_policies.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/msvc.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
 		include/boost/mpl/int.hpp \
 		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
-		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
-		include/boost/mpl/aux_/config/workaround.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/preprocessor/cat.hpp \
-		include/boost/preprocessor/config/config.hpp \
 		include/boost/mpl/aux_/integral_wrapper.hpp \
 		include/boost/mpl/integral_c_tag.hpp \
 		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/punctuation/comma_if.hpp \
-		include/boost/preprocessor/control/if.hpp \
-		include/boost/preprocessor/control/iif.hpp \
-		include/boost/preprocessor/logical/bool.hpp \
-		include/boost/preprocessor/facilities/empty.hpp \
-		include/boost/preprocessor/punctuation/comma.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/repetition/repeat.hpp \
-		include/boost/preprocessor/debug/error.hpp \
-		include/boost/preprocessor/detail/auto_rec.hpp \
-		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
-		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/composite_traits.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
 		include/boost/mpl/aux_/na_spec.hpp \
 		include/boost/mpl/lambda_fwd.hpp \
 		include/boost/mpl/void_fwd.hpp \
 		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
 		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
 		include/boost/mpl/aux_/arity.hpp \
 		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
 		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
 		include/boost/preprocessor/empty.hpp \
 		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
 		include/boost/mpl/aux_/preprocessor/tuple.hpp \
 		include/boost/preprocessor/arithmetic/sub.hpp \
+		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
@@ -1668,28 +1893,19 @@ errors.o: python/errors.cpp include/boost/python/errors.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/function_equal.hpp \
-		include/boost/mem_fn.hpp \
-		include/boost/get_pointer.hpp \
-		include/boost/bind/mem_fn_template.hpp \
-		include/boost/bind/mem_fn_vw.hpp \
-		include/boost/bind/mem_fn_cc.hpp \
-		include/boost/preprocessor/enum.hpp \
-		include/boost/preprocessor/repetition/enum.hpp \
-		include/boost/cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
-		include/boost/detail/select_type.hpp \
-		include/boost/numeric/conversion/cast.hpp \
-		include/boost/numeric/conversion/detail/old_numeric_cast.hpp \
-		include/boost/numeric/conversion/converter_policies.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/numeric/conversion/converter.hpp \
 		include/boost/numeric/conversion/conversion_traits.hpp \
 		include/boost/numeric/conversion/detail/conversion_traits.hpp \
@@ -1705,6 +1921,10 @@ errors.o: python/errors.cpp include/boost/python/errors.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
@@ -1712,6 +1932,11 @@ errors.o: python/errors.cpp include/boost/python/errors.hpp \
 		include/boost/mpl/aux_/config/compiler.hpp \
 		include/boost/preprocessor/stringize.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/tag.hpp \
 		include/boost/mpl/void.hpp \
@@ -1745,6 +1970,12 @@ errors.o: python/errors.cpp include/boost/python/errors.hpp \
 		include/boost/numeric/conversion/detail/converter.hpp \
 		include/boost/numeric/conversion/bounds.hpp \
 		include/boost/numeric/conversion/detail/bounds.hpp \
+		include/boost/numeric/conversion/numeric_cast_traits.hpp \
+		include/boost/numeric/conversion/detail/numeric_cast_traits.hpp \
+		include/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_common.hpp \
+		include/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_long_long.hpp \
+		include/boost/preprocessor/seq/elem.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/python/detail/exception_handler.hpp \
 		include/boost/function/function2.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o errors.o python/errors.cpp
@@ -1757,18 +1988,74 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -1786,30 +2073,155 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -1820,59 +2232,35 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -1880,85 +2268,19 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -1967,47 +2289,39 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -2039,26 +2353,20 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -2066,65 +2374,86 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -2132,14 +2461,42 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -2148,14 +2505,10 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -2163,6 +2516,7 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -2172,6 +2526,7 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -2188,6 +2543,8 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -2212,6 +2569,7 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -2221,12 +2579,10 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -2274,10 +2630,7 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -2298,6 +2651,8 @@ exec.o: python/exec.cpp include/boost/python/exec.hpp \
 		include/boost/python/str.hpp \
 		include/boost/python/list.hpp \
 		include/boost/python/converter/pytype_object_mgr_traits.hpp \
+		include/boost/python/dict.hpp \
+		include/boost/python/tuple.hpp \
 		include/boost/python/extract.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o exec.o python/exec.cpp
 
@@ -2309,18 +2664,74 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -2338,30 +2749,155 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -2372,59 +2908,35 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -2432,85 +2944,19 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -2519,47 +2965,39 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -2591,26 +3029,20 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -2618,65 +3050,86 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -2684,14 +3137,42 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -2700,14 +3181,10 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -2715,6 +3192,7 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -2724,6 +3202,7 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -2740,6 +3219,8 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -2764,6 +3245,7 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -2773,12 +3255,10 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -2826,10 +3306,7 @@ import.o: python/import.cpp include/boost/python/import.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -2859,20 +3336,76 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -2890,30 +3423,155 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -2924,59 +3582,35 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -2984,85 +3618,19 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -3071,47 +3639,39 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -3143,26 +3703,20 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -3170,65 +3724,86 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -3236,14 +3811,42 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -3252,14 +3855,10 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -3267,6 +3866,7 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -3276,6 +3876,7 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -3292,6 +3893,8 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -3316,6 +3919,7 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -3325,12 +3929,10 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -3378,10 +3980,7 @@ list.o: python/list.cpp include/boost/python/list.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -3408,20 +4007,76 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -3439,30 +4094,155 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -3473,59 +4253,35 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -3533,85 +4289,19 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -3620,47 +4310,39 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -3692,26 +4374,20 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -3719,65 +4395,86 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -3785,14 +4482,42 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -3801,14 +4526,10 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -3816,6 +4537,7 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -3825,6 +4547,7 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -3841,6 +4564,8 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -3865,6 +4590,7 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -3874,12 +4600,10 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -3927,10 +4651,7 @@ long.o: python/long.cpp include/boost/python/long.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -3957,20 +4678,76 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -3988,30 +4765,155 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -4022,59 +4924,35 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -4082,85 +4960,19 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -4169,47 +4981,39 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -4241,26 +5045,20 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -4268,65 +5066,86 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -4334,14 +5153,42 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -4350,14 +5197,10 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -4365,6 +5208,7 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -4374,6 +5218,7 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -4390,6 +5235,8 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -4414,6 +5261,7 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -4423,12 +5271,10 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -4476,10 +5322,7 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -4499,30 +5342,169 @@ module.o: python/module.cpp include/boost/python/scope.hpp \
 		include/boost/python/object_slices.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o module.o python/module.cpp
 
-numeric.o: python/numeric.cpp include/boost/python/numeric.hpp \
+numpy.o: python/numpy/numpy.cpp include/boost/python/numpy/internal.hpp \
+		include/boost/python.hpp \
+		include/boost/python/args.hpp \
 		include/boost/python/detail/prefix.hpp \
 		include/boost/python/detail/wrap_python.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
-		include/boost/python/tuple.hpp \
-		include/boost/python/object.hpp \
-		include/boost/python/ssize_t.hpp \
-		include/boost/python/object_core.hpp \
-		include/boost/python/call.hpp \
-		include/boost/python/converter/arg_to_python.hpp \
-		include/boost/python/ptr.hpp \
+		include/boost/python/args_fwd.hpp \
+		include/boost/python/handle.hpp \
+		include/boost/python/cast.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
 		include/boost/mpl/bool.hpp \
 		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
@@ -4533,34 +5515,62 @@ numeric.o: python/numeric.cpp include/boost/python/numeric.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
 		include/boost/mpl/integral_c_tag.hpp \
 		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/python/tag.hpp \
-		include/boost/python/to_python_indirect.hpp \
-		include/boost/python/object/pointer_holder.hpp \
-		include/boost/get_pointer.hpp \
-		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/type.hpp \
+		include/boost/python/base_type_traits.hpp \
+		include/boost/python/detail/convertible.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -4571,59 +5581,35 @@ numeric.o: python/numeric.cpp include/boost/python/numeric.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -4631,359 +5617,68 @@ numeric.o: python/numeric.cpp include/boost/python/numeric.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/ref.hpp \
-		include/boost/python/detail/value_arg.hpp \
-		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
-		include/boost/python/detail/is_auto_ptr.hpp \
-		include/boost/python/detail/is_xxx.hpp \
-		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
-		include/boost/mpl/aux_/config/use_preprocessed.hpp \
-		include/boost/mpl/aux_/nested_type_wknd.hpp \
-		include/boost/mpl/aux_/include_preprocessed.hpp \
-		include/boost/mpl/aux_/config/compiler.hpp \
-		include/boost/preprocessor/stringize.hpp \
-		include/boost/mpl/aux_/logical_op.hpp \
-		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
-		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
-		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
-		include/boost/python/detail/wrapper_base.hpp \
-		include/boost/python/detail/force_instantiate.hpp \
-		include/boost/python/detail/preprocessor.hpp \
-		include/boost/mpl/apply.hpp \
-		include/boost/mpl/apply_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/default_params.hpp \
-		include/boost/mpl/apply_wrap.hpp \
-		include/boost/mpl/aux_/has_apply.hpp \
-		include/boost/mpl/has_xxx.hpp \
-		include/boost/mpl/aux_/type_wrapper.hpp \
-		include/boost/mpl/aux_/config/has_xxx.hpp \
-		include/boost/mpl/aux_/config/msvc_typename.hpp \
-		include/boost/mpl/aux_/config/has_apply.hpp \
-		include/boost/mpl/aux_/msvc_never_true.hpp \
-		include/boost/mpl/aux_/preprocessor/add.hpp \
-		include/boost/mpl/aux_/msvc_dtw.hpp \
-		include/boost/mpl/placeholders.hpp \
-		include/boost/mpl/arg.hpp \
-		include/boost/mpl/arg_fwd.hpp \
-		include/boost/mpl/aux_/na_assert.hpp \
-		include/boost/mpl/assert.hpp \
-		include/boost/mpl/aux_/config/pp_counter.hpp \
-		include/boost/mpl/aux_/arity_spec.hpp \
-		include/boost/mpl/aux_/arg_typedef.hpp \
-		include/boost/mpl/lambda.hpp \
-		include/boost/mpl/bind.hpp \
-		include/boost/mpl/bind_fwd.hpp \
-		include/boost/mpl/aux_/config/bind.hpp \
-		include/boost/mpl/aux_/config/dmc_ambiguous_ctps.hpp \
-		include/boost/mpl/next.hpp \
-		include/boost/mpl/next_prior.hpp \
-		include/boost/mpl/aux_/common_name_wknd.hpp \
-		include/boost/mpl/protect.hpp \
-		include/boost/mpl/aux_/preprocessor/partial_spec_params.hpp \
-		include/boost/mpl/aux_/preprocessor/repeat.hpp \
-		include/boost/mpl/aux_/count_args.hpp \
-		include/boost/preprocessor/expr_if.hpp \
-		include/boost/preprocessor/control/expr_if.hpp \
-		include/boost/preprocessor/enum_shifted_params.hpp \
-		include/boost/preprocessor/repetition/enum_shifted_params.hpp \
-		include/boost/mpl/aux_/full_lambda.hpp \
-		include/boost/mpl/quote.hpp \
-		include/boost/mpl/void.hpp \
-		include/boost/mpl/aux_/has_type.hpp \
-		include/boost/mpl/aux_/template_arity.hpp \
-		include/boost/mpl/aux_/has_rebind.hpp \
-		include/boost/mpl/aux_/msvc_is_class.hpp \
-		include/boost/mpl/aux_/preprocessor/range.hpp \
-		include/boost/preprocessor/seq/subseq.hpp \
-		include/boost/preprocessor/seq/first_n.hpp \
-		include/boost/preprocessor/seq/detail/split.hpp \
-		include/boost/preprocessor/seq/rest_n.hpp \
-		include/boost/preprocessor/seq/fold_left.hpp \
-		include/boost/preprocessor/seq/seq.hpp \
-		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
-		include/boost/mpl/aux_/lambda_no_ctps.hpp \
-		include/boost/mpl/is_placeholder.hpp \
-		include/boost/mpl/identity.hpp \
-		include/boost/preprocessor/debug/line.hpp \
-		include/boost/python/object/make_ptr_instance.hpp \
-		include/boost/python/object/make_instance.hpp \
-		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
-		include/boost/python/converter/registered.hpp \
-		include/boost/python/converter/registry.hpp \
-		include/boost/python/converter/to_python_function_type.hpp \
-		include/boost/python/converter/rvalue_from_python_data.hpp \
-		include/boost/python/converter/constructor_function.hpp \
-		include/boost/python/detail/referent_storage.hpp \
-		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/python/converter/convertible_function.hpp \
-		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/python/detail/decref_guard.hpp \
-		include/boost/python/detail/none.hpp \
-		include/boost/python/converter/pytype_function.hpp \
-		include/boost/python/detail/unwind_type.hpp \
-		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
-		include/boost/python/refcount.hpp \
-		include/boost/python/cast.hpp \
-		include/boost/python/base_type_traits.hpp \
-		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
-		include/boost/assert.hpp \
-		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
-		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
-		include/boost/python/converter/registered_pointee.hpp \
-		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
-		include/boost/python/converter/arg_to_python_base.hpp \
-		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
 		include/boost/function/function0.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
+		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/assert.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
+		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
+		include/boost/python/tag.hpp \
 		include/boost/python/handle_fwd.hpp \
+		include/boost/python/refcount.hpp \
 		include/boost/python/detail/raw_pyobject.hpp \
-		include/boost/python/converter/shared_ptr_to_python.hpp \
-		include/boost/python/converter/shared_ptr_deleter.hpp \
-		include/boost/python/converter/builtin_converters.hpp \
-		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
-		include/boost/python/object/function_handle.hpp \
-		include/boost/python/detail/caller.hpp \
-		include/boost/python/detail/invoke.hpp \
-		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
-		include/boost/python/to_python_value.hpp \
-		include/boost/python/converter/object_manager.hpp \
-		include/boost/python/converter/pyobject_traits.hpp \
-		include/boost/python/converter/pyobject_type.hpp \
-		include/boost/python/detail/value_is_shared_ptr.hpp \
-		include/boost/python/detail/value_is_xxx.hpp \
-		include/boost/python/detail/signature.hpp \
-		include/boost/preprocessor/iteration/local.hpp \
-		include/boost/mpl/at.hpp \
-		include/boost/mpl/at_fwd.hpp \
-		include/boost/mpl/aux_/at_impl.hpp \
-		include/boost/mpl/begin_end.hpp \
-		include/boost/mpl/begin_end_fwd.hpp \
-		include/boost/mpl/aux_/begin_end_impl.hpp \
-		include/boost/mpl/sequence_tag_fwd.hpp \
-		include/boost/mpl/aux_/has_begin.hpp \
-		include/boost/mpl/aux_/traits_lambda_spec.hpp \
-		include/boost/mpl/sequence_tag.hpp \
-		include/boost/mpl/aux_/has_tag.hpp \
-		include/boost/mpl/aux_/is_msvc_eti_arg.hpp \
-		include/boost/mpl/advance.hpp \
-		include/boost/mpl/advance_fwd.hpp \
-		include/boost/mpl/less.hpp \
-		include/boost/mpl/aux_/comparison_op.hpp \
-		include/boost/mpl/aux_/numeric_op.hpp \
-		include/boost/mpl/numeric_cast.hpp \
-		include/boost/mpl/tag.hpp \
-		include/boost/mpl/aux_/numeric_cast_utils.hpp \
-		include/boost/mpl/aux_/config/forwarding.hpp \
-		include/boost/mpl/aux_/msvc_eti_base.hpp \
-		include/boost/mpl/negate.hpp \
-		include/boost/mpl/long.hpp \
-		include/boost/mpl/long_fwd.hpp \
-		include/boost/mpl/aux_/advance_forward.hpp \
-		include/boost/mpl/limits/unrolling.hpp \
-		include/boost/mpl/aux_/advance_backward.hpp \
-		include/boost/mpl/prior.hpp \
-		include/boost/mpl/deref.hpp \
-		include/boost/mpl/aux_/msvc_type.hpp \
-		include/boost/mpl/size.hpp \
-		include/boost/mpl/size_fwd.hpp \
-		include/boost/mpl/aux_/size_impl.hpp \
-		include/boost/mpl/distance.hpp \
-		include/boost/mpl/distance_fwd.hpp \
-		include/boost/mpl/iter_fold.hpp \
-		include/boost/mpl/O1_size.hpp \
-		include/boost/mpl/O1_size_fwd.hpp \
-		include/boost/mpl/aux_/O1_size_impl.hpp \
-		include/boost/mpl/aux_/has_size.hpp \
-		include/boost/mpl/aux_/iter_fold_impl.hpp \
-		include/boost/mpl/aux_/fold_impl_body.hpp \
-		include/boost/mpl/iterator_range.hpp \
-		include/boost/python/arg_from_python.hpp \
-		include/boost/python/converter/arg_from_python.hpp \
-		include/boost/python/converter/from_python.hpp \
-		include/boost/python/detail/void_ptr.hpp \
-		include/boost/python/back_reference.hpp \
-		include/boost/python/object_fwd.hpp \
-		include/boost/python/detail/dependent.hpp \
-		include/boost/python/converter/obj_mgr_arg_from_python.hpp \
-		include/boost/python/detail/construct.hpp \
-		include/boost/python/converter/context_result_converter.hpp \
-		include/boost/preprocessor/if.hpp \
-		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
-		include/boost/detail/compressed_pair.hpp \
-		include/boost/python/default_call_policies.hpp \
-		include/boost/mpl/front.hpp \
-		include/boost/mpl/front_fwd.hpp \
-		include/boost/mpl/aux_/front_impl.hpp \
-		include/boost/python/object/py_function.hpp \
-		include/boost/python/signature.hpp \
+		include/boost/python/detail/preprocessor.hpp \
 		include/boost/python/detail/type_list.hpp \
 		include/boost/mpl/vector/vector50.hpp \
 		include/boost/mpl/vector/vector40.hpp \
@@ -4992,12 +5687,20 @@ numeric.o: python/numeric.cpp include/boost/python/numeric.hpp \
 		include/boost/mpl/vector/vector10.hpp \
 		include/boost/mpl/vector/vector0.hpp \
 		include/boost/mpl/vector/aux_/at.hpp \
+		include/boost/mpl/at_fwd.hpp \
 		include/boost/mpl/vector/aux_/tag.hpp \
 		include/boost/mpl/aux_/config/typeof.hpp \
+		include/boost/mpl/long.hpp \
+		include/boost/mpl/long_fwd.hpp \
+		include/boost/mpl/void.hpp \
+		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/vector/aux_/front.hpp \
+		include/boost/mpl/front_fwd.hpp \
 		include/boost/mpl/vector/aux_/push_front.hpp \
 		include/boost/mpl/push_front_fwd.hpp \
 		include/boost/mpl/vector/aux_/item.hpp \
+		include/boost/mpl/next_prior.hpp \
+		include/boost/mpl/aux_/common_name_wknd.hpp \
 		include/boost/mpl/vector/aux_/pop_front.hpp \
 		include/boost/mpl/pop_front_fwd.hpp \
 		include/boost/mpl/vector/aux_/push_back.hpp \
@@ -5013,22 +5716,286 @@ numeric.o: python/numeric.cpp include/boost/python/numeric.hpp \
 		include/boost/mpl/iterator_tags.hpp \
 		include/boost/mpl/plus.hpp \
 		include/boost/mpl/aux_/arithmetic_op.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/largest_int.hpp \
+		include/boost/mpl/aux_/numeric_op.hpp \
+		include/boost/mpl/numeric_cast.hpp \
+		include/boost/mpl/apply_wrap.hpp \
+		include/boost/mpl/aux_/has_apply.hpp \
+		include/boost/mpl/has_xxx.hpp \
+		include/boost/mpl/aux_/config/has_xxx.hpp \
+		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
+		include/boost/mpl/aux_/config/has_apply.hpp \
+		include/boost/mpl/aux_/msvc_never_true.hpp \
+		include/boost/mpl/aux_/config/use_preprocessed.hpp \
+		include/boost/mpl/aux_/include_preprocessed.hpp \
+		include/boost/mpl/aux_/config/compiler.hpp \
+		include/boost/preprocessor/stringize.hpp \
+		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
+		include/boost/mpl/aux_/msvc_dtw.hpp \
+		include/boost/mpl/tag.hpp \
+		include/boost/mpl/eval_if.hpp \
+		include/boost/mpl/aux_/has_tag.hpp \
+		include/boost/mpl/aux_/numeric_cast_utils.hpp \
+		include/boost/mpl/aux_/config/forwarding.hpp \
+		include/boost/mpl/aux_/msvc_eti_base.hpp \
+		include/boost/mpl/aux_/is_msvc_eti_arg.hpp \
+		include/boost/mpl/aux_/preprocessor/partial_spec_params.hpp \
+		include/boost/mpl/aux_/preprocessor/repeat.hpp \
+		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
+		include/boost/preprocessor/dec.hpp \
 		include/boost/mpl/minus.hpp \
+		include/boost/mpl/advance_fwd.hpp \
+		include/boost/mpl/distance_fwd.hpp \
+		include/boost/mpl/next.hpp \
+		include/boost/mpl/prior.hpp \
 		include/boost/mpl/vector/aux_/O1_size.hpp \
+		include/boost/mpl/O1_size_fwd.hpp \
 		include/boost/mpl/vector/aux_/size.hpp \
+		include/boost/mpl/size_fwd.hpp \
 		include/boost/mpl/vector/aux_/empty.hpp \
 		include/boost/mpl/empty_fwd.hpp \
 		include/boost/mpl/vector/aux_/begin_end.hpp \
+		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/vector/aux_/include_preprocessed.hpp \
 		include/boost/python/detail/type_list_impl.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
+		include/boost/preprocessor/facilities/intercept.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
+		include/boost/preprocessor/iteration/local.hpp \
+		include/boost/python/detail/mpl_lambda.hpp \
+		include/boost/python/object_core.hpp \
+		include/boost/python/call.hpp \
+		include/boost/python/converter/arg_to_python.hpp \
+		include/boost/python/ptr.hpp \
+		include/boost/python/to_python_indirect.hpp \
+		include/boost/python/object/pointer_holder.hpp \
+		include/boost/python/instance_holder.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/python/detail/value_arg.hpp \
+		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
+		include/boost/python/detail/is_auto_ptr.hpp \
+		include/boost/python/detail/is_xxx.hpp \
+		include/boost/detail/is_xxx.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
+		include/boost/mpl/aux_/nested_type_wknd.hpp \
+		include/boost/mpl/aux_/logical_op.hpp \
+		include/boost/python/pointee.hpp \
+		include/boost/python/detail/wrapper_base.hpp \
+		include/boost/python/detail/force_instantiate.hpp \
+		include/boost/mpl/apply.hpp \
+		include/boost/mpl/apply_fwd.hpp \
+		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/mpl/placeholders.hpp \
+		include/boost/mpl/arg.hpp \
+		include/boost/mpl/arg_fwd.hpp \
+		include/boost/mpl/aux_/na_assert.hpp \
+		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
+		include/boost/mpl/aux_/config/pp_counter.hpp \
+		include/boost/mpl/aux_/arity_spec.hpp \
+		include/boost/mpl/aux_/arg_typedef.hpp \
+		include/boost/mpl/lambda.hpp \
+		include/boost/mpl/bind.hpp \
+		include/boost/mpl/bind_fwd.hpp \
+		include/boost/mpl/aux_/config/bind.hpp \
+		include/boost/mpl/aux_/config/dmc_ambiguous_ctps.hpp \
+		include/boost/mpl/protect.hpp \
+		include/boost/mpl/aux_/count_args.hpp \
+		include/boost/preprocessor/expr_if.hpp \
+		include/boost/preprocessor/control/expr_if.hpp \
+		include/boost/preprocessor/enum_shifted_params.hpp \
+		include/boost/preprocessor/repetition/enum_shifted_params.hpp \
+		include/boost/mpl/aux_/full_lambda.hpp \
+		include/boost/mpl/quote.hpp \
+		include/boost/mpl/aux_/has_type.hpp \
+		include/boost/mpl/aux_/template_arity.hpp \
+		include/boost/mpl/aux_/has_rebind.hpp \
+		include/boost/mpl/aux_/msvc_is_class.hpp \
+		include/boost/mpl/aux_/preprocessor/range.hpp \
+		include/boost/preprocessor/seq/subseq.hpp \
+		include/boost/preprocessor/seq/first_n.hpp \
+		include/boost/preprocessor/seq/detail/split.hpp \
+		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
+		include/boost/preprocessor/seq/fold_left.hpp \
+		include/boost/preprocessor/seq/seq.hpp \
+		include/boost/preprocessor/seq/elem.hpp \
+		include/boost/mpl/aux_/lambda_no_ctps.hpp \
+		include/boost/mpl/is_placeholder.hpp \
+		include/boost/mpl/identity.hpp \
+		include/boost/preprocessor/debug/line.hpp \
+		include/boost/python/object/make_ptr_instance.hpp \
+		include/boost/python/object/make_instance.hpp \
+		include/boost/python/object/instance.hpp \
+		include/boost/python/converter/registered.hpp \
+		include/boost/python/converter/registry.hpp \
+		include/boost/python/converter/to_python_function_type.hpp \
+		include/boost/python/converter/rvalue_from_python_data.hpp \
+		include/boost/python/converter/constructor_function.hpp \
+		include/boost/python/detail/referent_storage.hpp \
+		include/boost/python/detail/destroy.hpp \
+		include/boost/python/converter/convertible_function.hpp \
+		include/boost/python/converter/registrations.hpp \
+		include/boost/python/detail/decref_guard.hpp \
+		include/boost/python/detail/none.hpp \
+		include/boost/python/converter/pytype_function.hpp \
+		include/boost/python/detail/unwind_type.hpp \
+		include/boost/python/detail/cv_category.hpp \
+		include/boost/shared_ptr.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
+		include/boost/detail/sp_typeinfo.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
+		include/boost/python/converter/registered_pointee.hpp \
+		include/boost/python/converter/pointer_type_id.hpp \
+		include/boost/python/converter/arg_to_python_base.hpp \
+		include/boost/python/converter/shared_ptr_to_python.hpp \
+		include/boost/python/converter/shared_ptr_deleter.hpp \
+		include/boost/python/converter/builtin_converters.hpp \
+		include/boost/python/ssize_t.hpp \
+		include/boost/implicit_cast.hpp \
+		include/boost/python/object/function_handle.hpp \
+		include/boost/python/detail/caller.hpp \
+		include/boost/python/detail/invoke.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
+		include/boost/python/to_python_value.hpp \
+		include/boost/python/converter/object_manager.hpp \
+		include/boost/python/converter/pyobject_traits.hpp \
+		include/boost/python/converter/pyobject_type.hpp \
+		include/boost/python/detail/value_is_shared_ptr.hpp \
+		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
+		include/boost/python/detail/signature.hpp \
+		include/boost/mpl/at.hpp \
+		include/boost/mpl/aux_/at_impl.hpp \
+		include/boost/mpl/begin_end.hpp \
+		include/boost/mpl/aux_/begin_end_impl.hpp \
+		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/aux_/has_begin.hpp \
+		include/boost/mpl/aux_/traits_lambda_spec.hpp \
+		include/boost/mpl/sequence_tag.hpp \
+		include/boost/mpl/advance.hpp \
+		include/boost/mpl/less.hpp \
+		include/boost/mpl/aux_/comparison_op.hpp \
+		include/boost/mpl/negate.hpp \
+		include/boost/mpl/aux_/advance_forward.hpp \
+		include/boost/mpl/limits/unrolling.hpp \
+		include/boost/mpl/aux_/advance_backward.hpp \
+		include/boost/mpl/deref.hpp \
+		include/boost/mpl/aux_/msvc_type.hpp \
+		include/boost/mpl/size.hpp \
+		include/boost/mpl/aux_/size_impl.hpp \
+		include/boost/mpl/distance.hpp \
+		include/boost/mpl/iter_fold.hpp \
+		include/boost/mpl/O1_size.hpp \
+		include/boost/mpl/aux_/O1_size_impl.hpp \
+		include/boost/mpl/aux_/has_size.hpp \
+		include/boost/mpl/aux_/iter_fold_impl.hpp \
+		include/boost/mpl/aux_/fold_impl_body.hpp \
+		include/boost/mpl/iterator_range.hpp \
+		include/boost/python/arg_from_python.hpp \
+		include/boost/python/converter/arg_from_python.hpp \
+		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
+		include/boost/python/detail/void_ptr.hpp \
+		include/boost/python/back_reference.hpp \
+		include/boost/python/object_fwd.hpp \
+		include/boost/python/detail/dependent.hpp \
+		include/boost/python/converter/obj_mgr_arg_from_python.hpp \
+		include/boost/python/detail/construct.hpp \
+		include/boost/python/converter/context_result_converter.hpp \
+		include/boost/preprocessor/if.hpp \
+		include/boost/compressed_pair.hpp \
+		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
+		include/boost/python/default_call_policies.hpp \
+		include/boost/mpl/front.hpp \
+		include/boost/mpl/aux_/front_impl.hpp \
+		include/boost/python/object/py_function.hpp \
+		include/boost/python/signature.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -5036,6 +6003,12 @@ numeric.o: python/numeric.cpp include/boost/python/numeric.hpp \
 		include/boost/python/detail/def_helper_fwd.hpp \
 		include/boost/python/detail/not_specified.hpp \
 		include/boost/python/slice_nil.hpp \
+		include/boost/python/bases.hpp \
+		include/boost/python/call_method.hpp \
+		include/boost/python/class.hpp \
+		include/boost/python/class_fwd.hpp \
+		include/boost/python/object/class.hpp \
+		include/boost/python/object.hpp \
 		include/boost/python/object_attributes.hpp \
 		include/boost/python/proxy.hpp \
 		include/boost/python/object_operators.hpp \
@@ -5046,11 +6019,369 @@ numeric.o: python/numeric.cpp include/boost/python/numeric.hpp \
 		include/boost/python/object_protocol_core.hpp \
 		include/boost/python/object_items.hpp \
 		include/boost/python/object_slices.hpp \
-		include/boost/python/converter/pytype_object_mgr_traits.hpp \
-		include/boost/python/str.hpp \
+		include/boost/python/data_members.hpp \
+		include/boost/python/return_value_policy.hpp \
+		include/boost/python/return_by_value.hpp \
+		include/boost/python/return_internal_reference.hpp \
+		include/boost/python/reference_existing_object.hpp \
+		include/boost/python/with_custodian_and_ward.hpp \
+		include/boost/python/object/life_support.hpp \
+		include/boost/python/make_function.hpp \
+		include/boost/python/object/function_object.hpp \
+		include/boost/function/function2.hpp \
+		include/boost/python/init.hpp \
+		include/boost/python/detail/make_keyword_range_fn.hpp \
+		include/boost/python/object/make_holder.hpp \
+		include/boost/python/detail/python_type.hpp \
+		include/boost/mpl/empty.hpp \
+		include/boost/mpl/aux_/empty_impl.hpp \
+		include/boost/mpl/joint_view.hpp \
+		include/boost/mpl/aux_/joint_iter.hpp \
+		include/boost/mpl/aux_/lambda_spec.hpp \
+		include/boost/mpl/back.hpp \
+		include/boost/mpl/aux_/back_impl.hpp \
+		include/boost/python/object/class_metadata.hpp \
+		include/boost/python/converter/shared_ptr_from_python.hpp \
+		include/boost/python/object/inheritance.hpp \
+		include/boost/python/object/class_wrapper.hpp \
+		include/boost/python/to_python_converter.hpp \
+		include/boost/python/converter/as_to_python_function.hpp \
+		include/boost/python/object/value_holder.hpp \
+		include/boost/python/object/value_holder_fwd.hpp \
+		include/boost/python/wrapper.hpp \
+		include/boost/python/override.hpp \
+		include/boost/python/extract.hpp \
+		include/boost/python/detail/sfinae.hpp \
+		include/boost/utility/addressof.hpp \
+		include/boost/python/has_back_reference.hpp \
+		include/boost/mpl/for_each.hpp \
+		include/boost/mpl/is_sequence.hpp \
+		include/boost/mpl/aux_/unwrap.hpp \
+		include/boost/utility/value_init.hpp \
+		include/boost/aligned_storage.hpp \
+		include/boost/type_traits/aligned_storage.hpp \
+		include/boost/swap.hpp \
+		include/boost/core/swap.hpp \
+		include/boost/mpl/single_view.hpp \
+		include/boost/mpl/aux_/single_element_iter.hpp \
+		include/boost/python/object/pickle_support.hpp \
+		include/boost/python/detail/overloads_fwd.hpp \
+		include/boost/python/detail/operator_id.hpp \
+		include/boost/python/detail/def_helper.hpp \
+		include/boost/tuple/tuple.hpp \
+		include/boost/tuple/detail/tuple_basic.hpp \
+		include/boost/utility/swap.hpp \
+		include/boost/python/detail/unwrap_type_id.hpp \
+		include/boost/python/detail/unwrap_wrapper.hpp \
+		include/boost/python/detail/is_wrapper.hpp \
+		include/boost/python/copy_const_reference.hpp \
+		include/boost/python/copy_non_const_reference.hpp \
+		include/boost/python/def.hpp \
+		include/boost/python/scope.hpp \
+		include/boost/python/detail/scope.hpp \
+		include/boost/python/dict.hpp \
 		include/boost/python/list.hpp \
-		include/boost/python/extract.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o numeric.o python/numeric.cpp
+		include/boost/python/converter/pytype_object_mgr_traits.hpp \
+		include/boost/python/tuple.hpp \
+		include/boost/python/docstring_options.hpp \
+		include/boost/python/object/function.hpp \
+		include/boost/python/enum.hpp \
+		include/boost/python/object/enum_base.hpp \
+		include/boost/python/exception_translator.hpp \
+		include/boost/bind.hpp \
+		include/boost/bind/bind.hpp \
+		include/boost/is_placeholder.hpp \
+		include/boost/bind/arg.hpp \
+		include/boost/visit_each.hpp \
+		include/boost/core/is_same.hpp \
+		include/boost/bind/storage.hpp \
+		include/boost/bind/bind_template.hpp \
+		include/boost/bind/bind_cc.hpp \
+		include/boost/bind/bind_mf_cc.hpp \
+		include/boost/bind/bind_mf2_cc.hpp \
+		include/boost/bind/placeholders.hpp \
+		include/boost/python/detail/translate_exception.hpp \
+		include/boost/python/detail/exception_handler.hpp \
+		include/boost/python/exec.hpp \
+		include/boost/python/str.hpp \
+		include/boost/python/implicit.hpp \
+		include/boost/python/converter/implicit.hpp \
+		include/boost/python/import.hpp \
+		include/boost/python/iterator.hpp \
+		include/boost/python/detail/target.hpp \
+		include/boost/python/object/iterator.hpp \
+		include/boost/python/object/iterator_core.hpp \
+		include/boost/python/object/class_detail.hpp \
+		include/boost/detail/iterator.hpp \
+		include/boost/bind/protect.hpp \
+		include/boost/python/long.hpp \
+		include/boost/python/lvalue_from_pytype.hpp \
+		include/boost/python/make_constructor.hpp \
+		include/boost/mpl/push_front.hpp \
+		include/boost/mpl/aux_/push_front_impl.hpp \
+		include/boost/mpl/pop_front.hpp \
+		include/boost/mpl/aux_/pop_front_impl.hpp \
+		include/boost/python/manage_new_object.hpp \
+		include/boost/python/module.hpp \
+		include/boost/python/module_init.hpp \
+		include/boost/python/opaque_pointer_converter.hpp \
+		include/boost/python/detail/dealloc.hpp \
+		include/boost/python/operators.hpp \
+		include/boost/python/self.hpp \
+		include/boost/python/other.hpp \
+		include/boost/lexical_cast.hpp \
+		include/boost/range/iterator_range_core.hpp \
+		include/boost/iterator/iterator_traits.hpp \
+		include/boost/iterator/iterator_facade.hpp \
+		include/boost/iterator/interoperable.hpp \
+		include/boost/iterator/iterator_categories.hpp \
+		include/boost/iterator/detail/facade_iterator_category.hpp \
+		include/boost/core/use_default.hpp \
+		include/boost/mpl/always.hpp \
+		include/boost/range/functions.hpp \
+		include/boost/range/begin.hpp \
+		include/boost/range/config.hpp \
+		include/boost/range/detail/begin.hpp \
+		include/boost/range/iterator.hpp \
+		include/boost/range/range_fwd.hpp \
+		include/boost/range/mutable_iterator.hpp \
+		include/boost/range/detail/extract_optional_type.hpp \
+		include/boost/range/detail/msvc_has_iterator_workaround.hpp \
+		include/boost/range/const_iterator.hpp \
+		include/boost/range/detail/common.hpp \
+		include/boost/range/detail/sfinae.hpp \
+		include/boost/range/end.hpp \
+		include/boost/range/detail/end.hpp \
+		include/boost/range/detail/implementation_help.hpp \
+		include/boost/range/size.hpp \
+		include/boost/range/size_type.hpp \
+		include/boost/range/difference_type.hpp \
+		include/boost/range/has_range_iterator.hpp \
+		include/boost/utility/enable_if.hpp \
+		include/boost/range/concepts.hpp \
+		include/boost/concept_check.hpp \
+		include/boost/concept/assert.hpp \
+		include/boost/concept/detail/msvc.hpp \
+		include/boost/concept/detail/backward_compatibility.hpp \
+		include/boost/concept/detail/has_constraints.hpp \
+		include/boost/concept/detail/borland.hpp \
+		include/boost/concept/detail/general.hpp \
+		include/boost/concept/usage.hpp \
+		include/boost/concept/detail/concept_def.hpp \
+		include/boost/preprocessor/seq/for_each_i.hpp \
+		include/boost/preprocessor/seq/enum.hpp \
+		include/boost/concept/detail/concept_undef.hpp \
+		include/boost/iterator/iterator_concepts.hpp \
+		include/boost/range/value_type.hpp \
+		include/boost/range/detail/misc_concept.hpp \
+		include/boost/type_traits/make_unsigned.hpp \
+		include/boost/range/detail/has_member_size.hpp \
+		include/boost/utility.hpp \
+		include/boost/utility/base_from_member.hpp \
+		include/boost/preprocessor/repetition/repeat_from_to.hpp \
+		include/boost/utility/binary.hpp \
+		include/boost/preprocessor/control/deduce_d.hpp \
+		include/boost/preprocessor/seq/cat.hpp \
+		include/boost/preprocessor/seq/transform.hpp \
+		include/boost/preprocessor/arithmetic/mod.hpp \
+		include/boost/preprocessor/arithmetic/detail/div_base.hpp \
+		include/boost/preprocessor/comparison/less_equal.hpp \
+		include/boost/preprocessor/logical/not.hpp \
+		include/boost/utility/identity_type.hpp \
+		include/boost/range/distance.hpp \
+		include/boost/iterator/distance.hpp \
+		include/boost/range/empty.hpp \
+		include/boost/range/rbegin.hpp \
+		include/boost/range/reverse_iterator.hpp \
+		include/boost/iterator/reverse_iterator.hpp \
+		include/boost/iterator/iterator_adaptor.hpp \
+		include/boost/range/rend.hpp \
+		include/boost/range/algorithm/equal.hpp \
+		include/boost/range/detail/safe_bool.hpp \
+		include/boost/next_prior.hpp \
+		include/boost/type_traits/has_plus.hpp \
+		include/boost/type_traits/detail/has_binary_operator.hpp \
+		include/boost/type_traits/make_void.hpp \
+		include/boost/type_traits/is_base_of.hpp \
+		include/boost/type_traits/detail/is_likely_lambda.hpp \
+		include/boost/type_traits/has_plus_assign.hpp \
+		include/boost/type_traits/has_minus.hpp \
+		include/boost/type_traits/has_minus_assign.hpp \
+		include/boost/iterator/advance.hpp \
+		include/boost/lexical_cast/bad_lexical_cast.hpp \
+		include/boost/lexical_cast/try_lexical_convert.hpp \
+		include/boost/lexical_cast/detail/is_character.hpp \
+		include/boost/lexical_cast/detail/converter_numeric.hpp \
+		include/boost/type_traits/is_float.hpp \
+		include/boost/numeric/conversion/cast.hpp \
+		include/boost/numeric/conversion/detail/old_numeric_cast.hpp \
+		include/boost/numeric/conversion/converter_policies.hpp \
+		include/boost/numeric/conversion/converter.hpp \
+		include/boost/numeric/conversion/conversion_traits.hpp \
+		include/boost/numeric/conversion/detail/conversion_traits.hpp \
+		include/boost/numeric/conversion/detail/meta.hpp \
+		include/boost/mpl/equal_to.hpp \
+		include/boost/numeric/conversion/detail/int_float_mixture.hpp \
+		include/boost/numeric/conversion/int_float_mixture_enum.hpp \
+		include/boost/numeric/conversion/detail/sign_mixture.hpp \
+		include/boost/numeric/conversion/sign_mixture_enum.hpp \
+		include/boost/numeric/conversion/detail/udt_builtin_mixture.hpp \
+		include/boost/numeric/conversion/udt_builtin_mixture_enum.hpp \
+		include/boost/numeric/conversion/detail/is_subranged.hpp \
+		include/boost/mpl/multiplies.hpp \
+		include/boost/mpl/times.hpp \
+		include/boost/numeric/conversion/detail/converter.hpp \
+		include/boost/numeric/conversion/bounds.hpp \
+		include/boost/numeric/conversion/detail/bounds.hpp \
+		include/boost/numeric/conversion/numeric_cast_traits.hpp \
+		include/boost/numeric/conversion/detail/numeric_cast_traits.hpp \
+		include/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_common.hpp \
+		include/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_long_long.hpp \
+		include/boost/lexical_cast/detail/converter_lexical.hpp \
+		include/boost/type_traits/has_left_shift.hpp \
+		include/boost/type_traits/has_right_shift.hpp \
+		include/boost/detail/lcast_precision.hpp \
+		include/boost/lexical_cast/detail/widest_char.hpp \
+		include/boost/array.hpp \
+		include/boost/container/container_fwd.hpp \
+		include/boost/container/detail/std_fwd.hpp \
+		include/boost/move/detail/std_ns_begin.hpp \
+		include/boost/move/detail/std_ns_end.hpp \
+		include/boost/lexical_cast/detail/converter_lexical_streams.hpp \
+		include/boost/lexical_cast/detail/lcast_char_constants.hpp \
+		include/boost/lexical_cast/detail/lcast_unsigned_converters.hpp \
+		include/boost/lexical_cast/detail/inf_nan.hpp \
+		include/boost/math/special_functions/sign.hpp \
+		include/boost/math/tools/config.hpp \
+		include/boost/predef/architecture/x86.h \
+		include/boost/predef/architecture/x86/32.h \
+		include/boost/predef/architecture/x86/64.h \
+		include/boost/math/tools/user.hpp \
+		include/boost/non_type.hpp \
+		include/boost/detail/fenv.hpp \
+		include/boost/math/special_functions/math_fwd.hpp \
+		include/boost/math/special_functions/detail/round_fwd.hpp \
+		include/boost/math/tools/promotion.hpp \
+		include/boost/math/policies/policy.hpp \
+		include/boost/mpl/list.hpp \
+		include/boost/mpl/limits/list.hpp \
+		include/boost/mpl/aux_/sequence_wrapper.hpp \
+		include/boost/mpl/contains.hpp \
+		include/boost/mpl/contains_fwd.hpp \
+		include/boost/mpl/aux_/contains_impl.hpp \
+		include/boost/mpl/find.hpp \
+		include/boost/mpl/find_if.hpp \
+		include/boost/mpl/aux_/find_if_pred.hpp \
+		include/boost/mpl/aux_/iter_apply.hpp \
+		include/boost/mpl/iter_fold_if.hpp \
+		include/boost/mpl/logical.hpp \
+		include/boost/mpl/pair.hpp \
+		include/boost/mpl/aux_/iter_fold_if_impl.hpp \
+		include/boost/mpl/same_as.hpp \
+		include/boost/mpl/remove_if.hpp \
+		include/boost/mpl/fold.hpp \
+		include/boost/mpl/aux_/fold_impl.hpp \
+		include/boost/mpl/reverse_fold.hpp \
+		include/boost/mpl/aux_/reverse_fold_impl.hpp \
+		include/boost/mpl/aux_/reverse_fold_impl_body.hpp \
+		include/boost/mpl/aux_/inserter_algorithm.hpp \
+		include/boost/mpl/back_inserter.hpp \
+		include/boost/mpl/push_back.hpp \
+		include/boost/mpl/aux_/push_back_impl.hpp \
+		include/boost/mpl/inserter.hpp \
+		include/boost/mpl/front_inserter.hpp \
+		include/boost/mpl/clear.hpp \
+		include/boost/mpl/aux_/clear_impl.hpp \
+		include/boost/mpl/vector.hpp \
+		include/boost/mpl/limits/vector.hpp \
+		include/boost/mpl/comparison.hpp \
+		include/boost/mpl/not_equal_to.hpp \
+		include/boost/mpl/greater.hpp \
+		include/boost/mpl/less_equal.hpp \
+		include/boost/mpl/greater_equal.hpp \
+		include/boost/config/no_tr1/complex.hpp \
+		include/boost/math/special_functions/detail/fp_traits.hpp \
+		include/boost/predef/other/endian.h \
+		include/boost/predef/library/c/gnu.h \
+		include/boost/predef/library/c/_prefix.h \
+		include/boost/predef/detail/_cassert.h \
+		include/boost/predef/os/macos.h \
+		include/boost/predef/os/ios.h \
+		include/boost/predef/os/bsd.h \
+		include/boost/predef/os/bsd/bsdi.h \
+		include/boost/predef/os/bsd/dragonfly.h \
+		include/boost/predef/os/bsd/free.h \
+		include/boost/predef/os/bsd/open.h \
+		include/boost/predef/os/bsd/net.h \
+		include/boost/predef/os/android.h \
+		include/boost/predef/architecture.h \
+		include/boost/predef/architecture/alpha.h \
+		include/boost/predef/architecture/arm.h \
+		include/boost/predef/architecture/blackfin.h \
+		include/boost/predef/architecture/convex.h \
+		include/boost/predef/architecture/ia64.h \
+		include/boost/predef/architecture/m68k.h \
+		include/boost/predef/architecture/mips.h \
+		include/boost/predef/architecture/parisc.h \
+		include/boost/predef/architecture/ppc.h \
+		include/boost/predef/architecture/ptx.h \
+		include/boost/predef/architecture/pyramid.h \
+		include/boost/predef/architecture/rs6k.h \
+		include/boost/predef/architecture/sparc.h \
+		include/boost/predef/architecture/superh.h \
+		include/boost/predef/architecture/sys370.h \
+		include/boost/predef/architecture/sys390.h \
+		include/boost/predef/architecture/z.h \
+		include/boost/math/special_functions/fpclassify.hpp \
+		include/boost/math/tools/real_cast.hpp \
+		include/boost/detail/basic_pointerbuf.hpp \
+		include/boost/python/overloads.hpp \
+		include/boost/python/detail/defaults_def.hpp \
+		include/boost/python/detail/defaults_gen.hpp \
+		include/boost/preprocessor/repeat_from_to.hpp \
+		include/boost/preprocessor/tuple.hpp \
+		include/boost/preprocessor/tuple/enum.hpp \
+		include/boost/preprocessor/tuple/insert.hpp \
+		include/boost/preprocessor/array/insert.hpp \
+		include/boost/preprocessor/array/push_back.hpp \
+		include/boost/preprocessor/array/detail/get_data.hpp \
+		include/boost/preprocessor/array/to_tuple.hpp \
+		include/boost/preprocessor/tuple/to_array.hpp \
+		include/boost/preprocessor/tuple/pop_back.hpp \
+		include/boost/preprocessor/array/pop_back.hpp \
+		include/boost/preprocessor/repetition/deduce_z.hpp \
+		include/boost/preprocessor/comparison/greater.hpp \
+		include/boost/preprocessor/comparison/less.hpp \
+		include/boost/preprocessor/tuple/pop_front.hpp \
+		include/boost/preprocessor/array/pop_front.hpp \
+		include/boost/preprocessor/tuple/push_back.hpp \
+		include/boost/preprocessor/tuple/push_front.hpp \
+		include/boost/preprocessor/array/push_front.hpp \
+		include/boost/preprocessor/tuple/remove.hpp \
+		include/boost/preprocessor/array/remove.hpp \
+		include/boost/preprocessor/tuple/replace.hpp \
+		include/boost/preprocessor/array/replace.hpp \
+		include/boost/preprocessor/tuple/reverse.hpp \
+		include/boost/preprocessor/tuple/to_seq.hpp \
+		include/boost/python/pure_virtual.hpp \
+		include/boost/python/detail/nullary_function_adaptor.hpp \
+		include/boost/python/raw_function.hpp \
+		include/boost/python/register_ptr_to_python.hpp \
+		include/boost/python/return_arg.hpp \
+		include/boost/python/return_opaque_pointer.hpp \
+		include/boost/python/slice.hpp \
+		include/boost/python/stl_iterator.hpp \
+		include/boost/python/object/stl_iterator_core.hpp \
+		include/boost/python/numpy/config.hpp \
+		include/boost/python/numpy.hpp \
+		include/boost/python/numpy/dtype.hpp \
+		include/boost/python/numpy/numpy_object_mgr_traits.hpp \
+		include/boost/python/numpy/ndarray.hpp \
+		include/boost/python/numpy/scalars.hpp \
+		include/boost/python/numpy/matrix.hpp \
+		include/boost/python/numpy/ufunc.hpp \
+		include/boost/python/numpy/invoke_matching.hpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o numpy.o python/numpy/numpy.cpp
 
 object_operators.o: python/object_operators.cpp include/boost/python/object_operators.hpp \
 		include/boost/python/detail/prefix.hpp \
@@ -5058,18 +6389,74 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -5087,30 +6474,155 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -5121,59 +6633,35 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -5181,85 +6669,19 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -5268,47 +6690,39 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -5340,26 +6754,20 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -5367,65 +6775,86 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -5433,14 +6862,42 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -5450,14 +6907,10 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -5465,6 +6918,7 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -5474,6 +6928,7 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -5490,6 +6945,8 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -5514,6 +6971,7 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -5523,12 +6981,10 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -5576,10 +7032,7 @@ object_operators.o: python/object_operators.cpp include/boost/python/object_oper
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -5598,20 +7051,76 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object_protocol_core.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -5629,30 +7138,155 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -5663,59 +7297,35 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -5723,85 +7333,19 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -5810,47 +7354,39 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -5882,26 +7418,20 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -5909,65 +7439,86 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -5975,14 +7526,42 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/detail/raw_pyobject.hpp \
@@ -5991,14 +7570,10 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -6006,6 +7581,7 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -6015,6 +7591,7 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -6031,6 +7608,8 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -6055,6 +7634,7 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -6064,12 +7644,10 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -6117,10 +7695,7 @@ object_protocol.o: python/object_protocol.cpp include/boost/python/object_protoc
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -6145,20 +7720,76 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -6176,30 +7807,155 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -6210,59 +7966,35 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -6270,85 +8002,19 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -6357,47 +8023,39 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -6429,26 +8087,20 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -6456,65 +8108,86 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -6522,14 +8195,42 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -6538,14 +8239,10 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -6553,6 +8250,7 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -6562,6 +8260,7 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -6578,6 +8277,8 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -6602,6 +8303,7 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -6611,12 +8313,10 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -6664,10 +8364,7 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -6687,8 +8384,7 @@ slice.o: python/slice.cpp include/boost/python/slice.hpp \
 		include/boost/python/object_slices.hpp \
 		include/boost/python/extract.hpp \
 		include/boost/python/converter/pytype_object_mgr_traits.hpp \
-		include/boost/iterator/iterator_traits.hpp \
-		include/boost/detail/iterator.hpp
+		include/boost/iterator/iterator_traits.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o slice.o python/slice.cpp
 
 str.o: python/str.cpp include/boost/python/str.hpp \
@@ -6697,20 +8393,76 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -6728,30 +8480,155 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -6762,59 +8639,35 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -6822,85 +8675,19 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -6909,47 +8696,39 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -6981,26 +8760,20 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -7008,65 +8781,86 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -7074,14 +8868,42 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -7090,14 +8912,10 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -7105,6 +8923,7 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -7114,6 +8933,7 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -7130,6 +8950,8 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -7154,6 +8976,7 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -7163,12 +8986,10 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -7216,10 +9037,7 @@ str.o: python/str.cpp include/boost/python/str.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -7248,20 +9066,76 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -7279,30 +9153,155 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -7313,59 +9312,35 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -7373,85 +9348,19 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -7460,47 +9369,39 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -7532,26 +9433,20 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -7559,65 +9454,86 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -7625,14 +9541,42 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -7641,14 +9585,10 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -7656,6 +9596,7 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -7665,6 +9606,7 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -7681,6 +9623,8 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -7705,6 +9649,7 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -7714,12 +9659,10 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -7767,10 +9710,7 @@ tuple.o: python/tuple.cpp include/boost/python/tuple.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -7798,41 +9738,198 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/is_union.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
 		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/msvc.hpp \
-		include/boost/mpl/aux_/config/gcc.hpp \
-		include/boost/mpl/aux_/config/workaround.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
+		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
+		include/boost/mpl/aux_/config/gcc.hpp \
+		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/integral_c_tag.hpp \
+		include/boost/mpl/aux_/config/static_constant.hpp \
+		include/boost/python/override.hpp \
+		include/boost/python/converter/return_from_python.hpp \
+		include/boost/python/converter/from_python.hpp \
+		include/boost/python/converter/rvalue_from_python_data.hpp \
+		include/boost/python/converter/constructor_function.hpp \
+		include/boost/python/detail/referent_storage.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
 		include/boost/preprocessor/config/config.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
 		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/params.hpp \
 		include/boost/mpl/aux_/config/preprocessor.hpp \
 		include/boost/preprocessor/comma_if.hpp \
@@ -7851,103 +9948,6 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/preprocessor/inc.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
 		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/integral_c_tag.hpp \
-		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/python/override.hpp \
-		include/boost/python/converter/return_from_python.hpp \
-		include/boost/python/converter/from_python.hpp \
-		include/boost/python/converter/rvalue_from_python_data.hpp \
-		include/boost/python/converter/constructor_function.hpp \
-		include/boost/python/detail/referent_storage.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
@@ -7959,10 +9959,31 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
 		include/boost/mpl/aux_/preprocessor/tuple.hpp \
 		include/boost/preprocessor/arithmetic/sub.hpp \
+		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -7973,79 +9994,91 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/type_id.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/type.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/type_traits/same_traits.hpp \
+		include/boost/core/addressof.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/object_manager.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/python/errors.hpp \
 		include/boost/function/function0.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
 		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
 		include/boost/python/tag.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/refcount.hpp \
@@ -8054,7 +10087,9 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/indirect_traits.hpp \
 		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/python/detail/void_ptr.hpp \
+		include/boost/python/detail/void_return.hpp \
 		include/boost/mpl/and.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
@@ -8064,10 +10099,6 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
-		include/boost/python/detail/void_ptr.hpp \
-		include/boost/python/detail/void_return.hpp \
 		include/boost/python/extract.hpp \
 		include/boost/python/object_core.hpp \
 		include/boost/python/call.hpp \
@@ -8076,13 +10107,8 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
 		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
 		include/boost/python/object/inheritance_query.hpp \
 		include/boost/python/object/forward.hpp \
 		include/boost/python/detail/value_arg.hpp \
@@ -8097,21 +10123,32 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -8143,73 +10180,100 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/converter/shared_ptr_to_python.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -8219,6 +10283,7 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -8235,6 +10300,8 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -8266,12 +10333,10 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -8319,10 +10384,7 @@ wrapper.o: python/wrapper.cpp include/boost/python/wrapper.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/def_visitor.hpp \
 		include/boost/python/object/add_to_namespace.hpp \
 		include/boost/python/detail/def_helper_fwd.hpp \
@@ -8338,44 +10400,196 @@ arg_to_python_base.o: python/converter/arg_to_python_base.cpp include/boost/pyth
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/cast.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/integral_c_tag.hpp \
+		include/boost/mpl/aux_/config/static_constant.hpp \
+		include/boost/type.hpp \
+		include/boost/python/base_type_traits.hpp \
+		include/boost/python/detail/convertible.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
 		include/boost/preprocessor/config/config.hpp \
 		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/integral_c_tag.hpp \
-		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
 		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/params.hpp \
 		include/boost/mpl/aux_/config/preprocessor.hpp \
 		include/boost/preprocessor/comma_if.hpp \
@@ -8393,87 +10607,7 @@ arg_to_python_base.o: python/converter/arg_to_python_base.cpp include/boost/pyth
 		include/boost/preprocessor/tuple/eat.hpp \
 		include/boost/preprocessor/inc.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/python/base_type_traits.hpp \
-		include/boost/python/detail/convertible.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
@@ -8485,10 +10619,31 @@ arg_to_python_base.o: python/converter/arg_to_python_base.cpp include/boost/pyth
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
 		include/boost/mpl/aux_/preprocessor/tuple.hpp \
 		include/boost/preprocessor/arithmetic/sub.hpp \
+		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -8499,69 +10654,74 @@ arg_to_python_base.o: python/converter/arg_to_python_base.cpp include/boost/pyth
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
 		include/boost/python/errors.hpp \
 		include/boost/function/function0.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
-		include/boost/type_traits/composite_traits.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
 		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
 		include/boost/python/tag.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/refcount.hpp \
@@ -8570,7 +10730,6 @@ arg_to_python_base.o: python/converter/arg_to_python_base.cpp include/boost/pyth
 		include/boost/python/type_id.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/converter/to_python_function_type.hpp
@@ -8582,44 +10741,196 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/cast.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/integral_c_tag.hpp \
+		include/boost/mpl/aux_/config/static_constant.hpp \
+		include/boost/type.hpp \
+		include/boost/python/base_type_traits.hpp \
+		include/boost/python/detail/convertible.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
 		include/boost/preprocessor/config/config.hpp \
 		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/integral_c_tag.hpp \
-		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
 		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/params.hpp \
 		include/boost/mpl/aux_/config/preprocessor.hpp \
 		include/boost/preprocessor/comma_if.hpp \
@@ -8637,87 +10948,7 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/preprocessor/tuple/eat.hpp \
 		include/boost/preprocessor/inc.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/python/base_type_traits.hpp \
-		include/boost/python/detail/convertible.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
@@ -8729,10 +10960,31 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
 		include/boost/mpl/aux_/preprocessor/tuple.hpp \
 		include/boost/preprocessor/arithmetic/sub.hpp \
+		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -8743,69 +10995,74 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
 		include/boost/python/errors.hpp \
 		include/boost/function/function0.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
-		include/boost/type_traits/composite_traits.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
 		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
 		include/boost/python/tag.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/refcount.hpp \
@@ -8813,15 +11070,10 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/python/type_id.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/mpl/identity.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/converter/rvalue_from_python_data.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
@@ -8833,35 +11085,23 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/converter/registered.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
 		include/boost/python/detail/indirect_traits.hpp \
 		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/mpl/and.hpp \
-		include/boost/mpl/aux_/config/use_preprocessed.hpp \
-		include/boost/mpl/aux_/nested_type_wknd.hpp \
-		include/boost/mpl/aux_/include_preprocessed.hpp \
-		include/boost/mpl/aux_/config/compiler.hpp \
-		include/boost/preprocessor/stringize.hpp \
-		include/boost/mpl/aux_/logical_op.hpp \
-		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
-		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
-		include/boost/cast.hpp \
 		include/boost/detail/select_type.hpp \
+		include/boost/cast.hpp \
+		include/boost/polymorphic_cast.hpp \
 		include/boost/numeric/conversion/cast.hpp \
 		include/boost/numeric/conversion/detail/old_numeric_cast.hpp \
 		include/boost/numeric/conversion/converter_policies.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/numeric/conversion/converter.hpp \
 		include/boost/numeric/conversion/conversion_traits.hpp \
 		include/boost/numeric/conversion/detail/conversion_traits.hpp \
 		include/boost/numeric/conversion/detail/meta.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/equal_to.hpp \
 		include/boost/mpl/aux_/comparison_op.hpp \
 		include/boost/mpl/aux_/numeric_op.hpp \
@@ -8872,9 +11112,22 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
+		include/boost/mpl/aux_/config/use_preprocessed.hpp \
+		include/boost/mpl/aux_/include_preprocessed.hpp \
+		include/boost/mpl/aux_/config/compiler.hpp \
+		include/boost/preprocessor/stringize.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/tag.hpp \
 		include/boost/mpl/void.hpp \
@@ -8885,6 +11138,13 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/mpl/aux_/is_msvc_eti_arg.hpp \
 		include/boost/mpl/aux_/preprocessor/partial_spec_params.hpp \
 		include/boost/mpl/aux_/preprocessor/repeat.hpp \
+		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
+		include/boost/preprocessor/dec.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/nested_type_wknd.hpp \
+		include/boost/mpl/and.hpp \
+		include/boost/mpl/aux_/logical_op.hpp \
+		include/boost/mpl/identity.hpp \
 		include/boost/numeric/conversion/detail/int_float_mixture.hpp \
 		include/boost/numeric/conversion/int_float_mixture_enum.hpp \
 		include/boost/numeric/conversion/detail/sign_mixture.hpp \
@@ -8900,7 +11160,13 @@ builtin_converters.o: python/converter/builtin_converters.cpp include/boost/pyth
 		include/boost/mpl/less.hpp \
 		include/boost/numeric/conversion/detail/converter.hpp \
 		include/boost/numeric/conversion/bounds.hpp \
-		include/boost/numeric/conversion/detail/bounds.hpp
+		include/boost/numeric/conversion/detail/bounds.hpp \
+		include/boost/numeric/conversion/numeric_cast_traits.hpp \
+		include/boost/numeric/conversion/detail/numeric_cast_traits.hpp \
+		include/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_common.hpp \
+		include/boost/numeric/conversion/detail/preprocessed/numeric_cast_traits_long_long.hpp \
+		include/boost/preprocessor/seq/elem.hpp \
+		include/boost/preprocessor/seq/size.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o builtin_converters.o python/converter/builtin_converters.cpp
 
 from_python.o: python/converter/from_python.cpp include/boost/python/converter/from_python.hpp \
@@ -8909,15 +11175,70 @@ from_python.o: python/converter/from_python.cpp include/boost/python/converter/f
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/converter/rvalue_from_python_data.hpp \
@@ -8997,6 +11318,20 @@ from_python.o: python/converter/from_python.cpp include/boost/python/converter/f
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
 		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -9018,134 +11353,162 @@ from_python.o: python/converter/from_python.cpp include/boost/python/converter/f
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
 		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/python/converter/registrations.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
-		include/boost/python/converter/convertible_function.hpp \
-		include/boost/python/converter/to_python_function_type.hpp \
-		include/boost/python/object/find_instance.hpp \
-		include/boost/python/handle.hpp \
-		include/boost/python/cast.hpp \
+		include/boost/type_traits/is_same.hpp \
 		include/boost/type_traits/cv_traits.hpp \
 		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
 		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
 		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
 		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/python/base_type_traits.hpp \
-		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/python/errors.hpp \
-		include/boost/function/function0.hpp \
-		include/boost/function/detail/maybe_include.hpp \
-		include/boost/function/function_template.hpp \
-		include/boost/function/detail/prologue.hpp \
-		include/boost/throw_exception.hpp \
-		include/boost/function/function_base.hpp \
-		include/boost/assert.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
 		include/boost/type_traits/composite_traits.hpp \
-		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/function_equal.hpp \
-		include/boost/mem_fn.hpp \
-		include/boost/get_pointer.hpp \
-		include/boost/bind/mem_fn_template.hpp \
-		include/boost/bind/mem_fn_vw.hpp \
-		include/boost/bind/mem_fn_cc.hpp \
-		include/boost/preprocessor/enum.hpp \
-		include/boost/preprocessor/repetition/enum.hpp \
-		include/boost/python/borrowed.hpp \
-		include/boost/python/detail/borrowed_ptr.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/type_traits/object_traits.hpp \
 		include/boost/type_traits/has_trivial_assign.hpp \
 		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
 		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
 		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
 		include/boost/type_traits/has_trivial_destructor.hpp \
 		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
 		include/boost/type_traits/has_nothrow_copy.hpp \
 		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
 		include/boost/type_traits/is_compound.hpp \
 		include/boost/type_traits/is_fundamental.hpp \
 		include/boost/type_traits/is_empty.hpp \
 		include/boost/type_traits/is_object.hpp \
 		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/converter/registrations.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/type.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/python/converter/convertible_function.hpp \
+		include/boost/python/converter/to_python_function_type.hpp \
+		include/boost/python/object/find_instance.hpp \
+		include/boost/python/handle.hpp \
+		include/boost/python/cast.hpp \
+		include/boost/python/base_type_traits.hpp \
+		include/boost/python/detail/convertible.hpp \
+		include/boost/python/errors.hpp \
+		include/boost/function/function0.hpp \
+		include/boost/function/detail/maybe_include.hpp \
+		include/boost/function/function_template.hpp \
+		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
+		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
+		include/boost/function/function_base.hpp \
+		include/boost/assert.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/type_traits/enable_if.hpp \
+		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
+		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
+		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
+		include/boost/bind/mem_fn_template.hpp \
+		include/boost/bind/mem_fn_vw.hpp \
+		include/boost/bind/mem_fn_cc.hpp \
+		include/boost/preprocessor/enum.hpp \
+		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
+		include/boost/python/borrowed.hpp \
+		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/tag.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/refcount.hpp \
@@ -9159,47 +11522,200 @@ registry.o: python/converter/registry.cpp include/boost/python/converter/registr
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
+		include/boost/type.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
+		include/boost/core/addressof.hpp \
 		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/integral_c_tag.hpp \
+		include/boost/mpl/aux_/config/static_constant.hpp \
+		include/boost/python/converter/to_python_function_type.hpp \
+		include/boost/python/converter/rvalue_from_python_data.hpp \
+		include/boost/python/converter/constructor_function.hpp \
+		include/boost/python/detail/referent_storage.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
 		include/boost/preprocessor/config/config.hpp \
 		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/integral_c_tag.hpp \
-		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
 		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/params.hpp \
 		include/boost/mpl/aux_/config/preprocessor.hpp \
 		include/boost/preprocessor/comma_if.hpp \
@@ -9217,52 +11733,7 @@ registry.o: python/converter/registry.cpp include/boost/python/converter/registr
 		include/boost/preprocessor/tuple/eat.hpp \
 		include/boost/preprocessor/inc.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/converter/to_python_function_type.hpp \
-		include/boost/python/converter/rvalue_from_python_data.hpp \
-		include/boost/python/converter/constructor_function.hpp \
-		include/boost/python/detail/referent_storage.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
@@ -9278,7 +11749,27 @@ registry.o: python/converter/registry.cpp include/boost/python/converter/registr
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -9289,123 +11780,88 @@ registry.o: python/converter/registry.cpp include/boost/python/converter/registr
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/cast.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/python/errors.hpp \
 		include/boost/function/function0.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
-		include/boost/type_traits/composite_traits.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
 		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
 		include/boost/python/tag.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/detail/raw_pyobject.hpp \
 		include/boost/python/ssize_t.hpp \
-		include/boost/implicit_cast.hpp \
-		include/boost/mpl/identity.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp
+		include/boost/implicit_cast.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o registry.o python/converter/registry.cpp
 
 type_id.o: python/converter/type_id.cpp include/boost/python/type_id.hpp \
@@ -9414,204 +11870,176 @@ type_id.o: python/converter/type_id.cpp include/boost/python/type_id.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
+		include/boost/type.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
+		include/boost/core/addressof.hpp \
 		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/preprocessor/cat.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
 		include/boost/mpl/integral_c_tag.hpp \
 		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/punctuation/comma_if.hpp \
-		include/boost/preprocessor/control/if.hpp \
-		include/boost/preprocessor/control/iif.hpp \
-		include/boost/preprocessor/logical/bool.hpp \
-		include/boost/preprocessor/facilities/empty.hpp \
-		include/boost/preprocessor/punctuation/comma.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/repetition/repeat.hpp \
-		include/boost/preprocessor/debug/error.hpp \
-		include/boost/preprocessor/detail/auto_rec.hpp \
-		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
-		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
 		include/boost/python/detail/decorated_type_id.hpp \
 		include/boost/python/detail/indirect_traits.hpp \
 		include/boost/detail/indirect_traits.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/preprocessor/control/while.hpp \
-		include/boost/preprocessor/list/fold_left.hpp \
-		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
-		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
-		include/boost/preprocessor/list/detail/fold_left.hpp \
-		include/boost/preprocessor/list/fold_right.hpp \
-		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
-		include/boost/preprocessor/list/detail/fold_right.hpp \
-		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/control/detail/edg/while.hpp \
-		include/boost/preprocessor/control/detail/msvc/while.hpp \
-		include/boost/preprocessor/control/detail/dmc/while.hpp \
-		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/mpl/and.hpp \
-		include/boost/mpl/aux_/config/use_preprocessed.hpp \
-		include/boost/mpl/aux_/nested_type_wknd.hpp \
-		include/boost/mpl/aux_/include_preprocessed.hpp \
-		include/boost/mpl/aux_/config/compiler.hpp \
-		include/boost/preprocessor/stringize.hpp \
-		include/boost/mpl/aux_/logical_op.hpp \
-		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
-		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp
+		include/boost/detail/select_type.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o type_id.o python/converter/type_id.cpp
 
 class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
@@ -9619,15 +12047,70 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/mpl/lambda.hpp \
@@ -9686,6 +12169,21 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
 		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/mpl/aux_/config/dmc_ambiguous_ctps.hpp \
 		include/boost/preprocessor/iterate.hpp \
 		include/boost/preprocessor/iteration/iterate.hpp \
@@ -9709,7 +12207,6 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/preprocessor/logical/and.hpp \
 		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
 		include/boost/preprocessor/empty.hpp \
 		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
@@ -9746,10 +12243,11 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
 		include/boost/mpl/aux_/value_wknd.hpp \
 		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
+		include/boost/mpl/if.hpp \
 		include/boost/static_assert.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -9763,64 +12261,54 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/enum_params.hpp \
 		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/detail/config.hpp \
 		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
 		include/boost/type_traits/is_scalar.hpp \
 		include/boost/type_traits/is_arithmetic.hpp \
 		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
 		include/boost/type_traits/is_enum.hpp \
 		include/boost/type_traits/add_reference.hpp \
 		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
 		include/boost/type_traits/is_abstract.hpp \
 		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/mpl/if.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/aux_/preprocessor/partial_spec_params.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
@@ -9842,24 +12330,18 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/python/object/class.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -9867,61 +12349,84 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
 		include/boost/python/type_id.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
 		include/boost/type_traits/same_traits.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
+		include/boost/type_traits/cv_traits.hpp \
 		include/boost/type_traits/add_const.hpp \
-		include/boost/ref.hpp \
-		include/boost/python/detail/value_arg.hpp \
-		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
-		include/boost/python/detail/is_auto_ptr.hpp \
-		include/boost/python/detail/is_xxx.hpp \
-		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
-		include/boost/mpl/aux_/logical_op.hpp \
-		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/or.hpp \
-		include/boost/python/pointee.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/type_traits/object_traits.hpp \
 		include/boost/type_traits/has_trivial_assign.hpp \
 		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
 		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
 		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
 		include/boost/type_traits/has_trivial_destructor.hpp \
 		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
 		include/boost/type_traits/has_nothrow_copy.hpp \
 		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
 		include/boost/type_traits/is_compound.hpp \
 		include/boost/type_traits/is_fundamental.hpp \
 		include/boost/type_traits/is_empty.hpp \
 		include/boost/type_traits/is_object.hpp \
 		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/python/detail/value_arg.hpp \
+		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
+		include/boost/python/detail/is_auto_ptr.hpp \
+		include/boost/python/detail/is_xxx.hpp \
+		include/boost/detail/is_xxx.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
+		include/boost/mpl/aux_/logical_op.hpp \
+		include/boost/preprocessor/dec.hpp \
+		include/boost/python/pointee.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -9929,65 +12434,86 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -9995,14 +12521,42 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -10012,14 +12566,10 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -10027,6 +12577,7 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -10036,6 +12587,7 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -10052,6 +12604,8 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -10076,6 +12630,7 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -10085,12 +12640,10 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -10138,10 +12691,7 @@ class.o: python/object/class.cpp include/boost/python/detail/prefix.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -10182,17 +12732,73 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -10210,30 +12816,155 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -10244,59 +12975,35 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -10304,85 +13011,19 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -10391,47 +13032,39 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -10463,26 +13096,20 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -10490,65 +13117,86 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -10556,14 +13204,42 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -10573,14 +13249,10 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -10588,6 +13260,7 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -10597,6 +13270,7 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -10613,6 +13287,8 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -10637,6 +13313,7 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -10646,12 +13323,10 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -10699,10 +13374,7 @@ enum.o: python/object/enum.cpp include/boost/python/object/enum_base.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -10737,46 +13409,198 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/args_fwd.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/cast.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/integral_c_tag.hpp \
+		include/boost/mpl/aux_/config/static_constant.hpp \
+		include/boost/type.hpp \
+		include/boost/python/base_type_traits.hpp \
+		include/boost/python/detail/convertible.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
 		include/boost/preprocessor/config/config.hpp \
 		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/integral_c_tag.hpp \
-		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
 		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/params.hpp \
 		include/boost/mpl/aux_/config/preprocessor.hpp \
 		include/boost/preprocessor/comma_if.hpp \
@@ -10794,87 +13618,7 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/preprocessor/tuple/eat.hpp \
 		include/boost/preprocessor/inc.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/python/base_type_traits.hpp \
-		include/boost/python/detail/convertible.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
@@ -10886,10 +13630,31 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
 		include/boost/mpl/aux_/preprocessor/tuple.hpp \
 		include/boost/preprocessor/arithmetic/sub.hpp \
+		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -10900,69 +13665,74 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
 		include/boost/python/errors.hpp \
 		include/boost/function/function0.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
-		include/boost/type_traits/composite_traits.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
 		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
 		include/boost/python/tag.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/refcount.hpp \
@@ -10975,17 +13745,11 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
 		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
 		include/boost/python/type_id.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
 		include/boost/python/object/inheritance_query.hpp \
 		include/boost/python/object/forward.hpp \
 		include/boost/python/detail/value_arg.hpp \
@@ -10993,7 +13757,10 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -11002,32 +13769,39 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -11059,21 +13833,20 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -11083,46 +13856,71 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/detail/destroy.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
@@ -11131,14 +13929,10 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -11146,6 +13940,7 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -11155,6 +13950,7 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -11171,6 +13967,8 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -11195,6 +13993,7 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -11204,12 +14003,10 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -11257,10 +14054,7 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -11289,13 +14083,16 @@ function.o: python/object/function.cpp include/boost/python/docstring_options.hp
 		include/boost/python/detail/mpl_lambda.hpp \
 		include/boost/python/extract.hpp \
 		include/boost/bind.hpp \
+		include/boost/bind/bind.hpp \
 		include/boost/is_placeholder.hpp \
 		include/boost/bind/arg.hpp \
 		include/boost/visit_each.hpp \
+		include/boost/core/is_same.hpp \
 		include/boost/bind/storage.hpp \
 		include/boost/bind/bind_template.hpp \
 		include/boost/bind/bind_cc.hpp \
 		include/boost/bind/bind_mf_cc.hpp \
+		include/boost/bind/bind_mf2_cc.hpp \
 		include/boost/bind/placeholders.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o function.o python/object/function.cpp
 
@@ -11305,48 +14102,207 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/type_id.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
+		include/boost/type.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
+		include/boost/core/addressof.hpp \
 		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/integral_c_tag.hpp \
+		include/boost/mpl/aux_/config/static_constant.hpp \
+		include/boost/python/converter/convertible_function.hpp \
+		include/boost/python/converter/constructor_function.hpp \
+		include/boost/python/converter/to_python_function_type.hpp \
+		include/boost/python/object/function_doc_signature.hpp \
+		include/boost/python/object/function.hpp \
+		include/boost/python/args_fwd.hpp \
+		include/boost/python/handle.hpp \
+		include/boost/python/cast.hpp \
+		include/boost/python/base_type_traits.hpp \
+		include/boost/python/detail/convertible.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
 		include/boost/preprocessor/config/config.hpp \
 		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/integral_c_tag.hpp \
-		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
 		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/params.hpp \
 		include/boost/mpl/aux_/config/preprocessor.hpp \
 		include/boost/preprocessor/comma_if.hpp \
@@ -11364,95 +14320,7 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/preprocessor/tuple/eat.hpp \
 		include/boost/preprocessor/inc.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/converter/convertible_function.hpp \
-		include/boost/python/converter/constructor_function.hpp \
-		include/boost/python/converter/to_python_function_type.hpp \
-		include/boost/python/object/function_doc_signature.hpp \
-		include/boost/python/object/function.hpp \
-		include/boost/python/args_fwd.hpp \
-		include/boost/python/handle.hpp \
-		include/boost/python/cast.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/python/base_type_traits.hpp \
-		include/boost/python/detail/convertible.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
@@ -11464,10 +14332,31 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
 		include/boost/mpl/aux_/preprocessor/tuple.hpp \
 		include/boost/preprocessor/arithmetic/sub.hpp \
+		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -11478,68 +14367,73 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
 		include/boost/python/errors.hpp \
 		include/boost/function/function0.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
-		include/boost/type_traits/composite_traits.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
 		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
 		include/boost/python/tag.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/refcount.hpp \
@@ -11552,13 +14446,8 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
 		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
 		include/boost/python/object/inheritance_query.hpp \
 		include/boost/python/object/forward.hpp \
 		include/boost/python/detail/value_arg.hpp \
@@ -11566,7 +14455,10 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -11575,32 +14467,39 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -11632,66 +14531,90 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/rvalue_from_python_data.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
@@ -11700,14 +14623,10 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -11715,6 +14634,7 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -11724,6 +14644,7 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -11740,6 +14661,8 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -11764,6 +14687,7 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -11773,12 +14697,10 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -11826,10 +14748,7 @@ function_doc_signature.o: python/object/function_doc_signature.cpp include/boost
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -11863,47 +14782,264 @@ inheritance.o: python/object/inheritance.cpp include/boost/python/object/inherit
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
+		include/boost/type.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
+		include/boost/core/addressof.hpp \
 		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/integral_c_tag.hpp \
+		include/boost/mpl/aux_/config/static_constant.hpp \
+		include/boost/shared_ptr.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
+		include/boost/config/no_tr1/memory.hpp \
+		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
+		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
+		include/boost/detail/sp_typeinfo.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
 		include/boost/preprocessor/config/config.hpp \
 		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/integral_c_tag.hpp \
-		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
 		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/params.hpp \
 		include/boost/mpl/aux_/config/preprocessor.hpp \
 		include/boost/preprocessor/comma_if.hpp \
@@ -11921,81 +15057,7 @@ inheritance.o: python/object/inheritance.cpp include/boost/python/object/inherit
 		include/boost/preprocessor/tuple/eat.hpp \
 		include/boost/preprocessor/inc.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
-		include/boost/assert.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
-		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
@@ -12011,7 +15073,27 @@ inheritance.o: python/object/inheritance.cpp include/boost/python/object/inherit
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -12022,306 +15104,240 @@ inheritance.o: python/object/inheritance.cpp include/boost/python/object/inherit
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/graph/breadth_first_search.hpp \
-		include/boost/pending/queue.hpp \
-		include/boost/graph/graph_traits.hpp \
-		include/boost/tuple/tuple.hpp \
-		include/boost/tuple/detail/tuple_basic_no_partial_spec.hpp \
-		include/boost/type_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_nothrow_destructor.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_virtual_destructor.hpp \
-		include/boost/type_traits/is_signed.hpp \
-		include/boost/type_traits/is_unsigned.hpp \
-		include/boost/type_traits/is_base_of.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_floating_point.hpp \
-		include/boost/type_traits/is_member_object_pointer.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/rank.hpp \
-		include/boost/type_traits/extent.hpp \
-		include/boost/type_traits/remove_extent.hpp \
-		include/boost/type_traits/msvc/remove_extent.hpp \
-		include/boost/type_traits/remove_all_extents.hpp \
-		include/boost/type_traits/msvc/remove_all_extents.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/type_traits/function_traits.hpp \
-		include/boost/type_traits/aligned_storage.hpp \
-		include/boost/aligned_storage.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/mpl/identity.hpp \
-		include/boost/type_traits/floating_point_promotion.hpp \
-		include/boost/mpl/at.hpp \
-		include/boost/mpl/at_fwd.hpp \
-		include/boost/mpl/aux_/at_impl.hpp \
-		include/boost/mpl/begin_end.hpp \
-		include/boost/mpl/begin_end_fwd.hpp \
-		include/boost/mpl/aux_/begin_end_impl.hpp \
-		include/boost/mpl/sequence_tag_fwd.hpp \
-		include/boost/mpl/void.hpp \
-		include/boost/mpl/aux_/has_begin.hpp \
-		include/boost/mpl/has_xxx.hpp \
-		include/boost/mpl/aux_/type_wrapper.hpp \
-		include/boost/mpl/aux_/config/has_xxx.hpp \
-		include/boost/mpl/aux_/config/msvc_typename.hpp \
-		include/boost/mpl/aux_/traits_lambda_spec.hpp \
-		include/boost/mpl/sequence_tag.hpp \
-		include/boost/mpl/aux_/has_tag.hpp \
-		include/boost/mpl/aux_/is_msvc_eti_arg.hpp \
-		include/boost/mpl/advance.hpp \
-		include/boost/mpl/advance_fwd.hpp \
-		include/boost/mpl/aux_/common_name_wknd.hpp \
-		include/boost/mpl/less.hpp \
-		include/boost/mpl/aux_/comparison_op.hpp \
-		include/boost/mpl/aux_/numeric_op.hpp \
-		include/boost/mpl/numeric_cast.hpp \
-		include/boost/mpl/apply_wrap.hpp \
-		include/boost/mpl/aux_/has_apply.hpp \
-		include/boost/mpl/aux_/config/has_apply.hpp \
-		include/boost/mpl/aux_/msvc_never_true.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
+		include/boost/property_map/property_map.hpp \
+		include/boost/detail/iterator.hpp \
+		include/boost/concept/assert.hpp \
+		include/boost/concept/detail/msvc.hpp \
+		include/boost/concept/detail/backward_compatibility.hpp \
+		include/boost/concept/detail/has_constraints.hpp \
+		include/boost/concept/detail/borland.hpp \
+		include/boost/concept/detail/general.hpp \
+		include/boost/concept_check.hpp \
+		include/boost/concept/usage.hpp \
+		include/boost/concept/detail/concept_def.hpp \
+		include/boost/preprocessor/seq/for_each_i.hpp \
+		include/boost/preprocessor/seq/seq.hpp \
+		include/boost/preprocessor/seq/elem.hpp \
+		include/boost/preprocessor/seq/size.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/enum.hpp \
+		include/boost/concept/detail/concept_undef.hpp \
+		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/nested_type_wknd.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
+		include/boost/mpl/aux_/config/pp_counter.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
 		include/boost/mpl/aux_/config/compiler.hpp \
 		include/boost/preprocessor/stringize.hpp \
-		include/boost/mpl/aux_/preprocessor/add.hpp \
-		include/boost/mpl/aux_/msvc_dtw.hpp \
-		include/boost/mpl/tag.hpp \
-		include/boost/mpl/aux_/numeric_cast_utils.hpp \
-		include/boost/mpl/aux_/config/forwarding.hpp \
-		include/boost/mpl/aux_/msvc_eti_base.hpp \
-		include/boost/mpl/aux_/preprocessor/partial_spec_params.hpp \
-		include/boost/mpl/aux_/preprocessor/repeat.hpp \
+		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/negate.hpp \
-		include/boost/mpl/long.hpp \
-		include/boost/mpl/long_fwd.hpp \
-		include/boost/mpl/aux_/advance_forward.hpp \
-		include/boost/mpl/next.hpp \
-		include/boost/mpl/next_prior.hpp \
-		include/boost/mpl/limits/unrolling.hpp \
-		include/boost/mpl/aux_/advance_backward.hpp \
-		include/boost/mpl/prior.hpp \
-		include/boost/mpl/deref.hpp \
-		include/boost/mpl/aux_/msvc_type.hpp \
-		include/boost/mpl/multiplies.hpp \
-		include/boost/mpl/times.hpp \
-		include/boost/mpl/aux_/arithmetic_op.hpp \
-		include/boost/mpl/aux_/largest_int.hpp \
-		include/boost/mpl/aux_/preprocessor/default_params.hpp \
-		include/boost/mpl/plus.hpp \
-		include/boost/mpl/vector.hpp \
-		include/boost/mpl/limits/vector.hpp \
-		include/boost/mpl/aux_/sequence_wrapper.hpp \
-		include/boost/preprocessor/enum_params_with_a_default.hpp \
-		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
-		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
-		include/boost/preprocessor/enum.hpp \
-		include/boost/preprocessor/repetition/enum.hpp \
-		include/boost/mpl/aux_/count_args.hpp \
-		include/boost/preprocessor/expr_if.hpp \
-		include/boost/preprocessor/control/expr_if.hpp \
-		include/boost/preprocessor/enum_shifted_params.hpp \
-		include/boost/preprocessor/repetition/enum_shifted_params.hpp \
-		include/boost/type_traits/integral_promotion.hpp \
-		include/boost/type_traits/promote.hpp \
-		include/boost/type_traits/make_unsigned.hpp \
-		include/boost/type_traits/make_signed.hpp \
-		include/boost/type_traits/decay.hpp \
-		include/boost/type_traits/is_complex.hpp \
-		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/tuple/detail/tuple_basic.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/iterator/iterator_categories.hpp \
-		include/boost/detail/iterator.hpp \
-		include/boost/iterator/detail/config_def.hpp \
-		include/boost/mpl/placeholders.hpp \
-		include/boost/mpl/arg.hpp \
-		include/boost/mpl/arg_fwd.hpp \
-		include/boost/mpl/aux_/na_assert.hpp \
-		include/boost/mpl/assert.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/aux_/nested_type_wknd.hpp \
-		include/boost/mpl/aux_/config/pp_counter.hpp \
-		include/boost/mpl/aux_/arity_spec.hpp \
-		include/boost/mpl/aux_/arg_typedef.hpp \
-		include/boost/iterator/detail/config_undef.hpp \
-		include/boost/iterator/iterator_adaptor.hpp \
-		include/boost/iterator/iterator_facade.hpp \
-		include/boost/iterator/interoperable.hpp \
-		include/boost/mpl/or.hpp \
-		include/boost/mpl/aux_/logical_op.hpp \
-		include/boost/iterator/iterator_traits.hpp \
-		include/boost/iterator/detail/facade_iterator_category.hpp \
 		include/boost/mpl/and.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
-		include/boost/iterator/detail/enable_if.hpp \
-		include/boost/implicit_cast.hpp \
-		include/boost/mpl/always.hpp \
-		include/boost/mpl/apply.hpp \
-		include/boost/mpl/apply_fwd.hpp \
-		include/boost/mpl/lambda.hpp \
-		include/boost/mpl/bind.hpp \
-		include/boost/mpl/bind_fwd.hpp \
-		include/boost/mpl/aux_/config/bind.hpp \
-		include/boost/mpl/aux_/config/dmc_ambiguous_ctps.hpp \
-		include/boost/mpl/protect.hpp \
-		include/boost/mpl/aux_/full_lambda.hpp \
-		include/boost/mpl/quote.hpp \
-		include/boost/mpl/aux_/has_type.hpp \
-		include/boost/mpl/aux_/template_arity.hpp \
-		include/boost/mpl/aux_/has_rebind.hpp \
-		include/boost/mpl/aux_/msvc_is_class.hpp \
-		include/boost/mpl/aux_/preprocessor/range.hpp \
-		include/boost/preprocessor/seq/subseq.hpp \
-		include/boost/preprocessor/seq/first_n.hpp \
-		include/boost/preprocessor/seq/detail/split.hpp \
-		include/boost/preprocessor/seq/rest_n.hpp \
-		include/boost/preprocessor/seq/fold_left.hpp \
-		include/boost/preprocessor/seq/seq.hpp \
-		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
-		include/boost/mpl/aux_/lambda_no_ctps.hpp \
-		include/boost/mpl/is_placeholder.hpp \
-		include/boost/graph/graph_concepts.hpp \
-		include/boost/property_map.hpp \
-		include/boost/pending/cstddef.hpp \
-		include/boost/concept_check.hpp \
-		include/boost/concept/assert.hpp \
-		include/boost/concept/detail/msvc.hpp \
-		include/boost/concept/detail/has_constraints.hpp \
-		include/boost/concept/detail/borland.hpp \
-		include/boost/concept/detail/general.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/concept/usage.hpp \
-		include/boost/concept/detail/concept_def.hpp \
-		include/boost/preprocessor/seq/for_each_i.hpp \
-		include/boost/preprocessor/seq/enum.hpp \
-		include/boost/concept/detail/concept_undef.hpp \
-		include/boost/concept_archetype.hpp \
-		include/boost/graph/properties.hpp \
-		include/boost/pending/property.hpp \
-		include/boost/pending/ct_if.hpp \
-		include/boost/pending/detail/property.hpp \
-		include/boost/graph/visitors.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
-		include/boost/graph/detail/is_same.hpp \
-		include/boost/graph/named_function_params.hpp \
-		include/boost/graph/reverse_graph.hpp \
-		include/boost/graph/adjacency_iterator.hpp \
-		include/boost/graph/adjacency_list.hpp \
-		include/boost/graph/graph_selectors.hpp \
-		include/boost/graph/detail/edge.hpp \
-		include/boost/graph/detail/adjacency_list.hpp \
-		include/boost/pending/integer_range.hpp \
-		include/boost/iterator/counting_iterator.hpp \
-		include/boost/detail/numeric_traits.hpp \
-		include/boost/cstdint.hpp \
-		include/boost/detail/select_type.hpp \
-		include/boost/pending/container_traits.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/graph/detail/adj_list_edge_iterator.hpp \
+		include/boost/mpl/has_xxx.hpp \
+		include/boost/mpl/aux_/type_wrapper.hpp \
+		include/boost/mpl/aux_/config/has_xxx.hpp \
+		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
+		include/boost/property_map/parallel/parallel_property_maps.hpp \
+		include/boost/property_map/parallel/distributed_property_map.hpp \
 		include/boost/optional.hpp \
 		include/boost/optional/optional.hpp \
-		include/boost/detail/reference_content.hpp \
-		include/boost/none.hpp \
-		include/boost/none_t.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/core/explicit_operator_bool.hpp \
+		include/boost/core/swap.hpp \
+		include/boost/optional/bad_optional_access.hpp \
+		include/boost/type_traits/decay.hpp \
+		include/boost/type_traits/is_base_of.hpp \
+		include/boost/type_traits/is_nothrow_move_assignable.hpp \
+		include/boost/type_traits/has_trivial_move_assign.hpp \
+		include/boost/type_traits/enable_if.hpp \
+		include/boost/type_traits/is_nothrow_move_constructible.hpp \
+		include/boost/type_traits/has_trivial_move_constructor.hpp \
+		include/boost/move/utility.hpp \
+		include/boost/move/detail/config_begin.hpp \
+		include/boost/move/detail/workaround.hpp \
+		include/boost/move/utility_core.hpp \
+		include/boost/move/core.hpp \
+		include/boost/move/detail/type_traits.hpp \
+		include/boost/move/detail/meta_utils.hpp \
+		include/boost/move/detail/meta_utils_core.hpp \
+		include/boost/move/detail/config_end.hpp \
+		include/boost/move/traits.hpp \
 		include/boost/utility/compare_pointees.hpp \
+		include/boost/utility/result_of.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/preprocessor/repetition/enum_shifted_params.hpp \
+		include/boost/preprocessor/facilities/intercept.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/utility/detail/result_of_iterate.hpp \
 		include/boost/optional/optional_fwd.hpp \
-		include/boost/bind.hpp \
+		include/boost/optional/detail/optional_config.hpp \
+		include/boost/optional/detail/optional_factory_support.hpp \
+		include/boost/optional/detail/optional_aligned_storage.hpp \
+		include/boost/optional/detail/old_optional_implementation.hpp \
+		include/boost/detail/reference_content.hpp \
+		include/boost/optional/detail/optional_trivially_copyable_base.hpp \
+		include/boost/optional/detail/optional_reference_spec.hpp \
+		include/boost/optional/detail/optional_relops.hpp \
+		include/boost/optional/detail/optional_swap.hpp \
+		include/boost/property_map/parallel/process_group.hpp \
+		include/boost/function/function1.hpp \
+		include/boost/function/detail/maybe_include.hpp \
+		include/boost/function/function_template.hpp \
+		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
+		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/get_pointer.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
+		include/boost/preprocessor/enum.hpp \
+		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
+		include/boost/property_map/parallel/basic_reduce.hpp \
+		include/boost/property_map/parallel/detail/untracked_pair.hpp \
+		include/boost/property_map/parallel/local_property_map.hpp \
+		include/boost/property_map/parallel/unsafe_serialize.hpp \
+		include/boost/type_traits.hpp \
+		include/boost/type_traits/aligned_storage.hpp \
+		include/boost/type_traits/common_type.hpp \
+		include/boost/type_traits/detail/common_type_impl.hpp \
+		include/boost/type_traits/detail/common_arithmetic_type.hpp \
+		include/boost/type_traits/detail/composite_pointer_type.hpp \
+		include/boost/type_traits/copy_cv.hpp \
+		include/boost/type_traits/detail/composite_member_pointer_type.hpp \
+		include/boost/type_traits/detail/mp_defer.hpp \
+		include/boost/type_traits/copy_cv_ref.hpp \
+		include/boost/type_traits/copy_reference.hpp \
+		include/boost/type_traits/extent.hpp \
+		include/boost/type_traits/floating_point_promotion.hpp \
+		include/boost/type_traits/has_bit_and.hpp \
+		include/boost/type_traits/detail/has_binary_operator.hpp \
+		include/boost/type_traits/make_void.hpp \
+		include/boost/type_traits/detail/is_likely_lambda.hpp \
+		include/boost/type_traits/has_bit_and_assign.hpp \
+		include/boost/type_traits/has_bit_or.hpp \
+		include/boost/type_traits/has_bit_or_assign.hpp \
+		include/boost/type_traits/has_bit_xor.hpp \
+		include/boost/type_traits/has_bit_xor_assign.hpp \
+		include/boost/type_traits/has_complement.hpp \
+		include/boost/type_traits/detail/has_prefix_operator.hpp \
+		include/boost/type_traits/has_dereference.hpp \
+		include/boost/type_traits/has_divides.hpp \
+		include/boost/type_traits/has_divides_assign.hpp \
+		include/boost/type_traits/has_equal_to.hpp \
+		include/boost/type_traits/has_greater.hpp \
+		include/boost/type_traits/has_greater_equal.hpp \
+		include/boost/type_traits/has_left_shift.hpp \
+		include/boost/type_traits/has_left_shift_assign.hpp \
+		include/boost/type_traits/has_less.hpp \
+		include/boost/type_traits/has_less_equal.hpp \
+		include/boost/type_traits/has_logical_and.hpp \
+		include/boost/type_traits/has_logical_not.hpp \
+		include/boost/type_traits/has_logical_or.hpp \
+		include/boost/type_traits/has_minus.hpp \
+		include/boost/type_traits/has_minus_assign.hpp \
+		include/boost/type_traits/has_modulus.hpp \
+		include/boost/type_traits/has_modulus_assign.hpp \
+		include/boost/type_traits/has_multiplies.hpp \
+		include/boost/type_traits/has_multiplies_assign.hpp \
+		include/boost/type_traits/has_negate.hpp \
+		include/boost/type_traits/has_new_operator.hpp \
+		include/boost/type_traits/has_not_equal_to.hpp \
+		include/boost/type_traits/has_nothrow_destructor.hpp \
+		include/boost/type_traits/has_plus.hpp \
+		include/boost/type_traits/has_plus_assign.hpp \
+		include/boost/type_traits/has_post_decrement.hpp \
+		include/boost/type_traits/detail/has_postfix_operator.hpp \
+		include/boost/type_traits/has_post_increment.hpp \
+		include/boost/type_traits/has_pre_decrement.hpp \
+		include/boost/type_traits/has_pre_increment.hpp \
+		include/boost/type_traits/has_right_shift.hpp \
+		include/boost/type_traits/has_right_shift_assign.hpp \
+		include/boost/type_traits/has_unary_minus.hpp \
+		include/boost/type_traits/has_unary_plus.hpp \
+		include/boost/type_traits/has_virtual_destructor.hpp \
+		include/boost/type_traits/is_complex.hpp \
+		include/boost/type_traits/is_copy_assignable.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/type_traits/is_float.hpp \
+		include/boost/type_traits/is_list_constructible.hpp \
+		include/boost/type_traits/is_member_object_pointer.hpp \
+		include/boost/type_traits/is_nothrow_swappable.hpp \
+		include/boost/type_traits/is_virtual_base_of.hpp \
+		include/boost/type_traits/make_unsigned.hpp \
+		include/boost/type_traits/rank.hpp \
+		include/boost/type_traits/remove_cv_ref.hpp \
+		include/boost/type_traits/integral_promotion.hpp \
+		include/boost/type_traits/promote.hpp \
+		include/boost/property_map/parallel/impl/distributed_property_map.ipp \
+		include/boost/bind.hpp \
+		include/boost/bind/bind.hpp \
 		include/boost/is_placeholder.hpp \
 		include/boost/bind/arg.hpp \
 		include/boost/visit_each.hpp \
+		include/boost/core/is_same.hpp \
 		include/boost/bind/storage.hpp \
 		include/boost/bind/bind_template.hpp \
 		include/boost/bind/bind_cc.hpp \
 		include/boost/bind/bind_mf_cc.hpp \
+		include/boost/bind/bind_mf2_cc.hpp \
 		include/boost/bind/placeholders.hpp \
-		include/boost/integer_traits.hpp \
+		include/boost/property_map/parallel/simple_trigger.hpp \
+		include/boost/property_map/vector_property_map.hpp \
+		include/boost/property_map/parallel/vector_property_map.hpp \
+		include/boost/tuple/tuple.hpp \
+		include/boost/tuple/detail/tuple_basic.hpp \
+		include/boost/utility/swap.hpp \
 		include/boost/tuple/tuple_comparison.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o inheritance.o python/object/inheritance.cpp
 
@@ -12332,15 +15348,70 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object/function_object.hpp \
@@ -12348,159 +15419,245 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
 		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/enable_if.hpp \
+		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
+		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
+		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
+		include/boost/bind/mem_fn_template.hpp \
+		include/boost/bind/mem_fn_vw.hpp \
+		include/boost/bind/mem_fn_cc.hpp \
+		include/boost/preprocessor/enum.hpp \
+		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/debug/error.hpp \
+		include/boost/preprocessor/detail/auto_rec.hpp \
+		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
+		include/boost/preprocessor/control/iif.hpp \
+		include/boost/preprocessor/punctuation/comma_if.hpp \
+		include/boost/preprocessor/control/if.hpp \
+		include/boost/preprocessor/logical/bool.hpp \
+		include/boost/preprocessor/facilities/empty.hpp \
+		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repetition/repeat.hpp \
+		include/boost/preprocessor/tuple/eat.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/preprocessor/repeat.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/core/no_exceptions_support.hpp \
+		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
+		include/boost/python/call.hpp \
+		include/boost/python/converter/arg_to_python.hpp \
+		include/boost/python/ptr.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/preprocessor/cat.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
 		include/boost/mpl/integral_c_tag.hpp \
 		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/punctuation/comma_if.hpp \
-		include/boost/preprocessor/control/if.hpp \
-		include/boost/preprocessor/control/iif.hpp \
-		include/boost/preprocessor/logical/bool.hpp \
-		include/boost/preprocessor/facilities/empty.hpp \
-		include/boost/preprocessor/punctuation/comma.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/repetition/repeat.hpp \
-		include/boost/preprocessor/debug/error.hpp \
-		include/boost/preprocessor/detail/auto_rec.hpp \
-		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
-		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/composite_traits.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
+		include/boost/python/tag.hpp \
+		include/boost/python/to_python_indirect.hpp \
+		include/boost/python/object/pointer_holder.hpp \
+		include/boost/python/instance_holder.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
 		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
 		include/boost/mpl/if.hpp \
 		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
 		include/boost/mpl/aux_/config/integral.hpp \
 		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
 		include/boost/mpl/aux_/na_spec.hpp \
 		include/boost/mpl/lambda_fwd.hpp \
 		include/boost/mpl/void_fwd.hpp \
 		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
 		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
 		include/boost/mpl/aux_/arity.hpp \
 		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
 		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
 		include/boost/preprocessor/empty.hpp \
 		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
 		include/boost/mpl/aux_/preprocessor/tuple.hpp \
 		include/boost/preprocessor/arithmetic/sub.hpp \
+		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
@@ -12512,49 +15669,26 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/function_equal.hpp \
-		include/boost/mem_fn.hpp \
-		include/boost/get_pointer.hpp \
-		include/boost/bind/mem_fn_template.hpp \
-		include/boost/bind/mem_fn_vw.hpp \
-		include/boost/bind/mem_fn_cc.hpp \
-		include/boost/preprocessor/enum.hpp \
-		include/boost/preprocessor/repetition/enum.hpp \
-		include/boost/python/object_core.hpp \
-		include/boost/python/call.hpp \
-		include/boost/python/converter/arg_to_python.hpp \
-		include/boost/python/ptr.hpp \
-		include/boost/python/tag.hpp \
-		include/boost/python/to_python_indirect.hpp \
-		include/boost/python/object/pointer_holder.hpp \
-		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/type_traits/add_const.hpp \
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -12563,47 +15697,39 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -12635,21 +15761,20 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -12657,60 +15782,77 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
@@ -12726,14 +15868,10 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -12741,6 +15879,7 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -12750,6 +15889,7 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -12766,6 +15906,8 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -12790,6 +15932,7 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/detail/dependent.hpp \
@@ -12798,12 +15941,10 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -12851,10 +15992,7 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -12864,13 +16002,16 @@ iterator.o: python/object/iterator.cpp include/boost/python/object/iterator_core
 		include/boost/python/slice_nil.hpp \
 		include/boost/python/args_fwd.hpp \
 		include/boost/bind.hpp \
+		include/boost/bind/bind.hpp \
 		include/boost/is_placeholder.hpp \
 		include/boost/bind/arg.hpp \
 		include/boost/visit_each.hpp \
+		include/boost/core/is_same.hpp \
 		include/boost/bind/storage.hpp \
 		include/boost/bind/bind_template.hpp \
 		include/boost/bind/bind_cc.hpp \
 		include/boost/bind/bind_mf_cc.hpp \
+		include/boost/bind/bind_mf2_cc.hpp \
 		include/boost/bind/placeholders.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o iterator.o python/object/iterator.cpp
 
@@ -12880,46 +16021,198 @@ life_support.o: python/object/life_support.cpp include/boost/python/object/life_
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
 		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/mpl/bool.hpp \
+		include/boost/mpl/bool_fwd.hpp \
 		include/boost/mpl/aux_/adl_barrier.hpp \
 		include/boost/mpl/aux_/config/adl.hpp \
 		include/boost/mpl/aux_/config/msvc.hpp \
 		include/boost/mpl/aux_/config/intel.hpp \
 		include/boost/mpl/aux_/config/gcc.hpp \
 		include/boost/mpl/aux_/config/workaround.hpp \
+		include/boost/mpl/integral_c_tag.hpp \
+		include/boost/mpl/aux_/config/static_constant.hpp \
+		include/boost/type.hpp \
+		include/boost/python/base_type_traits.hpp \
+		include/boost/python/detail/convertible.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
 		include/boost/mpl/aux_/nttp_decl.hpp \
 		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
 		include/boost/preprocessor/config/config.hpp \
 		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/integral_c_tag.hpp \
-		include/boost/mpl/aux_/config/static_constant.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
 		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/params.hpp \
 		include/boost/mpl/aux_/config/preprocessor.hpp \
 		include/boost/preprocessor/comma_if.hpp \
@@ -12937,87 +16230,7 @@ life_support.o: python/object/life_support.cpp include/boost/python/object/life_
 		include/boost/preprocessor/tuple/eat.hpp \
 		include/boost/preprocessor/inc.hpp \
 		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
-		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/bool.hpp \
-		include/boost/mpl/bool_fwd.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/mpl/aux_/lambda_support.hpp \
-		include/boost/mpl/aux_/yes_no.hpp \
-		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/enum.hpp \
-		include/boost/preprocessor/tuple/to_list.hpp \
-		include/boost/preprocessor/list/for_each_i.hpp \
-		include/boost/preprocessor/list/adt.hpp \
-		include/boost/preprocessor/detail/is_binary.hpp \
-		include/boost/preprocessor/detail/check.hpp \
-		include/boost/preprocessor/logical/compl.hpp \
-		include/boost/preprocessor/repetition/for.hpp \
-		include/boost/preprocessor/repetition/detail/edg/for.hpp \
-		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
-		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
-		include/boost/preprocessor/control/expr_iif.hpp \
-		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/add_cv.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/arithmetic/dec.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/python/base_type_traits.hpp \
-		include/boost/python/detail/convertible.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
 		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
 		include/boost/mpl/limits/arity.hpp \
 		include/boost/preprocessor/logical/and.hpp \
@@ -13029,10 +16242,31 @@ life_support.o: python/object/life_support.cpp include/boost/python/object/life_
 		include/boost/mpl/aux_/preprocessor/sub.hpp \
 		include/boost/mpl/aux_/preprocessor/tuple.hpp \
 		include/boost/preprocessor/arithmetic/sub.hpp \
+		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_left.hpp \
+		include/boost/preprocessor/control/expr_iif.hpp \
+		include/boost/preprocessor/list/adt.hpp \
+		include/boost/preprocessor/detail/is_binary.hpp \
+		include/boost/preprocessor/detail/check.hpp \
+		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -13043,27 +16277,17 @@ life_support.o: python/object/life_support.cpp include/boost/python/object/life_
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
 		include/boost/preprocessor/arithmetic/add.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp
+		include/boost/mpl/aux_/config/overload_resolution.hpp \
+		include/boost/mpl/aux_/lambda_support.hpp \
+		include/boost/mpl/aux_/yes_no.hpp \
+		include/boost/mpl/aux_/config/arrays.hpp \
+		include/boost/preprocessor/tuple/to_list.hpp \
+		include/boost/preprocessor/list/for_each_i.hpp \
+		include/boost/preprocessor/repetition/for.hpp \
+		include/boost/preprocessor/repetition/detail/edg/for.hpp \
+		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
+		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
+		include/boost/preprocessor/repetition/detail/for.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o life_support.o python/object/life_support.cpp
 
 pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_function.hpp \
@@ -13072,15 +16296,70 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/default_call_policies.hpp \
@@ -13158,6 +16437,20 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
 		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
@@ -13179,84 +16472,98 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
 		include/boost/type_traits/same_traits.hpp \
 		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
 		include/boost/type_traits/cv_traits.hpp \
 		include/boost/type_traits/add_const.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
+		include/boost/type_traits/detail/config.hpp \
 		include/boost/type_traits/add_volatile.hpp \
 		include/boost/type_traits/add_cv.hpp \
 		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
 		include/boost/type_traits/is_volatile.hpp \
 		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
 		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
-		include/boost/python/base_type_traits.hpp \
-		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
 		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/static_assert.hpp \
 		include/boost/type_traits/is_class.hpp \
 		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
 		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
 		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
 		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
 		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/type.hpp \
+		include/boost/python/base_type_traits.hpp \
+		include/boost/python/detail/convertible.hpp \
 		include/boost/python/tag.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -13264,50 +16571,64 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/throw_exception.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/current_function.hpp \
 		include/boost/function/function_base.hpp \
 		include/boost/assert.hpp \
-		include/boost/type_traits/composite_traits.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/limits.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
 		include/boost/ref.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/utility/enable_if.hpp \
+		include/boost/core/ref.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
 		include/boost/python/handle_fwd.hpp \
 		include/boost/python/detail/raw_pyobject.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/type_id.hpp \
 		include/boost/python/detail/msvc_typeinfo.hpp \
 		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
 		include/boost/python/converter/rvalue_from_python_data.hpp \
 		include/boost/python/converter/constructor_function.hpp \
@@ -13316,25 +16637,87 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/ssize_t.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/mpl/identity.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/converter/object_manager.hpp \
 		include/boost/python/converter/pyobject_traits.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/indirect_traits.hpp \
 		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/python/converter/shared_ptr_to_python.hpp \
+		include/boost/python/converter/shared_ptr_deleter.hpp \
+		include/boost/shared_ptr.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
+		include/boost/detail/sp_typeinfo.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
+		include/boost/python/detail/value_is_shared_ptr.hpp \
+		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_xxx.hpp \
+		include/boost/detail/is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
+		include/boost/python/detail/value_arg.hpp \
+		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
+		include/boost/python/detail/is_auto_ptr.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -13343,51 +16726,6 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
-		include/boost/python/converter/shared_ptr_to_python.hpp \
-		include/boost/python/converter/shared_ptr_deleter.hpp \
-		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
-		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
-		include/boost/python/detail/value_is_shared_ptr.hpp \
-		include/boost/python/detail/value_is_xxx.hpp \
-		include/boost/python/detail/is_xxx.hpp \
-		include/boost/detail/is_xxx.hpp \
-		include/boost/python/detail/value_arg.hpp \
-		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
-		include/boost/python/detail/is_auto_ptr.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
 		include/boost/mpl/aux_/front_impl.hpp \
@@ -13396,11 +16734,16 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
 		include/boost/mpl/void.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
 		include/boost/mpl/aux_/has_tag.hpp \
@@ -13444,6 +16787,8 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/mpl/iterator_tags.hpp \
 		include/boost/mpl/plus.hpp \
 		include/boost/mpl/aux_/arithmetic_op.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/largest_int.hpp \
 		include/boost/mpl/aux_/numeric_op.hpp \
 		include/boost/mpl/numeric_cast.hpp \
@@ -13452,6 +16797,11 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/tag.hpp \
 		include/boost/mpl/aux_/numeric_cast_utils.hpp \
@@ -13478,7 +16828,6 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/preprocessor/facilities/intercept.hpp \
 		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/python/detail/mpl_lambda.hpp \
 		include/boost/python/object_core.hpp \
@@ -13488,11 +16837,8 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/next_prior.hpp \
 		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
 		include/boost/python/object/inheritance_query.hpp \
 		include/boost/python/object/forward.hpp \
 		include/boost/python/pointee.hpp \
@@ -13506,6 +16852,8 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -13531,17 +16879,19 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
+		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
@@ -13552,7 +16902,6 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/mpl/at.hpp \
@@ -13577,6 +16926,7 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -13586,17 +16936,13 @@ pickle_support.o: python/object/pickle_support.cpp include/boost/python/make_fun
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/object/py_function.hpp \
 		include/boost/python/signature.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \
@@ -13632,18 +16978,74 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/python/detail/python22_fixed.h \
 		include/boost/python/detail/config.hpp \
 		include/boost/config.hpp \
-		include/boost/config/select_compiler_config.hpp \
-		include/boost/config/select_stdlib_config.hpp \
+		include/boost/config/user.hpp \
+		include/boost/config/detail/select_compiler_config.hpp \
+		include/boost/config/compiler/nvcc.hpp \
+		include/boost/config/compiler/gcc_xml.hpp \
+		include/boost/config/compiler/cray.hpp \
+		include/boost/config/compiler/common_edg.hpp \
+		include/boost/config/compiler/comeau.hpp \
+		include/boost/config/compiler/pathscale.hpp \
+		include/boost/config/compiler/clang.hpp \
+		include/boost/config/compiler/intel.hpp \
+		include/boost/config/compiler/visualc.hpp \
+		include/boost/config/pragma_message.hpp \
+		include/boost/config/helper_macros.hpp \
+		include/boost/config/compiler/gcc.hpp \
+		include/boost/config/compiler/digitalmars.hpp \
+		include/boost/config/compiler/kai.hpp \
+		include/boost/config/compiler/sgi_mipspro.hpp \
+		include/boost/config/compiler/compaq_cxx.hpp \
+		include/boost/config/compiler/greenhills.hpp \
+		include/boost/config/compiler/codegear.hpp \
+		include/boost/config/compiler/borland.hpp \
+		include/boost/config/compiler/metrowerks.hpp \
+		include/boost/config/compiler/sunpro_cc.hpp \
+		include/boost/config/compiler/hp_acc.hpp \
+		include/boost/config/compiler/mpw.hpp \
+		include/boost/config/compiler/xlcpp_zos.hpp \
+		include/boost/config/compiler/xlcpp.hpp \
+		include/boost/config/compiler/vacpp.hpp \
+		include/boost/config/compiler/pgi.hpp \
+		include/boost/config/detail/select_stdlib_config.hpp \
+		include/boost/config/stdlib/stlport.hpp \
+		include/boost/config/stdlib/libcomo.hpp \
 		include/boost/config/no_tr1/utility.hpp \
-		include/boost/config/select_platform_config.hpp \
-		include/boost/config/posix_features.hpp \
-		include/boost/config/suffix.hpp \
-		include/boost/type.hpp \
-		include/boost/non_type.hpp \
+		include/boost/config/stdlib/roguewave.hpp \
+		include/boost/config/stdlib/libcpp.hpp \
+		include/boost/config/stdlib/libstdcpp3.hpp \
+		include/boost/config/stdlib/sgi.hpp \
+		include/boost/config/stdlib/msl.hpp \
+		include/boost/config/detail/posix_features.hpp \
+		include/boost/config/stdlib/xlcpp_zos.hpp \
+		include/boost/config/stdlib/vacpp.hpp \
+		include/boost/config/stdlib/modena.hpp \
+		include/boost/config/stdlib/dinkumware.hpp \
+		include/boost/config/detail/select_platform_config.hpp \
+		include/boost/config/platform/linux.hpp \
+		include/boost/config/platform/bsd.hpp \
+		include/boost/config/platform/solaris.hpp \
+		include/boost/config/platform/irix.hpp \
+		include/boost/config/platform/hpux.hpp \
+		include/boost/config/platform/cygwin.hpp \
+		include/boost/config/platform/win32.hpp \
+		include/boost/config/platform/beos.hpp \
+		include/boost/config/platform/macos.hpp \
+		include/boost/config/platform/zos.hpp \
+		include/boost/config/platform/aix.hpp \
+		include/boost/config/platform/amigaos.hpp \
+		include/boost/config/platform/qnxnto.hpp \
+		include/boost/config/platform/vxworks.hpp \
+		include/boost/config/platform/symbian.hpp \
+		include/boost/config/platform/cray.hpp \
+		include/boost/config/platform/vms.hpp \
+		include/boost/config/detail/suffix.hpp \
 		include/boost/detail/workaround.hpp \
+		include/boost/config/workaround.hpp \
 		include/boost/config/auto_link.hpp \
 		include/boost/version.hpp \
 		include/boost/python/object_core.hpp \
+		include/boost/type.hpp \
 		include/boost/python/call.hpp \
 		include/boost/python/converter/arg_to_python.hpp \
 		include/boost/python/ptr.hpp \
@@ -13661,30 +17063,155 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/python/to_python_indirect.hpp \
 		include/boost/python/object/pointer_holder.hpp \
 		include/boost/get_pointer.hpp \
+		include/boost/config/no_tr1/memory.hpp \
 		include/boost/python/instance_holder.hpp \
-		include/boost/utility.hpp \
-		include/boost/utility/addressof.hpp \
-		include/boost/utility/base_from_member.hpp \
-		include/boost/preprocessor/arithmetic/inc.hpp \
-		include/boost/preprocessor/config/config.hpp \
-		include/boost/preprocessor/repetition/enum_binary_params.hpp \
+		include/boost/noncopyable.hpp \
+		include/boost/core/noncopyable.hpp \
+		include/boost/python/type_id.hpp \
+		include/boost/python/detail/msvc_typeinfo.hpp \
+		include/boost/operators.hpp \
+		include/boost/core/addressof.hpp \
+		include/boost/static_assert.hpp \
+		include/boost/python/detail/type_traits.hpp \
+		include/boost/type_traits/transform_traits.hpp \
+		include/boost/type_traits/add_pointer.hpp \
+		include/boost/type_traits/remove_reference.hpp \
+		include/boost/type_traits/add_reference.hpp \
+		include/boost/type_traits/remove_bounds.hpp \
+		include/boost/type_traits/remove_extent.hpp \
+		include/boost/type_traits/remove_pointer.hpp \
+		include/boost/type_traits/remove_cv.hpp \
+		include/boost/type_traits/is_pointer.hpp \
+		include/boost/type_traits/integral_constant.hpp \
+		include/boost/type_traits/same_traits.hpp \
+		include/boost/type_traits/is_same.hpp \
+		include/boost/type_traits/cv_traits.hpp \
+		include/boost/type_traits/add_const.hpp \
+		include/boost/type_traits/detail/config.hpp \
+		include/boost/type_traits/add_volatile.hpp \
+		include/boost/type_traits/add_cv.hpp \
+		include/boost/type_traits/is_const.hpp \
+		include/boost/type_traits/is_volatile.hpp \
+		include/boost/type_traits/remove_const.hpp \
+		include/boost/type_traits/remove_volatile.hpp \
+		include/boost/type_traits/is_polymorphic.hpp \
+		include/boost/type_traits/intrinsics.hpp \
+		include/boost/type_traits/is_reference.hpp \
+		include/boost/type_traits/is_lvalue_reference.hpp \
+		include/boost/type_traits/is_rvalue_reference.hpp \
+		include/boost/type_traits/detail/is_rvalue_reference_msvc10_fix.hpp \
+		include/boost/type_traits/is_void.hpp \
+		include/boost/type_traits/is_class.hpp \
+		include/boost/type_traits/is_union.hpp \
+		include/boost/type_traits/detail/yes_no_type.hpp \
+		include/boost/type_traits/is_scalar.hpp \
+		include/boost/type_traits/is_arithmetic.hpp \
+		include/boost/type_traits/is_integral.hpp \
+		include/boost/type_traits/is_floating_point.hpp \
+		include/boost/type_traits/is_enum.hpp \
+		include/boost/type_traits/is_convertible.hpp \
+		include/boost/type_traits/is_complete.hpp \
+		include/boost/type_traits/declval.hpp \
+		include/boost/type_traits/add_rvalue_reference.hpp \
+		include/boost/type_traits/is_function.hpp \
+		include/boost/type_traits/detail/is_function_cxx_11.hpp \
+		include/boost/type_traits/detail/is_function_cxx_03.hpp \
+		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
+		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
+		include/boost/type_traits/detail/is_function_msvc10_fix.hpp \
+		include/boost/type_traits/is_array.hpp \
+		include/boost/type_traits/is_abstract.hpp \
+		include/boost/type_traits/add_lvalue_reference.hpp \
+		include/boost/type_traits/is_member_pointer.hpp \
+		include/boost/type_traits/is_member_function_pointer.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_11.hpp \
+		include/boost/type_traits/detail/is_member_function_pointer_cxx_03.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
+		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
+		include/boost/type_traits/composite_traits.hpp \
+		include/boost/type_traits/conversion_traits.hpp \
+		include/boost/type_traits/object_traits.hpp \
+		include/boost/type_traits/has_trivial_assign.hpp \
+		include/boost/type_traits/is_pod.hpp \
+		include/boost/type_traits/is_assignable.hpp \
+		include/boost/type_traits/has_trivial_constructor.hpp \
+		include/boost/type_traits/is_default_constructible.hpp \
+		include/boost/type_traits/has_trivial_copy.hpp \
+		include/boost/type_traits/is_copy_constructible.hpp \
+		include/boost/type_traits/is_constructible.hpp \
+		include/boost/type_traits/is_destructible.hpp \
+		include/boost/type_traits/is_noncopyable.hpp \
+		include/boost/type_traits/is_base_and_derived.hpp \
+		include/boost/type_traits/has_trivial_destructor.hpp \
+		include/boost/type_traits/has_nothrow_constructor.hpp \
+		include/boost/type_traits/remove_all_extents.hpp \
+		include/boost/type_traits/has_nothrow_copy.hpp \
+		include/boost/type_traits/has_nothrow_assign.hpp \
+		include/boost/type_traits/is_compound.hpp \
+		include/boost/type_traits/is_fundamental.hpp \
+		include/boost/type_traits/is_empty.hpp \
+		include/boost/type_traits/is_object.hpp \
+		include/boost/type_traits/is_stateless.hpp \
+		include/boost/type_traits/function_traits.hpp \
+		include/boost/type_traits/alignment_traits.hpp \
+		include/boost/type_traits/alignment_of.hpp \
+		include/boost/type_traits/type_with_alignment.hpp \
+		include/boost/type_traits/conditional.hpp \
+		include/boost/python/object/inheritance_query.hpp \
+		include/boost/python/object/forward.hpp \
+		include/boost/mpl/if.hpp \
+		include/boost/mpl/aux_/value_wknd.hpp \
+		include/boost/mpl/aux_/static_cast.hpp \
+		include/boost/mpl/aux_/config/integral.hpp \
+		include/boost/mpl/aux_/config/eti.hpp \
+		include/boost/mpl/int.hpp \
+		include/boost/mpl/int_fwd.hpp \
+		include/boost/mpl/aux_/nttp_decl.hpp \
+		include/boost/mpl/aux_/config/nttp.hpp \
 		include/boost/preprocessor/cat.hpp \
+		include/boost/preprocessor/config/config.hpp \
+		include/boost/mpl/aux_/integral_wrapper.hpp \
+		include/boost/mpl/aux_/na_spec.hpp \
+		include/boost/mpl/lambda_fwd.hpp \
+		include/boost/mpl/void_fwd.hpp \
+		include/boost/mpl/aux_/na.hpp \
+		include/boost/mpl/aux_/na_fwd.hpp \
+		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/mpl/aux_/config/lambda.hpp \
+		include/boost/mpl/aux_/config/ttp.hpp \
+		include/boost/mpl/aux_/lambda_arity_param.hpp \
+		include/boost/mpl/aux_/template_arity_fwd.hpp \
+		include/boost/mpl/aux_/arity.hpp \
+		include/boost/mpl/aux_/config/dtp.hpp \
+		include/boost/mpl/aux_/preprocessor/params.hpp \
+		include/boost/mpl/aux_/config/preprocessor.hpp \
+		include/boost/preprocessor/comma_if.hpp \
 		include/boost/preprocessor/punctuation/comma_if.hpp \
 		include/boost/preprocessor/control/if.hpp \
 		include/boost/preprocessor/control/iif.hpp \
 		include/boost/preprocessor/logical/bool.hpp \
 		include/boost/preprocessor/facilities/empty.hpp \
 		include/boost/preprocessor/punctuation/comma.hpp \
+		include/boost/preprocessor/repeat.hpp \
 		include/boost/preprocessor/repetition/repeat.hpp \
 		include/boost/preprocessor/debug/error.hpp \
 		include/boost/preprocessor/detail/auto_rec.hpp \
 		include/boost/preprocessor/detail/dmc/auto_rec.hpp \
 		include/boost/preprocessor/tuple/eat.hpp \
-		include/boost/preprocessor/tuple/elem.hpp \
-		include/boost/preprocessor/tuple/rem.hpp \
-		include/boost/preprocessor/repetition/enum_params.hpp \
-		include/boost/preprocessor/repetition/repeat_from_to.hpp \
-		include/boost/preprocessor/arithmetic/add.hpp \
+		include/boost/preprocessor/inc.hpp \
+		include/boost/preprocessor/arithmetic/inc.hpp \
+		include/boost/mpl/aux_/preprocessor/enum.hpp \
+		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
+		include/boost/mpl/limits/arity.hpp \
+		include/boost/preprocessor/logical/and.hpp \
+		include/boost/preprocessor/logical/bitand.hpp \
+		include/boost/preprocessor/identity.hpp \
+		include/boost/preprocessor/facilities/identity.hpp \
+		include/boost/preprocessor/empty.hpp \
+		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
+		include/boost/mpl/aux_/preprocessor/sub.hpp \
+		include/boost/mpl/aux_/preprocessor/tuple.hpp \
+		include/boost/preprocessor/arithmetic/sub.hpp \
 		include/boost/preprocessor/arithmetic/dec.hpp \
 		include/boost/preprocessor/control/while.hpp \
 		include/boost/preprocessor/list/fold_left.hpp \
@@ -13695,59 +17222,35 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/preprocessor/detail/check.hpp \
 		include/boost/preprocessor/logical/compl.hpp \
 		include/boost/preprocessor/list/detail/dmc/fold_left.hpp \
+		include/boost/preprocessor/tuple/elem.hpp \
+		include/boost/preprocessor/facilities/expand.hpp \
+		include/boost/preprocessor/facilities/overload.hpp \
+		include/boost/preprocessor/variadic/size.hpp \
+		include/boost/preprocessor/tuple/rem.hpp \
+		include/boost/preprocessor/tuple/detail/is_single_return.hpp \
+		include/boost/preprocessor/facilities/is_1.hpp \
+		include/boost/preprocessor/facilities/is_empty.hpp \
+		include/boost/preprocessor/facilities/is_empty_variadic.hpp \
+		include/boost/preprocessor/punctuation/is_begin_parens.hpp \
+		include/boost/preprocessor/punctuation/detail/is_begin_parens.hpp \
+		include/boost/preprocessor/facilities/detail/is_empty.hpp \
+		include/boost/preprocessor/detail/split.hpp \
+		include/boost/preprocessor/tuple/size.hpp \
+		include/boost/preprocessor/variadic/elem.hpp \
 		include/boost/preprocessor/list/detail/fold_left.hpp \
 		include/boost/preprocessor/list/fold_right.hpp \
 		include/boost/preprocessor/list/detail/edg/fold_right.hpp \
 		include/boost/preprocessor/list/detail/fold_right.hpp \
 		include/boost/preprocessor/list/reverse.hpp \
-		include/boost/preprocessor/logical/bitand.hpp \
 		include/boost/preprocessor/control/detail/edg/while.hpp \
 		include/boost/preprocessor/control/detail/msvc/while.hpp \
 		include/boost/preprocessor/control/detail/dmc/while.hpp \
 		include/boost/preprocessor/control/detail/while.hpp \
-		include/boost/preprocessor/arithmetic/sub.hpp \
-		include/boost/utility/enable_if.hpp \
-		include/boost/checked_delete.hpp \
-		include/boost/next_prior.hpp \
-		include/boost/noncopyable.hpp \
-		include/boost/python/type_id.hpp \
-		include/boost/python/detail/msvc_typeinfo.hpp \
-		include/boost/type_traits/config.hpp \
-		include/boost/operators.hpp \
-		include/boost/iterator.hpp \
-		include/boost/static_assert.hpp \
-		include/boost/type_traits/same_traits.hpp \
-		include/boost/type_traits/is_same.hpp \
-		include/boost/type_traits/detail/yes_no_type.hpp \
-		include/boost/type_traits/detail/ice_and.hpp \
-		include/boost/type_traits/is_reference.hpp \
-		include/boost/type_traits/detail/wrap.hpp \
-		include/boost/type_traits/detail/bool_trait_def.hpp \
-		include/boost/type_traits/detail/template_arity_spec.hpp \
-		include/boost/mpl/int.hpp \
-		include/boost/mpl/int_fwd.hpp \
-		include/boost/mpl/aux_/nttp_decl.hpp \
-		include/boost/mpl/aux_/config/nttp.hpp \
-		include/boost/mpl/aux_/integral_wrapper.hpp \
-		include/boost/mpl/aux_/static_cast.hpp \
-		include/boost/mpl/aux_/template_arity_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/params.hpp \
-		include/boost/mpl/aux_/config/preprocessor.hpp \
-		include/boost/preprocessor/comma_if.hpp \
-		include/boost/preprocessor/repeat.hpp \
-		include/boost/preprocessor/inc.hpp \
-		include/boost/mpl/aux_/config/lambda.hpp \
-		include/boost/mpl/aux_/config/ttp.hpp \
-		include/boost/mpl/aux_/config/ctps.hpp \
+		include/boost/preprocessor/arithmetic/add.hpp \
 		include/boost/mpl/aux_/config/overload_resolution.hpp \
-		include/boost/type_traits/integral_constant.hpp \
-		include/boost/mpl/integral_c.hpp \
-		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/aux_/lambda_support.hpp \
 		include/boost/mpl/aux_/yes_no.hpp \
 		include/boost/mpl/aux_/config/arrays.hpp \
-		include/boost/mpl/aux_/na_fwd.hpp \
-		include/boost/mpl/aux_/preprocessor/enum.hpp \
 		include/boost/preprocessor/tuple/to_list.hpp \
 		include/boost/preprocessor/list/for_each_i.hpp \
 		include/boost/preprocessor/repetition/for.hpp \
@@ -13755,85 +17258,19 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/preprocessor/repetition/detail/msvc/for.hpp \
 		include/boost/preprocessor/repetition/detail/dmc/for.hpp \
 		include/boost/preprocessor/repetition/detail/for.hpp \
-		include/boost/type_traits/detail/bool_trait_undef.hpp \
-		include/boost/type_traits/broken_compiler_spec.hpp \
-		include/boost/type_traits/detail/type_trait_undef.hpp \
-		include/boost/python/object/inheritance_query.hpp \
-		include/boost/python/object/forward.hpp \
-		include/boost/mpl/if.hpp \
-		include/boost/mpl/aux_/value_wknd.hpp \
-		include/boost/mpl/aux_/config/integral.hpp \
-		include/boost/mpl/aux_/config/eti.hpp \
-		include/boost/mpl/aux_/na_spec.hpp \
-		include/boost/mpl/lambda_fwd.hpp \
-		include/boost/mpl/void_fwd.hpp \
-		include/boost/mpl/aux_/na.hpp \
-		include/boost/mpl/aux_/lambda_arity_param.hpp \
-		include/boost/mpl/aux_/arity.hpp \
-		include/boost/mpl/aux_/config/dtp.hpp \
-		include/boost/mpl/aux_/preprocessor/def_params_tail.hpp \
-		include/boost/mpl/limits/arity.hpp \
-		include/boost/preprocessor/logical/and.hpp \
-		include/boost/preprocessor/identity.hpp \
-		include/boost/preprocessor/facilities/identity.hpp \
-		include/boost/preprocessor/empty.hpp \
-		include/boost/mpl/aux_/preprocessor/filter_params.hpp \
-		include/boost/mpl/aux_/preprocessor/sub.hpp \
-		include/boost/mpl/aux_/preprocessor/tuple.hpp \
-		include/boost/type_traits/is_scalar.hpp \
-		include/boost/type_traits/is_arithmetic.hpp \
-		include/boost/type_traits/is_integral.hpp \
-		include/boost/type_traits/is_float.hpp \
-		include/boost/type_traits/detail/ice_or.hpp \
-		include/boost/type_traits/is_enum.hpp \
-		include/boost/type_traits/add_reference.hpp \
-		include/boost/type_traits/detail/type_trait_def.hpp \
-		include/boost/type_traits/is_convertible.hpp \
-		include/boost/type_traits/is_array.hpp \
-		include/boost/type_traits/ice.hpp \
-		include/boost/type_traits/detail/ice_not.hpp \
-		include/boost/type_traits/detail/ice_eq.hpp \
-		include/boost/type_traits/is_void.hpp \
-		include/boost/type_traits/is_abstract.hpp \
-		include/boost/type_traits/is_class.hpp \
-		include/boost/type_traits/is_union.hpp \
-		include/boost/type_traits/remove_cv.hpp \
-		include/boost/type_traits/detail/cv_traits_impl.hpp \
-		include/boost/type_traits/msvc/remove_cv.hpp \
-		include/boost/type_traits/msvc/typeof.hpp \
-		include/boost/type_traits/is_volatile.hpp \
-		include/boost/type_traits/remove_bounds.hpp \
-		include/boost/type_traits/msvc/remove_bounds.hpp \
-		include/boost/type_traits/detail/false_result.hpp \
-		include/boost/type_traits/is_const.hpp \
-		include/boost/type_traits/is_pointer.hpp \
-		include/boost/type_traits/is_member_pointer.hpp \
-		include/boost/type_traits/is_member_function_pointer.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_impl.hpp \
-		include/boost/preprocessor/iterate.hpp \
-		include/boost/preprocessor/iteration/iterate.hpp \
-		include/boost/preprocessor/array/elem.hpp \
-		include/boost/preprocessor/array/data.hpp \
-		include/boost/preprocessor/array/size.hpp \
-		include/boost/preprocessor/slot/slot.hpp \
-		include/boost/preprocessor/slot/detail/def.hpp \
-		include/boost/preprocessor/enum_params.hpp \
-		include/boost/type_traits/detail/is_mem_fun_pointer_tester.hpp \
-		include/boost/type_traits/detail/is_function_ptr_tester.hpp \
-		include/boost/type_traits/intrinsics.hpp \
-		include/boost/type_traits/is_function.hpp \
-		include/boost/type_traits/detail/is_function_ptr_helper.hpp \
-		include/boost/type_traits/is_polymorphic.hpp \
-		include/boost/type_traits/remove_reference.hpp \
-		include/boost/type_traits/msvc/remove_reference.hpp \
-		include/boost/type_traits/add_const.hpp \
 		include/boost/ref.hpp \
+		include/boost/core/ref.hpp \
 		include/boost/python/detail/value_arg.hpp \
 		include/boost/python/detail/copy_ctor_mutates_rhs.hpp \
 		include/boost/python/detail/is_auto_ptr.hpp \
 		include/boost/python/detail/is_xxx.hpp \
 		include/boost/detail/is_xxx.hpp \
-		include/boost/mpl/and.hpp \
+		include/boost/preprocessor/enum_params.hpp \
+		include/boost/preprocessor/repetition/enum_params.hpp \
+		include/boost/python/detail/indirect_traits.hpp \
+		include/boost/detail/indirect_traits.hpp \
+		include/boost/detail/select_type.hpp \
+		include/boost/mpl/or.hpp \
 		include/boost/mpl/aux_/config/use_preprocessed.hpp \
 		include/boost/mpl/aux_/nested_type_wknd.hpp \
 		include/boost/mpl/aux_/include_preprocessed.hpp \
@@ -13842,47 +17279,39 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/mpl/aux_/logical_op.hpp \
 		include/boost/mpl/aux_/preprocessor/ext_params.hpp \
 		include/boost/preprocessor/dec.hpp \
-		include/boost/mpl/not.hpp \
-		include/boost/mpl/or.hpp \
 		include/boost/python/pointee.hpp \
-		include/boost/type_traits/object_traits.hpp \
-		include/boost/type_traits/has_trivial_assign.hpp \
-		include/boost/type_traits/is_pod.hpp \
-		include/boost/type_traits/has_trivial_constructor.hpp \
-		include/boost/type_traits/has_trivial_copy.hpp \
-		include/boost/type_traits/has_trivial_destructor.hpp \
-		include/boost/type_traits/has_nothrow_constructor.hpp \
-		include/boost/type_traits/has_nothrow_copy.hpp \
-		include/boost/type_traits/has_nothrow_assign.hpp \
-		include/boost/type_traits/is_base_and_derived.hpp \
-		include/boost/type_traits/is_compound.hpp \
-		include/boost/type_traits/is_fundamental.hpp \
-		include/boost/type_traits/is_empty.hpp \
-		include/boost/type_traits/is_object.hpp \
-		include/boost/type_traits/is_stateless.hpp \
-		include/boost/type_traits/remove_pointer.hpp \
-		include/boost/type_traits/msvc/remove_pointer.hpp \
 		include/boost/python/detail/wrapper_base.hpp \
 		include/boost/python/detail/force_instantiate.hpp \
 		include/boost/python/detail/preprocessor.hpp \
 		include/boost/mpl/apply.hpp \
 		include/boost/mpl/apply_fwd.hpp \
 		include/boost/mpl/aux_/preprocessor/default_params.hpp \
+		include/boost/preprocessor/iterate.hpp \
+		include/boost/preprocessor/iteration/iterate.hpp \
+		include/boost/preprocessor/array/elem.hpp \
+		include/boost/preprocessor/array/data.hpp \
+		include/boost/preprocessor/array/size.hpp \
+		include/boost/preprocessor/slot/slot.hpp \
+		include/boost/preprocessor/slot/detail/def.hpp \
 		include/boost/mpl/apply_wrap.hpp \
 		include/boost/mpl/aux_/has_apply.hpp \
 		include/boost/mpl/has_xxx.hpp \
 		include/boost/mpl/aux_/type_wrapper.hpp \
 		include/boost/mpl/aux_/config/has_xxx.hpp \
 		include/boost/mpl/aux_/config/msvc_typename.hpp \
+		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/mpl/aux_/config/has_apply.hpp \
 		include/boost/mpl/aux_/msvc_never_true.hpp \
 		include/boost/mpl/aux_/preprocessor/add.hpp \
+		include/boost/mpl/aux_/config/bcc.hpp \
 		include/boost/mpl/aux_/msvc_dtw.hpp \
 		include/boost/mpl/placeholders.hpp \
 		include/boost/mpl/arg.hpp \
 		include/boost/mpl/arg_fwd.hpp \
 		include/boost/mpl/aux_/na_assert.hpp \
 		include/boost/mpl/assert.hpp \
+		include/boost/mpl/not.hpp \
+		include/boost/mpl/aux_/config/gpu.hpp \
 		include/boost/mpl/aux_/config/pp_counter.hpp \
 		include/boost/mpl/aux_/arity_spec.hpp \
 		include/boost/mpl/aux_/arg_typedef.hpp \
@@ -13914,26 +17343,20 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/preprocessor/seq/first_n.hpp \
 		include/boost/preprocessor/seq/detail/split.hpp \
 		include/boost/preprocessor/seq/rest_n.hpp \
+		include/boost/preprocessor/comparison/not_equal.hpp \
+		include/boost/preprocessor/seq/detail/is_empty.hpp \
+		include/boost/preprocessor/seq/size.hpp \
 		include/boost/preprocessor/seq/fold_left.hpp \
 		include/boost/preprocessor/seq/seq.hpp \
 		include/boost/preprocessor/seq/elem.hpp \
-		include/boost/preprocessor/seq/size.hpp \
 		include/boost/mpl/aux_/lambda_no_ctps.hpp \
 		include/boost/mpl/is_placeholder.hpp \
 		include/boost/mpl/identity.hpp \
 		include/boost/preprocessor/debug/line.hpp \
+		include/boost/preprocessor/repetition/enum_binary_params.hpp \
 		include/boost/python/object/make_ptr_instance.hpp \
 		include/boost/python/object/make_instance.hpp \
 		include/boost/python/object/instance.hpp \
-		include/boost/type_traits/alignment_traits.hpp \
-		include/boost/type_traits/alignment_of.hpp \
-		include/boost/type_traits/detail/size_t_trait_def.hpp \
-		include/boost/mpl/size_t.hpp \
-		include/boost/mpl/size_t_fwd.hpp \
-		include/boost/type_traits/detail/size_t_trait_undef.hpp \
-		include/boost/type_traits/type_with_alignment.hpp \
-		include/boost/preprocessor/list/transform.hpp \
-		include/boost/preprocessor/list/append.hpp \
 		include/boost/python/converter/registered.hpp \
 		include/boost/python/converter/registry.hpp \
 		include/boost/python/converter/to_python_function_type.hpp \
@@ -13941,65 +17364,86 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/python/converter/constructor_function.hpp \
 		include/boost/python/detail/referent_storage.hpp \
 		include/boost/python/detail/destroy.hpp \
-		include/boost/type_traits/add_cv.hpp \
 		include/boost/python/converter/convertible_function.hpp \
 		include/boost/python/converter/registrations.hpp \
-		include/boost/type_traits/transform_traits.hpp \
-		include/boost/type_traits/add_pointer.hpp \
-		include/boost/type_traits/cv_traits.hpp \
-		include/boost/type_traits/add_volatile.hpp \
-		include/boost/type_traits/remove_const.hpp \
-		include/boost/type_traits/msvc/remove_const.hpp \
-		include/boost/type_traits/remove_volatile.hpp \
-		include/boost/type_traits/msvc/remove_volatile.hpp \
 		include/boost/python/detail/decref_guard.hpp \
 		include/boost/python/detail/none.hpp \
 		include/boost/python/converter/pytype_function.hpp \
 		include/boost/python/detail/unwind_type.hpp \
 		include/boost/python/detail/cv_category.hpp \
-		include/boost/python/detail/indirect_traits.hpp \
-		include/boost/detail/indirect_traits.hpp \
-		include/boost/mpl/eval_if.hpp \
-		include/boost/detail/is_function_ref_tester.hpp \
 		include/boost/python/refcount.hpp \
 		include/boost/python/cast.hpp \
 		include/boost/python/base_type_traits.hpp \
 		include/boost/python/detail/convertible.hpp \
-		include/boost/type_traits/conversion_traits.hpp \
 		include/boost/shared_ptr.hpp \
-		include/boost/detail/shared_ptr_nmt.hpp \
+		include/boost/smart_ptr/shared_ptr.hpp \
 		include/boost/assert.hpp \
+		include/boost/current_function.hpp \
+		include/boost/checked_delete.hpp \
+		include/boost/core/checked_delete.hpp \
 		include/boost/throw_exception.hpp \
-		include/boost/detail/atomic_count.hpp \
-		include/boost/detail/atomic_count_pthreads.hpp \
-		include/boost/detail/atomic_count_gcc_x86.hpp \
-		include/boost/detail/atomic_count_win32.hpp \
-		include/boost/detail/interlocked.hpp \
-		include/boost/detail/atomic_count_sync.hpp \
-		include/boost/detail/atomic_count_gcc.hpp \
-		include/boost/detail/shared_count.hpp \
-		include/boost/detail/bad_weak_ptr.hpp \
-		include/boost/detail/sp_counted_base.hpp \
-		include/boost/detail/sp_counted_base_nt.hpp \
+		include/boost/exception/exception.hpp \
+		include/boost/smart_ptr/detail/shared_count.hpp \
+		include/boost/smart_ptr/bad_weak_ptr.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base.hpp \
+		include/boost/smart_ptr/detail/sp_has_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_nt.hpp \
 		include/boost/detail/sp_typeinfo.hpp \
-		include/boost/detail/sp_counted_base_pt.hpp \
-		include/boost/detail/sp_counted_base_gcc_x86.hpp \
-		include/boost/detail/sp_counted_base_gcc_ia64.hpp \
-		include/boost/detail/sp_counted_base_acc_ia64.hpp \
-		include/boost/detail/sp_counted_base_cw_ppc.hpp \
-		include/boost/detail/sp_counted_base_gcc_ppc.hpp \
-		include/boost/detail/sp_counted_base_sync.hpp \
-		include/boost/detail/sp_counted_base_gcc_sparc.hpp \
-		include/boost/detail/sp_counted_base_w32.hpp \
-		include/boost/detail/sp_counted_impl.hpp \
-		include/boost/detail/quick_allocator.hpp \
-		include/boost/detail/lightweight_mutex.hpp \
-		include/boost/detail/lwm_nop.hpp \
-		include/boost/detail/lwm_pthreads.hpp \
-		include/boost/detail/lwm_win32_cs.hpp \
+		include/boost/core/typeinfo.hpp \
+		include/boost/core/demangle.hpp \
+		include/boost/smart_ptr/detail/sp_noexcept.hpp \
+		include/boost/cstdint.hpp \
+		include/boost/limits.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_std_atomic.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_spin.hpp \
+		include/boost/smart_ptr/detail/spinlock_pool.hpp \
+		include/boost/smart_ptr/detail/spinlock.hpp \
+		include/boost/smart_ptr/detail/spinlock_std_atomic.hpp \
+		include/boost/smart_ptr/detail/yield_k.hpp \
+		include/boost/predef/platform/windows_runtime.h \
+		include/boost/predef/make.h \
+		include/boost/predef/detail/test.h \
+		include/boost/predef/os/windows.h \
+		include/boost/predef/version_number.h \
+		include/boost/predef/detail/os_detected.h \
+		include/boost/predef/platform/windows_phone.h \
+		include/boost/predef/platform/windows_uwp.h \
+		include/boost/predef/detail/platform_detected.h \
+		include/boost/predef/platform/windows_store.h \
+		include/boost/smart_ptr/detail/spinlock_sync.hpp \
+		include/boost/smart_ptr/detail/spinlock_pt.hpp \
+		include/boost/smart_ptr/detail/spinlock_gcc_arm.hpp \
+		include/boost/smart_ptr/detail/spinlock_w32.hpp \
+		include/boost/smart_ptr/detail/sp_interlocked.hpp \
+		include/boost/smart_ptr/detail/spinlock_nt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_pt.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_clang.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_snc_ps3.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_x86.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_acc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ia64.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_vacpp_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_cw_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_ppc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_mips.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_sync.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_gcc_sparc.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_w32.hpp \
+		include/boost/smart_ptr/detail/sp_counted_base_aix.hpp \
+		include/boost/smart_ptr/detail/sp_counted_impl.hpp \
+		include/boost/smart_ptr/detail/quick_allocator.hpp \
+		include/boost/smart_ptr/detail/lightweight_mutex.hpp \
+		include/boost/smart_ptr/detail/lwm_nop.hpp \
+		include/boost/smart_ptr/detail/lwm_pthreads.hpp \
+		include/boost/smart_ptr/detail/lwm_win32_cs.hpp \
+		include/boost/smart_ptr/detail/sp_disable_deprecated.hpp \
+		include/boost/smart_ptr/detail/sp_convertible.hpp \
+		include/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+		include/boost/smart_ptr/detail/operator_bool.hpp \
+		include/boost/smart_ptr/detail/local_sp_deleter.hpp \
+		include/boost/smart_ptr/detail/local_counted_base.hpp \
 		include/boost/python/converter/registered_pointee.hpp \
 		include/boost/python/converter/pointer_type_id.hpp \
-		include/boost/type_traits/composite_traits.hpp \
 		include/boost/python/converter/arg_to_python_base.hpp \
 		include/boost/python/handle.hpp \
 		include/boost/python/errors.hpp \
@@ -14007,14 +17451,42 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/function/detail/maybe_include.hpp \
 		include/boost/function/function_template.hpp \
 		include/boost/function/detail/prologue.hpp \
+		include/boost/config/no_tr1/functional.hpp \
 		include/boost/function/function_base.hpp \
+		include/boost/integer.hpp \
+		include/boost/integer_fwd.hpp \
+		include/boost/integer_traits.hpp \
+		include/boost/type_index.hpp \
+		include/boost/type_index/stl_type_index.hpp \
+		include/boost/type_index/type_index_facade.hpp \
+		include/boost/container_hash/hash_fwd.hpp \
+		include/boost/container_hash/hash.hpp \
+		include/boost/container_hash/detail/hash_float.hpp \
+		include/boost/container_hash/detail/float_functions.hpp \
+		include/boost/config/no_tr1/cmath.hpp \
+		include/boost/container_hash/detail/limits.hpp \
+		include/boost/core/enable_if.hpp \
+		include/boost/container_hash/extensions.hpp \
+		include/boost/detail/container_fwd.hpp \
+		include/boost/type_traits/is_signed.hpp \
+		include/boost/type_traits/make_signed.hpp \
+		include/boost/type_traits/is_unsigned.hpp \
+		include/boost/type_traits/type_identity.hpp \
+		include/boost/type_index/detail/stl_register_class.hpp \
+		include/boost/type_index/ctti_type_index.hpp \
+		include/boost/type_index/detail/compile_time_type_info.hpp \
+		include/boost/type_index/detail/ctti_register_class.hpp \
+		include/boost/type_traits/enable_if.hpp \
 		include/boost/function_equal.hpp \
+		include/boost/function/function_fwd.hpp \
 		include/boost/mem_fn.hpp \
+		include/boost/bind/mem_fn.hpp \
 		include/boost/bind/mem_fn_template.hpp \
 		include/boost/bind/mem_fn_vw.hpp \
 		include/boost/bind/mem_fn_cc.hpp \
 		include/boost/preprocessor/enum.hpp \
 		include/boost/preprocessor/repetition/enum.hpp \
+		include/boost/core/no_exceptions_support.hpp \
 		include/boost/python/borrowed.hpp \
 		include/boost/python/detail/borrowed_ptr.hpp \
 		include/boost/python/handle_fwd.hpp \
@@ -14023,14 +17495,10 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/python/converter/shared_ptr_deleter.hpp \
 		include/boost/python/converter/builtin_converters.hpp \
 		include/boost/implicit_cast.hpp \
-		include/boost/limits.hpp \
-		include/boost/detail/limits.hpp \
-		include/boost/detail/endian.hpp \
 		include/boost/python/object/function_handle.hpp \
 		include/boost/python/detail/caller.hpp \
 		include/boost/python/detail/invoke.hpp \
 		include/boost/preprocessor/facilities/intercept.hpp \
-		include/boost/preprocessor/repetition/enum_trailing_params.hpp \
 		include/boost/preprocessor/repetition/enum_trailing_binary_params.hpp \
 		include/boost/python/to_python_value.hpp \
 		include/boost/python/converter/object_manager.hpp \
@@ -14038,6 +17506,7 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/python/converter/pyobject_type.hpp \
 		include/boost/python/detail/value_is_shared_ptr.hpp \
 		include/boost/python/detail/value_is_xxx.hpp \
+		include/boost/python/detail/is_shared_ptr.hpp \
 		include/boost/python/detail/signature.hpp \
 		include/boost/preprocessor/iteration/local.hpp \
 		include/boost/mpl/at.hpp \
@@ -14047,6 +17516,7 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/mpl/begin_end_fwd.hpp \
 		include/boost/mpl/aux_/begin_end_impl.hpp \
 		include/boost/mpl/sequence_tag_fwd.hpp \
+		include/boost/mpl/eval_if.hpp \
 		include/boost/mpl/aux_/has_begin.hpp \
 		include/boost/mpl/aux_/traits_lambda_spec.hpp \
 		include/boost/mpl/sequence_tag.hpp \
@@ -14063,6 +17533,8 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/mpl/aux_/config/forwarding.hpp \
 		include/boost/mpl/aux_/msvc_eti_base.hpp \
 		include/boost/mpl/negate.hpp \
+		include/boost/mpl/integral_c.hpp \
+		include/boost/mpl/integral_c_fwd.hpp \
 		include/boost/mpl/long.hpp \
 		include/boost/mpl/long_fwd.hpp \
 		include/boost/mpl/aux_/advance_forward.hpp \
@@ -14087,6 +17559,7 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/python/arg_from_python.hpp \
 		include/boost/python/converter/arg_from_python.hpp \
 		include/boost/python/converter/from_python.hpp \
+		include/boost/mpl/and.hpp \
 		include/boost/python/detail/void_ptr.hpp \
 		include/boost/python/back_reference.hpp \
 		include/boost/python/object_fwd.hpp \
@@ -14096,12 +17569,10 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/python/converter/context_result_converter.hpp \
 		include/boost/preprocessor/if.hpp \
 		include/boost/compressed_pair.hpp \
-		include/boost/detail/ob_compressed_pair.hpp \
-		include/boost/call_traits.hpp \
-		include/boost/detail/ob_call_traits.hpp \
-		include/boost/type_traits/arithmetic_traits.hpp \
-		include/boost/detail/call_traits.hpp \
 		include/boost/detail/compressed_pair.hpp \
+		include/boost/type_traits/is_final.hpp \
+		include/boost/call_traits.hpp \
+		include/boost/detail/call_traits.hpp \
 		include/boost/python/default_call_policies.hpp \
 		include/boost/mpl/front.hpp \
 		include/boost/mpl/front_fwd.hpp \
@@ -14149,10 +17620,7 @@ stl_iterator.o: python/object/stl_iterator.cpp include/boost/python/object.hpp \
 		include/boost/preprocessor/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_params_with_a_default.hpp \
 		include/boost/preprocessor/repetition/enum_trailing.hpp \
-		include/boost/python/detail/type_list_impl_no_pts.hpp \
 		include/boost/python/detail/string_literal.hpp \
-		include/boost/type_traits/array_traits.hpp \
-		include/boost/type_traits/function_traits.hpp \
 		include/boost/python/converter/return_from_python.hpp \
 		include/boost/python/detail/void_return.hpp \
 		include/boost/python/def_visitor.hpp \

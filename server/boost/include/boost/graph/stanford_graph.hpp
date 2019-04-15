@@ -12,7 +12,7 @@
 #include <boost/config.hpp>
 #include <boost/iterator.hpp>
 #include <boost/operators.hpp>
-#include <boost/property_map.hpp>
+#include <boost/property_map/property_map.hpp>
 #include <boost/graph/graph_traits.hpp>
 #include <boost/graph/properties.hpp>
 
@@ -46,6 +46,8 @@ extern "C" {
 #include <gb_books.h> /* graphs based on literature */
 #include <gb_econ.h> /* graphs based on economic data */
 #include <gb_games.h> /* graphs based on football scores */
+#undef ap /* avoid name clash with BGL parameter */
+        // ap ==> Vertex::u.I
 #include <gb_gates.h> /* graphs based on logic circuits */
 #undef val /* avoid name clash with g++ headerfile stl_tempbuf.h */
         // val ==> Vertex::x.I
@@ -92,6 +94,9 @@ namespace boost {
     typedef directed_tag directed_category;
     typedef sgb_traversal_tag traversal_category;
     typedef allow_parallel_edge_tag edge_parallel_category;
+    /** Return a null descriptor */
+    static vertex_descriptor null_vertex()
+    { return NULL; }
   };
   template <> struct graph_traits<sgb_const_graph_ptr> {
     typedef Vertex* vertex_descriptor;
@@ -107,6 +112,9 @@ namespace boost {
     typedef directed_tag directed_category;
     typedef sgb_traversal_tag traversal_category;
     typedef allow_parallel_edge_tag edge_parallel_category;
+    /** Return a null descriptor */
+    static vertex_descriptor null_vertex()
+    { return NULL; }
   };
 }
 
@@ -318,13 +326,15 @@ namespace boost {
   class sgb_vertex_util_map
     : public boost::put_get_helper<Ref, sgb_vertex_util_map<Tag, Ref> >
   {
+    Tag tag;
   public:
+    explicit sgb_vertex_util_map(Tag tag = Tag()): tag(tag) {}
     typedef boost::lvalue_property_map_tag category;
     typedef typename Tag::type value_type;
     typedef Vertex* key_type;
     typedef Ref reference;
     reference operator[](Vertex* v) const {
-      return get_util_field(v, Tag()); 
+      return get_util_field(v, tag); 
     }
   };
 
@@ -333,17 +343,18 @@ namespace boost {
   class sgb_edge_util_map
     : public boost::put_get_helper<Ref, sgb_edge_util_map<Tag, Ref> >
   {
+    Tag tag;
   public:
+    explicit sgb_edge_util_map(Tag tag = Tag()): tag(tag) {}
     typedef boost::lvalue_property_map_tag category;
     typedef typename Tag::type value_type;
     typedef Vertex* key_type;
     typedef Ref reference;
     reference operator[](const sgb_edge& e) const {
-      return get_util_field(e._arc, Tag()); 
+      return get_util_field(e._arc, tag); 
     }
   };
 
-#if !defined BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION  
 
   template <class Tag>
   inline sgb_vertex_util_map<Tag, const typename Tag::type&>
@@ -367,7 +378,6 @@ namespace boost {
     return sgb_edge_util_map<Tag, typename Tag::type&>();
   }
 
-#endif // ! BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
   // Edge Length Access
   template <class Ref>
@@ -440,7 +450,6 @@ namespace boost {
     typedef sgb_vertex_name_map const_type;
   };
 
-#if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)
 
   namespace detail {
     template <class Kind, class PropertyTag>
@@ -506,49 +515,6 @@ namespace boost {
     sgb_##KIND##_util_map< X##_property<T>, T&>()[key] = value; \
   }
 
-#else // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
-
-#define SGB_UTIL_ACCESSOR_TYPE(KIND,TAG,TYPE) \
-  inline sgb_##KIND##_util_map< TAG<TYPE>, TYPE& > \
-  get(TAG<TYPE>, sgb_graph_ptr&) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, TYPE& >(); \
-  } \
-  inline sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& > \
-  get(TAG<TYPE>, const sgb_graph_ptr&) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >(); \
-  } \
-  inline sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& > \
-  get(TAG<TYPE>, const sgb_const_graph_ptr&) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >(); \
-  } \
-  template <class Key> \
-  inline typename sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >::value_type \
-  get(TAG<TYPE>, const sgb_graph_ptr&, const Key& key) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >()[key]; \
-  } \
-  template <class Key> \
-  inline typename sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >::value_type \
-  get(TAG<TYPE>, const sgb_const_graph_ptr&, const Key& key) { \
-    return sgb_##KIND##_util_map< TAG<TYPE>, const TYPE& >()[key]; \
-  } \
-  template <class Key, class Value> \
-  inline  void \
-  put(TAG<TYPE>, sgb_graph_ptr&, const Key& key, const Value& value) { \
-    sgb_##KIND##_util_map< TAG<TYPE>, TYPE& >()[key] = value; \
-  } \
-  template <> struct property_map<sgb_graph_ptr, TAG<TYPE> > { \
-    typedef sgb_##KIND##_util_map< TAG<TYPE>, TYPE&> type; \
-    typedef sgb_##KIND##_util_map< TAG<TYPE>, const TYPE&> const_type; \
-  }
-
-#define SGB_UTIL_ACCESSOR(KIND,TAG) \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, Vertex*); \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, Arc*); \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, sgb_graph_ptr); \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, long); \
-  SGB_UTIL_ACCESSOR_TYPE(KIND, TAG##_property, char*);
-
-#endif // BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
   SGB_UTIL_ACCESSOR(vertex, u)
   SGB_UTIL_ACCESSOR(vertex, v)

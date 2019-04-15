@@ -13,6 +13,7 @@
 # include <boost/python/type_id.hpp>
 # include <boost/python/converter/registry.hpp>
 # include <boost/python/detail/void_ptr.hpp>
+# include <boost/python/detail/type_traits.hpp>
 
 namespace boost { namespace python {
 
@@ -35,7 +36,7 @@ namespace detail
   {
       static inline void* execute(PyObject* op)
       {
-          typedef typename boost::add_reference<U>::type param;
+          typedef typename add_lvalue_reference<U>::type param;
           return &Extractor::execute(
               boost::python::detail::void_ptr_to_reference(
                   op, (param(*)())0 )
@@ -63,7 +64,7 @@ struct extract_member
 {
     static MemberType& execute(InstanceType& c)
     {
-        (void)c.ob_type; // static assertion
+        (void)Py_TYPE(&c); // static assertion
         return c.*member;
     }
 };
@@ -75,7 +76,7 @@ struct extract_identity
 {
     static InstanceType& execute(InstanceType& c)
     {
-        (void)c.ob_type; // static assertion
+        (void)Py_TYPE(&c); // static assertion
         return c;
     }
 };

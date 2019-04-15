@@ -2,7 +2,7 @@
 #ifndef BOOST_MPL_FOR_EACH_HPP_INCLUDED
 #define BOOST_MPL_FOR_EACH_HPP_INCLUDED
 
-// Copyright Aleksey Gurtovoy 2000-2004
+// Copyright Aleksey Gurtovoy 2000-2008
 //
 // Distributed under the Boost Software License, Version 1.0. 
 // (See accompanying file LICENSE_1_0.txt or copy at 
@@ -10,16 +10,19 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Source$
-// $Date: 2004-09-03 21:33:47 -0400 (Fri, 03 Sep 2004) $
-// $Revision: 24897 $
+// $Id$
+// $Date$
+// $Revision$
 
+#include <boost/mpl/is_sequence.hpp>
 #include <boost/mpl/begin_end.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/next_prior.hpp>
 #include <boost/mpl/deref.hpp>
 #include <boost/mpl/identity.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/mpl/aux_/config/gpu.hpp>
 #include <boost/mpl/aux_/unwrap.hpp>
 
 #include <boost/type_traits/is_same.hpp>
@@ -38,6 +41,7 @@ struct for_each_impl
         , typename TransformFunc
         , typename F
         >
+    BOOST_MPL_CFG_GPU_ENABLED
     static void execute(
           Iterator*
         , LastIterator*
@@ -57,6 +61,7 @@ struct for_each_impl<false>
         , typename TransformFunc
         , typename F
         >
+    BOOST_MPL_CFG_GPU_ENABLED
     static void execute(
           Iterator*
         , LastIterator*
@@ -74,7 +79,7 @@ struct for_each_impl<false>
         
         typedef typename mpl::next<Iterator>::type iter;
         for_each_impl<boost::is_same<iter,LastIterator>::value>
-            ::execute((iter*)0, (LastIterator*)0, (TransformFunc*)0, f);
+            ::execute( static_cast<iter*>(0), static_cast<LastIterator*>(0), static_cast<TransformFunc*>(0), f);
     }
 };
 
@@ -87,24 +92,30 @@ template<
     , typename TransformOp
     , typename F
     >
+BOOST_MPL_CFG_GPU_ENABLED
 inline
 void for_each(F f, Sequence* = 0, TransformOp* = 0)
 {
+    BOOST_MPL_ASSERT(( is_sequence<Sequence> ));
+
     typedef typename begin<Sequence>::type first;
     typedef typename end<Sequence>::type last;
 
     aux::for_each_impl< boost::is_same<first,last>::value >
-        ::execute((first*)0, (last*)0, (TransformOp*)0, f);
+        ::execute(static_cast<first*>(0), static_cast<last*>(0), static_cast<TransformOp*>(0), f);
 }
 
 template<
       typename Sequence
     , typename F
     >
+BOOST_MPL_CFG_GPU_ENABLED
 inline
 void for_each(F f, Sequence* = 0)
 {
-    for_each<Sequence, identity<> >(f);
+  // jfalcou: fully qualifying this call so it doesnt clash with phoenix::for_each
+  // ons ome compilers -- done on 02/28/2011
+  boost::mpl::for_each<Sequence, identity<> >(f);
 }
 
 }}

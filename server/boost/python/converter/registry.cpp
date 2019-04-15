@@ -70,7 +70,12 @@ BOOST_PYTHON_DECL PyObject* registration::to_python(void const volatile* source)
     if (this->m_to_python == 0)
     {
         handle<> msg(
-            ::PyString_FromFormat(
+#if PY_VERSION_HEX >= 0x3000000
+            ::PyUnicode_FromFormat
+#else
+            ::PyString_FromFormat
+#endif
+            (
                 "No to_python (by-value) converter found for C++ type: %s"
                 , this->target_type.name()
                 )
@@ -238,7 +243,7 @@ namespace registry
   }
 
   // Insert an rvalue from_python converter
-  void insert(void* (*convertible)(PyObject*)
+  void insert(convertible_function convertible
               , constructor_function construct
               , type_info key
               , PyTypeObject const* (*exp_pytype)())
@@ -256,7 +261,7 @@ namespace registry
   }
 
   // Insert an rvalue from_python converter
-  void push_back(void* (*convertible)(PyObject*)
+  void push_back(convertible_function convertible
               , constructor_function construct
               , type_info key
               , PyTypeObject const* (*exp_pytype)())

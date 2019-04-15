@@ -8,9 +8,8 @@
 # include <boost/python/converter/constructor_function.hpp>
 # include <boost/python/detail/referent_storage.hpp>
 # include <boost/python/detail/destroy.hpp>
+# include <boost/python/detail/type_traits.hpp>
 # include <boost/static_assert.hpp>
-# include <boost/type_traits/add_reference.hpp>
-# include <boost/type_traits/add_cv.hpp>
 # include <cstddef>
 
 // Data management for potential rvalue conversions from Python to C++
@@ -78,7 +77,7 @@ struct rvalue_from_python_storage
 
     // Storage for the result, in case an rvalue must be constructed
     typename python::detail::referent_storage<
-        typename add_reference<T>::type
+        typename boost::python::detail::add_lvalue_reference<T>::type
     >::type storage;
 };
 
@@ -110,16 +109,17 @@ struct rvalue_from_python_data : rvalue_from_python_storage<T>
     // Destroys any object constructed in the storage.
     ~rvalue_from_python_data();
  private:
-    typedef typename add_reference<typename add_cv<T>::type>::type ref_type;
+    typedef typename boost::python::detail::add_lvalue_reference<
+                typename boost::python::detail::add_cv<T>::type>::type ref_type;
 };
 
 //
 // Implementataions
 //
 template <class T>
-inline rvalue_from_python_data<T>::rvalue_from_python_data(rvalue_from_python_stage1_data const& stage1)
+inline rvalue_from_python_data<T>::rvalue_from_python_data(rvalue_from_python_stage1_data const& _stage1)
 {
-    this->stage1 = stage1;
+    this->stage1 = _stage1;
 }
 
 template <class T>

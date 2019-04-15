@@ -2,13 +2,13 @@
 // Distributed under the Boost Software License, Version 1.0. (See
 // accompanying file LICENSE_1_0.txt or copy at
 // http://www.boost.org/LICENSE_1_0.txt)
-#ifndef TRANSLATE_EXCEPTION_DWA2002810_HPP
-# define TRANSLATE_EXCEPTION_DWA2002810_HPP
+#ifndef TRANSLATE_EXCEPTION_TDS20091020_HPP
+# define TRANSLATE_EXCEPTION_TDS20091020_HPP
 
 # include <boost/python/detail/exception_handler.hpp>
+# include <boost/python/detail/type_traits.hpp>
 
 # include <boost/call_traits.hpp>
-# include <boost/type_traits/add_const.hpp>
 
 # include <boost/function/function0.hpp>
 
@@ -31,7 +31,7 @@ struct translate_exception
         typename add_const<ExceptionType>::type
     >::type exception_non_ref;
 # else
-    typedef typename add_reference<
+    typedef typename add_lvalue_reference<
         typename add_const<ExceptionType>::type
     >::type exception_cref;
 # endif
