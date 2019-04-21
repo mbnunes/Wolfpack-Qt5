@@ -826,10 +826,9 @@ void cUOTxNewItemContent::addItem(P_ITEM pItem)
 void cUOTxNewItemContent::addItem(SERIAL serial, unsigned short id, unsigned short color, unsigned short x, unsigned short y, unsigned short amount, unsigned char gridLocation, unsigned int container)
 {
 	int offset = size();
-	resize(size() + 20);
+    resize(size() + 20);
 	setShort(1, size());
 	setShort(3, getShort(3) + 1);
-
 	setInt(offset, serial);
 	setShort(offset + 4, id);
 	(*this)[offset + 6] = 0;

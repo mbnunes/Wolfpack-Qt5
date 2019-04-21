@@ -798,7 +798,7 @@ void cPlayer::giveGold( quint32 amount, bool inBank )
 		total -= pile->amount();
 
 		pCont->addItem( pile );
-		if ( !pile->free )
+        if ( !pile->free )
 		{
 			pile->update();
 		}

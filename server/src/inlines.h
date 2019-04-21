@@ -93,7 +93,7 @@ inline bool isBeard( quint16 model )
 
 inline bool isNormalColor( quint16 color )
 {
-	return ( ( color >= 2 ) && ( color < 0x3ea ) ) ? true : false;
+    return ( ( color >= 0 ) && ( color < 0xffff ) ) ? true : false;
 }
 
 inline bool isSkinColor( quint16 color, bool race )

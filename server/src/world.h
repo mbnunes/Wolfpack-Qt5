@@ -175,11 +175,11 @@ typedef Singleton<cWorld> World;
 #define FindItemBySerial( serial ) World::instance()->findItem( serial )
 inline bool isItemSerial( SERIAL serial )
 {
-	return ( serial > 0x40000000 );
+    return ( serial > 0x40000000 );
 };
 inline bool isCharSerial( SERIAL serial )
 {
-	return ( serial < 0x40000000 );
+    return ( serial < 0x40000000 );
 };
 
 #endif

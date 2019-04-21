@@ -1,4 +1,4 @@
-/*
+﻿/*
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
@@ -104,7 +104,7 @@ const quint16 packetLengths[256] =
 		0x001c, 0x0000, 0x0005, 0x0002, 0x0000, 0x0023, 0x0010, 0x0011, // 0x70
 		0x0000, 0x0009, 0x0000, 0x0002, 0x0000, 0x000d, 0x0002, 0x0000, // 0x78
 		0x003e, 0x0000, 0x0002, 0x0027, 0x0045, 0x0002, 0x0000, 0x0000, // 0x80
-		0x0042, 0x0000, 0x0000, 0x0000, 0x000b, 0x0000, 0x0000, 0x0000, // 0x88
+        0x0042, 0x0000, 0x0000, 0x0000, 0x000b, 0x0092, 0x0000, 0x0000, // 0x88
 		0x0013, 0x0041, 0x0000, 0x0063, 0x0000, 0x0009, 0x0000, 0x0002, // 0x90
 		0x0000, 0x001a, 0x0000, 0x0102, 0x0135, 0x0033, 0x0000, 0x0000, // 0x98
 		0x0003, 0x0009, 0x0009, 0x0009, 0x0095, 0x0000, 0x0000, 0x0004, // 0xA0
@@ -361,15 +361,15 @@ void cUOSocket::buildPackets()
 			continue; // See if there's another packet waiting
 		}
 
-		break; // Didn't receive a complete packet yet
+        break; // Didn't  a complete packet yet
 	}
 }
 
 /*!
-  Tries to receive and dispatch a packet.
+  Tries to  and dispatch a packet.
 */
 void cUOSocket::receive()
-{	
+{	        
 	if ( !skippedUOHeader )
 	{
 		if (_socket->bytesAvailable() == 21 || _socket->bytesAvailable() == 83 )
@@ -396,7 +396,7 @@ void cUOSocket::receive()
 			}
 
 			// The 0x80 packet is 62 byte, but we want to have everything
-			QByteArray buf = _socket->readAll();
+			QByteArray buf = _socket->readAll();            
 			
 			// Check if it could be *not* encrypted
 			if ( buf[0] == '\xEF' || buf[21] == '\x80' || buf[0] == '\x80') {
@@ -435,7 +435,9 @@ void cUOSocket::receive()
 			}
 
 			QByteArray buf = _socket->readAll();
-			
+
+
+
 			// The 0x91 packet is 65 byte
 			// This should be no encryption
 			if ( buf[0] == '\x91' && buf[1] == '\xFF' && buf[2] == '\xFF' && buf[3] == '\xFF' && buf[4] == '\xFF' )
@@ -469,7 +471,7 @@ void cUOSocket::receive()
 
 	buildPackets();
 	while ( !incomingQueue.isEmpty() ) {
-		cUOPacket* packet = incomingQueue.dequeue();
+		cUOPacket* packet = incomingQueue.dequeue();       
 
 		if ( !packet )
 			return;
@@ -502,7 +504,7 @@ void cUOSocket::receive()
 		// Check for a list of packets that may be sent while no player has been selected
 		if ( !_player )
 		{
-			if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0xF8 && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xD9 && packetId != 0xEF)
+            if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0xF8 && packetId != 0x8D && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xD9 && packetId != 0xEF)
 			{
 				return;
 			}
@@ -556,6 +558,8 @@ void cUOSocket::receive()
 				return;
 			}
 		}
+
+        Console::instance()->log(LOG_WARNING, cUOPacket::dump(packet->uncompressed()) );
 
 		// Relay it to the handler functions
 		switch ( packetId )
@@ -683,6 +687,9 @@ void cUOSocket::receive()
 				break; // Completely ignore the packet.
 			case 0xBB:
 				break; // Completely ignore the packet.
+            case 0x8D:
+                handleCreateChar3D(static_cast<cUORxCreateCharacter3D*>( packet ));
+                break;
 			case 0xEF:
 				handleNewSetVersion( static_cast<cUORxNewSetVersion*>( packet ) );
 				isNewVersion = true;
@@ -1755,7 +1762,7 @@ void cUOSocket::handleCreateCharNew(cUORxCreateCharNew* packet)
 		break;
 	case 5: // Paladin
 		packet->setSkillId1(CHIVALRY);
-		packet->setSkillValue1(51);
+        packet->setSkillValue1(50);
 		packet->setSkillId2(SWORDSMANSHIP);
 		packet->setSkillValue2(49);
 		packet->setSkillId3(FOCUS);
@@ -1809,11 +1816,11 @@ void cUOSocket::handleCreateCharNew(cUORxCreateCharNew* packet)
 	}
 
 	// Check color for pants and shirt
-	if (!isNormalColor(packet->shirtColor()) || !isNormalColor(packet->pantsColor()))
-	{
-		log(tr("Submitted wrong shirt (%1) or pant (%2) color during char creation.\n").arg(packet->shirtColor()).arg(packet->pantsColor()));
-		cancelCreate(tr("Invalid shirt or pant color"))
-	}
+    if (!isNormalColor(packet->shirtColor()) || !isNormalColor(packet->pantsColor()))
+    {
+        log(tr("Submitted wrong shirt (%1) or pant (%2) color during char creation.\n").arg(packet->shirtColor()).arg(packet->pantsColor()));
+        cancelCreate(tr("Invalid shirt or pant color"))
+    }
 
 	// Check the start location
 	vector<StartLocation_st> startLocations = Config::instance()->startLocation();
@@ -1970,6 +1977,355 @@ void cUOSocket::handleCreateCharNew(cUORxCreateCharNew* packet)
 	pChar->onCreate(pChar->baseid()); // Call onCreate before onLogin
 	pChar->onLogin();
 	pChar->onConnect(false);
+#undef cancelCreate
+}
+
+
+/*
+This method handles Character create request New packet types.
+\sa cUORxCreateCharacter3D
+*/
+void cUOSocket::handleCreateChar3D(cUORxCreateCharacter3D* packet)
+{
+    // Processes a create character request
+    // Notes from Lord Binaries packet documentation:
+#define cancelCreate( message ) cUOTxDenyLogin denyLogin; denyLogin.setReason( cUOTxDenyLogin::DL_BADCOMMUNICATION ); send( &denyLogin ); sysMessage( message ); disconnect(); return;
+
+
+    // Several security checks
+    if (!_account)
+    {
+        this->_socket->close();
+        return;
+    }
+
+    QList<P_PLAYER> characters = _account->caracterList();
+
+    // If we have more than 6 characters
+    int maxChars = wpMin<int>(6, Config::instance()->maxCharsPerAccount());
+    if (Config::instance()->enableIndivNumberSlots())
+    {
+        maxChars = _account->charslots();
+    }
+    if (characters.size() >= maxChars)
+    {
+        cancelCreate(tr("You already have more than %1 characters").arg(maxChars))
+    }
+
+    // If another character in the account is still online (lingering)
+    foreach(P_PLAYER otherChar, characters)
+    {
+        if (otherChar->isOnline())
+        {
+            cUOTxMessageWarning message;
+            message.setReason(cUOTxMessageWarning::AlreadyInWorld);
+            send(&message);
+            return;
+        }
+    }
+
+    // Temporary Gender and Race (Just for initial Checks... but if Race is allowed in char class, it can be a lot more usefull)
+    bool tGender = true;		// Woman by default
+    int tRace;		// Human by Default
+    bool isHuman = true;
+    bool isElf = false;
+    bool isGargoyle = false;
+    int profession = packet->profession();
+
+    // The Gender (True to Woman, False to man)
+    if (packet->genderId() % 2 == 0)
+    {
+        tGender = false;			// Its a Man!
+    }
+
+    // Pickin the Race (True to human, False to Elf)
+    if (packet->raceId() == 1)
+    {
+        isHuman = true;			// Its a Human!
+        isElf = false;
+        isGargoyle = false;
+        tRace = static_cast<int>(HUMAN);
+    }
+    else if (packet->raceId() == 2)
+    {
+        isHuman = false;
+        isElf = true;			// Its a Elf!
+        isGargoyle = false;
+        tRace = static_cast<int>(ELF);
+    }
+    else
+    {
+        isHuman = false;
+        isElf = false;
+        isGargoyle = true;		// Its a Gargoyle!
+        tRace = static_cast<int>(GARGOYLE);
+    }
+
+    // Check the stats
+    quint16 statSum = (packet->strength() + packet->dexterity() + packet->intelligence());
+
+    // Every stat needs to be below 60 && the sum lower/equal than 80
+    if (statSum > 90 || (packet->strength() > 60) || (packet->dexterity() > 60) || (packet->intelligence() > 60))
+    {
+        log(tr("Submitted invalid stats during char creation (%1,%2,%3).\n").arg(packet->strength()).arg(packet->dexterity()).arg(packet->intelligence()));
+        cancelCreate(tr("Invalid Character stats"))
+    }
+
+    switch (profession)
+    {
+    case 1: // Warrior
+        packet->setSkillId1(SWORDSMANSHIP); // Swordsmanship
+        packet->setSkillValue1(30);
+        packet->setSkillId2(TACTICS); // Tactics
+        packet->setSkillValue2(50);
+        packet->setSkillId3(HEALING); // Healing
+        packet->setSkillValue3(45);
+        packet->setSkillId4(ANATOMY); // Anatomy
+        packet->setSkillValue4(30);
+        break;
+    case 2: // Mage
+        packet->setSkillId1(EVALUATINGINTEL);
+        packet->setSkillValue1(30);
+        packet->setSkillId2(WRESTLING);
+        packet->setSkillValue2(30);
+        packet->setSkillId3(MAGERY);
+        packet->setSkillValue3(50);
+        packet->setSkillId4(MEDITATION);
+        packet->setSkillValue4(50);
+        break;
+    case 3: // Blacksmith
+        packet->setSkillId1(MINING);
+        packet->setSkillValue1(30);
+        packet->setSkillId2(ARMSLORE);
+        packet->setSkillValue2(30);
+        packet->setSkillId3(BLACKSMITHING);
+        packet->setSkillValue3(50);
+        packet->setSkillId4(TINKERING);
+        packet->setSkillValue4(50);
+        break;
+    case 4: // Necromancer
+        packet->setSkillId1(NECROMANCY);
+        packet->setSkillValue1(50);
+        packet->setSkillId2(FOCUS);
+        packet->setSkillValue2(30);
+        packet->setSkillId3(SPIRITSPEAK);
+        packet->setSkillValue3(30);
+        packet->setSkillId4(SWORDSMANSHIP);
+        packet->setSkillValue4(30);
+        break;
+    case 5: // Paladin
+        packet->setSkillId1(CHIVALRY);
+        packet->setSkillValue1(50);
+        packet->setSkillId2(SWORDSMANSHIP);
+        packet->setSkillValue2(49);
+        packet->setSkillId3(FOCUS);
+        packet->setSkillValue3(30);
+        packet->setSkillId4(TACTICS);
+        packet->setSkillValue4(30);
+        break;
+    case 6: // Samurai
+        packet->setSkillId1(BUSHIDO);
+        packet->setSkillValue1(50);
+        packet->setSkillId2(SWORDSMANSHIP);
+        packet->setSkillValue2(50);
+        packet->setSkillId3(ANATOMY);
+        packet->setSkillValue3(30);
+        packet->setSkillId4(HEALING);
+        packet->setSkillValue4(30);
+        break;
+    case 7: // Ninja
+        packet->setSkillId1(NINJITSU);
+        packet->setSkillValue1(50);
+        packet->setSkillId2(HIDING);
+        packet->setSkillValue2(50);
+        packet->setSkillId3(FENCING);
+        packet->setSkillValue3(30);
+        packet->setSkillId4(STEALTH);
+        packet->setSkillValue4(30);
+        break;
+    default:
+        break;
+    }
+
+    // Check the skills
+    if ((packet->skillId1() >= ALLSKILLS) || (packet->skillValue1() > 55) || (packet->skillId2() >= ALLSKILLS) || (packet->skillValue2() > 50) || (packet->skillId3() >= ALLSKILLS) || (packet->skillValue3() > 50) || (packet->skillId4() >= ALLSKILLS) || (packet->skillValue4() > 50) || (packet->skillValue1() + packet->skillValue2() + packet->skillValue3() + packet->skillValue4() > 160))
+    {
+        log(tr("Submitted invalid skills during char creation (%1=%2,%3=%4,%5=%6,%7=%8).\n").arg(packet->skillId1()).arg(packet->skillValue1()).arg(packet->skillId2()).arg(packet->skillValue2()).arg(packet->skillId3()).arg(packet->skillValue3()).arg(packet->skillId4()).arg(packet->skillValue4()));
+        cancelCreate(tr("Invalid Character skills"))
+    }
+
+    // Check Hair
+    if (packet->hairStyle() && (!isHairsByRace(packet->hairStyle(), tRace) || !isHairsByRaceColor(packet->hairColor(), tRace)))
+    {
+        log(tr("Submitted wrong hair style (%1) or wrong hair color (%2) during char creation.\n").arg(packet->hairStyle()).arg(packet->hairColor()));
+        cancelCreate(tr("Invalid hair"))
+    }
+
+    // Check Beard
+    if (packet->beardStyle() && (!isBeard(packet->beardStyle()) || !isHairsByRaceColor(packet->beardColor(), tRace)))
+    {
+        log(tr("Submitted wrong beard style (%1) or wrong beard color (%2) during char creation.\n").arg(packet->beardStyle()).arg(packet->beardColor()));
+        cancelCreate(tr("Invalid beard"))
+    }
+
+    // Check color for pants and shirt
+    if (!isNormalColor(packet->shirtColor()) || !isNormalColor(packet->pantsColor()))
+    {
+        log(tr("Submitted wrong shirt (%1) or pant (%2) color during char creation.\n").arg(packet->shirtColor()).arg(packet->pantsColor()));
+        cancelCreate(tr("Invalid shirt or pant color"))
+    }
+
+    // Check the start location
+    vector<StartLocation_st> startLocations = Config::instance()->startLocation();
+
+    if (packet->startTown() >= startLocations.size())
+    {
+        log(tr("Submitted wrong starting location (%1) during char creation.\n").arg(packet->startTown()));
+        cancelCreate(tr("Invalid start location"))
+    }
+
+    // Finally check the skin
+    if (!isSkinColor(packet->skinColor(), tRace))
+    {
+        log(tr("Submitted a wrong skin color (%1) during char creation.\n").arg(packet->skinColor()));
+        cancelCreate(tr("Invalid skin color"))
+    }
+
+    // FINALLY create the char
+    P_PLAYER pChar = new cPlayer;
+    pChar->Init();
+
+    pChar->setGender(tGender);	// It will retrieve just the Gender
+
+                                // It will set the Race for Elves if its an Elf
+    if (packet->raceId() == 2)
+    {
+        pChar->setElf(1);
+    }
+    else if (packet->raceId() == 3)
+    {
+        pChar->setGargoyle(1);
+    }
+
+
+    // Gender (Instead of be a Human or an Elf)
+    const cElement* playerDefinition = 0;
+    if (tGender)
+    {
+        pChar->setBaseid("player_female");
+        playerDefinition = Definitions::instance()->getDefinition(WPDT_NPC, "player_female");
+    }
+    else
+    {
+        pChar->setBaseid("player_male");
+        playerDefinition = Definitions::instance()->getDefinition(WPDT_NPC, "player_male");
+    }
+
+    if (playerDefinition)
+        pChar->applyDefinition(playerDefinition);
+
+    pChar->setName(packet->name());
+    pChar->setOrgName(packet->name());
+
+    pChar->setSkin(packet->skinColor());
+
+    pChar->setOrgSkin(packet->skinColor());
+
+    // Now... lets check the bodies for Humans and Elves
+    if (isHuman == true && isElf == false && isGargoyle == false)	// Its a Human
+    {
+        pChar->setBody((tGender) ? 0x191 : 0x190);
+    }
+    else if (isHuman == false && isElf == true && isGargoyle == false) // Its a Elf
+    {
+        pChar->setBody((tGender) ? 0x25e : 0x25d);
+    }
+    else // Its a Gargoyle
+    {
+        pChar->setBody((tGender) ? 0x29a : 0x29b);
+    }
+
+    pChar->setOrgBody(pChar->body());
+
+    pChar->moveTo(startLocations[packet->startTown()].pos);
+    pChar->setDirection(4);
+
+    pChar->setStrength(packet->strength());
+    pChar->setHitpoints(pChar->strength());
+    pChar->setMaxHitpoints(pChar->strength());
+
+    pChar->setDexterity(packet->dexterity());
+    pChar->setStamina(pChar->dexterity());
+    pChar->setMaxStamina(pChar->dexterity());
+
+    pChar->setIntelligence(packet->intelligence());
+    pChar->setMana(pChar->intelligence());
+    pChar->setMaxMana(pChar->intelligence());
+
+    pChar->setSkillValue(packet->skillId1(), packet->skillValue1() * 10);
+    pChar->setSkillValue(packet->skillId2(), packet->skillValue2() * 10);
+    pChar->setSkillValue(packet->skillId3(), packet->skillValue3() * 10);
+    pChar->setSkillValue(packet->skillId4(), packet->skillValue4() * 10);
+
+    // Create the char equipment (shirt, paint, hair and beard only)
+    P_ITEM pItem;
+
+    // Shirt
+    pItem = cItem::createFromScript("1517");
+    pItem->setColor(packet->shirtColor());
+    pItem->setNewbie(true);
+    pChar->addItem(cBaseChar::Shirt, pItem);
+
+    // Skirt or Pants
+    pItem = cItem::createFromScript((tGender) ? "1516" : "152e");
+    pItem->setColor(packet->pantsColor());
+    pItem->setNewbie(true);
+    pChar->addItem(cBaseChar::Pants, pItem);
+
+    // Hair & Beard
+    if (packet->hairStyle())
+    {
+        if (!isGargoyle)
+        {
+            pItem = cItem::createFromScript(QString("%1").arg(packet->hairStyle(), 0, 16));
+            pItem->setNewbie(true);
+            pItem->setColor(packet->hairColor());
+            pChar->addItem(cBaseChar::Hair, pItem);
+        }
+
+    }
+
+    if (packet->beardStyle())
+    {
+        pItem = cItem::createFromScript(QString("%1").arg(packet->beardStyle(), 0, 16));
+        pItem->setNewbie(true);
+        pItem->setColor(packet->beardColor());
+        pChar->addItem(cBaseChar::FacialHair, pItem);
+    }
+
+    // Automatically create Backpack + Bankbox
+    pChar->getBankbox();
+    pChar->getBackpack();
+
+    pChar->setAccount(_account);
+
+    pChar->giveNewbieItems(packet->skillId1());
+    pChar->giveNewbieItems(packet->skillId2());
+    pChar->giveNewbieItems(packet->skillId3());
+    pChar->giveNewbieItems(packet->skillId4());
+
+    log(LOG_MESSAGE, tr("Client '%1', account '%2', created character '%3' (serial=0x%4).\n"
+    ).arg(_ip
+    ).arg(pChar->account()->login()
+    ).arg(pChar->name()
+    ).arg(pChar->serial(), 0, 16)
+    );
+
+    // Start the game with the newly created char -- OR RELAY HIM !!
+    playChar(pChar);
+    pChar->onCreate(pChar->baseid()); // Call onCreate before onLogin
+    pChar->onLogin();
+    pChar->onConnect(false);
 #undef cancelCreate
 }
 
@@ -2873,6 +3229,8 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	switch ( pCont->id() )
 	{
 		case 0x0E75: // Backpack
+            gump = 0x3C;
+            break;
 		case 0x0E79: // Box/Pouch
 			gump = 0x3C;
 			break;
@@ -3086,42 +3444,42 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		gump = 0x4A;
 	}
 
-	// Draw the container - New Client Version
-	cUOTxNewDrawContainer dContainer;
-	dContainer.setSerial( pCont->serial() );
-	dContainer.setGump( gump );
-	dContainer.setType( 0x7D ); //Containers
-	send( &dContainer );
+    // Draw the container - New Client Version
+    cUOTxNewDrawContainer dContainer;
+    dContainer.setSerial( pCont->serial() );
+    dContainer.setGump( gump );
+    dContainer.setType( 0x7D ); //Containers
+    send( &dContainer );
 
 	// Add all items to the container
 	//Old Client- cUOTxItemContent itemContent;
-	cUOTxNewItemContent itemContent;
-	qint32 count = 0;
+    cUOTxNewItemContent itemContent;
+    qint32 count = 0;
 
-	QList<cItem*> tooltipItems;
+    QList<cItem*> tooltipItems;
 
-	for ( ContainerIterator it( pCont ); !it.atEnd(); ++it )
-	{
-		P_ITEM pItem = *it;
+    for ( ContainerIterator it( pCont ); !it.atEnd(); ++it )
+    {
+        P_ITEM pItem = *it;
 
-		if ( !pItem || !canSee( pItem ) )
-			continue;
+        if ( !pItem || !canSee( pItem ) )
+            continue;
 
-		itemContent.addItem( pItem );
-		tooltipItems.append( pItem );
-		++count;
-	}
+        itemContent.addItem( pItem );
+        tooltipItems.append( pItem );
+        ++count;
+    }
 
-	// Only send if there is content
-	if ( count )
-	{
-		send( &itemContent );
+    // Only send if there is content
+    if ( count )
+    {
+        send( &itemContent );
 
-		foreach ( P_ITEM pItem, tooltipItems )
-		{
-			pItem->sendTooltip( this );
-		}
-	}
+        foreach ( P_ITEM pItem, tooltipItems )
+        {
+//			pItem->sendTooltip( this );
+        }
+    }
 }
 
 void cUOSocket::removeObject( cUObject* object )

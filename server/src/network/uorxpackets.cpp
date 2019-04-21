@@ -28,6 +28,7 @@
 #include "uorxpackets.h"
 #include "uopacket.h"
 #include <math.h>
+#include <QDebug>
 
 using namespace std;
 
@@ -89,6 +90,8 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 		return new cUORxLoginRequest( data );
 	case 0x83:
 		return new cUORxDeleteCharacter( data );
+    case 0x8D:
+        return new cUORxCreateCharacter3D( data );
 	case 0x91:
 		return new cUORxServerAttach( data );
 	case 0x98:
@@ -123,8 +126,8 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 		return new cUORxNewSetVersion(data);
 	case 0xF8:
 		return new cUORxCreateCharNew(data);
-	default:
-		return new cUOPacket( data );
+	default:        
+        return new cUOPacket( data );
 	};
 }
 

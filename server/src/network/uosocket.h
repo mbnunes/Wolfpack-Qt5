@@ -299,6 +299,7 @@ private:
 	void handleDeleteCharacter( cUORxDeleteCharacter* packet );
 	void handlePlayCharacter( cUORxPlayCharacter* packet );
 	void handleCreateCharNew(cUORxCreateCharNew* packet);
+    void handleCreateChar3D(cUORxCreateCharacter3D* packet);
 	void handleCreateCharOld(cUORxCreateChar* packet);
 	void handleUpdateRange( cUORxUpdateRange* packet );
 	void handleQuery( cUORxQuery* packet );
