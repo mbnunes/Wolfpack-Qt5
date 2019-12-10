@@ -69,10 +69,10 @@
 
 	\code
 		cVariant val;
-		if( PyString_Check( value ) )
-			val = cVariant( PyString_AsString( value ) );
-		else if( PyInt_Check( value ) )
-			val = cVariant( PyInt_AsLong( value ) );
+		if( PyUnicode_Check( value ) )
+			val = cVariant( PyUnicode_AsUTF8( value ) );
+		else if( PyLong_Check( value ) )
+			val = cVariant( PyLong_AsLong( value ) );
 		else if( checkWpItem( value ) )
 			val = cVariant( getWpItem( value ) );
 		else if( checkWpChar( value ) )

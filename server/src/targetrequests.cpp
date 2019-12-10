@@ -136,7 +136,7 @@ bool cShowTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 	}
 	else
 	{
-		if ( PyUnicode_Check( result ) || PyString_Check( result ) )
+		if ( PyUnicode_Check( result ) || PyUnicode_Check( result ) )
 		{
 			socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( boost::python::extract<QString>( result ) ) );
 		}

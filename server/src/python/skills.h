@@ -63,25 +63,25 @@ Py_ssize_t wpSkills_length( PyObject* self )
 PyObject* wpSkills_get( wpSkills* self, int skill )
 {
 	if ( !self->pChar || self->pChar->free || skill >= ALLSKILLS )
-		return PyInt_FromLong( -1 );
+		return PyLong_FromLong( -1 );
 
 	if ( self->type == 0 )
-		return PyInt_FromLong( self->pChar->skillValue( skill ) );
+		return PyLong_FromLong( self->pChar->skillValue( skill ) );
 	else if ( self->type == 1 )
-		return PyInt_FromLong( self->pChar->skillCap( skill ) );
+		return PyLong_FromLong( self->pChar->skillCap( skill ) );
 	else
-		return PyInt_FromLong( self->pChar->skillLock( skill ) );
+		return PyLong_FromLong( self->pChar->skillLock( skill ) );
 }
 
 PyObject* wpSkills_set( wpSkills* self, int skill, PyObject* pValue )
 {
-	if ( !self->pChar || self->pChar->free || skill >= ALLSKILLS || !PyInt_Check( pValue ) )
+	if ( !self->pChar || self->pChar->free || skill >= ALLSKILLS || !PyLong_Check( pValue ) )
 	{
 		PyErr_BadArgument();
 		return 0;
 	}
 
-	quint16 value = PyInt_AsLong( pValue );
+	quint16 value = PyLong_AsLong( pValue );
 
 	if ( self->type == 0 )
 		self->pChar->setSkillValue( skill, value );
@@ -116,44 +116,44 @@ wpSkills_length,
 
 static PyTypeObject wpSkillsType =
 {
-PyObject_HEAD_INIT( NULL )
-0,
-"wpSkills",
-sizeof( wpSkillsType ),
-0,
-wpDealloc,
-0,
-0,
-0,
-0,
-0,
-0,& wpSkillsSequence,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,0,0,
-0,0,0,
-0,0,0,
+    PyObject_HEAD_INIT( NULL )
+    0,
+    "wpSkills",
+    sizeof( wpSkillsType ),
+    0,
+    wpDealloc,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,& wpSkillsSequence,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,0,0,
+    0,0,0,
+    0,0,0,
 };

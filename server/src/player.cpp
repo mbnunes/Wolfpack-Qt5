@@ -1281,8 +1281,8 @@ int cPlayer::onStepChar( P_CHAR pChar )
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				retvalue = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				retvalue = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -1304,8 +1304,8 @@ int cPlayer::onStepWeightPercent( int percent, bool mounted, bool running )
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				retvalue = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				retvalue = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -1324,9 +1324,9 @@ int cPlayer::onBuy( P_CHAR pVendor, P_ITEM pItem, int amount )
 		PyObject *result = callEvent( EVENT_BUY, args );
 		if ( result )
 		{
-			if ( PyInt_CheckExact( result ) )
+			if ( PyLong_CheckExact( result ) )
 			{
-				amount = PyInt_AsLong( result );
+				amount = PyLong_AsLong( result );
 			}
 			else if ( PyLong_CheckExact( result ) )
 			{

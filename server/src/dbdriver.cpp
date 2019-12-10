@@ -109,7 +109,7 @@ static PyObject* wpDbResult_getint( wpDbResult* self, PyObject* args )
 	{
 		return 0;
 	}
-	return PyInt_FromLong( self->result.value( pos ).toInt() );
+	return PyLong_FromLong( self->result.value( pos ).toInt() );
 }
 
 /*
@@ -144,7 +144,7 @@ static PyMethodDef wpDbResultMethods[] =
 
 static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name )
 {
-	return Py_FindMethod( wpDbResultMethods, ( PyObject * ) self, name );
+	return PyAsyncMethods( wpDbResultMethods, ( PyObject * ) self, name );
 }
 
 PyObject* getPyObjectFromQSqlQuery( QSqlQuery& t )

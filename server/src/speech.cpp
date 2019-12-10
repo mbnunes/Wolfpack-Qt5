@@ -144,7 +144,7 @@ bool Speech::response( cUOSocket* /*socket*/, P_PLAYER pPlayer, const QString& c
 
 			// Set Items
 			for ( int i = 0; i < keywords.size(); ++i )
-				PyTuple_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
+				PyTuple_SetItem( pkeywords, i, PyLong_FromLong( keywords[i] ) );
 
 			PyObject* args = Py_BuildValue( "(NNNO)", pItem->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
 
@@ -177,7 +177,7 @@ bool Speech::response( cUOSocket* /*socket*/, P_PLAYER pPlayer, const QString& c
 
 			// Set Items
 			for ( int i = 0; i < keywords.size(); ++i )
-				PyTuple_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
+				PyTuple_SetItem( pkeywords, i, PyLong_FromLong( keywords[i] ) );
 
 			PyObject* args = Py_BuildValue( "(NNNO)", pNpc->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
 

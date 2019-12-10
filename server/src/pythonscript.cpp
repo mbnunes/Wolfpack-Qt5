@@ -1163,9 +1163,9 @@ bool cPythonScriptable::convertPyObject( PyObject* object, P_CHAR& pChar )
 		pChar = 0;
 		return true;
 	}
-	else if ( PyInt_Check( object ) )
+	else if ( PyLong_Check( object ) )
 	{
-		pChar = World::instance()->findChar( PyInt_AsLong( object ) );
+		pChar = World::instance()->findChar( PyLong_AsLong( object ) );
 		return true;
 	}
 	return false;

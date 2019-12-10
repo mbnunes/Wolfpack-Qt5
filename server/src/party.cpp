@@ -601,7 +601,7 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 		return list;
 	}
 
-	return Py_FindMethod( wpPartyMethods, ( PyObject * ) self, name );
+	return PyAsyncMethods( wpPartyMethods, ( PyObject * ) self, name );
 }
 
 static int wpParty_setAttr( wpParty* self, char* name, PyObject* value )

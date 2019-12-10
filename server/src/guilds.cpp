@@ -585,9 +585,9 @@ PyObject* wpGuild_setmemberinfo( wpGuild* self, PyObject* args )
 	PyObject* joined = PyDict_GetItemString( dict, "joined" );
 	if ( joined )
 	{
-		if ( PyInt_Check( joined ) )
+        if ( PyLong_Check( joined ) )
 		{
-			info->setJoined( ( unsigned int ) PyInt_AsLong( joined ) );
+            info->setJoined( ( unsigned int ) PyLong_AsLong( joined ) );
 		}
 		else if ( PyLong_Check( joined ) )
 		{
@@ -627,8 +627,8 @@ PyObject* wpGuild_getmemberinfo( wpGuild* self, PyObject* args )
 
 	// Return a dictionary with three elements
 	PyObject* result = PyDict_New();
-	PyDict_SetStolenItem( result, "showsign", PyInt_FromLong( info->showSign() ? 1 : 0 ) );
-	PyDict_SetStolenItem( result, "joined", PyInt_FromLong( info->joined() ) );
+    PyDict_SetStolenItem( result, "showsign", PyLong_FromLong( info->showSign() ? 1 : 0 ) );
+    PyDict_SetStolenItem( result, "joined", PyLong_FromLong( info->joined() ) );
 	PyDict_SetStolenItem( result, "guildtitle", QString2Python( info->guildTitle() ) );
 	return result;
 }
@@ -885,7 +885,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "alignment" ) )
 	{
-		return PyInt_FromLong( self->guild->alignment() );
+        return PyLong_FromLong( self->guild->alignment() );
 	}
 	/*
 		\property guild.serial This is the unique integer id for this guild. It can be used to
@@ -893,14 +893,14 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "serial" ) )
 	{
-		return PyInt_FromLong( self->guild->serial() );
+        return PyLong_FromLong( self->guild->serial() );
 	}
 	/*
 		\property guild.founded This property is a UNIX timestamp indicating when this guild was founded.
 	*/
 	else if ( !strcmp( name, "founded" ) )
 	{
-		return PyInt_FromLong( self->guild->founded().toTime_t() );
+        return PyLong_FromLong( self->guild->founded().toTime_t() );
 	}
 	/*
 		\rproperty guild.allies A tuple of serials of guilds that are allied with this guild.
@@ -967,7 +967,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 		}
 	}
 
-	return Py_FindMethod( wpGuildMethods, ( PyObject * ) self, name );
+	return PyAsyncMethods( wpGuildMethods, ( PyObject * ) self, name );
 }
 
 static int wpGuild_setAttr( wpGuild* self, char* name, PyObject* value )
@@ -1006,17 +1006,17 @@ static int wpGuild_setAttr( wpGuild* self, char* name, PyObject* value )
 	}
 	else if ( !strcmp( name, "alignment" ) )
 	{
-		if ( PyInt_Check( value ) )
+        if ( PyLong_Check( value ) )
 		{
-			self->guild->setAlignment( ( cGuild::eAlignment ) PyInt_AsLong( value ) );
+            self->guild->setAlignment( ( cGuild::eAlignment ) PyLong_AsLong( value ) );
 		}
 	}
 	else if ( !strcmp( name, "founded" ) )
 	{
-		if ( PyInt_Check( value ) )
+        if ( PyLong_Check( value ) )
 		{
 			QDateTime founded;
-			founded.setTime_t( PyInt_AsLong( value ) );
+            founded.setTime_t( PyLong_AsLong( value ) );
 			self->guild->setFounded( founded );
 		}
 		else if ( PyFloat_Check( value ) )

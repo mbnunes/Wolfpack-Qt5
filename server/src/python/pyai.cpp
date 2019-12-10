@@ -156,7 +156,7 @@ static PyMethodDef wpAIMethods[] =
 static PyObject* wpAI_getAttr( wpAI* self, char* name )
 {
 	// Special Python things
-	return Py_FindMethod( wpAIMethods, ( PyObject * ) self, name );
+	return PyAsyncMethods( wpAIMethods, ( PyObject * ) self, name );
 }
 
 static int wpAI_setAttr( wpAI* self, char* name, PyObject* value )

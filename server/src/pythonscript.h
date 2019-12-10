@@ -315,7 +315,7 @@ public:
 
 	inline PyObject* createPyObject( int value )
 	{
-		return PyInt_FromLong( value );
+		return PyLong_FromLong( value );
 	}
 
 	inline PyObject* createPyObject( bool value )
@@ -337,7 +337,7 @@ public:
 
 	inline PyObject* createPyObject( unsigned int value )
 	{
-		return PyInt_FromLong( value );
+		return PyLong_FromLong( value );
 	}
 
 	inline PyObject* createPyObject( const QByteArray& value )

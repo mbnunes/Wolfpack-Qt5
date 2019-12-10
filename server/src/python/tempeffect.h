@@ -168,12 +168,12 @@ public:
 		{
 			PyObject *object = PyTuple_GetItem( args, i );
 
-			if ( PyInt_Check( object ) )
+			if ( PyLong_Check( object ) )
 			{
 				int value = boost::python::extract<int>( object );
 				cVariant( value ).serialize( writer, version );
 			}
-			else if ( PyString_Check( object ) || PyUnicode_Check( object ) )
+			else if ( PyUnicode_Check( object ) || PyUnicode_Check( object ) )
 			{
 				QString value = boost::python::extract<QString>( object );
 				cVariant( value ).serialize( writer, version );
@@ -221,7 +221,7 @@ public:
 			{
 			case cVariant::LongType:
 			case cVariant::IntType:
-				object = PyInt_FromLong( variant.asInt() );
+				object = PyLong_FromLong( variant.asInt() );
 				break;
 
 			case cVariant::StringType:
@@ -269,13 +269,13 @@ public:
 		{
 			PyObject* object = PyTuple_GetItem( args, i );
 			QString name = "pyarg_" + QString::number( i );
-			if ( PyInt_Check( object ) )
+			if ( PyLong_Check( object ) )
 			{
-				saveInt( id, name, ( int ) PyInt_AsLong( object ) );
+				saveInt( id, name, ( int ) PyLong_AsLong( object ) );
 			}
-			else if ( PyString_Check( object ) )
+			else if ( PyUnicode_Check( object ) )
 			{
-				saveString( id, name, PyString_AsString( object ) );
+				saveString( id, name, PyUnicode_AsUTF8( object ) );
 			}
 			else if ( PyFloat_Check( object ) )
 			{
@@ -324,11 +324,11 @@ public:
 
 			if ( type == "string" )
 			{
-				PyTuple_SetItem( args, id, PyString_FromString( value.toLatin1() ) );
+				PyTuple_SetItem( args, id, PyUnicode_FromString( value.toLatin1() ) );
 			}
 			else if ( type == "int" )
 			{
-				PyTuple_SetItem( args, id, PyInt_FromLong( value.toInt() ) );
+				PyTuple_SetItem( args, id, PyLong_FromLong( value.toInt() ) );
 			}
 			else if ( type == "float" )
 			{

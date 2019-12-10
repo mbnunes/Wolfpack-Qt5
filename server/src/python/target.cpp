@@ -47,7 +47,7 @@ static PyObject* wpTarget_getAttr( wpTarget* self, char* name )
 	*/
 	else if ( !strcmp( name, "model" ) )
 	{
-		return PyInt_FromLong( self->model );
+		return PyLong_FromLong( self->model );
 	}
 	/*
 		\rproperty target.item If a valid item has been targetted, this property contains an <object id="item">item</object> object for the targetted item.

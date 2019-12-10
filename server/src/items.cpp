@@ -705,9 +705,9 @@ int cItem::onBuy( P_CHAR pVendor, P_CHAR pChar, int amount )
 		PyObject *result = callEvent( EVENT_BUY, args );
 		if ( result )
 		{
-			if ( PyInt_CheckExact( result ) )
+			if ( PyLong_CheckExact( result ) )
 			{
-				amount = PyInt_AsLong( result );
+				amount = PyLong_AsLong( result );
 			}
 			else if ( PyLong_CheckExact( result ) )
 			{
@@ -2770,9 +2770,9 @@ unsigned int cItem::getSellPrice( P_CHAR pVendor, P_CHAR player )
 		PyObject *result = callEvent( EVENT_GETSELLPRICE, args );
 		if ( result )
 		{
-			if ( PyInt_CheckExact( result ) )
+			if ( PyLong_CheckExact( result ) )
 			{
-				sellprice = PyInt_AsLong( result );
+				sellprice = PyLong_AsLong( result );
 				fromItem = true;
 			}
 			else if ( PyLong_CheckExact( result ) )
@@ -2789,9 +2789,9 @@ unsigned int cItem::getSellPrice( P_CHAR pVendor, P_CHAR player )
 		PyObject *result = pVendor->callEvent( EVENT_GETSELLPRICE, args );
 		if ( result )
 		{
-			if ( PyInt_CheckExact( result ) )
+			if ( PyLong_CheckExact( result ) )
 			{
-				sellprice = PyInt_AsLong( result );
+				sellprice = PyLong_AsLong( result );
 				fromItem = true;
 			}
 			else if ( PyLong_CheckExact( result ) )
@@ -2826,9 +2826,9 @@ unsigned int cItem::getBuyPrice( P_CHAR pVendor, P_CHAR player )
 		PyObject *result = callEvent( EVENT_GETBUYPRICE, args );
 		if ( result )
 		{
-			if ( PyInt_CheckExact( result ) )
+			if ( PyLong_CheckExact( result ) )
 			{
-				buyprice = PyInt_AsLong( result );
+				buyprice = PyLong_AsLong( result );
 				fromItem = true;
 			}
 			else if ( PyLong_CheckExact( result ) )
@@ -2845,9 +2845,9 @@ unsigned int cItem::getBuyPrice( P_CHAR pVendor, P_CHAR player )
 		PyObject *result = pVendor->callEvent( EVENT_GETBUYPRICE, args );
 		if ( result )
 		{
-			if ( PyInt_CheckExact( result ) )
+			if ( PyLong_CheckExact( result ) )
 			{
-				buyprice = PyInt_AsLong( result );
+				buyprice = PyLong_AsLong( result );
 				fromItem = true;
 			}
 			else if ( PyLong_CheckExact( result ) )

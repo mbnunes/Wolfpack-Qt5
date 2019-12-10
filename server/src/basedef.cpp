@@ -931,7 +931,7 @@ static PyObject* wpBasedef_getAttr( wpBasedef* self, char* name )
 		return result;
 	}
 
-	return Py_FindMethod( wpBasedefMethods, ( PyObject * ) self, name );
+	return PyAsyncMethods( wpBasedefMethods, ( PyObject * ) self, name );
 }
 
 static int wpBasedef_compare( PyObject* a, PyObject* b )

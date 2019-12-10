@@ -574,11 +574,11 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 		// 4. The z position of the static item.
 		// 5. The color of the static item.
 		PyObject* item = PyTuple_New(5);
-        PyTuple_SetItem(item, 0, PyInt_FromLong( iter->itemid ) );
-		PyTuple_SetItem(item, 1, PyInt_FromLong( xBlockStart + iter->xoff ) );
-		PyTuple_SetItem(item, 2, PyInt_FromLong( yBlockStart + iter->yoff ) );
-		PyTuple_SetItem(item, 3, PyInt_FromLong( iter->zoff ) );
-		PyTuple_SetItem(item, 4, PyInt_FromLong( iter->color ) );
+        PyTuple_SetItem(item, 0, PyLong_FromLong( iter->itemid ) );
+		PyTuple_SetItem(item, 1, PyLong_FromLong( xBlockStart + iter->xoff ) );
+		PyTuple_SetItem(item, 2, PyLong_FromLong( yBlockStart + iter->yoff ) );
+		PyTuple_SetItem(item, 3, PyLong_FromLong( iter->zoff ) );
+		PyTuple_SetItem(item, 4, PyLong_FromLong( iter->color ) );
 		PyTuple_SetItem(tuple, i, item );
 	}
 
@@ -877,8 +877,8 @@ static PyObject* wpMap( PyObject* self, PyObject* args )
 	map_st mTile = Maps::instance()->seekMap( Coord( x, y, 0, map ) );
 
 	PyObject* dict = PyDict_New();
-	PyDict_SetStolenItem( dict, "id", PyInt_FromLong( mTile.id ) );
-	PyDict_SetStolenItem( dict, "z", PyInt_FromLong( mTile.z ) );
+	PyDict_SetStolenItem( dict, "id", PyLong_FromLong( mTile.id ) );
+	PyDict_SetStolenItem( dict, "z", PyLong_FromLong( mTile.z ) );
 	return dict;
 }
 
@@ -922,33 +922,33 @@ static PyObject* wpLanddata( PyObject* self, PyObject* args )
 	land_st tile = TileCache::instance()->getLand( tileid );
 
 	PyObject* dict = PyDict_New();
-	PyDict_SetStolenItem( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
-	PyDict_SetStolenItem( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
-	PyDict_SetStolenItem(dict, "name", PyString_FromString(tile.name));
-	PyDict_SetStolenItem(dict, "flag1", PyInt_FromLong(tile.flag1));
-	PyDict_SetStolenItem(dict, "flag2", PyInt_FromLong(tile.flag2));
-	PyDict_SetStolenItem(dict, "flag3", PyInt_FromLong(tile.flag3));
-	PyDict_SetStolenItem(dict, "flag4", PyInt_FromLong(tile.flag4));
+	PyDict_SetStolenItem( dict, "unknown1", PyLong_FromLong( tile.unknown1 ) );
+	PyDict_SetStolenItem( dict, "unknown2", PyLong_FromLong( tile.unknown2 ) );
+	PyDict_SetStolenItem(dict, "name", PyUnicode_FromString(tile.name));
+	PyDict_SetStolenItem(dict, "flag1", PyLong_FromLong(tile.flag1));
+	PyDict_SetStolenItem(dict, "flag2", PyLong_FromLong(tile.flag2));
+	PyDict_SetStolenItem(dict, "flag3", PyLong_FromLong(tile.flag3));
+	PyDict_SetStolenItem(dict, "flag4", PyLong_FromLong(tile.flag4));
 	//New Client Version - Begin
-	PyDict_SetStolenItem(dict, "flag5", PyInt_FromLong(tile.flag5));
-	PyDict_SetStolenItem(dict, "flag6", PyInt_FromLong(tile.flag6));
-	PyDict_SetStolenItem(dict, "flag7", PyInt_FromLong(tile.flag7));
-	PyDict_SetStolenItem(dict, "flag8", PyInt_FromLong(tile.flag8));
+	PyDict_SetStolenItem(dict, "flag5", PyLong_FromLong(tile.flag5));
+	PyDict_SetStolenItem(dict, "flag6", PyLong_FromLong(tile.flag6));
+	PyDict_SetStolenItem(dict, "flag7", PyLong_FromLong(tile.flag7));
+	PyDict_SetStolenItem(dict, "flag8", PyLong_FromLong(tile.flag8));
 	//New Client Version - End
-	PyDict_SetStolenItem(dict, "wet", PyInt_FromLong(tile.isWet()));
-	PyDict_SetStolenItem(dict, "blocking", PyInt_FromLong(tile.isBlocking()));
-	PyDict_SetStolenItem(dict, "floor", PyInt_FromLong(tile.isRoofOrFloorTile()));
+	PyDict_SetStolenItem(dict, "wet", PyLong_FromLong(tile.isWet()));
+	PyDict_SetStolenItem(dict, "blocking", PyLong_FromLong(tile.isBlocking()));
+	PyDict_SetStolenItem(dict, "floor", PyLong_FromLong(tile.isRoofOrFloorTile()));
 
 	//Old Client Version
 	//QString flags = getFlagNames( tile.flag1, tile.flag2, tile.flag3, tile.flag4).join( "," );
 	QString flags = getFlagNames( tile.flag1, tile.flag2, tile.flag3, tile.flag4, tile.flag5, tile.flag6, tile.flag7, tile.flag8).join( "," );
 	if ( flags.isNull() )
 	{
-		PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( "" ) );
+		PyDict_SetStolenItem( dict, "flagnames", PyUnicode_FromString( "" ) );
 	}
 	else
 	{
-		PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( flags.toLatin1() ) );
+		PyDict_SetStolenItem( dict, "flagnames", PyUnicode_FromString( flags.toLatin1() ) );
 	}
 
 	return dict;
@@ -997,69 +997,69 @@ static PyObject* wpTiledata( PyObject* self, PyObject* args )
 	// test if item is defined
 	if ( !strlen( tile.name ) )
 	{
-		PyDict_SetStolenItem( dict, "name", PyString_FromString( "unknown" ) );
-		PyDict_SetStolenItem( dict, "flag1", PyInt_FromLong( 0 ) );
-		PyDict_SetStolenItem( dict, "flag2", PyInt_FromLong( 0 ) );
-		PyDict_SetStolenItem( dict, "flag3", PyInt_FromLong( 0 ) );
-		PyDict_SetStolenItem( dict, "flag4", PyInt_FromLong( 0 ) );
+		PyDict_SetStolenItem( dict, "name", PyUnicode_FromString( "unknown" ) );
+		PyDict_SetStolenItem( dict, "flag1", PyLong_FromLong( 0 ) );
+		PyDict_SetStolenItem( dict, "flag2", PyLong_FromLong( 0 ) );
+		PyDict_SetStolenItem( dict, "flag3", PyLong_FromLong( 0 ) );
+		PyDict_SetStolenItem( dict, "flag4", PyLong_FromLong( 0 ) );
 	}
 	else
 	{
 		//Old Client Version
-		/*PyDict_SetStolenItem(dict, "name", PyString_FromString(tile.name));
-		PyDict_SetStolenItem(dict, "height", PyInt_FromLong(tile.height));
-		PyDict_SetStolenItem(dict, "weight", PyInt_FromLong(tile.weight));
-		PyDict_SetStolenItem(dict, "layer", PyInt_FromLong(tile.layer));
-		PyDict_SetStolenItem(dict, "animation", PyInt_FromLong(tile.animation));
-		PyDict_SetStolenItem(dict, "quantity", PyInt_FromLong(tile.quantity));
-		PyDict_SetStolenItem(dict, "unknown1", PyInt_FromLong(tile.unknown1));
-		PyDict_SetStolenItem(dict, "unknown2", PyInt_FromLong(tile.unknown2));
-		PyDict_SetStolenItem(dict, "unknown3", PyInt_FromLong(tile.unknown3));
-		PyDict_SetStolenItem(dict, "unknown4", PyInt_FromLong(tile.unknown4));
-		PyDict_SetStolenItem(dict, "unknown5", PyInt_FromLong(tile.unknown5));
-		PyDict_SetStolenItem(dict, "flag1", PyInt_FromLong(tile.flag1));
-		PyDict_SetStolenItem(dict, "flag2", PyInt_FromLong(tile.flag2));
-		PyDict_SetStolenItem(dict, "flag3", PyInt_FromLong(tile.flag3));
-		PyDict_SetStolenItem(dict, "flag4", PyInt_FromLong(tile.flag4));
-		PyDict_SetStolenItem(dict, "wet", PyInt_FromLong(tile.isWet()));
-		PyDict_SetStolenItem(dict, "blocking", PyInt_FromLong(tile.isBlocking()));
-		PyDict_SetStolenItem(dict, "floor", PyInt_FromLong(tile.isRoofOrFloorTile()));*/
-		PyDict_SetStolenItem( dict, "name", PyString_FromString( tile.name ) );
-		PyDict_SetStolenItem( dict, "height", PyInt_FromLong( tile.height ) );
-		PyDict_SetStolenItem( dict, "weight", PyInt_FromLong( tile.weight ) );
-		PyDict_SetStolenItem( dict, "layer", PyInt_FromLong( tile.layer ) );		
-		PyDict_SetStolenItem(dict, "hue", PyInt_FromLong(tile.hue));
-		PyDict_SetStolenItem( dict, "quantity", PyInt_FromLong( tile.quantity ) );
-		PyDict_SetStolenItem( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
-		PyDict_SetStolenItem( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
-		PyDict_SetStolenItem( dict, "unknown3", PyInt_FromLong( tile.unknown3 ) );
-		PyDict_SetStolenItem( dict, "unknown4", PyInt_FromLong( tile.unknown4 ) );		
-		PyDict_SetStolenItem(dict, "unknown5", PyInt_FromLong(tile.unknown5));
-		PyDict_SetStolenItem(dict, "unknown6", PyInt_FromLong(tile.unknown6));
-		PyDict_SetStolenItem(dict, "unknown7", PyInt_FromLong(tile.unknown7));
-		PyDict_SetStolenItem(dict, "unknown8", PyInt_FromLong(tile.unknown8));
-		PyDict_SetStolenItem( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
-		PyDict_SetStolenItem( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
-		PyDict_SetStolenItem( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
-		PyDict_SetStolenItem( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
-		PyDict_SetStolenItem(dict, "flag5", PyInt_FromLong(tile.flag5));
-		PyDict_SetStolenItem(dict, "flag6", PyInt_FromLong(tile.flag6));
-		PyDict_SetStolenItem(dict, "flag7", PyInt_FromLong(tile.flag7));
-		PyDict_SetStolenItem(dict, "flag8", PyInt_FromLong(tile.flag8));
-		PyDict_SetStolenItem( dict, "wet", PyInt_FromLong( tile.isWet() ) );
-		PyDict_SetStolenItem( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
-		PyDict_SetStolenItem( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
+		/*PyDict_SetStolenItem(dict, "name", PyUnicode_FromString(tile.name));
+		PyDict_SetStolenItem(dict, "height", PyLong_FromLong(tile.height));
+		PyDict_SetStolenItem(dict, "weight", PyLong_FromLong(tile.weight));
+		PyDict_SetStolenItem(dict, "layer", PyLong_FromLong(tile.layer));
+		PyDict_SetStolenItem(dict, "animation", PyLong_FromLong(tile.animation));
+		PyDict_SetStolenItem(dict, "quantity", PyLong_FromLong(tile.quantity));
+		PyDict_SetStolenItem(dict, "unknown1", PyLong_FromLong(tile.unknown1));
+		PyDict_SetStolenItem(dict, "unknown2", PyLong_FromLong(tile.unknown2));
+		PyDict_SetStolenItem(dict, "unknown3", PyLong_FromLong(tile.unknown3));
+		PyDict_SetStolenItem(dict, "unknown4", PyLong_FromLong(tile.unknown4));
+		PyDict_SetStolenItem(dict, "unknown5", PyLong_FromLong(tile.unknown5));
+		PyDict_SetStolenItem(dict, "flag1", PyLong_FromLong(tile.flag1));
+		PyDict_SetStolenItem(dict, "flag2", PyLong_FromLong(tile.flag2));
+		PyDict_SetStolenItem(dict, "flag3", PyLong_FromLong(tile.flag3));
+		PyDict_SetStolenItem(dict, "flag4", PyLong_FromLong(tile.flag4));
+		PyDict_SetStolenItem(dict, "wet", PyLong_FromLong(tile.isWet()));
+		PyDict_SetStolenItem(dict, "blocking", PyLong_FromLong(tile.isBlocking()));
+		PyDict_SetStolenItem(dict, "floor", PyLong_FromLong(tile.isRoofOrFloorTile()));*/
+		PyDict_SetStolenItem( dict, "name", PyUnicode_FromString( tile.name ) );
+		PyDict_SetStolenItem( dict, "height", PyLong_FromLong( tile.height ) );
+		PyDict_SetStolenItem( dict, "weight", PyLong_FromLong( tile.weight ) );
+		PyDict_SetStolenItem( dict, "layer", PyLong_FromLong( tile.layer ) );		
+		PyDict_SetStolenItem(dict, "hue", PyLong_FromLong(tile.hue));
+		PyDict_SetStolenItem( dict, "quantity", PyLong_FromLong( tile.quantity ) );
+		PyDict_SetStolenItem( dict, "unknown1", PyLong_FromLong( tile.unknown1 ) );
+		PyDict_SetStolenItem( dict, "unknown2", PyLong_FromLong( tile.unknown2 ) );
+		PyDict_SetStolenItem( dict, "unknown3", PyLong_FromLong( tile.unknown3 ) );
+		PyDict_SetStolenItem( dict, "unknown4", PyLong_FromLong( tile.unknown4 ) );		
+		PyDict_SetStolenItem(dict, "unknown5", PyLong_FromLong(tile.unknown5));
+		PyDict_SetStolenItem(dict, "unknown6", PyLong_FromLong(tile.unknown6));
+		PyDict_SetStolenItem(dict, "unknown7", PyLong_FromLong(tile.unknown7));
+		PyDict_SetStolenItem(dict, "unknown8", PyLong_FromLong(tile.unknown8));
+		PyDict_SetStolenItem( dict, "flag1", PyLong_FromLong( tile.flag1 ) );
+		PyDict_SetStolenItem( dict, "flag2", PyLong_FromLong( tile.flag2 ) );
+		PyDict_SetStolenItem( dict, "flag3", PyLong_FromLong( tile.flag3 ) );
+		PyDict_SetStolenItem( dict, "flag4", PyLong_FromLong( tile.flag4 ) );
+		PyDict_SetStolenItem(dict, "flag5", PyLong_FromLong(tile.flag5));
+		PyDict_SetStolenItem(dict, "flag6", PyLong_FromLong(tile.flag6));
+		PyDict_SetStolenItem(dict, "flag7", PyLong_FromLong(tile.flag7));
+		PyDict_SetStolenItem(dict, "flag8", PyLong_FromLong(tile.flag8));
+		PyDict_SetStolenItem( dict, "wet", PyLong_FromLong( tile.isWet() ) );
+		PyDict_SetStolenItem( dict, "blocking", PyLong_FromLong( tile.isBlocking() ) );
+		PyDict_SetStolenItem( dict, "floor", PyLong_FromLong( tile.isRoofOrFloorTile() ) );
 
 		//Old Client Version
 		//QString flags = getFlagNames( tile.flag1, tile.flag2, tile.flag3, tile.flag4).join( "," );
 		QString flags = getFlagNames( tile.flag1, tile.flag2, tile.flag3, tile.flag4, tile.flag5, tile.flag6, tile.flag7, tile.flag8).join( "," );
 		if ( flags.isNull() )
 		{
-			PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( "" ) );
+			PyDict_SetStolenItem( dict, "flagnames", PyUnicode_FromString( "" ) );
 		}
 		else
 		{
-			PyDict_SetStolenItem( dict, "flagnames", PyString_FromString( flags.toLatin1() ) );
+			PyDict_SetStolenItem( dict, "flagnames", PyUnicode_FromString( flags.toLatin1() ) );
 		}
 	}
 
@@ -1429,7 +1429,7 @@ static PyObject* wpTickcount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	Q_UNUSED( args );
-	return PyInt_FromLong( getNormalizedTime() );
+	return PyLong_FromLong( getNormalizedTime() );
 }
 
 /*
@@ -1782,12 +1782,12 @@ static PyObject* wpBodyInfo( PyObject* /*self*/, PyObject* args )
 	const stBodyInfo &info = CharBaseDefs::instance()->getBodyInfo( body );
 
 	PyObject *dict = PyDict_New();
-	PyDict_SetStolenItem( dict, "basesound", PyInt_FromLong( info.basesound ) );
-	PyDict_SetStolenItem( dict, "body", PyInt_FromLong( info.body ) );
-	PyDict_SetStolenItem( dict, "figurine", PyInt_FromLong( info.figurine ) );
-	PyDict_SetStolenItem( dict, "mountid", PyInt_FromLong( info.mountid ) );
-	PyDict_SetStolenItem( dict, "flags", PyInt_FromLong( info.flags ) );
-	PyDict_SetStolenItem( dict, "type", PyInt_FromLong( info.type ) );
+	PyDict_SetStolenItem( dict, "basesound", PyLong_FromLong( info.basesound ) );
+	PyDict_SetStolenItem( dict, "body", PyLong_FromLong( info.body ) );
+	PyDict_SetStolenItem( dict, "figurine", PyLong_FromLong( info.figurine ) );
+	PyDict_SetStolenItem( dict, "mountid", PyLong_FromLong( info.mountid ) );
+	PyDict_SetStolenItem( dict, "flags", PyLong_FromLong( info.flags ) );
+	PyDict_SetStolenItem( dict, "type", PyLong_FromLong( info.type ) );
 	return dict;
 }
 
@@ -1951,7 +1951,7 @@ static PyObject* wpSocketsCount( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	Q_UNUSED( args );
-	return PyInt_FromLong( Network::instance()->count() );
+	return PyLong_FromLong( Network::instance()->count() );
 }
 
 /*!
@@ -1974,7 +1974,7 @@ static PyMethodDef wpSockets[] =
 */
 static PyObject* wpAccountsCount( PyObject* /*self*/, PyObject* /*args*/ )
 {
-	return PyInt_FromLong( Accounts::instance()->count() );
+	return PyLong_FromLong( Accounts::instance()->count() );
 }
 
 /*
@@ -2036,7 +2036,7 @@ static PyObject* wpAccountsAcls( PyObject* self, PyObject* args )
 	{
 		QString name = it.key();
 		if ( !name.isEmpty() )
-			PyList_AppendStolen( list, PyString_FromString( name.toLatin1().constData() ) );
+			PyList_AppendStolen( list, PyUnicode_FromString( name.toLatin1().constData() ) );
 	}
 
 	return list;

@@ -269,10 +269,10 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 		for ( int i = 0; i < rectangles.size(); ++i )
 		{
 			PyObject* subtuple = PyTuple_New( 4 );
-			PyTuple_SetItem( subtuple, 0, PyInt_FromLong( rectangles[i].x1 ) );
-			PyTuple_SetItem( subtuple, 1, PyInt_FromLong( rectangles[i].y1 ) );
-			PyTuple_SetItem( subtuple, 2, PyInt_FromLong( rectangles[i].x2 ) );
-			PyTuple_SetItem( subtuple, 3, PyInt_FromLong( rectangles[i].y2 ) );
+			PyTuple_SetItem( subtuple, 0, PyLong_FromLong( rectangles[i].x1 ) );
+			PyTuple_SetItem( subtuple, 1, PyLong_FromLong( rectangles[i].y1 ) );
+			PyTuple_SetItem( subtuple, 2, PyLong_FromLong( rectangles[i].x2 ) );
+			PyTuple_SetItem( subtuple, 3, PyLong_FromLong( rectangles[i].y2 ) );
 
 			PyTuple_SetItem( tuple, i, subtuple );
 		}
@@ -317,181 +317,181 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 		\rproperty region.fixedlight The Fixed LightLevel for this Region (Will return -1 to no fixed light level)
 	*/
 	else if ( !strcmp( name, "fixedlight" ) )
-		return PyInt_FromLong( self->pRegion->fixedlight() );
+		return PyLong_FromLong( self->pRegion->fixedlight() );
 	/*
 		\rproperty region.lightmodifier The Modifier for LightLevel in this Region
 	*/
 	else if ( !strcmp( name, "lightmodifier" ) )
-		return PyInt_FromLong( self->pRegion->lightmodifier() );
+		return PyLong_FromLong( self->pRegion->lightmodifier() );
 
 	// Flags
 	/*
 		\rproperty region.guarded This boolean flag indicates whether the region is guarded or not.
 	*/
 	else if ( !strcmp( name, "guarded" ) )
-		return PyInt_FromLong( self->pRegion->isGuarded() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isGuarded() ? 1 : 0 );
 	/*
 		\rproperty region.nomark This boolean flag indicates whether runes aren't markable in this region or not.
 	*/
 	else if ( !strcmp( name, "nomark" ) )
-		return PyInt_FromLong( self->pRegion->isNoMark() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoMark() ? 1 : 0 );
 	/*
 		\rproperty region.nogate This boolean flag indicates whether gates in or out of this region are allowed.
 	*/
 	else if ( !strcmp( name, "nogate" ) )
-		return PyInt_FromLong( self->pRegion->isNoGate() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoGate() ? 1 : 0 );
 	/*
 		\rproperty region.norecallout This boolean flag indicates whether recalling out of this region is allowed.
 	*/
 	else if ( !strcmp( name, "norecallout" ) )
-		return PyInt_FromLong( self->pRegion->isNoRecallOut() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoRecallOut() ? 1 : 0 );
 	/*
 		\rproperty region.norecallin This boolean flag indicates whether recalling into this region is allowed.
 	*/
 	else if ( !strcmp( name, "norecallin" ) )
-		return PyInt_FromLong( self->pRegion->isNoRecallIn() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoRecallIn() ? 1 : 0 );
 	/*
 		\rproperty region.noagressivemagic This boolean flag indicates whether agressive magic is forbidden in this region or not.
 	*/
 	else if ( !strcmp( name, "noagressivemagic" ) )
-		return PyInt_FromLong( self->pRegion->isNoAgressiveMagic() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoAgressiveMagic() ? 1 : 0 );
 	/*
 		\rproperty region.antimagic This boolean flag indicates whether magic is forbidden in this region or not.
 	*/
 	else if ( !strcmp( name, "antimagic" ) )
-		return PyInt_FromLong( self->pRegion->isAntiMagic() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isAntiMagic() ? 1 : 0 );
 	/*
 		\rproperty region.cave This boolean flag indicates that this region is underground.
 	*/
 	else if ( !strcmp( name, "cave" ) )
-		return PyInt_FromLong( self->pRegion->isCave() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isCave() ? 1 : 0 );
 	/*
 		\rproperty region.nodecay This boolean flag indicates that items do not decay in this region.
 	*/
 	else if ( !strcmp( name, "nodecay" ) )
-		return PyInt_FromLong( self->pRegion->isNoDecay() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoDecay() ? 1 : 0 );
 	/*
 		\rproperty region.nomusic This boolean flag indicates that no music should be played in this region.
 	*/
 	else if ( !strcmp( name, "nomusic" ) )
-		return PyInt_FromLong( self->pRegion->isNoMusic() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoMusic() ? 1 : 0 );
 	/*
 		\rproperty region.noguardmessage This boolean flag indicates that no guard message should show when entering this region..
 	*/
 	else if ( !strcmp( name, "noguardmessage" ) )
-		return PyInt_FromLong( self->pRegion->isNoGuardMessage() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoGuardMessage() ? 1 : 0 );
 	/*
 		\rproperty region.noentermessage This boolean flag indicates that no entrance message should show when entering this region.
 	*/
 	else if ( !strcmp( name, "noentermessage" ) )
-		return PyInt_FromLong( self->pRegion->isNoEnterMessage() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoEnterMessage() ? 1 : 0 );
 	/*
 		\rproperty region.instalogout This boolean flag indicates if Region is a InstaLogout Region or not.
 	*/
 	else if ( !strcmp( name, "instalogout" ) )
-		return PyInt_FromLong( self->pRegion->isInstaLogout() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isInstaLogout() ? 1 : 0 );
 	/*
 		\rproperty region.noteleport This boolean flag indicates that no Teleport Magic is allowed in this place.
 	*/
 	else if ( !strcmp( name, "noteleport" ) )
-		return PyInt_FromLong( self->pRegion->isNoTeleport() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoTeleport() ? 1 : 0 );
 	/*
 		\rproperty region.safe This boolean flag indicates the Region is a Safe Region (no one can be harmed here).
 	*/
 	else if ( !strcmp( name, "safe" ) )
-		return PyInt_FromLong( self->pRegion->isSafe() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isSafe() ? 1 : 0 );
 	/*
 		\rproperty region.nocriminalcombat This boolean flag indicates that attacks here against innocent targets, cant make attacker criminal.
 	*/
 	else if ( !strcmp( name, "nocriminalcombat" ) )
-		return PyInt_FromLong( self->pRegion->isNoCriminalCombat() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoCriminalCombat() ? 1 : 0 );
 	/*
 		\rproperty region.nokillcount This boolean flag indicates that Kills are not counted on this area.
 	*/
 	else if ( !strcmp( name, "nokillcount" ) )
-		return PyInt_FromLong( self->pRegion->isNoKillCount() ? 1 : 0 );
+		return PyLong_FromLong( self->pRegion->isNoKillCount() ? 1 : 0 );
 	/*
 		\rproperty region.israining This boolean flag indicates that this Region is Raining or not.
 	*/
 	else if ( !strcmp( name, "israining" ) )
-		return PyInt_FromLong( self->pRegion->isRaining() ? 1 : 0);
+		return PyLong_FromLong( self->pRegion->isRaining() ? 1 : 0);
 	/*
 		\rproperty region.issnowing This boolean flag indicates that this Region is Raining or not.
 	*/
 	else if ( !strcmp( name, "issnowing" ) )
-		return PyInt_FromLong( self->pRegion->isSnowing() ? 1 : 0);
+		return PyLong_FromLong( self->pRegion->isSnowing() ? 1 : 0);
 	/*
 		\rproperty region.rainchance The Rain Chance for that Region
 	*/
 	else if ( !strcmp( name, "rainchance" ) )
-		return PyInt_FromLong( self->pRegion->rainChance() );
+		return PyLong_FromLong( self->pRegion->rainChance() );
 	/*
 		\rproperty region.snowchance The Snow Chance for that Region
 	*/
 	else if ( !strcmp( name, "snowchance" ) )
-		return PyInt_FromLong( self->pRegion->snowChance() );
+		return PyLong_FromLong( self->pRegion->snowChance() );
 	/*
 		\rproperty region.weatherday The day for Next Weather Change
 	*/
 	else if ( !strcmp( name, "weatherday" ) )
-		return PyInt_FromLong( self->pRegion->weatherday() );
+		return PyLong_FromLong( self->pRegion->weatherday() );
 	/*
 		\rproperty region.weatherhour The hour for Next Weather Change
 	*/
 	else if ( !strcmp( name, "weatherhour" ) )
-		return PyInt_FromLong( self->pRegion->weatherhour() );
+		return PyLong_FromLong( self->pRegion->weatherhour() );
 	/*
 		\rproperty region.rainduration The Default duration for Rain in this Region
 	*/
 	else if ( !strcmp( name, "rainduration" ) )
-		return PyInt_FromLong( self->pRegion->rainduration() );
+		return PyLong_FromLong( self->pRegion->rainduration() );
 	/*
 		\rproperty region.snowduration The Default duration for Snow in this Region
 	*/
 	else if ( !strcmp( name, "snowduration" ) )
-		return PyInt_FromLong( self->pRegion->snowduration() );
+		return PyLong_FromLong( self->pRegion->snowduration() );
 	/*
 		\rproperty region.dryduration The Default duration for Dry in this Region
 	*/
 	else if ( !strcmp( name, "dryduration" ) )
-		return PyInt_FromLong( self->pRegion->dryduration() );
+		return PyLong_FromLong( self->pRegion->dryduration() );
 	/*
 		\rproperty region.rainrangeduration The Default range for Rain duration in this Region
 	*/
 	else if ( !strcmp( name, "rainrangeduration" ) )
-		return PyInt_FromLong( self->pRegion->rainrangeduration() );
+		return PyLong_FromLong( self->pRegion->rainrangeduration() );
 	/*
 		\rproperty region.snowrangeduration The Default range for Snow duration in this Region
 	*/
 	else if ( !strcmp( name, "snowrangeduration" ) )
-		return PyInt_FromLong( self->pRegion->snowrangeduration() );
+		return PyLong_FromLong( self->pRegion->snowrangeduration() );
 	/*
 		\rproperty region.dryrangeduration The Default range for Dry duration in this Region
 	*/
 	else if ( !strcmp( name, "dryrangeduration" ) )
-		return PyInt_FromLong( self->pRegion->dryrangeduration() );
+		return PyLong_FromLong( self->pRegion->dryrangeduration() );
 	/*
 		\rproperty region.maxintensity The Max Value for Weather Intensity in this Region
 	*/
 	else if ( !strcmp( name, "maxintensity" ) )
-		return PyInt_FromLong( self->pRegion->maxintensity() );
+		return PyLong_FromLong( self->pRegion->maxintensity() );
 	/*
 		\rproperty region.minintensity The Min Value for Weather Intensity in this Region
 	*/
 	else if ( !strcmp( name, "minintensity" ) )
-		return PyInt_FromLong( self->pRegion->minintensity() );
+		return PyLong_FromLong( self->pRegion->minintensity() );
 	/*
 		\rproperty region.intensity The Actual Value for Weather Intensity in this Region
 	*/
 	else if ( !strcmp( name, "intensity" ) )
-		return PyInt_FromLong( self->pRegion->intensity() );
+		return PyLong_FromLong( self->pRegion->intensity() );
 	/*
 		\rproperty region.extraflags The Extra Flags for this Region
 	*/
 	else if ( !strcmp( name, "extraflags" ) )
-		return PyInt_FromLong( self->pRegion->extraflags() );
+		return PyLong_FromLong( self->pRegion->extraflags() );
 
-	return Py_FindMethod( wpRegionMethods, ( PyObject * ) self, name );
+	return PyAsyncMethods( wpRegionMethods, ( PyObject * ) self, name );
 }
 
 static int wpRegion_setAttr( wpRegion* self, char* name, PyObject* value )

@@ -157,28 +157,28 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "maxitems" ) )
 	{
-		return PyInt_FromLong( self->pRegion->maxItems() );
+		return PyLong_FromLong( self->pRegion->maxItems() );
 	}
 	/*
 	\rproperty spawnregion.maxnpcs The maximum number of npcs spawned by this region.
 	*/
 	else if ( !strcmp( name, "maxnpcs" ) )
 	{
-		return PyInt_FromLong( self->pRegion->maxNpcs() );
+		return PyLong_FromLong( self->pRegion->maxNpcs() );
 	}
 	/*
 	\rproperty spawnregion.spawnednpcs The number of npcs currently spawned in this region.
 	*/
 	else if ( !strcmp( name, "spawnednpcs" ) )
 	{
-		return PyInt_FromLong( self->pRegion->npcs() );
+		return PyLong_FromLong( self->pRegion->npcs() );
 	}
 	/*
 	\rproperty spawnregion.spawneditems The number of items currently spawned in this region.
 	*/
 	else if ( !strcmp( name, "spawneditems" ) )
 	{
-		return PyInt_FromLong( self->pRegion->items() );
+		return PyLong_FromLong( self->pRegion->items() );
 	}
 	/*
 	\rproperty spawnregion.items A list of serials for the items currently spawned in this region.
@@ -192,7 +192,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 
 		foreach ( object, objects )
 		{
-			PyTuple_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
+			PyTuple_SetItem( list, offset++, PyLong_FromLong( object->serial() ) );
 		}
 		return list;
 	}
@@ -208,7 +208,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 
 		foreach ( object, objects )
 		{
-			PyTuple_SetItem( list, offset++, PyInt_FromLong( object->serial() ) );
+			PyTuple_SetItem( list, offset++, PyLong_FromLong( object->serial() ) );
 		}
 		return list;
 	}
@@ -227,7 +227,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 		}
 	}
 
-	return Py_FindMethod( wpSpawnRegionMethods, ( PyObject * ) self, name );
+	return PyAsyncMethods( wpSpawnRegionMethods, ( PyObject * ) self, name );
 }
 
 static int wpSpawnRegion_setAttr( wpSpawnRegion* self, char* name, PyObject* value )

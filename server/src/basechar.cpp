@@ -2614,8 +2614,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				amount = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				amount = PyLong_AsLong( result );
 			Py_DECREF( result );
 		}
 
@@ -2640,8 +2640,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				amount = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				amount = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -3089,8 +3089,8 @@ unsigned int cBaseChar::onRegenHitpoints( unsigned int points )
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				points = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				points = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -3114,8 +3114,8 @@ unsigned int cBaseChar::onRegenMana( unsigned int points )
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				points = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				points = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -3139,8 +3139,8 @@ unsigned int cBaseChar::onRegenStamina( unsigned int points )
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				points = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				points = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -3166,8 +3166,8 @@ int cBaseChar::onTimerRegenHitpoints( unsigned int timer )
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				timer = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				timer = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -3187,8 +3187,8 @@ int cBaseChar::onTimerRegenMana( unsigned int timer )
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				timer = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				timer = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -3208,8 +3208,8 @@ int cBaseChar::onTimerRegenStamina( unsigned int timer )
 
 		if ( result )
 		{
-			if ( PyInt_Check( result ) )
-				timer = PyInt_AsLong( result );
+			if ( PyLong_Check( result ) )
+				timer = PyLong_AsLong( result );
 
 			Py_DECREF( result );
 		}
@@ -3228,9 +3228,9 @@ int cBaseChar::onBuy( P_CHAR pChar, P_ITEM pItem, int amount )
 		PyObject *result = callEvent( EVENT_BUY, args );
 		if ( result )
 		{
-			if ( PyInt_CheckExact( result ) )
+			if ( PyLong_CheckExact( result ) )
 			{
-				amount = PyInt_AsLong( result );
+				amount = PyLong_AsLong( result );
 			}
 			else if ( PyLong_CheckExact( result ) )
 			{

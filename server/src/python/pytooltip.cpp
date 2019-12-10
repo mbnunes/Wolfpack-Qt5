@@ -141,30 +141,30 @@ static PyObject* wpTooltip_getAttr( wpTooltip* self, char* name )
 		\property tooltip.id This is the internal id of this tooltip.
 	*/
 	if ( !strcmp( name, "id" ) )
-		return PyInt_FromLong( self->list->getInt( 11 ) );
+		return PyLong_FromLong( self->list->getInt( 11 ) );
 	/*
 		\property tooltip.serial This is the serial of the object this tooltip is for.
 	*/
 	else if ( !strcmp( name, "serial" ) )
-		return PyInt_FromLong( self->list->getInt( 5 ) );
+		return PyLong_FromLong( self->list->getInt( 5 ) );
 	else
-		return Py_FindMethod( wpTooltipMethods, ( PyObject * ) self, name );
+		return PyAsyncMethods( wpTooltipMethods, ( PyObject * ) self, name );
 }
 
 static int wpTooltip_setAttr( wpTooltip* self, char* name, PyObject* value )
 {
-	if ( !PyInt_Check( value ) )
+	if ( !PyLong_Check( value ) )
 	{
 		return 1;
 	}
 
 	if ( !strcmp( name, "id" ) )
 	{
-		self->list->setInt( 11, PyInt_AsLong( value ) );
+		self->list->setInt( 11, PyLong_AsLong( value ) );
 	}
 	else if ( !strcmp( name, "serial" ) )
 	{
-		self->list->setInt( 5, PyInt_AsLong( value ) );
+		self->list->setInt( 5, PyLong_AsLong( value ) );
 	}
 
 	return 0;

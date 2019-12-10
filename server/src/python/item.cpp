@@ -69,7 +69,7 @@ long wpItem_hash( wpItem* self )
 // Return a string representation for an item object.
 static PyObject* wpItem_str( wpItem* object )
 {
-	return PyString_FromFormat( "0x%x", object->pItem->serial() );
+	return PyUnicode_FromFormat( "0x%x", object->pItem->serial() );
 }
 
 /*!
@@ -255,13 +255,13 @@ static PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 	if ( !self->pItem || self->pItem->free )
 		Py_RETURN_FALSE;
 
-	if ( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
+	if ( PyTuple_Size( args ) < 1 || !PyLong_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
 
-	self->pItem->soundEffect( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
+	self->pItem->soundEffect( PyLong_AsLong( PyTuple_GetItem( args, 0 ) ) );
 
 	Py_RETURN_NONE;
 }
@@ -286,7 +286,7 @@ static PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
-		return PyInt_FromLong( -1 );
+		return PyLong_FromLong( -1 );
 
 	// Probably an object
 	if ( PyTuple_Size( args ) == 1 )
@@ -294,28 +294,28 @@ static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 		PyObject* pObj = PyTuple_GetItem( args, 0 );
 
 		if ( checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
-			return PyInt_FromLong( self->pItem->pos().distance( getWpCoord( pObj ) ) );
+			return PyLong_FromLong( self->pItem->pos().distance( getWpCoord( pObj ) ) );
 
 		// Item
 		P_ITEM pItem = getWpItem( pObj );
 		if ( pItem )
-			return PyInt_FromLong( pItem->dist( self->pItem ) );
+			return PyLong_FromLong( pItem->dist( self->pItem ) );
 
 		P_CHAR pChar = getWpChar( pObj );
 		if ( pChar )
-			return PyInt_FromLong( pChar->dist( self->pItem ) );
+			return PyLong_FromLong( pChar->dist( self->pItem ) );
 	}
 	else if ( PyTuple_Size( args ) >= 2 ) // Min 2
 	{
 		Coord pos = self->pItem->pos();
 
-		if ( !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
-			return PyInt_FromLong( -1 );
+		if ( !PyLong_Check( PyTuple_GetItem( args, 0 ) ) || !PyLong_Check( PyTuple_GetItem( args, 1 ) ) )
+			return PyLong_FromLong( -1 );
 
-		pos.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-		pos.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+		pos.x = PyLong_AsLong( PyTuple_GetItem( args, 0 ) );
+		pos.y = PyLong_AsLong( PyTuple_GetItem( args, 1 ) );
 
-		return PyInt_FromLong( self->pItem->pos().distance( pos ) );
+		return PyLong_FromLong( self->pItem->pos().distance( pos ) );
 	}
 
 	PyErr_BadArgument();
@@ -336,23 +336,23 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 	if ( !self->pItem || self->pItem->free )
 		Py_RETURN_FALSE;
 
-	if ( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+	if ( PyTuple_Size( args ) < 2 || !PyLong_Check( PyTuple_GetItem( args, 0 ) ) || !PyLong_Check( PyTuple_GetItem( args, 1 ) ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
 
-	quint32 amount = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	quint16 id = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	quint32 amount = PyLong_AsLong( PyTuple_GetItem( args, 0 ) );
+	quint16 id = PyLong_AsLong( PyTuple_GetItem( args, 1 ) );
 	quint16 color = 0;
 
-	if ( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
-		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
+	if ( PyTuple_Size( args ) > 2 && PyLong_Check( PyTuple_GetItem( args, 2 ) ) )
+		color = PyLong_AsLong( PyTuple_GetItem( args, 2 ) );
 
 	quint32 deleted = 0;
 	deleted = self->pItem->deleteAmount( amount, id, color );
 
-	return PyInt_FromLong( deleted );
+	return PyLong_FromLong( deleted );
 }
 
 /*
@@ -368,17 +368,17 @@ static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 	if ( !self->pItem || self->pItem->free )
 		Py_RETURN_FALSE;
 
-	if ( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
+	if ( PyTuple_Size( args ) < 1 || !PyLong_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
 
-	quint16 id = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
+	quint16 id = PyLong_AsLong( PyTuple_GetItem( args, 0 ) );
 	qint16 color = -1;
 
-	if ( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
-		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	if ( PyTuple_Size( args ) > 1 && PyLong_Check( PyTuple_GetItem( args, 1 ) ) )
+		color = PyLong_AsLong( PyTuple_GetItem( args, 1 ) );
 
 	unsigned int avail = 0;
 	avail = self->pItem->countItems( id, color );
@@ -405,13 +405,13 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	QString key = PyUnicode_AsUTF8( PyTuple_GetItem( args, 0 ) );
 	cVariant value = self->pItem->getTag( key );
 
 	switch( value.type() )
 	{
 	case cVariant::StringType:	return QString2Python( value.toString() );
-	case cVariant::IntType:		return PyInt_FromLong( value.asInt() );
+	case cVariant::IntType:		return PyLong_FromLong( value.asInt() );
 	case cVariant::DoubleType:	return PyFloat_FromDouble( value.asDouble() );
 	default: break;
 	}
@@ -438,13 +438,13 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "sO:item.settag( name, value )", &key, &object ) )
 		return 0;
 
-	if ( PyString_Check( object ) || PyUnicode_Check( object ) )
+	if ( PyUnicode_Check( object ) || PyUnicode_Check( object ) )
 	{
 		self->pItem->setTag( key, cVariant( boost::python::extract<QString>( object ) ) );
 	}
-	else if ( PyInt_Check( object ) )
+	else if ( PyLong_Check( object ) )
 	{
-		self->pItem->setTag( key, cVariant( ( int ) PyInt_AsLong( object ) ) );
+		self->pItem->setTag( key, cVariant( ( int ) PyLong_AsLong( object ) ) );
 	}
 	else if ( PyLong_Check( object ) )
 	{
@@ -505,7 +505,7 @@ static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 		return NULL;
 	}
 
-	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	QString key = PyUnicode_AsUTF8( PyTuple_GetItem( args, 0 ) );
 	self->pItem->removeTag( key );
 
 	Py_RETURN_NONE;
@@ -783,7 +783,7 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 		return 0;
 	}
 
-	return PyInt_FromLong( self->pItem->content().count() );
+	return PyLong_FromLong( self->pItem->content().count() );
 }
 
 /*
@@ -892,7 +892,7 @@ static PyObject* wpItem_countitems( wpItem* self, PyObject* args )
 		baseids.append( boost::python::extract<QString>( item ) );
 	}
 
-	return PyInt_FromLong( self->pItem->countItems( baseids ) );
+	return PyLong_FromLong( self->pItem->countItems( baseids ) );
 }
 
 /*
@@ -921,7 +921,7 @@ static PyObject* wpItem_removeitems( wpItem* self, PyObject* args )
 		baseids.append( boost::python::extract<QString>( item ) );
 	}
 
-	return PyInt_FromLong( self->pItem->removeItems( baseids, amount ) );
+	return PyLong_FromLong( self->pItem->removeItems( baseids, amount ) );
 }
 
 /*
@@ -1136,11 +1136,11 @@ static PyObject* wpItem_getintproperty( wpItem* self, PyObject* args )
 	QString name = boost::python::extract<QString>( pyname );
 	if ( self->pItem->basedef() )
 	{
-		return PyInt_FromLong( self->pItem->basedef()->getIntProperty( name, def ) );
+		return PyLong_FromLong( self->pItem->basedef()->getIntProperty( name, def ) );
 	}
 	else
 	{
-		return PyInt_FromLong( def );
+		return PyLong_FromLong( def );
 	}
 }
 
@@ -1370,7 +1370,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 
 		PyObject* list = PyTuple_New( events.count() );
 		for ( int i = 0; i < events.count(); ++i )
-			PyTuple_SetItem( list, i, PyString_FromString( events[i] ) );
+			PyTuple_SetItem( list, i, PyUnicode_FromString( events[i] ) );
 		return list;
 	}
 	else
@@ -1382,7 +1382,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 		}
 	}
 
-	return Py_FindMethod( wpItemMethods, ( PyObject * ) self, name );
+	return PyAsyncMethods( wpItemMethods, ( PyObject * ) self, name );
 }
 
 static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
@@ -1421,10 +1421,10 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 	else
 	{
 		cVariant val;
-		if ( PyString_Check( value ) || PyUnicode_Check( value ) )
+		if ( PyUnicode_Check( value ) || PyUnicode_Check( value ) )
 			val = cVariant( boost::python::extract<QString>( value ) );
-		else if ( PyInt_Check( value ) )
-			val = cVariant( PyInt_AsLong( value ) );
+		else if ( PyLong_Check( value ) )
+			val = cVariant( PyLong_AsLong( value ) );
 		else if ( PyLong_Check( value ) )
 			val = cVariant( PyLong_AsLong( value ) );
 		else if ( checkWpItem( value ) )

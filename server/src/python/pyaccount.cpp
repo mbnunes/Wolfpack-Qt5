@@ -272,17 +272,17 @@ static PyObject* wpAccount_getAttr( wpAccount* self, char* name )
 	}
 	else
 	{
-		return Py_FindMethod( wpAccountMethods, ( PyObject * ) self, name );
+		return PyAsyncMethods( wpAccountMethods, ( PyObject * ) self, name );
 	}
 }
 
 static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value )
 {
 	cVariant val;
-	if ( PyString_Check( value ) || PyUnicode_Check( value ) )
+	if ( PyUnicode_Check( value ) || PyUnicode_Check( value ) )
 		val = cVariant( boost::python::extract<QString>( value ) );
-	else if ( PyInt_Check( value ) )
-		val = cVariant( PyInt_AsLong( value ) );
+	else if ( PyLong_Check( value ) )
+		val = cVariant( PyLong_AsLong( value ) );
 	else if ( checkWpItem( value ) )
 		val = cVariant( getWpItem( value ) );
 	else if ( checkWpChar( value ) )

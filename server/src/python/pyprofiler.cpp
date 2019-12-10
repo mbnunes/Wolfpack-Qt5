@@ -47,12 +47,12 @@ int PyProfiler::tracefunc( PyObject */*obj*/, PyFrameObject *frame, int what, Py
 	switch ( what )
 	{
 	case PyTrace_C_CALL:
-		pdata = &that->data[tr("<core>").toLocal8Bit()][PyString_AS_STRING(frame->f_code->co_name)];
+		pdata = &that->data[tr("<core>").toLocal8Bit()][PyUnicode_AS_STRING(frame->f_code->co_name)];
 		if ( frame != frame->f_back )
 		{
 			pdata->calls++;
 			if ( frame->f_back )
-				pdata->callees.insert( PyString_AS_STRING( frame->f_back->f_code->co_name ) );
+				pdata->callees.insert( PyUnicode_AS_STRING( frame->f_back->f_code->co_name ) );
 			else
 				pdata->callees.insert( tr("<core>").toLocal8Bit() );
 		}
@@ -60,17 +60,17 @@ int PyProfiler::tracefunc( PyObject */*obj*/, PyFrameObject *frame, int what, Py
 	case PyTrace_CALL:
 		//that->data.find()
 		// Don't count recursions
-		pdata = &that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)];
+		pdata = &that->data[PyUnicode_AS_STRING(frame->f_code->co_filename)][PyUnicode_AS_STRING(frame->f_code->co_name)];
 		pdata->firstline = frame->f_code->co_firstlineno;
 		if ( frame != frame->f_back )
 		{
 			pdata->calls++;
 			if ( frame->f_back )
-				pdata->callees.insert( PyString_AS_STRING( frame->f_back->f_code->co_name ) );
+				pdata->callees.insert( PyUnicode_AS_STRING( frame->f_back->f_code->co_name ) );
 			else
 				pdata->callees.insert( tr("<core>").toLocal8Bit() );
 		}
-		//that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)] = pdata;
+		//that->data[PyUnicode_AS_STRING(frame->f_code->co_filename)][PyUnicode_AS_STRING(frame->f_code->co_name)] = pdata;
 		break;
 	case PyTrace_RETURN:
 	case PyTrace_C_RETURN:

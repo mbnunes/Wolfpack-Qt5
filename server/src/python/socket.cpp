@@ -300,14 +300,14 @@ static PyObject* wpSocket_attachitemtarget( wpSocket* self, PyObject* args )
 				PyObject* izoffset = PyList_GetItem( listitem, 3 );
 				PyObject* hue = PyList_GetItem( listitem, 4 );
 
-				if ( PyInt_Check( id ) && PyInt_Check( ixoffset ) && PyInt_Check( iyoffset ) && PyInt_Check( izoffset ) && PyInt_Check( hue ) )
+				if ( PyLong_Check( id ) && PyLong_Check( ixoffset ) && PyLong_Check( iyoffset ) && PyLong_Check( izoffset ) && PyLong_Check( hue ) )
 				{
 					stTargetItem targetitem;
-					targetitem.id = PyInt_AsLong( id );
-					targetitem.xOffset = PyInt_AsLong( ixoffset );
-					targetitem.yOffset = PyInt_AsLong( iyoffset );
-					targetitem.zOffset = PyInt_AsLong( izoffset );
-					targetitem.hue = PyInt_AsLong( hue );
+					targetitem.id = PyLong_AsLong( id );
+					targetitem.xOffset = PyLong_AsLong( ixoffset );
+					targetitem.yOffset = PyLong_AsLong( iyoffset );
+					targetitem.zOffset = PyLong_AsLong( izoffset );
+					targetitem.hue = PyLong_AsLong( hue );
 					targetitems.push_back( targetitem );
 				}
 			}
@@ -448,7 +448,7 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	{
 		PyObject* item = PyList_GetItem( layout, i );
 
-		if ( PyUnicode_Check( item ) || PyString_Check( item ) )
+		if ( PyUnicode_Check( item ) || PyUnicode_Check( item ) )
 		{
 			gump->addRawLayout( boost::python::extract<QString>( item ) );
 		}
@@ -462,7 +462,7 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	{
 		PyObject* item = PyList_GetItem( texts, i );
 
-		if ( PyUnicode_Check( item ) || PyString_Check( item ) )
+		if ( PyUnicode_Check( item ) || PyUnicode_Check( item ) )
 		{
 			gump->addRawText( boost::python::extract<QString>( item ) );
 		}
@@ -474,7 +474,7 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 
 	self->pSock->send( gump );
 
-	return PyInt_FromLong( gump->serial() );
+	return PyLong_FromLong( gump->serial() );
 }
 
 /*
@@ -647,7 +647,7 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 	QByteArray buffer( packetLength, 0 );
 
 	for ( int i = 0; i < packetLength; ++i )
-		buffer[i] = PyInt_AsLong( PyList_GetItem( list, i ) );
+		buffer[i] = PyLong_AsLong( PyList_GetItem( list, i ) );
 
 	cUOPacket packet( buffer );
 	self->pSock->send( &packet );
@@ -740,13 +740,13 @@ static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 		return NULL;
 	}
 
-	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	QString key = PyUnicode_AsUTF8( PyTuple_GetItem( args, 0 ) );
 	cVariant value = self->pSock->tags().get( key );
 
 	if ( value.type() == cVariant::StringType )
 		return QString2Python( value.toString() );
 	else if ( value.type() == cVariant::IntType )
-		return PyInt_FromLong( value.asInt() );
+		return PyLong_FromLong( value.asInt() );
 	else if ( value.type() == cVariant::DoubleType )
 		return PyFloat_FromDouble( value.asDouble() );
 
@@ -770,13 +770,13 @@ static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ) )
 		return 0;
 
-	if ( PyString_Check( object ) || PyUnicode_Check( object ) )
+	if ( PyUnicode_Check( object ) || PyUnicode_Check( object ) )
 	{
 		self->pSock->tags().set( key, cVariant( boost::python::extract<QString>( object ) ) );
 	}
-	else if ( PyInt_Check( object ) )
+	else if ( PyLong_Check( object ) )
 	{
-		self->pSock->tags().set( key, cVariant( ( int ) PyInt_AsLong( object ) ) );
+		self->pSock->tags().set( key, cVariant( ( int ) PyLong_AsLong( object ) ) );
 	}
 	else if ( PyFloat_Check( object ) )
 	{
@@ -1013,18 +1013,18 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 	*/
 	else if ( !strcmp( name, "screenwidth" ) )
 	{
-		return PyInt_FromLong( self->pSock->screenWidth() );
+		return PyLong_FromLong( self->pSock->screenWidth() );
 	}
 	/*
 		\rproperty socket.screenheight The height of the game window in pixels as sent by the client.
 	*/
 	else if ( !strcmp( name, "screenheight" ) )
 	{
-		return PyInt_FromLong( self->pSock->screenHeight() );
+		return PyLong_FromLong( self->pSock->screenHeight() );
 	}
 	else if ( !strcmp( name, "walksequence" ) )
 	{
-		return PyInt_FromLong( self->pSock->walkSequence() );
+		return PyLong_FromLong( self->pSock->walkSequence() );
 	}
 	/*
 		\rproperty socket.account An <object id="account">account</object> object for the account used by this socket. Should not be None.
@@ -1045,7 +1045,7 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 	*/
 	else if ( !strcmp( name, "id" ) )
 	{
-		return PyInt_FromLong( self->pSock->uniqueId() );
+		return PyLong_FromLong( self->pSock->uniqueId() );
 	}
 	/*
 		\rproperty socket.version The client version string sent by the client.
@@ -1077,41 +1077,41 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 		0x00 - The Second Age</code>
 	*/
 	else if ( !strcmp( name, "flags" ) ) {
-		return PyInt_FromLong(self->pSock->flags());
+		return PyLong_FromLong(self->pSock->flags());
 	}
 	/*
 		\rproperty socket.rxbytes The number of bytes received by this socket.
 	*/
 	else if ( !strcmp( name, "rxbytes" ) ) {
-		return PyInt_FromLong( self->pSock->rxBytes() );
+		return PyLong_FromLong( self->pSock->rxBytes() );
 	}
 
 	/*
 		\rproperty socket.txbytes The number of bytes sent by this socket.
 	*/
 	else if ( !strcmp( name, "txbytes" ) ) {
-		return PyInt_FromLong( self->pSock->txBytes() );
+		return PyLong_FromLong( self->pSock->txBytes() );
 	}
 
 	/*
 		\rproperty socket.txbytesraw The number of bytes sent by this socket before compression.
 	*/
 	else if ( !strcmp( name, "txbytesraw" ) ) {
-		return PyInt_FromLong( self->pSock->txBytesRaw() );
+		return PyLong_FromLong( self->pSock->txBytesRaw() );
 	}
 
 	else
 	{
-		return Py_FindMethod( wpSocketMethods, ( PyObject * ) self, name );
+		return PyAsyncMethods( wpSocketMethods, ( PyObject * ) self, name );
 	}
 }
 
 static int wpSocket_setAttr( wpSocket* self, char* name, PyObject* value )
 {
 	Q_UNUSED( self );
-	if ( !strcmp( name, "walksequence" ) && PyInt_Check( value ) )
+	if ( !strcmp( name, "walksequence" ) && PyLong_Check( value ) )
 	{
-		self->pSock->setWalkSequence( PyInt_AsLong( value ) );
+		self->pSock->setWalkSequence( PyLong_AsLong( value ) );
 		return 0;
 	}
 	return 1;

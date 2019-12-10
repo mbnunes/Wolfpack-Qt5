@@ -49,7 +49,7 @@ typedef struct
 static PyObject* wpCoord_str( wpCoord* object )
 {
 	const Coord &pos = object->coord;
-	return PyString_FromFormat( "%i,%i,%i,%i", pos.x, pos.y, ( int ) pos.z, pos.map );
+	return PyUnicode_FromFormat( "%i,%i,%i,%i", pos.x, pos.y, ( int ) pos.z, pos.map );
 }
 
 
@@ -115,14 +115,14 @@ static PyObject* wpCoord_distance( wpCoord* self, PyObject* args )
 	// Check if the paramter is a coordinate
 	if ( !checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
 	{
-		return PyInt_FromLong( -1 );
+		return PyLong_FromLong( -1 );
 	}
 	else
 	{
 		Coord pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
 
 		// Calculate the distance
-		return PyInt_FromLong( self->coord.distance( pos ) );
+		return PyLong_FromLong( self->coord.distance( pos ) );
 	}
 }
 
@@ -138,14 +138,14 @@ static PyObject* wpCoord_direction( wpCoord* self, PyObject* args )
 	// Check if the paramter is a coordinate
 	if ( !checkWpCoord( PyTuple_GetItem( args, 0 ) ) )
 	{
-		return PyInt_FromLong( -1 );
+		return PyLong_FromLong( -1 );
 	}
 	else
 	{
 		Coord pos = getWpCoord( PyTuple_GetItem( args, 0 ) );
 
 		// Calculate the distance
-		return PyInt_FromLong( self->coord.direction( pos ) );
+		return PyLong_FromLong( self->coord.direction( pos ) );
 	}
 }
 
@@ -263,40 +263,40 @@ static PyObject* wpCoord_getAttr( wpCoord* self, char* name )
 		\property coord.x This is the x component of the coordinate.
 	*/
 	if ( !strcmp( name, "x" ) )
-		return PyInt_FromLong( self->coord.x );
+		return PyLong_FromLong( self->coord.x );
 	/*
 		\property coord.y This is the y component of the coordinate.
 	*/
 	else if ( !strcmp( name, "y" ) )
-		return PyInt_FromLong( self->coord.y );
+		return PyLong_FromLong( self->coord.y );
 	/*
 		\property coord.z This is the z component of the coordinate.
 	*/
 	else if ( !strcmp( name, "z" ) )
-		return PyInt_FromLong( self->coord.z );
+		return PyLong_FromLong( self->coord.z );
 	/*
 		\property coord.map This is the map this coordinate is on.
 	*/
 	else if ( !strcmp( name, "map" ) )
-		return PyInt_FromLong( self->coord.map );
+		return PyLong_FromLong( self->coord.map );
 	else
-		return Py_FindMethod( wpCoordMethods, ( PyObject * ) self, name );
+		return PyAsyncMethods( wpCoordMethods, ( PyObject * ) self, name );
 }
 
 static int wpCoord_setAttr( wpCoord* self, char* name, PyObject* value )
 {
 	// I only have integer params in mind
-	if ( !PyInt_Check( value ) )
+	if ( !PyLong_Check( value ) )
 		return 1;
 
 	if ( !strcmp( name, "x" ) )
-		self->coord.x = PyInt_AsLong( value );
+		self->coord.x = PyLong_AsLong( value );
 	else if ( !strcmp( name, "y" ) )
-		self->coord.y = PyInt_AsLong( value );
+		self->coord.y = PyLong_AsLong( value );
 	else if ( !strcmp( name, "z" ) )
-		self->coord.z = PyInt_AsLong( value );
+		self->coord.z = PyLong_AsLong( value );
 	else if ( !strcmp( name, "map" ) )
-		self->coord.map = PyInt_AsLong( value );
+		self->coord.map = PyLong_AsLong( value );
 
 	return 0;
 }

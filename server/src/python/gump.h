@@ -51,7 +51,7 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		If the gump was closed by rightclicking, the value of this property is 0.
 	*/
 	if ( !strcmp( name, "button" ) )
-		return PyInt_FromLong( self->response->button );
+		return PyLong_FromLong( self->response->button );
 	/*
 		\rproperty gumpresponse.text This is a python dictionary. There is one entry for every textinput field on the
 		gump that was closed. The key for such an entry is the id of the corresponding textinput field. If your textinput
@@ -66,7 +66,7 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		std::map<unsigned short, QString>::iterator iter = textentries.begin();
 		for ( ; iter != textentries.end(); ++iter )
 		{
-			PyObject *key = PyInt_FromLong( iter->first );
+			PyObject *key = PyLong_FromLong( iter->first );
 			PyObject *value = QString2Python( iter->second );
 			PyDict_SetItem( dict, key, value );
 			Py_DECREF(key);
@@ -87,7 +87,7 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		// Create a list
 		PyObject* list = PyTuple_New( self->response->switches.size() );
 		for ( uint i = 0; i < self->response->switches.size(); ++i )
-			PyTuple_SetItem( list, i, PyInt_FromLong( self->response->switches[i] ) );
+			PyTuple_SetItem( list, i, PyLong_FromLong( self->response->switches[i] ) );
 		return list;
 	}
 

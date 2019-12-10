@@ -37,8 +37,8 @@ struct QByteArray_to_python_str
 	static PyObject *convert( QByteArray const& str )
 	{
 		if ( str.isEmpty() )
-			return PyString_FromString("");
-		return PyString_FromStringAndSize( str.data(), str.size() );
+			return PyUnicode_FromString("");
+		return PyUnicode_FromStringAndSize( str.data(), str.size() );
 	}
 };
 
@@ -51,20 +51,20 @@ struct QByteArray_from_python_str
 
 	static void *convertible(PyObject *obj)
 	{
-		if ( PyString_Check( obj ) )
+		if ( PyUnicode_Check( obj ) )
 			return obj;
 		return 0;
 	}
 
 	static void construct(PyObject *obj, converter::rvalue_from_python_stage1_data *data)
 	{
-		if ( PyString_Check( obj ) )
+		if ( PyUnicode_Check( obj ) )
 		{
-			const char *value = PyString_AS_STRING(obj);
+			const char *value = PyUnicode_AS_STRING(obj);
 			if( !value )
 				throw_error_already_set();
 			void *storage=((converter::rvalue_from_python_storage<QString> *) data)->storage.bytes;
-			new(storage) QByteArray(value, PyString_GET_SIZE(obj));
+			new(storage) QByteArray(value, PyUnicode_GET_SIZE(obj));
 			data->convertible = storage;
 		}
 	}
@@ -103,7 +103,7 @@ struct QString_from_python_str
 	{
 		if ( PyUnicode_Check( obj ) )
 			return obj;
-		if ( PyString_Check( obj ) )
+		if ( PyUnicode_Check( obj ) )
 			return obj;
 		return 0;
 	}
@@ -124,13 +124,13 @@ struct QString_from_python_str
 #endif
 			data->convertible = storage;
 		}
-		else if ( PyString_Check( obj ) )
+		else if ( PyUnicode_Check( obj ) )
 		{
-			const char *value=PyString_AsString(obj);
+			const char *value=PyUnicode_AsUTF8(obj);
 			if( !value )
 				throw_error_already_set();
 			void *storage=((converter::rvalue_from_python_storage<QString> *) data)->storage.bytes;
-			new(storage) QString(QByteArray(value, PyString_Size(obj)));
+			new(storage) QString(QByteArray(value, PyUnicode_Size(obj)));
 			data->convertible = storage;
 		}
 	}

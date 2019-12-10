@@ -999,7 +999,7 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name )
 		return PyInt_FromLong( self->element->childCount() );
 	}
 
-	return Py_FindMethod( methods, ( PyObject * ) self, name );
+	return PyAsyncMethods( methods, ( PyObject * ) self, name );
 }
 
 // Python Scripting Interface for elements

@@ -217,7 +217,7 @@ void reportPythonError( const QString& moduleName )
 				Console::instance()->log( LOG_ERROR, tr( "An error occured: %1" ).arg( extract<QString>( exceptionName ) ) );
 			}
 
-			Console::instance()->log( LOG_PYTHON, QString( "%1: %2" ).arg( extract<QString>( exceptionName ) ).arg( PyString_AsString( error ) ), false );
+			Console::instance()->log( LOG_PYTHON, QString( "%1: %2" ).arg( extract<QString>( exceptionName ) ).arg( PyUnicode_AsUTF8( error ) ), false );
 			Py_XDECREF( error );
 		}
 
@@ -254,8 +254,8 @@ void reportPythonError( const QString& moduleName )
 			PyObject* pyFilename = PyObject_GetAttrString( code, "co_filename" );
 			PyObject* pyFunction = PyObject_GetAttrString( code, "co_name" );
 
-			QString filename = PyString_AsString( pyFilename );
-			QString function = PyString_AsString( pyFunction );
+			QString filename = PyUnicode_AsUTF8( pyFilename );
+			QString function = PyUnicode_AsUTF8( pyFunction );
 
 			Py_XDECREF( pyFilename );
 			Py_XDECREF( pyFunction );
@@ -264,7 +264,7 @@ void reportPythonError( const QString& moduleName )
 			Py_XDECREF( frame );
 
 			PyObject* pyLine = PyObject_GetAttrString( traceback, "tb_lineno" );
-			unsigned int line = PyInt_AsLong( pyLine );
+			unsigned int line = PyLong_AsLong( pyLine );
 			Py_XDECREF( pyLine );
 
 			// Print it

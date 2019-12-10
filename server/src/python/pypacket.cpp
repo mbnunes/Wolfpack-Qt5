@@ -158,7 +158,7 @@ static PyObject* wpPacket_getbyte( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "i:wppacket.getbyte( position )", &pos ) )
 		return 0;
 
-	return PyInt_FromLong( ( ( unsigned char ) ( ( *( ( wpPacket * ) self )->packet )[( unsigned short ) pos] ) ) );
+	return PyLong_FromLong( ( ( unsigned char ) ( ( *( ( wpPacket * ) self )->packet )[( unsigned short ) pos] ) ) );
 }
 
 /*
@@ -174,7 +174,7 @@ static PyObject* wpPacket_getshort( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "i:wppacket.getshort( position )", &pos ) )
 		return 0;
 
-	return PyInt_FromLong( ( ( wpPacket * ) self )->packet->getShort( ( unsigned short ) pos ) );
+	return PyLong_FromLong( ( ( wpPacket * ) self )->packet->getShort( ( unsigned short ) pos ) );
 }
 
 /*
@@ -190,7 +190,7 @@ static PyObject* wpPacket_getint( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "i:wppacket.getint( position )", &pos ) )
 		return 0;
 
-	return PyInt_FromLong( ( ( wpPacket * ) self )->packet->getInt( ( unsigned short ) pos ) );
+	return PyLong_FromLong( ( ( wpPacket * ) self )->packet->getInt( ( unsigned short ) pos ) );
 }
 
 /*
@@ -289,11 +289,11 @@ static PyObject* wpPacket_getascii( PyObject* self, PyObject* args )
 
 	if ( string.isEmpty() )
 	{
-		return PyString_FromString( "" );
+		return PyUnicode_FromString( "" );
 	}
 	else
 	{
-		return PyString_FromString( string.data() );
+		return PyUnicode_FromString( string.data() );
 	}
 }
 
@@ -324,7 +324,7 @@ static PyObject* wpPacket_dump( PyObject* self, PyObject* args )
 	Q_UNUSED( args );
 	QByteArray dump = cUOPacket::dump( ( ( wpPacket* ) self )->packet->uncompressed() );
 
-	return PyString_FromString( dump.data() );
+	return PyUnicode_FromString( dump.data() );
 }
 
 // List of Methods
@@ -353,11 +353,11 @@ static PyObject* wpPacket_getattr( PyObject* self, char* name )
 	*/
 	if ( !strcmp( name, "size" ) )
 	{
-		return PyInt_FromLong( ( ( wpPacket * ) self )->packet->size() );
+		return PyLong_FromLong( ( ( wpPacket * ) self )->packet->size() );
 	}
 	else
 	{
-		return Py_FindMethod( wpPacketMethods, self, name );
+		return PyAsyncMethods( wpPacketMethods, self, name );
 	}
 }
 
