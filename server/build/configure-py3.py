@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #################################################################
 #   )      (\_     # Wolfpack 13.0.0 Build Script               #
 #  ((    _/{  "-;  # Created by: Wolfpack Development Team      #
@@ -169,6 +169,20 @@ def checkPython( options, lookForHeaders, lookForLib ):
 	# Linux and BSD Search Paths
 	elif sys.platform in ("linux2", "freebsd4", "freebsd5", "linux"):
 		PYTHONLIBSEARCHPATH += [ \
+			# Python 3.8
+			"/usr/lib/python3.8/config-3.8-x86_64-linux-gnu/libpython3.8*.so", \
+			"/usr/local/lib/[Pp]ython*/libpython3.8*.so", \
+			"/usr/local/lib/[Pp]ython*/config/libpython3.8*.so", \
+			"/usr/lib/x86_64-linux-gnu/libpython3.8*.so", \
+			"/usr/lib/[Pp]ython*/libpython3.8*.so", \
+			"/usr/lib/[Pp]ython*/config/libpython3.8*.so", \
+			# Python 3.7
+			"/usr/lib/python3.7/config-3.7-x86_64-linux-gnu/libpython3.7*.so", \
+			"/usr/local/lib/[Pp]ython*/libpython3.7*.so", \
+			"/usr/local/lib/[Pp]ython*/config/libpython3.7*.so", \
+			"/usr/lib/x86_64-linux-gnu/libpython3.7*.so", \
+			"/usr/lib/[Pp]ython*/libpython3.7*.so", \
+			"/usr/lib/[Pp]ython*/config/libpython3.7*.so", \
 			# Python 3.6
 			"/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/libpython3.6*.so", \
 			"/usr/local/lib/[Pp]ython*/libpython3.6*.so", \
@@ -177,16 +191,36 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			"/usr/lib/[Pp]ython*/libpython3.6*.so", \
 			"/usr/lib/[Pp]ython*/config/libpython3.6*.so" ]
 		PYTHONLIBSTATICSEARCHPATH += [ \
+			# Python 3.8
+			"/usr/lib/python3.8/config-3.8-x86_64-linux-gnu/libpython3.8*.a", \
+			"/usr/local/lib/[Pp]ython3.8*/libpython3.8*.a", \
+			"/usr/local/lib/[Pp]ython3.8*/config/libpython3.8*.a", \
+			"/usr/lib/x86_64-linux-gnu/libpython3.8*.a", \
+			"/usr/lib/[Pp]ython3.8*/libpython3.8*.a", \
+			"/usr/lib/[Pp]ython3.8*/config/libpython3.8*.a", \
+			# Python 3.7
+			"/usr/lib/python3.7/config-3.7-x86_64-linux-gnu/libpython3.7*.a", \
+			"/usr/local/lib/[Pp]ython3.67*/libpython3.7*.a", \
+			"/usr/local/lib/[Pp]ython3.7*/config/libpython3.7*.a", \
+			"/usr/lib/x86_64-linux-gnu/libpython3.7*.a", \
+			"/usr/lib/[Pp]ython3.7*/libpython3.7*.a", \
+			"/usr/lib/[Pp]ython3.7*/config/libpython3.7*.a", \
 			# Python 3.6
 			"/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/libpython3.6*.a", \
-			"/usr/local/lib/[Pp]ython3.6*/libpython2.7*.a", \
-			"/usr/local/lib/[Pp]ython3.6*/config/libpython2.7*.a", \
+			"/usr/local/lib/[Pp]ython3.6*/libpython3.6*.a", \
+			"/usr/local/lib/[Pp]ython3.6*/config/libpython3.6*.a", \
 			"/usr/lib/x86_64-linux-gnu/libpython3.6*.a", \
 			"/usr/lib/[Pp]ython3.6*/libpython3.6*.a", \
 			"/usr/lib/[Pp]ython3.6*/config/libpython3.6*.a" ]
 		PYTHONINCSEARCHPATH += [ \
 			"/usr/local/include/Python.h", \
 			"/usr/include/Python.h", \
+			# Python 3.8
+			"/usr/include/python3.8/Python.h", \
+			"/usr/include/[Pp]ython3.8*/Python.h", \
+			# Python 3.7
+			"/usr/include/python3.7/Python.h", \
+			"/usr/include/[Pp]ython3.7*/Python.h", \
 			# Python 3.6
 			"/usr/include/python3.6m/Python.h", \
 			"/usr/include/[Pp]ython3.6*/Python.h" ]
@@ -223,7 +257,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 	else:
 		sys.stdout.write( red("Fail") + "\n" )
 		sys.stdout.write( bold("  Wolfpack requires Python version >= 3.6\n") )
-		sys.exit(1);
+		sys.exit(1)
 
 	sys.stdout.write( "  Checking CPU byte order:              %s\n" % sys.byteorder )
 	if sys.byteorder != 'little':
@@ -238,7 +272,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			sys.stdout.write( "%s\n" % py_incpath )
 		else:
 			sys.stdout.write(red("Not Found!") + "\n")
-			sys.exit(1)ex
+			sys.exit(1)
 
 	if lookForLib:
 		sys.stdout.write( "  Searching for Python library:         " )

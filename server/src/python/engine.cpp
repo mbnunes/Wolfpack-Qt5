@@ -110,9 +110,10 @@ static void stopPython()
 */
 extern "C"  void init_wolfpack();
 static void startPython( QStringList arguments )
-{
+{    
 	using namespace boost::python;
-    Py_SetProgramName( arguments.at(0).toLocal8Bit().data());
+
+    Py_SetProgramName( GetWC(arguments.at(0).toLocal8Bit().data()) );
 
 	Py_NoSiteFlag = 1; // No import because we need to set the search path first
 
@@ -282,9 +283,9 @@ void reportPythonError( const QString& moduleName )
 	}
 }
 
-void wpDealloc( PyObject* self )
+static void wpDealloc( PyObject *self )
 {
-	PyObject_Del( self );
+    Py_TYPE(self)->tp_free((PyObject *) self);
 }
 
 void registerConverters(); // from converters.cpp

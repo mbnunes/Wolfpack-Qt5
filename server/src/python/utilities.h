@@ -73,7 +73,16 @@ inline PyObject* PyTrue()
 
 #define PyHasMethod(a) if( codeModule == NULL ) return false; if( !PyObject_HasAttrString( codeModule, a ) ) return false;
 
-void wpDealloc( PyObject* self );
+static const wchar_t *GetWC(const char *c)
+{
+    const size_t cSize = strlen(c)+1;
+    wchar_t* wc = new wchar_t[cSize];
+    mbstowcs (wc, c, cSize);
+
+    return wc;
+}
+
+static void wpDealloc( PyObject* self );
 
 PyObject* PyGetTooltipObject( cUOTxTooltipList* );
 

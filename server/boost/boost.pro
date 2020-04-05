@@ -5,7 +5,7 @@ DESTDIR = lib
 
 # Include configure settings
 !include(../build/config.pri) {
-	message("HINT: use ./configure.py script!")
+	message("HINT: use ./configure-py3.py script!")
 }
 
 CONFIG -= qt

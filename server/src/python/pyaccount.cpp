@@ -62,24 +62,15 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value );
 */
 static PyTypeObject wpAccountType =
 {
-PyObject_HEAD_INIT( 0 )
-0,
-"wpaccount",
-sizeof( wpAccountType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpAccount_getAttr,
-( setattrfunc ) wpAccount_setAttr,
-0,
-0,
-0,
-0,
-0,
-0,
-0, // Call
-( reprfunc ) wpAccount_str,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    PyVarObject_HEAD_INIT(NULL, 0)
+    .tp_name = "wpaccount.WPAccount",
+    .tp_doc = "old wpaccount type",
+    .tp_basicsize = sizeof( wpAccountType ),
+    .tp_itemsize = 0,
+    .tp_dealloc = wpDealloc,
+    .tp_getattr = ( getattrfunc ) wpAccount_getAttr,
+    .tp_setattr = ( setattrfunc ) wpAccount_setAttr,
+    .tp_str = ( reprfunc ) wpAccount_str,
 };
 
 /*

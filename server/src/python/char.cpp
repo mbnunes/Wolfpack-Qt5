@@ -103,7 +103,6 @@ static void wpChar_Dealloc( wpChar* self )
 static PyTypeObject wpCharType =
 {
 PyObject_HEAD_INIT( &PyType_Type )
-0,
 "wpchar",
 sizeof( wpCharType ),
 0,
