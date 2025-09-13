@@ -118,7 +118,7 @@ const quint16 packetLengths[256] =
 		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xE0
 		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0x0015, // 0xE8
 		0xFFFF, 0xFFFF, 0xFFFF, 0x001A, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF0
-		0x006A, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8
+		0x006A, 0xFFFF, 0xFFFF, 0x0002, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8
 };
 
 
@@ -414,7 +414,6 @@ void cUOSocket::receive()
  				cLoginEncryption* crypt = new cLoginEncryption;
 				if ( !crypt->init(seed, buf.data(), buf.size())) {
 					delete crypt;
-
 					// Send a communication problem message to this socket
 					_socket->write( "\x82\x04", 2 );
 					disconnect();
@@ -435,8 +434,6 @@ void cUOSocket::receive()
 			}
 
 			QByteArray buf = _socket->readAll();
-
-
 
 			// The 0x91 packet is 65 byte
 			// This should be no encryption
@@ -559,8 +556,10 @@ void cUOSocket::receive()
 			}
 		}
 
-        Console::instance()->log(LOG_WARNING, cUOPacket::dump(packet->uncompressed()) );
-
+		if(Config::instance()->showDebug()){
+			Console::instance()->log(LOG_WARNING, cUOPacket::dump(packet->uncompressed()) );
+		}
+        
 		// Relay it to the handler functions
 		switch ( packetId )
 		{
@@ -699,6 +698,9 @@ void cUOSocket::receive()
 				break;
 			case 0xF8:
 				handleCreateCharNew(static_cast<cUORxCreateCharNew*>(packet));
+				break;
+			case 0xFB:
+				handleUpdateViewPublicHouseContents(static_cast<cUORxUpdateViewPublicHouseContents*>(packet));
 				break;
 			default:
 				Console::instance()->send( packet->dump( packet->uncompressed() ) );
@@ -5196,5 +5198,14 @@ void cUOSocket::handleRequestTooltips( cUORxRequestTooltips *packet) {
 			send( &tooltip );
 		}
 	}
+}
+
+void cUOSocket::handleUpdateViewPublicHouseContents( cUORxUpdateViewPublicHouseContents* packet )
+{
+	Q_UNUSED( packet );
+	// Do something with the retrieved hardware information here
+	// > Hardware Log ??
+	//QString hardwareMsg = QString( "Hardware: %1 Processors [Type: %2], %2 MB RAM, %3 MB Harddrive" ).arg( packet->processorCount() ).arg( packet->processorType() ).arg( packet->memoryInMb() ).arg( packet->largestPartitionInMb() );
+	//cout << hardwareMsg.toLatin1() << endl;
 }
 

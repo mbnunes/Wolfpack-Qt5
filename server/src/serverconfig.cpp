@@ -162,6 +162,7 @@ void cConfig::readData()
 	secondsPerUOMinute_ = getNumber( "Game Speed", "Seconds Per UO Minute", 5, true );
 
 	// General Group
+	showDebug_ = getBool( "General", "Show Debug", false, true );
 	usesMondainsLegacyMap_ = getBool( "General", "Uses Mondains Legacy Map", true, true );
 	usesKingdomRebornMaps_ = getBool( "General", "Uses Kingdom Reborn Maps", true, true );
 	enableFeluccaSeason_ = getBool( "General", "Enable Felucca Season", true, true );

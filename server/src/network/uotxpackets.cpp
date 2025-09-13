@@ -197,17 +197,17 @@ void cUOTxCharTownList::compile(void)
 	}
 
 	//To run Old Clients the flags = 0x1A8
-	unsigned int flags = 0x1A8;
+	unsigned int flags = 0xFFFB;
 
-	if (charLimit > 6) {
-		flags |= 0x1000 | 0x40;
-	}
-	else if (charLimit == 6) {
-		flags |= 0x40;
-	}
-	else if (charLimit == 1) {
-		flags |= 0x14;
-	}
+	// if (charLimit > 6) {
+	// 	flags |= 0x1000 | 0x40;
+	// }
+	// else if (charLimit == 6) {
+	// 	flags |= 0x40;
+	// }
+	// else if (charLimit == 1) {
+	// 	flags |= 0x14;
+	// }
 	
 	setInt(offset, flags); //1230 no RunUO � 4584
 

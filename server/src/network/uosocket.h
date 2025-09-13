@@ -346,6 +346,7 @@ private:
 	void handleChat( cUOPacket* packet );
 	void handleRequestTooltips( cUORxRequestTooltips* packet );
 	void handleNewSetVersion( cUORxNewSetVersion* packet );
+	void handleUpdateViewPublicHouseContents( cUORxUpdateViewPublicHouseContents* packet );
 
 private slots:
 	void receive(); // Tries to recieve one packet and process it

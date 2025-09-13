@@ -165,6 +165,7 @@ protected:
 	int SpeechWhisperRange_;
 	int WeightPercentActiveEvent_;
 	int deleteCharDelay_;
+	bool showDebug_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -280,6 +281,11 @@ public:
 	float factorMaxStam() const;
 	bool simpleMaxHitsCalculation() const;
 	bool enableTimeChangeForItems() const;
+
+	bool showDebug() const
+	{
+		return showDebug_;
+	}
 
 	bool refreshMaxValues() const
 	{

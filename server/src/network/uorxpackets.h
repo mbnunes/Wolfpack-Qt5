@@ -2002,6 +2002,21 @@ public:
 	}
 };
 
+
+// 0xFB Update View Public House Contents
+class cUORxUpdateViewPublicHouseContents : public cUOPacket
+{
+public:
+	cUORxUpdateViewPublicHouseContents( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+
+	uchar show( void ) const
+	{
+		return ( *this )[1];
+	}
+};
+
 // 0xD9: Hardware Info
 class cUORxHardwareInfo : public cUOPacket
 {
