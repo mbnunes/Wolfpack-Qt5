@@ -1,4 +1,4 @@
-﻿/*
+/*
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
@@ -399,7 +399,7 @@ void cUOSocket::receive()
 			QByteArray buf = _socket->readAll();            
 			
 			// Check if it could be *not* encrypted
-			if ( buf[0] == '\xEF' || buf[21] == '\x80' || buf[0] == '\x80') {
+			if ( buf[0] == '\xEF' || buf[21] == '\x80' || buf[0] == '\x80' || buf[0] == '\x91') {
 				// Is no Encryption allowed?
 				if ( !Config::instance()->allowUnencryptedClients() )
 				{
@@ -683,6 +683,9 @@ void cUOSocket::receive()
 			case 0xD7:
 				handleAosMultiPurpose( static_cast<cUORxAosMultiPurpose*>( packet ) );
 				break;
+			case 0xD9:
+				handleHardwareInfo( static_cast<cUORxHardwareInfo*>( packet ) );
+				break;
 			case 0xB6:
 				break; // Completely ignore the packet.
 			case 0xBB:
@@ -909,6 +912,7 @@ void cUOSocket::handleServerAttach( cUORxServerAttach* packet )
 */
 void cUOSocket::sendCharList(const uint maxChars)
 {
+	
 	// NOTE:
 	// Send the server/account features here as well
 	// AoS needs it most likely for account creation
@@ -961,6 +965,7 @@ void cUOSocket::sendCharList(const uint maxChars)
 	// Ask the client for a viewrange
 	cUOTxUpdateRange range;
 	range.setRange( VISRANGE );
+	
 	send( &range );
 }
 

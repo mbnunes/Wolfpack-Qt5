@@ -1010,11 +1010,11 @@ public:
 	}
 };
 
-// 0xA4: Hardware Info
-class cUORxHardwareInfo : public cUOPacket
+// 0xA4: System Info
+class cUORxSystemInfo : public cUOPacket
 {
 public:
-	cUORxHardwareInfo( const QByteArray& data ) : cUOPacket( data )
+	cUORxSystemInfo( const QByteArray& data ) : cUOPacket( data )
 	{
 	}
 	uchar processorType( void ) const
@@ -1999,6 +1999,122 @@ public:
 
 	const unsigned int getSerial(unsigned short index) {
 		return getInt(3 + index * 4);
+	}
+};
+
+// 0xD9: Hardware Info
+class cUORxHardwareInfo : public cUOPacket
+{
+public:
+	cUORxHardwareInfo() : cUOPacket( 0xD9, 268 )
+	{
+	}
+	cUORxHardwareInfo( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	uchar clientType( void ) const
+	{
+		return ( *this )[1];
+	}
+	uint instanceID( void ) const
+	{
+		return getInt( 2 );
+	}
+	uint osMajor( void ) const
+	{
+		return getInt( 6 );
+	}
+	uint osMinor( void ) const
+	{
+		return getInt( 10 );
+	}
+	uint osRevision( void ) const
+	{
+		return getInt( 14 );
+	}
+	uchar cpuManifacture( void ) const
+	{
+		return ( *this )[18];
+	}
+	uint cpuFamily( void ) const
+	{
+		return getInt( 19 );
+	}
+	uint cpuModel( void ) const
+	{
+		return getInt( 23 );
+	}
+	uint cpuClockSpeed( void ) const
+	{
+		return getInt( 27 );
+	}
+	uchar cpuQuantity( void ) const
+	{
+		return ( *this )[31];
+	}
+	uint memoryPhysical( void ) const
+	{
+		return getInt( 32 );
+	}
+	uint screenWidth( void ) const
+	{
+		return getInt( 36 );
+	}
+	uint screenHeight( void ) const
+	{
+		return getInt( 40 );
+	}
+	uint screenDeth( void ) const
+	{
+		return getInt( 44 );
+	}
+	ushort directxMajor( void ) const
+	{
+		return getShort( 48 );
+	}
+	ushort directxMinor( void ) const
+	{
+		return getShort( 51 );
+	}
+	QByteArray gpuDescription( void ) const
+	{
+		return this->getAsciiString( 52, 64 );
+	}
+	uint gpuVendorID( void ) const
+	{
+		return getInt( 179 );
+	}
+	uint gpuDeviceID( void ) const
+	{
+		return getInt( 182 );
+	}
+	uint gpuMemory( void ) const
+	{
+		return getInt( 186 );
+	}
+	uchar distribution( void ) const
+	{
+		return ( *this )[190];
+	}
+	uchar clientsRnning( void ) const
+	{
+		return ( *this )[191];
+	}
+	uchar clientsInstalled( void ) const
+	{
+		return ( *this )[192];
+	}
+	uchar clientsPartialInstalled( void ) const
+	{
+		return ( *this )[193];
+	}
+	QByteArray language( void ) const
+	{
+		return this->getAsciiString( 194, 4 );
+	}
+	QByteArray unk( void ) const
+	{
+		return this->getAsciiString( 202, 32 );
 	}
 };
 

@@ -95,53 +95,53 @@ void cUOTxCharTownList::addTown(unsigned char index, const QString& name, const 
 	towns.push_back(town);
 }
 
-void cUOTxCharTownList::compileOld( void )
-{
-	resize( 309 + ( towns.size() * 63 ) );
-	( *this )[0] = ( unsigned char ) 0xA9;
+// void cUOTxCharTownList::compileOld( void )
+// {
+// 	resize( 309 + ( towns.size() * 63 ) );
+// 	( *this )[0] = ( unsigned char ) 0xA9;
 
-	( *this )[3] = characters.size(); // Char Count
+// 	( *this )[3] = characters.size(); // Char Count
 
-	for ( unsigned char c = 0; c < 5; ++c )
-	{
-		if ( c < characters.size() )
-		{
-			setAsciiString( 4 + ( c * 60 ), characters[c].left( 29 ).toLatin1(), 30 );
-			( *this )[4 + ( c * 60 ) + 30] = 0x00; // No Password (!)
-		}
-		else
-		{
-			( *this )[4 + ( c * 60 )] = 0x00; // "Pad-out" the char
-		}
-	}
+// 	for ( unsigned char c = 0; c < 5; ++c )
+// 	{
+// 		if ( c < characters.size() )
+// 		{
+// 			setAsciiString( 4 + ( c * 60 ), characters[c].left( 29 ).toLatin1(), 30 );
+// 			( *this )[4 + ( c * 60 ) + 30] = 0x00; // No Password (!)
+// 		}
+// 		else
+// 		{
+// 			( *this )[4 + ( c * 60 )] = 0x00; // "Pad-out" the char
+// 		}
+// 	}
 
-	// Town Count
-	int offset = 304;
-	( *this )[offset++] = towns.size();
+// 	// Town Count
+// 	int offset = 304;
+// 	( *this )[offset++] = towns.size();
 
-	for ( unsigned char t = 0; t < towns.size(); ++t )
-	{
-		( *this )[offset] = towns[t].index;
-		setAsciiString( offset + 1, towns[t].town.left( 29 ).toLatin1(), 30 );
-		setAsciiString( offset + 32, towns[t].area.left( 29 ).toLatin1(), 30 );
-		offset += 63;
-	}
+// 	for ( unsigned char t = 0; t < towns.size(); ++t )
+// 	{
+// 		( *this )[offset] = towns[t].index;
+// 		setAsciiString( offset + 1, towns[t].town.left( 29 ).toLatin1(), 30 );
+// 		setAsciiString( offset + 32, towns[t].area.left( 29 ).toLatin1(), 30 );
+// 		offset += 63;
+// 	}
 
-	unsigned int flags = 0x1A8; // Samurai Empire + Context Menus + AOS + Mondain's Legacy
+// 	unsigned int flags = 0x1A8; // Samurai Empire + Context Menus + AOS + Mondain's Legacy
 
-	if (charLimit > 6) {
-		flags |= 0x1000 | 0x40;
-	} else if (charLimit == 6) {
-		flags |= 0x40;
-	} else if (charLimit == 1) {
-		flags |= 0x14;
-	}
+// 	if (charLimit > 6) {
+// 		flags |= 0x1000 | 0x40;
+// 	} else if (charLimit == 6) {
+// 		flags |= 0x40;
+// 	} else if (charLimit == 1) {
+// 		flags |= 0x14;
+// 	}
 
-    setInt( offset, flags );
+//     setInt( offset, flags );
 
-	// New Packet Size
-	setShort( 1, count() );
-}
+// 	// New Packet Size
+// 	setShort( 1, count() );
+// }
 
 void cUOTxCharTownList::compile(void)
 {
@@ -209,7 +209,7 @@ void cUOTxCharTownList::compile(void)
 		flags |= 0x14;
 	}
 	
-	setInt(offset, flags); //1230 no RunUO é 4584
+	setInt(offset, flags); //1230 no RunUO ï¿½ 4584
 
 	//Last Character Slot
 	setShort(offset + 4, -1);

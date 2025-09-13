@@ -140,7 +140,7 @@ public:
 		charLimit = limit;
 	}
 
-	virtual void compileOld();
+	// virtual void compileOld();
 	virtual void compile();
 };
 

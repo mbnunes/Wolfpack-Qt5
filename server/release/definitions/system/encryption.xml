@@ -12,6 +12,7 @@
 
 		<!-- Client identification string (optional) ; Key1 ; Key2 -->
 
+		<item> Client 7.0.109 ; 0x3817712D ; 0xAB101E7F </item>
 		<item> Client 7.0.35 ; 0x283235CD ; 0xA1345E7F </item>
 		<item> Client 7.0.33 ; 0x28A325ED ; 0xA1767E7F </item>
 		<item> Client 7.0.34 ; 0x28EAAFDD ; 0xA157227F </item>
