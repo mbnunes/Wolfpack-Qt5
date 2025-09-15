@@ -1,4 +1,4 @@
-/*
+﻿/*
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
@@ -676,6 +676,12 @@ void cUOSocket::receive()
 			case 0xC8:
 				handleUpdateRange( static_cast<cUORxUpdateRange*>( packet ) );
 				break;
+			case 0xD0:
+				handleConfigurationFile( static_cast<cUORxConfigurationFile*>( packet ) );
+				break;
+			case 0xD1:
+				handleLogoutRequest( static_cast<cUORxLogoutRequest*>( packet ) );
+				break;
 			case 0xD6:
 				handleRequestTooltips( static_cast<cUORxRequestTooltips*>( packet ) );
 				break;
@@ -783,6 +789,15 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo* packet )
 	// > Hardware Log ??
 	//QString hardwareMsg = QString( "Hardware: %1 Processors [Type: %2], %2 MB RAM, %3 MB Harddrive" ).arg( packet->processorCount() ).arg( packet->processorType() ).arg( packet->memoryInMb() ).arg( packet->largestPartitionInMb() );
 	//cout << hardwareMsg.toLatin1() << endl;
+}
+
+/*!
+  This method handles cUORxHardwareInfo packet types.
+  \sa cUORxLogoutRequest
+*/
+void cUOSocket::handleLogoutRequest( cUORxLogoutRequest* packet )
+{
+	disconnect();
 }
 
 /*!
@@ -919,8 +934,8 @@ void cUOSocket::sendCharList(const uint maxChars)
 	// Send the server/account features here as well
 	// AoS needs it most likely for account creation
 	cUOTxClientFeatures clientFeatures;
-	unsigned int flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x40 | 0x80 | 0x200 | 0x8000 | 0x10000 | 0x20000 | 0x40000 | 0x80000;	// Added 0x80 to Enable the ML Features //0x3 | 0x40 | 0x801c | 0x80 | 0x100 | 0x1000
-		
+	unsigned int flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 | 0x40 | 0x80 | 0x100 | 0x200 | 0x400 | 0x800 | 0x1000 | 0x2000 | 0x4000 | 0x8000 | 0x10000 | 0x20000 | 0x40000 | 0x80000 | 0x100000 | 0x200000 | 0x400000 | 0x800000;	// Added 0x80 to Enable the ML Features //0x3 | 0x40 | 0x801c | 0x80 | 0x100 | 0x1000
+
 	/*
 	if (maxChars >= 6) {
 		flags |= 0x8000;
@@ -1114,9 +1129,9 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// This needs to be sent once
 	cUOTxConfirmLogin confirmLogin;
 	confirmLogin.fromChar( pChar );
-	confirmLogin.setUnknown3( 0x007f0000 );
-	confirmLogin.setUnknown4( 0x00000007 );
-	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
+	// confirmLogin.setUnknown3( 0x007f0000 );
+	// confirmLogin.setUnknown4( 0x00000007 );
+	// confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
 	send( &confirmLogin );
 
 	// Enable Sta+Map Diffs
@@ -5185,6 +5200,13 @@ void cUOSocket::handleResurrectionMenu( cUORxResurrectionMenu* packet )
 
 	return;
 }
+
+void cUOSocket::handleConfigurationFile( cUORxConfigurationFile *packet) {
+	// Handle the configuration file request
+	Q_UNUSED(packet);
+	// Process the configuration data as needed
+}
+
 
 void cUOSocket::handleRequestTooltips( cUORxRequestTooltips *packet) {
 	unsigned short count = packet->getCount();

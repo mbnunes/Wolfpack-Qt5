@@ -1453,6 +1453,10 @@ public:
 	cUORxSpeechRequest( const QByteArray& data ) : cUOPacket( data )
 	{
 	}
+	ushort size() const
+	{
+		return getShort( 1 );
+	}
 	uchar type() const
 	{
 		return ( *this )[3];
@@ -2131,6 +2135,47 @@ public:
 	{
 		return this->getAsciiString( 202, 32 );
 	}
+};
+
+// 0xD0: Configuration File
+class cUORxConfigurationFile : public cUOPacket
+{
+public:
+	cUORxConfigurationFile( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	
+	uchar cmd( void ) const
+	{
+		return ( *this )[1];
+	}
+	ushort size( void ) const
+	{
+		return getShort( 2 );
+	}
+	uchar type( void ) const
+	{
+		return ( *this )[4];
+	}
+	QByteArray unk( void ) const
+	{
+		return this->getAsciiString( 5, size() -4 );
+	}
+};
+
+// 0xD1: Logout Request
+class cUORxLogoutRequest : public cUOPacket
+{
+public:
+	cUORxLogoutRequest( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	
+	uchar disconnected( void ) const
+	{
+		return ( *this )[1];
+	}
+
 };
 
 #endif // __UO_RXPACKETS__

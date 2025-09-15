@@ -194,7 +194,7 @@ public:
 	}
 	void setUnknown1( unsigned int data )
 	{
-		setInt( 5, data );
+		setInt( 5, data ); // 0x00 always
 	}
 	void setBody( unsigned short data )
 	{
@@ -208,37 +208,45 @@ public:
 	{
 		setShort( 13, data );
 	}
-	void setZ( short data )
+	void setUnknown2( unsigned char data )
 	{
-		setShort( 15, data );
+		( *this )[15] = data;
+	}
+	void setZ( unsigned char data )
+	{
+		( *this )[16] = data;
 	}
 	void setDirection( unsigned char data )
 	{
 		( *this )[17] = data;
 	}
-	void setUnknown2( unsigned short data )
-	{
-		setShort( 18, data );
-	}
 	void setUnknown3( unsigned int data )
 	{
-		setInt( 20, data );
+		setInt( 18, data );
 	}
 	void setUnknown4( unsigned int data )
 	{
-		setInt( 24, data );
+		setInt( 22, data );
 	}
-	void setFlags( unsigned char data )
+	void setUnknown5( unsigned char data )
 	{
-		( *this )[28] = data;
+		( *this )[26] = data;
 	}
-	void setHighlight( unsigned char data )
+	void setBoundaryWidthMinusEight( unsigned short data )
 	{
-		( *this )[29] = data;
+		setShort( 27, data );
 	}
-	void setUnknown5( char data[7] )
+	void setBoundaryHeight( unsigned short data )
 	{
-		this->setRawData( 30, ( char * ) data, 7 );
+		setShort( 29, data );
+	}
+	void setUnknown6( unsigned short data )
+	{
+		setShort( 31, data );
+	}
+	void setUnknown7( unsigned short data )
+	{
+		setShort( 33, data );
 	}
 	void fromChar( P_CHAR pChar );
 };

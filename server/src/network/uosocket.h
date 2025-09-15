@@ -347,6 +347,8 @@ private:
 	void handleRequestTooltips( cUORxRequestTooltips* packet );
 	void handleNewSetVersion( cUORxNewSetVersion* packet );
 	void handleUpdateViewPublicHouseContents( cUORxUpdateViewPublicHouseContents* packet );
+	void handleConfigurationFile( cUORxConfigurationFile* packet );
+	void handleLogoutRequest( cUORxLogoutRequest* packet );
 
 private slots:
 	void receive(); // Tries to recieve one packet and process it
