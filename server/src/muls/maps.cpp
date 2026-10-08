@@ -95,7 +95,7 @@ public:
 	*/
 	void loadDiffs( const QString& basepath, unsigned int id );
 
-	MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw( wpFileNotFoundException );
+	MapsPrivate( const QString& index, const QString& map, const QString& statics );
 	map_st seekMap( ushort x, ushort y );
 	void flushCache();
 };
@@ -104,7 +104,7 @@ public:
   MapsPrivate member functions
  *****************************************************************************/
 
-MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QString& statics ) throw( wpFileNotFoundException )
+MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QString& statics )
 {
 	idxfile.setFileName( index );
 	if ( !idxfile.open( QIODevice::ReadOnly ) )
@@ -655,7 +655,7 @@ signed char cMaps::height( const Coord& pos )
 }
 
 
-StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact /* = true */ ) const throw( wpException )
+StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact /* = true */ ) const
 {
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
@@ -666,7 +666,7 @@ StaticsIterator cMaps::staticsIterator( uint id, ushort x, ushort y, bool exact 
 	return StaticsIterator( x, y, it.value(), exact );
 }
 
-StaticsIterator cMaps::staticsIterator( const Coord& p, bool exact /* = true */ ) const throw( wpException )
+StaticsIterator cMaps::staticsIterator( const Coord& p, bool exact /* = true */ ) const
 {
 	return staticsIterator( p.map, p.x, p.y, exact );
 }

@@ -291,7 +291,7 @@ def onLoad():
 	wolfpack.registercommand('tilepattern', tilepattern)
 	return
 
-"""
+r"""
 	\command tilepattern
 	\description Brings up a gump which allows you to create patterns of items for building.
 """

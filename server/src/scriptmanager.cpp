@@ -38,7 +38,6 @@
 
 // Library Includes
 #include <QString>
-#include <QRegExp>
 #include <QFileInfo>
 #include <QDir>
 #include <QByteArray>

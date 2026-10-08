@@ -4,11 +4,11 @@
 #   )).-' {{ ;'`   | Revised by:
 #  ( (  ;._ \\ ctr | Last Modification: Created
 #===============================================================#
-"""
+r"""
 	\command fix
 	\description Resend the player and the surrounding objects.
 """
-"""
+r"""
 	\command resend
 	\description Resend the player and the surrounding objects.
 """

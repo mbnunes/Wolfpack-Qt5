@@ -127,7 +127,7 @@ public:
 	/*!
 		\brief Sends a localized message to all party members.
 	*/
-	void send( unsigned int message, const QString& params = QString::null, const QString& affix = QString::null, bool prepend = false );
+	void send( unsigned int message, const QString& params = QString(), const QString& affix = QString(), bool prepend = false );
 
 	/*!
 		\brief Sends a public message to the party.

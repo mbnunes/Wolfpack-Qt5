@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack.sockets
 	\description Contains functions for sockets.
 """

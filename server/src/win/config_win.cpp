@@ -86,7 +86,7 @@ static QString getUOPath()
 		RegCloseKey( tempKey );
 	}
 
-	return QString::null;
+	return QString();
 }
 
 /*!

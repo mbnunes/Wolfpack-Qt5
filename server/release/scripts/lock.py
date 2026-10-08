@@ -1,5 +1,5 @@
 
-"""
+r"""
 	\command lock
 	\description Manage or attach a lock on an object.
 	\note Lock ids are strings. They don't need to be numeric.

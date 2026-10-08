@@ -43,7 +43,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QStatusBar>
-
+#include <QRegularExpression>
 #include <QPair>
 
 using namespace boost::python;
@@ -259,7 +259,7 @@ void PythonInteractiveWindow::evalCommand()
 	output->setTextColor( Qt::black );
 	// do something
 	QString command = input->text();
-	command.replace(QRegExp("\\s*$"), "");
+	command.replace(QRegularExpression("\\s*$"), "");
 
 	if ( !buffer.isEmpty() )
 	{
@@ -305,13 +305,13 @@ void PythonInteractiveWindow::parse( QString& command )
 	{
 		return;
 	}
-	QRegExp internals( "^(print|import|exec|del|def|class|assert|pass|return|yield|raise|break|continue|global|if|else|elif|while|for|try|except|finally|from)\\b" );
+	QRegularExpression internals( "^(print|import|exec|del|def|class|assert|pass|return|yield|raise|break|continue|global|if|else|elif|while|for|try|except|finally|from)\\b" );
 	if( ( command.indexOf( "\n" ) == -1 ) &&
 		( command.indexOf( "=" ) == -1 ) &&
-		( internals.indexIn( command ) == -1 ) )
+		( !internals.match( command ).hasMatch() ) )
 	{
 		command.insert( 0, "__internal_var__ = " );
-		command.append( "\nprint __internal_var__" );
+		command.append( "\nprint(__internal_var__)" );
 	}
 }
 

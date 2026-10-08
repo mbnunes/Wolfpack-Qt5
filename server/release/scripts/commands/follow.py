@@ -3,7 +3,7 @@ from wolfpack import tr
 import wolfpack
 from wolfpack.consts import *
 
-"""
+r"""
 	\command follow
 	\description This command will let you select a character as the follow target. Then you will be teleported to the characters location every 1.5 seconds.
 	To stop following, simply use this command again.

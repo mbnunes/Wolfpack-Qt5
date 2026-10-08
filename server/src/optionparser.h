@@ -60,7 +60,7 @@ public:
 	void addOption( const QString& opt, const QString& dest, const QString& help = QString(), bool hasArguments = false );
 	void addOption( const QString& opt, const QString& dest, PlatformSpecific plat, const QString& help = QString(), bool hasArguments = false );
 	QVariant value( const QString& variable ) const { return options[variable]; }
-	void parse();
+	bool parse();
 
 private:
 	void printUsage();

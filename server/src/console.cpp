@@ -50,7 +50,7 @@ using namespace std;
 // Constructor
 cConsole::cConsole()
 {
-	progress = QString::null;
+	progress = QString();
 }
 
 // Destuctor
@@ -81,7 +81,7 @@ void cConsole::sendProgress( const QString& sMessage )
 // Print Progress Done
 void cConsole::sendDone()
 {
-	progress = QString::null;
+	progress = QString();
 	changeColor( WPC_GREEN );
 	send( tr( "Done\n" ) );
 	changeColor( WPC_NORMAL );
@@ -90,7 +90,7 @@ void cConsole::sendDone()
 // Print "Fail"
 void cConsole::sendFail()
 {
-	progress = QString::null;
+	progress = QString();
 	changeColor( WPC_RED );
 	send( tr( "Failed\n" ) );
 	changeColor( WPC_NORMAL );
@@ -99,7 +99,7 @@ void cConsole::sendFail()
 // Print "Skip" (maps etc.)
 void cConsole::sendSkip()
 {
-	progress = QString::null;
+	progress = QString();
 	changeColor( WPC_YELLOW );
 	send( tr( "Skipped\n" ) );
 	changeColor( WPC_NORMAL );

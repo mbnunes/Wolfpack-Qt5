@@ -1,9 +1,9 @@
-"""
+r"""
 	\command tele
 	\description Transports you directly to the targetted location.
 """
 
-"""
+r"""
 	\command telem
 	\description Transports you directly to the targetted location.
 	In addition, the target cursor is displayed again once you choose

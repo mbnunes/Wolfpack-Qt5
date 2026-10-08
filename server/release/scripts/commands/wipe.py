@@ -7,7 +7,7 @@
 # .wipe/nuke/nukez Commands					#
 #===============================================================#
 
-"""
+r"""
 	\command nuke
 	\description Remove items in a certain area.
 	\usage - <code>nuke</code>
@@ -26,7 +26,7 @@
 	Using map, you'll nuke the map you're on (Map 0, map 1, etc)
 	\notes There is also <b>WIPE</b> which is an alias for this command.
 """
-"""
+r"""
 	\command wipe
 	\description Remove items in a certain area.
 	\usage - <code>wipe</code>
@@ -45,7 +45,7 @@
 	Using map, you'll nuke the map you're on (Map 0, map 1, etc)
 	\notes There is also <b>NUKE</b> which is an alias for this command.
 """
-"""
+r"""
 	\command nukez
 	\description Remove items in a certain area at a given height.
 	\usage - <code>nukez z</code>

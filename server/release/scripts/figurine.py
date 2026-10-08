@@ -116,7 +116,7 @@ def shrinktarget( char, args, target ):
 def onLoad():
 	wolfpack.registercommand('shrink', shrink)
 	
-"""
+r"""
 	\command shrink
 	\description With this command you can shrink a NPC.
 	\usage - <code>shrink</code>

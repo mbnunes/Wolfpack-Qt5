@@ -14,7 +14,7 @@ def evalcommand(socket, command, arguments):
 		#code = compile(script, '<SOCKET>', 'exec')
 		#result = eval(script, globals(), locals())
 		result = eval(script)
-	except Exception, e:
+	except Exception as e:
 		socket.sysmessage('Python Error: ' + str(e))
 		return
 
@@ -24,7 +24,7 @@ def evalcommand(socket, command, arguments):
 def onLoad():
 	wolfpack.registercommand('eval', evalcommand)
 
-"""
+r"""
 	\command eval
 	\description Executes python scriptlets.
 	\usage - <code>eval [code]</code>

@@ -34,14 +34,14 @@
 // Library Includes
 #include <QMap>
 #include <QString>
+#include <QStringList>
 #include <QByteArray>
+#include <QXmlStreamAttributes>
 
 // Includes for cPythonScriptable
 #include "pythonscript.h"
 
 // Foward declarations
-class QStringList;
-class QXmlAttributes;
 class cDefManagerPrivate;
 
 enum eDefCategory
@@ -102,7 +102,7 @@ public:
 	cElement();
 	virtual ~cElement();
 
-	void copyAttributes( const QXmlAttributes& attributes );
+	void copyAttributes( const QXmlStreamAttributes& attributes );
 	void addChild( cElement* element );
 
 	void removeChild( cElement* element );
@@ -110,7 +110,7 @@ public:
 	const cElement* getChild( unsigned int index ) const;
 	unsigned int childCount() const;
 	bool hasAttribute( const QByteArray& name ) const;
-	const QString& getAttribute( const QByteArray& name, const QString& def = QString::null ) const;
+	const QString& getAttribute( const QByteArray& name, const QString& def = QString() ) const;
 
 	void setName( const QByteArray& data );
 	const QString& name() const;

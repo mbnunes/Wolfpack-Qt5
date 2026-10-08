@@ -7,7 +7,7 @@
 # stat Command  						#
 #===============================================================#
 
-"""
+r"""
 	\command stat
 	\description Change the strength, dexterity or intelligence of a character.
 	\usage - <code>stat str value</code>

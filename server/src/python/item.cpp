@@ -60,9 +60,11 @@ typedef Singleton<cItemObjectCache> ItemCache;
 // Forward Declarations
 static PyObject* wpItem_getAttr( wpItem* self, char* name );
 static int wpItem_setAttr( wpItem* self, char* name, PyObject* value );
-int wpItem_compare( PyObject* a, PyObject* b );
-long wpItem_hash( wpItem* self )
+static PyObject* wpItem_richcompare( PyObject* a, PyObject* b, int op );
+
+static Py_hash_t wpItem_hash( PyObject* self_obj )
 {
+	wpItem* self = ( wpItem* ) self_obj;
 	return self->pItem->serial();
 }
 
@@ -75,47 +77,17 @@ static PyObject* wpItem_str( wpItem* object )
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpItemType =
-{
-PyObject_HEAD_INIT( &PyType_Type )
-0,
-"wpitem",
-sizeof( wpItemType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpItem_getAttr,
-( setattrfunc ) wpItem_setAttr,
-wpItem_compare,
-0,
-0,
-0,
-0,
-( hashfunc ) wpItem_hash,
-0,
-( reprfunc ) wpItem_str,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpItemType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.item",
+	.tp_basicsize = sizeof( wpItem ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpItem_getAttr,
+	.tp_setattr = ( setattrfunc ) wpItem_setAttr,
+	.tp_repr = ( reprfunc ) wpItem_str,
+	.tp_hash = ( hashfunc ) wpItem_hash,
+	.tp_str = ( reprfunc ) wpItem_str,
+	.tp_richcompare = wpItem_richcompare,
 };
 
 PyObject* PyGetItemObject( P_ITEM item )
@@ -1164,7 +1136,7 @@ static PyObject* wpItem_getstrproperty( wpItem* self, PyObject* args )
 
 	QString name = boost::python::extract<QString>( pyname );
 
-	QString def = QString::null;
+	QString def = QString();
 	if ( pydef != Py_None )
 	{
 		def = boost::python::extract<QString>( pydef );
@@ -1479,16 +1451,27 @@ bool checkWpItem( PyObject* pObj )
 		return true;
 }
 
-int wpItem_compare( PyObject* a, PyObject* b )
+static PyObject* wpItem_richcompare( PyObject* a, PyObject* b, int op )
 {
-	// Both have to be characters
-	if ( a->ob_type != &wpItemType || b->ob_type != &wpItemType )
-		return -1;
+	if ( Py_TYPE( a ) != &wpItemType || Py_TYPE( b ) != &wpItemType )
+	{
+		Py_RETURN_NOTIMPLEMENTED;
+	}
 
 	P_ITEM pA = getWpItem( a );
 	P_ITEM pB = getWpItem( b );
+	bool equal = ( pA == pB );
 
-	return !( pA == pB );
+	if ( op == Py_EQ )
+	{
+		if ( equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+	else if ( op == Py_NE )
+	{
+		if ( !equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+
+	Py_RETURN_NOTIMPLEMENTED;
 }
 
 int PyConvertItem( PyObject* object, P_ITEM* item )

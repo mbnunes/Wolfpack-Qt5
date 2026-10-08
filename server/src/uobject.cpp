@@ -60,7 +60,7 @@
 
 // Library Includes
 
-cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_( 0 )
+cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString() ), scriptChain( 0 ), spawnregion_( 0 )
 {
 	pos_.setInternalMap(); // We're not in the map objects yet
 }
@@ -188,7 +188,7 @@ unsigned int cUObject::dist( cUObject* d ) const
 */
 void cUObject::load( QSqlQuery& result, ushort& offset )
 {
-	name_ = ( result.value(offset).toByteArray().isEmpty() ) ? QString::null : QString::fromUtf8( result.value(offset).toByteArray() );
+	name_ = ( result.value(offset).toByteArray().isEmpty() ) ? QString() : QString::fromUtf8( result.value(offset).toByteArray() );
 	offset++;
 	serial_ = result.value( offset++ ).toInt();
 	multi_ = reinterpret_cast<cMulti*>( static_cast<size_t>( result.value(offset++).toInt() ) );
@@ -241,7 +241,7 @@ void cUObject::save()
 		q->addBindValue( pos_.z );
 		q->addBindValue( pos_.map );
 		QString scriptList = this->scriptList();
-		q->addBindValue( scriptList == QString::null ? QString( "" ) : scriptList );
+		q->addBindValue( scriptList == QString() ? QString( "" ) : scriptList );
 		q->addBindValue( havetags_ );
 		if ( isPersistent )
 			q->addBindValue( serial_ );

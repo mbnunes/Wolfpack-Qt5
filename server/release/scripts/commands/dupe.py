@@ -7,7 +7,7 @@
 # .dupe Command                                                 #
 #===============================================================#
 
-"""
+r"""
 	\command dupe
 	\description Duplicates an item 1 or more times.
 	\usage - <code>dupe</code>

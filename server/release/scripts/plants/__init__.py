@@ -84,7 +84,7 @@ def processGrowthCheck(obj, args):
 			plant = wolfpack.finditem(plantlist[i])
 			if plant and hash(plant.baseid) == planthash:
 				plants.plant.growthCheck(plant)
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_ERROR, "An error occured while checking plant 0x%x: %s.\n" % (plant.serial, str(e)))
 
 	i = upperindex

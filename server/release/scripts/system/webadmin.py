@@ -56,11 +56,11 @@ class Webserver( HTTPServer ):
 			dummy.close()
 			return
 
-		print '-'*40
-		print 'Exception happened during processing of request from ' + str( client_address )
+		print( '-'*40 )
+		print( 'Exception happened during processing of request from ' + str( client_address ) )
 
 		traceback.print_exc() # XXX But this goes to stderr!
-		print '-'*40
+		print( '-'*40 )
 
 # Custom Request Handler
 class WebserverHandler( CGIHTTPRequestHandler ):
@@ -133,15 +133,15 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 		scriptfile = os.path.normpath( scriptfile )
 
 		if not os.path.exists(scriptfile):
-			self.send_error(404, "No such CGI script (%s)" % `scriptname`)
+			self.send_error(404, "No such CGI script (%s)" % repr(scriptname))
 			return
 		if not os.path.isfile(scriptfile):
-			self.send_error(403, "CGI script is not a plain file (%s)" % `scriptname`)
+			self.send_error(403, "CGI script is not a plain file (%s)" % repr(scriptname))
 			return
 
 		ispy = self.is_python(scriptname)
 		if not ispy:
-			self.send_error(403, "CGI script is not a Python script (%s)" % `scriptname`)
+			self.send_error(403, "CGI script is not a Python script (%s)" % repr(scriptname))
 			return
 
 		# Reference: http://hoohoo.ncsa.uiuc.edu/cgi/env.html
@@ -216,7 +216,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 				sys.stdin = save_stdin
 				sys.stdout = save_stdout
 				sys.stderr = save_stderr
-		except SystemExit, sts:
+		except SystemExit as sts:
 			if WEBADMIN_LOGGING == 1:
 				self.log_error("CGI script exit status %s", str(sts))
 		else:
@@ -229,7 +229,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 			file.write( "%s - - [%s] %s\n" % ( self.address_string(), self.log_date_time_string(), format%args ) )
 			file.close()
 		except:
-			print "Could not write to logfile: logs/web.log\n"
+			print( "Could not write to logfile: logs/web.log\n" )
 
 class WebserverThread(Thread):
 	def __init__( self, port ):

@@ -1,18 +1,18 @@
 
-"""
+r"""
 	\library wolfpack.database
 	\description Contains several server functions for databases.
 """
 
 import _wolfpack.database
 
-"""
+r"""
 	\constants wolfpack.database Database Constants
 	These constants identify one of the databases.
 """
 ACCOUNTS = 1
 WORLD = 2
-"""
+r"""
 	\end
 """
 

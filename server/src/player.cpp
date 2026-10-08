@@ -162,7 +162,7 @@ void cPlayer::save( cBufferedWriter& writer, unsigned int version )
 	else
 	{
 		cBaseChar::save( writer, version );
-		writer.writeUtf8( account_ ? account_->login() : QString::null );
+		writer.writeUtf8( account_ ? account_->login() : QString() );
 		writer.writeInt( additionalFlags_ );
 		writer.writeByte( visualRange_ );
 		writer.writeUtf8( profile_ );
@@ -952,15 +952,15 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 		{
 			P_ITEM pItem = 0;
 
-			if ( node->hasAttribute( "id" ) && node->getAttribute( "id" ) != QString::null )
+			if ( node->hasAttribute( "id" ) && node->getAttribute( "id" ) != QString() )
 			{
 				pItem = cItem::createFromScript( node->getAttribute( "id" ) );
 			}
-			else if ( node->hasAttribute( "list" ) && node->getAttribute( "list" ) != QString::null )
+			else if ( node->hasAttribute( "list" ) && node->getAttribute( "list" ) != QString() )
 			{
 				pItem = cItem::createFromList( node->getAttribute( "list" ) );
 			}
-			else if ( node->hasAttribute( "randomlist" ) && node->getAttribute( "randomlist" ) != QString::null )
+			else if ( node->hasAttribute( "randomlist" ) && node->getAttribute( "randomlist" ) != QString() )
 			{
 				QStringList RandValues = node->getAttribute( "randomlist" ).split( "," );
 				pItem = cItem::createFromList( RandValues[RandomNum( 0, RandValues.size() - 1 )] );

@@ -7,7 +7,7 @@
 # Script for Spellbooks                                         #
 #===============================================================#
 
-"""
+r"""
 	\command addspell
 	\description Add a spell to a spellbok.
 	\usage - <code>addspell id</code>
@@ -17,7 +17,7 @@
 	will be added to the book.
 """
 
-"""
+r"""
 	\command removespell
 	\description Remove a spell from a spellbook.
 	\usage - <code>removespell id</code>

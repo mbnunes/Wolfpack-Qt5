@@ -93,7 +93,7 @@ void cGuild::load( const QSqlQuery& result )
 	website_ = result.value( 4 ).toString();
 	alignment_ = ( eAlignment ) result.value( 5 ).toInt();
 	leader_ = dynamic_cast<P_PLAYER>( World::instance()->findChar( result.value( 6 ).toInt() ) );
-	founded_.setTime_t( result.value( 7 ).toInt() );
+	founded_.setSecsSinceEpoch( result.value( 7 ).toInt() );
 	guildstone_ = World::instance()->findItem( result.value( 8 ).toInt() );
 
 	// Load members and canidates
@@ -169,7 +169,7 @@ void cGuild::save()
 	{
 		fields.append( "-1" );
 	}
-	fields.append( QString::number( founded_.toTime_t() ) );
+	fields.append( QString::number( founded_.toSecsSinceEpoch() ) );
 	if ( guildstone_ )
 	{
 		fields.append( QString::number( guildstone_->serial() ) );
@@ -224,10 +224,10 @@ cGuild::cGuild( bool createSerial )
 	}
 
 	alignment_ = Neutral;
-	name_ = QString::null;
-	abbreviation_ = QString::null;
-	website_ = QString::null;
-	charta_ = QString::null;
+	name_ = QString();
+	abbreviation_ = QString();
+	website_ = QString();
+	charta_ = QString();
 	founded_ = QDateTime::currentDateTime();
 	guildstone_ = 0;
 	leader_ = 0;
@@ -413,33 +413,40 @@ struct wpGuild
 
 static PyObject* wpGuild_getAttr( wpGuild* self, char* name );
 static int wpGuild_setAttr( wpGuild* self, char* name, PyObject* value );
-static int wpGuild_compare( PyObject* a, PyObject* b );
+static PyObject* wpGuild_richcompare( PyObject* a, PyObject* b, int op );
 
 /*
 	\object guild
 	\description This object type represents a guild.
 */
-PyTypeObject wpGuildType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"guild",
-sizeof( wpGuildType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpGuild_getAttr,
-( setattrfunc ) wpGuild_setAttr,
-wpGuild_compare,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+PyTypeObject wpGuildType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.guild",
+	.tp_basicsize = sizeof( wpGuild ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpGuild_getAttr,
+	.tp_setattr = ( setattrfunc ) wpGuild_setAttr,
+	.tp_richcompare = wpGuild_richcompare,
 };
 
-static int wpGuild_compare( PyObject* a, PyObject* b )
+static PyObject* wpGuild_richcompare( PyObject* a, PyObject* b, int op )
 {
-	if ( a->ob_type != &wpGuildType || b->ob_type != &wpGuildType )
-		return -1;
+	if ( Py_TYPE( a ) != &wpGuildType || Py_TYPE( b ) != &wpGuildType )
+	{
+		Py_RETURN_NOTIMPLEMENTED;
+	}
 
-	return !( ( ( wpGuild * ) a )->guild == ( ( wpGuild * ) b )->guild );
+	bool equal = ( ( ( wpGuild * ) a )->guild == ( ( wpGuild * ) b )->guild );
+	if ( op == Py_EQ )
+	{
+		if ( equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+	else if ( op == Py_NE )
+	{
+		if ( !equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+
+	Py_RETURN_NOTIMPLEMENTED;
 }
 
 /*
@@ -900,7 +907,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	*/
 	else if ( !strcmp( name, "founded" ) )
 	{
-		return PyInt_FromLong( self->guild->founded().toTime_t() );
+		return PyInt_FromLong( self->guild->founded().toSecsSinceEpoch() );
 	}
 	/*
 		\rproperty guild.allies A tuple of serials of guilds that are allied with this guild.
@@ -1016,13 +1023,13 @@ static int wpGuild_setAttr( wpGuild* self, char* name, PyObject* value )
 		if ( PyInt_Check( value ) )
 		{
 			QDateTime founded;
-			founded.setTime_t( PyInt_AsLong( value ) );
+			founded.setSecsSinceEpoch( PyInt_AsLong( value ) );
 			self->guild->setFounded( founded );
 		}
 		else if ( PyFloat_Check( value ) )
 		{
 			QDateTime founded;
-			founded.setTime_t( ( int ) ceil( PyFloat_AsDouble( value ) ) );
+			founded.setSecsSinceEpoch( ( int ) ceil( PyFloat_AsDouble( value ) ) );
 			self->guild->setFounded( founded );
 		}
 	}
@@ -1051,7 +1058,7 @@ void cGuild::load( cBufferedReader& reader, unsigned int version )
 	website_ = reader.readUtf8();
 	alignment_ = ( eAlignment ) reader.readByte();
 	leader_ = dynamic_cast<P_PLAYER>( World::instance()->findChar( reader.readInt() ) );
-	founded_.setTime_t( reader.readInt() );
+	founded_.setSecsSinceEpoch( reader.readInt() );
 	guildstone_ = World::instance()->findItem( reader.readInt() );
 
 	// Save Members/Canidates
@@ -1114,7 +1121,7 @@ void cGuild::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeUtf8( website_ );
 	writer.writeByte( alignment_ );
 	writer.writeInt( leader_ ? leader_->serial() : INVALID_SERIAL );
-	writer.writeInt( founded_.toTime_t() );
+	writer.writeInt( founded_.toSecsSinceEpoch() );
 	writer.writeInt( guildstone_ ? guildstone_->serial() : INVALID_SERIAL );
 
 	// Save Members/Canidates

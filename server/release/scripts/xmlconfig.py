@@ -48,7 +48,7 @@ class ConfigGroup:
 		parent.create_window(1, y,width=300,height=self.height,anchor='nw',window = self.gr)
 
 	def onSelect(self,text):
-		print text
+		print( text )
 
 class XMLConfig:
 	def __init__(self, parent):
@@ -67,7 +67,7 @@ class XMLConfig:
 			wolfconfig = parse('../wolfpack.xml')
 			childnodes = wolfconfig.childNodes
 		except:
-			print 'Could not parse wolfpack.xml!'
+			print( 'Could not parse wolfpack.xml!' )
 			return
 
 		groups = wolfconfig.getElementsByTagName('group')

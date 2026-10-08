@@ -245,7 +245,7 @@ bool cPersistentBroker::tableExists( const QString& table )
 
 QString cPersistentBroker::quoteString( QString s )
 {
-	if ( s == QString::null )
+	if ( s == QString() )
 		return QString( "" );
 
 	if ( d->sqlite )

@@ -520,7 +520,7 @@ QList<ServerList_st> cConfig::serverList()
 		unsigned int i = 1;
 		do
 		{
-			QString tmp = getString( "LoginServer", QString( "Shard %1" ).arg( i++ ), QString::null, false ).simplified();
+			QString tmp = getString( "LoginServer", QString( "Shard %1" ).arg( i++ ), QString(), false ).simplified();
 			bKeepLooping = !tmp.isEmpty();
 			if ( bKeepLooping ) // valid data.
 			{

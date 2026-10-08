@@ -628,7 +628,7 @@ cWorld::~cWorld()
 }
 
 
-static void quickdelete( P_ITEM pi ) throw()
+static void quickdelete( P_ITEM pi )
 {
 	// Minimal way of deleting an item
 	pi->SetOwnSerial( -1 );
@@ -713,7 +713,7 @@ void cWorld::loadBinary( QList<PersistentObject*>& objects )
 						if ( reader.hasError() )
 						{
 							Console::instance()->log( LOG_ERROR, reader.error() );
-							reader.setError( QString::null );
+							reader.setError( QString() );
 
 							cUObject *obj = dynamic_cast<cUObject*>( object );
 							if ( obj )
@@ -772,7 +772,7 @@ void cWorld::loadBinary( QList<PersistentObject*>& objects )
 				percent = loaded / count;
 				if ( percent != lastpercent )
 				{
-					Console::instance()->setProgress( QString::null );
+					Console::instance()->setProgress( QString() );
 					unsigned int revert = QString::number( lastpercent ).length() + 1;
 					Console::instance()->rollbackChars( revert );
 					lastpercent = percent;
@@ -836,7 +836,7 @@ void cWorld::loadBinary( QList<PersistentObject*>& objects )
 		reader.close();
 
 		// Rollback the last percentage
-		Console::instance()->setProgress( QString::null );
+		Console::instance()->setProgress( QString() );
 		unsigned int revert = QString::number( lastpercent ).length() + 1;
 		Console::instance()->rollbackChars( revert );
 
@@ -903,7 +903,7 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 			{
 				// Create Database failed, let's figure why
 				QSqlError e = query.lastError();
-				if ( Config::instance()->databaseDriver() == "sqlite" && e.number() == 26 )
+				if ( Config::instance()->databaseDriver() == "sqlite" && e.nativeErrorCode() == "26" )
 				{
 					Console::instance()->log( LOG_ERROR, tr("Invalid World database file. The file is either corrupted or in sqlite2 format, which require a conversion step. If this is an sqlite2 database please check this wiki entry: http://www.wpdev.org/wiki/index.php/Convert_sqlite2_to_sqlite3_format") );
 				}
@@ -1737,7 +1737,7 @@ void cWorld::backupWorld( const QString& filename, int count, bool compress )
 	{
 		// Remove the oldest backup
 		QDateTime current;
-		QString backup = QString::null;
+		QString backup = QString();
 
 		QMap<QDateTime, QString>::iterator it;
 		for ( it = backups.begin(); it != backups.end(); ++it )

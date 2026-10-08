@@ -136,7 +136,7 @@ public:
 static void processItem(cItemInfo &item, const cElement *node, bool multi = false) {
 	// If there is an inherit tag, inherit a parent item definition.
 	QString inherit = node->getAttribute("inherit");
-	if (inherit != QString::null) {
+	if (inherit != QString()) {
 		const cElement *parent = Definitions::instance()->getDefinition(multi ? WPDT_MULTI : WPDT_ITEM, inherit);
 		if (parent) {
 			processItem(item, parent);
@@ -341,7 +341,7 @@ public:
 static void processNpc(cNpcInfo &npc, const cElement *node) {
 	// If there is an inherit tag, inherit a parent npc definition.
 	QString inherit = node->getAttribute("inherit");
-	if (inherit != QString::null) {
+	if (inherit != QString()) {
 		const cElement *parent = Definitions::instance()->getDefinition(WPDT_NPC, inherit);
 		if (parent) {
 			processNpc(npc, parent);

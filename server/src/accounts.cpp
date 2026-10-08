@@ -116,7 +116,7 @@ uint cAccount::secsToUnblock() const
 
 bool cAccount::addCharacter( P_PLAYER d )
 {
-	if ( qFind( characters_.begin(), characters_.end(), d ) == characters_.end() )
+	if ( !characters_.contains( d ) )
 	{
 		characters_.push_back( d );
 		return true;
@@ -126,13 +126,7 @@ bool cAccount::addCharacter( P_PLAYER d )
 
 bool cAccount::removeCharacter( P_PLAYER d )
 {
-	QList<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
-	if ( it != characters_.end() )
-	{
-		characters_.erase( it );
-		return true;
-	}
-	return false;
+	return characters_.removeOne( d );
 }
 
 /*!
@@ -452,8 +446,8 @@ void cAccounts::save()
 			query.addBindValue( account->password_ );
 			query.addBindValue( QVariant::fromValue<uint>( account->flags_ ) );
 			query.addBindValue( account->aclName_.isEmpty() ? "" : account->aclName_ );
-			query.addBindValue( QVariant::fromValue<uint>( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ) );
-			query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 ) );
+			query.addBindValue( QVariant::fromValue<uint>( !account->lastLogin_.isNull() ? account->lastLogin_.toSecsSinceEpoch() : 0 ) );
+			query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toSecsSinceEpoch() : 0 ) );
 			query.addBindValue( QString(account->email_) );
 			query.addBindValue( QString(account->creationdate_) );
 			query.addBindValue( account->totalgametime_ );
@@ -623,10 +617,10 @@ void cAccounts::load()
 				account->aclName_ = query.value( 3 ).toString();
 				account->refreshAcl();
 				if ( query.value( 4 ).toInt() != 0 )
-					account->lastLogin_.setTime_t( query.value( 4 ).toInt() );
+					account->lastLogin_.setSecsSinceEpoch( query.value( 4 ).toInt() );
 
 				if ( query.value( 5 ).toInt() != 0 )
-					account->blockUntil.setTime_t( query.value( 5 ).toInt() );
+					account->blockUntil.setSecsSinceEpoch( query.value( 5 ).toInt() );
 
 				account->email_ = query.value( 6 ).toByteArray();
 				account->creationdate_ = query.value( 7 ).toString();
@@ -865,7 +859,7 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "email" )
 	{
 		QString text = value.toString();
-		if( text == QString::null )
+		if( text == QString() )
 			PROPERTY_ERROR( -2, "String expected" );
 		email_ = text.toLatin1();
 		return 0;

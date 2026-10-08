@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:
 #  ( (  ;._ \\ ctr | Last Modification: Created
 #===============================================================#
-"""
+r"""
 	\command account
 	\description This command will modify account information.
 	\usage
@@ -204,7 +204,7 @@ def accountCreate( socket, username, password ):
 			return False
 		# Create the Account
 		elif not account:
-		 	newaccount = wolfpack.accounts.add( username, password )
+			newaccount = wolfpack.accounts.add( username, password )
 			newaccount.acl = 'player'
 			socket.sysmessage( "You created the account successfully!" )
 			char.log( LOG_MESSAGE, "Created account: %s\n" % newaccount.name )

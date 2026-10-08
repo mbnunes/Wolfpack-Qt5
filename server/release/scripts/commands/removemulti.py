@@ -1,4 +1,4 @@
-"""
+r"""
 	\command removemulti
 	\description Delete a multi.
 """

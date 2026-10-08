@@ -179,10 +179,10 @@ def parseTxt( file, map ):
 
 		count += 1
 
-	print "Parsing: %i ticks" % parseTickCount
-	print "Creating: %i ticks" % createTickCount
-	print "Prop: %i ticks" % propTickCount
-	print "Move: %i ticks" % moveTickCount
+	print("Parsing: %i ticks" % parseTickCount)
+	print("Creating: %i ticks" % createTickCount)
+	print("Prop: %i ticks" % propTickCount)
+	print("Move: %i ticks" % moveTickCount)
 
 	return ( count, warnings )
 
@@ -210,9 +210,9 @@ def parseSphere51a(file, map):
 				y = int(y)
 				z = int(z)
 				if 'color' in props:
-			 		color = int(props['color'], 16)
-			 	else:
-			 		color = 0
+					color = int(props['color'], 16)
+				else:
+					color = 0
 
 				item = wolfpack.additem('%x' % itemid)
 

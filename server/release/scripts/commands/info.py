@@ -8,7 +8,7 @@
 # .info Commands						#
 #===============================================================#
 
-"""
+r"""
 	\command info
 	\description Show a dialog for modifying the properties of items or characters.
 """

@@ -7,7 +7,7 @@
 # .exportstatics Command					#
 #===============================================================#
 
-"""
+r"""
 	\command exportstatics
 	\description Export static items.
 	\notes Only the Text format is supported:

@@ -60,7 +60,7 @@ public:
 		QDateTime joined_;
 
 	public:
-		MemberInfo() : showSign_( true ), guildTitle_( QString::null ), joined_( QDateTime::currentDateTime() )
+		MemberInfo() : showSign_( true ), guildTitle_( QString() ), joined_( QDateTime::currentDateTime() )
 		{
 		}
 
@@ -69,7 +69,7 @@ public:
 					*/
 		unsigned int joined()
 		{
-			return joined_.toTime_t();
+			return joined_.toSecsSinceEpoch();
 		}
 
 		/*!
@@ -78,7 +78,7 @@ public:
 					*/
 		void setJoined( unsigned int time )
 		{
-			joined_.setTime_t( time );
+			joined_.setSecsSinceEpoch( time );
 		}
 
 		/*!
@@ -99,7 +99,7 @@ public:
 		}
 
 		/*!
-				\returns A custom guild title for this member. Otherwise QString::null.
+				\returns A custom guild title for this member. Otherwise QString().
 				*/
 		inline const QString& guildTitle()
 		{

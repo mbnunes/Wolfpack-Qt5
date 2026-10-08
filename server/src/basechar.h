@@ -223,13 +223,13 @@ public:
 		\brief Sends a localized system message to this character. The message is only sent to logged
 			in players.
 		\param message The id of the localized message.
-		\param params Parameters to parse into the localized message. May be QString::null if no parameters
+		\param params Parameters to parse into the localized message. May be QString() if no parameters
 			should be parsed in.
 		\param color The color of the sysmessage. The default is 0x3b2.
 		\param font The font for the sysmessage. The default is 0x03.
 		\returns True if the message was really sent. False otherwise.
 	*/
-	bool sysmessage( unsigned int message, const QString& params = QString::null, unsigned short color = 0x3b2, unsigned short font = 0x03 );
+	bool sysmessage( unsigned int message, const QString& params = QString(), unsigned short color = 0x3b2, unsigned short font = 0x03 );
 
 	/*!
 		\brief Send this character an overhead message. This does nothing for logged out characters

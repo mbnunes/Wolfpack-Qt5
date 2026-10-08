@@ -371,7 +371,7 @@ public:
 
 cBufferedReader::cBufferedReader( const QByteArray& magic, unsigned int version )
 {
-	error_ = QString::null;
+	error_ = QString();
 	d = new cBufferedReaderPrivate;
 	d->buffer.resize( 4096 );
 	d->bufferpos = 0;
@@ -547,7 +547,7 @@ QString cBufferedReader::readUtf8()
 
 	if ( data.length() == 0 || data.data() == 0 || *( data.data() ) == 0 )
 	{
-		return QString::null;
+		return QString();
 	}
 	else
 	{

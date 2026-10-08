@@ -7,7 +7,7 @@
 # If anyone wants to use this, customize it first!
 #
 
-"""
+r"""
 	\command addplayervendor
 	\description Add an NPC and set the playervendor scripts
 """

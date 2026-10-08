@@ -1445,7 +1445,7 @@ void cBaseChar::processNode( const cElement* Tag, uint hash )
 
 				const QString& id = element->getAttribute( "id" );
 
-				if ( id != QString::null )
+				if ( id != QString() )
 				{
 					pItem = cItem::createFromScript( id );
 				}
@@ -1453,7 +1453,7 @@ void cBaseChar::processNode( const cElement* Tag, uint hash )
 				{
 					const QString& list = element->getAttribute( "list" );
 
-					if ( list != QString::null )
+					if ( list != QString() )
 					{
 						pItem = cItem::createFromList( list );
 					}
@@ -3010,7 +3010,7 @@ bool cBaseChar::onWearItem( P_PLAYER pPlayer, P_ITEM pItem, unsigned char layer 
 QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 {
 	// I hate this event by the way (DarkStorm)
-	QString name = QString::null;
+	QString name = QString();
 
 	if ( canHandleEvent( EVENT_SHOWPAPERDOLLNAME ) )
 	{
@@ -3450,7 +3450,7 @@ bool cBaseChar::kill( cUObject* source )
 		corpse->setOwner( this );
 		corpse->moveTo( pos_ );
 		corpse->setDirection( direction() );
-		corpse->setMurderTime( QDateTime::currentDateTime().toTime_t() );
+		corpse->setMurderTime( QDateTime::currentDateTime().toSecsSinceEpoch() );
 
 		// stores the time and the murderer's name
 		if ( pKiller )

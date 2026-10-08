@@ -1,5 +1,5 @@
 
-"""
+r"""
 	\command resurrect
 	\description Resurrects a character.
 	\notes If the character is standing on his corpse he will regain

@@ -137,8 +137,8 @@ public:
 	uint mapTileHeight( uint ) const;
 	signed char staticTop( const Coord& pos ) const;
 	bool canFit( int x, int y, int z, uint map ) const;
-	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) const throw( wpException );
-	StaticsIterator staticsIterator( const Coord&, bool exact = true ) const throw( wpException );
+	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) const;
+	StaticsIterator staticsIterator( const Coord&, bool exact = true ) const;
 	void flushCache();
 };
 

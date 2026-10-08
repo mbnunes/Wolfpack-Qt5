@@ -2421,10 +2421,12 @@ BOOST_PYTHON_MODULE(wpdatabase)
 	def( "open", wpOpen, "Opens the database." );
 }
 
+#if PY_MAJOR_VERSION < 3
 void init_wolfpack_database()
 {
 	boost::python::detail::init_module("_wolfpack.database", initwpdatabase);
 }
+#endif
 
 BOOST_PYTHON_MODULE(wpconsole)
 {
@@ -2438,10 +2440,12 @@ BOOST_PYTHON_MODULE(wpconsole)
 	def( "shutdown", wpConsole_shutdown );
 }
 
+#if PY_MAJOR_VERSION < 3
 void init_wolfpack_console()
 {
 	boost::python::detail::init_module("_wolfpack.console", initwpconsole);
 }
+#endif
 
 BOOST_PYTHON_MODULE(wptime)
 {
@@ -2453,10 +2457,12 @@ BOOST_PYTHON_MODULE(wptime)
 	def( "currenttime", wpCurrenttime );
 }
 
+#if PY_MAJOR_VERSION < 3
 void init_wolfpack_time()
 {
 	boost::python::detail::init_module("_wolfpack.time", initwptime);
 }
+#endif
 
 BOOST_PYTHON_FUNCTION_OVERLOADS(wpSettingsGetBoolOverloads, wpSettingsGetBool, 3, 4)
 BOOST_PYTHON_FUNCTION_OVERLOADS(wpSettingsGetNumberOverloads, wpSettingsGetNumber, 3, 4)
@@ -2475,10 +2481,30 @@ BOOST_PYTHON_MODULE(wpsettings)
 	def( "save", wpSettingsSave );
 }
 
+#if PY_MAJOR_VERSION < 3
 void init_wolfpack_settings()
 {
 	boost::python::detail::init_module("_wolfpack.settings", initwpsettings);
 }
+#endif
+
+#if PY_MAJOR_VERSION >= 3
+static PyModuleDef wpAccounts_module = {
+	PyModuleDef_HEAD_INIT,
+	"_wolfpack.accounts",
+	NULL,
+	-1,
+	wpAccounts
+};
+
+static PyModuleDef wpSockets_module = {
+	PyModuleDef_HEAD_INIT,
+	"_wolfpack.sockets",
+	NULL,
+	-1,
+	wpSockets
+};
+#endif
 
 /*!
 	This initializes the _wolfpack namespace and it's sub extensions
@@ -2514,6 +2540,27 @@ BOOST_PYTHON_MODULE(_wolfpack)
 	def( "setoption", wpSetOption );
 	def( "tr", wpTr );
 
+#if PY_MAJOR_VERSION >= 3
+	PyModule_AddFunctions( scope().ptr(), wpGlobal );
+
+	PyObject* mConsole = PyInit_wpconsole();
+	scope().attr("console") = object( handle<>( borrowed( mConsole ) ) );
+
+	PyObject* mTime = PyInit_wptime();
+	scope().attr("time") = object( handle<>( borrowed( mTime ) ) );
+
+	PyObject* mAccounts = PyModule_Create( &wpAccounts_module );
+	scope().attr("accounts") = object( handle<>( mAccounts ) );
+
+	PyObject* mSockets = PyModule_Create( &wpSockets_module );
+	scope().attr("sockets") = object( handle<>( mSockets ) );
+
+	PyObject* mSettings = PyInit_wpsettings();
+	scope().attr("settings") = object( handle<>( borrowed( mSettings ) ) );
+
+	PyObject* mDatabase = PyInit_wpdatabase();
+	scope().attr("database") = object( handle<>( borrowed( mDatabase ) ) );
+#else
 	object wpNamespace( ( handle<>( borrowed( Py_InitModule( "_wolfpack", wpGlobal ) ) ) ) );
 
 	init_wolfpack_console();
@@ -2537,6 +2584,7 @@ BOOST_PYTHON_MODULE(_wolfpack)
 	init_wolfpack_database();
 	object mDatabase ( ( handle<>( borrowed ( PyImport_AddModule( "wpdatabase" ) ) ) ) );
 	scope().attr("database") = mDatabase;
+#endif
 }
 
 int PyConvertObject( PyObject* object, cUObject** uoobject )

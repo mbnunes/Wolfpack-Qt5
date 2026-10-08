@@ -413,7 +413,7 @@ def onUnload():
 	global generated
 	generated = 0
 
-"""
+r"""
 	\command add
 	\description The <tt>add</tt> command allows you to create npc, item or multi instances.
 	\usage - <code>add npc-id</code>
@@ -435,7 +435,7 @@ def onUnload():
 	use <tt>add horse</tt>.
 """
 
-"""
+r"""
 	\command static
 	\description Add an item or multi and make it not decay and not movable.
 	\usage - <code>add item-id</code>

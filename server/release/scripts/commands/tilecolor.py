@@ -1,4 +1,4 @@
-"""
+r"""
 	\command tilecolor
 	\description Dyes all items in an area with the given color.
 	\usage - <code>tilecolor color</code>
@@ -8,7 +8,7 @@
 	from the given list for every tile that is found.
 """
 
-"""
+r"""
 	\command tilecolorz
 	\description Same as tilecolor, but limited to one z coordinate.
 	\usage - <code>tilecolorz z color</code>

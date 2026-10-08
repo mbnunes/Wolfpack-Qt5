@@ -162,7 +162,7 @@ def poison_target(player, arguments, target):
 
 	poison(target.char, arguments[0])
 
-"""
+r"""
 	\command poison
 	\description Afflict a character with poison.
 	\usage - <code>poison level</code>

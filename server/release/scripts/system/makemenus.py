@@ -835,7 +835,7 @@ def MakeMenuResponse(player, arguments, response):
 
 	global menus
 	if not menu in menus:
-		raise RuntimeError, "Unknown makemenu: %s" % menu
+		raise RuntimeError( "Unknown makemenu: %s" % menu )
 	else:
 		menus[menu].response(player, response, arguments)
 
@@ -850,7 +850,7 @@ def MakeMenuTarget(player, arguments, target):
 
 	global menus
 	if not menu in menus:
-		raise RuntimeError, "Unknown makemenu: %s." % menu
+		raise RuntimeError( "Unknown makemenu: %s." % menu )
 	else:
 		if action == 1:
 			menus[menu].repair(player, arguments, target)
@@ -859,7 +859,7 @@ def MakeMenuTarget(player, arguments, target):
 		elif action == 3:
 			menus[menu].smelt(player, arguments, target)
 		else:
-			raise RuntimeError, "Unknown subaction: %u." % action
+			raise RuntimeError( "Unknown subaction: %u." % action )
 
 #
 # This class encapsulates all functionality for a single
@@ -914,7 +914,7 @@ class MakeMenu:
 
 		# Ssee if the parent has the correct type
 		if self.parent and not isinstance(parent, MakeMenu):
-			raise TypeError, "MakeMenu %s has an invalid parent of type %s." % (self.id, type(parent).__name__)
+			raise TypeError( "MakeMenu %s has an invalid parent of type %s." % (self.id, type(parent).__name__) )
 
 		if self.parent:
 			self.parent.submenus.append(self)
@@ -922,12 +922,12 @@ class MakeMenu:
 		# See if all submenus have the correct type
 		for menu in self.submenus:
 			if not isinstance(menu, MakeMenu):
-				raise TypeError, "MakeMenu %s has an invalid submenu of type %s." % (self.id, type(menu).__name__)
+				raise TypeError( "MakeMenu %s has an invalid submenu of type %s." % (self.id, type(menu).__name__) )
 
 		# See if all subactions have the correct type
 		for action in self.subactions:
 			if not isinstance(menu, MakeAction):
-				raise TypeError, "MakeMenu %s has an invalid subaction of type %s." % (self.id, type(action).__name__)
+				raise TypeError( "MakeMenu %s has an invalid subaction of type %s." % (self.id, type(action).__name__) )
 
 	#
 	# Get topmost menu
@@ -1520,6 +1520,7 @@ class MakeMenu:
 	# Handle a response to this makemenu.
 	#
 	def response(self, player, response, arguments):
+		global menus
 		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
 			return
 
@@ -1627,7 +1628,6 @@ class MakeMenu:
 				if subaction < len(history):
 					(menu, action) = history[subaction].split(':')
 					action = int(action)
-					global menus
 					if menu in menus and action < len(menus[menu].subactions):
 						menus[menu].subactions[action].make(player, arguments)
 
@@ -1644,7 +1644,6 @@ class MakeMenu:
 				if subaction < len(history):
 					(menu, action) = history[subaction].split(':')
 					action = int(action)
-					global menus
 					if menu in menus and action < len(menus[menu].subactions):
 						menus[menu].subactions[action].details(player, arguments)
 

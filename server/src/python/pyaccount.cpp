@@ -60,26 +60,14 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value );
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpAccountType =
-{
-PyObject_HEAD_INIT( 0 )
-0,
-"wpaccount",
-sizeof( wpAccountType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpAccount_getAttr,
-( setattrfunc ) wpAccount_setAttr,
-0,
-0,
-0,
-0,
-0,
-0,
-0, // Call
-( reprfunc ) wpAccount_str,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpAccountType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.account",
+	.tp_basicsize = sizeof( wpAccount ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpAccount_getAttr,
+	.tp_setattr = ( setattrfunc ) wpAccount_setAttr,
+	.tp_str = ( reprfunc ) wpAccount_str,
 };
 
 /*

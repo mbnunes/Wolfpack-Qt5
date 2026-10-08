@@ -1,5 +1,5 @@
 
-"""
+r"""
 	\command skillinfo
 	\description Show a dialog to modify the skill values and caps of a character.
 """

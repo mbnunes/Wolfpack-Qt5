@@ -139,7 +139,7 @@ def fromitem(item, property):
 		return True
 
 	if not property in PROPERTIES:
-		raise Exception, "Unknown property value %u" % property
+		raise Exception( "Unknown property value %u" % property )
 
 	info = PROPERTIES[property]
 
@@ -172,7 +172,7 @@ def fromitem(item, property):
 		elif type(info[1]) == str:
 			value = item.getstrproperty( info[0], info[1] )
 		else:
-			raise Exception, "Unsupported property type %s for property %u." % (type(info[1]).__name__, property)
+			raise Exception( "Unsupported property type %s for property %u." % (type(info[1]).__name__, property) )
 
 		resboni = None
 
@@ -223,7 +223,7 @@ def fromitem(item, property):
 #
 def fromresource(resource, property, type):
 	if not property in PROPERTIES:
-		raise Exception, "Unknown property value %u" % property
+		raise Exception( "Unknown property value %u" % property )
 
 	info = PROPERTIES[property]
 
@@ -253,7 +253,7 @@ def fromresource(resource, property, type):
 def fromchar(char, property):
 	# Check for unknown property
 	if not property in PROPERTIES:
-		raise Exception, "Unknown property value %u" % property
+		raise Exception( "Unknown property value %u" % property )
 
 	info = PROPERTIES[property]
 

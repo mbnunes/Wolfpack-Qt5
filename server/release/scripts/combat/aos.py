@@ -503,7 +503,7 @@ def splashdamage(attacker, effect, excludechar = None):
 		hue = 120
 		energy = 100
 	else:
-		raise RuntimeError, "Invalid effect passed to splashdamage: %s" % effect
+		raise RuntimeError( "Invalid effect passed to splashdamage: %s" % effect )
 
 	guild = attacker.guild # Cache the guild
 	party = attacker.guild # Cache the party

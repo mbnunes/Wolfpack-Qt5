@@ -754,57 +754,15 @@ struct wpBasedef
 };
 
 static PyObject* wpBasedef_getAttr( wpBasedef* self, char* name );
-static int wpBasedef_compare( PyObject* a, PyObject* b );
+static PyObject* wpBasedef_richcompare( PyObject* a, PyObject* b, int op );
 
-PyTypeObject wpBasedefType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"basedef",
-sizeof( wpBasedefType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpBasedef_getAttr,
-0,
-wpBasedef_compare,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0
+PyTypeObject wpBasedefType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.basedef",
+	.tp_basicsize = sizeof( wpBasedef ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpBasedef_getAttr,
+	.tp_richcompare = wpBasedef_richcompare,
 };
 
 /*
@@ -934,12 +892,24 @@ static PyObject* wpBasedef_getAttr( wpBasedef* self, char* name )
 	return Py_FindMethod( wpBasedefMethods, ( PyObject * ) self, name );
 }
 
-static int wpBasedef_compare( PyObject* a, PyObject* b )
+static PyObject* wpBasedef_richcompare( PyObject* a, PyObject* b, int op )
 {
-	if ( a->ob_type != &wpBasedefType || b->ob_type != &wpBasedefType )
-		return -1;
+	if ( Py_TYPE( a ) != &wpBasedefType || Py_TYPE( b ) != &wpBasedefType )
+	{
+		Py_RETURN_NOTIMPLEMENTED;
+	}
 
-	return !( ( ( wpBasedef * ) a )->basedef == ( ( wpBasedef * ) b )->basedef );
+	bool equal = ( ( ( wpBasedef * ) a )->basedef == ( ( wpBasedef * ) b )->basedef );
+	if ( op == Py_EQ )
+	{
+		if ( equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+	else if ( op == Py_NE )
+	{
+		if ( !equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+
+	Py_RETURN_NOTIMPLEMENTED;
 }
 
 PyObject* cBaseDef::getProperty( const QString& name, uint hash )

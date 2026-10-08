@@ -1,4 +1,4 @@
-"""
+r"""
 	\command move
 	\description Move an object relative to its current position.
 	\usage - <code>move [x]</code>
@@ -9,7 +9,7 @@
 	MAP is the new map number.
 """
 
-"""
+r"""
 	\command smove
 	\description Moves your character relative to your current position.
 	\usage - <code>move [x]</code>

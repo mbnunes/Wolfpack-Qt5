@@ -130,7 +130,7 @@ def response( player, args, choice ):
 				bank = player.getbankbox()
 				amount = bank.countresource(0xeed, 0x0)
 
- 				if bank.countresource(0xeed, 0x0):
+				if bank.countresource(0xeed, 0x0):
 					bank.useresource(price, 0xeed, 0x0)
 					player.socket.clilocmessage( 1060398, str(price) ) # ~1_AMOUNT~ gold has been withdrawn from your bank box.
 					player.socket.clilocmessage( 1060022, str(amount) ) # You have ~1_AMOUNT~ gold in cash remaining in your bank box.

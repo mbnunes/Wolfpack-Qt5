@@ -23,7 +23,7 @@ def showskilltitles( socket, command, arguments ):
 def onLoad():
 	wolfpack.registercommand( "showskilltitles", showskilltitles )
 
-"""
+r"""
 	\command showskilltitles
 	\description Indicates if the title of other chars is shown in their paperdolls.
 	\notes The title is not shown if the other char has staff enabled or this setting is disabled in wolfpack.xml.

@@ -67,7 +67,7 @@ def onLoad():
 	wolfpack.registercommand( "effect", effect )
 	wolfpack.registercommand( "targeteffect", targeteffect )
 
-"""
+r"""
 	\command effect
 	\description Lets your character perform an effect visible to everyone, unless you're invisible.
 	\usage - <code>effect id</code>
@@ -80,7 +80,7 @@ def onLoad():
 	Rendermode is something special. Values are unknown (default 0).
 """
 
-"""
+r"""
 	\command targeteffect
 	\description Lets you choose a target to perform an effect visible to everyone.
 	\usage - <code>effect id</code>

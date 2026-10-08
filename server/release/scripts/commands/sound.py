@@ -7,7 +7,7 @@
 # .sound Command                                               #
 #===============================================================#
 
-"""
+r"""
 	\command sound
 	\description Play a soundeffect that can be heard by everyone.
 	\usage - <code>sound id</code>

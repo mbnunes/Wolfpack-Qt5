@@ -42,7 +42,7 @@ class cGump:
 		self.args = args
 		if not callback:
 			self.callback = dummy_callback
-	 	else:
+		else:
 			self.callback = callback
 		self.noclose = noclose
 		self.nomove = nomove

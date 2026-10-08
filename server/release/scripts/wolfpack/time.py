@@ -1,5 +1,5 @@
 
-"""
+r"""
 	\library wolfpack.time
 	\description Contains several functions for ingame time.
 """

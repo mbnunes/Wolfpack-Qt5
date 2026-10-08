@@ -62,6 +62,7 @@
 #include <QList>
 #include <QSqlQuery>
 #include <QVariant>
+#include <QRegularExpression>
 
 using namespace std;
 
@@ -522,11 +523,10 @@ QString cItem::getName( bool shortName )
 	if ( itemname.contains( "%" ) )
 	{
 		// Test if we have a %.../...% form or a simple %
-		QRegExp simple( "%([^/]+)%" );
-        simple.setMinimal( true );
-
-		if ( itemname.contains( simple ) )
-			itemname.replace( simple, simple.cap( 1 ) );
+		QRegularExpression simple( "%([^/]+?)%" );
+		QRegularExpressionMatch match = simple.match( itemname );
+		if ( match.hasMatch() )
+			itemname.replace( simple, match.captured( 1 ) );
 	}
 
 	return itemname;
@@ -1052,7 +1052,7 @@ void cItem::showName( cUOSocket* socket )
 	if ( !onSingleClick( socket->player() ) )
 	{
 		unsigned int message;
-		QString params = QString::null;
+		QString params = QString();
 
 		if ( amount_ > 1 )
 		{
@@ -1451,11 +1451,11 @@ bool cItem::wearOut()
 		{
 			if ( !name_.isEmpty() )
 			{
-				pOwner->socket()->clilocMessageAffix( 1008129, QString::null, name_ );
+				pOwner->socket()->clilocMessageAffix( 1008129, QString(), name_ );
 			}
 			else
 			{
-				pOwner->socket()->clilocMessageAffix( 1008129, QString::null, getName() );
+				pOwner->socket()->clilocMessageAffix( 1008129, QString(), getName() );
 			}
 		}
 

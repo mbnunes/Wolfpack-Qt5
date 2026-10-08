@@ -75,7 +75,7 @@ void cParty::addMember( P_PLAYER player, bool update )
 		removeCanidate( player );
 
 	if ( update )
-		send( 1008094, QString::null, player->name(), true );
+		send( 1008094, QString(), player->name(), true );
 
 	members_.append( player );
 	player->setParty( this );
@@ -441,7 +441,7 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 
 	default:
 		QString message;
-		message.sprintf( "Receieved unknown party subcommand: 0x%02x", subcommand );
+		message = QString::asprintf( "Receieved unknown party subcommand: 0x%02x", subcommand );
 		message += packet->dump( packet->uncompressed() ) + "\n";
 		socket->log( LOG_WARNING, message );
 		break;
@@ -460,32 +460,39 @@ struct wpParty
 
 static PyObject* wpParty_getAttr( wpParty* self, char* name );
 static int wpParty_setAttr( wpParty* self, char* name, PyObject* value );
-static int wpParty_compare( PyObject* a, PyObject* b );
+static PyObject* wpParty_richcompare( PyObject* a, PyObject* b, int op );
 
 /*!
 	The python type object for the party type.
 */
-PyTypeObject wpPartyType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"party",
-sizeof( wpPartyType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpParty_getAttr,
-( setattrfunc ) wpParty_setAttr,
-wpParty_compare,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+PyTypeObject wpPartyType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.party",
+	.tp_basicsize = sizeof( wpParty ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpParty_getAttr,
+	.tp_setattr = ( setattrfunc ) wpParty_setAttr,
+	.tp_richcompare = wpParty_richcompare,
 };
 
-static int wpParty_compare( PyObject* a, PyObject* b )
+static PyObject* wpParty_richcompare( PyObject* a, PyObject* b, int op )
 {
-	if ( a->ob_type != &wpPartyType || b->ob_type != &wpPartyType )
-		return -1;
+	if ( Py_TYPE( a ) != &wpPartyType || Py_TYPE( b ) != &wpPartyType )
+	{
+		Py_RETURN_NOTIMPLEMENTED;
+	}
 
-	return !( ( ( wpParty * ) a )->party == ( ( wpParty * ) b )->party );
+	bool equal = ( ( ( wpParty * ) a )->party == ( ( wpParty * ) b )->party );
+	if ( op == Py_EQ )
+	{
+		if ( equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+	else if ( op == Py_NE )
+	{
+		if ( !equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+
+	Py_RETURN_NOTIMPLEMENTED;
 }
 
 /*

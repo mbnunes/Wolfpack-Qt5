@@ -267,7 +267,7 @@ void Animal_Predator::initPrey()
 	{
 		// build a list of baseids of chars we hunt
 		QString preyProp = m_npc->basedef()->getStrProperty( "prey" );
-		prey = preyProp.split( ",", QString::SkipEmptyParts );
+		prey = preyProp.split( ",", Qt::SkipEmptyParts );
 
 		// player get special handling to lower costs
 		if ( prey.contains( "player" ) )

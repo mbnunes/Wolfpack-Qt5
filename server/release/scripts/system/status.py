@@ -47,7 +47,7 @@ class ProcessThread(Thread):
 					fp = file(outputfile, 'w')
 					fp.write(data.encode('utf-8'))
 					fp.close()
-				except Exception, e:
+				except Exception as e:
 					console.log(LOG_PYTHON, "Couldn't write status to '%s': %s.\n" % (outputfile, str(e)))
 
 			self.stopped.wait(0.5)
@@ -71,7 +71,7 @@ def generate(object, arguments):
 			template = fp.read()
 			fp.close()
 			console.log(LOG_MESSAGE, "Loaded status template from '%s'.\n" % htmltemplate)
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_PYTHON, "Couldn't load status template from '%s': %s.\n" % (htmltemplate, str(e)))
 			return
 
@@ -122,14 +122,14 @@ def generate(object, arguments):
 				blocks += 'print ' + repr(current)
 			blocks += "\n"
 
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_PYTHON, "Unable to parse python template file: %s\n" % str(e))
 			return
 
 		# Try to compile the file
 		try:
 			templatemodule = compile(blocks, htmltemplate, 'exec')
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_PYTHON, "Unable to compile python template file: %s\n" % str(e))
 			templatemodule = None
 			return
@@ -141,7 +141,7 @@ def generate(object, arguments):
 	savedstdout = sys.stdout
 	sys.stdout = StringIO()
 	output = sys.stdout
-	exec templatemodule
+	exec( templatemodule )
 	sys.stdout = savedstdout
 
 	text = output.getvalue()

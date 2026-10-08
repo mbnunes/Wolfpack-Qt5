@@ -42,8 +42,9 @@ typedef struct
 	SERIAL contserial;
 } wpContent;
 
-static int wpContent_length( wpContent* self )
+static Py_ssize_t wpContent_length( PyObject* self_obj )
 {
+	wpContent* self = ( wpContent* ) self_obj;
 	P_ITEM pi = FindItemBySerial( self->contserial );
 	if ( pi )
 		return pi->content().count();
@@ -56,7 +57,7 @@ static int wpContent_length( wpContent* self )
 	return 0;
 }
 
-static PyObject* wpContent_get( wpContent* self, int id )
+static PyObject* wpContent_get( wpContent* self, Py_ssize_t id )
 {
 	if ( isCharSerial( self->contserial ) )
 	{
@@ -64,14 +65,14 @@ static PyObject* wpContent_get( wpContent* self, int id )
 		if ( !pc )
 			goto error;
 		cBaseChar::ItemContainer container = pc->content();
-		if ( id < 0 || static_cast<uint>( id ) >= container.size() )
+		if ( id < 0 || static_cast<size_t>( id ) >= container.size() )
 			goto error;
 		cBaseChar::ItemContainer::const_iterator it( container.begin() );
 		/*
 				 * Ask Correa before trying to `optimize` this,
 				 * there isn't much standard complient options here.
 				 */
-		for ( int i = 0; i < id && it != container.end(); ++i )
+		for ( Py_ssize_t i = 0; i < id && it != container.end(); ++i )
 			++it;
 
 		if ( it != container.end() )
@@ -85,7 +86,7 @@ static PyObject* wpContent_get( wpContent* self, int id )
 		if ( !pi )
 			goto error;
 		const ContainerContent &container = pi->content();
-		if ( id < 0 || static_cast<uint>( id ) >= container.count() )
+		if ( id < 0 || static_cast<size_t>( id ) >= static_cast<size_t>( container.count() ) )
 			goto error;
 
 		ContainerIterator it( container );
@@ -100,68 +101,17 @@ static PyObject* wpContent_get( wpContent* self, int id )
 	Py_RETURN_NONE;
 }
 
-static PySequenceMethods wpContentSequence =
-{
-( inquiry ) wpContent_length,
-0,
-0,
-( intargfunc ) wpContent_get,
-0,
-0,
-0,
-0,
-0,
-0,
+static PySequenceMethods wpContentSequence = {
+	.sq_length = wpContent_length,
+	.sq_item = ( ssizeargfunc ) wpContent_get,
 };
 
-static PyTypeObject wpContentType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpContent",
-sizeof( wpContentType ),
-0,
-wpDealloc,
-0,
-0,
-0,
-0,
-0,
-0,& wpContentSequence,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
+static PyTypeObject wpContentType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.content",
+	.tp_basicsize = sizeof( wpContent ),
+	.tp_dealloc = wpDealloc,
+	.tp_as_sequence = &wpContentSequence,
 };
 
 #endif

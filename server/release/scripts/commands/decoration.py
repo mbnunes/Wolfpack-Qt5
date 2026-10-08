@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Added savedoors         #
 #===============================================================#
 
-"""
+r"""
 	\command decoration
 	\description Places decoration read from a xml template found
 	in wolfpack's data folder.
@@ -16,7 +16,7 @@
 	Where map is the map you want to decorate (0-4).
 	\notes The decoration will be read from a XML files called
 	'data\decoration.?.xml, where ? is the map number'.
-"""
+r"""
 
 import wolfpack
 from wolfpack.utilities import hex2dec
@@ -126,14 +126,14 @@ class DecorationSaveHandler:
 					itemsbyhue[item.color].append(item)
 				tiledata = wolfpack.tiledata(id)
 				for hue in itemsbyhue:
-					file.write("""\t<!-- %s -->\n""" % tiledata["name"] )
+					file.write(r"""\t<!-- %s -->\n""" % tiledata["name"] )
 					if hue != 0:
-						file.write("""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
+						file.write(r"""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
 					else:
-						file.write("""\t<item id="0x%x">\n""" % id )
+						file.write(r"""\t<item id="0x%x">\n""" % id )
 					for item in itemsbyhue[hue]:
 						pos = item.pos
-						file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
+						file.write(r"""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
 					file.write("\t</item>\n")
 			file.write("</decoration>\n")
 			file.close()
@@ -172,14 +172,14 @@ class DoorSaveHandler:
 					itemsbyhue[item.color].append(item)
 				tiledata = wolfpack.tiledata(id)
 				for hue in itemsbyhue:
-					file.write("""\t<!-- %s -->\n""" % tiledata["name"] )
+					file.write(r"""\t<!-- %s -->\n""" % tiledata["name"] )
 					if hue != 0:
-						file.write("""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
+						file.write(r"""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
 					else:
-						file.write("""\t<item id="0x%x">\n""" % id )
+						file.write(r"""\t<item id="0x%x">\n""" % id )
 					for item in itemsbyhue[hue]:
 						pos = item.pos
-						file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
+						file.write(r"""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
 					file.write("\t</item>\n")
 			file.write("</decoration>\n")
 			file.close()

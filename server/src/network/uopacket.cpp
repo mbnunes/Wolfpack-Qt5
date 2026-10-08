@@ -454,7 +454,7 @@ QByteArray cUOPacket::dump( const QByteArray& data )
 	for ( int actLine = 0; actLine < lines; ++actLine )
 	{
 		QString line; //= QString("%1: ").arg(actLine*16, 4, 16); // Faster, but doesn't look so good
-		line.sprintf( "%04x: ", actLine * 16 );
+		line = QString::asprintf( "%04x: ", actLine * 16 );
 		int actRow = 0;
 		for ( ; actRow < 16; ++actRow )
 		{

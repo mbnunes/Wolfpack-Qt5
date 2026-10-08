@@ -1,5 +1,5 @@
 
-"""
+r"""
 	\library wolfpack.accounts
 	\description Contains several server functions for accounts.
 """

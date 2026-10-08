@@ -806,8 +806,8 @@ class ShadowStrike(BaseAbility):
 
 		if attacker.war:
 			attacker.war = False
- 			if attacker.socket:
- 				attacker.socket.resendplayer()
+			if attacker.socket:
+				attacker.socket.resendplayer()
 		attacker.attacktarget = None		
 		attacker.removefromview()
 		attacker.hidden = True

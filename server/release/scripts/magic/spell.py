@@ -529,7 +529,7 @@ class Spell:
 			magic.target_response(char, [self, mode, args, item], targetwrapper)
 
 	def target(self, char, mode, targettype, target, args, item):
-		raise Exception, "Spell without target method: " + str(self.__class__.__name__)
+		raise Exception( "Spell without target method: " + str(self.__class__.__name__) )
 
 	#
 	# Call this if you harm another character directly
@@ -564,7 +564,7 @@ class CharEffectSpell (Spell):
 		self.resistable = 1 # Most of them are resistable
 
 	def effect(self, char, target, mode, args, item):
-		raise Exception, "CharEffectSpell with unimplemented effect method: " + str(self.__clas__.__name__)
+		raise Exception( "CharEffectSpell with unimplemented effect method: " + str(self.__clas__.__name__) )
 
 	def target(self, char, mode, targettype, target, args, item):
 		if not self.consumerequirements(char, mode, args, target, item):

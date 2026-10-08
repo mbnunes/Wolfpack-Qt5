@@ -81,7 +81,7 @@ public:
 		return intproperties.contains( name );
 	}
 
-	inline const QString& getStrProperty( const QString& name, const QString& def = QString::null )
+	inline const QString& getStrProperty( const QString& name, const QString& def = QString() )
 	{
 		load();
 		QMap<QString, QString>::const_iterator it = properties.find( name );

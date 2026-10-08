@@ -7,7 +7,7 @@
 # Functions for modifying settings				                      #
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack.settings
 	\description Contains several server functions for settings.
 """

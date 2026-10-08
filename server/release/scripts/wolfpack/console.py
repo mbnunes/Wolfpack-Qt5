@@ -7,7 +7,7 @@
 # Console
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack.console
 	\description Contains several server functions for the console.
 """

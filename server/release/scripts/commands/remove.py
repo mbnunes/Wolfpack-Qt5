@@ -1,4 +1,4 @@
-"""
+r"""
 	\command remove
 	\description Delete an item or character.
 """

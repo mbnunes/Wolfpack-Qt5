@@ -36,7 +36,7 @@
 #include <QKeyEvent>
 #include <QListWidget>
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 
 LineEditHistory::LineEditHistory( QWidget* parent ) : QLineEdit( parent ), currentHistoryIndex( 0 ), listBox( 0 )
 {
@@ -115,7 +115,8 @@ void LineEditHistory::complete()
 		listBox->addItems( map.values() );
 
 		QPoint point = textCursorPoint();
-		adjustListBoxSize(QApplication::desktop()->height() - point.y(), width() / 2);
+		int screenHeight = screen() ? screen()->geometry().height() : 800;
+		adjustListBoxSize(screenHeight - point.y(), width() / 2);
 		listBox->move(point);
 		listBox->show();
 		listBox->raise();

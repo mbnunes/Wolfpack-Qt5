@@ -38,7 +38,7 @@ worlddriver = database.driver( database.WORLD )
 
 time = int( 24 * 3600000 * 7 ) # Every Week
 
-"""
+r"""
 	\command backupdb
 	\description Performs a backup on the world and account database.
 	\notes This command can only be used if at least one of your

@@ -1,4 +1,4 @@
-﻿"""
+r"""
 	\command disconnect
 	\description Disconnect the client of the chosen char.
 	\usage - <code>disconnect</code>

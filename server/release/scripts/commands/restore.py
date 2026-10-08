@@ -7,13 +7,13 @@
 # .restore Command
 #===============================================================#
 
-"""
+r"""
 	\command restore
 	\description Restore health, stamina and mana of the targetted character.
 	\note The targetted character won't be resurrected.
 """
 
-"""
+r"""
 	\command heal
 	\description Restore health of the targetted character.
 	\note The targetted character won't be resurrected.

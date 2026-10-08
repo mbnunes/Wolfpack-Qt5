@@ -20,7 +20,7 @@ def action(socket, command, arguments):
 def onLoad():
 	wolfpack.registercommand( "action", action )
 
-"""
+r"""
 	\command action
 	\description Lets your character perform an animation visible to everyone.
 	\usage - <code>action id</code>

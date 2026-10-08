@@ -7,7 +7,7 @@
 # .makestatic Command
 #===============================================================#
 
-"""
+r"""
 	\command makestatic
 	\description Make an Item static.
 	\usage - <code>freeze</code>

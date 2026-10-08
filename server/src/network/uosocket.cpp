@@ -1,4 +1,4 @@
-﻿/*
+/*
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
@@ -29,6 +29,7 @@
 #include "uopacket.h"
 #include "uotxpackets.h"
 #include "network.h"
+#include <algorithm>
 
 // Wolfpack Includes
 #include "../corpse.h"
@@ -2565,7 +2566,7 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose* packet )
 	};
 
 	QString message;
-	message.sprintf( "Receieved unknown multi purpose subcommand: 0x%02x", packet->subCommand() );
+	message = QString::asprintf( "Receieved unknown multi purpose subcommand: 0x%02x", packet->subCommand() );
 	message += packet->dump( packet->uncompressed() ) + "\n";
 	log( LOG_WARNING, message );
 }
@@ -2799,7 +2800,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest* packet )
 
 	/*	if( !ContextMenus::instance()->menuExists( clicked->bindmenu() ) )
 		{
-			clicked->setBindmenu(QString::null);
+			clicked->setBindmenu(QString());
 			return;
 		}
 	*/
@@ -4253,7 +4254,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	{
 		sortedList.append( *it );
 	}
-	qSort( sortedList.begin(), sortedList.end(), SortedSerialPredicate<cItem*>() );
+	std::sort( sortedList.begin(), sortedList.end(), SortedSerialPredicate<cItem*>() );
 
 	bool restockNow = false;
 	if ( pItem->layer() == cBaseChar::BuyRestockContainer )
@@ -4411,7 +4412,7 @@ void cUOSocket::sendBuyWindow( P_NPC pVendor, P_CHAR pPlayer )
 	pStock->update( this );
 	pSell->update( this );
 
-	qSort( itemList.begin(), itemList.end(), SortedSerialPredicate<cItem*>() );
+	std::sort( itemList.begin(), itemList.end(), SortedSerialPredicate<cItem*>() );
 
 	// Create the container content
 	//Old Client Version -cUOTxItemContent containerContent;

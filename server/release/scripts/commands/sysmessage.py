@@ -21,7 +21,7 @@ def targetchar( char, args, target ):
 def onLoad():
 	wolfpack.registercommand("sysmessage", sysmessage)
 
-"""
+r"""
 	\command sysmessage
 	\description Sends a sysmessage to a player.
 	\usage - <code>sysmessage message</code>

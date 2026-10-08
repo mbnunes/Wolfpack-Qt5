@@ -865,7 +865,7 @@ TURNDEEDS = {
 	'water_trough_e_deed': ['water_trough_s_deed', 'water_trough_s', 'Water Trough South Deed']
 }
 
-"""
+r"""
 	\command turnitem
 	\description Rotates an item or a deed's placement direction.
 	\usage - <code>turnitem</code>

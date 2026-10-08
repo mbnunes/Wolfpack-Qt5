@@ -193,7 +193,7 @@ def find(socket, command, arguments):
 def onLoad():
 	wolfpack.registercommand('find', find)
 
-"""
+r"""
 	\command find
 	\description Use this command to find a item, npc or multi.
 	\usage - <code>find <searchpattern></code>

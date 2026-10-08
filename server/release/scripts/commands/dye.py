@@ -7,7 +7,7 @@
 # .dye Command
 #===============================================================#
 
-"""
+r"""
 	\command dye
 	\description Changes the color of the targetted item or skin of the targetted character.
 	\usage - <code>dye color</code>

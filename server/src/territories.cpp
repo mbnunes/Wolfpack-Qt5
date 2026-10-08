@@ -64,7 +64,7 @@ cTerritory::cTerritory( const cElement* Tag, cBaseRegion* parent )
 cTerritory::cTerritory()
 {
 	this->init();
-	this->name_ = QString::null;
+	this->name_ = QString();
 	this->parent_ = 0;
 }
 

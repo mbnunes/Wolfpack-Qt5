@@ -49,22 +49,22 @@ struct wpDbResult
 };
 
 static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name );
+static void wpDbResult_dealloc( wpDbResult* self )
+{
+	self->result.~QSqlQuery();
+	PyObject_Del( self );
+}
 
 /*
 	\object dbresult
 	\description This object type represents the response from the database to a query.
 */
-PyTypeObject wpDbResultType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"dbresult",
-sizeof( wpDbResultType ),
-0,
-0,
-0,
-( getattrfunc ) wpDbResult_getAttr,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+PyTypeObject wpDbResultType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.dbresult",
+	.tp_basicsize = sizeof( wpDbResult ),
+	.tp_dealloc = (destructor)wpDbResult_dealloc,
+	.tp_getattr = ( getattrfunc ) wpDbResult_getAttr,
 };
 
 /*
@@ -150,6 +150,6 @@ static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name )
 PyObject* getPyObjectFromQSqlQuery( QSqlQuery& t )
 {
 	wpDbResult* returnVal = PyObject_New( wpDbResult, &wpDbResultType );
-	returnVal->result = t;
+	new (&returnVal->result) QSqlQuery( t );
 	return ( PyObject * ) returnVal;
 }

@@ -63,7 +63,7 @@ void cCommands::process( cUOSocket* socket, const QString& command )
 		return;
 
 	P_PLAYER pChar = socket->player();
-	QStringList pArgs = command.split( " ", QString::KeepEmptyParts );
+	QStringList pArgs = command.split( " ", Qt::KeepEmptyParts );
 
 	// No Command? No Processing
 	if ( pArgs.isEmpty() )
@@ -231,7 +231,7 @@ void cCommands::loadACLs( void )
 	properties you find there, you can also set skills by using skill.skillname as the key and
 	the skill value multiplied by ten as the value (i.e. 100.0% = 1000).
 */
-void commandSet( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandSet( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	if ( args.size() < 1 )
@@ -280,7 +280,7 @@ void commandSet( cUOSocket* socket, const QString& command, const QStringList& a
 	\command save
 	\description Forces the world to be saved.
 */
-void commandSave( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandSave( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( args );
 	Q_UNUSED( socket );
@@ -293,7 +293,7 @@ void commandSave( cUOSocket* socket, const QString& command, const QStringList& 
 	\command servertime
 	\description Shows the current server uptime in miliseconds.
 */
-void commandServerTime( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandServerTime( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( args );
 	Q_UNUSED( command );
@@ -307,7 +307,7 @@ void commandServerTime( cUOSocket* socket, const QString& command, const QString
 	Key is the name of the property you want to see.
 	\notes See the <command id="SET">SET</command> command for more information.
 */
-void commandShow( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandShow( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	socket->sysMessage( tr( "Please select a target" ) );
@@ -327,7 +327,7 @@ void commandShow( cUOSocket* socket, const QString& command, const QStringList& 
 	The info subcommand will show a dialog with information about the given spawnregion.
 	\notes The region id can be <i>all</i> in which case all spawnregions will be affected.
 */
-void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	// Spawnregion respawn region_name
@@ -497,7 +497,7 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 	\command shutdown
 	\description Shutdown the Wolfpack server.
 */
-void commandShutDown( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandShutDown( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( socket );
 	Q_UNUSED( command );
@@ -511,7 +511,7 @@ void commandShutDown( cUOSocket* socket, const QString& command, const QStringLi
 	\description Toggle the staff flag for your account.
 	\notes The staff flag controls whether you are treated as a priviledged user or not.
 */
-void commandStaff( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandStaff( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	if ( socket->account()->isStaff() || ( args.count() > 0 && args[0].toInt() == 0 ) )
@@ -531,7 +531,7 @@ void commandStaff( cUOSocket* socket, const QString& command, const QStringList&
 	\description Toggle the show serials flag for your account.
 	\notes It shows you the serials of a char in the tooltip.
 */
-void commandShowserials( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandShowserials( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	if ( !socket->player() || !socket->player()->account() )
@@ -566,7 +566,7 @@ void commandShowserials( cUOSocket* socket, const QString& command, const QStrin
 	The <i>scripts</i> parameter will reload all XML definitions and Python scripts.
 	The <i>all</i> parameter will reload all three.
 */
-void commandReload( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandReload( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	// Reload accounts
@@ -619,7 +619,7 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 	\description Toggles the allmove flag of your account.
 	\notes The allmove flag determines whether you can move immovable objects.
 */
-void commandAllMove( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandAllMove( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	if ( !socket->player() || !socket->player()->account() )
@@ -647,7 +647,7 @@ void commandAllMove( cUOSocket* socket, const QString& command, const QStringLis
 	\usage - <code>broadcast [message]</code>
 	Message is the message you want to broadcast to everyone.
 */
-void commandBroadcast( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandBroadcast( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( socket );
 	Q_UNUSED( command );
@@ -659,7 +659,7 @@ void commandBroadcast( cUOSocket* socket, const QString& command, const QStringL
 	\description Toggle notification about new support tickets.
 	\notes If you opt to turn this flag on, you will be notified about incoming pages.
 */
-void commandPageNotify( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandPageNotify( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	if ( socket->account()->isPageNotify() || ( args.count() > 0 && args[0].toInt() == 0 ) )
@@ -680,7 +680,7 @@ void commandPageNotify( cUOSocket* socket, const QString& command, const QString
 	\usage - <code>gmtalk [message]</code>
 	Send a message to all other connected gamemasters.
 */
-void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
 	if ( args.count() < 1 )
@@ -707,7 +707,7 @@ void commandGmtalk( cUOSocket* socket, const QString& command, const QStringList
 	\notes This command will export the definitions used by the WPGM utility to
 	a file called categories.db in your wolfpack directory.
 */
-void commandExportDefinitions(cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ ) throw()
+void commandExportDefinitions(cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ )
 {
 	cDefinitionExporter exporter;
 	exporter.setSocket(socket);
@@ -720,7 +720,7 @@ void commandExportDefinitions(cUOSocket* socket, const QString& /*command*/, con
 	\description Checks if the character could walk into the direction he is facing if he was a npc.
 	\notes This command is very useful for testing npc movement as a staff member.
 */
-void commandWalkTest( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ ) throw()
+void commandWalkTest( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ )
 {
 	Coord newpos = socket->player()->pos();
 	newpos = Movement::instance()->calcCoordFromDir( socket->player()->direction(), newpos );
@@ -744,7 +744,7 @@ void commandWalkTest( cUOSocket* socket, const QString& /*command*/, const QStri
 	you find any broken doors after you use this command. Don't use this command
 	on custom maps.
 */
-void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const QStringList& args ) throw()
+void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const QStringList& args )
 {
 	Q_UNUSED( args );
 	class DoorGenerator
@@ -981,7 +981,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const 
 	\notes This command exports a player with the given serial to a flat file named
 	player-<serial>.bin.
 */
-void commandExportPlayer( cUOSocket* socket, const QString& /*command*/, const QStringList& args ) throw()
+void commandExportPlayer( cUOSocket* socket, const QString& /*command*/, const QStringList& args )
 {
 	if (args.isEmpty()) {
 		socket->sysMessage(tr("Usage: exportplayer <serial>"));
@@ -1018,7 +1018,7 @@ void commandExportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 	\usage - importplayer <filename>
 	\notes This command imports a player from the given file.
 */
-void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const QStringList& args ) throw()
+void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const QStringList& args )
 {
 	if (args.isEmpty()) {
 		socket->sysMessage(tr("Usage: importplayer <filename>"));
@@ -1056,7 +1056,7 @@ void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const Q
 						if ( reader.hasError() )
 						{
 							Console::instance()->log( LOG_ERROR, reader.error() );
-							reader.setError( QString::null );
+							reader.setError( QString() );
 
 							cUObject *obj = dynamic_cast<cUObject*>( object );
 							if ( obj )
@@ -1193,7 +1193,7 @@ public:
 /*
 	Find a path
 */
-void commandFindPath( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ ) throw()
+void commandFindPath( cUOSocket* socket, const QString& /*command*/, const QStringList& /*args*/ )
 {
 	// attach a target to find the target
 	socket->sysMessage("Select the target for the pathfinding calculation.");

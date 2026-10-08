@@ -326,7 +326,7 @@ cVariant::Type cVariant::nameToType( const char* name )
 /*!
 	Returns the variant as a QString if the variant has type()
 	StringType, CString, ByteArray, IntType, Uint, Bool, DoubleType, Date, Time, or DateTime,
-	or QString::null otherwise.
+	or QString() otherwise.
 
 	\sa asString()
 */
@@ -649,7 +649,7 @@ void cVariant::serialize( cBufferedWriter& writer, unsigned int /*version*/ )
 		}
 		else
 		{
-			writer.writeUtf8( QString::null );
+			writer.writeUtf8( QString() );
 		}
 		writer.writeRaw( skipper, 4 );
 		break;

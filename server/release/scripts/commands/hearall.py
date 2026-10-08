@@ -1,7 +1,7 @@
 
 import wolfpack
 
-"""
+r"""
 	\command hearall
 	\description You can hear what other chars say which are not in your visual range.
 """
