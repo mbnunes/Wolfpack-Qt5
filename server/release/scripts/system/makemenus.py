@@ -822,8 +822,10 @@ def craft_timer(player, arguments):
 # Internal function for sorting a list of
 # objects with a title property.
 #
-def comparetitle(a, b):
-	return cmp(a.title.lower(), b.title.lower())
+def comparetitle(a, b=None):
+	if b is not None:
+		return (str(a.title).lower() > str(b.title).lower()) - (str(a.title).lower() < str(b.title).lower())
+	return str(a.title).lower()
 
 #
 # MakeMenu Gump Response Handler
@@ -1677,8 +1679,8 @@ class MakeMenu:
 	# Sort all subactions and submenus.
 	#
 	def sort(self):
-		self.submenus.sort(comparetitle)
-		self.subactions.sort(comparetitle)
+		self.submenus.sort(key=comparetitle)
+		self.subactions.sort(key=comparetitle)
 
 		# Assign ids to every subaction
 		for i in range(0, len(self.subactions)):

@@ -13,7 +13,7 @@ valid_keys = "abcdefghijklmnopqrstuvwxyz0123456789"
 """
 def save_session( id, data ):
 	if not os.path.exists( 'sessions' ):
-		os.mkdir( 'sessions', 0700 )
+		os.mkdir( 'sessions', 0o700 )
 
 	try:
 		session = open( 'sessions/' + id + '.dat', 'w' )
@@ -106,7 +106,7 @@ def check_timeouts():
 """
 def clear_sessions():
 	if not os.path.exists( 'sessions' ):
-		os.mkdir( 'sessions', 0700 )
+		os.mkdir( 'sessions', 0o700 )
 
 	files = os.listdir( 'sessions/' )
 	for file in files:

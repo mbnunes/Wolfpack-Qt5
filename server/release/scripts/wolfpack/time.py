@@ -8,6 +8,7 @@ import _wolfpack.time
 
 d = globals()
 for (name, obj) in _wolfpack.time.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj
 
 servertime = _wolfpack.time.currenttime

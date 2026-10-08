@@ -339,7 +339,7 @@ def foundation( char, target, width, height, id, multiid ):
 		#multi.addchtile( 0x64, left, y, 0 )
 
 	#Draw stairs
-	for x1 in xrange( right+1,left+1 ):
+	for x1 in range( right+1,left+1 ):
 		stairs = wolfpack.additem( "751" )
 		
 		x = multi.pos.x + x1

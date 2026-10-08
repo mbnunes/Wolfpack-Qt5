@@ -7,9 +7,9 @@ import wolfpack
 from wolfpack.consts import *
 from wolfpack import tr
 import system.input
-import buygump
-import statusgump
-import payment
+from npc.playervendor import buygump
+from npc.playervendor import statusgump
+from npc.playervendor import payment
 import time
 
 # Reduce bank account every 8 hours

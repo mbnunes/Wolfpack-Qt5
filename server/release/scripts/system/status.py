@@ -3,12 +3,12 @@
 import random
 import wolfpack
 import re
-from StringIO import StringIO
+from io import StringIO
 import sys
 from wolfpack.consts import *
 from wolfpack import settings, console, accounts, sockets
 import wolfpack.time # Already imported
-import htmlentitydefs
+import html.entities as htmlentitydefs
 from threading import Thread, Event, Lock
 import time
 

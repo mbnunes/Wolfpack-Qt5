@@ -7,7 +7,7 @@
 # .export Command						#
 #===============================================================#
 
-"""
+r"""
 	\command import
 	\description Import items from external worldfiles.
 	\notes The following formats are supported:
@@ -45,7 +45,6 @@ import wolfpack
 from wolfpack.consts import *
 from wolfpack.gumps import cGump
 from wolfpack.utilities import hex2dec, isValidPosition
-from string import lstrip
 import os
 
 def import_command( socket, command, arguments ):
@@ -381,7 +380,7 @@ def parseWsc( file, map ):
 			if baseid != '':
 				newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
 			else:
-				baseid = lstrip( str( hex( id ) ), "0x" )
+				baseid = str( hex( id ) ).lstrip( "0x" )
 
 				# Multi ?
 				if id >= 0x4000:

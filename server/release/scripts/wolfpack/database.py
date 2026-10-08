@@ -24,4 +24,5 @@ MYSQL_WORLD = "`characters`, `corpses`, `corpses_equipment`, `effects`, `effects
 
 d = globals()
 for (name, obj) in _wolfpack.database.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj

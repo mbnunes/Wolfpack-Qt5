@@ -13,13 +13,14 @@ from system.makemenus import CraftItemAction, MakeMenu, findmenu, generateNamefr
 from wolfpack.utilities import hex2dec, tobackpack
 import beverage
 
-ovens1 = range( 0x045d, 0x048f )
-ovens2 = range( 0x08cf, 0x08e0 )
-ovens3 = range( 0x092b, 0x096d )
-ovens4 = range( 0x11ec, 0x11f0 )
-ovens = ovens1 + ovens2 + ovens3 + ovens4
+ovens = [
+	*range( 0x045d, 0x048f ),
+	*range( 0x08cf, 0x08e0 ),
+	*range( 0x092b, 0x096d ),
+	*range( 0x11ec, 0x11f0 ),
+]
 
-campfire = range( 0x0de3, 0x0de9 )
+campfire = list( range( 0x0de3, 0x0de9 ) )
 firefield = [ 0x398c, 0x3996 ]
 fires = ovens + campfire + firefield
 
@@ -521,13 +522,13 @@ waters1 = [ 0x0ff8, 0x0ff9 ]
 # these should be in range
 waters2 = [ 0x0b41, 0x0b42, 0x0b43, 0x0b44, 0x0e7b, 0x0ffa, 0x154d ]
 FIRE_RANGE = 2
-ovens1 = range( 0x045d, 0x048e )
-ovens2 = range( 0x08cf, 0x08df )
-ovens3 = range( 0x092b, 0x096c )
-ovens4 = range( 0x11ec, 0x11ef )
-campfire = range( 0x0de3, 0x0de8 )
+ovens1 = list( range( 0x045d, 0x048e ) )
+ovens2 = list( range( 0x08cf, 0x08df ) )
+ovens3 = list( range( 0x092b, 0x096c ) )
+ovens4 = list( range( 0x11ec, 0x11ef ) )
+campfire = list( range( 0x0de3, 0x0de8 ) )
 firefield = [ 0x398c, 0x3996 ]
-fires = ovens1 + ovens2 + ovens3 + ovens4 + campfire, firefield
+fires = ovens1 + ovens2 + ovens3 + ovens4 + campfire + firefield
 
 #def onLoad():
 #	wolfpack.registerglobal( HOOK_CHAR, EVENT_SKILLUSE, "skills.cooking" )

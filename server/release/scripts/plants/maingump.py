@@ -3,7 +3,7 @@ import wolfpack
 import wolfpack.gumps
 import plants.plant
 import plants
-from consts import *
+from plants.consts import *
 import potions.utilities
 import potionkeg
 import plants.emptybowlgump

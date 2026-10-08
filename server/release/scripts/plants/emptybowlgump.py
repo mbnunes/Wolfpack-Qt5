@@ -5,7 +5,7 @@ import plants.plant
 import plants
 import plants.bowl
 import plants.seed
-from consts import *
+from plants.consts import *
 import potions.utilities
 import potionkeg
 import plants.maingump

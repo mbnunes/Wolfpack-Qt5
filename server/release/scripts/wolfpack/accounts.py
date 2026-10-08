@@ -8,4 +8,5 @@ import _wolfpack.accounts
 
 d = globals()
 for (name, obj) in _wolfpack.accounts.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj

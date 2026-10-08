@@ -1,6 +1,6 @@
 
 import wolfpack
-from consts import *
+from plants.consts import *
 
 # Array of resources
 # First element is the string id of the genus

@@ -116,7 +116,7 @@ r"""
 	standard hexadecimal notation (<code>0x40</code>).
 """
 def hex2dec(value, default = 0):
-	if type( value ) is IntType:
+	if isinstance( value, int ):
 		return value
 
 	try:
@@ -382,33 +382,35 @@ r"""
 	\description Returns if the tile is a mountain or cave tile.
 r"""
 def ismountainorcave( tile ):
-	return tile in range( 220, 232 ) + \
-			range( 236, 248 ) + \
-			range( 252, 264 ) + \
-			range( 268, 280 ) + \
-			range( 286, 298 ) + \
-			range( 321, 325 ) + \
-			range( 467, 475 ) + \
-			range( 476, 488 ) + \
-			range( 492, 496 ) + \
-			range( 543, 580 ) + \
-			range( 581, 614 ) + \
-			range( 1010, 1011 ) + \
-			range( 1339, 1360 ) + \
-			range( 1361, 1364 ) + \
-			range( 1741, 1758) + \
-			range( 1771, 1791 ) + \
-			range( 1801, 1825 ) + \
-			range( 1831, 1855 ) + \
-			range( 1861, 1885 ) + \
-			range( 1981, 2005 ) + \
-			range( 2028, 2034 ) + \
-			range( 2100, 2106 ) + \
-			range( 13121, 13178 ) + \
-			range( 13354, 13356 ) + \
-			range( 13361, 13371 ) + \
-			range( 13625, 13638 ) + \
-			range( 16233, 16245 )
+	return any( tile in r for r in (
+		range( 220, 232 ),
+		range( 236, 248 ),
+		range( 252, 264 ),
+		range( 268, 280 ),
+		range( 286, 298 ),
+		range( 321, 325 ),
+		range( 467, 475 ),
+		range( 476, 488 ),
+		range( 492, 496 ),
+		range( 543, 580 ),
+		range( 581, 614 ),
+		range( 1010, 1011 ),
+		range( 1339, 1360 ),
+		range( 1361, 1364 ),
+		range( 1741, 1758 ),
+		range( 1771, 1791 ),
+		range( 1801, 1825 ),
+		range( 1831, 1855 ),
+		range( 1861, 1885 ),
+		range( 1981, 2005 ),
+		range( 2028, 2034 ),
+		range( 2100, 2106 ),
+		range( 13121, 13178 ),
+		range( 13354, 13356 ),
+		range( 13361, 13371 ),
+		range( 13625, 13638 ),
+		range( 16233, 16245 ),
+	) )
 
 r"""
 	\function wolfpack.utilities.issand
@@ -417,25 +419,27 @@ r"""
 	\description Returns if the tile is a sand tile.
 r"""
 def issand( tile ):
-	return tile in range( 22, 63 ) + \
-			range( 68, 76 ) + \
-			range( 286, 302 ) + \
-			range( 402, 403 ) + \
-			range( 424, 428 ) + \
-			range( 441, 466 ) + \
-			range( 642, 646 ) + \
-			range( 650, 658 ) + \
-			range( 821, 829 ) + \
-			range( 833, 837 ) + \
-			range( 845, 853 ) + \
-			range( 857, 861 ) + \
-			range( 951, 959 ) + \
-			range( 967, 971 ) + \
-			range( 1447, 1459 ) + \
-			range( 1611, 1619 ) + \
-			range( 1623, 1627 ) + \
-			range( 1635, 1643 ) + \
-			range( 1647, 1651 )
+	return any( tile in r for r in (
+		range( 22, 63 ),
+		range( 68, 76 ),
+		range( 286, 302 ),
+		range( 402, 403 ),
+		range( 424, 428 ),
+		range( 441, 466 ),
+		range( 642, 646 ),
+		range( 650, 658 ),
+		range( 821, 829 ),
+		range( 833, 837 ),
+		range( 845, 853 ),
+		range( 857, 861 ),
+		range( 951, 959 ),
+		range( 967, 971 ),
+		range( 1447, 1459 ),
+		range( 1611, 1619 ),
+		range( 1623, 1627 ),
+		range( 1635, 1643 ),
+		range( 1647, 1651 ),
+	) )
 
 r"""
 	\function wolfpack.utilities.iscrystal
@@ -453,39 +457,41 @@ r"""
 	\description Returns if the tile is a tree object..
 r"""
 def istree( tile ):
-	return tile in range( 3220, 3223 ) + \
-			range( 3230, 3231 ) + \
-			range( 3242, 3243 ) + \
-			range( 3274, 3278 ) + \
-			range( 3230, 3231 ) + \
-			range( 3242, 3243 ) + \
-			range( 3274, 3275 ) + \
-			range( 3280, 3281 ) + \
-			range( 3283, 3284 ) + \
-			range( 3286, 3287 ) + \
-			range( 3288, 3289 ) + \
-			range( 3290, 3291 ) + \
-			range( 3293, 3294 ) + \
-			range( 3296, 3297 ) + \
-			range( 3299, 3300 ) + \
-			range( 3302, 3303 ) + \
-			range( 3320, 3321 ) + \
-			range( 3323, 3324 ) + \
-			range( 3326, 3327 ) + \
-			range( 3329, 3330 ) + \
-			range( 3393, 3397 ) + \
-			range( 3415, 3420 ) + \
-			range( 3438, 3443 ) + \
-			range( 3460, 3463 ) + \
-			range( 3476, 3477 ) + \
-			range( 3480, 3481 ) + \
-			range( 3484, 3485 ) + \
-			range( 3486, 3487 ) + \
-			range( 3488, 3489 ) + \
-			range( 3492, 3493 ) + \
-			range( 3496, 3497 ) + \
-			range( 4789, 4798 ) + \
-			range( 8778, 8782 )
+	return any( tile in r for r in (
+		range( 3220, 3223 ),
+		range( 3230, 3231 ),
+		range( 3242, 3243 ),
+		range( 3274, 3278 ),
+		range( 3230, 3231 ),
+		range( 3242, 3243 ),
+		range( 3274, 3275 ),
+		range( 3280, 3281 ),
+		range( 3283, 3284 ),
+		range( 3286, 3287 ),
+		range( 3288, 3289 ),
+		range( 3290, 3291 ),
+		range( 3293, 3294 ),
+		range( 3296, 3297 ),
+		range( 3299, 3300 ),
+		range( 3302, 3303 ),
+		range( 3320, 3321 ),
+		range( 3323, 3324 ),
+		range( 3326, 3327 ),
+		range( 3329, 3330 ),
+		range( 3393, 3397 ),
+		range( 3415, 3420 ),
+		range( 3438, 3443 ),
+		range( 3460, 3463 ),
+		range( 3476, 3477 ),
+		range( 3480, 3481 ),
+		range( 3484, 3485 ),
+		range( 3486, 3487 ),
+		range( 3488, 3489 ),
+		range( 3492, 3493 ),
+		range( 3496, 3497 ),
+		range( 4789, 4798 ),
+		range( 8778, 8782 ),
+	) )
 
 r"""
 	\function wolfpack.utilities.iswater
@@ -494,11 +500,13 @@ r"""
 	\description Returns if the tile is a water tile.
 r"""
 def iswater( tile ):
-	return tile in range( 168, 172 ) + \
-		range( 6038, 6067 ) + \
-		range( 13422, 13446 ) + \
-		range( 13456, 13484 ) + \
-		range( 13493, 13526 )
+	return any( tile in r for r in (
+		range( 168, 172 ),
+		range( 6038, 6067 ),
+		range( 13422, 13446 ),
+		range( 13456, 13484 ),
+		range( 13493, 13526 ),
+	) )
 
 r"""
 	\function wolfpack.utilities.isdirt
@@ -507,28 +515,30 @@ r"""
 	\description Returns if the tile is a dirt tile..
 r"""
 def isdirt( tile ):
-	return tile in range( 113, 125 ) + \
-			range( 130, 168 ) + \
-			range( 220, 228 ) + \
-			range( 232, 236 ) + \
-			range( 321, 336 ) + \
-			range( 361, 377 ) + \
-			range( 476, 496 ) + \
-			range( 622, 634 ) + \
-			range( 638, 642 ) + \
-			range( 720, 857 ) + \
-			range( 871, 891  ) + \
-			range( 901, 937 ) + \
-			range( 1035, 1054 ) + \
-			range( 1351, 1366 ) + \
-			range( 1431, 1447 ) + \
-			range( 1571, 1594 ) + \
-			range( 1779, 1787 ) + \
-			range( 1911, 1937 ) + \
-			range( 2444, 2495 ) + \
-			range( 12788, 12796 ) + \
-			range( 13683, 13695 ) + \
-			range( 13742, 13746 )
+	return any( tile in r for r in (
+		range( 113, 125 ),
+		range( 130, 168 ),
+		range( 220, 228 ),
+		range( 232, 236 ),
+		range( 321, 336 ),
+		range( 361, 377 ),
+		range( 476, 496 ),
+		range( 622, 634 ),
+		range( 638, 642 ),
+		range( 720, 857 ),
+		range( 871, 891  ),
+		range( 901, 937 ),
+		range( 1035, 1054 ),
+		range( 1351, 1366 ),
+		range( 1431, 1447 ),
+		range( 1571, 1594 ),
+		range( 1779, 1787 ),
+		range( 1911, 1937 ),
+		range( 2444, 2495 ),
+		range( 12788, 12796 ),
+		range( 13683, 13695 ),
+		range( 13742, 13746 ),
+	) )
 
 r"""
 	\function wolfpack.utilities.checkresources

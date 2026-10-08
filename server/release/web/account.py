@@ -37,8 +37,8 @@ username = session[ 'username' ]
 record = wolfpack.accounts.find( account )
 
 if not record:
-	print "Content-type: text/html\n\n"
-	print "Invalid account"
+	print("Content-type: text/html\n\n")
+	print("Invalid account")
 	sys.exit()
 
 # Check if we should change any information

@@ -6,7 +6,7 @@ import wolfpack.gumps
 import commands.who
 import wolfpack.sockets
 import time
-from urllib import quote, unquote
+from urllib.parse import quote, unquote
 
 pages = None
 

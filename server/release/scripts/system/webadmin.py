@@ -10,12 +10,12 @@
 from wolfpack.consts import *
 from threading import Thread, Event
 import os, sys, time, string, socket, urllib
-from CGIHTTPServer import CGIHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
-from SocketServer import BaseServer
+import urllib.parse
+from http.server import CGIHTTPRequestHandler, HTTPServer
+from socketserver import BaseServer
 import posixpath
 import atexit
-import cStringIO
+import io as cStringIO
 import traceback
 import web.sessions
 import wolfpack
@@ -93,7 +93,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 		(e.g. drive or directory names) are ignored.
 
 		"""
-		file = urllib.unquote(uri)
+		file = urllib.parse.unquote(uri)
 		file.replace("\\", '/')
 		words = file.split('/')
 		words = filter(None, words)
@@ -153,7 +153,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 		env['SERVER_PROTOCOL'] = self.protocol_version
 		env['SERVER_PORT'] = str(self.server.server_port)
 		env['REQUEST_METHOD'] = self.command
-		uqrest = urllib.unquote(rest)
+		uqrest = urllib.parse.unquote(rest)
 		env['PATH_INFO'] = uqrest
 		env['PATH_TRANSLATED'] = self.translate_path(uqrest)
 		env['SCRIPT_NAME'] = scriptname

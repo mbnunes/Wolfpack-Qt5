@@ -463,6 +463,10 @@ void cBufferedReader::open( const QString& filename )
 		{
 			QByteArray data( size, 0 );
 			readRaw( data.data(), size );
+			while ( data.endsWith( '\0' ) )
+			{
+				data.chop( 1 );
+			}
 			d->dictionary.insert( id, data );
 		}
 	}

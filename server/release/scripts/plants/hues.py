@@ -4,7 +4,7 @@
 # It's more or less like a bitfield for every color
 #
 
-from consts import *
+from plants.consts import *
 import random
 
 HUES = {} # Registry

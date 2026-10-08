@@ -15,7 +15,8 @@ from types import *
 
 d = globals()
 for (name, obj) in _wolfpack.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj
 	
 r"""
 	\function wolfpack.findobject

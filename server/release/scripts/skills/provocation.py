@@ -11,7 +11,7 @@ import wolfpack.utilities
 from wolfpack.consts import PROVOCATION, MUSICIANSHIP, ALLSKILLS, MAGERY, LOG_MESSAGE, PLAYER_BODIES_ALIVE
 from math import floor
 import skills
-from musicianship import play_instrument
+from skills.musicianship import play_instrument
 
 # Some chars are unprovocable
 def unprovocable(char):

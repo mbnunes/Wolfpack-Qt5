@@ -134,6 +134,22 @@ static void startPython( QStringList arguments )
 		wargv[i] = Py_DecodeLocale( arguments[i].toLocal8Bit().constData(), NULL );
 	}
 	PySys_SetArgv( arguments.size(), wargv );
+
+	PyRun_SimpleString(
+		"import builtins, types\n"
+		"builtins.unicode = str\n"
+		"builtins.xrange = range\n"
+		"builtins.cmp = lambda a, b: (a > b) - (a < b)\n"
+		"builtins.IntType = types.IntType = int\n"
+		"builtins.LongType = types.LongType = int\n"
+		"builtins.StringType = types.StringType = str\n"
+		"builtins.UnicodeType = types.UnicodeType = str\n"
+		"builtins.ListType = types.ListType = list\n"
+		"builtins.DictType = types.DictType = dict\n"
+		"builtins.FloatType = types.FloatType = float\n"
+		"builtins.TupleType = types.TupleType = tuple\n"
+		"builtins.BooleanType = types.BooleanType = bool\n"
+	);
 #else
 	Py_SetProgramName( arguments.at(0).toLocal8Bit().data() );
 	Py_NoSiteFlag = 1; // No import because we need to set the search path first

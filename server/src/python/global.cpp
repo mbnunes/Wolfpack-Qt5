@@ -2543,23 +2543,34 @@ BOOST_PYTHON_MODULE(_wolfpack)
 #if PY_MAJOR_VERSION >= 3
 	PyModule_AddFunctions( scope().ptr(), wpGlobal );
 
+	// Make _wolfpack behave as a package so 'import _wolfpack.submodule' works
+	scope().attr("__path__") = boost::python::list();
+
+	PyObject* sys_modules = PyImport_GetModuleDict();
+
 	PyObject* mConsole = PyInit_wpconsole();
 	scope().attr("console") = object( handle<>( borrowed( mConsole ) ) );
+	PyDict_SetItemString( sys_modules, "_wolfpack.console", mConsole );
 
 	PyObject* mTime = PyInit_wptime();
 	scope().attr("time") = object( handle<>( borrowed( mTime ) ) );
+	PyDict_SetItemString( sys_modules, "_wolfpack.time", mTime );
 
 	PyObject* mAccounts = PyModule_Create( &wpAccounts_module );
 	scope().attr("accounts") = object( handle<>( mAccounts ) );
+	PyDict_SetItemString( sys_modules, "_wolfpack.accounts", mAccounts );
 
 	PyObject* mSockets = PyModule_Create( &wpSockets_module );
 	scope().attr("sockets") = object( handle<>( mSockets ) );
+	PyDict_SetItemString( sys_modules, "_wolfpack.sockets", mSockets );
 
 	PyObject* mSettings = PyInit_wpsettings();
 	scope().attr("settings") = object( handle<>( borrowed( mSettings ) ) );
+	PyDict_SetItemString( sys_modules, "_wolfpack.settings", mSettings );
 
 	PyObject* mDatabase = PyInit_wpdatabase();
 	scope().attr("database") = object( handle<>( borrowed( mDatabase ) ) );
+	PyDict_SetItemString( sys_modules, "_wolfpack.database", mDatabase );
 #else
 	object wpNamespace( ( handle<>( borrowed( Py_InitModule( "_wolfpack", wpGlobal ) ) ) ) );
 
