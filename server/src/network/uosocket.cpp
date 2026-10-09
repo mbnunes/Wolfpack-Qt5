@@ -1302,8 +1302,11 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	changeserver.setHeight( Maps::instance()->mapTileHeight( pChar->pos().map ) * 8 );
 	send( &changeserver );
 
+	// Ensure player character has a backpack
+	pChar->getBackpack();
+
 	cUOTxDrawChar drawchar;
-	drawchar.fromChar( pChar );
+	drawchar.fromChar( pChar, hasNewMobileIncoming() );
 	drawchar.setHighlight( pChar->notoriety( pChar ) );
 	send( &drawchar );
 
@@ -3294,7 +3297,7 @@ void cUOSocket::resendPlayer( bool quick )
 	send( &changeserver );
 
 	cUOTxDrawChar drawchar;
-	drawchar.fromChar( pChar );
+	drawchar.fromChar( pChar, hasNewMobileIncoming() );
 	drawchar.setHighlight( pChar->notoriety( pChar ) );
 	send( &drawchar );
 
@@ -3365,7 +3368,7 @@ void cUOSocket::sendChar( P_CHAR pChar )
 	{
 		// Then completely resend it
 		cUOTxDrawChar drawChar;
-		drawChar.fromChar( pChar );
+		drawChar.fromChar( pChar, hasNewMobileIncoming() );
 		drawChar.setHighlight( pChar->notoriety( _player ) );
 		send( &drawChar );
 		pChar->sendTooltip( this );

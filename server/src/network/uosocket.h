@@ -217,6 +217,7 @@ public:
 	bool hasNewCharacterCreation() const { return hasProtocol( ProtocolNewCharacterCreation ); }
 	bool hasExtendedStatus() const { return hasProtocol( ProtocolExtendedStatus ); }
 	bool hasBuffIcon() const { return hasProtocol( ProtocolBuffIcon ); }
+	bool hasNewMobileIncoming() const { return ( clientVersion_.major == 0 ) || hasProtocol( ProtocolNewMobileIncoming ); }
 	void sendDamage( unsigned int serial, unsigned short amount );
 
 	QByteArray lang( void ) const;

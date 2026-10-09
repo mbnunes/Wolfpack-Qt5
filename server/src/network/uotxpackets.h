@@ -1018,10 +1018,10 @@ public:
 	{
 		( *this )[18] = data;
 	}
-	void fromChar( P_CHAR pChar );
+	void fromChar( P_CHAR pChar, bool newMobileIncoming = true );
 
 	// The last 4 bytes are the terminator
-	void addEquipment( unsigned int serial, unsigned short model, unsigned char layer, unsigned short color );
+	void addEquipment( unsigned int serial, unsigned short model, unsigned char layer, unsigned short color, bool newMobileIncoming = true );
 };
 
 // 0x69: Options(?)

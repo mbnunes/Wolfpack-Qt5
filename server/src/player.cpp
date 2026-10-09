@@ -283,7 +283,7 @@ void cPlayer::resend( bool clean )
 			if ( socket != socket_ || clean )
 			{
 				cUOTxDrawChar drawChar;
-				drawChar.fromChar( this );
+				drawChar.fromChar( this, socket->hasNewMobileIncoming() );
 				drawChar.setHighlight( notoriety( socket->player() ) );
 				socket->send( &drawChar );
 				sendTooltip( socket );

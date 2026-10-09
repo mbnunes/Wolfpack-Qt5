@@ -404,7 +404,7 @@ void cNPC::resend( bool clean )
 		if ( socket->canSee( this ) )
 		{
 			cUOTxDrawChar drawChar;
-			drawChar.fromChar( this );
+			drawChar.fromChar( this, socket->hasNewMobileIncoming() );
 			drawChar.setHighlight( notoriety( socket->player() ) );
 			socket->send( &drawChar );
 
