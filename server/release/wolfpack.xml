@@ -127,7 +127,7 @@
     <option key="Logging Mask" value="255"/>
     <option key="Minutes to Delete Character" value="1440"/>
     <option key="Mount Range" value="2"/>
-    <option key="MulPath" value="/opt/hd_jogos/UOML/"/>
+    <option key="MulPath" value="/opt/hd_jogos/UOC/"/>
     <option key="New Tooltip Packets" value="true"/>
     <option key="Overwrite Definitions" value="false"/>
     <option key="Pay From Pack Only" value="false"/>

@@ -28,6 +28,7 @@
 #include "maps.h"
 #include "tilecache.h"
 #include "multiscache.h"
+#include "uopindex.h"
 #include "../log.h"
 #include "../items.h"
 #include "../console.h"
@@ -38,6 +39,7 @@
 // Library Includes
 #include <QString>
 #include <QFile>
+#include <QFileInfo>
 #include <QDataStream>
 #include <QDir>
 #include <QCache>
@@ -90,6 +92,9 @@ public:
 	QFile mapdifdata;
 	QFile stadifdata;
 
+	bool isUop;
+	cUOPIndex uopIndex;
+
 	/*
 		Try to load the Map- and Stadiff files.
 	*/
@@ -105,6 +110,7 @@ public:
  *****************************************************************************/
 
 MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QString& statics )
+	: isUop( false )
 {
 	idxfile.setFileName( index );
 	if ( !idxfile.open( QIODevice::ReadOnly ) )
@@ -117,6 +123,17 @@ MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QStrin
 	staticsfile.setFileName( statics );
 	if ( !staticsfile.open( QIODevice::ReadOnly ) )
 		throw wpFileNotFoundException( QString( "Couldn't open file %1" ).arg( statics ) );
+
+	if ( map.toLower().endsWith( ".uop" ) )
+	{
+		QFileInfo fi( map );
+		QString pattern = fi.completeBaseName().toLower();
+		if ( !uopIndex.open( &mapfile, pattern ) )
+		{
+			throw wpException( QString( "Couldn't parse UOP map file %1" ).arg( map ) );
+		}
+		isUop = true;
+	}
 }
 
 void MapsPrivate::loadDiffs( const QString& basePath, unsigned int id )
@@ -225,7 +242,12 @@ map_st MapsPrivate::seekMap( ushort x, ushort y )
 		}
 		else
 		{
-			mapfile.seek( blockid * sizeof( mapblock ) );
+			qint64 pos = static_cast<qint64>( blockid ) * sizeof( mapblock );
+			if ( isUop )
+			{
+				pos = uopIndex.lookup( pos );
+			}
+			mapfile.seek( pos );
 			mapfile.read( ( char * ) result, sizeof( mapblock ) );
 		}
 
@@ -286,12 +308,26 @@ void cMaps::load()
 	if ( Config::instance()->usesMondainsLegacyMap() )
 	{
 		registerMap( 0, "map0.mul", 896, 512, "statics0.mul", "staidx0.mul" );
-		registerMap( 1, QString("map%1.mul").arg(tramMapNr), 896, 512, QString("statics%1.mul").arg(tramMapNr), QString("staidx%1.mul").arg(tramMapNr) );
+		if ( !registerMap( 1, QString("map%1.mul").arg(tramMapNr), 896, 512, QString("statics%1.mul").arg(tramMapNr), QString("staidx%1.mul").arg(tramMapNr) ) )
+		{
+			if ( tramMapNr != 0 )
+			{
+				Console::instance()->log( LOG_WARNING, tr( "Map 1 files not found, falling back to Map 0 files for Trammel.\n" ) );
+				registerMap( 1, "map0.mul", 896, 512, "statics0.mul", "staidx0.mul" );
+			}
+		}
 	}
 	else
 	{
 		registerMap( 0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul" );
-		registerMap( 1, QString("map%1.mul").arg(tramMapNr), 768, 512, QString("statics%1.mul").arg(tramMapNr), QString("staidx%1.mul").arg(tramMapNr) );
+		if ( !registerMap( 1, QString("map%1.mul").arg(tramMapNr), 768, 512, QString("statics%1.mul").arg(tramMapNr), QString("staidx%1.mul").arg(tramMapNr) ) )
+		{
+			if ( tramMapNr != 0 )
+			{
+				Console::instance()->log( LOG_WARNING, tr( "Map 1 files not found, falling back to Map 0 files for Trammel.\n" ) );
+				registerMap( 1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul" );
+			}
+		}
 	}
 	
 	registerMap( 2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul" );
@@ -355,10 +391,105 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 		{
 			if ( ( *it ).toLower() == staticsidx.toLower() )
 				staticsIdxName = *it;
-			if ( ( *it ).toLower() == mapfile.toLower() )
-				mapFileName = *it;
 			if ( ( *it ).toLower() == staticsfile.toLower() )
 				staticsFileName = *it;
+		}
+
+		// Prioritize modern UOP map file if available in the client folder
+		QString uopPreferred = QString( "map%1legacymul.uop" ).arg( id );
+		for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+		{
+			if ( ( *it ).toLower() == uopPreferred )
+			{
+				mapFileName = *it;
+				break;
+			}
+		}
+
+		// If no UOP found, check specified mapfile name
+		if ( mapFileName.isEmpty() )
+		{
+			for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+			{
+				if ( ( *it ).toLower() == mapfile.toLower() )
+				{
+					mapFileName = *it;
+					break;
+				}
+			}
+		}
+
+		// If map file was not found yet, check alternate candidates
+		if ( mapFileName.isEmpty() )
+		{
+			QStringList mapCandidates;
+			mapCandidates << QString( "map%1xlegacymul.uop" ).arg( id )
+			              << QString( "map%1.mul" ).arg( id )
+			              << QString( "map%1x.mul" ).arg( id );
+
+			for ( const QString& cand : mapCandidates )
+			{
+				for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+				{
+					if ( ( *it ).toLower() == cand )
+					{
+						mapFileName = *it;
+						break;
+					}
+				}
+				if ( !mapFileName.isEmpty() )
+					break;
+			}
+		}
+
+		// If statics index was not found by exact name, check candidates
+		if ( staticsIdxName.isEmpty() )
+		{
+			QStringList idxCandidates;
+			idxCandidates << QString( "staidx%1.mul" ).arg( id )
+			              << QString( "staidx%1x.mul" ).arg( id );
+
+			for ( const QString& cand : idxCandidates )
+			{
+				for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+				{
+					if ( ( *it ).toLower() == cand )
+					{
+						staticsIdxName = *it;
+						break;
+					}
+				}
+				if ( !staticsIdxName.isEmpty() )
+					break;
+			}
+		}
+
+		// If statics data was not found by exact name, check candidates
+		if ( staticsFileName.isEmpty() )
+		{
+			QStringList statCandidates;
+			statCandidates << QString( "statics%1.mul" ).arg( id )
+			               << QString( "statics%1x.mul" ).arg( id );
+
+			for ( const QString& cand : statCandidates )
+			{
+				for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+				{
+					if ( ( *it ).toLower() == cand )
+					{
+						staticsFileName = *it;
+						break;
+					}
+				}
+				if ( !staticsFileName.isEmpty() )
+					break;
+			}
+		}
+
+		if ( staticsIdxName.isEmpty() || mapFileName.isEmpty() || staticsFileName.isEmpty() )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Unable to find the files for map %1.\n" ).arg( id ) );
+			return false;
 		}
 
 		try
@@ -367,15 +498,45 @@ bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint ma
 		}
 		catch ( wpFileNotFoundException& e )
 		{
-			Console::instance()->log( LOG_WARNING, tr( "Unable to find the files for map %1.\n" ).arg( id ) );
+			Console::instance()->log( LOG_WARNING, tr( "Unable to find the files for map %1: %2\n" ).arg( id ).arg( e.error() ) );
+			return false;
+		}
+		catch ( std::exception& e )
+		{
+			Console::instance()->log( LOG_WARNING, tr( "Unable to open or parse files for map %1: %2\n" ).arg( id ).arg( e.what() ) );
 			return false;
 		}
 
 		p->height = mapheight;
 		p->width = mapwidth;
-		if( !Config::instance()->usesKingdomRebornMaps() )
+
+		// Auto-detect and adjust map dimensions for Britannia (map 0 and map 1) based on actual file size
+		qint64 totalBytes = p->isUop ? p->uopIndex.totalSize() : p->mapfile.size();
+		qint64 totalBlocks = totalBytes / sizeof( MapsPrivate::mapblock );
+		if ( ( id == 0 || id == 1 ) && totalBlocks > 0 )
+		{
+			if ( totalBlocks >= 458752 ) // 896 * 512
+			{
+				p->width = 896;
+				p->height = 512;
+			}
+			else if ( totalBlocks >= 393216 ) // 768 * 512
+			{
+				p->width = 768;
+				p->height = 512;
+			}
+		}
+
+		if ( !Config::instance()->usesKingdomRebornMaps() && !p->isUop )
 			p->loadDiffs( basePath, id );
+
 		d.insert( id, p );
+		Console::instance()->log( LOG_NOTICE, tr( "Map %1 (%2) successfully loaded [%3x%4 blocks, %5].\n" )
+			.arg( id )
+			.arg( mapFileName )
+			.arg( p->width )
+			.arg( p->height )
+			.arg( p->isUop ? "UOP" : "MUL" ) );
 		return true;
 	}
 	catch ( wpFileNotFoundException& e )

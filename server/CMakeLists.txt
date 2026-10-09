@@ -87,6 +87,7 @@ list(APPEND WOLFPACK_SOURCES
     src/muls/maps.cpp
     src/muls/multiscache.cpp
     src/muls/tilecache.cpp
+    src/muls/uopindex.cpp
 )
 
 # Network sources
