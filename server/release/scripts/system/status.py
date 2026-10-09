@@ -44,7 +44,7 @@ class ProcessThread(Thread):
 			if data:
 				global outputfile
 				try:
-					fp = file(outputfile, 'w')
+					fp = open(outputfile, 'wb')
 					fp.write(data.encode('utf-8'))
 					fp.close()
 				except Exception as e:
@@ -67,7 +67,7 @@ def generate(object, arguments):
 	if not templatemodule:
 		global htmltemplate
 		try:
-			fp = file(htmltemplate, 'rU')
+			fp = open(htmltemplate, 'r', encoding='utf-8', errors='ignore')
 			template = fp.read()
 			fp.close()
 			console.log(LOG_MESSAGE, "Loaded status template from '%s'.\n" % htmltemplate)
@@ -79,48 +79,41 @@ def generate(object, arguments):
 		length = len(template)
 		blocks = ''
 		current = ''
-		inlineprint = 0
+		i = 0
 
 		# PROLOG
 		try:
-			for i in range(0, length):
-				if template[i:i + 3] == "<%\n":
-					# Dump previous string
-					if current != '':
-						if inlineprint:
-							blocks += '+ ' + repr(current)
-						else:
-							blocks += 'print ' + repr(current)
+			while i < length:
+				if template[i:i + 3] == "<%=":
+					if current:
+						blocks += 'sys.stdout.write(' + repr(current) + ')\n'
 						current = ''
-					inlineprint = 0
-					continue
-				elif template[i - 1:i+1] == "%>":
-					# Gather code
-					current = current[1:-1].strip("%")
-
-					if inlineprint:
-						blocks += " + unicode(%s)" % current[1:]
+					end = template.find("%>", i + 3)
+					if end != -1:
+						code = template[i + 3:end].strip()
+						blocks += 'sys.stdout.write(str(' + code + '))\n'
+						i = end + 2
 					else:
-						blocks += "\n%s" % current
-						inlineprint = 0
-					current = ''
-					continue
-				elif template[i:i + 3] == "<%=":
-					# Dump previous string
-					if current != '':
-						if inlineprint:
-							blocks += '+ ' + repr(current)
-						else:
-							blocks += 'print ' + repr(current)
+						current += template[i]
+						i += 1
+				elif template[i:i + 2] == "<%":
+					if current:
+						blocks += 'sys.stdout.write(' + repr(current) + ')\n'
 						current = ''
-					inlineprint = 1
-					continue
-				current += template[i]
-			if inlineprint:
-				blocks += '+ ' + repr(current)
-			else:
-				blocks += 'print ' + repr(current)
-			blocks += "\n"
+					end = template.find("%>", i + 2)
+					if end != -1:
+						code = template[i + 2:end]
+						blocks += '\n' + code + '\n'
+						i = end + 2
+					else:
+						current += template[i]
+						i += 1
+				else:
+					current += template[i]
+					i += 1
+
+			if current:
+				blocks += 'sys.stdout.write(' + repr(current) + ')\n'
 
 		except Exception as e:
 			console.log(LOG_PYTHON, "Unable to parse python template file: %s\n" % str(e))

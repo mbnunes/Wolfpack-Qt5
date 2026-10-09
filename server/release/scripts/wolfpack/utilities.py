@@ -120,12 +120,11 @@ def hex2dec(value, default = 0):
 		return value
 
 	try:
-		value = value.lower()
+		value = str(value).strip().lower()
 
-		if not value.startswith( "0x" ):
-			return int( value )
-		else:
-			return int( value.replace( "0x", "" ), 16 )
+		if value.startswith( "0x" ):
+			value = value[2:]
+		return int( value, 16 )
 	except:
 		return default
 

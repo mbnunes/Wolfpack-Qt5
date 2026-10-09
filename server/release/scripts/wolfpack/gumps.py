@@ -86,9 +86,9 @@ class cGump:
 		# There are two possibilities
 		socket = None
 
-		if type( char ).__name__ == "wpchar":
+		if type( char ).__name__ in ( "wpchar", "char", "wolfpack.char" ) or hasattr( char, "socket" ):
 			socket = char.socket
-		elif type( char ).__name__ == "wpsocket":
+		elif type( char ).__name__ in ( "wpsocket", "socket", "wolfpack.socket" ) or hasattr( char, "sysmessage" ):
 			socket = char
 		else:
 			raise TypeError( "You passed an invalid socket." )

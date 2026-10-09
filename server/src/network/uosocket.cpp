@@ -3373,16 +3373,26 @@ void cUOSocket::sendChar( P_CHAR pChar )
 		send( &drawChar );
 		pChar->sendTooltip( this );
 
-		// Send item tooltips
+		// Send item equipment and tooltips
 		cBaseChar::ItemContainer content = pChar->content();
 		for ( cBaseChar::ItemContainer::const_iterator it = content.begin(); it != content.end(); ++it )
 		{
 			P_ITEM item = it.value();
 			if ( item->layer() <= 0x19 )
 			{
+				cUOTxCharEquipment equip;
+				equip.fromItem( item );
+				send( &equip );
 				item->sendTooltip( this );
 			}
 		}
+
+		log( LOG_NOTICE, tr( "sendChar: Sent character '%1' [0x%2] (body 0x%3, %4 items) to '%5'\n" )
+			.arg( pChar->name() )
+			.arg( QString::number( pChar->serial(), 16 ) )
+			.arg( QString::number( pChar->body(), 16 ) )
+			.arg( content.size() )
+			.arg( _player ? _player->name() : "unknown" ) );
 	}
 }
 

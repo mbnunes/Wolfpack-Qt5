@@ -21,7 +21,7 @@ r"""
 import wolfpack
 from wolfpack.utilities import hex2dec
 from wolfpack import tr, console
-from wolfpack.consts import LOG_ERROR
+from wolfpack.consts import LOG_ERROR, LOG_MESSAGE
 import os
 import xml.sax
 from xml.sax.handler import *
@@ -186,6 +186,33 @@ class DoorSaveHandler:
 
 
 
+def load_decoration(map_id, socket=None):
+	if not wolfpack.hasmap(map_id):
+		msg = tr("Map %i does not exist.") % map_id
+		console.log(LOG_ERROR, msg + "\n")
+		if socket:
+			socket.sysmessage(msg)
+		return
+	filename = "definitions/decoration/decoration.%i.xml" % map_id
+	if not os.path.isfile(filename):
+		msg = tr("Decoration file '%s' not found.") % filename
+		console.log(LOG_ERROR, msg + "\n")
+		if socket:
+			socket.sysmessage(msg)
+		return
+	msg = tr("Decorating map %i, please wait...") % map_id
+	console.log(LOG_MESSAGE, msg + "\n")
+	if socket:
+		socket.sysmessage(msg)
+	parser = xml.sax.make_parser()
+	handler = DecorationHandler()
+	parser.setContentHandler(handler)
+	parser.parse(filename)
+	done_msg = tr("Done decorating map %i.") % map_id
+	console.log(LOG_MESSAGE, done_msg + "\n")
+	if socket:
+		socket.sysmessage(done_msg)
+
 def decoration( socket, command, arguments ):
 	if len(arguments) > 0:
 		args = str(arguments.split()[0])
@@ -204,21 +231,16 @@ def decoration( socket, command, arguments ):
 			saveObject.save()
 			socket.sysmessage(tr("Done."))
 		elif args == 'load':
-			parser = xml.sax.make_parser()
-			handler = DecorationHandler()
-			parser.setContentHandler(handler)
 			maps = []
 			try:
 				maponly = int(arguments.split()[1])
 				maps.append(maponly)
-			except ValueError:
-				maps = [0, 1, 2, 3, 4]
+			except (ValueError, IndexError):
+				maps = [0, 1]
 				pass
 		
-			for map in maps:
-				if wolfpack.hasmap(map):
-					socket.sysmessage(tr("Decorating map %i, please wait...") % map)
-					parser.parse("definitions/decoration/decoration.%i.xml" % map)
+			for m in maps:
+				load_decoration(m, socket)
 		else:
 			socket.sysmessage( tr('Usage: decoration save|savedoors|load') )
 	else:

@@ -101,10 +101,7 @@ while socket:
 socket = wolfpack.sockets.first()
 nextsocket = wolfpack.sockets.next()
 while socket:
-	if( socket.player and not socket.player.invisible ):
-		%>
-		<tr>
-		<%
+	if socket.player and not socket.player.invisible:
 		notoriety = socket.player.notoriety()
 		NOTOCOLORS = {
 			1: "#0000DD",
@@ -114,37 +111,27 @@ while socket:
 			5: "#ff9900",
 			6: "#d01010",
 		}
-		
 		BODYIMGS = {
 			0x190: 'gender_male.gif',
 			0x191: 'gender_female.gif',
 			0x192: 'gender_male.gif',
 			0x193: 'gender_female.gif',			
 		}
-		
-		print '<td width="16" valign="middle">'
-		if BODYIMGS.has_key(socket.player.id):
-			print '<div align="center"><img src="%s"></div>' % BODYIMGS[socket.player.id]
+		sys.stdout.write('<tr><td width="16" valign="middle">')
+		if socket.player.id in BODYIMGS:
+			sys.stdout.write('<div align="center"><img src="%s"></div>' % BODYIMGS[socket.player.id])
 		else:
-			print '<img src="spacer.gif" width="14">'
-		print '</td><td valign="middle">'
-		
-		if NOTOCOLORS.has_key(notoriety):
-			print '<font color="%s" face="Georgia"><b>%s</b></font>' % (NOTOCOLORS[notoriety], unicode(socket.player.name))
+			sys.stdout.write('<img src="spacer.gif" width="14">')
+		sys.stdout.write('</td><td valign="middle">')
+		if notoriety in NOTOCOLORS:
+			sys.stdout.write('<font color="%s" face="Georgia"><b>%s</b></font>' % (NOTOCOLORS[notoriety], str(socket.player.name)))
 		else:
-			print '<b>%s</b>' % socket.player.name
-
-	  	if socket.player.region and len(socket.player.region.name) > 0:
-	  		print ' (%s)' % unicode(socket.player.region.name)
-	  		
-	  	print '</td></tr>'
-		%></tr>
-<%
-		if( nextsocket and nextsocket.player and not nextsocket.player.invisible ):
-			%>
-		<tr><td colspan="2" bgcolor="#DDDDDD"><img src="spacer.gif" width="1" height="1"></td></tr>
-			
-<%
+			sys.stdout.write('<b>%s</b>' % socket.player.name)
+		if socket.player.region and len(socket.player.region.name) > 0:
+			sys.stdout.write(' (%s)' % str(socket.player.region.name))
+		sys.stdout.write('</td></tr>\n')
+		if nextsocket and nextsocket.player and not nextsocket.player.invisible:
+			sys.stdout.write('<tr><td colspan="2" bgcolor="#DDDDDD"><img src="spacer.gif" width="1" height="1"></td></tr>\n')
 	socket = nextsocket
 	nextsocket = wolfpack.sockets.next()
 %>

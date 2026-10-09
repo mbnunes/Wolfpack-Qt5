@@ -29,7 +29,7 @@ def response(player, arguments, response):
 
 	# Iterate trough all skills and see what changed
 	for skill in range( 0, ALLSKILLS ):
-		if not response.text.has_key(0x1000 | skill) or not response.text.has_key(0x2000 | skill):
+		if (0x1000 | skill) not in response.text or (0x2000 | skill) not in response.text:
 			continue
 
 		try:

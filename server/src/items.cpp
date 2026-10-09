@@ -1154,12 +1154,29 @@ void cItem::update( cUOSocket* singlesocket )
 					{
 						cUOTxNewSendItem packetSA;
 						packetSA.setUnknown1( 1 );
-						packetSA.setDataType( ( socket->account()->isMultiGems() && isMulti() ) ? 0x02 : 0x00 );
+						if ( isMulti() )
+						{
+							if ( socket->account()->isMultiGems() )
+							{
+								packetSA.setDataType( 0x00 );
+								packetSA.setId( 0x1ea7 );
+							}
+							else
+							{
+								packetSA.setDataType( 0x02 );
+								packetSA.setId( id_ & 0x3FFF );
+							}
+						}
+						else
+						{
+							packetSA.setDataType( 0x00 );
+							packetSA.setId( id_ );
+						}
 						packetSA.setSerial( serial_ );
-						packetSA.setId( ( socket->account()->isMultiGems() && isMulti() ) ? 0x1ea7 : ( id_ & 0x3FFF ) );
 						packetSA.setIdOffset( 0 );
-						packetSA.setAmount1( amount_ );
-						packetSA.setAmount2( amount_ );
+						unsigned short amt = amount_ == 0 ? 1 : amount_;
+						packetSA.setAmount1( amt );
+						packetSA.setAmount2( amt );
 						packetSA.setCoord( pos_ );
 						packetSA.setLightLevel( lightsource() );
 						packetSA.setColor( color_ );
@@ -1209,12 +1226,29 @@ void cItem::update( cUOSocket* singlesocket )
 			{
 				cUOTxNewSendItem packetSA;
 				packetSA.setUnknown1( 1 );
-				packetSA.setDataType( ( singlesocket->account()->isMultiGems() && isMulti() ) ? 0x02 : 0x00 );
+				if ( isMulti() )
+				{
+					if ( singlesocket->account()->isMultiGems() )
+					{
+						packetSA.setDataType( 0x00 );
+						packetSA.setId( 0x1ea7 );
+					}
+					else
+					{
+						packetSA.setDataType( 0x02 );
+						packetSA.setId( id_ & 0x3FFF );
+					}
+				}
+				else
+				{
+					packetSA.setDataType( 0x00 );
+					packetSA.setId( id_ );
+				}
 				packetSA.setSerial( serial_ );
-				packetSA.setId( ( singlesocket->account()->isMultiGems() && isMulti() ) ? 0x1ea7 : ( id_ & 0x3FFF ) );
 				packetSA.setIdOffset( 0 );
-				packetSA.setAmount1( amount_ );
-				packetSA.setAmount2( amount_ );
+				unsigned short amt = amount_ == 0 ? 1 : amount_;
+				packetSA.setAmount1( amt );
+				packetSA.setAmount2( amt );
 				packetSA.setCoord( pos_ );
 				packetSA.setLightLevel( lightsource() );
 				packetSA.setColor( color_ );
