@@ -2667,11 +2667,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 		if ( pvictim && pvictim->socket() )
 		{
-			cUOTxDamage damage;
-			damage.setUnknown1( 1 );
-			damage.setDamage( amount );
-			damage.setSerial( serial_ );
-			pvictim->socket()->send( &damage );
+			pvictim->socket()->sendDamage( serial_, amount );
 		}
 	}
 
@@ -2691,11 +2687,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 	{
 		if ( player && player->socket() )
 		{
-			cUOTxDamage damage;
-			damage.setUnknown1( 1 );
-			damage.setDamage( amount );
-			damage.setSerial( serial_ );
-			player->socket()->send( &damage );
+			player->socket()->sendDamage( serial_, amount );
 		}
 	}
 

@@ -49,6 +49,7 @@ class cContextMenu;
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
+#include "clientversion.h"
 #include "../log.h"
 #include "../typedefs.h"
 #include "../python/engine.h"
@@ -202,6 +203,22 @@ public:
 
 	unsigned int flags() const;
 	QString version( void ) const;
+	const ClientVersion& clientVersion() const { return clientVersion_; }
+	void setClientVersion( const ClientVersion& ver );
+	quint32 protocolChanges() const { return protocolChanges_; }
+
+	bool hasProtocol( quint32 change ) const { return ( protocolChanges_ & change ) != 0; }
+	bool hasDamagePacket() const { return hasProtocol( ProtocolDamagePacket ); }
+	bool hasContainerGridLines() const { return hasProtocol( ProtocolContainerGridLines ); }
+	bool hasExtendedSupportedFeatures() const { return hasProtocol( ProtocolExtendedSupportedFeatures ); }
+	bool isStygianAbyss() const { return hasProtocol( ProtocolStygianAbyss ); }
+	bool isHighSeas() const { return hasProtocol( ProtocolHighSeas ); }
+	bool hasNewCharacterList() const { return hasProtocol( ProtocolNewCharacterList ); }
+	bool hasNewCharacterCreation() const { return hasProtocol( ProtocolNewCharacterCreation ); }
+	bool hasExtendedStatus() const { return hasProtocol( ProtocolExtendedStatus ); }
+	bool hasBuffIcon() const { return hasProtocol( ProtocolBuffIcon ); }
+	void sendDamage( unsigned int serial, unsigned short amount );
+
 	QByteArray lang( void ) const;
 	QString ip( void ) const;
 
@@ -345,10 +362,22 @@ private:
 	void handleParty( cUOPacket* packet );
 	void handleChat( cUOPacket* packet );
 	void handleRequestTooltips( cUORxRequestTooltips* packet );
+	void handleSetVersion( cUORxSetVersion* packet );
 	void handleNewSetVersion( cUORxNewSetVersion* packet );
 	void handleUpdateViewPublicHouseContents( cUORxUpdateViewPublicHouseContents* packet );
 	void handleConfigurationFile( cUORxConfigurationFile* packet );
 	void handleLogoutRequest( cUORxLogoutRequest* packet );
+	void handlePing( cUORxPing* packet );
+	void handleTripTime( cUORxTripTime* packet );
+	void handleUTripTime( cUORxUTripTime* packet );
+	void handleClientType( cUORxClientType* packet );
+	void handleEquipMacro( cUORxEquipMacro* packet );
+	void handleUnequipMacro( cUORxUnequipMacro* packet );
+	void handleCrashReport( cUORxCrashReport* packet );
+	void handleBandageTarget( cUORxBandageTarget* packet );
+	void handleTargetedSpell( cUORxTargetedSpell* packet );
+	void handleTargetedSkillUse( cUORxTargetedSkillUse* packet );
+	void handleToggleFlying( cUORxToggleFlying* packet );
 
 private slots:
 	void receive(); // Tries to recieve one packet and process it
@@ -379,6 +408,8 @@ private:
 	unsigned short _screenHeight;
 	quint8 _viewRange;
 	QString _version;
+	ClientVersion clientVersion_;
+	quint32 protocolChanges_;
 	cCustomTags tags_;
 	QString _ip; // IP used to connect
 	QBitArray* tooltipscache_;

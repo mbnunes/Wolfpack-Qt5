@@ -91,6 +91,7 @@ list(APPEND WOLFPACK_SOURCES
 
 # Network sources
 list(APPEND WOLFPACK_SOURCES
+    src/network/clientversion.cpp
     src/network/encryption.cpp
     src/network/network.cpp
     src/network/uopacket.cpp

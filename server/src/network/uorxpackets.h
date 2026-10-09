@@ -1104,6 +1104,10 @@ public:
 	cUORxPing( const QByteArray& data ) : cUOPacket( data )
 	{
 	}
+	quint8 value() const
+	{
+		return (quint8)( *this )[1];
+	}
 };
 
 // 0x83 Delete Character
@@ -1250,7 +1254,11 @@ public:
 				// extendedStats = 0x19, = Server Message
 		extendedStats									= 0x1a,
 		castSpell										= 0x1c,
-		customHouseRequest								= 0x1e
+		customHouseRequest								= 0x1e,
+		bandageTarget									= 0x2c,
+		targetedSpell									= 0x2d,
+		targetedSkillUse								= 0x2e,
+		toggleFlying									= 0x32
 	};
 
 	cUORxMultiPurpose( const QByteArray& data ) : cUOPacket( data )
@@ -1376,6 +1384,66 @@ public:
 	uint serial( void ) const
 	{
 		return getInt( 5 );
+	}
+};
+
+// 0xBF 0x2C Bandage Target
+class cUORxBandageTarget : public cUORxMultiPurpose
+{
+public:
+	cUORxBandageTarget( const QByteArray& data ) : cUORxMultiPurpose( data )
+	{
+	}
+	uint bandageSerial() const
+	{
+		return getInt( 5 );
+	}
+	uint targetSerial() const
+	{
+		return getInt( 9 );
+	}
+};
+
+// 0xBF 0x2D Targeted Spell
+class cUORxTargetedSpell : public cUORxMultiPurpose
+{
+public:
+	cUORxTargetedSpell( const QByteArray& data ) : cUORxMultiPurpose( data )
+	{
+	}
+	short spellId() const
+	{
+		return (short)( getShort( 5 ) - 1 ); // zero-based
+	}
+	uint targetSerial() const
+	{
+		return getInt( 7 );
+	}
+};
+
+// 0xBF 0x2E Targeted Skill Use
+class cUORxTargetedSkillUse : public cUORxMultiPurpose
+{
+public:
+	cUORxTargetedSkillUse( const QByteArray& data ) : cUORxMultiPurpose( data )
+	{
+	}
+	short skillId() const
+	{
+		return getShort( 5 );
+	}
+	uint targetSerial() const
+	{
+		return getInt( 7 );
+	}
+};
+
+// 0xBF 0x32 Toggle Flying
+class cUORxToggleFlying : public cUORxMultiPurpose
+{
+public:
+	cUORxToggleFlying( const QByteArray& data ) : cUORxMultiPurpose( data )
+	{
 	}
 };
 
@@ -1591,6 +1659,15 @@ public:
 	ushort model() const
 	{
 		return getShort( 17 );
+	}
+	void setSerial( uint s )
+	{
+		setInt( 7, s );
+	}
+	void setCoord( const Coord& pos );
+	void setModel( ushort m )
+	{
+		setShort( 17, m );
 	}
 };
 
@@ -2176,6 +2253,100 @@ public:
 		return ( *this )[1];
 	}
 
+};
+
+// 0xC9 Trip Time
+class cUORxTripTime : public cUOPacket
+{
+public:
+	cUORxTripTime( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	quint8 value() const
+	{
+		return (quint8)( *this )[1];
+	}
+	quint32 tickCount() const
+	{
+		return (quint32)getInt( 2 );
+	}
+};
+
+// 0xCA UTrip Time
+class cUORxUTripTime : public cUOPacket
+{
+public:
+	cUORxUTripTime( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	quint8 value() const
+	{
+		return (quint8)( *this )[1];
+	}
+	quint32 tickCount() const
+	{
+		return (quint32)getInt( 2 );
+	}
+};
+
+// 0xE1 Client Type
+class cUORxClientType : public cUOPacket
+{
+public:
+	cUORxClientType( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	quint16 clientType() const
+	{
+		return (quint16)getShort( 3 );
+	}
+	quint32 clientFlag() const
+	{
+		return (quint32)getInt( 5 );
+	}
+};
+
+// 0xEC Equip Macro
+class cUORxEquipMacro : public cUOPacket
+{
+public:
+	cUORxEquipMacro( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	quint8 count() const
+	{
+		return (quint8)( *this )[3];
+	}
+	quint32 serial( quint8 index ) const
+	{
+		return (quint32)getInt( 4 + ( index * 4 ) );
+	}
+};
+
+// 0xED Unequip Macro
+class cUORxUnequipMacro : public cUOPacket
+{
+public:
+	cUORxUnequipMacro( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
+	quint8 count() const
+	{
+		return (quint8)( *this )[3];
+	}
+	quint16 layer( quint8 index ) const
+	{
+		return (quint16)getShort( 4 + ( index * 2 ) );
+	}
+};
+
+// 0xF4 Crash Report
+class cUORxCrashReport : public cUOPacket
+{
+public:
+	cUORxCrashReport( const QByteArray& data ) : cUOPacket( data )
+	{
+	}
 };
 
 #endif // __UO_RXPACKETS__

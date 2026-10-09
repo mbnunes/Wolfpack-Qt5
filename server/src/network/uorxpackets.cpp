@@ -27,6 +27,7 @@
 
 #include "uorxpackets.h"
 #include "uopacket.h"
+#include "../coord.h"
 #include <math.h>
 #include <QDebug>
 
@@ -57,6 +58,10 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 	case 0x07:
 		return new cUORxDragItem( data );
 	case 0x08:
+		if ( data.size() >= 15 )
+		{
+			return new cUORxNewDropItem( data );
+		}
 		return new cUORxDropItem( data );
 	case 0x09:
 		return new cUORxRequestLook( data );
@@ -116,16 +121,30 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 		return new cUORxSetVersion( data );
 	case 0xC8:
 		return new cUORxUpdateRange( data );
+	case 0xC9:
+		return new cUORxTripTime( data );
+	case 0xCA:
+		return new cUORxUTripTime( data );
 	case 0xB8:
 		return new cUORxProfile( data );
 	case 0xD6:
 		return new cUORxRequestTooltips( data );
 	case 0xD7:
 		return cUORxAosMultiPurpose::packet( data );
+	case 0xE1:
+		return new cUORxClientType( data );
+	case 0xEC:
+		return new cUORxEquipMacro( data );
+	case 0xED:
+		return new cUORxUnequipMacro( data );
 	case 0xEF:
-		return new cUORxNewSetVersion(data);
+		return new cUORxNewSetVersion( data );
+	case 0xF4:
+		return new cUORxCrashReport( data );
 	case 0xF8:
-		return new cUORxCreateCharNew(data);
+		return new cUORxCreateCharNew( data );
+	case 0xFB:
+		return new cUORxUpdateViewPublicHouseContents( data );
 	default:        
         return new cUOPacket( data );
 	};
@@ -154,6 +173,14 @@ cUOPacket* cUORxMultiPurpose::packet( const QByteArray& data )
 		return new cUORxExtendedStats( data );
 	case closeQuestArrow:
 		return new cUORxCloseQuestArrow( data );
+	case bandageTarget:
+		return new cUORxBandageTarget( data );
+	case targetedSpell:
+		return new cUORxTargetedSpell( data );
+	case targetedSkillUse:
+		return new cUORxTargetedSkillUse( data );
+	case toggleFlying:
+		return new cUORxToggleFlying( data );
 	default:
 		return new cUORxMultiPurpose( data );
 	};
@@ -277,4 +304,11 @@ QList< ushort > cUORxSpeechRequest::keywords()
 	}
 
 	return keywords;
+}
+
+void cUORxTarget::setCoord( const Coord& pos )
+{
+	setShort( 11, pos.x );
+	setShort( 13, pos.y );
+	( *this )[16] = pos.z;
 }

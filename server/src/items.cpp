@@ -1130,15 +1130,6 @@ void cItem::update( cUOSocket* singlesocket )
 				{
 					P_PLAYER player = socket->player();
 					unsigned char flags = 0;
-					//Old Client Version
-					cUOTxSendItem packetCopy( sendItem );
-					//cUOTxNewSendItem packetCopy(sendItem);
-
-					if ( socket->account()->isMultiGems() && isMulti() )
-					{
-						packetCopy.setId( 0x1ea7 );
-					//	packetCopy.setDataType(0x02);
-					}					
 
 					// Always Movable Flag
 					if ( !isLockedDown() && isAllMovable() )
@@ -1159,9 +1150,33 @@ void cItem::update( cUOSocket* singlesocket )
 						flags |= 0x80;
 					}
 
-					packetCopy.setFlags( flags );
+					if ( socket->isStygianAbyss() )
+					{
+						cUOTxNewSendItem packetSA;
+						packetSA.setUnknown1( 1 );
+						packetSA.setDataType( ( socket->account()->isMultiGems() && isMulti() ) ? 0x02 : 0x00 );
+						packetSA.setSerial( serial_ );
+						packetSA.setId( ( socket->account()->isMultiGems() && isMulti() ) ? 0x1ea7 : ( id_ & 0x3FFF ) );
+						packetSA.setIdOffset( 0 );
+						packetSA.setAmount1( amount_ );
+						packetSA.setAmount2( amount_ );
+						packetSA.setCoord( pos_ );
+						packetSA.setLightLevel( lightsource() );
+						packetSA.setColor( color_ );
+						packetSA.setFlags( flags );
+						socket->send( &packetSA );
+					}
+					else
+					{
+						cUOTxSendItem packetCopy( sendItem );
+						if ( socket->account()->isMultiGems() && isMulti() )
+						{
+							packetCopy.setId( 0x1ea7 );
+						}
+						packetCopy.setFlags( flags );
+						socket->send( &packetCopy );
+					}
 
-					socket->send( &packetCopy );
 					sendTooltip( socket );
 				}
 			}
@@ -1190,14 +1205,32 @@ void cItem::update( cUOSocket* singlesocket )
 				flags |= 0x80;
 			}
 
-			if ( singlesocket->account()->isMultiGems() && isMulti() )
+			if ( singlesocket->isStygianAbyss() )
 			{
-				sendItem.setId( 0x1ea7 );
+				cUOTxNewSendItem packetSA;
+				packetSA.setUnknown1( 1 );
+				packetSA.setDataType( ( singlesocket->account()->isMultiGems() && isMulti() ) ? 0x02 : 0x00 );
+				packetSA.setSerial( serial_ );
+				packetSA.setId( ( singlesocket->account()->isMultiGems() && isMulti() ) ? 0x1ea7 : ( id_ & 0x3FFF ) );
+				packetSA.setIdOffset( 0 );
+				packetSA.setAmount1( amount_ );
+				packetSA.setAmount2( amount_ );
+				packetSA.setCoord( pos_ );
+				packetSA.setLightLevel( lightsource() );
+				packetSA.setColor( color_ );
+				packetSA.setFlags( flags );
+				singlesocket->send( &packetSA );
+			}
+			else
+			{
+				if ( singlesocket->account()->isMultiGems() && isMulti() )
+				{
+					sendItem.setId( 0x1ea7 );
+				}
+				sendItem.setFlags( flags );
+				singlesocket->send( &sendItem );
 			}
 
-			sendItem.setFlags( flags );
-
-			singlesocket->send( &sendItem );
 			sendTooltip( singlesocket );
 		}
 	}

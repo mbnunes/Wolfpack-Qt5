@@ -72,6 +72,7 @@
 #include <QHostAddress>
 #include <QTimer>
 #include <QList>
+#include <QDateTime>
 
 #include <vector>
 #include <functional>
@@ -116,10 +117,10 @@ const quint16 packetLengths[256] =
 		0x0002, 0x0006, 0x0006, 0x0007, 0x0000, 0x0001, 0x0000, 0x004e, // 0xC8
 		0x0000, 0x0002, 0x0019, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, // 0xD0
 		0x0000, 0x010C, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xD8
-		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xE0
-		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0x0015, // 0xE8
-		0xFFFF, 0xFFFF, 0xFFFF, 0x001A, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF0
-		0x006A, 0xFFFF, 0xFFFF, 0x0002, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8
+		0xFFFF, 0x0000, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xE0 (0xE1: ClientType dynamic)
+		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0x0000, 0x0000, 0xFFFF, 0x0015, // 0xE8 (0xEC/0xED: Equip/Unequip dynamic, 0xEF: Seed 21)
+		0xFFFF, 0xFFFF, 0xFFFF, 0x001A, 0x0000, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF0 (0xF3: 26 bytes, 0xF4: Crash dynamic)
+		0x006A, 0xFFFF, 0x0001, 0x0002, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8 (0xF8: CharCreate 106, 0xFA: UltimaStore 1, 0xFB: House 2)
 };
 
 
@@ -155,6 +156,7 @@ cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( 0 ), _walkSequence( 0 ), lastPa
 	_uniqueId = s->socketDescriptor();
 	tooltipscache_ = new QBitArray;
 	skippedUOHeader = false;
+	protocolChanges_ = 0;
 
 	connect( _socket, SIGNAL(disconnected()), this, SLOT(disconnectedImplementation()), Qt::QueuedConnection );
 //	connect( _socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(disconnectedImplementation()) );
@@ -328,15 +330,33 @@ void cUOSocket::buildPackets()
 		unsigned char packetId = incomingBuffer[0];
 		unsigned short size = packetLengths[packetId];
 
+		// Dynamic handling for packet 0x08 (DropReq): 14 bytes legacy vs 15 bytes for 6.0.1.7+ with grid lines
+		if (packetId == 0x08) {
+			if (hasContainerGridLines()) {
+				size = 15;
+			} else if (clientVersion_.major != 0 && clientVersion_ < Version6017) {
+				size = 14;
+			} else if (incomingBuffer.size() >= 15) {
+				size = 15;
+			} else {
+				size = 14;
+			}
+		}
+
 		if (size == 0xFFFF) {
-			// Be so nice to tell the client that it has been disconnected
+			// Tell the client that it has been disconnected
 			cUOTxDenyLogin deny;
 			deny.setReason(cUOTxDenyLogin::DL_BADCOMMUNICATION);
 			send(&deny);
 
 			disconnect();
+			break;
 		} else if (size == 0 && incomingBuffer.size() >= 3) {
 			unsigned short dynamicSize = ((incomingBuffer[1] & 0xFF) << 8) | (unsigned char)incomingBuffer[2];
+			if (dynamicSize < 3) {
+				disconnect();
+				break;
+			}
 			if (dynamicSize <= incomingBuffer.size()) {
 				QByteArray packetData(dynamicSize, 0);
 				memcpy(packetData.data(), incomingBuffer.data(), dynamicSize);
@@ -348,7 +368,7 @@ void cUOSocket::buildPackets()
 
 				continue; // See if there's another packet
 			}
-		} else if (size <= incomingBuffer.size()) {
+		} else if (size > 0 && size <= incomingBuffer.size()) {
 			// Completed a packet
 			QByteArray packetData(size, 0);
 			memcpy(packetData.data(), incomingBuffer.data(), size);
@@ -362,7 +382,7 @@ void cUOSocket::buildPackets()
 			continue; // See if there's another packet waiting
 		}
 
-        break; // Didn't  a complete packet yet
+        break; // Didn't find a complete packet yet
 	}
 }
 
@@ -502,7 +522,7 @@ void cUOSocket::receive()
 		// Check for a list of packets that may be sent while no player has been selected
 		if ( !_player )
 		{
-            if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0xF8 && packetId != 0x8D && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xD9 && packetId != 0xEF)
+            if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0xF8 && packetId != 0x8D && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xC9 && packetId != 0xCA && packetId != 0xCF && packetId != 0xD9 && packetId != 0xE1 && packetId != 0xEF && packetId != 0xF4 && packetId != 0xFA && packetId != 0xFB )
 			{
 				return;
 			}
@@ -585,8 +605,14 @@ void cUOSocket::receive()
 				DragAndDrop::grabItem( this, static_cast<cUORxDragItem*>( packet ) );
 				break;
 			case 0x08:
-				//Old Client DragAndDrop::dropItem( this, static_cast<cUORxDropItem*>( packet ) );
-				DragAndDrop::newDropItem(this, static_cast<cUORxNewDropItem*>(packet));
+				if ( packet->size() >= 15 )
+				{
+					DragAndDrop::newDropItem( this, static_cast<cUORxNewDropItem*>( packet ) );
+				}
+				else
+				{
+					DragAndDrop::dropItem( this, static_cast<cUORxDropItem*>( packet ) );
+				}
 				break;
 			case 0x09:
 				handleRequestLook( static_cast<cUORxRequestLook*>( packet ) );
@@ -625,7 +651,8 @@ void cUOSocket::receive()
 				handleChangeWarmode( static_cast<cUORxChangeWarmode*>( packet ) );
 				break;
 			case 0x73:
-				break; // Pings are handeled
+				handlePing( static_cast<cUORxPing*>( packet ) );
+				break;
 			case 0x75:
 				handleRename( static_cast<cUORxRename*>( packet ) );
 				break;
@@ -669,13 +696,19 @@ void cUOSocket::receive()
 				handleProfile( static_cast<cUORxProfile*>( packet ) );
 				break;
 			case 0xBD:
-				_version = static_cast<cUORxSetVersion*>( packet )->version();
+				handleSetVersion( static_cast<cUORxSetVersion*>( packet ) );
 				break;
 			case 0xBF:
 				handleMultiPurpose( static_cast<cUORxMultiPurpose*>( packet ) );
 				break;
 			case 0xC8:
 				handleUpdateRange( static_cast<cUORxUpdateRange*>( packet ) );
+				break;
+			case 0xC9:
+				handleTripTime( static_cast<cUORxTripTime*>( packet ) );
+				break;
+			case 0xCA:
+				handleUTripTime( static_cast<cUORxUTripTime*>( packet ) );
 				break;
 			case 0xD0:
 				handleConfigurationFile( static_cast<cUORxConfigurationFile*>( packet ) );
@@ -692,6 +725,20 @@ void cUOSocket::receive()
 			case 0xD9:
 				handleHardwareInfo( static_cast<cUORxHardwareInfo*>( packet ) );
 				break;
+			case 0xE1:
+				handleClientType( static_cast<cUORxClientType*>( packet ) );
+				break;
+			case 0xEC:
+				handleEquipMacro( static_cast<cUORxEquipMacro*>( packet ) );
+				break;
+			case 0xED:
+				handleUnequipMacro( static_cast<cUORxUnequipMacro*>( packet ) );
+				break;
+			case 0xF4:
+				handleCrashReport( static_cast<cUORxCrashReport*>( packet ) );
+				break;
+			case 0xFA:
+				break; // UltimaStore / client heartbeat - ignored
 			case 0xB6:
 				break; // Completely ignore the packet.
 			case 0xBB:
@@ -934,25 +981,10 @@ void cUOSocket::sendCharList(const uint maxChars)
 	// NOTE:
 	// Send the server/account features here as well
 	// AoS needs it most likely for account creation
-	cUOTxClientFeatures clientFeatures;
-	unsigned int flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 | 0x40 | 0x80 | 0x100 | 0x200 | 0x400 | 0x800 | 0x1000 | 0x2000 | 0x4000 | 0x8000 | 0x10000 | 0x20000 | 0x40000 | 0x80000 | 0x100000 | 0x200000 | 0x400000 | 0x800000;	// Added 0x80 to Enable the ML Features //0x3 | 0x40 | 0x801c | 0x80 | 0x100 | 0x1000
+	cUOTxClientFeatures clientFeatures( hasExtendedSupportedFeatures() );
+	unsigned int flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 | 0x40 | 0x80 | 0x100 | 0x200 | 0x400 | 0x800 | 0x1000 | 0x2000 | 0x4000 | 0x8000 | 0x10000 | 0x20000 | 0x40000 | 0x80000 | 0x100000 | 0x200000 | 0x400000 | 0x800000;
 
-	/*
-	if (maxChars >= 6) {
-		flags |= 0x8000;
-		flags &= ~ 0x4;
-
-		if (maxChars > 6)
-		{
-			flags |= 0x1000;
-		}
-		else
-		{
-			flags |= 0x20;
-		}
-	}*/
-
-	clientFeatures.setInt( 1, flags );
+	clientFeatures.setFlags( flags );
 	send( &clientFeatures );
 
 	cUOTxCharTownList charList;
@@ -2452,12 +2484,233 @@ void cUOSocket::handleUpdateRange( cUORxUpdateRange* packet )
 	send( &update );
 }
 
-/*!
-  \sa cUORxNewSetClient
-*/
+void cUOSocket::setClientVersion( const ClientVersion& ver )
+{
+	clientVersion_ = ver;
+	_version = ver.toString();
+	protocolChanges_ = protocolChangesForVersion( ver );
+}
+
+void cUOSocket::handleSetVersion( cUORxSetVersion* packet )
+{
+	QString verStr = packet->version();
+	_version = verStr;
+	ClientVersion ver( verStr );
+	setClientVersion( ver );
+	log( LOG_NOTICE, tr( "Client version set (0xBD): %1 (%2)\n" ).arg( verStr ).arg( ver.toString() ) );
+}
+
 void cUOSocket::handleNewSetVersion( cUORxNewSetVersion* packet )
 {
-	//Not yet implemented
+	seed = packet->getIp();
+	ClientVersion ver( packet->getMajor(), packet->getMinor(), packet->getRevision(), packet->getBuild() );
+	setClientVersion( ver );
+	log( LOG_NOTICE, tr( "Client version set (0xEF): %1\n" ).arg( ver.toString() ) );
+}
+
+void cUOSocket::sendDamage( unsigned int serial, unsigned short amount )
+{
+	if ( hasDamagePacket() )
+	{
+		cUOTxDamage damage( serial, amount );
+		send( &damage );
+	}
+	else
+	{
+		cUOTxDamageOld damage;
+		damage.setSerial( serial );
+		damage.setDamage( (unsigned char)qMin( (int)amount, 255 ) );
+		send( &damage );
+	}
+}
+
+void cUOSocket::handlePing( cUORxPing* packet )
+{
+	cUOTxPingAck ack( packet->value() );
+	send( &ack );
+}
+
+void cUOSocket::handleTripTime( cUORxTripTime* packet )
+{
+	cUOTxTripTimeResponse resp( packet->value(), (quint32)( QDateTime::currentMSecsSinceEpoch() & 0xFFFFFFFF ) );
+	send( &resp );
+}
+
+void cUOSocket::handleUTripTime( cUORxUTripTime* packet )
+{
+	cUOTxUTripTimeResponse resp( packet->value(), (quint32)( QDateTime::currentMSecsSinceEpoch() & 0xFFFFFFFF ) );
+	send( &resp );
+}
+
+void cUOSocket::handleClientType( cUORxClientType* /*packet*/ )
+{
+	// ClientType hardware info acknowledged
+}
+
+void cUOSocket::handleEquipMacro( cUORxEquipMacro* packet )
+{
+	if ( !_player )
+		return;
+
+	quint8 count = packet->count();
+	for ( quint8 i = 0; i < count; ++i )
+	{
+		quint32 serial = packet->serial( i );
+		P_ITEM item = World::instance()->findItem( serial );
+		if ( item )
+		{
+			equipItem( _player, item );
+		}
+	}
+}
+
+void cUOSocket::handleUnequipMacro( cUORxUnequipMacro* packet )
+{
+	if ( !_player )
+		return;
+
+	quint8 count = packet->count();
+	for ( quint8 i = 0; i < count; ++i )
+	{
+		quint16 layer = packet->layer( i );
+		P_ITEM item = _player->atLayer( static_cast<cBaseChar::enLayer>( layer ) );
+		if ( item )
+		{
+			item->toBackpack( _player );
+		}
+	}
+}
+
+void cUOSocket::handleCrashReport( cUORxCrashReport* /*packet*/ )
+{
+	log( LOG_WARNING, tr( "Client sent crash report (0xF4).\n" ) );
+}
+
+void cUOSocket::handleBandageTarget( cUORxBandageTarget* packet )
+{
+	if ( !_player )
+		return;
+
+	P_ITEM bandage = World::instance()->findItem( packet->bandageSerial() );
+	P_CHAR target = World::instance()->findChar( packet->targetSerial() );
+
+	if ( !bandage || !target )
+		return;
+
+	useItem( bandage );
+	if ( targetRequest )
+	{
+		QByteArray targetData( 19, 0 );
+		targetData[0] = 0x6C;
+		cUORxTarget synthTarget( targetData );
+		synthTarget.setSerial( target->serial() );
+		synthTarget.setCoord( target->pos() );
+		synthTarget.setModel( target->body() );
+		cTargetRequest* request = targetRequest;
+		targetRequest = 0;
+		if ( request->responsed( this, &synthTarget ) )
+		{
+			delete request;
+		}
+		else
+		{
+			attachTarget( request );
+		}
+	}
+}
+
+void cUOSocket::handleTargetedSpell( cUORxTargetedSpell* packet )
+{
+	if ( !_player )
+		return;
+
+	short spellId = packet->spellId();
+	uint targetSerial = packet->targetSerial();
+
+	if ( spellId >= 0 )
+	{
+		_player->onCastSpell( spellId );
+		if ( targetRequest && targetSerial != 0 )
+		{
+			cUObject* obj = World::instance()->findObject( targetSerial );
+			if ( obj )
+			{
+				QByteArray targetData( 19, 0 );
+				targetData[0] = 0x6C;
+				cUORxTarget synthTarget( targetData );
+				synthTarget.setSerial( targetSerial );
+				synthTarget.setCoord( obj->pos() );
+				ushort model = 0;
+				if ( obj->isChar() )
+				{
+					model = static_cast<cBaseChar*>( obj )->body();
+				}
+				else if ( obj->isItem() )
+				{
+					model = static_cast<cItem*>( obj )->id();
+				}
+				synthTarget.setModel( model );
+				cTargetRequest* request = targetRequest;
+				targetRequest = 0;
+				if ( request->responsed( this, &synthTarget ) )
+				{
+					delete request;
+				}
+				else
+				{
+					attachTarget( request );
+				}
+			}
+		}
+	}
+}
+
+void cUOSocket::handleTargetedSkillUse( cUORxTargetedSkillUse* packet )
+{
+	if ( !_player )
+		return;
+
+	Skills::instance()->SkillUse( this, packet->skillId() );
+	if ( targetRequest && packet->targetSerial() != 0 )
+	{
+		cUObject* obj = World::instance()->findObject( packet->targetSerial() );
+		if ( obj )
+		{
+			QByteArray targetData( 19, 0 );
+			targetData[0] = 0x6C;
+			cUORxTarget synthTarget( targetData );
+			synthTarget.setSerial( packet->targetSerial() );
+			synthTarget.setCoord( obj->pos() );
+			ushort model = 0;
+			if ( obj->isChar() )
+			{
+				model = static_cast<cBaseChar*>( obj )->body();
+			}
+			else if ( obj->isItem() )
+			{
+				model = static_cast<cItem*>( obj )->id();
+			}
+			synthTarget.setModel( model );
+			cTargetRequest* request = targetRequest;
+			targetRequest = 0;
+			if ( request->responsed( this, &synthTarget ) )
+			{
+				delete request;
+			}
+			else
+			{
+				attachTarget( request );
+			}
+		}
+	}
+}
+
+void cUOSocket::handleToggleFlying( cUORxToggleFlying* /*packet*/ )
+{
+	if ( !_player )
+		return;
+
+	_player->resend();
 }
 
 /*!
@@ -2559,6 +2812,22 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose* packet )
 
 			// Unknown Packet
 		case 0x24:
+			return;
+
+		case cUORxMultiPurpose::bandageTarget:
+			handleBandageTarget( dynamic_cast<cUORxBandageTarget*>( packet ) );
+			return;
+
+		case cUORxMultiPurpose::targetedSpell:
+			handleTargetedSpell( dynamic_cast<cUORxTargetedSpell*>( packet ) );
+			return;
+
+		case cUORxMultiPurpose::targetedSkillUse:
+			handleTargetedSkillUse( dynamic_cast<cUORxTargetedSkillUse*>( packet ) );
+			return;
+
+		case cUORxMultiPurpose::toggleFlying:
+			handleToggleFlying( dynamic_cast<cUORxToggleFlying*>( packet ) );
 			return;
 
 		default:

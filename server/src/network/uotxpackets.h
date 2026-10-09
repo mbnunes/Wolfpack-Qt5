@@ -406,9 +406,36 @@ public:
 class cUOTxClientFeatures : public cUOPacket
 {
 public:
+	enum FeatureFlags
+	{
+		FeatureNone                = 0x00000000,
+		FeatureT2A                 = 0x00000001,
+		FeatureUOR                 = 0x00000002,
+		FeatureUOTD                = 0x00000004,
+		FeatureLBR                 = 0x00000008,
+		FeatureAOS                 = 0x00000010,
+		FeatureSixthCharacterSlot  = 0x00000020,
+		FeatureSE                  = 0x00000040,
+		FeatureML                  = 0x00000080,
+		FeatureEighthAge           = 0x00000100,
+		FeatureNinthAge            = 0x00000200,
+		FeatureTenthAge            = 0x00000400,
+		FeatureIncreasedStorage    = 0x00000800,
+		FeatureSeventhCharacterSlot= 0x00001000,
+		FeatureRoleplayFaces       = 0x00002000,
+		FeatureTrialAccount        = 0x00004000,
+		FeatureLiveAccount         = 0x00008000,
+		FeatureSA                  = 0x00010000,
+		FeatureHS                  = 0x00020000,
+		FeatureGothic              = 0x00040000,
+		FeatureRustic              = 0x00080000,
+		FeatureJungle              = 0x00100000,
+		FeatureShadowguard         = 0x00200000,
+		FeatureTOL                 = 0x00400000,
+		FeatureEJ                  = 0x00800000
+	};
 
-	//to Old Client Versions u have change the 5 bytes to 3 bytes
-	cUOTxClientFeatures() : cUOPacket( 0xB9, 5 )
+	cUOTxClientFeatures( bool extended = true ) : cUOPacket( 0xB9, extended ? 5 : 3 )
 	{
 	}
 
@@ -416,99 +443,68 @@ public:
 	{
 	}
 
-	void setT2a( bool enable )
+	void setFlags( quint32 flags )
 	{
-		enable ? ( *this )[1] |= 0x01 : ( *this )[1] &= ~0x01;
+		if ( size() >= 5 )
+		{
+			setInt( 1, flags );
+		}
+		else
+		{
+			setShort( 1, (quint16)flags );
+		}
 	}
 
-	void setLbr( bool enable )
+	quint32 flags() const
 	{
-		enable ? ( *this )[1] |= 0x02 : ( *this )[1] &= ~0x02;
+		if ( size() >= 5 )
+		{
+			return (quint32)getInt( 1 );
+		}
+		else
+		{
+			return (quint32)(quint16)getShort( 1 );
+		}
 	}
 
-	void setSixthCharacterSlot( bool enable )
+	void setFlag( quint32 flag, bool enable )
 	{
-		enable ? ( *this )[1] |= 0x20 : ( *this )[1] &= ~0x20;
+		quint32 f = flags();
+		if ( enable )
+		{
+			f |= flag;
+		}
+		else
+		{
+			f &= ~flag;
+		}
+		setFlags( f );
 	}
 
-	void setAllowPaladinNecromancer( bool enable )
-	{
-		enable ? ( *this )[1] |= 0x10 : ( *this )[1] &= ~0x10;
-	}
-
-	void setML( bool enable )
-	{
-		enable ? ( *this )[1] |= 0x80 : ( *this )[1] &= ~0x80;
-	}
-
-	/*!
-		This flag must be present to enable Age of Shadows
-		features or the Sixth Character Slot
-	*/
-	void setAos( bool enable )
-	{
-		enable ? ( *this )[1] |= 0x80 : ( *this )[1] &= ~0x80;
-	}
-
-	void setEigthAge(bool enable)
-	{
-		enable ? (*this)[1] |= 0x100 : (*this)[1] &= ~0x100;
-	}
-
-	void setNinthAge(bool enable)
-	{
-		enable ? (*this)[1] |= 0x200 : (*this)[1] &= ~0x200;
-	}
-
-	void setTenthAge(bool enable)
-	{
-		enable ? (*this)[1] |= 0x400 : (*this)[1] &= ~0x400;
-	}
-
-	void setIncreasedStorage(bool enable)
-	{
-		enable ? (*this)[1] |= 0x800 : (*this)[1] &= ~0x800;
-	}
-
-	void setSeventhCharacterSlot(bool enable)
-	{
-		enable ? (*this)[1] |= 0x1000 : (*this)[1] &= ~0x1000;
-	}
-
-	void setRoleplayFaces(bool enable)
-	{
-		enable ? (*this)[1] |= 0x2000 : (*this)[1] &= ~0x2000;
-	}
-
-	void setTrialAccount(bool enable)
-	{
-		enable ? (*this)[1] |= 0x4000 : (*this)[1] &= ~0x4000;
-	}
-
-	void setLiveAccount(bool enable)
-	{
-		enable ? (*this)[1] |= 0x8000 : (*this)[1] &= ~0x8000;
-	}
-
-	void setSA(bool enable)
-	{
-		enable ? (*this)[1] |= 0x10000 : (*this)[1] &= ~0x10000;
-	}
-
-	void setHS(bool enable)
-	{
-		enable ? (*this)[1] |= 0x20000 : (*this)[1] &= ~0x20000;
-	}
-
-	void setGothic(bool enable)
-	{
-		enable ? (*this)[1] |= 0x40000 : (*this)[1] &= ~0x40000;
-	}
-
-	void setRustic(bool enable)
-	{
-		enable ? (*this)[1] |= 0x80000 : (*this)[1] &= ~0x80000;
-	}
+	void setT2a( bool enable ) { setFlag( FeatureT2A, enable ); }
+	void setLbr( bool enable ) { setFlag( FeatureLBR, enable ); }
+	void setAos( bool enable ) { setFlag( FeatureAOS, enable ); }
+	void setSixthCharacterSlot( bool enable ) { setFlag( FeatureSixthCharacterSlot, enable ); }
+	void setAllowPaladinNecromancer( bool enable ) { setFlag( FeatureAOS, enable ); }
+	void setSE( bool enable ) { setFlag( FeatureSE, enable ); }
+	void setML( bool enable ) { setFlag( FeatureML, enable ); }
+	void setEigthAge( bool enable ) { setFlag( FeatureEighthAge, enable ); }
+	void setEighthAge( bool enable ) { setFlag( FeatureEighthAge, enable ); }
+	void setNinthAge( bool enable ) { setFlag( FeatureNinthAge, enable ); }
+	void setTenthAge( bool enable ) { setFlag( FeatureTenthAge, enable ); }
+	void setIncreasedStorage( bool enable ) { setFlag( FeatureIncreasedStorage, enable ); }
+	void setSeventhCharacterSlot( bool enable ) { setFlag( FeatureSeventhCharacterSlot, enable ); }
+	void setRoleplayFaces( bool enable ) { setFlag( FeatureRoleplayFaces, enable ); }
+	void setTrialAccount( bool enable ) { setFlag( FeatureTrialAccount, enable ); }
+	void setLiveAccount( bool enable ) { setFlag( FeatureLiveAccount, enable ); }
+	void setSA( bool enable ) { setFlag( FeatureSA, enable ); }
+	void setHS( bool enable ) { setFlag( FeatureHS, enable ); }
+	void setGothic( bool enable ) { setFlag( FeatureGothic, enable ); }
+	void setRustic( bool enable ) { setFlag( FeatureRustic, enable ); }
+	void setJungle( bool enable ) { setFlag( FeatureJungle, enable ); }
+	void setShadowguard( bool enable ) { setFlag( FeatureShadowguard, enable ); }
+	void setTOL( bool enable ) { setFlag( FeatureTOL, enable ); }
+	void setEJ( bool enable ) { setFlag( FeatureEJ, enable ); }
 };
 
 // 0x24 Draw Container - Old Client Version
@@ -1270,11 +1266,11 @@ public:
 0020: 0c -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 */
 
-// 0xBF Sub 0x22 Damage
-class cUOTxDamage : public cUOPacket
+// 0xBF Sub 0x22 Damage (Old Clients < 4.0.7a)
+class cUOTxDamageOld : public cUOPacket
 {
 public:
-	cUOTxDamage() : cUOPacket( 0xBF, 11 )
+	cUOTxDamageOld() : cUOPacket( 0xBF, 11 )
 	{
 		setShort( 1, 11 );
 		setShort( 3, 0x22 );
@@ -1292,6 +1288,28 @@ public:
 	{
 		( *this )[10] = data;
 	}
+};
+
+// 0x0B Damage Packet (Modern Clients >= 4.0.7a)
+class cUOTxDamage : public cUOPacket
+{
+public:
+	cUOTxDamage( unsigned int serial = 0, unsigned short damage = 0 ) : cUOPacket( 0x0B, 7 )
+	{
+		setInt( 1, serial );
+		setShort( 5, damage );
+	}
+
+	void setSerial( unsigned int serial )
+	{
+		setInt( 1, serial );
+	}
+	void setDamage( unsigned short damage )
+	{
+		setShort( 5, damage );
+	}
+	// Backward-compatibility shim
+	void setUnknown1( unsigned char ) {}
 };
 
 // 0x21 DenyMove
@@ -1465,7 +1483,7 @@ class cUOTxNewSendItem : public cUOPacket
 public:
 	cUOTxNewSendItem() : cUOPacket(0xF3, 26)
 	{
-		setShort(1, 26);
+		setShort(1, 1);
 	}
 	void setUnknown1(unsigned short data)
 	{
@@ -2778,6 +2796,109 @@ public:
 	}
 	void setId( unsigned int data ) {
 		setInt( 5, data ) ;
+	}
+};
+
+// 0x73 Ping Ack
+class cUOTxPingAck : public cUOPacket
+{
+public:
+	cUOTxPingAck( quint8 value = 0 ) : cUOPacket( 0x73, 2 )
+	{
+		( *this )[1] = (char)value;
+	}
+	void setValue( quint8 value )
+	{
+		( *this )[1] = (char)value;
+	}
+};
+
+// 0xC9 Trip Time Response
+class cUOTxTripTimeResponse : public cUOPacket
+{
+public:
+	cUOTxTripTimeResponse( quint8 val = 0, quint32 ticks = 0 ) : cUOPacket( 0xC9, 6 )
+	{
+		( *this )[1] = (char)val;
+		setInt( 2, ticks );
+	}
+};
+
+// 0xCA UTrip Time Response
+class cUOTxUTripTimeResponse : public cUOPacket
+{
+public:
+	cUOTxUTripTimeResponse( quint8 val = 0, quint32 ticks = 0 ) : cUOPacket( 0xCA, 6 )
+	{
+		( *this )[1] = (char)val;
+		setInt( 2, ticks );
+	}
+};
+
+// 0xDF Remove Buff
+class cUOTxRemoveBuff : public cUOPacket
+{
+public:
+	cUOTxRemoveBuff( quint32 serial = 0, quint16 iconId = 0 ) : cUOPacket( 0xDF, 13 )
+	{
+		setShort( 1, 13 );
+		setInt( 3, serial );
+		setShort( 7, iconId );
+		setShort( 9, 0 ); // 0 = remove
+		setInt( 11, 0 );
+	}
+};
+
+// 0xDF Add Buff
+class cUOTxAddBuff : public cUOPacket
+{
+public:
+	cUOTxAddBuff( quint32 serial, quint16 iconId, quint16 durationSeconds, quint32 titleCliloc, quint32 secondaryCliloc, const QString& args = QString() )
+		: cUOPacket( 0xDF, args.isEmpty() ? 44 : ( 48 + args.length() * 2 ) )
+	{
+		quint16 len = (quint16)size();
+		setShort( 1, len );
+		setInt( 3, serial );
+		setShort( 7, iconId );
+		setShort( 9, 1 ); // 1 = add
+		setInt( 11, 0 );
+		setShort( 15, iconId );
+		setShort( 17, 1 );
+		setInt( 19, 0 );
+		setShort( 23, durationSeconds );
+		// bytes 25..27 fill 3 (0)
+		( *this )[25] = 0;
+		( *this )[26] = 0;
+		( *this )[27] = 0;
+		setInt( 28, titleCliloc );
+		setInt( 32, secondaryCliloc );
+
+		if ( args.isEmpty() )
+		{
+			for ( int i = 36; i < 44; ++i )
+			{
+				( *this )[i] = 0;
+			}
+		}
+		else
+		{
+			setInt( 36, 0 );
+			setShort( 40, 1 );
+			setShort( 42, 0 );
+			QString text = "\t" + args;
+			int pos = 44;
+			for ( int i = 0; i < text.length(); ++i )
+			{
+				ushort ch = text.at( i ).unicode();
+				( *this )[pos++] = (char)( ch & 0xFF );
+				( *this )[pos++] = (char)( ( ch >> 8 ) & 0xFF );
+			}
+			( *this )[pos++] = 0;
+			( *this )[pos++] = 0;
+			setShort( pos, 1 );
+			pos += 2;
+			setShort( pos, 0 );
+		}
 	}
 };
 
