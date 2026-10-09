@@ -123,6 +123,12 @@ const quint16 packetLengths[256] =
 		0x006A, 0xFFFF, 0x0001, 0x0002, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8 (0xF8: CharCreate 106, 0xFA: UltimaStore 1, 0xFB: House 2)
 };
 
+namespace {
+	QMap<QString, ClientVersion> pendingAccountVersions;
+	QMutex pendingVersionsMutex;
+}
+
+
 
 
 
@@ -456,9 +462,8 @@ void cUOSocket::receive()
 
 			QByteArray buf = _socket->readAll();
 
-			// The 0x91 packet is 65 byte
-			// This should be no encryption
-			if ( buf[0] == '\x91' && buf[1] == '\xFF' && buf[2] == '\xFF' && buf[3] == '\xFF' && buf[4] == '\xFF' )
+			// The 0x91 packet is 65 bytes
+			if ( buf[0] == '\x91' && ( ( (quint8)buf[1] == 0xFF && (quint8)buf[2] == 0xFF && (quint8)buf[3] == 0xFF && (quint8)buf[4] == 0xFF ) || Config::instance()->allowUnencryptedClients() ) )
 			{
 				// Is no Encryption allowed?
 				if ( !Config::instance()->allowUnencryptedClients() )
@@ -804,6 +809,12 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 		return;
 	}
 
+	if ( clientVersion_.major != 0 )
+	{
+		QMutexLocker locker( &pendingVersionsMutex );
+		pendingAccountVersions[packet->username().toLower()] = clientVersion_;
+	}
+
 	// Otherwise build the shard-list
 	cUOTxShardList shardList;
 
@@ -936,12 +947,20 @@ void cUOSocket::handleSelectShard( cUORxSelectShard* packet )
 		return;
 	}
 
+	if ( _account && clientVersion_.major != 0 )
+	{
+		QMutexLocker locker( &pendingVersionsMutex );
+		pendingAccountVersions[_account->login().toLower()] = clientVersion_;
+	}
+
 	cUOTxRelayServer* relay = new cUOTxRelayServer;
 	relay->setServerIp( shards[packet->shardId()].address.toIPv4Address() );
 	relay->setServerPort( shards[packet->shardId()].uiPort );
 	relay->setAuthId( -1 ); // This is NO AUTH ID !!!
-	// This is the thing it sends next time it connects to
-	// know whether it's gameserver or loginserver encryption
+	log( LOG_NOTICE, tr( "Relaying client to shard '%1' at %2:%3\n" )
+		.arg( shards[packet->shardId()].sServer )
+		.arg( shards[packet->shardId()].address.toString() )
+		.arg( shards[packet->shardId()].uiPort ) );
 	send( relay );
 	delete relay;
 }
@@ -952,8 +971,21 @@ void cUOSocket::handleSelectShard( cUORxSelectShard* packet )
 */
 void cUOSocket::handleServerAttach( cUORxServerAttach* packet )
 {
+	QString username = packet->username();
+	{
+		QMutexLocker locker( &pendingVersionsMutex );
+		QString lowerUser = username.toLower();
+		if ( pendingAccountVersions.contains( lowerUser ) )
+		{
+			setClientVersion( pendingAccountVersions.value( lowerUser ) );
+			log( LOG_NOTICE, tr( "Restored client version for account '%1': %2\n" )
+				.arg( username )
+				.arg( clientVersion_.toString() ) );
+		}
+	}
+
 	// Re-Authenticate the user !!
-	if ( !authenticate( packet->username(), packet->password() ) )
+	if ( !authenticate( username, packet->password() ) )
 		disconnect();
 	else
 	{
@@ -980,8 +1012,10 @@ void cUOSocket::sendCharList(const uint maxChars)
 	
 	// NOTE:
 	// Send the server/account features here as well
-	// AoS needs it most likely for account creation
-	cUOTxClientFeatures clientFeatures( hasExtendedSupportedFeatures() );
+	// Modern clients (>= 6.0.14.2 / AoS 32-bit flags) expect 5 bytes.
+	// Default to extended (5 bytes) if client version has not been explicitly negotiated.
+	bool extended = ( clientVersion_.major == 0 ) || hasExtendedSupportedFeatures();
+	cUOTxClientFeatures clientFeatures( extended );
 	unsigned int flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 | 0x40 | 0x80 | 0x100 | 0x200 | 0x400 | 0x800 | 0x1000 | 0x2000 | 0x4000 | 0x8000 | 0x10000 | 0x20000 | 0x40000 | 0x80000 | 0x100000 | 0x200000 | 0x400000 | 0x800000;
 
 	clientFeatures.setFlags( flags );
@@ -1017,6 +1051,12 @@ void cUOSocket::sendCharList(const uint maxChars)
 	range.setRange( VISRANGE );
 	
 	send( &range );
+
+	log( LOG_NOTICE, tr( "Sent character list to '%1' (features size: %2, characters: %3, towns: %4)\n" )
+		.arg( _account ? _account->login() : QString() )
+		.arg( clientFeatures.size() )
+		.arg( characters.size() )
+		.arg( (int)startLocations.size() ) );
 }
 
 /*!
@@ -2497,6 +2537,11 @@ void cUOSocket::handleSetVersion( cUORxSetVersion* packet )
 	_version = verStr;
 	ClientVersion ver( verStr );
 	setClientVersion( ver );
+	if ( _account )
+	{
+		QMutexLocker locker( &pendingVersionsMutex );
+		pendingAccountVersions[_account->login().toLower()] = ver;
+	}
 	log( LOG_NOTICE, tr( "Client version set (0xBD): %1 (%2)\n" ).arg( verStr ).arg( ver.toString() ) );
 }
 
@@ -2505,6 +2550,11 @@ void cUOSocket::handleNewSetVersion( cUORxNewSetVersion* packet )
 	seed = packet->getIp();
 	ClientVersion ver( packet->getMajor(), packet->getMinor(), packet->getRevision(), packet->getBuild() );
 	setClientVersion( ver );
+	if ( _account )
+	{
+		QMutexLocker locker( &pendingVersionsMutex );
+		pendingAccountVersions[_account->login().toLower()] = ver;
+	}
 	log( LOG_NOTICE, tr( "Client version set (0xEF): %1\n" ).arg( ver.toString() ) );
 }
 
@@ -3368,6 +3418,7 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 	}
 
 	_state = InGame;
+	Network::instance()->promoteToGameSocket( this );
 }
 
 /*!

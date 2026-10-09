@@ -384,6 +384,7 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 	{
 		// Send to all clients in range
 		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		int sentCount = 0;
 		foreach ( cUOSocket* mSock, sockets )
 		{
 			if ( mSock->player() && ( mSock->player()->dist( this ) < speechrange ) )
@@ -396,8 +397,11 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 						textSpeech.setText( message );
 
 				mSock->send( &textSpeech );
+				sentCount++;
 			}
 		}
+		log( LOG_SPEECH, tr( "Broadcast speech '%1' to %2 of %3 online client(s)\n" )
+			.arg( message ).arg( sentCount ).arg( sockets.size() ) );
 	}
 }
 

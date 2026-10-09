@@ -212,23 +212,56 @@ void cNetwork::unlock()
 
 quint32 cNetwork::count()
 {
-	return d->uoSockets.count();
+	return sockets().count();
 }
 
 QListIterator<cUOSocket*> cNetwork::getIterator()
 {
-	return QListIterator<cUOSocket*>( d->uoSockets );
+	return QListIterator<cUOSocket*>( sockets() );
 }
 
 QList<cUOSocket*> cNetwork::sockets() const
 {
-	return d->uoSockets;
+	QList<cUOSocket*> result = d->uoSockets;
+	for ( cUOSocket* s : d->loginSockets )
+	{
+		if ( s && s->player() && !result.contains( s ) )
+		{
+			result.append( s );
+		}
+	}
+	return result;
 }
 
 void cNetwork::broadcast( const QString& message, quint16 color, quint16 font )
 {
-	foreach ( cUOSocket* socket, d->uoSockets )
+	foreach ( cUOSocket* socket, sockets() )
 	{
 		socket->sysMessage( message, color, font );
 	}
 }
+
+void cNetwork::promoteToGameSocket( cUOSocket* socket )
+{
+	if ( !socket )
+		return;
+
+	QMutexLocker locker( &d->mutex );
+	if ( d->loginSockets.contains( socket ) )
+	{
+		d->loginSockets.removeAll( socket );
+		disconnect( socket, SIGNAL(disconnected()), this, SLOT(partingLoginServerConnection()) );
+		if ( !d->uoSockets.contains( socket ) )
+		{
+			d->uoSockets.append( socket );
+			connect( socket, SIGNAL(disconnected()), this, SLOT(partingGameServerConnection()) );
+		}
+		Console::instance()->log( LOG_NOTICE, tr( "Promoted client '%1' to game socket list.\n" ).arg( socket->ip() ) );
+	}
+	else if ( !d->uoSockets.contains( socket ) )
+	{
+		d->uoSockets.append( socket );
+		connect( socket, SIGNAL(disconnected()), this, SLOT(partingGameServerConnection()) );
+	}
+}
+
