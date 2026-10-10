@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- TribalBerry -->
+	<item id="0x09d0">
+		<pos x="1258" y="752" z="-74" map="2" />
+		<pos x="1259" y="752" z="-72" map="2" />
+		<pos x="1264" y="752" z="-74" map="2" />
+		<pos x="1267" y="752" z="-73" map="2" />
+	</item>
+	<!-- TribalPaint -->
+	<item id="0x09ec">
+		<pos x="1259" y="765" z="-74" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0f3b">
+		<pos x="1276" y="785" z="-80" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0f3c">
+		<pos x="1287" y="777" z="-80" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0f62">
+		<pos x="1270" y="756" z="-71" map="2" />
+		<pos x="1270" y="756" z="-70" map="2" />
+	</item>
+	<!-- OrcishKinMask -->
+	<item id="0x141b">
+		<pos x="1255" y="755" z="-74" map="2" />
+		<pos x="1255" y="760" z="-74" map="2" />
+		<pos x="1255" y="761" z="-74" map="2" />
+	</item>
+	<!-- SavageMask -->
+	<item id="0x154b" hue="0x84c">
+		<pos x="1248" y="702" z="-74" map="2" />
+		<pos x="1258" y="765" z="-74" map="2" />
+	</item>
+	<!-- SavageMask -->
+	<item id="0x154b" hue="0x84e">
+		<pos x="1260" y="765" z="-74" map="2" />
+	</item>
+	<!-- SavageMask -->
+	<item id="0x154c" hue="0x845">
+		<pos x="1266" y="765" z="-74" map="2" />
+	</item>
+	<!-- SavageMask -->
+	<item id="0x154c" hue="0x851">
+		<pos x="1257" y="765" z="-74" map="2" />
+	</item>
+	<!-- Bola -->
+	<item id="0x26ac">
+		<pos x="1211" y="742" z="-74" map="2" />
+		<pos x="1217" y="740" z="-74" map="2" />
+		<pos x="1270" y="762" z="-74" map="2" />
+	</item>
+</decoration>

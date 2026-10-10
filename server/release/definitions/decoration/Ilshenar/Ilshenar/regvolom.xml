@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- MetalBox -->
+	<item id="0x09a8" hue="0x96e">
+		<pos x="1349" y="1030" z="-5" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0511" hue="0x1">
+		<pos x="1362" y="1031" z="-13" map="2" />
+		<pos x="1363" y="1031" z="-13" map="2" />
+		<pos x="1364" y="1031" z="-13" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0f00">
+		<pos x="1378" y="1049" z="-12" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x076f" hue="0x961">
+		<pos x="1980" y="1107" z="-18" map="2" />
+		<pos x="1981" y="1107" z="-18" map="2" />
+		<pos x="1982" y="1107" z="-18" map="2" />
+		<pos x="1983" y="1107" z="-18" map="2" />
+		<pos x="1984" y="1107" z="-18" map="2" />
+	</item>
+</decoration>

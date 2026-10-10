@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Blocker -->
+	<item id="0x21a4">
+		<pos x="5410" y="858" z="57" map="0" />
+		<pos x="5410" y="859" z="57" map="0" />
+		<pos x="5410" y="860" z="57" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x078c">
+		<pos x="5411" y="859" z="60" map="0" />
+	</item>
+</decoration>

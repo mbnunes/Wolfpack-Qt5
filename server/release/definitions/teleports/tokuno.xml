@@ -1,14 +1,12 @@
-<!--
-=================================================================
-|   )      (\_     | WOLFPACK 13.0.0 Scripts
-|  ((    _/{  "-;  | Created by: Dreoth
-|   )).-' {{ ;'`   | Revised by:
-|  ( (  ;._ \\ ctr | Last Modification: Created
-=================================================================
--->
-<!--
-	<teleport source="x,y,z,map" destination="x,y,z,map" />
--->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from ServUO teleporters.csv -->
 <definitions>
-
+	<teleporter source="257,783,63,4" destination="5,128,-1,3" />
+	<teleporter source="258,783,63,4" destination="5,128,-1,3" />
+	<teleporter source="259,783,63,4" destination="5,128,-1,3" />
+	<teleporter source="260,783,63,4" destination="5,128,-1,3" />
+	<teleporter source="988,194,15,4" destination="67,337,-1,3" />
+	<teleporter source="988,195,15,4" destination="67,337,-1,3" />
+	<teleporter source="987,196,15,4" destination="67,337,-1,3" />
+	<teleporter source="988,197,18,4" destination="67,337,-1,3" />
 </definitions>

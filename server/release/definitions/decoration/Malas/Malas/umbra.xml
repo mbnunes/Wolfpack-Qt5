@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- SpinningWheelSouthAddon -->
+	<item id="0x1015">
+		<pos x="2088" y="1318" z="-80" map="3" />
+	</item>
+	<!-- LoomEastAddon -->
+	<item id="0x1060">
+		<pos x="2088" y="1326" z="-80" map="3" />
+		<pos x="2088" y="1329" z="-80" map="3" />
+	</item>
+	<!-- StrongWoodDoor -->
+	<item id="0x06eb" hue="0x497">
+		<pos x="2038" y="1320" z="-85" map="3" />
+		<pos x="2041" y="1321" z="-85" map="3" />
+	</item>
+	<!-- StoneOvenEastAddon -->
+	<item id="0x092c" hue="0x44e">
+		<pos x="2015" y="1360" z="-90" map="3" />
+	</item>
+	<!-- TrainingDummy -->
+	<item id="0x1074" hue="0x44f">
+		<pos x="1961" y="1339" z="-75" map="3" />
+		<pos x="1977" y="1307" z="-75" map="3" />
+	</item>
+	<!-- WoodenBench -->
+	<item id="0x0b2d" hue="0x1a">
+		<pos x="2040" y="1326" z="-65" map="3" />
+	</item>
+	<!-- StrongWoodDoor -->
+	<item id="0x06ef" hue="0x497">
+		<pos x="2036" y="1317" z="-85" map="3" />
+		<pos x="2036" y="1323" z="-65" map="3" />
+	</item>
+	<!-- Barrel -->
+	<item id="0x0e77" hue="0x497">
+		<pos x="2059" y="1281" z="-80" map="3" />
+		<pos x="2059" y="1280" z="-80" map="3" />
+		<pos x="2061" y="1290" z="-80" map="3" />
+		<pos x="2062" y="1291" z="-80" map="3" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e40" hue="0x497">
+		<pos x="1975" y="1365" z="-74" map="3" />
+		<pos x="1975" y="1366" z="-74" map="3" />
+		<pos x="2034" y="1321" z="-65" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fae" hue="0x497">
+		<pos x="1975" y="1369" z="-80" map="3" />
+		<pos x="1975" y="1370" z="-80" map="3" />
+		<pos x="1975" y="1370" z="-73" map="3" />
+		<pos x="1991" y="1315" z="-90" map="3" />
+		<pos x="2013" y="1365" z="-90" map="3" />
+		<pos x="2013" y="1366" z="-90" map="3" />
+		<pos x="2014" y="1366" z="-90" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x005a" hue="0x451">
+		<pos x="1994" y="1325" z="-90" map="3" />
+	</item>
+	<!-- Drawer -->
+	<item id="0x0a2c" hue="0x497">
+		<pos x="2035" y="1311" z="-65" map="3" />
+		<pos x="2041" y="1311" z="-65" map="3" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e41" hue="0x497">
+		<pos x="2033" y="1313" z="-65" map="3" />
+		<pos x="2039" y="1313" z="-65" map="3" />
+	</item>
+	<!-- StrongWoodDoor -->
+	<item id="0x06e5" hue="0x497">
+		<pos x="2035" y="1315" z="-65" map="3" />
+		<pos x="2040" y="1315" z="-65" map="3" />
+	</item>
+	<!-- Drawer -->
+	<item id="0x0a34" hue="0x497">
+		<pos x="2032" y="1323" z="-65" map="3" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x09ab" hue="0x455">
+		<pos x="2042" y="1339" z="-80" map="3" />
+		<pos x="2043" y="1339" z="-80" map="3" />
+		<pos x="2048" y="1344" z="-80" map="3" />
+		<pos x="2048" y="1344" z="-76" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x0ec3">
+		<pos x="2066" y="1372" z="-74" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x099e">
+		<pos x="2028" y="1354" z="-81" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x13f7">
+		<pos x="2070" y="1370" z="-74" map="3" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c7">
+		<pos x="2368" y="1100" z="-92" map="3" />
+		<pos x="2368" y="1143" z="-92" map="3" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c5">
+		<pos x="2367" y="1100" z="-92" map="3" />
+		<pos x="2367" y="1143" z="-92" map="3" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="2367" y="1111" z="-92" map="3" />
+		<pos x="2367" y="1155" z="-92" map="3" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="2368" y="1111" z="-92" map="3" />
+		<pos x="2368" y="1155" z="-92" map="3" />
+	</item>
+	<!-- BarredMetalDoor -->
+	<item id="0x0689">
+		<pos x="2367" y="1103" z="-92" map="3" />
+	</item>
+	<!-- BarredMetalDoor -->
+	<item id="0x068b">
+		<pos x="2368" y="1103" z="-92" map="3" />
+	</item>
+	<!-- BarredMetalDoor -->
+	<item id="0x0689">
+		<pos x="2367" y="1151" z="-92" map="3" />
+	</item>
+	<!-- BarredMetalDoor -->
+	<item id="0x068b">
+		<pos x="2368" y="1151" z="-92" map="3" />
+	</item>
+	<!-- BarredMetalDoor -->
+	<item id="0x06d1">
+		<pos x="2350" y="1128" z="-92" map="3" />
+	</item>
+	<!-- BarredMetalDoor -->
+	<item id="0x06d3">
+		<pos x="2350" y="1127" z="-92" map="3" />
+	</item>
+</decoration>

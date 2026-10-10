@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Static -->
+	<item id="0x19ab">
+		<pos x="579" y="408" z="33" map="2" />
+		<pos x="580" y="408" z="33" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0753" hue="0x849">
+		<pos x="555" y="425" z="-13" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0753" hue="0x84a">
+		<pos x="556" y="425" z="-13" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0753" hue="0x847">
+		<pos x="557" y="425" z="-13" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1f19">
+		<pos x="570" y="414" z="47" map="2" />
+		<pos x="570" y="415" z="47" map="2" />
+		<pos x="578" y="409" z="67" map="2" />
+		<pos x="578" y="410" z="67" map="2" />
+	</item>
+	<!-- FancyDrawer -->
+	<item id="0x0a38">
+		<pos x="572" y="412" z="41" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a9a">
+		<pos x="576" y="423" z="41" map="2" />
+		<pos x="576" y="426" z="41" map="2" />
+		<pos x="576" y="429" z="41" map="2" />
+		<pos x="579" y="421" z="61" map="2" />
+		<pos x="579" y="425" z="61" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a9c">
+		<pos x="576" y="424" z="41" map="2" />
+		<pos x="576" y="428" z="41" map="2" />
+		<pos x="579" y="422" z="61" map="2" />
+		<pos x="579" y="424" z="61" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a99">
+		<pos x="576" y="425" z="41" map="2" />
+		<pos x="576" y="427" z="41" map="2" />
+		<pos x="576" y="430" z="41" map="2" />
+		<pos x="579" y="423" z="61" map="2" />
+		<pos x="579" y="426" z="61" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0a3d">
+		<pos x="577" y="408" z="41" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0a3c">
+		<pos x="578" y="408" z="41" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0d26" hue="0x847">
+		<pos x="579" y="408" z="26" map="2" />
+		<pos x="580" y="408" z="26" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fbe">
+		<pos x="579" y="409" z="26" map="2" />
+		<pos x="580" y="409" z="26" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1f1c">
+		<pos x="579" y="428" z="67" map="2" />
+		<pos x="579" y="429" z="67" map="2" />
+		<pos x="585" y="416" z="47" map="2" />
+		<pos x="586" y="416" z="47" map="2" />
+	</item>
+</decoration>

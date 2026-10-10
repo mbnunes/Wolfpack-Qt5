@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Static -->
+	<item id="0x1fd7" hue="0x3f1">
+		<pos x="375" y="802" z="1" map="3" />
+	</item>
+	<!-- AnkhNorth -->
+	<item id="0x0004" hue="0xfa">
+		<pos x="397" y="801" z="4" map="3" />
+	</item>
+	<!-- GuardianBarrier -->
+	<item id="0x3967">
+		<pos x="404" y="1140" z="0" map="3" />
+		<pos x="405" y="1140" z="0" map="3" />
+		<pos x="406" y="1140" z="0" map="3" />
+		<pos x="407" y="1140" z="0" map="3" />
+		<pos x="408" y="1140" z="0" map="3" />
+		<pos x="409" y="1140" z="0" map="3" />
+	</item>
+	<!-- GreenNinjaQuestTeleporter -->
+	<item id="0x051c">
+		<pos x="418" y="804" z="-1" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x051c" hue="0x17e">
+		<pos x="412" y="1123" z="0" map="3" />
+	</item>
+	<!-- BlueNinjaQuestTeleporter -->
+	<item id="0x051c">
+		<pos x="423" y="805" z="-1" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x051c" hue="0x2">
+		<pos x="411" y="1117" z="0" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x051c" hue="0x21">
+		<pos x="421" y="1092" z="0" map="3" />
+	</item>
+	<!-- WhiteNinjaQuestTeleporter -->
+	<item id="0x051c">
+		<pos x="392" y="802" z="-1" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x051c" hue="0x47e">
+		<pos x="412" y="1086" z="0" map="3" />
+	</item>
+	<!-- EminosKatanaChest -->
+	<item id="0x0e42">
+		<pos x="393" y="989" z="-15" map="3" />
+	</item>
+	<!-- SpikeTrap -->
+	<item id="0x119a">
+		<pos x="418" y="1084" z="0" map="3" />
+	</item>
+	<!-- SawTrap -->
+	<item id="0x11ac">
+		<pos x="421" y="1077" z="0" map="3" />
+	</item>
+	<!-- FireColumnTrap -->
+	<item id="0x1b71">
+		<pos x="403" y="1073" z="0" map="3" />
+		<pos x="410" y="1050" z="0" map="3" />
+		<pos x="408" y="1044" z="0" map="3" />
+		<pos x="409" y="1044" z="0" map="3" />
+		<pos x="410" y="1044" z="0" map="3" />
+		<pos x="411" y="1044" z="0" map="3" />
+		<pos x="412" y="1044" z="0" map="3" />
+		<pos x="413" y="1044" z="0" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x2674" hue="0x48c">
+		<pos x="409" y="1009" z="-13" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x1406" hue="0x47e">
+		<pos x="409" y="1008" z="-13" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x236d" hue="0x48c">
+		<pos x="409" y="1008" z="-13" map="3" />
+	</item>
+	<!-- OrnateWoodenChest -->
+	<item id="0x280d">
+		<pos x="436" y="999" z="-15" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x2681">
+		<pos x="396" y="1149" z="0" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x2651" hue="0x530">
+		<pos x="397" y="1146" z="1" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x26a4" hue="0x530">
+		<pos x="395" y="1146" z="0" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x2668" hue="0x530">
+		<pos x="396" y="1146" z="0" map="3" />
+	</item>
+</decoration>

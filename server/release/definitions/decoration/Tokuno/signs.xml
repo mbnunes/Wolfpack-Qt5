@@ -1,61 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <decoration>
-	<!-- SIGNS -->
-	<!-- Kuku Kitchens -->
-	<item id="0xBD1">
-		<attribute key="name" value="Kuku Kitchens" />
-		<pos x="710" y="1270" z="25" map="4" />
-		<pos x="710" y="1257" z="25" map="4" />
-		<pos x="710" y="1251" z="25" map="4" />
-	</item>
-	<!-- Mage -->
-	<item id="0xBAD">
-		<pos x="707" y="1300" z="25" map="4" />
-	</item>
-	<!-- Provisoner -->
-	<item id="0xBCB">
-		<pos x="736" y="1281" z="25" map="4" />
-	</item>
-	<!-- Healing -->
-	<item id="0xBAC">
-		<pos x="780" y="1227" z="25" map="4" />
-	</item>
-	<!-- Blacksmithing -->
-	<item id="0xBC8">
-		<pos x="764" y="1255" z="25" map="4" />
-	</item>
-	<!-- Inkeeper -->
-	<item id="0xBB4">
+	<item id="0x0bb4">
+		<attribute key="name" value="#1063398" />
 		<pos x="677" y="1220" z="25" map="4" />
 	</item>
-	<!-- Taming -->
-	<item id="0xBB8">
-		<pos x="790" y="1284" z="25" map="4" />
-	</item>
-	<!-- Bowyer -->
-	<item id="0xBCD">
-		<pos x="789" y="1302" z="25" map="4" />
-	</item>
-	<!-- Iroha Dojo -->
-	<item id="0xBD1">
-		<attribute key="name" value="Iroha Armorer And Musha-Shugyu Dojo" />
-		<pos x="768" y="1298" z="25" map="4" />
-	</item>
-	<!-- Suteki Na Craftworks -->
-	<item id="0xBD0">
-		<attribute key="name" value="Suteki Na Craftworks" />
-		<pos x="729" y="1229" z="25" map="4" />
-	</item>
-	<!-- Jowyler -->
-	<item id="0xBC2">
-		<pos x="718" y="1301" z="25" map="4" />
-	</item>
-	<!-- Traveler -->
-	<item id="0xBC4">
+	<item id="0x0bc4">
+		<attribute key="name" value="#1063399" />
 		<pos x="694" y="1229" z="25" map="4" />
 	</item>
-	<!-- Library -->
-	<item id="0xB96">
-		<pos x="675" y="1280" z="25" map="4" />
-		<pos x="680" y="1280" z="25" map="4" />
+	<item id="0x0b96">
+		<attribute key="name" value="#1063400" />
+		<pos x="675" y="1280" z="32" map="4" />
+	</item>
+	<item id="0x0b96">
+		<attribute key="name" value="#1063400" />
+		<pos x="680" y="1280" z="32" map="4" />
+	</item>
+	<item id="0x0bad">
+		<attribute key="name" value="#1063401" />
+		<pos x="707" y="1300" z="25" map="4" />
+	</item>
+	<item id="0x0bc2">
+		<attribute key="name" value="#1063402" />
+		<pos x="718" y="1301" z="25" map="4" />
+	</item>
+	<item id="0x139b">
+		<attribute key="name" value="#1063403" />
+		<pos x="736" y="1281" z="25" map="4" />
+	</item>
+	<item id="0x0bd1">
+		<attribute key="name" value="#1063404" />
+		<pos x="768" y="1298" z="25" map="4" />
+	</item>
+	<item id="0x0bcd">
+		<attribute key="name" value="#1063405" />
+		<pos x="789" y="1302" z="25" map="4" />
+	</item>
+	<item id="0x0bb8">
+		<attribute key="name" value="#1063406" />
+		<pos x="790" y="1284" z="25" map="4" />
+	</item>
+	<item id="0x0bc8">
+		<attribute key="name" value="#1063407" />
+		<pos x="764" y="1255" z="25" map="4" />
+	</item>
+	<item id="0x0bac">
+		<attribute key="name" value="#1063408" />
+		<pos x="780" y="1227" z="25" map="4" />
+	</item>
+	<item id="0x0bd0">
+		<attribute key="name" value="#1063409" />
+		<pos x="729" y="1229" z="25" map="4" />
+	</item>
+	<item id="0x0bd1">
+		<attribute key="name" value="#1063410" />
+		<pos x="710" y="1251" z="25" map="4" />
+	</item>
+	<item id="0x0bd1">
+		<attribute key="name" value="#1063410" />
+		<pos x="710" y="1257" z="25" map="4" />
+	</item>
+	<item id="0x0bd1">
+		<attribute key="name" value="#1063410" />
+		<pos x="710" y="1270" z="25" map="4" />
 	</item>
 </decoration>

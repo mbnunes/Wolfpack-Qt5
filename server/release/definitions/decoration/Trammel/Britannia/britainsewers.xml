@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Static -->
+	<item id="0x07a7">
+		<pos x="6082" y="1450" z="5" map="1" />
+		<pos x="6082" y="1449" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a5">
+		<pos x="6084" y="1449" z="5" map="1" />
+		<pos x="6084" y="1450" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07aa">
+		<pos x="6084" y="1448" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a6">
+		<pos x="6084" y="1447" z="0" map="1" />
+	</item>
+	<!-- Teleporter -->
+	<item id="0x1bc3">
+		<pos x="6141" y="1431" z="4" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x1296">
+		<pos x="6049" y="1430" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x129c">
+		<pos x="6049" y="1430" z="20" map="1" />
+	</item>
+	<!-- Lever -->
+	<item id="0x1095">
+		<attribute key="name" value="lever" />
+		<pos x="6037" y="1435" z="4" map="1" />
+	</item>
+	<!-- Lever -->
+	<item id="0x108d">
+		<attribute key="name" value="lever" />
+		<pos x="6057" y="1442" z="4" map="1" />
+		<pos x="6048" y="1433" z="4" map="1" />
+	</item>
+	<!-- Lever -->
+	<item id="0x108e">
+		<attribute key="name" value="lever" />
+		<pos x="6057" y="1441" z="4" map="1" />
+		<pos x="6048" y="1432" z="4" map="1" />
+	</item>
+	<!-- Lever -->
+	<item id="0x1094">
+		<attribute key="name" value="lever" />
+		<pos x="6049" y="1431" z="4" map="1" />
+	</item>
+	<!-- Lever -->
+	<item id="0x108f">
+		<attribute key="name" value="switch" />
+		<pos x="6036" y="1440" z="15" map="1" />
+	</item>
+	<!-- Lever -->
+	<item id="0x1090">
+		<attribute key="name" value="switch" />
+		<pos x="6036" y="1439" z="15" map="1" />
+	</item>
+</decoration>

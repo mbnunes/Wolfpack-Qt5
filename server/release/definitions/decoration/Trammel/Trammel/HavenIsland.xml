@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Forge -->
+	<item id="0x0fb1">
+		<pos x="3505" y="2750" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x100b">
+		<pos x="3746" y="2576" z="40" map="1" />
+		<pos x="3743" y="2576" z="40" map="1" />
+	</item>
+	<!-- AnvilSouthAddon -->
+	<item id="0x0000">
+		<pos x="3506" y="2751" z="0" map="1" />
+	</item>
+</decoration>

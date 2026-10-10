@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- ChampionSkullPlatform -->
+	<item id="0x0001">
+		<pos x="5140" y="1761" z="1" map="0" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x1fd3">
+		<attribute key="name" value="#1049498" />
+		<pos x="5172" y="1589" z="-4" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0eba">
+		<pos x="5155" y="1762" z="1" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0ebb">
+		<pos x="5151" y="1758" z="0" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0ebf">
+		<pos x="5151" y="1758" z="0" map="0" />
+	</item>
+	<!-- PublicMoongate -->
+	<item id="0x0f6c">
+		<pos x="5153" y="1760" z="0" map="0" />
+	</item>
+</decoration>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- LightWoodGate -->
+	<item id="0x0839">
+		<pos x="1234" y="543" z="-6" map="2" />
+		<pos x="1253" y="588" z="-11" map="2" />
+	</item>
+	<!-- LightWoodGate -->
+	<item id="0x083b">
+		<pos x="1235" y="543" z="-6" map="2" />
+		<pos x="1254" y="588" z="-11" map="2" />
+	</item>
+	<!-- LightWoodGate -->
+	<item id="0x0841">
+		<pos x="1227" y="555" z="-11" map="2" />
+	</item>
+	<!-- LightWoodGate -->
+	<item id="0x0843">
+		<pos x="1227" y="554" z="-11" map="2" />
+	</item>
+	<!-- DarkWoodGate -->
+	<item id="0x0872">
+		<pos x="1229" y="563" z="-19" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x08e2">
+		<pos x="1237" y="582" z="-19" map="2" />
+		<pos x="1237" y="586" z="-19" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e85">
+		<pos x="1238" y="580" z="-19" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e86">
+		<pos x="1239" y="586" z="-19" map="2" />
+	</item>
+	<!-- AnvilEastAddon -->
+	<item id="0x0faf">
+		<pos x="1260" y="583" z="-19" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fe3" hue="0x1">
+		<attribute key="name" value="a cave entrance" />
+		<pos x="1237" y="585" z="-22" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fe4" hue="0x1">
+		<attribute key="name" value="a cave entrance" />
+		<pos x="1237" y="583" z="-22" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1355">
+		<pos x="1237" y="585" z="5" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1356">
+		<pos x="1237" y="584" z="5" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1361">
+		<pos x="1236" y="586" z="-6" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1362">
+		<pos x="1237" y="586" z="-6" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1363">
+		<pos x="1237" y="582" z="-1" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1364">
+		<pos x="1237" y="583" z="4" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x136b">
+		<pos x="1237" y="583" z="1" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x136d">
+		<pos x="1237" y="586" z="1" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1772">
+		<pos x="1237" y="583" z="1" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1773">
+		<pos x="1237" y="585" z="0" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1775">
+		<pos x="1237" y="585" z="4" map="2" />
+		<pos x="1237" y="586" z="3" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1777">
+		<pos x="1236" y="584" z="-1" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x197a">
+		<pos x="1258" y="585" z="-19" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x197e">
+		<pos x="1259" y="585" z="-19" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1982">
+		<pos x="1260" y="585" z="-19" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x2198">
+		<pos x="1139" y="592" z="-80" map="2" />
+		<pos x="1140" y="592" z="-80" map="2" />
+		<pos x="1141" y="592" z="-80" map="2" />
+		<pos x="1142" y="592" z="-80" map="2" />
+	</item>
+</decoration>

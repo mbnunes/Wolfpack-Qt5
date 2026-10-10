@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- DarkTidesTeleporter -->
+	<item id="0x1822">
+		<pos x="2105" y="1307" z="-50" map="3" />
+		<pos x="2018" y="1226" z="-90" map="3" />
+		<pos x="1068" y="458" z="-90" map="3" />
+	</item>
+	<!-- MaabusCoffin -->
+	<item id="0x0000">
+		<pos x="2023" y="1223" z="-83" map="3" />
+	</item>
+	<!-- CrystalCaveBarrier -->
+	<item id="0x3967">
+		<pos x="1193" y="512" z="-90" map="3" />
+		<pos x="1194" y="512" z="-90" map="3" />
+		<pos x="1195" y="512" z="-90" map="3" />
+		<pos x="1196" y="512" z="-90" map="3" />
+		<pos x="1197" y="512" z="-90" map="3" />
+	</item>
+	<!-- KronusScrollBox -->
+	<item id="0x0e80">
+		<pos x="1185" y="451" z="-90" map="3" />
+	</item>
+	<!-- VaultOfSecretsBarrier -->
+	<item id="0x049e">
+		<pos x="1073" y="450" z="-90" map="3" />
+		<pos x="1073" y="451" z="-90" map="3" />
+		<pos x="1073" y="452" z="-90" map="3" />
+		<pos x="1078" y="450" z="-90" map="3" />
+		<pos x="1078" y="451" z="-90" map="3" />
+		<pos x="1078" y="452" z="-90" map="3" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x09ab" hue="0x499">
+		<pos x="1076" y="453" z="-84" map="3" />
+		<pos x="1076" y="449" z="-84" map="3" />
+	</item>
+	<!-- LocalizedSign -->
+	<item id="0x0bd0" hue="0x482">
+		<attribute key="name" value="#1060189" />
+		<pos x="1079" y="454" z="-84" map="3" />
+	</item>
+	<!-- MediumCrate -->
+	<item id="0x0e3e">
+		<pos x="1185" y="450" z="-90" map="3" />
+		<pos x="1185" y="450" z="-87" map="3" />
+		<pos x="1200" y="438" z="-87" map="3" />
+		<pos x="1203" y="439" z="-90" map="3" />
+		<pos x="1185" y="454" z="-87" map="3" />
+	</item>
+	<!-- MediumCrate -->
+	<item id="0x0e3f">
+		<pos x="1185" y="448" z="-90" map="3" />
+		<pos x="1186" y="439" z="-87" map="3" />
+		<pos x="1201" y="438" z="-87" map="3" />
+		<pos x="1194" y="447" z="-90" map="3" />
+		<pos x="1194" y="448" z="-90" map="3" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e40" hue="0x835">
+		<pos x="1185" y="447" z="-90" map="3" />
+		<pos x="1184" y="446" z="-90" map="3" />
+		<pos x="1184" y="443" z="-86" map="3" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e41" hue="0x835">
+		<pos x="1184" y="445" z="-90" map="3" />
+		<pos x="1188" y="437" z="-90" map="3" />
+		<pos x="1188" y="437" z="-86" map="3" />
+		<pos x="1189" y="437" z="-90" map="3" />
+		<pos x="1194" y="438" z="-90" map="3" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e40">
+		<pos x="1184" y="444" z="-90" map="3" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e40" hue="0x849">
+		<pos x="1184" y="443" z="-90" map="3" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a9a">
+		<pos x="1185" y="440" z="-90" map="3" />
+	</item>
+	<!-- LargeCrate -->
+	<item id="0x0e3d">
+		<pos x="1186" y="439" z="-90" map="3" />
+		<pos x="1200" y="438" z="-90" map="3" />
+		<pos x="1201" y="438" z="-90" map="3" />
+		<pos x="1202" y="439" z="-90" map="3" />
+		<pos x="1202" y="439" z="-87" map="3" />
+		<pos x="1185" y="454" z="-90" map="3" />
+		<pos x="1185" y="453" z="-90" map="3" />
+		<pos x="1186" y="453" z="-87" map="3" />
+		<pos x="1186" y="453" z="-90" map="3" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e41" hue="0x849">
+		<pos x="1188" y="437" z="-82" map="3" />
+		<pos x="1190" y="437" z="-90" map="3" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e41" hue="0x482">
+		<pos x="1189" y="437" z="-86" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x0dd9">
+		<pos x="1192" y="438" z="-90" map="3" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a97">
+		<pos x="1197" y="437" z="-90" map="3" />
+	</item>
+</decoration>

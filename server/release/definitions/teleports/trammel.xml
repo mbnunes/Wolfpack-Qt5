@@ -1,14 +1,5 @@
-<!--
-=================================================================
-|   )      (\_     | WOLFPACK 13.0.0 Scripts
-|  ((    _/{  "-;  | Created by: Dreoth
-|   )).-' {{ ;'`   | Revised by:
-|  ( (  ;._ \\ ctr | Last Modification: Created
-=================================================================
--->
-<!--
-	<teleporter source="x,y,z,map" destination="x,y,z,map" />
--->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from ServUO teleporters.csv -->
 <definitions>
 	<teleporter source="512,1559,0,1" destination="5394,127,0,1" bothways="true" />
 	<teleporter source="513,1559,0,1" destination="5395,127,0,1" bothways="true" />
@@ -55,11 +46,11 @@
 	<teleporter source="5466,1804,12,1" destination="5593,1840,-3,1" />
 	<teleporter source="5466,1805,12,1" destination="5593,1841,-3,1" />
 	<teleporter source="5466,1806,12,1" destination="5593,1842,-3,1" />
-	<teleporter source="5594,1840,-9,1" destination="5467,1804,7,1" />
-	<teleporter source="5594,1841,-9,1" destination="5467,1805,7,1" />
-	<teleporter source="5824,631,0,1" destination="2041,215,14,1" bothways="true" />
-	<teleporter source="5825,631,0,1" destination="2042,215,14,1" bothways="true" />
-	<teleporter source="5826,631,0,1" destination="2043,215,14,1" bothways="true" />
+	<teleporter source="5594,1840,-8,1" destination="5467,1804,7,1" />
+	<teleporter source="5594,1841,-8,1" destination="5467,1805,7,1" />
+	<teleporter source="5824,631,5,1" destination="2041,215,14,1" bothways="true" />
+	<teleporter source="5825,631,5,1" destination="2042,215,14,1" bothways="true" />
+	<teleporter source="5825,631,5,1" destination="2043,215,14,1" bothways="true" />
 	<teleporter source="5698,662,0,1" destination="5793,527,10,1" />
 	<teleporter source="4110,430,5,1" destination="5187,639,0,1" />
 	<teleporter source="4111,430,5,1" destination="5188,639,0,1" />
@@ -97,9 +88,6 @@
 	<teleporter source="5386,756,-8,1" destination="5408,859,47,1" />
 	<teleporter source="5386,757,-8,1" destination="5408,860,47,1" />
 	<teleporter source="5386,755,-8,1" destination="5408,858,47,1" />
-	<teleporter source="5409,860,52,1" destination="5387,757,-3,1" />
-	<teleporter source="5409,858,52,1" destination="5387,755,-3,1" />
-	<teleporter source="5409,859,52,1" destination="5387,756,-3,1" />
 	<teleporter source="5242,1007,0,1" destination="1175,2635,0,1" bothways="true" />
 	<teleporter source="5243,1007,0,1" destination="1176,2635,0,1" bothways="true" />
 	<teleporter source="5244,1007,0,1" destination="1177,2635,0,1" bothways="true" />
@@ -132,13 +120,12 @@
 	<teleporter source="5217,18,15,1" destination="5204,74,17,1" />
 	<teleporter source="5200,71,17,1" destination="5211,22,15,1" />
 	<teleporter source="1997,81,7,1" destination="5881,242,0,1" />
-	<teleporter source="5704,146,-45,1" destination="5705,305,7,1" />
-	<teleporter source="5704,147,-45,1" destination="5705,306,7,1" />
+	<teleporter source="5705,146,-45,1" destination="5705,305,7,1" />
+	<teleporter source="5705,147,-45,1" destination="5705,306,7,1" />
 	<teleporter source="5874,146,27,1" destination="5208,2323,31,1" />
 	<teleporter source="5875,146,27,1" destination="5208,2322,32,1" />
 	<teleporter source="5876,146,27,1" destination="5208,2322,32,1" />
 	<teleporter source="5877,146,27,1" destination="5208,2322,32,1" />
-	<teleporter source="5923,169,1,1" destination="5925,171,22,1" />
 	<teleporter source="2399,198,0,1" destination="5753,436,79,1" />
 	<teleporter source="2400,198,0,1" destination="5754,436,80,1" />
 	<teleporter source="5191,152,0,1" destination="1367,891,0,1" />
@@ -252,60 +239,179 @@
 	<teleporter source="5150,4063,38,1" destination="6005,1380,1,1" />
 	<teleporter source="5906,4069,26,1" destination="2494,3576,5,1" bothways="true" />
 	<teleporter source="2985,2890,35,1" destination="5974,2697,35,1" />
-	<teleporter source="3632,2566,0,1" destination="3632,2566,20,1" bothways="true" />
-
-<!-- ULTIMA ONLINE MONDAINS LEGANCY -->
-	<teleporter source="1714,2997,0,1" destination="6310,892,0,1" />
-	<teleporter source="6310,892,0,1" destination="1714,2997,0,1" />
-	<teleporter source="6310,893,0,1" destination="1714,2997,0,1" />
-	<teleporter source="6310,891,0,1" destination="1714,2997,0,1" />
-	<teleporter source="767,1647,0,1" destination="6172,23,0,1" />
-	<teleporter source="767,1646,0,1" destination="6172,23,0,1" />
-	<teleporter source="6172,23,0,1" destination="767,1646,0,1" />
-	<teleporter source="6172,22,0,1" destination="767,1646,0,1" />
-	<teleporter source="588,1637,0,1" destination="6472,868,24,1" />
-	<teleporter source="589,1637,0,1" destination="6472,868,24,1" />
-	<teleporter source="6472,868,24,1" destination="585,1644,-6,1" />
-	<teleporter source="6471,187,15,1" destination="3785,1097,14,1" />
-	<teleporter source="6472,187,15,1" destination="3785,1097,14,1" />
-	<teleporter source="3785,1097,14,1" destination="6471,187,15,1" />
-	<teleporter source="3785,1097,14,1" destination="6472,187,15,1" />
-	<teleporter source="6469,97,-50,1" destination="6471,75,-23,1" />
-	<teleporter source="6471,75,-23,1" destination="6469,97,-50,1" />
-	<teleporter source="6267,131,5,1" destination="7046,332,10,1" />
-	<teleporter source="7046,332,10,1" destination="6267,131,5,1" />
-	<teleporter source="6211,106,0,1" destination="6251,69,-10,1" />
-	<teleporter source="6251,69,-10,1" destination="6211,106,0,1" />
-	<teleporter source="6173,176,-10,1" destination="6233,14,-10,1" />
-	<teleporter source="6174,176,-10,1" destination="6234,14,-10,1" />
-	<teleporter source="6175,176,-10,1" destination="6235,14,-10,1" />
-	<teleporter source="6176,176,-10,1" destination="6236,14,-10,1" />
-	<teleporter source="6177,176,-10,1" destination="6237,14,-10,1" />
-	<teleporter source="6178,176,-10,1" destination="6238,14,-10,1" />
-	<teleporter source="6179,176,-10,1" destination="6239,14,-10,1" />
-	<teleporter source="6233,14,-10,1" destination="6173,176,-10,1" />
-	<teleporter source="6234,14,-10,1" destination="6174,176,-10,1" />
-	<teleporter source="6235,14,-10,1" destination="6175,176,-10,1" />
-	<teleporter source="6236,14,-10,1" destination="6176,176,-10,1" />
-	<teleporter source="6237,14,-10,1" destination="6177,176,-10,1" />
-	<teleporter source="6238,14,-10,1" destination="6178,176,-10,1" />
-	<teleporter source="6239,14,-10,1" destination="6179,176,-10,1" />
-	<teleporter source="6373,39,-20,1" destination="801,1682,0,1" />
-	<teleporter source="6374,39,-20,1" destination="801,1682,0,1" />
-	<teleporter source="6375,39,-20,1" destination="801,1682,0,1" />
-	<teleporter source="6376,39,-20,1" destination="801,1682,0,1" />
-	<teleporter source="6377,39,-20,1" destination="801,1682,0,1" />
-	<teleporter source="6159,130,0,1" destination="6316,62,-20,1" />
-	<teleporter source="6316,62,-20,1" destination="6159,130,0,1" />
-	<teleporter source="6164,73,0,1" destination="6319,20,-20,1" />
-	<teleporter source="6319,20,-20,1" destination="6164,73,0,1" />
-	<teleporter source="6356,34,-20,1" destination="6209,106,0,1" />
-	<teleporter source="6209,106,0,1" destination="6356,34,-20,1" />
-	<teleporter source="6161,163,-10,1" destination="6325,143,-9,1" />
-	<teleporter source="6325,143,-9,1" destination="6161,163,-10,1" />
-	<teleporter source="6276,40,-10,1" destination="6375,125,-20,1" />
-	<teleporter source="6375,125,-20,1" destination="6276,40,-10,1" />
-
-
-
+	<teleporter source="6172,21,0,1" destination="765,1645,0,1" />
+	<teleporter source="6172,22,0,1" destination="765,1646,0,1" />
+	<teleporter source="6172,23,0,1" destination="765,1647,0,1" />
+	<teleporter source="766,1645,0,1" destination="6174,21,0,1" />
+	<teleporter source="766,1646,0,1" destination="6174,22,0,1" />
+	<teleporter source="766,1647,0,1" destination="6174,23,0,1" />
+	<teleporter source="6173,176,-10,1" destination="6233,15,-10,1" />
+	<teleporter source="6174,176,-10,1" destination="6234,15,-10,1" />
+	<teleporter source="6175,176,-10,1" destination="6235,15,-10,1" />
+	<teleporter source="6176,176,-10,1" destination="6236,15,-10,1" />
+	<teleporter source="6177,176,-10,1" destination="6237,15,-10,1" />
+	<teleporter source="6178,176,-10,1" destination="6238,15,-10,1" />
+	<teleporter source="6179,176,-10,1" destination="6239,15,-10,1" />
+	<teleporter source="6233,14,-10,1" destination="6172,174,-10,1" />
+	<teleporter source="6234,14,-10,1" destination="6173,174,-10,1" />
+	<teleporter source="6235,14,-10,1" destination="6174,174,-10,1" />
+	<teleporter source="6236,14,-10,1" destination="6175,174,-10,1" />
+	<teleporter source="6237,14,-10,1" destination="6176,174,-10,1" />
+	<teleporter source="6238,14,-10,1" destination="6177,174,-10,1" />
+	<teleporter source="6239,14,-10,1" destination="6177,174,-10,1" />
+	<teleporter source="6240,14,-10,1" destination="6178,174,-10,1" />
+	<teleporter source="6256,97,-4,1" destination="6257,95,-10,1" />
+	<teleporter source="6260,97,-4,1" destination="6260,95,-10,1" />
+	<teleporter source="6263,97,-4,1" destination="6262,95,-10,1" />
+	<teleporter source="6269,97,-4,1" destination="6269,95,-10,1" />
+	<teleporter source="6273,97,-4,1" destination="6272,95,-10,1" />
+	<teleporter source="6262,95,-10,1" destination="6262,99,-10,1" />
+	<teleporter source="6159,130,0,1" destination="6317,63,-20,1" />
+	<teleporter source="6164,73,0,1" destination="6320,22,-20,1" />
+	<teleporter source="6161,163,-10,1" destination="6321,106,-20,1" />
+	<teleporter source="6276,40,-10,1" destination="6374,124,-20,1" />
+	<teleporter source="6211,106,0,1" destination="6355,34,-20,1" />
+	<teleporter source="6316,62,-5,1" destination="6160,131,0,1" />
+	<teleporter source="6319,19,-20,1" destination="6165,74,0,1" />
+	<teleporter source="6356,32,-9,1" destination="6210,105,0,1" />
+	<teleporter source="6374,125,-20,1" destination="6277,41,-10,1" />
+	<teleporter source="6373,49,-20,1" destination="801,1682,0,1" />
+	<teleporter source="6374,49,-20,1" destination="801,1682,0,1" />
+	<teleporter source="6375,49,-20,1" destination="801,1682,0,1" />
+	<teleporter source="6376,49,-20,1" destination="801,1682,0,1" />
+	<teleporter source="6377,49,-20,1" destination="801,1682,0,1" />
+	<teleporter source="1714,2996,0,1" destination="6308,892,0,1" />
+	<teleporter source="1714,2997,0,1" destination="6308,892,0,1" />
+	<teleporter source="6310,890,0,1" destination="1716,2997,0,1" />
+	<teleporter source="6310,891,0,1" destination="1716,2997,0,1" />
+	<teleporter source="6310,892,0,1" destination="1716,2997,0,1" />
+	<teleporter source="6310,893,0,1" destination="1716,2997,0,1" />
+	<teleporter source="3508,2777,26,1" destination="5912,355,0,1" bothways="true" />
+	<teleporter source="6141,1431,4,1" destination="6138,1408,2,1" />
+	<teleporter source="2618,977,5,1" destination="2727,2133,5,1" bothways="true" />
+	<teleporter source="4619,1203,0,1" destination="4622,1204,23,1" />
+	<teleporter source="4627,1207,20,1" destination="4633,1202,0,1" />
+	<teleporter source="1593,2488,17,1" destination="1600,2489,12,1" />
+	<teleporter source="1594,2488,17,1" destination="1600,2489,12,1" />
+	<teleporter source="1595,2488,17,1" destination="1600,2489,12,1" />
+	<teleporter source="5691,1348,0,1" destination="5690,1352,-26,1" bothways="true" />
+	<teleporter source="1166,2237,60,1" destination="1163,2205,0,1" />
+	<teleporter source="1165,2204,40,1" destination="1163,2211,60,1" />
+	<teleporter source="1163,2208,0,1" destination="1165,2214,19,1" />
+	<teleporter source="1163,2204,60,1" destination="1171,2202,0,1" />
+	<teleporter source="5926,145,22,1" destination="5970,147,22,1" />
+	<teleporter source="5926,146,22,1" destination="5970,147,22,1" />
+	<teleporter source="5926,147,22,1" destination="5970,147,22,1" />
+	<teleporter source="5926,148,22,1" destination="5970,147,22,1" />
+	<teleporter source="5926,149,22,1" destination="5970,147,22,1" />
+	<teleporter source="5933,146,22,1" destination="5970,147,22,1" />
+	<teleporter source="5933,145,22,1" destination="5970,147,22,1" />
+	<teleporter source="5933,149,22,1" destination="5970,147,22,1" />
+	<teleporter source="5944,148,22,1" destination="5970,147,22,1" />
+	<teleporter source="5944,147,22,1" destination="5970,147,22,1" />
+	<teleporter source="5944,146,22,1" destination="5970,147,22,1" />
+	<teleporter source="5944,145,22,1" destination="5970,147,22,1" />
+	<teleporter source="5944,144,22,1" destination="5970,147,22,1" />
+	<teleporter source="5955,148,22,1" destination="5970,147,22,1" />
+	<teleporter source="5955,146,22,1" destination="5970,147,22,1" />
+	<teleporter source="5955,145,22,1" destination="5970,147,22,1" />
+	<teleporter source="5955,144,22,1" destination="5970,147,22,1" />
+	<teleporter source="5955,149,22,1" destination="5970,147,22,1" />
+	<teleporter source="5955,150,22,1" destination="5970,147,22,1" />
+	<teleporter source="5963,146,22,1" destination="5970,147,22,1" />
+	<teleporter source="5963,145,22,1" destination="5970,147,22,1" />
+	<teleporter source="5963,144,22,1" destination="5970,147,22,1" />
+	<teleporter source="5933,147,22,1" destination="5970,147,22,1" />
+	<teleporter source="5963,148,22,1" destination="5970,147,22,1" />
+	<teleporter source="5963,147,22,1" destination="5970,147,22,1" />
+	<teleporter source="6044,226,44,1" destination="6041,204,22,1" />
+	<teleporter source="6039,204,22,1" destination="6050,227,44,1" />
+	<teleporter source="6115,176,0,1" destination="6107,176,0,1" />
+	<teleporter source="6107,179,0,1" destination="6124,155,0,1" />
+	<teleporter source="1013,1433,0,1" destination="5138,2016,0,1" />
+	<teleporter source="1013,1434,0,1" destination="5138,2016,0,1" />
+	<teleporter source="5139,2015,0,1" destination="1014,1434,0,1" />
+	<teleporter source="5139,2016,0,1" destination="1014,1434,0,1" />
+	<teleporter source="5139,2017,0,1" destination="1014,1434,0,1" />
+	<teleporter source="5132,1946,0,1" destination="5332,1379,0,1" />
+	<teleporter source="5133,1946,0,1" destination="5332,1379,0,1" />
+	<teleporter source="5134,1946,0,1" destination="5332,1379,0,1" />
+	<teleporter source="5135,1946,0,1" destination="5332,1379,0,1" />
+	<teleporter source="5329,1381,10,1" destination="5134,1947,0,1" />
+	<teleporter source="5330,1381,10,1" destination="5134,1947,0,1" />
+	<teleporter source="5331,1381,10,1" destination="5134,1947,0,1" />
+	<teleporter source="5332,1381,10,1" destination="5134,1947,0,1" />
+	<teleporter source="5333,1381,10,1" destination="5134,1947,0,1" />
+	<teleporter source="5334,1381,10,1" destination="5134,1947,0,1" />
+	<teleporter source="5363,1289,4,1" destination="5272,2041,4,1" />
+	<teleporter source="5364,1289,4,1" destination="5272,2041,4,1" />
+	<teleporter source="5272,2043,4,1" destination="5363,1290,4,1" />
+	<teleporter source="5273,2043,4,1" destination="5363,1290,4,1" />
+	<teleporter source="5827,593,0,1" destination="5690,569,25,1" />
+	<teleporter source="5829,593,0,1" destination="5690,569,25,1" />
+	<teleporter source="5871,531,15,1" destination="5690,569,25,1" />
+	<teleporter source="5870,530,15,1" destination="5690,569,25,1" />
+	<teleporter source="5871,530,15,1" destination="5690,569,25,1" />
+	<teleporter source="5870,531,15,1" destination="5690,569,25,1" />
+	<teleporter source="5867,528,15,1" destination="5703,639,0,1" />
+	<teleporter source="5868,528,15,1" destination="5703,639,0,1" />
+	<teleporter source="5868,529,15,1" destination="5703,639,0,1" />
+	<teleporter source="5867,529,15,1" destination="5703,639,0,1" />
+	<teleporter source="5705,625,0,1" destination="5703,639,0,1" />
+	<teleporter source="5733,554,20,1" destination="5829,595,0,1" />
+	<teleporter source="5690,569,25,1" destination="5829,595,0,1" />
+	<teleporter source="6577,159,13,1" destination="6577,177,30,1" />
+	<teleporter source="6578,159,12,1" destination="6577,177,30,1" />
+	<teleporter source="6579,159,7,1" destination="6577,177,30,1" />
+	<teleporter source="6582,109,0,1" destination="6553,142,0,1" />
+	<teleporter source="6554,104,0,1" destination="6555,116,0,1" />
+	<teleporter source="6469,97,-50,1" destination="6503,88,0,1" />
+	<teleporter source="6568,77,-10,1" destination="6576,73,0,1" />
+	<teleporter source="6589,178,25,1" destination="6519,116,-20,1" />
+	<teleporter source="6540,116,-15,1" destination="6537,138,-20,1" />
+	<teleporter source="6540,117,-15,1" destination="6537,139,-20,1" />
+	<teleporter source="6488,849,40,1" destination="6587,867,0,1" />
+	<teleporter source="6488,850,41,1" destination="6587,868,0,1" />
+	<teleporter source="6575,889,0,1" destination="6473,869,20,1" />
+	<teleporter source="6574,889,0,1" destination="6472,869,20,1" />
+	<teleporter source="6588,867,0,1" destination="6489,849,39,1" />
+	<teleporter source="589,1637,0,1" destination="6575,888,0,1" />
+	<teleporter source="1714,2997,0,1" destination="6309,892,0,1" />
+	<teleporter source="1714,2996,0,1" destination="6309,891,0,1" />
+	<teleporter source="6310,893,0,1" destination="1715,2997,0,1" />
+	<teleporter source="6310,890,0,1" destination="1715,2996,0,1" />
+	<teleporter source="6310,892,0,1" destination="1715,2997,0,1" />
+	<teleporter source="6310,891,0,1" destination="1715,2996,0,1" />
+	<teleporter source="6440,2677,20,1" destination="1477,1471,-8,1" />
+	<teleporter source="6440,2678,20,1" destination="1477,1472,-8,1" />
+	<teleporter source="6440,2679,20,1" destination="1477,1473,-8,1" />
+	<teleporter source="6440,2680,20,1" destination="1477,1474,-8,1" />
+	<teleporter source="6440,2681,20,1" destination="1477,1475,-8,1" />
+	<teleporter source="1477,1471,-8,1" destination="6432,2677,0,1" />
+	<teleporter source="1477,1472,-8,1" destination="6432,2678,0,1" />
+	<teleporter source="1477,1473,-8,1" destination="6432,2679,0,1" />
+	<teleporter source="1477,1474,-8,1" destination="6432,2680,0,1" />
+	<teleporter source="1477,1475,-8,1" destination="6432,2681,0,1" />
+	<teleporter source="5260,1841,0,1" destination="3613,2592,0,1" />
+	<teleporter source="311,786,0,1" destination="5750,350,5,1" />
+	<teleporter source="311,786,-24,1" destination="314,784,0,1" />
+	<teleporter source="4194,3260,5,1" destination="1127,1215,5,5" />
+	<teleporter source="4195,3260,5,1" destination="1129,1215,5,5" />
+	<teleporter source="5571,1299,0,1" destination="6012,3786,25,1" />
+	<teleporter source="5572,1299,0,1" destination="6013,3786,25,1" />
+	<teleporter source="6011,3787,22,1" destination="5570,1300,0,1" />
+	<teleporter source="6012,3787,20,1" destination="5571,1300,0,1" />
+	<teleporter source="6013,3787,20,1" destination="5572,1300,0,1" />
+	<teleporter source="6014,3787,21,1" destination="5573,1300,0,1" />
+	<teleporter source="5878,3817,-2,1" destination="5399,1289,0,1" />
+	<teleporter source="5878,3818,-2,1" destination="5399,1290,0,1" />
+	<teleporter source="5400,1288,0,1" destination="5879,3817,0,1" />
+	<teleporter source="5400,1289,0,1" destination="5879,3817,0,1" />
+	<teleporter source="5400,1290,0,1" destination="5879,3818,0,1" />
+	<teleporter source="5543,1355,0,1" destination="5572,1307,0,1" />
+	<teleporter source="5527,1340,0,1" destination="5412,1396,0,1" />
+	<teleporter source="5557,1317,0,1" destination="5396,1297,0,1" />
+	<teleporter source="5566,1337,0,1" destination="5620,1341,0,1" />
+	<teleporter source="5451,1360,5,1" destination="5435,1341,0,1" />
+	<teleporter source="5453,1360,5,1" destination="5436,1341,0,1" />
 </definitions>

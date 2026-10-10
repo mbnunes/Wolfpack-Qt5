@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- DarkWoodDoor -->
+	<item id="0x06a5">
+		<pos x="3689" y="2262" z="26" map="1" />
+		<pos x="3671" y="2262" z="26" map="1" />
+	</item>
+	<!-- DarkWoodDoor -->
+	<item id="0x06a7">
+		<pos x="3690" y="2262" z="26" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0bf4">
+		<attribute key="name" value="Fishermens' Guild" />
+		<pos x="3687" y="2263" z="26" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0bb5">
+		<attribute key="name" value="The Furled Sail" />
+		<pos x="3674" y="2258" z="28" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0c0c">
+		<attribute key="name" value="Bank of Magincia" />
+		<pos x="3778" y="2256" z="21" map="1" />
+	</item>
+</decoration>

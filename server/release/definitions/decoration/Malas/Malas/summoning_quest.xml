@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- SummoningAltar -->
+	<item id="0x1216">
+		<pos x="441" y="205" z="-1" map="3" />
+	</item>
+	<!-- BellOfTheDead -->
+	<item id="0x091a">
+		<pos x="417" y="246" z="23" map="3" />
+	</item>
+	<!-- Blocker -->
+	<item id="0x21a4">
+		<pos x="417" y="246" z="7" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x1822" hue="0x44e">
+		<pos x="408" y="254" z="2" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x1822" hue="0x44e">
+		<pos x="428" y="321" z="2" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x0f80">
+		<pos x="421" y="198" z="-1" map="3" />
+		<pos x="422" y="195" z="-1" map="3" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x0fbe" hue="0x482">
+		<attribute key="name" value="#1060023" />
+		<pos x="420" y="192" z="8" map="3" />
+	</item>
+</decoration>

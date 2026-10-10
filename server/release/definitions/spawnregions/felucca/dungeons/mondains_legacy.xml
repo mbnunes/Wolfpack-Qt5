@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions>
+	<spawnregion id="felucca_ml_spawn_1">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6183,129,-10,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_2">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6517,135,-20,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_3">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="ogre_lord"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6179,23,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_4">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="titan"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6162,76,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_5">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6526,135,-20,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_6">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6163,70,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_7">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6290,387,60,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_8">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<point pos="7035,370,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_9">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6174,19,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_10">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="balron"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6436,513,-50,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_11">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6290,867,-13,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_12">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="rat"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6470,70,-34,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_13">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<point pos="7028,404,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_14">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6329,387,60,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_15">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6394,385,-40,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_16">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6279,19,-20,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_17">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6329,549,-50,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_18">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6468,164,4,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_19">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6318,507,-50,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_20">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6243,98,-10,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_21">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6471,171,-11,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_22">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6575,868,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_23">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6315,558,-50,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_24">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6198,94,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_25">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6280,348,60,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_26">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6469,69,-34,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_27">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="shadow_wisp"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6471,96,-44,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_28">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="succubus"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6218,27,5,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_29">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6537,140,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_30">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6990,370,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_31">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6162,155,-10,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_32">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="shadow_wisp"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6470,96,-44,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_33">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6261,344,60,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_34">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6305,502,-50,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_35">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6987,340,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_36">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="titan"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6167,116,-10,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_37">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<point pos="7069,369,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_38">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="ogre_lord"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6164,46,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_39">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6343,390,60,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_40">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6983,335,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_41">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="cow"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6211,-3,-10,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_42">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="succubus"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6248,428,-50,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_43">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6299,328,60,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_44">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6160,121,0,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_45">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6249,849,-1,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_46">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6309,51,-20,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_47">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<point pos="7024,397,12,0" />
+	</spawnregion>
+	<spawnregion id="felucca_ml_spawn_48">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="5" max="15" />
+		<npcspercycle>1</npcspercycle>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<point pos="6580,874,0,0" />
+	</spawnregion>
+</definitions>

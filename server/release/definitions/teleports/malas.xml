@@ -1,17 +1,6 @@
-<!--
-=================================================================
-|   )      (\_     | WOLFPACK 13.0.0 Scripts
-|  ((    _/{  "-;  | Created by: Dreoth
-|   )).-' {{ ;'`   | Revised by:
-|  ( (  ;._ \\ ctr | Last Modification: Created
-=================================================================
--->
-<!--
-	<teleporter source="x,y,z,map" destination="x,y,z,map" />
--->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from ServUO teleporters.csv -->
 <definitions>
-
-	<!-- Doom Dungeon -->
 	<teleporter source="2317,1269,-110,3" destination="381,132,33,3" />
 	<teleporter source="2317,1268,-110,3" destination="381,132,33,3" />
 	<teleporter source="2317,1267,-110,3" destination="381,132,33,3" />
@@ -22,17 +11,61 @@
 	<teleporter source="2315,1267,-109,3" destination="381,132,33,3" />
 	<teleporter source="2316,1267,-110,3" destination="381,132,33,3" />
 	<teleporter source="496,49,6,3" destination="2350,1270,-85,3" />
-
-	<!-- Labyrinth -->
-	<teleporter source="1716,1155,-95,3" destination="1775,971,-85,3" />
-	<teleporter source="1716,1156,-95,3" destination="1775,971,-85,3" />
-	<teleporter source="1716,1157,-95,3" destination="1775,971,-85,3" />
-	<teleporter source="1775,971,-85,3" destination="1717,1156,-95,3" />
-	<teleporter source="1734, 973,-75,3" destination="329,1972,5,3" />
-	<teleporter source="1733, 973,-75,3" destination="329,1973,5,3" />
-	<teleporter source="1732, 973,-75,3" destination="329,1974,5,3" />
-	<teleporter source="328,1972,5,3" destination="1734, 974,-75,3" />
-	<teleporter source="328,1973,5,3" destination="1733, 974,-75,3" />
-	<teleporter source="328,1974,5,3" destination="1732, 974,-75,3" />
-	<teleporter source="328,1975,5,3" destination="1731, 974,-75,3" />
+	<teleporter source="3,128,-1,3" destination="259,785,64,4" />
+	<teleporter source="4,128,-1,3" destination="259,785,64,4" />
+	<teleporter source="5,128,-1,3" destination="259,785,64,4" />
+	<teleporter source="6,128,-1,3" destination="259,785,64,4" />
+	<teleporter source="7,128,-1,3" destination="259,785,64,4" />
+	<teleporter source="8,128,-1,3" destination="259,785,64,4" />
+	<teleporter source="64,336,11,3" destination="983,195,24,4" />
+	<teleporter source="64,337,11,3" destination="983,195,24,4" />
+	<teleporter source="64,338,11,3" destination="983,195,24,4" />
+	<teleporter source="64,339,11,3" destination="983,195,24,4" />
+	<teleporter source="66,351,-7,3" destination="63,524,-1,3" />
+	<teleporter source="66,352,-7,3" destination="63,524,-1,3" />
+	<teleporter source="66,353,-7,3" destination="63,524,-1,3" />
+	<teleporter source="66,354,-7,3" destination="63,524,-1,3" />
+	<teleporter source="61,523,6,3" destination="63,352,-3,3" />
+	<teleporter source="61,524,6,3" destination="63,352,-3,3" />
+	<teleporter source="61,525,6,3" destination="63,352,-3,3" />
+	<teleporter source="61,526,6,3" destination="63,352,-3,3" />
+	<teleporter source="103,555,-6,3" destination="76,691,-1,3" />
+	<teleporter source="103,556,-6,3" destination="76,691,-1,3" />
+	<teleporter source="103,557,-6,3" destination="76,691,-1,3" />
+	<teleporter source="103,558,-6,3" destination="76,691,-1,3" />
+	<teleporter source="73,688,6,3" destination="100,556,-2,3" />
+	<teleporter source="73,689,6,3" destination="100,556,-2,3" />
+	<teleporter source="73,690,6,3" destination="100,556,-2,3" />
+	<teleporter source="73,691,6,3" destination="100,556,-2,3" />
+	<teleporter source="73,692,6,3" destination="100,556,-2,3" />
+	<teleporter source="73,693,6,3" destination="100,556,-2,3" />
+	<teleporter source="73,694,6,3" destination="100,556,-2,3" />
+	<teleporter source="384,810,-1,3" destination="403,1167,0,3" />
+	<teleporter source="403,1169,0,3" destination="385,811,-1,3" />
+	<teleporter source="404,1169,0,3" destination="385,808,-1,3" />
+	<teleporter source="405,1169,0,3" destination="385,808,-1,3" />
+	<teleporter source="328,1972,5,3" destination="1731,978,-80,3" />
+	<teleporter source="328,1973,5,3" destination="1731,978,-80,3" />
+	<teleporter source="328,1974,5,3" destination="1731,978,-80,3" />
+	<teleporter source="328,1975,5,3" destination="1731,978,-80,3" />
+	<teleporter source="84,1673,-2,3" destination="156,1613,0,3" />
+	<teleporter source="156,1609,17,3" destination="87,1673,0,3" />
+	<teleporter source="157,1609,17,3" destination="87,1673,0,3" />
+	<teleporter source="375,802,1,3" destination="770,1209,25,4" />
+	<teleporter source="412,1123,0,3" destination="417,806,-1,3" />
+	<teleporter source="411,1117,0,3" destination="422,806,-1,3" />
+	<teleporter source="421,1092,0,3" destination="391,803,-1,3" />
+	<teleporter source="412,1086,0,3" destination="391,803,-1,3" />
+	<teleporter source="389,704,-1,3" destination="384,733,-1,3" />
+	<teleporter source="426,780,-1,3" destination="384,733,-1,3" />
+	<teleporter source="331,769,-1,3" destination="384,733,-1,3" />
+	<teleporter source="355,745,-1,3" destination="384,733,-1,3" />
+	<teleporter source="330,706,-1,3" destination="384,733,-1,3" />
+	<teleporter source="391,777,-1,3" destination="770,1209,25,4" />
+	<teleporter source="407,254,2,3" destination="428,318,2,3" />
+	<teleporter source="408,254,2,3" destination="428,318,2,3" />
+	<teleporter source="409,254,2,3" destination="428,318,2,3" />
+	<teleporter source="427,321,2,3" destination="422,327,-1,3" />
+	<teleporter source="428,321,2,3" destination="422,327,-1,3" />
+	<teleporter source="429,321,2,3" destination="422,327,-1,3" />
 </definitions>

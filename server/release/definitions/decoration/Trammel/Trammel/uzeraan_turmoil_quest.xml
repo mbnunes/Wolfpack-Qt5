@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- UzeraanTurmoilTeleporter -->
+	<item id="0x1822">
+		<pos x="3597" y="2582" z="0" map="1" />
+	</item>
+	<!-- DaemonBloodChest -->
+	<item id="0x09ab">
+		<pos x="3456" y="2558" z="50" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x1822">
+		<pos x="5260" y="1841" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x19ab">
+		<pos x="5210" y="1817" z="0" map="1" />
+		<pos x="5211" y="1814" z="0" map="1" />
+		<pos x="5205" y="1818" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x374a">
+		<pos x="5208" y="1817" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x377a">
+		<pos x="5209" y="1815" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x376a">
+		<pos x="5208" y="1815" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x1153">
+		<pos x="5207" y="1816" z="0" map="1" />
+		<pos x="5260" y="1842" z="0" map="1" />
+		<pos x="5261" y="1841" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x3789">
+		<pos x="5208" y="1815" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x1156">
+		<pos x="5261" y="1841" z="0" map="1" />
+		<pos x="5261" y="1842" z="0" map="1" />
+	</item>
+	<!-- Cannon -->
+	<item id="0x0000">
+		<pos x="3678" y="2768" z="33" map="1" />
+		<pos x="3675" y="2767" z="31" map="1" />
+		<pos x="3593" y="2810" z="50" map="1" />
+	</item>
+	<!-- Cannon -->
+	<item id="0x0000">
+		<pos x="3681" y="2776" z="39" map="1" />
+		<pos x="3683" y="2779" z="44" map="1" />
+		<pos x="3659" y="2790" z="47" map="1" />
+		<pos x="3705" y="2832" z="29" map="1" />
+	</item>
+	<!-- Cannon -->
+	<item id="0x0000">
+		<pos x="3662" y="2795" z="68" map="1" />
+		<pos x="3596" y="2807" z="50" map="1" />
+	</item>
+	<!-- Cannon -->
+	<item id="0x0000">
+		<pos x="3593" y="2804" z="50" map="1" />
+		<pos x="3702" y="2837" z="33" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e74">
+		<pos x="3706" y="2833" z="24" map="1" />
+		<pos x="3595" y="2808" z="49" map="1" />
+		<pos x="3594" y="2808" z="50" map="1" />
+		<pos x="3663" y="2793" z="67" map="1" />
+		<pos x="3661" y="2791" z="53" map="1" />
+		<pos x="3662" y="2793" z="67" map="1" />
+		<pos x="3676" y="2768" z="32" map="1" />
+		<pos x="3676" y="2767" z="31" map="1" />
+		<pos x="3682" y="2777" z="41" map="1" />
+		<pos x="3683" y="2777" z="42" map="1" />
+		<pos x="3681" y="2777" z="40" map="1" />
+	</item>
+</decoration>

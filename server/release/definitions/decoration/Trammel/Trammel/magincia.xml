@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Static -->
+	<item id="0x0ba0">
+		<pos x="3778" y="2256" z="20" map="1" />
+	</item>
+	<!-- LampPost3 -->
+	<item id="0x0b24">
+		<pos x="3758" y="2256" z="30" map="1" />
+		<pos x="3773" y="2233" z="30" map="1" />
+		<pos x="3793" y="2232" z="20" map="1" />
+	</item>
+</decoration>

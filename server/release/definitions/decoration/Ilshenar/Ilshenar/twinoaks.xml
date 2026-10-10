@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- StoneFireplaceEastAddon -->
+	<item id="0x0959">
+		<pos x="1547" y="1050" z="-7" map="2" />
+		<pos x="1547" y="1050" z="13" map="2" />
+	</item>
+	<!-- StoneFireplaceSouthAddon -->
+	<item id="0x0961">
+		<pos x="1556" y="1038" z="13" map="2" />
+	</item>
+	<!-- MediumCrate -->
+	<item id="0x0e3e">
+		<pos x="1549" y="1040" z="-1" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x104b">
+		<pos x="1548" y="1051" z="8" map="2" />
+	</item>
+	<!-- DarkWoodDoor -->
+	<item id="0x06a7">
+		<pos x="1549" y="1048" z="13" map="2" />
+		<pos x="1556" y="1048" z="13" map="2" />
+		<pos x="1562" y="1048" z="13" map="2" />
+	</item>
+	<!-- DarkWoodDoor -->
+	<item id="0x06ab">
+		<pos x="1556" y="1043" z="13" map="2" />
+	</item>
+	<!-- StrongWoodDoor -->
+	<item id="0x06ef">
+		<pos x="1565" y="1046" z="-7" map="2" />
+	</item>
+	<!-- StrongWoodDoor -->
+	<item id="0x06ed">
+		<pos x="1565" y="1047" z="-7" map="2" />
+	</item>
+	<!-- DartBoard -->
+	<item id="0x1e2f">
+		<pos x="1547" y="1046" z="-7" map="2" />
+	</item>
+	<!-- LargeCrate -->
+	<item id="0x0e3c">
+		<pos x="1549" y="1040" z="-4" map="2" />
+		<pos x="1549" y="1040" z="-7" map="2" />
+		<pos x="1549" y="1051" z="-27" map="2" />
+		<pos x="1549" y="1052" z="-27" map="2" />
+		<pos x="1549" y="1052" z="-24" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1e33">
+		<pos x="1547" y="1048" z="-7" map="2" />
+	</item>
+	<!-- MediumCrate -->
+	<item id="0x0e3f">
+		<pos x="1549" y="1049" z="-27" map="2" />
+	</item>
+	<!-- Drawer -->
+	<item id="0x0a34">
+		<pos x="1553" y="1049" z="13" map="2" />
+	</item>
+	<!-- Armoire -->
+	<item id="0x0a53">
+		<pos x="1553" y="1052" z="13" map="2" />
+		<pos x="1560" y="1054" z="13" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0a3d">
+		<pos x="1558" y="1038" z="13" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0a3c">
+		<pos x="1559" y="1038" z="13" map="2" />
+	</item>
+	<!-- FancyArmoire -->
+	<item id="0x0a4d">
+		<pos x="1561" y="1038" z="13" map="2" />
+	</item>
+	<!-- BeverageBottle -->
+	<item id="0x099b">
+		<pos x="1555" y="1052" z="-21" map="2" />
+	</item>
+	<!-- Drawer -->
+	<item id="0x0a2c">
+		<pos x="1564" y="1049" z="13" map="2" />
+	</item>
+	<!-- LocalizedSign -->
+	<item id="0x0bc3">
+		<attribute key="name" value="#1016410" />
+		<pos x="1566" y="1049" z="-6" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x154d">
+		<pos x="1555" y="1041" z="-7" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0960">
+		<pos x="1555" y="1038" z="13" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x095f">
+		<pos x="1556" y="1038" z="13" map="2" />
+	</item>
+</decoration>

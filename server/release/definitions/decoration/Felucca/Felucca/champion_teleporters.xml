@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Static -->
+	<item id="0x375a">
+		<pos x="5443" y="2325" z="34" map="0" />
+		<pos x="5996" y="2367" z="45" map="0" />
+		<pos x="6053" y="2407" z="27" map="0" />
+		<pos x="6080" y="2340" z="26" map="0" />
+		<pos x="5503" y="3971" z="40" map="0" />
+		<pos x="5731" y="3420" z="14" map="0" />
+		<pos x="5265" y="683" z="0" map="0" />
+		<pos x="5265" y="669" z="0" map="0" />
+		<pos x="5506" y="814" z="60" map="0" />
+		<pos x="5506" y="817" z="60" map="0" />
+		<pos x="5145" y="973" z="0" map="0" />
+		<pos x="5140" y="973" z="0" map="0" />
+		<pos x="5682" y="1440" z="0" map="0" />
+		<pos x="5682" y="1437" z="0" map="0" />
+		<pos x="5905" y="97" z="0" map="0" />
+		<pos x="5360" y="1540" z="0" map="0" />
+		<pos x="5356" y="1540" z="0" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x374a">
+		<pos x="5682" y="1437" z="5" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x375a">
+		<pos x="6972" y="802" z="28" map="0" />
+		<pos x="7049" y="709" z="28" map="0" />
+		<pos x="6941" y="987" z="-15" map="0" />
+		<pos x="7045" y="1090" z="-15" map="0" />
+	</item>
+	<!-- AnkhWest -->
+	<item id="0x0003" hue="0x47e">
+		<pos x="6937" y="719" z="27" map="0" />
+	</item>
+	<!-- AnkhWest -->
+	<item id="0x0003" hue="0x47e">
+		<pos x="6947" y="987" z="-5" map="0" />
+	</item>
+</decoration>

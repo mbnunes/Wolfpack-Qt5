@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- SerpentPillar -->
+	<item id="0x233f">
+		<pos x="2983" y="2888" z="-5" map="1" />
+	</item>
+	<!-- SerpentPillar -->
+	<item id="0x233f">
+		<pos x="5972" y="2695" z="-5" map="1" />
+	</item>
+	<!-- SerpentPillar -->
+	<item id="0x233f">
+		<pos x="422" y="3281" z="-5" map="1" />
+	</item>
+	<!-- SerpentPillar -->
+	<item id="0x233f">
+		<pos x="5265" y="2755" z="-5" map="1" />
+	</item>
+</decoration>

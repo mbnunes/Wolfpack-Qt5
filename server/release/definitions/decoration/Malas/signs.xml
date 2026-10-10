@@ -1,82 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <decoration>
-	<!-- Luna -->
-	<!-- SIGNS -->
-	<!-- Carpentry -->
-	<item id="0xBB0" hue="0x47E">
-		<pos x="1001" y="518" z="-50" map="3" />
-	</item>
-	<!-- Mage -->
-	<item id="0xBAE" hue="0x47E">
-		<pos x="1000" y="523" z="-50" map="3" />
-	</item>
-	<!-- Bank -->
-	<item id="0xC0B" hue="0x47E">
+	<item id="0x0c0b">
+		<attribute key="name" value="#1061816" />
 		<pos x="996" y="517" z="-50" map="3" />
 	</item>
-	<!-- Provisoner -->
-	<item id="0xBCC" hue="0x47E">
-		<pos x="994" y="509" z="-50" map="3" />
-	</item>
-	<!-- Tailor-->
-	<item id="0xBA5" hue="0x47E">
-		<pos x="981" y="526" z="-50" map="3" />
-	</item>
-	<!-- Blacksmithing -->
-	<item id="0xBC7" hue="0x47E">
+	<item id="0x0bc7">
+		<attribute key="name" value="#1061813" />
 		<pos x="981" y="511" z="-50" map="3" />
 	</item>
-	<!-- Inkeeper -->
-	<item id="0xBB3" hue="0x47E">
+	<item id="0x0ba5">
+		<attribute key="name" value="#1061814" />
+		<pos x="981" y="526" z="-50" map="3" />
+	</item>
+	<item id="0x0bae">
+		<attribute key="name" value="#1061818" />
+		<pos x="1000" y="523" z="-50" map="3" />
+	</item>
+	<item id="0x0bb0">
+		<attribute key="name" value="#1061817" />
+		<pos x="1001" y="518" z="-50" map="3" />
+	</item>
+	<item id="0x0bcc">
+		<attribute key="name" value="#1061815" />
+		<pos x="994" y="509" z="-50" map="3" />
+	</item>
+	<item id="0x0bb3">
+		<attribute key="name" value="#1061819" />
 		<pos x="1005" y="522" z="-30" map="3" />
 	</item>
-	<!-- Umbra -->
-	<!-- SIGNS -->
-	<!-- Tamer-->
-	<item id="0xBB8" hue="0x44E">
-		<pos x="1994" y="1326" z="-91" map="3" />
+	<item id="0x0bb8">
+		<attribute key="name" value="#1061820" />
+		<pos x="1021" y="505" z="-70" map="3" />
 	</item>
-	<!-- Mage -->
-	<item id="0xBAD" hue="0x44E">
-		<pos x="2038" y="1385" z="-88" map="3" />
-	</item>
-	<!-- Bank -->
-	<item id="0xC0B" hue="0x44E">
-		<pos x="2056" y="1338" z="-85" map="3" />
-	</item>
-	<!-- Provisoner -->
-	<item id="0xBCC" hue="0x44E">
-		<pos x="2014" y="1338" z="-76" map="3" />
-	</item>
-	<!-- Tailor-->
-	<item id="0xBA6" hue="0x44E">
-		<pos x="2075" y="1339" z="-82" map="3" />
-	</item>
-	<!-- Blacksmithing -->
-	<item id="0xBC7" hue="0x44E">
+	<item id="0x0bc7">
+		<attribute key="name" value="#1061800" />
 		<pos x="1997" y="1369" z="-87" map="3" />
 	</item>
-	<!-- Inkeeper -->
-	<item id="0xBB3" hue="0x44E">
-		<pos x="2047" y="1312" z="-90" map="3" />
+	<item id="0x0bb8">
+		<attribute key="name" value="#1061804" />
+		<pos x="1994" y="1326" z="-91" map="3" />
 	</item>
-	<!-- Tavern -->
-	<item id="0xBC3" hue="0x44E">
-		<pos x="2030" y="1348" z="-89" map="3" />
+	<item id="0x0bcc">
+		<attribute key="name" value="#1061809" />
+		<pos x="2014" y="1338" z="-76" map="3" />
 	</item>
-	<!-- Baker -->
-	<item id="0xBA3" hue="0x44E">
+	<item id="0x0ba3">
+		<attribute key="name" value="#1061810" />
 		<pos x="2023" y="1347" z="-90" map="3" />
 	</item>
-	<!-- Carpentry -->
-	<item id="0xBB0" hue="0x44E">
+	<item id="0x0bc3">
+		<attribute key="name" value="#1061807" />
+		<pos x="2030" y="1348" z="-89" map="3" />
+	</item>
+	<item id="0x0bad">
+		<attribute key="name" value="#1061799" />
+		<pos x="2038" y="1385" z="-88" map="3" />
+	</item>
+	<item id="0x0bc1">
+		<attribute key="name" value="#1061802" />
+		<pos x="2055" y="1390" z="-90" map="3" />
+	</item>
+	<item id="0x0c0b">
+		<attribute key="name" value="#1061803" />
+		<pos x="2056" y="1338" z="-85" map="3" />
+	</item>
+	<item id="0x0bb3">
+		<attribute key="name" value="#1061808" />
+		<pos x="2047" y="1312" z="-90" map="3" />
+	</item>
+	<item id="0x0bb0">
+		<attribute key="name" value="#1061805" />
 		<pos x="2069" y="1298" z="-81" map="3" />
 	</item>
-	<!-- Healer -->
-	<item id="0xBAC" hue="0x44E">
+	<item id="0x0ba6">
+		<attribute key="name" value="#1061801" />
+		<pos x="2075" y="1339" z="-82" map="3" />
+	</item>
+	<item id="0x0bac">
+		<attribute key="name" value="#1061806" />
 		<pos x="2085" y="1379" z="-90" map="3" />
 	</item>
-	<!-- Jeweler -->
-	<item id="0xBC1" hue="0x44E">
-		<pos x="2055" y="1390" z="-90" map="3" />
+	<item id="0x0bb3">
+		<attribute key="name" value="#1061616" />
+		<pos x="1067" y="1431" z="-88" map="3" />
+	</item>
+	<item id="0x0bc3">
+		<attribute key="name" value="#1061835" />
+		<pos x="962" y="641" z="-90" map="3" />
+	</item>
+	<item id="0x0ba3">
+		<attribute key="name" value="#1061836" />
+		<pos x="962" y="633" z="-90" map="3" />
 	</item>
 </decoration>

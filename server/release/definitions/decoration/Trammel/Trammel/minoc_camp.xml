@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Static -->
+	<item id="0x041f">
+		<pos x="2635" y="701" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x10ee">
+		<pos x="2629" y="701" z="0" map="1" />
+		<pos x="2622" y="703" z="0" map="1" />
+		<pos x="2626" y="700" z="0" map="1" />
+		<pos x="2625" y="706" z="0" map="1" />
+		<pos x="2625" y="708" z="0" map="1" />
+		<pos x="2629" y="703" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x02eb" hue="0x33">
+		<pos x="2620" y="702" z="0" map="1" />
+		<pos x="2622" y="707" z="0" map="1" />
+		<pos x="2627" y="698" z="0" map="1" />
+		<pos x="2627" y="708" z="0" map="1" />
+		<pos x="2620" y="702" z="1" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x02ec" hue="0x33">
+		<pos x="2621" y="701" z="0" map="1" />
+		<pos x="2623" y="706" z="0" map="1" />
+		<pos x="2628" y="697" z="0" map="1" />
+		<pos x="2628" y="707" z="0" map="1" />
+		<pos x="2621" y="701" z="1" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x1e88">
+		<pos x="2624" y="705" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fac">
+		<pos x="2625" y="703" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0de3">
+		<pos x="2625" y="703" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0974">
+		<pos x="2625" y="703" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e59">
+		<pos x="2624" y="709" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0f46">
+		<pos x="2625" y="708" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0428">
+		<pos x="2626" y="711" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0420">
+		<pos x="2627" y="694" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x1e89">
+		<pos x="2631" y="696" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x1e90">
+		<pos x="2627" y="701" z="0" map="1" />
+		<pos x="2627" y="701" z="1" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e58">
+		<pos x="2627" y="703" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x1e91">
+		<pos x="2627" y="705" z="0" map="1" />
+	</item>
+</decoration>

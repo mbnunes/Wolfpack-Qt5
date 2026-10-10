@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Static -->
+	<item id="0x0145">
+		<pos x="5950" y="315" z="0" map="1" />
+		<pos x="5955" y="315" z="0" map="1" />
+		<pos x="5955" y="320" z="0" map="1" />
+		<pos x="5950" y="320" z="0" map="1" />
+	</item>
+	<!-- TeleportRope -->
+	<item id="0x14fa">
+		<pos x="5993" y="316" z="0" map="1" />
+	</item>
+	<!-- TeleportRope -->
+	<item id="0x14fa">
+		<pos x="5951" y="317" z="0" map="1" />
+	</item>
+</decoration>

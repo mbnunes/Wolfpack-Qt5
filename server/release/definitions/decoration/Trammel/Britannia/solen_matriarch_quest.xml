@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- WaterVatSouth -->
+	<item id="0x0000">
+		<pos x="5806" y="1919" z="5" map="1" />
+	</item>
+	<!-- WaterVatEast -->
+	<item id="0x0000">
+		<pos x="5797" y="1926" z="5" map="1" />
+	</item>
+</decoration>
