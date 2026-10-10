@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Zoo Member Thigh Boots -->
+	<item id="2fc4">
+		<id>0x2fc4</id>
+		<name>Zoo Member Thigh Boots</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Elven Clothing\Zoo Member Thigh Boots (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Fancy Shirt -->
+	<item id="3175">
+		<id>0x3175</id>
+		<name>Fancy Shirt</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Elven Clothing\Fancy Shirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Fancy Shirt -->
+	<item id="3176">
+		<id>0x3176</id>
+		<name>Fancy Shirt</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Elven Clothing\Fancy Shirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Library Friend Skirt -->
+	<item id="2fc3">
+		<id>0x2fc3</id>
+		<name>Library Friend Skirt</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Elven Clothing\Library Friend Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+</definitions>

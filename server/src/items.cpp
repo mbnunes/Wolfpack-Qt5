@@ -2331,7 +2331,16 @@ P_ITEM cItem::createFromScript( const QString& id )
 	}
 	else
 	{
-		Console::instance()->log( LOG_ERROR, tr( "Unable to create unscripted item: %1\n" ).arg( id ) );
+		bool ok = false;
+		unsigned short tileId = id.toUShort( &ok, 16 );
+		if ( ok && tileId > 0 )
+		{
+			nItem = createFromId( tileId );
+		}
+		else
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Unable to create unscripted item: %1\n" ).arg( id ) );
+		}
 	}
 
 	return nItem;

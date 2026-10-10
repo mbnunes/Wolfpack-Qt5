@@ -925,7 +925,41 @@ bool cPlayer::inWorld()
 
 void cPlayer::giveNewbieItems( quint8 skill )
 {
-	const cElement* startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString( "default" ) : Skills::instance()->getSkillDef( skill ).toLower() );
+	const cElement* startItems = 0;
+
+	if ( skill == 0xFF )
+	{
+		if ( isGargoyle() )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, "default_gargoyle" );
+		}
+		else if ( isElf() )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, "default_elf" );
+		}
+
+		if ( !startItems )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, "default" );
+		}
+	}
+	else
+	{
+		QString skillDef = Skills::instance()->getSkillDef( skill ).toLower();
+		if ( isGargoyle() )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, skillDef + "_gargoyle" );
+		}
+		else if ( isElf() )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, skillDef + "_elf" );
+		}
+
+		if ( !startItems )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, skillDef );
+		}
+	}
 
 	// No Items defined
 	if ( !startItems )

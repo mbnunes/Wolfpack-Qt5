@@ -1622,20 +1622,65 @@ void cUOSocket::handleCreateCharOld( cUORxCreateChar* packet )
 	pChar->setSkillValue( packet->skillId2(), packet->skillValue2() * 10 );
 	pChar->setSkillValue( packet->skillId3(), packet->skillValue3() * 10 );
 
-	// Create the char equipment (shirt, paint, hair and beard only)
+	// Create the char equipment (shirt, pants, hair and beard)
 	P_ITEM pItem;
 
-	// Shirt
-	pItem = cItem::createFromScript( "1517" );
-	pItem->setColor( packet->shirtColor() );
-	pItem->setNewbie( true );
-	pChar->addItem( cBaseChar::Shirt, pItem );
+	if ( tRace ) // Elf
+	{
+		// Elven Shirt
+		pItem = cItem::createFromScript( "3175" );
+		if ( pItem )
+		{
+			pItem->setColor( packet->shirtColor() );
+			pItem->setNewbie( true );
+			pChar->addItem( cBaseChar::Shirt, pItem );
+		}
 
-	// Skirt or Pants
-	pItem = cItem::createFromScript( ( tGender ) ? "1516" : "152e" );
-	pItem->setColor( packet->pantsColor() );
-	pItem->setNewbie( true );
-	pChar->addItem( cBaseChar::Pants, pItem );
+		// Elven Pants
+		pItem = cItem::createFromScript( "2fc3" );
+		if ( pItem )
+		{
+			pItem->setColor( packet->pantsColor() );
+			pItem->setNewbie( true );
+			pChar->addItem( cBaseChar::Pants, pItem );
+		}
+
+		// Elven Boots
+		pItem = cItem::createFromScript( "2fc4" );
+		if ( pItem )
+		{
+			pItem->setNewbie( true );
+			pChar->addItem( cBaseChar::Shoes, pItem );
+		}
+	}
+	else
+	{
+		// Human Shirt
+		pItem = cItem::createFromScript( "1517" );
+		if ( pItem )
+		{
+			pItem->setColor( packet->shirtColor() );
+			pItem->setNewbie( true );
+			pChar->addItem( cBaseChar::Shirt, pItem );
+		}
+
+		// Human Skirt or Pants
+		pItem = cItem::createFromScript( ( tGender ) ? "1516" : "152e" );
+		if ( pItem )
+		{
+			pItem->setColor( packet->pantsColor() );
+			pItem->setNewbie( true );
+			pChar->addItem( ( tGender ) ? cBaseChar::OuterLegs : cBaseChar::Pants, pItem );
+		}
+
+		// Human Shoes
+		pItem = cItem::createFromScript( "170f" );
+		if ( pItem )
+		{
+			pItem->setNewbie( true );
+			pChar->addItem( cBaseChar::Shoes, pItem );
+		}
+	}
 
 	// Hair & Beard
 	if ( packet->hairStyle() )
@@ -2012,40 +2057,107 @@ void cUOSocket::handleCreateCharNew(cUORxCreateCharNew* packet)
 	pChar->setSkillValue(packet->skillId3(), packet->skillValue3() * 10);
 	pChar->setSkillValue(packet->skillId4(), packet->skillValue4() * 10);
 
-	// Create the char equipment (shirt, paint, hair and beard only)
+	// Create the char equipment (shirt, pants, hair and beard)
 	P_ITEM pItem;
 
-	// Shirt
-	pItem = cItem::createFromScript("1517");
-	pItem->setColor(packet->shirtColor());
-	pItem->setNewbie(true);
-	pChar->addItem(cBaseChar::Shirt, pItem);
+	if (isGargoyle)
+	{
+		// Gargish Fancy Shirt / Chest
+		pItem = cItem::createFromScript((tGender) ? "405" : "406");
+		if (pItem)
+		{
+			pItem->setColor(packet->shirtColor());
+			pItem->setNewbie(true);
+			pChar->addItem(cBaseChar::InnerTorso, pItem);
+		}
 
-	// Skirt or Pants
-	pItem = cItem::createFromScript((tGender) ? "1516" : "152e");
-	pItem->setColor(packet->pantsColor());
-	pItem->setNewbie(true);
-	pChar->addItem(cBaseChar::Pants, pItem);
+		// Gargish Fur Sarong / Kilt
+		pItem = cItem::createFromScript((tGender) ? "407" : "408");
+		if (pItem)
+		{
+			pItem->setColor(packet->pantsColor());
+			pItem->setNewbie(true);
+			pChar->addItem(cBaseChar::OuterLegs, pItem);
+		}
+	}
+	else if (isElf)
+	{
+		// Elven Shirt
+		pItem = cItem::createFromScript("3175");
+		if (pItem)
+		{
+			pItem->setColor(packet->shirtColor());
+			pItem->setNewbie(true);
+			pChar->addItem(cBaseChar::Shirt, pItem);
+		}
+
+		// Elven Pants
+		pItem = cItem::createFromScript("2fc3");
+		if (pItem)
+		{
+			pItem->setColor(packet->pantsColor());
+			pItem->setNewbie(true);
+			pChar->addItem(cBaseChar::Pants, pItem);
+		}
+
+		// Elven Boots
+		pItem = cItem::createFromScript("2fc4");
+		if (pItem)
+		{
+			pItem->setNewbie(true);
+			pChar->addItem(cBaseChar::Shoes, pItem);
+		}
+	}
+	else
+	{
+		// Human Shirt
+		pItem = cItem::createFromScript("1517");
+		if (pItem)
+		{
+			pItem->setColor(packet->shirtColor());
+			pItem->setNewbie(true);
+			pChar->addItem(cBaseChar::Shirt, pItem);
+		}
+
+		// Human Skirt or Pants
+		pItem = cItem::createFromScript((tGender) ? "1516" : "152e");
+		if (pItem)
+		{
+			pItem->setColor(packet->pantsColor());
+			pItem->setNewbie(true);
+			pChar->addItem((tGender) ? cBaseChar::OuterLegs : cBaseChar::Pants, pItem);
+		}
+
+		// Human Shoes
+		pItem = cItem::createFromScript("170f");
+		if (pItem)
+		{
+			pItem->setNewbie(true);
+			pChar->addItem(cBaseChar::Shoes, pItem);
+		}
+	}
 
 	// Hair & Beard
 	if (packet->hairStyle())
 	{
-		if (!isGargoyle)
+		pItem = cItem::createFromScript(QString("%1").arg(packet->hairStyle(), 0, 16));
+		if (pItem)
 		{
-			pItem = cItem::createFromScript(QString("%1").arg(packet->hairStyle(), 0, 16));
 			pItem->setNewbie(true);
 			pItem->setColor(packet->hairColor());
 			pChar->addItem(cBaseChar::Hair, pItem);
 		}
-
 	}
 
 	if (packet->beardStyle())
 	{
 		pItem = cItem::createFromScript(QString("%1").arg(packet->beardStyle(), 0, 16));
-		pItem->setNewbie(true);
-		pItem->setColor(packet->beardColor());
-		pChar->addItem(cBaseChar::FacialHair, pItem);
+		if (pItem)
+		{
+			pItem->setNewbie(true);
+			pItem->setColor(packet->beardColor());
+			pChar->addItem(cBaseChar::FacialHair, pItem);
+		}
 	}
 
 	// Automatically create Backpack + Bankbox
@@ -2054,6 +2166,7 @@ void cUOSocket::handleCreateCharNew(cUORxCreateCharNew* packet)
 
 	pChar->setAccount(_account);
 
+	pChar->giveNewbieItems(0xFF); // Default newbie items (gold, book, candle, racial dagger)
 	pChar->giveNewbieItems(packet->skillId1());
 	pChar->giveNewbieItems(packet->skillId2());
 	pChar->giveNewbieItems(packet->skillId3());
@@ -2365,40 +2478,107 @@ void cUOSocket::handleCreateChar3D(cUORxCreateCharacter3D* packet)
     pChar->setSkillValue(packet->skillId3(), packet->skillValue3() * 10);
     pChar->setSkillValue(packet->skillId4(), packet->skillValue4() * 10);
 
-    // Create the char equipment (shirt, paint, hair and beard only)
+    // Create the char equipment (shirt, pants, hair and beard)
     P_ITEM pItem;
 
-    // Shirt
-    pItem = cItem::createFromScript("1517");
-    pItem->setColor(packet->shirtColor());
-    pItem->setNewbie(true);
-    pChar->addItem(cBaseChar::Shirt, pItem);
+    if (isGargoyle)
+    {
+        // Gargish Fancy Shirt / Chest
+        pItem = cItem::createFromScript((tGender) ? "405" : "406");
+        if (pItem)
+        {
+            pItem->setColor(packet->shirtColor());
+            pItem->setNewbie(true);
+            pChar->addItem(cBaseChar::InnerTorso, pItem);
+        }
 
-    // Skirt or Pants
-    pItem = cItem::createFromScript((tGender) ? "1516" : "152e");
-    pItem->setColor(packet->pantsColor());
-    pItem->setNewbie(true);
-    pChar->addItem(cBaseChar::Pants, pItem);
+        // Gargish Fur Sarong / Kilt
+        pItem = cItem::createFromScript((tGender) ? "407" : "408");
+        if (pItem)
+        {
+            pItem->setColor(packet->pantsColor());
+            pItem->setNewbie(true);
+            pChar->addItem(cBaseChar::OuterLegs, pItem);
+        }
+    }
+    else if (isElf)
+    {
+        // Elven Shirt
+        pItem = cItem::createFromScript("3175");
+        if (pItem)
+        {
+            pItem->setColor(packet->shirtColor());
+            pItem->setNewbie(true);
+            pChar->addItem(cBaseChar::Shirt, pItem);
+        }
+
+        // Elven Pants
+        pItem = cItem::createFromScript("2fc3");
+        if (pItem)
+        {
+            pItem->setColor(packet->pantsColor());
+            pItem->setNewbie(true);
+            pChar->addItem(cBaseChar::Pants, pItem);
+        }
+
+        // Elven Boots
+        pItem = cItem::createFromScript("2fc4");
+        if (pItem)
+        {
+            pItem->setNewbie(true);
+            pChar->addItem(cBaseChar::Shoes, pItem);
+        }
+    }
+    else
+    {
+        // Human Shirt
+        pItem = cItem::createFromScript("1517");
+        if (pItem)
+        {
+            pItem->setColor(packet->shirtColor());
+            pItem->setNewbie(true);
+            pChar->addItem(cBaseChar::Shirt, pItem);
+        }
+
+        // Human Skirt or Pants
+        pItem = cItem::createFromScript((tGender) ? "1516" : "152e");
+        if (pItem)
+        {
+            pItem->setColor(packet->pantsColor());
+            pItem->setNewbie(true);
+            pChar->addItem((tGender) ? cBaseChar::OuterLegs : cBaseChar::Pants, pItem);
+        }
+
+        // Human Shoes
+        pItem = cItem::createFromScript("170f");
+        if (pItem)
+        {
+            pItem->setNewbie(true);
+            pChar->addItem(cBaseChar::Shoes, pItem);
+        }
+    }
 
     // Hair & Beard
     if (packet->hairStyle())
     {
-        if (!isGargoyle)
+        pItem = cItem::createFromScript(QString("%1").arg(packet->hairStyle(), 0, 16));
+        if (pItem)
         {
-            pItem = cItem::createFromScript(QString("%1").arg(packet->hairStyle(), 0, 16));
             pItem->setNewbie(true);
             pItem->setColor(packet->hairColor());
             pChar->addItem(cBaseChar::Hair, pItem);
         }
-
     }
 
     if (packet->beardStyle())
     {
         pItem = cItem::createFromScript(QString("%1").arg(packet->beardStyle(), 0, 16));
-        pItem->setNewbie(true);
-        pItem->setColor(packet->beardColor());
-        pChar->addItem(cBaseChar::FacialHair, pItem);
+        if (pItem)
+        {
+            pItem->setNewbie(true);
+            pItem->setColor(packet->beardColor());
+            pChar->addItem(cBaseChar::FacialHair, pItem);
+        }
     }
 
     // Automatically create Backpack + Bankbox
@@ -2407,6 +2587,7 @@ void cUOSocket::handleCreateChar3D(cUORxCreateCharacter3D* packet)
 
     pChar->setAccount(_account);
 
+    pChar->giveNewbieItems(0xFF); // Default newbie items (gold, book, candle, racial dagger)
     pChar->giveNewbieItems(packet->skillId1());
     pChar->giveNewbieItems(packet->skillId2());
     pChar->giveNewbieItems(packet->skillId3());

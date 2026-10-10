@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Talisman 0x2f58 -->
+	<item id="2f58">
+		<id>0x2f58</id>
+		<name>Talisman 0x2f58</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Talismans\Talisman 0x2f58</category>
+	</item>
+
+	<!-- Talisman 0x2f59 -->
+	<item id="2f59">
+		<id>0x2f59</id>
+		<name>Talisman 0x2f59</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Talismans\Talisman 0x2f59</category>
+	</item>
+
+	<!-- Talisman 0x2f5a -->
+	<item id="2f5a">
+		<id>0x2f5a</id>
+		<name>Talisman 0x2f5a</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Talismans\Talisman 0x2f5a</category>
+	</item>
+
+	<!-- Talisman 0x2f5b -->
+	<item id="2f5b">
+		<id>0x2f5b</id>
+		<name>Talisman 0x2f5b</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Talismans\Talisman 0x2f5b</category>
+	</item>
+
+	<!-- Mana Phasing Orb -->
+	<item id="1096">
+		<id>0x1096</id>
+		<name>Mana Phasing Orb</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<weight>1.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Talismans\Mana Phasing Orb</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Gargish Axe -->
+	<item id="48b2">
+		<id>0x48b2</id>
+		<name>Gargish Axe</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>4.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Axe (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="37" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="17" />
+	</item>
+
+	<item id="48b3" inherit="48b2">
+		<id>0x48b3</id>
+		<baseid>48b2</baseid>
+		<category>Base Weapons\Gargish\Gargish Axe (E/W)</category>
+	</item>
+
+	<!-- Gargish Bardiche -->
+	<item id="48b4">
+		<id>0x48b4</id>
+		<name>Gargish Bardiche</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="100" /></durability>
+		<weight>7.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Bardiche (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="28" />
+		<intproperty name="mindamage" value="17" />
+		<intproperty name="maxdamage" value="20" />
+	</item>
+
+	<item id="48b5" inherit="48b4">
+		<id>0x48b5</id>
+		<baseid>48b4</baseid>
+		<category>Base Weapons\Gargish\Gargish Bardiche (E/W)</category>
+	</item>
+
+	<!-- Gargish Battle Axe -->
+	<item id="48b0">
+		<id>0x48b0</id>
+		<name>Gargish Battle Axe</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="70" /></durability>
+		<weight>4.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Battle Axe (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="31" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="19" />
+	</item>
+
+	<item id="48b1" inherit="48b0">
+		<id>0x48b1</id>
+		<baseid>48b0</baseid>
+		<category>Base Weapons\Gargish\Gargish Battle Axe (E/W)</category>
+	</item>
+
+	<!-- Gargish Bone Harvester -->
+	<item id="48c6">
+		<id>0x48c6</id>
+		<name>Gargish Bone Harvester</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="70" /></durability>
+		<weight>3.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Bone Harvester (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="25" />
+		<intproperty name="speed" value="36" />
+		<intproperty name="mindamage" value="12" />
+		<intproperty name="maxdamage" value="16" />
+	</item>
+
+	<item id="48c7" inherit="48c6">
+		<id>0x48c7</id>
+		<baseid>48c6</baseid>
+		<category>Base Weapons\Gargish\Gargish Bone Harvester (E/W)</category>
+	</item>
+
+	<!-- Gargish Butcher Knife -->
+	<item id="48b6">
+		<id>0x48b6</id>
+		<name>Gargish Butcher Knife</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="40" /></durability>
+		<weight>1.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Butcher Knife (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="49" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="13" />
+	</item>
+
+	<item id="48b7" inherit="48b6">
+		<id>0x48b7</id>
+		<baseid>48b6</baseid>
+		<category>Base Weapons\Gargish\Gargish Butcher Knife (E/W)</category>
+	</item>
+
+	<!-- Gargish Cleaver -->
+	<item id="48ae">
+		<id>0x48ae</id>
+		<name>Gargish Cleaver</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="50" /></durability>
+		<weight>2.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Cleaver (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="46" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="48af" inherit="48ae">
+		<id>0x48af</id>
+		<baseid>48ae</baseid>
+		<category>Base Weapons\Gargish\Gargish Cleaver (E/W)</category>
+	</item>
+
+	<!-- Gargish Dagger -->
+	<item id="902">
+		<id>0x902</id>
+		<name>Gargish Dagger</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="40" /></durability>
+		<weight>1.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Dagger (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="56" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+	</item>
+
+	<item id="406a" inherit="902">
+		<id>0x406a</id>
+		<baseid>902</baseid>
+		<category>Base Weapons\Gargish\Gargish Dagger (E/W)</category>
+	</item>
+
+	<!-- Gargish Daisho -->
+	<item id="48d0">
+		<id>0x48d0</id>
+		<name>Gargish Daisho</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="45" max="65" /></durability>
+		<weight>8.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Daisho (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="40" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="16" />
+	</item>
+
+	<item id="48d1" inherit="48d0">
+		<id>0x48d1</id>
+		<baseid>48d0</baseid>
+		<category>Base Weapons\Gargish\Gargish Daisho (E/W)</category>
+	</item>
+
+	<!-- Gargish Gnarled Staff -->
+	<item id="48b8">
+		<id>0x48b8</id>
+		<name>Gargish Gnarled Staff</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="50" /></durability>
+		<weight>3.0</weight>
+		<type>1004</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Weapons\Gargish\Gargish Gnarled Staff (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+	</item>
+
+	<item id="48b9" inherit="48b8">
+		<id>0x48b9</id>
+		<baseid>48b8</baseid>
+		<category>Base Weapons\Gargish\Gargish Gnarled Staff (E/W)</category>
+	</item>
+
+	<!-- Gargish Katana -->
+	<item id="48ba">
+		<id>0x48ba</id>
+		<name>Gargish Katana</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="90" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Katana (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="25" />
+		<intproperty name="speed" value="46" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="48bb" inherit="48ba">
+		<id>0x48bb</id>
+		<baseid>48ba</baseid>
+		<category>Base Weapons\Gargish\Gargish Katana (E/W)</category>
+	</item>
+
+	<!-- Gargish Kryss -->
+	<item id="48bc">
+		<id>0x48bc</id>
+		<name>Gargish Kryss</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="90" /></durability>
+		<weight>2.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Kryss (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+	</item>
+
+	<item id="48bd" inherit="48bc">
+		<id>0x48bd</id>
+		<baseid>48bc</baseid>
+		<category>Base Weapons\Gargish\Gargish Kryss (E/W)</category>
+	</item>
+
+	<!-- Gargish Lance -->
+	<item id="48ca">
+		<id>0x48ca</id>
+		<name>Gargish Lance</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>12.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Lance (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="speed" value="24" />
+		<intproperty name="mindamage" value="18" />
+		<intproperty name="maxdamage" value="22" />
+	</item>
+
+	<item id="48cb" inherit="48ca">
+		<id>0x48cb</id>
+		<baseid>48ca</baseid>
+		<category>Base Weapons\Gargish\Gargish Lance (E/W)</category>
+	</item>
+
+	<!-- Gargish Maul -->
+	<item id="48c2">
+		<id>0x48c2</id>
+		<name>Gargish Maul</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="70" /></durability>
+		<weight>10.0</weight>
+		<type>1003</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Weapons\Gargish\Gargish Maul (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="32" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="18" />
+	</item>
+
+	<item id="48c3" inherit="48c2">
+		<id>0x48c3</id>
+		<baseid>48c2</baseid>
+		<category>Base Weapons\Gargish\Gargish Maul (E/W)</category>
+	</item>
+
+	<!-- Gargish Pike -->
+	<item id="48c8">
+		<id>0x48c8</id>
+		<name>Gargish Pike</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>8.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Pike (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="50" />
+		<intproperty name="speed" value="37" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="17" />
+	</item>
+
+	<item id="48c9" inherit="48c8">
+		<id>0x48c9</id>
+		<baseid>48c8</baseid>
+		<category>Base Weapons\Gargish\Gargish Pike (E/W)</category>
+	</item>
+
+	<!-- Gargish Scythe -->
+	<item id="48c4">
+		<id>0x48c4</id>
+		<name>Gargish Scythe</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="100" /></durability>
+		<weight>5.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Scythe (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="32" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="19" />
+	</item>
+
+	<item id="48c5" inherit="48c4">
+		<id>0x48c5</id>
+		<baseid>48c4</baseid>
+		<category>Base Weapons\Gargish\Gargish Scythe (E/W)</category>
+	</item>
+
+	<!-- Gargish Talwar -->
+	<item id="908">
+		<id>0x908</id>
+		<name>Gargish Talwar</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="80" /></durability>
+		<weight>16.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Talwar (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="19" />
+	</item>
+
+	<item id="4075" inherit="908">
+		<id>0x4075</id>
+		<baseid>908</baseid>
+		<category>Base Weapons\Gargish\Gargish Talwar (E/W)</category>
+	</item>
+
+	<!-- Gargish Tekagi -->
+	<item id="48ce">
+		<id>0x48ce</id>
+		<name>Gargish Tekagi</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="35" max="60" /></durability>
+		<weight>5.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish Tekagi (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="13" />
+	</item>
+
+	<item id="48cf" inherit="48ce">
+		<id>0x48cf</id>
+		<baseid>48ce</baseid>
+		<category>Base Weapons\Gargish\Gargish Tekagi (E/W)</category>
+	</item>
+
+	<!-- Gargish Tessen -->
+	<item id="48cc">
+		<id>0x48cc</id>
+		<name>Gargish Tessen</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="55" max="60" /></durability>
+		<weight>6.0</weight>
+		<type>1004</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Weapons\Gargish\Gargish Tessen (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="50" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="13" />
+	</item>
+
+	<item id="48cd" inherit="48cc">
+		<id>0x48cd</id>
+		<baseid>48cc</baseid>
+		<category>Base Weapons\Gargish\Gargish Tessen (E/W)</category>
+	</item>
+
+	<!-- Gargish War Fork -->
+	<item id="48be">
+		<id>0x48be</id>
+		<name>Gargish War Fork</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>9.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Gargish\Gargish War Fork (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="43" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="48bf" inherit="48be">
+		<id>0x48bf</id>
+		<baseid>48be</baseid>
+		<category>Base Weapons\Gargish\Gargish War Fork (E/W)</category>
+	</item>
+
+	<!-- Gargish War Hammer -->
+	<item id="48c0">
+		<id>0x48c0</id>
+		<name>Gargish War Hammer</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>10.0</weight>
+		<type>1004</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Weapons\Gargish\Gargish War Hammer (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="speed" value="28" />
+		<intproperty name="mindamage" value="17" />
+		<intproperty name="maxdamage" value="20" />
+	</item>
+
+	<item id="481" inherit="48c0">
+		<id>0x481</id>
+		<baseid>48c0</baseid>
+		<category>Base Weapons\Gargish\Gargish War Hammer (E/W)</category>
+	</item>
+
+</definitions>

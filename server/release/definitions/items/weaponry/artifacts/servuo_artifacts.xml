@@ -1,0 +1,3251 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Sapphire Mace -->
+	<item id="sapphire_mace" inherit="2d24">
+		<id>0x2d24</id>
+		<name>Sapphire Mace</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Sapphire Mace</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dreads Revenge -->
+	<item id="dreads_revenge" inherit="1401">
+		<id>0x1401</id>
+		<name>Dreads Revenge</name>
+		<decay />
+		<nodye />
+		<color>0x3a</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Dreads Revenge</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_speed" value="50" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Wounding Assassin Spike -->
+	<item id="wounding_assassin_spike" inherit="2d21">
+		<id>0x2d21</id>
+		<name>Wounding Assassin Spike</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Wounding Assassin Spike</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="hitharm" value="15" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Stone Slith Claw -->
+	<item id="stone_slith_claw" inherit="901">
+		<id>0x901</id>
+		<name>Stone Slith Claw</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Stone Slith Claw</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="daemondismissal" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="hitharm" value="40" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Churchills War Mace -->
+	<item id="churchills_war_mace" inherit="1407">
+		<id>0x1407</id>
+		<name>Churchills War Mace</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Churchills War Mace</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="aos_boni_damage" value="25" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Claws Of The Berserker -->
+	<item id="claws_of_the_berserker" inherit="27ab">
+		<id>0x27ab</id>
+		<name>Claws Of The Berserker</name>
+		<decay />
+		<nodye />
+		<color>0x494</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Claws Of The Berserker</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="aos_boni_damage" value="60" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="hitlightning" value="45" />
+		<intproperty name="hitlowerdefense" value="50" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Abyssal Blade -->
+	<item id="abyssal_blade" inherit="900">
+		<id>0x900</id>
+		<name>Abyssal Blade</name>
+		<decay />
+		<nodye />
+		<color>0x964</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Abyssal Blade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="60" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="lifeleech" value="60" />
+		<intproperty name="staminaleech" value="60" />
+		<intproperty name="manaleech" value="60" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- The Deceiver -->
+	<item id="the_deceiver" inherit="1443">
+		<id>0x1443</id>
+		<name>The Deceiver</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\The Deceiver</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="lowermanacost" value="8" />
+		<intproperty name="aos_boni_damage" value="75" />
+		<intproperty name="staminaleech" value="30" />
+		<intproperty name="hitlowerdefense" value="20" />
+		<intproperty name="hitlowerattack" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- True Spellblade -->
+	<item id="true_spellblade" inherit="2d20">
+		<id>0x2d20</id>
+		<name>True Spellblade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\True Spellblade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Runed Driftwood Bow -->
+	<item id="runed_driftwood_bow" inherit="13b2">
+		<id>0x13b2</id>
+		<name>Runed Driftwood Bow</name>
+		<decay />
+		<nodye />
+		<color>0xb8b</color>
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1006</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Runed Driftwood Bow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitlightning" value="40" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Slayer Longbow -->
+	<item id="slayer_longbow" inherit="2d1e">
+		<id>0x2d1e</id>
+		<name>Slayer Longbow</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Slayer Longbow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- The Beserkers Maul -->
+	<item id="the_beserkers_maul" inherit="143b">
+		<id>0x143b</id>
+		<name>The Beserkers Maul</name>
+		<decay />
+		<nodye />
+		<color>0x21</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\The Beserkers Maul</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="75" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Life Syphon -->
+	<item id="life_syphon" inherit="8fe">
+		<id>0x8fe</id>
+		<name>Life Syphon</name>
+		<decay />
+		<nodye />
+		<color>0x494</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Life Syphon</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonushitpoints" value="10" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="lifeleech" value="100" />
+		<intproperty name="hitharm" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Craven -->
+	<item id="craven" inherit="904">
+		<id>0x904</id>
+		<name>Craven</name>
+		<decay />
+		<nodye />
+		<color>0x555</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Craven</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="lowermanacost" value="8" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="aos_boni_speed" value="26" />
+		<intproperty name="hitlowerattack" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Eternal Guardian Staff -->
+	<item id="eternal_guardian_staff" inherit="13f8">
+		<id>0x13f8</id>
+		<name>Eternal Guardian Staff</name>
+		<decay />
+		<nodye />
+		<color>0x5f</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Eternal Guardian Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="spelldamagebonus" value="10" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- True Radiant Scimitar -->
+	<item id="true_radiant_scimitar" inherit="2d33">
+		<id>0x2d33</id>
+		<name>True Radiant Scimitar</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\True Radiant Scimitar</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Jockles Quicksword -->
+	<item id="jockles_quicksword" inherit="f61">
+		<id>0xf61</id>
+		<name>Jockles Quicksword</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Jockles Quicksword</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="aos_boni_damage" value="25" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Longbow Of Might -->
+	<item id="longbow_of_might" inherit="2d1e">
+		<id>0x2d1e</id>
+		<name>Longbow Of Might</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Longbow Of Might</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Calm -->
+	<item id="calm" inherit="143e">
+		<id>0x143e</id>
+		<name>Calm</name>
+		<decay />
+		<nodye />
+		<color>0x2cb</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Calm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="manaleech" value="100" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Faerie Fire -->
+	<item id="faerie_fire" inherit="2d1e">
+		<id>0x2d1e</id>
+		<name>Faerie Fire</name>
+		<decay />
+		<nodye />
+		<color>0x489</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Faerie Fire</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusdexterity" value="3" />
+		<intproperty name="aos_boni_damage" value="60" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitfireball" value="25" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Machete Of Defense -->
+	<item id="machete_of_defense" inherit="2d35">
+		<id>0x2d35</id>
+		<name>Machete Of Defense</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Machete Of Defense</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Katrinas Crook -->
+	<item id="katrinas_crook" inherit="e81">
+		<id>0xe81</id>
+		<name>Katrinas Crook</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Katrinas Crook</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="60" />
+		<intproperty name="lifeleech" value="55" />
+		<intproperty name="staminaleech" value="40" />
+		<intproperty name="manaleech" value="55" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ember Staff -->
+	<item id="ember_staff" inherit="e89">
+		<id>0xe89</id>
+		<name>Ember Staff</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Ember Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="hitfireball" value="15" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bow Of The Infinite Swarm -->
+	<item id="bow_of_the_infinite_swarm" inherit="26c2">
+		<id>0x26c2</id>
+		<name>Bow Of The Infinite Swarm</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1006</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Bow Of The Infinite Swarm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusstamina" value="8" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="staminaleech" value="50" />
+		<intproperty name="manaleech" value="50" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Pincer -->
+	<item id="pincer" inherit="f47">
+		<id>0xf47</id>
+		<name>Pincer</name>
+		<decay />
+		<nodye />
+		<color>0x9c4</color>
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Pincer</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenstamina" value="6" />
+		<intproperty name="regenmana" value="6" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="lifeleech" value="87" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Glacial Staff -->
+	<item id="glacial_staff" inherit="df0">
+		<id>0xdf0</id>
+		<name>Glacial Staff</name>
+		<decay />
+		<nodye />
+		<color>0x480</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Glacial Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="hitharm" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Flesh Ripper -->
+	<item id="flesh_ripper" inherit="2d21">
+		<id>0x2d21</id>
+		<name>Flesh Ripper</name>
+		<decay />
+		<nodye />
+		<color>0x341</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Flesh Ripper</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="aos_boni_speed" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Icy Spellblade -->
+	<item id="icy_spellblade" inherit="2d20">
+		<id>0x2d20</id>
+		<name>Icy Spellblade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Icy Spellblade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Cold Forged Blade -->
+	<item id="cold_forged_blade" inherit="2d20">
+		<id>0x2d20</id>
+		<name>Cold Forged Blade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Cold Forged Blade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="hitharm" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- True Leafblade -->
+	<item id="true_leafblade" inherit="2d22">
+		<id>0x2d22</id>
+		<name>True Leafblade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\True Leafblade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Shard Thrasher -->
+	<item id="shard_thrasher" inherit="2d24">
+		<id>0x2d24</id>
+		<name>Shard Thrasher</name>
+		<decay />
+		<nodye />
+		<color>0x4f2</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Shard Thrasher</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusstamina" value="8" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Mischief Maker -->
+	<item id="mischief_maker" inherit="2d2b">
+		<id>0x2d2b</id>
+		<name>Mischief Maker</name>
+		<decay />
+		<nodye />
+		<color>0x8ab</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Mischief Maker</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="silver" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Wind Of Corruption -->
+	<item id="wind_of_corruption" inherit="901">
+		<id>0x901</id>
+		<name>Wind Of Corruption</name>
+		<decay />
+		<nodye />
+		<color>0x493</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Wind Of Corruption</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="fey" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="staminaleech" value="40" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Quell -->
+	<item id="quell" inherit="f4d">
+		<id>0xf4d</id>
+		<name>Quell</name>
+		<decay />
+		<nodye />
+		<color>0x225</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Quell</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="manaleech" value="100" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Fiery Spellblade -->
+	<item id="fiery_spellblade" inherit="2d20">
+		<id>0x2d20</id>
+		<name>Fiery Spellblade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Fiery Spellblade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Abyss Reaver -->
+	<item id="abyss_reaver" inherit="901">
+		<id>0x901</id>
+		<name>Abyss Reaver</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Abyss Reaver</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="exorcism" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Resonant Staffof Enlightenment -->
+	<item id="resonant_staffof_enlightenment" inherit="e89">
+		<id>0xe89</id>
+		<name>Resonant Staffof Enlightenment</name>
+		<decay />
+		<nodye />
+		<color>0x961</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Resonant Staffof Enlightenment</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusintelligence" value="5" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitmagicarrow" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Diseased Machete -->
+	<item id="diseased_machete" inherit="2d35">
+		<id>0x2d35</id>
+		<name>Diseased Machete</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Diseased Machete</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Deaths Head -->
+	<item id="deaths_head" inherit="903">
+		<id>0x903</id>
+		<name>Deaths Head</name>
+		<decay />
+		<nodye />
+		<color>0x482</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Deaths Head</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitlightning" value="45" />
+		<intproperty name="hitlowerdefense" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Valkyries Glaive -->
+	<item id="valkyries_glaive" inherit="90a">
+		<id>0x90a</id>
+		<name>Valkyries Glaive</name>
+		<decay />
+		<nodye />
+		<color>0x673</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Valkyries Glaive</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="silver" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="aos_boni_damage" value="20" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitfireball" value="40" />
+		<intproperty name="artifact_rarity" value="5" />
+	</item>
+
+	<!-- Mangler -->
+	<item id="mangler" inherit="f5e">
+		<id>0xf5e</id>
+		<name>Mangler</name>
+		<decay />
+		<nodye />
+		<color>0x7d1</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Mangler</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="manaleech" value="50" />
+		<intproperty name="hitharm" value="50" />
+		<intproperty name="hitlowerdefense" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Arcanists Wild Staff -->
+	<item id="arcanists_wild_staff" inherit="2d25">
+		<id>0x2d25</id>
+		<name>Arcanists Wild Staff</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Arcanists Wild Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusmana" value="3" />
+		<intproperty name="aos_boni_damage" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Light In The Void -->
+	<item id="light_in_the_void" inherit="908">
+		<id>0x908</id>
+		<name>Light In The Void</name>
+		<decay />
+		<nodye />
+		<color>0x430</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Light In The Void</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="silver" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusstrength" value="8" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitlightning" value="45" />
+		<intproperty name="hitlowerdefense" value="30" />
+		<intproperty name="artifact_rarity" value="5" />
+	</item>
+
+	<!-- Stone Dragons Tooth -->
+	<item id="stone_dragons_tooth" inherit="902">
+		<id>0x902</id>
+		<name>Stone Dragons Tooth</name>
+		<decay />
+		<nodye />
+		<color>0x967</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Stone Dragons Tooth</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenhitpoints" value="3" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="hitmagicarrow" value="40" />
+		<intproperty name="hitlowerdefense" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Jaanas Staff -->
+	<item id="jaanas_staff" inherit="13f8">
+		<id>0x13f8</id>
+		<name>Jaanas Staff</name>
+		<decay />
+		<nodye />
+		<color>0x58c</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Jaanas Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="luck" value="220" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Assassins Shortbow -->
+	<item id="assassins_shortbow" inherit="2d2b">
+		<id>0x2d2b</id>
+		<name>Assassins Shortbow</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Assassins Shortbow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="3" />
+		<intproperty name="aos_boni_damage" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bonesmasher -->
+	<item id="bonesmasher" inherit="2d24">
+		<id>0x2d24</id>
+		<name>Bonesmasher</name>
+		<decay />
+		<nodye />
+		<color>0x482</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Bonesmasher</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="manaleech" value="40" />
+		<intproperty name="selfrepair" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Blade Of Battle -->
+	<item id="blade_of_battle" inherit="907">
+		<id>0x907</id>
+		<name>Blade Of Battle</name>
+		<decay />
+		<nodye />
+		<color>0x7fd</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Blade Of Battle</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Righteous Anger -->
+	<item id="righteous_anger" inherit="2d35">
+		<id>0x2d35</id>
+		<name>Righteous Anger</name>
+		<decay />
+		<nodye />
+		<color>0x284</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Righteous Anger</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Magekiller Assassin Spike -->
+	<item id="magekiller_assassin_spike" inherit="2d21">
+		<id>0x2d21</id>
+		<name>Magekiller Assassin Spike</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Magekiller Assassin Spike</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="manaleech" value="16" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Staff Of Shattered Dreams -->
+	<item id="staff_of_shattered_dreams" inherit="905">
+		<id>0x905</id>
+		<name>Staff Of Shattered Dreams</name>
+		<decay />
+		<nodye />
+		<color>0x47f</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Staff Of Shattered Dreams</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="hitdispel" value="25" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Rangers Shortbow -->
+	<item id="rangers_shortbow" inherit="2d2b">
+		<id>0x2d2b</id>
+		<name>Rangers Shortbow</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Rangers Shortbow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_speed" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Orcish Machete -->
+	<item id="orcish_machete" inherit="2d35">
+		<id>0x2d35</id>
+		<name>Orcish Machete</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Orcish Machete</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Barbed Longbow -->
+	<item id="barbed_longbow" inherit="2d1e">
+		<id>0x2d1e</id>
+		<name>Barbed Longbow</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Barbed Longbow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="reflectphysical" value="12" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Royal Guard Survival Knife -->
+	<item id="royal_guard_survival_knife" inherit="ec4">
+		<id>0xec4</id>
+		<name>Royal Guard Survival Knife</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Royal Guard Survival Knife</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="luck" value="140" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Darkglow Scimitar -->
+	<item id="darkglow_scimitar" inherit="2d33">
+		<id>0x2d33</id>
+		<name>Darkglow Scimitar</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Darkglow Scimitar</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="hitdispel" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- The Night Reaper -->
+	<item id="the_night_reaper" inherit="26c3">
+		<id>0x26c3</id>
+		<name>The Night Reaper</name>
+		<decay />
+		<nodye />
+		<color>0x41c</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\The Night Reaper</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="exorcism" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="55" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ironwood Composite Bow -->
+	<item id="ironwood_composite_bow" inherit="26c2">
+		<id>0x26c2</id>
+		<name>Ironwood Composite Bow</name>
+		<decay />
+		<nodye />
+		<color>0x582</color>
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1006</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Ironwood Composite Bow</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="fey" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="hitfireball" value="40" />
+		<intproperty name="hitlowerdefense" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Blaze Of Death -->
+	<item id="blaze_of_death" inherit="143e">
+		<id>0x143e</id>
+		<name>Blaze Of Death</name>
+		<decay />
+		<nodye />
+		<color>0x501</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Blaze Of Death</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="hitfireball" value="50" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Banshees Call -->
+	<item id="banshees_call" inherit="901">
+		<id>0x901</id>
+		<name>Banshees Call</name>
+		<decay />
+		<nodye />
+		<color>0x4f2</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Banshees Call</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="lifeleech" value="45" />
+		<intproperty name="hitharm" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Channelers Defender -->
+	<item id="channelers_defender" inherit="90c">
+		<id>0x90c</id>
+		<name>Channelers Defender</name>
+		<decay />
+		<nodye />
+		<color>0x5f</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Channelers Defender</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="castrecoverybonus" value="1" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitlowerattack" value="60" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Brave Knight Of The Britannia -->
+	<item id="brave_knight_of_the_britannia" inherit="13ff">
+		<id>0x13ff</id>
+		<name>Brave Knight Of The Britannia</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Brave Knight Of The Britannia</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="lifeleech" value="22" />
+		<intproperty name="staminaleech" value="48" />
+		<intproperty name="hitharm" value="26" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Breastplate Of The Berserker -->
+	<item id="breastplate_of_the_berserker" inherit="30a">
+		<id>0x30a</id>
+		<name>Breastplate Of The Berserker</name>
+		<decay />
+		<nodye />
+		<color>0x494</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Breastplate Of The Berserker</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="4" />
+		<intproperty name="aos_boni_damage" value="15" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Talon Bite -->
+	<item id="talon_bite" inherit="2d28">
+		<id>0x2d28</id>
+		<name>Talon Bite</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Talon Bite</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusdexterity" value="8" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitharm" value="33" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Adventurers Machete -->
+	<item id="adventurers_machete" inherit="2d35">
+		<id>0x2d35</id>
+		<name>Adventurers Machete</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Adventurers Machete</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="luck" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Infused Glass Stave -->
+	<item id="infused_glass_stave" inherit="905">
+		<id>0x905</id>
+		<name>Infused Glass Stave</name>
+		<decay />
+		<nodye />
+		<color>0x17</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Infused Glass Stave</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Melisandes Corroded Hatchet -->
+	<item id="melisandes_corroded_hatchet" inherit="f43">
+		<id>0xf43</id>
+		<name>Melisandes Corroded Hatchet</name>
+		<decay />
+		<nodye />
+		<color>0x494</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Melisandes Corroded Hatchet</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_speed" value="15" />
+		<intproperty name="selfrepair" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Staff Of Resonance -->
+	<item id="staff_of_resonance" inherit="905">
+		<id>0x905</id>
+		<name>Staff Of Resonance</name>
+		<decay />
+		<nodye />
+		<color>0x5ab</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Staff Of Resonance</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitharm" value="50" />
+		<intproperty name="artifact_rarity" value="5" />
+	</item>
+
+	<!-- Vampiric Essence -->
+	<item id="vampiric_essence" inherit="1441">
+		<id>0x1441</id>
+		<name>Vampiric Essence</name>
+		<decay />
+		<nodye />
+		<color>0x27</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Vampiric Essence</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="lifeleech" value="100" />
+		<intproperty name="hitharm" value="50" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Jade War Axe -->
+	<item id="jade_war_axe" inherit="13b0">
+		<id>0x13b0</id>
+		<name>Jade War Axe</name>
+		<decay />
+		<nodye />
+		<color>0x48a</color>
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Jade War Axe</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="reptiliandeath" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="hitfireball" value="30" />
+		<intproperty name="hitlowerdefense" value="60" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Draconis Wrath -->
+	<item id="draconis_wrath" inherit="13ff">
+		<id>0x13ff</id>
+		<name>Draconis Wrath</name>
+		<decay />
+		<nodye />
+		<color>0x499</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Draconis Wrath</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="hitfireball" value="60" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dragons End -->
+	<item id="dragons_end" inherit="f61">
+		<id>0xf61</id>
+		<name>Dragons End</name>
+		<decay />
+		<nodye />
+		<color>0x554</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Dragons End</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="dragonslaying" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="aos_boni_damage" value="60" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Raeds Glory -->
+	<item id="raeds_glory" inherit="2d2f">
+		<id>0x2d2f</id>
+		<name>Raeds Glory</name>
+		<decay />
+		<nodye />
+		<color>0x1e6</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Raeds Glory</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusmana" value="8" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="lifeleech" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Storm Caller -->
+	<item id="storm_caller" inherit="8ff">
+		<id>0x8ff</id>
+		<name>Storm Caller</name>
+		<decay />
+		<nodye />
+		<color>0x1c8</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Storm Caller</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitlightning" value="40" />
+		<intproperty name="hitlowerdefense" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Shamino Crossbow -->
+	<item id="shamino_crossbow" inherit="26c3">
+		<id>0x26c3</id>
+		<name>Shamino Crossbow</name>
+		<decay />
+		<nodye />
+		<color>0x504</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Shamino Crossbow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="selfrepair" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Singing Axe -->
+	<item id="singing_axe" inherit="2d28">
+		<id>0x2d28</id>
+		<name>Singing Axe</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Singing Axe</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Standard Of Chaos -->
+	<item id="standard_of_chaos" inherit="26bf">
+		<id>0x26bf</id>
+		<name>Standard Of Chaos</name>
+		<decay />
+		<nodye />
+		<color>0x8a1</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Standard Of Chaos</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitlightning" value="10" />
+		<intproperty name="hitfireball" value="20" />
+		<intproperty name="hitharm" value="30" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Guardian Axe -->
+	<item id="guardian_axe" inherit="2d28">
+		<id>0x2d28</id>
+		<name>Guardian Axe</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Guardian Axe</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonushitpoints" value="4" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Thundering Axe -->
+	<item id="thundering_axe" inherit="2d28">
+		<id>0x2d28</id>
+		<name>Thundering Axe</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Thundering Axe</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="hitlightning" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Spellblade Of Defense -->
+	<item id="spellblade_of_defense" inherit="2d20">
+		<id>0x2d20</id>
+		<name>Spellblade Of Defense</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Spellblade Of Defense</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Blackthorns Kryss -->
+	<item id="blackthorns_kryss" inherit="1401">
+		<id>0x1401</id>
+		<name>Blackthorns Kryss</name>
+		<decay />
+		<nodye />
+		<color>0x5e5</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Blackthorns Kryss</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="luck" value="100" />
+		<intproperty name="lifeleech" value="22" />
+		<intproperty name="hitlowerattack" value="60" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Rune Carving Knife -->
+	<item id="rune_carving_knife" inherit="2d21">
+		<id>0x2d21</id>
+		<name>Rune Carving Knife</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Rune Carving Knife</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenstamina" value="2" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="aos_boni_damage" value="30" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="manaleech" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Hardened Wild Staff -->
+	<item id="hardened_wild_staff" inherit="2d25">
+		<id>0x2d25</id>
+		<name>Hardened Wild Staff</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Hardened Wild Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Giant Steps -->
+	<item id="giant_steps" inherit="28a">
+		<id>0x28a</id>
+		<name>Giant Steps</name>
+		<decay />
+		<nodye />
+		<color>0x290</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Giant Steps</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="aos_boni_damage" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Soul Seeker -->
+	<item id="soul_seeker" inherit="2d33">
+		<id>0x2d33</id>
+		<name>Soul Seeker</name>
+		<decay />
+		<nodye />
+		<color>0x38c</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Soul Seeker</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="repond" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_speed" value="60" />
+		<intproperty name="lifeleech" value="30" />
+		<intproperty name="staminaleech" value="40" />
+		<intproperty name="manaleech" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Glenda -->
+	<item id="glenda" inherit="13b4">
+		<id>0x13b4</id>
+		<name>Glenda</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Glenda</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusstrength" value="16" />
+		<intproperty name="aos_boni_damage" value="100" />
+		<intproperty name="manaleech" value="20" />
+		<intproperty name="hitlowerdefense" value="70" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- The Impalers Pick -->
+	<item id="the_impalers_pick" inherit="143d">
+		<id>0x143d</id>
+		<name>The Impalers Pick</name>
+		<decay />
+		<nodye />
+		<color>0x835</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\The Impalers Pick</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="repond" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitlightning" value="40" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Wildfire Bow -->
+	<item id="wildfire_bow" inherit="2d1e">
+		<id>0x2d1e</id>
+		<name>Wildfire Bow</name>
+		<decay />
+		<nodye />
+		<color>0x489</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Wildfire Bow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- FN Pitchfork -->
+	<item id="fn_pitchfork" inherit="e87">
+		<id>0xe87</id>
+		<name>FN Pitchfork</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\FN Pitchfork</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Phantom Staff -->
+	<item id="phantom_staff" inherit="2d25">
+		<id>0x2d25</id>
+		<name>Phantom Staff</name>
+		<decay />
+		<nodye />
+		<color>0x1</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Phantom Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="aos_boni_damage" value="60" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Mages Rune Blade -->
+	<item id="mages_rune_blade" inherit="2d32">
+		<id>0x2d32</id>
+		<name>Mages Rune Blade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Mages Rune Blade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Axes Of Fury -->
+	<item id="axes_of_fury" inherit="8fd">
+		<id>0x8fd</id>
+		<name>Axes Of Fury</name>
+		<decay />
+		<nodye />
+		<color>0x21</color>
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Axes Of Fury</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="20" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitfireball" value="45" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Thorned Wild Staff -->
+	<item id="thorned_wild_staff" inherit="2d25">
+		<id>0x2d25</id>
+		<name>Thorned Wild Staff</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Thorned Wild Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="reflectphysical" value="12" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Boomstick -->
+	<item id="boomstick" inherit="2d25">
+		<id>0x2d25</id>
+		<name>Boomstick</name>
+		<decay />
+		<nodye />
+		<color>0x25</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Boomstick</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenmana" value="3" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="lowerreagentcost" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Charged Assassin Spike -->
+	<item id="charged_assassin_spike" inherit="2d21">
+		<id>0x2d21</id>
+		<name>Charged Assassin Spike</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Charged Assassin Spike</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="hitlightning" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Icy Scimitar -->
+	<item id="icy_scimitar" inherit="2d33">
+		<id>0x2d33</id>
+		<name>Icy Scimitar</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Icy Scimitar</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="hitharm" value="15" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Raptor Claw -->
+	<item id="raptor_claw" inherit="8ff">
+		<id>0x8ff</id>
+		<name>Raptor Claw</name>
+		<decay />
+		<nodye />
+		<color>0x35</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Raptor Claw</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="silver" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="12" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="staminaleech" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Holy Sword -->
+	<item id="holy_sword" inherit="f61">
+		<id>0xf61</id>
+		<name>Holy Sword</name>
+		<decay />
+		<nodye />
+		<color>0x482</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Holy Sword</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="silver" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="selfrepair" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Subdue -->
+	<item id="subdue" inherit="26ba">
+		<id>0x26ba</id>
+		<name>Subdue</name>
+		<decay />
+		<nodye />
+		<color>0x2cb</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Subdue</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="manaleech" value="100" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Frozen Longbow -->
+	<item id="frozen_longbow" inherit="2d1e">
+		<id>0x2d1e</id>
+		<name>Frozen Longbow</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Frozen Longbow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- True Assassin Spike -->
+	<item id="true_assassin_spike" inherit="2d21">
+		<id>0x2d21</id>
+		<name>True Assassin Spike</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\True Assassin Spike</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="4" />
+		<intproperty name="aos_boni_damage" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sword Of Shattered Hopes -->
+	<item id="sword_of_shattered_hopes" inherit="90c">
+		<id>0x90c</id>
+		<name>Sword Of Shattered Hopes</name>
+		<decay />
+		<nodye />
+		<color>0x5b</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Sword Of Shattered Hopes</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitdispel" value="25" />
+		<intproperty name="artifact_rarity" value="10" />
+	</item>
+
+	<!-- The Dragons Tail -->
+	<item id="the_dragons_tail" inherit="27a2">
+		<id>0x27a2</id>
+		<name>The Dragons Tail</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\The Dragons Tail</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="25" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="staminaleech" value="16" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Runesabre -->
+	<item id="runesabre" inherit="2d32">
+		<id>0x2d32</id>
+		<name>Runesabre</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Runesabre</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Overseer Sundered Blade -->
+	<item id="overseer_sundered_blade" inherit="2d33">
+		<id>0x2d33</id>
+		<name>Overseer Sundered Blade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Overseer Sundered Blade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="regenstamina" value="2" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Petrified Snake -->
+	<item id="petrified_snake" inherit="906">
+		<id>0x906</id>
+		<name>Petrified Snake</name>
+		<decay />
+		<nodye />
+		<color>0x1cc</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Petrified Snake</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="reptiliandeath" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitmagicarrow" value="30" />
+		<intproperty name="hitlowerdefense" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Butchers War Cleaver -->
+	<item id="butchers_war_cleaver" inherit="2d2f">
+		<id>0x2d2f</id>
+		<name>Butchers War Cleaver</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Butchers War Cleaver</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Demon Hunters Standard -->
+	<item id="demon_hunters_standard" inherit="f62">
+		<id>0xf62</id>
+		<name>Demon Hunters Standard</name>
+		<decay />
+		<nodye />
+		<color>0x561</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Demon Hunters Standard</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="exorcism" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="staminaleech" value="50" />
+		<intproperty name="hitlightning" value="40" />
+		<intproperty name="hitlowerdefense" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Blade Dance -->
+	<item id="blade_dance" inherit="2d32">
+		<id>0x2d32</id>
+		<name>Blade Dance</name>
+		<decay />
+		<nodye />
+		<color>0x66c</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Blade Dance</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="bonusmana" value="8" />
+		<intproperty name="aos_boni_damage" value="30" />
+		<intproperty name="manaleech" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Oblivions Needle -->
+	<item id="oblivions_needle" inherit="f52">
+		<id>0xf52</id>
+		<name>Oblivions Needle</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Oblivions Needle</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="20" />
+		<intproperty name="bonusstamina" value="20" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="staminaleech" value="50" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Rune Blade Of Knowledge -->
+	<item id="rune_blade_of_knowledge" inherit="2d32">
+		<id>0x2d32</id>
+		<name>Rune Blade Of Knowledge</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Rune Blade Of Knowledge</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="spelldamagebonus" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Abhorrence -->
+	<item id="abhorrence" inherit="f50">
+		<id>0xf50</id>
+		<name>Abhorrence</name>
+		<decay />
+		<nodye />
+		<color>0x776</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Abhorrence</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="manaleech" value="40" />
+		<intproperty name="hitlightning" value="35" />
+		<intproperty name="hitlowerdefense" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Axe Of Abandon -->
+	<item id="axe_of_abandon" inherit="f47">
+		<id>0xf47</id>
+		<name>Axe Of Abandon</name>
+		<decay />
+		<nodye />
+		<color>0x22c</color>
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1002</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Axe Of Abandon</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Recaros Riposte -->
+	<item id="recaros_riposte" inherit="1405">
+		<id>0x1405</id>
+		<name>Recaros Riposte</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Recaros Riposte</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="aos_boni_damage" value="25" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Captain Johnes Blade -->
+	<item id="captain_johnes_blade" inherit="13b6">
+		<id>0x13b6</id>
+		<name>Captain Johnes Blade</name>
+		<decay />
+		<nodye />
+		<color>0x84c</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Captain Johnes Blade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="aos_boni_damage" value="60" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights War Cleaver -->
+	<item id="knights_war_cleaver" inherit="2d2f">
+		<id>0x2d2f</id>
+		<name>Knights War Cleaver</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Knights War Cleaver</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenhitpoints" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Cavalrys Folly -->
+	<item id="cavalrys_folly" inherit="26bd">
+		<id>0x26bd</id>
+		<name>Cavalrys Folly</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Cavalrys Folly</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="hitfireball" value="40" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Luminous Rune Blade -->
+	<item id="luminous_rune_blade" inherit="2d32">
+		<id>0x2d32</id>
+		<name>Luminous Rune Blade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Luminous Rune Blade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="55" />
+		<intproperty name="aos_boni_speed" value="25" />
+		<intproperty name="hitlightning" value="40" />
+		<intproperty name="selfrepair" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Equivocation -->
+	<item id="equivocation" inherit="13f8">
+		<id>0x13f8</id>
+		<name>Equivocation</name>
+		<decay />
+		<nodye />
+		<color>0x555</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Equivocation</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="regenhitpoints" value="6" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Windsong -->
+	<item id="windsong" inherit="2d2b">
+		<id>0x2d2b</id>
+		<name>Windsong</name>
+		<decay />
+		<nodye />
+		<color>0xac</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Windsong</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Fang Of Ractus -->
+	<item id="fang_of_ractus" inherit="1401">
+		<id>0x1401</id>
+		<name>Fang Of Ractus</name>
+		<decay />
+		<nodye />
+		<color>0x117</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Fang Of Ractus</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Heartseeker -->
+	<item id="heartseeker" inherit="26c2">
+		<id>0x26c2</id>
+		<name>Heartseeker</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1006</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Heartseeker</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="aos_boni_damage" value="25" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scepter Of The Chief -->
+	<item id="scepter_of_the_chief" inherit="26bc">
+		<id>0x26bc</id>
+		<name>Scepter Of The Chief</name>
+		<decay />
+		<nodye />
+		<color>0x481</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Scepter Of The Chief</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="exorcism" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="reflectphysical" value="15" />
+		<intproperty name="aos_boni_damage" value="45" />
+		<intproperty name="manaleech" value="100" />
+		<intproperty name="hitdispel" value="100" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Mystical Shortbow -->
+	<item id="mystical_shortbow" inherit="2d2b">
+		<id>0x2d2b</id>
+		<name>Mystical Shortbow</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Mystical Shortbow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Twinkling Scimitar -->
+	<item id="twinkling_scimitar" inherit="2d33">
+		<id>0x2d33</id>
+		<name>Twinkling Scimitar</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Twinkling Scimitar</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_defense_chance" value="6" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Leafblade Of Ease -->
+	<item id="leafblade_of_ease" inherit="2d22">
+		<id>0x2d22</id>
+		<name>Leafblade Of Ease</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Leafblade Of Ease</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Legacy Of Despair -->
+	<item id="legacy_of_despair" inherit="90b">
+		<id>0x90b</id>
+		<name>Legacy Of Despair</name>
+		<decay />
+		<nodye />
+		<color>0x30</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Legacy Of Despair</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="60" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitlowerdefense" value="50" />
+		<intproperty name="hitlowerattack" value="50" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Pacify -->
+	<item id="pacify" inherit="26be">
+		<id>0x26be</id>
+		<name>Pacify</name>
+		<decay />
+		<nodye />
+		<color>0x835</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Pacify</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="manaleech" value="100" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- The Redeemer -->
+	<item id="the_redeemer" inherit="26ce">
+		<id>0x26ce</id>
+		<name>The Redeemer</name>
+		<decay />
+		<nodye />
+		<color>0x900</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\The Redeemer</category>
+		<tag name="resname" value="iron" />
+		<tag name="slayer" value="silver" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_damage" value="55" />
+		<intproperty name="artifact_rarity" value="7" />
+	</item>
+
+	<!-- Blight Gripped Longbow -->
+	<item id="blight_gripped_longbow" inherit="2d1e">
+		<id>0x2d1e</id>
+		<name>Blight Gripped Longbow</name>
+		<decay />
+		<nodye />
+		<color>0x8a4</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Blight Gripped Longbow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="aos_boni_speed" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Standard Of Chaos G -->
+	<item id="standard_of_chaos_g" inherit="904">
+		<id>0x904</id>
+		<name>Standard Of Chaos G</name>
+		<decay />
+		<nodye />
+		<color>0x8a1</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Standard Of Chaos G</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="hitlightning" value="10" />
+		<intproperty name="hitfireball" value="20" />
+		<intproperty name="hitharm" value="30" />
+		<intproperty name="hitlowerdefense" value="40" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Corrupted Rune Blade -->
+	<item id="corrupted_rune_blade" inherit="2d32">
+		<id>0x2d32</id>
+		<name>Corrupted Rune Blade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Corrupted Rune Blade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Silver Serpent Blade -->
+	<item id="silver_serpent_blade" inherit="1401">
+		<id>0x1401</id>
+		<name>Silver Serpent Blade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Silver Serpent Blade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="aos_boni_damage" value="25" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- True War Cleaver -->
+	<item id="true_war_cleaver" inherit="2d2f">
+		<id>0x2d2f</id>
+		<name>True War Cleaver</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\True War Cleaver</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="aos_boni_damage" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Luckblade -->
+	<item id="luckblade" inherit="2d22">
+		<id>0x2d22</id>
+		<name>Luckblade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Luckblade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="luck" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ancient Wild Staff -->
+	<item id="ancient_wild_staff" inherit="2d25">
+		<id>0x2d25</id>
+		<name>Ancient Wild Staff</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Ancient Wild Staff</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Magekiller Leafblade -->
+	<item id="magekiller_leafblade" inherit="2d22">
+		<id>0x2d22</id>
+		<name>Magekiller Leafblade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Magekiller Leafblade</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="manaleech" value="16" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Silvanis Feywood Bow -->
+	<item id="silvanis_feywood_bow" inherit="2d1e">
+		<id>0x2d1e</id>
+		<name>Silvanis Feywood Bow</name>
+		<decay />
+		<nodye />
+		<color>0x1a</color>
+		<onehanded />
+		<durability><random min="255" max="255" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Artifacts\Silvanis Feywood Bow</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="18" />
+		<intproperty name="speed" value="35" />
+		<intproperty name="aos_boni_hit_chance" value="12" />
+		<intproperty name="aos_boni_damage" value="35" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+</definitions>

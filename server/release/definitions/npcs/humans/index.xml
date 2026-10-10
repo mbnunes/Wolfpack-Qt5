@@ -25,4 +25,7 @@
 	
 	<!-- Playervendors -->
 	<include file="definitions/npcs/humans/playervendors.xml"/>
+
+	<!-- ServUO Townfolk -->
+	<include file="definitions/npcs/humans/servuo_townfolk.xml"/>
 </definitions>

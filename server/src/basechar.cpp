@@ -2386,6 +2386,8 @@ PyObject* cBaseChar::getProperty( const QString& name, uint hash )
 		return createPyObject( isInvulnerable() );
 	case 0x6c26: // elf
 		return createPyObject( isElf() );
+	case 0x88e6af5: // gargoyle
+		return createPyObject( isGargoyle() );
 	case 0xd098975: // invisible
 		return createPyObject( isInvisible() );
 	case 0x6d970be: // frozen

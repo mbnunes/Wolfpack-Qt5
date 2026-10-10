@@ -452,6 +452,7 @@ public:
 	bool isAtWar() const;
 	bool isInvulnerable() const;
 	bool isElf() const;
+	bool isGargoyle() const;
 	bool isReputationHidden() const;
 	bool isUnderwearDisabled() const;
 	unsigned char direction() const;
@@ -1609,10 +1610,15 @@ inline void cBaseChar::setElf( bool data )
 inline void cBaseChar::setGargoyle(bool data)
 {
 	if (data)
-		propertyFlags_ |= 0x800000;
+		propertyFlags_ |= 0x1000000;
 	else
-		propertyFlags_ &= ~0x800000;
+		propertyFlags_ &= ~0x1000000;
 	changed_ = true;
+}
+
+inline bool cBaseChar::isGargoyle() const
+{
+	return (propertyFlags_ & 0x1000000) != 0 || body_ == 0x29a || body_ == 0x29b || body_ == 0x2b6 || body_ == 0x2b7;
 }
 
 inline cBaseChar::CharContainer cBaseChar::guardedby() const
@@ -1627,7 +1633,7 @@ inline cBaseChar::ItemContainer cBaseChar::content() const
 
 inline bool cBaseChar::isFemale() const
 {
-	return ( body_ == 0x191 || body_ == 0x193 || body_ == 0x25e || body_ == 0x260 );
+	return ( body_ == 0x191 || body_ == 0x193 || body_ == 0x25e || body_ == 0x260 || body_ == 0x29a || body_ == 0x2b6 );
 }
 
 inline bool cBaseChar::isHuman() const

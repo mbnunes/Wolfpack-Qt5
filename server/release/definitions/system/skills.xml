@@ -607,6 +607,50 @@
 		<title>Ninja</title>
 	</skill>
 
+	<!-- Spellweaving -->
+	<skill id="54">
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
+		<defname>SPELLWEAVING</defname>
+		<name>Spellweaving</name>
+		<title>Arcanist</title>
+	</skill>
+
+	<!-- Mysticism -->
+	<skill id="55">
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
+		<defname>MYSTICISM</defname>
+		<name>Mysticism</name>
+		<title>Mystic</title>
+	</skill>
+
+	<!-- Imbuing -->
+	<skill id="56">
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
+		<defname>IMBUING</defname>
+		<name>Imbuing</name>
+		<title>Artificer</title>
+	</skill>
+
+	<!-- Throwing -->
+	<skill id="57">
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
+		<defname>THROWING</defname>
+		<name>Throwing</name>
+		<title>Bladethrower</title>
+	</skill>
+
 	<!--
 		This list represents the "rank" of a player in a
 		specific skill. It's ordered from the lowest to the

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Plate Talons -->
+	<item id="42de">
+		<id>0x42de</id>
+		<name>Plate Talons</name>
+		<decay />
+		<weight>5.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Gargish Clothing\Plate Talons (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<item id="42df" inherit="42de">
+		<id>0x42df</id>
+		<baseid>42de</baseid>
+		<category>Equipment\Gargish Clothing\Plate Talons (E/W)</category>
+	</item>
+
+	<!-- Fur Sarong -->
+	<item id="408">
+		<id>0x408</id>
+		<name>Fur Sarong</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Gargish Clothing\Fur Sarong (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Fur Sarong -->
+	<item id="407">
+		<id>0x407</id>
+		<name>Fur Sarong</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Gargish Clothing\Fur Sarong (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Fancy Shirt -->
+	<item id="406">
+		<id>0x406</id>
+		<name>Fancy Shirt</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Gargish Clothing\Fancy Shirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Fancy Shirt -->
+	<item id="405">
+		<id>0x405</id>
+		<name>Fancy Shirt</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Gargish Clothing\Fancy Shirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Library Friend Skirt -->
+	<item id="40a">
+		<id>0x40a</id>
+		<name>Library Friend Skirt</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Gargish Clothing\Library Friend Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Library Friend Skirt -->
+	<item id="409">
+		<id>0x409</id>
+		<name>Library Friend Skirt</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Gargish Clothing\Library Friend Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Gargish Cloth Arms -->
+	<item id="403">
+		<id>0x403</id>
+		<name>Gargish Cloth Arms</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Gargish Clothing\Gargish Cloth Arms</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+</definitions>

@@ -24,4 +24,31 @@
 	<include file="definitions/items/misc/statuettes.xml"/>
 	<include file="definitions/items/misc/testing.xml"/>
 	<include file="definitions/items/misc/plantgrowing.xml"/>
+
+	<!-- ServUO Containers -->
+	<include file="definitions/items/misc/servuo_containers.xml"/>
+
+	<!-- ServUO Resources -->
+	<include file="definitions/items/misc/servuo_resources.xml"/>
+
+	<!-- ServUO Tools -->
+	<include file="definitions/items/misc/servuo_tools.xml"/>
+
+	<!-- ServUO Decorative -->
+	<include file="definitions/items/misc/servuo_decorative.xml"/>
+
+	<!-- Power Scrolls -->
+	<include file="definitions/items/misc/powerscroll.xml"/>
+
+	<!-- Champion Spawn -->
+	<include file="definitions/items/misc/championspawn.xml"/>
+
+	<!-- Bulk Order Deeds -->
+	<include file="definitions/items/misc/bulkorders.xml"/>
+
+	<!-- Paragon Chest -->
+	<include file="definitions/items/misc/paragon_chest.xml"/>
+
+	<!-- Peerless Boss System -->
+	<include file="definitions/items/misc/peerless.xml"/>
 </definitions>

@@ -326,7 +326,7 @@
 		<delay min="5" max="15" />
 		<npcspercycle>1</npcspercycle>
 		<npc id="cow"><npcwander type="circle" radius="10" /></npc>
-		<point pos="6211,-3,-10,0" />
+		<point pos="6469,69,-34,0" />
 	</spawnregion>
 	<spawnregion id="felucca_ml_spawn_42">
 		<active />

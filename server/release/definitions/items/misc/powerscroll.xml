@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Antigravity
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+	<item id="powerscroll">
+		<id>0x14f0</id>
+		<weight>1.0</weight>
+		<color>0x481</color>
+		<decay />
+		<basescripts>powerscroll</basescripts>
+		<category>Misc\Power Scroll</category>
+	</item>
+</definitions>

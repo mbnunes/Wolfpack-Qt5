@@ -345,9 +345,10 @@ bool cConsole::handleCommand( const QString& command )
 		{
 			PythonGILLocker locker;
 			int res = PyRun_SimpleString(
-				"import commands.decoration\n"
-				"commands.decoration.load_decoration(1)\n"
-				"commands.decoration.load_decoration(0)\n"
+				"import commands.decoration, wolfpack\n"
+				"for m in [1, 0, 2, 3, 4]:\n"
+				"    if wolfpack.hasmap(m):\n"
+				"        commands.decoration.load_decoration(m)\n"
 			);
 			if ( res != 0 )
 			{
@@ -367,7 +368,7 @@ bool cConsole::handleCommand( const QString& command )
 		Console::instance()->send( tr( "	R - Reload scripts\n" ) );
 		Console::instance()->send( tr( "	D - World diagnostics (player, items, NPCs)\n" ) );
 		Console::instance()->send( tr( "	E - Re-equip all naked NPCs in world\n" ) );
-		Console::instance()->send( tr( "	L - Load decorations for Trammel and Felucca\n" ) );
+		Console::instance()->send( tr( "	L - Load decorations for all worlds (0 to 4)\n" ) );
 		Console::instance()->send( tr( "	S - Toggle Secure mode " ) );
 		if ( Server::instance()->getSecure() )
 			Console::instance()->send( tr( "[enabled]\n" ) );

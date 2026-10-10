@@ -1199,9 +1199,9 @@ static PyObject* wpRegisterPacketHook( PyObject* /*self*/, PyObject* args )
 	\description This function creates a new coord object from the
 	given coordinate components.
 */
-handle<> wpCoord( unsigned int x, unsigned int y, unsigned int z, unsigned char map )
+handle<> wpCoord( int x, int y, int z, unsigned char map )
 {
-	return handle<>( PyGetCoordObject( (Coord( x, y, z, map )) ) );
+	return handle<>( PyGetCoordObject( (Coord( (UI16)x, (UI16)y, (SI08)z, map )) ) );
 }
 
 /*

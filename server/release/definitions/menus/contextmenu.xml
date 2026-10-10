@@ -63,6 +63,7 @@
 		<scripts>contextmenus.vendormenu</scripts>
 		<option tag="1" msgid="6103" />
 		<option tag="2" msgid="6104" />
+		<option tag="3" msgid="6152" /> <!-- Bulk Order Info / Request -->
 	</contextmenu>
 
 	<contextmenu id="banker_menu">

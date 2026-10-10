@@ -54,10 +54,17 @@ class DecorationHandler( ContentHandler ):
 			if "value" in atts and "key" in atts:
 				self.statements.append( str(atts.getValue("key")) + "," + type + ","+ str(atts.getValue("value")) )
 		elif name == "pos":
-			if int(hex2dec( self.itemid )) >= 0x4000:
-				item = wolfpack.addmulti( "%x" %  hex2dec( self.itemid ) )
+			try:
+				dec_id = hex2dec( self.itemid )
+				if dec_id <= 0:
+					return
+			except:
+				return
+
+			if int(dec_id) >= 0x4000:
+				item = wolfpack.addmulti( "%x" %  dec_id )
 			else:
-				item = wolfpack.additem( "%x" %  hex2dec( self.itemid ) )
+				item = wolfpack.additem( "%x" %  dec_id )
 
 			if not item or item == None:
 				return
@@ -82,6 +89,15 @@ class DecorationHandler( ContentHandler ):
 			item.movable = 3 # not movable
 			item.decay = 0 # no decay
 			item.update()
+
+			if item.hasscript("door"):
+				nearby = wolfpack.items(x, y, map, 1)
+				for other in nearby:
+					if other != item and other.hasscript("door") and other.pos.z == item.pos.z:
+						if not item.hastag("link") and not other.hastag("link"):
+							item.settag("link", other.serial)
+							other.settag("link", item.serial)
+							break
 		elif name == "include":
 			path = atts.getValue("file")
 			if not os.path.isfile(path):
@@ -236,11 +252,12 @@ def decoration( socket, command, arguments ):
 				maponly = int(arguments.split()[1])
 				maps.append(maponly)
 			except (ValueError, IndexError):
-				maps = [0, 1]
+				maps = [1, 0, 2, 3, 4]
 				pass
 		
 			for m in maps:
-				load_decoration(m, socket)
+				if wolfpack.hasmap(m):
+					load_decoration(m, socket)
 		else:
 			socket.sysmessage( tr('Usage: decoration save|savedoors|load') )
 	else:

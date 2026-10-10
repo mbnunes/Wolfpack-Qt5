@@ -21,7 +21,6 @@
 	<teleporter source="512,584,11,5" destination="6992,1367,-15,0" />
 	<teleporter source="513,584,11,5" destination="6993,1367,-15,0" />
 	<teleporter source="514,584,11,5" destination="6993,1367,-15,0" />
-	<teleporter source="7149,756,25,5" destination="511,585,11,0" />
 	<teleporter source="1125,1215,5,5" destination="4194,3261,5,1" />
 	<teleporter source="1126,1215,5,5" destination="4194,3261,5,1" />
 	<teleporter source="1127,1215,5,5" destination="4194,3261,5,1" />
@@ -52,11 +51,6 @@
 	<teleporter source="345,131,85,5" destination="345,128,100,5" />
 	<teleporter source="344,172,5,5" destination="349,180,60,5" />
 	<teleporter source="317,182,65,5" destination="346,192,105,5" />
-	<teleporter source="7149,756,25,5" destination="511,585,9,5" />
-	<teleporter source="7150,756,25,5" destination="511,585,9,5" />
-	<teleporter source="7151,756,25,5" destination="511,585,9,5" />
-	<teleporter source="7152,756,25,5" destination="511,585,9,5" />
-	<teleporter source="7153,756,25,5" destination="511,585,9,5" />
 	<teleporter source="79,379,5,5" destination="52,389,65,5" />
 	<teleporter source="52,389,65,5" destination="79,379,5,5" />
 	<teleporter source="52,343,65,5" destination="80,338,85,5" />
@@ -113,6 +107,4 @@
 	<teleporter source="1187,1126,-42,5" destination="1180,884,0,5" />
 	<teleporter source="1180,885,0,5" destination="1187,1127,-42,5" />
 	<teleporter source="1162,1120,-42,5" destination="1147,1089,-42,5" />
-	<teleporter source="4194,3260,5,5" destination="1128,1213,-2,5" />
-	<teleporter source="4195,3260,5,5" destination="1129,1213,-2,5" />
 </definitions>

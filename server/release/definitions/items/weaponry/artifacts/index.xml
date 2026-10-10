@@ -23,4 +23,7 @@
 	<include file="definitions/items/weaponry/artifacts/the_taskmaster.xml"/>
 	<include file="definitions/items/weaponry/artifacts/titans_hammer.xml"/>
 	<include file="definitions/items/weaponry/artifacts/zyronic_claw.xml"/>
+
+	<!-- ServUO Artifacts -->
+	<include file="definitions/items/weaponry/artifacts/servuo_artifacts.xml"/>
 </definitions>

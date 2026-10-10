@@ -19,4 +19,19 @@
 	<include file="definitions/items/equipment/misc.xml"/>
 	<include file="definitions/items/equipment/potions.xml"/>
 	<include file="definitions/items/equipment/reagents.xml"/>
+
+	<!-- Talismans -->
+	<include file="definitions/items/equipment/talismans.xml"/>
+
+	<!-- Glasses -->
+	<include file="definitions/items/equipment/glasses.xml"/>
+
+	<!-- Elven Clothes -->
+	<include file="definitions/items/equipment/elven_clothes.xml"/>
+
+	<!-- Gargish Clothes -->
+	<include file="definitions/items/equipment/gargish_clothes.xml"/>
+
+	<!-- Other Equipment -->
+	<include file="definitions/items/equipment/servuo_equipment.xml"/>
 </definitions>

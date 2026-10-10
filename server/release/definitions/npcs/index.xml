@@ -36,4 +36,7 @@
 	<!-- Monsters -->
 	<include file="definitions/npcs/monsters/index.xml"/>
 
+
+	<!-- Spawn Region Aliases -->
+	<include file="definitions/npcs/spawn_aliases.xml"/>
 </definitions>

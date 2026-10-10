@@ -217,7 +217,10 @@ CHIVALRY = 51
 BUSHIDO = 52
 NINJITSU = 53
 SPELLWEAVING = 54
-ALLSKILLS = 55 # skills + 1
+MYSTICISM = 55
+IMBUING = 56
+THROWING = 57
+ALLSKILLS = 58 # skills + 1
 r"""
 	\end
 """
@@ -287,7 +290,10 @@ skillnamesids = {
 	'chivalry' : CHIVALRY,
 	'bushido' : BUSHIDO,
 	'ninjitsu' : NINJITSU,
-	'spellweaving' : SPELLWEAVING
+	'spellweaving' : SPELLWEAVING,
+	'mysticism' : MYSTICISM,
+	'imbuing' : IMBUING,
+	'throwing' : THROWING
 }
 
 STATNAMES = [ 'str', 'int', 'dex' ]

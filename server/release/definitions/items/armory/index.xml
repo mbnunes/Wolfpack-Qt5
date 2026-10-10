@@ -46,4 +46,16 @@
 
 	<!-- Colored Armor -->
 	<include file="definitions/items/armory/colored/index.xml"/>
+
+	<!-- Woodland Armor -->
+	<include file="definitions/items/armory/woodland/woodland.xml"/>
+
+	<!-- Leaf Armor -->
+	<include file="definitions/items/armory/leaf/leaf.xml"/>
+
+	<!-- Gargish Armor -->
+	<include file="definitions/items/armory/gargish/gargish.xml"/>
+
+	<!-- Other Armor -->
+	<include file="definitions/items/armory/other/servuo_armor.xml"/>
 </definitions>
