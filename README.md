@@ -257,6 +257,7 @@ Para tutoriais complementares, criação de scripts customizados, novos comandos
 - [How to Compile Wolfpack (English)](https://github.com/mbnunes/Wolfpack-Qt5/wiki/Compile-Instructions)
 - [Começando com o Wolfpack](https://github.com/mbnunes/Wolfpack-Qt5/wiki/Come%C3%A7ando-com-o-Wolfpack)
 - [Adicionando um Novo Comando](https://github.com/mbnunes/Wolfpack-Qt5/wiki/Adicionando-um-novo-comando)
+- [Arquitetura de Dados: XML vs. Componentes (.txt)](server/docs/custom_housing_components.md)
 
 ---
 
