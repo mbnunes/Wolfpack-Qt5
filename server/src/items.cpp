@@ -62,6 +62,7 @@
 #include <QList>
 #include <QSqlQuery>
 #include <QVariant>
+#include <QRegularExpression>
 
 using namespace std;
 
@@ -522,11 +523,10 @@ QString cItem::getName( bool shortName )
 	if ( itemname.contains( "%" ) )
 	{
 		// Test if we have a %.../...% form or a simple %
-		QRegExp simple( "%([^/]+)%" );
-        simple.setMinimal( true );
-
-		if ( itemname.contains( simple ) )
-			itemname.replace( simple, simple.cap( 1 ) );
+		QRegularExpression simple( "%([^/]+?)%" );
+		QRegularExpressionMatch match = simple.match( itemname );
+		if ( match.hasMatch() )
+			itemname.replace( simple, match.captured( 1 ) );
 	}
 
 	return itemname;
@@ -1052,7 +1052,7 @@ void cItem::showName( cUOSocket* socket )
 	if ( !onSingleClick( socket->player() ) )
 	{
 		unsigned int message;
-		QString params = QString::null;
+		QString params = QString();
 
 		if ( amount_ > 1 )
 		{
@@ -1130,15 +1130,6 @@ void cItem::update( cUOSocket* singlesocket )
 				{
 					P_PLAYER player = socket->player();
 					unsigned char flags = 0;
-					//Old Client Version
-					cUOTxSendItem packetCopy( sendItem );
-					//cUOTxNewSendItem packetCopy(sendItem);
-
-					if ( socket->account()->isMultiGems() && isMulti() )
-					{
-						packetCopy.setId( 0x1ea7 );
-					//	packetCopy.setDataType(0x02);
-					}					
 
 					// Always Movable Flag
 					if ( !isLockedDown() && isAllMovable() )
@@ -1159,9 +1150,63 @@ void cItem::update( cUOSocket* singlesocket )
 						flags |= 0x80;
 					}
 
-					packetCopy.setFlags( flags );
+					if ( socket->isStygianAbyss() )
+					{
+						cUOTxNewSendItem packetSA;
+						packetSA.setUnknown1( 1 );
+						if ( isMulti() )
+						{
+							if ( socket->account()->isMultiGems() )
+							{
+								packetSA.setDataType( 0x00 );
+								packetSA.setId( 0x1ea7 );
+							}
+							else
+							{
+								packetSA.setDataType( 0x02 );
+								packetSA.setId( id_ & 0x3FFF );
+							}
+						}
+						else
+						{
+							packetSA.setDataType( 0x00 );
+							packetSA.setId( id_ );
+						}
+						packetSA.setSerial( serial_ );
+						packetSA.setIdOffset( 0 );
+						unsigned short amt = amount_ == 0 ? 1 : amount_;
+						packetSA.setAmount1( amt );
+						packetSA.setAmount2( amt );
+						packetSA.setCoord( pos_ );
+						packetSA.setLightLevel( lightsource() );
+						packetSA.setColor( color_ );
+						packetSA.setFlags( flags );
+						socket->send( &packetSA );
+					}
+					else
+					{
+						cUOTxSendItem packetCopy( sendItem );
+						if ( socket->account()->isMultiGems() && isMulti() )
+						{
+							packetCopy.setId( 0x1ea7 );
+						}
+						packetCopy.setFlags( flags );
+						socket->send( &packetCopy );
+					}
 
-					socket->send( &packetCopy );
+					if ( isMulti() )
+					{
+						unsigned int revision = hasTag( "ch_revision" ) ? getTag( "ch_revision" ).toInt() : 1;
+						ushort multiModel = id_ & 0x3FFF;
+						if ( hasTag( "ch_revision" ) || ( multiModel >= 0x13EC && multiModel <= 0x147F ) )
+						{
+							cUOTxAskCustomHouse ask;
+							ask.setSerial( serial_ );
+							ask.setId( revision );
+							socket->send( &ask );
+						}
+					}
+
 					sendTooltip( socket );
 				}
 			}
@@ -1190,14 +1235,62 @@ void cItem::update( cUOSocket* singlesocket )
 				flags |= 0x80;
 			}
 
-			if ( singlesocket->account()->isMultiGems() && isMulti() )
+			if ( singlesocket->isStygianAbyss() )
 			{
-				sendItem.setId( 0x1ea7 );
+				cUOTxNewSendItem packetSA;
+				packetSA.setUnknown1( 1 );
+				if ( isMulti() )
+				{
+					if ( singlesocket->account()->isMultiGems() )
+					{
+						packetSA.setDataType( 0x00 );
+						packetSA.setId( 0x1ea7 );
+					}
+					else
+					{
+						packetSA.setDataType( 0x02 );
+						packetSA.setId( id_ & 0x3FFF );
+					}
+				}
+				else
+				{
+					packetSA.setDataType( 0x00 );
+					packetSA.setId( id_ );
+				}
+				packetSA.setSerial( serial_ );
+				packetSA.setIdOffset( 0 );
+				unsigned short amt = amount_ == 0 ? 1 : amount_;
+				packetSA.setAmount1( amt );
+				packetSA.setAmount2( amt );
+				packetSA.setCoord( pos_ );
+				packetSA.setLightLevel( lightsource() );
+				packetSA.setColor( color_ );
+				packetSA.setFlags( flags );
+				singlesocket->send( &packetSA );
+			}
+			else
+			{
+				if ( singlesocket->account()->isMultiGems() && isMulti() )
+				{
+					sendItem.setId( 0x1ea7 );
+				}
+				sendItem.setFlags( flags );
+				singlesocket->send( &sendItem );
 			}
 
-			sendItem.setFlags( flags );
+			if ( isMulti() )
+			{
+				unsigned int revision = hasTag( "ch_revision" ) ? getTag( "ch_revision" ).toInt() : 1;
+				ushort multiModel = id_ & 0x3FFF;
+				if ( hasTag( "ch_revision" ) || ( multiModel >= 0x13EC && multiModel <= 0x147F ) )
+				{
+					cUOTxAskCustomHouse ask;
+					ask.setSerial( serial_ );
+					ask.setId( revision );
+					singlesocket->send( &ask );
+				}
+			}
 
-			singlesocket->send( &sendItem );
 			sendTooltip( singlesocket );
 		}
 	}
@@ -1209,9 +1302,6 @@ void cItem::update( cUOSocket* singlesocket )
 
 		if ( singlesocket )
 		{
-			// don't remove backpack, because this would close all bags
-			if ( this->layer() != cBaseChar::Backpack )
-				singlesocket->removeObject( this );
 			singlesocket->send( &equipItem );
 			sendTooltip( singlesocket );
 		}
@@ -1222,8 +1312,6 @@ void cItem::update( cUOSocket* singlesocket )
 			{
 				if ( socket->canSee( this ) )
 				{
-					if ( this->layer() != cBaseChar::Backpack )
-						socket->removeObject( this );
 					socket->send( &equipItem );
 					sendTooltip( socket );
 				}
@@ -1451,11 +1539,11 @@ bool cItem::wearOut()
 		{
 			if ( !name_.isEmpty() )
 			{
-				pOwner->socket()->clilocMessageAffix( 1008129, QString::null, name_ );
+				pOwner->socket()->clilocMessageAffix( 1008129, QString(), name_ );
 			}
 			else
 			{
-				pOwner->socket()->clilocMessageAffix( 1008129, QString::null, getName() );
+				pOwner->socket()->clilocMessageAffix( 1008129, QString(), getName() );
 			}
 		}
 
@@ -2269,7 +2357,16 @@ P_ITEM cItem::createFromScript( const QString& id )
 	}
 	else
 	{
-		Console::instance()->log( LOG_ERROR, tr( "Unable to create unscripted item: %1\n" ).arg( id ) );
+		bool ok = false;
+		unsigned short tileId = id.toUShort( &ok, 16 );
+		if ( ok && tileId > 0 )
+		{
+			nItem = createFromId( tileId );
+		}
+		else
+		{
+			Console::instance()->log( LOG_ERROR, tr( "Unable to create unscripted item: %1\n" ).arg( id ) );
+		}
 	}
 
 	return nItem;

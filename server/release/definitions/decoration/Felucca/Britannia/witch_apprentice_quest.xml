@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Barrel -->
+	<item id="0x0e77">
+		<pos x="844" y="1547" z="0" map="0" />
+		<pos x="860" y="1547" z="0" map="0" />
+	</item>
+	<!-- Lantern -->
+	<item id="0x0a15">
+		<pos x="851" y="1537" z="0" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0cb5">
+		<pos x="851" y="1549" z="0" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e83">
+		<pos x="855" y="1534" z="0" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fb4">
+		<pos x="856" y="1537" z="0" map="0" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x09ab">
+		<pos x="858" y="1538" z="0" map="0" />
+	</item>
+	<!-- Pitchfork -->
+	<item id="0x0e87">
+		<pos x="861" y="1546" z="0" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0970">
+		<pos x="849" y="1544" z="8" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fac">
+		<pos x="849" y="1544" z="0" map="0" />
+	</item>
+	<!-- Static -->
+	<item id="0x0974">
+		<pos x="849" y="1544" z="0" map="0" />
+	</item>
+</decoration>

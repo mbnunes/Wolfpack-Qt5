@@ -7,7 +7,7 @@
 # .exportmissingids Command					#
 #===============================================================#
 
-"""
+r"""
 	\command exportmissingids
 	\description Export a list of item ids that have no item definition.
 	\notes Tiledata.mul is searched for item ids.

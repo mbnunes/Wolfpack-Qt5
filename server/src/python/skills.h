@@ -54,13 +54,13 @@ typedef struct
 	\description Number of avaliable skills.
 	\return Returns the number of skills.
 */
-Py_ssize_t wpSkills_length( PyObject* self )
+static Py_ssize_t wpSkills_length( PyObject* self )
 {
 	Q_UNUSED( self );
 	return ALLSKILLS;
 }
 
-PyObject* wpSkills_get( wpSkills* self, int skill )
+static PyObject* wpSkills_get( wpSkills* self, Py_ssize_t skill )
 {
 	if ( !self->pChar || self->pChar->free || skill >= ALLSKILLS )
 		return PyInt_FromLong( -1 );
@@ -73,12 +73,12 @@ PyObject* wpSkills_get( wpSkills* self, int skill )
 		return PyInt_FromLong( self->pChar->skillLock( skill ) );
 }
 
-PyObject* wpSkills_set( wpSkills* self, int skill, PyObject* pValue )
+static int wpSkills_set( wpSkills* self, Py_ssize_t skill, PyObject* pValue )
 {
 	if ( !self->pChar || self->pChar->free || skill >= ALLSKILLS || !PyInt_Check( pValue ) )
 	{
 		PyErr_BadArgument();
-		return 0;
+		return -1;
 	}
 
 	quint16 value = PyInt_AsLong( pValue );
@@ -100,60 +100,16 @@ PyObject* wpSkills_set( wpSkills* self, int skill, PyObject* pValue )
 	return 0;
 }
 
-static PySequenceMethods wpSkillsSequence =
-{
-wpSkills_length,
-0,
-0,
-( ssizeargfunc ) wpSkills_get,
-0,
-( ssizeobjargproc ) wpSkills_set,
-0,
-0,
-0,
-0,
+static PySequenceMethods wpSkillsSequence = {
+	.sq_length = wpSkills_length,
+	.sq_item = ( ssizeargfunc ) wpSkills_get,
+	.sq_ass_item = ( ssizeobjargproc ) wpSkills_set,
 };
 
-static PyTypeObject wpSkillsType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpSkills",
-sizeof( wpSkillsType ),
-0,
-wpDealloc,
-0,
-0,
-0,
-0,
-0,
-0,& wpSkillsSequence,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,0,0,
-0,0,0,
-0,0,0,
+static PyTypeObject wpSkillsType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.skills",
+	.tp_basicsize = sizeof( wpSkills ),
+	.tp_dealloc = wpDealloc,
+	.tp_as_sequence = &wpSkillsSequence,
 };

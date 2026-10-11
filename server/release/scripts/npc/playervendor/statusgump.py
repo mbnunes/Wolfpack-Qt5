@@ -8,7 +8,7 @@ OWNER_TYPE = 0x73fbda10
 from wolfpack import tr
 import wolfpack.gumps
 import npc.playervendor
-import customizegump
+from npc.playervendor import customizegump
 
 def close(player):
 	player.socket.closegump(OWNER_TYPE)

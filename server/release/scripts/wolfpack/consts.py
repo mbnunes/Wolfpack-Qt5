@@ -7,7 +7,7 @@
 # Constants used in Python scripts                              #
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack.consts
 	\description Contains several constants for scripts.
 """
@@ -158,7 +158,7 @@ MINING_REFILLTIME = [600000, 1200000] # 10 to 20 Minutes Refresh time for trees
 MINING_ORE = [10, 34]
 MINING_SAND = [5, 13]
 
-"""
+r"""
 	\constants wolfpack.consts Skill Constants
 	These constants are shortcuts for the ids of every skill.
 """
@@ -217,8 +217,11 @@ CHIVALRY = 51
 BUSHIDO = 52
 NINJITSU = 53
 SPELLWEAVING = 54
-ALLSKILLS = 55 # skills + 1
-"""
+MYSTICISM = 55
+IMBUING = 56
+THROWING = 57
+ALLSKILLS = 58 # skills + 1
+r"""
 	\end
 """
 
@@ -287,12 +290,15 @@ skillnamesids = {
 	'chivalry' : CHIVALRY,
 	'bushido' : BUSHIDO,
 	'ninjitsu' : NINJITSU,
-	'spellweaving' : SPELLWEAVING
+	'spellweaving' : SPELLWEAVING,
+	'mysticism' : MYSTICISM,
+	'imbuing' : IMBUING,
+	'throwing' : THROWING
 }
 
 STATNAMES = [ 'str', 'int', 'dex' ]
 
-"""
+r"""
 	\constants wolfpack.consts Character Sound Constants
 	These constants can be used to let a character make
 	a body dependant sound. See the sound method for the
@@ -303,11 +309,11 @@ SND_IDLE = 1
 SND_ATTACK = 2
 SND_DEFEND = 3
 SND_DIE = 4
-"""
+r"""
 	\end
 """
 
-"""
+r"""
 	\constants wolfpack.consts Layer Constants
 	These constants provide fast access to equipment on certain
 	layers of a character. See the itemonlayer method for <object id="char">char</object> objects.
@@ -343,7 +349,7 @@ LAYER_NPCSELL = 28
 LAYER_BANKBOX = 29
 LAYER_DRAGGING = 30
 LAYER_TRADING = 31
-"""
+r"""
 	\end
 """
 
@@ -382,7 +388,7 @@ LAYERNAMES = {
 	LAYER_TRADING: 'Trading'
 }
 
-"""
+r"""
 	\constants wolfpack.consts Event Constants
 	These constants represent an event in a python script. These
 	are used in the callevent, hasevent and registerglobal functions of the
@@ -466,18 +472,20 @@ EVENT_UPDATEACCTDATABASE = 74
 EVENT_STEPCHAR = 75
 EVENT_STEPWEIGHTPERCENT = 76
 EVENT_REACHDESTINATION = 77
-EVENT_COUNT = 78
-"""
+EVENT_CHCOMMAND = 78
+EVENT_CHQUERY = 79
+EVENT_COUNT = 80
+r"""
 	\end
 """
 
-"""
+r"""
 	\constants wolfpack.consts Boolean Constants
 	Only two constants for true and false.
 """
 FALSE = 0
 TRUE = 1
-"""
+r"""
 	\end
 """
 
@@ -489,7 +497,7 @@ CAST_TARGET_CHAR = 0x01 # Agressive Spells, Heal, Etc.
 CAST_TARGET_ITEM = 0x02 # Recall
 CAST_TARGET_GROUND = 0x04 # Other
 
-"""
+r"""
 	\constants wolfpack.consts Damage Constants
 	These constants specify a damage type for the
 	damage method in the <object id="char">char</object>
@@ -499,12 +507,12 @@ DAMAGE_PHYSICAL = 0
 DAMAGE_MAGICAL = 1
 DAMAGE_GODLY = 2
 DAMAGE_HUNGER = 3
-"""
+r"""
 	\end
 """
 
 # Some nice animation definitions
-"""
+r"""
 	\constants wolfpack.consts Animation Constants
 	These constants are animation ids for the
 	action method in the <object id="char">char</object>
@@ -538,7 +546,7 @@ ANIM_ATTACK7 = 0x1f
 ANIM_BOW = 0x20
 ANIM_SALUTE = 0x21
 ANIM_FIDGET3 = 0x22
-"""
+r"""
 	\end
 """
 
@@ -548,7 +556,7 @@ SEXTANT_CENTER_Y = 3112
 SEXTANT_MAP_HEIGHT = 5120
 SEXTANT_MAP_WIDTH = 4096
 
-"""
+r"""
 	\constants wolfpack.consts Log Constants
 	These constants represent a loglevel for the console
 	and the logfile.
@@ -560,7 +568,7 @@ LOG_WARNING = 0x08
 LOG_NOTICE  = 0x10
 LOG_TRACE   = 0x20
 LOG_DEBUG   = 0x40
-"""
+r"""
 	\end
 """
 
@@ -582,7 +590,7 @@ NORMAL = 3
 #Stat gain delay = 15 minutes ( 900 seconds )
 STATGAINDELAY = 900
 
-"""
+r"""
 	\constants wolfpack.consts Action Constants
 	These constants can be used to queue an action to be executed in the next mainloop iteration.
 	See the queueaction function in the <module id="wolfpack">wolfpack</module> module.
@@ -593,7 +601,7 @@ RELOAD_ACCOUNTS = 2 # Reload accounts.
 RELOAD_CONFIGURATION = 3 # Reload all of the above.
 SAVE_WORLD = 4 # Save the world.
 SAVE_ACCOUNTS = 5 # Save the accounts.
-"""
+r"""
 	\end
 """
 
@@ -605,7 +613,7 @@ ANTIMACROALLOWANCE = 3
 # A Huge Sound List!
 #
 # Notes: 0x4d4 appears to be the final sound ID
-"""
+r"""
 	\constants wolfpack.consts Sound Constants
 	This list of constants describes some commonly used sounds.
 """
@@ -706,11 +714,11 @@ SOUND_HARP_03 = 0x418 # Cool tune
 
 SOUND_TAMBER_01 = 0x4b6 # Short tune
 SOUND_TAMBER_02 = 0x4b7 # Longer Tune, Battle?
-"""
+r"""
 	\end
 """
 
-"""
+r"""
 	\constants wolfpack.consts Human Male Sounds
 	Some handy male sound constants.
 	Use the sound method of the <object id="char">char</object> object to play them.
@@ -765,11 +773,11 @@ SOUND_MALE_47 = 0x447 # Whistles
 SOUND_MALE_48 = 0x448 # Yawning
 SOUND_MALE_49 = 0x449 # Yeah!
 SOUND_MALE_50 = 0x44a # Hoaghhh!
-"""
+r"""
 	\end
 """
 
-"""
+r"""
 	\constants wolfpack.consts Human Female Sounds
 	Some handy female sound constants.
 	Use the sound method of the <object id="char">char</object> object to play them.
@@ -820,11 +828,11 @@ SOUND_FEMALE_43 = 0x335 # Whistles
 SOUND_FEMALE_44 = 0x336 # Yawns
 SOUND_FEMALE_45 = 0x337 # Yeah!
 SOUND_FEMALE_46 = 0x338 # Really frustrated
-"""
+r"""
 	\end
 """
 
-"""
+r"""
 	\constants wolfpack.consts Definition Constants
 	These constants represent the definition section types as used in
 	getdefinition in the <module id="wolfpack">wolfpack</module> module.
@@ -854,7 +862,7 @@ WPDT_CONTEXTMENU = 21
 WPDT_AI = 22
 WPDT_TELEPORTER = 23
 WPDT_QUEST = 24
-"""
+r"""
 	\end
 """
 

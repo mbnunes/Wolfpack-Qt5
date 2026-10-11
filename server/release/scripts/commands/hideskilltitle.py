@@ -23,7 +23,7 @@ def hideskilltitle( socket, command, arguments ):
 def onLoad():
 	wolfpack.registercommand( "hideskilltitle", hideskilltitle )
 
-"""
+r"""
 	\command hideskilltitle
 	\description Indicates if other players can see the skill title in the paperdoll
 """

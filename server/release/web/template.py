@@ -25,5 +25,5 @@ def output( navigation, username, navbar, content, session_id ):
 	template = template.replace( '%NAVBAR%', navigation )
 	template = template.replace( '%CONTENT%', content )
 	
-	print "Content-type: text/html\n\n"
-	print template
+	print("Content-type: text/html\n\n")
+	print(template)

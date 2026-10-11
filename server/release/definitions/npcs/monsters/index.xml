@@ -86,4 +86,13 @@
 	<!-- HS -->
 	<include file="definitions/npcs/monsters/high_seas/index.xml"/>
 
+
+	<!-- ServUO Monsters -->
+	<include file="definitions/npcs/monsters/servuo_monsters.xml"/>
+
+	<!-- ServUO Bosses -->
+	<include file="definitions/npcs/monsters/servuo_bosses.xml"/>
+
+	<!-- ServUO Named Creatures -->
+	<include file="definitions/npcs/monsters/servuo_named.xml"/>
 </definitions>

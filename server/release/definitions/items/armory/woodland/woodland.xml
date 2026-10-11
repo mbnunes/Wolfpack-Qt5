@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Woodland Arms -->
+	<item id="2b6c">
+		<id>0x2b6c</id>
+		<name>Woodland Arms</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Woodland\Woodland Arms (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="80" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<item id="3163" inherit="2b6c">
+		<id>0x3163</id>
+		<baseid>2b6c</baseid>
+		<category>Base Armor\Woodland\Woodland Arms (E/W)</category>
+	</item>
+
+	<!-- Woodland Chest -->
+	<item id="2b67">
+		<id>0x2b67</id>
+		<name>Woodland Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>8.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Woodland\Woodland Chest (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<item id="315e" inherit="2b67">
+		<id>0x315e</id>
+		<baseid>2b67</baseid>
+		<category>Base Armor\Woodland\Woodland Chest (E/W)</category>
+	</item>
+
+	<!-- Woodland Gloves -->
+	<item id="2b6a">
+		<id>0x2b6a</id>
+		<name>Woodland Gloves</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Woodland\Woodland Gloves (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="70" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<item id="3161" inherit="2b6a">
+		<id>0x3161</id>
+		<baseid>2b6a</baseid>
+		<category>Base Armor\Woodland\Woodland Gloves (E/W)</category>
+	</item>
+
+	<!-- Woodland Gorget -->
+	<item id="2b69">
+		<id>0x2b69</id>
+		<name>Woodland Gorget</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>3.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Woodland\Woodland Gorget (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<item id="3160" inherit="2b69">
+		<id>0x3160</id>
+		<baseid>2b69</baseid>
+		<category>Base Armor\Woodland\Woodland Gorget (E/W)</category>
+	</item>
+
+	<!-- Woodland Legs -->
+	<item id="2b6b">
+		<id>0x2b6b</id>
+		<name>Woodland Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>8.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Woodland\Woodland Legs (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="90" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<item id="3162" inherit="2b6b">
+		<id>0x3162</id>
+		<baseid>2b6b</baseid>
+		<category>Base Armor\Woodland\Woodland Legs (E/W)</category>
+	</item>
+
+</definitions>

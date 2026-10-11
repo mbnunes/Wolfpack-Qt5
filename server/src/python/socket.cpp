@@ -48,19 +48,13 @@ static int wpSocket_setAttr( wpSocket* self, char* name, PyObject* value );
 /*!
 	The typedef for Wolfpack Python chars
 */
-static PyTypeObject wpSocketType =
-{
-PyObject_HEAD_INIT( &PyType_Type )
-0,
-"wpsocket",
-sizeof( wpSocketType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpSocket_getAttr,
-( setattrfunc ) wpSocket_setAttr,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-
+static PyTypeObject wpSocketType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.socket",
+	.tp_basicsize = sizeof( wpSocket ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpSocket_getAttr,
+	.tp_setattr = ( setattrfunc ) wpSocket_setAttr,
 };
 
 PyObject* PyGetSocketObject( cUOSocket* socket )
@@ -638,8 +632,6 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 		PyErr_BadArgument();
 		return 0;
 	}
-
-	PyErr_Format( PyExc_DeprecationWarning, "socket.sendpacket is deprecated, please use something instead" );
 
 	// Build a packet
 	int packetLength = PyList_Size( list );

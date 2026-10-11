@@ -41,6 +41,7 @@
 #include "network/network.h"
 #include "player.h"
 #include "npc.h"
+#include "ai/ai.h"
 #include "log.h"
 #include "timing.h"
 #include "scriptmanager.h"
@@ -52,6 +53,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>
+#include <QSet>
 
 // Postprocessing stuff, can be deleted later on
 #include "muls/maps.h"
@@ -127,7 +129,7 @@ PRIMARY KEY(serial) \
 `founded` int(11) NOT NULL default '0', \
 `guildstone` int(10) unsigned NOT NULL default '0', \
 PRIMARY KEY  (`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "guilds_members",
 "CREATE TABLE guilds_members ( \
@@ -145,7 +147,7 @@ PRIMARY KEY(guild,player) \
 `guildtitle` varchar(255) NOT NULL default '', \
 `joined` int(11) NOT NULL default '0', \
 PRIMARY KEY  (`guild`,`player`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "guilds_canidates",
 "CREATE TABLE guilds_canidates ( \
@@ -157,7 +159,7 @@ PRIMARY KEY(guild,player) \
 `guild` int(10) unsigned NOT NULL default '0', \
 `player` int(10) unsigned NOT NULL default '0', \
 PRIMARY KEY  (`guild`,`player`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "guilds_enemies",
 "CREATE TABLE guilds_enemies ( \
@@ -169,7 +171,7 @@ PRIMARY KEY(guild,enemy) \
 `guild` int(10) unsigned NOT NULL default '0', \
 `enemy` int(10) unsigned NOT NULL default '0', \
 PRIMARY KEY(`guild`,`enemy`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "guilds_allies",
 "CREATE TABLE guilds_allies ( \
@@ -181,7 +183,7 @@ PRIMARY KEY(guild,ally) \
 `guild` int(10) unsigned NOT NULL default '0', \
 `ally` int(10) unsigned NOT NULL default '0', \
 PRIMARY KEY(`guild`,`ally`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "settings",
 "CREATE TABLE settings ( \
@@ -193,7 +195,7 @@ PRIMARY KEY (option) \
 `option` varchar(255) NOT NULL default '', \
 `value` varchar(255) NOT NULL default '', \
 PRIMARY KEY  (`option`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "characters",
 "CREATE TABLE characters (\
@@ -287,7 +289,7 @@ PRIMARY KEY (serial)\
 `baseid` varchar(64) NOT NULL default '', \
 `direction` tinyint(1) unsigned NOT NULL default '0', \
 PRIMARY KEY  (`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "corpses",
 "CREATE TABLE corpses (\
@@ -315,7 +317,7 @@ PRIMARY KEY (serial)\
 `murderer` int(10) unsigned NOT NULL default '0', \
 `murdertime` int(10) unsigned NOT NULL default '0', \
 PRIMARY KEY  (`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "corpses_equipment",
 "CREATE TABLE corpses_equipment (\
@@ -329,7 +331,7 @@ PRIMARY KEY (serial,layer)\
 `layer` tinyint(3) unsigned NOT NULL default '0', \
 `item` int(10) unsigned NOT NULL default '0', \
 PRIMARY KEY  (`serial`,`layer`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "items",
 "CREATE TABLE items (\
@@ -363,7 +365,7 @@ PRIMARY KEY (serial)\
 `priv` tinyint(3) unsigned NOT NULL default '0', \
 `baseid` varchar(64) NOT NULL default '', \
 PRIMARY KEY  (`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "npcs",
 "CREATE TABLE npcs (\
@@ -395,7 +397,7 @@ PRIMARY KEY (serial)\
 `wandery2` smallint(6) NOT NULL default '0', \
 `wanderradius` smallint(6) NOT NULL default '0', \
 PRIMARY KEY  (`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "players",
 "CREATE TABLE players (\
@@ -423,7 +425,7 @@ PRIMARY KEY (serial)\
 `intlock` tinyint(4) NOT NULL default '0', \
 `maxcontrolslots` tinyint(4) NOT NULL default '5', \
 PRIMARY KEY  (`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "skills",
 "CREATE TABLE skills (\
@@ -441,7 +443,7 @@ PRIMARY KEY (serial,skill)\
 `locktype` tinyint(4) default '0', \
 `cap` smallint(6) default '0', \
 PRIMARY KEY  (`serial`,`skill`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "tags",
 "CREATE TABLE tags (\
@@ -456,7 +458,7 @@ PRIMARY KEY (serial,name)\
 `type` varchar(6) NOT NULL default '', \
 `value` longtext NOT NULL, \
 PRIMARY KEY  (`serial`,`name`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "uobject",
 "CREATE TABLE uobject (\
@@ -482,7 +484,7 @@ PRIMARY KEY (serial)\
 `events` varchar(255) default NULL, \
 `havetags` tinyint(1) unsigned NOT NULL default '0', \
 PRIMARY KEY  (`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "uobjectmap",
 "CREATE TABLE uobjectmap (\
@@ -494,7 +496,7 @@ PRIMARY KEY (serial)\
 `serial` int(10) unsigned NOT NULL default '0', \
 `type` varchar(80) NOT NULL default '', \
 PRIMARY KEY  (`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "effects",
 "CREATE TABLE effects (\
@@ -514,7 +516,7 @@ PRIMARY KEY (id)\
 `source` int(10) unsigned NOT NULL default '0', \
 `destination` int(10) unsigned NOT NULL default '0', \
 PRIMARY KEY  (`id`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "effects_properties",
 "CREATE TABLE effects_properties (\
@@ -530,7 +532,7 @@ PRIMARY KEY (id,keyname)\
 `type` varchar(64) NOT NULL default '', \
 `value` text NOT NULL, \
 PRIMARY KEY  (`id`,`keyname`) \
-) TYPE=MYISAM CHARACTER SET utf8;"},
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;"},
 
 { "spawnregions",
 "CREATE TABLE spawnregions (\
@@ -542,7 +544,7 @@ PRIMARY KEY (spawnregion, serial)\
 `spawnregion` varchar(64) NOT NULL default '', \
 `serial` int(10) unsigned NOT NULL default '0', \
 PRIMARY KEY  (`spawnregion`,`serial`) \
-) TYPE=MYISAM CHARACTER SET utf8;" },
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;" },
 
 { NULL, NULL, NULL }
 };
@@ -628,7 +630,7 @@ cWorld::~cWorld()
 }
 
 
-static void quickdelete( P_ITEM pi ) throw()
+static void quickdelete( P_ITEM pi )
 {
 	// Minimal way of deleting an item
 	pi->SetOwnSerial( -1 );
@@ -713,7 +715,7 @@ void cWorld::loadBinary( QList<PersistentObject*>& objects )
 						if ( reader.hasError() )
 						{
 							Console::instance()->log( LOG_ERROR, reader.error() );
-							reader.setError( QString::null );
+							reader.setError( QString() );
 
 							cUObject *obj = dynamic_cast<cUObject*>( object );
 							if ( obj )
@@ -752,6 +754,28 @@ void cWorld::loadBinary( QList<PersistentObject*>& objects )
 							{
 								cTerritory* region = Territories::instance()->region( npc->pos().x, npc->pos().y, npc->pos().map );
 								npc->setRegion( region );
+
+								// Clean up rogue monsters found inside guarded cities from previous saves
+								if ( region && region->isGuarded() && !npc->isTamed() )
+								{
+									QString baseid = QString::fromLatin1( npc->baseid() ).toLower();
+									static const QSet<QString> rogueMonsterIds = {
+										"orc", "orc_mage", "orc_captain", "orcish_lord", "orc_chopper", "orc_scout", "orc_bomber", "orc_brute",
+										"troll", "ogre", "ettin", "cyclops", "titan", "dragon", "drake", "daemon", "gargoyle", "gazer",
+										"skeleton", "zombie", "ghoul", "spectre", "wraith", "shade", "lich", "lich_lord", "mummy",
+										"harpy", "lizardman", "ratman", "corpser", "reaper"
+									};
+									if ( rogueMonsterIds.contains( baseid ) || ( npc->ai() && npc->ai()->name().contains( "Monster", Qt::CaseInsensitive ) ) )
+									{
+										Console::instance()->log( LOG_NOTICE, tr( "Removing wild monster '%1' found inside guarded city '%2' at %3,%4.\n" ).arg( baseid ).arg( region->name() ).arg( npc->pos().x ).arg( npc->pos().y ) );
+										cUObject *uobj = dynamic_cast<cUObject*>( object );
+										if ( uobj )
+										{
+											invalidSpawnregion.append( uobj );
+										}
+										continue;
+									}
+								}
 							}
 
 							// Now, just Append
@@ -772,7 +796,7 @@ void cWorld::loadBinary( QList<PersistentObject*>& objects )
 				percent = loaded / count;
 				if ( percent != lastpercent )
 				{
-					Console::instance()->setProgress( QString::null );
+					Console::instance()->setProgress( QString() );
 					unsigned int revert = QString::number( lastpercent ).length() + 1;
 					Console::instance()->rollbackChars( revert );
 					lastpercent = percent;
@@ -836,7 +860,7 @@ void cWorld::loadBinary( QList<PersistentObject*>& objects )
 		reader.close();
 
 		// Rollback the last percentage
-		Console::instance()->setProgress( QString::null );
+		Console::instance()->setProgress( QString() );
 		unsigned int revert = QString::number( lastpercent ).length() + 1;
 		Console::instance()->rollbackChars( revert );
 
@@ -903,7 +927,7 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 			{
 				// Create Database failed, let's figure why
 				QSqlError e = query.lastError();
-				if ( Config::instance()->databaseDriver() == "sqlite" && e.number() == 26 )
+				if ( Config::instance()->databaseDriver() == "sqlite" && e.nativeErrorCode() == "26" )
 				{
 					Console::instance()->log( LOG_ERROR, tr("Invalid World database file. The file is either corrupted or in sqlite2 format, which require a conversion step. If this is an sqlite2 database please check this wiki entry: http://www.wpdev.org/wiki/index.php/Convert_sqlite2_to_sqlite3_format") );
 				}
@@ -915,7 +939,7 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 			{
 				setOption( "db_version", WP_DATABASE_VERSION );
 				// write database version to settings table
-				if ( Config::instance()->accountsDriver() == "mysql" )
+				if ( Config::instance()->databaseDriver() == "mysql" )
 				{
 					PersistentBroker::instance()->executeQuery( QString("insert into `settings` (`option`, `value`) values ('db_version',%1);").arg( WP_DATABASE_VERSION ) );
 				}
@@ -1737,7 +1761,7 @@ void cWorld::backupWorld( const QString& filename, int count, bool compress )
 	{
 		// Remove the oldest backup
 		QDateTime current;
-		QString backup = QString::null;
+		QString backup = QString();
 
 		QMap<QDateTime, QString>::iterator it;
 		for ( it = backups.begin(); it != backups.end(); ++it )

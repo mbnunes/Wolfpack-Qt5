@@ -35,13 +35,13 @@ except:
 username = session[ 'username' ]
 
 if action == 1:
-	print "Content-type: text/html\n\n"
-	print "Server is reloading, you will have to re-login after reloading is done."
+	print("Content-type: text/html\n\n")
+	print("Server is reloading, you will have to re-login after reloading is done.")
 	wolfpack.queueaction( RELOAD_SCRIPTS )
 	sys.exit()
 elif action == 2:
-	print "Content-type: text/html\n\n"
-	print "Server is reloading Python scripts, you will have to re-login after reloading is done."
+	print("Content-type: text/html\n\n")
+	print("Server is reloading Python scripts, you will have to re-login after reloading is done.")
 	wolfpack.queueaction( RELOAD_PYTHON )
 	sys.exit()
 elif action == 3:
@@ -51,8 +51,8 @@ elif action == 4:
 elif action == 5:
 	wolfpack.queueaction( SAVE_WORLD )
 elif action == 6:
-	print "Content-type: text/html\n\n"
-	print "Server is shutting down, remote admin stopped."
+	print("Content-type: text/html\n\n")
+	print("Server is shutting down, remote admin stopped.")
 	_wolfpack.console.shutdown()
 	sys.exit()
 

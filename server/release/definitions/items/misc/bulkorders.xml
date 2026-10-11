@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Antigravity
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+	<item id="small_bod">
+		<id>0x2258</id>
+		<weight>1.0</weight>
+		<color>0x44e</color>
+		<decay>0</decay>
+		<basescripts>bod.smallbod</basescripts>
+		<category>Bulk Orders\Small Bulk Order Deed</category>
+	</item>
+
+	<item id="large_bod">
+		<id>0x2258</id>
+		<weight>1.0</weight>
+		<color>0x44e</color>
+		<decay>0</decay>
+		<basescripts>bod.largebod</basescripts>
+		<category>Bulk Orders\Large Bulk Order Deed</category>
+	</item>
+</definitions>

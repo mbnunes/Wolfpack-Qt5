@@ -120,6 +120,8 @@ enum ePythonEvent
 	EVENT_STEPCHAR,
 	EVENT_STEPWEIGHTPERCENT,
 	EVENT_ONREACHDESTINATION,
+	EVENT_CHCOMMAND,
+	EVENT_CHQUERY,
 	EVENT_COUNT,
 };
 
@@ -182,7 +184,7 @@ struct stError
 
 #define SET_STR_PROPERTY( id, setter ) if( name == id ) {\
 	QString text = value.toString(); \
-	if( text == QString::null )	\
+	if( text == QString() )	\
 		PROPERTY_ERROR( -2, "String expected" ) \
 	setter = text; \
 	return 0; \

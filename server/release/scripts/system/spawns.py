@@ -61,6 +61,13 @@ def spawn(spawner, spawntype, spawndef, current, area):
 			if spawner.hastag('namesuffix'):
 				npc.settag('name.suffix', spawner.gettag('namesuffix'))
 
+			# Check Paragon conversion (Ilshenar/Special)
+			try:
+				from system.paragon import check_convert
+				check_convert(npc)
+			except Exception:
+				pass
+
 			npc.update()
 
 			# Updating visual of Spawn

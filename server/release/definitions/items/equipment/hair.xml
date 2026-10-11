@@ -149,4 +149,26 @@
 		<category>Equipment\Elf Hairs\Spiked</category>
 	</item>
 
+	<!-- Gargoyle Horns -->
+	<item id="4258"><id>0x4258</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="4259"><id>0x4259</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="425a"><id>0x425a</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="425b"><id>0x425b</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="425c"><id>0x425c</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="425d"><id>0x425d</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="425e"><id>0x425e</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="425f"><id>0x425f</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="4261"><id>0x4261</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="4262"><id>0x4262</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="4273"><id>0x4273</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="4274"><id>0x4274</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="4275"><id>0x4275</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="42aa"><id>0x42aa</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="42ab"><id>0x42ab</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="42ad"><id>0x42ad</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="42ae"><id>0x42ae</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="42af"><id>0x42af</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="42b0"><id>0x42b0</id><category>Equipment\Gargoyle Horns</category></item>
+	<item id="42b1"><id>0x42b1</id><category>Equipment\Gargoyle Horns</category></item>
+
 </definitions>

@@ -12,21 +12,8 @@ def onLoad():
 def onCHLevelChange( char, level ):
 	if not char.hastag( 'customizing' ):
 		return
-	multi = wolfpack.findobject( char.gettag( 'customizing' ) )
-
-	char.socket.sysmessage( 'Level selected: ' + str( level ) )
-	char.socket.sysmessage( 'multi at: ' + str( multi.pos.z ) )
-	char.socket.sysmessage( 'char at: ' + str( char.pos.z ) )
-	
-	#alt = (level-1) * 49
-
-	if level == 3:
-		char.moveto( wolfpack.coord( multi.pos.x, multi.pos.y, multi.pos.z+47, multi.pos.map ) )
-	if level == 2:
-		char.moveto( wolfpack.coord( multi.pos.x, multi.pos.y, multi.pos.z+27, multi.pos.map ) )
-	if level == 1:
-		char.moveto( wolfpack.coord( multi.pos.x, multi.pos.y, multi.pos.z+7, multi.pos.map ) )
-	char.update()
+	import housing.customhouse as ch
+	ch.onLevelChange( char, level )
 	return 1
 
 def onUse( char, item ):
@@ -47,7 +34,7 @@ def gump0( char, callback, item ):
 	gump_params = [
 	"a house",
 	"sign",
-	str(item.multi.owner.name),
+	str((item.multi or wolfpack.findobject(item.gettag("house"))).owner.name),
 	str(builton),
 	"never",
 	str(mvalue),
@@ -86,7 +73,7 @@ def gump0( char, callback, item ):
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 20 170 380 20 1018032 0 0 16927}" ) #This house is properly placed.
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 20 190 380 20 1018035 0 0 16927}" ) #This house is of classic design.
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 20 210 380 20 1060681 0 0 16927}" ) #This is a custom-built house.
-	if isPublic(item.multi):
+	if isPublic((item.multi or wolfpack.findobject(item.gettag("house")))):
 		mygump.addRawLayout( "{xmfhtmlgumpcolor 20 230 380 20 1060678 0 0 16927}" ) # This house is open to the public.
 	else:
 		mygump.addRawLayout( "{xmfhtmlgumpcolor 20 230 380 20 1060679 0 0 16927}" ) #This house is private
@@ -140,37 +127,37 @@ def gump1( char, callback, item ):
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 195 70 200 20 1060671 0 0 32767}" )
 	mygump.addRawLayout( "{button 150 90 4005 4007 1 0 62}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 195 90 200 20 1060672 0 0 32767}" ) #end of common part with gump0
-	if checkAccess(char, item.multi, ACCESS_COOWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
 		mygump.addRawLayout( "{button 10 130 4005 4007 1 0 4}" ) # button see title next line
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 130 240 20 1011266 0 0 32767}" ) #View Co-Owner List
-	if checkAccess(char, item.multi, ACCESS_OWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		mygump.addRawLayout( "{button 10 150 4005 4007 1 0 19}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 150 240 20 1011267 0 0 32767}" ) #Add a Co-Owner
-	if checkAccess(char, item.multi, ACCESS_OWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		mygump.addRawLayout( "{button 10 170 4005 4007 1 0 34}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 170 240 20 1018036 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_OWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		mygump.addRawLayout( "{button 10 190 4005 4007 1 0 49}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 190 240 20 1011268 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_COOWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
 		mygump.addRawLayout( "{button 10 220 4005 4007 1 0 64}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 220 240 20 1011243 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_COOWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
 		mygump.addRawLayout( "{button 10 240 4005 4007 1 0 79}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 240 240 20 1011244 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_COOWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
 		mygump.addRawLayout( "{button 10 260 4005 4007 1 0 94}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 260 240 20 1018037 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_COOWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
 		mygump.addRawLayout( "{button 10 280 4005 4007 1 0 109}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 280 240 20 1011245 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_FRIEND):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_FRIEND):
 		mygump.addRawLayout( "{button 10 310 4005 4007 1 0 154}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 310 240 20 1060699 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_FRIEND):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_FRIEND):
 		mygump.addRawLayout( "{button 10 330 4005 4007 1 0 169}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 330 240 20 1060700 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_OWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		mygump.addRawLayout( "{button 210 130 4005 4007 1 0 199}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 245 130 240 20 1060694 0 0 32767}" )
 	mygump.setCallback( callback )
@@ -237,7 +224,7 @@ def gump2( char, callback, item ):
 # Customization Gump
 def gump3( char, callback, item ):
 	gump_params = [
-	str(item.multi.name),
+	str((item.multi or wolfpack.findobject(item.gettag("house"))).name),
 	"sign"]
 
 	mygump = cGump()
@@ -326,10 +313,10 @@ def gump4( char, callback, item ):
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 195 70 200 20 1060671 0 0 32767}" )
 	mygump.addRawLayout( "{button 150 90 4006 4007 1 0 62}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 195 90 200 20 1060672 0 0 16927}" )
-	if checkAccess(char, item.multi, ACCESS_OWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		mygump.addRawLayout( "{button 10 130 4005 4007 1 0 7}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 130 240 20 1061794 0 0 32767}" )
-	if checkAccess(char, item.multi, ACCESS_OWNER):
+	if checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		mygump.addRawLayout( "{button 10 150 4005 4007 1 0 22}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 150 240 20 1061797 0 0 32767}" )
 	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 190 240 20 1061798 0 0 16912}" )
@@ -379,7 +366,7 @@ def gump10( char, callback, item ):
 	
 	offsetx = 0
 	offsety= 0
-	members = getCoOwners(item.multi)
+	members = getCoOwners((item.multi or wolfpack.findobject(item.gettag("house"))))
 	for memberserial in members:
 		try :
 			member = wolfpack.findchar(int(memberserial))
@@ -441,7 +428,7 @@ def gump11( char, callback, item ):
 	
 	offsetx = 0
 	offsety= 0
-	members = getCoOwners(item.multi)
+	members = getCoOwners((item.multi or wolfpack.findobject(item.gettag("house"))))
 	#~ char.socket.sysmessage('liste %s'%members)
 	for memberserial in members:
 		try :
@@ -502,7 +489,7 @@ def gump12( char, callback, item ):
 	
 	offsetx = 0
 	offsety= 0
-	members = getFriends(item.multi)
+	members = getFriends((item.multi or wolfpack.findobject(item.gettag("house"))))
 	for memberserial in members:
 		try :
 			member = wolfpack.findchar(int(memberserial))
@@ -563,7 +550,7 @@ def gump13( char, callback, item ):
 	
 	offsetx = 0
 	offsety= 0
-	members = getFriends(item.multi)
+	members = getFriends((item.multi or wolfpack.findobject(item.gettag("house"))))
 	#~ char.socket.sysmessage('liste %s'%members)
 	for memberserial in members:
 		try :
@@ -593,7 +580,7 @@ def callbackremovecoowner( char,args , choice):
 		return
 	player = wolfpack.findchar(serial)
 	#~ details(char, player)
-	removeCoOwner(item.multi, player)
+	removeCoOwner((item.multi or wolfpack.findobject(item.gettag("house"))), player)
 	char.socket.sysmessage('You have just remove %s from the co-owners list'%(player.name))
 	return
 
@@ -605,7 +592,7 @@ def callbackremovefriend( char,args , choice):
 		return
 	player = wolfpack.findchar(serial)
 	#~ details(char, player)
-	removeFriend(item.multi, player)
+	removeFriend((item.multi or wolfpack.findobject(item.gettag("house"))), player)
 	char.socket.sysmessage('You have just remove %s from the friends list'%player.name)
 	return
 
@@ -614,22 +601,22 @@ def addcoown_target(char, arguments, target):
 	if not target.char.player :
 		char.socket.sysmessage('You have to target a char.')
 		return
-	addCoOwner(item.multi, target.char)
+	addCoOwner((item.multi or wolfpack.findobject(item.gettag("house"))), target.char)
 	char.socket.sysmessage('You add %s as new coowner' % (target.char.name))
 
 def addcoown( char , item ):
-	if not checkAccess(char, item.multi, 1):
+	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), 1):
 		char.socket.sysmessage('You are not the owner or a co-owners of this house.')
 		return
 	char.socket.sysmessage('Who do you want to add as coowner ?')
 	char.socket.attachtarget("signpost.addcoown_target", [item])
 
 def removeallcoown(char,item):
-	if not checkAccess(char, item.multi, ACCESS_OWNER):
+	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		char.socket.sysmessage('You are not the owner of this house.')
 		return
 	#TODO need to had a confirmation of this action before doing it
-	removeAllCoOwner(item.multi)
+	removeAllCoOwner((item.multi or wolfpack.findobject(item.gettag("house"))))
 	char.socket.sysmessage('you have just remove all coowners')
 
 def addfriend_target(char, arguments, target):
@@ -637,26 +624,26 @@ def addfriend_target(char, arguments, target):
 	if not target.char.player :
 		char.socket.sysmessage('You have to target a char.')
 		return
-	addFriend(item.multi, target.char)
+	addFriend((item.multi or wolfpack.findobject(item.gettag("house"))), target.char)
 	char.socket.sysmessage('You add %s as new friend' % (target.char.name))
 
 def addfriend( char , item ):
-	if not checkAccess(char, item.multi, ACCESS_COOWNER):
+	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
 		char.socket.sysmessage('You are not the owner or a co-owners of this house.')
 		return
 	char.socket.sysmessage('Who do you want to add as friend ?')
 	char.socket.attachtarget("signpost.addfriend_target", [item])
 	
 def removeallfriend(char,item):
-	if not checkAccess(char, item.multi, ACCESS_COOWNER):
+	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
 		char.socket.sysmessage('You are not the owner or a co-owners of this house.')
 		return
 	#TODO need to add a confirmation of this action before doing it
-	removeAllFriend(item.multi)
+	removeAllFriend((item.multi or wolfpack.findobject(item.gettag("house"))))
 	char.socket.sysmessage('you have just remove all friends')
 	
 def customize( char, item ):
-	if not checkAccess(char, item.multi, ACCESS_OWNER):
+	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		char.socket.sysmessage('You are not the owner of this house.')
 		return
 	
@@ -664,21 +651,15 @@ def customize( char, item ):
 		return
 
 	multi = wolfpack.findobject( item.gettag( 'house' ) )
-	# I Commented the last line... it servers for what exactly? no references for this
-	#multi.sendcustomhouse( char )
-	char.socket.sysmessage( str( multi.serial ) )
-	#char.socket.sysmessage( "Multi serial : %i" % multi.serial )
-	char.moveto( wolfpack.coord( multi.pos.x, multi.pos.y, multi.pos.z+7, multi.pos.map ) )
-	char.update()
-	#woodenpost = wolfpack.finditem( item.morez )
-	#woodenpost.delete()
-	char.socket.customize( item )
-	char.settag( 'customizing', multi.serial )
-
+	if not multi:
+		return
+		
+	import housing.customhouse as ch
+	ch.start_customizing( char, multi )
 	return 1
 
 def demolish( char, item ):
-	if not checkAccess(char, item.multi, ACCESS_OWNER):
+	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
 		char.socket.sysmessage('You are not the owner of this house.')
 		return
 	# If Sign has no Multi, then we have problems here

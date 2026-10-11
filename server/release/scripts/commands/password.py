@@ -1,4 +1,4 @@
-"""
+r"""
 	\command password
 	\description Change your current password.
 	\usage - <code>password [value]</code>

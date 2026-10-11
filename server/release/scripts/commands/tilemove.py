@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Created
 #===============================================================#
 
-"""
+r"""
 	\command tilemove
 	\description Moves items relative to their current position.
 	\usage - <code>tilemove [z0] x</code>

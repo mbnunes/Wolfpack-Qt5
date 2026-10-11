@@ -82,8 +82,8 @@ class Invisibility (CharEffectSpell):
 		# Remove the targets attacktarget
 		if target.war:
 			target.war = False
- 			if target.socket:
- 				target.socket.resendplayer()
+			if target.socket:
+				target.socket.resendplayer()
 		target.attacktarget = None
 		
 		# Hide the attack target

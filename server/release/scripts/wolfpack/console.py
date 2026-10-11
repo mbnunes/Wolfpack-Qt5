@@ -7,7 +7,7 @@
 # Console
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack.console
 	\description Contains several server functions for the console.
 """
@@ -16,4 +16,5 @@ import _wolfpack.console
 
 d = globals()
 for (name, obj) in _wolfpack.console.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj

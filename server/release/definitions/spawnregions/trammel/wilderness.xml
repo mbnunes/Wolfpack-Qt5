@@ -1023,60 +1023,50 @@
                 <rectangle from="2147,1318" to="2204,1404" map="1" />
 	</spawnregion>
 
-	<spawnregion inherit="trammel_Area_Light" id="trammel_Area46_74">
+	<!-- New Haven Mountain Ettins (ServUO Accurate) -->
+	<spawnregion inherit="trammel_Area_Light" id="trammel_haven_ettin_1">
 		<active />
-		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
-		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
-		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
-		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
-		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
-		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
-		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
-		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
-                <rectangle from="3368,2443" to="3515,2762" map="1" />
+		<maxnpcamount>3</maxnpcamount>
+		<npcspercycle>1</npcspercycle>
+		<npc id="ettin"><npcwander type="circle" radius="15" /></npc>
+		<circle center="3421,2744" radius="25" map="1" z="31" />
 	</spawnregion>
 
-	<spawnregion inherit="trammel_Area_Light" id="trammel_Area46_75">
+	<spawnregion inherit="trammel_Area_Light" id="trammel_haven_ettin_2">
 		<active />
-		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
-		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
-		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
-		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
-		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
-		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
-		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
-		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
-                <rectangle from="3368,2443" to="3515,2762" map="1" />
+		<maxnpcamount>3</maxnpcamount>
+		<npcspercycle>1</npcspercycle>
+		<npc id="ettin"><npcwander type="circle" radius="15" /></npc>
+		<circle center="3465,2736" radius="25" map="1" z="48" />
 	</spawnregion>
 
-	<spawnregion inherit="trammel_Area_Light" id="trammel_Area46_76">
+	<!-- New Haven Coastal Brigands (ServUO Accurate) -->
+	<spawnregion inherit="trammel_Area_Light" id="trammel_haven_brigands_1">
 		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<npcspercycle>1</npcspercycle>
 		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
-		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
-		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
-		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
-		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
-		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
-		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
-		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
-                <rectangle from="3368,2443" to="3515,2762" map="1" />
+		<circle center="3719,2671" radius="15" map="1" z="40" />
 	</spawnregion>
 
-	<spawnregion inherit="trammel_Area_Light" id="trammel_Area46_77">
+	<spawnregion inherit="trammel_Area_Light" id="trammel_haven_brigands_2">
 		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<npcspercycle>1</npcspercycle>
 		<npc id="brigand_male"><npcwander type="circle" radius="10" /></npc>
 		<npc id="brigand_female"><npcwander type="circle" radius="10" /></npc>
-		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
-		<npc id="lizardman"><npcwander type="circle" radius="10" /></npc>
-		<npc id="orc_mage"><npcwander type="circle" radius="10" /></npc>
-		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
-		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
-		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
-		<npc id="troll"><npcwander type="circle" radius="10" /></npc>
-                <rectangle from="3368,2443" to="3515,2762" map="1" />
+		<circle center="3709,2629" radius="15" map="1" z="20" />
+	</spawnregion>
+
+	<!-- Old Haven Ruins Undead (ServUO Accurate) -->
+	<spawnregion inherit="trammel_Area_Light" id="trammel_old_haven_undead">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<npcspercycle>3</npcspercycle>
+		<npc id="skeleton"><npcwander type="circle" radius="15" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="15" /></npc>
+		<circle center="3651,2509" radius="40" map="1" z="0" />
 	</spawnregion>
 
 	<spawnregion inherit="trammel_Area_Medium" id="trammel_Area47_78">

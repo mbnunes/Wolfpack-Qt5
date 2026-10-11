@@ -435,13 +435,13 @@ def onLoad():
 	wolfpack.registercommand("linkdoors", commandLinkDoors)
 	wolfpack.registercommand("unlinkdoors", commandUnlinkDoors)
 
-"""
+r"""
 	\command linkdoors
 	\description Links two doors together. If one of the linked doors is opened, the other will open, too.
 	If you want to remove the link, use unlinkdoors.
 """
 
-"""
+r"""
 	\command unlinkdoors
 	\description Removes the link between two doors. Each door will open alone again.
 """

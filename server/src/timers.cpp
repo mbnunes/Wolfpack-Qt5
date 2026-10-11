@@ -565,13 +565,17 @@ void cTimers::load( cBufferedReader& reader )
 	insert( timer );
 }
 
-cTimers::~cTimers()
+void cTimers::clear()
 {
-	// Clear all teffects
 	std::vector<cTimer*>::iterator it;
 	for ( it = teffects.begin(); it != teffects.end(); ++it )
 	{
 		delete * it;
 	}
 	teffects.clear();
+}
+
+cTimers::~cTimers()
+{
+	clear();
 }

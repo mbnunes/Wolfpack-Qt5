@@ -1,7 +1,7 @@
 import wolfpack
 from wolfpack import tr
 
-"""
+r"""
 	\command findlock
 	\usage - <code>findlock lock</code>
 	\description Go to the item found with the lock id.

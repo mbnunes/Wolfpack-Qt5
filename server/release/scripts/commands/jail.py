@@ -3,13 +3,13 @@ import wolfpack
 from wolfpack import tr
 from wolfpack.consts import *
 
-"""
+r"""
 	\command jail
 	\description Sends the targetted player to jail after saving his current position. The jailed flag is set for the player too.
 	If you want to release the player from jail, you have to use the forgive command.
 """
 
-"""
+r"""
 	\command forgive
 	\description Releases the targetted player from jail and sends him back where he was before being jailed.
 """

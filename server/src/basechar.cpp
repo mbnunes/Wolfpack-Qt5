@@ -1445,7 +1445,7 @@ void cBaseChar::processNode( const cElement* Tag, uint hash )
 
 				const QString& id = element->getAttribute( "id" );
 
-				if ( id != QString::null )
+				if ( id != QString() )
 				{
 					pItem = cItem::createFromScript( id );
 				}
@@ -1453,7 +1453,7 @@ void cBaseChar::processNode( const cElement* Tag, uint hash )
 				{
 					const QString& list = element->getAttribute( "list" );
 
-					if ( list != QString::null )
+					if ( list != QString() )
 					{
 						pItem = cItem::createFromList( list );
 					}
@@ -2386,6 +2386,8 @@ PyObject* cBaseChar::getProperty( const QString& name, uint hash )
 		return createPyObject( isInvulnerable() );
 	case 0x6c26: // elf
 		return createPyObject( isElf() );
+	case 0x88e6af5: // gargoyle
+		return createPyObject( isGargoyle() );
 	case 0xd098975: // invisible
 		return createPyObject( isInvisible() );
 	case 0x6d970be: // frozen
@@ -2588,7 +2590,8 @@ void cBaseChar::callGuards()
 
 unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject* source )
 {
-	if ( isInvulnerable() )
+	P_PLAYER thisPlayer = dynamic_cast<P_PLAYER>( this );
+	if ( isInvulnerable() || ( thisPlayer && ( thisPlayer->isGMorCounselor() || ( thisPlayer->account() && thisPlayer->account()->isStaff() ) ) ) )
 	{
 		return 0;
 	}
@@ -2667,11 +2670,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 
 		if ( pvictim && pvictim->socket() )
 		{
-			cUOTxDamage damage;
-			damage.setUnknown1( 1 );
-			damage.setDamage( amount );
-			damage.setSerial( serial_ );
-			pvictim->socket()->send( &damage );
+			pvictim->socket()->sendDamage( serial_, amount );
 		}
 	}
 
@@ -2691,11 +2690,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 	{
 		if ( player && player->socket() )
 		{
-			cUOTxDamage damage;
-			damage.setUnknown1( 1 );
-			damage.setDamage( amount );
-			damage.setSerial( serial_ );
-			player->socket()->send( &damage );
+			player->socket()->sendDamage( serial_, amount );
 		}
 	}
 
@@ -3010,7 +3005,7 @@ bool cBaseChar::onWearItem( P_PLAYER pPlayer, P_ITEM pItem, unsigned char layer 
 QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 {
 	// I hate this event by the way (DarkStorm)
-	QString name = QString::null;
+	QString name = QString();
 
 	if ( canHandleEvent( EVENT_SHOWPAPERDOLLNAME ) )
 	{
@@ -3450,7 +3445,7 @@ bool cBaseChar::kill( cUObject* source )
 		corpse->setOwner( this );
 		corpse->moveTo( pos_ );
 		corpse->setDirection( direction() );
-		corpse->setMurderTime( QDateTime::currentDateTime().toTime_t() );
+		corpse->setMurderTime( QDateTime::currentDateTime().toSecsSinceEpoch() );
 
 		// stores the time and the murderer's name
 		if ( pKiller )
@@ -3734,6 +3729,11 @@ cBaseChar::FightStatus cBaseChar::fight( P_CHAR enemy )
 			sysmessage( 1061621 );
 			enemy = 0;
 		}
+		else if ( dynamic_cast<P_PLAYER>( enemy ) && ( dynamic_cast<P_PLAYER>( enemy )->isGMorCounselor() || ( dynamic_cast<P_PLAYER>( enemy )->account() && dynamic_cast<P_PLAYER>( enemy )->account()->isStaff() ) ) )
+		{
+			sysmessage( "You cannot fight staff members." );
+			enemy = 0;
+		}
 		else if ( enemy->inSafeArea() )
 		{
 			sysmessage( "You cannot fight with creatures in Safe Areas.");
@@ -3849,8 +3849,10 @@ void cBaseChar::poll( unsigned int time, unsigned int events )
 		{
 			P_CHAR target = attackTarget_;
 
-			// Invulnerable or Dead target. Stop fighting.
-			if ( target == this || isDead() || target->isInvulnerable() || target->isDead() || target->inSafeArea() )
+			// Invulnerable, Dead, or Staff target. Stop fighting.
+			P_PLAYER targetPlayer = dynamic_cast<P_PLAYER>( target );
+			if ( target == this || isDead() || target->isInvulnerable() || target->isDead() || target->inSafeArea() ||
+			     ( targetPlayer && ( targetPlayer->isGMorCounselor() || ( targetPlayer->account() && targetPlayer->account()->isStaff() ) ) ) )
 			{
 				fight( 0 );
 				return;

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Radiant / Wolfpack Dev Team    |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Mysticism System Items                                        |
+=================================================================
+-->
+<definitions>
+	<!-- Mystic Spellbook -->
+	<item id="2d9d">
+		<id>0x2d9d</id>
+		<onehanded />
+		<newbie />
+		<decay />
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
+		<category>Professions\Mystic\Spellbook</category>
+		<basescripts>magic.mysticspellbook</basescripts>
+	</item>
+
+	<item id="2d9e">
+		<id>0x2d9e</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Nether Bolt</category>
+	</item>
+
+	<item id="2d9f">
+		<id>0x2d9f</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Healing Stone</category>
+	</item>
+
+	<item id="2da0">
+		<id>0x2da0</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Purge Magic</category>
+	</item>
+
+	<item id="2da1">
+		<id>0x2da1</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Enchant</category>
+	</item>
+
+	<item id="2da2">
+		<id>0x2da2</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Sleep</category>
+	</item>
+
+	<item id="2da3">
+		<id>0x2da3</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Eagle Strike</category>
+	</item>
+
+	<item id="2da4">
+		<id>0x2da4</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Animated Weapon</category>
+	</item>
+
+	<item id="2da5">
+		<id>0x2da5</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Stone Form</category>
+	</item>
+
+	<item id="2da6">
+		<id>0x2da6</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Spell Trigger</category>
+	</item>
+
+	<item id="2da7">
+		<id>0x2da7</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Mass Sleep</category>
+	</item>
+
+	<item id="2da8">
+		<id>0x2da8</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Cleansing Winds</category>
+	</item>
+
+	<item id="2da9">
+		<id>0x2da9</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Bombard</category>
+	</item>
+
+	<item id="2daa">
+		<id>0x2daa</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Spell Plague</category>
+	</item>
+
+	<item id="2dab">
+		<id>0x2dab</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Hail Storm</category>
+	</item>
+
+	<item id="2dac">
+		<id>0x2dac</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Nether Cyclone</category>
+	</item>
+
+	<item id="2dad">
+		<id>0x2dad</id>
+		<basescripts>magic.scroll</basescripts>
+		<category>Professions\Mystic\Scrolls\Rising Colossus</category>
+	</item>
+</definitions>

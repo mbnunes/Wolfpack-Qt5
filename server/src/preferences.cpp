@@ -326,7 +326,7 @@ void Preferences::writeData()
 		// comment the group
 		QString commentText = getGroupDoc( git.key() );
 
-		if ( commentText != QString::null )
+		if ( commentText != QString() )
 		{
 			root.appendChild( doc.createTextNode( QLatin1String("\n\n") + t ) );
 			root.appendChild( doc.createComment( QLatin1String("\n") + t + commentText.replace( QLatin1String("\n"), QLatin1String("\n") + t ) + QLatin1String("\n") + t ) );
@@ -341,7 +341,7 @@ void Preferences::writeData()
 		{
 			QString commentText = getEntryDoc( git.key(), pit.key() );
 
-			if ( commentText != QString::null )
+			if ( commentText != QString() )
 			{
 				group.appendChild( doc.createTextNode( QLatin1String("\n\n") + t + t ) );
 				group.appendChild( doc.createComment( t + commentText.replace( QLatin1String("\n"), QLatin1String("\n") + t + t ) + t ) );
@@ -403,12 +403,12 @@ bool Preferences::formatState()
 QString Preferences::getGroupDoc( const QString& group )
 {
 	Q_UNUSED( group );
-	return QString::null;
+	return QString();
 }
 
 QString Preferences::getEntryDoc( const QString& group, const QString& entry )
 {
 	Q_UNUSED( group );
 	Q_UNUSED( entry );
-	return QString::null;
+	return QString();
 }

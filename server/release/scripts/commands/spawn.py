@@ -3,7 +3,7 @@ import wolfpack
 from wolfpack import tr
 from gumps.warning_gump import WarningGump
 
-"""
+r"""
 	\command spawn
 	\description Adds a spawngem with the given parameters at the target location.
 	\usage - <code>spawn npc range mintime maxtime</code>

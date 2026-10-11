@@ -12,6 +12,8 @@ from combat.specialmoves import getability, clearability
 import combat.hiteffects
 import magic.chivalry
 import magic.necromancy
+import magic.bushido
+import magic.ninjitsu
 import system.poison
 
 #
@@ -154,6 +156,10 @@ def checkhit(attacker, defender, time):
 
 	if attacker.hastag('hitlowerattack'):
 		bonus -= 25 # Under Hit Lower Attack effect -> 25% malus
+
+	# Bushido: Lightning Strike gives +50% hit chance
+	if attacker.hastag('lightning_strike'):
+		bonus += 50
 
 	attackChance = (attackerValue + 20.0) * (100 + bonus)
 
@@ -410,7 +416,7 @@ def absorbdamage(defender, damage):
 def blockdamage(defender, damage):
 	shield = defender.itemonlayer(LAYER_LEFTHAND)
 	weapon = defender.getweapon()
-	blocked = 0
+	blocked = False
 
 	if not properties.itemcheck(shield, ITEM_SHIELD):
 		shield = None
@@ -418,17 +424,35 @@ def blockdamage(defender, damage):
 	if not properties.itemcheck(weapon, ITEM_MELEE):
 		weapon = None
 
+	chance = 0.0
+	bushido = defender.skill[BUSHIDO] / 10.0
+	parrying = defender.skill[PARRYING] / 10.0
+
 	if shield:
-		# There is a 0.3% chance to block for each skill point
 		chance = defender.skill[PARRYING] * 0.0003
 		defender.checkskill(PARRYING, 0, 1200)
-		blocked = chance >= random.random()
+	elif weapon:
+		# Weapon parrying (with Bushido or Parrying)
+		if bushido > 0 or parrying > 0:
+			if weapon.twohanded:
+				chance = (parrying * bushido) / 48000.0 if bushido > 0 else (parrying * 0.0002)
+			else:
+				chance = (parrying * bushido) / 41140.0 if bushido > 0 else (parrying * 0.00015)
+			# Normalize minimal parry chance if weapon equipped
+			chance = max(0.05, min(0.40, chance))
+			if parrying > 0:
+				defender.checkskill(PARRYING, 0, 1200)
+			if bushido > 0:
+				defender.checkskill(BUSHIDO, 0, 1200)
 
-	# we can't gain parrying using a weapon as a shield.
-	# Note: no ranged weapons
-	elif weapon and weapon.twohanded:
-		# There is a 0.15% chance to block for each skill point
-		chance = defender.skill[PARRYING] * 0.00015
+	# Bushido: Evasion scalar
+	if defender.hastag('evasion_active') and (shield or weapon):
+		evasion_bonus = 0.16 + max(0.0, (bushido - 60.0) * 0.004)
+		if defender.skill[ANATOMY] >= 1000 and defender.skill[TACTICS] >= 1000 and defender.skill[BUSHIDO] > 1000:
+			evasion_bonus += 0.10
+		chance *= (1.0 + evasion_bonus)
+
+	if chance > 0.0:
 		blocked = chance >= random.random()
 
 	# If we blocked the blow. Show it, absorb the damage
@@ -436,6 +460,26 @@ def blockdamage(defender, damage):
 	if blocked:
 		defender.effect(0x37B9, 10, 16)
 		damage = 0
+
+		# Bushido: Confidence heal on successful parry
+		if defender.hastag('confidence_active'):
+			heal_hp = random.randint(1, max(1, int(defender.skill[BUSHIDO] // 120)))
+			stam_refresh = random.randint(1, max(1, int(defender.skill[BUSHIDO] // 50)))
+			if defender.hitpoints < defender.maxhitpoints:
+				defender.hitpoints = min(defender.maxhitpoints, defender.hitpoints + heal_hp)
+				defender.updatehealth()
+			if defender.stamina < defender.maxstamina:
+				defender.stamina = min(defender.maxstamina, defender.stamina + stam_refresh)
+				defender.updatehealth()
+
+		# Bushido: Counter Attack immediate stance retaliatory response
+		if defender.hastag('counterattack_active') and defender.combatant and not defender.dead:
+			magic.bushido.endCounterAttack(defender)
+			counter_target = defender.combatant
+			if not counter_target.dead and defender.canreach(counter_target, 2):
+				if defender.socket:
+					defender.socket.clilocmessage(1063117) # You counterattack your opponent!
+				hit(defender, counter_target, defender.getweapon(), wolfpack.time.currenttime())
 
 		# This is as lame as above
 		if shield and shield.health > 0:
@@ -503,7 +547,7 @@ def splashdamage(attacker, effect, excludechar = None):
 		hue = 120
 		energy = 100
 	else:
-		raise RuntimeError, "Invalid effect passed to splashdamage: %s" % effect
+		raise RuntimeError( "Invalid effect passed to splashdamage: %s" % effect )
 
 	guild = attacker.guild # Cache the guild
 	party = attacker.guild # Cache the party
@@ -578,9 +622,43 @@ def hit(attacker, defender, weapon, time):
 	if slayer and slayer == "silver" and magic.necromancy.transformed(defender) and not defender.hasscript("magic.horrificbeast"):
 		damage += scaledamage(attacker, 25 ) # Every necromancer transformation other than horrific beast takes an additional 25% damage
 
+	# Bushido: Honorable Execution damage bonus
+	if attacker.hastag('honorable_execution'):
+		bushido = attacker.skill[BUSHIDO] / 10.0
+		damage = int(damage * (1.0 + (bushido * 20.0) / 10000.0))
+
+	# Ninjitsu: Focus Attack damage bonus
+	if attacker.hastag('focus_attack'):
+		ninjitsu = attacker.skill[NINJITSU] / 10.0
+		damage = int(damage * (1.0 + (ninjitsu * ninjitsu) / 43636.0))
+
+	# Ninjitsu: Death Strike half direct damage on initial hit
+	if attacker.hastag('death_strike'):
+		damage = max(1, int(damage * 0.5))
+
+	# Ninjitsu: Ki Attack distance damage bonus
+	if attacker.hastag('ki_attack') and attacker.hastag('ki_start_x') and attacker.hastag('ki_start_y'):
+		sx = int(attacker.gettag('ki_start_x'))
+		sy = int(attacker.gettag('ki_start_y'))
+		dx = attacker.pos.x - sx
+		dy = attacker.pos.y - sy
+		dist = min(20.0, math.sqrt(dx * dx + dy * dy))
+		damage = int(damage * (1.0 + dist / 10.0))
+
+	# Ninjitsu: Backstab damage bonus
+	if attacker.hastag('backstab'):
+		ninjitsu = attacker.skill[NINJITSU] / 10.0
+		damage = int(damage * (1.0 + (ninjitsu / 360.0)))
+
 	# Give the defender a chance to absorb damage
 	damage = absorbdamage(defender, damage)
 	blocked = damage <= 0
+
+	# Bushido: Disruption of Confidence on defender
+	if defender.hastag('confidence_regen_left'):
+		defender.deltag('confidence_regen_left')
+		defender.deltag('confidence_regen_tick')
+		defender.dispel(defender, True, 'CONFIDENCE_REGEN')
 
 	# If the attack was parried, the ability was wasted
 	if AGEOFSHADOWS and blocked:
@@ -592,9 +670,150 @@ def hit(attacker, defender, weapon, time):
 	if ability:
 		ignorephysical = ability.ignorephysical
 
+	# Bushido: Lightning Strike critical armor ignore check
+	if attacker.hastag('lightning_strike'):
+		bushido = attacker.skill[BUSHIDO] / 10.0
+		crit_chance = (bushido * bushido) / 72000.0
+		if crit_chance >= random.random():
+			ignorephysical = True
+
 	# Get the damage distribution of the attackers weapon
 	(physical, fire, cold, poison, energy) = damagetypes(attacker, defender)
 	damagedone = energydamage(defender, attacker, damage, physical, fire, cold, poison, energy, 0, DAMAGE_PHYSICAL, ignorephysical=ignorephysical)
+
+	# Bushido: Honorable Execution result
+	if attacker.hastag('honorable_execution'):
+		magic.bushido.clearMove(attacker, 'honorable_execution', 401)
+		attacker.checkskill(BUSHIDO, 0, 1200)
+		if defender.dead or defender.hitpoints <= 0:
+			# Success: heal & swing speed bonus
+			attacker.effect(0x373A, 1, 17)
+			bushido = attacker.skill[BUSHIDO] / 10.0
+			heal = 20 + int((bushido * bushido) / 480.0)
+			if attacker.hitpoints < attacker.maxhitpoints:
+				attacker.hitpoints = min(attacker.maxhitpoints, attacker.hitpoints + heal)
+				attacker.updatehealth()
+			attacker.settag('honorable_swing_bonus', 1)
+			attacker.dispel(attacker, True, 'HONORABLE_SWING_BONUS')
+			attacker.addtimer(20000, magic.bushido.honorable_swing_bonus_expire, [], True, False, 'HONORABLE_SWING_BONUS')
+		else:
+			# Failure: penalty -40 all resistances for 7s
+			attacker.settag('honorable_penalty', 1)
+			attacker.dispel(attacker, True, 'HONORABLE_PENALTY')
+			attacker.addtimer(7000, magic.bushido.honorable_penalty_expire, [], True, False, 'HONORABLE_PENALTY')
+
+	# Bushido: Lightning Strike trigger
+	if attacker.hastag('lightning_strike'):
+		magic.bushido.clearMove(attacker, 'lightning_strike', 405)
+		attacker.checkskill(BUSHIDO, 0, 1200)
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063168) # You attack with lightning precision!
+		if defender.socket:
+			defender.socket.clilocmessage(1063169) # Your opponent's quick strike causes extra damage!
+		defender.effect(0x3818, 1, 11)
+		defender.soundeffect(0x51D)
+
+	# Bushido: Momentum Strike trigger
+	if attacker.hastag('momentum_strike'):
+		magic.bushido.clearMove(attacker, 'momentum_strike', 406)
+		attacker.checkskill(BUSHIDO, 0, 1200)
+		# Find another hostile in weapon range
+		weap_range = 1
+		if weapon:
+			weap_range = weapon.getintproperty('range', 1)
+		center = attacker.pos
+		sec_targets = []
+		chariter = wolfpack.charregion(center.x - weap_range, center.y - weap_range, center.x + weap_range, center.y + weap_range, center.map)
+		sec_char = chariter.first
+		while sec_char:
+			if sec_char != attacker and sec_char != defender and not sec_char.dead and not sec_char.invulnerable and not sec_char.region.safe:
+				if mayAreaHarm(attacker, sec_char) and attacker.canreach(sec_char, weap_range):
+					sec_targets.append(sec_char)
+			sec_char = chariter.next
+
+		if len(sec_targets) > 0:
+			sec_target = random.choice(sec_targets)
+			if attacker.socket:
+				attacker.socket.clilocmessage(1063171) # You transfer the momentum of your weapon into another enemy!
+			if sec_target.socket:
+				sec_target.socket.clilocmessage(1063172) # You were hit by the momentum of a Samurai's weapon!
+			sec_target.effect(0x37B9, 1, 4)
+			attacker.soundeffect(0x510)
+			# Bonus damage: bushido / 100 (or 1.5x if primary defender died)
+			bonus_mult = (attacker.skill[BUSHIDO] / 1000.0)
+			if defender.dead or defender.hitpoints <= 0:
+				bonus_mult *= 1.5
+			sec_damage = max(1, int(damagedone * (1.0 + bonus_mult)))
+			energydamage(sec_target, attacker, sec_damage, physical, fire, cold, poison, energy, 0, DAMAGE_PHYSICAL)
+		else:
+			if attacker.socket:
+				attacker.socket.clilocmessage(1063123) # There are no valid targets to attack!
+
+	# Ninjitsu: Focus Attack onHit
+	if attacker.hastag('focus_attack'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'focus_attack', 501)
+		attacker.checkskill(NINJITSU, 0, 1200)
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063098) # You focus all of your abilities and strike with deadly force!
+		attacker.soundeffect(0x510)
+
+	# Ninjitsu: Death Strike onHit
+	if attacker.hastag('death_strike'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'death_strike', 502)
+		attacker.checkskill(NINJITSU, 0, 1200)
+		ninjitsu = attacker.skill[NINJITSU] / 10.0
+		chance = 30 + (ninjitsu - 85) * 2.2 if ninjitsu < 100 else 63 + (ninjitsu - 100) * 1.1
+		if (chance / 100.0) >= random.random():
+			if attacker.socket:
+				attacker.socket.clilocmessage(1063094) # You inflict a Death Strike upon your opponent!
+			if defender.socket:
+				defender.socket.clilocmessage(1063093) # You have been hit by a Death Strike! Move with caution!
+			defender.effect(0x374A, 1, 17)
+			attacker.soundeffect(0x50D if attacker.gender else 0x50E)
+			defender.settag('deathstrike_victim', 1)
+			defender.settag('deathstrike_attacker', attacker.serial)
+			defender.settag('deathstrike_steps', 0)
+			defender.dispel(defender, True, 'DEATHSTRIKE_TIMER')
+			defender.addtimer(5000, magic.ninjitsu.deathstrike_process, [], True, False, 'DEATHSTRIKE_TIMER')
+		else:
+			if attacker.socket:
+				attacker.socket.clilocmessage(1070779) # You missed your opponent with a Death Strike.
+
+	# Ninjitsu: Ki Attack onHit
+	if attacker.hastag('ki_attack'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'ki_attack', 504)
+		attacker.deltag('ki_start_x')
+		attacker.deltag('ki_start_y')
+		attacker.dispel(attacker, True, 'KI_ATTACK_TIMER')
+		attacker.checkskill(NINJITSU, 0, 1200)
+		attacker.effect(0x37BE, 1, 5)
+		defender.effect(0x37BE, 1, 5)
+		attacker.soundeffect(0x510)
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063100) # Your quick flight to your target causes extra damage as you strike!
+
+	# Ninjitsu: Surprise Attack onHit
+	if attacker.hastag('surprise_attack'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'surprise_attack', 505)
+		attacker.checkskill(NINJITSU, 0, 1200)
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063129) # You catch your opponent off guard with your Surprise Attack!
+		if defender.socket:
+			defender.socket.clilocmessage(1063130) # Your defenses are lowered as your opponent surprises you!
+		defender.effect(0x37B9, 1, 5)
+		attacker.reveal()
+		defender.settag('surprise_attack_malus', 1)
+		defender.dispel(defender, True, 'SURPRISE_ATTACK_MALUS')
+		defender.addtimer(8000, magic.ninjitsu.surprise_attack_expire, [], True, False, 'SURPRISE_ATTACK_MALUS')
+
+	# Ninjitsu: Backstab onHit
+	if attacker.hastag('backstab'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'backstab', 506)
+		attacker.checkskill(NINJITSU, 0, 1200)
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063090) # You quickly stab your opponent as you come out of hiding!
+		defender.effect(0x37B9, 1, 5)
+		attacker.reveal()
 
 	# Wear out the weapon
 	if weapon:
@@ -707,6 +926,32 @@ def hit(attacker, defender, weapon, time):
 #
 def miss(attacker, defender, weapon, time):
 	combat.utilities.playmisssound(attacker, defender)
+
+	# Clear active moves on miss
+	if attacker.hastag('honorable_execution'):
+		magic.bushido.clearMove(attacker, 'honorable_execution', 401)
+	if attacker.hastag('lightning_strike'):
+		magic.bushido.clearMove(attacker, 'lightning_strike', 405)
+	if attacker.hastag('momentum_strike'):
+		magic.bushido.clearMove(attacker, 'momentum_strike', 406)
+	if attacker.hastag('focus_attack'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'focus_attack', 501)
+	if attacker.hastag('death_strike'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'death_strike', 502)
+	if attacker.hastag('ki_attack'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'ki_attack', 504)
+		attacker.deltag('ki_start_x')
+		attacker.deltag('ki_start_y')
+	if attacker.hastag('surprise_attack'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'surprise_attack', 505)
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063161) # You failed to properly use the element of surprise.
+		attacker.reveal()
+	if attacker.hastag('backstab'):
+		magic.ninjitsu.clearNinjaMove(attacker, 'backstab', 506)
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063161) # You failed to properly use the element of surprise.
+		attacker.reveal()
 
 	# Notify the weapon ability
 	ability = getability(attacker)

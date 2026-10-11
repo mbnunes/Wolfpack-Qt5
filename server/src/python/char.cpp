@@ -70,10 +70,11 @@ typedef struct
 
 PyObject* wpChar_getAttr( wpChar* self, char* name );
 int wpChar_setAttr( wpChar* self, char* name, PyObject* value );
-int wpChar_compare( PyObject*, PyObject* );
+static PyObject* wpChar_richcompare( PyObject* a, PyObject* b, int op );
 
-long wpChar_hash( wpChar* self )
+static Py_hash_t wpChar_hash( PyObject* self_obj )
 {
+	wpChar* self = ( wpChar* ) self_obj;
 	return self->pChar->serial();
 }
 
@@ -100,55 +101,17 @@ static void wpChar_Dealloc( wpChar* self )
 /*!
 	The typedef for Wolfpack Python chars
 */
-static PyTypeObject wpCharType =
-{
-PyObject_HEAD_INIT( &PyType_Type )
-0,
-"wpchar",
-sizeof( wpCharType ),
-0,
-( destructor ) wpChar_Dealloc,
-0,
-( getattrfunc ) wpChar_getAttr,
-( setattrfunc ) wpChar_setAttr,
-wpChar_compare,
-0,
-0,
-0,
-0,
-( hashfunc ) wpChar_hash,
-0, // Call
-( reprfunc ) wpChar_str,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
+static PyTypeObject wpCharType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.char",
+	.tp_basicsize = sizeof( wpChar ),
+	.tp_dealloc = ( destructor ) wpChar_Dealloc,
+	.tp_getattr = ( getattrfunc ) wpChar_getAttr,
+	.tp_setattr = ( setattrfunc ) wpChar_setAttr,
+	.tp_repr = ( reprfunc ) wpChar_str,
+	.tp_hash = ( hashfunc ) wpChar_hash,
+	.tp_str = ( reprfunc ) wpChar_str,
+	.tp_richcompare = wpChar_richcompare,
 };
 
 PyObject* PyGetCharObject( P_CHAR pChar )
@@ -1012,7 +975,7 @@ static PyObject* wpChar_getstrproperty( wpChar* self, PyObject* args )
 
 	QString name = boost::python::extract<QString>( pyname );
 
-	QString def = QString::null;
+	QString def = QString();
 	if ( pydef != Py_None )
 	{
 		def = boost::python::extract<QString>( pydef );
@@ -3208,16 +3171,27 @@ bool checkWpChar( PyObject* pObj )
 		return true;
 }
 
-int wpChar_compare( PyObject* a, PyObject* b )
+static PyObject* wpChar_richcompare( PyObject* a, PyObject* b, int op )
 {
-	// Both have to be characters
-	if ( a->ob_type != &wpCharType || b->ob_type != &wpCharType )
-		return -1;
+	if ( Py_TYPE( a ) != &wpCharType || Py_TYPE( b ) != &wpCharType )
+	{
+		Py_RETURN_NOTIMPLEMENTED;
+	}
 
 	P_CHAR pA = getWpChar( a );
 	P_CHAR pB = getWpChar( b );
+	bool equal = ( pA && pB && pA->serial() == pB->serial() );
 
-	return !( pA->serial() == pB->serial() );
+	if ( op == Py_EQ )
+	{
+		if ( equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+	else if ( op == Py_NE )
+	{
+		if ( !equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+
+	Py_RETURN_NOTIMPLEMENTED;
 }
 
 int PyConvertChar( PyObject* object, P_CHAR* character )

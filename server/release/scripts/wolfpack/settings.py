@@ -7,7 +7,7 @@
 # Functions for modifying settings				                      #
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack.settings
 	\description Contains several server functions for settings.
 """
@@ -16,4 +16,5 @@ import _wolfpack.settings
 
 d = globals()
 for (name, obj) in _wolfpack.settings.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj

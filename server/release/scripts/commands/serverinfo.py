@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr # Last Modification:                         #
 #################################################################
 
-"""
+r"""
 	\command serverinfo
 	\description Show a gump with server information.
 	\note The amount of memory has to be set in the script.

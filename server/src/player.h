@@ -94,7 +94,7 @@ public:
 	virtual void flagUnchanged();
 	virtual bool message( const QString& message, unsigned short color = 0x3b2, cUObject* source = 0, unsigned short font = 0x03, unsigned char mode = 0x00 );
 	virtual bool sysmessage( const QString& message, unsigned short color = 0x3b2, unsigned short font = 0x03 );
-	virtual bool sysmessage( unsigned int message, const QString& params = QString::null, unsigned short color = 0x3b2, unsigned short font = 0x03 );
+	virtual bool sysmessage( unsigned int message, const QString& params = QString(), unsigned short color = 0x3b2, unsigned short font = 0x03 );
 	virtual FightStatus fight( P_CHAR enemy );
 	void log( eLogLevel, const QString& string );
 	void log( const QString& string );

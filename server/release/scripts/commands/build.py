@@ -1,4 +1,4 @@
-"""
+r"""
 	\command build
 	\description Fills a certain area with a given pattern.
 	\usage - <code>build id z</code>
@@ -135,7 +135,7 @@ def buildRoofN(x1, x2, y1, y2, z, mapid, args):
 # Build a 3x3 field
 def build3x3(x1, x2, y1, y2, z, mapid, args):
 	if x2 != x1 or y2 != y1:
-		raise AssertionError, "You have to select a single coordinate."
+		raise AssertionError( "You have to select a single coordinate." )
 
 	for x in range(x1 - 1, x1 + 2):
 		for y in range(y1 - 1, y1 + 2):
@@ -147,7 +147,7 @@ def build3x3(x1, x2, y1, y2, z, mapid, args):
 # Build a 4x4 field
 def build4x4(x1, x2, y1, y2, z, mapid, args):
 	if x2 != x1 or y2 != y1:
-		raise AssertionError, "You have to select a single coordinate."
+		raise AssertionError( "You have to select a single coordinate." )
 
 	for x in range(x1 - 1, x1 + 3):
 		for y in range(y1 - 1, y1 + 3):
@@ -296,7 +296,7 @@ def buildResponse(player, arguments, target):
 		BUILD_TYPES[id][0](x1, x2, y1, y2, z, player.pos.map, BUILD_TYPES[id][1])	
 		player.log(LOG_MESSAGE, "Building %u items (%s) from %u,%u to %u,%u at z=%d.\n" % (count, id, x1, y1, x2, y2, z))
 		player.socket.sysmessage('Building %u items from %u,%u to %u,%u at z=%d.' % (count, x1, y1, x2, y2, z))		
-	except AssertionError, e:
+	except AssertionError as e:
 		player.socket.sysmessage(str(e))
 	except:
 		raise

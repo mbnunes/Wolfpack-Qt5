@@ -7,7 +7,7 @@
 # skill Command 						#
 #===============================================================#
 
-"""
+r"""
 	\command skill
 	\usage - <code>skill name value</code>
 	Name is the name of the skill you want to set.
@@ -16,7 +16,7 @@
 	\description Change the skills of a character.
 """
 
-"""
+r"""
 	\command allskills
 	\description Sets all skills of your character.
 	\usage - <code>allskills [value]</code>

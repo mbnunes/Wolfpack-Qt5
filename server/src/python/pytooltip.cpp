@@ -64,19 +64,13 @@ static int wpTooltip_setAttr( wpTooltip* self, char* name, PyObject* value );
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpTooltipType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpTooltip",
-sizeof( wpTooltipType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpTooltip_getAttr,
-( setattrfunc ) wpTooltip_setAttr,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-
+static PyTypeObject wpTooltipType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.tooltip",
+	.tp_basicsize = sizeof( wpTooltip ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpTooltip_getAttr,
+	.tp_setattr = ( setattrfunc ) wpTooltip_setAttr,
 };
 
 /*

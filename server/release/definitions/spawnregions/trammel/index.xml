@@ -51,6 +51,7 @@
 	<include file="definitions/spawnregions/trammel/dungeons/terathan_keep.xml" />
 	<include file="definitions/spawnregions/trammel/dungeons/trinsic_passage.xml" />
 	<include file="definitions/spawnregions/trammel/dungeons/wrong.xml" />
+	<include file="definitions/spawnregions/trammel/dungeons/mondains_legacy.xml" />
 	<!-- Wilderness Spawns -->
 	<include file="definitions/spawnregions/trammel/wilderness.xml" />
 </definitions>

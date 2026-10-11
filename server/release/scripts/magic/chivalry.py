@@ -488,10 +488,26 @@ class RemoveCurse(CharEffectSpell):
 				target.dispel(target, True, 'COPRSESKIN')
 			# remove curse spell
 			magic.circle4.curse_remove(char, [], True)
+
+			# Heal and cure target
+			if target.poison != -1:
+				poison.cure(target)
+			heal_amount = min(target.maxhitpoints - target.hitpoints, int(ComputePowerValue(char, 4)))
+			if heal_amount > 0:
+				target.hitpoints += heal_amount
+				target.updatehealth()
+
+			# Sacrifice caster vitals
+			char.hitpoints = 1
+			char.stamina = 1
+			char.mana = 1
+			char.updatehealth()
+			char.updatestamina()
+			char.updatemana()
+			char.soundeffect(0x244)
+			char.effect(0x3709, 1, 30)
 		else:
 			target.soundeffect( 0x1df )
-
-		char.socket.sysmessage( tr("Not yet fully implemented.") )
 
 class SacredJourney(Spell):
 	def __init__(self):

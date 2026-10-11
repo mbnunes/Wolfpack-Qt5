@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by: Dreoth
 #  ( (  ;._ \\ ctr | Last Modification: Tweaks
 #===============================================================#
-"""
+r"""
 	\command invul
 	\description Toggle or change your invulnerability flag.
 	\usage - <code>invul</code>

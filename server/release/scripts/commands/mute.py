@@ -1,10 +1,10 @@
 
-"""
+r"""
 	\command mute
 	\description Stops the targetted player from talking until you unmute him.
 """
 
-"""
+r"""
 	\command unmute
 	\description Allows the targetted player to talk again.
 """

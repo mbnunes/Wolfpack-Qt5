@@ -14,7 +14,7 @@ class WarningGump:
 		self.gump.addXmfHtmlGump( 10, 10, width - 20, 20, header, 0, 0, headerColor )
 		self.gump.addTiledGump( 10, 40, width - 20, height - 80, 2624 )
 		self.gump.addCheckerTrans( 10, 40, width - 20, height - 80 )
-		if type( content ) is IntType:
+		if isinstance( content, int ):
 			self.gump.addXmfHtmlGump( 10, 40, width - 20, height - 80, content, 0, 1, contentColor )
 		else:
 			self.gump.addHtmlGump( 10, 40, width - 20, height - 80, "<BASEFONT COLOR=#%x>%s</BASEFONT>" % ( contentColor, content ), 0, 1 )

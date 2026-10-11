@@ -1,5 +1,5 @@
 
-"""
+r"""
 	\command go
 	\description Move to given coordinates or show a menu with predefined locations.
 	\usage - <code>go</code>
@@ -13,7 +13,7 @@
 	locations position. If you specify a coordinate, you will be transported there.
 """
 
-"""
+r"""
 	\command send
 	\description Move another character or item to the given coordinate, location or select the target.
 	\usage - <code>send</code>
@@ -243,9 +243,9 @@ def generateGoMenu():
 
 		# Iterate trough the categories and see if they're all there
 		category = ''
-		if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+		if len(categories) > 0 and ('\\'.join(categories) + '\\') not in submenus:
 			for subcategory in categories:
-				if not submenus.has_key(category + subcategory + '\\'):
+				if (category + subcategory + '\\') not in submenus:
 					# Category is our parent category
 					parent = None
 					if len(category) == 0:
@@ -261,7 +261,7 @@ def generateGoMenu():
 
 		# Parse the position of this makemenu entry
 		if location.text.count(',') != 3:
-			raise RuntimeError, "Wrong position information for location %s." % location.getattribute('id')
+			raise RuntimeError( "Wrong position information for location %s." % location.getattribute('id') )
 
 		(x, y, z, map) = location.text.split(',')
 		pos = wolfpack.coord(int(x), int(y), int(z), int(map))

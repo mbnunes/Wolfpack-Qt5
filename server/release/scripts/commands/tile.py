@@ -1,4 +1,4 @@
-"""
+r"""
 	\command tile
 	\description Fills a rectangle with items.
 	\usage - <code>tile z ids</code>

@@ -30,7 +30,7 @@ def onLoad():
 	wolfpack.registercommand( "say", say )
 	return
 
-"""
+r"""
 	\command say
 	\description Let a char say the text or show the text over an item.
 	\usage - <code>say text</code>

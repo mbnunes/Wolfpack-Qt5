@@ -7,7 +7,7 @@
 # .export Command						#
 #===============================================================#
 
-"""
+r"""
 	\command import
 	\description Import items from external worldfiles.
 	\notes The following formats are supported:
@@ -45,7 +45,6 @@ import wolfpack
 from wolfpack.consts import *
 from wolfpack.gumps import cGump
 from wolfpack.utilities import hex2dec, isValidPosition
-from string import lstrip
 import os
 
 def import_command( socket, command, arguments ):
@@ -179,10 +178,10 @@ def parseTxt( file, map ):
 
 		count += 1
 
-	print "Parsing: %i ticks" % parseTickCount
-	print "Creating: %i ticks" % createTickCount
-	print "Prop: %i ticks" % propTickCount
-	print "Move: %i ticks" % moveTickCount
+	print("Parsing: %i ticks" % parseTickCount)
+	print("Creating: %i ticks" % createTickCount)
+	print("Prop: %i ticks" % propTickCount)
+	print("Move: %i ticks" % moveTickCount)
 
 	return ( count, warnings )
 
@@ -210,9 +209,9 @@ def parseSphere51a(file, map):
 				y = int(y)
 				z = int(z)
 				if 'color' in props:
-			 		color = int(props['color'], 16)
-			 	else:
-			 		color = 0
+					color = int(props['color'], 16)
+				else:
+					color = 0
 
 				item = wolfpack.additem('%x' % itemid)
 
@@ -381,7 +380,7 @@ def parseWsc( file, map ):
 			if baseid != '':
 				newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
 			else:
-				baseid = lstrip( str( hex( id ) ), "0x" )
+				baseid = str( hex( id ) ).lstrip( "0x" )
 
 				# Multi ?
 				if id >= 0x4000:

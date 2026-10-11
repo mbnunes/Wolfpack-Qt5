@@ -286,8 +286,10 @@ def findMessages(parent, messages):
 
 	return messages
 
-def compare_message(a, b):
-	return cmp(a[1], b[1])
+def compare_message(a, b=None):
+	if b is not None:
+		return (a[1] > b[1]) - (a[1] < b[1])
+	return a[1]
 
 def onUse(char, board):
 	if not char.canreach(board, 3):
@@ -315,7 +317,7 @@ def onUse(char, board):
 	messages = findMessages(board, [])
 
 	# Sort the messages by time
-	messages.sort(compare_message)
+	messages.sort(key=compare_message)
 
 	# Send content of container to socket
 	packet = wolfpack.packet(0x3c, 5 + 19 * len(messages))

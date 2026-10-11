@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Teleporter -->
+	<item id="0x1bc3">
+		<pos x="2618" y="977" z="5" map="1" />
+	</item>
+	<!-- Teleporter -->
+	<item id="0x1bc3">
+		<pos x="2727" y="2133" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0bd0">
+		<attribute key="name" value="to the Mainland" />
+		<pos x="2728" y="2133" z="25" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x071e">
+		<pos x="2726" y="2133" z="0" map="1" />
+		<pos x="2727" y="2131" z="0" map="1" />
+		<pos x="2727" y="2131" z="5" map="1" />
+		<pos x="2727" y="2131" z="10" map="1" />
+		<pos x="2727" y="2131" z="15" map="1" />
+		<pos x="2727" y="2131" z="20" map="1" />
+		<pos x="2727" y="2131" z="25" map="1" />
+		<pos x="2727" y="2132" z="0" map="1" />
+		<pos x="2727" y="2132" z="30" map="1" />
+		<pos x="2727" y="2133" z="0" map="1" />
+		<pos x="2727" y="2133" z="30" map="1" />
+		<pos x="2727" y="2133" z="35" map="1" />
+		<pos x="2727" y="2134" z="0" map="1" />
+		<pos x="2727" y="2134" z="30" map="1" />
+		<pos x="2727" y="2135" z="0" map="1" />
+		<pos x="2727" y="2135" z="5" map="1" />
+		<pos x="2727" y="2135" z="10" map="1" />
+		<pos x="2727" y="2135" z="15" map="1" />
+		<pos x="2727" y="2135" z="20" map="1" />
+		<pos x="2727" y="2135" z="25" map="1" />
+		<pos x="2728" y="2133" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x071f">
+		<pos x="2727" y="2134" z="35" map="1" />
+		<pos x="2727" y="2135" z="30" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0737">
+		<pos x="2727" y="2131" z="30" map="1" />
+		<pos x="2727" y="2132" z="35" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a0">
+		<pos x="2726" y="2132" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a1">
+		<pos x="2728" y="2134" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a2">
+		<pos x="2728" y="2132" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07da">
+		<pos x="2726" y="2134" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0bcf">
+		<attribute key="name" value="to Buccaneer's Den" />
+		<pos x="2618" y="978" z="25" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a3">
+		<pos x="2616" y="977" z="0" map="1" />
+		<pos x="2616" y="977" z="5" map="1" />
+		<pos x="2616" y="977" z="10" map="1" />
+		<pos x="2616" y="977" z="15" map="1" />
+		<pos x="2616" y="977" z="20" map="1" />
+		<pos x="2616" y="977" z="25" map="1" />
+		<pos x="2617" y="977" z="0" map="1" />
+		<pos x="2617" y="977" z="30" map="1" />
+		<pos x="2618" y="977" z="0" map="1" />
+		<pos x="2618" y="977" z="30" map="1" />
+		<pos x="2618" y="977" z="35" map="1" />
+		<pos x="2619" y="977" z="0" map="1" />
+		<pos x="2619" y="977" z="30" map="1" />
+		<pos x="2620" y="977" z="0" map="1" />
+		<pos x="2620" y="977" z="5" map="1" />
+		<pos x="2620" y="977" z="10" map="1" />
+		<pos x="2620" y="977" z="15" map="1" />
+		<pos x="2620" y="977" z="20" map="1" />
+		<pos x="2620" y="977" z="25" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a4">
+		<pos x="2617" y="978" z="0" map="1" />
+		<pos x="2618" y="978" z="0" map="1" />
+		<pos x="2619" y="978" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a5">
+		<pos x="2619" y="977" z="35" map="1" />
+		<pos x="2620" y="977" z="30" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a6">
+		<pos x="2617" y="976" z="0" map="1" />
+		<pos x="2618" y="976" z="0" map="1" />
+		<pos x="2619" y="976" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a7">
+		<pos x="2616" y="977" z="30" map="1" />
+		<pos x="2617" y="977" z="35" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a8">
+		<pos x="2616" y="976" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07a9">
+		<pos x="2620" y="978" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07aa">
+		<pos x="2620" y="976" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x07ab">
+		<pos x="2616" y="978" z="0" map="1" />
+	</item>
+</decoration>

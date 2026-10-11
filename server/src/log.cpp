@@ -82,7 +82,7 @@ bool cLog::checkLogFile()
 
 		QString filename;
 		if ( Config::instance()->logRotate() )
-			filename.sprintf( "wolfpack-%04u-%02u-%02u.log", today.year(), today.month(), today.day() );
+			filename = QString::asprintf( "wolfpack-%04u-%02u-%02u.log", today.year(), today.month(), today.day() );
 		else
 			filename = QString( "wolfpack.log" );
 
@@ -130,7 +130,7 @@ void cLog::log( eLogLevel loglevel, cUOSocket* sock, const QString& string, bool
 
 	if ( timestamp || loglevel == LOG_PYTHON )
 	{
-		prelude.sprintf( "%02u:%02u:", now.hour(), now.minute() );
+		prelude = QString::asprintf( "%02u:%02u:", now.hour(), now.minute() );
 
 		if ( sock )
 			prelude.append( QString( "%1:" ).arg( sock->uniqueId(), 0, 16 ) );
@@ -179,7 +179,7 @@ void cLog::print( eLogLevel loglevel, cUOSocket* sock, const QString& string, bo
 		// Timestamp the data
 		QTime now = QTime::currentTime();
 		QString prelude;
-		prelude.sprintf( "%02u:%02u:", now.hour(), now.minute() );
+		prelude = QString::asprintf( "%02u:%02u:", now.hour(), now.minute() );
 
 		Console::instance()->changeColor( WPC_WHITE );
 		Console::instance()->send( prelude );

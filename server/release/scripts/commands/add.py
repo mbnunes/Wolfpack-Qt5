@@ -240,9 +240,9 @@ def generateAddMenu(serial = 0, items = None):
 
 		# Iterate trough the categories and see if they're all there
 		category = ''
-		if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+		if len(categories) > 0 and ('\\'.join(categories) + '\\') not in submenus:
 			for subcategory in categories:
-				if not submenus.has_key(category + subcategory + '\\'):
+				if (category + subcategory + '\\') not in submenus:
 					# Category is our parent category
 					parent = None
 					if len(category) == 0:
@@ -315,9 +315,9 @@ def generateAddMenu(serial = 0, items = None):
 
 		# Iterate trough the categories and see if they're all there
 		category = ''
-		if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+		if len(categories) > 0 and ('\\'.join(categories) + '\\') not in submenus:
 			for subcategory in categories:
-				if not submenus.has_key(category + subcategory + '\\'):
+				if (category + subcategory + '\\') not in submenus:
 					# Category is our parent category
 					parent = None
 					if len(category) == 0:
@@ -364,9 +364,9 @@ def generateAddMenu(serial = 0, items = None):
 
 		# Iterate trough the categories and see if they're all there
 		category = ''
-		if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+		if len(categories) > 0 and ('\\'.join(categories) + '\\') not in submenus:
 			for subcategory in categories:
-				if not submenus.has_key(category + subcategory + '\\'):
+				if (category + subcategory + '\\') not in submenus:
 					# Category is our parent category
 					parent = None
 					if len(category) == 0:
@@ -413,7 +413,7 @@ def onUnload():
 	global generated
 	generated = 0
 
-"""
+r"""
 	\command add
 	\description The <tt>add</tt> command allows you to create npc, item or multi instances.
 	\usage - <code>add npc-id</code>
@@ -435,7 +435,7 @@ def onUnload():
 	use <tt>add horse</tt>.
 """
 
-"""
+r"""
 	\command static
 	\description Add an item or multi and make it not decay and not movable.
 	\usage - <code>add item-id</code>

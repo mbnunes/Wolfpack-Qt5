@@ -45,13 +45,15 @@
 #include <QSqlError>
 #include <QSqlDatabase>
 #include <QCryptographicHash>
+#include <QFile>
+#include <QFileInfo>
 
 #define ACCT_DATABASE_VERSION 2
 
 // DB AutoCreation
 const char* createSql = "CREATE TABLE accounts (\
 login varchar(16) NOT NULL default '',\
-password varchar(32) NOT NULL default '',\
+password varchar(128) NOT NULL default '',\
 flags int NOT NULL default '0',\
 acl varchar(255) NOT NULL default 'player',\
 lastlogin int NOT NULL default '0',\
@@ -89,7 +91,15 @@ void cAccount::setPassword( const QString& password )
 {
 	if ( Config::instance()->hashAccountPasswords() )
 	{
-		password_ = QLatin1String( QCryptographicHash::hash( password.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
+		// Avoid double hashing if already a 128-char SHA-512 hex string
+		if ( password.length() == 128 )
+		{
+			password_ = password;
+		}
+		else
+		{
+			password_ = QString::fromLatin1( QCryptographicHash::hash( password.toUtf8(), QCryptographicHash::Sha512 ).toHex() );
+		}
 	}
 	else
 	{
@@ -116,7 +126,7 @@ uint cAccount::secsToUnblock() const
 
 bool cAccount::addCharacter( P_PLAYER d )
 {
-	if ( qFind( characters_.begin(), characters_.end(), d ) == characters_.end() )
+	if ( !characters_.contains( d ) )
 	{
 		characters_.push_back( d );
 		return true;
@@ -126,13 +136,7 @@ bool cAccount::addCharacter( P_PLAYER d )
 
 bool cAccount::removeCharacter( P_PLAYER d )
 {
-	QList<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
-	if ( it != characters_.end() )
-	{
-		characters_.erase( it );
-		return true;
-	}
-	return false;
+	return characters_.removeOne( d );
 }
 
 /*!
@@ -327,6 +331,13 @@ void cAccounts::unload()
 {
 	qDeleteAll( accounts );
 	accounts.clear();
+	deletedAccounts_.clear();
+
+	QSqlDatabase db = QSqlDatabase::database( "accounts", false );
+	if ( db.isValid() && db.isOpen() )
+	{
+		db.close();
+	}
 
 	cComponent::unload();
 }
@@ -358,7 +369,29 @@ cAccount* cAccounts::authenticate( const QString& login, const QString& password
 		// Regard hashed passwords
 		if ( Config::instance()->hashAccountPasswords() )
 		{
-			authorized = it.value()->password() == QCryptographicHash::hash( password.toLocal8Bit(), QCryptographicHash::Md5 ).toHex();
+			QString sha512Hash = QString::fromLatin1( QCryptographicHash::hash( password.toUtf8(), QCryptographicHash::Sha512 ).toHex() );
+			QString md5Hash = QString::fromLatin1( QCryptographicHash::hash( password.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
+
+			if ( it.value()->password() == sha512Hash )
+			{
+				authorized = true;
+			}
+			else if ( it.value()->password().length() == 32 && it.value()->password() == md5Hash )
+			{
+				// Legacy MD5 match: automatically upgrade to SHA-512!
+				authorized = true;
+				it.value()->setPassword( password );
+				const_cast<cAccounts*>(this)->saveAccount( it.value() );
+				Console::instance()->log( LOG_NOTICE, tr( "Upgraded account '%1' password from MD5 to SHA-512.\n" ).arg( it.value()->login() ) );
+			}
+			else if ( it.value()->password() == password )
+			{
+				// Legacy plaintext match: automatically upgrade to SHA-512!
+				authorized = true;
+				it.value()->setPassword( password );
+				const_cast<cAccounts*>(this)->saveAccount( it.value() );
+				Console::instance()->log( LOG_NOTICE, tr( "Upgraded account '%1' password from plaintext to SHA-512.\n" ).arg( it.value()->login() ) );
+			}
 		}
 		else
 		{
@@ -391,6 +424,127 @@ cAccount* cAccounts::authenticate( const QString& login, const QString& password
 	}
 }
 
+// Opens the accounts connection and applies per-driver settings
+static void openAccountsDb( QSqlDatabase& db )
+{
+	const QString driver = Config::instance()->accountsDriver().toLower();
+	if ( driver == "mysql" )
+	{
+		db.setConnectOptions( "MYSQL_OPT_RECONNECT=1" );
+	}
+
+	db.setHostName( Config::instance()->accountsHost() );
+	db.setDatabaseName( Config::instance()->accountsName() );
+	db.setUserName( Config::instance()->accountsUsername() );
+	db.setPassword( Config::instance()->accountsPassword() );
+	db.setPort( Config::instance()->accountsPort() );
+	if ( !db.open() )
+		throw wpException( db.lastError().text() );
+
+	QSqlQuery q( db );
+	if ( driver == "sqlite" )
+	{
+		// WAL gives much better write performance and avoids blocking readers
+		q.exec( "PRAGMA journal_mode = WAL;" );
+		q.exec( "PRAGMA synchronous = NORMAL;" );
+		q.exec( "PRAGMA foreign_keys = ON;" );
+		q.exec( "PRAGMA busy_timeout = 5000;" );
+		q.exec( "PRAGMA temp_store = MEMORY;" );
+	}
+	else if ( driver == "mysql" )
+	{
+		q.exec( "SET NAMES utf8mb4" );
+	}
+}
+
+// Executes a statement on the accounts connection and logs failures
+static bool execAccountsSql( QSqlDatabase& db, const QString& sql )
+{
+	QSqlQuery q( db );
+	if ( !q.exec( sql ) )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Accounts database query failed: %1 (%2)" ).arg( q.lastError().text(), sql.left( 80 ) ) );
+		return false;
+	}
+	return true;
+}
+
+// Returns the CREATE TABLE statement for the accounts table, adapted for the driver
+static QString accountsCreateSql()
+{
+	QString sql = QString::fromLatin1( createSql );
+	if ( Config::instance()->accountsDriver().toLower() == "mysql" )
+	{
+		sql.chop( 1 ); // trailing ';'
+		sql += " ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
+	}
+	return sql;
+}
+
+// Automatically imports accounts from a legacy accounts.db file into the new/unified database
+static bool importLegacyAccounts( QSqlDatabase& targetDb )
+{
+	QFileInfo legacyFile( "accounts.db" );
+	if ( !legacyFile.exists() || legacyFile.size() == 0 )
+		return false;
+
+	const QString connName = "legacy_accounts_import";
+	int count = 0;
+	{
+		QSqlDatabase legacyDb = QSqlDatabase::addDatabase( "QSQLITE", connName );
+		legacyDb.setDatabaseName( legacyFile.filePath() );
+		if ( !legacyDb.open() )
+		{
+			QSqlDatabase::removeDatabase( connName );
+			return false;
+		}
+
+		if ( !legacyDb.tables().contains( "accounts", Qt::CaseInsensitive ) )
+		{
+			legacyDb.close();
+			QSqlDatabase::removeDatabase( connName );
+			return false;
+		}
+
+		QSqlQuery readQuery( legacyDb );
+		if ( !readQuery.exec( "SELECT login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots,chatname,ignorelist FROM accounts" ) )
+		{
+			legacyDb.close();
+			QSqlDatabase::removeDatabase( connName );
+			return false;
+		}
+
+		QSqlQuery writeQuery( targetDb );
+		writeQuery.prepare( "REPLACE INTO accounts (login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots,chatname,ignorelist) values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
+
+		while ( readQuery.next() )
+		{
+			for ( int i = 0; i < 12; ++i )
+			{
+				QVariant val = readQuery.value( i );
+				if ( ( i == 6 || i == 10 || i == 11 ) && val.isNull() ) // email, chatname, ignorelist
+				{
+					val = QString( "" );
+				}
+				writeQuery.addBindValue( val );
+			}
+			if ( writeQuery.exec() )
+				count++;
+		}
+
+		legacyDb.close();
+	}
+	QSqlDatabase::removeDatabase( connName );
+
+	if ( count > 0 )
+	{
+		Console::instance()->send( QString( "Successfully migrated %1 accounts from legacy accounts.db into the database!\n" ).arg( count ) );
+		QFile::rename( "accounts.db", "accounts.db.imported" );
+		return true;
+	}
+	return false;
+}
+
 void cAccounts::save()
 {
 	// Open the Account Driver
@@ -404,30 +558,17 @@ void cAccounts::save()
 		}
 	}
 
-	bool transaction;
+	bool transaction = false;
 
 	try
 	{
 		if ( !db.isOpen() )
-		{
-			db.setHostName( Config::instance()->accountsHost() );
-			db.setDatabaseName( Config::instance()->accountsName() );
-			db.setUserName( Config::instance()->accountsUsername() );
-			db.setPassword( Config::instance()->accountsPassword() );
-			db.setPort( Config::instance()->accountsPort() );
-			if ( !db.open() )
-				throw wpException( db.lastError().text() );
-			db.exec( "PRAGMA synchronous = OFF;" );
-			db.exec( "PRAGMA default_synchronous = OFF;" );
-			db.exec( "PRAGMA full_column_names = OFF;" );
-			db.exec( "PRAGMA show_datatypes = OFF;" );
-			db.exec( "PRAGMA parser_trace = OFF;" );
-		}
+			openAccountsDb( db );
 
 		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
 		{
 			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
-			db.exec( createSql );
+			execAccountsSql( db, accountsCreateSql() );
 			if (!getRecord("admin")) {
 				cAccount* account = createAccount( "admin", "admin" );
 				Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
@@ -435,51 +576,110 @@ void cAccounts::save()
 		}
 
 		transaction = db.transaction();
+		if ( !transaction )
+			Console::instance()->log( LOG_WARNING, tr( "Accounts database: unable to start a transaction: %1" ).arg( db.lastError().text() ) );
 
-		// Lock the table
-		QSqlQuery query( db );
-		if (!query.exec( "TRUNCATE accounts" )) {
-			query.exec("DELETE FROM accounts");
+		// Delete accounts queued for removal
+		if ( !deletedAccounts_.isEmpty() )
+		{
+			QSqlQuery delQuery( db );
+			delQuery.prepare( "DELETE FROM accounts WHERE login = ?" );
+			foreach ( const QString& delLogin, deletedAccounts_ )
+			{
+				delQuery.addBindValue( delLogin );
+				if ( !delQuery.exec() )
+				{
+					Console::instance()->log( LOG_ERROR, tr( "Unable to delete account '%1': %2" ).arg( delLogin ).arg( delQuery.lastError().text() ) );
+				}
+			}
+			deletedAccounts_.clear();
 		}
-		query.prepare( "insert into accounts values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
+
+		// Incremental upsert: REPLACE INTO updates existing records and inserts new ones
+		QSqlQuery query( db );
+		query.prepare( "REPLACE INTO accounts (login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots,chatname,ignorelist) values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
 		iterator it = accounts.begin();
 		for ( ; it != accounts.end(); ++it )
 		{
-			// INSERT
 			cAccount* account = it.value();
 
 			query.addBindValue( account->login_ );
 			query.addBindValue( account->password_ );
 			query.addBindValue( QVariant::fromValue<uint>( account->flags_ ) );
 			query.addBindValue( account->aclName_.isEmpty() ? "" : account->aclName_ );
-			query.addBindValue( QVariant::fromValue<uint>( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ) );
-			query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 ) );
-			query.addBindValue( QString(account->email_) );
+			query.addBindValue( QVariant::fromValue<uint>( !account->lastLogin_.isNull() ? account->lastLogin_.toSecsSinceEpoch() : 0 ) );
+			query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toSecsSinceEpoch() : 0 ) );
+			query.addBindValue( QString::fromLatin1( account->email_.constData() ) ); // never NULL
 			query.addBindValue( QString(account->creationdate_) );
 			query.addBindValue( account->totalgametime_ );
 			query.addBindValue( account->charslots_ );
-			query.addBindValue( account->chatname_ );
-			query.addBindValue( account->ignorelist_ );
+			query.addBindValue( account->chatname_.isNull() ? QString( "" ) : account->chatname_ );
+			query.addBindValue( account->ignorelist_.isNull() ? QString( "" ) : account->ignorelist_ );
 
 			if (!query.exec()) {
 				Console::instance()->log(LOG_ERROR, tr("Unable to save account '%1' because of the following error: %2").arg( account->login_ ).arg(query.lastError().text()));
 			}
 		}
 
-		db.commit();
+		if ( transaction && !db.commit() )
+			throw wpException( db.lastError().text() );
 	}
 	catch ( wpException& error )
 	{
-		db.rollback();
+		if ( transaction )
+			db.rollback();
 		Console::instance()->log( LOG_ERROR, tr( "Error while saving Accounts: %1." ).arg( error.error() ) );
 	}
 	catch ( ... )
 	{
-		db.rollback();
+		if ( transaction )
+			db.rollback();
 		Console::instance()->log( LOG_ERROR, tr( "Unknown error while saving Accounts." ) );
 	}
 
-	db.close();
+	// Keep db open for connection reuse; closed in unload()
+}
+
+void cAccounts::saveAccount( cAccount* account )
+{
+	if ( !account )
+		return;
+
+	QSqlDatabase db = QSqlDatabase::database( "accounts" );
+	if ( !db.isValid() )
+		return;
+
+	if ( !db.isOpen() )
+	{
+		try
+		{
+			openAccountsDb( db );
+		}
+		catch ( ... )
+		{
+			return;
+		}
+	}
+
+	QSqlQuery query( db );
+	query.prepare( "REPLACE INTO accounts (login,password,flags,acl,lastlogin,blockuntil,email,creationdate,totalgametime,slots,chatname,ignorelist) values( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )" );
+	query.addBindValue( account->login_ );
+	query.addBindValue( account->password_ );
+	query.addBindValue( QVariant::fromValue<uint>( account->flags_ ) );
+	query.addBindValue( account->aclName_.isEmpty() ? "" : account->aclName_ );
+	query.addBindValue( QVariant::fromValue<uint>( !account->lastLogin_.isNull() ? account->lastLogin_.toSecsSinceEpoch() : 0 ) );
+	query.addBindValue( QVariant::fromValue<uint>( !account->blockUntil.isNull() ? account->blockUntil.toSecsSinceEpoch() : 0 ) );
+	query.addBindValue( QString::fromLatin1( account->email_.constData() ) );
+	query.addBindValue( QString( account->creationdate_ ) );
+	query.addBindValue( account->totalgametime_ );
+	query.addBindValue( account->charslots_ );
+	query.addBindValue( account->chatname_.isNull() ? QString( "" ) : account->chatname_ );
+	query.addBindValue( account->ignorelist_.isNull() ? QString( "" ) : account->ignorelist_ );
+
+	if ( !query.exec() )
+	{
+		Console::instance()->log( LOG_ERROR, tr( "Unable to save account '%1': %2" ).arg( account->login_ ).arg( query.lastError().text() ) );
+	}
 }
 
 void cAccounts::load()
@@ -503,20 +703,7 @@ void cAccounts::load()
 
 		// Open the Database
 		if ( !db.isOpen() )
-		{
-			db.setHostName( Config::instance()->accountsHost() );
-			db.setDatabaseName( Config::instance()->accountsName() );
-			db.setUserName( Config::instance()->accountsUsername() );
-			db.setPassword( Config::instance()->accountsPassword() );
-			db.setPort( Config::instance()->accountsPort() );
-			if ( !db.open() )
-				throw wpException( db.lastError().text() );
-			db.exec( "PRAGMA synchronous = OFF;" );
-			db.exec( "PRAGMA default_synchronous = OFF;" );
-			db.exec( "PRAGMA full_column_names = OFF;" );
-			db.exec( "PRAGMA show_datatypes = OFF;" );
-			db.exec( "PRAGMA parser_trace = OFF;" );
-		}
+			openAccountsDb( db );
 
 		// Checking for Account Database
 		cAccount* adminAccount = NULL;
@@ -524,28 +711,42 @@ void cAccounts::load()
 		if ( !db.tables().contains( "accounts", Qt::CaseInsensitive ) )
 		{
 			Console::instance()->send( tr( "Accounts database didn't exist! Creating one\n" ) );
-			db.exec( createSql );
+			execAccountsSql( db, accountsCreateSql() );
 			db_version = ACCT_DATABASE_VERSION;
-			unload();
-			adminAccount = createAccount( "admin", "admin" );
-			Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
 
-			// reopen the Database, because save closes it
-			if ( !db.isOpen() )
+			// Check if we can migrate from an existing legacy accounts.db
+			bool imported = false;
+			if ( Config::instance()->accountsName() != "accounts.db" || Config::instance()->accountsDriver().toLower() != "sqlite" )
 			{
-				db.setHostName( Config::instance()->accountsHost() );
-				db.setDatabaseName( Config::instance()->accountsName() );
-				db.setUserName( Config::instance()->accountsUsername() );
-				db.setPassword( Config::instance()->accountsPassword() );
-				db.setPort( Config::instance()->accountsPort() );
-				if ( !db.open() )
-					throw wpException( db.lastError().text() );
-				db.exec( "PRAGMA synchronous = OFF;" );
-				db.exec( "PRAGMA default_synchronous = OFF;" );
-				db.exec( "PRAGMA full_column_names = OFF;" );
-				db.exec( "PRAGMA show_datatypes = OFF;" );
-				db.exec( "PRAGMA parser_trace = OFF;" );
+				imported = importLegacyAccounts( db );
 			}
+
+			if ( !imported )
+			{
+				unload();
+				adminAccount = createAccount( "admin", "admin" );
+				Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
+			}
+			else
+			{
+				// If legacy accounts were imported, make sure there is at least an admin account
+				if ( !getRecord( "admin" ) )
+				{
+					adminAccount = createAccount( "admin", "admin" );
+					Console::instance()->send( tr( "Created default admin account: Login = admin, Password = admin\n" ) );
+				}
+			}
+
+			// reopen the Database, if needed
+			if ( !db.isOpen() )
+				openAccountsDb( db );
+		}
+
+		// Ensure password column is varchar(128) to store SHA-512 hashes
+		if ( Config::instance()->accountsDriver().toLower() == "mysql" )
+		{
+			QSqlQuery alterQuery( db );
+			alterQuery.exec( "ALTER TABLE accounts MODIFY password varchar(128) NOT NULL default ''" );
 		}
 
 		// Creating settings table if it doesn't exist
@@ -553,13 +754,13 @@ void cAccounts::load()
 		{
 			if ( Config::instance()->accountsDriver() == "mysql" )
 			{
-				db.exec( createMySqlSettings );
-				db.exec( QString("insert into `settings` (`option`, `value`) values ('db_version',%1);").arg( db_version ) );
+				execAccountsSql( db, createMySqlSettings );
+				execAccountsSql( db, QString("insert into `settings` (`option`, `value`) values ('db_version',%1);").arg( db_version ) );
 			}
 			else
 			{
-				db.exec( createSqlSettings );
-				db.exec( QString("insert into settings (option, value) values ('db_version',%1);").arg( db_version ) );
+				execAccountsSql( db, createSqlSettings );
+				execAccountsSql( db, QString("insert into settings (option, value) values ('db_version',%1);").arg( db_version ) );
 			}
 		}
 		else
@@ -614,6 +815,7 @@ void cAccounts::load()
 			// Clear Accounts HERE
 			// Here we can be pretty sure that we have a valid datasource for accounts
 			unload();
+			bool convertedAny = false;
 			while ( query.next() )
 			{
 				cAccount* account = new cAccount;
@@ -623,10 +825,10 @@ void cAccounts::load()
 				account->aclName_ = query.value( 3 ).toString();
 				account->refreshAcl();
 				if ( query.value( 4 ).toInt() != 0 )
-					account->lastLogin_.setTime_t( query.value( 4 ).toInt() );
+					account->lastLogin_.setSecsSinceEpoch( query.value( 4 ).toInt() );
 
 				if ( query.value( 5 ).toInt() != 0 )
-					account->blockUntil.setTime_t( query.value( 5 ).toInt() );
+					account->blockUntil.setSecsSinceEpoch( query.value( 5 ).toInt() );
 
 				account->email_ = query.value( 6 ).toByteArray();
 				account->creationdate_ = query.value( 7 ).toString();
@@ -635,22 +837,30 @@ void cAccounts::load()
 				account->chatname_ = query.value( 10 ).toString();
 				account->ignorelist_ = query.value( 11 ).toString();
 
-				// See if the password can and should be hashed,
-				// Md5 hashes are 32 characters long.
-				if ( Config::instance()->hashAccountPasswords() && account->password_.length() != 32 )
+				// See if the password can and should be hashed with SHA-512.
+				// SHA-512 hashes are 128 characters long.
+				// Legacy MD5 hashes are 32 characters long and will be upgraded on first login.
+				// Plaintext passwords (length != 32 && != 128) can be hashed directly if convertUnhashedPasswords is enabled.
+				if ( Config::instance()->hashAccountPasswords() && account->password_.length() != 128 )
 				{
-					if ( Config::instance()->convertUnhashedPasswords() )
+					if ( account->password_.length() != 32 && Config::instance()->convertUnhashedPasswords() )
 					{
-						account->password_ = QLatin1String( QCryptographicHash::hash( account->password_.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
-						Console::instance()->log( LOG_NOTICE, tr( "Hashed account password for '%1'.\n" ).arg( account->login_ ) );
+						account->setPassword( account->password_ );
+						convertedAny = true;
+						Console::instance()->log( LOG_NOTICE, tr( "Hashed plaintext account password to SHA-512 for '%1'.\n" ).arg( account->login_ ) );
 					}
-					else
+					else if ( account->password_.length() != 32 )
 					{
 						Console::instance()->log( LOG_NOTICE, tr( "Account '%1' has an unhashed password.\n" ).arg( account->login_ ) );
 					}
 				}
 
 				accounts.insert( account->login_, account );
+			}
+
+			if ( convertedAny )
+			{
+				save();
 			}
 		}
 	}
@@ -725,7 +935,7 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 	cAccount* d = new cAccount;
 	d->login_ = login.toLower();
 	d->setPassword( password );
-	d->setCreationDate( (QDateTime::currentDateTime()).toString() );
+	d->setCreationDate( QDateTime::currentDateTime().toString( "yyyy-MM-dd HH:mm:ss" ) ); // 19 chars, fits varchar(19)
 	d->setTotalGameTime( 0 );
 	d->setCharSlots( Config::instance()->maxCharsPerAccount() );
 	accounts.insert( d->login(), d );
@@ -750,8 +960,14 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 */
 void cAccounts::remove( cAccount* record )
 {
-	if ( accounts.contains( record->login() ) )
-		accounts.remove( record->login() );
+	if ( !record )
+		return;
+
+	QString login = record->login();
+	if ( accounts.contains( login ) )
+		accounts.remove( login );
+
+	deletedAccounts_.append( login );
 	delete record;
 }
 
@@ -865,7 +1081,7 @@ stError* cAccount::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "email" )
 	{
 		QString text = value.toString();
-		if( text == QString::null )
+		if( text == QString() )
 			PROPERTY_ERROR( -2, "String expected" );
 		email_ = text.toLatin1();
 		return 0;

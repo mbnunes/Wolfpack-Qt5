@@ -47,31 +47,65 @@ int PyProfiler::tracefunc( PyObject */*obj*/, PyFrameObject *frame, int what, Py
 	switch ( what )
 	{
 	case PyTrace_C_CALL:
-		pdata = &that->data[tr("<core>").toLocal8Bit()][PyString_AS_STRING(frame->f_code->co_name)];
-		if ( frame != frame->f_back )
+	{
+		PyCodeObject *code = PyFrame_GetCode( frame );
+		if ( !code ) break;
+		const char *funcName = PyUnicode_AsUTF8( code->co_name );
+		pdata = &that->data[tr("<core>").toLocal8Bit()][funcName];
+
+		PyFrameObject *back = PyFrame_GetBack( frame );
+		if ( frame != back )
 		{
 			pdata->calls++;
-			if ( frame->f_back )
-				pdata->callees.insert( PyString_AS_STRING( frame->f_back->f_code->co_name ) );
+			if ( back )
+			{
+				PyCodeObject *back_code = PyFrame_GetCode( back );
+				if ( back_code )
+				{
+					pdata->callees.insert( PyUnicode_AsUTF8( back_code->co_name ) );
+					Py_DECREF( back_code );
+				}
+			}
 			else
+			{
 				pdata->callees.insert( tr("<core>").toLocal8Bit() );
+			}
 		}
+		if ( back ) Py_DECREF( back );
+		Py_DECREF( code );
 		break;
+	}
 	case PyTrace_CALL:
-		//that->data.find()
-		// Don't count recursions
-		pdata = &that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)];
-		pdata->firstline = frame->f_code->co_firstlineno;
-		if ( frame != frame->f_back )
+	{
+		PyCodeObject *code = PyFrame_GetCode( frame );
+		if ( !code ) break;
+		const char *fileName = PyUnicode_AsUTF8( code->co_filename );
+		const char *funcName = PyUnicode_AsUTF8( code->co_name );
+		pdata = &that->data[fileName][funcName];
+		pdata->firstline = code->co_firstlineno;
+
+		PyFrameObject *back = PyFrame_GetBack( frame );
+		if ( frame != back )
 		{
 			pdata->calls++;
-			if ( frame->f_back )
-				pdata->callees.insert( PyString_AS_STRING( frame->f_back->f_code->co_name ) );
+			if ( back )
+			{
+				PyCodeObject *back_code = PyFrame_GetCode( back );
+				if ( back_code )
+				{
+					pdata->callees.insert( PyUnicode_AsUTF8( back_code->co_name ) );
+					Py_DECREF( back_code );
+				}
+			}
 			else
+			{
 				pdata->callees.insert( tr("<core>").toLocal8Bit() );
+			}
 		}
-		//that->data[PyString_AS_STRING(frame->f_code->co_filename)][PyString_AS_STRING(frame->f_code->co_name)] = pdata;
+		if ( back ) Py_DECREF( back );
+		Py_DECREF( code );
 		break;
+	}
 	case PyTrace_RETURN:
 	case PyTrace_C_RETURN:
 	default:

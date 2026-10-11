@@ -51,61 +51,19 @@ struct wpAI
 // Forward Declarations
 static PyObject* wpAI_getAttr( wpAI* self, char* name );
 static int wpAI_setAttr( wpAI* self, char* name, PyObject* value );
-int wpAI_compare( PyObject* a, PyObject* b );
+static PyObject* wpAI_richcompare( PyObject* a, PyObject* b, int op );
 
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpAIType =
-{
-PyObject_HEAD_INIT( &PyType_Type )
-0,
-"wpai",
-sizeof( wpAIType ),
-0,
-//FreeItemObject,
-wpDealloc,
-0,
-( getattrfunc ) wpAI_getAttr,
-( setattrfunc ) wpAI_setAttr,
-wpAI_compare,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
-0,
+static PyTypeObject wpAIType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.ai",
+	.tp_basicsize = sizeof( wpAI ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpAI_getAttr,
+	.tp_setattr = ( setattrfunc ) wpAI_setAttr,
+	.tp_richcompare = wpAI_richcompare,
 };
 
 PyObject* PyGetAIObject( AbstractAI* ai )
@@ -185,14 +143,25 @@ bool checkWpAI( PyObject* pObj )
 		return true;
 }
 
-int wpAI_compare( PyObject* a, PyObject* b )
+static PyObject* wpAI_richcompare( PyObject* a, PyObject* b, int op )
 {
-	// Both have to be characters
-	if ( a->ob_type != &wpAIType || b->ob_type != &wpAIType )
-		return -1;
+	if ( Py_TYPE( a ) != &wpAIType || Py_TYPE( b ) != &wpAIType )
+	{
+		Py_RETURN_NOTIMPLEMENTED;
+	}
 
 	AbstractAI* pA = getWpAI( a );
 	AbstractAI* pB = getWpAI( b );
+	bool equal = ( pA == pB );
 
-	return !( pA == pB );
+	if ( op == Py_EQ )
+	{
+		if ( equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+	else if ( op == Py_NE )
+	{
+		if ( !equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
+	}
+
+	Py_RETURN_NOTIMPLEMENTED;
 }

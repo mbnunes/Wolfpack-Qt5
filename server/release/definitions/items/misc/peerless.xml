@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Antigravity
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+	<item id="peerless_altar">
+		<id>0x207c</id>
+		<name>Peerless Altar</name>
+		<decay>0</decay>
+		<weight>255.0</weight>
+		<movable>0</movable>
+		<basescripts>peerless.altar</basescripts>
+		<category>Peerless\Altar</category>
+	</item>
+
+	<item id="peerless_masterkey">
+		<id>0x1012</id>
+		<name>Peerless Master Key</name>
+		<decay>0</decay>
+		<weight>1.0</weight>
+		<color>0x482</color>
+		<basescripts>peerless.masterkey</basescripts>
+		<category>Peerless\Master Key</category>
+	</item>
+</definitions>

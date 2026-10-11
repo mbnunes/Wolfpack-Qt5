@@ -1,5 +1,5 @@
 
-"""
+r"""
 	\command guilds
 	\description Shows a dialog with all guilds.
 """

@@ -78,7 +78,7 @@ def onLoad():
 	wolfpack.registercommand( "bank", bank )
 	wolfpack.registercommand( "bankself", bankself )
 
-"""
+r"""
 	\command bank
 	\description Shows the content of a container on another character.
 	\usage - <code>bank [layer]</code>
@@ -87,7 +87,7 @@ def onLoad():
 	\notes The container on the given layer is not automatically created if it doesn't exist.
 """
 
-"""
+r"""
 	\command bankself
 	\description Shows the content of a container to the chosen character.
 	\usage - <code>bankself [layer]</code>

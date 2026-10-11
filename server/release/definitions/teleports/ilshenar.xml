@@ -1,14 +1,5 @@
-<!--
-=================================================================
-|   )      (\_     | WOLFPACK 13.0.0 Scripts
-|  ((    _/{  "-;  | Created by: Dreoth
-|   )).-' {{ ;'`   | Revised by:
-|  ( (  ;._ \\ ctr | Last Modification: Created
-=================================================================
--->
-<!--
-	<teleporter source="x,y,z,map" destination="x,y,z,map" />
--->
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated from ServUO teleporters.csv -->
 <definitions>
 	<teleporter source="2186,294,-27,2" destination="2186,33,-27,2" bothways="true" />
 	<teleporter source="2187,294,-27,2" destination="2187,33,-27,2" bothways="true" />
@@ -264,7 +255,6 @@
 	<teleporter source="155,88,-16,2" destination="357,40,-31,2" />
 	<teleporter source="155,89,-16,2" destination="357,41,-31,2" />
 	<teleporter source="155,90,-16,2" destination="357,42,-31,2" />
-	<teleporter source="259,90,-28,2" destination="236,113,-28,2" bothways="true" />
 	<teleporter source="938,494,-40,2" destination="83,749,-23,2" bothways="true" />
 	<teleporter source="939,494,-40,2" destination="84,749,-23,2" bothways="true" />
 	<teleporter source="940,494,-40,2" destination="85,749,-23,2" bothways="true" />
@@ -314,4 +304,32 @@
 	<teleporter source="1981,115,-28,2" destination="835,778,-80,2" />
 	<teleporter source="1981,116,-28,2" destination="835,778,-80,2" />
 	<teleporter source="1981,117,-28,2" destination="835,778,-80,2" />
+	<teleporter source="1037,579,-73,2" destination="1790,66,-26,2" />
+	<teleporter source="1037,580,-73,2" destination="1790,67,-26,2" />
+	<teleporter source="1037,581,-73,2" destination="1790,68,-26,2" />
+	<teleporter source="1038,578,-73,2" destination="1786,70,-26,2" />
+	<teleporter source="1038,579,-73,2" destination="1786,70,-26,2" />
+	<teleporter source="1038,581,-73,2" destination="1786,65,-26,2" />
+	<teleporter source="1038,582,-73,2" destination="1786,65,-26,2" />
+	<teleporter source="1039,578,-73,2" destination="1787,70,-26,2" />
+	<teleporter source="1039,582,-73,2" destination="1787,65,-26,2" />
+	<teleporter source="1040,578,-73,2" destination="1788,70,-26,2" />
+	<teleporter source="1040,579,-73,2" destination="1788,70,-26,2" />
+	<teleporter source="1040,581,-73,2" destination="1788,65,-26,2" />
+	<teleporter source="1040,582,-73,2" destination="1788,65,-26,2" />
+	<teleporter source="1041,581,-73,2" destination="1785,68,-26,2" />
+	<teleporter source="1041,580,-73,2" destination="1785,67,-26,2" />
+	<teleporter source="1041,579,-73,2" destination="1785,66,-26,2" />
+	<teleporter source="1786,66,-26,2" destination="1038,583,-78,2" />
+	<teleporter source="1786,67,-26,2" destination="1042,579,-78,2" />
+	<teleporter source="1786,68,-26,2" destination="1042,580,-78,2" />
+	<teleporter source="1786,69,-26,2" destination="1042,581,-78,2" />
+	<teleporter source="1787,66,-26,2" destination="1039,583,-78,2" />
+	<teleporter source="1788,66,-26,2" destination="1040,583,-78,2" />
+	<teleporter source="1789,66,-26,2" destination="1041,583,-78,2" />
+	<teleporter source="1787,69,-26,2" destination="1038,577,-78,2" />
+	<teleporter source="1788,69,-26,2" destination="1039,577,-78,2" />
+	<teleporter source="1789,67,-26,2" destination="1036,579,-78,2" />
+	<teleporter source="1789,68,-26,2" destination="1036,578,-78,2" />
+	<teleporter source="1789,69,-26,2" destination="1036,581,-78,2" />
 </definitions>

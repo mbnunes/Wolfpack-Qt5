@@ -95,6 +95,7 @@ static void stopPython()
 	m.lock();
 	QWaitCondition waitCondition;
 	waitCondition.wait( &m, 500 );
+	m.unlock();
 	Py_END_ALLOW_THREADS
 
 	// We have to be sure that all memory
@@ -108,29 +109,66 @@ static void stopPython()
 /*!
 	Starts the python interpreter
 */
-extern "C"  void init_wolfpack();
+#if PY_MAJOR_VERSION >= 3
+extern "C" PyObject* PyInit__wolfpack();
+#else
+extern "C" void init_wolfpack();
+#endif
+
 static void startPython( QStringList arguments )
 {
 	using namespace boost::python;
-    Py_SetProgramName( arguments.at(0).toLocal8Bit().data());
 
+#if PY_MAJOR_VERSION >= 3
+	wchar_t* progname = Py_DecodeLocale( arguments.at(0).toLocal8Bit().constData(), NULL );
+	if ( progname )
+	{
+		Py_SetProgramName( progname );
+	}
+	Py_NoSiteFlag = 1;
+	PyImport_AppendInittab( "_wolfpack", PyInit__wolfpack );
+	Py_Initialize();
+
+	wchar_t** wargv = new wchar_t*[arguments.size()];
+	for ( int i = 0; i < arguments.size(); ++i )
+	{
+		wargv[i] = Py_DecodeLocale( arguments[i].toLocal8Bit().constData(), NULL );
+	}
+	PySys_SetArgv( arguments.size(), wargv );
+
+	PyRun_SimpleString(
+		"import builtins, types\n"
+		"builtins.unicode = str\n"
+		"builtins.xrange = range\n"
+		"builtins.cmp = lambda a, b: (a > b) - (a < b)\n"
+		"builtins.IntType = types.IntType = int\n"
+		"builtins.LongType = types.LongType = int\n"
+		"builtins.StringType = types.StringType = str\n"
+		"builtins.UnicodeType = types.UnicodeType = str\n"
+		"builtins.ListType = types.ListType = list\n"
+		"builtins.DictType = types.DictType = dict\n"
+		"builtins.FloatType = types.FloatType = float\n"
+		"builtins.TupleType = types.TupleType = tuple\n"
+		"builtins.BooleanType = types.BooleanType = bool\n"
+	);
+#else
+	Py_SetProgramName( arguments.at(0).toLocal8Bit().data() );
 	Py_NoSiteFlag = 1; // No import because we need to set the search path first
-
 	PyImport_AppendInittab( "_wolfpack", init_wolfpack );
 	Py_Initialize();
+
 #if PY_VERSION_HEX > 0x02040000
 	if ( !PyEval_ThreadsInitialized() )
 #endif
 		PyEval_InitThreads();
 
-    char** argv = new char*[arguments.size()];
-
-    for(int i=0;i<arguments.size();i++)
-    {
-        argv[i] = arguments[i].toLocal8Bit().data();
-    }
-
-    PySys_SetArgv( arguments.size(), argv);
+	char** argv = new char*[arguments.size()];
+	for(int i=0;i<arguments.size();i++)
+	{
+		argv[i] = arguments[i].toLocal8Bit().data();
+	}
+	PySys_SetArgv( arguments.size(), argv);
+#endif
 
 	// Modify our search-path
 	list searchPath = extract<list>( object( handle<>( borrowed( PySys_GetObject( "path" ) ) ) ) );
@@ -140,15 +178,33 @@ static void startPython( QStringList arguments )
 	// Prepend our items to the searchpath
 	for ( int i = elements.count() - 1; i >= 0; --i )
 	{
-		searchPath.insert( 0, str( elements[i].toLatin1() ) );
+		searchPath.insert( 0, str( elements[i].toUtf8().constData() ) );
 	}
 
 	// Import site now
 	object siteModule = extract<object>( PyImport_ImportModule( "site" ) );
 
 	// Try changing the stderr + stdout pointers
+#if PY_MAJOR_VERSION >= 3
+	PyObject* ioModule = PyImport_ImportModule( "io" );
+	if ( ioModule )
+	{
+		PyObject* openFunc = PyObject_GetAttrString( ioModule, "open" );
+		if ( openFunc )
+		{
+			PyObject* file = PyObject_CallFunction( openFunc, "ss", "python.log", "w" );
+			if ( file )
+			{
+				PySys_SetObject( "stderr", file );
+				PySys_SetObject( "stdout", file );
+				Py_DECREF( file );
+			}
+			Py_DECREF( openFunc );
+		}
+		Py_DECREF( ioModule );
+	}
+#else
 	PyObject* file = PyFile_FromString( "python.log", "w" );
-
 	if ( file )
 	{
 		Py_INCREF( file );
@@ -157,6 +213,7 @@ static void startPython( QStringList arguments )
 		PySys_SetObject( "stdout", file );
 		Py_DECREF( file );
 	}
+#endif
 
 /*	try
 	{

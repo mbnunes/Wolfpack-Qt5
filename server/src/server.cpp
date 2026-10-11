@@ -56,6 +56,7 @@
 #include "territories.h"
 #include "muls/tilecache.h"
 #include "timing.h"
+#include "timers.h"
 #include "verinfo.h"
 #include "world.h"
 #include "definitions.h"
@@ -69,7 +70,6 @@
 // Qt Includes
 #include <QWaitCondition>
 #include <QCoreApplication>
-#include <QTextCodec>
 #include <QLocale>
 #include <QTranslator>
 #include <QDir>
@@ -288,7 +288,10 @@ void cServer::run()
 	CommandLineOptions::instance()->addOption("-p", "pidFile", OptionParser::Posix, "Specify a pid file to use", true);
 	CommandLineOptions::instance()->addOption("-a", "cdTo", "Specify the working directory to run", true );
 
-	CommandLineOptions::instance()->parse();
+	if ( !CommandLineOptions::instance()->parse() )
+	{
+		return;
+	}
 
 	if ( CommandLineOptions::instance()->value("cdTo").isValid() )
 		QDir::setCurrent( CommandLineOptions::instance()->value("cdTo").toString() );
@@ -318,12 +321,7 @@ void cServer::run()
 
 	setState( STARTUP );
 
-	// Set the default conversion codec (This is what OSI is using)
-	// ISO-8859-15 (MIB: 111)
-#if defined(Q_OS_UNIX)
-	QTextCodec::setCodecForLocale( QTextCodec::codecForMib(111) );
-    //QTextCodec::setCodecForCStrings( QTextCodec::codecForMib(111) );
-#endif
+
 
 	// Load wolfpack.xml
 #if defined( WP_USE_ALTERNATIVE_CONFIG_FILE )
@@ -481,6 +479,9 @@ void cServer::run()
 	Network::instance()->broadcast( tr( "The server is shutting down." ) );
 	unload();
 
+	// Clear active timers before stopping Python to prevent decref after Py_Finalize
+	Timers::instance()->clear();
+
 	// Stop Python
 	PythonEngine::instance()->unload();
 
@@ -497,7 +498,7 @@ void cServer::setupConsole()
 	Console::instance()->send( QString( "Wolfpack Homepage: %1 \n" ).arg( DEFAULTWEBPAGE ));
 	Console::instance()->send( tr( "By using this software you agree to the license accompanying this release.\n" ) );
 	Console::instance()->send( tr( "Compiled on %1 %2\n" ).arg( __DATE__, __TIME__ ) );
-	Console::instance()->send( tr( "Compiled for Qt %1 (Using: %2 %3)\n" ).arg( QT_VERSION_STR, qVersion(), qSharedBuild() ? " Shared" : " Static" ) );
+	Console::instance()->send( tr( "Compiled for Qt %1 (Using: %2)\n" ).arg( QT_VERSION_STR, qVersion() ) );
 
 	QStringList sqlDrivers = QSqlDatabase::drivers();
 	Console::instance()->send( tr( "Available SQL Drivers: " ) );

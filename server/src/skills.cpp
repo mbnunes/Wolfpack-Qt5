@@ -445,10 +445,11 @@ QString cSkills::getSkillTitle( P_CHAR pChar ) const
 
 const QString& cSkills::getSkillName( quint16 skill ) const
 {
+	static const QString emptyString;
 	if ( skill >= skills.size() )
 	{
 		Console::instance()->log( LOG_ERROR, tr( "Skill id out of range: %u" ).arg( skill ) );
-		return QString();
+		return emptyString;
 	}
 
 	return skills[skill].name;
@@ -469,10 +470,11 @@ qint16 cSkills::findSkillByDef( const QString& defname ) const
 
 const QString& cSkills::getSkillDef( quint16 skill ) const
 {
+	static const QString emptyString;
 	if ( skill >= skills.size() )
 	{
 		Console::instance()->log( LOG_ERROR, tr( "Skill id out of range: %u" ).arg( skill ) );
-		return QString();
+		return emptyString;
 	}
 
 	return skills[skill].defname;

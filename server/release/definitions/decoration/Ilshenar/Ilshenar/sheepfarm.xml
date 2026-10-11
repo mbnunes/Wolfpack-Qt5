@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- DarkWoodGate -->
+	<item id="0x086e">
+		<pos x="1311" y="1325" z="-14" map="2" />
+	</item>
+	<!-- DarkWoodGate -->
+	<item id="0x086c">
+		<pos x="1328" y="1321" z="-14" map="2" />
+	</item>
+	<!-- LoomEastAddon -->
+	<item id="0x1060">
+		<pos x="1305" y="1319" z="-14" map="2" />
+	</item>
+	<!-- SpinningWheelSouthAddon -->
+	<item id="0x1015">
+		<pos x="1306" y="1316" z="-14" map="2" />
+	</item>
+	<!-- Drawer -->
+	<item id="0x0a2c">
+		<pos x="1308" y="1314" z="6" map="2" />
+	</item>
+	<!-- Scissors -->
+	<item id="0x0f9e">
+		<pos x="1309" y="1319" z="-10" map="2" />
+	</item>
+	<!-- DyeTub -->
+	<item id="0x0fab" hue="0x15c">
+		<pos x="1311" y="1319" z="-14" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x105f">
+		<pos x="1305" y="1320" z="-14" map="2" />
+	</item>
+</decoration>

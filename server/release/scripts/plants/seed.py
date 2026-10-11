@@ -3,7 +3,7 @@ import plants.genuses
 import plants.hues
 import wolfpack
 import random
-from consts import *
+from plants.consts import *
 
 SEED_BASEID = 'seed'
 

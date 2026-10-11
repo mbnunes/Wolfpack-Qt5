@@ -22,7 +22,7 @@ def CmdCast( socket, command, args ):
 def onLoad():
 	wolfpack.registercommand( "cast", CmdCast )
 
-"""
+r"""
 	\command cast
 	\description Directly cast a spell.
 	\usage - <code>cast spell</code>

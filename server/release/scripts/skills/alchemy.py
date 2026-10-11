@@ -121,7 +121,7 @@ def loadMenu(id, parent = None):
 								itemid = itemchild.value
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
-				except Exception, e:
+				except Exception as e:
 					console.log(LOG_ERROR, "Craft action with invalid item id in menu %s: %s\n" % (menu.id, str(e)))
 
 				if child.hasattribute('name'):

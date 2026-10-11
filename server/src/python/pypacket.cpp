@@ -60,17 +60,12 @@ static void wpPacketDestructor( PyObject* obj )
 }
 
 // Static Type Information
-static PyTypeObject wpPacketType =
-{
-PyObject_HEAD_INIT( &PyType_Type )
-0,
-"wppacket",
-sizeof( wpPacketType ),
-0,
-wpPacketDestructor,
-0,
-wpPacket_getattr,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpPacketType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.packet",
+	.tp_basicsize = sizeof( wpPacket ),
+	.tp_dealloc = wpPacketDestructor,
+	.tp_getattr = ( getattrfunc ) wpPacket_getattr,
 };
 
 /*

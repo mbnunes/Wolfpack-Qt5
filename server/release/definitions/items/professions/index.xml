@@ -24,6 +24,7 @@
 	<include file="definitions/items/professions/mapmaker.xml" />
 	<include file="definitions/items/professions/miner.xml" />
 	<include file="definitions/items/professions/musician.xml" />
+	<include file="definitions/items/professions/mystic.xml" />
 	<include file="definitions/items/professions/necromancer.xml" />
 	<include file="definitions/items/professions/ninjitsu.xml" />
 	<include file="definitions/items/professions/paladin.xml" />

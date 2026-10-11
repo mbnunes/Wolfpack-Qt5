@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:
 #  ( (  ;._ \\ ctr | Last Modification: Ported from core
 #===============================================================#
-"""
+r"""
 	\command who
 	\description Manage connected clients.
 	\notes The gump shown will allow you to travel to the client, send messages or bring them directly to you.

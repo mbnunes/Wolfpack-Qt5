@@ -64,6 +64,7 @@ public:
 	QList<cUOSocket*> sockets() const;
 
 	void broadcast( const QString& message, quint16 color = 0x84d, quint16 font = 0 );
+	void promoteToGameSocket( cUOSocket* socket );
 
 private slots:
 	void incomingLoginServerConnection();

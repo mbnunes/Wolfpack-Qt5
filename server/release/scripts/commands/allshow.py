@@ -1,7 +1,7 @@
 import wolfpack
 from wolfpack import tr
 
-"""
+r"""
 	\command allshow
 	\description Reveals the offline characters on your screen.
 """

@@ -52,7 +52,32 @@ class AnimateDead(Spell):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
-		char.socket.sysmessage('Not yet implented')
+		# Visual & audio effect
+		target.effect(0x3789, 1, 40)
+		target.soundeffect(0x1FB)
+
+		pos = target.pos
+		target.delete()
+
+		skill = char.skill[NECROMANCY]
+		if skill >= 900:
+			mob_id = 'skeletal_knight'
+		elif skill >= 700:
+			mob_id = 'mummy'
+		elif skill >= 500:
+			mob_id = 'zombie'
+		else:
+			mob_id = 'skeleton'
+
+		npc = wolfpack.addnpc(mob_id, pos)
+		if npc:
+			npc.tamed = True
+			npc.tamer = char
+			npc.wander = 4
+			npc.following = char
+			npc.settag('animated_dead', 1)
+			npc.settag('decay_time', wolfpack.time.currenttime() + 120000)
+			char.socket.clilocmessage(1061085) # The corpse stirs with unholy life!
 
 class BloodOath(CharEffectSpell):
 	def __init__(self):

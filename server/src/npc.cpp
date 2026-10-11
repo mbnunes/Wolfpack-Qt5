@@ -404,7 +404,7 @@ void cNPC::resend( bool clean )
 		if ( socket->canSee( this ) )
 		{
 			cUOTxDrawChar drawChar;
-			drawChar.fromChar( this );
+			drawChar.fromChar( this, socket->hasNewMobileIncoming() );
 			drawChar.setHighlight( notoriety( socket->player() ) );
 			socket->send( &drawChar );
 
@@ -412,7 +412,14 @@ void cNPC::resend( bool clean )
 
 			for ( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
 			{
-				it.value()->sendTooltip( socket );
+				P_ITEM item = it.value();
+				if ( item->layer() <= 0x19 )
+				{
+					cUOTxCharEquipment equip;
+					equip.fromItem( item );
+					socket->send( &equip );
+				}
+				item->sendTooltip( socket );
 			}
 		}
 		else if ( clean )

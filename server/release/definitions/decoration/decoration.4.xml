@@ -1,7 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <decoration>
-	<!-- Misc-->
-	<include file="definitions/decoration/Tokuno/tokuno.xml"/>
+	<include file="definitions/decoration/Tokuno/Tokuno/tokuno.xml"/>
+	<include file="definitions/decoration/Tokuno/Tokuno/treasures_of_tokuno.xml"/>
 	<include file="definitions/decoration/Tokuno/signs.xml"/>
-	<include file="definitions/decoration/Tokuno/terrible_hatchlings_quest.xml"/>
-	<include file="definitions/decoration/Tokuno/treasures_of_tokuno.xml"/>
 </decoration>

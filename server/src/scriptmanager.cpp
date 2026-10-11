@@ -38,7 +38,6 @@
 
 // Library Includes
 #include <QString>
-#include <QRegExp>
 #include <QFileInfo>
 #include <QDir>
 #include <QByteArray>
@@ -79,6 +78,10 @@ void cScriptManager::reload()
 
 	for ( pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->freezeScriptChain();
+
+	// Release all PythonFunction references while the interpreter is still alive.
+	// Otherwise recreate() would DECREF dangling pointers after Py_Finalize.
+	PythonFunction::cleanUpAll();
 
 	// First unload, then reload
 	unload();

@@ -35,25 +35,33 @@
 
 // By Race Section to Check in Create an Elf Character
 
-inline bool isHairsByRace( quint16 model, bool race )
+inline bool isHairsByRace( quint16 model, int race )
 {
-	if (!race)	// Human's Hairs
+	if (race == 0)	// Human's Hairs
 	{
 		return	( ( ( model >= 0x203B ) && ( model <= 0x203D ) ) || ( ( model >= 0x2044 ) && ( model <= 0x204A ) ) ) ? true : false;
 	}
-	else		// Elf's Hairs
+	else if (race == 1)		// Elf's Hairs
 	{
 		return  ( ( ( model >= 0x2fbf ) && ( model <= 0x2fc2 ) ) || ( ( model >= 0x2fcc ) && ( model <= 0x2fd1 ) ) ) ? true : false;
 	}
+	else // Gargoyle Horns
+	{
+		return ( ( model >= 0x4258 && model <= 0x425F ) ||
+		         ( model == 0x4261 || model == 0x4262 ) ||
+		         ( model >= 0x4273 && model <= 0x4275 ) ||
+		         ( model == 0x42AA || model == 0x42AB ) ||
+		         ( model >= 0x42AD && model <= 0x42B1 ) );
+	}
 }
 
-inline bool isHairsByRaceColor( quint16 color, bool race )
+inline bool isHairsByRaceColor( quint16 color, int race )
 {
-	if (!race)	// Human's Hairs
+	if (race == 0)	// Human's Hairs
 	{
 		return ( ( color >= 0x44E ) && ( color <= 0x47D ) ) ? true : false;
 	}
-	else		// Elf's Hairs
+	else if (race == 1)		// Elf's Hairs
 	{
 		// Line 1 of Colors
 		if ( ( color >= 0x34 ) && ( color <= 0x39 ) )
@@ -79,16 +87,34 @@ inline bool isHairsByRaceColor( quint16 color, bool race )
 		else
 			return false;
 	}
+	else // Gargoyle Horn & Facial Horn Hues
+	{
+		// Human hair colors / default client palette range
+		if ( ( color >= 0x44E ) && ( color <= 0x47D ) )
+			return true;
+
+		static const quint16 hornHues[] = {
+			0x709, 0x70B, 0x70D, 0x70F, 0x711, 0x763,
+			0x765, 0x768, 0x76B, 0x6F3, 0x6F1, 0x6EF,
+			0x6E4, 0x6E2, 0x6E0
+		};
+		for ( size_t i = 0; i < sizeof(hornHues)/sizeof(hornHues[0]); ++i )
+		{
+			if ( hornHues[i] == color )
+				return true;
+		}
+		return false;
+	}
 }
 
 inline bool isHair( quint16 model )
 {
-	return	( ( ( model >= 0x203B ) && ( model <= 0x203D ) ) || ( ( model >= 0x2044 ) && ( model <= 0x204A ) ) ) ? true : false;
+	return	( ( ( model >= 0x203B ) && ( model <= 0x203D ) ) || ( ( model >= 0x2044 ) && ( model <= 0x204A ) ) || ( ( model >= 0x4258 ) && ( model <= 0x42B1 ) ) ) ? true : false;
 }
 
 inline bool isBeard( quint16 model )
 {
-	return	( ( ( model >= 0x203E ) && ( model <= 0x2041 ) ) || ( ( model >= 0x204B ) && ( model <= 0x204D ) ) ) ? true : false;
+	return	( ( ( model >= 0x203E ) && ( model <= 0x2041 ) ) || ( ( model >= 0x204B ) && ( model <= 0x204D ) ) || ( ( model >= 0x42AD ) && ( model <= 0x42B0 ) ) ) ? true : false;
 }
 
 inline bool isNormalColor( quint16 color )
@@ -96,13 +122,13 @@ inline bool isNormalColor( quint16 color )
     return ( ( color >= 0 ) && ( color < 0xffff ) ) ? true : false;
 }
 
-inline bool isSkinColor( quint16 color, bool race )
+inline bool isSkinColor( quint16 color, int race )
 {
-	if (!race) // Human's Colors
+	if (race == 0) // Human's Colors
 	{
 		return ( ( color >= 0x3EA ) && ( color <= 0x422 ) ) ? true : false;
 	}
-	else	   // Elf's Colors
+	else if (race == 1)	   // Elf's Colors
 	{
 		// Basic Colors Range
 		if ( ( color >= 0x353 ) && ( color <= 0x3e9 ) )
@@ -123,6 +149,14 @@ inline bool isSkinColor( quint16 color, bool race )
 		// Not in list?
 		else
 			return false;
+	}
+	else // Gargoyle Skin Colors
+	{
+		quint16 baseColor = color & 0x7FFF;
+		if ( ( baseColor >= 1755 && baseColor <= 1780 ) || ( color >= 1755 && color <= 1780 ) )
+			return true;
+		// Broad fallback range for Gargoyle skin hues
+		return ( color >= 0x0353 && color <= 0x0422 ) || ( ( color & 0x8000 ) != 0 );
 	}
 }
 

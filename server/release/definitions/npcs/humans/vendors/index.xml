@@ -45,4 +45,7 @@
 	<include file="definitions/npcs/humans/vendors/weaponsmith.xml"/>
 	<include file="definitions/npcs/humans/vendors/weaver.xml"/>
 
+
+	<!-- ServUO Vendors -->
+	<include file="definitions/npcs/humans/vendors/servuo_vendors.xml"/>
 </definitions>

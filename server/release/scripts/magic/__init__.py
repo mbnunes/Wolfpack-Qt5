@@ -167,7 +167,8 @@ def target_response( char, args, target ):
 		spell.target(char, mode, TARGET_GROUND, pos, args, item)
 
 	else:
-		char.socket.clilocmessage(501857)
+		if char.socket:
+			char.socket.clilocmessage(501857)
 		return False
 
 def onCastSpell(char, spell, mode = 0, args = [], target = None, item = None):

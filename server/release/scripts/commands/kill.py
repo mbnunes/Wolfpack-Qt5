@@ -4,12 +4,12 @@
 #   )).-' {{ ;'`   | Revised by:
 #  ( (  ;._ \\ ctr | Last Modification: Created
 #===============================================================#
-"""
+r"""
 	\command kill
 	\description Kills the selected character.
 	\notes You cannot kill invulnerable characters this way.
 """
-"""
+r"""
 	\command bolt
 	\description Lightning's the selected character.
 	\notes This does not do any damage.

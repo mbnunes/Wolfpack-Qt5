@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- AnkhWest -->
+	<item id="0x0003">
+		<pos x="1456" y="843" z="5" map="1" />
+	</item>
+	<!-- CandelabraStand -->
+	<item id="0x0b26">
+		<pos x="1457" y="841" z="0" map="1" />
+		<pos x="1457" y="846" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0788">
+		<pos x="1456" y="843" z="0" map="1" />
+		<pos x="1456" y="844" z="0" map="1" />
+		<pos x="1457" y="843" z="0" map="1" />
+		<pos x="1457" y="844" z="0" map="1" />
+		<pos x="1458" y="843" z="0" map="1" />
+		<pos x="1458" y="844" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0789">
+		<pos x="1456" y="845" z="0" map="1" />
+		<pos x="1457" y="845" z="0" map="1" />
+		<pos x="1458" y="845" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x078a">
+		<pos x="1459" y="843" z="0" map="1" />
+		<pos x="1459" y="844" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x078b">
+		<pos x="1456" y="842" z="0" map="1" />
+		<pos x="1457" y="842" z="0" map="1" />
+		<pos x="1458" y="842" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x078e">
+		<pos x="1459" y="845" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x078f">
+		<pos x="1459" y="842" z="0" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x14e3">
+		<pos x="1457" y="843" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x14e4">
+		<pos x="1457" y="844" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x14e5">
+		<pos x="1458" y="844" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x14e6">
+		<pos x="1458" y="843" z="5" map="1" />
+	</item>
+	<!-- AnkhNorth -->
+	<item id="0x0004">
+		<pos x="1857" y="877" z="-1" map="1" />
+	</item>
+	<!-- AnkhWest -->
+	<item id="0x0003">
+		<pos x="4208" y="561" z="42" map="1" />
+		<pos x="4208" y="565" z="42" map="1" />
+	</item>
+	<!-- AnkhWest -->
+	<item id="0x0003">
+		<pos x="4272" y="3696" z="0" map="1" />
+	</item>
+	<!-- AnkhWest -->
+	<item id="0x0003">
+		<pos x="1723" y="3527" z="8" map="1" />
+	</item>
+	<!-- AnkhNorth -->
+	<item id="0x0004">
+		<pos x="1300" y="629" z="21" map="1" />
+	</item>
+	<!-- AnkhWest -->
+	<item id="0x0003">
+		<pos x="2489" y="3930" z="2" map="1" />
+	</item>
+	<!-- AnkhNorth -->
+	<item id="0x1e5d">
+		<pos x="3354" y="287" z="4" map="1" />
+	</item>
+	<!-- AnkhWest -->
+	<item id="0x0003">
+		<pos x="1592" y="2489" z="20" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x00db">
+		<pos x="1588" y="2488" z="5" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x070a">
+		<pos x="1594" y="2491" z="15" map="1" />
+		<pos x="1595" y="2491" z="15" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x070b">
+		<pos x="1600" y="2489" z="10" map="1" />
+		<pos x="1600" y="2490" z="10" map="1" />
+		<pos x="1596" y="2489" z="15" map="1" />
+		<pos x="1596" y="2490" z="15" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x070c">
+		<pos x="1594" y="2488" z="15" map="1" />
+		<pos x="1595" y="2488" z="15" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x070e">
+		<pos x="1593" y="2488" z="15" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x070f">
+		<pos x="1596" y="2491" z="15" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0710">
+		<pos x="1596" y="2488" z="15" map="1" />
+	</item>
+	<!-- Static -->
+	<item id="0x0711">
+		<pos x="1593" y="2491" z="15" map="1" />
+	</item>
+	<!-- KeywordTeleporter -->
+	<item id="0x1bc3">
+		<pos x="1600" y="2489" z="12" map="1" />
+	</item>
+	<!-- KeywordTeleporter -->
+	<item id="0x1bc3">
+		<pos x="1600" y="2490" z="12" map="1" />
+	</item>
+</decoration>

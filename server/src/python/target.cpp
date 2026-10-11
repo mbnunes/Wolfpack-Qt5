@@ -90,22 +90,12 @@ static void wpTarget_Dealloc( wpTarget* self )
 }
 
 
-PyTypeObject wpTargetType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpTarget",
-sizeof( wpTargetType ),
-0,
-( destructor ) wpTarget_Dealloc,
-0,
-( getattrfunc ) wpTarget_getAttr,
-0,
-0,
-0,
-0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-
+PyTypeObject wpTargetType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.target",
+	.tp_basicsize = sizeof( wpTarget ),
+	.tp_dealloc = ( destructor ) wpTarget_Dealloc,
+	.tp_getattr = ( getattrfunc ) wpTarget_getAttr,
 };
 
 

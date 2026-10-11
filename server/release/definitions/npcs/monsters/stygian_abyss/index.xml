@@ -33,6 +33,7 @@
 	<include file="definitions/npcs/monsters/stygian_abyss/primevil_lich.xml" />
 	<include file="definitions/npcs/monsters/stygian_abyss/raptor.xml" />
 	<include file="definitions/npcs/monsters/stygian_abyss/rising_colosus.xml" />
+	<include file="definitions/npcs/monsters/stygian_abyss/rising_colossus.xml" />
 	<include file="definitions/npcs/monsters/stygian_abyss/rotworm.xml" />
 	<include file="definitions/npcs/monsters/stygian_abyss/rotworm_juvenile.xml" />
 	<include file="definitions/npcs/monsters/stygian_abyss/shadow_dweller.xml" />

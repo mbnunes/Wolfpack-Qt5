@@ -223,13 +223,13 @@ public:
 		\brief Sends a localized system message to this character. The message is only sent to logged
 			in players.
 		\param message The id of the localized message.
-		\param params Parameters to parse into the localized message. May be QString::null if no parameters
+		\param params Parameters to parse into the localized message. May be QString() if no parameters
 			should be parsed in.
 		\param color The color of the sysmessage. The default is 0x3b2.
 		\param font The font for the sysmessage. The default is 0x03.
 		\returns True if the message was really sent. False otherwise.
 	*/
-	bool sysmessage( unsigned int message, const QString& params = QString::null, unsigned short color = 0x3b2, unsigned short font = 0x03 );
+	bool sysmessage( unsigned int message, const QString& params = QString(), unsigned short color = 0x3b2, unsigned short font = 0x03 );
 
 	/*!
 		\brief Send this character an overhead message. This does nothing for logged out characters
@@ -452,6 +452,7 @@ public:
 	bool isAtWar() const;
 	bool isInvulnerable() const;
 	bool isElf() const;
+	bool isGargoyle() const;
 	bool isReputationHidden() const;
 	bool isUnderwearDisabled() const;
 	unsigned char direction() const;
@@ -1609,10 +1610,15 @@ inline void cBaseChar::setElf( bool data )
 inline void cBaseChar::setGargoyle(bool data)
 {
 	if (data)
-		propertyFlags_ |= 0x800000;
+		propertyFlags_ |= 0x1000000;
 	else
-		propertyFlags_ &= ~0x800000;
+		propertyFlags_ &= ~0x1000000;
 	changed_ = true;
+}
+
+inline bool cBaseChar::isGargoyle() const
+{
+	return (propertyFlags_ & 0x1000000) != 0 || body_ == 0x29a || body_ == 0x29b || body_ == 0x2b6 || body_ == 0x2b7;
 }
 
 inline cBaseChar::CharContainer cBaseChar::guardedby() const
@@ -1627,7 +1633,7 @@ inline cBaseChar::ItemContainer cBaseChar::content() const
 
 inline bool cBaseChar::isFemale() const
 {
-	return ( body_ == 0x191 || body_ == 0x193 || body_ == 0x25e || body_ == 0x260 );
+	return ( body_ == 0x191 || body_ == 0x193 || body_ == 0x25e || body_ == 0x260 || body_ == 0x29a || body_ == 0x2b6 );
 }
 
 inline bool cBaseChar::isHuman() const

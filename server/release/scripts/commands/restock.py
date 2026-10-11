@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:
 #  ( (  ;._ \\ ctr | Last Modification: Created
 #===============================================================#
-"""
+r"""
 	\command restock
 	\description Restock NPCs in all world.
 	\usage - <code>restock</code>

@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack.sockets
 	\description Contains functions for sockets.
 """
@@ -14,4 +14,5 @@ import _wolfpack.sockets
 
 d = globals()
 for (name, obj) in _wolfpack.sockets.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj

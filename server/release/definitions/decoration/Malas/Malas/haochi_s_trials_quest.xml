@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- HonorCandle -->
+	<item id="0x1433">
+		<pos x="419" y="731" z="17" map="3" />
+		<pos x="420" y="731" z="17" map="3" />
+		<pos x="422" y="731" z="17" map="3" />
+		<pos x="421" y="731" z="17" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x051c" hue="0xfa">
+		<pos x="389" y="704" z="-1" map="3" />
+		<pos x="426" y="780" z="-1" map="3" />
+		<pos x="331" y="769" z="-1" map="3" />
+		<pos x="355" y="745" z="-1" map="3" />
+		<pos x="330" y="706" z="-1" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x1fd7" hue="0xfa">
+		<pos x="391" y="777" z="-1" map="3" />
+	</item>
+	<!-- AnkhNorth -->
+	<item id="0x0004" hue="0xfa">
+		<pos x="351" y="733" z="18" map="3" />
+		<pos x="388" y="724" z="13" map="3" />
+	</item>
+	<!-- LocalizedSign -->
+	<item id="0x0bd1">
+		<attribute key="name" value="#1063295" />
+		<pos x="369" y="777" z="-1" map="3" />
+	</item>
+	<!-- HaochisTreasureChest -->
+	<item id="0x2811">
+		<pos x="424" y="704" z="8" map="3" />
+		<pos x="424" y="705" z="8" map="3" />
+		<pos x="424" y="706" z="8" map="3" />
+	</item>
+	<!-- Static -->
+	<item id="0x13ff" hue="0x482">
+		<pos x="414" y="703" z="9" map="3" />
+	</item>
+	<!-- HaochisKatanaGenerator -->
+	<item id="0x1b7b">
+		<pos x="415" y="703" z="1" map="3" />
+	</item>
+</decoration>

@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Female Gargish Leather Arms -->
+	<item id="301">
+		<id>0x301</id>
+		<name>Female Gargish Leather Arms</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="50" /></durability>
+		<weight>4.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Leather Arms</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="25" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Female Gargish Leather Chest -->
+	<item id="303">
+		<id>0x303</id>
+		<name>Female Gargish Leather Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="50" /></durability>
+		<weight>8.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Leather Chest</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="25" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Female Gargish Leather Kilt -->
+	<item id="310">
+		<id>0x310</id>
+		<name>Female Gargish Leather Kilt</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="50" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Leather Kilt</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="25" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Female Gargish Leather Legs -->
+	<item id="305">
+		<id>0x305</id>
+		<name>Female Gargish Leather Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="50" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Leather Legs</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="20" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Female Gargish Plate Arms -->
+	<item id="307">
+		<id>0x307</id>
+		<name>Female Gargish Plate Arms</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Plate Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="80" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Female Gargish Plate Chest -->
+	<item id="309">
+		<id>0x309</id>
+		<name>Female Gargish Plate Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Plate Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Female Gargish Plate Kilt -->
+	<item id="30b">
+		<id>0x30b</id>
+		<name>Female Gargish Plate Kilt</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Plate Kilt</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="80" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Female Gargish Plate Legs -->
+	<item id="30d">
+		<id>0x30d</id>
+		<name>Female Gargish Plate Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>7.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Plate Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="90" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Female Gargish Stone Arms -->
+	<item id="283">
+		<id>0x283</id>
+		<name>Female Gargish Stone Arms</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Stone Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Female Gargish Stone Chest -->
+	<item id="285">
+		<id>0x285</id>
+		<name>Female Gargish Stone Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>15.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Stone Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Female Gargish Stone Kilt -->
+	<item id="287">
+		<id>0x287</id>
+		<name>Female Gargish Stone Kilt</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Stone Kilt</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Female Gargish Stone Legs -->
+	<item id="289">
+		<id>0x289</id>
+		<name>Female Gargish Stone Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>15.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Female Gargish Stone Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Gargish Chaos Shield -->
+	<item id="4228">
+		<id>0x4228</id>
+		<name>Gargish Chaos Shield</name>
+		<decay />
+		<nodye />
+		<durability><random min="100" max="125" /></durability>
+		<weight>5.0</weight>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Chaos Shield (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="95" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="1" />
+	</item>
+
+	<item id="4229" inherit="4228">
+		<id>0x4229</id>
+		<baseid>4228</baseid>
+		<category>Base Armor\Gargish\Gargish Chaos Shield (E/W)</category>
+	</item>
+
+	<!-- Gargish Cloth Arms Armor -->
+	<item id="404">
+		<id>0x404</id>
+		<name>Gargish Cloth Arms Armor</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Cloth Arms Armor</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="20" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Gargish Kite Shield -->
+	<item id="4201">
+		<id>0x4201</id>
+		<name>Gargish Kite Shield</name>
+		<decay />
+		<nodye />
+		<durability><random min="45" max="60" /></durability>
+		<weight>7.0</weight>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Kite Shield (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="45" />
+		<allowmeditation />
+		<intproperty name="res_energy" value="1" />
+	</item>
+
+	<item id="4206" inherit="4201">
+		<id>0x4206</id>
+		<baseid>4201</baseid>
+		<category>Base Armor\Gargish\Gargish Kite Shield (E/W)</category>
+	</item>
+
+	<!-- Gargish Leather Arms -->
+	<item id="302">
+		<id>0x302</id>
+		<name>Gargish Leather Arms</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="50" /></durability>
+		<weight>4.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Leather Arms</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="25" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Gargish Leather Chest -->
+	<item id="304">
+		<id>0x304</id>
+		<name>Gargish Leather Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="50" /></durability>
+		<weight>8.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Leather Chest</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="25" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Gargish Leather Kilt -->
+	<item id="311">
+		<id>0x311</id>
+		<name>Gargish Leather Kilt</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="50" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Leather Kilt</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="25" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Gargish Leather Wing Armor -->
+	<item id="457e">
+		<id>0x457e</id>
+		<name>Gargish Leather Wing Armor</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="45" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Leather Wing Armor (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="2" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="2" />
+		<intproperty name="res_energy" value="2" />
+	</item>
+
+	<item id="457f" inherit="457e">
+		<id>0x457f</id>
+		<baseid>457e</baseid>
+		<category>Base Armor\Gargish\Gargish Leather Wing Armor (E/W)</category>
+	</item>
+
+	<!-- Gargish Order Shield -->
+	<item id="422a">
+		<id>0x422a</id>
+		<name>Gargish Order Shield</name>
+		<decay />
+		<nodye />
+		<durability><random min="100" max="125" /></durability>
+		<weight>7.0</weight>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Order Shield (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="95" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="1" />
+	</item>
+
+	<item id="422c" inherit="422a">
+		<id>0x422c</id>
+		<baseid>422a</baseid>
+		<category>Base Armor\Gargish\Gargish Order Shield (E/W)</category>
+	</item>
+
+	<!-- Gargish Plate Arms -->
+	<item id="308">
+		<id>0x308</id>
+		<name>Gargish Plate Arms</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Plate Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="80" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Gargish Plate Chest -->
+	<item id="30a">
+		<id>0x30a</id>
+		<name>Gargish Plate Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Plate Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="95" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Gargish Plate Kilt -->
+	<item id="30c">
+		<id>0x30c</id>
+		<name>Gargish Plate Kilt</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Plate Kilt</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="80" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Gargish Plate Legs -->
+	<item id="30e">
+		<id>0x30e</id>
+		<name>Gargish Plate Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="50" max="65" /></durability>
+		<weight>7.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Plate Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="90" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+	</item>
+
+	<!-- Gargish Stone Arms -->
+	<item id="284">
+		<id>0x284</id>
+		<name>Gargish Stone Arms</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Stone Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Gargish Stone Chest -->
+	<item id="286">
+		<id>0x286</id>
+		<name>Gargish Stone Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>15.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Stone Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Gargish Stone Kilt -->
+	<item id="288">
+		<id>0x288</id>
+		<name>Gargish Stone Kilt</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>10.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Stone Kilt</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+	<!-- Gargish Stone Legs -->
+	<item id="28a">
+		<id>0x28a</id>
+		<name>Gargish Stone Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<weight>15.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Gargish\Gargish Stone Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="6" />
+	</item>
+
+</definitions>

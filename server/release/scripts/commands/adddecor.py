@@ -13,7 +13,7 @@ from wolfpack.consts import WPDT_ITEM
 from wolfpack.utilities import hex2dec
 
 
-"""
+r"""
 	\command adddecor
 	\description Adds a decoration object, such as a tree or flowers.
 	\usage - <code>adddecor [ tree, ground ]</code>
@@ -639,7 +639,7 @@ def adddecor( socket, command, args ):
 					socket.attachtarget( 'commands.adddecor.createground', [ item ] )
 					return True
 				# Desert Ground Decoration
-			 	elif value == "desert":
+				elif value == "desert":
 					if socket.hastag( 'last_ground_desert' ):
 						templist = []
 						for choice in desert_decor:

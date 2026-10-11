@@ -372,7 +372,7 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 	else if( charbaseid_ == "charbaseid" ) 
 	{
 		QString text = value.toString();
-		if( text == QString::null )
+		if( text == QString() )
 			PROPERTY_ERROR( -2, "String expected" );
 		charbaseid_ = text.toLatin1();
 		return 0; 
@@ -428,7 +428,7 @@ void cCorpse::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 		break;
 
 	default:
-		color = QString::null;
+		color = QString();
 		break;
 	};
 

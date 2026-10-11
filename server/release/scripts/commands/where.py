@@ -7,7 +7,7 @@
 # .where Command                                                #
 #===============================================================#
 
-"""
+r"""
 	\command where
 	\description Shows your current position.
 """

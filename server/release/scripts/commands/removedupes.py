@@ -1,4 +1,4 @@
-"""
+r"""
 
 
 	\command removedupes
@@ -50,31 +50,31 @@ def removeDupesFromMap( socket, mapid ):
 
 	if mapid == 0:
 		xiters = MAP0_WIDTH / squareregionsize
-		if 0 <> MAP0_WIDTH % squareregionsize:
+		if 0 != MAP0_WIDTH % squareregionsize:
 			xiters = xiters + 1
 		yiters = MAP0_HEIGHT / squareregionsize
-		if 0 <> MAP0_HEIGHT % squareregionsize:
+		if 0 != MAP0_HEIGHT % squareregionsize:
 			yiters = yiters + 1
 	elif mapid == 1 :
 		xiters = MAP1_WIDTH / squareregionsize
-		if 0 <> MAP1_WIDTH % squareregionsize:
+		if 0 != MAP1_WIDTH % squareregionsize:
 			xiters = xiters + 1
 		yiters = MAP1_HEIGHT / squareregionsize
-		if 0 <> MAP1_HEIGHT % squareregionsize:
+		if 0 != MAP1_HEIGHT % squareregionsize:
 			yiters = yiters + 1
 	elif mapid == 2 :
 		xiters = MAP2_WIDTH / squareregionsize
-		if 0 <> MAP2_WIDTH % squareregionsize:
+		if 0 != MAP2_WIDTH % squareregionsize:
 			xiters = xiters + 1
 		yiters = MAP2_HEIGHT / squareregionsize
-		if 0 <> MAP2_HEIGHT % squareregionsize:
+		if 0 != MAP2_HEIGHT % squareregionsize:
 			yiters = yiters + 1
 	elif mapid == 3 :
 		xiters = MAP3_WIDTH / squareregionsize
-		if 0 <> MAP3_WIDTH % squareregionsize:
+		if 0 != MAP3_WIDTH % squareregionsize:
 			xiters = xiters + 1
 		yiters = MAP3_HEIGHT / squareregionsize
-		if 0 <> MAP3_HEIGHT % squareregionsize:
+		if 0 != MAP3_HEIGHT % squareregionsize:
 			yiters = yiters + 1
 	else:
 		return

@@ -1,5 +1,5 @@
 
-"""
+r"""
 	\command edit
 	\description Shows a gump with equipped items for a character.
 	\notes This command allows you to delete items (Delete), put items into your backpack (Bounce),

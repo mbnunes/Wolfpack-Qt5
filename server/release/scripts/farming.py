@@ -118,7 +118,7 @@ def processGainresObject(obj, args):
 					continue
 				else:
 					addresource(object)
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_ERROR, "An error occured while checking farming object 0x%x: %s.\n" % (object.serial, str(e)))
 
 	i = upperindex

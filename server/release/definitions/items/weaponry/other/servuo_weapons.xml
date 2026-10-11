@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Blood Blade -->
+	<item id="8fe">
+		<id>0x8fe</id>
+		<name>Blood Blade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="90" /></durability>
+		<weight>2.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Blood Blade (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="speed" value="53" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="12" />
+	</item>
+
+	<item id="4072" inherit="8fe">
+		<id>0x4072</id>
+		<baseid>8fe</baseid>
+		<category>Base Weapons\Other\Blood Blade (E/W)</category>
+	</item>
+
+	<!-- Boomerang -->
+	<item id="8ff">
+		<id>0x8ff</id>
+		<name>Boomerang</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="60" /></durability>
+		<weight>4.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Boomerang</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="25" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="15" />
+	</item>
+
+	<!-- Cyclone -->
+	<item id="901">
+		<id>0x901</id>
+		<name>Cyclone</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="60" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Cyclone</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="17" />
+	</item>
+
+	<!-- Disc Mace -->
+	<item id="903">
+		<id>0x903</id>
+		<name>Disc Mace</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>17.0</weight>
+		<type>1003</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Weapons\Other\Disc Mace (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="26" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="15" />
+	</item>
+
+	<item id="406e" inherit="903">
+		<id>0x406e</id>
+		<baseid>903</baseid>
+		<category>Base Weapons\Other\Disc Mace (E/W)</category>
+	</item>
+
+	<!-- Dread Sword -->
+	<item id="90b">
+		<id>0x90b</id>
+		<name>Dread Sword</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>7.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Dread Sword (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="30" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="18" />
+	</item>
+
+	<item id="4074" inherit="90b">
+		<id>0x4074</id>
+		<baseid>90b</baseid>
+		<category>Base Weapons\Other\Dread Sword (E/W)</category>
+	</item>
+
+	<!-- Dual Pointed Spear -->
+	<item id="904">
+		<id>0x904</id>
+		<name>Dual Pointed Spear</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="80" /></durability>
+		<weight>7.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Dual Pointed Spear (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="50" />
+		<intproperty name="speed" value="42" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="406d" inherit="904">
+		<id>0x406d</id>
+		<baseid>904</baseid>
+		<category>Base Weapons\Other\Dual Pointed Spear (E/W)</category>
+	</item>
+
+	<!-- Dual Short Axes -->
+	<item id="8fd">
+		<id>0x8fd</id>
+		<name>Dual Short Axes</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>8.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Dual Short Axes (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="17" />
+	</item>
+
+	<item id="4068" inherit="8fd">
+		<id>0x4068</id>
+		<baseid>8fd</baseid>
+		<category>Base Weapons\Other\Dual Short Axes (E/W)</category>
+	</item>
+
+	<!-- Glass Staff -->
+	<item id="905">
+		<id>0x905</id>
+		<name>Glass Staff</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="70" /></durability>
+		<weight>4.0</weight>
+		<type>1004</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Weapons\Other\Glass Staff (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="39" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="14" />
+	</item>
+
+	<item id="4070" inherit="905">
+		<id>0x4070</id>
+		<baseid>905</baseid>
+		<category>Base Weapons\Other\Glass Staff (E/W)</category>
+	</item>
+
+	<!-- Glass Sword -->
+	<item id="90c">
+		<id>0x90c</id>
+		<name>Glass Sword</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="90" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Glass Sword (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="46" />
+		<intproperty name="mindamage" value="11" />
+		<intproperty name="maxdamage" value="15" />
+	</item>
+
+	<item id="4073" inherit="90c">
+		<id>0x4073</id>
+		<baseid>90c</baseid>
+		<category>Base Weapons\Other\Glass Sword (E/W)</category>
+	</item>
+
+	<!-- Serpent Stone Staff -->
+	<item id="906">
+		<id>0x906</id>
+		<name>Serpent Stone Staff</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="50" /></durability>
+		<weight>3.0</weight>
+		<type>1004</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Weapons\Other\Serpent Stone Staff (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="33" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="19" />
+	</item>
+
+	<item id="406f" inherit="906">
+		<id>0x406f</id>
+		<baseid>906</baseid>
+		<category>Base Weapons\Other\Serpent Stone Staff (E/W)</category>
+	</item>
+
+	<!-- Shepherds Crook -->
+	<item id="e81">
+		<id>0xe81</id>
+		<name>Shepherds Crook</name>
+		<decay />
+		<nodye />
+		<twohanded />
+		<durability><random min="31" max="50" /></durability>
+		<weight>4.0</weight>
+		<type>1004</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Weapons\Other\Shepherds Crook (N/S)</category>
+		<tag name="resname" value="wood" />
+		<intproperty name="req_strength" value="20" />
+		<intproperty name="speed" value="40" />
+		<intproperty name="mindamage" value="13" />
+		<intproperty name="maxdamage" value="16" />
+	</item>
+
+	<item id="e82" inherit="e81">
+		<id>0xe82</id>
+		<baseid>e81</baseid>
+		<category>Base Weapons\Other\Shepherds Crook (E/W)</category>
+	</item>
+
+	<!-- Shortblade -->
+	<item id="907">
+		<id>0x907</id>
+		<name>Shortblade</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="110" /></durability>
+		<weight>9.0</weight>
+		<type>1005</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Shortblade (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="45" />
+		<intproperty name="speed" value="43" />
+		<intproperty name="mindamage" value="10" />
+		<intproperty name="maxdamage" value="13" />
+	</item>
+
+	<item id="4076" inherit="907">
+		<id>0x4076</id>
+		<baseid>907</baseid>
+		<category>Base Weapons\Other\Shortblade (E/W)</category>
+	</item>
+
+	<!-- Soul Glaive -->
+	<item id="90a">
+		<id>0x90a</id>
+		<name>Soul Glaive</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="65" /></durability>
+		<weight>8.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Soul Glaive</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="60" />
+		<intproperty name="speed" value="25" />
+		<intproperty name="mindamage" value="16" />
+		<intproperty name="maxdamage" value="20" />
+	</item>
+
+	<!-- Stone War Sword -->
+	<item id="900">
+		<id>0x900</id>
+		<name>Stone War Sword</name>
+		<decay />
+		<nodye />
+		<onehanded />
+		<durability><random min="31" max="100" /></durability>
+		<weight>6.0</weight>
+		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<category>Base Weapons\Other\Stone War Sword (N/S)</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="40" />
+		<intproperty name="speed" value="28" />
+		<intproperty name="mindamage" value="15" />
+		<intproperty name="maxdamage" value="19" />
+	</item>
+
+	<item id="4071" inherit="900">
+		<id>0x4071</id>
+		<baseid>900</baseid>
+		<category>Base Weapons\Other\Stone War Sword (E/W)</category>
+	</item>
+
+</definitions>

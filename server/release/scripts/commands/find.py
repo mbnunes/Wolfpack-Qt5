@@ -33,9 +33,9 @@ def find(socket, command, arguments):
 		if ( re.search(arguments.lower(), description.lower()) ):
 			# Iterate through the categories and see if they're all there
 			category = ''
-			if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+			if len(categories) > 0 and ('\\'.join(categories) + '\\') not in submenus:
 				for subcategory in categories:
-					if not submenus.has_key(category + subcategory + '\\'):
+					if (category + subcategory + '\\') not in submenus:
 						# Category is our parent category
 						parent = None
 						if len(category) == 0:
@@ -104,9 +104,9 @@ def find(socket, command, arguments):
 
 			# Iterate trough the categories and see if they're all there
 			category = ''
-			if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+			if len(categories) > 0 and ('\\'.join(categories) + '\\') not in submenus:
 				for subcategory in categories:
-					if not submenus.has_key(category + subcategory + '\\'):
+					if (category + subcategory + '\\') not in submenus:
 						# Category is our parent category
 						parent = None
 						if len(category) == 0:
@@ -152,9 +152,9 @@ def find(socket, command, arguments):
 		if ( re.search(arguments.lower(), description.lower()) ):
 			# Iterate trough the categories and see if they're all there
 			category = ''
-			if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+			if len(categories) > 0 and ('\\'.join(categories) + '\\') not in submenus:
 				for subcategory in categories:
-					if not submenus.has_key(category + subcategory + '\\'):
+					if (category + subcategory + '\\') not in submenus:
 						# Category is our parent category
 						parent = None
 						if len(category) == 0:
@@ -193,7 +193,7 @@ def find(socket, command, arguments):
 def onLoad():
 	wolfpack.registercommand('find', find)
 
-"""
+r"""
 	\command find
 	\description Use this command to find a item, npc or multi.
 	\usage - <code>find <searchpattern></code>

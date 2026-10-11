@@ -175,4 +175,4 @@ def onWalk(char, dir, sequence):
 
 	char.soundeffect( speechbuilder.saysound )
 	char.say( speechbuilder.buildsentence(6), speechbuilder.saycolor )
- 	return False
+	return False

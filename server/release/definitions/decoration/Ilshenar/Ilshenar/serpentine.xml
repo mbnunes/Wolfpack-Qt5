@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- Static -->
+	<item id="0x0eb3">
+		<pos x="426" y="1557" z="-23" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0eb2">
+		<pos x="426" y="1558" z="-23" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e9e">
+		<pos x="427" y="1560" z="-23" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0eb1">
+		<pos x="434" y="1557" z="-22" map="2" />
+		<pos x="436" y="1557" z="-22" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0675" hue="0x8ab">
+		<pos x="478" y="1527" z="-27" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0677" hue="0x8ab">
+		<pos x="479" y="1527" z="-27" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e9c">
+		<pos x="427" y="1557" z="-23" map="2" />
+	</item>
+</decoration>

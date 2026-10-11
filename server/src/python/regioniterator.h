@@ -72,22 +72,12 @@ static PyObject* wpRegionIteratorItems_getAttr( wpRegionIteratorItems* self, cha
 	Py_RETURN_FALSE;
 }
 
-static PyTypeObject wpRegionIteratorItemsType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpItemRegionIterator",
-sizeof( wpRegionIteratorItemsType ),
-0,
-wpItemIteratorDealloc,
-0,
-( getattrfunc ) wpRegionIteratorItems_getAttr,
-0,
-0,
-0,
-0,
-0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpRegionIteratorItemsType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.itemregioniterator",
+	.tp_basicsize = sizeof( wpRegionIteratorItems ),
+	.tp_dealloc = wpItemIteratorDealloc,
+	.tp_getattr = ( getattrfunc ) wpRegionIteratorItems_getAttr,
 };
 
 static PyObject* PyGetItemRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )
@@ -156,22 +146,12 @@ static PyObject* wpRegionIteratorChars_getAttr( wpRegionIteratorChars* self, cha
 	Py_RETURN_FALSE;
 }
 
-static PyTypeObject wpRegionIteratorCharsType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpCharRegionIterator",
-sizeof( wpRegionIteratorCharsType ),
-0,
-wpCharIteratorDealloc,
-0,
-( getattrfunc ) wpRegionIteratorChars_getAttr,
-0,
-0,
-0,
-0,
-0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpRegionIteratorCharsType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.charregioniterator",
+	.tp_basicsize = sizeof( wpRegionIteratorChars ),
+	.tp_dealloc = wpCharIteratorDealloc,
+	.tp_getattr = ( getattrfunc ) wpRegionIteratorChars_getAttr,
 };
 
 static PyObject* PyGetCharRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map, bool offline = false )

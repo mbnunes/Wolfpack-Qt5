@@ -7,7 +7,7 @@
 # .dye Command
 #===============================================================#
 
-"""
+r"""
 	\command freeze
 	\description Toggles the frozen value of the target.
 	\usage - <code>freeze</code>

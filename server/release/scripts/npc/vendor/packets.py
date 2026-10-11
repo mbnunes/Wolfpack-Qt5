@@ -215,7 +215,7 @@ class BuyList:
 		socket.sendobject(vendor.itemonlayer(LAYER_NPCNORESTOCK))
 		socket.sendobject(vendor.itemonlayer(LAYER_NPCSELL))
 
-		self.items.sort(lambda x,y : cmp(x[1], y[1])) # Sort the itemlist by serials first
+		self.items.sort(key=lambda x: x[1]) # Sort the itemlist by serials first
 
 		self.createContentPacket(vendor).send(socket) # Send the content packet
 		self.createBuyInfoPacket(vendor).send(socket) # Send the buy info packet

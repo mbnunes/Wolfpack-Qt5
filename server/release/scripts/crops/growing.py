@@ -88,7 +88,7 @@ def processGrowthCheck(obj, args):
 		try:
 			crop = wolfpack.finditem(croplist[i])
 			growCrop(crop)
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_ERROR, "An error occured while checking crop 0x%x: %s.\n" % (crop.serial, str(e)))
 
 	i = upperindex

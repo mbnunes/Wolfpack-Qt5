@@ -1,0 +1,4747 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Sentinels Guard -->
+	<item id="sentinels_guard" inherit="1bc4">
+		<id>0x1bc4</id>
+		<name>Sentinels Guard</name>
+		<decay />
+		<nodye />
+		<color>0x21</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Sentinels Guard</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="16" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Defender Of The Magus -->
+	<item id="defender_of_the_magus" inherit="1b7b">
+		<id>0x1b7b</id>
+		<name>Defender Of The Magus</name>
+		<decay />
+		<nodye />
+		<color>0x24e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Defender Of The Magus</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="1" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="castrecoverybonus" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Candlewood Torch -->
+	<item id="candlewood_torch" inherit="f6b">
+		<id>0xf6b</id>
+		<name>Candlewood Torch</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Candlewood Torch</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Song Woven Mantle -->
+	<item id="song_woven_mantle" inherit="2fc8">
+		<id>0x2fc8</id>
+		<name>Song Woven Mantle</name>
+		<decay />
+		<nodye />
+		<color>0x493</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Song Woven Mantle</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="14" />
+		<intproperty name="res_cold" value="14" />
+		<intproperty name="res_energy" value="16" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="luck" value="100" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bronzed Armor Valkyrie -->
+	<item id="bronzed_armor_valkyrie" inherit="1c06">
+		<id>0x1c06</id>
+		<name>Bronzed Armor Valkyrie</name>
+		<decay />
+		<nodye />
+		<color>0x747</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bronzed Armor Valkyrie</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="11" />
+		<intproperty name="res_fire" value="14" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="11" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="bonusstamina" value="5" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Spell Woven Britches -->
+	<item id="spell_woven_britches" inherit="2fc9">
+		<id>0x2fc9</id>
+		<name>Spell Woven Britches</name>
+		<decay />
+		<nodye />
+		<color>0x487</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Spell Woven Britches</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_fire" value="15" />
+		<intproperty name="res_poison" value="16" />
+		<intproperty name="bonusintelligence" value="8" />
+		<intproperty name="spelldamagebonus" value="10" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Fey Leggings -->
+	<item id="fey_leggings" inherit="13be">
+		<id>0x13be</id>
+		<name>Fey Leggings</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Fey Leggings</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="12" />
+		<intproperty name="res_fire" value="8" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="19" />
+		<intproperty name="aos_defense_chance" value="20" />
+		<intproperty name="bonushitpoints" value="6" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Aegis Of Grace -->
+	<item id="aegis_of_grace" inherit="2b6e">
+		<id>0x2b6e</id>
+		<name>Aegis Of Grace</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Aegis Of Grace</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="15" />
+		<intproperty name="aos_defense_chance" value="20" />
+		<intproperty name="selfrepair" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Royal Zoo Leather Legs -->
+	<item id="royal_zoo_leather_legs" inherit="13cb">
+		<id>0x13cb</id>
+		<name>Royal Zoo Leather Legs</name>
+		<decay />
+		<nodye />
+		<color>0x109</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Royal Zoo Leather Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="bonusmana" value="3" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowerreagentcost" value="15" />
+		<intproperty name="reflectphysical" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dupres Shield -->
+	<item id="dupres_shield" inherit="2b01">
+		<id>0x2b01</id>
+		<name>Dupres Shield</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Dupres Shield</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="1" />
+		<intproperty name="res_energy" value="1" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Tongue Of The Beast -->
+	<item id="tongue_of_the_beast" inherit="1b78">
+		<id>0x1b78</id>
+		<name>Tongue Of The Beast</name>
+		<decay />
+		<nodye />
+		<color>0x99</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Tongue Of The Beast</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="regenmana" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Gladiators Collar -->
+	<item id="gladiators_collar" inherit="1413">
+		<id>0x1413</id>
+		<name>Gladiators Collar</name>
+		<decay />
+		<nodye />
+		<color>0x26d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Gladiators Collar</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="18" />
+		<intproperty name="res_fire" value="18" />
+		<intproperty name="res_cold" value="17" />
+		<intproperty name="res_poison" value="18" />
+		<intproperty name="res_energy" value="16" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="10" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Protectorofthe Battle Mage -->
+	<item id="protectorofthe_battle_mage" inherit="13cc">
+		<id>0x13cc</id>
+		<name>Protectorofthe Battle Mage</name>
+		<decay />
+		<nodye />
+		<color>0x487</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Protectorofthe Battle Mage</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="16" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="spelldamagebonus" value="5" />
+		<intproperty name="lowermanacost" value="8" />
+		<intproperty name="lowerreagentcost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Royal Zoo Studded Legs -->
+	<item id="royal_zoo_studded_legs" inherit="13da">
+		<id>0x13da</id>
+		<name>Royal Zoo Studded Legs</name>
+		<decay />
+		<nodye />
+		<color>0x109</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Royal Zoo Studded Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="bonusmana" value="3" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Human Sign Of Chaos -->
+	<item id="human_sign_of_chaos" inherit="1bc3">
+		<id>0x1bc3</id>
+		<name>Human Sign Of Chaos</name>
+		<decay />
+		<nodye />
+		<color>0x81b</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Human Sign Of Chaos</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="2" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="2" />
+		<intproperty name="res_energy" value="2" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Walkers Leggings -->
+	<item id="walkers_leggings" inherit="2791">
+		<id>0x2791</id>
+		<name>Walkers Leggings</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Walkers Leggings</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Lights Rampart -->
+	<item id="lights_rampart" inherit="1b7b">
+		<id>0x1b7b</id>
+		<name>Lights Rampart</name>
+		<decay />
+		<nodye />
+		<color>0x4f8</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Lights Rampart</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="13" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="aos_defense_chance" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Gargish Sign Of Order -->
+	<item id="gargish_sign_of_order" inherit="422a">
+		<id>0x422a</id>
+		<name>Gargish Sign Of Order</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Gargish Sign Of Order</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="1" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="castrecoverybonus" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Helm Of Swiftness -->
+	<item id="helm_of_swiftness" inherit="2689">
+		<id>0x2689</id>
+		<name>Helm Of Swiftness</name>
+		<decay />
+		<nodye />
+		<color>0x592</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Helm Of Swiftness</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="bonusintelligence" value="5" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="castrecoverybonus" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Escutcheon De Ariadne -->
+	<item id="escutcheon_de_ariadne" inherit="1b74">
+		<id>0x1b74</id>
+		<name>Escutcheon De Ariadne</name>
+		<decay />
+		<nodye />
+		<color>0x8a5</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Escutcheon De Ariadne</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_energy" value="1" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="reflectphysical" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Human Fey Leggings -->
+	<item id="human_fey_leggings" inherit="13be">
+		<id>0x13be</id>
+		<name>Human Fey Leggings</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Human Fey Leggings</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="12" />
+		<intproperty name="res_fire" value="8" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="19" />
+		<intproperty name="aos_defense_chance" value="20" />
+		<intproperty name="bonushitpoints" value="6" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Twilight Jacket -->
+	<item id="twilight_jacket" inherit="2793">
+		<id>0x2793</id>
+		<name>Twilight Jacket</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Twilight Jacket</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="12" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="reflectphysical" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dragon Hide Shield -->
+	<item id="dragon_hide_shield" inherit="4201">
+		<id>0x4201</id>
+		<name>Dragon Hide Shield</name>
+		<decay />
+		<nodye />
+		<color>0x2c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Dragon Hide Shield</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="15" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Britches Of Warding -->
+	<item id="britches_of_warding" inherit="13be">
+		<id>0x13be</id>
+		<name>Britches Of Warding</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Britches Of Warding</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="20" />
+		<intproperty name="res_fire" value="20" />
+		<intproperty name="res_cold" value="20" />
+		<intproperty name="res_poison" value="20" />
+		<intproperty name="res_energy" value="20" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusstamina" value="12" />
+		<intproperty name="lowermanacost" value="8" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Stitchers Mittens -->
+	<item id="stitchers_mittens" inherit="2fc6">
+		<id>0x2fc6</id>
+		<name>Stitchers Mittens</name>
+		<decay />
+		<nodye />
+		<color>0x481</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Stitchers Mittens</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="20" />
+		<intproperty name="res_cold" value="20" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="lowerreagentcost" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Samurai Helm -->
+	<item id="samurai_helm" inherit="236c">
+		<id>0x236c</id>
+		<name>Samurai Helm</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Samurai Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="15" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="selfrepair" value="10" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Wall Of Hungry Mouths -->
+	<item id="wall_of_hungry_mouths" inherit="1b76">
+		<id>0x1b76</id>
+		<name>Wall Of Hungry Mouths</name>
+		<decay />
+		<nodye />
+		<color>0x40a</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Wall Of Hungry Mouths</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Shroud Of Deceit -->
+	<item id="shroud_of_deceit" inherit="144f">
+		<id>0x144f</id>
+		<name>Shroud Of Deceit</name>
+		<decay />
+		<nodye />
+		<color>0x38f</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Shroud Of Deceit</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="11" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="18" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="res_energy" value="13" />
+		<intproperty name="regenhitpoints" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Gloves Of Feudal Grip -->
+	<item id="gloves_of_feudal_grip" inherit="2643">
+		<id>0x2643</id>
+		<name>Gloves Of Feudal Grip</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Gloves Of Feudal Grip</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="15" />
+		<intproperty name="res_fire" value="15" />
+		<intproperty name="res_cold" value="15" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="res_energy" value="15" />
+		<intproperty name="bonusstrength" value="8" />
+		<intproperty name="bonusstamina" value="8" />
+		<intproperty name="regenhitpoints" value="3" />
+		<intproperty name="regenmana" value="3" />
+		<intproperty name="aos_boni_damage" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bramble Coat -->
+	<item id="bramble_coat" inherit="2b67">
+		<id>0x2b67</id>
+		<name>Bramble Coat</name>
+		<decay />
+		<nodye />
+		<color>0x1</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bramble Coat</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="8" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="bonushitpoints" value="4" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="luck" value="150" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Human Sign Of Order -->
+	<item id="human_sign_of_order" inherit="1bc4">
+		<id>0x1bc4</id>
+		<name>Human Sign Of Order</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Human Sign Of Order</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="1" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="castrecoverybonus" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Boura Tail Shield -->
+	<item id="boura_tail_shield" inherit="1b78">
+		<id>0x1b78</id>
+		<name>Boura Tail Shield</name>
+		<decay />
+		<nodye />
+		<color>0x22a</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Boura Tail Shield</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_energy" value="1" />
+		<intproperty name="reflectphysical" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Surge Shield -->
+	<item id="surge_shield" inherit="1b72">
+		<id>0x1b72</id>
+		<name>Surge Shield</name>
+		<decay />
+		<nodye />
+		<color>0x84d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Surge Shield</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="lowermanacost" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Gauntlets Of Anger -->
+	<item id="gauntlets_of_anger" inherit="1414">
+		<id>0x1414</id>
+		<name>Gauntlets Of Anger</name>
+		<decay />
+		<nodye />
+		<color>0x29b</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Gauntlets Of Anger</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonushitpoints" value="8" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Tunic Of Guarding -->
+	<item id="tunic_of_guarding" inherit="13cc">
+		<id>0x13cc</id>
+		<name>Tunic Of Guarding</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Tunic Of Guarding</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="reflectphysical" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Pillar Of Strength -->
+	<item id="pillar_of_strength" inherit="4205">
+		<id>0x4205</id>
+		<name>Pillar Of Strength</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Pillar Of Strength</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_poison" value="1" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="bonushitpoints" value="10" />
+		<intproperty name="aos_boni_damage" value="20" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bulwark Leggings -->
+	<item id="bulwark_leggings" inherit="13f0">
+		<id>0x13f0</id>
+		<name>Bulwark Leggings</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bulwark Leggings</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="regenstamina" value="1" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Void Infused Kilt -->
+	<item id="void_infused_kilt" inherit="30c">
+		<id>0x30c</id>
+		<name>Void Infused Kilt</name>
+		<decay />
+		<nodye />
+		<color>0x84c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Void Infused Kilt</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="13" />
+		<intproperty name="res_fire" value="12" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="9" />
+		<intproperty name="res_energy" value="9" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="regenstamina" value="1" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Leggings Of Embers -->
+	<item id="leggings_of_embers" inherit="1411">
+		<id>0x1411</id>
+		<name>Leggings Of Embers</name>
+		<decay />
+		<nodye />
+		<color>0x2c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Leggings Of Embers</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="15" />
+		<intproperty name="res_fire" value="25" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="res_energy" value="15" />
+		<intproperty name="selfrepair" value="10" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Healers Touch -->
+	<item id="healers_touch" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Healers Touch</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Healers Touch</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="bonusstamina" value="3" />
+		<intproperty name="reflectphysical" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Royal Zoo Plate Legs -->
+	<item id="royal_zoo_plate_legs" inherit="1411">
+		<id>0x1411</id>
+		<name>Royal Zoo Plate Legs</name>
+		<decay />
+		<nodye />
+		<color>0x109</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Royal Zoo Plate Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="luck" value="100" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Animated Legsofthe Insane Tinker -->
+	<item id="animated_legsofthe_insane_tinker" inherit="1411">
+		<id>0x1411</id>
+		<name>Animated Legsofthe Insane Tinker</name>
+		<decay />
+		<nodye />
+		<color>0x906</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Animated Legsofthe Insane Tinker</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="17" />
+		<intproperty name="res_fire" value="15" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="res_energy" value="2" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="regenstamina" value="2" />
+		<intproperty name="aos_boni_damage" value="10" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Valkyrie Armor -->
+	<item id="valkyrie_armor" inherit="1c0a">
+		<id>0x1c0a</id>
+		<name>Valkyrie Armor</name>
+		<decay />
+		<nodye />
+		<color>0x840</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Valkyrie Armor</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="11" />
+		<intproperty name="res_fire" value="14" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="11" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="bonusintelligence" value="5" />
+		<intproperty name="bonusstamina" value="5" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Warded Demonbone Bracers -->
+	<item id="warded_demonbone_bracers" inherit="144e">
+		<id>0x144e</id>
+		<name>Warded Demonbone Bracers</name>
+		<decay />
+		<nodye />
+		<color>0x2e2</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Warded Demonbone Bracers</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="lowermanacost" value="6" />
+		<intproperty name="lowerreagentcost" value="12" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Crown Of Arcane Temperament -->
+	<item id="crown_of_arcane_temperament" inherit="2b6e">
+		<id>0x2b6e</id>
+		<name>Crown Of Arcane Temperament</name>
+		<decay />
+		<nodye />
+		<color>0x7dc</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Crown Of Arcane Temperament</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="14" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="12" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusmana" value="8" />
+		<intproperty name="regenmana" value="3" />
+		<intproperty name="spelldamagebonus" value="8" />
+		<intproperty name="lowermanacost" value="6" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ironwood Crown -->
+	<item id="ironwood_crown" inherit="2b71">
+		<id>0x2b71</id>
+		<name>Ironwood Crown</name>
+		<decay />
+		<nodye />
+		<color>0x1</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Ironwood Crown</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="bonusstrength" value="5" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="bonusintelligence" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Minaxs Armor -->
+	<item id="minaxs_armor" inherit="1c02">
+		<id>0x1c02</id>
+		<name>Minaxs Armor</name>
+		<decay />
+		<nodye />
+		<color>0x453</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Minaxs Armor</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="15" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="res_energy" value="25" />
+		<intproperty name="aos_defense_chance" value="15" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="regenhitpoints" value="3" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="castrecoverybonus" value="2" />
+		<intproperty name="luck" value="80" />
+		<intproperty name="selfrepair" value="1" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Cast Off Zombie Skin -->
+	<item id="cast_off_zombie_skin" inherit="302">
+		<id>0x302</id>
+		<name>Cast Off Zombie Skin</name>
+		<decay />
+		<nodye />
+		<color>0x765</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Cast Off Zombie Skin</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="13" />
+		<intproperty name="res_cold" value="17" />
+		<intproperty name="res_poison" value="18" />
+		<intproperty name="res_energy" value="6" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="lowerreagentcost" value="8" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Gargish Sign Of Chaos -->
+	<item id="gargish_sign_of_chaos" inherit="4228">
+		<id>0x4228</id>
+		<name>Gargish Sign Of Chaos</name>
+		<decay />
+		<nodye />
+		<color>0x81b</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Gargish Sign Of Chaos</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="2" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="2" />
+		<intproperty name="res_energy" value="2" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Lord Blackthorns Exemplar -->
+	<item id="lord_blackthorns_exemplar" inherit="1bc3">
+		<id>0x1bc3</id>
+		<name>Lord Blackthorns Exemplar</name>
+		<decay />
+		<nodye />
+		<color>0x501</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Lord Blackthorns Exemplar</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Basilisk Hide Breastplate -->
+	<item id="basilisk_hide_breastplate" inherit="2641">
+		<id>0x2641</id>
+		<name>Basilisk Hide Breastplate</name>
+		<decay />
+		<nodye />
+		<color>0x556</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Basilisk Hide Breastplate</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="12" />
+		<intproperty name="res_fire" value="14" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="11" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="bonusdexterity" value="5" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenstamina" value="2" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Gargish Wooden Shield -->
+	<item id="gargish_wooden_shield" inherit="4200">
+		<id>0x4200</id>
+		<name>Gargish Wooden Shield</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1008</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Gargish Wooden Shield</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_energy" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Gloves Of Safeguarding -->
+	<item id="gloves_of_safeguarding" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Gloves Of Safeguarding</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Gloves Of Safeguarding</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="bonusstamina" value="3" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Inquisitors Resolution -->
+	<item id="inquisitors_resolution" inherit="1414">
+		<id>0x1414</id>
+		<name>Inquisitors Resolution</name>
+		<decay />
+		<nodye />
+		<color>0x4f2</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Inquisitors Resolution</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_cold" value="22" />
+		<intproperty name="res_energy" value="17" />
+		<intproperty name="castrecoverybonus" value="3" />
+		<intproperty name="lowermanacost" value="8" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="10" />
+	</item>
+
+	<!-- Arms Of Armstrong -->
+	<item id="arms_of_armstrong" inherit="13cd">
+		<id>0x13cd</id>
+		<name>Arms Of Armstrong</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Arms Of Armstrong</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="bonusstrength" value="3" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Orc Chieftain Helm -->
+	<item id="orc_chieftain_helm" inherit="1f0b">
+		<id>0x1f0b</id>
+		<name>Orc Chieftain Helm</name>
+		<decay />
+		<nodye />
+		<color>0x2a3</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Orc Chieftain Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="23" />
+		<intproperty name="res_fire" value="1" />
+		<intproperty name="res_cold" value="23" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="30" />
+		<intproperty name="bonushitpoints" value="30" />
+		<intproperty name="regenhitpoints" value="3" />
+		<intproperty name="luck" value="100" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Kelp Woven Leggings -->
+	<item id="kelp_woven_leggings" inherit="13cb">
+		<id>0x13cb</id>
+		<name>Kelp Woven Leggings</name>
+		<decay />
+		<nodye />
+		<color>0x483</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Kelp Woven Leggings</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="5" />
+		<intproperty name="res_fire" value="13" />
+		<intproperty name="res_cold" value="12" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="14" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="bonusmana" value="8" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="spelldamagebonus" value="8" />
+		<intproperty name="lowerreagentcost" value="15" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Cuffs Of The Archmage -->
+	<item id="cuffs_of_the_archmage" inherit="144e">
+		<id>0x144e</id>
+		<name>Cuffs Of The Archmage</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Cuffs Of The Archmage</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="15" />
+		<intproperty name="res_fire" value="15" />
+		<intproperty name="res_cold" value="15" />
+		<intproperty name="res_poison" value="15" />
+		<intproperty name="res_energy" value="15" />
+		<intproperty name="bonusmana" value="5" />
+		<intproperty name="regenmana" value="4" />
+		<intproperty name="spelldamagebonus" value="20" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Assassin Legs -->
+	<item id="assassin_legs" inherit="13cb">
+		<id>0x13cb</id>
+		<name>Assassin Legs</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Assassin Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusdexterity" value="12" />
+		<intproperty name="bonusstamina" value="2" />
+		<intproperty name="aos_boni_speed" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Assassin Gloves -->
+	<item id="assassin_gloves" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Assassin Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Assassin Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusdexterity" value="12" />
+		<intproperty name="bonusstamina" value="2" />
+		<intproperty name="aos_boni_speed" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Assassin Chest -->
+	<item id="assassin_chest" inherit="13cc">
+		<id>0x13cc</id>
+		<name>Assassin Chest</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Assassin Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusdexterity" value="12" />
+		<intproperty name="bonusstamina" value="2" />
+		<intproperty name="aos_boni_speed" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Assassin Arms -->
+	<item id="assassin_arms" inherit="13cd">
+		<id>0x13cd</id>
+		<name>Assassin Arms</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Assassin Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusdexterity" value="12" />
+		<intproperty name="bonusstamina" value="2" />
+		<intproperty name="aos_boni_speed" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Initiation Arms -->
+	<item id="initiation_arms" inherit="13cd">
+		<id>0x13cd</id>
+		<name>Initiation Arms</name>
+		<decay />
+		<nodye />
+		<color>0x9c4</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Initiation Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Initiation Gorget -->
+	<item id="initiation_gorget" inherit="13c7">
+		<id>0x13c7</id>
+		<name>Initiation Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x9c4</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Initiation Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Initiation Cap -->
+	<item id="initiation_cap" inherit="1db9">
+		<id>0x1db9</id>
+		<name>Initiation Cap</name>
+		<decay />
+		<nodye />
+		<color>0x9c4</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Initiation Cap</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Initiation Gloves -->
+	<item id="initiation_gloves" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Initiation Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x9c4</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Initiation Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Initiation Legs -->
+	<item id="initiation_legs" inherit="13cb">
+		<id>0x13cb</id>
+		<name>Initiation Legs</name>
+		<decay />
+		<nodye />
+		<color>0x9c4</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Initiation Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Initiation Chest -->
+	<item id="initiation_chest" inherit="13cc">
+		<id>0x13cc</id>
+		<name>Initiation Chest</name>
+		<decay />
+		<nodye />
+		<color>0x9c4</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Initiation Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Helm Of Villainous Epiphany -->
+	<item id="helm_of_villainous_epiphany" inherit="2645">
+		<id>0x2645</id>
+		<name>Helm Of Villainous Epiphany</name>
+		<decay />
+		<nodye />
+		<color>0x6f2</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Helm Of Villainous Epiphany</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Helm Of Virtuous Epiphany -->
+	<item id="helm_of_virtuous_epiphany" inherit="1412">
+		<id>0x1412</id>
+		<name>Helm Of Virtuous Epiphany</name>
+		<decay />
+		<nodye />
+		<color>0x81c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Helm Of Virtuous Epiphany</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Swiftflight -->
+	<item id="swiftflight" inherit="13b2">
+		<id>0x13b2</id>
+		<name>Swiftflight</name>
+		<decay />
+		<nodye />
+		<color>0x594</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Swiftflight</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="bonusdexterity" value="8" />
+		<intproperty name="aos_boni_damage" value="40" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Feathernock -->
+	<item id="feathernock" inherit="1856">
+		<id>0x1856</id>
+		<name>Feathernock</name>
+		<decay />
+		<nodye />
+		<color>0x594</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Feathernock</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="15" />
+		<intproperty name="bonusdexterity" value="8" />
+		<intproperty name="aos_boni_damage" value="10" />
+		<intproperty name="aos_boni_speed" value="30" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Hunter Legs -->
+	<item id="hunter_legs" inherit="2fc9">
+		<id>0x2fc9</id>
+		<name>Hunter Legs</name>
+		<decay />
+		<nodye />
+		<color>0x483</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Hunter Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusdexterity" value="10" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="luck" value="50" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Hunter Chest -->
+	<item id="hunter_chest" inherit="2fc5">
+		<id>0x2fc5</id>
+		<name>Hunter Chest</name>
+		<decay />
+		<nodye />
+		<color>0x483</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Hunter Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusdexterity" value="10" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="luck" value="50" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Hunter Gloves -->
+	<item id="hunter_gloves" inherit="2fc6">
+		<id>0x2fc6</id>
+		<name>Hunter Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x483</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Hunter Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusdexterity" value="10" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="luck" value="50" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Hunter Arms -->
+	<item id="hunter_arms" inherit="2fc8">
+		<id>0x2fc8</id>
+		<name>Hunter Arms</name>
+		<decay />
+		<nodye />
+		<color>0x483</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Hunter Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="9" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusdexterity" value="10" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="luck" value="50" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Daemon Helm -->
+	<item id="daemon_helm" inherit="1451">
+		<id>0x1451</id>
+		<name>Daemon Helm</name>
+		<decay />
+		<nodye />
+		<color>0x648</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Daemon Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="selfrepair" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Daemon Gloves -->
+	<item id="daemon_gloves" inherit="1450">
+		<id>0x1450</id>
+		<name>Daemon Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x648</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Daemon Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="selfrepair" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Daemon Chest -->
+	<item id="daemon_chest" inherit="144f">
+		<id>0x144f</id>
+		<name>Daemon Chest</name>
+		<decay />
+		<nodye />
+		<color>0x648</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Daemon Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="selfrepair" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Daemon Legs -->
+	<item id="daemon_legs" inherit="1452">
+		<id>0x1452</id>
+		<name>Daemon Legs</name>
+		<decay />
+		<nodye />
+		<color>0x648</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Daemon Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="selfrepair" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Daemon Arms -->
+	<item id="daemon_arms" inherit="144e">
+		<id>0x144e</id>
+		<name>Daemon Arms</name>
+		<decay />
+		<nodye />
+		<color>0x648</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Daemon Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="selfrepair" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Leafweave Legs -->
+	<item id="leafweave_legs" inherit="2b78">
+		<id>0x2b78</id>
+		<name>Leafweave Legs</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Leafweave Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="bonusintelligence" value="10" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="spelldamagebonus" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Leafweave Gloves -->
+	<item id="leafweave_gloves" inherit="2b75">
+		<id>0x2b75</id>
+		<name>Leafweave Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Leafweave Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="bonusintelligence" value="10" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="spelldamagebonus" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Leafweave Chest -->
+	<item id="leafweave_chest" inherit="2b74">
+		<id>0x2b74</id>
+		<name>Leafweave Chest</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Leafweave Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="bonusintelligence" value="10" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="spelldamagebonus" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Leafweave Pauldrons -->
+	<item id="leafweave_pauldrons" inherit="2b77">
+		<id>0x2b77</id>
+		<name>Leafweave Pauldrons</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Leafweave Pauldrons</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="bonusintelligence" value="10" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="spelldamagebonus" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Death Chest -->
+	<item id="death_chest" inherit="13cc">
+		<id>0x13cc</id>
+		<name>Death Chest</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Death Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Death Bone Helm -->
+	<item id="death_bone_helm" inherit="1451">
+		<id>0x1451</id>
+		<name>Death Bone Helm</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Death Bone Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Death Legs -->
+	<item id="death_legs" inherit="13cb">
+		<id>0x13cb</id>
+		<name>Death Legs</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Death Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Death Gloves -->
+	<item id="death_gloves" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Death Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Death Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Death Arms -->
+	<item id="death_arms" inherit="13cd">
+		<id>0x13cd</id>
+		<name>Death Arms</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Death Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="regenmana" value="1" />
+		<intproperty name="lowermanacost" value="10" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Greymist Arms -->
+	<item id="greymist_arms" inherit="13cd">
+		<id>0x13cd</id>
+		<name>Greymist Arms</name>
+		<decay />
+		<nodye />
+		<color>0xcb</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Greymist Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusmana" value="2" />
+		<intproperty name="spelldamagebonus" value="2" />
+		<intproperty name="luck" value="100" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Greymist Chest -->
+	<item id="greymist_chest" inherit="13cc">
+		<id>0x13cc</id>
+		<name>Greymist Chest</name>
+		<decay />
+		<nodye />
+		<color>0xcb</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Greymist Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusmana" value="2" />
+		<intproperty name="spelldamagebonus" value="2" />
+		<intproperty name="luck" value="100" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Greymist Legs -->
+	<item id="greymist_legs" inherit="13cb">
+		<id>0x13cb</id>
+		<name>Greymist Legs</name>
+		<decay />
+		<nodye />
+		<color>0xcb</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Greymist Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusmana" value="2" />
+		<intproperty name="spelldamagebonus" value="2" />
+		<intproperty name="luck" value="100" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Greymist Gloves -->
+	<item id="greymist_gloves" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Greymist Gloves</name>
+		<decay />
+		<nodye />
+		<color>0xcb</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Greymist Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="bonusmana" value="2" />
+		<intproperty name="spelldamagebonus" value="2" />
+		<intproperty name="luck" value="100" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Paladin Helm -->
+	<item id="paladin_helm" inherit="1412">
+		<id>0x1412</id>
+		<name>Paladin Helm</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Paladin Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="9" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="6" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Paladin Chest -->
+	<item id="paladin_chest" inherit="1415">
+		<id>0x1415</id>
+		<name>Paladin Chest</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Paladin Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Paladin Gloves -->
+	<item id="paladin_gloves" inherit="1414">
+		<id>0x1414</id>
+		<name>Paladin Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Paladin Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Paladin Gorget -->
+	<item id="paladin_gorget" inherit="1413">
+		<id>0x1413</id>
+		<name>Paladin Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Paladin Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Paladin Arms -->
+	<item id="paladin_arms" inherit="1410">
+		<id>0x1410</id>
+		<name>Paladin Arms</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Paladin Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Paladin Legs -->
+	<item id="paladin_legs" inherit="1411">
+		<id>0x1411</id>
+		<name>Paladin Legs</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Paladin Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_boni_hit_chance" value="5" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bestial Legs -->
+	<item id="bestial_legs" inherit="13cb">
+		<id>0x13cb</id>
+		<name>Bestial Legs</name>
+		<decay />
+		<nodye />
+		<color>0x7da</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bestial Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="19" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bestial Necklace -->
+	<item id="bestial_necklace" inherit="4210">
+		<id>0x4210</id>
+		<name>Bestial Necklace</name>
+		<decay />
+		<nodye />
+		<color>0x7da</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bestial Necklace</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="17" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bestial Earrings -->
+	<item id="bestial_earrings" inherit="4213">
+		<id>0x4213</id>
+		<name>Bestial Earrings</name>
+		<decay />
+		<nodye />
+		<color>0x7da</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bestial Earrings</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="17" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bestial Gloves -->
+	<item id="bestial_gloves" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Bestial Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x7da</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bestial Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="19" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bestial Gorget -->
+	<item id="bestial_gorget" inherit="13c7">
+		<id>0x13c7</id>
+		<name>Bestial Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x7da</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bestial Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="20" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Bestial Arms -->
+	<item id="bestial_arms" inherit="4052">
+		<id>0x4052</id>
+		<name>Bestial Arms</name>
+		<decay />
+		<nodye />
+		<color>0x7da</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Bestial Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="8" />
+		<intproperty name="res_cold" value="21" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Myrmidon Arms -->
+	<item id="myrmidon_arms" inherit="13dc">
+		<id>0x13dc</id>
+		<name>Myrmidon Arms</name>
+		<decay />
+		<nodye />
+		<color>0x331</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Myrmidon Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="bonusstrength" value="1" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="luck" value="500" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Myrmidon Legs -->
+	<item id="myrmidon_legs" inherit="13da">
+		<id>0x13da</id>
+		<name>Myrmidon Legs</name>
+		<decay />
+		<nodye />
+		<color>0x331</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Myrmidon Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="bonusstrength" value="1" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="luck" value="500" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Myrmidon Gorget -->
+	<item id="myrmidon_gorget" inherit="13d6">
+		<id>0x13d6</id>
+		<name>Myrmidon Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x331</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Myrmidon Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="bonusstrength" value="1" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="luck" value="500" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Myrmidon Chest -->
+	<item id="myrmidon_chest" inherit="13db">
+		<id>0x13db</id>
+		<name>Myrmidon Chest</name>
+		<decay />
+		<nodye />
+		<color>0x331</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Myrmidon Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="bonusstrength" value="1" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="luck" value="500" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Myrmidon Gloves -->
+	<item id="myrmidon_gloves" inherit="13d5">
+		<id>0x13d5</id>
+		<name>Myrmidon Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x331</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Myrmidon Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="bonusstrength" value="1" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="luck" value="500" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Myrmidon Bascinet -->
+	<item id="myrmidon_bascinet" inherit="140c">
+		<id>0x140c</id>
+		<name>Myrmidon Bascinet</name>
+		<decay />
+		<nodye />
+		<color>0x331</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Myrmidon Bascinet</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="bonusstrength" value="1" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="luck" value="500" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Small Plate Jingasa -->
+	<item id="scout_small_plate_jingasa" inherit="2784">
+		<id>0x2784</id>
+		<name>Scout Small Plate Jingasa</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Small Plate Jingasa</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Female Chest -->
+	<item id="scout_female_chest" inherit="1c02">
+		<id>0x1c02</id>
+		<name>Scout Female Chest</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Female Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Gloves -->
+	<item id="scout_gloves" inherit="13d5">
+		<id>0x13d5</id>
+		<name>Scout Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Bustier -->
+	<item id="scout_bustier" inherit="1c0c">
+		<id>0x1c0c</id>
+		<name>Scout Bustier</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Bustier</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Legs -->
+	<item id="scout_legs" inherit="13da">
+		<id>0x13da</id>
+		<name>Scout Legs</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Gorget -->
+	<item id="scout_gorget" inherit="13d6">
+		<id>0x13d6</id>
+		<name>Scout Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Arms -->
+	<item id="scout_arms" inherit="13dc">
+		<id>0x13dc</id>
+		<name>Scout Arms</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Chest -->
+	<item id="scout_chest" inherit="13db">
+		<id>0x13db</id>
+		<name>Scout Chest</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Scout Circlet -->
+	<item id="scout_circlet" inherit="2b6e">
+		<id>0x2b6e</id>
+		<name>Scout Circlet</name>
+		<decay />
+		<nodye />
+		<color>0x47c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Scout Circlet</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonusdexterity" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ranger Gloves -->
+	<item id="ranger_gloves" inherit="13d5">
+		<id>0x13d5</id>
+		<name>Ranger Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x59c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Ranger Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ranger Gorget -->
+	<item id="ranger_gorget" inherit="13d6">
+		<id>0x13d6</id>
+		<name>Ranger Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x59c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Ranger Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ranger Legs -->
+	<item id="ranger_legs" inherit="13da">
+		<id>0x13da</id>
+		<name>Ranger Legs</name>
+		<decay />
+		<nodye />
+		<color>0x59c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Ranger Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ranger Arms -->
+	<item id="ranger_arms" inherit="13dc">
+		<id>0x13dc</id>
+		<name>Ranger Arms</name>
+		<decay />
+		<nodye />
+		<color>0x59c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Ranger Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Ranger Chest -->
+	<item id="ranger_chest" inherit="13db">
+		<id>0x13db</id>
+		<name>Ranger Chest</name>
+		<decay />
+		<nodye />
+		<color>0x59c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Ranger Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="4" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Alorons Tunic -->
+	<item id="alorons_tunic" inherit="7822">
+		<id>0x7822</id>
+		<name>Alorons Tunic</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Alorons Tunic</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusdexterity" value="4" />
+		<intproperty name="bonusstamina" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Alorons Long Skirt -->
+	<item id="alorons_long_skirt" inherit="7826">
+		<id>0x7826</id>
+		<name>Alorons Long Skirt</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Alorons Long Skirt</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusdexterity" value="4" />
+		<intproperty name="bonusstamina" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Alorons Legs -->
+	<item id="alorons_legs" inherit="7824">
+		<id>0x7824</id>
+		<name>Alorons Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Alorons Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusdexterity" value="4" />
+		<intproperty name="bonusstamina" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Alorons Skirt -->
+	<item id="alorons_skirt" inherit="7827">
+		<id>0x7827</id>
+		<name>Alorons Skirt</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Alorons Skirt</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusdexterity" value="4" />
+		<intproperty name="bonusstamina" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Alorons Gorget -->
+	<item id="alorons_gorget" inherit="7829">
+		<id>0x7829</id>
+		<name>Alorons Gorget</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Alorons Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusdexterity" value="4" />
+		<intproperty name="bonusstamina" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Alorons Shorts -->
+	<item id="alorons_shorts" inherit="7825">
+		<id>0x7825</id>
+		<name>Alorons Shorts</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Alorons Shorts</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusdexterity" value="4" />
+		<intproperty name="bonusstamina" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Alorons Helm -->
+	<item id="alorons_helm" inherit="7828">
+		<id>0x7828</id>
+		<name>Alorons Helm</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Alorons Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusdexterity" value="4" />
+		<intproperty name="bonusstamina" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Alorons Bustier -->
+	<item id="alorons_bustier" inherit="7823">
+		<id>0x7823</id>
+		<name>Alorons Bustier</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Alorons Bustier</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusdexterity" value="4" />
+		<intproperty name="bonusstamina" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sorcerer Gloves -->
+	<item id="sorcerer_gloves" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Sorcerer Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Sorcerer Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusintelligence" value="1" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="lowerreagentcost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sorcerer Gorget -->
+	<item id="sorcerer_gorget" inherit="13c7">
+		<id>0x13c7</id>
+		<name>Sorcerer Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Sorcerer Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusintelligence" value="1" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="lowerreagentcost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sorcerer Chest -->
+	<item id="sorcerer_chest" inherit="13cc">
+		<id>0x13cc</id>
+		<name>Sorcerer Chest</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Sorcerer Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusintelligence" value="1" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="lowerreagentcost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sorcerer Legs -->
+	<item id="sorcerer_legs" inherit="13cb">
+		<id>0x13cb</id>
+		<name>Sorcerer Legs</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Sorcerer Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusintelligence" value="1" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="lowerreagentcost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sorcerer Skirt -->
+	<item id="sorcerer_skirt" inherit="1c08">
+		<id>0x1c08</id>
+		<name>Sorcerer Skirt</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Sorcerer Skirt</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusintelligence" value="1" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="lowerreagentcost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sorcerer Female Chest -->
+	<item id="sorcerer_female_chest" inherit="1c06">
+		<id>0x1c06</id>
+		<name>Sorcerer Female Chest</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Sorcerer Female Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusintelligence" value="1" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="lowerreagentcost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sorcerer Arms -->
+	<item id="sorcerer_arms" inherit="13cd">
+		<id>0x13cd</id>
+		<name>Sorcerer Arms</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Sorcerer Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusintelligence" value="1" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="lowermanacost" value="5" />
+		<intproperty name="lowerreagentcost" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Phoenix Gloves -->
+	<item id="phoenix_gloves" inherit="13eb">
+		<id>0x13eb</id>
+		<name>Phoenix Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x8e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Phoenix Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Phoenix Helm -->
+	<item id="phoenix_helm" inherit="140e">
+		<id>0x140e</id>
+		<name>Phoenix Helm</name>
+		<decay />
+		<nodye />
+		<color>0x8e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Phoenix Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Phoenix Ticket -->
+	<item id="phoenix_ticket" inherit="14f0">
+		<id>0x14f0</id>
+		<name>Phoenix Ticket</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Phoenix Ticket</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Phoenix Gorget -->
+	<item id="phoenix_gorget" inherit="13d6">
+		<id>0x13d6</id>
+		<name>Phoenix Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x8e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Phoenix Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Phoenix Legs -->
+	<item id="phoenix_legs" inherit="13f0">
+		<id>0x13f0</id>
+		<name>Phoenix Legs</name>
+		<decay />
+		<nodye />
+		<color>0x8e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Phoenix Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Phoenix Arms -->
+	<item id="phoenix_arms" inherit="13ee">
+		<id>0x13ee</id>
+		<name>Phoenix Arms</name>
+		<decay />
+		<nodye />
+		<color>0x8e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Phoenix Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Phoenix Chest -->
+	<item id="phoenix_chest" inherit="13ec">
+		<id>0x13ec</id>
+		<name>Phoenix Chest</name>
+		<decay />
+		<nodye />
+		<color>0x8e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Phoenix Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dardens Legs -->
+	<item id="dardens_legs" inherit="782c">
+		<id>0x782c</id>
+		<name>Dardens Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Dardens Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusstrength" value="4" />
+		<intproperty name="bonushitpoints" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="lowerreagentcost" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dardens Tunic -->
+	<item id="dardens_tunic" inherit="782a">
+		<id>0x782a</id>
+		<name>Dardens Tunic</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Dardens Tunic</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusstrength" value="4" />
+		<intproperty name="bonushitpoints" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="lowerreagentcost" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dardens Sleeves -->
+	<item id="dardens_sleeves" inherit="782e">
+		<id>0x782e</id>
+		<name>Dardens Sleeves</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Dardens Sleeves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusstrength" value="4" />
+		<intproperty name="bonushitpoints" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="lowerreagentcost" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dardens Bustier -->
+	<item id="dardens_bustier" inherit="782b">
+		<id>0x782b</id>
+		<name>Dardens Bustier</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Dardens Bustier</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusstrength" value="4" />
+		<intproperty name="bonushitpoints" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="lowerreagentcost" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Dardens Helm -->
+	<item id="dardens_helm" inherit="782d">
+		<id>0x782d</id>
+		<name>Dardens Helm</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Dardens Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="bonusstrength" value="4" />
+		<intproperty name="bonushitpoints" value="4" />
+		<intproperty name="bonusmana" value="15" />
+		<intproperty name="lowermanacost" value="20" />
+		<intproperty name="lowerreagentcost" value="15" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Malekis Honor -->
+	<item id="malekis_honor" inherit="1b74">
+		<id>0x1b74</id>
+		<name>Malekis Honor</name>
+		<decay />
+		<nodye />
+		<color>0x76d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Malekis Honor</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="3" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="3" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Evocaricus -->
+	<item id="evocaricus" inherit="13b9">
+		<id>0x13b9</id>
+		<name>Evocaricus</name>
+		<decay />
+		<nodye />
+		<color>0x76d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Evocaricus</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="aos_boni_damage" value="50" />
+		<intproperty name="aos_boni_speed" value="35" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Plate Arms -->
+	<item id="knights_plate_arms" inherit="1410">
+		<id>0x1410</id>
+		<name>Knights Plate Arms</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Plate Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Plate Legs -->
+	<item id="knights_plate_legs" inherit="1411">
+		<id>0x1411</id>
+		<name>Knights Plate Legs</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Plate Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Plate Gorget -->
+	<item id="knights_plate_gorget" inherit="1413">
+		<id>0x1413</id>
+		<name>Knights Plate Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Plate Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Plate Helm -->
+	<item id="knights_plate_helm" inherit="1412">
+		<id>0x1412</id>
+		<name>Knights Plate Helm</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Plate Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Female Plate Chest -->
+	<item id="knights_female_plate_chest" inherit="1c04">
+		<id>0x1c04</id>
+		<name>Knights Female Plate Chest</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Female Plate Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Plate Chest -->
+	<item id="knights_plate_chest" inherit="1415">
+		<id>0x1415</id>
+		<name>Knights Plate Chest</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Plate Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Close Helm -->
+	<item id="knights_close_helm" inherit="1408">
+		<id>0x1408</id>
+		<name>Knights Close Helm</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Close Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Plate Gloves -->
+	<item id="knights_plate_gloves" inherit="1414">
+		<id>0x1414</id>
+		<name>Knights Plate Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Plate Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Norse Helm -->
+	<item id="knights_norse_helm" inherit="140e">
+		<id>0x140e</id>
+		<name>Knights Norse Helm</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Norse Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Knights Bascinet -->
+	<item id="knights_bascinet" inherit="140c">
+		<id>0x140c</id>
+		<name>Knights Bascinet</name>
+		<decay />
+		<nodye />
+		<color>0x47e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Knights Bascinet</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="bonushitpoints" value="1" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Virtuosos Kid Gloves -->
+	<item id="virtuosos_kid_gloves" inherit="13c6">
+		<id>0x13c6</id>
+		<name>Virtuosos Kid Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x55e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Virtuosos Kid Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="19" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Virtuosos Tunic -->
+	<item id="virtuosos_tunic" inherit="13db">
+		<id>0x13db</id>
+		<name>Virtuosos Tunic</name>
+		<decay />
+		<nodye />
+		<color>0x55e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Virtuosos Tunic</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="20" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Virtuosos Collar -->
+	<item id="virtuosos_collar" inherit="13c7">
+		<id>0x13c7</id>
+		<name>Virtuosos Collar</name>
+		<decay />
+		<nodye />
+		<color>0x55e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Virtuosos Collar</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="4" />
+		<intproperty name="res_fire" value="19" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Virtuosos Earpieces -->
+	<item id="virtuosos_earpieces" inherit="4213">
+		<id>0x4213</id>
+		<name>Virtuosos Earpieces</name>
+		<decay />
+		<nodye />
+		<color>0x55e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Virtuosos Earpieces</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="17" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Virtuosos Necklace -->
+	<item id="virtuosos_necklace" inherit="4210">
+		<id>0x4210</id>
+		<name>Virtuosos Necklace</name>
+		<decay />
+		<nodye />
+		<color>0x55e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Virtuosos Necklace</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="3" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="17" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Virtuosos Armbands -->
+	<item id="virtuosos_armbands" inherit="308">
+		<id>0x308</id>
+		<name>Virtuosos Armbands</name>
+		<decay />
+		<nodye />
+		<color>0x55e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Virtuosos Armbands</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="24" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="9" />
+		<intproperty name="res_poison" value="10" />
+		<intproperty name="res_energy" value="9" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Spirituality Helm -->
+	<item id="spirituality_helm" inherit="2b10">
+		<id>0x2b10</id>
+		<name>Spirituality Helm</name>
+		<decay />
+		<nodye />
+		<color>0x0</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Spirituality Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="8" />
+		<intproperty name="res_cold" value="7" />
+		<intproperty name="res_poison" value="9" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="selfrepair" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Honor Legs -->
+	<item id="honor_legs" inherit="2b06">
+		<id>0x2b06</id>
+		<name>Honor Legs</name>
+		<decay />
+		<nodye />
+		<color>0x0</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Honor Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="10" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="selfrepair" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Justice Breastplate -->
+	<item id="justice_breastplate" inherit="2b08">
+		<id>0x2b08</id>
+		<name>Justice Breastplate</name>
+		<decay />
+		<nodye />
+		<color>0x0</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Justice Breastplate</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="8" />
+		<intproperty name="selfrepair" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Valor Gauntlets -->
+	<item id="valor_gauntlets" inherit="2b0c">
+		<id>0x2b0c</id>
+		<name>Valor Gauntlets</name>
+		<decay />
+		<nodye />
+		<color>0x0</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Valor Gauntlets</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="6" />
+		<intproperty name="res_cold" value="8" />
+		<intproperty name="res_poison" value="9" />
+		<intproperty name="res_energy" value="6" />
+		<intproperty name="selfrepair" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Compassion Arms -->
+	<item id="compassion_arms" inherit="2b0a">
+		<id>0x2b0a</id>
+		<name>Compassion Arms</name>
+		<decay />
+		<nodye />
+		<color>0x0</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Compassion Arms</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="11" />
+		<intproperty name="res_cold" value="6" />
+		<intproperty name="res_poison" value="8" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="selfrepair" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Honesty Gorget -->
+	<item id="honesty_gorget" inherit="2b0e">
+		<id>0x2b0e</id>
+		<name>Honesty Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x0</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Honesty Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="7" />
+		<intproperty name="res_fire" value="7" />
+		<intproperty name="res_cold" value="9" />
+		<intproperty name="res_poison" value="5" />
+		<intproperty name="res_energy" value="7" />
+		<intproperty name="selfrepair" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Darkwood Gorget -->
+	<item id="darkwood_gorget" inherit="2b69">
+		<id>0x2b69</id>
+		<name>Darkwood Gorget</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Darkwood Gorget</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="luck" value="40" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Darkwood Pauldrons -->
+	<item id="darkwood_pauldrons" inherit="2b6c">
+		<id>0x2b6c</id>
+		<name>Darkwood Pauldrons</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Darkwood Pauldrons</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="luck" value="40" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Darkwood Crown -->
+	<item id="darkwood_crown" inherit="2b71">
+		<id>0x2b71</id>
+		<name>Darkwood Crown</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Darkwood Crown</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="luck" value="40" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Darkwood Chest -->
+	<item id="darkwood_chest" inherit="2b67">
+		<id>0x2b67</id>
+		<name>Darkwood Chest</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Darkwood Chest</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="luck" value="40" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Darkwood Legs -->
+	<item id="darkwood_legs" inherit="2b6b">
+		<id>0x2b6b</id>
+		<name>Darkwood Legs</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Darkwood Legs</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="luck" value="40" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Darkwood Gloves -->
+	<item id="darkwood_gloves" inherit="2b6a">
+		<id>0x2b6a</id>
+		<name>Darkwood Gloves</name>
+		<decay />
+		<nodye />
+		<color>0x455</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Darkwood Gloves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="8" />
+		<intproperty name="res_fire" value="5" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="5" />
+		<intproperty name="aos_defense_chance" value="5" />
+		<intproperty name="bonusstrength" value="10" />
+		<intproperty name="bonushitpoints" value="2" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="reflectphysical" value="25" />
+		<intproperty name="luck" value="40" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Novo Bleue -->
+	<item id="novo_bleue" inherit="1086">
+		<id>0x1086</id>
+		<name>Novo Bleue</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Novo Bleue</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="castrecoverybonus" value="1" />
+		<intproperty name="luck" value="150" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Soleil Rouge -->
+	<item id="soleil_rouge" inherit="1086">
+		<id>0x1086</id>
+		<name>Soleil Rouge</name>
+		<decay />
+		<nodye />
+		<color>0x48e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Soleil Rouge</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="aos_boni_damage" value="20" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="luck" value="150" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Lune Rouge -->
+	<item id="lune_rouge" inherit="108a">
+		<id>0x108a</id>
+		<name>Lune Rouge</name>
+		<decay />
+		<nodye />
+		<color>0x48e</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Lune Rouge</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="aos_boni_hit_chance" value="10" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenstamina" value="3" />
+		<intproperty name="aos_boni_damage" value="20" />
+		<intproperty name="aos_boni_speed" value="10" />
+		<intproperty name="luck" value="150" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Etoile Bleue -->
+	<item id="etoile_bleue" inherit="108a">
+		<id>0x108a</id>
+		<name>Etoile Bleue</name>
+		<decay />
+		<nodye />
+		<color>0x48d</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Etoile Bleue</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="regenhitpoints" value="2" />
+		<intproperty name="regenmana" value="2" />
+		<intproperty name="castspeedbonus" value="1" />
+		<intproperty name="castrecoverybonus" value="1" />
+		<intproperty name="luck" value="150" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Grizzle Helm -->
+	<item id="grizzle_helm" inherit="1451">
+		<id>0x1451</id>
+		<name>Grizzle Helm</name>
+		<decay />
+		<nodye />
+		<color>0x278</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Grizzle Helm</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusstrength" value="12" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Grizzle Greaves -->
+	<item id="grizzle_greaves" inherit="1452">
+		<id>0x1452</id>
+		<name>Grizzle Greaves</name>
+		<decay />
+		<nodye />
+		<color>0x278</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Grizzle Greaves</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusstrength" value="12" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Grizzle Gauntlets -->
+	<item id="grizzle_gauntlets" inherit="1450">
+		<id>0x1450</id>
+		<name>Grizzle Gauntlets</name>
+		<decay />
+		<nodye />
+		<color>0x278</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Grizzle Gauntlets</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusstrength" value="12" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Grizzle Vambraces -->
+	<item id="grizzle_vambraces" inherit="144e">
+		<id>0x144e</id>
+		<name>Grizzle Vambraces</name>
+		<decay />
+		<nodye />
+		<color>0x278</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Grizzle Vambraces</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusstrength" value="12" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Grizzle Tunic -->
+	<item id="grizzle_tunic" inherit="144f">
+		<id>0x144f</id>
+		<name>Grizzle Tunic</name>
+		<decay />
+		<nodye />
+		<color>0x278</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Grizzle Tunic</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="6" />
+		<intproperty name="res_fire" value="10" />
+		<intproperty name="res_cold" value="5" />
+		<intproperty name="res_poison" value="7" />
+		<intproperty name="res_energy" value="10" />
+		<intproperty name="aos_defense_chance" value="10" />
+		<intproperty name="bonusstrength" value="12" />
+		<intproperty name="bonushitpoints" value="5" />
+		<intproperty name="selfrepair" value="3" />
+		<intproperty name="magearmor" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Gargish Glasses -->
+	<item id="gargish_glasses" inherit="4644">
+		<id>0x4644</id>
+		<name>Gargish Glasses</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Gargish Glasses</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="4" />
+		<intproperty name="res_cold" value="4" />
+		<intproperty name="res_poison" value="3" />
+		<intproperty name="res_energy" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Glasses -->
+	<item id="glasses" inherit="2fb8">
+		<id>0x2fb8</id>
+		<name>Glasses</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>5.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Artifacts\Glasses</category>
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+</definitions>

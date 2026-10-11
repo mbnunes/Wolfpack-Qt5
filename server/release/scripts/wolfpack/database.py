@@ -1,18 +1,18 @@
 
-"""
+r"""
 	\library wolfpack.database
 	\description Contains several server functions for databases.
 """
 
 import _wolfpack.database
 
-"""
+r"""
 	\constants wolfpack.database Database Constants
 	These constants identify one of the databases.
 """
 ACCOUNTS = 1
 WORLD = 2
-"""
+r"""
 	\end
 """
 
@@ -24,4 +24,5 @@ MYSQL_WORLD = "`characters`, `corpses`, `corpses_equipment`, `effects`, `effects
 
 d = globals()
 for (name, obj) in _wolfpack.database.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj

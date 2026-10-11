@@ -1,0 +1,19 @@
+<definitions>
+	<!-- Ter Mur World & Facet Region -->
+	<region name="Ter Mur">
+		<rectangle x1="0" y1="0" x2="1280" y2="4096" map="5" />
+	</region>
+
+	<region name="Royal City">
+		<flags>
+			<guarded />
+			<noagressivemagic />
+		</flags>
+		<guards>
+			<list id="standard_guards" />
+		</guards>
+		<escortregion />
+		<guardowner>the city</guardowner>
+		<rectangle x1="750" y1="3100" x2="1150" y2="3500" map="5" />
+	</region>
+</definitions>

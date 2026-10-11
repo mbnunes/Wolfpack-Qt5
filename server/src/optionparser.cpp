@@ -51,15 +51,9 @@ void OptionParser::addOption( const QString& opt, const QString& dest, PlatformS
 /*!
 	Returns true if all options were recognized
 */
-void OptionParser::parse()
+bool OptionParser::parse()
 {
-#if QT_VERSION < 0x0401000
-    QStringList args;
-    for( int j = 0; j < QCoreApplication::arguments().size(); ++j )
-        args.append( QCoreApplication::arguments()[ j ] );
-#else
-    QStringList args = QCoreApplication::arguments();
-#endif
+	QStringList args = QCoreApplication::arguments();
 
 	int i = 1;
 	while ( i < args.size() )
@@ -68,6 +62,7 @@ void OptionParser::parse()
 		if ( args[i] == "-h" || args[i] == "--help" )
 		{
 			printUsage();
+			return false;
 		}
 
 		QMap<QString, Option>::iterator it = optionSet.find( args[i] );
@@ -79,7 +74,10 @@ void OptionParser::parse()
 			else
 			{
 				if ( i >= args.size() - 1 ) // we are one arg short
+				{
 					printUsage();
+					return false;
+				}
 
 				QString optionArgument = args[++i];
 				// check for "" enclosed arguments
@@ -93,22 +91,30 @@ void OptionParser::parse()
 						optionArgument.append( part );
 					}
 					if ( !found )
+					{
 						printUsage();
+						return false;
+					}
 				}
 				options.insert( args[i], QVariant::fromValue( optionArgument ) );
 			}
 		}
 		else
+		{
 			printUsage();
+			return false;
+		}
 		++i;
 	}
+	return true;
 }
 
 void OptionParser::printUsage()
 {
-	QString usage;
-	usage.append( "Usage: ");
-
-	fprintf( stderr, qPrintable( usage ) );
-	QCoreApplication::exit( 1 );
+	QString usage = "Usage:\n";
+	for ( auto it = optionSet.begin(); it != optionSet.end(); ++it )
+	{
+		usage.append( QString("  %1 %2\t%3\n").arg( it.key(), it.value().requireArgument ? "<arg>" : "     ", it.value().help ) );
+	}
+	fprintf( stderr, "%s", qPrintable( usage ) );
 }

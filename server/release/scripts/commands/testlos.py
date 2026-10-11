@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
 
-"""
+r"""
 	\command testlos
 	\description Tests line of sight between you and the target?
 	\notes Tests line of sight between you and the target?

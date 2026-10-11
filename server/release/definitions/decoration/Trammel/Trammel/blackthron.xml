@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- MetalDoor2 -->
+	<item id="0x06d1">
+		<pos x="1559" y="1401" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06d3">
+		<pos x="1559" y="1400" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06d1">
+		<pos x="1559" y="1397" z="0" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06d3">
+		<pos x="1559" y="1396" z="0" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06d1">
+		<pos x="1559" y="1393" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06d3">
+		<pos x="1559" y="1392" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1491" y="1463" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1491" y="1463" z="0" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1492" y="1463" z="0" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1492" y="1444" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1493" y="1444" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1490" y="1463" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1491" y="1463" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1482" y="1470" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1483" y="1470" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1485" y="1474" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1486" y="1474" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1558" y="1423" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1559" y="1423" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1552" y="1436" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1553" y="1436" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1552" y="1441" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1553" y="1441" z="20" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1551" y="1428" z="0" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1552" y="1428" z="0" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06c9">
+		<pos x="1552" y="1455" z="0" map="1" />
+	</item>
+	<!-- MetalDoor2 -->
+	<item id="0x06cb">
+		<pos x="1553" y="1455" z="0" map="1" />
+	</item>
+</decoration>

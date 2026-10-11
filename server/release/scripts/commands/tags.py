@@ -1,4 +1,4 @@
-"""
+r"""
 	\command settag
 	\description Attach tags to objects or change existing ones.
 	\usage - <code>settag name type value</code>
@@ -7,19 +7,19 @@
 	it defaults to string. Name is the name of the tag you
 	want to change or attach while value is the desired tag value.
 """
-"""
+r"""
 	\command gettag
 	\description Retrieve the value and type of a tag.
 	\usage - <code>gettag name</code>
 	Shows the type and value of the tag with the given name.
 """
-"""
+r"""
 	\command deltag
 	\description Delete a tag attached to an object.
 	\usage - <code>deltag name</code>
 	Deletes the tag with the given name on the selected object.
 """
-"""
+r"""
 	\command taginfo
 	\description This command shows a menu with all tags assigned to the
 	targetted object.

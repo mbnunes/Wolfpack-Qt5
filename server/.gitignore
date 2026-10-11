@@ -1,0 +1,13 @@
+build_cmake/
+build/obj/
+build/qrc_gui.cpp
+build/ui_*.h
+*.o
+*.pyc
+__pycache__/
+release/wolfpack
+release/wolfpack-console
+release/logs/*.log
+release/world.bin
+release/wolfpack.sh
+.vscode/

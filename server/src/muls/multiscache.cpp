@@ -26,9 +26,12 @@
  */
 
 #include "multiscache.h"
+#include "uopindex.h"
 #include "../defines.h"
 #include "../exceptions.h"
 #include "../serverconfig.h"
+#include "../console.h"
+#include "../log.h"
 
 // Library Includes
 #include <QFile>
@@ -184,65 +187,201 @@ void cMultiCache::load()
 	QString basePath = Config::instance()->mulPath();
 
 	QFile indexFile( basePath + "multi.idx" );
-	if ( !indexFile.open( QIODevice::ReadOnly ) )
-		throw wpException( QString( "Error opening file %1 for reading." ).arg( basePath + "multi.idx" ) );
-
-	QDataStream indexStream( &indexFile );
-	indexStream.setByteOrder( QDataStream::LittleEndian );
-
 	QFile multiFile( basePath + "multi.mul" );
-	if ( !multiFile.open( QIODevice::ReadOnly ) )
-		throw wpException( QString( "Error opening file %1 for reading." ).arg( basePath + "multi.mul" ) );
 
-	struct
+	if ( indexFile.open( QIODevice::ReadOnly ) && multiFile.open( QIODevice::ReadOnly ) )
 	{
-		qint32 start;
-		qint32 length;
-		qint32 unknown;
-	} indexData;
-	ushort currentID = 0;
-	while ( !indexStream.atEnd() )
-	{
-		indexFile.seek( currentID * 12 );
-		indexStream >> indexData.start;
-		indexStream >> indexData.length;
-		indexStream >> indexData.unknown;
+		QByteArray indexBytes = indexFile.readAll();
+		QByteArray multiBytes = multiFile.readAll();
+		indexFile.close();
+		multiFile.close();
 
-		if ( indexData.start == -1 ) // empty record?
+		int totalRecords = indexBytes.size() / 12;
+		const char* idxPtr = indexBytes.constData();
+		const char* mulPtr = multiBytes.constData();
+		int mulSize = multiBytes.size();
+
+		for ( int currentID = 0; currentID < totalRecords; ++currentID )
 		{
-			++currentID;
-			continue;
+			int offset = currentID * 12;
+			qint32 start = *reinterpret_cast<const qint32*>( idxPtr + offset );
+			qint32 length = *reinterpret_cast<const qint32*>( idxPtr + offset + 4 );
+
+			if ( start <= 0 || length <= 0 || ( start + length ) > mulSize )
+			{
+				continue;
+			}
+
+			bool is16Byte = ( length % 16 == 0 );
+			int recordSize = is16Byte ? 16 : 12;
+			int count = length / recordSize;
+
+			QList<multiItem_st> items;
+			items.reserve( count );
+
+			const char* recPtr = mulPtr + start;
+			for ( int i = 0; i < count; ++i )
+			{
+				const char* itemPtr = recPtr + ( i * recordSize );
+				qint16 tileVal = *reinterpret_cast<const qint16*>( itemPtr );
+				qint16 xVal = *reinterpret_cast<const qint16*>( itemPtr + 2 );
+				qint16 yVal = *reinterpret_cast<const qint16*>( itemPtr + 4 );
+				qint16 zVal = *reinterpret_cast<const qint16*>( itemPtr + 6 );
+
+				multiItem_st item;
+				item.tile = static_cast<quint16>( tileVal );
+				item.x = xVal;
+				item.y = yVal;
+				item.z = static_cast<qint8>( zVal );
+
+				if ( is16Byte )
+				{
+					quint16 flags = *reinterpret_cast<const quint16*>( itemPtr + 8 );
+					item.visible = ( flags != 0 || tileVal != 1 );
+				}
+				else
+				{
+					quint32 isVisible = *reinterpret_cast<const quint32*>( itemPtr + 8 );
+					item.visible = isVisible > 0;
+				}
+
+				if ( item.visible && item.tile != 1 )
+				{
+					items.push_back( item );
+				}
+			}
+
+			MultiDefinition* multi = new MultiDefinition;
+			multi->setItems( items );
+			multis.insert( static_cast<ushort>( currentID ), multi );
+		}
+		Console::instance()->log( LOG_NOTICE, tr( "Loaded %1 multis from multi.idx/multi.mul.\n" ).arg( multis.size() ) );
+	}
+	else
+	{
+		// Fallback to MultiCollection.uop
+		QDir baseFolder( basePath );
+		QStringList files = baseFolder.entryList();
+		QString uopFileName;
+		for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+		{
+			if ( ( *it ).toLower() == "multicollection.uop" )
+			{
+				uopFileName = *it;
+				break;
+			}
 		}
 
-		QList<multiItem_st> items;
-
-		multiFile.seek( indexData.start );
-		QDataStream multiStream( &multiFile );
-		multiStream.setByteOrder( QDataStream::LittleEndian );
-
-		for ( int i = 0; i < indexData.length / 12; ++i )
+		if ( uopFileName.isEmpty() )
 		{
-			multiItem_st item;
-			multiStream >> item.tile;
-			multiStream >> item.x;
-			multiStream >> item.y;
-			multiStream >> item.z;
-			quint8 empty;
-			multiStream >> empty; // ????
-			quint32 isVisible = 0;
-			multiStream >> isVisible;
-			item.visible = isVisible > 0 ? true : false;
-
-			if ( item.visible ) // we ignore invisible items (?)
-				items.push_back( item );
+			throw wpException( QString( "Error opening multi.idx / multi.mul or MultiCollection.uop in %1." ).arg( basePath ) );
 		}
-		MultiDefinition* multi = new MultiDefinition;
-		multi->setItems( items );
 
-		multis.insert( currentID++, multi );
+		loadUOP( basePath + uopFileName );
 	}
 
 	cComponent::load();
+}
+
+void cMultiCache::loadUOP( const QString& uopPath )
+{
+	QFile file( uopPath );
+	if ( !file.open( QIODevice::ReadOnly ) )
+		throw wpException( QString( "Error opening file %1 for reading." ).arg( uopPath ) );
+
+	QDataStream ds( &file );
+	ds.setByteOrder( QDataStream::LittleEndian );
+
+	quint32 magic = 0, version = 0, signature = 0;
+	quint64 nextTable = 0;
+	ds >> magic >> version >> signature >> nextTable;
+
+	if ( magic != 0x0050594D )
+		throw wpException( QString( "Invalid UOP file format: %1" ).arg( uopPath ) );
+
+	// Precalculate hash lookup table for build/multicollection/{id:06d}.bin
+	QMap<quint64, ushort> hashToId;
+	for ( int i = 0; i < 0x10000; ++i )
+	{
+		QString name = QString( "build/multicollection/%1.bin" ).arg( i, 6, 10, QLatin1Char( '0' ) );
+		QByteArray ascii = name.toLatin1();
+		quint64 h = cUOPIndex::hashLittle2( ascii.constData(), ascii.size() );
+		hashToId.insert( h, static_cast<ushort>( i ) );
+	}
+
+	while ( nextTable != 0 && nextTable < static_cast<quint64>( file.size() ) )
+	{
+		if ( !file.seek( nextTable ) )
+			break;
+
+		quint32 filesCount = 0;
+		quint64 nextBlock = 0;
+		ds >> filesCount >> nextBlock;
+
+		for ( quint32 i = 0; i < filesCount; ++i )
+		{
+			quint64 offset = 0;
+			quint32 headerLength = 0, compressedLength = 0, decompressedLength = 0;
+			quint64 fileHash = 0;
+			quint32 dataHash = 0;
+			quint16 flag = 0;
+
+			ds >> offset >> headerLength >> compressedLength >> decompressedLength
+			   >> fileHash >> dataHash >> flag;
+
+			if ( offset == 0 || decompressedLength == 0 || !hashToId.contains( fileHash ) )
+				continue;
+
+			ushort multiId = hashToId.value( fileHash );
+			qint64 savedPos = file.pos();
+
+			QByteArray data = cUOPIndex::extractEntry( &file, offset + headerLength, compressedLength, decompressedLength, flag );
+			file.seek( savedPos );
+
+			if ( data.size() < 8 )
+				continue;
+
+			QDataStream dataStream( data );
+			dataStream.setByteOrder( QDataStream::LittleEndian );
+
+			quint32 unknown = 0, count = 0;
+			dataStream >> unknown >> count;
+
+			QList<multiItem_st> items;
+			for ( quint32 j = 0; j < count; ++j )
+			{
+				multiItem_st item;
+				quint16 tile = 0;
+				qint16 x = 0, y = 0, z = 0;
+				quint16 flagg = 0;
+				quint32 clilocsCount = 0;
+
+				dataStream >> tile >> x >> y >> z >> flagg >> clilocsCount;
+
+				item.tile = tile;
+				item.x = x;
+				item.y = y;
+				item.z = static_cast<qint8>( z );
+				item.visible = true;
+
+				for ( quint32 c = 0; c < clilocsCount; ++c )
+				{
+					quint32 cliloc = 0;
+					dataStream >> cliloc;
+				}
+
+				items.push_back( item );
+			}
+
+			MultiDefinition* multi = new MultiDefinition;
+			multi->setItems( items );
+			multis.insert( multiId, multi );
+		}
+
+		nextTable = nextBlock;
+	}
+
+	Console::instance()->log( LOG_NOTICE, tr( "Loaded %1 multis from MultiCollection.uop.\n" ).arg( multis.size() ) );
 }
 
 /*!

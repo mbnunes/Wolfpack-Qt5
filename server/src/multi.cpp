@@ -432,7 +432,7 @@ bool cMulti::canPlace( const Coord& pos, unsigned short multiid, QList<cUObject*
 								if ( multiX >= 0 && multiY >= 0 && multiX < width && multiY < height )
 								{
 									// Get the multi tiles at the to-check position
-									const QList<multiItem_st> &tiles = multi->itemsAt( multiX + left, multiY + right );
+									const QList<multiItem_st> &tiles = multi->itemsAt( multiX + left, multiY + top );
 									QList<multiItem_st>::const_iterator it;
 									for ( it = tiles.begin(); it != tiles.end(); ++it )
 									{

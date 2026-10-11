@@ -19,8 +19,36 @@
 		<item id="a0f" />
 		<!--Book -->
 		<item id="ff1" />
-		<!--Shoes -->
+		<!--Shoes (already equipped on character creation, but kept for legacy fallback) -->
 		<equipment id="170f" />
+	</startitems>
+
+	<!-- default for Elves -->
+	<startitems id="default_elf">
+		<!--Gold -->
+		<item id="eed">
+			<amount>1000</amount>
+		</item>
+		<!--Dagger -->
+		<item id="f51" />
+		<!--Candle -->
+		<item id="a0f" />
+		<!--Book -->
+		<item id="ff1" />
+	</startitems>
+
+	<!-- default for Gargoyles (no shoes, gargish dagger) -->
+	<startitems id="default_gargoyle">
+		<!--Gold -->
+		<item id="eed">
+			<amount>1000</amount>
+		</item>
+		<!--Gargish Dagger -->
+		<item id="406a" />
+		<!--Candle -->
+		<item id="a0f" />
+		<!--Book -->
+		<item id="ff1" />
 	</startitems>
 
 	<!-- Alchemy -->
@@ -83,6 +111,10 @@
 	<startitems id="parrying">
 		<!--Wooden Shield -->
 		<equipment id="1b7a" />
+	</startitems>
+	<startitems id="parrying_gargoyle">
+		<!--Gargish Kite Shield / Wooden Shield -->
+		<equipment id="4201" />
 	</startitems>
 
 	<!-- Begging -->
@@ -338,6 +370,12 @@
 
 	<!-- Archery -->
 	<startitems id="archery">
+		<!-- Bow -->
+		<equipment id="13b1" />
+		<!-- Arrows -->
+		<item id="f3f">
+			<amount>25</amount>
+		</item>
 	</startitems>
 
 	<!-- Spiritspeak -->
@@ -356,6 +394,10 @@
 
 	<!-- Tailoring -->
 	<startitems id="tailoring">
+		<!-- Sewing Kit -->
+		<item id="f9d" />
+		<!-- Bolt of Cloth -->
+		<item id="f95" />
 	</startitems>
 
 	<!-- Taming -->
@@ -403,17 +445,55 @@
 		<!--Katana -->
 		<equipment id="13ff" />
 	</startitems>
+	<startitems id="swordsmanship_elf">
+		<!--Rune Blade -->
+		<equipment id="2d32" />
+	</startitems>
+	<startitems id="swordsmanship_gargoyle">
+		<!--Glass Sword -->
+		<equipment id="906" />
+	</startitems>
 
 	<!-- Macefighting -->
 	<startitems id="macefighting">
+		<!-- Club -->
+		<equipment id="13b3" />
+	</startitems>
+	<startitems id="macefighting_elf">
+		<!-- Diamond Mace -->
+		<equipment id="2d24" />
+	</startitems>
+	<startitems id="macefighting_gargoyle">
+		<!-- Disc Mace -->
+		<equipment id="901" />
 	</startitems>
 
 	<!-- Fencing -->
 	<startitems id="fencing">
+		<!-- Kryss -->
+		<equipment id="1401" />
+	</startitems>
+	<startitems id="fencing_elf">
+		<!-- Leafblade -->
+		<equipment id="2d22" />
+	</startitems>
+	<startitems id="fencing_gargoyle">
+		<!-- Blood Blade -->
+		<equipment id="8fe" />
 	</startitems>
 
 	<!-- Wrestling -->
 	<startitems id="wrestling">
+		<!-- Leather Gloves -->
+		<equipment id="13c6" />
+	</startitems>
+	<startitems id="wrestling_elf">
+		<!-- Leaf Gloves -->
+		<equipment id="2fc6" />
+	</startitems>
+	<startitems id="wrestling_gargoyle">
+		<!-- Gargish Leather Arms -->
+		<equipment id="302" />
 	</startitems>
 
 	<!-- Lumberjacking -->
@@ -421,11 +501,76 @@
 		<!--Hatchet -->
 		<equipment id="f43" />
 	</startitems>
+	<startitems id="lumberjacking_gargoyle">
+		<!--Dual Short Axes -->
+		<equipment id="904" />
+	</startitems>
 
 	<!-- Mining -->
 	<startitems id="mining">
 		<!--Random Mining Tool-->
 		<item list="MININGTOOLS" />
+	</startitems>
+
+	<!-- Throwing -->
+	<startitems id="throwing">
+		<!-- Boomerang -->
+		<equipment id="8ff" />
+	</startitems>
+
+	<!-- Mysticism -->
+	<startitems id="mysticism">
+		<!-- Mystic Spellbook -->
+		<item id="2d9d" />
+	</startitems>
+
+	<!-- Necromancy -->
+	<startitems id="necromancy">
+		<!-- Necromancer Spellbook -->
+		<item id="2253" />
+		<!-- Bag of Necromancer Reagents -->
+		<item id="e76">
+			<content>
+				<!-- BatWing -->
+				<item id="f78">
+					<amount>50</amount>
+				</item>
+				<!-- DaemonBlood -->
+				<item id="f7d">
+					<amount>50</amount>
+				</item>
+				<!-- PigIron -->
+				<item id="f8a">
+					<amount>50</amount>
+				</item>
+				<!-- NoxCrystal -->
+				<item id="f8e">
+					<amount>50</amount>
+				</item>
+				<!-- GraveDust -->
+				<item id="f8f">
+					<amount>50</amount>
+				</item>
+			</content>
+		</item>
+	</startitems>
+
+	<!-- Chivalry -->
+	<startitems id="chivalry">
+		<!-- Book of Chivalry -->
+		<item id="2252" />
+	</startitems>
+
+	<!-- Bushido -->
+	<startitems id="bushido">
+		<!-- Book of Bushido -->
+		<item id="238c" />
+	</startitems>
+
+	<!-- Ninjitsu -->
+	<startitems id="ninjitsu">
+		<!-- Book of Ninjitsu -->
+		<item id="23a0" />
 	</startitems>
 
 </definitions>

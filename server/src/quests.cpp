@@ -134,7 +134,7 @@ const QString& cQuests::getQuestName( quint16 quest ) const
 	if ( quest >= quests.size() )
 	{
 		Console::instance()->log( LOG_ERROR, tr( "Quest id out of range: %u" ).arg( quest ) );
-		return QString::null;
+		return QString();
 	}
 
 	return quests[quest].name;

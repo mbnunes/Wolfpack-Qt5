@@ -7,7 +7,7 @@
 # Script for Spellbooks                                         #
 #===============================================================#
 
-"""
+r"""
 	\command addspell
 	\description Add a spell to a spellbok.
 	\usage - <code>addspell id</code>
@@ -17,7 +17,7 @@
 	will be added to the book.
 """
 
-"""
+r"""
 	\command removespell
 	\description Remove a spell from a spellbook.
 	\usage - <code>removespell id</code>
@@ -195,34 +195,8 @@ def onUse( char, item ):
 		char.socket.clilocmessage( 500207 ) # The spellbook must be in your backpack (and not in a container within) to open.
 		return True
 
-	# This is annoying and eats bandwith but its the only way to "reopen" the spellbook
-	# once its already open.
-	#char.socket.removeobject(item)
-	if item.container and item.container.isitem():
-		char.socket.sendobject(item.container)
-	char.socket.sendobject(item)
-
-	packet = wolfpack.packet( 0x24, 7 )
-	packet.setint( 1, item.serial )
-	packet.setshort( 5, 0xffff )
-	packet.send( char.socket )
-
-	packet = wolfpack.packet( 0xbf, 23 )
-	packet.setshort( 1, 23 )	 # Packet length
-	packet.setshort( 3, 0x1b )	 # 0xbf subcommand
-	packet.setshort( 5, 1 )	 # Unknown. Maybe it's a subsubcommand ?
-	packet.setint( 7, item.serial ) # Spellbook serial
-	packet.setshort( 11, item.id ) # Item id
-	packet.setshort( 13, 1 ) # Scroll offset (1 = regular, 101 = necro, 201 = paladin)
-
-	for i in range( 0, 8 ):
-		if not item.hastag( 'circle' + str( i + 1 ) ):
-			packet.setbyte( 15 + i, 0 ) # Should be unneccesary
-		else:
-			packet.setbyte( 15 + i, int( item.gettag( 'circle' + str( i + 1 ) ) ) ) # Should be unneccesary
-
-	packet.send( char.socket )
-
+	import magic.utilities
+	magic.utilities.open_spellbook( char, item, 1, 8 )
 	return True
 
 #

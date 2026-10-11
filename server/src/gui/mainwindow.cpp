@@ -92,6 +92,7 @@ bool MainWindow::event( QEvent* e )
 			break;
 		case QWolfpackConsoleEvent::NotifyState:
 			handleConsoleNotifyState( (enServerState)event->data().toInt() );
+			break;
 		default:
 			qDebug("MainWindow: Unknown custom event!");
 			return QMainWindow::event( e );
@@ -364,7 +365,7 @@ void cConsole::send( const QString& sMessage )
 	if ( !progress.isEmpty() )
 	{
 		QString temp = progress;
-		progress = QString::null;
+		progress = QString();
 		rollbackChars( temp.length() );
 		progress = temp;
 	}
@@ -377,7 +378,7 @@ void cConsole::send( const QString& sMessage )
 	if ( !progress.isEmpty() )
 	{
 		QString temp = progress;
-		progress = QString::null;
+		progress = QString();
 		send( temp );
 		progress = temp;
 	}

@@ -28,7 +28,10 @@
 #if !defined( __UTILITIES_H__ )
 #define __UTILITIES_H__
 
+#pragma push_macro("slots")
+#undef slots
 #include <boost/python.hpp>
+#pragma pop_macro("slots")
 
 #include "engine.h"
 #include "pyerrors.h"
@@ -53,6 +56,44 @@ typedef cMulti* P_MULTI;
 
 #if (PY_VERSION_HEX < 0x02050000)
 typedef int Py_ssize_t;
+#endif
+
+#include <climits>
+
+#if PY_MAJOR_VERSION >= 3
+#define PyInt_Check PyLong_Check
+#define PyInt_CheckExact PyLong_CheckExact
+#define PyInt_FromLong PyLong_FromLong
+#define PyInt_AsLong PyLong_AsLong
+#define PyInt_FromSize_t PyLong_FromSize_t
+#define PyInt_AsSsize_t PyLong_AsSsize_t
+#define PyInt_AS_LONG PyLong_AS_LONG
+#define PyInt_GetMax() INT_MAX
+
+#define PyString_Check(op) (PyUnicode_Check(op) || PyBytes_Check(op))
+#define PyString_FromString(s) PyUnicode_FromString(s)
+#define PyString_FromStringAndSize(s, n) PyUnicode_FromStringAndSize(s, n)
+#define PyString_AsString(op) (PyUnicode_Check(op) ? PyUnicode_AsUTF8(op) : PyBytes_AsString(op))
+#define PyString_Size(op) (PyUnicode_Check(op) ? PyUnicode_GetLength(op) : PyBytes_Size(op))
+#define PyString_GET_SIZE(op) PyString_Size(op)
+#define PyString_AS_STRING(op) PyString_AsString(op)
+#define PyString_FromFormat PyUnicode_FromFormat
+
+#define PyEval_CallObject(func, arg) PyObject_CallObject(func, arg)
+
+inline PyObject* wpFindMethod( PyMethodDef* methods, PyObject* self, const char* name )
+{
+	for ( PyMethodDef* def = methods; def && def->ml_name; ++def )
+	{
+		if ( strcmp( def->ml_name, name ) == 0 )
+		{
+			return PyCFunction_New( def, self );
+		}
+	}
+	PyErr_Format( PyExc_AttributeError, "'%.50s' object has no attribute '%.400s'", Py_TYPE(self)->tp_name, name );
+	return NULL;
+}
+#define Py_FindMethod(methods, self, name) wpFindMethod(methods, self, name)
 #endif
 
 /*!
@@ -132,7 +173,7 @@ AbstractAI* getWpAI( PyObject* );
 #define checkArgUnicode( id ) ( PyTuple_Size( args ) > id && PyUnicode_Check( PyTuple_GetItem( args, id ) ) )
 #define getArgStr( id ) (boost::python::extract<QString>(PyTuple_GetItem(args,id)))
 #define getArgUnicode( id ) (boost::python::extract<QString>( PyTuple_GetItem( args, id ) ))
-#define getUnicodeSize( id ) PyUnicode_GetSize( PyTuple_GetItem( args, id ) )
+#define getUnicodeSize( id ) PyUnicode_GetLength( PyTuple_GetItem( args, id ) )
 #define checkArgAccount( id ) ( PyTuple_Size( args ) > id && checkWpAccount( PyTuple_GetItem( args, id ) ) )
 #define checkArgRegion( id ) ( PyTuple_Size( args ) > id && checkWpRegion( PyTuple_GetItem( args, id ) ) )
 #define getArgRegion( id ) getWpRegion( PyTuple_GetItem( args, id ) )
@@ -256,7 +297,7 @@ public:
 			result.append( boost::python::extract<QString>(name) );
 			return result;
 		} else {
-			return QString::null;
+			return QString();
 		}
 	}
 

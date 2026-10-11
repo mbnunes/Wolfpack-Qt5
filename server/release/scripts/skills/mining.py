@@ -471,7 +471,7 @@ def successmining(Oretable, char, gem, resname, size):
 	elif size == 3:
 		item = wolfpack.additem("19b9")
 	else:
-		raise RuntimeException, "Invalid ore size: %u" % size
+		raise RuntimeException( "Invalid ore size: %u" % size )
 
 	item.settag('resname', resname)
 	item.color = Oretable[resname][COLORID]

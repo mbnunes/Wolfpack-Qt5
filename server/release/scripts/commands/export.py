@@ -7,7 +7,7 @@
 # .export Command						#
 #===============================================================#
 
-"""
+r"""
 	\command export
 	\description Export worlditems into three different formats.
 	\notes The following three formats are supported:

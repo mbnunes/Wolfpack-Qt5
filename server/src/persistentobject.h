@@ -121,7 +121,7 @@ public:
 	{
 		if ( !typemap.contains( key ) )
 		{
-			return QString::null;
+			return QString();
 		}
 
 		return typemap[key];
@@ -171,7 +171,7 @@ public:
 		QMap<QString, QString>::const_iterator iter = sql_count_queries.find( type );
 
 		if ( iter == sql_count_queries.end() )
-			return QString::null;
+			return QString();
 		else
 			return iter.value();
 	}
@@ -184,7 +184,7 @@ public:
 		QMap<QString, QString>::const_iterator iter = sql_queries.find( type );
 
 		if ( iter == sql_queries.end() )
-			return QString::null;
+			return QString();
 		else
 			return iter.value();
 	}

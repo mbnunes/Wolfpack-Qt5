@@ -130,13 +130,12 @@ void cTileCache::load()
 	{
 		for (i = 0; i < 0x4000; ++i)
 		{
-			if (i == 1 || (i > 0 && (i & 0x1F) == 0))
+			if ((i & 0x1F) == 0)
 			{
 				input.read(4); // header				
 			}
 
 			input.read((char *)&landTiles[i], 30);
-
 		}
 
 		// Repeat the same procedure for static tiles

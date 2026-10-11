@@ -40,7 +40,6 @@
 
 // Library Includes
 #include <QStringList>
-#include <QTextCodec>
 #include <QByteArray>
 
 void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, unsigned char serverFull, char serverTimeZone, unsigned int serverIp )
@@ -385,14 +384,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	{
 		setBody( pChar->body() );
 
-		if ( pChar->isHuman() && pChar->skin() > 0 && !pChar->isUnderwearDisabled() )
-		{
-			setHue( pChar->skin() | 0x8000 );
-		}
-		else
-		{
-			setHue( pChar->skin() );
-		}
+		setHue( pChar->skin() );
 	}
 
 	// If he's runningSteps we need to take that into account here
@@ -423,21 +415,45 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 }
 
 
-void cUOTxDrawChar::addEquipment( unsigned int serial, unsigned short model, unsigned char layer, unsigned short color )
+void cUOTxDrawChar::addEquipment( unsigned int serial, unsigned short model, unsigned char layer, unsigned short color, bool newMobileIncoming )
 {
 	// Overwrite the last 4 bytes (terminator) and read them later
 	int offset = count() - 4;
-	resize( count() + 9 );
-	setShort( 1, count() );
 
-	setInt( offset, serial );
-	setShort( offset + 4, model | 0x8000 );
-	( *this )[offset + 6] = layer;
-	setShort( offset + 7, color );
-	setInt( offset + 9, 0 ); // Terminator
+	if ( newMobileIncoming )
+	{
+		resize( count() + 9 );
+		setShort( 1, count() );
+
+		setInt( offset, serial );
+		setShort( offset + 4, model );
+		( *this )[offset + 6] = layer;
+		setShort( offset + 7, color );
+		setInt( offset + 9, 0 ); // Terminator
+	}
+	else
+	{
+		bool writeHue = ( color != 0 );
+		int itemSize = writeHue ? 9 : 7;
+		resize( count() + itemSize );
+		setShort( 1, count() );
+
+		setInt( offset, serial );
+		setShort( offset + 4, writeHue ? ( ( model & 0x7FFF ) | 0x8000 ) : ( model & 0x7FFF ) );
+		( *this )[offset + 6] = layer;
+		if ( writeHue )
+		{
+			setShort( offset + 7, color );
+			setInt( offset + 9, 0 ); // Terminator
+		}
+		else
+		{
+			setInt( offset + 7, 0 ); // Terminator
+		}
+	}
 }
 
-void cUOTxDrawChar::fromChar( P_CHAR pChar )
+void cUOTxDrawChar::fromChar( P_CHAR pChar, bool newMobileIncoming )
 {
 	setSerial( pChar->serial() );
 
@@ -457,7 +473,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	{
 		setModel( pChar->body() );
 
-		if ( pChar->isHuman() && pChar->skin() > 0 && !pChar->isUnderwearDisabled() )
+		if ( !newMobileIncoming && pChar->isHuman() && pChar->skin() > 0 && !pChar->isUnderwearDisabled() )
 		{
 			setColor( pChar->skin() | 0x8000 );
 		}
@@ -493,7 +509,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	if ( pChar->poison() >= 0 )
 		setFlag( flag() | 0x04 );
 
-	// Add our equipment - This does not seem to work !?
+	// Add our equipment
 	bool layers[0x20] =
 	{
 	0,
@@ -514,10 +530,8 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 		if ( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C )
 			continue;
 
-		// Skip the mount item if we're not sending it to ourself
-		// which we wont do since 0x78 wont be sent to the player
-		// at least not normally
-		if ( !pChar->isHuman() && pItem->layer() == 0x19 ) {
+		// Skip mount if not a humanoid that can ride
+		if ( !pChar->isHuman() && !pChar->isElf() && pItem->layer() == 0x19 ) {
 			continue;
 		}
 
@@ -527,9 +541,8 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 
 		layers[pItem->layer()] = true;
 
-		addEquipment( pItem->serial(), pItem->id(), pItem->layer(), pItem->color() );
+		addEquipment( pItem->serial(), pItem->id(), pItem->layer(), pItem->color(), newMobileIncoming );
 	}
-	
 }
 
 void cUOTxCharEquipment::fromItem( P_ITEM pItem )
@@ -565,14 +578,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	{
 		setBody( pChar->body() );
 
-		if ( pChar->isHuman() && pChar->skin() > 0 && !pChar->isUnderwearDisabled() )
-		{
-			setSkin( pChar->skin() | 0x8000 );
-		}
-		else
-		{
-			setSkin( pChar->skin() );
-		}
+		setSkin( pChar->skin() );
 	}
 
 	setFlag( 0 );

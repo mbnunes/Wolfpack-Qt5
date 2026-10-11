@@ -62,8 +62,8 @@ if not authenticated:
 	template = template.replace( '%NAVBAR%', '' )
 	template = template.replace( '%CONTENT%', content )
 	
-	print "Content-type: text/html\n\n"
-	print template
+	print("Content-type: text/html\n\n")
+	print(template)
 else:
 	# Create a session
 	session = web.sessions.start_session( username )

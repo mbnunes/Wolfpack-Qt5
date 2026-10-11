@@ -6,7 +6,7 @@ import plants.hues
 import plants.resources
 import plants.seed
 import plants
-from consts import *
+from plants.consts import *
 import beverage
 import potions.utilities
 import potionkeg

@@ -60,26 +60,14 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value );
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpAccountType =
-{
-PyObject_HEAD_INIT( 0 )
-0,
-"wpaccount",
-sizeof( wpAccountType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpAccount_getAttr,
-( setattrfunc ) wpAccount_setAttr,
-0,
-0,
-0,
-0,
-0,
-0,
-0, // Call
-( reprfunc ) wpAccount_str,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpAccountType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.account",
+	.tp_basicsize = sizeof( wpAccount ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpAccount_getAttr,
+	.tp_setattr = ( setattrfunc ) wpAccount_setAttr,
+	.tp_str = ( reprfunc ) wpAccount_str,
 };
 
 /*
@@ -227,15 +215,34 @@ static PyObject* wpAccount_checkpassword( wpAccount* self, PyObject* args )
 		return 0;
 	}
 
-	bool authorized;
+	bool authorized = false;
+	QString passStr = QString::fromUtf8( password );
 
 	if ( Config::instance()->hashAccountPasswords() )
 	{
-		authorized = QCryptographicHash::hash( password, QCryptographicHash::Md5 ).toHex() == self->account->password();
+		QString sha512Hash = QString::fromLatin1( QCryptographicHash::hash( passStr.toUtf8(), QCryptographicHash::Sha512 ).toHex() );
+		QString md5Hash = QString::fromLatin1( QCryptographicHash::hash( passStr.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
+
+		if ( self->account->password() == sha512Hash )
+		{
+			authorized = true;
+		}
+		else if ( self->account->password().length() == 32 && self->account->password() == md5Hash )
+		{
+			authorized = true;
+			self->account->setPassword( passStr );
+			Accounts::instance()->saveAccount( self->account );
+		}
+		else if ( self->account->password() == passStr )
+		{
+			authorized = true;
+			self->account->setPassword( passStr );
+			Accounts::instance()->saveAccount( self->account );
+		}
 	}
 	else
 	{
-		authorized = password == self->account->password();
+		authorized = ( passStr == self->account->password() );
 	}
 
 	PyMem_Free( password );

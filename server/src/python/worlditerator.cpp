@@ -71,22 +71,12 @@ static PyObject* wpItemIterator_getAttr( wpItemIterator* self, char* name )
 	Py_RETURN_FALSE;
 }
 
-static PyTypeObject wpItemIteratorType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpItemIterator",
-sizeof( wpItemIteratorType ),
-0,
-wpItemIteratorDealloc,
-0,
-( getattrfunc ) wpItemIterator_getAttr,
-0,
-0,
-0,
-0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-
+static PyTypeObject wpItemIteratorType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.itemiterator",
+	.tp_basicsize = sizeof( wpItemIterator ),
+	.tp_dealloc = wpItemIteratorDealloc,
+	.tp_getattr = ( getattrfunc ) wpItemIterator_getAttr,
 };
 
 PyObject* PyGetItemIterator()
@@ -143,22 +133,12 @@ static PyObject* wpCharIterator_getAttr( wpCharIterator* self, char* name )
 	Py_RETURN_FALSE;
 }
 
-static PyTypeObject wpCharIteratorType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpCharIterator",
-sizeof( wpCharIteratorType ),
-0,
-wpCharIteratorDealloc,
-0,
-( getattrfunc ) wpCharIterator_getAttr,
-0,
-0,
-0,
-0,
-0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpCharIteratorType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.chariterator",
+	.tp_basicsize = sizeof( wpCharIterator ),
+	.tp_dealloc = wpCharIteratorDealloc,
+	.tp_getattr = ( getattrfunc ) wpCharIterator_getAttr,
 };
 
 PyObject* PyGetCharIterator()
@@ -231,22 +211,12 @@ static PyObject* wpDefinitionsIterator_getAttr( wpDefinitionsIterator* self, cha
 	Py_RETURN_FALSE;
 }
 
-static PyTypeObject wpDefinitionsIteratorType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpDefinitionsIterator",
-sizeof( wpDefinitionsIteratorType ),
-0,
-wpDefinitionsIteratorDealloc,
-0,
-( getattrfunc ) wpDefinitionsIterator_getAttr,
-0,
-0,
-0,
-0,
-0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpDefinitionsIteratorType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.definitionsiterator",
+	.tp_basicsize = sizeof( wpDefinitionsIterator ),
+	.tp_dealloc = wpDefinitionsIteratorDealloc,
+	.tp_getattr = ( getattrfunc ) wpDefinitionsIterator_getAttr,
 };
 
 PyObject* PyGetDefinitionIterator(eDefCategory type)

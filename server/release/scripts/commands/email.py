@@ -1,4 +1,4 @@
-"""
+r"""
 	\command email
 	\description Change your current account email.
 	\usage - <code>email [value]</code>

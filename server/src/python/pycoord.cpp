@@ -56,49 +56,44 @@ static PyObject* wpCoord_str( wpCoord* object )
 // Forward Declarations
 static PyObject* wpCoord_getAttr( wpCoord* self, char* name );
 static int wpCoord_setAttr( wpCoord* self, char* name, PyObject* value );
-static int wpCoord_compare( PyObject* a, PyObject* b );
+static PyObject* wpCoord_richcompare( PyObject* a, PyObject* b, int op );
 
 /*!
 	The typedef for Wolfpack Python items
 */
 PyTypeObject wpCoordType = {
-PyObject_HEAD_INIT( NULL )
-0,
-"WPCoord",
-sizeof( wpCoordType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpCoord_getAttr,
-( setattrfunc ) wpCoord_setAttr,
-( cmpfunc ) wpCoord_compare,
-0,
-0,
-0,
-0,
-0,
-0, // Call
-( reprfunc ) wpCoord_str,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.coord",
+	.tp_basicsize = sizeof( wpCoord ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpCoord_getAttr,
+	.tp_setattr = ( setattrfunc ) wpCoord_setAttr,
+	.tp_repr = ( reprfunc ) wpCoord_str,
+	.tp_str = ( reprfunc ) wpCoord_str,
+	.tp_richcompare = wpCoord_richcompare,
 };
 
-static int wpCoord_compare( PyObject* a, PyObject* b )
+static PyObject* wpCoord_richcompare( PyObject* a, PyObject* b, int op )
 {
-	// Both have to be coordinates
-	if ( a->ob_type != &wpCoordType || b->ob_type != &wpCoordType )
-		return -1;
+	if ( Py_TYPE( a ) != &wpCoordType || Py_TYPE( b ) != &wpCoordType )
+	{
+		Py_RETURN_NOTIMPLEMENTED;
+	}
 
 	const Coord &posa = ( ( wpCoord* ) a )->coord;
 	const Coord &posb = ( ( wpCoord* ) b )->coord;
+	bool equal = ( posa.x == posb.x && posa.y == posb.y && posa.z == posb.z && posa.map == posb.map );
 
-	if ( posa.x != posb.x || posa.y != posb.y || posa.z != posb.z || posa.map != posb.map )
+	if ( op == Py_EQ )
 	{
-		return -1;
+		if ( equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
 	}
-	else
+	else if ( op == Py_NE )
 	{
-		return 0;
+		if ( !equal ) Py_RETURN_TRUE; else Py_RETURN_FALSE;
 	}
+
+	Py_RETURN_NOTIMPLEMENTED;
 }
 
 /*

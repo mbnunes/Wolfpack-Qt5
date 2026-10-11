@@ -17,4 +17,7 @@
 	<include file="definitions/items/armory/artifacts/divine_countenance.xml"/>
 	<include file="definitions/items/armory/artifacts/hat_of_the_magi.xml"/>
 	<include file="definitions/items/armory/artifacts/hunters_headdress.xml"/>
+
+	<!-- ServUO Artifacts -->
+	<include file="definitions/items/armory/artifacts/servuo_artifacts.xml"/>
 </definitions>

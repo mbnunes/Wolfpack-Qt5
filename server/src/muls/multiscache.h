@@ -109,6 +109,9 @@ public:
 	void unload();
 	void reload();
 	MultiDefinition* getMulti( ushort id );
+
+private:
+	void loadUOP( const QString& uopPath );
 };
 
 typedef Singleton<cMultiCache> MultiCache;

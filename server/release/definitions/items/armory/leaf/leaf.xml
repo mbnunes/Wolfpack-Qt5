@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | ServUO Item Conversion
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Female Leaf Chest -->
+	<item id="2fcb">
+		<id>0x2fcb</id>
+		<name>Female Leaf Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leaf\Female Leaf Chest (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="20" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<item id="3181" inherit="2fcb">
+		<id>0x3181</id>
+		<baseid>2fcb</baseid>
+		<category>Base Armor\Leaf\Female Leaf Chest (E/W)</category>
+	</item>
+
+	<!-- Leaf Arms -->
+	<item id="2fc8">
+		<id>0x2fc8</id>
+		<name>Leaf Arms</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leaf\Leaf Arms (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="15" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<item id="317e" inherit="2fc8">
+		<id>0x317e</id>
+		<baseid>2fc8</baseid>
+		<category>Base Armor\Leaf\Leaf Arms (E/W)</category>
+	</item>
+
+	<!-- Leaf Chest -->
+	<item id="2fc5">
+		<id>0x2fc5</id>
+		<name>Leaf Chest</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leaf\Leaf Chest (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="20" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<item id="317b" inherit="2fc5">
+		<id>0x317b</id>
+		<baseid>2fc5</baseid>
+		<category>Base Armor\Leaf\Leaf Chest (E/W)</category>
+	</item>
+
+	<!-- Leaf Gloves -->
+	<item id="2fc6">
+		<id>0x2fc6</id>
+		<name>Leaf Gloves</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leaf\Leaf Gloves</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<!-- Leaf Gorget -->
+	<item id="2fc7">
+		<id>0x2fc7</id>
+		<name>Leaf Gorget</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leaf\Leaf Gorget</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<!-- Leaf Legs -->
+	<item id="2fc9">
+		<id>0x2fc9</id>
+		<name>Leaf Legs</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leaf\Leaf Legs (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="20" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<item id="317f" inherit="2fc9">
+		<id>0x317f</id>
+		<baseid>2fc9</baseid>
+		<category>Base Armor\Leaf\Leaf Legs (E/W)</category>
+	</item>
+
+	<!-- Leaf Tonlet -->
+	<item id="2fca">
+		<id>0x2fca</id>
+		<name>Leaf Tonlet</name>
+		<decay />
+		<nodye />
+		<durability><random min="30" max="40" /></durability>
+		<weight>2.0</weight>
+		<type>1009</type>
+		<basescripts>equipment</basescripts>
+		<category>Base Armor\Leaf\Leaf Tonlet (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+		<intproperty name="res_physical" value="2" />
+		<intproperty name="res_fire" value="3" />
+		<intproperty name="res_cold" value="2" />
+		<intproperty name="res_poison" value="4" />
+		<intproperty name="res_energy" value="4" />
+	</item>
+
+	<item id="3180" inherit="2fca">
+		<id>0x3180</id>
+		<baseid>2fca</baseid>
+		<category>Base Armor\Leaf\Leaf Tonlet (E/W)</category>
+	</item>
+
+</definitions>

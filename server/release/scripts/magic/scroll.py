@@ -122,6 +122,24 @@ def addtobook(char, cont, item):
 				char.socket.clilocmessage( 500179 ) # That spell is already present in that spellbook.
 				return False
 
+	elif cont.hasscript( 'magic.mysticspellbook' ):
+		if spell >= 693:
+			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
+		else:
+			if not magic.mysticspellbook.hasspell( cont, spell ):
+				magic.mysticspellbook.addspell( cont, spell )
+
+				if item.amount > 1:
+					item.amount -= 1
+					if not wolfpack.utilities.tobackpack(item, char):
+						item.update()
+
+				else:
+					item.delete() # Consume the scroll
+			else:
+				char.socket.clilocmessage( 500179 ) # That spell is already present in that spellbook.
+				return False
+
 	else:
 		return False
 

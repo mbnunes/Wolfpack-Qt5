@@ -26,10 +26,9 @@
  */
 
 // Library Includes
-#include <QtXml>
+#include <QXmlStreamReader>
 #include <QFile>
 #include <QStack>
-#include <QRegExp>
 #include <QStringList>
 #include <QByteArray>
 
@@ -110,7 +109,7 @@ cDefinitions::Iterator cDefinitions::end(eDefCategory type) {
 	return impl->unique[type].end();
 }
 
-class cXmlHandler : public QXmlDefaultHandler
+class cXmlHandler
 {
 private:
 	cDefManagerPrivate* impl;
@@ -120,8 +119,6 @@ private:
 	QStack<cElement*> elements;
 	// Files stack (each <include> pushes a file)
 	QList<QString> filenames;
-	// Locators associated to each document
-	QStack<QXmlLocator*> locators;
 
 public:
 	cXmlHandler( cDefManagerPrivate* impl )
@@ -158,178 +155,144 @@ public:
 		}
 
 		filenames.push_back( filename );
-
-		QXmlInputSource input( &file );
-		QXmlSimpleReader reader;
-		reader.setFeature( "http://trolltech.com/xml/features/report-whitespace-only-CharData", false );
-
-		reader.setContentHandler( this );
-		reader.setErrorHandler( this );
-		reader.parse( &input, false );
-
-		filenames.pop_back();
-	}
-
-	void setDocumentLocator( QXmlLocator* locator )
-	{
-		locators.push( locator );
-	}
-
-	bool startDocument()
-	{
 		levels.push_back( 0 );
-		return true;
-	}
 
-	bool endDocument()
-	{
-		levels.pop_back();
-		locators.pop();
-		return true;
-	}
+		QXmlStreamReader reader( &file );
 
-	bool startElement( const QString& /*namespaceURI*/, const QString& localName, const QString& qName, const QXmlAttributes& atts )
-	{
-		levels.back()++;
-
-		// Ignore document root
-		if ( levels.back() == 1 )
+		while ( !reader.atEnd() )
 		{
-			if ( levels.isEmpty() )
+			QXmlStreamReader::TokenType token = reader.readNext();
+
+			if ( token == QXmlStreamReader::StartElement )
 			{
-				// Top level
-				elements.push( NULL );
-			}
-			else
-			{
-				// Within an include
-				if ( elements.isEmpty() )
-					elements.push( 0 );
-				else
-					elements.push( elements.top() );
-			}
-			return true;
-		}
+				levels.back()++;
 
-		// Include another file
-		if ( qName == "include" )
-		{
-			QString value = atts.value( "file" );
-			load( value );
-
-			elements.push( elements.top() );
-			return true;
-		}
-
-		cElement* element = new cElement;
-		element->setName( localName.toLatin1() );
-		element->copyAttributes( atts );
-
-		// Child Element?
-		if ( elements.top() != NULL )
-		{
-			cElement* parent = elements.top(); // Pop the potential parent
-			parent->addChild( element ); // Add the child to it's parent
-			element->setParent( parent );
-		} else {
-			Definitions::instance()->addElement(element);
-		}
-
-		elements.push( element ); // Push our element (there may be children)
-
-		return true;
-	}
-
-	bool endElement( const QString& /*namespaceURI*/, const QString& /*localName*/, const QString& /*qName*/ )
-	{
-		cElement* element = elements.pop();
-		if ( --( levels.back() ) == 0 )
-		{
-			// Ignore root
-			return true;
-		}
-
-		if ( element == elements.top() )
-		{
-			// Ignore include
-			return true;
-		}
-
-		// Did we complete a parent node?
-		if ( elements.top() == NULL )
-		{
-			// Find a category node
-			unsigned int i = 0;
-
-			// Sort it into a category.
-			while ( categories[i].name != 0 )
-			{
-				if ( element->name() == categories[i].name )
+				// Ignore document root
+				if ( levels.back() == 1 )
 				{
-					QString tagId = element->getAttribute( "id" );
-
-					// If the element has an id,
-					if ( !tagId.isEmpty() )
+					if ( levels.size() <= 1 )
 					{
-						if ( impl->unique[categories[i].key].contains( tagId ) && !Config::instance()->overwriteDefinitions() )
-						{
-							Console::instance()->log( LOG_WARNING, tr( "Duplicate %1: %2\n[File: %3, Line: %4]\n" )
-								.arg( QString( element->name() ) ).arg( tagId ).arg( filenames.back() ).arg( locators.top()->lineNumber() ) );
-							delete element;
-						}
-						else
-						{
-							impl->unique[categories[i].key].insert( tagId, element );
-						}
+						elements.push( NULL );
 					}
 					else
 					{
-						impl->nonunique[categories[i].key].push_back( element );
+						if ( elements.isEmpty() )
+							elements.push( 0 );
+						else
+							elements.push( elements.top() );
+					}
+					continue;
+				}
+
+				QString qName = reader.name().toString();
+				QString localName = reader.name().toString();
+
+				// Include another file
+				if ( qName == "include" )
+				{
+					QString value = reader.attributes().value( "file" ).toString();
+					load( value );
+
+					elements.push( elements.top() );
+					continue;
+				}
+
+				cElement* element = new cElement;
+				element->setName( localName.toLatin1() );
+				element->copyAttributes( reader.attributes() );
+
+				// Child Element?
+				if ( elements.top() != NULL )
+				{
+					cElement* parent = elements.top();
+					parent->addChild( element );
+					element->setParent( parent );
+				}
+				else
+				{
+					Definitions::instance()->addElement( element );
+				}
+
+				elements.push( element );
+			}
+			else if ( token == QXmlStreamReader::Characters )
+			{
+				if ( !reader.isWhitespace() && !elements.isEmpty() )
+				{
+					cElement *element = elements.top();
+					if ( element )
+						element->setText( element->text() + reader.text().toString() );
+				}
+			}
+			else if ( token == QXmlStreamReader::EndElement )
+			{
+				cElement* element = elements.pop();
+				if ( --( levels.back() ) == 0 )
+				{
+					// Ignore root
+					continue;
+				}
+
+				if ( element == elements.top() )
+				{
+					// Ignore include
+					continue;
+				}
+
+				// Did we complete a parent node?
+				if ( elements.top() == NULL )
+				{
+					unsigned int i = 0;
+					bool handled = false;
+
+					while ( categories[i].name != 0 )
+					{
+						if ( element->name() == categories[i].name )
+						{
+							QString tagId = element->getAttribute( "id" );
+
+							if ( !tagId.isEmpty() )
+							{
+								if ( impl->unique[categories[i].key].contains( tagId ) && !Config::instance()->overwriteDefinitions() )
+								{
+									Console::instance()->log( LOG_WARNING, tr( "Duplicate %1: %2\n[File: %3, Line: %4]\n" )
+										.arg( QString( element->name() ) ).arg( tagId ).arg( filenames.back() ).arg( reader.lineNumber() ) );
+									delete element;
+								}
+								else
+								{
+									impl->unique[categories[i].key].insert( tagId, element );
+								}
+							}
+							else
+							{
+								impl->nonunique[categories[i].key].push_back( element );
+							}
+
+							handled = true;
+							break;
+						}
+						++i;
 					}
 
-					return true;
+					if ( !handled )
+					{
+						Console::instance()->log( LOG_WARNING, tr( "Unknown element: %1\n[File: %2, Line: %3]\n" )
+							.arg( QString( element->name() ) ).arg( filenames.back() ).arg( reader.lineNumber() ) );
+						delete element;
+					}
 				}
-				++i;
 			}
-
-			Console::instance()->log( LOG_WARNING, tr( "Unknown element: %1\n[File: %2, Line: %3]\n" )
-				.arg( QString( element->name() ) ).arg( filenames.back() ).arg( locators.top()->lineNumber() ) );
-			delete element;
 		}
 
-		return true;
-	}
-
-	bool characters( const QString& ch )
-	{
-		if ( !elements.isEmpty() )
+		if ( reader.hasError() )
 		{
-			cElement *element = elements.top();
-			if ( element )
-				element->setText( element->text() + ch );
+			Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4]" )
+				.arg( reader.errorString(), filenames.back() ).arg( reader.lineNumber() ).arg( reader.columnNumber() ) );
 		}
 
-		return true;
-	}
-
-	// error handling
-	bool warning( const QXmlParseException& exception )
-	{
-		Console::instance()->log( LOG_WARNING, tr( "%1\n[File: %2, Line: %3, Column: %4]" )
-			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
-		return true; // continue
-	}
-	bool error( const QXmlParseException& exception )
-	{
-		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4]" )
-			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
-		return true; // continue
-	}
-	bool fatalError( const QXmlParseException& exception )
-	{
-		Console::instance()->log( LOG_ERROR, tr( "%1\n[File: %2, Line: %3, Column: %4]" )
-			.arg( exception.message(), filenames.back() ).arg( exception.lineNumber() ).arg( exception.columnNumber() ) );
-		return true; // continue
+		levels.pop_back();
+		filenames.pop_back();
 	}
 };
 
@@ -536,7 +499,7 @@ const QList<cElement*>& cDefinitions::getDefinitions( eDefCategory type ) const
  *	Implementation of cElement
  */
 
-cElement::cElement() : nameHashKey( 0 ), name_( QString::null ), text_( QString::null )
+cElement::cElement() : nameHashKey( 0 ), name_( QString() ), text_( QString() )
 {
 	childCount_ = 0;
 	attrCount_ = 0;
@@ -589,7 +552,7 @@ void cElement::freeChildren()
 	}
 }
 
-void cElement::copyAttributes( const QXmlAttributes& attributes )
+void cElement::copyAttributes( const QXmlStreamAttributes& attributes )
 {
 	freeAttributes();
 	attrCount_ = attributes.count();
@@ -601,8 +564,8 @@ void cElement::copyAttributes( const QXmlAttributes& attributes )
 		for ( unsigned int i = 0; i < attrCount_; ++i )
 		{
 			this->attributes[i] = new stAttribute;
-			this->attributes[i]->name = attributes.localName( i ).toLocal8Bit();
-			this->attributes[i]->value = attributes.value( i );
+			this->attributes[i]->name = attributes.at( i ).name().toLocal8Bit();
+			this->attributes[i]->value = attributes.at( i ).value().toString();
 		}
 	}
 }
@@ -819,17 +782,12 @@ struct wpElement
 
 static PyObject* wpElement_getAttr( wpElement* self, char* name );
 
-PyTypeObject wpElementType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"element",
-sizeof( wpElementType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpElement_getAttr,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+PyTypeObject wpElementType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.element",
+	.tp_basicsize = sizeof( wpElement ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpElement_getAttr,
 };
 
 /*
@@ -871,7 +829,7 @@ static PyObject* wpElement_getattribute( wpElement* self, PyObject* args )
 		return 0;
 	}
 
-	QString defvalue = QString::null;
+	QString defvalue = QString();
 
 	if ( value != 0 )
 	{

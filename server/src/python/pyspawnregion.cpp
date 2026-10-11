@@ -48,18 +48,13 @@ static int wpSpawnRegion_setAttr( wpSpawnRegion* self, char* name, PyObject* val
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpSpawnRegionType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpspawnregion",
-sizeof( wpSpawnRegionType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpSpawnRegion_getAttr,
-( setattrfunc ) wpSpawnRegion_setAttr,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpSpawnRegionType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.spawnregion",
+	.tp_basicsize = sizeof( wpSpawnRegion ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpSpawnRegion_getAttr,
+	.tp_setattr = ( setattrfunc ) wpSpawnRegion_setAttr,
 };
 
 /*

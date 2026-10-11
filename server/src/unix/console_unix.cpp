@@ -1,4 +1,4 @@
-﻿/*
+/*
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
@@ -243,8 +243,12 @@ void cConsole::poll()
 
 void cConsole::stop()
 {
-    threadWp->wait();
-    delete threadWp;
+	if ( threadWp )
+	{
+		threadWp->wait();
+		delete threadWp;
+		threadWp = nullptr;
+	}
 	if ( CommandLineOptions::instance()->value("pidFile").isValid() )
 		pidfile_del( CommandLineOptions::instance()->value("pidFile").toString() );
 }
@@ -312,7 +316,7 @@ void cConsole::send( const QString& sMessage )
 	if ( !progress.isEmpty() )
 	{
 		QString temp = progress;
-		progress = QString::null;
+		progress = QString();
 		rollbackChars( temp.length() );
 		progress = temp;
 	}
@@ -321,7 +325,7 @@ void cConsole::send( const QString& sMessage )
 	QString newMessage = sMessage;
 	newMessage.replace( "%", "%%" );
 
-	fprintf( stdout, newMessage.toLocal8Bit() );
+	fprintf( stdout, "%s", newMessage.toLocal8Bit().constData() );
 	fflush( stdout );
 
 	linebuffer_.append( sMessage );
@@ -330,7 +334,7 @@ void cConsole::send( const QString& sMessage )
 	if ( !progress.isEmpty() )
 	{
 		QString temp = progress;
-		progress = QString::null;
+		progress = QString();
 		send( temp );
 		progress = temp;
 	}

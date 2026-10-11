@@ -539,10 +539,26 @@ class Vendor:
 			self.onBuy(vendor, player)
 		elif 333 in keywords:
 			self.onSell(vendor, player)
+		elif 'order' in text or 'bod' in text or 'bulk' in text:
+			self.onBulkOrder(vendor, player)
 		else:
 			self.onUnknownSpeech(vendor, player, text, keywords)
 
 		return False
+
+	def onBulkOrder(self, vendor, player):
+		vname = vendor.name.lower()
+		bod_type = None
+		if "blacksmith" in vname or "armorer" in vname or "weaponsmith" in vname or "iron" in vname:
+			bod_type = "smith"
+		elif "tailor" in vname or "weaver" in vname or "cloth" in vname:
+			bod_type = "tailor"
+
+		if bod_type:
+			from commands.bod import commandGetBod
+			commandGetBod(player.socket, "getbod", bod_type)
+		else:
+			vendor.say("I have no bulk orders to offer you.")
 
 	#
 	# This is triggered if the player buys too many items

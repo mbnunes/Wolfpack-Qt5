@@ -29,4 +29,10 @@
 	<!-- Colored Weapons -->
 	<include file="definitions/items/weaponry/colored/index.xml"/>
 
+
+	<!-- Gargish Weapons -->
+	<include file="definitions/items/weaponry/gargish/gargish.xml"/>
+
+	<!-- Other Weapons -->
+	<include file="definitions/items/weaponry/other/servuo_weapons.xml"/>
 </definitions>

@@ -175,7 +175,7 @@ public:
 
 	// Component registry
 	cComponent* findComponent( const QString& name );
-	void registerComponent( cComponent* component, const QString& name, bool reloadable = true, bool silent = false, const QString& depends = QString::null );
+	void registerComponent( cComponent* component, const QString& name, bool reloadable = true, bool silent = false, const QString& depends = QString() );
 };
 
 typedef Singleton<cServer> Server;

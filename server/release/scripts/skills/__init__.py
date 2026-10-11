@@ -74,7 +74,7 @@ skills = {}
 
 def register( id, handler ):
 	if id in skills:
-		raise Exception, "Duplicate Skill: " + str( id )
+		raise Exception( "Duplicate Skill: " + str( id ) )
 
 	skills[ id ] = handler
 

@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- AnkhWest -->
+	<item id="0x0003">
+		<pos x="286" y="1013" z="5" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0675" hue="0x451">
+		<pos x="659" y="1535" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0677" hue="0x451">
+		<pos x="660" y="1535" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0679" hue="0x482">
+		<pos x="699" y="1527" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x067b" hue="0x482">
+		<pos x="700" y="1527" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0681" hue="0x482">
+		<pos x="703" y="1572" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0683" hue="0x482">
+		<pos x="703" y="1571" z="-28" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a97">
+		<pos x="659" y="1521" z="-28" map="2" />
+		<pos x="661" y="1521" z="-28" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a98">
+		<pos x="660" y="1521" z="-28" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a99">
+		<pos x="657" y="1525" z="-28" map="2" />
+		<pos x="657" y="1527" z="-28" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a9a">
+		<pos x="657" y="1524" z="-28" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a9b">
+		<pos x="658" y="1521" z="-28" map="2" />
+		<pos x="662" y="1521" z="-28" map="2" />
+	</item>
+	<!-- FullBookcase -->
+	<item id="0x0a9c">
+		<pos x="657" y="1523" z="-28" map="2" />
+		<pos x="657" y="1526" z="-28" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x2100">
+		<attribute key="name" value="#1016453" />
+		<pos x="689" y="1566" z="-15" map="2" />
+		<pos x="689" y="1570" z="-15" map="2" />
+		<pos x="691" y="1513" z="-15" map="2" />
+		<pos x="694" y="1513" z="-15" map="2" />
+		<pos x="697" y="1513" z="-15" map="2" />
+		<pos x="700" y="1513" z="-15" map="2" />
+		<pos x="657" y="1501" z="-15" map="2" />
+		<pos x="657" y="1506" z="-15" map="2" />
+		<pos x="661" y="1497" z="-15" map="2" />
+		<pos x="649" y="1297" z="-14" map="2" />
+		<pos x="649" y="1300" z="-19" map="2" />
+		<pos x="654" y="1297" z="-14" map="2" />
+		<pos x="654" y="1300" z="-21" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x2100">
+		<attribute key="name" value="#1016454" />
+		<pos x="718" y="1553" z="-18" map="2" />
+		<pos x="719" y="1553" z="-10" map="2" />
+		<pos x="720" y="1553" z="-18" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x2100" hue="0x8ab">
+		<attribute key="name" value="#1016453" />
+		<pos x="641" y="1531" z="-16" map="2" />
+		<pos x="666" y="1497" z="-15" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x00c8" hue="0x964">
+		<pos x="836" y="1471" z="-28" map="2" />
+	</item>
+	<!-- SecretStoneDoor1 -->
+	<item id="0x00f6" hue="0x96f">
+		<pos x="752" y="1549" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0675" hue="0x89d">
+		<pos x="851" y="1559" z="-28" map="2" />
+		<pos x="907" y="1464" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x0677" hue="0x89d">
+		<pos x="908" y="1464" z="-28" map="2" />
+		<pos x="852" y="1559" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x067d" hue="0x89d">
+		<pos x="824" y="1475" z="-28" map="2" />
+		<pos x="872" y="1476" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x067d" hue="0x901">
+		<pos x="872" y="1508" z="2" map="2" />
+		<pos x="879" y="1532" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x067d" hue="0x89e">
+		<pos x="848" y="1476" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x067f" hue="0x89d">
+		<pos x="872" y="1475" z="-28" map="2" />
+		<pos x="824" y="1474" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x067f" hue="0x901">
+		<pos x="872" y="1507" z="2" map="2" />
+		<pos x="879" y="1531" z="-28" map="2" />
+	</item>
+	<!-- MetalDoor -->
+	<item id="0x067f" hue="0x89e">
+		<pos x="848" y="1475" z="-28" map="2" />
+	</item>
+	<!-- SmallCrate -->
+	<item id="0x09a9">
+		<pos x="817" y="1467" z="-28" map="2" />
+		<pos x="818" y="1468" z="-25" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x09ab">
+		<pos x="858" y="1561" z="-28" map="2" />
+		<pos x="859" y="1561" z="-28" map="2" />
+		<pos x="893" y="1497" z="2" map="2" />
+		<pos x="898" y="1553" z="-28" map="2" />
+		<pos x="899" y="1465" z="-28" map="2" />
+		<pos x="901" y="1553" z="-28" map="2" />
+		<pos x="905" y="1497" z="2" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x09ab" hue="0x454">
+		<pos x="776" y="1476" z="-28" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x09ab" hue="0x455">
+		<pos x="837" y="1465" z="-28" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x09ab" hue="0x4e4">
+		<pos x="761" y="1537" z="-28" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x09ab" hue="0x66d">
+		<pos x="760" y="1537" z="-28" map="2" />
+		<pos x="762" y="1537" z="-28" map="2" />
+		<pos x="776" y="1483" z="-28" map="2" />
+		<pos x="836" y="1465" z="-28" map="2" />
+	</item>
+	<!-- EasterEggs -->
+	<item id="0x09b5">
+		<pos x="964" y="1547" z="-29" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0a05">
+		<pos x="817" y="1478" z="-14" map="2" />
+		<pos x="834" y="1467" z="-14" map="2" />
+	</item>
+	<!-- EmptyBookcase -->
+	<item id="0x0a9d" hue="0x717">
+		<pos x="958" y="1496" z="-28" map="2" />
+	</item>
+	<!-- EmptyBookcase -->
+	<item id="0x0a9d" hue="0x718">
+		<pos x="923" y="1553" z="-28" map="2" />
+	</item>
+	<!-- EmptyBookcase -->
+	<item id="0x0a9e" hue="0x717">
+		<pos x="953" y="1502" z="-28" map="2" />
+	</item>
+	<!-- EmptyBookcase -->
+	<item id="0x0a9e" hue="0x718">
+		<pos x="920" y="1558" z="-28" map="2" />
+		<pos x="920" y="1562" z="-28" map="2" />
+	</item>
+	<!-- LargeCrate -->
+	<item id="0x0e3c">
+		<pos x="817" y="1470" z="-25" map="2" />
+		<pos x="817" y="1473" z="-25" map="2" />
+		<pos x="817" y="1474" z="-22" map="2" />
+		<pos x="817" y="1475" z="-25" map="2" />
+	</item>
+	<!-- MediumCrate -->
+	<item id="0x0e3e">
+		<pos x="873" y="1521" z="-30" map="2" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e40" hue="0x4e4">
+		<pos x="777" y="1575" z="-28" map="2" />
+		<pos x="784" y="1517" z="-28" map="2" />
+		<pos x="784" y="1578" z="-28" map="2" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e40" hue="0x66d">
+		<pos x="777" y="1574" z="-28" map="2" />
+		<pos x="777" y="1576" z="-28" map="2" />
+		<pos x="784" y="1521" z="-28" map="2" />
+		<pos x="784" y="1574" z="-28" map="2" />
+	</item>
+	<!-- MetalGoldenChest -->
+	<item id="0x0e41">
+		<pos x="827" y="1465" z="-28" map="2" />
+		<pos x="828" y="1465" z="-28" map="2" />
+		<pos x="829" y="1465" z="-28" map="2" />
+	</item>
+	<!-- WoodenChest -->
+	<item id="0x0e42">
+		<pos x="817" y="1476" z="-28" map="2" />
+		<pos x="817" y="1477" z="-28" map="2" />
+		<pos x="920" y="1565" z="-28" map="2" />
+		<pos x="929" y="1571" z="-28" map="2" />
+		<pos x="953" y="1478" z="-28" map="2" />
+		<pos x="953" y="1508" z="-28" map="2" />
+		<pos x="953" y="1532" z="-28" map="2" />
+		<pos x="953" y="1539" z="-28" map="2" />
+		<pos x="961" y="1549" z="-29" map="2" />
+		<pos x="961" y="1558" z="-28" map="2" />
+	</item>
+	<!-- WoodenChest -->
+	<item id="0x0e43">
+		<pos x="926" y="1553" z="-27" map="2" />
+		<pos x="955" y="1496" z="-28" map="2" />
+		<pos x="955" y="1527" z="-27" map="2" />
+		<pos x="958" y="1552" z="-28" map="2" />
+		<pos x="961" y="1464" z="-28" map="2" />
+		<pos x="972" y="1480" z="-30" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x0e7c">
+		<pos x="865" y="1539" z="-28" map="2" />
+		<pos x="873" y="1469" z="-28" map="2" />
+		<pos x="873" y="1577" z="-28" map="2" />
+		<pos x="873" y="1579" z="-28" map="2" />
+		<pos x="889" y="1500" z="2" map="2" />
+		<pos x="889" y="1517" z="2" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x0e7c" hue="0x454">
+		<pos x="772" y="1482" z="-28" map="2" />
+		<pos x="779" y="1482" z="-28" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x0e7c" hue="0x466">
+		<pos x="834" y="1468" z="-28" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x0e7c" hue="0x4e4">
+		<pos x="753" y="1544" z="-28" map="2" />
+		<pos x="777" y="1520" z="-28" map="2" />
+		<pos x="777" y="1522" z="-28" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x0e7c" hue="0x66d">
+		<pos x="753" y="1545" z="-28" map="2" />
+		<pos x="772" y="1478" z="-28" map="2" />
+		<pos x="777" y="1519" z="-28" map="2" />
+		<pos x="777" y="1521" z="-28" map="2" />
+		<pos x="777" y="1523" z="-28" map="2" />
+		<pos x="779" y="1478" z="-28" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x0e7c" hue="0x89f">
+		<pos x="834" y="1467" z="-28" map="2" />
+	</item>
+	<!-- MetalChest -->
+	<item id="0x0e7c" hue="0x8ab">
+		<pos x="834" y="1469" z="-28" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0e7f">
+		<pos x="974" y="1484" z="-28" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0ec3">
+		<pos x="874" y="1524" z="-22" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x0ed4" hue="0x835">
+		<attribute key="name" value="#1016086" />
+		<pos x="877" y="1561" z="-23" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x0ed4" hue="0x835">
+		<attribute key="name" value="#1016423" />
+		<pos x="883" y="1555" z="-23" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x0ed5" hue="0x835">
+		<attribute key="name" value="#1016150" />
+		<pos x="875" y="1563" z="-23" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x0ed5" hue="0x835">
+		<attribute key="name" value="#1016381" />
+		<pos x="879" y="1559" z="-23" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x0ed5" hue="0x835">
+		<attribute key="name" value="#1016210" />
+		<pos x="881" y="1557" z="-23" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fae">
+		<pos x="821" y="1475" z="-28" map="2" />
+		<pos x="821" y="1475" z="-22" map="2" />
+		<pos x="821" y="1475" z="-16" map="2" />
+		<pos x="821" y="1476" z="-22" map="2" />
+		<pos x="822" y="1475" z="-22" map="2" />
+		<pos x="822" y="1475" z="-16" map="2" />
+		<pos x="822" y="1476" z="-22" map="2" />
+		<pos x="968" y="1484" z="-28" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fe3">
+		<pos x="825" y="1488" z="-28" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x0fe4">
+		<pos x="825" y="1486" z="-28" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x1174" hue="0x963">
+		<attribute key="name" value="#1016508" />
+		<pos x="898" y="1508" z="2" map="2" />
+		<pos x="901" y="1508" z="2" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x1227">
+		<attribute key="name" value="#1016466" />
+		<pos x="874" y="1558" z="-8" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x1227">
+		<attribute key="name" value="#1016467" />
+		<pos x="878" y="1554" z="-8" map="2" />
+	</item>
+	<!-- MeltedWax -->
+	<item id="0x122a">
+		<pos x="873" y="1570" z="-17" map="2" />
+		<pos x="879" y="1570" z="-23" map="2" />
+		<pos x="890" y="1570" z="-28" map="2" />
+	</item>
+	<!-- MeltedWax -->
+	<item id="0x122b">
+		<pos x="893" y="1573" z="-28" map="2" />
+	</item>
+	<!-- MeltedWax -->
+	<item id="0x122c">
+		<pos x="875" y="1570" z="-24" map="2" />
+		<pos x="879" y="1573" z="-26" map="2" />
+		<pos x="880" y="1572" z="-23" map="2" />
+		<pos x="893" y="1570" z="-28" map="2" />
+	</item>
+	<!-- MeltedWax -->
+	<item id="0x122d">
+		<pos x="878" y="1572" z="-23" map="2" />
+	</item>
+	<!-- MeltedWax -->
+	<item id="0x122e">
+		<pos x="873" y="1572" z="-17" map="2" />
+		<pos x="874" y="1570" z="-24" map="2" />
+		<pos x="878" y="1570" z="-24" map="2" />
+		<pos x="880" y="1571" z="-24" map="2" />
+		<pos x="890" y="1573" z="-28" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x12ca">
+		<pos x="874" y="1554" z="-2" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x139a">
+		<attribute key="name" value="#1016468" />
+		<pos x="876" y="1556" z="-6" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1f07">
+		<pos x="858" y="1572" z="-22" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1f08">
+		<pos x="849" y="1566" z="-22" map="2" />
+		<pos x="849" y="1566" z="-21" map="2" />
+		<pos x="849" y="1567" z="-22" map="2" />
+		<pos x="849" y="1568" z="-22" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1f08" hue="0x455">
+		<pos x="850" y="1570" z="-22" map="2" />
+		<pos x="860" y="1570" z="-28" map="2" />
+	</item>
+	<!-- Static -->
+	<item id="0x1f0a">
+		<pos x="850" y="1565" z="-21" map="2" />
+		<pos x="855" y="1572" z="-22" map="2" />
+		<pos x="858" y="1573" z="-22" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x2100" hue="0x964">
+		<attribute key="name" value="#1016452" />
+		<pos x="890" y="1498" z="14" map="2" />
+		<pos x="890" y="1515" z="14" map="2" />
+		<pos x="896" y="1504" z="14" map="2" />
+		<pos x="896" y="1511" z="14" map="2" />
+		<pos x="903" y="1504" z="14" map="2" />
+		<pos x="903" y="1511" z="14" map="2" />
+		<pos x="907" y="1498" z="14" map="2" />
+		<pos x="907" y="1515" z="14" map="2" />
+	</item>
+	<!-- LocalizedStatic -->
+	<item id="0x2100" hue="0x966">
+		<attribute key="name" value="#1016452" />
+		<pos x="849" y="1562" z="-16" map="2" />
+		<pos x="849" y="1572" z="-16" map="2" />
+		<pos x="861" y="1562" z="-16" map="2" />
+		<pos x="861" y="1572" z="-16" map="2" />
+		<pos x="873" y="1567" z="-16" map="2" />
+		<pos x="873" y="1575" z="-16" map="2" />
+		<pos x="873" y="1582" z="-16" map="2" />
+		<pos x="880" y="1582" z="-16" map="2" />
+		<pos x="888" y="1553" z="-16" map="2" />
+		<pos x="888" y="1582" z="-16" map="2" />
+		<pos x="889" y="1555" z="-16" map="2" />
+		<pos x="889" y="1557" z="-16" map="2" />
+		<pos x="889" y="1559" z="-16" map="2" />
+		<pos x="894" y="1554" z="-16" map="2" />
+		<pos x="894" y="1556" z="-16" map="2" />
+		<pos x="894" y="1558" z="-16" map="2" />
+		<pos x="895" y="1553" z="-16" map="2" />
+		<pos x="896" y="1582" z="-16" map="2" />
+		<pos x="902" y="1559" z="-16" map="2" />
+		<pos x="902" y="1567" z="-16" map="2" />
+		<pos x="902" y="1575" z="-16" map="2" />
+	</item>
+	<!-- Blocker -->
+	<item id="0x21a4">
+		<pos x="777" y="1546" z="-28" map="2" />
+		<pos x="777" y="1549" z="-28" map="2" />
+		<pos x="778" y="1540" z="-28" map="2" />
+		<pos x="778" y="1542" z="-28" map="2" />
+		<pos x="778" y="1553" z="-28" map="2" />
+		<pos x="778" y="1555" z="-28" map="2" />
+		<pos x="780" y="1540" z="-28" map="2" />
+		<pos x="780" y="1542" z="-28" map="2" />
+		<pos x="780" y="1545" z="-28" map="2" />
+		<pos x="780" y="1547" z="-28" map="2" />
+		<pos x="780" y="1549" z="-28" map="2" />
+		<pos x="780" y="1551" z="-28" map="2" />
+		<pos x="780" y="1553" z="-28" map="2" />
+		<pos x="780" y="1555" z="-28" map="2" />
+		<pos x="782" y="1537" z="-28" map="2" />
+		<pos x="782" y="1539" z="-28" map="2" />
+		<pos x="782" y="1541" z="-28" map="2" />
+		<pos x="782" y="1543" z="-28" map="2" />
+		<pos x="782" y="1545" z="-28" map="2" />
+		<pos x="782" y="1547" z="-28" map="2" />
+		<pos x="782" y="1549" z="-28" map="2" />
+		<pos x="782" y="1551" z="-28" map="2" />
+		<pos x="782" y="1553" z="-28" map="2" />
+		<pos x="782" y="1555" z="-28" map="2" />
+		<pos x="784" y="1537" z="-28" map="2" />
+		<pos x="784" y="1539" z="-28" map="2" />
+		<pos x="784" y="1541" z="-28" map="2" />
+		<pos x="784" y="1543" z="-28" map="2" />
+		<pos x="784" y="1545" z="-28" map="2" />
+		<pos x="784" y="1547" z="-28" map="2" />
+		<pos x="784" y="1549" z="-28" map="2" />
+		<pos x="784" y="1551" z="-28" map="2" />
+		<pos x="784" y="1553" z="-28" map="2" />
+		<pos x="784" y="1555" z="-28" map="2" />
+		<pos x="786" y="1537" z="-28" map="2" />
+		<pos x="786" y="1539" z="-28" map="2" />
+		<pos x="786" y="1541" z="-28" map="2" />
+		<pos x="786" y="1543" z="-28" map="2" />
+		<pos x="786" y="1545" z="-28" map="2" />
+		<pos x="786" y="1547" z="-28" map="2" />
+		<pos x="786" y="1549" z="-28" map="2" />
+		<pos x="786" y="1551" z="-28" map="2" />
+		<pos x="786" y="1553" z="-28" map="2" />
+		<pos x="786" y="1555" z="-28" map="2" />
+		<pos x="788" y="1537" z="-28" map="2" />
+		<pos x="788" y="1539" z="-28" map="2" />
+		<pos x="788" y="1541" z="-28" map="2" />
+		<pos x="788" y="1543" z="-28" map="2" />
+		<pos x="788" y="1545" z="-28" map="2" />
+		<pos x="788" y="1547" z="-28" map="2" />
+		<pos x="788" y="1551" z="-28" map="2" />
+		<pos x="788" y="1553" z="-28" map="2" />
+		<pos x="788" y="1555" z="-28" map="2" />
+		<pos x="788" y="1557" z="-28" map="2" />
+		<pos x="790" y="1545" z="-28" map="2" />
+		<pos x="790" y="1547" z="-28" map="2" />
+		<pos x="790" y="1551" z="-28" map="2" />
+		<pos x="790" y="1553" z="-28" map="2" />
+		<pos x="790" y="1555" z="-28" map="2" />
+		<pos x="790" y="1557" z="-28" map="2" />
+		<pos x="791" y="1551" z="-28" map="2" />
+		<pos x="844" y="1433" z="-28" map="2" />
+		<pos x="844" y="1438" z="-28" map="2" />
+		<pos x="845" y="1433" z="-28" map="2" />
+		<pos x="845" y="1438" z="-28" map="2" />
+		<pos x="846" y="1433" z="-28" map="2" />
+		<pos x="846" y="1438" z="-28" map="2" />
+		<pos x="847" y="1433" z="-28" map="2" />
+		<pos x="847" y="1438" z="-28" map="2" />
+		<pos x="848" y="1432" z="-28" map="2" />
+		<pos x="848" y="1433" z="-28" map="2" />
+		<pos x="848" y="1438" z="-28" map="2" />
+		<pos x="848" y="1439" z="-28" map="2" />
+	</item>
+</decoration>

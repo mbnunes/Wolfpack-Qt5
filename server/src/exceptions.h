@@ -41,14 +41,14 @@ class WPEXPORT wpException : public std::exception
 private:
 	QString mError;
 public:
-	wpException( const QString& sError ) throw() : mError( sError )
+	wpException( const QString& sError ) noexcept : mError( sError )
 	{
 	};
-	~wpException() throw()
+	~wpException() noexcept
 	{
 	};
 
-	const QString& error() const throw()
+	const QString& error() const noexcept
 	{
 		return mError;
 	}
@@ -57,7 +57,7 @@ public:
 class wpFileNotFoundException : public wpException
 {
 public:
-	wpFileNotFoundException( const QString& sError ) throw() : wpException( sError )
+	wpFileNotFoundException( const QString& sError ) noexcept : wpException( sError )
 	{
 	};
 };
@@ -70,15 +70,15 @@ class wpbad_ptr : public std::exception
 private:
 	QString m_Error;
 public:
-	wpbad_ptr( const QString& sError ) throw() : m_Error( sError )
+	wpbad_ptr( const QString& sError ) noexcept : m_Error( sError )
 	{
 	};
 
-	virtual const char* what() const throw()
+	virtual const char* what() const noexcept
 	{
 		return m_Error.toLatin1();
 	}
-	~wpbad_ptr() throw()
+	~wpbad_ptr() noexcept
 	{
 	} ;
 };

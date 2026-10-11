@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Spawn Region NPC Aliases -->
+<definitions>
+	<npc id="fisher_male" inherit="fisherman_male">
+		<name>fisherman</name>
+	</npc>
+	<npc id="red_solen_queen_quest" inherit="red_solen_queen">
+		<name>red solen queen</name>
+	</npc>
+	<npc id="black_solen_queen_quest" inherit="black_solen_queen">
+		<name>black solen queen</name>
+	</npc>
+</definitions>

@@ -1,0 +1,4 @@
+*.bin
+*.log
+logs/*.log
+accounts.db

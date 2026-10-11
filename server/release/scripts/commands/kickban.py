@@ -1,12 +1,12 @@
-"""
+r"""
 	\command kick
 	\description Kicks a connected client by target or account name.
 """
-"""
+r"""
 	\command ban
 	\description Kick-bans an account by target or account name.
 """
-"""
+r"""
 	\command unban
 	\description Unbans an account with the given account name.
 

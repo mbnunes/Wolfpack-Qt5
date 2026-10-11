@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- AnkhNorth -->
+	<item id="0x0004" hue="0x47e">
+		<pos x="975" y="508" z="-30" map="3" />
+	</item>
+	<!-- ShrineOfWisdomAddon -->
+	<item id="0x14c3">
+		<pos x="975" y="509" z="-30" map="3" />
+	</item>
+</decoration>

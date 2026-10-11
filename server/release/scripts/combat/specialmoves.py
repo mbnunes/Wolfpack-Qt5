@@ -806,8 +806,8 @@ class ShadowStrike(BaseAbility):
 
 		if attacker.war:
 			attacker.war = False
- 			if attacker.socket:
- 				attacker.socket.resendplayer()
+			if attacker.socket:
+				attacker.socket.resendplayer()
 		attacker.attacktarget = None		
 		attacker.removefromview()
 		attacker.hidden = True
@@ -864,3 +864,516 @@ class WhirlwindAttack(BaseAbility):
 				combat.aos.hit(attacker, target, weapon, wolfpack.time.currenttime())
 
 WhirlwindAttack()
+
+#
+# 14: RidingSwipe
+#
+class RidingSwipe(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 14)
+		self.mana = 25
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		# Dismount mounted opponent
+		if defender.itemonlayer(LAYER_MOUNT):
+			mount = defender.itemonlayer(LAYER_MOUNT)
+			wolfpack.utilities.tobackpack(mount, defender)
+			if defender.socket:
+				defender.socket.clilocmessage(1040023) # You have been unhorsed!
+			if attacker.socket:
+				attacker.socket.clilocmessage(1040024) # You unhorse your target!
+		attacker.soundeffect(0x524)
+		defender.effect(0x3728, 10, 15)
+
+RidingSwipe()
+
+#
+# 15: FrenziedWhirlwind
+#
+class FrenziedWhirlwind(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 15)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		attacker.effect(0x3728, 10, 15)
+		attacker.soundeffect(0x2a1)
+		# Hit area and apply bleed/whirlwind
+		center = attacker.pos
+		chariter = wolfpack.charregion(center.x - 2, center.y - 2, center.x + 2, center.y + 2, center.map)
+		char = chariter.first
+		weapon = attacker.getweapon()
+		while char:
+			if char != attacker and not char.dead and not char.invulnerable and not char.region.safe:
+				if attacker.canreach(char, 2):
+					combat.aos.hit(attacker, char, weapon, wolfpack.time.currenttime())
+			char = chariter.next
+
+FrenziedWhirlwind()
+
+#
+# 16: Block
+#
+class Block(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 16)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		attacker.settag('block_ability', 1)
+		attacker.dispel(attacker, True, 'BLOCK_ABILITY')
+		attacker.addtimer(6000, block_ability_expire, [], True, False, 'BLOCK_ABILITY')
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063345) # You block an attack!
+		if defender.socket:
+			defender.socket.clilocmessage(1063346) # Your attack was blocked!
+		attacker.effect(0x37C4, 1, 16)
+
+def block_ability_expire(char, args):
+	if char:
+		char.deltag('block_ability')
+		if char.socket:
+			char.socket.clilocmessage(1150286) # You no longer try to block the next attack.
+
+Block()
+
+#
+# 17: DefenseMastery
+#
+class DefenseMastery(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 17)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		attacker.settag('defense_mastery', 1)
+		attacker.dispel(attacker, True, 'DEFENSE_MASTERY')
+		attacker.addtimer(3000, defense_mastery_expire, [], True, False, 'DEFENSE_MASTERY')
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063353) # You perform a masterful defense!
+		attacker.effect(0x375A, 1, 17)
+
+def defense_mastery_expire(char, args):
+	if char:
+		char.deltag('defense_mastery')
+
+DefenseMastery()
+
+#
+# 18: NerveStrike
+#
+class NerveStrike(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 18)
+		self.mana = 30
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		attacker.soundeffect(0x204)
+		defender.effect(0x376A, 9, 32)
+		# Paralyze for 2 seconds
+		defender.disturb()
+		defender.frozen = True
+		defender.dispel(None, True, 'PARALYZE_EXPIRE')
+		defender.addtimer(2000, paralyze_expire, [], True, False, 'PARALYZE_EXPIRE')
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063356) # You cripple your target with a nerve strike!
+		if defender.socket:
+			defender.socket.clilocmessage(1063357) # Your attacker dealt a crippling nerve strike!
+
+NerveStrike()
+
+#
+# 19: TalonStrike
+#
+class TalonStrike(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 19)
+		self.mana = 20
+		self.damage = 1.2
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063358) # You deliver a talon strike!
+		if defender.socket:
+			defender.socket.clilocmessage(1063359) # Your attacker delivers a talon strike!
+		defender.effect(0x373A, 1, 17)
+		# Bleed DoT ticks
+		defender.settag('talon_ticks', 3)
+		defender.dispel(defender, True, 'TALON_STRIKE')
+		defender.addtimer(1000, talon_strike_tick, [attacker.serial], True, False, 'TALON_STRIKE')
+
+def talon_strike_tick(defender, args):
+	if not defender or not defender.hastag('talon_ticks'):
+		return
+	ticks = int(defender.gettag('talon_ticks')) - 1
+	if defender.hitpoints > 5:
+		defender.hitpoints = max(1, defender.hitpoints - 4)
+		defender.updatehealth()
+	if ticks > 0:
+		defender.settag('talon_ticks', ticks)
+		defender.addtimer(1000, talon_strike_tick, args, True, False, 'TALON_STRIKE')
+	else:
+		defender.deltag('talon_ticks')
+
+TalonStrike()
+
+#
+# 20: Feint
+#
+class Feint(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 20)
+		self.mana = 30
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063360) # You baffle your target with a feint!
+		if defender.socket:
+			defender.socket.clilocmessage(1063361) # You were deceived by an attacker's feint!
+		attacker.effect(0x3728, 1, 13)
+		attacker.soundeffect(0x525)
+		attacker.settag('feint_active', 1)
+		attacker.dispel(attacker, True, 'FEINT_ABILITY')
+		attacker.addtimer(6000, feint_expire, [], True, False, 'FEINT_ABILITY')
+
+def feint_expire(char, args):
+	if char:
+		char.deltag('feint_active')
+
+Feint()
+
+#
+# 21: DualWield
+#
+class DualWield(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 21)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		if attacker.socket:
+			attacker.socket.clilocmessage(1150281) # You begin trying to strike with both your weapons at once.
+		attacker.effect(0x3779, 1, 15)
+		attacker.soundeffect(0x524)
+		weapon = attacker.getweapon()
+		# Second rapid attack
+		combat.aos.hit(attacker, defender, weapon, wolfpack.time.currenttime())
+
+DualWield()
+
+#
+# 22: DoubleShot
+#
+class DoubleShot(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 22)
+		self.mana = 30
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		defender.effect(0x37B9, 1, 19)
+		weapon = attacker.getweapon()
+		# Rapid second projectile
+		combat.aos.hit(attacker, defender, weapon, wolfpack.time.currenttime())
+
+DoubleShot()
+
+#
+# 23: ArmorPierce
+#
+class ArmorPierce(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 23)
+		self.mana = 30
+		self.damage = 1.5
+		self.ignorephysical = True
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		if attacker.socket:
+			attacker.socket.clilocmessage(1063350) # You pierce your opponent's armor!
+		if defender.socket:
+			defender.socket.clilocmessage(1063351) # Your attacker pierced your armor!
+		defender.soundeffect(0x28E)
+		defender.effect(0x3728, 1, 26)
+
+ArmorPierce()
+
+#
+# 24: Bladeweave
+#
+class Bladeweave(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 24)
+		self.mana = 15
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		attacker.soundeffect(0x510)
+		defender.effect(0x37B9, 1, 5)
+
+Bladeweave()
+
+#
+# 25: ForceArrow
+#
+class ForceArrow(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 25)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		defender.effect(0x376A, 1, 15)
+		defender.soundeffect(0x213)
+
+ForceArrow()
+
+#
+# 26: LightningArrow
+#
+class LightningArrow(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 26)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		defender.effect(0x3818, 1, 11)
+		defender.soundeffect(0x51D)
+
+LightningArrow()
+
+#
+# 27: PsychicAttack
+#
+class PsychicAttack(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 27)
+		self.mana = 25
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		defender.effect(0x374A, 1, 15)
+		defender.soundeffect(0x1F8)
+
+PsychicAttack()
+
+#
+# 28: SerpentArrow
+#
+class SerpentArrow(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 28)
+		self.mana = 25
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		defender.effect(0x374A, 1, 15)
+		system.poison.poison(defender, 1)
+
+SerpentArrow()
+
+#
+# 29: ForceOfNature
+#
+class ForceOfNature(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 29)
+		self.mana = 35
+		self.damage = 1.35
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		attacker.effect(0x3709, 1, 20)
+		defender.soundeffect(0x208)
+
+ForceOfNature()
+
+#
+# 30: InfusedThrow
+#
+class InfusedThrow(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 30)
+		self.mana = 25
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		defender.effect(0x36B0, 1, 15)
+		defender.soundeffect(0x11D)
+
+InfusedThrow()
+
+#
+# 31: MysticArc
+#
+class MysticArc(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 31)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		defender.effect(0x3709, 1, 15)
+		defender.soundeffect(0x208)
+
+MysticArc()
+
+#
+# 32: Disrobe
+#
+class Disrobe(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 32)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		# Unequip defender's chest/tunic to backpack
+		chest = defender.itemonlayer(LAYER_CHEST)
+		if chest:
+			wolfpack.utilities.tobackpack(chest, defender)
+		defender.soundeffect(0x248)
+
+Disrobe()
+
+#
+# 33: ColdWind
+#
+class ColdWind(BaseAbility):
+	def __init__(self):
+		BaseAbility.__init__(self, 33)
+		self.mana = 20
+		self.primary = []
+		self.secondary = []
+
+	def hit(self, attacker, defender, damage):
+		if not self.checkuse(attacker):
+			return
+		self.use(attacker)
+		if defender.dead or defender.pos.map == 0xFF:
+			return
+		defender.effect(0x375A, 1, 15)
+		defender.soundeffect(0x10B)
+
+ColdWind()
+

@@ -7,7 +7,7 @@
 # Utility functions used in Python scripts                      #
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack.utilities
 	\description Contains several useful functions for scripts.
 """
@@ -23,7 +23,7 @@ import wolfpack.console
 
 payfrompackonly = wolfpack.settings.getbool( "General", "Pay From Pack Only", False, True )
 
-"""
+r"""
 	\function wolfpack.utilities.countGold
 	\param char The character whose gold shall be count.
 	\return The amount of gold as an integer.
@@ -35,7 +35,7 @@ def countGold( char, force=False ):
 	else:
 		return char.countresource( 0xeed ) + char.getbankbox().countresource( 0xeed )
 
-"""
+r"""
 	\function wolfpack.utilities.consumeGold
 	\param char The character whose gold shall be consumed.
 	\param amount The amount of gold that shall be consumed.
@@ -75,7 +75,7 @@ def consumeGold( char, amount ):
 
 	return True
 
-"""
+r"""
 	\function wolfpack.utilities.rolldice
 	\param dice This is either the number of dice you want to roll or a string representation of the number of dice, the sides
 	and the bonus. One of the following would be valid: <code>"2d8+4", "2d8", "1d4-1", "20d10"</code>.
@@ -106,7 +106,7 @@ def rolldice(dice, sides=6, bonus=0):
 	result += bonus
 	return result
 
-"""
+r"""
 	\function wolfpack.utilities.hex2dec
 	\param value The string you want to convert.
 	\param default Defaults to 0.
@@ -116,20 +116,19 @@ def rolldice(dice, sides=6, bonus=0):
 	standard hexadecimal notation (<code>0x40</code>).
 """
 def hex2dec(value, default = 0):
-	if type( value ) is IntType:
+	if isinstance( value, int ):
 		return value
 
 	try:
-		value = value.lower()
+		value = str(value).strip().lower()
 
-		if not value.startswith( "0x" ):
-			return int( value )
-		else:
-			return int( value.replace( "0x", "" ), 16 )
+		if value.startswith( "0x" ):
+			value = value[2:]
+		return int( value, 16 )
 	except:
 		return default
 
-"""
+r"""
 	\function wolfpack.utilities.evenorodd
 	\param value The integer value that should be checked.
 	\return A string which is either "even" or "odd".
@@ -141,7 +140,7 @@ def evenorodd( value ):
 	else:
 		return "odd"
 
-"""
+r"""
 	\function wolfpack.utilities.itemsmatch
 	\param item1 The first item.
 	\param item2 The second item.
@@ -152,7 +151,7 @@ def evenorodd( value ):
 def itemsmatch(a, b):
 	return a.canstack(b)
 
-"""
+r"""
 	\function wolfpack.utilities.tobackpack
 	\param item The item you want to move to the backpack of the character.
 	\param char The character in whose backpack you want to place the item.
@@ -164,7 +163,7 @@ def tobackpack(item, char):
 	backpack = char.getbackpack()
 	return tocontainer(item, backpack)
 
-"""
+r"""
 	\function wolfpack.utilities.tobankbox
 	\param item The item you want to move to the bank deposit box of the character.
 	\param char The character in whose bank box you want to place the item.
@@ -177,7 +176,7 @@ def tobankbox(item, char):
 	return tocontainer(item, backpack)
 
 
-"""
+r"""
 	\function wolfpack.utilities.booleantoggle
 	\param boolean
 	\return Boolean
@@ -195,7 +194,7 @@ def booleantoggle( boolean ):
 		boolean = "true"
 	return boolean
 
-"""
+r"""
 	\function wolfpack.utilities.tocontainer
 	\param item The item you want to move to the given container.
 	\param container The container you want to move the item into.
@@ -218,7 +217,7 @@ def tocontainer( item, container ):
 	container.additem( item, 1, 1, 0 )
 	return False # Not stacked
 
-"""
+r"""
 	\function wolfpack.utilities.cont2cont
 	\param container1 The source container.
 	\param container2 The target container.
@@ -229,12 +228,12 @@ def cont2cont( container1, container2 ):
 		if not tocontainer( item, container2 ):
 			item.update()
 
-"""
+r"""
 	\function wolfpack.utilities.isclothing
 	\param item
 	\return Boolean
 	\description Returns if the item is a known clothing.
-"""
+r"""
 def isclothing( item ):
 
 	clothes = [ 0x152e, 0x152f, 0x1530, 0x1531, 0x152e, 0x1537, 0x1538, 0x1539, \
@@ -252,12 +251,12 @@ def isclothing( item ):
 	else:
 		return False
 
-"""
+r"""
 	\function wolfpack.utilities.ishat
 	\param item
 	\return Boolean
 	\description Returns if the item is a known hat.
-"""
+r"""
 def ishat ( item ):
 
 	hats = [ 0x153f, 0x1540, 0x1543, 0x1544, 0x1545, 0x1546, 0x1547, 0x1548, \
@@ -269,12 +268,12 @@ def ishat ( item ):
 	else:
 		return False
 
-"""
+r"""
 	\function wolfpack.utilities.isarmor
 	\param item
 	\return Boolean
 	\description Returns if the item is a known armor.
-"""
+r"""
 def isarmor( item ):
 
 	armors = [ 0x13be, 0x13bf, 0x13c0, 0x13c3, 0x13c4, 0x13c5, 0x13c6, 0x13c7, 0x13cb, \
@@ -295,7 +294,7 @@ def isarmor( item ):
 	else:
 		return False
 
-"""
+r"""
 	\function wolfpack.utilities.isweapon
 	\param item
 	\return Boolean
@@ -310,12 +309,12 @@ def isweapon( item ):
 	else:
 		return False
 
-"""
+r"""
 	\function wolfpack.utilities.isshield
 	\param item
 	\return Boolean
 	\description Returns if the item is a known shield.
-"""
+r"""
 def isshield( item ):
 	shields = [ 0x1b72, 0x1b73, 0x1b74, 0x1b75, 0x1b76, 0x1b77, 0x1b78, \
 		0x1b79, 0x1b7a, 0x1b7b, 0x1bc3, 0x1bc4, 0x1bc5 ]
@@ -325,7 +324,7 @@ def isshield( item ):
 	else:
 		return False
 
-"""
+r"""
 	\function wolfpack.utilities.isspellbook
 	\param item
 	\return Boolean
@@ -339,7 +338,7 @@ def isspellbook( item ):
 	else:
 		return False
 
-"""
+r"""
 	\function wolfpack.utilities.isinstrument
 	\param item
 	\return Boolean
@@ -348,7 +347,7 @@ def isspellbook( item ):
 def isinstrument( item ):
 	return item.id in [ 0xE9C, 0xE9D, 0xE9E, 0xEB1, 0xEB2, 0xEB3, 0xEB4, 0x2805 ]
 
-"""
+r"""
 	\function wolfpack.utilities.isminingtool
 	\param item
 	\return Boolean
@@ -357,7 +356,7 @@ def isinstrument( item ):
 def isminingtool( item ):
 	return item.id in [ 0xf39, 0xf3a, 0xe85, 0xe86 ]
 
-"""
+r"""
 	\function wolfpack.utilities.isoregem
 	\param item
 	\return Boolean
@@ -366,7 +365,7 @@ def isminingtool( item ):
 def isoregem( item ):
 	return item.id == 0x1ea7 and item.hastag( 'resource' ) and item.gettag( 'resource' ) == 'ore'
 
-"""
+r"""
 	\function wolfpack.utilities.iswoodgem
 	\param item
 	\return Boolean
@@ -375,69 +374,73 @@ def isoregem( item ):
 def iswoodgem( item ):
 	return item.id == 0x1ea7 and item.hastag( 'resource' ) and item.gettag( 'resource' ) == 'wood'
 
-"""
+r"""
 	\function wolfpack.utilities.ismountainorcave
 	\param tile
 	\return Boolean
 	\description Returns if the tile is a mountain or cave tile.
-"""
+r"""
 def ismountainorcave( tile ):
-	return tile in range( 220, 232 ) + \
-			range( 236, 248 ) + \
-			range( 252, 264 ) + \
-			range( 268, 280 ) + \
-			range( 286, 298 ) + \
-			range( 321, 325 ) + \
-			range( 467, 475 ) + \
-			range( 476, 488 ) + \
-			range( 492, 496 ) + \
-			range( 543, 580 ) + \
-			range( 581, 614 ) + \
-			range( 1010, 1011 ) + \
-			range( 1339, 1360 ) + \
-			range( 1361, 1364 ) + \
-			range( 1741, 1758) + \
-			range( 1771, 1791 ) + \
-			range( 1801, 1825 ) + \
-			range( 1831, 1855 ) + \
-			range( 1861, 1885 ) + \
-			range( 1981, 2005 ) + \
-			range( 2028, 2034 ) + \
-			range( 2100, 2106 ) + \
-			range( 13121, 13178 ) + \
-			range( 13354, 13356 ) + \
-			range( 13361, 13371 ) + \
-			range( 13625, 13638 ) + \
-			range( 16233, 16245 )
+	return any( tile in r for r in (
+		range( 220, 232 ),
+		range( 236, 248 ),
+		range( 252, 264 ),
+		range( 268, 280 ),
+		range( 286, 298 ),
+		range( 321, 325 ),
+		range( 467, 475 ),
+		range( 476, 488 ),
+		range( 492, 496 ),
+		range( 543, 580 ),
+		range( 581, 614 ),
+		range( 1010, 1011 ),
+		range( 1339, 1360 ),
+		range( 1361, 1364 ),
+		range( 1741, 1758 ),
+		range( 1771, 1791 ),
+		range( 1801, 1825 ),
+		range( 1831, 1855 ),
+		range( 1861, 1885 ),
+		range( 1981, 2005 ),
+		range( 2028, 2034 ),
+		range( 2100, 2106 ),
+		range( 13121, 13178 ),
+		range( 13354, 13356 ),
+		range( 13361, 13371 ),
+		range( 13625, 13638 ),
+		range( 16233, 16245 ),
+	) )
 
-"""
+r"""
 	\function wolfpack.utilities.issand
 	\param tile
 	\return Boolean
 	\description Returns if the tile is a sand tile.
-"""
+r"""
 def issand( tile ):
-	return tile in range( 22, 63 ) + \
-			range( 68, 76 ) + \
-			range( 286, 302 ) + \
-			range( 402, 403 ) + \
-			range( 424, 428 ) + \
-			range( 441, 466 ) + \
-			range( 642, 646 ) + \
-			range( 650, 658 ) + \
-			range( 821, 829 ) + \
-			range( 833, 837 ) + \
-			range( 845, 853 ) + \
-			range( 857, 861 ) + \
-			range( 951, 959 ) + \
-			range( 967, 971 ) + \
-			range( 1447, 1459 ) + \
-			range( 1611, 1619 ) + \
-			range( 1623, 1627 ) + \
-			range( 1635, 1643 ) + \
-			range( 1647, 1651 )
+	return any( tile in r for r in (
+		range( 22, 63 ),
+		range( 68, 76 ),
+		range( 286, 302 ),
+		range( 402, 403 ),
+		range( 424, 428 ),
+		range( 441, 466 ),
+		range( 642, 646 ),
+		range( 650, 658 ),
+		range( 821, 829 ),
+		range( 833, 837 ),
+		range( 845, 853 ),
+		range( 857, 861 ),
+		range( 951, 959 ),
+		range( 967, 971 ),
+		range( 1447, 1459 ),
+		range( 1611, 1619 ),
+		range( 1623, 1627 ),
+		range( 1635, 1643 ),
+		range( 1647, 1651 ),
+	) )
 
-"""
+r"""
 	\function wolfpack.utilities.iscrystal
 	\param tile
 	\return Boolean
@@ -446,91 +449,97 @@ def issand( tile ):
 def iscrystal( tile ):
 	return tile in range( 8710, 8750 )
 
-"""
+r"""
 	\function wolfpack.utilities.istree
 	\param tile
 	\return Boolean
 	\description Returns if the tile is a tree object..
-"""
+r"""
 def istree( tile ):
-	return tile in range( 3220, 3223 ) + \
-			range( 3230, 3231 ) + \
-			range( 3242, 3243 ) + \
-			range( 3274, 3278 ) + \
-			range( 3230, 3231 ) + \
-			range( 3242, 3243 ) + \
-			range( 3274, 3275 ) + \
-			range( 3280, 3281 ) + \
-			range( 3283, 3284 ) + \
-			range( 3286, 3287 ) + \
-			range( 3288, 3289 ) + \
-			range( 3290, 3291 ) + \
-			range( 3293, 3294 ) + \
-			range( 3296, 3297 ) + \
-			range( 3299, 3300 ) + \
-			range( 3302, 3303 ) + \
-			range( 3320, 3321 ) + \
-			range( 3323, 3324 ) + \
-			range( 3326, 3327 ) + \
-			range( 3329, 3330 ) + \
-			range( 3393, 3397 ) + \
-			range( 3415, 3420 ) + \
-			range( 3438, 3443 ) + \
-			range( 3460, 3463 ) + \
-			range( 3476, 3477 ) + \
-			range( 3480, 3481 ) + \
-			range( 3484, 3485 ) + \
-			range( 3486, 3487 ) + \
-			range( 3488, 3489 ) + \
-			range( 3492, 3493 ) + \
-			range( 3496, 3497 ) + \
-			range( 4789, 4798 ) + \
-			range( 8778, 8782 )
+	return any( tile in r for r in (
+		range( 3220, 3223 ),
+		range( 3230, 3231 ),
+		range( 3242, 3243 ),
+		range( 3274, 3278 ),
+		range( 3230, 3231 ),
+		range( 3242, 3243 ),
+		range( 3274, 3275 ),
+		range( 3280, 3281 ),
+		range( 3283, 3284 ),
+		range( 3286, 3287 ),
+		range( 3288, 3289 ),
+		range( 3290, 3291 ),
+		range( 3293, 3294 ),
+		range( 3296, 3297 ),
+		range( 3299, 3300 ),
+		range( 3302, 3303 ),
+		range( 3320, 3321 ),
+		range( 3323, 3324 ),
+		range( 3326, 3327 ),
+		range( 3329, 3330 ),
+		range( 3393, 3397 ),
+		range( 3415, 3420 ),
+		range( 3438, 3443 ),
+		range( 3460, 3463 ),
+		range( 3476, 3477 ),
+		range( 3480, 3481 ),
+		range( 3484, 3485 ),
+		range( 3486, 3487 ),
+		range( 3488, 3489 ),
+		range( 3492, 3493 ),
+		range( 3496, 3497 ),
+		range( 4789, 4798 ),
+		range( 8778, 8782 ),
+	) )
 
-"""
+r"""
 	\function wolfpack.utilities.iswater
 	\param tile
 	\return Boolean
 	\description Returns if the tile is a water tile.
-"""
+r"""
 def iswater( tile ):
-	return tile in range( 168, 172 ) + \
-		range( 6038, 6067 ) + \
-		range( 13422, 13446 ) + \
-		range( 13456, 13484 ) + \
-		range( 13493, 13526 )
+	return any( tile in r for r in (
+		range( 168, 172 ),
+		range( 6038, 6067 ),
+		range( 13422, 13446 ),
+		range( 13456, 13484 ),
+		range( 13493, 13526 ),
+	) )
 
-"""
+r"""
 	\function wolfpack.utilities.isdirt
 	\param item
 	\return Boolean
 	\description Returns if the tile is a dirt tile..
-"""
+r"""
 def isdirt( tile ):
-	return tile in range( 113, 125 ) + \
-			range( 130, 168 ) + \
-			range( 220, 228 ) + \
-			range( 232, 236 ) + \
-			range( 321, 336 ) + \
-			range( 361, 377 ) + \
-			range( 476, 496 ) + \
-			range( 622, 634 ) + \
-			range( 638, 642 ) + \
-			range( 720, 857 ) + \
-			range( 871, 891  ) + \
-			range( 901, 937 ) + \
-			range( 1035, 1054 ) + \
-			range( 1351, 1366 ) + \
-			range( 1431, 1447 ) + \
-			range( 1571, 1594 ) + \
-			range( 1779, 1787 ) + \
-			range( 1911, 1937 ) + \
-			range( 2444, 2495 ) + \
-			range( 12788, 12796 ) + \
-			range( 13683, 13695 ) + \
-			range( 13742, 13746 )
+	return any( tile in r for r in (
+		range( 113, 125 ),
+		range( 130, 168 ),
+		range( 220, 228 ),
+		range( 232, 236 ),
+		range( 321, 336 ),
+		range( 361, 377 ),
+		range( 476, 496 ),
+		range( 622, 634 ),
+		range( 638, 642 ),
+		range( 720, 857 ),
+		range( 871, 891  ),
+		range( 901, 937 ),
+		range( 1035, 1054 ),
+		range( 1351, 1366 ),
+		range( 1431, 1447 ),
+		range( 1571, 1594 ),
+		range( 1779, 1787 ),
+		range( 1911, 1937 ),
+		range( 2444, 2495 ),
+		range( 12788, 12796 ),
+		range( 13683, 13695 ),
+		range( 13742, 13746 ),
+	) )
 
-"""
+r"""
 	\function wolfpack.utilities.checkresources
 	\param container The container you want to search in.
 	\param baseid The baseid of the resource you are looking for.
@@ -570,7 +579,7 @@ def consumeresourcesinternal(container, baseid, amount):
 
 	return amount
 
-"""
+r"""
 	\function wolfpack.utilities.consumeresources
 	\param container The container you want to remove from.
 	\param baseid The baseid of the items you want to remove.
@@ -584,7 +593,7 @@ def consumeresources(container, baseid, amount):
 
 	return False
 
-"""
+r"""
 	\function wolfpack.utilities.energydamage
 	\param target The target that is taking damage. Only characters are allowed.
 	\param source The source of the damage. May be None.
@@ -609,12 +618,12 @@ def consumeresources(container, baseid, amount):
 """
 def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0, noreflect=0, damagetype=DAMAGE_MAGICAL, ignorephysical = False):
 	if not target:
-		raise RuntimeError, "Invalid arguments for energydamage."
+		raise RuntimeError( "Invalid arguments for energydamage." )
 
 	amount = max(1, amount)
 
 	if physical + fire + cold + poison + energy == 0:
-		raise RuntimeError, "Invalid arguments for energydamage."
+		raise RuntimeError( "Invalid arguments for energydamage." )
 
 	damage = 0
 
@@ -660,7 +669,7 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 	return target.damage(damagetype, damage, source)
 
 
-"""
+r"""
 	\function wolfpack.utilities.createkeysecret
 	\description Returns a random key secret used to create locks, or change lock secrets
 """
@@ -671,7 +680,7 @@ def createkeysecret():
        	rkeyid += random.choice(parts)
     return rkeyid
 
-"""
+r"""
 	\function wolfpack.utilities.createlockandkey
 	\param container The container you want to make lockable.
 	\description Makes a current container lockable and creates a key in it.
@@ -687,7 +696,7 @@ def createlockandkey( container ):
 			container.addscript( 'lock' )
 	return
 
-"""
+r"""
 	\function wolfpack.utilities.throwobject
 	\param char
 	\param object
@@ -717,7 +726,7 @@ def throwobject(char, object, pos, sendobject=0, movable=1, speed=10, fixeddir=0
 	char.movingeffect(object.id, pos, fixeddir, explodes, speed, hue, rendermode)
 	return
 
-"""
+r"""
 	\function wolfpack.utilities.checkLoS
 	\param object1 First object, char/item
 	\param object2 Second object, char/item
@@ -771,7 +780,7 @@ def checkLoS( object1, object2, rangecheck=10 ):
 	else:
 		return False
 
-"""
+r"""
 	\function wolfpack.utilities.itemsincontainer
 	\param serial
 	\return list
@@ -932,7 +941,7 @@ def mayAreaBenefit(player, char, excludeself = False, includeinnocents = False):
 	# If we're neutral, it depends on the excludeneutrals flag
 	return includeinnocents
 
-"""
+r"""
 	\function wolfpack.utilities.isValidPosition
 	\param pos The wolfpack coord object to check.
 	\return Returns a boolean value if the position is valid.
@@ -986,7 +995,7 @@ def isValidPosition( pos ):
 
 	return True
 
-"""
+r"""
 	\function wolfpack.utilities.isMapAvailableTo
 	\param player The player that this should be checked for.
 	\param mapid The mapid that is being checked.
@@ -1026,7 +1035,7 @@ def isWall(x, y, z, map):
 #		return True
 #	return False
 
-"""
+r"""
 	\function wolfpack.utilities.staffmessage
 	\param char The char causing the message.
 	\param text Text which should be sended.
@@ -1043,7 +1052,7 @@ def staffmessage(char, text, mtype):
 		socket = wolfpack.sockets.next()
 	return
 
-"""
+r"""
 	\function wolfpack.utilities.hasHandFree
 	\param char The char you want to check to have a free hand.
 	\param item May be None. Not used so far.

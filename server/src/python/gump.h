@@ -94,21 +94,12 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 	Py_RETURN_FALSE;
 }
 
-static PyTypeObject wpGumpResponseType =
-{
-PyObject_HEAD_INIT( &PyType_Type )
-0,
-"wpGumpResponse",
-sizeof( wpGumpResponseType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpGumpResponse_getAttr,
-0,
-0,
-0,
-0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpGumpResponseType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.gumpresponse",
+	.tp_basicsize = sizeof( wpGumpResponse ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpGumpResponse_getAttr,
 };
 
 PyObject* PyGetGumpResponse( const gumpChoice_st& response )

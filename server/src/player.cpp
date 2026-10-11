@@ -162,7 +162,7 @@ void cPlayer::save( cBufferedWriter& writer, unsigned int version )
 	else
 	{
 		cBaseChar::save( writer, version );
-		writer.writeUtf8( account_ ? account_->login() : QString::null );
+		writer.writeUtf8( account_ ? account_->login() : QString() );
 		writer.writeInt( additionalFlags_ );
 		writer.writeByte( visualRange_ );
 		writer.writeUtf8( profile_ );
@@ -283,7 +283,7 @@ void cPlayer::resend( bool clean )
 			if ( socket != socket_ || clean )
 			{
 				cUOTxDrawChar drawChar;
-				drawChar.fromChar( this );
+				drawChar.fromChar( this, socket->hasNewMobileIncoming() );
 				drawChar.setHighlight( notoriety( socket->player() ) );
 				socket->send( &drawChar );
 				sendTooltip( socket );
@@ -384,6 +384,7 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 	{
 		// Send to all clients in range
 		QList<cUOSocket*> sockets = Network::instance()->sockets();
+		int sentCount = 0;
 		foreach ( cUOSocket* mSock, sockets )
 		{
 			if ( mSock->player() && ( mSock->player()->dist( this ) < speechrange ) )
@@ -396,8 +397,11 @@ void cPlayer::talk( const QString& message, UI16 color, quint8 type, bool autosp
 						textSpeech.setText( message );
 
 				mSock->send( &textSpeech );
+				sentCount++;
 			}
 		}
+		log( LOG_SPEECH, tr( "Broadcast speech '%1' to %2 of %3 online client(s)\n" )
+			.arg( message ).arg( sentCount ).arg( sockets.size() ) );
 	}
 }
 
@@ -921,7 +925,41 @@ bool cPlayer::inWorld()
 
 void cPlayer::giveNewbieItems( quint8 skill )
 {
-	const cElement* startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString( "default" ) : Skills::instance()->getSkillDef( skill ).toLower() );
+	const cElement* startItems = 0;
+
+	if ( skill == 0xFF )
+	{
+		if ( isGargoyle() )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, "default_gargoyle" );
+		}
+		else if ( isElf() )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, "default_elf" );
+		}
+
+		if ( !startItems )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, "default" );
+		}
+	}
+	else
+	{
+		QString skillDef = Skills::instance()->getSkillDef( skill ).toLower();
+		if ( isGargoyle() )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, skillDef + "_gargoyle" );
+		}
+		else if ( isElf() )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, skillDef + "_elf" );
+		}
+
+		if ( !startItems )
+		{
+			startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, skillDef );
+		}
+	}
 
 	// No Items defined
 	if ( !startItems )
@@ -952,15 +990,15 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 		{
 			P_ITEM pItem = 0;
 
-			if ( node->hasAttribute( "id" ) && node->getAttribute( "id" ) != QString::null )
+			if ( node->hasAttribute( "id" ) && node->getAttribute( "id" ) != QString() )
 			{
 				pItem = cItem::createFromScript( node->getAttribute( "id" ) );
 			}
-			else if ( node->hasAttribute( "list" ) && node->getAttribute( "list" ) != QString::null )
+			else if ( node->hasAttribute( "list" ) && node->getAttribute( "list" ) != QString() )
 			{
 				pItem = cItem::createFromList( node->getAttribute( "list" ) );
 			}
-			else if ( node->hasAttribute( "randomlist" ) && node->getAttribute( "randomlist" ) != QString::null )
+			else if ( node->hasAttribute( "randomlist" ) && node->getAttribute( "randomlist" ) != QString() )
 			{
 				QStringList RandValues = node->getAttribute( "randomlist" ).split( "," );
 				pItem = cItem::createFromList( RandValues[RandomNum( 0, RandValues.size() - 1 )] );

@@ -56,26 +56,14 @@ static PyObject* wpRegion_str( wpRegion* self )
 /*!
 	The typedef for Wolfpack Python items
 */
-static PyTypeObject wpRegionType =
-{
-PyObject_HEAD_INIT( NULL )
-0,
-"wpregion",
-sizeof( wpRegionType ),
-0,
-wpDealloc,
-0,
-( getattrfunc ) wpRegion_getAttr,
-( setattrfunc ) wpRegion_setAttr,
-0,
-0,
-0,
-0,
-0,
-0,
-0, // Call
-( reprfunc ) wpRegion_str,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+static PyTypeObject wpRegionType = {
+	PyVarObject_HEAD_INIT( NULL, 0 )
+	.tp_name = "wolfpack.region",
+	.tp_basicsize = sizeof( wpRegion ),
+	.tp_dealloc = wpDealloc,
+	.tp_getattr = ( getattrfunc ) wpRegion_getAttr,
+	.tp_setattr = ( setattrfunc ) wpRegion_setAttr,
+	.tp_str = ( reprfunc ) wpRegion_str,
 };
 
 /*

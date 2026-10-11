@@ -41,7 +41,7 @@
 #	undef _POSIX_C_SOURCE
 #endif
 
-//#define DEBUG_PYTHON
+#pragma push_macro("slots")
 #undef slots
 #if defined(_DEBUG) && !defined(DEBUG_PYTHON)
 #	undef _DEBUG
@@ -50,7 +50,7 @@
 #else
 #	include <Python.h>
 #endif
-#define slots
+#pragma pop_macro("slots")
 
 #if !defined(Py_RETURN_NONE) // New in Python 2.4
 inline PyObject* doPy_RETURN_NONE()
@@ -100,6 +100,6 @@ public:
 typedef Singleton<cPythonEngine> PythonEngine;
 
 void registerCleanupHandler( fnCleanupHandler );
-void reportPythonError( const QString& moduleName = QString::null );
+void reportPythonError( const QString& moduleName = QString() );
 
 #endif // __PYTHON_ENGINE_H__

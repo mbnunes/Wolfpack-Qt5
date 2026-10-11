@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<!-- AnkhNorth -->
+	<item id="0x0004">
+		<pos x="634" y="816" z="0" map="0" />
+	</item>
+	<!-- MyStory -->
+	<item id="0x0fef">
+		<pos x="337" y="875" z="0" map="0" />
+	</item>
+	<!-- TaleOfThreeTribes -->
+	<item id="0x0fef">
+		<pos x="472" y="840" z="0" map="0" />
+	</item>
+	<!-- TamingDragons -->
+	<item id="0x0fef">
+		<pos x="624" y="836" z="0" map="0" />
+	</item>
+	<!-- RegardingLlamas -->
+	<item id="0x0fef">
+		<pos x="624" y="842" z="0" map="0" />
+	</item>
+	<!-- QuestOfVirtues -->
+	<item id="0x0fef">
+		<pos x="627" y="841" z="0" map="0" />
+	</item>
+	<!-- DeceitDungeonOfHorror -->
+	<item id="0x0fef">
+		<pos x="641" y="852" z="0" map="0" />
+	</item>
+	<!-- WildGirlOfTheForest -->
+	<item id="0x0ff0">
+		<pos x="337" y="873" z="0" map="0" />
+	</item>
+	<!-- VirtueBook -->
+	<item id="0x0ff0">
+		<pos x="337" y="875" z="20" map="0" />
+	</item>
+	<!-- LifeOfATravellingMinstrel -->
+	<item id="0x0ff0">
+		<pos x="338" y="884" z="20" map="0" />
+	</item>
+	<!-- RedBook -->
+	<item id="0x0ff1">
+		<pos x="336" y="877" z="6" map="0" />
+		<pos x="337" y="883" z="20" map="0" />
+		<pos x="338" y="873" z="20" map="0" />
+		<pos x="476" y="840" z="0" map="0" />
+		<pos x="625" y="852" z="0" map="0" />
+		<pos x="628" y="836" z="0" map="0" />
+		<pos x="640" y="819" z="26" map="0" />
+		<pos x="641" y="849" z="0" map="0" />
+		<pos x="643" y="850" z="6" map="0" />
+	</item>
+	<!-- BlueBook -->
+	<item id="0x0ff2">
+		<pos x="337" y="873" z="20" map="0" />
+		<pos x="339" y="883" z="0" map="0" />
+		<pos x="625" y="832" z="0" map="0" />
+		<pos x="628" y="848" z="0" map="0" />
+		<pos x="630" y="819" z="26" map="0" />
+	</item>
+	<!-- MajorTradeAssociation -->
+	<item id="0x0ff4">
+		<pos x="336" y="877" z="26" map="0" />
+	</item>
+	<!-- ChildrenTalesVol2 -->
+	<item id="0x0ff4">
+		<pos x="338" y="873" z="0" map="0" />
+	</item>
+	<!-- TheFight -->
+	<item id="0x0ff4">
+		<pos x="473" y="842" z="0" map="0" />
+	</item>
+	<!-- EthicalHedonism -->
+	<item id="0x0ff4">
+		<pos x="562" y="810" z="4" map="0" />
+	</item>
+	<!-- GrammarOfOrcish -->
+	<item id="0x0ff4">
+		<pos x="631" y="819" z="26" map="0" />
+	</item>
+</decoration>

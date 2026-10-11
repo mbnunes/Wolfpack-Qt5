@@ -24,12 +24,12 @@ def addscript_response( player, arguments, target ):
 	player.socket.sysmessage( tr('You add the script to your target.') )
 	return True
 
-"""
+r"""
 	\command addscript
 	\description Attach a script to an object.
 	\usage - <code>addscript [script]</code>
 	Script is the id of the script you want to attach.
-"""
+r"""
 def commandAddscript( socket, command, arguments ):
 	if len(arguments) == 0:
 		socket.sysmessage( tr('Usage: addscript <identifier>') )
@@ -72,7 +72,7 @@ def removescript_response( player, arguments, target ):
 		player.socket.sysmessage( tr('Your target does not have the given script.') )
 		return False
 
-"""
+r"""
 	\command removescript
 	\description Remove a script from an object.
 	\usage - <code>removescript [script]</code>
@@ -118,7 +118,7 @@ def hasscript_response( player, arguments, target ):
 		player.socket.sysmessage( tr('False') )
 		return False
 
-"""
+r"""
 	\command hasscript
 	\description Check if an object has a script.
 	\usage - <code>hasscript [script]</code>
