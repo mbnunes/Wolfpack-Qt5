@@ -191,56 +191,71 @@ void cMultiCache::load()
 
 	if ( indexFile.open( QIODevice::ReadOnly ) && multiFile.open( QIODevice::ReadOnly ) )
 	{
-		QDataStream indexStream( &indexFile );
-		indexStream.setByteOrder( QDataStream::LittleEndian );
+		QByteArray indexBytes = indexFile.readAll();
+		QByteArray multiBytes = multiFile.readAll();
+		indexFile.close();
+		multiFile.close();
 
-		struct
-		{
-			qint32 start;
-			qint32 length;
-			qint32 unknown;
-		} indexData;
-		ushort currentID = 0;
-		while ( !indexStream.atEnd() )
-		{
-			indexFile.seek( currentID * 12 );
-			indexStream >> indexData.start;
-			indexStream >> indexData.length;
-			indexStream >> indexData.unknown;
+		int totalRecords = indexBytes.size() / 12;
+		const char* idxPtr = indexBytes.constData();
+		const char* mulPtr = multiBytes.constData();
+		int mulSize = multiBytes.size();
 
-			if ( indexData.start == -1 ) // empty record?
+		for ( int currentID = 0; currentID < totalRecords; ++currentID )
+		{
+			int offset = currentID * 12;
+			qint32 start = *reinterpret_cast<const qint32*>( idxPtr + offset );
+			qint32 length = *reinterpret_cast<const qint32*>( idxPtr + offset + 4 );
+
+			if ( start <= 0 || length <= 0 || ( start + length ) > mulSize )
 			{
-				++currentID;
 				continue;
 			}
 
+			bool is16Byte = ( length % 16 == 0 );
+			int recordSize = is16Byte ? 16 : 12;
+			int count = length / recordSize;
+
 			QList<multiItem_st> items;
+			items.reserve( count );
 
-			multiFile.seek( indexData.start );
-			QDataStream multiStream( &multiFile );
-			multiStream.setByteOrder( QDataStream::LittleEndian );
-
-			for ( int i = 0; i < indexData.length / 12; ++i )
+			const char* recPtr = mulPtr + start;
+			for ( int i = 0; i < count; ++i )
 			{
-				multiItem_st item;
-				multiStream >> item.tile;
-				multiStream >> item.x;
-				multiStream >> item.y;
-				multiStream >> item.z;
-				quint8 empty;
-				multiStream >> empty; // ????
-				quint32 isVisible = 0;
-				multiStream >> isVisible;
-				item.visible = isVisible > 0 ? true : false;
+				const char* itemPtr = recPtr + ( i * recordSize );
+				qint16 tileVal = *reinterpret_cast<const qint16*>( itemPtr );
+				qint16 xVal = *reinterpret_cast<const qint16*>( itemPtr + 2 );
+				qint16 yVal = *reinterpret_cast<const qint16*>( itemPtr + 4 );
+				qint16 zVal = *reinterpret_cast<const qint16*>( itemPtr + 6 );
 
-				if ( item.visible ) // we ignore invisible items (?)
+				multiItem_st item;
+				item.tile = static_cast<quint16>( tileVal );
+				item.x = xVal;
+				item.y = yVal;
+				item.z = static_cast<qint8>( zVal );
+
+				if ( is16Byte )
+				{
+					quint16 flags = *reinterpret_cast<const quint16*>( itemPtr + 8 );
+					item.visible = ( flags != 0 || tileVal != 1 );
+				}
+				else
+				{
+					quint32 isVisible = *reinterpret_cast<const quint32*>( itemPtr + 8 );
+					item.visible = isVisible > 0;
+				}
+
+				if ( item.visible && item.tile != 1 )
+				{
 					items.push_back( item );
+				}
 			}
+
 			MultiDefinition* multi = new MultiDefinition;
 			multi->setItems( items );
-
-			multis.insert( currentID++, multi );
+			multis.insert( static_cast<ushort>( currentID ), multi );
 		}
+		Console::instance()->log( LOG_NOTICE, tr( "Loaded %1 multis from multi.idx/multi.mul.\n" ).arg( multis.size() ) );
 	}
 	else
 	{

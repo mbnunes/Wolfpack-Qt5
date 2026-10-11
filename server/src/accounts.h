@@ -166,6 +166,7 @@ class cAccounts : public cComponent
 {
 private:
 	QMap<QString, cAccount*> accounts;
+	QStringList deletedAccounts_;
 	typedef QMap<QString, cAccount*>::iterator iterator;
 public:
 	enum enErrorCode
@@ -188,6 +189,7 @@ public:
 	void remove( cAccount* record );
 
 	void save();
+	void saveAccount( cAccount* record );
 	void load();
 	void unload();
 	void reload();

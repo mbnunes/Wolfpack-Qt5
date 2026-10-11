@@ -24,8 +24,8 @@
     <option key="Auto Create" value="false"/>
     <option key="Auto Create ACL" value="player"/>
 
-    <!--  If active, will convert older plain text passwords into MD5 hash  -->
-    <option key="Automatically Hash Loaded Passwords" value="false"/>
+    <!--  If active, will convert older plain text passwords into SHA-512 hashes on load  -->
+    <option key="Automatically Hash Loaded Passwords" value="true"/>
 
     <!--  Possible values are: sqlite, mysql, oci for oracle, odbc, psql for PostgreSQL, tds for Sybase Adaptative Server, db2 for IBM DB2 (v7.1 or higher), sqlite2 for Sqlite version 2.x and ibase for Borland Interbase
     Avaliable drivers depends on your Qt Instalation thought  -->
@@ -40,8 +40,8 @@
     <!--  Should not be more than 6, due to client restrictions  -->
     <option key="Maximum Number of Characters" value="7"/>
 
-    <!--  This will store hashed passwords, increasing password security.  -->
-    <option key="Use MD5 Hashed Passwords" value="false"/>
+    <!--  Stores passwords hashed with SHA-512 (true by default). Legacy MD5 and plaintext passwords are automatically migrated to SHA-512 on login.  -->
+    <option key="Use Password Hashing" value="true"/>
   </group>
 
   <!--

@@ -3148,47 +3148,111 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 
 void cUOSocket::handleCHBackup( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHBackup, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHRestore( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHRestore, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHCommit( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHCommit, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHDelete( cUORxCHDelete* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player || !packet ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyDict_SetItemString( dict, "elementId", PyLong_FromUnsignedLong( packet->elementId() ) );
+	PyDict_SetItemString( dict, "x", PyLong_FromLong( (int)packet->x() ) );
+	PyDict_SetItemString( dict, "y", PyLong_FromLong( (int)packet->y() ) );
+	PyDict_SetItemString( dict, "z", PyLong_FromLong( (int)packet->z() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHDelete, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHAddElement( cUORxCHAddElement* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player || !packet ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyDict_SetItemString( dict, "elementId", PyLong_FromUnsignedLong( packet->elementId() ) );
+	PyDict_SetItemString( dict, "x", PyLong_FromLong( (int)packet->x() ) );
+	PyDict_SetItemString( dict, "y", PyLong_FromLong( (int)packet->y() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHAddElement, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHClose( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHClose, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHStairs( cUORxCHStairs* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player || !packet ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyDict_SetItemString( dict, "multiId", PyLong_FromUnsignedLong( packet->multiId() ) );
+	PyDict_SetItemString( dict, "x", PyLong_FromLong( (int)packet->x() ) );
+	PyDict_SetItemString( dict, "y", PyLong_FromLong( (int)packet->y() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHStairs, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHSync( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHSync, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHClear( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHClear, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCHLevel( cUORxCHLevel* packet )
@@ -3198,7 +3262,13 @@ void cUOSocket::handleCHLevel( cUORxCHLevel* packet )
 
 void cUOSocket::handleCHRevert( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED( packet );
+	if ( !_player ) return;
+	PyObject* dict = PyDict_New();
+	PyDict_SetItemString( dict, "serial", PyLong_FromUnsignedLong( packet->serial() ) );
+	PyObject* args = Py_BuildValue( "OiO", _player->getPyObject(), (int)cUORxAosMultiPurpose::CHRevert, dict );
+	_player->callEventHandler( EVENT_CHCOMMAND, args );
+	Py_DECREF( dict );
+	Py_DECREF( args );
 }
 
 void cUOSocket::handleCastSpell( cUORxCastSpell* packet )
@@ -3261,11 +3331,19 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection* packet )
 }
 void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest* packet )
 {
-	Q_UNUSED( packet );
-	/*	SERIAL serial = packet->serial();
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( serial ) );
-		pMulti->sendCH( this );*/
-	return;
+	if ( !_player || !packet ) return;
+	SERIAL serial = packet->serial();
+	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( serial ) );
+	log( tr( "CustomHouseRequest (0xBF 0x1E) from '%1' for serial 0x%2 (found multi=%3).\n" )
+		.arg( _player->name() )
+		.arg( QString::number( serial, 16 ) )
+		.arg( pMulti ? "yes" : "no" ) );
+	if ( pMulti )
+	{
+		PyObject* args = Py_BuildValue( "OO", _player->getPyObject(), pMulti->getPyObject() );
+		_player->callEventHandler( EVENT_CHQUERY, args );
+		Py_DECREF( args );
+	}
 }
 
 void cUOSocket::handleToolTip( cUORxRequestToolTip* packet )

@@ -95,6 +95,7 @@ static void stopPython()
 	m.lock();
 	QWaitCondition waitCondition;
 	waitCondition.wait( &m, 500 );
+	m.unlock();
 	Py_END_ALLOW_THREADS
 
 	// We have to be sure that all memory

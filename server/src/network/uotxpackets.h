@@ -1557,9 +1557,14 @@ public:
 class cUOTxPlace : public cUOPacket
 {
 public:
-	cUOTxPlace() : cUOPacket( 0x99, 26 )
+	cUOTxPlace() : cUOPacket( 0x99, 30 )
 	{
 		( *this )[1] = 0x01;
+	}
+	// Hue (dword, UO:HS+ clients) at offset 26
+	void setHue( unsigned int data )
+	{
+		setInt( 26, data );
 	}
 	void setTargSerial( unsigned int data )
 	{

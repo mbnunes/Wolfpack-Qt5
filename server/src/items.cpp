@@ -1194,6 +1194,19 @@ void cItem::update( cUOSocket* singlesocket )
 						socket->send( &packetCopy );
 					}
 
+					if ( isMulti() )
+					{
+						unsigned int revision = hasTag( "ch_revision" ) ? getTag( "ch_revision" ).toInt() : 1;
+						ushort multiModel = id_ & 0x3FFF;
+						if ( hasTag( "ch_revision" ) || ( multiModel >= 0x13EC && multiModel <= 0x147F ) )
+						{
+							cUOTxAskCustomHouse ask;
+							ask.setSerial( serial_ );
+							ask.setId( revision );
+							socket->send( &ask );
+						}
+					}
+
 					sendTooltip( socket );
 				}
 			}
@@ -1263,6 +1276,19 @@ void cItem::update( cUOSocket* singlesocket )
 				}
 				sendItem.setFlags( flags );
 				singlesocket->send( &sendItem );
+			}
+
+			if ( isMulti() )
+			{
+				unsigned int revision = hasTag( "ch_revision" ) ? getTag( "ch_revision" ).toInt() : 1;
+				ushort multiModel = id_ & 0x3FFF;
+				if ( hasTag( "ch_revision" ) || ( multiModel >= 0x13EC && multiModel <= 0x147F ) )
+				{
+					cUOTxAskCustomHouse ask;
+					ask.setSerial( serial_ );
+					ask.setId( revision );
+					singlesocket->send( &ask );
+				}
 			}
 
 			sendTooltip( singlesocket );

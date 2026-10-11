@@ -181,6 +181,8 @@ public:
 	cTimers();
 	~cTimers();
 
+	void clear();
+
 	std::vector<cTimer*> teffects;
 
 	void load();

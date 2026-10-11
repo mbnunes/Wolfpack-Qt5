@@ -110,6 +110,15 @@ void cConfig::readData()
 {
 	Preferences::readData();
 
+	// Persistency (Worldsave Database)
+	databasePassword_ = getString( "Database", "Database Password", "", true );
+	databaseUsername_ = getString( "Database", "Database Username", "", true );
+	databaseHost_ = getString( "Database", "Database Host", "", true );
+	databaseDriver_ = getString( "Database", "Database Driver", "binary", true );
+	databaseName_ = getString( "Database", "Database Name", "world.db", true );
+	databasePort_ = getNumber("Database", "Database Port", 3306, true);
+	useDatabaseTransaction_ = getBool("Database", "Use Transactions", false, true );
+
 	// Account Group
 	autoAccountCreate_ = getBool( "Accounts", "Auto Create", false, true );
 	autoAccountACL_ = getString( "Accounts", "Auto Create ACL", "player", true );
@@ -118,30 +127,49 @@ void cConfig::readData()
 	accountsName_ = getString( "Accounts", "Database Name", "accounts.db", true );
 	accountsUsername_ = getString( "Accounts", "Database Username", "", true );
 	accountsPassword_ = getString( "Accounts", "Database Password", "", true );
-	accountsPort_ = getNumber("Accounts", "Database Port", 3306, true);	
-	hashAccountPasswords_ = getBool( "Accounts", "Use MD5 Hashed Passwords", false, true );
-	convertUnhashedPasswords_ = getBool( "Accounts", "Automatically Hash Loaded Passwords", false, true );
+	// Password security: SHA-512 hashing enabled by default
+	if ( containKey( "Accounts", "Use Password Hashing" ) )
+	{
+		hashAccountPasswords_ = getBool( "Accounts", "Use Password Hashing", true, true );
+	}
+	else if ( containKey( "Accounts", "Use SHA512 Passwords" ) )
+	{
+		hashAccountPasswords_ = getBool( "Accounts", "Use SHA512 Passwords", true, true );
+	}
+	else if ( containKey( "Accounts", "Use MD5 Hashed Passwords" ) )
+	{
+		hashAccountPasswords_ = getBool( "Accounts", "Use MD5 Hashed Passwords", true, true );
+	}
+	else
+	{
+		hashAccountPasswords_ = getBool( "Accounts", "Use Password Hashing", true, true );
+	}
+	convertUnhashedPasswords_ = getBool( "Accounts", "Automatically Hash Loaded Passwords", true, true );
 	//Old Clients Version - maxCharsPerAccount_ = wpMin<unsigned char>( 6, getNumber( "Accounts", "Maximum Number of Characters", 7, true ) );
 	maxCharsPerAccount_ = getNumber( "Accounts", "Maximum Number of Characters", 7, true );
 	enableIndivNumberSlots_ = getBool( "Accounts", "Enable Individual Number for Characters Slots", false, true );
 
-	// AI
-	checkAITime_ = getDouble( "AI", "Default AI Check Time", 0.5, true );
-	checkAINPCsTime_ = getDouble( "AI", "Default AI NPCs Check Time", 0.0, true );
-	checkAIITEMsTime_ = getDouble( "AI", "Default AI Items Check Time", 0.0, true );
-	animalWildFleeRange_ = getNumber( "AI", "Wild animals flee range", 8, true );
-	guardDispelTime_ = getNumber( "AI", "Guard dispel time (sec)", 25, true );
-	aiNPCsCheckRange_ = getNumber( "AI", "Default AI NPCs Check Range", 12, true );
-	aiITEMsCheckRange_ = getNumber( "AI", "Default AI Items Check Range", 9, true );
-
-	// Persistency
-	databasePassword_ = getString( "Database", "Database Password", "", true );
-	databaseUsername_ = getString( "Database", "Database Username", "", true );
-	databaseHost_ = getString( "Database", "Database Host", "", true );
-	databaseDriver_ = getString( "Database", "Database Driver", "binary", true );
-	databaseName_ = getString( "Database", "Database Name", "world.db", true );
-	databasePort_ = getNumber("Database", "Database Port", 3306, true);
-	useDatabaseTransaction_ = getBool("Database", "Use Transactions", false, true );
+	// Unificação das contas com o banco de dados do mundo (Fase 3):
+	// Se Database Driver for "same" ou "world", herda as credenciais do Database (caso não seja binary).
+	if ( accountsDriver_.compare( "same", Qt::CaseInsensitive ) == 0 ||
+	     accountsDriver_.compare( "world", Qt::CaseInsensitive ) == 0 ||
+	     accountsName_.compare( "same", Qt::CaseInsensitive ) == 0 )
+	{
+		if ( databaseDriver_.compare( "binary", Qt::CaseInsensitive ) != 0 )
+		{
+			accountsDriver_ = databaseDriver_;
+			accountsHost_ = databaseHost_;
+			accountsName_ = databaseName_;
+			accountsUsername_ = databaseUsername_;
+			accountsPassword_ = databasePassword_;
+			accountsPort_ = databasePort_;
+		}
+		else
+		{
+			accountsDriver_ = "sqlite";
+			accountsName_ = "accounts.db";
+		}
+	}
 
 	// Repsys
 	murderdecay_ = getNumber( "Repsys", "Murder Decay", 28800, true );
@@ -356,15 +384,15 @@ std::vector<StartLocation_st>& cConfig::startLocation()
 
 void cConfig::setDefaultStartLocation()
 {
-	setString( "StartLocation", "Location 1", "Yew=567,978,0,1,1075072");
-	setString( "StartLocation", "Location 2", "Minoc=2477,407,15,1,1075073"  );
-	setString( "StartLocation", "Location 3", "Britain=1496,1629,10,1,1075074" );
-	setString( "StartLocation", "Location 4", "Moonglow=4404,1169,0,1,1075075" );
-	setString( "StartLocation", "Location 5", "Trinsic=1844,2745,0,1,1075076" );
-	setString( "StartLocation", "Location 6", "New Haven=3667,2625,0,1,1150168" );
-	setString( "StartLocation", "Location 7", "Jhelom=1378,3817,0,1,1075078" );
-	setString( "StartLocation", "Location 8", "Skara Brae=594,2227,0,1,1075079" );
-	setString( "StartLocation", "Location 9", "Vesper=2771,977,0,1,1075080" );
+	setString( "StartLocation", "Location 1", "New Haven=3503,2574,14,1,1150168" );
+	setString( "StartLocation", "Location 2", "Yew=633,858,0,1,1075072" );
+	setString( "StartLocation", "Location 3", "Minoc=2476,413,15,1,1075073" );
+	setString( "StartLocation", "Location 4", "Britain=1602,1591,20,1,1075074" );
+	setString( "StartLocation", "Location 5", "Moonglow=4408,1168,0,1,1075075" );
+	setString( "StartLocation", "Location 6", "Trinsic=1845,2745,0,1,1075076" );
+	setString( "StartLocation", "Location 7", "Jhelom=1374,3826,0,1,1075078" );
+	setString( "StartLocation", "Location 8", "Skara Brae=618,2234,0,1,1075079" );
+	setString( "StartLocation", "Location 9", "Vesper=2771,976,0,1,1075080" );
 	flush(); // save
 }
 

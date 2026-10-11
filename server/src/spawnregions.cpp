@@ -42,6 +42,8 @@
 #include "inlines.h"
 #include "scriptmanager.h"
 #include "python/pyspawnregion.h"
+#include "territories.h"
+#include <QSet>
 #include <math.h>
 
 using namespace std;
@@ -645,6 +647,38 @@ void cSpawnRegion::spawnSingleNPC()
 		{
 			Console::instance()->log( LOG_ERROR, tr( "Npc tag for spawnregion '%1' has invalid id attribute '%2'.\n" ).arg( id_ ).arg( id ) );
 			return;
+		}
+
+		// Guarded City Protection: Never spawn hostile monsters in guarded territories
+		cTerritory* terr = Territories::instance()->region( pos.x, pos.y, pos.map );
+		if ( terr && terr->isGuarded() )
+		{
+			bool isMonster = false;
+			QString ai = parent->findChild( "ai" ) ? parent->findChild( "ai" )->value() : "";
+			QString inherit = parent->getAttribute( "inherit" );
+			if ( ai.contains( "Monster", Qt::CaseInsensitive ) || ai.contains( "Aggressive", Qt::CaseInsensitive ) ||
+			     inherit.contains( "monster", Qt::CaseInsensitive ) )
+			{
+				isMonster = true;
+			}
+			else
+			{
+				static const QSet<QString> monsterIds = {
+					"orc", "orc_mage", "orc_captain", "orcish_lord", "orc_chopper", "orc_scout", "orc_bomber", "orc_brute",
+					"troll", "ogre", "ettin", "cyclops", "titan", "dragon", "drake", "daemon", "gargoyle", "gazer",
+					"skeleton", "zombie", "ghoul", "spectre", "wraith", "shade", "lich", "lich_lord", "mummy",
+					"harpy", "lizardman", "ratman", "corpser", "reaper", "earth_elemental", "fire_elemental", "water_elemental", "air_elemental"
+				};
+				if ( monsterIds.contains( id.toLower() ) )
+				{
+					isMonster = true;
+				}
+			}
+
+			if ( isMonster )
+			{
+				return;
+			}
 		}
 
 		// Create the NPC

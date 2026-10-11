@@ -34,7 +34,36 @@ Esta versão representa a modernização completa do projeto a partir de sua bas
   - Modernização das definições de `PyTypeObject` com slots de comparação rica (`tp_richcompare`) e métodos dinâmicos (`tp_methods`).
   - Registro unificado de submódulos C++ (`_wolfpack.console`, `_wolfpack.time`, `_wolfpack.settings`, `_wolfpack.database`, `_wolfpack.sockets`, `_wolfpack.accounts`).
   - Compatibilidade transparente para construções clássicas de scripts (`unicode = str`, `xrange = range`, comparadores, tipos de dados).
+- **Modernização e Unificação de Banco de Dados (SQLite 3 & MariaDB / MySQL)**:
+  - **SQLite 3.x Moderno**: PRAGMAs de alta performance ativos (`journal_mode=WAL`, `synchronous=NORMAL`, `foreign_keys=ON`, `busy_timeout=5000`, `temp_store=MEMORY`).
+  - **MariaDB 11.8+ / MySQL 8.x**: DDL integralmente modernizado para `ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`, eliminando erros de sintaxe antiga (`TYPE=MYISAM`) e prevenindo timeouts com `MYSQL_OPT_RECONNECT`.
+  - **Unificação de Banco de Dados**: Suporte à opção `Database Driver = "same"`, permitindo que todas as tabelas de contas e do mundo compartilhem o mesmo schema SQL.
+  - **Salvamento Incremental com Upsert (`REPLACE INTO`)**: Eliminação de truncamento destrutivo de tabelas e reuso contínuo de conexões abertas, acelerando os ciclos de autosave.
+  - **Migração Automática de Contas**: Importação transparente de contas de bases legadas `accounts.db` para o novo banco unificado no primeiro boot, com criação automática de backup `accounts.db.imported`.
+- **Segurança Moderna de Senhas (SHA-512 Nativo & Auto-Upgrade)**:
+  - Substituição do algoritmo legado e vulnerável MD5 por **SHA-512** (128 caracteres hexadecimais), ativado por padrão (`Use Password Hashing = true`).
+  - Coluna `password` na tabela `accounts` expandida automaticamente para `varchar(128)`.
+  - **Migração Transparente e Sem Atrito**: Contas legadas salvas em texto puro ou em MD5 continuam autenticando normalmente e são automaticamente convertidas para hashes SHA-512 no momento do primeiro login do jogador.
+- **Suporte Moderno a Custom Housing (AoS / High Seas)**:
+  - Otimização do leitor de `multi.idx` / `multi.mul` para carregar em memória em <5ms (eliminando congelamentos de I/O).
+  - Correção do pacote de mira `0x99` (30 bytes com suporte a clientes High Seas e campo Hue).
+  - Sistema completo de Custom Housing integrado: pacote de revisão `0xBF 0x1D`, requisição `0xBF 0x1E`, pacote comprimido `0xD8` e comandos do designer `0xD7`.
+- **Estabilidade de Encerramento e Recarregamento de Scripts**:
+  - Eliminação de falhas de segmentação ao executar `reload scripts` no console através de limpeza sincronizada de referências em `PythonFunction`.
+  - Resolução de avisos de `QMutex` e eliminação de crashes ao encerrar o servidor com limpeza antecipada de timers antes de `Py_Finalize()`.
 - **Correção do Carregador de Mundo Binário (`world.bin`)**: Ajuste na desserialização de nomes de tipos (`QString`) que continham terminação nula residual (`\0`), garantindo 100% de integridade no carregamento de todos os **32.998+ objetos salvos**.
+- **Ajuste de Spawns com Precisão ServUO & Proteção de Cidades Guardadas**:
+  - Resolução de spawn incorreto de monstros agressivos (orcs, trolls, espectros) no centro de New Haven e outras cidades guardadas, ajustando as regiões para bater 1:1 com os dados de respawn do ServUO (ruínas de Old Haven, ettins nas montanhas e brigands na costa).
+  - Trava nativa na engine C++ impedindo criação de monstros agressivos em territórios com proteção de guardas (`isGuarded`).
+  - Limpeza automática e segura durante o carregamento de saves legados (`world.bin` / SQL) de monstros hostis que estavam residindo indevidamente dentro de cidades guardadas.
+- **Correção e Imunidade Completa para o Comando `'staff`**:
+  - Comando `'staff [1|0]`' corrigido para habilitar/desabilitar modo staff explicitamente ou alternar (toggle).
+  - Ao entrar em modo staff, o personagem recebe invulnerabilidade ativa (`setInvulnerable(true)`) e todo combate em andamento contra ele é cancelado imediatamente.
+  - Monstros e NPCs (`AbstractAI`) ignoram completamente membros da staff, prevenindo qualquer agressão espontânea.
+  - Engine de combate (`cBaseChar::fight` e `cBaseChar::damage`) bloqueia ataques e zera dano contra administradores/GMs.
+- **Compatibilidade de Livros de Magia (Spellbooks) com Clientes Modernos / High Seas**:
+  - Correção de desconexão (*connection lost* / *desync*) ao abrir livros de magias (`spellbook`, `necrospellbook`, `chivalry`, `bushido`, `ninjitsu`, `mysticism` e `arcanist`).
+  - Envio adaptativo do pacote `0x24 Display Spellbook` (9 bytes com sub-tipo `0x007D` para clientes High Seas / 7.0.9+, e 7 bytes para clientes clássicos) e correção dos offsets do pacote de conteúdo `0xBF 0x1B`.
 - **Novo Sistema de Build com CMake**:
   - Geração nativa de build com `CMakeLists.txt`.
   - Cabeçalhos pré-compilados (`wolfpack_pch.h`) para compilação rápida.
@@ -154,6 +183,36 @@ Algumas opções frequentes:
 - **Configuração de Shard / IP do Servidor**:
   ```xml
   <option key="Shard 1" value="Nome Do Seu Shard=127.0.0.1,2592" />
+  ```
+- **Banco de Dados Unificado (MariaDB / MySQL)**:
+  Para utilizar o mesmo banco de dados tanto para as contas quanto para o mundo:
+  ```xml
+  <group name="Accounts">
+    <option key="Database Driver" value="same" />
+    <option key="Use Password Hashing" value="true" />
+  </group>
+
+  <group name="Database">
+    <option key="Database Driver" value="mysql" />
+    <option key="Database Host" value="127.0.0.1" />
+    <option key="Database Name" value="wolfpack" />
+    <option key="Database Username" value="wolfpack" />
+    <option key="Database Password" value="suasenha" />
+    <option key="Database Port" value="3306" />
+    <option key="Use Transactions" value="true" />
+  </group>
+  ```
+- **Banco de Dados Isolado ou com Worldsave Binário**:
+  Se o mundo salvar em `world.bin` (`binary`), as contas podem ser mantidas em arquivo dedicado SQLite 3 (`accounts.db`):
+  ```xml
+  <group name="Accounts">
+    <option key="Database Driver" value="sqlite" />
+    <option key="Database Name" value="accounts.db" />
+  </group>
+
+  <group name="Database">
+    <option key="Database Driver" value="binary" />
+  </group>
   ```
 
 ---

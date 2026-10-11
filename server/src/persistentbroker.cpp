@@ -108,16 +108,27 @@ bool cPersistentBroker::connect( const QString& host, const QString& db, const Q
 
 	d->useTransaction = transaction;
 
+	if ( !d->sqlite )
+	{
+		d->connection.setConnectOptions( "MYSQL_OPT_RECONNECT=1" );
+	}
+
 	if ( !d->connection.open() )
 		return false;
 
 	if ( d->sqlite )
 	{
-		d->connection.exec( "PRAGMA synchronous = OFF;" );
-		d->connection.exec( "PRAGMA default_synchronous = OFF;" );
-		d->connection.exec( "PRAGMA full_column_names = OFF;" );
-		d->connection.exec( "PRAGMA show_datatypes = OFF;" );
-		d->connection.exec( "PRAGMA parser_trace = OFF;" );
+		QSqlQuery pragma( d->connection );
+		pragma.exec( "PRAGMA journal_mode = WAL;" );
+		pragma.exec( "PRAGMA synchronous = NORMAL;" );
+		pragma.exec( "PRAGMA foreign_keys = ON;" );
+		pragma.exec( "PRAGMA busy_timeout = 5000;" );
+		pragma.exec( "PRAGMA temp_store = MEMORY;" );
+	}
+	else
+	{
+		QSqlQuery names( d->connection );
+		names.exec( "SET NAMES utf8mb4" );
 	}
 
 	return true;
@@ -161,7 +172,7 @@ bool cPersistentBroker::executeQuery( const QString& query )
 	if ( !d->connection.isValid() )
 		throw wpException( tr( "PersistentBroker not connected to database." ) );
 
-	QSqlQuery q;
+	QSqlQuery q( d->connection );
 	if ( !q.exec( query ) )
 	{
 		Console::instance()->log( LOG_ERROR, q.lastError().text() );
@@ -175,7 +186,9 @@ QSqlQuery cPersistentBroker::query( const QString& query )
 	if ( !d->connection.isValid() )
 		throw wpException( QString( "PersistentBroker not connected to database." ) );
 
-	return d->connection.exec( query );
+	QSqlQuery q( d->connection );
+	q.exec( query );
+	return q;
 }
 
 void cPersistentBroker::clearDeleteQueue()
@@ -272,86 +285,86 @@ void cPersistentBroker::prepareQueries() const
 	QSqlQuery * q;
 
 	// Player Queries
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("insert into players values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 	cPlayer::setInsertQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("update players set serial = ?, account = ?, additionalflags = ?, visualrange = ?, profile = ?, fixedlight = ?, strlock = ?, dexlock = ?, intlock = ?, maxcontrolslots = ? where serial = ?");
 	cPlayer::setUpdateQuery(q);
 
 	// Item Queries
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("insert into items values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 	cItem::setInsertQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("update items set serial = ?, id = ?, color = ?, cont = ?, layer = ?, amount = ?, hp = ?, maxhp = ?, movable = ?, owner = ?, visible = ?, priv = ?, baseid = ? where serial = ?");
 	cItem::setUpdateQuery(q);
 
 	// UObject Queries
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("insert into uobject values ( ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 	cUObject::setInsertQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("update uobject set name = ?, serial = ?, multis = ?, pos_x = ?, pos_y = ?, pos_z = ?, pos_map = ?, events = ?, havetags = ? where serial = ?");
 	cUObject::setUpdateQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("insert into uobjectmap values ( ?, ? )");
 	cUObject::setUObjectmapQuery(q);
 
 	// CustomTag Queries
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("insert into tags values( ?, ?, ?, ?)");
 	cCustomTags::setInsertQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("DELETE FROM tags WHERE serial = ?");
 	cCustomTags::setDeleteQuery(q);
 
 	// Corpse Queries
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("insert into corpses values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 	cCorpse::setInsertQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("update corpses set serial = ?, bodyid = ?, hairstyle = ?, haircolor = ?, beardstyle = ?, beardcolor = ?, direction = ?, charbaseid = ?, murderer = ?, murdertime = ? where serial = ?");
 	cCorpse::setUpdateQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("INSERT INTO corpses_equipment VALUES ( ?, ?, ? )");
 	cCorpse::setInsertEquipmentQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("DELETE FROM corpses_equipment WHERE serial = ?");
 	cCorpse::setDeleteEquipmentQuery(q);
 
 	// NPC Queries
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("insert into npcs values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 	cNPC::setInsertQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("update npcs set serial = ?, summontime = ?, additionalflags = ?, owner = ?, stablemaster = ?, ai = ?, wandertype = ?, wanderx1 = ?, wanderx2 = ?, wandery1 = ?, wandery2 = ?, wanderradius = ? where serial = ?");
 	cNPC::setUpdateQuery(q);
 
 	// BaseChar Queries
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("insert into characters values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 	cBaseChar::setInsertQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("update characters set serial = ?, name = ?, title = ?, creationdate = ?, body = ?, orgbody = ?, skin = ?, orgskin = ?, saycolor = ?, emotecolor = ?, strength = ?, strengthmod = ?, dexterity = ?, dexteritymod = ?, intelligence = ?, intelligencemod = ?, maxhitpoints = ?, hitpoints = ?, maxstamina = ?, stamina = ?, maxmana = ?, mana = ?, karma = ?, fame = ?, kills = ?, deaths = ?, hunger = ?, poison = ?, murderertime = ?, criminaltime = ?, gender = ?, propertyflags = ?, murderer = ?, guarding = ?, hitpointsbonus = ?, staminabonus = ?, manabonus = ?,  strcap = ?, dexcap = ?, intcap = ?, statcap = ?, baseid = ?, direction = ? where serial = ?");
 	cBaseChar::setUpdateQuery(q);
 
 	// Skills Queries
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("INSERT INTO skills VALUES( ?, ?, ?, ?, ?)");
 	cSkills::setInsertQuery(q);
 
-	q = new QSqlQuery();
+	q = new QSqlQuery( d->connection );
 	q->prepare("REPLACE INTO skills VALUES( ?, ?, ?, ?, ?)");
 	cSkills::setUpdateQuery(q);
 

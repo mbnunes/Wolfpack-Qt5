@@ -633,8 +633,6 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 		return 0;
 	}
 
-	PyErr_Format( PyExc_DeprecationWarning, "socket.sendpacket is deprecated, please use something instead" );
-
 	// Build a packet
 	int packetLength = PyList_Size( list );
 

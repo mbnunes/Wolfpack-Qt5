@@ -846,6 +846,22 @@ If you return 0, the core will call the remaining scripts in the chain.
 */
 "onReachDestination",
 
+/*
+\event onCHCommand
+\param player The player issuing a custom house designer command.
+\param command The command opcode (Backup, Restore, Commit, Delete, Add, Stairs, Sync, Clear, Close, Revert).
+\param params A dictionary or tuple containing command parameters.
+\condition Triggered when client sends a custom house packet (0xD7).
+*/
+"onCHCommand",
+
+/*
+\event onCHQuery
+\param player The player querying design details.
+\param multi The multi object being queried.
+\condition Triggered when client requests design details (0xBF 0x1E).
+*/
+"onCHQuery",
 
 0
 };

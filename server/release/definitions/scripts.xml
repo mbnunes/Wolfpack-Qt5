@@ -26,6 +26,7 @@
 	<script>housing.house</script>
 	<script>housing.sign</script>
 	<script>housing.security</script>
+	<script>housing.customhouse</script>
 	<script>ankh</script>
 	<script>arcanegem</script>
 	<script>archery_butte</script>

@@ -215,15 +215,34 @@ static PyObject* wpAccount_checkpassword( wpAccount* self, PyObject* args )
 		return 0;
 	}
 
-	bool authorized;
+	bool authorized = false;
+	QString passStr = QString::fromUtf8( password );
 
 	if ( Config::instance()->hashAccountPasswords() )
 	{
-		authorized = QCryptographicHash::hash( password, QCryptographicHash::Md5 ).toHex() == self->account->password();
+		QString sha512Hash = QString::fromLatin1( QCryptographicHash::hash( passStr.toUtf8(), QCryptographicHash::Sha512 ).toHex() );
+		QString md5Hash = QString::fromLatin1( QCryptographicHash::hash( passStr.toLocal8Bit(), QCryptographicHash::Md5 ).toHex() );
+
+		if ( self->account->password() == sha512Hash )
+		{
+			authorized = true;
+		}
+		else if ( self->account->password().length() == 32 && self->account->password() == md5Hash )
+		{
+			authorized = true;
+			self->account->setPassword( passStr );
+			Accounts::instance()->saveAccount( self->account );
+		}
+		else if ( self->account->password() == passStr )
+		{
+			authorized = true;
+			self->account->setPassword( passStr );
+			Accounts::instance()->saveAccount( self->account );
+		}
 	}
 	else
 	{
-		authorized = password == self->account->password();
+		authorized = ( passStr == self->account->password() );
 	}
 
 	PyMem_Free( password );

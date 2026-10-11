@@ -191,14 +191,25 @@ cUOPacket* cUORxAosMultiPurpose::packet( const QByteArray& data )
 //#pragma message(Reminder "Add CH packets creation for all commands")
 
 	cUOPacket temp( data );
+	ushort subCmd = temp.getShort( 7 );
 
-	if(temp.getShort( 7 ) == CHLevel)
+	if ( subCmd == CHLevel )
 	{
 		return new cUORxCHLevel( data );
 	}
+	else if ( subCmd == CHDelete )
+	{
+		return new cUORxCHDelete( data );
+	}
+	else if ( subCmd == CHAddElement )
+	{
+		return new cUORxCHAddElement( data );
+	}
+	else if ( subCmd == CHStairs )
+	{
+		return new cUORxCHStairs( data );
+	}
 
-	//qWarning("Unknown cUORxAosMultiPurpose subcommand");
-	//qWarning( cUOPacket::dump( data ) );
 	return new cUORxAosMultiPurpose( data );
 }
 

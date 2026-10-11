@@ -56,6 +56,7 @@
 #include "territories.h"
 #include "muls/tilecache.h"
 #include "timing.h"
+#include "timers.h"
 #include "verinfo.h"
 #include "world.h"
 #include "definitions.h"
@@ -477,6 +478,9 @@ void cServer::run()
 	ScriptManager::instance()->onServerStop(); // Notify python scripts about shutdown
 	Network::instance()->broadcast( tr( "The server is shutting down." ) );
 	unload();
+
+	// Clear active timers before stopping Python to prevent decref after Py_Finalize
+	Timers::instance()->clear();
 
 	// Stop Python
 	PythonEngine::instance()->unload();

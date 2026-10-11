@@ -243,8 +243,12 @@ void cConsole::poll()
 
 void cConsole::stop()
 {
-    threadWp->wait();
-    delete threadWp;
+	if ( threadWp )
+	{
+		threadWp->wait();
+		delete threadWp;
+		threadWp = nullptr;
+	}
 	if ( CommandLineOptions::instance()->value("pidFile").isValid() )
 		pidfile_del( CommandLineOptions::instance()->value("pidFile").toString() );
 }

@@ -30,6 +30,7 @@
 #include "world.h"
 #include "skills.h"
 #include "commands.h"
+#include "combat.h"
 #include "gumps.h"
 #include "muls/maps.h"
 #include "scriptmanager.h"
@@ -514,16 +515,42 @@ void commandShutDown( cUOSocket* socket, const QString& command, const QStringLi
 void commandStaff( cUOSocket* socket, const QString& command, const QStringList& args )
 {
 	Q_UNUSED( command );
-	if ( socket->account()->isStaff() || ( args.count() > 0 && args[0].toInt() == 0 ) )
+	if ( !socket || !socket->account() )
+		return;
+
+	bool enableStaff;
+	if ( args.count() > 0 )
 	{
-		socket->account()->setStaff( false );
-		socket->sysMessage( tr( "Staff is now '0'." ) );
+		enableStaff = ( args[0].toInt() != 0 );
 	}
-	else if ( !socket->account()->isStaff() || ( args.count() > 0 && args[0].toInt() == 1 ) )
+	else
 	{
-		socket->account()->setStaff( true );
-		socket->sysMessage( tr( "Staff is now '1'." ) );
+		enableStaff = !socket->account()->isStaff();
 	}
+
+	socket->account()->setStaff( enableStaff );
+
+	if ( socket->player() )
+	{
+		socket->player()->setInvulnerable( enableStaff );
+		if ( enableStaff )
+		{
+			// Drop combat on anyone attacking the staff member
+			QList<cFightInfo*> fights( socket->player()->fights() );
+			foreach ( cFightInfo* fight, fights )
+			{
+				P_CHAR enemy = ( fight->attacker() == socket->player() ) ? fight->victim() : fight->attacker();
+				if ( enemy )
+				{
+					enemy->fight( 0 );
+				}
+			}
+			socket->player()->fight( 0 );
+		}
+		socket->player()->resend( false );
+	}
+
+	socket->sysMessage( tr( "Staff is now '%1'." ).arg( enableStaff ? 1 : 0 ) );
 }
 
 /*

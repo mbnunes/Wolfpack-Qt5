@@ -326,6 +326,12 @@ bool AbstractAI::invalidTarget( P_CHAR victim, int dist ) const
 		return true;
 	}
 
+	P_PLAYER victimPlayer = dynamic_cast<P_PLAYER>( victim );
+	if ( victimPlayer && ( victimPlayer->isGMorCounselor() || ( victimPlayer->account() && victimPlayer->account()->isStaff() ) || victimPlayer->isInvulnerable() ) )
+	{
+		return true;
+	}
+
 	if ( victim->isInvulnerable() || victim->isDead() || victim->inSafeArea() )
 	{
 		return true;

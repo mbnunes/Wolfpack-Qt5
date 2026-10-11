@@ -10,111 +10,111 @@ from housing.deed import getPlacementData
 
 #2-Story houses
 ch2story = [
-[ 7, 7, 0x13ec, "foundation_2_7x7" ],
-[ 7, 8, 0x13ed, "foundation_2_7x8" ],
-[ 7, 9, 0x13ee, "foundation_2_7x9" ],
-[ 7, 10, 0x13ef, "foundation_2_7x10" ],
-[ 7, 11, 0x13f0, "foundation_2_7x11" ],
-[ 7, 12, 0x13f1, "foundation_2_7x12" ],
-[ 8, 7, 0x13f8, "foundation_2_8x7" ],
-[ 8, 8, 0x13f9, "foundation_2_8x8" ],
-[ 8, 9, 0x13fa, "foundation_2_8x9" ],
-[ 8, 10, 0x13fb, "foundation_2_8x10" ],
-[ 8, 11, 0x13fc, "foundation_2_8x11" ],
-[ 8, 12, 0x13fd, "foundation_2_8x12" ],
-[ 8, 13, 0x13fe, "foundation_2_8x13" ],
-[ 9, 7, 0x1404, "foundation_2_9x7" ],
-[ 9, 8, 0x1405, "foundation_2_9x8" ],
-[ 9, 9, 0x1406, "foundation_2_9x9" ],
-[ 9, 10, 0x1407, "foundation_2_9x10" ],
-[ 9, 11, 0x1408, "foundation_2_9x11" ],
-[ 9, 12, 0x1409, "foundation_2_9x12" ],
-[ 9, 13, 0x140a, "foundation_2_9x13" ],
-[ 10, 7, 0x1410, "foundation_2_10x7" ],
-[ 10, 8, 0x1411, "foundation_2_10x8" ],
-[ 10, 9, 0x1412, "foundation_2_10x9" ],
-[ 10, 10, 0x1413, "foundation_2_10x10" ],
-[ 10, 11, 0x1414, "foundation_2_10x11" ],
-[ 10, 12, 0x1415, "foundation_2_10x12" ],
-[ 10, 13, 0x1416, "foundation_2_10x13" ],
-[ 11, 7, 0x141c, "foundation_2_11x7" ],
-[ 11, 8, 0x141d, "foundation_2_11x8" ],
-[ 11, 9, 0x141e, "foundation_2_11x9" ],
-[ 11, 10, 0x141f, "foundation_2_11x10" ],
-[ 11, 11, 0x1420, "foundation_2_11x11" ],
-[ 11, 12, 0x1421, "foundation_2_11x12" ],
-[ 11, 13, 0x1422, "foundation_2_11x13" ],
-[ 12, 7, 0x1428, "foundation_2_12x7" ],
-[ 12, 8, 0x1429, "foundation_2_12x8" ],
-[ 12, 9, 0x142a, "foundation_2_12x9" ],
-[ 12, 10, 0x142b, "foundation_2_12x10" ],
-[ 12, 11, 0x142c, "foundation_2_12x11" ],
-[ 12, 12, 0x142d, "foundation_2_12x12" ],
-[ 12, 13, 0x142e, "foundation_2_12x13" ],
-[ 13, 8, 0x1435, "foundation_2_13x8" ],
-[ 13, 9, 0x1436, "foundation_2_13x9" ],
-[ 13, 10, 0x1437, "foundation_2_13x10" ],
-[ 13, 11, 0x1438, "foundation_2_13x11" ],
-[ 13, 12, 0x1439, "foundation_2_13x12" ],
-[ 13, 13, 0x143a, "foundation_2_13x13" ] ]
+[ 7, 7, 0x13ec, "foundation_2_7x7", 33000 ],
+[ 7, 8, 0x13ed, "foundation_2_7x8", 37000 ],
+[ 7, 9, 0x13ee, "foundation_2_7x9", 41000 ],
+[ 7, 10, 0x13ef, "foundation_2_7x10", 45000 ],
+[ 7, 11, 0x13f0, "foundation_2_7x11", 49000 ],
+[ 7, 12, 0x13f1, "foundation_2_7x12", 53000 ],
+[ 8, 7, 0x13f8, "foundation_2_8x7", 37500 ],
+[ 8, 8, 0x13f9, "foundation_2_8x8", 42000 ],
+[ 8, 9, 0x13fa, "foundation_2_8x9", 46500 ],
+[ 8, 10, 0x13fb, "foundation_2_8x10", 51000 ],
+[ 8, 11, 0x13fc, "foundation_2_8x11", 55500 ],
+[ 8, 12, 0x13fd, "foundation_2_8x12", 60000 ],
+[ 8, 13, 0x13fe, "foundation_2_8x13", 64500 ],
+[ 9, 7, 0x1404, "foundation_2_9x7", 42000 ],
+[ 9, 8, 0x1405, "foundation_2_9x8", 47000 ],
+[ 9, 9, 0x1406, "foundation_2_9x9", 52000 ],
+[ 9, 10, 0x1407, "foundation_2_9x10", 57000 ],
+[ 9, 11, 0x1408, "foundation_2_9x11", 62000 ],
+[ 9, 12, 0x1409, "foundation_2_9x12", 67000 ],
+[ 9, 13, 0x140a, "foundation_2_9x13", 72000 ],
+[ 10, 7, 0x1410, "foundation_2_10x7", 46500 ],
+[ 10, 8, 0x1411, "foundation_2_10x8", 52000 ],
+[ 10, 9, 0x1412, "foundation_2_10x9", 57500 ],
+[ 10, 10, 0x1413, "foundation_2_10x10", 63000 ],
+[ 10, 11, 0x1414, "foundation_2_10x11", 68500 ],
+[ 10, 12, 0x1415, "foundation_2_10x12", 74000 ],
+[ 10, 13, 0x1416, "foundation_2_10x13", 79500 ],
+[ 11, 7, 0x141c, "foundation_2_11x7", 51000 ],
+[ 11, 8, 0x141d, "foundation_2_11x8", 57000 ],
+[ 11, 9, 0x141e, "foundation_2_11x9", 63000 ],
+[ 11, 10, 0x141f, "foundation_2_11x10", 69000 ],
+[ 11, 11, 0x1420, "foundation_2_11x11", 75000 ],
+[ 11, 12, 0x1421, "foundation_2_11x12", 81000 ],
+[ 11, 13, 0x1422, "foundation_2_11x13", 87000 ],
+[ 12, 7, 0x1428, "foundation_2_12x7", 55500 ],
+[ 12, 8, 0x1429, "foundation_2_12x8", 62000 ],
+[ 12, 9, 0x142a, "foundation_2_12x9", 68500 ],
+[ 12, 10, 0x142b, "foundation_2_12x10", 75000 ],
+[ 12, 11, 0x142c, "foundation_2_12x11", 81500 ],
+[ 12, 12, 0x142d, "foundation_2_12x12", 88000 ],
+[ 12, 13, 0x142e, "foundation_2_12x13", 94500 ],
+[ 13, 8, 0x1435, "foundation_2_13x8", 67000 ],
+[ 13, 9, 0x1436, "foundation_2_13x9", 74000 ],
+[ 13, 10, 0x1437, "foundation_2_13x10", 81000 ],
+[ 13, 11, 0x1438, "foundation_2_13x11", 88000 ],
+[ 13, 12, 0x1439, "foundation_2_13x12", 95000 ],
+[ 13, 13, 0x143a, "foundation_2_13x13", 102000 ] ]
 
 #3-Story houses
 ch3story = [
-[ 9, 14, 0x140b, "foundation_3_9x14" ],
-[ 10, 14, 0x1417, "foundation_3_10x14" ],
-[ 10, 15, 0x1418, "foundation_3_10x15" ],
-[ 11, 14, 0x1423, "foundation_3_11x14" ],
-[ 11, 15, 0x1424, "foundation_3_11x15" ],
-[ 11, 16, 0x1425, "foundation_3_11x16" ],
-[ 12, 14, 0x142f, "foundation_3_12x14" ],
-[ 12, 15, 0x1430, "foundation_3_12x15" ],
-[ 12, 16, 0x1431, "foundation_3_12x16" ],
-[ 12, 17, 0x1432, "foundation_3_12x17" ],
-[ 13, 14, 0x143b, "foundation_3_13x14" ],
-[ 13, 15, 0x143c, "foundation_3_13x15" ],
-[ 13, 16, 0x143d, "foundation_3_13x16" ],
-[ 13, 17, 0x143e, "foundation_3_13x17" ],
-[ 13, 18, 0x143f, "foundation_3_13x18" ],
-[ 14, 9, 0x1442, "foundation_3_14x9" ],
-[ 14, 10, 0x1443, "foundation_3_14x10" ],
-[ 14, 11, 0x1444, "foundation_3_14x11" ],
-[ 14, 12, 0x1445, "foundation_3_14x12" ],
-[ 14, 13, 0x1446, "foundation_3_14x13" ],
-[ 14, 14, 0x1447, "foundation_3_14x14" ],
-[ 14, 15, 0x1448, "foundation_3_14x15" ],
-[ 14, 16, 0x1449, "foundation_3_14x16" ],
-[ 14, 17, 0x144a, "foundation_3_14x17" ],
-[ 14, 18, 0x144b, "foundation_3_14x18" ],
-[ 15, 10, 0x144f, "foundation_3_15x10" ],
-[ 15, 11, 0x1450, "foundation_3_15x11" ],
-[ 15, 12, 0x1451, "foundation_3_15x12" ],
-[ 15, 13, 0x1452, "foundation_3_15x13" ],
-[ 15, 14, 0x1453, "foundation_3_15x14" ],
-[ 15, 15, 0x1454, "foundation_3_15x15" ],
-[ 15, 16, 0x1455, "foundation_3_15x16" ],
-[ 15, 17, 0x1456, "foundation_3_15x17" ],
-[ 15, 18, 0x1457, "foundation_3_15x18" ],
-[ 16, 11, 0x145c, "foundation_3_16x11" ],
-[ 16, 12, 0x145d, "foundation_3_16x12" ],
-[ 16, 13, 0x145e, "foundation_3_16x13" ],
-[ 16, 14, 0x145f, "foundation_3_16x14" ],
-[ 16, 15, 0x1460, "foundation_3_16x15" ],
-[ 16, 16, 0x1461, "foundation_3_16x16" ],
-[ 16, 17, 0x1462, "foundation_3_16x17" ],
-[ 16, 18, 0x1463, "foundation_3_16x18" ],
-[ 17, 12, 0x1469, "foundation_3_17x12" ],
-[ 17, 13, 0x146a, "foundation_3_17x13" ],
-[ 17, 14, 0x146b, "foundation_3_17x14" ],
-[ 17, 15, 0x146c, "foundation_3_17x15" ],
-[ 17, 16, 0x146d, "foundation_3_17x16" ],
-[ 17, 17, 0x146e, "foundation_3_17x17" ],
-[ 17, 18, 0x146f, "foundation_3_17x18" ],
-[ 18, 13, 0x1476, "foundation_3_18x13" ],
+[ 9, 14, 0x140b, "foundation_3_9x14", 77000 ],
+[ 10, 14, 0x1417, "foundation_3_10x14", 85000 ],
+[ 10, 15, 0x1418, "foundation_3_10x15", 90500 ],
+[ 11, 14, 0x1423, "foundation_3_11x14", 93000 ],
+[ 11, 15, 0x1424, "foundation_3_11x15", 99000 ],
+[ 11, 16, 0x1425, "foundation_3_11x16", 105000 ],
+[ 12, 14, 0x142f, "foundation_3_12x14", 101000 ],
+[ 12, 15, 0x1430, "foundation_3_12x15", 107500 ],
+[ 12, 16, 0x1431, "foundation_3_12x16", 114000 ],
+[ 12, 17, 0x1432, "foundation_3_12x17", 120500 ],
+[ 13, 14, 0x143b, "foundation_3_13x14", 109000 ],
+[ 13, 15, 0x143c, "foundation_3_13x15", 116000 ],
+[ 13, 16, 0x143d, "foundation_3_13x16", 123000 ],
+[ 13, 17, 0x143e, "foundation_3_13x17", 130000 ],
+[ 13, 18, 0x143f, "foundation_3_13x18", 137000 ],
+[ 14, 9, 0x1442, "foundation_3_14x9", 79000 ],
+[ 14, 10, 0x1443, "foundation_3_14x10", 87000 ],
+[ 14, 11, 0x1444, "foundation_3_14x11", 94500 ],
+[ 14, 12, 0x1445, "foundation_3_14x12", 102000 ],
+[ 14, 13, 0x1446, "foundation_3_14x13", 109500 ],
+[ 14, 14, 0x1447, "foundation_3_14x14", 117000 ],
+[ 14, 15, 0x1448, "foundation_3_14x15", 124500 ],
+[ 14, 16, 0x1449, "foundation_3_14x16", 132000 ],
+[ 14, 17, 0x144a, "foundation_3_14x17", 139500 ],
+[ 14, 18, 0x144b, "foundation_3_14x18", 147000 ],
+[ 15, 10, 0x144f, "foundation_3_15x10", 93000 ],
+[ 15, 11, 0x1450, "foundation_3_15x11", 101000 ],
+[ 15, 12, 0x1451, "foundation_3_15x12", 109000 ],
+[ 15, 13, 0x1452, "foundation_3_15x13", 117000 ],
+[ 15, 14, 0x1453, "foundation_3_15x14", 125000 ],
+[ 15, 15, 0x1454, "foundation_3_15x15", 133000 ],
+[ 15, 16, 0x1455, "foundation_3_15x16", 141000 ],
+[ 15, 17, 0x1456, "foundation_3_15x17", 149000 ],
+[ 15, 18, 0x1457, "foundation_3_15x18", 157000 ],
+[ 16, 11, 0x145c, "foundation_3_16x11", 107500 ],
+[ 16, 12, 0x145d, "foundation_3_16x12", 116000 ],
+[ 16, 13, 0x145e, "foundation_3_16x13", 124500 ],
+[ 16, 14, 0x145f, "foundation_3_16x14", 133000 ],
+[ 16, 15, 0x1460, "foundation_3_16x15", 141500 ],
+[ 16, 16, 0x1461, "foundation_3_16x16", 150000 ],
+[ 16, 17, 0x1462, "foundation_3_16x17", 158500 ],
+[ 16, 18, 0x1463, "foundation_3_16x18", 167000 ],
+[ 17, 12, 0x1469, "foundation_3_17x12", 123000 ],
+[ 17, 13, 0x146a, "foundation_3_17x13", 132000 ],
+[ 17, 14, 0x146b, "foundation_3_17x14", 141000 ],
+[ 17, 15, 0x146c, "foundation_3_17x15", 150000 ],
+[ 17, 16, 0x146d, "foundation_3_17x16", 159000 ],
+[ 17, 17, 0x146e, "foundation_3_17x17", 168000 ],
+[ 17, 18, 0x146f, "foundation_3_17x18", 177000 ],
+[ 18, 13, 0x1476, "foundation_3_18x13", 139500 ],
 [ 18, 14, 0x1477, "foundation_3_18x14"],
-[ 18, 15, 0x1478, "foundation_3_18x15" ],
-[ 18, 16, 0x1479, "foundation_3_18x16" ],
-[ 18, 17, 0x147a, "foundation_3_18x17" ],
-[ 18, 18, 0x147b, "foundation_3_18x18" ]]
+[ 18, 15, 0x1478, "foundation_3_18x15", 158500 ],
+[ 18, 16, 0x1479, "foundation_3_18x16", 168000 ],
+[ 18, 17, 0x147a, "foundation_3_18x17", 177500 ],
+[ 18, 18, 0x147b, "foundation_3_18x18", 187000 ]]
 
 #Classical Houses
 # The first two parameters are just garbage.
@@ -159,14 +159,12 @@ def gump0callback( char, args, target ):
 		gump4( char, gump3callback, classical )
 	#2-Story houses
 	if button == 2:
-		char.socket.sysmessage("Custom Houses are not yet implemented")
-		#gump1( char, gump1callback, ch2story )
+		gump1( char, gump1callback, ch2story )
 	#3-Story houses
 	if button == 3:
-		char.socket.sysmessage("Custom Houses are not yet implemented")
-		#gump3( char, gump1callback, ch3story )
+		gump3( char, gump1callback, ch3story )
 
-#Selection of 2-story size
+#Selection of 2-story / 3-story size
 def gump1callback( char, args, target ):
 	button = target.button
 	if button > 0:
@@ -184,7 +182,7 @@ def gump3callback( char, args, target ):
 def gump2callback( char, args, target ):
 	button = target.button
 	if button == 1:
-		foundation( char, args[1], args[0][0], args[0][1], args[0][2], args[0][3] )
+		foundation( char, args[1], args[0][0], args[0][1], args[0][2], args[0][3], args[0][4] )
 
 
 #Classic House placement warning gump callback
@@ -197,7 +195,7 @@ def gump4callback( char, args, target ):
 # Response for a Custom House
 def response( char, args, target ):
 
-	# Checking if Player Can reach the Destionation
+	# Checking if Player Can reach the Destination
 	if not char.canreach(target.pos, 20):
 		char.socket.sysmessage('You can\'t reach that.')
 		return
@@ -216,7 +214,7 @@ def response( char, args, target ):
 # Response for a Classic House
 def response2( char, args, target ):
 
-	# Checking if Player Can reach the Destionation
+	# Checking if Player Can reach the Destination
 	if not char.canreach(target.pos, 20):
 		char.socket.sysmessage('You can\'t reach that.')
 		return
@@ -302,80 +300,103 @@ def placement(player, target, multiid, id, value):
 			obj.socket.resendworld()
 
 # Making the Foundation
-def foundation( char, target, width, height, id, multiid ):
+def foundation( player, target, width, height, id, multiid, value ):
+	# Check if Player can Reach the Location
+	if not player.canreach(target.pos, 20):
+		player.socket.sysmessage('You can\'t reach that.')
+		return
+
+	# Check if Player Can Place Multi here
+	(canplace, moveout) = wolfpack.canplace(target.pos, id, 4)
+
+	if not canplace:
+		player.socket.sysmessage('CAN\'T PLACE THERE')
+		return
+
+	# We may only own one house (Same for gamemasters -> registry)
+	if not CAN_HAVE_MULTIPLE_HOUSES:
+		house = housing.findHouse(player)
+		if house:
+			player.socket.clilocmessage(501271)
+			return
+
+	# The Amount of Gold in Bank
+	bank = player.getbankbox()
+	if bank:
+		gold = bank.countresource( 0xEED, 0x0 )
+	else:
+		gold = 0
+		if not player.gm:
+			player.socket.sysmessage('You dont have the correct amount in your Bank')
+			return
+
+	if (gold < value):
+		if not player.gm:
+			player.socket.sysmessage('You dont have the correct amount in your Bank')
+			return
+
+	# Consuming Gold
+	if not player.gm:
+		bank.useresource( value, 0xEED )
+
+	####################################################
+	# Placing the Foundation Multi
+	####################################################
 	multi = wolfpack.addmulti(str(multiid))
 	if not multi:
-		char.socket.sysmessage( "Multi '%s' not yet implemented" % multiid )
+		player.socket.sysmessage("Multi '%s' not yet implemented" % multiid)
 		return True
-	char.socket.sysmessage( str( multi.serial ) )
-	multi.id = id + 0x4000
+
+	multi.owner = player
 	multi.decay = False
 	multi.moveto( target.pos )
 
-	left = width/2
-	right = left - ( width-1 )
-	bottom = height/2
-	top = bottom - ( height-1 )
+	# Registering Current Date and Time
+	agora = datetime.date.today()
+	h, m, s = localtime(time())[3:6]
+	date = str(agora.year) + "-" + str(agora.month) + "-" + str(agora.day) + " " + str(h) + ":" + str(m) + ":" + str(s)
 
-	#Draw floor
-	#for y in xrange( top+1,bottom+1 ):
-	#	for x in xrange( right+1,left+1 ):
-	#		if x == 0 and y == 0:
-	#			multi.addchtile( 0x1, 0, 0, 0 )
-	#		multi.addchtile( 0x31f4, x, y, 7 )
+	multi.settag('builton', date)
+	multi.settag('value', value)
 
-	#Draw corners
-	#multi.addchtile( 0x66, right, top, 0 )
-	#multi.addchtile( 0x65, left, bottom, 0 )
+	# Registering Foundation in Housing registry
+	housing.registerHouse(multi)
 
-	#Draw sides
-	#for x in xrange( right+1,left+1 ):
-	#	multi.addchtile( 0x63, x, top, 0 )
-	#	if x < left:
-	#		multi.addchtile( 0x63, x, bottom, 0 )
+	import housing.customhouse as ch
+	design = ch.get_or_create_design(multi)
+	multi.settag('ch_revision', design['revision'])
 
-	#for y in xrange( top+1, bottom+1 ):
-		#multi.addchtile( 0x64, right, y, 0 )
-		#multi.addchtile( 0x64, left, y, 0 )
-
-	#Draw stairs
-	for x1 in range( right+1,left+1 ):
-		stairs = wolfpack.additem( "751" )
-		
-		x = multi.pos.x + x1
-		y = multi.pos.y + bottom + 1
-		z = multi.pos.z
-		map = multi.pos.map
-		newpos = wolfpack.coord( x, y, z, map )
-		stairs.moveto( newpos )
-		stairs.movable = 3
-		stairs.decay = False
-		stairs.update()
-
-		#multi.addchtile( 0x0751, x, bottom+1, 0 )
-
-	#multi.sendcustomhouse( char )
 	multi.update()
-	#woodenpost = wolfpack.additem( "9" )
+
+	left = int(width // 2)
+	right = int(left - ( width - 1 ))
+	bottom = int(height // 2)
+	top = int(bottom - ( height - 1 ))
+
 	signpost = wolfpack.additem( "b98" )
 	sign = wolfpack.additem( "bd2" )
-	#woodenpost.decay = False
 	signpost.decay = False
 	sign.decay = False
+
 	x = multi.pos.x + right
-	y = multi.pos.y + bottom
+	y = multi.pos.y + bottom + 1
 	z = multi.pos.z + 7
 	map = multi.pos.map
 	newpos = wolfpack.coord( x, y, z, map )
-	#woodenpost.moveto( newpos )
-	newpos.y += 1
+
 	signpost.moveto( newpos )
 	sign.moveto( newpos )
 	sign.settag( 'house', multi.serial )
 	sign.addscript( 'signpost' )
-	#woodenpost.update()
 	signpost.update()
 	sign.update()
+
+	for obj in moveout:
+		obj.removefromview()
+		obj.moveto(player.pos)
+		obj.update()
+		if obj.ischar() and obj.socket:
+			obj.socket.resendworld()
 
 
 #House type selection common/2-story/3-story
@@ -1111,21 +1132,21 @@ def gump3( char, callback, chsizes ):
 
 
 def gump2( char, callback, args, target ):
-	mygump = cGump( 1 )
-	mygump.startPage( 0 )
-	mygump.addBackground( 5054, 420, 280 )
-	mygump.addTiledGump( 10, 10, 400, 20, 2624 )
-	mygump.addCheckerTrans( 10, 10, 400, 20 )
-	mygump.addXmfHtmlGump( 10, 10, 400, 20, 1060635, 0, 0, 30720 )
-	mygump.addTiledGump( 10, 40, 400, 200, 2624 )
-	mygump.addCheckerTrans( 10, 40, 400, 200 )
-	mygump.addXmfHtmlGump( 10, 40, 400, 200, 1049583, 0, 1, 32512 )
-	mygump.addTiledGump( 10, 250, 400, 20, 2624 )
-	mygump.addCheckerTrans( 10, 250, 400, 20 )
-	mygump.addButton( 10, 250, 4005, 4007, button_ok )
-	mygump.addXmfHtmlGump( 40, 250, 170, 20, 1011036, 0, 0, 32767 )
-	mygump.addButton( 210, 250, 4005, 4007, button_cancel )
-	mygump.addXmfHtmlGump( 240, 250, 170, 20, 1011012, 0, 0, 32767 )
+	mygump = cGump()
+	mygump.addRawLayout( "{page 0}" )
+	mygump.addRawLayout( "{resizepic 0 0 5054 420 280}" )
+	mygump.addRawLayout( "{gumppictiled 10 10 400 20 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 10 400 20}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 10 10 400 20 1060635 0 0 30720}" )
+	mygump.addRawLayout( "{gumppictiled 10 40 400 200 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 40 400 200}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 10 40 400 200 1049583 0 1 32512}" )
+	mygump.addRawLayout( "{gumppictiled 10 250 400 20 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 250 400 20}" )
+	mygump.addRawLayout( "{button 10 250 4005 4007 1 0 1}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 40 250 170 20 1011036 0 0 32767}" )
+	mygump.addRawLayout( "{button 210 250 4005 4007 1 0 0}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 240 250 170 20 1011012 0 0 32767}" )
 	mygump.setCallback( callback )
 	mygump.setArgs( [args, target] )
 	mygump.send( char )

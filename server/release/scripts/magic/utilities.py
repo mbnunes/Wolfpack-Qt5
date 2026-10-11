@@ -266,3 +266,62 @@ def npc_debug(char, message):
 	#char.say(message)
 	pass
 
+def open_spellbook(char, item, offset, circles):
+	"""
+	Envia os pacotes necessários para abrir um spellbook de forma compatível
+	com clientes High Seas (7.0.9+) e clientes clássicos, sem causar crash ou desconexão.
+	"""
+	if item.container and item.container.isitem():
+		char.socket.sendobject(item.container)
+	char.socket.sendobject(item)
+
+	# 0x24 Display Spellbook:
+	# Clientes High Seas (7.0.9.0+) esperam 9 bytes (com sub-tipo 0x007D ao final).
+	# Clientes anteriores esperam 7 bytes.
+	is_hs = False
+	try:
+		if char.socket.flags & 0x20: # High Seas client flag
+			is_hs = True
+		elif char.socket.version:
+			parts = [int(p) for p in char.socket.version.replace('.', ' ').split() if p.isdigit()]
+			if len(parts) >= 1 and parts[0] >= 7:
+				if len(parts) == 1 or parts[1] >= 1 or (parts[1] == 0 and len(parts) >= 3 and parts[2] >= 9):
+					is_hs = True
+	except Exception:
+		is_hs = False
+
+	if is_hs:
+		packet = wolfpack.packet(0x24, 9)
+		packet.setint(1, item.serial)
+		packet.setshort(5, 0xffff)
+		packet.setshort(7, 0x007d)
+		packet.send(char.socket)
+	else:
+		packet = wolfpack.packet(0x24, 7)
+		packet.setint(1, item.serial)
+		packet.setshort(5, 0xffff)
+		packet.send(char.socket)
+
+	# 0xBF sub 0x1B: New Spellbook Content (23 bytes fixos)
+	packet = wolfpack.packet(0xbf, 23)
+	packet.setshort(1, 23)          # Packet length
+	packet.setshort(3, 0x1b)        # 0xBF sub-command
+	packet.setshort(5, 1)           # Sub-sub command
+	packet.setint(7, item.serial)   # Spellbook serial
+	packet.setshort(11, item.id)    # Graphic/ID do item
+	packet.setshort(13, offset)     # Offset (1=magery, 101=necro, 201=chiv, 401=bush, 501=ninj, 601=arc, 678=myst)
+
+	# 8 bytes de máscara de feitiços (offset 15 a 22)
+	for i in range(0, 8):
+		if i < circles and item.hastag('circle' + str(i + 1)):
+			try:
+				val = int(item.gettag('circle' + str(i + 1))) & 0xFF
+			except Exception:
+				val = 0
+			packet.setbyte(15 + i, val)
+		else:
+			packet.setbyte(15 + i, 0)
+
+	packet.send(char.socket)
+
+

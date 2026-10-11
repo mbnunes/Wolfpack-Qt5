@@ -90,6 +90,7 @@ inline PyObject* wpFindMethod( PyMethodDef* methods, PyObject* self, const char*
 			return PyCFunction_New( def, self );
 		}
 	}
+	PyErr_Format( PyExc_AttributeError, "'%.50s' object has no attribute '%.400s'", Py_TYPE(self)->tp_name, name );
 	return NULL;
 }
 #define Py_FindMethod(methods, self, name) wpFindMethod(methods, self, name)
