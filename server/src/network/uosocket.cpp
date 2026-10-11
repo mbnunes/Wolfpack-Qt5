@@ -163,6 +163,7 @@ cUOSocket::cUOSocket( QTcpSocket* s ) : QObject( 0 ), _walkSequence( 0 ), lastPa
 	tooltipscache_ = new QBitArray;
 	skippedUOHeader = false;
 	protocolChanges_ = 0;
+	nonUOProbe_ = false;
 
 	connect( _socket, SIGNAL(disconnected()), this, SLOT(disconnectedImplementation()), Qt::QueuedConnection );
 //	connect( _socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(disconnectedImplementation()) );
@@ -424,6 +425,15 @@ void cUOSocket::receive()
 
 			// The 0x80 packet is 62 byte, but we want to have everything
 			QByteArray buf = _socket->readAll();            
+
+			// Detect non-UO clients (e.g. HTTP GET / POST probes from web browsers)
+			if ( buf.startsWith("GET ") || buf.startsWith("POST ") || buf.startsWith("HEAD ") || buf.startsWith("HTTP/") )
+			{
+				nonUOProbe_ = true;
+				_socket->write( "HTTP/1.1 400 Bad Request\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nThis port is reserved for Ultima Online Login Server connections. Use port 2594 for WebAdmin.\r\n" );
+				disconnect();
+				return;
+			}
 			
 			// Check if it could be *not* encrypted
 			if ( buf[0] == '\xEF' || buf[21] == '\x80' || buf[0] == '\x80' || buf[0] == '\x91') {
@@ -461,6 +471,15 @@ void cUOSocket::receive()
 			}
 
 			QByteArray buf = _socket->readAll();
+
+			// Detect non-UO clients (e.g. HTTP GET / POST probes from web browsers)
+			if ( buf.startsWith("GET ") || buf.startsWith("POST ") || buf.startsWith("HEAD ") || buf.startsWith("HTTP/") )
+			{
+				nonUOProbe_ = true;
+				_socket->write( "HTTP/1.1 400 Bad Request\r\nContent-Type: text/plain\r\nConnection: close\r\n\r\nThis port is reserved for Ultima Online Game Server connections. Use port 2594 for WebAdmin.\r\n" );
+				disconnect();
+				return;
+			}
 
 			// The 0x91 packet is 65 bytes
 			if ( buf[0] == '\x91' && ( ( (quint8)buf[1] == 0xFF && (quint8)buf[2] == 0xFF && (quint8)buf[3] == 0xFF && (quint8)buf[4] == 0xFF ) || Config::instance()->allowUnencryptedClients() ) )

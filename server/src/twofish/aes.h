@@ -79,9 +79,10 @@ INCLUDE IMPLEMENTATION SPECIFIC INFORMATION.
 	Typedef'ed data storage elements. Add any algorithm specific
 	parameters at the bottom of the structs as appropriate.
 */
+#include <QtGlobal>
 
 #define BYTE unsigned char
-#define DWORD unsigned long
+#define DWORD quint32
 typedef DWORD fullSbox[4][256];
 
 /* The structure for key information */

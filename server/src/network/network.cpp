@@ -111,7 +111,10 @@ void cNetwork::partingLoginServerConnection()
 	uoSocket->disconnect();
 	d->loginSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();
-	uoSocket->log( tr( "Client '%1' disconnected from loginserver.\n" ).arg( uoSocket->ip()) );
+	if ( !uoSocket->isNonUOProbe() )
+	{
+		uoSocket->log( tr( "Client '%1' disconnected from loginserver.\n" ).arg( uoSocket->ip()) );
+	}
 }
 
 void cNetwork::partingGameServerConnection()
@@ -121,7 +124,10 @@ void cNetwork::partingGameServerConnection()
 	d->uoSockets.removeAll( uoSocket );
 	uoSocket->deleteLater();
 	// account info?
-	uoSocket->log( tr( "Client '%1' disconnected from gameserver.\n" ).arg( uoSocket->ip()) );
+	if ( !uoSocket->isNonUOProbe() )
+	{
+		uoSocket->log( tr( "Client '%1' disconnected from gameserver.\n" ).arg( uoSocket->ip()) );
+	}
 }
 
 // Load IP Blocking rules

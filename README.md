@@ -64,6 +64,10 @@ Esta versão representa a modernização completa do projeto a partir de sua bas
 - **Compatibilidade de Livros de Magia (Spellbooks) com Clientes Modernos / High Seas**:
   - Correção de desconexão (*connection lost* / *desync*) ao abrir livros de magias (`spellbook`, `necrospellbook`, `chivalry`, `bushido`, `ninjitsu`, `mysticism` e `arcanist`).
   - Envio adaptativo do pacote `0x24 Display Spellbook` (9 bytes com sub-tipo `0x007D` para clientes High Seas / 7.0.9+, e 7 bytes para clientes clássicos) e correção dos offsets do pacote de conteúdo `0xBF 0x1B`.
+- **Proteção de Rede & Correção de Criptografia Twofish para Arquiteturas 64-bit**:
+  - Correção de estouro de pilha (*stack buffer overflow* / `__stack_chk_fail`) no algoritmo Twofish (`cGameEncryption`): definição de `DWORD` corrigida de `unsigned long` (8 bytes em Linux x86_64) para `quint32` (4 bytes exatos), restaurando blocos criptográficos de 128 bits.
+  - Proteção nativa nos sockets do GameServer (`2592`) e LoginServer (`2593`) contra tráfego não-UO (requisições HTTP/navegadores, scanners ou bots), desconectando de forma graciosa sem abortar o processo.
+  - Servidor web administrativo embutido (*Remote Admin*) opera com segurança na porta dedicada `2594` (`http://127.0.0.1:2594`).
 - **Novo Sistema de Build com CMake**:
   - Geração nativa de build com `CMakeLists.txt`.
   - Cabeçalhos pré-compilados (`wolfpack_pch.h`) para compilação rápida.

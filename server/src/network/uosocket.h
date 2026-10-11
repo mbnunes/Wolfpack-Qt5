@@ -246,6 +246,8 @@ public:
 	void setTxBytesRaw( unsigned int data );
 
 	quint32 uniqueId( void ) const;
+	bool isNonUOProbe( void ) const { return nonUOProbe_; }
+	void setNonUOProbe( bool val ) { nonUOProbe_ = val; }
 
 	void send( cUOPacket* packet );
 	void send( cGump* gump );
@@ -420,6 +422,7 @@ private:
 	bool isNewVersion;
 	qint32 seed;
 	unsigned int flags_;
+	bool nonUOProbe_;
 	cClientEncryption *encryption;
 
 	bool authenticate( const QString& username, const QString& password );
