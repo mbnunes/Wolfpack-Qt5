@@ -6,7 +6,7 @@ import web.template
 import cgi
 import sys
 import wolfpack.accounts
-from urllib import quote
+from urllib.parse import quote
 
 letters = "#abcdefghijklmnopqrstuvwxyz"
 
@@ -15,6 +15,7 @@ session_id = form.getvalue( 'session', '' )
 letter = form.getvalue( 'letter', '#' )
 account = form.getvalue( 'username', '' )
 
+save = 0
 try:
 	save = int( form.getvalue( 'save', '0' ) )
 except:
@@ -37,8 +38,8 @@ username = session[ 'username' ]
 record = wolfpack.accounts.find( account )
 
 if not record:
-	print "Content-type: text/html\n\n"
-	print "Invalid account"
+	print("Content-type: text/html\n\n")
+	print("Invalid account")
 	sys.exit()
 
 # Check if we should change any information

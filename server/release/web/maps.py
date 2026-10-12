@@ -1,69 +1,77 @@
-
-# Displays Players on a Map
+# Displays Players on a Map - Hub
 
 import web.sessions
 import web.template
 import cgi
 import sys
-import re
-import wolfpack
-import wolfpack.sockets
-import wolfpack.accounts
-import wolfpack.time
 
 form = cgi.FieldStorage()
-session_id = form.getvalue( 'session', '' )
+session_id = form.getvalue('session', '')
 
 web.sessions.check_timeouts()
-session = web.sessions.get_session( session_id )
+session = web.sessions.get_session(session_id)
 
-if session == None:
+if session is None:
 	web.sessions.display_timeout()
 	sys.exit()
 
-username = session[ 'username' ]
+username = session['username']
 
-content = """
-<p>
-<h1>Players on a Map</h1>
-Below you see the Players on the Map. Use your browsers refresh button to see the current output.<br>
-<table border="0">
-  <tr><td>
+maps_list = [
+	("Trammel", "map_trammel.py", "images/map_trammel.jpg", "Faseta pacífica de Britannia"),
+	("Felucca", "map_felucca.py", "images/map_trammel.jpg", "Faseta de PvP e regras clássicas"),
+	("Malas", "map_malas.py", "images/map_malas.jpg", "Continente sombrio de Luna e Umbra"),
+	("Ilshenar", "map_ilshenar.py", "images/map_ilshenar.jpg", "Mundo antigo e masmorras sagradas"),
+	("Ter Mur", "map_ter_mur.py", "images/map_trammel.jpg", "Reino dos Gargoyles"),
+	("Tokuno", "map_tokuno.py", "images/map_tokuno.jpg", "Ilhas e cultura oriental"),
+]
+
+map_cards = []
+for name, script, thumb, desc in maps_list:
+	map_cards.append(f"""
+	<div class="col-12 col-md-6 col-lg-4">
+		<div class="card h-100 border border-light-subtle shadow-sm overflow-hidden">
+			<div style="height: 120px; background-image: url('{thumb}'); background-size: cover; background-position: center;"></div>
+			<div class="card-body d-flex flex-column">
+				<h5 class="card-title fw-bold text-dark">{name}</h5>
+				<p class="card-text text-secondary small flex-grow-1">{desc}</p>
+				<a href="{script}?session={session_id}" class="btn btn-outline-success btn-sm w-100 mt-2">
+					Abrir Mapa &rarr;
+				</a>
+			</div>
+		</div>
+	</div>
+	""")
+
+content = f"""
+<div class="d-flex justify-content-between align-items-center pb-2 mb-4 border-bottom">
+	<div>
+		<h4 class="fw-bold text-dark mb-0">Mapas com Jogadores</h4>
+		<p class="text-secondary small mb-0">Selecione uma região para visualizar as posições em tempo real.</p>
+	</div>
+</div>
+
+<div class="row g-3">
+	{''.join(map_cards)}
+</div>
 """
 
-content += """
-<br />
-<a href="
-"""
-content +=	'map_trammel.py?session=%(session)s">Trammel</a><br /><br />'% { 'session': session_id }
-
-content +=	"""
-<a href="
-"""
-content += 'map_malas.py?session=%(session)s">Malas</a><br /><br />'% { 'session': session_id }
-
-content += """
-<a href="
+user_badge = f"""
+<div class="d-flex justify-content-between align-items-center w-100">
+	<div>
+		<span class="text-muted">Conectado como:</span> 
+		<span class="badge bg-secondary-subtle text-dark border border-secondary-subtle fw-semibold px-2 py-1">{username}</span>
+	</div>
+	<div>
+		<a href="logout.py?session={session_id}" class="text-danger text-decoration-none fw-semibold small">Sair (Logout)</a>
+	</div>
+</div>
 """
 
-content += 'map_ilshenar.py?session=%(session)s">Ilshenar</a><br /><br />'% { 'session': session_id }
-
-content += """
-<a href="
-"""
-content += 'map_tokuno.py?session=%(session)s">Tokuno</a><br /><br />' % { 'session': session_id }
-
-content += """
-	</td>
-  </tr>
-</table>
-</p>
-"""
-
-web.template.output( 	'&gt; <a href="map.py?session=%(session)s" class="header">Players on a Map</a>' % { 'session': session_id }, 
-						'<i>Logged in as:</i> %(username)s<br /><a href="logout.py?session=%(session)s" class="header">Logout</a>' % { 'username': username, 'session': session_id }, 
-						1, 
-						content,
-						session_id
-					)
-
+web.template.output( 	
+	f'&gt; <a href="maps.py?session={session_id}" class="text-decoration-none text-success fw-semibold">Maps with Players</a>', 
+	user_badge, 
+	1, 
+	content,
+	session_id
+)

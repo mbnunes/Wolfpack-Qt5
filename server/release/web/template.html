@@ -1,97 +1,105 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Wolfpack Administration</title>
-<style type="text/css">
-<!--
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #FFFFFF;
-}
-body,td,th {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10pt;
-}
-.maintitle {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 16px;
-	font-weight: bold;
-	color: #336633;
-}
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Wolfpack Administration</title>
 
-.smalltext {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 10px;
-	color: #999999;
-}
+	<!-- Bootstrap 5 CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/custom.css" />
 
-.sectiontitle {
+	<style>
+		body {
+			background-color: #f8fafc;
+			font-size: 0.95rem;
+		}
 
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 14px;
-	font-weight: bold;
-	color: #666666;
-}
+		.wp-header {
+			background-color: #004026;
+			border-bottom: 2px solid #002b1a;
+		}
 
-.text {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 12px;
-}
+		.wp-userbar {
+			background-color: #e9ecef;
+			border-bottom: 1px solid #dee2e6;
+			font-size: 0.85rem;
+		}
 
-img {
-	border: 0;
-}
+		.wp-title {
+			color: #004026;
+			font-weight: 700;
+			letter-spacing: 0.5px;
+		}
 
-a {
-	color: #0000FF;
-	text-decoration: none;
-}
+		.wp-sidebar-card {
+			border-color: #bcd0b5;
+		}
 
-a:hover {
-	color: #FF0000;
-}
-.Stil4 {font-size: 9pt}
+		.wp-sidebar-header {
+			background-color: #c6dbbf;
+			color: #1b3819;
+			font-weight: 600;
+			font-size: 0.9rem;
+		}
 
--->
-</style></head>
+		.list-group-item-action:hover {
+			background-color: #eaf2e8;
+			color: #004026;
+		}
+	</style>
+</head>
 
-<body>
-<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-	<td bgcolor="#004026"><img src="top_logo.jpg" width="586" height="87" /></td>
-  </tr>
-  <tr>
-	<td bgcolor="#DDDDDD" height="2"><img src="spacer.gif" width="1" height="2" /></td>
-  </tr>
-</table>
-%USERNAME%
-<div align="center"><br />
-</div>
-<table width="750"  border="0" align="center" cellpadding="2" cellspacing="0">
-  <tr>
-	<td colspan="2" valign="top"><div align="center">
-        <p><strong>        <span class="maintitle">Wolfpack Remote Administration</span></strong></p>
-        </div></td>
-  </tr>
-  <tr>
-    <td width="185" valign="top">      <table width="170"  border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td width="1" bgcolor="#004026"><img src="spacer.gif" width="1" height="1" /></td>
-          <td bgcolor="#C6DBBF"><table width="100%"  border="0" cellspacing="0" cellpadding="3">
-              <tr>
-                <td><span class="Stil4"><strong>Remote Administration</strong><br />
-%NAVBAR%<br />
-                </span></td>
-              </tr>
-          </table></td>
-        </tr>
-      </table></td>
-    <td width="527" valign="top"><span class="Stil4">%CONTENT%</span></td>
-  </tr>
-</table>
+<body class="d-flex flex-column min-vh-100">
+
+	<!-- Top Header com Banner / Logo -->
+	<header class="wp-header shadow-sm">
+		<div class="container-fluid px-3 px-md-4 d-flex align-items-center">
+			<img src="images/top_logo.jpg" alt="Wolfpack Logo" class="img-fluid py-1" style="max-height: 80px;" />
+		</div>
+	</header>
+
+	<!-- Barra de Usuário Logado -->
+	<div class="wp-userbar py-1 px-3 px-md-4 text-secondary">
+		<div class="container-xl">
+			%USERNAME%
+		</div>
+	</div>
+
+	<!-- Conteúdo Principal -->
+	<main class="container-xl my-4 flex-grow-1">
+
+		<!-- Título do Sistema -->
+		<div class="text-center mb-4">
+			<h4 class="wp-title mb-0">Wolfpack Remote Administration</h4>
+		</div>
+
+		<!-- Layout Grid: Sidebar + Conteúdo -->
+		<div class="row g-4 justify-content-center">
+
+			<!-- Menu Lateral (controlado via %NAVBAR%) -->
+			%NAVBAR%
+
+			<!-- Conteúdo da Página -->
+			<section class="%CONTENT_COL%">
+				<div class="card shadow-sm p-3 p-md-4 bg-white border-0">
+					%CONTENT%
+				</div>
+			</section>
+
+		</div>
+	</main>
+
+	<!-- Rodapé -->
+	<footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
+		<div class="container-xl">
+			Wolfpack-Qt5 &bull; Remote Administration Console
+		</div>
+	</footer>
+
+	<!-- Bootstrap 5 JS -->
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

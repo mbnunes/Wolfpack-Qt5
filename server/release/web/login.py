@@ -1,12 +1,11 @@
-
 import wolfpack.accounts
 import cgi
 import web.sessions
 import sys
 import os
 import web.template
-
-reload( web.sessions )
+import importlib
+importlib.reload( web.sessions )
 
 form = cgi.FieldStorage()
 
@@ -36,37 +35,70 @@ if username != '' and password != '':
 		authenticated = 1
 
 if not authenticated:
-	content = "<h1>Welcome to Wolfpack</h1>"
-	
+	# Mensagem de erro elegante com Alert do Bootstrap
+	alert_html = ""
 	if message:
-		content += "<h4>%s</h4><br>" % message
-	
-	content += """<!-- Login -->
+		alert_html = f"""
+		<div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+			<div>{message}</div>
+		</div>
+		"""
+
+	# Formulário estilizado com Bootstrap 5
+	# Formulário estilizado sem card duplicado
+	content = f"""
+	<div class="py-3 px-2 mx-auto" style="max-width: 420px;">
+		<div class="text-center mb-4">
+			<h3 class="fw-bold mb-1" style="color: #004026;">Welcome to Wolfpack</h3>
+			<p class="text-muted small">Please enter your administrative credentials.</p>
+		</div>
+		
+		{alert_html}
+
 		<form action="login.py" method="POST">
-			Username:<br />
-			<input type="text" name="username" /><br /><br />
-			Password:<br />
-			<input type="password" name="password" /><br /><br />
-			<input type="submit" value="Login" />
-		</form>"""
+			<div class="mb-3 text-start">
+				<label for="username" class="form-label fw-semibold text-secondary small">Username</label>
+				<input type="text" class="form-control" id="username" name="username" required autofocus />
+			</div>
+			<div class="mb-4 text-start">
+				<label for="password" class="form-label fw-semibold text-secondary small">Password</label>
+				<input type="password" class="form-control" id="password" name="password" required />
+			</div>
+			<button type="submit" class="btn btn-wolfpack w-100 py-2 fw-semibold shadow-sm">
+				Login
+			</button>
+		</form>
+	</div>
+	"""
 	
 	try:
-		file = open( 'web/template.html', 'r' )
+		# Se sua pasta atual de testes for web_new, aponte para 'web_new/template.html' ou mantenha 'web/template.html'
+		file = open( 'web_new/template.html' if os.path.exists('web_new/template.html') else 'web/template.html', 'r', encoding='utf-8' )
 		template = file.read()
 		file.close()
 	except:
 		template = "<b>ERROR:</b> Couldn't read template.html."
 	
-	template = template.replace( '%NAVIGATION%', '&gt; <a href="login.py" class="header">Login</a>' )
+	template = template.replace( '%NAVIGATION%', '&gt; <a href="login.py">Login</a>' )
 	template = template.replace( '%USERNAME%', '' )
 	template = template.replace( '%NAVBAR%', '' )
+	template = template.replace( '%CONTENT_COL%', 'col-12 col-md-8 col-lg-6' )
 	template = template.replace( '%CONTENT%', content )
 	
-	print("Content-type: text/html\n\n")
+	print("Content-type: text/html; charset=utf-8\n\n")
 	print(template)
 else:
 	# Create a session
 	session = web.sessions.start_session( username )
 
-	web.template.output( '', '', 0, """You have been logged in.<br />Click <a href="main.py?session=%(session)s">here</a> if you are not automatically redirected.
-	<meta http-equiv="refresh" content="0;URL=main.py?session=%(session)s" />""" % {'session': session}, '' )
+	success_content = """
+	<div class="alert alert-success d-flex align-items-center" role="alert">
+		<div>
+			<strong>Success!</strong> You have been logged in. Redirecting...<br>
+			Click <a href="main.py?session=%(session)s" class="alert-link">here</a> if you are not automatically redirected.
+		</div>
+	</div>
+	<meta http-equiv="refresh" content="0;URL=main.py?session=%(session)s" />
+	""" % {'session': session}
+
+	web.template.output( '', '', 0, success_content, '' )

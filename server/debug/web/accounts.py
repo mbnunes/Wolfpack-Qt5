@@ -14,7 +14,7 @@ import cgi
 import sys
 import wolfpack.accounts
 import re
-from urllib import quote
+from urllib.parse import quote
 
 validletters = "abcdefghijklmnopqrstuvwxyz0123456789._"
 letters = "#abcdefghijklmnopqrstuvwxyz"
@@ -114,7 +114,7 @@ for account in wolfpack.accounts.list():
 			accounts.append( account )
 
 # Sort the list
-accounts.sort( lambda a, b: cmp( a.lower(), b.lower() ) )
+accounts.sort( key=lambda a: a.lower() )
 
 content += '<table width="350" border="0" cellspacing="0" cellpadding="3">'
 content += '<tr><td><b>Username</b></td><td>ACL</td><td>blocked</td><td>until</td></tr>'

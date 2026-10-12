@@ -2,20 +2,19 @@
 #   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
 #  ((    _/{  "-;  | Created by: DarkStorm                      #
 #   )).-' {{ ;'`   | Revised by: Correa                         #
-#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+#  ( (  ;._ \\ ctr | Last Modification: Python 3 Compatibility  #
 #===============================================================#
 # Remote Administration Webserver                               #
 #===============================================================#
 
 from wolfpack.consts import *
 from threading import Thread, Event
-import os, sys, time, string, socket, urllib
+import os, sys, time, socket
 import urllib.parse
 from http.server import CGIHTTPRequestHandler, HTTPServer
 from socketserver import BaseServer
 import posixpath
 import atexit
-import io as cStringIO
 import traceback
 import web.sessions
 import wolfpack
@@ -24,11 +23,68 @@ from wolfpack import settings
 
 WEBADMIN_LOGGING = 1
 
+# Stream wrappers for CGI script execution
+class StreamWriter:
+	def __init__(self, raw):
+		self.raw = raw
+		self.buffer = raw
+	def write(self, s):
+		if isinstance(s, str):
+			s = s.encode('utf-8', 'surrogateescape')
+		return self.raw.write(s)
+	def writelines(self, lines):
+		for line in lines:
+			self.write(line)
+	def flush(self):
+		if hasattr(self.raw, 'flush'):
+			self.raw.flush()
+
+class StreamReader:
+	def __init__(self, raw, length=None):
+		self.raw = raw
+		self.buffer = raw
+		self.remaining = length
+	def read(self, n=-1):
+		if self.remaining is not None:
+			if self.remaining <= 0:
+				return ''
+			if n < 0 or n > self.remaining:
+				n = self.remaining
+			data = self.raw.read(n)
+			if isinstance(data, bytes):
+				s = data.decode('utf-8', 'surrogateescape')
+			else:
+				s = data
+			self.remaining -= len(data) if isinstance(data, (bytes, str)) else 0
+			return s
+		data = self.raw.read(n) if n >= 0 else self.raw.read()
+		if isinstance(data, bytes):
+			return data.decode('utf-8', 'surrogateescape')
+		return data
+	def readline(self, limit=-1):
+		if self.remaining is not None:
+			if self.remaining <= 0:
+				return ''
+			if limit < 0 or limit > self.remaining:
+				limit = self.remaining
+			data = self.raw.readline(limit)
+			if isinstance(data, bytes):
+				s = data.decode('utf-8', 'surrogateescape')
+			else:
+				s = data
+			self.remaining -= len(data) if isinstance(data, (bytes, str)) else 0
+			return s
+		data = self.raw.readline(limit)
+		if isinstance(data, bytes):
+			return data.decode('utf-8', 'surrogateescape')
+		return data
+
 # Just override handle_error for nicer error handling
 class Webserver( HTTPServer ):
 	def __init__( self, addr, htdocs ):
 		BaseServer.__init__( self, addr, WebserverHandler )
 		self.socket = socket.socket( self.address_family, self.socket_type )
+		self.socket.setsockopt( socket.SOL_SOCKET, socket.SO_REUSEADDR, 1 )
 		self.socket.setblocking( 0 )
 		self.server_bind()
 		self.server_activate()
@@ -39,27 +95,25 @@ class Webserver( HTTPServer ):
 		try:
 			request, client_address = self.get_request()
 			request.setblocking( 1 )
-		except socket.error:
+		except (socket.error, OSError):
 			return
 		if self.verify_request(request, client_address):
 			try:
 				self.process_request(request, client_address)
-			except:
+			except Exception:
 				self.handle_error(request, client_address)
 				self.close_request(request)
 
 	def handle_error(self, request, client_address):
 		# Ignore Socket Errors && IOErrors
-		if sys.exc_type == socket.error or sys.exc_type == IOError:
-			dummy = cStringIO.StringIO()
-			traceback.print_exc( None, dummy )
-			dummy.close()
+		ex_type, ex_val, tb = sys.exc_info()
+		if ex_type and issubclass(ex_type, (socket.error, IOError, OSError, ConnectionResetError, BrokenPipeError)):
 			return
 
 		print( '-'*40 )
 		print( 'Exception happened during processing of request from ' + str( client_address ) )
 
-		traceback.print_exc() # XXX But this goes to stderr!
+		traceback.print_exc()
 		print( '-'*40 )
 
 # Custom Request Handler
@@ -94,9 +148,9 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 
 		"""
 		file = urllib.parse.unquote(uri)
-		file.replace("\\", '/')
+		file = file.replace("\\", '/')
 		words = file.split('/')
-		words = filter(None, words)
+		words = list(filter(None, words))
 
 		path = self.server.htdocs
 		bad_uri = 0
@@ -145,7 +199,6 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 			return
 
 		# Reference: http://hoohoo.ncsa.uiuc.edu/cgi/env.html
-		# XXX Much of the following could be prepared ahead of time!
 		env = {}
 		env['SERVER_SOFTWARE'] = self.version_string()
 		env['SERVER_NAME'] = self.server.server_name
@@ -163,28 +216,26 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 		if host != self.client_address[0]:
 			env['REMOTE_HOST'] = host
 		env['REMOTE_ADDR'] = self.client_address[0]
-		# XXX AUTH_TYPE
-		# XXX REMOTE_USER
-		# XXX REMOTE_IDENT
-		if self.headers.typeheader is None:
-			env['CONTENT_TYPE'] = self.headers.type
-		else:
-			env['CONTENT_TYPE'] = self.headers.typeheader
-		length = self.headers.getheader('content-length')
+
+		content_type = self.headers.get('content-type', '')
+		if content_type:
+			env['CONTENT_TYPE'] = content_type
+		length = self.headers.get('content-length')
 		if length:
 			env['CONTENT_LENGTH'] = length
-		accept = []
-		for line in self.headers.getallmatchingheaders('accept'):
-			if line[:1] in "\t\n\r ":
-				accept.append(line.strip())
-			else:
-				accept = accept + line[7:].split(',')
-		env['HTTP_ACCEPT'] = ','.join(accept)
-		ua = self.headers.getheader('user-agent')
+		accept = self.headers.get_all('accept')
+		if accept:
+			env['HTTP_ACCEPT'] = ','.join(accept)
+		ua = self.headers.get('user-agent')
 		env['HTTP_USER_AGENT'] = ua or ''
-		co = filter(None, self.headers.getheaders('cookie'))
-		env['HTTP_COOKIE'] = string.join(co, ', ') or ''
+		co = self.headers.get_all('cookie')
+		if co:
+			env['HTTP_COOKIE'] = ', '.join(co)
+		else:
+			env['HTTP_COOKIE'] = ''
+
 		self.send_response(200, "Script output follows")
+		self.flush_headers()
 		decoded_query = query.replace('+', ' ')
 
 		# execute script in this process
@@ -199,16 +250,17 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 					nbytes = int(length)
 				except (TypeError, ValueError):
 					nbytes = 0
-				# throw away additional data [see bug #427345]
-				if self.command.lower() == "post" and nbytes > 0:
+				if hasattr(self.rfile, '_rbufsize') and self.command.lower() == "post" and nbytes > 0:
 					self.rfile._rbufsize = nbytes + 2
 				os.environ.update(env)
 				sys.argv = [scriptfile]
 				if '=' not in decoded_query:
 					sys.argv.append(decoded_query)
-				sys.stdout = self.wfile
-				sys.stdin = self.rfile
-				execfile(scriptfile, {"__name__": "__main__"})
+				sys.stdout = StreamWriter(self.wfile)
+				sys.stdin = StreamReader(self.rfile, length=nbytes if nbytes > 0 else None)
+				with open(scriptfile, 'r', encoding='utf-8', errors='replace') as sf:
+					code = sf.read()
+				exec(compile(code, scriptfile, 'exec'), {"__name__": "__main__", "__file__": scriptfile})
 				sys.stdout.flush()
 			finally:
 				os.environ = save_env
@@ -219,17 +271,21 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 		except SystemExit as sts:
 			if WEBADMIN_LOGGING == 1:
 				self.log_error("CGI script exit status %s", str(sts))
+		except Exception as e:
+			traceback.print_exc()
+			if WEBADMIN_LOGGING == 1:
+				self.log_error("CGI script exception: %s", str(e))
 		else:
 			if WEBADMIN_LOGGING == 1:
 				self.log_message("CGI script exited OK")
 
 	def log_message( self, format, *args ):
 		try:
-			file = open( 'logs/web.log', 'a' )
-			file.write( "%s - - [%s] %s\n" % ( self.address_string(), self.log_date_time_string(), format%args ) )
-			file.close()
-		except:
-			print( "Could not write to logfile: logs/web.log\n" )
+			os.makedirs('logs', exist_ok=True)
+			with open( 'logs/web.log', 'a' ) as file:
+				file.write( "%s - - [%s] %s\n" % ( self.address_string(), self.log_date_time_string(), format%args ) )
+		except Exception:
+			pass
 
 class WebserverThread(Thread):
 	def __init__( self, port ):
@@ -242,7 +298,6 @@ class WebserverThread(Thread):
 		self.stopped.set()
 
 	def run( self ):
-		# Wait with binding the webserver for 5 Seconds
 		server_address = ('', self.port)
 
 		# Starting up
@@ -252,12 +307,15 @@ class WebserverThread(Thread):
 		try:
 			filepath = os.path.normpath(os.path.abspath('web/'))
 			self.httpd = Webserver(('', self.port), filepath)
-		except:
+		except Exception:
 			traceback.print_exc()
 			return
 
-		while not self.stopped.isSet():
-			self.httpd.handle_request()
+		while not self.stopped.is_set():
+			try:
+				self.httpd.handle_request()
+			except Exception:
+				traceback.print_exc()
 			self.stopped.wait(0.05)
 
 		if wolfpack.isreloading():
@@ -291,7 +349,6 @@ def onLoad():
 		thread.start()
 
 def onUnload():
-
 	# Stop the Thread
 	global thread
 	if thread:

@@ -47,21 +47,21 @@ while socket:
 		<div id="
 		"""
 
-		content += 'layer' + unicode(numero)
+		content += 'layer' + str(numero)
 
 		content += """
 		" style="position:relative; width:8px; height:8px; z-index:0;
 		"""
 
-		content += 'left: ' + unicode(((socket.player.pos.x)/10) + XOFFSET) + 'px; '
+		content += 'left: ' + str(((socket.player.pos.x)/10) + XOFFSET) + 'px; '
 		
-		content += 'top: ' + unicode(((socket.player.pos.y)/10) + YOFFSET) + 'px;">'
+		content += 'top: ' + str(((socket.player.pos.y)/10) + YOFFSET) + 'px;">'
 
 		content += """
 		<img src="marker.gif"
 		"""
 
-		content += ' alt="' + unicode(socket.player.name) + '" width="8" height="8">'
+		content += ' alt="' + str(socket.player.name) + '" width="8" height="8">'
 
 		content += """
 		</div>

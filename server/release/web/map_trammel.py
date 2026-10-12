@@ -1,86 +1,189 @@
-
-# Displays Players on a Map
+# Displays Players on a Map - Trammel (Interactive Leaflet Map)
 
 import web.sessions
 import web.template
 import cgi
 import sys
-import re
+import json
 import wolfpack
 import wolfpack.sockets
-import wolfpack.accounts
-import wolfpack.time
 
 form = cgi.FieldStorage()
-session_id = form.getvalue( 'session', '' )
+session_id = form.getvalue('session', '')
 
 web.sessions.check_timeouts()
-session = web.sessions.get_session( session_id )
+session = web.sessions.get_session(session_id)
 
-if session == None:
+if session is None:
 	web.sessions.display_timeout()
 	sys.exit()
 
-username = session[ 'username' ]
+username = session['username']
 
-XOFFSET = 0
-YOFFSET = -200
+# Dimensões da sua imagem de alta resolução (Ajuste para a largura e altura exatas do seu JPG/PNG)
+IMG_WIDTH = 7168
+IMG_HEIGHT = 4096
+IMAGE_PATH = "images/map_trammel.jpg"
 
-content = """
-<p>
-<h1>Players on a Trammel Map</h1>
-Below you see the Players on the Map. Use your browsers refresh button to see the current output.<br>
-<table width="615" height="410" border="0">
-  <tr>
-    <td background="map_trammel.jpg">
-"""
+# Dimensões nativas de Trammel em tiles no UO
+UO_TILES_X = 7168
+UO_TILES_Y = 4096
 
-numero = 0
+# Fator de conversão entre coordenadas do jogo e pixels da imagem
+SCALE_X = IMG_WIDTH / UO_TILES_X
+SCALE_Y = IMG_HEIGHT / UO_TILES_Y
+
+players_data = []
+
 socket = wolfpack.sockets.first()
 nextsocket = wolfpack.sockets.next()
 while socket:
-	if( socket.player and socket.player.pos.map == 2 and not socket.player.invisible ):
+	if socket.player and socket.player.pos.map == 1 and not socket.player.invisible:
+		p_name = str(socket.player.name)
+		raw_x = socket.player.pos.x
+		raw_y = socket.player.pos.y
 		
-		numero += 1
+		# Converte para pixels da imagem
+		px = raw_x * SCALE_X
+		py = raw_y * SCALE_Y
 
-		content += """
-		<div id="
-		"""
+		players_data.append({
+			"name": p_name,
+			"raw_x": raw_x,
+			"raw_y": raw_y,
+			"px": px,
+			"py": py
+		})
 
-		content += 'layer' + unicode(numero)
-
-		content += """
-		" style="position:relative; width:8px; height:8px; z-index:0;
-		"""
-
-		content += 'left: ' + unicode(((socket.player.pos.x)/10) + XOFFSET) + 'px; '
-		
-		content += 'top: ' + unicode(((socket.player.pos.y)/10) + YOFFSET) + 'px;">'
-
-		content += """
-		<img src="marker.gif"
-		"""
-
-		content += ' alt="' + unicode(socket.player.name) + '" width="8" height="8">'
-
-		content += """
-		</div>
-		"""
-			
 	socket = nextsocket
 	nextsocket = wolfpack.sockets.next()
 
-content += """
-	</td>
-  </tr>
-</table>
-</p>
+# Serializa os jogadores em JSON
+players_json = json.dumps(players_data)
+
+# Lista lateral de jogadores
+if players_data:
+	player_items = "".join([
+		f'''<li class="list-group-item d-flex justify-content-between align-items-center small py-2">
+			<a href="#" onclick="focusPlayer({p['px']}, {p['py']}); return false;" class="text-decoration-none fw-semibold text-success">{p['name']}</a>
+			<span class="badge bg-secondary-subtle text-dark border font-monospace">X:{p['raw_x']} Y:{p['raw_y']}</span>
+		</li>''' for p in players_data
+	])
+else:
+	player_items = '<li class="list-group-item text-muted small py-3 text-center">Nenhum jogador online neste mapa.</li>'
+
+content = f"""
+<!-- Folha de estilo do Leaflet -->
+<link rel="stylesheet" href="css/leaflet.css" />
+
+<!-- Cabeçalho -->
+<div class="d-flex flex-wrap justify-content-between align-items-center pb-2 mb-3 border-bottom gap-2">
+	<div>
+		<h4 class="fw-bold text-dark mb-0">Mapa Interativo: Trammel</h4>
+		<p class="text-secondary small mb-0">Role para dar zoom e arraste com o mouse para navegar.</p>
+	</div>
+	<div>
+		<a href="map_trammel.py?session={session_id}" class="btn btn-outline-success btn-sm">Atualizar Posições</a>
+	</div>
+</div>
+
+<!-- Abas de Navegação -->
+<ul class="nav nav-pills mb-3 small">
+  <li class="nav-item"><a class="nav-link active" href="map_trammel.py?session={session_id}">Trammel</a></li>
+  <li class="nav-item"><a class="nav-link" href="map_felucca.py?session={session_id}">Felucca</a></li>
+  <li class="nav-item"><a class="nav-link" href="map_ilshenar.py?session={session_id}">Ilshenar</a></li>
+  <li class="nav-item"><a class="nav-link" href="map_malas.py?session={session_id}">Malas</a></li>
+  <li class="nav-item"><a class="nav-link" href="map_tokuno.py?session={session_id}">Tokuno</a></li>
+  <li class="nav-item"><a class="nav-link" href="map_ter_mur.py?session={session_id}">Ter Mur</a></li>
+</ul>
+
+<!-- Grid: Mapa Leaflet + Lista Lateral -->
+<div class="row g-3">
+	<div class="col-12 col-xl-9">
+		<div class="card border border-light-subtle shadow-sm p-1 bg-dark">
+			<!-- Canvas do Mapa Interativo com altura fixa elegante -->
+			<div id="uomap" style="width: 100%; height: 600px; background-color: #0b151e; border-radius: 4px;"></div>
+		</div>
+	</div>
+
+	<div class="col-12 col-xl-3">
+		<div class="card border border-light-subtle shadow-sm h-100">
+			<div class="card-header bg-white py-2">
+				<span class="fw-semibold text-secondary small text-uppercase">Jogadores ({len(players_data)})</span>
+			</div>
+			<ul class="list-group list-group-flush overflow-auto" style="max-height: 560px;">
+				{player_items}
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- Script Leaflet -->
+<script src="js/leaflet.js"></script>
+<script>
+	const imgW = {IMG_WIDTH};
+	const imgH = {IMG_HEIGHT};
+	const imgUrl = '{IMAGE_PATH}';
+	const players = {players_json};
+
+	// 1. Cria o mapa usando coordenadas planas (CRS.Simple)
+	const map = L.map('uomap', {{
+		crs: L.CRS.Simple,
+		minZoom: -3,
+		maxZoom: 2,
+		zoomSnap: 0.5
+	}});
+
+	// 2. Define os limites da imagem plana: [[yMin, xMin], [yMax, xMax]]
+	// No Leaflet CRS.Simple, o eixo Y cresce de baixo para cima, então mapeamos de 0 até imgH
+	const bounds = [[0, 0], [imgH, imgW]];
+	L.imageOverlay(imgUrl, bounds).addTo(map);
+
+	// Enquadra o mapa inteiro na tela inicialmente
+	map.fitBounds(bounds);
+
+	// Ícone personalizado para o marcador do jogador
+	const playerIcon = L.icon({{
+		iconUrl: 'images/marker.gif',
+		iconSize: [12, 12],
+		iconAnchor: [6, 6],
+		popupAnchor: [0, -6]
+	}});
+
+	// 3. Adiciona marcadores de jogadores
+	players.forEach(p => {{
+		// Inverte o Y porque a coordenada 0 de imagem é no topo, e no Leaflet o Y cresce para cima
+		const mapY = imgH - p.py;
+		const mapX = p.px;
+
+		const marker = L.marker([mapY, mapX], {{ icon: playerIcon }}).addTo(map);
+		marker.bindPopup(`<strong>${{p.name}}</strong><br>X: ${{p.raw_x}} | Y: ${{p.raw_y}}`);
+	}});
+
+	// Função para focar e dar zoom no jogador ao clicar no nome na lista lateral
+	window.focusPlayer = function(px, py) {{
+		const mapY = imgH - py;
+		map.setView([mapY, px], 0);
+	}};
+</script>
 """
 
-web.template.output( 	'&gt; <a href="map.py?session=%(session)s" class="header">Players on a Map</a>' % { 'session': session_id }, 
-						'<i>Logged in as:</i> %(username)s<br /><a href="logout.py?session=%(session)s" class="header">Logout</a>' % { 'username': username, 'session': session_id }, 
-						1, 
-						content,
-						session_id
-					)
+user_badge = f"""
+<div class="d-flex justify-content-between align-items-center w-100">
+	<div>
+		<span class="text-muted">Conectado como:</span> 
+		<span class="badge bg-secondary-subtle text-dark border border-secondary-subtle fw-semibold px-2 py-1">{username}</span>
+	</div>
+	<div>
+		<a href="logout.py?session={session_id}" class="text-danger text-decoration-none fw-semibold small">Sair (Logout)</a>
+	</div>
+</div>
+"""
 
+web.template.output( 	
+	f'&gt; <a href="maps.py?session={session_id}" class="text-decoration-none text-success">Maps</a> &gt; <a href="map_trammel.py?session={session_id}" class="text-decoration-none text-success fw-semibold">Trammel</a>', 
+	user_badge, 
+	1, 
+	content,
+	session_id
+)
