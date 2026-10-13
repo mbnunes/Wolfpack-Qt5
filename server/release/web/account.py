@@ -96,9 +96,14 @@ if len(record.characters) > 0:
 		char_items.append(f"""
 		<li class="list-group-item d-flex justify-content-between align-items-center">
 			<div>
-				<strong class="text-dark">{char.name}</strong>
+				<a href="character.py?session={session_id}&serial=0x{char.serial:x}&account={record.name}" class="fw-bold text-success text-decoration-none">
+					{char.name}
+				</a>
 			</div>
-			<span class="badge bg-secondary-subtle text-dark border font-monospace">Serial: 0x{char.serial:x}</span>
+			<div>
+				<span class="badge bg-secondary-subtle text-dark border font-monospace me-2">Serial: 0x{char.serial:x}</span>
+				<a href="character.py?session={session_id}&serial=0x{char.serial:x}&account={record.name}" class="btn btn-sm btn-outline-success py-0">Ver Ficha &rarr;</a>
+			</div>
 		</li>
 		""")
 
@@ -204,21 +209,10 @@ content = f"""
 {chars_html}
 """
 
-user_badge = f"""
-<div class="d-flex justify-content-between align-items-center w-100">
-	<div>
-		<span class="text-muted">Conectado como:</span> 
-		<span class="badge bg-secondary-subtle text-dark border border-secondary-subtle fw-semibold px-2 py-1">{username}</span>
-	</div>
-	<div>
-		<a href="logout.py?session={session_id}" class="text-danger text-decoration-none fw-semibold small">Sair (Logout)</a>
-	</div>
-</div>
-"""
 
 web.template.output( 	
 	f'&gt; <a href="accounts.py?session={session_id}&letter={quote(letter)}" class="text-decoration-none text-success">Accounts</a> &gt; <a href="account.py?username={quote(account)}&letter={quote(letter)}&session={session_id}" class="text-decoration-none text-success fw-semibold">Account ({account})</a>', 
-	user_badge, 
+	username, 
 	1, 
 	content,
 	session_id

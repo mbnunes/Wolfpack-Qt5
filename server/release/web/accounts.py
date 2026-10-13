@@ -235,21 +235,9 @@ content = f"""
 </div>
 """
 
-user_badge = f"""
-<div class="d-flex justify-content-between align-items-center w-100">
-	<div>
-		<span class="text-muted">Conectado como:</span> 
-		<span class="badge bg-secondary-subtle text-dark border border-secondary-subtle fw-semibold px-2 py-1">{username}</span>
-	</div>
-	<div>
-		<a href="logout.py?session={session_id}" class="text-danger text-decoration-none fw-semibold small">Sair (Logout)</a>
-	</div>
-</div>
-"""
-
 web.template.output( 	
 	f'&gt; <a href="accounts.py?session={session_id}&letter={quote(letter)}" class="text-decoration-none text-success fw-semibold">Accounts</a>', 
-	user_badge, 
+	username, 
 	1, 
 	content,
 	session_id
