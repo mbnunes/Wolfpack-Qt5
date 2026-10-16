@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated from ServUO teleporters.csv -->
+<!-- Generated from World Teleporters -->
 <definitions>
 	<teleporter source="2186,294,-27,2" destination="2186,33,-27,2" bothways="true" />
 	<teleporter source="2187,294,-27,2" destination="2187,33,-27,2" bothways="true" />

@@ -19,6 +19,14 @@
 	<script>boats.deed</script>
 	<script>boats.tillerman</script>
 	<script>boats.plank</script>
+	<script>boats.security</script>
+	<script>boats.damage</script>
+	<script>boats.wheel</script>
+	<script>boats.mooring</script>
+	<script>boats.cannons</script>
+	<script>boats.pilot</script>
+	<script>boats.tracking</script>
+	<script>boats.runes</script>
 
 	<!-- Housing -->
 	<script>housing</script>
@@ -26,6 +34,7 @@
 	<script>housing.house</script>
 	<script>housing.sign</script>
 	<script>housing.security</script>
+	<script>housing.customhouse</script>
 	<script>ankh</script>
 	<script>arcanegem</script>
 	<script>archery_butte</script>
@@ -85,6 +94,18 @@
 	<script>specialdye</script>
 	<script>spiderweb</script>
 	<script>statscroll</script>
+	<script>powerscroll</script>
+	<script>champions.championspawn</script>
+	<script>champions.champcreature</script>
+	<script>champions.champboss</script>
+	<script>bod.bodsystem</script>
+	<script>bod.smallbod</script>
+	<script>bod.largebod</script>
+	<script>bod.bods_gumps</script>
+	<script>peerless.peerless_system</script>
+	<script>peerless.altar</script>
+	<script>peerless.masterkey</script>
+	<script>peerless.boss</script>
 	<script>statuette</script>
 	<script>taxidermykit</script>
 	<script>training_dummy</script>
@@ -132,15 +153,18 @@
 
 	<!-- Commands -->
 	<script>commands</script>
+	<script>commands.commands</script>
 	<script>commands.account</script>
 	<script>commands.action</script>
 	<script>commands.add</script>
 	<script>commands.adddecor</script>
 	<script>commands.allshow</script>
 	<script>commands.bank</script>
+	<script>commands.bod</script>
 	<script>commands.boom</script>
 	<script>commands.build</script>
 	<script>commands.cast</script>
+	<script>commands.champ</script>
 	<script>commands.decoration</script>
 	<script>commands.disconnect</script>
 	<script>commands.dupe</script>
@@ -171,7 +195,9 @@
 	<script>commands.move</script>
 	<script>commands.mute</script>
 	<script>commands.jail</script>
+	<script>commands.paragon</script>
 	<script>commands.password</script>
+	<script>commands.peerless</script>
 	<script>commands.remove</script>
 	<script>commands.removedupes</script>
 	<script>commands.removemulti</script>
@@ -220,6 +246,8 @@
 	<script>magic.gate</script>
 	<script>magic.necromancy</script>
 	<script>magic.necrospellbook</script>
+	<script>magic.mysticism</script>
+	<script>magic.mysticspellbook</script>
 	<script>magic.ninjitsu</script>
 	<script>magic.ninjitsuspellbook</script>
 	<script>magic.nightsight</script>
@@ -288,6 +316,7 @@
 
 	-->
 	<script>system.pages</script>
+	<script>system.paragon</script>
 	<script>system.players</script>
 	<script>system.poison</script>
 	<script>system.regionchange</script>

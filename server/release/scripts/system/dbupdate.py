@@ -174,11 +174,11 @@ def onUpdateDatabase(current, version):
 def updateacctversion(version, driver):
 	try:
 		if driver == 'mysql':
-			database.execute("REPLACE INTO `settings` VALUES('db_version', '%u');" % version)
+			database.execute("REPLACE INTO `settings` VALUES('acct_db_version', '%u');" % version)
 		else:
-			database.execute("REPLACE INTO settings VALUES('db_version', '%u');" % version)
+			database.execute("REPLACE INTO settings VALUES('acct_db_version', '%u');" % version)
 	except Exception as e:
-		console.log(LOG_WARNING, "Unable to update account database version to %u:\n%s\n" % (i + 1, str(e)))
+		console.log(LOG_WARNING, "Unable to update account database version to %u:\n%s\n" % (version, str(e)))
 
 #
 # MySQL

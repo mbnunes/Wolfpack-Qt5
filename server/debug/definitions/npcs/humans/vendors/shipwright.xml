@@ -8,9 +8,19 @@
 -->
 <definitions>
 	<npc id="shipwright_inventory">
-		<shopkeeper>
+				<shopkeeper>
 			<restockable>
-				<item id="boat_small"><amount>40</amount></item>
+				<item id="boat_small"><amount>20</amount></item>
+				<item id="dragonboat_small"><amount>20</amount></item>
+				<item id="boat_medium"><amount>20</amount></item>
+				<item id="dragonboat_medium"><amount>20</amount></item>
+				<item id="boat_large"><amount>20</amount></item>
+				<item id="dragonboat_large"><amount>20</amount></item>
+				<item id="rowboat"><amount>20</amount></item>
+				<item id="tokuno_galleon"><amount>10</amount></item>
+				<item id="gargish_galleon"><amount>10</amount></item>
+				<item id="orcish_galleon"><amount>10</amount></item>
+				<item id="britannian_ship"><amount>10</amount></item>
 				<item id="mapmakers_pen"><amount>20</amount></item>
 				<item id="14ec"><amount>20</amount></item>
 			</restockable>

@@ -353,6 +353,11 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 		{
 			socket->sysMessage( tr( "Usage: spawnregion respawn <region_name>" ) );
 		}
+		else if ( args[1].toLower() == "towns" || args[1].toLower() == "cities" || args[1].toLower() == "cidades" )
+		{
+			int count = SpawnRegions::instance()->reSpawnTowns();
+			socket->sysMessage( tr( "All town spawnregions have respawned (%1 regions)." ).arg( count ) );
+		}
 		else if ( args[1].toLower() != "all" )
 		{
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
@@ -387,6 +392,11 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 		{
 			socket->sysMessage( tr( "Usage: spawnregion clear <region_name>" ) );
 		}
+		else if ( args[1].toLower() == "towns" || args[1].toLower() == "cities" || args[1].toLower() == "cidades" )
+		{
+			int count = SpawnRegions::instance()->deSpawnTowns();
+			socket->sysMessage( tr( "All town spawnregions have been cleared (%1 regions)." ).arg( count ) );
+		}
 		else if ( args[1].toLower() != "all" )
 		{
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
@@ -420,6 +430,11 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 		if ( args.count() < 2 )
 		{
 			socket->sysMessage( tr( "Usage: spawnregion fill <region_name>" ) );
+		}
+		else if ( args[1].toLower() == "towns" || args[1].toLower() == "cities" || args[1].toLower() == "cidades" )
+		{
+			int count = SpawnRegions::instance()->reSpawnToMaxTowns();
+			socket->sysMessage( tr( "All town spawnregions have been filled to maximum (%1 regions)." ).arg( count ) );
 		}
 		else if ( args[1].toLower() != "all" )
 		{
@@ -491,6 +506,99 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 
 			socket->send( pGump );
 		}
+	}
+}
+
+/*
+	\command respawntowns
+	\description Respawns all towns/cities or a specific town.
+	\usage - <code>respawntowns</code>
+	- <code>respawntowns [town_name]</code>
+	- <code>respawntowns list</code>
+	- <code>respawntowns clear [town_name]</code>
+*/
+void commandRespawnTowns( cUOSocket* socket, const QString& command, const QStringList& args )
+{
+	Q_UNUSED( command );
+
+	if ( args.count() == 0 )
+	{
+		int count = SpawnRegions::instance()->reSpawnToMaxTowns();
+		socket->sysMessage( tr( "All town spawnregions have been filled to maximum (%1 regions)." ).arg( count ) );
+		return;
+	}
+
+	QString first = args[0].toLower();
+
+	if ( first == "list" )
+	{
+		socket->sysMessage( tr( "Available towns:" ) );
+		socket->sysMessage( tr( "Britannia: Britain, Cove, Jhelom, Minoc, Moonglow, Trinsic, Vesper, Yew, Buccaneer's Den, Magincia, Nujel'm, Serpent's Hold, Skara Brae, Ocllo, Haven, Wind, Delucia, Papua" ) );
+		socket->sysMessage( tr( "Other facets: Luna, Umbra (Malas); Zento (Tokuno); Royal City (Ter Mur); Lakeshire, Mistas, Montor, Gargoyle City (Ilshenar)" ) );
+		return;
+	}
+
+	if ( first == "all" )
+	{
+		SpawnRegions::instance()->reSpawnToMax();
+		socket->sysMessage( tr( "All spawnregions in the world have been filled to maximum." ) );
+		return;
+	}
+
+	if ( first == "clear" )
+	{
+		if ( args.count() > 1 )
+		{
+			QString target = args[1];
+			cSpawnRegion* region = SpawnRegions::instance()->region( target );
+			if ( region )
+			{
+				region->deSpawn();
+				socket->sysMessage( tr( "Spawnregion '%1' cleared." ).arg( target ) );
+			}
+			else if ( SpawnRegions::instance()->deSpawnGroup( target ) )
+			{
+				socket->sysMessage( tr( "Spawnregion group '%1' cleared." ).arg( target ) );
+			}
+			else
+			{
+				socket->sysMessage( tr( "Town or spawnregion '%1' not found." ).arg( target ) );
+			}
+		}
+		else
+		{
+			int count = SpawnRegions::instance()->deSpawnTowns();
+			socket->sysMessage( tr( "All town spawnregions have been cleared (%1 regions)." ).arg( count ) );
+		}
+		return;
+	}
+
+	if ( first == "help" || first == "?" )
+	{
+		socket->sysMessage( tr( "Usage: 'respawntowns [town|all|clear|list]" ) );
+		socket->sysMessage( tr( "  'respawntowns         - Fills all towns to maximum" ) );
+		socket->sysMessage( tr( "  'respawntowns <town>  - Fills a specific town (e.g. britain, luna)" ) );
+		socket->sysMessage( tr( "  'respawntowns all     - Fills all spawnregions in the world" ) );
+		socket->sysMessage( tr( "  'respawntowns clear   - Clears all town spawns" ) );
+		socket->sysMessage( tr( "  'respawntowns list    - Lists known towns" ) );
+		return;
+	}
+
+	// Target is a specific town or group (e.g. "britain", "luna", "zento", "vendors")
+	QString target = args[0];
+	cSpawnRegion* reg = SpawnRegions::instance()->region( target );
+	if ( reg )
+	{
+		reg->reSpawnToMax();
+		socket->sysMessage( tr( "Spawnregion '%1' filled to maximum." ).arg( target ) );
+	}
+	else if ( SpawnRegions::instance()->reSpawnToMaxGroup( target ) )
+	{
+		socket->sysMessage( tr( "Town / group '%1' filled to maximum." ).arg( target ) );
+	}
+	else
+	{
+		socket->sysMessage( tr( "Town '%1' not found. Type 'respawntowns list' to see all towns." ).arg( target ) );
 	}
 }
 
@@ -1247,6 +1355,8 @@ stCommand cCommands::commands[] =
 { "STAFF", commandStaff },
 { "SHOWSERIALS", commandShowserials },
 { "SPAWNREGION", commandSpawnRegion },
+{ "RESPAWNTOWNS", commandRespawnTowns },
+{ "RESPAWN", commandRespawnTowns },
 { "WALKTEST", commandWalkTest },
 { "FINDPATH", commandFindPath },
 { NULL, NULL }

@@ -1,0 +1,2617 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="fel_sv_lostlands_60_1">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,3971" radius="50" map="0" z="17" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_130_2">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5521,3775" radius="50" map="0" z="8" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_5_8">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="15" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="15" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="15" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="15" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5580,2885" radius="15" map="0" z="6" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_78_39">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5820,3675" radius="50" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_14_50">
+		<active />
+		<maxnpcamount>44</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="75" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="75" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="75" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="75" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="75" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5724,2949" radius="75" map="0" z="31" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_137_53">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5478,3587" radius="50" map="0" z="3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_84_55">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5820,3775" radius="50" map="0" z="48" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_163_85">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ophidian_matriarch"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_archmage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_warrior"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5467,3078" radius="25" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_123_94">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5624,3975" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_63_95">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5920,3675" radius="50" map="0" z="12" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_126_96">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5523,3676" radius="50" map="0" z="45" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_19_100">
+		<active />
+		<maxnpcamount>29</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="75" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="75" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="75" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="75" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="75" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5351,2359" radius="75" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_35_117">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="50" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5250,3449" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_149_138">
+		<active />
+		<maxnpcamount>50</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5368,3887" radius="50" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_110_139">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5623,3676" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_52_148">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,3773" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_114_152">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5621,3775" radius="50" map="0" z="2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_155_164">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="bull"><npcwander type="circle" radius="45" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="45" /></npc>
+		<npc id="cow"><npcwander type="circle" radius="45" /></npc>
+		<circle center="5194,3885" radius="45" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_48_177">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6018,3673" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_113_190">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5621,3775" radius="50" map="0" z="2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_120_194">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5623,3875" radius="50" map="0" z="15" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_18_208">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="polar_bear"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5501,2361" radius="75" map="0" z="27" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_97_219">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5722,3776" radius="50" map="0" z="32" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_125_222">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5523,3676" radius="50" map="0" z="45" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_36_228">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="50" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5349,3547" radius="50" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_154_252">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5466,4005" radius="50" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_153_254">
+		<active />
+		<maxnpcamount>50</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5466,4005" radius="50" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_49_257">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,3773" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_27_258">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="polar_bear"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5817,2367" radius="75" map="0" z="42" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_159_277">
+		<active />
+		<maxnpcamount>21</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gorilla"><npcwander type="circle" radius="62" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="62" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="62" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="62" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="62" /></npc>
+		<circle center="5440,3292" radius="62" map="0" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_32_290">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="savage_rider"><npcwander type="circle" radius="15" /></npc>
+		<npc id="savage"><npcwander type="circle" radius="15" /></npc>
+		<npc id="savage_shaman"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5212,3619" radius="15" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_7_304">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="cyclops"><npcwander type="circle" radius="25" /></npc>
+		<npc id="titan"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5394,2530" radius="25" map="0" z="6" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_127_317">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5523,3676" radius="50" map="0" z="45" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_13_366">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="70" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="70" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="70" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="70" /></npc>
+		<circle center="5729,2767" radius="70" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_147_368">
+		<active />
+		<maxnpcamount>50</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5371,3820" radius="50" map="0" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_81_376">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5820,3775" radius="50" map="0" z="48" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_132_403">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5521,3775" radius="50" map="0" z="8" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_37_405">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5201,3162" radius="50" map="0" z="53" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_28_410">
+		<active />
+		<maxnpcamount>42</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gorilla"><npcwander type="circle" radius="130" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="130" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="130" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="130" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="130" /></npc>
+		<circle center="5756,3453" radius="130" map="0" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_76_424">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5918,3975" radius="50" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_116_437">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5621,3775" radius="50" map="0" z="2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_59_451">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,3971" radius="50" map="0" z="17" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_165_464">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ophidian_matriarch"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_archmage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_warrior"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5432,3079" radius="25" map="0" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_109_466">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5623,3676" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_140_475">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5478,3587" radius="50" map="0" z="3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_75_492">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5918,3975" radius="50" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_99_494">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5722,3776" radius="50" map="0" z="32" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_4_501">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="100" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="100" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="100" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="5520,2890" radius="100" map="0" z="33" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_87_506">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5818,3876" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_17_507">
+		<active />
+		<maxnpcamount>30</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="75" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="75" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="75" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="75" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="75" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5501,2361" radius="75" map="0" z="27" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_71_514">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5919,3875" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_148_532">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5371,3820" radius="50" map="0" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_61_544">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5920,3675" radius="50" map="0" z="12" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_73_548">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5918,3975" radius="50" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_129_574">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5521,3775" radius="50" map="0" z="8" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_104_576">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3876" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_72_578">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5919,3875" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_166_591">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ophidian_matriarch"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_archmage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_warrior"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5408,3077" radius="25" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_143_613">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="75" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5764,2585" radius="75" map="0" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_46_621">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6018,3673" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_98_635">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5722,3776" radius="50" map="0" z="32" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_50_642">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,3773" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_139_651">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5478,3587" radius="50" map="0" z="3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_33_660">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="50" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5347,3449" radius="50" map="0" z="17" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_152_685">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5367,4003" radius="50" map="0" z="19" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_66_686">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5921,3777" radius="50" map="0" z="28" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_118_734">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5623,3875" radius="50" map="0" z="15" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_105_736">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3975" radius="50" map="0" z="21" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_1_741">
+		<active />
+		<maxnpcamount>54</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="150" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="150" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="150" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="150" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="150" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="150" /></npc>
+		<circle center="5457,2651" radius="150" map="0" z="45" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_103_828">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3876" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_11_839">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="wyvern"><npcwander type="circle" radius="30" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="30" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5697,2626" radius="30" map="0" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_95_853">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3675" radius="50" map="0" z="22" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_122_869">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5624,3975" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_135_875">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5521,3875" radius="50" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_62_889">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5920,3675" radius="50" map="0" z="12" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_160_896">
+		<active />
+		<maxnpcamount>21</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gorilla"><npcwander type="circle" radius="62" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="62" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="62" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="62" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="62" /></npc>
+		<circle center="5566,3292" radius="62" map="0" z="4" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_31_917">
+		<active />
+		<maxnpcamount>23</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5220,3664" radius="25" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_133_972">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5521,3875" radius="50" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_107_974">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3975" radius="50" map="0" z="21" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_3_976">
+		<active />
+		<maxnpcamount>37</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="100" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="100" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="100" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="100" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="100" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="100" /></npc>
+		<circle center="5520,2890" radius="100" map="0" z="33" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_145_977">
+		<active />
+		<maxnpcamount>50</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5218,3786" radius="50" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_51_1006">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,3773" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_20_1019">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="polar_bear"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5351,2359" radius="75" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_115_1028">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5621,3775" radius="50" map="0" z="2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_44_1054">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5351,3401" radius="50" map="0" z="30" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_15_1068">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="lava_snake"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5724,2949" radius="75" map="0" z="31" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_108_1081">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3975" radius="50" map="0" z="21" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_141_1100">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="forest_ostard"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5520,3939" radius="25" map="0" z="42" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_2_1106">
+		<active />
+		<maxnpcamount>19</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="150" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="150" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="150" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="150" /></npc>
+		<circle center="5457,2651" radius="150" map="0" z="45" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_74_1110">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5918,3975" radius="50" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_68_1120">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5921,3777" radius="50" map="0" z="28" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_100_1131">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5722,3776" radius="50" map="0" z="32" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_34_1154">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="50" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5243,3548" radius="50" map="0" z="14" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_124_1163">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5624,3975" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_156_1166">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="bull"><npcwander type="circle" radius="20" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cow"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5200,3895" radius="20" map="0" z="2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_77_1169">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5820,3675" radius="50" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_67_1187">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5921,3777" radius="50" map="0" z="28" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_138_1192">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5478,3587" radius="50" map="0" z="3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_94_1199">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3675" radius="50" map="0" z="22" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_47_1208">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6018,3673" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_151_1213">
+		<active />
+		<maxnpcamount>50</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5367,4003" radius="50" map="0" z="19" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_24_1218">
+		<active />
+		<maxnpcamount>26</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="75" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="75" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="75" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="75" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="75" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5967,2370" radius="75" map="0" z="44" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_101_1236">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3876" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_102_1255">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3876" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_144_1283">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="75" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="75" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="75" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="75" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="75" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5838,2651" radius="75" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_29_1292">
+		<active />
+		<maxnpcamount>50</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="giant_toad"><npcwander type="circle" radius="90" /></npc>
+		<npc id="swamp_dragon"><npcwander type="circle" radius="90" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="90" /></npc>
+		<npc id="alligator"><npcwander type="circle" radius="90" /></npc>
+		<npc id="sewerrat"><npcwander type="circle" radius="90" /></npc>
+		<npc id="plague_beast"><npcwander type="circle" radius="90" /></npc>
+		<circle center="5985,3441" radius="90" map="0" z="17" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_39_1296">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5251,3301" radius="50" map="0" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_55_1301">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,2874" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_119_1333">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5623,3875" radius="50" map="0" z="15" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_158_1349">
+		<active />
+		<maxnpcamount>25</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gorilla"><npcwander type="circle" radius="80" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="80" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="80" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="80" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="80" /></npc>
+		<circle center="5570,3153" radius="80" map="0" z="14" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_21_1387">
+		<active />
+		<maxnpcamount>28</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="50" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="50" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5173,2368" radius="50" map="0" z="21" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_40_1389">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5251,3301" radius="50" map="0" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_88_1390">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5818,3876" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_121_1403">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5624,3975" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_41_1405">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5250,3401" radius="50" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_162_1416">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ophidian_matriarch"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_archmage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_warrior"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5490,3071" radius="25" map="0" z="15" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_70_1426">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5919,3875" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_157_1431">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bull"><npcwander type="circle" radius="10" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5159,3913" radius="10" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_134_1435">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5521,3875" radius="50" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_112_1441">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5623,3676" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_58_1446">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,3971" radius="50" map="0" z="17" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_111_1450">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5623,3676" radius="50" map="0" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_22_1453">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="polar_bear"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5173,2368" radius="50" map="0" z="21" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_96_1490">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3675" radius="50" map="0" z="22" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_150_1502">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5368,3887" radius="50" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_85_1543">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5818,3876" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_117_1545">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5623,3875" radius="50" map="0" z="15" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_79_1549">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5820,3675" radius="50" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_43_1555">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5351,3401" radius="50" map="0" z="30" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_56_1557">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,2874" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_82_1562">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5820,3775" radius="50" map="0" z="48" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_53_1577">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,2874" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_92_1579">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5819,3974" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_146_1583">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5218,3786" radius="50" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_12_1591">
+		<active />
+		<maxnpcamount>30</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="70" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="70" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="70" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="70" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="70" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="70" /></npc>
+		<circle center="5729,2767" radius="70" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_136_1605">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5521,3875" radius="50" map="0" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_26_1609">
+		<active />
+		<maxnpcamount>23</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="75" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="75" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="75" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="75" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="75" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5817,2367" radius="75" map="0" z="42" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_45_1610">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6018,3673" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_6_1621">
+		<active />
+		<maxnpcamount>21</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="40" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="40" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="40" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="40" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="40" /></npc>
+		<circle center="5557,2625" radius="40" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_38_1625">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5201,3162" radius="50" map="0" z="53" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_161_1629">
+		<active />
+		<maxnpcamount>26</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="terathan_matriarch"><npcwander type="circle" radius="25" /></npc>
+		<npc id="terathan_avenger"><npcwander type="circle" radius="25" /></npc>
+		<npc id="terathan_drone"><npcwander type="circle" radius="25" /></npc>
+		<npc id="terathan_warrior"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5454,3136" radius="25" map="0" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_64_1648">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5920,3675" radius="50" map="0" z="12" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_86_1662">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5818,3876" radius="50" map="0" z="18" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_23_1665">
+		<active />
+		<maxnpcamount>28</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="60" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="60" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="60" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="60" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="60" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="60" /></npc>
+		<circle center="6091,2379" radius="60" map="0" z="25" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_25_1669">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="polar_bear"><npcwander type="circle" radius="75" /></npc>
+		<circle center="5967,2370" radius="75" map="0" z="44" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_90_1695">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5819,3974" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_80_1696">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5820,3675" radius="50" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_91_1708">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5819,3974" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_83_1737">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5820,3775" radius="50" map="0" z="48" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_89_1754">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5819,3974" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_106_1757">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3975" radius="50" map="0" z="21" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_9_1758">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ettin"><npcwander type="circle" radius="80" /></npc>
+		<circle center="5711,2494" radius="80" map="0" z="46" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_93_1766">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5721,3675" radius="50" map="0" z="22" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_42_1784">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5250,3401" radius="50" map="0" z="1" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_30_1795">
+		<active />
+		<maxnpcamount>36</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="bullfrog"><npcwander type="circle" radius="90" /></npc>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="90" /></npc>
+		<npc id="bogling"><npcwander type="circle" radius="90" /></npc>
+		<npc id="bog_thing"><npcwander type="circle" radius="90" /></npc>
+		<circle center="5985,3441" radius="90" map="0" z="17" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_54_1834">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="hind"><npcwander type="circle" radius="50" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="50" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,2874" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_128_1842">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="50" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5523,3676" radius="50" map="0" z="45" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_142_1852">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="frenzied_ostard"><npcwander type="circle" radius="35" /></npc>
+		<circle center="5784,3951" radius="35" map="0" z="20" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_16_1859">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="wyvern"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5863,2470" radius="25" map="0" z="46" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_57_1868">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="6022,3971" radius="50" map="0" z="17" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_65_1909">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5921,3777" radius="50" map="0" z="28" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_164_1911">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ophidian_matriarch"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_archmage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ophidian_warrior"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5446,3074" radius="25" map="0" z="3" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_8_1956">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="80" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="80" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="80" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="80" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="80" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="80" /></npc>
+		<circle center="5711,2494" radius="80" map="0" z="46" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_69_1973">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5919,3875" radius="50" map="0" z="16" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_131_2037">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="50" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5521,3775" radius="50" map="0" z="8" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_10_2052">
+		<active />
+		<maxnpcamount>26</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="ophidian_archmage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ophidian_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ophidian_matriarch"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ophidian_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ophidian_warrior"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5765,2637" radius="30" map="0" z="39" />
+	</spawnregion>
+
+	<spawnregion id="fel_sv_lostlands_0_2053">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>felucca</group>
+		<group>felucca_expansion</group>
+		<npc id="swamp_dragon"><npcwander type="circle" radius="100" /></npc>
+		<circle center="5728,3209" radius="100" map="0" z="-3" />
+	</spawnregion>
+
+</definitions>

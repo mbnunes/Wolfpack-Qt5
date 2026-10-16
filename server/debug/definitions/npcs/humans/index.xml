@@ -25,4 +25,10 @@
 	
 	<!-- Playervendors -->
 	<include file="definitions/npcs/humans/playervendors.xml"/>
+
+	<!-- Expansion Townfolk -->
+	<include file="definitions/npcs/humans/expansion_townfolk.xml"/>
+
+	<!-- Galleon Pilots -->
+	<include file="definitions/npcs/humans/galleon_pilot.xml"/>
 </definitions>

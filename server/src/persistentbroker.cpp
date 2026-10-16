@@ -231,19 +231,43 @@ void cPersistentBroker::unlockTable( const QString& /*table*/ ) const
 void cPersistentBroker::startTransaction()
 {
 	if ( d->useTransaction )
+	{
 		d->connection.transaction();
+		if ( !d->sqlite )
+		{
+			QSqlQuery q( d->connection );
+			q.exec( "SET unique_checks = 0;" );
+			q.exec( "SET foreign_key_checks = 0;" );
+		}
+	}
 }
 
 void cPersistentBroker::commitTransaction()
 {
 	if ( d->useTransaction )
+	{
+		if ( !d->sqlite )
+		{
+			QSqlQuery q( d->connection );
+			q.exec( "SET unique_checks = 1;" );
+			q.exec( "SET foreign_key_checks = 1;" );
+		}
 		d->connection.commit();
+	}
 }
 
 void cPersistentBroker::rollbackTransaction()
 {
 	if ( d->useTransaction )
+	{
+		if ( !d->sqlite )
+		{
+			QSqlQuery q( d->connection );
+			q.exec( "SET unique_checks = 1;" );
+			q.exec( "SET foreign_key_checks = 1;" );
+		}
 		d->connection.rollback();
+	}
 }
 
 bool cPersistentBroker::tableExists( const QString& table )
@@ -269,13 +293,10 @@ QString cPersistentBroker::quoteString( QString s )
 
 void cPersistentBroker::truncateTable( const QString& table )
 {
-	QString query;
-	if ( d->connection.driverName().toLower() == "qmysql" )
-		query += "truncate ";
-	else
-		query += "delete from ";
-	query += table;
-	executeQuery( query );
+	// Always use DELETE FROM instead of TRUNCATE.
+	// In MySQL/MariaDB, TRUNCATE causes an implicit COMMIT which breaks active transactions
+	// and forces all subsequent queries into slow autocommit mode.
+	executeQuery( "DELETE FROM " + table );
 }
 
 void cPersistentBroker::prepareQueries() const

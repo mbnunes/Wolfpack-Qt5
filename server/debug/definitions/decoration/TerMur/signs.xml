@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<item id="0x0bd2">
+		<attribute key="name" value="Tanner" />
+		<pos x="812" y="3389" z="7" map="5" />
+	</item>
+	<item id="0x0bd2">
+		<attribute key="name" value="Experimental Room Access" />
+		<pos x="980" y="1119" z="-37" map="5" />
+	</item>
+</decoration>

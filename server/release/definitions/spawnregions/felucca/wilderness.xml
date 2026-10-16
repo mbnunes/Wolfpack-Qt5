@@ -1021,7 +1021,7 @@
                 <rectangle from="2147,1318" to="2204,1404" map="0" />
 	</spawnregion>
 
-	<!-- Felucca Ocllo Mountain Ettins (ServUO Accurate) -->
+	<!-- Felucca Ocllo Mountain Ettins  -->
 	<spawnregion inherit="felucca_Area_Light" id="felucca_haven_ettin_1">
 		<active />
 		<maxnpcamount>3</maxnpcamount>
@@ -1038,7 +1038,7 @@
 		<circle center="3465,2736" radius="25" map="0" z="48" />
 	</spawnregion>
 
-	<!-- Felucca Ocllo Coastal Brigands (ServUO Accurate) -->
+	<!-- Felucca Ocllo Coastal Brigands  -->
 	<spawnregion inherit="felucca_Area_Light" id="felucca_haven_brigands_1">
 		<active />
 		<maxnpcamount>3</maxnpcamount>
@@ -1057,7 +1057,7 @@
 		<circle center="3709,2629" radius="15" map="0" z="20" />
 	</spawnregion>
 
-	<!-- Felucca Ocllo Ruins Undead (ServUO Accurate) -->
+	<!-- Felucca Ocllo Ruins Undead  -->
 	<spawnregion inherit="felucca_Area_Light" id="felucca_old_haven_undead">
 		<active />
 		<maxnpcamount>15</maxnpcamount>

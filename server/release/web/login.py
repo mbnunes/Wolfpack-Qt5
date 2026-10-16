@@ -20,15 +20,15 @@ if username != '' and password != '':
 	
 	# Wrong Account
 	if not account:
-		message = "Unable to comply, authentication failed."
+		message = "Nome de usuário ou senha inválidos."
 
 	# Wrong Password
 	elif not account.checkpassword(password):
-		message = "Unable to comply, authentication failed."
+		message = "Nome de usuário ou senha inválidos."
 
-	# Authorized for Remote Admin?
-	elif not account.authorized( 'RemoteAccess', 'login' ):
-		message = "Unable to comply, authentication failed."
+	# Account Blocked?
+	elif account.flags & 0x00000001:
+		message = "Esta conta encontra-se suspensa ou bloqueada."
 
 	# Authentication succeeded
 	else:
@@ -45,27 +45,26 @@ if not authenticated:
 		"""
 
 	# Formulário estilizado com Bootstrap 5
-	# Formulário estilizado sem card duplicado
 	content = f"""
-	<div class="py-3 px-2 mx-auto" style="max-width: 420px;">
+	<div class="py-3 px-2 mx-auto" style="max-width: 440px;">
 		<div class="text-center mb-4">
-			<h3 class="fw-bold mb-1" style="color: #004026;">Welcome to Wolfpack</h3>
-			<p class="text-muted small">Please enter your administrative credentials.</p>
+			<h3 class="fw-bold mb-1" style="color: #004026;">Wolfpack Portal</h3>
+			<p class="text-secondary small">Acesse sua conta para visualizar seus personagens, status, cofre bancário e propriedades.</p>
 		</div>
 		
 		{alert_html}
 
 		<form action="login.py" method="POST">
 			<div class="mb-3 text-start">
-				<label for="username" class="form-label fw-semibold text-secondary small">Username</label>
+				<label for="username" class="form-label fw-semibold text-secondary small">Nome de Usuário (Conta)</label>
 				<input type="text" class="form-control" id="username" name="username" required autofocus />
 			</div>
 			<div class="mb-4 text-start">
-				<label for="password" class="form-label fw-semibold text-secondary small">Password</label>
+				<label for="password" class="form-label fw-semibold text-secondary small">Senha</label>
 				<input type="password" class="form-control" id="password" name="password" required />
 			</div>
 			<button type="submit" class="btn btn-wolfpack w-100 py-2 fw-semibold shadow-sm">
-				Login
+				Entrar no Portal
 			</button>
 		</form>
 	</div>

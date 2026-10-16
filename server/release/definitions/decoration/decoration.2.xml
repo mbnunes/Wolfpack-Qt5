@@ -26,4 +26,5 @@
 	<include file="definitions/decoration/Ilshenar/Ilshenar/wispdungeon.xml"/>
 	<include file="definitions/decoration/Ilshenar/Exodus/exodusdungeon.xml"/>
 	<include file="definitions/decoration/Ilshenar/signs.xml"/>
+	<include file="definitions/decoration/Ilshenar/doors.xml"/>
 </decoration>

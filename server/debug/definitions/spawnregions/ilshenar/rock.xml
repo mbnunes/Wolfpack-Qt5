@@ -1,4 +1,167 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_rock_0_14">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="skeleton"><npcwander type="circle" radius="15" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="15" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2188,310" radius="15" map="2" z="-7" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_8_30">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2138,97" radius="10" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_5_101">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2154,163" radius="10" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_1_120">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2220,75" radius="10" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_10_135">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2155,24" radius="10" map="2" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rockdungeonhealer_148">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1785,572" radius="5" map="2" z="70" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_7_221">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2125,137" radius="10" map="2" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_12_253">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="executioner"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2094,56" radius="10" map="2" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_2_268">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2207,113" radius="10" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_4_342">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="executioner"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2229,143" radius="10" map="2" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_11_349">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="15" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2124,96" radius="15" map="2" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_13_373">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2127,29" radius="10" map="2" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_6_390">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="executioner"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2125,165" radius="10" map="2" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rock_9_395">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rock</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2183,85" radius="10" map="2" z="-32" />
+	</spawnregion>
 
 </definitions>

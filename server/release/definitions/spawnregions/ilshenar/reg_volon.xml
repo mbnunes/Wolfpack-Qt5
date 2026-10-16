@@ -1,4 +1,85 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_towns_7_34">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>reg_volon</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="35" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="35" /></npc>
+		<circle center="1127,1112" radius="35" map="2" z="-34" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_52">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>reg_volon</group>
+		<npc id="jelrice"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1178,1194" radius="4" map="2" z="-25" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_6_83">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>reg_volon</group>
+		<npc id="meer_warrior"><npcwander type="circle" radius="55" /></npc>
+		<npc id="meer_captain"><npcwander type="circle" radius="55" /></npc>
+		<npc id="meer_mage"><npcwander type="circle" radius="55" /></npc>
+		<npc id="meer_eternal"><npcwander type="circle" radius="55" /></npc>
+		<circle center="1203,1138" radius="55" map="2" z="-25" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_9_91">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>reg_volon</group>
+		<npc id="giant_serpent"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1181,1189" radius="12" map="2" z="-25" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_123_201">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>reg_volon</group>
+		<npc id="bankercamp" />
+		<point pos="1186,1223,-20,2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_122_260">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>reg_volon</group>
+		<npc id="brigand"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1129,1236" radius="12" map="2" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_8_283">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>reg_volon</group>
+		<npc id="snake"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1180,1188" radius="15" map="2" z="-25" />
+	</spawnregion>
 
 </definitions>

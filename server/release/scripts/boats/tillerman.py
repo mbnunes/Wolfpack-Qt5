@@ -77,6 +77,13 @@ def Move( boat, direction, speed, message ):
 	if boat.hastag('boat_anchored'):
 		return False
 
+	if boat.hastag('boat_scuttled'):
+		if message:
+			tillerman = wolfpack.finditem( int( boat.gettag('boat_tillerman') ) )
+			if tillerman != None:
+				tillerman.say( "The ship is scuttled and taking on water! We cannot move!" )
+		return False
+
 	rx, ry = MovementOffset( ( direction + int( boat.gettag('boat_facing') ) & 0x07 ) )
 
 	xOffset = speed * rx;
@@ -325,6 +332,8 @@ def SetFacing( boat, direction ):
 						elif direction == Right:
 							item.id = 0x3e8a
 				item.moveto( Rotate( boat, item.pos, count ) )
+			else:
+				item.moveto( Rotate( boat, item.pos, count ) )
 			item.update()
 
 	# Rotate other items/chars inside the boat
@@ -511,6 +520,11 @@ def onSpeech( obj, player, text, keywords ):
 		return False
 
 	boat = player.multi
+
+	from boats import security
+	if not security.can_pilot( boat, player ):
+		obj.say( "Arrr! Ye have not been granted officer command on this vessel!" )
+		return True
 
 	for keyword in keywords:
 		#obj.say( "%s" % str( keyword ) )

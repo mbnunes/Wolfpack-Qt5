@@ -1,0 +1,4914 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="tram_sv_covetousspawner26_1">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5417,1975" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_38_6">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5651,1443" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_21_11">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5436,1972" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_63_38">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5410,162" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_8_39">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5472,18" radius="30" map="1" z="-15" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_36_49">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="mummy"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5560,1876" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__4_50">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5421,546" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_17_61">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="protector"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6507,151" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_28_66">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5651,1363" radius="3" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_7_72">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="frost_ooze"><npcwander type="circle" radius="20" /></npc>
+		<npc id="frost_spider"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5785,161" radius="20" map="1" z="-6" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_92_84">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5760,99" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_5_87">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5394,12" radius="30" map="1" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_65_91">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6084,66" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_37_111">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5603,1875" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_43_113">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5571,159" radius="15" map="1" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_86_121">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5804,12" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prism4_122">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="protector"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="25" /></npc>
+		<npc id="unfrozen_mummy"><npcwander type="circle" radius="25" /></npc>
+		<circle center="6512,183" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_94_127">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="25" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5752,44" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__11_138">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5405,691" radius="5" map="1" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_44_142">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6094,154" radius="20" map="1" z="-22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_2_152">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5680,1438" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__8_156">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5490,609" radius="5" map="1" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_1_157">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5153,1971" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_21_161">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="drake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="shadow_wyrm"><npcwander type="circle" radius="50" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5152,869" radius="50" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__2_166">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5455,787" radius="5" map="1" z="61" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner28_173">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5425,1992" radius="5" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_82_174">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5819,51" radius="10" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_24_187">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5425,1992" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_3_198">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ratman_mage"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5850,219" radius="20" map="1" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__13_206">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5495,748" radius="5" map="1" z="5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_45_212">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5528,209" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_healer_213">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2932,3408" radius="3" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_29_215">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ice_fiend"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5669,330" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_29_220">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5604,115" radius="15" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_25_231">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5388,2012" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__8_237">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5471,972" radius="5" map="1" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_9_270">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5331,1346" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_icedungeon8_272">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="35" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="35" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="35" /></npc>
+		<circle center="5731,176" radius="35" map="1" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_3_273">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="giant_rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5733,1433" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_4_293">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="plague_beast"><npcwander type="circle" radius="20" /></npc>
+		<npc id="plague_spawn"><npcwander type="circle" radius="20" /></npc>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6416,447" radius="20" map="1" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_10_313">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="20" /></npc>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="plague_spawn"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6319,348" radius="20" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_icedungeon11_314">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="15" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="15" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5682,192" radius="15" map="1" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_9_315">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="plague_spawn"><npcwander type="circle" radius="25" /></npc>
+		<npc id="plague_beast"><npcwander type="circle" radius="25" /></npc>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="25" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="6418,358" radius="25" map="1" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner33_322">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2493,883" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_5_328">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5717,1465" radius="15" map="1" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_36_329">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5650,1419" radius="5" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_19_335">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5467,109" radius="30" map="1" z="35" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_11_342">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="15" /></npc>
+		<circle center="6249,352" radius="15" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__15_353">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5520,817" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_13_355">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dragon"><npcwander type="circle" radius="50" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5269,811" radius="50" map="1" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_0_358">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dragon"><npcwander type="circle" radius="50" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5209,965" radius="50" map="1" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__9_359">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5493,923" radius="5" map="1" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__5_369">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5403,586" radius="5" map="1" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner18_373">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="slime"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5469,2019" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_47_386">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5412,200" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_53_408">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="25" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5594,182" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_8_409">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_daemon"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6547,91" radius="4" map="1" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_7_411">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orcish_lord"><npcwander type="circle" radius="12" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="12" /></npc>
+		<circle center="5302,1355" radius="12" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_34_416">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="mummy"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5560,1903" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_40_424">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5643,1435" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_33_428">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5918,235" radius="20" map="1" z="44" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_26_430">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5961,169" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_10_432">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc_captain"><npcwander type="circle" radius="8" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="8" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="8" /></npc>
+		<npc id="orc_bomber"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5354,1332" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_33_434">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2513,862" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_8_448">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="giant_rat"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5316,1332" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_16_450">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="plague_beast"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6351,626" radius="10" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_34_451">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5954,225" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_firegargoyle_456">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5995,62" radius="5" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__3_477">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5396,821" radius="5" map="1" z="61" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_30_491">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2456,861" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_28_493">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5945,175" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_66_494">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6106,67" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_41_500">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="40" /></npc>
+		<circle center="5638,1439" radius="40" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_4_503">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gazer_larva"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5411,1901" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_41_505">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="kraken"><npcwander type="circle" radius="15" /></npc>
+		<npc id="sea_serpent"><npcwander type="circle" radius="15" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5550,224" radius="15" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner24_523">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5456,1971" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_25_532">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5709,1364" radius="20" map="1" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__12_538">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5605,824" radius="5" map="1" z="61" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__1_543">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5400,787" radius="5" map="1" z="66" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_17_547">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="plague_beast"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6349,650" radius="10" map="1" z="-52" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__13_551">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5603,789" radius="5" map="1" z="61" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_20_553">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="protector"><npcwander type="circle" radius="8" /></npc>
+		<circle center="6510,171" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_19_574">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5723,1291" radius="3" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_50_576">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5527,210" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_4_579">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="arctic_ogre_lord"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5814,237" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_44_592">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5412,164" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_10_593">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="35" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="35" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="35" /></npc>
+		<circle center="5731,176" radius="35" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_16_595">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5835,1304" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_116_604">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="100" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5701,14" radius="5" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_2_605">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5948,49" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_6_608">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="chaos_daemon"><npcwander type="circle" radius="40" /></npc>
+		<npc id="moloch"><npcwander type="circle" radius="40" /></npc>
+		<npc id="succubus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="40" /></npc>
+		<npc id="balron"><npcwander type="circle" radius="40" /></npc>
+		<circle center="6292,462" radius="40" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_12_610">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="headless_one"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5593,2017" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_27_612">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5568,36" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__4_618">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5459,823" radius="5" map="1" z="61" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_3_624">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="wisp"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6521,139" radius="4" map="1" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_25_627">
+		<active />
+		<maxnpcamount>24</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ratman"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ratman_mage"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5831,358" radius="25" map="1" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_15_628">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_wisp"><npcwander type="circle" radius="15" /></npc>
+		<npc id="crystal_lattice_seeker"><npcwander type="circle" radius="15" /></npc>
+		<circle center="6535,179" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_12_638">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="wisp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="crystal_wisp"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6478,174" radius="10" map="1" z="4" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_2_641">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="frost_spider"><npcwander type="circle" radius="25" /></npc>
+		<npc id="frost_ooze"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5867,218" radius="25" map="1" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_23_643">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5141,968" radius="10" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_32_645">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2493,883" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_3_650">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="plague_beast"><npcwander type="circle" radius="20" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="20" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="plague_spawn"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6354,455" radius="20" map="1" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__14_655">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5494,673" radius="5" map="1" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_11_659">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc_bomber"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5356,1304" radius="10" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_39_667">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5615,1838" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_81_670">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5856,107" radius="30" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_24_678">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="wyvern"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5157,997" radius="50" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_8_680">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5946,75" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_5_704">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5393,1921" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_47_712">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6119,219" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_70_719">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6054,45" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_82_740">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5845,57" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_67_749">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6116,86" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_21_762">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="efreet"><npcwander type="circle" radius="20" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5667,1315" radius="20" map="1" z="5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_30_763">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5594,81" radius="10" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__12_764">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5437,748" radius="5" map="1" z="5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_3_770">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5394,11" radius="30" map="1" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner5_774">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="stone_harpy"><npcwander type="circle" radius="7" /></npc>
+		<circle center="5442,1919" radius="7" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__6_779">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5428,909" radius="5" map="1" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_83_802">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5828,42" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_11_809">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shadow_wisp"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6475,101" radius="5" map="1" z="-44" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_15_816">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="25" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5474,2035" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner36_828">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="bone_knight"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5615,1839" radius="5" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_25_833">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5575,16" radius="30" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_84_836">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="100" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5771,37" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_49_840">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5505,180" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__5_841">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5436,855" radius="5" map="1" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orc_lord_mage_brute_bomber_cap_2_854">
+		<active />
+		<maxnpcamount>25</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc"><npcwander type="circle" radius="30" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="30" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="orc_brute"><npcwander type="circle" radius="30" /></npc>
+		<npc id="orc_bomber"><npcwander type="circle" radius="30" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="30" /></npc>
+		<circle center="2170,1355" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_51_858">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="kraken"><npcwander type="circle" radius="25" /></npc>
+		<npc id="sea_serpent"><npcwander type="circle" radius="25" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5557,222" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_46_868">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5412,201" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_32_873">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5918,223" radius="20" map="1" z="44" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_42_875">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="25" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5469,211" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_13_882">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5300,1314" radius="10" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_0_891">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="harpy"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5472,1877" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_firesteed_909">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_steed"><npcwander type="circle" radius="40" /></npc>
+		<circle center="5798,2971" radius="40" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__9_912">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5493,923" radius="5" map="1" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_19_922">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ferret"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6578,183" radius="5" map="1" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_113_938">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5660,16" radius="15" map="1" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_1_940">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5425,58" radius="30" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_27_945">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5678,1340" radius="30" map="1" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_14_946">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="lava_snake"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5809,1332" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_34_951">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5651,1408" radius="3" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_63_967">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6064,96" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_5_972">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5995,62" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_1_973">
+		<active />
+		<maxnpcamount>31</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="interred_grizzle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="30" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="balron"><npcwander type="circle" radius="30" /></npc>
+		<npc id="succubus"><npcwander type="circle" radius="30" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_beast_lord"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_beast"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_spawn"><npcwander type="circle" radius="30" /></npc>
+		<circle center="6384,580" radius="30" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_40_978">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="lich"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5579,1859" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_31_979">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5914,195" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_imp_hythloth_980">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5923,48" radius="5" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__12_987">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5420,733" radius="5" map="1" z="5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_4_1013">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc_captain"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5141,1968" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_14_1014">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6408,411" radius="10" map="1" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_3_1029">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dragon"><npcwander type="circle" radius="50" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5284,926" radius="50" map="1" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__11_1033">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5576,872" radius="5" map="1" z="46" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_18_1036">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="interred_grizzle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6345,586" radius="10" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_6_1039">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="15" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="15" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5744,1471" radius="15" map="1" z="2" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_42_1042">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="mummy"><npcwander type="circle" radius="30" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="30" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="30" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="30" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5528,1808" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_7_1054">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5994,96" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_6_1057">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="noble"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5308,1372" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_0_1058">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc"><npcwander type="circle" radius="8" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="8" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5146,1995" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_b_1063">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="kraken"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5521,40" radius="5" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_81_1066">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="10" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5593,181" radius="10" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__10_1092">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5548,899" radius="5" map="1" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_35_1100">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="mummy"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5596,1903" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_85_1117">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5818,80" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__5_1118">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5436,855" radius="5" map="1" z="46" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_firesteed_1121">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_steed"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5861,1300" radius="5" map="1" z="2" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner14_1122">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="headless_one"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5576,2006" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__10_1123">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5441,677" radius="5" map="1" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_83_1125">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="15" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5442,187" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__7_1132">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5395,973" radius="5" map="1" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_54_1148">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5571,158" radius="30" map="1" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_8_1158">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5757,213" radius="20" map="1" z="-7" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_15_1163">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="water_elemental"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5294,842" radius="50" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_46_1174">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="balron"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6086,178" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__2_1181">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5455,787" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_30_1197">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5689,1387" radius="10" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_6_1223">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="giant_serpent"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5161,940" radius="50" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_41_1233">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="mummy"><npcwander type="circle" radius="40" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="40" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="40" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="40" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="40" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="40" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="40" /></npc>
+		<circle center="5560,1843" radius="40" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__11_1235">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5576,872" radius="5" map="1" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_7_1239">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="6" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="6" /></npc>
+		<circle center="6298,395" radius="6" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_0_1249">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="plague_beast"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6305,603" radius="4" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_level_1_1253">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dragon"><npcwander type="circle" radius="30" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="30" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5226,826" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_4_1254">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="wisp"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6530,139" radius="4" map="1" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner15_1257">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="headless_one"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5557,2025" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__12_1266">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5605,824" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_15_1267">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5281,2029" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner34_1268">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2512,861" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_50_1269">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gazer_larva"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6052,156" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_28_1275">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5548,60" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_64_1277">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6081,83" radius="20" map="1" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_healer_1289">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2495,924" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__6_1293">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5395,623" radius="5" map="1" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__1_1303">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5400,787" radius="5" map="1" z="65" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_4_1304">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dragon"><npcwander type="circle" radius="50" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5214,917" radius="50" map="1" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner25_1315">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5436,1972" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__7_1317">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5395,973" radius="5" map="1" z="6" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_healer_despise_1335">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1300,1074" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fireelemental_1336">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5819,1379" radius="5" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__14_1339">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5558,791" radius="5" map="1" z="64" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_91_1350">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5724,118" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_5_1351">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_sea_serpent"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6576,91" radius="4" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_48_1353">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5394,230" radius="30" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_93_1365">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="25" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5711,97" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_4_1369">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="lava_lizard"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5787,1427" radius="20" map="1" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_7_1374">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="efreet"><npcwander type="circle" radius="15" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="15" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="15" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5790,1451" radius="15" map="1" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_22_1377">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5417,1975" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__11_1379">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5450,715" radius="5" map="1" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_87_1386">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="59" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5817,80" radius="10" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_44_1387">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dragon"><npcwander type="circle" radius="30" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5452,1799" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_20_1397">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="25" /></npc>
+		<npc id="gazer_larva"><npcwander type="circle" radius="25" /></npc>
+		<npc id="elder_gazer"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5457,1971" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_87_1412">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5721,12" radius="30" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_31_1433">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="12" /></npc>
+		<circle center="5602,93" radius="12" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__8_1436">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5471,972" radius="5" map="1" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_15_1441">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="putrefier"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6284,622" radius="10" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_29_1456">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5654,1380" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_healer_1457">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="505,1569" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_18_1458">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc_bomber"><npcwander type="circle" radius="15" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5348,2011" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner35_1470">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5579,1859" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_14_1482">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5292,1316" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_5_1483">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="white_wyrm"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5752,144" radius="10" map="1" z="9" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_90_1485">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5684,117" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_17_1489">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc_bomber"><npcwander type="circle" radius="12" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="12" /></npc>
+		<circle center="5310,1969" radius="12" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__7_1491">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5444,612" radius="5" map="1" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_49_1493">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6033,199" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_8_1496">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="18" /></npc>
+		<npc id="plague_spawn"><npcwander type="circle" radius="18" /></npc>
+		<circle center="6404,378" radius="18" map="1" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_42_1503">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="15" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5577,193" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_33_1513">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5593,141" radius="15" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_3_1515">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5954,26" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_19_1545">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6339,559" radius="10" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_2_1546">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="wisp"><npcwander type="circle" radius="15" /></npc>
+		<npc id="crystal_wisp"><npcwander type="circle" radius="15" /></npc>
+		<circle center="6552,155" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_5_1553">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5332,1365" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_1_1557">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5403,93" radius="30" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_9_1561">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5681,191" radius="20" map="1" z="-6" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_0_1566">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="arctic_ogre_lord"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5771,224" radius="20" map="1" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_25_1576">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ancient_wyrm"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5185,1006" radius="50" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner31_1588">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2456,861" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_19_1590">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="drake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="shadow_wyrm"><npcwander type="circle" radius="50" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5141,834" radius="50" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_68_1593">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5412,200" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_58_1595">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5476,183" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner13_1599">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="headless_one"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5593,2017" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_22_1605">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5747,1320" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_3_1609">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orcish_lord"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5144,1960" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_29_1645">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="water_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5549,79" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__3_1660">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5459,547" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_75_1666">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5474,138" radius="15" map="1" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_68_1668">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="undead_gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6099,51" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_23_1672">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="lava_lizard"><npcwander type="circle" radius="20" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5717,1333" radius="20" map="1" z="6" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_0_1677">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="slime"><npcwander type="circle" radius="20" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5693,1415" radius="20" map="1" z="38" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_firebeetle_1681">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_beetle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5755,1332" radius="5" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_89_1704">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5649,101" radius="30" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_7_1710">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="wyvern"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dragon"><npcwander type="circle" radius="20" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5149,907" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_48_1724">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6058,193" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_60_1725">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="75" max="100" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5478,178" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_2_1743">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6328,517" radius="10" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__3_1747">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5396,821" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_4_1751">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5977,49" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orc_family_1755">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ettin"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orc_bomber"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orc_brute"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="25" /></npc>
+		<npc id="changeling"><npcwander type="circle" radius="25" /></npc>
+		<circle center="6171,76" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner27_1757">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5429,1989" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_lvl_1_dragon_1762">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dragon"><npcwander type="circle" radius="30" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="30" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5279,955" radius="30" map="1" z="-39" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_2_1779">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5153,1961" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_5_1780">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="balron"><npcwander type="circle" radius="30" /></npc>
+		<npc id="succubus"><npcwander type="circle" radius="30" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="30" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_beast_lord"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_beast"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_spawn"><npcwander type="circle" radius="30" /></npc>
+		<npc id="interred_grizzle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="6466,543" radius="30" map="1" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner4_1795">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="headless_one"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5453,1904" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_27_1796">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5992,146" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__6_1798">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5428,909" radius="5" map="1" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_13_1799">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="corrosiveslime"><npcwander type="circle" radius="10" /></npc>
+		<circle center="6353,400" radius="10" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_1810">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5476,739" radius="5" map="1" z="5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orc_cave_healer_1811">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1018,1442" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_20_1820">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5476,67" radius="30" map="1" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_10_1821">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5915,91" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_69_1822">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="balron"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6107,37" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_14_1833">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_wisp"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6534,178" radius="4" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_15_1834">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5859,1341" radius="20" map="1" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__13_1836">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5603,789" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_6_1837">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="unfrozen_mummy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6509,176" radius="4" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_18_1851">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_daemon"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6532,79" radius="4" map="1" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_2_1854">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5387,41" radius="30" map="1" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_firegargoyle_1856">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6115,86" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_0_1883">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5923,48" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_18_1887">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5699,1302" radius="15" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccave2_1895">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5147,1976" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_20_1910">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="daemon"><npcwander type="circle" radius="50" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5169,836" radius="50" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner19_1913">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5474,2035" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_9_1915">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_hydra"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6572,89" radius="4" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_12_1916">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dragon"><npcwander type="circle" radius="50" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="50" /></npc>
+		<circle center="5226,826" radius="50" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__4_1925">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5459,823" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__10_1928">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5548,899" radius="5" map="1" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner30_1935">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5388,2012" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_80_1938">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5874,44" radius="15" map="1" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_9_1940">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5940,107" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_31_1952">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2480,863" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner2_1953">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer_larva"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5417,1877" radius="10" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_6_1960">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="frost_ooze"><npcwander type="circle" radius="20" /></npc>
+		<npc id="frost_spider"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5839,159" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_29_1964">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5956,145" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_37_1966">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5647,1439" radius="15" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_25_1969">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5614,18" radius="15" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner10_1973">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5411,1932" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_39_1981">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5651,1435" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_palaceofparoxysmus_12_1986">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6285,353" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_14_1987">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="harpy"><npcwander type="circle" radius="30" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5498,1998" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_18_1995">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="25" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5440,2023" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_35_1998">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="25" /></npc>
+		<npc id="gazer_larva"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5986,203" radius="25" map="1" z="44" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_84_2009">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5804,13" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner11_2013">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5399,1938" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_6_2023">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5970,80" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_1_2026">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="rat"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6474,74" radius="4" map="1" z="-34" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_destard_9_2033">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5352,934" radius="10" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_10_2040">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="7" /></npc>
+		<circle center="5411,1932" radius="7" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_84_2046">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5819,50" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner29_2051">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5413,2000" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_19_2057">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="25" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5473,1991" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_13_2068">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_vortex"><npcwander type="circle" radius="15" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="6566,120" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_7_2070">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_daemon"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6536,79" radius="4" map="1" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orc_bomber_cap_lord_mage_brute_2079">
+		<active />
+		<maxnpcamount>17</maxnpcamount>
+		<delay min="75" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orc_bomber"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orc_brute"><npcwander type="circle" radius="20" /></npc>
+		<circle center="633,1485" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_1_2088">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="imp"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5911,55" radius="25" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_8_2096">
+		<active />
+		<maxnpcamount>17</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="lich"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5852,1468" radius="30" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_1_2105">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ice_serpent"><npcwander type="circle" radius="25" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="25" /></npc>
+		<npc id="frost_troll"><npcwander type="circle" radius="25" /></npc>
+		<npc id="frost_spider"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5799,188" radius="25" map="1" z="-6" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_114_2108">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5707,43" radius="10" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_evil__15_2114">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5520,817" radius="5" map="1" z="61" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_23_2118">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gazer"><npcwander type="circle" radius="25" /></npc>
+		<npc id="gazer_larva"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5429,1989" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_9_2119">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="lava_snake"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5852,1468" radius="30" map="1" z="1" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prism_of_light_snake_2124">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<circle center="6474,74" radius="5" map="1" z="-34" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_17_2126">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="hellcat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5867,1309" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__13_2129">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="phantom"><npcwander type="circle" radius="5" /></npc>
+		<npc id="naba"><npcwander type="circle" radius="5" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletrex"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellion"><npcwander type="circle" radius="5" /></npc>
+		<npc id="echidnite"><npcwander type="circle" radius="5" /></npc>
+		<npc id="prometheoid"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5392,753" radius="5" map="1" z="5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_16_2132">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orc_brute"><npcwander type="circle" radius="12" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="12" /></npc>
+		<circle center="5308,2005" radius="12" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_83_2139">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5827,42" radius="10" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner32_2154">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2480,863" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner17_2166">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="harpy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5497,1998" radius="5" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_79_2168">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5505,180" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped_good__14_2175">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5558,791" radius="5" map="1" z="63" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_30_2177">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5917,156" radius="20" map="1" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__2_2183">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5501,531" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_43_2185">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="12" /></npc>
+		<circle center="5504,1808" radius="12" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_fire_11_2195">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="hellcat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5787,1386" radius="20" map="1" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_27_2199">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5413,2000" radius="10" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_hythloth_45_2218">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gazer_larva"><npcwander type="circle" radius="20" /></npc>
+		<circle center="6122,170" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_ice_28_2222">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ice_fiend"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5680,306" radius="20" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_17_2234">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="water_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5445,2030" radius="15" map="1" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetousspawner7_2235">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="harpy"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5472,1877" radius="10" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_38_2237">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5617,1861" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_92_2242">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="5725,118" radius="15" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_despiserevamped__1_2244">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="silenii"><npcwander type="circle" radius="5" /></npc>
+		<npc id="forestnymph"><npcwander type="circle" radius="5" /></npc>
+		<npc id="despiseunicorn"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sagittarri"><npcwander type="circle" radius="5" /></npc>
+		<npc id="ursadane"><npcwander type="circle" radius="5" /></npc>
+		<npc id="divineguardian"><npcwander type="circle" radius="5" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fairy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="5486,566" radius="5" map="1" z="60" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_prismoflight_0_2245">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="crystal_lattice_seeker"><npcwander type="circle" radius="8" /></npc>
+		<circle center="6553,157" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_orccaves_12_2248">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="orcish_lord"><npcwander type="circle" radius="8" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="8" /></npc>
+		<npc id="orc_bomber"><npcwander type="circle" radius="8" /></npc>
+		<npc id="orc"><npcwander type="circle" radius="8" /></npc>
+		<circle center="5317,1309" radius="8" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_55_2261">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5593,141" radius="30" map="1" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_covetous_16_2262">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="slime"><npcwander type="circle" radius="25" /></npc>
+		<circle center="5469,2019" radius="25" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_shame_52_2263">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5577,194" radius="30" map="1" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_5_2268">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="lysander_gathenwale"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5458,1303" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_37_2269">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5491,1370" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_33_2270">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5483,1446" radius="30" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_44_2271">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ancient_lich"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5549,1332" radius="30" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_2_2272">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5525,1296" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_22_2273">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5402,1430" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_3_2274">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5492,1294" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_20_2275">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5442,1411" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_12_2276">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="tavara_sewel"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5420,1355" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_13_2277">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5422,1355" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_35_2278">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5499,1411" radius="30" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_41_2279">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="khaldun_summoner"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5536,1351" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_6_2280">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5415,1312" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_30_2281">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="khaldun_summoner"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5459,1449" radius="30" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_8_2282">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="morg_bergen"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5398,1299" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_25_2283">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5418,1450" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_24_2284">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5425,1451" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_43_2285">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="cursed"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5549,1324" radius="30" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_40_2286">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="corpser"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5605,1343" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_42_2287">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="khaldun_zealot"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5536,1345" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_0_2288">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5569,1306" radius="10" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_26_2289">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="bone_magi"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5425,1484" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_18_2290">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="khaldun_zealot"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5400,1397" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_23_2291">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5404,1431" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_7_2292">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5399,1298" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_11_2293">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5403,1332" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_39_2294">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5521,1397" radius="10" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_46_2295">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="grimmoch_drummel"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5452,1366" radius="10" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_27_2296">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5430,1485" radius="30" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_29_2297">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="ancient_lich"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5458,1445" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_36_2298">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="spectral_armour"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5475,1402" radius="30" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_1_2299">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="cursed"><npcwander type="circle" radius="30" /></npc>
+		<circle center="5539,1301" radius="30" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_14_2300">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="10" /></npc>
+		<circle center="5435,1346" radius="10" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_38_2301">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="spectral_armour"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5490,1367" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_28_2302">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5433,1485" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_19_2303">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5444,1410" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_32_2304">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5465,1449" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_17_2305">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5393,1369" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_10_2306">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5415,1331" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_15_2307">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5396,1371" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_4_2308">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5492,1297" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_16_2309">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="cursed"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5395,1370" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_21_2310">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="khaldun_summoner"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5400,1428" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_45_2311">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="cursed"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5505,1316" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_34_2312">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5485,1434" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_31_2313">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="khaldun_zealot"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5460,1451" radius="20" map="0" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_khaldun_9_2314">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="bone_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="5412,1330" radius="20" map="0" z="0" />
+	</spawnregion>
+
+</definitions>

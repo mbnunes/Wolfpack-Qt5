@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | High Seas Boat Equipment & Cannons
+ *   )).-' {{ ;'`   | 
+ *  ( (  ;._ \\     | 
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Ship's Wheel (Timao de Navegacao) -->
+	<item id="shipwheel">
+		<id>0x1e23</id>
+		<name>Ship's Wheel</name>
+		<scripts>boats.wheel</scripts>
+		<weight>5000</weight>
+		<movable>false</movable>
+		<category>Boats\Equipment</category>
+	</item>
+
+	<!-- Mooring Line (Cabo de Amarração) -->
+	<item id="mooring_line">
+		<id>0x14f8</id>
+		<name>Mooring Line</name>
+		<scripts>boats.mooring</scripts>
+		<weight>0</weight>
+		<movable>false</movable>
+		<category>Boats\Equipment</category>
+	</item>
+
+	<!-- Naval Cannons -->
+	<item id="ship_cannon_heavy">
+		<id>0x0e8d</id>
+		<name>Heavy Ship Cannon</name>
+		<scripts>boats.cannons</scripts>
+		<weight>10000</weight>
+		<movable>false</movable>
+		<category>Boats\Cannons</category>
+	</item>
+
+	<item id="ship_cannon_light">
+		<id>0x0e8b</id>
+		<name>Light Ship Cannon</name>
+		<scripts>boats.cannons</scripts>
+		<weight>6000</weight>
+		<movable>false</movable>
+		<category>Boats\Cannons</category>
+	</item>
+
+	<!-- Cannon Deeds -->
+	<item id="ship_cannon_heavy_deed">
+		<id>0x14f0</id>
+		<name>Heavy Ship Cannon Deed</name>
+		<scripts>boats.cannons</scripts>
+		<buyprice>25000</buyprice>
+		<sellprice>12500</sellprice>
+		<weight>500</weight>
+		<category>Boats\Deeds</category>
+	</item>
+
+	<item id="ship_cannon_light_deed">
+		<id>0x14f0</id>
+		<name>Light Ship Cannon Deed</name>
+		<scripts>boats.cannons</scripts>
+		<buyprice>15000</buyprice>
+		<sellprice>7500</sellprice>
+		<weight>400</weight>
+		<category>Boats\Deeds</category>
+	</item>
+
+	<!-- Cannon Ammunition & Consumables -->
+	<item id="powder_charge">
+		<id>0x0e8a</id>
+		<name>Powder Charge</name>
+		<buyprice>50</buyprice>
+		<sellprice>25</sellprice>
+		<weight>100</weight>
+		<category>Boats\Ammo</category>
+	</item>
+
+	<item id="cannonball">
+		<id>0x0e73</id>
+		<name>Cannonball</name>
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
+		<weight>200</weight>
+		<category>Boats\Ammo</category>
+	</item>
+
+	<item id="grapeshot">
+		<id>0x256e</id>
+		<name>Grapeshot</name>
+		<buyprice>40</buyprice>
+		<sellprice>20</sellprice>
+		<weight>150</weight>
+		<category>Boats\Ammo</category>
+	</item>
+
+	<item id="ramrod">
+		<id>0x1028</id>
+		<name>Cannon Ramrod</name>
+		<buyprice>100</buyprice>
+		<sellprice>50</sellprice>
+		<weight>100</weight>
+		<category>Boats\Tools</category>
+	</item>
+
+	<item id="swab">
+		<id>0x0fb4</id>
+		<name>Cannon Swab</name>
+		<buyprice>100</buyprice>
+		<sellprice>50</sellprice>
+		<weight>100</weight>
+		<category>Boats\Tools</category>
+	</item>
+
+	<item id="fuse_match">
+		<id>0x1420</id>
+		<name>Fuse Matches</name>
+		<buyprice>20</buyprice>
+		<sellprice>10</sellprice>
+		<weight>50</weight>
+		<category>Boats\Tools</category>
+	</item>
+
+	<!-- Ship Recall Rune -->
+	<item id="ship_rune">
+		<id>0x1f14</id>
+		<color>0x47f</color>
+		<name>Ship Rune</name>
+		<scripts>boats.runes</scripts>
+		<buyprice>500</buyprice>
+		<sellprice>250</sellprice>
+		<weight>100</weight>
+		<category>Boats\Magic</category>
+	</item>
+
+	<!-- Ship Repair Kit -->
+	<item id="ship_repair_kit">
+		<id>0x1ebc</id>
+		<color>0x485</color>
+		<name>Ship Repair Kit</name>
+		<scripts>boats.damage</scripts>
+		<buyprice>2000</buyprice>
+		<sellprice>1000</sellprice>
+		<weight>200</weight>
+		<category>Boats\Tools</category>
+	</item>
+
+</definitions>

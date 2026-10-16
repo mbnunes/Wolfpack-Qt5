@@ -159,10 +159,11 @@
 
 	<item id="boat_large">
 		<id>0x14F2</id>
-    <!-- large ship deed -->
-    <name>#1041209</name>
+		<name>#1041209</name>
+		<buyprice>19000</buyprice>
+		<sellprice>9500</sellprice>
 		<tag name="multisection" value="boat_large" />
-    <scripts>boats.deed</scripts>
+		<scripts>boats.deed</scripts>
 	</item>
 
 	<multi id="dragonboat_large" type="boat">
@@ -190,10 +191,177 @@
 
 	<item id="dragonboat_large">
 		<id>0x14F2</id>
-    <!-- large dragon ship deed -->
 		<name>#1041210</name>
+		<buyprice>19000</buyprice>
+		<sellprice>9500</sellprice>
 		<tag name="multisection" value="dragonboat_large" />
-    <scripts>boats.deed</scripts>
-  </item>
+		<scripts>boats.deed</scripts>
+	</item>
+<!-- ================= HIGH SEAS BOATS ================= -->
+
+	<!-- Orcish Galleon -->
+	<multi id="orcish_galleon" type="boat">
+		<name>Orcish Galleon</name>
+		<ids north="0x4018" east="0x4019" south="0x401A" west="0x401B" />
+		<id>0x4018</id>
+		<special_items>
+			<tillerman>
+				<offsets x="1" y="9" />
+			</tillerman>
+			<hold>
+				<offsets x="0" y="-8" />
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets x="-3" y="0" />
+				</port_closed>
+				<star_closed>
+					<offsets x="3" y="0" />
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>orcish_galleon</deedsection>
+	</multi>
+
+	<item id="orcish_galleon">
+		<id>0x14F2</id>
+		<name>Orcish Galleon Deed</name>
+		<buyprice>200000</buyprice>
+		<sellprice>100000</sellprice>
+		<tag name="multisection" value="orcish_galleon" />
+		<scripts>boats.deed</scripts>
+	</item>
+
+	<!-- Gargish Galleon -->
+	<multi id="gargish_galleon" type="boat">
+		<name>Gargish Galleon</name>
+		<ids north="0x4024" east="0x4025" south="0x4026" west="0x4027" />
+		<id>0x4024</id>
+		<special_items>
+			<tillerman>
+				<offsets x="1" y="9" />
+			</tillerman>
+			<hold>
+				<offsets x="0" y="-8" />
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets x="-3" y="0" />
+				</port_closed>
+				<star_closed>
+					<offsets x="3" y="0" />
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>gargish_galleon</deedsection>
+	</multi>
+
+	<item id="gargish_galleon">
+		<id>0x14F2</id>
+		<name>Gargish Galleon Deed</name>
+		<buyprice>200000</buyprice>
+		<sellprice>100000</sellprice>
+		<tag name="multisection" value="gargish_galleon" />
+		<scripts>boats.deed</scripts>
+	</item>
+
+	<!-- Tokuno Galleon -->
+	<multi id="tokuno_galleon" type="boat">
+		<name>Tokuno Galleon</name>
+		<ids north="0x4030" east="0x4031" south="0x4032" west="0x4033" />
+		<id>0x4030</id>
+		<special_items>
+			<tillerman>
+				<offsets x="1" y="9" />
+			</tillerman>
+			<hold>
+				<offsets x="0" y="-8" />
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets x="-3" y="0" />
+				</port_closed>
+				<star_closed>
+					<offsets x="3" y="0" />
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>tokuno_galleon</deedsection>
+	</multi>
+
+	<item id="tokuno_galleon">
+		<id>0x14F2</id>
+		<name>Tokuno Galleon Deed</name>
+		<buyprice>150000</buyprice>
+		<sellprice>75000</sellprice>
+		<tag name="multisection" value="tokuno_galleon" />
+		<scripts>boats.deed</scripts>
+	</item>
+
+	<!-- Rowboat -->
+	<multi id="rowboat" type="boat">
+		<name>Rowboat</name>
+		<ids north="0x403C" east="0x403D" south="0x403E" west="0x403F" />
+		<id>0x403C</id>
+		<special_items>
+			<tillerman>
+				<offsets x="0" y="2" />
+			</tillerman>
+			<hold>
+				<offsets x="0" y="-2" />
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets x="-1" y="0" />
+				</port_closed>
+				<star_closed>
+					<offsets x="1" y="0" />
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>rowboat</deedsection>
+	</multi>
+
+	<item id="rowboat">
+		<id>0x14F2</id>
+		<name>Rowboat Deed</name>
+		<buyprice>6250</buyprice>
+		<sellprice>3125</sellprice>
+		<tag name="multisection" value="rowboat" />
+		<scripts>boats.deed</scripts>
+	</item>
+
+	<!-- Britannian Ship / Galleon -->
+	<multi id="britannian_ship" type="boat">
+		<name>Britannian Ship</name>
+		<ids north="0x4040" east="0x4041" south="0x4042" west="0x4043" />
+		<id>0x4040</id>
+		<special_items>
+			<tillerman>
+				<offsets x="1" y="10" />
+			</tillerman>
+			<hold>
+				<offsets x="0" y="-9" />
+			</hold>
+			<planks>
+				<port_closed>
+					<offsets x="-3" y="0" />
+				</port_closed>
+				<star_closed>
+					<offsets x="3" y="0" />
+				</star_closed>
+			</planks>
+		</special_items>
+		<deedsection>britannian_ship</deedsection>
+	</multi>
+
+	<item id="britannian_ship">
+		<id>0x14F2</id>
+		<name>Britannian Ship Deed</name>
+		<buyprice>250000</buyprice>
+		<sellprice>125000</sellprice>
+		<tag name="multisection" value="britannian_ship" />
+		<scripts>boats.deed</scripts>
+	</item>
 
 </definitions>

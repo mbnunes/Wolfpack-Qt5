@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Expansion NPC Conversion
+ *   )).-' {{ ;'`   | Auto-generated definitions
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Battle Chicken Lizard -->
+	<npc id="battle_chicken_lizard" inherit="animal_base">
+		<name>a battle chicken lizard</name>
+		<id>716</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="94" max="177" /></str>
+		<dex><random min="78" max="124" /></dex>
+		<int><random min="6" max="13" /></int>
+		<maxhitpoints><random min="94" max="177" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>15</maxdamage>
+		<tag name="res_physical" value="15,20" type="int" />
+		<tag name="res_fire" value="5,15" type="int" />
+		<skill id="magicresistance"><random min="300" max="530" /></skill>
+		<skill id="tactics"><random min="500" max="620" /></skill>
+		<skill id="wrestling"><random min="500" max="620" /></skill>
+		<category>Animals\Expansion\Battle Chicken Lizard</category>
+	</npc>
+
+	<!-- Clan Ribbon Plague Rat -->
+	<npc id="clan_ribbon_plague_rat" inherit="animal_base">
+		<name>Clan Ribbon Plague Rat</name>
+		<id>238</id>
+		<color>52</color>
+		<ai>Animal_Wild</ai>
+		<karma>-150</karma>
+		<fame>150</fame>
+		<str><random min="59" max="59" /></str>
+		<dex><random min="51" max="51" /></dex>
+		<int><random min="17" max="17" /></int>
+		<maxhitpoints><random min="92" max="92" /></maxhitpoints>
+		<mindamage>4</mindamage>
+		<maxdamage>8</maxdamage>
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="5,10" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="magicresistance">300</skill>
+		<skill id="tactics">340</skill>
+		<skill id="wrestling">400</skill>
+		<category>Animals\Expansion\Clan Ribbon Plague Rat</category>
+	</npc>
+
+	<!-- Crane -->
+	<npc id="crane" inherit="animal_base">
+		<name>a crane</name>
+		<id>254</id>
+		<ai>Animal_Wild</ai>
+		<karma>200</karma>
+		<str><random min="26" max="35" /></str>
+		<dex><random min="16" max="25" /></dex>
+		<int><random min="11" max="15" /></int>
+		<maxhitpoints><random min="26" max="35" /></maxhitpoints>
+		<mindamage>1</mindamage>
+		<maxdamage>1</maxdamage>
+		<tag name="res_physical" value="5" type="int" />
+		<skill id="magicresistance"><random min="41" max="50" /></skill>
+		<skill id="tactics"><random min="101" max="110" /></skill>
+		<skill id="wrestling"><random min="101" max="110" /></skill>
+		<category>Animals\Expansion\Crane</category>
+	</npc>
+
+	<!-- Diseased Cat -->
+	<npc id="diseased_cat" inherit="animal_base">
+		<name>a diseased cat</name>
+		<id>0</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="9" max="9" /></str>
+		<dex><random min="35" max="35" /></dex>
+		<int><random min="5" max="5" /></int>
+		<maxhitpoints><random min="6" max="6" /></maxhitpoints>
+		<mindamage>1</mindamage>
+		<maxdamage>1</maxdamage>
+		<tag name="res_physical" value="5,10" type="int" />
+		<skill id="magicresistance">50</skill>
+		<skill id="tactics">40</skill>
+		<skill id="wrestling">50</skill>
+		<category>Animals\Expansion\Diseased Cat</category>
+	</npc>
+
+	<!-- Gaman -->
+	<npc id="gaman" inherit="animal_base">
+		<name>a gaman</name>
+		<id>248</id>
+		<ai>Animal_Wild</ai>
+		<karma>-2000</karma>
+		<fame>2000</fame>
+		<str><random min="146" max="175" /></str>
+		<dex><random min="111" max="150" /></dex>
+		<int><random min="46" max="60" /></int>
+		<maxhitpoints><random min="131" max="160" /></maxhitpoints>
+		<mindamage>6</mindamage>
+		<maxdamage>11</maxdamage>
+		<tag name="res_physical" value="50,70" type="int" />
+		<tag name="res_fire" value="30,50" type="int" />
+		<tag name="res_cold" value="30,50" type="int" />
+		<tag name="res_poison" value="40,60" type="int" />
+		<tag name="res_energy" value="30,50" type="int" />
+		<skill id="magicresistance"><random min="376" max="425" /></skill>
+		<skill id="tactics"><random min="706" max="830" /></skill>
+		<skill id="wrestling"><random min="501" max="575" /></skill>
+		<category>Animals\Expansion\Gaman</category>
+	</npc>
+
+	<!-- Giant Turkey -->
+	<npc id="giant_turkey" inherit="animal_base">
+		<name>a giant turkey</name>
+		<id>1026</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="1200" max="1400" /></str>
+		<dex><random min="170" max="260" /></dex>
+		<int><random min="430" max="560" /></int>
+		<maxhitpoints><random min="25000" max="25000" /></maxhitpoints>
+		<mindamage>20</mindamage>
+		<maxdamage>30</maxdamage>
+		<tag name="res_physical" value="55,70" type="int" />
+		<tag name="res_fire" value="70,90" type="int" />
+		<tag name="res_cold" value="35,45" type="int" />
+		<tag name="res_poison" value="45,55" type="int" />
+		<tag name="res_energy" value="45,55" type="int" />
+		<skill id="magicresistance"><random min="850" max="1000" /></skill>
+		<skill id="tactics"><random min="1000" max="1100" /></skill>
+		<skill id="wrestling"><random min="1000" max="1200" /></skill>
+		<skill id="anatomy"><random min="750" max="800" /></skill>
+		<category>Animals\Expansion\Giant Turkey</category>
+	</npc>
+
+	<!-- Grubber -->
+	<npc id="grubber" inherit="animal_base">
+		<name>a grubber</name>
+		<id>270</id>
+		<ai>Animal_Wild</ai>
+		<fame>1000</fame>
+		<str><random min="15" max="15" /></str>
+		<dex><random min="2000" max="2000" /></dex>
+		<int><random min="1000" max="1000" /></int>
+		<maxhitpoints><random min="200" max="200" /></maxhitpoints>
+		<mindamage>1</mindamage>
+		<maxdamage>1</maxdamage>
+		<skill id="magicresistance">2000</skill>
+		<skill id="tactics">50</skill>
+		<skill id="wrestling">50</skill>
+		<category>Animals\Expansion\Grubber</category>
+	</npc>
+
+	<!-- High Plains Boura -->
+	<npc id="high_plains_boura" inherit="animal_base">
+		<name>a high plains boura</name>
+		<id>715</id>
+		<ai>Animal_Wild</ai>
+		<karma>-5000</karma>
+		<fame>5000</fame>
+		<str><random min="400" max="435" /></str>
+		<dex><random min="90" max="96" /></dex>
+		<int><random min="25" max="30" /></int>
+		<maxhitpoints><random min="555" max="618" /></maxhitpoints>
+		<mindamage>20</mindamage>
+		<maxdamage>25</maxdamage>
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="35,40" type="int" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="anatomy"><random min="952" max="1054" /></skill>
+		<skill id="magicresistance"><random min="607" max="700" /></skill>
+		<skill id="tactics"><random min="954" max="1057" /></skill>
+		<skill id="wrestling"><random min="1051" max="1153" /></skill>
+		<category>Animals\Expansion\High Plains Boura</category>
+	</npc>
+
+	<!-- Injured Wolf -->
+	<npc id="injured_wolf" inherit="animal_base">
+		<name>an injured wolf</name>
+		<id>0</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="10" max="20" /></str>
+		<dex><random min="45" max="65" /></dex>
+		<int><random min="10" max="15" /></int>
+		<maxhitpoints><random min="1" max="1" /></maxhitpoints>
+		<mindamage>1</mindamage>
+		<maxdamage>3</maxdamage>
+		<tag name="res_physical" value="15" type="int" />
+		<tag name="res_fire" value="5,10" type="int" />
+		<skill id="magicresistance">100</skill>
+		<skill id="tactics"><random min="0" max="50" /></skill>
+		<skill id="wrestling"><random min="200" max="300" /></skill>
+		<category>Animals\Expansion\Injured Wolf</category>
+	</npc>
+
+	<!-- Lowland Boura -->
+	<npc id="lowland_boura" inherit="animal_base">
+		<name>a lowland boura</name>
+		<id>715</id>
+		<ai>Animal_Wild</ai>
+		<karma>-3500</karma>
+		<fame>5000</fame>
+		<str><random min="337" max="411" /></str>
+		<dex><random min="82" max="93" /></dex>
+		<int><random min="23" max="25" /></int>
+		<maxhitpoints><random min="438" max="553" /></maxhitpoints>
+		<mindamage>18</mindamage>
+		<maxdamage>23</maxdamage>
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="35,40" type="int" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="anatomy"><random min="812" max="844" /></skill>
+		<skill id="magicresistance"><random min="707" max="750" /></skill>
+		<skill id="tactics"><random min="834" max="867" /></skill>
+		<skill id="wrestling"><random min="951" max="973" /></skill>
+		<category>Animals\Expansion\Lowland Boura</category>
+	</npc>
+
+	<!-- Raging Grizzly Bear -->
+	<npc id="raging_grizzly_bear" inherit="animal_base">
+		<name>a raging grizzly bear</name>
+		<id>212</id>
+		<ai>Animal_Wild</ai>
+		<karma>10000</karma>
+		<fame>10000</fame>
+		<str><random min="1251" max="1550" /></str>
+		<dex><random min="801" max="1050" /></dex>
+		<int><random min="151" max="400" /></int>
+		<maxhitpoints><random min="751" max="930" /></maxhitpoints>
+		<mindamage>18</mindamage>
+		<maxdamage>23</maxdamage>
+		<tag name="res_physical" value="50,70" type="int" />
+		<tag name="res_cold" value="30,50" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<skill id="wrestling"><random min="734" max="881" /></skill>
+		<skill id="tactics"><random min="736" max="1105" /></skill>
+		<skill id="magicresistance"><random min="328" max="546" /></skill>
+		<category>Animals\Expansion\Raging Grizzly Bear</category>
+	</npc>
+
+	<!-- Ruddy Boura -->
+	<npc id="ruddy_boura" inherit="animal_base">
+		<name>a ruddy boura</name>
+		<id>715</id>
+		<ai>Animal_Wild</ai>
+		<karma>-2500</karma>
+		<fame>5000</fame>
+		<str><random min="396" max="480" /></str>
+		<dex><random min="68" max="82" /></dex>
+		<int><random min="16" max="20" /></int>
+		<maxhitpoints><random min="435" max="509" /></maxhitpoints>
+		<mindamage>16</mindamage>
+		<maxdamage>20</maxdamage>
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="35,40" type="int" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="anatomy"><random min="866" max="888" /></skill>
+		<skill id="magicresistance"><random min="697" max="877" /></skill>
+		<skill id="tactics"><random min="833" max="888" /></skill>
+		<skill id="wrestling"><random min="866" max="879" /></skill>
+		<category>Animals\Expansion\Ruddy Boura</category>
+	</npc>
+
+	<!-- Satyr -->
+	<npc id="satyr" inherit="animal_base">
+		<name>a satyr</name>
+		<id>271</id>
+		<ai>Animal_Wild</ai>
+		<fame>5000</fame>
+		<str><random min="177" max="195" /></str>
+		<dex><random min="251" max="269" /></dex>
+		<int><random min="153" max="170" /></int>
+		<maxhitpoints><random min="350" max="400" /></maxhitpoints>
+		<mindamage>13</mindamage>
+		<maxdamage>24</maxdamage>
+		<tag name="res_physical" value="55,60" type="int" />
+		<tag name="res_fire" value="25,35" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="magicresistance"><random min="550" max="650" /></skill>
+		<skill id="tactics"><random min="800" max="1000" /></skill>
+		<skill id="wrestling"><random min="800" max="1000" /></skill>
+		<skill id="musicianship">1000</skill>
+		<skill id="discordance">1000</skill>
+		<skill id="provocation">1000</skill>
+		<skill id="peacemaking">1000</skill>
+		<category>Animals\Expansion\Satyr</category>
+	</npc>
+
+	<!-- Parrot -->
+	<npc id="parrot" inherit="animal_base">
+		<name>parrot</name>
+		<id>831</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="50" max="100" /></str>
+		<dex><random min="50" max="100" /></dex>
+		<int><random min="50" max="100" /></int>
+		<maxhitpoints><random min="50" max="100" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>12</maxdamage>
+		<category>Animals\Expansion\Parrot</category>
+	</npc>
+
+	<!-- Triceratops -->
+	<npc id="triceratops" inherit="animal_base">
+		<name>Triceratops</name>
+		<id>0</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<str><random min="1100" max="1300" /></str>
+		<dex><random min="150" max="170" /></dex>
+		<int><random min="280" max="310" /></int>
+		<maxhitpoints><random min="1100" max="1200" /></maxhitpoints>
+		<mindamage>21</mindamage>
+		<maxdamage>28</maxdamage>
+		<tag name="res_physical" value="70,80" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<skill id="anatomy"><random min="650" max="750" /></skill>
+		<skill id="tactics"><random min="900" max="1000" /></skill>
+		<skill id="wrestling"><random min="950" max="1050" /></skill>
+		<skill id="detecthidden">750</skill>
+		<skill id="focus"><random min="950" max="1050" /></skill>
+		<skill id="parry"><random min="0" max="1050" /></skill>
+		<category>Animals\Expansion\Triceratops</category>
+	</npc>
+
+	<!-- Turkey -->
+	<npc id="turkey" inherit="animal_base">
+		<name>a turkey</name>
+		<id>95</id>
+		<ai>Animal_Wild</ai>
+		<fame>150</fame>
+		<str><random min="5" max="5" /></str>
+		<dex><random min="15" max="15" /></dex>
+		<int><random min="5" max="5" /></int>
+		<maxhitpoints><random min="75" max="75" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>5</maxdamage>
+		<tag name="res_physical" value="1,5" type="int" />
+		<skill id="magicresistance">40</skill>
+		<skill id="tactics">50</skill>
+		<skill id="wrestling">50</skill>
+		<category>Animals\Expansion\Turkey</category>
+	</npc>
+
+	<!-- Actor -->
+	<npc id="actor" inherit="animal_base">
+		<name>actor</name>
+		<id>0</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="50" max="100" /></str>
+		<dex><random min="50" max="100" /></dex>
+		<int><random min="50" max="100" /></int>
+		<maxhitpoints><random min="50" max="100" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>12</maxdamage>
+		<category>Animals\Expansion\Actor</category>
+	</npc>
+
+	<!-- Artist -->
+	<npc id="artist" inherit="animal_base">
+		<name>artist</name>
+		<id>0</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="50" max="100" /></str>
+		<dex><random min="50" max="100" /></dex>
+		<int><random min="50" max="100" /></int>
+		<maxhitpoints><random min="50" max="100" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>12</maxdamage>
+		<skill id="healing"><random min="360" max="680" /></skill>
+		<category>Animals\Expansion\Artist</category>
+	</npc>
+
+	<!-- Gypsy -->
+	<npc id="gypsy" inherit="animal_base">
+		<name>gypsy</name>
+		<id>0</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="50" max="100" /></str>
+		<dex><random min="50" max="100" /></dex>
+		<int><random min="50" max="100" /></int>
+		<maxhitpoints><random min="50" max="100" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>12</maxdamage>
+		<skill id="begging"><random min="640" max="1000" /></skill>
+		<skill id="cooking"><random min="650" max="880" /></skill>
+		<skill id="snooping"><random min="650" max="880" /></skill>
+		<skill id="stealing"><random min="650" max="880" /></skill>
+		<category>Animals\Expansion\Gypsy</category>
+	</npc>
+
+	<!-- Harbor Master -->
+	<npc id="harbor_master" inherit="animal_base">
+		<name>a ship key</name>
+		<id>0</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="50" max="100" /></str>
+		<dex><random min="50" max="100" /></dex>
+		<int><random min="50" max="100" /></int>
+		<maxhitpoints><random min="50" max="100" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>12</maxdamage>
+		<skill id="mining"><random min="360" max="680" /></skill>
+		<category>Animals\Expansion\Harbor Master</category>
+	</npc>
+
+	<!-- Sculptor -->
+	<npc id="sculptor" inherit="animal_base">
+		<name>sculptor</name>
+		<id>0</id>
+		<ai>Animal_Wild</ai>
+		<str><random min="50" max="100" /></str>
+		<dex><random min="50" max="100" /></dex>
+		<int><random min="50" max="100" /></int>
+		<maxhitpoints><random min="50" max="100" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>12</maxdamage>
+		<category>Animals\Expansion\Sculptor</category>
+	</npc>
+
+</definitions>

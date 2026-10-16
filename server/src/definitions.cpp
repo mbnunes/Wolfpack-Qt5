@@ -484,10 +484,17 @@ const cElement* cDefinitions::getDefinition( eDefCategory type, const QString& i
 {
 	QMap<QString, cElement*>::const_iterator it = impl->unique[type].find( id );
 
-	if ( it == impl->unique[type].end() )
-		return 0;
-	else
+	if ( it != impl->unique[type].end() )
 		return it.value();
+
+	// Case-insensitive fallback lookup
+	for ( it = impl->unique[type].begin(); it != impl->unique[type].end(); ++it )
+	{
+		if ( it.key().compare( id, Qt::CaseInsensitive ) == 0 )
+			return it.value();
+	}
+
+	return 0;
 }
 
 const QList<cElement*>& cDefinitions::getDefinitions( eDefCategory type ) const

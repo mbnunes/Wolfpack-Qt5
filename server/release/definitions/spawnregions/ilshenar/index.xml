@@ -1,15 +1,5 @@
-<!--
-/*=========================================================
- *   )      (\_     | WOLFPACK 13.0.0 Scripts
- *  ((    _/{  "-;  | Created by: Dreoth
- *   )).-' {{ ;'`   |
- *  ( (  ;._ \\     |
- *=======================================================*/
--->
-
 <definitions>
 	<include file="definitions/spawnregions/ilshenar/vendors.xml" />
-
 	<!-- Town Spawns -->
 	<include file="definitions/spawnregions/ilshenar/ancient_citadel.xml" />
 	<include file="definitions/spawnregions/ilshenar/gargoyle_city.xml" />
@@ -33,6 +23,7 @@
 	<include file="definitions/spawnregions/ilshenar/spectre.xml" />
 	<include file="definitions/spawnregions/ilshenar/spider_cave.xml" />
 	<include file="definitions/spawnregions/ilshenar/wisp.xml" />
+	<include file="definitions/spawnregions/ilshenar/twisted_weald.xml" />
 	<!-- Wilderness Spawns -->
 	<include file="definitions/spawnregions/ilshenar/wilderness.xml" />
 </definitions>

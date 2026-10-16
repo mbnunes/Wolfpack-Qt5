@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Galleon Pilot NPC Definition
+ *   )).-' {{ ;'`   | 
+ *  ( (  ;._ \\     | 
+ *=======================================================*/
+-->
+<definitions>
+
+	<npc id="galleon_pilot_male" inherit="human_male">
+		<name>the Galleon Pilot</name>
+		<title>the Pilot</title>
+		<flag name="invulnerable" />
+		<wandertype>none</wandertype>
+		<scripts>boats.pilot</scripts>
+		<skills>
+			<cartography min="900" max="1000" />
+			<tactics min="900" max="1000" />
+			<swordsmanship min="900" max="1000" />
+		</skills>
+		<equipped>
+			<item id="171b" /> <!-- Tricorne hat -->
+			<item id="1efd" /> <!-- Fancy shirt -->
+			<item id="152e" /> <!-- Short pants -->
+			<item id="170b" /> <!-- Boots -->
+			<item id="1441" /> <!-- Cutlass -->
+		</equipped>
+		<category>Boats\Pilots</category>
+	</npc>
+
+	<npc id="galleon_pilot_female" inherit="human_female">
+		<name>the Galleon Pilot</name>
+		<title>the Pilot</title>
+		<flag name="invulnerable" />
+		<wandertype>none</wandertype>
+		<scripts>boats.pilot</scripts>
+		<skills>
+			<cartography min="900" max="1000" />
+			<tactics min="900" max="1000" />
+			<swordsmanship min="900" max="1000" />
+		</skills>
+		<equipped>
+			<item id="171b" /> <!-- Tricorne hat -->
+			<item id="1efd" /> <!-- Fancy shirt -->
+			<item id="1517" /> <!-- Shirt -->
+			<item id="152e" /> <!-- Short pants -->
+			<item id="170b" /> <!-- Boots -->
+			<item id="1441" /> <!-- Cutlass -->
+		</equipped>
+		<category>Boats\Pilots</category>
+	</npc>
+
+	<npc id="galleon_pilot" inherit="galleon_pilot_male">
+		<category>Boats\Pilots</category>
+	</npc>
+
+</definitions>

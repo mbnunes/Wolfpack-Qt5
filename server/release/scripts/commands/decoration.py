@@ -13,7 +13,7 @@ r"""
 	- <code>decoration savedoors</code>
 	- <code>decoration load &lt;map&gt;</code>
 	
-	Where map is the map you want to decorate (0-4).
+	Where map is the map you want to decorate (0-5).
 	\notes The decoration will be read from a XML files called
 	'data\decoration.?.xml, where ? is the map number'.
 r"""
@@ -21,7 +21,7 @@ r"""
 import wolfpack
 from wolfpack.utilities import hex2dec
 from wolfpack import tr, console
-from wolfpack.consts import LOG_ERROR, LOG_MESSAGE
+from wolfpack.consts import LOG_ERROR, LOG_MESSAGE, WPDT_MULTI
 import os
 import xml.sax
 from xml.sax.handler import *
@@ -61,10 +61,13 @@ class DecorationHandler( ContentHandler ):
 			except:
 				return
 
-			if int(dec_id) >= 0x4000:
-				item = wolfpack.addmulti( "%x" %  dec_id )
+			hex_id = "%x" % dec_id
+			if wolfpack.getdefinition( WPDT_MULTI, hex_id ):
+				item = wolfpack.addmulti( hex_id )
 			else:
-				item = wolfpack.additem( "%x" %  dec_id )
+				item = wolfpack.additem( hex_id )
+				if not item and dec_id >= 0x4000:
+					item = wolfpack.addmulti( hex_id )
 
 			if not item or item == None:
 				return
@@ -142,14 +145,14 @@ class DecorationSaveHandler:
 					itemsbyhue[item.color].append(item)
 				tiledata = wolfpack.tiledata(id)
 				for hue in itemsbyhue:
-					file.write(r"""\t<!-- %s -->\n""" % tiledata["name"] )
+					file.write("""\t<!-- %s -->\n""" % tiledata["name"] )
 					if hue != 0:
-						file.write(r"""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
+						file.write("""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
 					else:
-						file.write(r"""\t<item id="0x%x">\n""" % id )
+						file.write("""\t<item id="0x%x">\n""" % id )
 					for item in itemsbyhue[hue]:
 						pos = item.pos
-						file.write(r"""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
+						file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
 					file.write("\t</item>\n")
 			file.write("</decoration>\n")
 			file.close()
@@ -188,14 +191,14 @@ class DoorSaveHandler:
 					itemsbyhue[item.color].append(item)
 				tiledata = wolfpack.tiledata(id)
 				for hue in itemsbyhue:
-					file.write(r"""\t<!-- %s -->\n""" % tiledata["name"] )
+					file.write("""\t<!-- %s -->\n""" % tiledata["name"] )
 					if hue != 0:
-						file.write(r"""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
+						file.write("""\t<item id="0x%x" hue="0x%x">\n""" % (id, hue) )
 					else:
-						file.write(r"""\t<item id="0x%x">\n""" % id )
+						file.write("""\t<item id="0x%x">\n""" % id )
 					for item in itemsbyhue[hue]:
 						pos = item.pos
-						file.write(r"""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
+						file.write("""\t\t<pos x="%i" y="%i" z="%i" map="%i" />\n""" % (pos.x, pos.y, pos.z, pos.map) )
 					file.write("\t</item>\n")
 			file.write("</decoration>\n")
 			file.close()
@@ -252,7 +255,7 @@ def decoration( socket, command, arguments ):
 				maponly = int(arguments.split()[1])
 				maps.append(maponly)
 			except (ValueError, IndexError):
-				maps = [1, 0, 2, 3, 4]
+				maps = [1, 0, 2, 3, 4, 5]
 				pass
 		
 			for m in maps:

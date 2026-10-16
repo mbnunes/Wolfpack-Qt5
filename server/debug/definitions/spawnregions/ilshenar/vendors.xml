@@ -1,81 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
-	<spawnregion id="ilshenar_vendor">
-		<inactive />
+	<spawnregion id="ilsh_valorhealer_4">
+		<active />
 		<maxnpcamount>1</maxnpcamount>
-		<delay value="3600" />
+		<delay min="125" max="250" />
 		<npcspercycle>1</npcspercycle>
-		<group>vendors</group>
 		<group>ilshenar</group>
-		<group>ilshenar_vendors</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="529,204" radius="5" map="2" z="-46" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_1">
+	<spawnregion id="ilsh_vendors_9_10">
 		<active />
-		<npc id="armorer_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="armorer_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="810,694,-40,2" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="banker_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1226,554" radius="5" map="2" z="-12" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_2">
+	<spawnregion id="ilsh_vendors_45_19">
 		<active />
-		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="811,591,-40,2" />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="575,537" radius="5" map="2" z="-69" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_3">
+	<spawnregion id="ilsh_justice_healer_29">
 		<active />
-		<npc id="jeweler_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="jeweler_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="868,692,-20,2" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="978,1012" radius="5" map="2" z="-41" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_4">
+	<spawnregion id="ilsh_cyclophealer_42">
 		<active />
-		<npc id="tailor_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="tailor_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="892,615,-40,2" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="858,1316" radius="5" map="2" z="-71" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_5">
+	<spawnregion id="ilsh_vendors_31_44">
 		<active />
-		<npc id="weaver_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="weaver_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="891,611,-40,2" />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="mage_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="alchemist_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="mage_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1505,611" radius="5" map="2" z="-19" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_6">
+	<spawnregion id="ilsh_elehealer_81">
 		<active />
-		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="1085,656,-80,2" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="23,1186" radius="5" map="2" z="-26" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_7">
+	<spawnregion id="ilsh_vendors_24_92">
 		<active />
-		<npc id="weaponsmith_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="weaponsmith_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="1515,541,85,2" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1620,554" radius="5" map="2" z="-20" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_8">
+	<spawnregion id="ilsh_vendors_13_121">
 		<active />
-		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="1516,540,85,2" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="gypsy_female"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1400,434" radius="5" map="2" z="-11" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_9">
+	<spawnregion id="ilsh_blkcastlehealer_131">
 		<active />
-		<npc id="mage_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="mage_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="1518,542,35,2" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1116,655" radius="5" map="2" z="-80" />
 	</spawnregion>
 
-	<spawnregion inherit="ilshenar_vendor" id="ilshenar_vendor_10">
+	<spawnregion id="ilsh_spiritualityhealer_157">
 		<active />
-		<npc id="herbalist_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="herbalist_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="1517,540,85,2" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1451,1474" radius="5" map="2" z="-25" />
 	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_34_206">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="369,1432" radius="5" map="2" z="15" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_29_210">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="banker_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1405,439" radius="5" map="2" z="2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wandering_healer_215">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="999,470" radius="5" map="2" z="-78" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_16_229">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="blacksmith_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="blacksmith_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1261,582" radius="5" map="2" z="-18" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_35_239">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="provisioner_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="cobbler_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1318,1328" radius="5" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_honor_healer_240">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="752,730" radius="5" map="2" z="-29" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_montorhealer_256">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1707,198" radius="5" map="2" z="108" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wandering_healer_2_257">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="11,900" radius="5" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_47_263">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="baker"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1514,611" radius="5" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sacrificehealer_265">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1182,1286" radius="5" map="2" z="-30" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_21_277">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1518,619" radius="5" map="2" z="-19" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_46_281">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="682,297" radius="5" map="2" z="-41" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_32_282">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="774,1144" radius="5" map="2" z="-30" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_38_291">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="animal_trainer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1499,619" radius="5" map="2" z="-19" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_5_310">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="armorer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1497,614" radius="5" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_33_315">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="provisioner_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="cobbler_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1598,539" radius="5" map="2" z="-19" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_20_316">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1628,548" radius="5" map="2" z="-11" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_compassionhealer_323">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1208,480" radius="5" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_4_331">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="gypsy_animal_trainer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1388,428" radius="5" map="2" z="-23" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_43_336">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1566,1049" radius="5" map="2" z="-8" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blloddungeonhealer_337">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1739,1160" radius="5" map="2" z="-6" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_39_344">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="tailor_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="weaver"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tailor_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1600,552" radius="5" map="2" z="-16" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_14_378">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="665,665" radius="5" map="2" z="-35" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_3_394">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="gypsy_animal_trainer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1225,563" radius="5" map="2" z="-18" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_10_398">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="banker_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="minter"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1610,556" radius="5" map="2" z="-19" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_17_411">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="284,536" radius="5" map="2" z="-24" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_chaoshealer_413">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1754,236" radius="5" map="2" z="58" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_25_422">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="jeweler_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1605,541" radius="5" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_22_431">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1093,955" radius="5" map="2" z="-38" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_vendors_42_447">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>vendors</group>
+		<npc id="tinker_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tinker_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1253,588" radius="5" map="2" z="-19" />
+	</spawnregion>
+
 </definitions>

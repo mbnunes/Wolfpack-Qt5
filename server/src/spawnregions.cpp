@@ -268,6 +268,40 @@ void cSpawnRegion::remove( cUObject* object )
 	}
 }
 
+bool cSpawnRegion::isTown() const
+{
+	if ( id_.contains( "townslife", Qt::CaseInsensitive ) ||
+	     id_.contains( "townspeople", Qt::CaseInsensitive ) ||
+	     id_.contains( "_towns_", Qt::CaseInsensitive ) ||
+	     id_.contains( "_town_", Qt::CaseInsensitive ) )
+	{
+		return true;
+	}
+
+	static const QString townNames[] = {
+		"vendors", "vendor", "town",
+		"britain", "cove", "jhelom", "jhemlom", "minoc", "moonglow", "trinsic",
+		"vesper", "yew", "haven", "bucs", "buccaneers_den", "magincia",
+		"nujelm", "delucia", "papua", "wind", "serpents_hold", "skara_brae",
+		"ocllo", "luna", "umbra", "zento", "royal_city", "holy_city",
+		"dugan", "lakeshire", "mistas", "montor", "gargoyle_city"
+	};
+	static const int townNamesCount = sizeof( townNames ) / sizeof( QString );
+
+	foreach ( const QString& group, groups_ )
+	{
+		for ( int i = 0; i < townNamesCount; ++i )
+		{
+			if ( group.contains( townNames[i], Qt::CaseInsensitive ) )
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 void cSpawnRegion::processNode( const cElement* tag, uint /*hash*/ )
 {
 	QString name = tag->name();
@@ -555,6 +589,19 @@ bool cSpawnRegion::findValidSpot( Coord& result, int tries )
 			// See if the spot is valid.
 			if ( !Movement::instance()->canLandMonsterMoveHere( rndPos ) )
 			{
+				// If this spawnregion has only a single fixed point (e.g. vendors behind shop counters,
+				// or fixed dungeon spawns), accept the explicit coordinates if they are within map boundaries.
+				if ( points == 1 )
+				{
+					if ( Maps::instance()->hasMap( rndPos.map ) &&
+					     rndPos.x < ( Maps::instance()->mapTileWidth( rndPos.map ) * 8 ) &&
+					     rndPos.y < ( Maps::instance()->mapTileHeight( rndPos.map ) * 8 ) )
+					{
+						result = rndPos;
+						return true;
+					}
+				}
+
 				return findValidSpot( result, tries - 1 ); // Invalid spot, search for another one
 			}
 
@@ -841,7 +888,7 @@ void cSpawnRegion::reSpawnToMax( void )
 	{
 		unsigned int failed = 0;
 
-		while ( npcs() < maxNpcAmt_ && failed < 50 )
+		while ( npcs() < maxNpcAmt_ && failed < 50 && active_ )
 		{
 			unsigned int oldamount = npcs();
 			spawnSingleNPC();
@@ -852,11 +899,11 @@ void cSpawnRegion::reSpawnToMax( void )
 		}
 
 		failed = 0;
-		while ( items() < maxItemAmt_ )
+		while ( items() < maxItemAmt_ && failed < 50 && active_ )
 		{
 			unsigned int oldamount = items();
 			spawnSingleItem();
-			if ( npcs() == oldamount )
+			if ( items() == oldamount )
 			{
 				failed++;
 			}
@@ -920,13 +967,79 @@ void cAllSpawnRegions::check( void )
 	}
 }
 
+int cAllSpawnRegions::reSpawnTowns()
+{
+	int count = 0;
+	iterator it( this->begin() );
+	while ( it != this->end() )
+	{
+		if ( it->second->isTown() )
+		{
+			it->second->reSpawn();
+			++count;
+		}
+		++it;
+	}
+	return count;
+}
+
+int cAllSpawnRegions::reSpawnToMaxTowns()
+{
+	int count = 0;
+	iterator it( this->begin() );
+	while ( it != this->end() )
+	{
+		if ( it->second->isTown() )
+		{
+			it->second->reSpawnToMax();
+			++count;
+		}
+		++it;
+	}
+	return count;
+}
+
+int cAllSpawnRegions::deSpawnTowns()
+{
+	int count = 0;
+	iterator it( this->begin() );
+	while ( it != this->end() )
+	{
+		if ( it->second->isTown() )
+		{
+			it->second->deSpawn();
+			++count;
+		}
+		++it;
+	}
+	return count;
+}
+
 bool cAllSpawnRegions::reSpawnToMaxGroup( const QString& group )
 {
+	if ( group.compare( "towns", Qt::CaseInsensitive ) == 0 ||
+	     group.compare( "cities", Qt::CaseInsensitive ) == 0 ||
+	     group.compare( "cidades", Qt::CaseInsensitive ) == 0 )
+	{
+		return reSpawnToMaxTowns() > 0;
+	}
+
 	iterator it( this->begin() );
 	bool found = false;
 	while ( it != this->end() )
 	{
-		if ( it->second->groups().contains( group ) )
+		bool match = false;
+		foreach ( const QString& g, it->second->groups() )
+		{
+			if ( g.compare( group, Qt::CaseInsensitive ) == 0 ||
+			     g.contains( group, Qt::CaseInsensitive ) )
+			{
+				match = true;
+				break;
+			}
+		}
+
+		if ( match )
 		{
 			it->second->reSpawnToMax();
 			found = true;
@@ -938,11 +1051,29 @@ bool cAllSpawnRegions::reSpawnToMaxGroup( const QString& group )
 
 bool cAllSpawnRegions::reSpawnGroup( const QString& group )
 {
+	if ( group.compare( "towns", Qt::CaseInsensitive ) == 0 ||
+	     group.compare( "cities", Qt::CaseInsensitive ) == 0 ||
+	     group.compare( "cidades", Qt::CaseInsensitive ) == 0 )
+	{
+		return reSpawnTowns() > 0;
+	}
+
 	iterator it( this->begin() );
 	bool found = false;
 	while ( it != this->end() )
 	{
-		if ( it->second->groups().contains( group ) )
+		bool match = false;
+		foreach ( const QString& g, it->second->groups() )
+		{
+			if ( g.compare( group, Qt::CaseInsensitive ) == 0 ||
+			     g.contains( group, Qt::CaseInsensitive ) )
+			{
+				match = true;
+				break;
+			}
+		}
+
+		if ( match )
 		{
 			it->second->reSpawn();
 			found = true;
@@ -954,11 +1085,29 @@ bool cAllSpawnRegions::reSpawnGroup( const QString& group )
 
 bool cAllSpawnRegions::deSpawnGroup( const QString& group )
 {
+	if ( group.compare( "towns", Qt::CaseInsensitive ) == 0 ||
+	     group.compare( "cities", Qt::CaseInsensitive ) == 0 ||
+	     group.compare( "cidades", Qt::CaseInsensitive ) == 0 )
+	{
+		return deSpawnTowns() > 0;
+	}
+
 	iterator it( this->begin() );
 	bool found = false;
 	while ( it != this->end() )
 	{
-		if ( it->second->groups().contains( group ) )
+		bool match = false;
+		foreach ( const QString& g, it->second->groups() )
+		{
+			if ( g.compare( group, Qt::CaseInsensitive ) == 0 ||
+			     g.contains( group, Qt::CaseInsensitive ) )
+			{
+				match = true;
+				break;
+			}
+		}
+
+		if ( match )
 		{
 			it->second->deSpawn();
 			found = true;

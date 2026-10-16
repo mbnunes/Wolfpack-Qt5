@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions>
+	<!-- Felucca (Map 0) Locations Expansion Pack Data -->
+
+	<!-- Factions -->
+	<location id="felucca factions britain" category="Felucca\Factions\Towns\Britain">1592,1680,10,0</location>
+	<location id="felucca factions magincia" category="Felucca\Factions\Towns\Magincia">3714,2235,20,0</location>
+	<location id="felucca factions minoc" category="Felucca\Factions\Towns\Minoc">2471,439,15,0</location>
+	<location id="felucca factions moonglow" category="Felucca\Factions\Towns\Moonglow">4436,1083,0,0</location>
+	<location id="felucca factions skara brae" category="Felucca\Factions\Towns\Skara Brae">576,2200,0,0</location>
+	<location id="felucca factions trinsic" category="Felucca\Factions\Towns\Trinsic">1914,2717,20,0</location>
+	<location id="felucca factions vesper" category="Felucca\Factions\Towns\Vesper">2982,818,0,0</location>
+	<location id="felucca factions yew" category="Felucca\Factions\Towns\Yew">548,979,0,0</location>
+	<location id="felucca factions council of mages" category="Felucca\Factions\Council of Mages">3750,2241,20,0</location>
+	<location id="felucca factions minax" category="Felucca\Factions\Minax">1172,2593,0,0</location>
+	<location id="felucca factions shadowlords" category="Felucca\Factions\Shadowlords">969,768,0,0</location>
+	<location id="felucca factions true britannians" category="Felucca\Factions\True Britannians">1419,1622,20,0</location>
+
+	<!-- Dungeons -->
+	<location id="felucca blighted grove entrance" category="Felucca\Dungeons\Blighted Grove\Entrance">586,1643,-5,0</location>
+	<location id="felucca covetous entrance" category="Felucca\Dungeons\Covetous\Entrance">2499,919,0,0</location>
+	<location id="felucca covetous level 1" category="Felucca\Dungeons\Covetous\Level 1">5456,1863,0,0</location>
+	<location id="felucca covetous level 2" category="Felucca\Dungeons\Covetous\Level 2">5614,1997,0,0</location>
+	<location id="felucca covetous level 3" category="Felucca\Dungeons\Covetous\Level 3">5579,1924,0,0</location>
+	<location id="felucca covetous lake cave" category="Felucca\Dungeons\Covetous\Lake Cave">5467,1805,7,0</location>
+	<location id="felucca covetous torture chambers" category="Felucca\Dungeons\Covetous\Torture Chambers">5552,1807,0,0</location>
+	<location id="felucca deceit entrance" category="Felucca\Dungeons\Deceit\Entrance">4111,432,5,0</location>
+	<location id="felucca deceit level 1" category="Felucca\Dungeons\Deceit\Level 1">5188,638,0,0</location>
+	<location id="felucca deceit level 2" category="Felucca\Dungeons\Deceit\Level 2">5305,533,2,0</location>
+	<location id="felucca deceit level 3" category="Felucca\Dungeons\Deceit\Level 3">5137,650,5,0</location>
+	<location id="felucca deceit level 4" category="Felucca\Dungeons\Deceit\Level 4">5306,652,2,0</location>
+	<location id="felucca despise entrance" category="Felucca\Dungeons\Despise\Entrance">1298,1080,0,0</location>
+	<location id="felucca despise entryway" category="Felucca\Dungeons\Despise\Entryway">5587,631,30,0</location>
+	<location id="felucca despise level 1" category="Felucca\Dungeons\Despise\Level 1">5501,570,59,0</location>
+	<location id="felucca despise level 2" category="Felucca\Dungeons\Despise\Level 2">5519,673,20,0</location>
+	<location id="felucca despise level 3" category="Felucca\Dungeons\Despise\Level 3">5407,859,45,0</location>
+	<location id="felucca destard entrance" category="Felucca\Dungeons\Destard\Entrance">1176,2637,0,0</location>
+	<location id="felucca destard level 1" category="Felucca\Dungeons\Destard\Level 1">5243,1006,0,0</location>
+	<location id="felucca destard level 2" category="Felucca\Dungeons\Destard\Level 2">5143,801,4,0</location>
+	<location id="felucca destard level 3" category="Felucca\Dungeons\Destard\Level 3">5137,986,5,0</location>
+	<location id="felucca hythloth entrance" category="Felucca\Dungeons\Hythloth\Entrance">4721,3822,0,0</location>
+	<location id="felucca hythloth level 1" category="Felucca\Dungeons\Hythloth\Level 1">5905,20,46,0</location>
+	<location id="felucca hythloth level 2" category="Felucca\Dungeons\Hythloth\Level 2">5976,169,0,0</location>
+	<location id="felucca hythloth level 3" category="Felucca\Dungeons\Hythloth\Level 3">6083,145,-20,0</location>
+	<location id="felucca hythloth level 4" category="Felucca\Dungeons\Hythloth\Level 4">6059,89,24,0</location>
+	<location id="felucca shame entrance" category="Felucca\Dungeons\Shame\Entrance">514,1561,0,0</location>
+	<location id="felucca shame level 1" category="Felucca\Dungeons\Shame\Level 1">5395,126,0,0</location>
+	<location id="felucca shame level 2" category="Felucca\Dungeons\Shame\Level 2">5515,11,5,0</location>
+	<location id="felucca shame level 3" category="Felucca\Dungeons\Shame\Level 3">5514,148,25,0</location>
+	<location id="felucca shame level 4" category="Felucca\Dungeons\Shame\Level 4">5875,20,-5,0</location>
+	<location id="felucca wrong entrance" category="Felucca\Dungeons\Wrong\Entrance">2043,238,10,0</location>
+	<location id="felucca wrong level 1" category="Felucca\Dungeons\Wrong\Level 1">5825,630,0,0</location>
+	<location id="felucca wrong level 2" category="Felucca\Dungeons\Wrong\Level 2">5690,569,25,0</location>
+	<location id="felucca wrong level 3" category="Felucca\Dungeons\Wrong\Level 3">5703,639,0,0</location>
+	<location id="felucca miscellaneous hyloth fire pit" category="Felucca\Dungeons\Miscellaneous\Hyloth Fire Pit">4596,3630,30,0</location>
+	<location id="felucca miscellaneous yew britain brigand camp" category="Felucca\Dungeons\Miscellaneous\Yew-Britain Brigand Camp">885,1682,0,0</location>
+	<location id="felucca miscellaneous yew fort of the damned" category="Felucca\Dungeons\Miscellaneous\Yew Fort of the Damned">972,768,0,0</location>
+	<location id="felucca terathan keep entrance" category="Felucca\Dungeons\Terathan Keep\Entrance">5451,3143,-60,0</location>
+	<location id="felucca terathan keep level 1" category="Felucca\Dungeons\Terathan Keep\Level 1">5342,1601,0,0</location>
+	<location id="felucca terathan keep champion room" category="Felucca\Dungeons\Terathan Keep\Champion Room">5205,1585,0,0</location>
+	<location id="felucca terathan keep starroom" category="Felucca\Dungeons\Terathan Keep\Starroom">5139,1767,0,0</location>
+	<location id="felucca fire entrance" category="Felucca\Dungeons\Fire\Entrance">5760,2908,15,0</location>
+	<location id="felucca fire brit entrance" category="Felucca\Dungeons\Fire\Brit Entrance">2923,3407,8,0</location>
+	<location id="felucca fire level 1" category="Felucca\Dungeons\Fire\Level 1">5790,1416,40,0</location>
+	<location id="felucca fire level 2" category="Felucca\Dungeons\Fire\Level 2">5702,1316,1,0</location>
+	<location id="felucca ice entrance" category="Felucca\Dungeons\Ice\Entrance">5210,2322,30,0</location>
+	<location id="felucca ice brit entrance" category="Felucca\Dungeons\Ice\Brit Entrance">1999,81,4,0</location>
+	<location id="felucca ice level 1" category="Felucca\Dungeons\Ice\Level 1">5875,150,15,0</location>
+	<location id="felucca ice ratman room" category="Felucca\Dungeons\Ice\Ratman Room">5834,327,18,0</location>
+	<location id="felucca ice ice demon lair" category="Felucca\Dungeons\Ice\Ice Demon Lair">5700,305,0,0</location>
+	<location id="felucca orc cave entrance" category="Felucca\Dungeons\Orc Cave\Entrance">1019,1431,0,0</location>
+	<location id="felucca orc cave level 1" category="Felucca\Dungeons\Orc Cave\Level 1">5137,2014,0,0</location>
+	<location id="felucca orc cave level 2" category="Felucca\Dungeons\Orc Cave\Level 2">5332,1376,0,0</location>
+	<location id="felucca orc cave level 3" category="Felucca\Dungeons\Orc Cave\Level 3">5272,2036,0,0</location>
+	<location id="felucca painted caves entrance" category="Felucca\Dungeons\Painted Caves\Entrance">1716,2993,0,0</location>
+	<location id="felucca palace of paroxysmus entrance" category="Felucca\Dungeons\Palace of Paroxysmus\Entrance">5576,3018,25,0</location>
+	<location id="felucca prism of light entrance" category="Felucca\Dungeons\Prism of Light\Entrance">3784,1097,14,0</location>
+	<location id="felucca sanctuary entrance" category="Felucca\Dungeons\Sanctuary\Entrance">764,1646,0,0</location>
+	<location id="felucca solen hives central area" category="Felucca\Dungeons\Solen Hives\Central Area">5774,1896,20,0</location>
+	<location id="felucca solen hives area a entrance" category="Felucca\Dungeons\Solen Hives\Area A\Entrance">729,1451,0,0</location>
+	<location id="felucca solen hives area a level 1" category="Felucca\Dungeons\Solen Hives\Area A\Level 1">5658,1795,3,0</location>
+	<location id="felucca solen hives area a level 2" category="Felucca\Dungeons\Solen Hives\Area A\Level 2">5726,1891,1,0</location>
+	<location id="felucca solen hives area b entrance" category="Felucca\Dungeons\Solen Hives\Area B\Entrance">2607,763,0,0</location>
+	<location id="felucca solen hives area b level 1" category="Felucca\Dungeons\Solen Hives\Area B\Level 1">5921,1797,1,0</location>
+	<location id="felucca solen hives area b level 2" category="Felucca\Dungeons\Solen Hives\Area B\Level 2">5875,1866,2,0</location>
+	<location id="felucca solen hives area c entrance" category="Felucca\Dungeons\Solen Hives\Area C\Entrance">1689,2789,0,0</location>
+	<location id="felucca solen hives area c level 1" category="Felucca\Dungeons\Solen Hives\Area C\Level 1">5659,2022,0,0</location>
+	<location id="felucca solen hives area c level 2" category="Felucca\Dungeons\Solen Hives\Area C\Level 2">5708,1955,0,0</location>
+	<location id="felucca solen hives area d entrance" category="Felucca\Dungeons\Solen Hives\Area D\Entrance">1723,814,0,0</location>
+	<location id="felucca solen hives area d level 1" category="Felucca\Dungeons\Solen Hives\Area D\Level 1">5916,2019,3,0</location>
+	<location id="felucca solen hives area d level 2" category="Felucca\Dungeons\Solen Hives\Area D\Level 2">5813,2012,-1,0</location>
+	<location id="felucca solen hives area e entrance" category="Felucca\Dungeons\Solen Hives\Area E\Entrance">5732,1858,0,0</location>
+	<location id="felucca khaldun entrance 1" category="Felucca\Dungeons\Khaldun\Entrance 1">6009,3775,19,0</location>
+	<location id="felucca khaldun entrance 2" category="Felucca\Dungeons\Khaldun\Entrance 2">5882,3819,-1,0</location>
+	<location id="felucca khaldun level 1" category="Felucca\Dungeons\Khaldun\Level 1">5571,1302,0,0</location>
+
+	<!-- Internal -->
+	<location id="felucca internal jail cells cell 1" category="Felucca\Internal\Jail Cells\Cell 1">5276,1164,0,0</location>
+	<location id="felucca internal jail cells cell 2" category="Felucca\Internal\Jail Cells\Cell 2">5286,1164,0,0</location>
+	<location id="felucca internal jail cells cell 3" category="Felucca\Internal\Jail Cells\Cell 3">5296,1164,0,0</location>
+	<location id="felucca internal jail cells cell 4" category="Felucca\Internal\Jail Cells\Cell 4">5306,1164,0,0</location>
+	<location id="felucca internal jail cells cell 5" category="Felucca\Internal\Jail Cells\Cell 5">5276,1174,0,0</location>
+	<location id="felucca internal jail cells cell 6" category="Felucca\Internal\Jail Cells\Cell 6">5286,1174,0,0</location>
+	<location id="felucca internal jail cells cell 7" category="Felucca\Internal\Jail Cells\Cell 7">5286,1174,0,0</location>
+	<location id="felucca internal jail cells cell 8" category="Felucca\Internal\Jail Cells\Cell 8">5306,1174,0,0</location>
+	<location id="felucca internal jail cells cell 9" category="Felucca\Internal\Jail Cells\Cell 9">5283,1184,0,0</location>
+	<location id="felucca internal jail cells cell 10" category="Felucca\Internal\Jail Cells\Cell 10">5304,1184,0,0</location>
+	<location id="felucca internal green acres" category="Felucca\Internal\Green Acres">5445,1153,0,0</location>
+
+	<!-- Shrines -->
+	<location id="felucca shrines chaos" category="Felucca\Shrines\Chaos">1456,854,0,0</location>
+	<location id="felucca shrines compassion" category="Felucca\Shrines\Compassion">1856,872,-1,0</location>
+	<location id="felucca shrines honesty" category="Felucca\Shrines\Honesty">4217,564,36,0</location>
+	<location id="felucca shrines honor" category="Felucca\Shrines\Honor">1730,3528,3,0</location>
+	<location id="felucca shrines humility" category="Felucca\Shrines\Humility">4276,3699,0,0</location>
+	<location id="felucca shrines justice" category="Felucca\Shrines\Justice">1301,639,16,0</location>
+	<location id="felucca shrines sacrifice" category="Felucca\Shrines\Sacrifice">3355,299,9,0</location>
+	<location id="felucca shrines spirituality" category="Felucca\Shrines\Spirituality">1589,2485,5,0</location>
+	<location id="felucca shrines valor" category="Felucca\Shrines\Valor">2496,3932,0,0</location>
+
+	<!-- Towns -->
+	<location id="felucca britain blackthorn castle" category="Felucca\Towns\Britain\Blackthorn Castle">1533,1415,56,0</location>
+	<location id="felucca britain blackthorn entrance" category="Felucca\Towns\Britain\Blackthorn Entrance">1523,1456,15,0</location>
+	<location id="felucca britain british castle" category="Felucca\Towns\Britain\British Castle">1323,1624,55,0</location>
+	<location id="felucca britain british entrance" category="Felucca\Towns\Britain\British Entrance">1401,1625,28,0</location>
+	<location id="felucca britain cemetery" category="Felucca\Towns\Britain\Cemetery">1384,1497,10,0</location>
+	<location id="felucca britain center" category="Felucca\Towns\Britain\Center">1475,1645,20,0</location>
+	<location id="felucca britain farmlands" category="Felucca\Towns\Britain\Farmlands">1228,1705,0,0</location>
+	<location id="felucca britain park" category="Felucca\Towns\Britain\Park">1614,1641,35,0</location>
+	<location id="felucca britain suburbs" category="Felucca\Towns\Britain\Suburbs">1662,1572,5,0</location>
+	<location id="felucca buccaneers den bathhouse" category="Felucca\Towns\Buccaneers Den\Bathhouse">2667,2084,5,0</location>
+	<location id="felucca buccaneers den docks" category="Felucca\Towns\Buccaneers Den\Docks">2736,2166,0,0</location>
+	<location id="felucca buccaneers den tunnels" category="Felucca\Towns\Buccaneers Den\Tunnels">2667,2069,-20,0</location>
+	<location id="felucca cove cemetery" category="Felucca\Towns\Cove\Cemetery">2443,1123,5,0</location>
+	<location id="felucca cove gates" category="Felucca\Towns\Cove\Gates">2285,1209,0,0</location>
+	<location id="felucca cove guard post" category="Felucca\Towns\Cove\Guard Post">2218,1116,19,0</location>
+	<location id="felucca cove orc fort" category="Felucca\Towns\Cove\Orc Fort">2171,1332,0,0</location>
+	<location id="felucca jhelom cemetery" category="Felucca\Towns\Jhelom\Cemetery">1296,3719,0,0</location>
+	<location id="felucca jhelom east docks" category="Felucca\Towns\Jhelom\East Docks">1492,3696,-3,0</location>
+	<location id="felucca jhelom fighting pit" category="Felucca\Towns\Jhelom\Fighting Pit">1398,3742,-21,0</location>
+	<location id="felucca jhelom main island" category="Felucca\Towns\Jhelom\Main Island">1414,3816,0,0</location>
+	<location id="felucca jhelom medium island" category="Felucca\Towns\Jhelom\Medium Island">1124,3623,5,0</location>
+	<location id="felucca jhelom small island" category="Felucca\Towns\Jhelom\Small Island">1466,4015,5,0</location>
+	<location id="felucca magincia bank" category="Felucca\Towns\Magincia\Bank">3730,2161,20,0</location>
+	<location id="felucca magincia docks" category="Felucca\Towns\Magincia\Docks">3675,2259,20,0</location>
+	<location id="felucca magincia park" category="Felucca\Towns\Magincia\Park">3719,2063,25,0</location>
+	<location id="felucca magincia parliament" category="Felucca\Towns\Magincia\Parliament">3792,2248,20,0</location>
+	<location id="felucca minoc bridge" category="Felucca\Towns\Minoc\Bridge">2539,501,30,0</location>
+	<location id="felucca minoc gypsy camp" category="Felucca\Towns\Minoc\Gypsy Camp">2540,651,0,0</location>
+	<location id="felucca minoc mining camp" category="Felucca\Towns\Minoc\Mining Camp">2583,528,15,0</location>
+	<location id="felucca minoc north" category="Felucca\Towns\Minoc\North">2475,417,15,0</location>
+	<location id="felucca minoc south" category="Felucca\Towns\Minoc\South">2526,583,0,0</location>
+	<location id="felucca moonglow cemetery" category="Felucca\Towns\Moonglow\Cemetery">4546,1338,8,0</location>
+	<location id="felucca moonglow center" category="Felucca\Towns\Moonglow\Center">4442,1122,5,0</location>
+	<location id="felucca moonglow docks" category="Felucca\Towns\Moonglow\Docks">4406,1045,-2,0</location>
+	<location id="felucca moonglow telescope" category="Felucca\Towns\Moonglow\Telescope">4707,1124,0,0</location>
+	<location id="felucca moonglow zoo" category="Felucca\Towns\Moonglow\Zoo">4549,1378,8,0</location>
+	<location id="felucca nujel m cemetery" category="Felucca\Towns\Nujel'm\Cemetery">3536,1156,20,0</location>
+	<location id="felucca nujel m chess board" category="Felucca\Towns\Nujel'm\Chess Board">3728,1360,5,0</location>
+	<location id="felucca nujel m docks" category="Felucca\Towns\Nujel'm\Docks">3803,1279,5,0</location>
+	<location id="felucca nujel m east" category="Felucca\Towns\Nujel'm\East">3755,1227,0,0</location>
+	<location id="felucca nujel m north" category="Felucca\Towns\Nujel'm\North">3668,1116,0,0</location>
+	<location id="felucca nujel m palace" category="Felucca\Towns\Nujel'm\Palace">3698,1279,20,0</location>
+	<location id="felucca nujel m west" category="Felucca\Towns\Nujel'm\West">3572,1211,0,0</location>
+	<location id="felucca ocllo docks" category="Felucca\Towns\Ocllo\Docks">3650,2653,0,0</location>
+	<location id="felucca ocllo farmlands" category="Felucca\Towns\Ocllo\Farmlands">3722,2647,20,0</location>
+	<location id="felucca ocllo north" category="Felucca\Towns\Ocllo\North">3650,2516,0,0</location>
+	<location id="felucca serpents hold north" category="Felucca\Towns\Serpents Hold\North">3023,3417,15,0</location>
+	<location id="felucca serpents hold south" category="Felucca\Towns\Serpents Hold\South">2906,3505,10,0</location>
+	<location id="felucca serpents hold guard post" category="Felucca\Towns\Serpents Hold\Guard Post">3011,3526,15,0</location>
+	<location id="felucca skara brae east" category="Felucca\Towns\Skara Brae\East">811,2243,0,0</location>
+	<location id="felucca skara brae east docks" category="Felucca\Towns\Skara Brae\East Docks">716,2233,-3,0</location>
+	<location id="felucca skara brae north" category="Felucca\Towns\Skara Brae\North">746,2165,0,0</location>
+	<location id="felucca skara brae south" category="Felucca\Towns\Skara Brae\South">899,2381,0,0</location>
+	<location id="felucca skara brae west" category="Felucca\Towns\Skara Brae\West">601,2171,0,0</location>
+	<location id="felucca skara brae west docks" category="Felucca\Towns\Skara Brae\West Docks">639,2236,-3,0</location>
+	<location id="felucca trinsic center" category="Felucca\Towns\Trinsic\Center">1927,2779,0,0</location>
+	<location id="felucca trinsic east docks" category="Felucca\Towns\Trinsic\East Docks">2071,2855,-3,0</location>
+	<location id="felucca trinsic island park" category="Felucca\Towns\Trinsic\Island Park">2108,2793,2,0</location>
+	<location id="felucca trinsic north" category="Felucca\Towns\Trinsic\North">1894,2666,0,0</location>
+	<location id="felucca trinsic south" category="Felucca\Towns\Trinsic\South">1891,2850,20,0</location>
+	<location id="felucca trinsic south gate" category="Felucca\Towns\Trinsic\South Gate">2000,2930,0,0</location>
+	<location id="felucca trinsic west gate" category="Felucca\Towns\Trinsic\West Gate">1832,2779,0,0</location>
+	<location id="felucca vesper cemetery" category="Felucca\Towns\Vesper\Cemetery">2786,867,0,0</location>
+	<location id="felucca vesper center" category="Felucca\Towns\Vesper\Center">2882,788,0,0</location>
+	<location id="felucca vesper docks" category="Felucca\Towns\Vesper\Docks">3013,828,-3,0</location>
+	<location id="felucca vesper east" category="Felucca\Towns\Vesper\East">2760,981,0,0</location>
+	<location id="felucca vesper north" category="Felucca\Towns\Vesper\North">2907,603,0,0</location>
+	<location id="felucca wind caves" category="Felucca\Towns\Wind\Caves">5166,244,15,0</location>
+	<location id="felucca wind east" category="Felucca\Towns\Wind\East">5336,88,15,0</location>
+	<location id="felucca wind entrance" category="Felucca\Towns\Wind\Entrance">1362,896,0,0</location>
+	<location id="felucca wind park" category="Felucca\Towns\Wind\Park">5211,22,15,0</location>
+	<location id="felucca wind south" category="Felucca\Towns\Wind\South">5223,189,5,0</location>
+	<location id="felucca wind west" category="Felucca\Towns\Wind\West">5180,90,25,0</location>
+	<location id="felucca yew cemetery" category="Felucca\Towns\Yew\Cemetery">724,1138,0,0</location>
+	<location id="felucca yew center" category="Felucca\Towns\Yew\Center">535,992,0,0</location>
+	<location id="felucca yew courts and prisons" category="Felucca\Towns\Yew\Courts and Prisons">354,836,20,0</location>
+	<location id="felucca yew empath abbey" category="Felucca\Towns\Yew\Empath Abbey">635,860,0,0</location>
+	<location id="felucca yew hidden cave" category="Felucca\Towns\Yew\Hidden Cave">313,787,-24,0</location>
+	<location id="felucca yew orc fort" category="Felucca\Towns\Yew\Orc Fort">633,1499,0,0</location>
+	<location id="felucca delucia watch tower" category="Felucca\Towns\Delucia\Watch Tower">5276,3945,37,0</location>
+	<location id="felucca delucia center" category="Felucca\Towns\Delucia\Center">5228,3978,37,0</location>
+	<location id="felucca delucia orc fort" category="Felucca\Towns\Delucia\Orc Fort">5210,3636,3,0</location>
+	<location id="felucca papua the just inn" category="Felucca\Towns\Papua\The Just Inn">5769,3176,0,0</location>
+	<location id="felucca papua center" category="Felucca\Towns\Papua\Center">5730,3208,-4,0</location>
+	<location id="felucca papua docks" category="Felucca\Towns\Papua\Docks">5825,3256,2,0</location>
+</definitions>

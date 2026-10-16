@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Power Scroll Implementation (ServUO Compatible)              #
+# Power Scroll Implementation              #
 #===============================================================#
 
 import random

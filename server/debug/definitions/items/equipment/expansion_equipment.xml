@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Expansion Items
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Zoo Member Thigh Boots -->
+	<item id="7819">
+		<id>0x7819</id>
+		<name>Zoo Member Thigh Boots</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Thigh Boots (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Fur Sarong -->
+	<item id="781b">
+		<id>0x781b</id>
+		<name>Fur Sarong</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Fur Sarong (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Fur Sarong -->
+	<item id="781c">
+		<id>0x781c</id>
+		<name>Fur Sarong</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Fur Sarong (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Fur Sarong -->
+	<item id="781d">
+		<id>0x781d</id>
+		<name>Fur Sarong</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Fur Sarong (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- First Aid Belt -->
+	<item id="a1f6">
+		<id>0xa1f6</id>
+		<name>First Aid Belt</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\First Aid Belt</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Zoo Member Bonnet -->
+	<item id="781a">
+		<id>0x781a</id>
+		<name>Zoo Member Bonnet</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Bonnet (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Dagger Belt -->
+	<item id="a40e">
+		<id>0xa40e</id>
+		<name>Dagger Belt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Dagger Belt</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Cloak -->
+	<item id="45a4">
+		<id>0x45a4</id>
+		<name>Cloak</name>
+		<decay />
+		<weight>5.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Cloak (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Cloak -->
+	<item id="4002">
+		<id>0x4002</id>
+		<name>Cloak</name>
+		<decay />
+		<weight>5.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Cloak (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Cloak -->
+	<item id="4000">
+		<id>0x4000</id>
+		<name>Cloak</name>
+		<decay />
+		<weight>5.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Cloak (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Half Apron -->
+	<item id="2b68">
+		<id>0x2b68</id>
+		<name>Half Apron</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Half Apron (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Half Apron -->
+	<item id="50d8">
+		<id>0x50d8</id>
+		<name>Half Apron</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Half Apron (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Gargoyle Tail Male -->
+	<item id="450d">
+		<id>0x450d</id>
+		<name>Gargoyle Tail Male</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Gargoyle Tail Male (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Gargoyle Tail Male -->
+	<item id="44c1">
+		<id>0x44c1</id>
+		<name>Gargoyle Tail Male</name>
+		<decay />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Gargoyle Tail Male (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Leather Talons -->
+	<item id="41d8">
+		<id>0x41d8</id>
+		<name>Leather Talons</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Leather Talons (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<item id="41d9" inherit="41d8">
+		<id>0x41d9</id>
+		<baseid>41d8</baseid>
+		<category>Equipment\Clothing\Leather Talons (E/W)</category>
+	</item>
+
+	<!-- Zoo Member Skirt -->
+	<item id="2687">
+		<id>0x2687</id>
+		<name>Zoo Member Skirt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Zoo Member Skirt -->
+	<item id="2fb9">
+		<id>0x2fb9</id>
+		<name>Zoo Member Skirt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Zoo Member Skirt -->
+	<item id="2fba">
+		<id>0x2fba</id>
+		<name>Zoo Member Skirt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Zoo Member Skirt -->
+	<item id="781e">
+		<id>0x781e</id>
+		<name>Zoo Member Skirt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Zoo Member Skirt -->
+	<item id="7821">
+		<id>0x7821</id>
+		<name>Zoo Member Skirt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Zoo Member Skirt -->
+	<item id="9985">
+		<id>0x9985</id>
+		<name>Zoo Member Skirt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Zoo Member Skirt -->
+	<item id="9986">
+		<id>0x9986</id>
+		<name>Zoo Member Skirt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Zoo Member Skirt (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Body Sash -->
+	<item id="46b4">
+		<id>0x46b4</id>
+		<name>Body Sash</name>
+		<decay />
+		<weight>1.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Body Sash (N/S)</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Sword Belt -->
+	<item id="a40d">
+		<id>0xa40d</id>
+		<name>Sword Belt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Sword Belt</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Mace Belt -->
+	<item id="a40c">
+		<id>0xa40c</id>
+		<name>Mace Belt</name>
+		<decay />
+		<weight>3.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Clothing\Mace Belt</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<allowmeditation />
+	</item>
+
+	<!-- Elven Quiver -->
+	<item id="2fb7">
+		<id>0x2fb7</id>
+		<name>Elven Quiver</name>
+		<decay />
+		<nodye />
+		<weight>2.0</weight>
+		<type>1</type>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Quivers\Elven Quiver (N/S)</category>
+		<tag name="resname" value="leather" />
+		<intproperty name="req_strength" value="10" />
+	</item>
+
+	<item id="3171" inherit="2fb7">
+		<id>0x3171</id>
+		<baseid>2fb7</baseid>
+		<category>Equipment\Quivers\Elven Quiver (E/W)</category>
+	</item>
+
+	<!-- Gargish Bracelet -->
+	<item id="4211">
+		<id>0x4211</id>
+		<name>Gargish Bracelet</name>
+		<decay />
+		<nodye />
+		<weight>0.1</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Jewelry\Gargish Bracelet</category>
+		<tag name="resname" value="iron" />
+	</item>
+
+	<!-- Gargish Earrings -->
+	<item id="4213">
+		<id>0x4213</id>
+		<name>Gargish Earrings</name>
+		<decay />
+		<nodye />
+		<weight>0.1</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Jewelry\Gargish Earrings</category>
+		<tag name="resname" value="iron" />
+	</item>
+
+	<!-- Gargish Necklace -->
+	<item id="4210">
+		<id>0x4210</id>
+		<name>Gargish Necklace</name>
+		<decay />
+		<nodye />
+		<weight>0.1</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Jewelry\Gargish Necklace</category>
+		<tag name="resname" value="iron" />
+	</item>
+
+	<!-- Gargish Necklace -->
+	<item id="4d0b">
+		<id>0x4d0b</id>
+		<name>Gargish Necklace</name>
+		<decay />
+		<nodye />
+		<weight>0.1</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Jewelry\Gargish Necklace</category>
+		<tag name="resname" value="iron" />
+	</item>
+
+	<!-- Gargish Necklace -->
+	<item id="4d0a">
+		<id>0x4d0a</id>
+		<name>Gargish Necklace</name>
+		<decay />
+		<nodye />
+		<weight>0.1</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Jewelry\Gargish Necklace</category>
+		<tag name="resname" value="iron" />
+	</item>
+
+	<!-- Necklace -->
+	<item id="a349">
+		<id>0xa349</id>
+		<name>Necklace</name>
+		<decay />
+		<nodye />
+		<weight>0.1</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Jewelry\Necklace</category>
+		<tag name="resname" value="iron" />
+	</item>
+
+	<!-- Gargish Ring -->
+	<item id="4212">
+		<id>0x4212</id>
+		<name>Gargish Ring</name>
+		<decay />
+		<nodye />
+		<weight>0.1</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Jewelry\Gargish Ring</category>
+		<tag name="resname" value="iron" />
+	</item>
+
+	<!-- Cloak Of Life -->
+	<item id="cloak_of_life" inherit="2fb9">
+		<id>0x2fb9</id>
+		<name>Cloak Of Life</name>
+		<decay />
+		<nodye />
+		<color>0x21</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Cloak Of Life</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="bonushitpoints" value="3" />
+		<intproperty name="regenhitpoints" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- The Most Knowledge Person -->
+	<item id="the_most_knowledge_person" inherit="2684">
+		<id>0x2684</id>
+		<name>The Most Knowledge Person</name>
+		<decay />
+		<nodye />
+		<color>0x117</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\The Most Knowledge Person</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="bonushitpoints" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Embroidered Oak Leaf Cloak -->
+	<item id="embroidered_oak_leaf_cloak" inherit="2684">
+		<id>0x2684</id>
+		<name>Embroidered Oak Leaf Cloak</name>
+		<decay />
+		<nodye />
+		<color>0x483</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Embroidered Oak Leaf Cloak</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Cloak Of Power -->
+	<item id="cloak_of_power" inherit="2fb9">
+		<id>0x2fb9</id>
+		<name>Cloak Of Power</name>
+		<decay />
+		<nodye />
+		<color>0xfe</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Cloak Of Power</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="bonusstrength" value="2" />
+		<intproperty name="bonusdexterity" value="2" />
+		<intproperty name="bonusintelligence" value="2" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Mystics Garb -->
+	<item id="mystics_garb" inherit="4000">
+		<id>0x4000</id>
+		<name>Mystics Garb</name>
+		<decay />
+		<nodye />
+		<color>0x58c</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Mystics Garb</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="bonusmana" value="5" />
+		<intproperty name="lowermanacost" value="1" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Cloak Of Silence -->
+	<item id="cloak_of_silence" inherit="2fb9">
+		<id>0x2fb9</id>
+		<name>Cloak Of Silence</name>
+		<decay />
+		<nodye />
+		<color>0x2a0</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Cloak Of Silence</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Obi Di Ense -->
+	<item id="obi_di_ense" inherit="27a0">
+		<id>0x27a0</id>
+		<name>Obi Di Ense</name>
+		<decay />
+		<nodye />
+		<color>0x0</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Obi Di Ense</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="bonusintelligence" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Runed Sash Of Warding -->
+	<item id="runed_sash_of_warding" inherit="46b4">
+		<id>0x46b4</id>
+		<name>Runed Sash Of Warding</name>
+		<decay />
+		<nodye />
+		<color>0x485</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Runed Sash Of Warding</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Cloak Of Death -->
+	<item id="cloak_of_death" inherit="2fb9">
+		<id>0x2fb9</id>
+		<name>Cloak Of Death</name>
+		<decay />
+		<nodye />
+		<color>0x966</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Cloak Of Death</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="aos_defense_chance" value="3" />
+		<intproperty name="aos_boni_hit_chance" value="3" />
+		<intproperty name="spelldamagebonus" value="3" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Sash Of Might -->
+	<item id="sash_of_might" inherit="1541">
+		<id>0x1541</id>
+		<name>Sash Of Might</name>
+		<decay />
+		<nodye />
+		<color>0x481</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Sash Of Might</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- The Robe Of Britannia Ari -->
+	<item id="the_robe_of_britannia_ari" inherit="2684">
+		<id>0x2684</id>
+		<name>The Robe Of Britannia Ari</name>
+		<decay />
+		<nodye />
+		<color>0x48b</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\The Robe Of Britannia Ari</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="res_physical" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Wardens Armor Of Augmentation -->
+	<item id="wardens_armor_of_augmentation" inherit="457e">
+		<id>0x457e</id>
+		<name>Wardens Armor Of Augmentation</name>
+		<decay />
+		<nodye />
+		<color>0x9c2</color>
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Wardens Armor Of Augmentation</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="spelldamagebonus" value="3" />
+		<intproperty name="lowermanacost" value="1" />
+		<intproperty name="aos_boni_speed" value="5" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+
+	<!-- Pads Of The Cu Sidhe -->
+	<item id="pads_of_the_cu_sidhe" inherit="47e">
+		<id>0x47e</id>
+		<name>Pads Of The Cu Sidhe</name>
+		<decay />
+		<nodye />
+		<durability><random min="255" max="255" /></durability>
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+		<category>Equipment\Artifacts\Pads Of The Cu Sidhe</category>
+		<tag name="resname" value="cloth" />
+		<intproperty name="req_strength" value="10" />
+		<intproperty name="artifact_rarity" value="11" />
+	</item>
+<!-- Aud-Char (Gargish Instrument) -->
+	<item id="403b">
+		<id>0x403b</id>
+		<name>Aud-Char</name>
+		<decay />
+		<weight>10.0</weight>
+		<type>1008</type>
+		<basescripts>equipment,musicevent</basescripts>
+		<category>Equipment\Instruments\Aud-Char</category>
+	</item>
+
+	<!-- Cowbell -->
+	<item id="4c5a">
+		<id>0x4c5a</id>
+		<name>Cowbell</name>
+		<decay />
+		<weight>2.0</weight>
+		<type>1008</type>
+		<basescripts>equipment,musicevent</basescripts>
+		<category>Equipment\Instruments\Cowbell</category>
+	</item>
+
+	<!-- Cello -->
+	<item id="4c3e">
+		<id>0x4c3e</id>
+		<name>Cello</name>
+		<decay />
+		<weight>10.0</weight>
+		<type>1008</type>
+		<basescripts>equipment,musicevent</basescripts>
+		<category>Equipment\Instruments\Cello</category>
+	</item>
+
+	<!-- Trumpet -->
+	<item id="4c3c">
+		<id>0x4c3c</id>
+		<name>Trumpet</name>
+		<decay />
+		<weight>5.0</weight>
+		<type>1008</type>
+		<basescripts>equipment,musicevent</basescripts>
+		<category>Equipment\Instruments\Trumpet</category>
+	</item>
+
+</definitions>

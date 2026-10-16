@@ -24,4 +24,38 @@
 	<include file="definitions/items/misc/statuettes.xml"/>
 	<include file="definitions/items/misc/testing.xml"/>
 	<include file="definitions/items/misc/plantgrowing.xml"/>
+
+	<!-- Expansion Containers -->
+	<include file="definitions/items/misc/expansion_containers.xml"/>
+
+	<!-- Expansion Resources -->
+	<include file="definitions/items/misc/expansion_resources.xml"/>
+
+	<!-- Expansion Tools -->
+	<include file="definitions/items/misc/expansion_tools.xml"/>
+
+	<!-- Expansion Decorative -->
+	<include file="definitions/items/misc/expansion_decorative.xml"/>
+
+	<!-- Power Scrolls -->
+	<include file="definitions/items/misc/powerscroll.xml"/>
+
+	<!-- Champion Spawn -->
+	<include file="definitions/items/misc/championspawn.xml"/>
+
+	<!-- Bulk Order Deeds -->
+	<include file="definitions/items/misc/bulkorders.xml"/>
+
+	<!-- Paragon Chest -->
+	<include file="definitions/items/misc/paragon_chest.xml"/>
+
+	<!-- Peerless Boss System -->
+	<include file="definitions/items/misc/peerless.xml"/>
+
+	<!-- Expansion Consumables -->
+	<include file="definitions/items/misc/expansion_consumables.xml"/>
+
+	<!-- High Seas Boat Equipment & Cannons -->
+	<include file="definitions/items/misc/boat_equipment.xml"/>
+
 </definitions>

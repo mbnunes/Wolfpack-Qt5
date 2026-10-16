@@ -1,4 +1,97 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_ancientlair_1_15">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ancient_lair</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="15" /></npc>
+		<circle center="115,716" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ancientlayer_healer_16">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ancient_lair</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="928,501" radius="5" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ancientlair_3_87">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ancient_lair</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="10" /></npc>
+		<circle center="54,718" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ancientlair_2_114">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ancient_lair</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="10" /></npc>
+		<circle center="131,78" radius="10" map="2" z="0" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ancientlair_0_126">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="250" max="500" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ancient_lair</group>
+		<npc id="ancient_wyrm"><npcwander type="circle" radius="15" /></npc>
+		<circle center="50,689" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ancientlair_5_136">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ancient_lair</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="10" /></npc>
+		<circle center="79,687" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ancientlich_353">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ancient_lair</group>
+		<npc id="ancient_lich"><npcwander type="circle" radius="20" /></npc>
+		<circle center="118,1545" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ancientlair_4_432">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ancient_lair</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="15" /></npc>
+		<circle center="82,718" radius="15" map="2" z="-28" />
+	</spawnregion>
 
 </definitions>

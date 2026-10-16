@@ -1,4 +1,32 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_towns_10_186">
+		<active />
+		<maxnpcamount>26</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>mistas</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="70" /></npc>
+		<npc id="juka_mage"><npcwander type="circle" radius="70" /></npc>
+		<npc id="juka_lord"><npcwander type="circle" radius="70" /></npc>
+		<npc id="chaos_dragoon"><npcwander type="circle" radius="70" /></npc>
+		<npc id="chaos_dragoon_elite"><npcwander type="circle" radius="70" /></npc>
+		<npc id="golem_controller"><npcwander type="circle" radius="70" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="70" /></npc>
+		<circle center="817,1065" radius="70" map="2" z="-30" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_animaltrainer_breeder_293">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>mistas</group>
+		<npc id="animal_trainer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="770,1160" radius="5" map="2" z="-30" />
+	</spawnregion>
 
 </definitions>

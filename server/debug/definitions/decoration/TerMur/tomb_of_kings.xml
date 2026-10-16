@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<item id="0x21a4">
+		<pos x="519" y="919" z="39" map="5" />
+	</item>
+	<item id="0x0f6c">
+		<attribute key="name" value="Moongate" />
+		<pos x="37" y="28" z="3" map="5" />
+		<pos x="946" y="70" z="75" map="5" />
+	</item>
+	<item id="0x41f0">
+		<pos x="36" y="36" z="0" map="5" />
+	</item>
+	<item id="0x41f2">
+		<pos x="37" y="36" z="0" map="5" />
+	</item>
+	<item id="0x41f3">
+		<pos x="38" y="36" z="0" map="5" />
+	</item>
+	<item id="0x41ee">
+		<pos x="36" y="35" z="0" map="5" />
+		<pos x="36" y="34" z="0" map="5" />
+		<pos x="36" y="33" z="0" map="5" />
+		<pos x="36" y="32" z="0" map="5" />
+	</item>
+	<item id="0x41f4">
+		<pos x="37" y="35" z="0" map="5" />
+		<pos x="38" y="35" z="0" map="5" />
+		<pos x="37" y="34" z="0" map="5" />
+		<pos x="38" y="34" z="0" map="5" />
+		<pos x="37" y="33" z="0" map="5" />
+		<pos x="38" y="33" z="0" map="5" />
+		<pos x="37" y="32" z="0" map="5" />
+		<pos x="38" y="32" z="0" map="5" />
+	</item>
+	<item id="0x41e8">
+		<pos x="36" y="31" z="0" map="5" />
+	</item>
+	<item id="0x41e9">
+		<pos x="37" y="31" z="0" map="5" />
+	</item>
+	<item id="0x41ea">
+		<pos x="38" y="31" z="0" map="5" />
+	</item>
+	<item id="0x376a">
+		<pos x="21" y="99" z="1" map="5" />
+	</item>
+	<item id="0x19bb">
+		<attribute key="name" value="Flame of Order" />
+		<pos x="28" y="212" z="3" map="5" />
+	</item>
+	<item id="0x19bb">
+		<attribute key="name" value="Flame of Chaos" />
+		<pos x="43" y="212" z="3" map="5" />
+	</item>
+	<item id="0x0bd1">
+		<attribute key="name" value="Order Shall Steal The Serpent's Strength" />
+		<pos x="28" y="208" z="4" map="5" />
+	</item>
+	<item id="0x0bd1">
+		<attribute key="name" value="Chaos Shall Quell The Serpent's Wrath" />
+		<pos x="43" y="208" z="4" map="5" />
+	</item>
+</decoration>

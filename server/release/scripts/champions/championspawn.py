@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Champion Spawn Engine (ServUO Compatible)                     #
+# Champion Spawn Engine                     #
 #===============================================================#
 
 import random

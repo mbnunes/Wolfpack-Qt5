@@ -1,7 +1,7 @@
 #===============================================================#
 #   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
 #  ((    _/{  "-;  | Spellweaving (Arcane) Magic System         #
-#   )).-' {{ ;'`   | Ported & Enhanced from ServUO              #
+#   )).-' {{ ;'`   | Enhanced Expansion Spells              #
 #  ( (  ;._ \\ ctr |                                            #
 #===============================================================#
 

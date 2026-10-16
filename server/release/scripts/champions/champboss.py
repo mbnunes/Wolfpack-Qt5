@@ -95,7 +95,7 @@ def distribute_powerscrolls(boss):
 	if not candidates:
 		return
 
-	# ServUO default: 6 power scrolls
+	# Default: 6 power scrolls
 	total_scrolls = 6
 	for i in range(total_scrolls):
 		lucky_player = candidates[i % len(candidates)]

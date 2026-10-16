@@ -42825,6 +42825,7 @@ obj/commands.o: ../src/commands.cpp ../src/accounts.h \
 		../src/ai/ai.h \
 		../src/basics.h \
 		../src/commands.h \
+		../src/combat.h \
 		../src/muls/maps.h \
 		../src/scriptmanager.h \
 		../src/serverconfig.h \
@@ -87182,9 +87183,10 @@ obj/world.o: ../src/world.cpp ../src/world.h \
 		../src/network/clientversion.h \
 		../src/targetrequest.h \
 		../src/npc.h \
+		../src/ai/ai.h \
+		../src/basics.h \
 		../src/timing.h \
 		../src/scriptmanager.h \
-		../src/basics.h \
 		../src/muls/maps.h \
 		../src/mapobjects.h \
 		../src/items.h \

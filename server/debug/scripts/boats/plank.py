@@ -60,19 +60,17 @@ def onUse( player, item ):
         else:
             openPlank( item )
     else:
+        boat_serial = item.gettag( 'boat_serial' )
+        boat = wolfpack.findmulti( int( boat_serial ) ) if boat_serial else None
+        from boats import security
+        has_access = ( security.can_board( boat, player ) or player.gm ) if boat else player.gm
+
         if not item.hastag('plank_open'):
-            if not item.hastag('plank_locked'):
+            if not item.hastag('plank_locked') or has_access:
                 openPlank( item )
-            elif player.gm:
-                player.say( 502502 ); # That is locked but your godly powers allow access
             else:
                 player.say( 502503 ); # That is locked.
-        elif not item.hastag('plank_locked'):
-            newpos = wolfpack.coord( item.pos.x, item.pos.y, item.pos.z + 5, item.pos.map )
-            player.moveto( newpos )
-            player.update()
-        elif player.gm:
-            player.say( 502502 ); # That is locked but your godly powers allow access
+        elif not item.hastag('plank_locked') or has_access:
             newpos = wolfpack.coord( item.pos.x, item.pos.y, item.pos.z + 5, item.pos.map )
             player.moveto( newpos )
             player.update()

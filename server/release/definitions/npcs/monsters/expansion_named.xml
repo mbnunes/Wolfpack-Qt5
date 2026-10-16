@@ -1,0 +1,1371 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Expansion NPC Conversion
+ *   )).-' {{ ;'`   | Auto-generated definitions
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Acid Elemental Renowned -->
+	<npc id="acid_elemental_renowned" inherit="monster_base">
+		<name>Acid Elemental</name>
+		<id>0</id>
+		<ai>Monster_Mage</ai>
+		<karma>-12500</karma>
+		<fame>12500</fame>
+		<str><random min="450" max="600" /></str>
+		<dex><random min="120" max="185" /></dex>
+		<int><random min="361" max="435" /></int>
+		<maxhitpoints><random min="2000" max="2400" /></maxhitpoints>
+		<mindamage>9</mindamage>
+		<maxdamage>15</maxdamage>
+		<tag name="res_physical" value="40,70" type="int" />
+		<tag name="res_fire" value="30,50" type="int" />
+		<tag name="res_cold" value="20,40" type="int" />
+		<tag name="res_poison" value="10,30" type="int" />
+		<tag name="res_energy" value="20,50" type="int" />
+		<skill id="evaluatingintelligence"><random min="801" max="1000" /></skill>
+		<skill id="magery"><random min="801" max="1000" /></skill>
+		<skill id="magicresistance"><random min="652" max="1000" /></skill>
+		<skill id="tactics"><random min="901" max="1000" /></skill>
+		<skill id="wrestling"><random min="801" max="1000" /></skill>
+		<category>Named\Expansion\Acid Elemental Renowned</category>
+	</npc>
+
+	<!-- Ancient Lich Renowned -->
+	<npc id="ancient_lich_renowned" inherit="monster_base">
+		<name>Ancient Lich</name>
+		<id>78</id>
+		<ai>Monster_Mage</ai>
+		<karma>-23000</karma>
+		<fame>23000</fame>
+		<str><random min="250" max="305" /></str>
+		<dex><random min="96" max="115" /></dex>
+		<int><random min="966" max="1045" /></int>
+		<maxhitpoints><random min="2000" max="2500" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>27</maxdamage>
+		<tag name="res_physical" value="55,65" type="int" />
+		<tag name="res_fire" value="25,30" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="50,60" type="int" />
+		<tag name="res_energy" value="25,30" type="int" />
+		<skill id="evaluatingintelligence"><random min="1201" max="1300" /></skill>
+		<skill id="magery"><random min="1201" max="1300" /></skill>
+		<skill id="meditation"><random min="1001" max="1010" /></skill>
+		<skill id="magicresistance"><random min="1752" max="2000" /></skill>
+		<skill id="tactics"><random min="901" max="1000" /></skill>
+		<skill id="wrestling"><random min="751" max="1000" /></skill>
+		<category>Named\Expansion\Ancient Lich Renowned</category>
+	</npc>
+
+	<!-- Chiikkaha -->
+	<npc id="chiikkaha" inherit="monster_base">
+		<name>Chiikkaha the Toothed</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-7500</karma>
+		<fame>7500</fame>
+		<str><random min="450" max="476" /></str>
+		<dex><random min="157" max="179" /></dex>
+		<int><random min="251" max="275" /></int>
+		<maxhitpoints><random min="400" max="425" /></maxhitpoints>
+		<mindamage>10</mindamage>
+		<maxdamage>17</maxdamage>
+		<tag name="res_physical" value="40,45" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_cold" value="10,20" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<tag name="res_energy" value="100" type="int" />
+		<skill id="evaluatingintelligence"><random min="701" max="800" /></skill>
+		<skill id="magery"><random min="701" max="900" /></skill>
+		<skill id="magicresistance"><random min="651" max="960" /></skill>
+		<skill id="tactics"><random min="501" max="750" /></skill>
+		<skill id="wrestling"><random min="501" max="750" /></skill>
+		<category>Named\Expansion\Chiikkaha</category>
+	</npc>
+
+	<!-- Devourer Renowned -->
+	<npc id="devourer_renowned" inherit="monster_base">
+		<name>Devourer of Souls</name>
+		<id>303</id>
+		<ai>Monster_Mage</ai>
+		<karma>-9500</karma>
+		<fame>9500</fame>
+		<str><random min="801" max="950" /></str>
+		<dex><random min="126" max="175" /></dex>
+		<int><random min="201" max="250" /></int>
+		<maxhitpoints><random min="2000" max="2000" /></maxhitpoints>
+		<mindamage>22</mindamage>
+		<maxdamage>26</maxdamage>
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_fire" value="25,35" type="int" />
+		<tag name="res_cold" value="15,25" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<skill id="necromancy"><random min="901" max="1000" /></skill>
+		<skill id="spiritspeak"><random min="901" max="1000" /></skill>
+		<skill id="evaluatingintelligence"><random min="901" max="1000" /></skill>
+		<skill id="magery"><random min="901" max="1000" /></skill>
+		<skill id="meditation"><random min="901" max="1000" /></skill>
+		<skill id="magicresistance"><random min="901" max="1050" /></skill>
+		<skill id="tactics"><random min="751" max="850" /></skill>
+		<skill id="wrestling"><random min="801" max="1000" /></skill>
+		<category>Named\Expansion\Devourer Renowned</category>
+	</npc>
+
+	<!-- Drelgor -->
+	<npc id="drelgor" inherit="monster_base">
+		<name>Drelgor the Impaler</name>
+		<id>147</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-3600</karma>
+		<fame>3600</fame>
+		<str><random min="127" max="137" /></str>
+		<dex><random min="82" max="94" /></dex>
+		<int><random min="48" max="55" /></int>
+		<maxhitpoints><random min="131" max="136" /></maxhitpoints>
+		<mindamage>6</mindamage>
+		<maxdamage>8</maxdamage>
+		<tag name="res_physical" value="35,45" type="int" />
+		<tag name="res_fire" value="20,30" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="wrestling">600</skill>
+		<skill id="tactics">600</skill>
+		<skill id="magicresistance">600</skill>
+		<category>Named\Expansion\Drelgor</category>
+	</npc>
+
+	<!-- Fire Daemon Renowned -->
+	<npc id="fire_daemon_renowned" inherit="monster_base">
+		<name>Fire Daemon</name>
+		<id>40</id>
+		<color>243</color>
+		<ai>Monster_Mage</ai>
+		<karma>-10000</karma>
+		<fame>7000</fame>
+		<str><random min="800" max="1199" /></str>
+		<dex><random min="200" max="250" /></dex>
+		<int><random min="202" max="336" /></int>
+		<maxhitpoints><random min="1111" max="1478" /></maxhitpoints>
+		<mindamage>22</mindamage>
+		<maxdamage>29</maxdamage>
+		<tag name="res_physical" value="60,93" type="int" />
+		<tag name="res_fire" value="60,100" type="int" />
+		<tag name="res_cold" value="40,70" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="37,50" type="int" />
+		<skill id="magicresistance"><random min="1101" max="1326" /></skill>
+		<skill id="tactics"><random min="869" max="955" /></skill>
+		<skill id="wrestling"><random min="422" max="988" /></skill>
+		<skill id="magery"><random min="971" max="1008" /></skill>
+		<skill id="evaluatingintelligence"><random min="911" max="918" /></skill>
+		<skill id="meditation"><random min="454" max="941" /></skill>
+		<skill id="anatomy"><random min="454" max="741" /></skill>
+		<category>Named\Expansion\Fire Daemon Renowned</category>
+	</npc>
+
+	<!-- Fire Elemental Renowned -->
+	<npc id="fire_elemental_renowned" inherit="monster_base">
+		<name>Fire Elemental</name>
+		<id>15</id>
+		<color>1161</color>
+		<ai>Monster_Mage</ai>
+		<karma>-4500</karma>
+		<fame>4500</fame>
+		<str><random min="450" max="500" /></str>
+		<dex><random min="200" max="250" /></dex>
+		<int><random min="300" max="350" /></int>
+		<maxhitpoints><random min="1200" max="1600" /></maxhitpoints>
+		<mindamage>7</mindamage>
+		<maxdamage>9</maxdamage>
+		<tag name="res_physical" value="45,60" type="int" />
+		<tag name="res_fire" value="70,80" type="int" />
+		<tag name="res_cold" value="5,10" type="int" />
+		<tag name="res_poison" value="30,50" type="int" />
+		<tag name="res_energy" value="40,60" type="int" />
+		<skill id="evaluatingintelligence"><random min="1001" max="1100" /></skill>
+		<skill id="magery"><random min="1051" max="1100" /></skill>
+		<skill id="magicresistance"><random min="1102" max="1200" /></skill>
+		<skill id="tactics"><random min="1001" max="1050" /></skill>
+		<skill id="wrestling"><random min="901" max="1000" /></skill>
+		<category>Named\Expansion\Fire Elemental Renowned</category>
+	</npc>
+
+	<!-- Flurry -->
+	<npc id="flurry" inherit="monster_base">
+		<name>Flurry</name>
+		<id>13</id>
+		<color>3</color>
+		<ai>Monster_Mage</ai>
+		<karma>-4500</karma>
+		<fame>4500</fame>
+		<str><random min="149" max="195" /></str>
+		<dex><random min="218" max="264" /></dex>
+		<int><random min="130" max="199" /></int>
+		<maxhitpoints><random min="474" max="477" /></maxhitpoints>
+		<mindamage>10</mindamage>
+		<maxdamage>15</maxdamage>
+		<tag name="res_physical" value="56,57" type="int" />
+		<tag name="res_fire" value="38,44" type="int" />
+		<tag name="res_cold" value="40,45" type="int" />
+		<tag name="res_poison" value="31,37" type="int" />
+		<tag name="res_energy" value="39,41" type="int" />
+		<skill id="evaluatingintelligence"><random min="991" max="1002" /></skill>
+		<skill id="magery"><random min="1051" max="1088" /></skill>
+		<skill id="magicresistance"><random min="1040" max="1128" /></skill>
+		<skill id="tactics"><random min="1131" max="1198" /></skill>
+		<skill id="wrestling"><random min="1056" max="1064" /></skill>
+		<category>Named\Expansion\Flurry</category>
+	</npc>
+
+	<!-- Gnaw -->
+	<npc id="gnaw" inherit="monster_base">
+		<name>Gnaw</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-17500</karma>
+		<fame>17500</fame>
+		<str><random min="142" max="169" /></str>
+		<dex><random min="102" max="145" /></dex>
+		<int><random min="44" max="69" /></int>
+		<maxhitpoints><random min="786" max="837" /></maxhitpoints>
+		<mindamage>16</mindamage>
+		<maxdamage>22</maxdamage>
+		<tag name="res_physical" value="60,70" type="int" />
+		<tag name="res_fire" value="50,60" type="int" />
+		<tag name="res_cold" value="20,30" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<tag name="res_energy" value="23,40" type="int" />
+		<skill id="wrestling"><random min="963" max="1197" /></skill>
+		<skill id="tactics"><random min="895" max="1077" /></skill>
+		<skill id="magicresistance"><random min="936" max="1128" /></skill>
+		<category>Named\Expansion\Gnaw</category>
+	</npc>
+
+	<!-- Gray Goblin Mage Renowned -->
+	<npc id="gray_goblin_mage_renowned" inherit="monster_base">
+		<name>Gray Goblin Mage</name>
+		<id>723</id>
+		<color>1900</color>
+		<ai>Monster_Mage</ai>
+		<karma>-1500</karma>
+		<fame>1500</fame>
+		<str><random min="550" max="600" /></str>
+		<dex><random min="70" max="75" /></dex>
+		<int><random min="500" max="600" /></int>
+		<maxhitpoints><random min="1100" max="1300" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>7</maxdamage>
+		<tag name="res_physical" value="30,35" type="int" />
+		<tag name="res_fire" value="45,50" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+		<tag name="res_energy" value="20,25" type="int" />
+		<skill id="magicresistance"><random min="1200" max="1250" /></skill>
+		<skill id="tactics"><random min="950" max="1000" /></skill>
+		<skill id="wrestling"><random min="1000" max="1100" /></skill>
+		<skill id="evaluatingintelligence"><random min="1000" max="1200" /></skill>
+		<skill id="meditation"><random min="1000" max="1050" /></skill>
+		<skill id="magery"><random min="1000" max="1100" /></skill>
+		<category>Named\Expansion\Gray Goblin Mage Renowned</category>
+	</npc>
+
+	<!-- Green Goblin Alchemist Renowned -->
+	<npc id="green_goblin_alchemist_renowned" inherit="monster_base">
+		<name>Green Goblin Alchemist</name>
+		<id>723</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-1500</karma>
+		<fame>1500</fame>
+		<str><random min="600" max="650" /></str>
+		<dex><random min="50" max="70" /></dex>
+		<int><random min="100" max="250" /></int>
+		<maxhitpoints><random min="1000" max="1500" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>7</maxdamage>
+		<tag name="res_physical" value="50,55" type="int" />
+		<tag name="res_fire" value="55,60" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+		<tag name="res_energy" value="20,25" type="int" />
+		<skill id="magicresistance"><random min="1200" max="1250" /></skill>
+		<skill id="tactics"><random min="950" max="1000" /></skill>
+		<skill id="wrestling"><random min="1000" max="1100" /></skill>
+		<category>Named\Expansion\Green Goblin Alchemist Renowned</category>
+	</npc>
+
+	<!-- Grim -->
+	<npc id="grim" inherit="monster_base">
+		<name>Grim</name>
+		<id>400</id>
+		<color>1744</color>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-5500</karma>
+		<fame>17500</fame>
+		<str><random min="527" max="580" /></str>
+		<dex><random min="284" max="322" /></dex>
+		<int><random min="249" max="386" /></int>
+		<maxhitpoints><random min="1762" max="2502" /></maxhitpoints>
+		<mindamage>17</mindamage>
+		<maxdamage>25</maxdamage>
+		<tag name="res_physical" value="55,60" type="int" />
+		<tag name="res_fire" value="62,68" type="int" />
+		<tag name="res_cold" value="52,57" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="40,44" type="int" />
+		<skill id="magicresistance"><random min="1058" max="1156" /></skill>
+		<skill id="tactics"><random min="1028" max="1208" /></skill>
+		<skill id="wrestling"><random min="1117" max="1192" /></skill>
+		<skill id="anatomy"><random min="1050" max="1284" /></skill>
+		<category>Named\Expansion\Grim</category>
+	</npc>
+
+	<!-- Grimmoch Drummel -->
+	<npc id="grimmoch_drummel" inherit="monster_base">
+		<name>Grimmoch Drummel</name>
+		<id>0</id>
+		<ai>Monster_Archer</ai>
+		<karma>-1000</karma>
+		<fame>5000</fame>
+		<str><random min="111" max="120" /></str>
+		<dex><random min="151" max="160" /></dex>
+		<int><random min="41" max="50" /></int>
+		<maxhitpoints><random min="180" max="207" /></maxhitpoints>
+		<mindamage>13</mindamage>
+		<maxdamage>16</maxdamage>
+		<tag name="res_physical" value="35,45" type="int" />
+		<tag name="res_fire" value="25,30" type="int" />
+		<tag name="res_cold" value="45,55" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
+		<tag name="res_energy" value="20,25" type="int" />
+		<skill id="archery"><random min="901" max="1100" /></skill>
+		<skill id="swords"><random min="601" max="700" /></skill>
+		<skill id="tactics"><random min="901" max="1000" /></skill>
+		<skill id="magicresistance"><random min="601" max="700" /></skill>
+		<skill id="anatomy"><random min="901" max="1000" /></skill>
+		<category>Named\Expansion\Grimmoch Drummel</category>
+	</npc>
+
+	<!-- Guile -->
+	<npc id="guile" inherit="monster_base">
+		<name>guile</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-21000</karma>
+		<fame>21000</fame>
+		<str><random min="53" max="214" /></str>
+		<dex><random min="243" max="367" /></dex>
+		<int><random min="369" max="586" /></int>
+		<maxhitpoints><random min="1013" max="1058" /></maxhitpoints>
+		<mindamage>14</mindamage>
+		<maxdamage>20</maxdamage>
+		<tag name="res_physical" value="80,90" type="int" />
+		<tag name="res_fire" value="43,46" type="int" />
+		<tag name="res_cold" value="42,44" type="int" />
+		<tag name="res_poison" value="42,50" type="int" />
+		<tag name="res_energy" value="47,50" type="int" />
+		<skill id="wrestling"><random min="128" max="167" /></skill>
+		<skill id="tactics"><random min="1026" max="1310" /></skill>
+		<skill id="magicresistance"><random min="1412" max="1616" /></skill>
+		<skill id="magery"><random min="1084" max="1200" /></skill>
+		<skill id="evaluatingintelligence"><random min="1084" max="1200" /></skill>
+		<skill id="meditation"><random min="1092" max="1200" /></skill>
+		<category>Named\Expansion\Guile</category>
+	</npc>
+
+	<!-- Ilhenir -->
+	<npc id="ilhenir" inherit="monster_base">
+		<name>Ilhenir</name>
+		<id>0</id>
+		<color>1164</color>
+		<ai>Monster_Mage</ai>
+		<karma>-24000</karma>
+		<fame>24000</fame>
+		<str><random min="1105" max="1350" /></str>
+		<dex><random min="82" max="160" /></dex>
+		<int><random min="505" max="750" /></int>
+		<maxhitpoints><random min="9000" max="9000" /></maxhitpoints>
+		<mindamage>21</mindamage>
+		<maxdamage>28</maxdamage>
+		<tag name="res_physical" value="55,65" type="int" />
+		<tag name="res_fire" value="50,60" type="int" />
+		<tag name="res_cold" value="55,65" type="int" />
+		<tag name="res_poison" value="70,90" type="int" />
+		<tag name="res_energy" value="65,75" type="int" />
+		<skill id="evaluatingintelligence">1000</skill>
+		<skill id="magery">1000</skill>
+		<skill id="poisoning">54</skill>
+		<skill id="anatomy">1175</skill>
+		<skill id="magicresistance">1200</skill>
+		<skill id="tactics">1199</skill>
+		<skill id="wrestling">1199</skill>
+		<category>Named\Expansion\Ilhenir</category>
+	</npc>
+
+	<!-- Irk -->
+	<npc id="irk" inherit="monster_base">
+		<name>irk</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-21000</karma>
+		<fame>21000</fame>
+		<str><random min="23" max="183" /></str>
+		<dex><random min="259" max="360" /></dex>
+		<int><random min="374" max="600" /></int>
+		<maxhitpoints><random min="1006" max="1064" /></maxhitpoints>
+		<mindamage>14</mindamage>
+		<maxdamage>20</maxdamage>
+		<tag name="res_physical" value="80,90" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="41,50" type="int" />
+		<tag name="res_energy" value="40,49" type="int" />
+		<skill id="wrestling"><random min="1203" max="1230" /></skill>
+		<skill id="tactics"><random min="1201" max="1318" /></skill>
+		<skill id="magicresistance"><random min="1323" max="1658" /></skill>
+		<skill id="magery"><random min="1089" max="1197" /></skill>
+		<skill id="evaluatingintelligence"><random min="1084" max="1200" /></skill>
+		<skill id="meditation"><random min="1089" max="1191" /></skill>
+		<category>Named\Expansion\Irk</category>
+	</npc>
+
+	<!-- Lady Jennifyr -->
+	<npc id="lady_jennifyr" inherit="monster_base">
+		<name>Lady Jennifyr</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18000</karma>
+		<fame>18000</fame>
+		<str><random min="208" max="309" /></str>
+		<dex><random min="91" max="118" /></dex>
+		<int><random min="44" max="101" /></int>
+		<maxhitpoints><random min="1113" max="1285" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>25</maxdamage>
+		<tag name="res_physical" value="56,65" type="int" />
+		<tag name="res_fire" value="41,49" type="int" />
+		<tag name="res_cold" value="71,80" type="int" />
+		<tag name="res_poison" value="41,50" type="int" />
+		<tag name="res_energy" value="50,58" type="int" />
+		<skill id="wrestling"><random min="1279" max="1371" /></skill>
+		<skill id="tactics"><random min="1284" max="1419" /></skill>
+		<skill id="magicresistance"><random min="1021" max="1195" /></skill>
+		<skill id="anatomy"><random min="1290" max="1375" /></skill>
+		<category>Named\Expansion\Lady Jennifyr</category>
+	</npc>
+
+	<!-- Lady Lissith -->
+	<npc id="lady_lissith" inherit="monster_base">
+		<name>Lady Lissith</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18900</karma>
+		<fame>18900</fame>
+		<str><random min="81" max="130" /></str>
+		<dex><random min="116" max="152" /></dex>
+		<int><random min="44" max="100" /></int>
+		<maxhitpoints><random min="245" max="375" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>22</maxdamage>
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_fire" value="31,39" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="71,80" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="wrestling"><random min="1086" max="1230" /></skill>
+		<skill id="tactics"><random min="1027" max="1190" /></skill>
+		<skill id="magicresistance"><random min="788" max="956" /></skill>
+		<skill id="anatomy"><random min="686" max="1068" /></skill>
+		<skill id="poisoning"><random min="966" max="1129" /></skill>
+		<category>Named\Expansion\Lady Lissith</category>
+	</npc>
+
+	<!-- Lady Marai -->
+	<npc id="lady_marai" inherit="monster_base">
+		<name>Lady Marai</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18000</karma>
+		<fame>18000</fame>
+		<str><random min="221" max="304" /></str>
+		<dex><random min="98" max="138" /></dex>
+		<int><random min="54" max="99" /></int>
+		<maxhitpoints><random min="694" max="846" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>25</maxdamage>
+		<tag name="res_physical" value="55,65" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_cold" value="70,80" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+		<tag name="res_energy" value="50,60" type="int" />
+		<skill id="wrestling"><random min="1266" max="1372" /></skill>
+		<skill id="tactics"><random min="1287" max="1345" /></skill>
+		<skill id="magicresistance"><random min="1021" max="1191" /></skill>
+		<skill id="anatomy"><random min="1262" max="1365" /></skill>
+		<category>Named\Expansion\Lady Marai</category>
+	</npc>
+
+	<!-- Lady Sabrix -->
+	<npc id="lady_sabrix" inherit="monster_base">
+		<name>Lady Sabrix</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18900</karma>
+		<fame>18900</fame>
+		<str><random min="82" max="130" /></str>
+		<dex><random min="117" max="146" /></dex>
+		<int><random min="50" max="98" /></int>
+		<maxhitpoints><random min="233" max="361" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>22</maxdamage>
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_cold" value="30,39" type="int" />
+		<tag name="res_poison" value="70,80" type="int" />
+		<tag name="res_energy" value="35,44" type="int" />
+		<skill id="wrestling"><random min="1098" max="1228" /></skill>
+		<skill id="tactics"><random min="1028" max="1200" /></skill>
+		<skill id="magicresistance"><random min="794" max="951" /></skill>
+		<skill id="anatomy"><random min="688" max="1051" /></skill>
+		<skill id="poisoning"><random min="978" max="1167" /></skill>
+		<category>Named\Expansion\Lady Sabrix</category>
+	</npc>
+
+	<!-- Lysander Gathenwale -->
+	<npc id="lysander_gathenwale" inherit="monster_base">
+		<name>Lysander Gathenwale</name>
+		<id>0</id>
+		<ai>Monster_Mage</ai>
+		<karma>-10000</karma>
+		<fame>5000</fame>
+		<str><random min="111" max="120" /></str>
+		<dex><random min="71" max="80" /></dex>
+		<int><random min="121" max="130" /></int>
+		<maxhitpoints><random min="180" max="207" /></maxhitpoints>
+		<mindamage>5</mindamage>
+		<maxdamage>13</maxdamage>
+		<tag name="res_physical" value="35,45" type="int" />
+		<tag name="res_fire" value="25,30" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<skill id="wrestling"><random min="801" max="900" /></skill>
+		<skill id="tactics"><random min="901" max="1000" /></skill>
+		<skill id="magicresistance"><random min="801" max="900" /></skill>
+		<skill id="magery"><random min="901" max="1000" /></skill>
+		<skill id="evaluatingintelligence"><random min="951" max="1000" /></skill>
+		<skill id="meditation"><random min="901" max="1000" /></skill>
+		<category>Named\Expansion\Lysander Gathenwale</category>
+	</npc>
+
+	<!-- Malefic -->
+	<npc id="malefic" inherit="monster_base">
+		<name>Malefic</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-21000</karma>
+		<fame>21000</fame>
+		<str><random min="210" max="284" /></str>
+		<dex><random min="153" max="197" /></dex>
+		<int><random min="349" max="390" /></int>
+		<maxhitpoints><random min="600" max="747" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>22</maxdamage>
+		<tag name="res_physical" value="60,70" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_cold" value="40,49" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="41,48" type="int" />
+		<skill id="wrestling"><random min="969" max="1124" /></skill>
+		<skill id="tactics"><random min="913" max="1054" /></skill>
+		<skill id="magicresistance"><random min="798" max="951" /></skill>
+		<skill id="magery"><random min="1030" max="1186" /></skill>
+		<skill id="evaluatingintelligence"><random min="1057" max="1196" /></skill>
+		<category>Named\Expansion\Malefic</category>
+	</npc>
+
+	<!-- Master Jonath -->
+	<npc id="master_jonath" inherit="monster_base">
+		<name>Master Jonath</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18000</karma>
+		<fame>18000</fame>
+		<str><random min="109" max="131" /></str>
+		<dex><random min="98" max="110" /></dex>
+		<int><random min="232" max="259" /></int>
+		<maxhitpoints><random min="766" max="920" /></maxhitpoints>
+		<mindamage>10</mindamage>
+		<maxdamage>15</maxdamage>
+		<tag name="res_physical" value="55,60" type="int" />
+		<tag name="res_fire" value="43,49" type="int" />
+		<tag name="res_cold" value="45,80" type="int" />
+		<tag name="res_poison" value="41,45" type="int" />
+		<tag name="res_energy" value="54,55" type="int" />
+		<skill id="wrestling"><random min="805" max="886" /></skill>
+		<skill id="tactics"><random min="885" max="951" /></skill>
+		<skill id="magicresistance"><random min="1027" max="1029" /></skill>
+		<skill id="magery"><random min="1000" max="1066" /></skill>
+		<skill id="evaluatingintelligence"><random min="996" max="1069" /></skill>
+		<skill id="necromancy"><random min="1000" max="1066" /></skill>
+		<skill id="spiritspeak"><random min="996" max="1069" /></skill>
+		<category>Named\Expansion\Master Jonath</category>
+	</npc>
+
+	<!-- Master Mikael -->
+	<npc id="master_mikael" inherit="monster_base">
+		<name>Master Mikael</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18000</karma>
+		<fame>18000</fame>
+		<str><random min="93" max="122" /></str>
+		<dex><random min="91" max="100" /></dex>
+		<int><random min="252" max="271" /></int>
+		<maxhitpoints><random min="789" max="1014" /></maxhitpoints>
+		<mindamage>11</mindamage>
+		<maxdamage>19</maxdamage>
+		<tag name="res_physical" value="55,59" type="int" />
+		<tag name="res_fire" value="40,46" type="int" />
+		<tag name="res_cold" value="72,80" type="int" />
+		<tag name="res_poison" value="44,49" type="int" />
+		<tag name="res_energy" value="50,57" type="int" />
+		<skill id="wrestling"><random min="801" max="872" /></skill>
+		<skill id="tactics"><random min="790" max="909" /></skill>
+		<skill id="magicresistance"><random min="903" max="1069" /></skill>
+		<skill id="magery"><random min="1038" max="1080" /></skill>
+		<skill id="evaluatingintelligence"><random min="961" max="1053" /></skill>
+		<skill id="necromancy"><random min="1038" max="1080" /></skill>
+		<skill id="spiritspeak"><random min="961" max="1053" /></skill>
+		<category>Named\Expansion\Master Mikael</category>
+	</npc>
+
+	<!-- Master Theophilus -->
+	<npc id="master_theophilus" inherit="monster_base">
+		<name>Master Theophilus</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18000</karma>
+		<fame>18000</fame>
+		<str><random min="137" max="187" /></str>
+		<dex><random min="253" max="301" /></dex>
+		<int><random min="393" max="444" /></int>
+		<maxhitpoints><random min="663" max="876" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>20</maxdamage>
+		<tag name="res_physical" value="55,60" type="int" />
+		<tag name="res_fire" value="50,58" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="50,60" type="int" />
+		<tag name="res_energy" value="50,60" type="int" />
+		<skill id="wrestling"><random min="699" max="1053" /></skill>
+		<skill id="tactics"><random min="1130" max="1179" /></skill>
+		<skill id="magicresistance"><random min="1270" max="1328" /></skill>
+		<skill id="magery"><random min="1381" max="1437" /></skill>
+		<skill id="evaluatingintelligence"><random min="1256" max="1338" /></skill>
+		<skill id="necromancy"><random min="1256" max="1338" /></skill>
+		<skill id="spiritspeak"><random min="1256" max="1338" /></skill>
+		<skill id="meditation"><random min="1288" max="1329" /></skill>
+		<category>Named\Expansion\Master Theophilus</category>
+	</npc>
+
+	<!-- Meraktus -->
+	<npc id="meraktus" inherit="monster_base">
+		<name>Meraktus</name>
+		<id>263</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-70000</karma>
+		<fame>70000</fame>
+		<str><random min="1419" max="1438" /></str>
+		<dex><random min="309" max="413" /></dex>
+		<int><random min="129" max="131" /></int>
+		<maxhitpoints><random min="4100" max="4200" /></maxhitpoints>
+		<mindamage>16</mindamage>
+		<maxdamage>30</maxdamage>
+		<tag name="res_physical" value="65,90" type="int" />
+		<tag name="res_fire" value="65,70" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="40,60" type="int" />
+		<tag name="res_energy" value="50,55" type="int" />
+		<skill id="magicresistance"><random min="1070" max="1113" /></skill>
+		<skill id="tactics"><random min="1070" max="1170" /></skill>
+		<skill id="wrestling"><random min="1000" max="1050" /></skill>
+		<category>Named\Expansion\Meraktus</category>
+	</npc>
+
+	<!-- Miasma -->
+	<npc id="miasma" inherit="monster_base">
+		<name>Miasma</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-21000</karma>
+		<fame>21000</fame>
+		<str><random min="255" max="847" /></str>
+		<dex><random min="145" max="428" /></dex>
+		<int><random min="26" max="380" /></int>
+		<maxhitpoints><random min="272" max="2000" /></maxhitpoints>
+		<mindamage>20</mindamage>
+		<maxdamage>30</maxdamage>
+		<tag name="res_physical" value="50,54" type="int" />
+		<tag name="res_fire" value="40,45" type="int" />
+		<tag name="res_cold" value="50,55" type="int" />
+		<tag name="res_poison" value="70,80" type="int" />
+		<tag name="res_energy" value="40,45" type="int" />
+		<skill id="wrestling"><random min="649" max="733" /></skill>
+		<skill id="tactics"><random min="984" max="1106" /></skill>
+		<skill id="magicresistance"><random min="744" max="777" /></skill>
+		<skill id="poisoning"><random min="1285" max="1436" /></skill>
+		<category>Named\Expansion\Miasma</category>
+	</npc>
+
+	<!-- Mistral -->
+	<npc id="mistral" inherit="monster_base">
+		<name>Mistral</name>
+		<id>13</id>
+		<color>924</color>
+		<ai>Monster_Mage</ai>
+		<karma>-4500</karma>
+		<fame>4500</fame>
+		<str><random min="134" max="201" /></str>
+		<dex><random min="226" max="238" /></dex>
+		<int><random min="126" max="134" /></int>
+		<maxhitpoints><random min="386" max="609" /></maxhitpoints>
+		<mindamage>17</mindamage>
+		<maxdamage>20</maxdamage>
+		<tag name="res_physical" value="55,64" type="int" />
+		<tag name="res_fire" value="36,40" type="int" />
+		<tag name="res_cold" value="33,39" type="int" />
+		<tag name="res_poison" value="30,39" type="int" />
+		<tag name="res_energy" value="49,53" type="int" />
+		<skill id="evaluatingintelligence"><random min="962" max="978" /></skill>
+		<skill id="magery"><random min="1008" max="1129" /></skill>
+		<skill id="magicresistance"><random min="1062" max="1112" /></skill>
+		<skill id="tactics"><random min="1102" max="1171" /></skill>
+		<skill id="wrestling"><random min="1003" max="1040" /></skill>
+		<category>Named\Expansion\Mistral</category>
+	</npc>
+
+	<!-- Morg Bergen -->
+	<npc id="morg_bergen" inherit="monster_base">
+		<name>Morg Bergen</name>
+		<id>0</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-1000</karma>
+		<fame>5000</fame>
+		<str><random min="111" max="120" /></str>
+		<dex><random min="111" max="120" /></dex>
+		<int><random min="51" max="60" /></int>
+		<maxhitpoints><random min="180" max="207" /></maxhitpoints>
+		<mindamage>9</mindamage>
+		<maxdamage>17</maxdamage>
+		<tag name="res_physical" value="35,45" type="int" />
+		<tag name="res_fire" value="25,30" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<skill id="swords"><random min="901" max="1000" /></skill>
+		<skill id="tactics"><random min="901" max="1000" /></skill>
+		<skill id="magicresistance"><random min="801" max="900" /></skill>
+		<skill id="anatomy"><random min="901" max="1000" /></skill>
+		<category>Named\Expansion\Morg Bergen</category>
+	</npc>
+
+	<!-- Moug Guur -->
+	<npc id="moug_guur" inherit="monster_base">
+		<name>Moug-Guur</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-3000</karma>
+		<fame>3000</fame>
+		<str><random min="556" max="575" /></str>
+		<dex><random min="84" max="94" /></dex>
+		<int><random min="59" max="73" /></int>
+		<maxhitpoints><random min="400" max="415" /></maxhitpoints>
+		<mindamage>12</mindamage>
+		<maxdamage>20</maxdamage>
+		<tag name="res_physical" value="61,65" type="int" />
+		<tag name="res_fire" value="16,19" type="int" />
+		<tag name="res_cold" value="41,46" type="int" />
+		<tag name="res_poison" value="21,24" type="int" />
+		<tag name="res_energy" value="19,25" type="int" />
+		<skill id="magicresistance"><random min="702" max="750" /></skill>
+		<skill id="tactics"><random min="808" max="817" /></skill>
+		<skill id="wrestling"><random min="939" max="994" /></skill>
+		<category>Named\Expansion\Moug Guur</category>
+	</npc>
+
+	<!-- Night Terror -->
+	<npc id="night_terror" inherit="monster_base">
+		<name>Night Terror</name>
+		<id>0</id>
+		<color>2963</color>
+		<ai>Monster_Mage</ai>
+		<karma>-8000</karma>
+		<fame>8000</fame>
+		<str><random min="385" max="467" /></str>
+		<dex><random min="40" max="70" /></dex>
+		<int><random min="600" max="800" /></int>
+		<maxhitpoints><random min="50000" max="50000" /></maxhitpoints>
+		<mindamage>10</mindamage>
+		<maxdamage>23</maxdamage>
+		<tag name="res_physical" value="60,70" type="int" />
+		<tag name="res_fire" value="100" type="int" />
+		<tag name="res_cold" value="80,90" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="70,80" type="int" />
+		<skill id="magicresistance"><random min="900" max="1000" /></skill>
+		<skill id="tactics">1200</skill>
+		<skill id="wrestling">1100</skill>
+		<skill id="poisoning">1200</skill>
+		<skill id="detecthidden">1200</skill>
+		<skill id="parry"><random min="600" max="700" /></skill>
+		<skill id="magery">1000</skill>
+		<skill id="evaluatingintelligence">1100</skill>
+		<skill id="necromancy">1200</skill>
+		<skill id="spiritspeak">1200</skill>
+		<category>Named\Expansion\Night Terror</category>
+	</npc>
+
+	<!-- Pixie Renowned -->
+	<npc id="pixie_renowned" inherit="monster_base">
+		<name>Pixie</name>
+		<id>128</id>
+		<ai>Monster_Mage</ai>
+		<karma>7000</karma>
+		<fame>7000</fame>
+		<str><random min="50" max="100" /></str>
+		<dex><random min="450" max="600" /></dex>
+		<int><random min="700" max="8500" /></int>
+		<maxhitpoints><random min="9100" max="9200" /></maxhitpoints>
+		<mindamage>9</mindamage>
+		<maxdamage>15</maxdamage>
+		<tag name="res_physical" value="70,90" type="int" />
+		<tag name="res_fire" value="60,70" type="int" />
+		<tag name="res_cold" value="70,80" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
+		<tag name="res_energy" value="60,70" type="int" />
+		<skill id="evaluatingintelligence">1000</skill>
+		<skill id="magery"><random min="901" max="1100" /></skill>
+		<skill id="meditation">1000</skill>
+		<skill id="magicresistance"><random min="1105" max="1500" /></skill>
+		<skill id="tactics"><random min="1001" max="1200" /></skill>
+		<skill id="wrestling"><random min="1001" max="1200" /></skill>
+		<category>Named\Expansion\Pixie Renowned</category>
+	</npc>
+
+	<!-- Putrefier -->
+	<npc id="putrefier" inherit="monster_base">
+		<name>Putrefier</name>
+		<id>400</id>
+		<color>63</color>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-24000</karma>
+		<fame>24000</fame>
+		<str><random min="1057" max="1400" /></str>
+		<dex><random min="232" max="560" /></dex>
+		<int><random min="201" max="440" /></int>
+		<maxhitpoints><random min="3010" max="4092" /></maxhitpoints>
+		<mindamage>27</mindamage>
+		<maxdamage>34</maxdamage>
+		<tag name="res_physical" value="65,80" type="int" />
+		<tag name="res_fire" value="65,80" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<skill id="wrestling"><random min="1112" max="1280" /></skill>
+		<skill id="tactics"><random min="1152" max="1252" /></skill>
+		<skill id="magicresistance"><random min="1434" max="1700" /></skill>
+		<skill id="anatomy"><random min="446" max="670" /></skill>
+		<skill id="magery"><random min="1176" max="1188" /></skill>
+		<skill id="evaluatingintelligence"><random min="1130" max="1288" /></skill>
+		<skill id="meditation"><random min="414" max="850" /></skill>
+		<skill id="poisoning"><random min="450" max="500" /></skill>
+		<category>Named\Expansion\Putrefier</category>
+	</npc>
+
+	<!-- Pyre -->
+	<npc id="pyre" inherit="monster_base">
+		<name>Pyre</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-21000</karma>
+		<fame>21000</fame>
+		<str><random min="605" max="611" /></str>
+		<dex><random min="391" max="519" /></dex>
+		<int><random min="669" max="818" /></int>
+		<maxhitpoints><random min="1783" max="1939" /></maxhitpoints>
+		<mindamage>30</mindamage>
+		<maxdamage>30</maxdamage>
+		<tag name="res_physical" value="65" type="int" />
+		<tag name="res_fire" value="72,75" type="int" />
+		<tag name="res_poison" value="36,41" type="int" />
+		<tag name="res_energy" value="50,51" type="int" />
+		<skill id="wrestling"><random min="1219" max="1306" /></skill>
+		<skill id="tactics"><random min="1144" max="1174" /></skill>
+		<skill id="magicresistance"><random min="1477" max="1530" /></skill>
+		<skill id="poisoning"><random min="1228" max="1240" /></skill>
+		<skill id="magery"><random min="1218" max="1278" /></skill>
+		<skill id="evaluatingintelligence"><random min="1036" max="1170" /></skill>
+		<skill id="meditation"><random min="1000" max="1100" /></skill>
+		<category>Named\Expansion\Pyre</category>
+	</npc>
+
+	<!-- Rakktavi Renowned -->
+	<npc id="rakktavi_renowned" inherit="monster_base">
+		<name>Rakktavi</name>
+		<id>0</id>
+		<ai>Monster_Archer</ai>
+		<karma>-6500</karma>
+		<fame>6500</fame>
+		<str><random min="119" max="119" /></str>
+		<dex><random min="279" max="279" /></dex>
+		<int><random min="327" max="327" /></int>
+		<maxhitpoints><random min="50000" max="50000" /></maxhitpoints>
+		<mindamage>8</mindamage>
+		<maxdamage>10</maxdamage>
+		<tag name="res_physical" value="20,30" type="int" />
+		<tag name="res_fire" value="10,25" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<skill id="archery"><random min="801" max="900" /></skill>
+		<skill id="magicresistance">660</skill>
+		<skill id="tactics">681</skill>
+		<skill id="wrestling">855</skill>
+		<category>Named\Expansion\Rakktavi Renowned</category>
+	</npc>
+
+	<!-- Red Death -->
+	<npc id="red_death" inherit="monster_base">
+		<name>red death</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-28000</karma>
+		<fame>28000</fame>
+		<str><random min="319" max="324" /></str>
+		<dex><random min="241" max="244" /></dex>
+		<int><random min="242" max="255" /></int>
+		<maxhitpoints><random min="1540" max="1605" /></maxhitpoints>
+		<mindamage>25</mindamage>
+		<maxdamage>29</maxdamage>
+		<tag name="res_physical" value="60,70" type="int" />
+		<tag name="res_fire" value="90" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<skill id="wrestling"><random min="1214" max="1437" /></skill>
+		<skill id="tactics"><random min="1209" max="1422" /></skill>
+		<skill id="magicresistance"><random min="1201" max="1423" /></skill>
+		<skill id="anatomy"><random min="1202" max="1440" /></skill>
+		<category>Named\Expansion\Red Death</category>
+	</npc>
+
+	<!-- Rend -->
+	<npc id="rend" inherit="monster_base">
+		<name>Rend</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-21000</karma>
+		<fame>21000</fame>
+		<str><random min="1261" max="1284" /></str>
+		<dex><random min="363" max="384" /></dex>
+		<int><random min="601" max="642" /></int>
+		<maxhitpoints><random min="5176" max="6100" /></maxhitpoints>
+		<mindamage>26</mindamage>
+		<maxdamage>33</maxdamage>
+		<tag name="res_physical" value="75,85" type="int" />
+		<tag name="res_fire" value="81,94" type="int" />
+		<tag name="res_cold" value="46,55" type="int" />
+		<tag name="res_poison" value="35,44" type="int" />
+		<tag name="res_energy" value="45,52" type="int" />
+		<skill id="wrestling"><random min="1363" max="1503" /></skill>
+		<skill id="tactics"><random min="1334" max="1414" /></skill>
+		<skill id="magicresistance"><random min="909" max="1100" /></skill>
+		<skill id="anatomy"><random min="666" max="720" /></skill>
+		<category>Named\Expansion\Rend</category>
+	</npc>
+
+	<!-- Saliva -->
+	<npc id="saliva" inherit="monster_base">
+		<name>a saliva</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<str><random min="136" max="206" /></str>
+		<dex><random min="123" max="222" /></dex>
+		<int><random min="118" max="127" /></int>
+		<maxhitpoints><random min="409" max="842" /></maxhitpoints>
+		<mindamage>19</mindamage>
+		<maxdamage>28</maxdamage>
+		<tag name="res_physical" value="46,47" type="int" />
+		<tag name="res_fire" value="32,40" type="int" />
+		<tag name="res_cold" value="34,49" type="int" />
+		<tag name="res_poison" value="40,48" type="int" />
+		<tag name="res_energy" value="35,39" type="int" />
+		<skill id="wrestling"><random min="1064" max="1288" /></skill>
+		<skill id="tactics"><random min="1299" max="1410" /></skill>
+		<skill id="magicresistance"><random min="843" max="901" /></skill>
+		<category>Named\Expansion\Saliva</category>
+	</npc>
+
+	<!-- Silk -->
+	<npc id="silk" inherit="monster_base">
+		<name>Silk</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18900</karma>
+		<fame>18900</fame>
+		<str><random min="80" max="131" /></str>
+		<dex><random min="126" max="156" /></dex>
+		<int><random min="63" max="102" /></int>
+		<maxhitpoints><random min="279" max="378" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>22</maxdamage>
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_fire" value="30,39" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="70,76" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="wrestling"><random min="1141" max="1237" /></skill>
+		<skill id="tactics"><random min="1026" max="1183" /></skill>
+		<skill id="magicresistance"><random min="786" max="948" /></skill>
+		<skill id="anatomy"><random min="813" max="1057" /></skill>
+		<skill id="poisoning"><random min="1060" max="1192" /></skill>
+		<category>Named\Expansion\Silk</category>
+	</npc>
+
+	<!-- Sir Patrick -->
+	<npc id="sir_patrick" inherit="monster_base">
+		<name>Sir Patrick</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-18000</karma>
+		<fame>18000</fame>
+		<str><random min="208" max="319" /></str>
+		<dex><random min="98" max="132" /></dex>
+		<int><random min="45" max="91" /></int>
+		<maxhitpoints><random min="616" max="884" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>25</maxdamage>
+		<tag name="res_physical" value="55,62" type="int" />
+		<tag name="res_fire" value="40,48" type="int" />
+		<tag name="res_cold" value="71,80" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+		<tag name="res_energy" value="50,60" type="int" />
+		<skill id="wrestling"><random min="1263" max="1365" /></skill>
+		<skill id="tactics"><random min="1285" max="1438" /></skill>
+		<skill id="magicresistance"><random min="1028" max="1179" /></skill>
+		<skill id="anatomy"><random min="1275" max="1372" /></skill>
+		<category>Named\Expansion\Sir Patrick</category>
+	</npc>
+
+	<!-- Skeletal Dragon Renowned -->
+	<npc id="skeletal_dragon_renowned" inherit="monster_base">
+		<name>Skeletal Dragon</name>
+		<id>104</id>
+		<color>906</color>
+		<ai>Monster_Mage</ai>
+		<karma>-22500</karma>
+		<fame>22500</fame>
+		<str><random min="898" max="1030" /></str>
+		<dex><random min="100" max="200" /></dex>
+		<int><random min="488" max="620" /></int>
+		<maxhitpoints><random min="558" max="599" /></maxhitpoints>
+		<mindamage>29</mindamage>
+		<maxdamage>35</maxdamage>
+		<tag name="res_physical" value="75,80" type="int" />
+		<tag name="res_fire" value="40,60" type="int" />
+		<tag name="res_cold" value="40,60" type="int" />
+		<tag name="res_poison" value="70,80" type="int" />
+		<tag name="res_energy" value="40,60" type="int" />
+		<skill id="evaluatingintelligence"><random min="801" max="1000" /></skill>
+		<skill id="magery"><random min="801" max="1000" /></skill>
+		<skill id="magicresistance"><random min="1003" max="1300" /></skill>
+		<skill id="tactics"><random min="976" max="1000" /></skill>
+		<skill id="wrestling"><random min="976" max="1000" /></skill>
+		<category>Named\Expansion\Skeletal Dragon Renowned</category>
+	</npc>
+
+	<!-- Spite -->
+	<npc id="spite" inherit="monster_base">
+		<name>spite</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-21000</karma>
+		<fame>21000</fame>
+		<str><random min="53" max="214" /></str>
+		<dex><random min="243" max="367" /></dex>
+		<int><random min="369" max="586" /></int>
+		<maxhitpoints><random min="1013" max="1052" /></maxhitpoints>
+		<mindamage>14</mindamage>
+		<maxdamage>20</maxdamage>
+		<tag name="res_physical" value="85,90" type="int" />
+		<tag name="res_fire" value="41,46" type="int" />
+		<tag name="res_cold" value="40,44" type="int" />
+		<tag name="res_poison" value="42,46" type="int" />
+		<tag name="res_energy" value="45,47" type="int" />
+		<skill id="wrestling"><random min="128" max="167" /></skill>
+		<skill id="tactics"><random min="1026" max="1310" /></skill>
+		<skill id="magicresistance"><random min="1412" max="1616" /></skill>
+		<skill id="magery"><random min="1084" max="1192" /></skill>
+		<skill id="evaluatingintelligence"><random min="1084" max="1200" /></skill>
+		<skill id="meditation"><random min="1092" max="1200" /></skill>
+		<skill id="spellweaving">1200</skill>
+		<category>Named\Expansion\Spite</category>
+	</npc>
+
+	<!-- Swoop -->
+	<npc id="swoop" inherit="monster_base">
+		<name>Swoop</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<fame>18000</fame>
+		<str><random min="100" max="150" /></str>
+		<dex><random min="400" max="480" /></dex>
+		<int><random min="75" max="90" /></int>
+		<maxhitpoints><random min="1350" max="1550" /></maxhitpoints>
+		<mindamage>20</mindamage>
+		<maxdamage>30</maxdamage>
+		<tag name="res_physical" value="75,90" type="int" />
+		<tag name="res_fire" value="60,70" type="int" />
+		<tag name="res_cold" value="70,85" type="int" />
+		<tag name="res_poison" value="55,60" type="int" />
+		<tag name="res_energy" value="50,60" type="int" />
+		<skill id="wrestling"><random min="1200" max="1400" /></skill>
+		<skill id="tactics"><random min="1200" max="1400" /></skill>
+		<skill id="magicresistance"><random min="950" max="1050" /></skill>
+		<category>Named\Expansion\Swoop</category>
+	</npc>
+
+	<!-- Szavetra -->
+	<npc id="szavetra" inherit="monster_base">
+		<name>Szavetra</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-24000</karma>
+		<fame>24000</fame>
+		<str><random min="627" max="655" /></str>
+		<dex><random min="164" max="193" /></dex>
+		<int><random min="566" max="595" /></int>
+		<maxhitpoints><random min="312" max="415" /></maxhitpoints>
+		<mindamage>20</mindamage>
+		<maxdamage>30</maxdamage>
+		<tag name="res_physical" value="83,90" type="int" />
+		<tag name="res_fire" value="72,80" type="int" />
+		<tag name="res_cold" value="40,49" type="int" />
+		<tag name="res_poison" value="51,60" type="int" />
+		<tag name="res_energy" value="50,60" type="int" />
+		<skill id="evaluatingintelligence"><random min="903" max="998" /></skill>
+		<skill id="magery"><random min="1001" max="1006" /></skill>
+		<skill id="meditation"><random min="901" max="1100" /></skill>
+		<skill id="magicresistance"><random min="1122" max="1272" /></skill>
+		<skill id="tactics"><random min="912" max="928" /></skill>
+		<skill id="wrestling"><random min="802" max="864" /></skill>
+		<category>Named\Expansion\Szavetra</category>
+	</npc>
+
+	<!-- Tangle -->
+	<npc id="tangle" inherit="monster_base">
+		<name>Tangle</name>
+		<id>400</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-16000</karma>
+		<fame>16000</fame>
+		<str><random min="843" max="943" /></str>
+		<dex><random min="58" max="74" /></dex>
+		<int><random min="46" max="58" /></int>
+		<maxhitpoints><random min="2468" max="2733" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>28</maxdamage>
+		<tag name="res_physical" value="50,57" type="int" />
+		<tag name="res_fire" value="40,43" type="int" />
+		<tag name="res_cold" value="30,35" type="int" />
+		<tag name="res_poison" value="61,69" type="int" />
+		<tag name="res_energy" value="41,45" type="int" />
+		<skill id="wrestling"><random min="808" max="946" /></skill>
+		<skill id="tactics"><random min="906" max="1004" /></skill>
+		<skill id="magicresistance"><random min="1084" max="1140" /></skill>
+		<category>Named\Expansion\Tangle</category>
+	</npc>
+
+	<!-- Tavara Sewel -->
+	<npc id="tavara_sewel" inherit="monster_base">
+		<name>Tavara Sewel</name>
+		<id>0</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-1000</karma>
+		<fame>5000</fame>
+		<str><random min="111" max="120" /></str>
+		<dex><random min="111" max="120" /></dex>
+		<int><random min="111" max="120" /></int>
+		<maxhitpoints><random min="180" max="207" /></maxhitpoints>
+		<mindamage>13</mindamage>
+		<maxdamage>16</maxdamage>
+		<tag name="res_physical" value="25,30" type="int" />
+		<tag name="res_fire" value="25,30" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<skill id="fencing"><random min="901" max="1000" /></skill>
+		<skill id="tactics"><random min="901" max="1000" /></skill>
+		<skill id="magicresistance"><random min="801" max="900" /></skill>
+		<skill id="anatomy"><random min="901" max="1000" /></skill>
+		<category>Named\Expansion\Tavara Sewel</category>
+	</npc>
+
+	<!-- Tempest -->
+	<npc id="tempest" inherit="monster_base">
+		<name>Tempest</name>
+		<id>13</id>
+		<color>1175</color>
+		<ai>Monster_Mage</ai>
+		<karma>-4500</karma>
+		<fame>4500</fame>
+		<str><random min="116" max="135" /></str>
+		<dex><random min="166" max="185" /></dex>
+		<int><random min="101" max="125" /></int>
+		<maxhitpoints><random min="602" max="602" /></maxhitpoints>
+		<mindamage>18</mindamage>
+		<maxdamage>20</maxdamage>
+		<tag name="res_physical" value="46" type="int" />
+		<tag name="res_fire" value="39" type="int" />
+		<tag name="res_cold" value="33" type="int" />
+		<tag name="res_poison" value="36" type="int" />
+		<tag name="res_energy" value="58" type="int" />
+		<skill id="evaluatingintelligence">996</skill>
+		<skill id="magery">1010</skill>
+		<skill id="magicresistance">1046</skill>
+		<skill id="tactics">1118</skill>
+		<skill id="wrestling">1160</skill>
+		<category>Named\Expansion\Tempest</category>
+	</npc>
+
+	<!-- Thrasher -->
+	<npc id="thrasher" inherit="monster_base">
+		<name>Thrasher</name>
+		<id>0</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-22400</karma>
+		<fame>22400</fame>
+		<str><random min="93" max="327" /></str>
+		<dex><random min="7" max="201" /></dex>
+		<int><random min="15" max="67" /></int>
+		<maxhitpoints><random min="260" max="984" /></maxhitpoints>
+		<mindamage>15</mindamage>
+		<maxdamage>25</maxdamage>
+		<tag name="res_physical" value="53,55" type="int" />
+		<tag name="res_fire" value="25,29" type="int" />
+		<tag name="res_poison" value="25,28" type="int" />
+		<skill id="wrestling"><random min="1012" max="1183" /></skill>
+		<skill id="tactics"><random min="991" max="1173" /></skill>
+		<skill id="magicresistance"><random min="1024" max="1186" /></skill>
+		<category>Named\Expansion\Thrasher</category>
+	</npc>
+
+	<!-- Tikitavi Renowned -->
+	<npc id="tikitavi_renowned" inherit="monster_base">
+		<name>Tikitavi</name>
+		<id>42</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-1500</karma>
+		<fame>1500</fame>
+		<str><random min="315" max="354" /></str>
+		<dex><random min="139" max="177" /></dex>
+		<int><random min="243" max="288" /></int>
+		<maxhitpoints><random min="50000" max="50000" /></maxhitpoints>
+		<mindamage>7</mindamage>
+		<maxdamage>9</maxdamage>
+		<tag name="res_physical" value="26,28" type="int" />
+		<tag name="res_fire" value="22,25" type="int" />
+		<tag name="res_cold" value="30,38" type="int" />
+		<tag name="res_poison" value="14,17" type="int" />
+		<tag name="res_energy" value="15,18" type="int" />
+		<skill id="magicresistance">404</skill>
+		<skill id="tactics">736</skill>
+		<skill id="wrestling">665</skill>
+		<category>Named\Expansion\Tikitavi Renowned</category>
+	</npc>
+
+	<!-- Twaulo -->
+	<npc id="twaulo" inherit="monster_base">
+		<name>Twaulo</name>
+		<id>101</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>50000</karma>
+		<fame>50000</fame>
+		<str><random min="1751" max="1950" /></str>
+		<dex><random min="251" max="450" /></dex>
+		<int><random min="801" max="1000" /></int>
+		<maxhitpoints><random min="7500" max="7500" /></maxhitpoints>
+		<mindamage>19</mindamage>
+		<maxdamage>24</maxdamage>
+		<tag name="res_physical" value="65,75" type="int" />
+		<tag name="res_fire" value="45,55" type="int" />
+		<tag name="res_cold" value="50,60" type="int" />
+		<tag name="res_poison" value="50,60" type="int" />
+		<tag name="res_energy" value="50,60" type="int" />
+		<skill id="anatomy"><random min="951" max="1150" /></skill>
+		<skill id="archery"><random min="951" max="1000" /></skill>
+		<skill id="magicresistance"><random min="503" max="800" /></skill>
+		<skill id="tactics"><random min="901" max="1000" /></skill>
+		<skill id="wrestling"><random min="951" max="1000" /></skill>
+		<category>Named\Expansion\Twaulo</category>
+	</npc>
+
+	<!-- Vitavi Renowned -->
+	<npc id="vitavi_renowned" inherit="monster_base">
+		<name>Vitavi</name>
+		<id>0</id>
+		<ai>Monster_Aggressive_L1</ai>
+		<karma>-7500</karma>
+		<fame>7500</fame>
+		<str><random min="300" max="350" /></str>
+		<dex><random min="250" max="300" /></dex>
+		<int><random min="300" max="350" /></int>
+		<maxhitpoints><random min="45000" max="50000" /></maxhitpoints>
+		<mindamage>7</mindamage>
+		<maxdamage>14</maxdamage>
+		<tag name="res_physical" value="50,60" type="int" />
+		<tag name="res_fire" value="30,50" type="int" />
+		<tag name="res_cold" value="60,80" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<skill id="evaluatingintelligence"><random min="701" max="800" /></skill>
+		<skill id="magery"><random min="701" max="800" /></skill>
+		<skill id="magicresistance"><random min="751" max="1000" /></skill>
+		<skill id="tactics"><random min="701" max="750" /></skill>
+		<skill id="wrestling"><random min="501" max="750" /></skill>
+		<category>Named\Expansion\Vitavi Renowned</category>
+	</npc>
+
+	<!-- Wyvern Renowned -->
+	<npc id="wyvern_renowned" inherit="monster_base">
+		<name>Wyvern</name>
+		<id>62</id>
+		<color>243</color>
+		<ai>Monster_Mage</ai>
+		<karma>-24000</karma>
+		<fame>24000</fame>
+		<str><random min="1370" max="1422" /></str>
+		<dex><random min="103" max="151" /></dex>
+		<int><random min="835" max="1002" /></int>
+		<maxhitpoints><random min="2412" max="2734" /></maxhitpoints>
+		<mindamage>29</mindamage>
+		<maxdamage>35</maxdamage>
+		<tag name="res_physical" value="60,70" type="int" />
+		<tag name="res_fire" value="80,90" type="int" />
+		<tag name="res_cold" value="70,80" type="int" />
+		<tag name="res_poison" value="60,70" type="int" />
+		<tag name="res_energy" value="60,70" type="int" />
+		<skill id="magery"><random min="1077" max="1091" /></skill>
+		<skill id="meditation"><random min="639" max="782" /></skill>
+		<skill id="evaluatingintelligence"><random min="1068" max="1111" /></skill>
+		<skill id="wrestling"><random min="1086" max="1094" /></skill>
+		<skill id="magicresistance"><random min="1258" max="1276" /></skill>
+		<skill id="tactics"><random min="1128" max="1237" /></skill>
+		<category>Named\Expansion\Wyvern Renowned</category>
+	</npc>
+
+</definitions>

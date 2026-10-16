@@ -1,0 +1,1499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="tram_sv_sealife_34_43">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2792,2951" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_102_107">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="107,909" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_98_131">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2227,3533" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_63_134">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3408,1407" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_76_139">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2931,3245" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_56_149">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="184,191" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_16_155">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4400,2527" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_51_211">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="840,2863" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_94_248">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2320,4007" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_31_282">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3240,3151" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_5_286">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4904,759" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_8_309">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4016,1031" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_95_351">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4955,3997" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_7_406">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3576,823" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_105_471">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4048,63" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_32_508">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3776,3519" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_97_516">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4307,3965" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_1_520">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4888,375" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_35_531">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2608,3295" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_74_557">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="3811,109" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_103_571">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1792,79" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_12_583">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4896,1519" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_13_599">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3616,1807" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_82_616">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1580,75" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_84_646">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4667,109" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_54_651">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="168,1743" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_73_696">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="3123,1485" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_109_729">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4992,3791" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_33_736">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3344,3479" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_108_772">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="3568,3215" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_91_784">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4995,1829" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_101_796">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="491,4013" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_50_825">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="208,2503" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_80_832">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1891,3597" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_39_856">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3168,3871" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_58_862">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="496,527" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_79_877">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="147,3213" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_61_886">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2392,2031" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_83_894">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4275,1309" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_47_895">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="480,3351" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_112_901">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2040,3751" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_66_916">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2752,1455" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_100_961">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="731,3989" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_89_962">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="3672,1535" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_52_969">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="600,2511" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_93_1006">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2008,4007" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_3_1027">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3688,439" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_0_1081">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="1395,3421" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_85_1088">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="5003,101" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_42_1164">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="200,3879" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_23_1165">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4192,2975" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_69_1177">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="130" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="130" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="130" /></npc>
+		<circle center="931,141" radius="130" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_10_1193">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4232,1655" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_38_1202">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3560,3871" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_104_1209">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1336,79" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_11_1221">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4600,1751" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_29_1231">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4152,3415" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_49_1248">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="192,2895" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_72_1297">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="130" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="130" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="130" /></npc>
+		<circle center="139,1173" radius="130" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_111_1316">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2072,2527" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_46_1322">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="176,3551" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_78_1325">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="979,3997" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_86_1327">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="3603,125" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_25_1331">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3328,2063" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_43_1346">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="544,3719" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_65_1390">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2952,1239" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_106_1404">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4392,823" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_110_1416">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4984,3567" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_71_1419">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="130" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="130" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="130" /></npc>
+		<circle center="2395,1405" radius="130" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_99_1452">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1187,3885" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_19_1471">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4912,2471" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_44_1475">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="896,3695" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_20_1495">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4864,2831" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_28_1506">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3888,3167" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_64_1510">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3256,1031" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_45_1537">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="824,3287" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_48_1551">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="512,2919" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_57_1567">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="592,223" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_114_1570">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="496,1879" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_60_1623">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3008,1895" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_90_1627">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4363,1981" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_27_1664">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3088,2759" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_6_1686">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4904,1127" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_70_1693">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="130" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="130" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="130" /></npc>
+		<circle center="3267,1717" radius="130" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_26_1702">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3176,2383" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_37_1711">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2368,2799" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_9_1719">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3992,1447" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_2_1727">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4352,215" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_81_1736">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2971,1605" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_14_1772">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4032,2039" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_113_1775">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2288,3767" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_41_1806">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="1720,3879" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_53_1843">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="200,2103" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_17_1846">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3984,2423" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_15_1862">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4624,2199" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_22_1872">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4896,3215" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_67_1922">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2208,1703" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_59_1945">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2400,2399" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_21_1974">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4536,2847" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_30_2062">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="3968,3895" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_55_2065">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="200,559" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_18_2067">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4896,2119" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_88_2071">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="3891,733" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_96_2120">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4731,3997" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_36_2127">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2744,2567" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_75_2130">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="3931,1757" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_24_2147">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4008,2767" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_40_2162">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2768,3847" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_92_2167">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4283,2221" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_68_2184">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="1866,1798" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_4_2188">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="4512,583" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_87_2196">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="4112,791" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_77_2205">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="2291,3181" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_62_2214">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="175" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="175" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="175" /></npc>
+		<circle center="2624,1775" radius="175" map="1" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tram_sv_sealife_107_2257">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>trammel</group>
+		<group>trammel_expansion</group>
+		<npc id="sea_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="100" /></npc>
+		<npc id="dolphin"><npcwander type="circle" radius="100" /></npc>
+		<circle center="3520,2263" radius="100" map="1" z="-5" />
+	</spawnregion>
+
+</definitions>

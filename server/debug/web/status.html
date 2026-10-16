@@ -1,93 +1,127 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Wolfpack Status</title>
-<style type="text/css">
-<!--
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #FFFFFF;
-}
-body,td,th {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10pt;
-}
-.maintitle {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 16px;
-	font-weight: bold;
-	color: #336633;
-}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wolfpack Shard Status</title>
 
-.smalltext {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 10px;
-	color: #999999;
-}
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/custom.css" />
 
-.sectiontitle {
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-size: 0.92rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .wp-header {
+      background-color: #004026;
+      border-bottom: 2px solid #002b1a;
+      height: 64px;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
 
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 14px;
-	font-weight: bold;
-	color: #666666;
-}
+  <!-- Header com Banner / Logo Wolfpack -->
+  <header class="wp-header shadow-sm">
+    <div class="container px-3 px-md-4 d-flex align-items-center justify-content-between h-100">
+      <img src="images/top_logo.jpg" alt="Wolfpack Logo" class="img-fluid" style="max-height: 48px;" />
+      <span class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill">
+        <span class="spinner-grow spinner-grow-sm me-1" role="status" aria-hidden="true" style="width: 0.5rem; height: 0.5rem;"></span>
+        Online
+      </span>
+    </div>
+  </header>
 
-.text {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 12px;
-}
+  <!-- Conteúdo Principal -->
+  <main class="container my-4 flex-grow-1">
+    
+    <div class="text-center mb-4">
+      <h3 class="fw-bold mb-1" style="color: #004026;">Status do Servidor</h3>
+      <p class="text-secondary small">Estatísticas públicas e jogadores online em Britannia.</p>
+    </div>
 
-img {
-	border: 0;
-}
+    <!-- Cards de Métricas -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 border border-light-subtle shadow-sm">
+          <div class="card-body">
+            <span class="text-secondary small fw-semibold text-uppercase">Jogadores Online</span>
+            <div class="d-flex align-items-baseline gap-2 mt-2">
+              <h2 class="fw-bold text-dark mb-0">0</h2>
+              <span class="text-secondary small">/ 1 contas</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-a {
-	color: #0000FF;
-	text-decoration: none;
-}
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 border border-light-subtle shadow-sm">
+          <div class="card-body">
+            <span class="text-secondary small fw-semibold text-uppercase">NPCs Vivos</span>
+            <div class="d-flex align-items-baseline gap-2 mt-2">
+              <h2 class="fw-bold text-dark mb-0">5798</h2>
+            </div>
+          </div>
+        </div>
+      </div>
 
-a:hover {
-	color: #FF0000;
-}
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 border border-light-subtle shadow-sm">
+          <div class="card-body">
+            <span class="text-secondary small fw-semibold text-uppercase">Itens no Mundo</span>
+            <div class="d-flex align-items-baseline gap-2 mt-2">
+              <h2 class="fw-bold text-dark mb-0">81061</h2>
+            </div>
+          </div>
+        </div>
+      </div>
 
--->
-</style></head>
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 border border-light-subtle shadow-sm">
+          <div class="card-body">
+            <span class="text-secondary small fw-semibold text-uppercase">Horário In-game</span>
+            <div class="d-flex align-items-baseline gap-2 mt-2">
+              <h2 class="fw-bold text-dark mb-0 font-monospace">10:35</h2>
+              <span class="text-secondary small">Dia 20</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<body>
-<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-	<td bgcolor="#004026"><img src="top_logo.jpg" width="586" height="87" /></td>
-  </tr>
-  <tr>
-	<td bgcolor="#DDDDDD" height="2"><img src="spacer.gif" width="1" height="2" /></td>
-  </tr>
-</table>
-<div align="center"><br />
-<span class="maintitle">SERVERSTATUS</span>  </div>
-<table width="530"  border="0" align="center" cellpadding="5" cellspacing="0">
-  <tr>
+    <!-- Tabela de Jogadores Conectados -->
+    <div class="card border border-light-subtle shadow-sm">
+      <div class="card-header bg-white py-3">
+        <h6 class="fw-bold text-dark mb-0">Jogadores Conectados Recentemente</h6>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle mb-0">
+          <thead class="table-light small text-uppercase text-secondary">
+            <tr>
+              <th scope="col" class="ps-3">Personagem</th>
+              <th scope="col">Notoriedade</th>
+              <th scope="col">Localização</th>
+            </tr>
+          </thead>
+          <tbody>
+<tr><td colspan="3" class="text-center py-4 text-muted">Nenhum jogador conectado no momento.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
+  </main>
 
-	<td width="520"><strong>Connected Accounts:</strong> 0 of 1<br />
-	  <br />
-	  <strong>Player Characters:</strong> 0 <br />
-	  <strong>NPCs:</strong> 1281 <br />
-	  <strong>Items:</strong> 5874 <br />
-	  <strong>Ingame Time:</strong> Day 0, 0:36 <br /> <br />
-	  <strong>Connected Players:</strong><br>
-	  <table width="100%" border="0" cellspacing="1" cellpadding="0">
+  <footer class="py-3 bg-white border-top text-center text-secondary small">
+    Wolfpack Shard Server &bull; Status
+  </footer>
 
-
-		</table>
-	  </td>
-  </tr>
-</table>
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

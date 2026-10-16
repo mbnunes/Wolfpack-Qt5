@@ -1,4 +1,16 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_dread_giant_spider_170">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>spider_cave</group>
+		<npc id="terathan_warrior"><npcwander type="circle" radius="15" /></npc>
+		<npc id="terathan_matriarch"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1840,980" radius="15" map="2" z="-28" />
+	</spawnregion>
 
 </definitions>

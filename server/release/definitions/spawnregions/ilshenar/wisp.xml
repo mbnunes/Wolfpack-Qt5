@@ -1,4 +1,246 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_wisp_18_26">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="balron"><npcwander type="circle" radius="15" /></npc>
+		<circle center="775,1479" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_17_32">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="964,1554" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_13_37">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="wraith"><npcwander type="circle" radius="15" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="15" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="15" /></npc>
+		<circle center="962,1480" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_16_48">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="balron"><npcwander type="circle" radius="25" /></npc>
+		<circle center="936,1559" radius="25" map="2" z="-22" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_5_58">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="20" /></npc>
+		<circle center="888,1471" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_14_63">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="titan"><npcwander type="circle" radius="15" /></npc>
+		<npc id="cyclops"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1000,1512" radius="15" map="2" z="0" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_11_123">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="imp"><npcwander type="circle" radius="10" /></npc>
+		<circle center="939,1492" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_7_171">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="10" /></npc>
+		<circle center="871,1531" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_9_209">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="15" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="15" /></npc>
+		<circle center="888,1568" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_8_235">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="10" /></npc>
+		<circle center="891,1537" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_10_252">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="imp"><npcwander type="circle" radius="10" /></npc>
+		<circle center="939,1531" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_3_289">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="20" /></npc>
+		<circle center="851,1498" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_19_307">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="imp"><npcwander type="circle" radius="40" /></npc>
+		<circle center="775,1480" radius="40" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_0_328">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="wisp"><npcwander type="circle" radius="60" /></npc>
+		<circle center="681,1535" radius="60" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_6_330">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="901,1507" radius="10" map="2" z="2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_2_365">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="shade"><npcwander type="circle" radius="10" /></npc>
+		<circle center="855,1566" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_4_382">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="shade"><npcwander type="circle" radius="15" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="15" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="15" /></npc>
+		<circle center="827,1479" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_1_401">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="6" /></npc>
+		<circle center="855,1567" radius="6" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_12_419">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="ettin"><npcwander type="circle" radius="10" /></npc>
+		<circle center="961,1502" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wisp_15_427">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="10" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="10" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="10" /></npc>
+		<circle center="959,1530" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_wispdungeonhealer_454">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wisp</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="642,1300" radius="5" map="2" z="-58" />
+	</spawnregion>
 
 </definitions>

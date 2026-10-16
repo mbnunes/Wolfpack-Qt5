@@ -1,4 +1,1176 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="malas_south_15_2">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="evil_healer"><npcwander type="circle" radius="70" /></npc>
+		<circle center="2304,1258" radius="70" map="3" z="-86" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_elfbrigandcamp_elfbrigand_2_6">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="elfbrigandcamp"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elf_brigand"><npcwander type="circle" radius="5" /></npc>
+		<circle center="942,1154" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_emino_quest_8">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="emino" />
+		<point pos="411,810,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_9">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="418,1109,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_10_11">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="mongbat"><npcwander type="circle" radius="100" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="100" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="100" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="100" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1741,1487" radius="100" map="3" z="-110" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_12">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="419,1118,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_spawner_14">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="fierce_dragon" />
+		<point pos="339,741,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_16_16">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="20" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1023,192" radius="20" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_19">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="367,739,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_21">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="403,1118,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_22">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="392,740,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_9_28">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="mongbat"><npcwander type="circle" radius="100" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="100" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="100" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1899,1609" radius="100" map="3" z="-110" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_29">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="419,1111,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_20_36">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="gore_fiend"><npcwander type="circle" radius="60" /></npc>
+		<circle center="2291,295" radius="60" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_victoria_quest_37">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="25" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="victoria"><npcwander type="circle" radius="5" /></npc>
+		<circle center="423,195" radius="2" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_elfbrigandcamp_elfbrigand_38">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="elfbrigandcamp"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elf_brigand"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1406,422" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_spawner_45">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="nythalia"><npcwander type="circle" radius="5" /></npc>
+		<circle center="82,1650" radius="2" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_47">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="403,1112,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_4_49">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="corpser"><npcwander type="circle" radius="70" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="70" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="70" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="70" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="70" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="70" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="70" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="70" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="70" /></npc>
+		<circle center="2304,1258" radius="70" map="3" z="-86" />
+	</spawnregion>
+
+	<spawnregion id="malas_hiddenfigure_quest_59">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="404,1101,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_gypsy_63">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="gypsy"><npcwander type="circle" radius="5" /></npc>
+		<circle center="796,1446" radius="5" map="3" z="-83" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_17_68">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1274,300" radius="40" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_8_69">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="mongbat"><npcwander type="circle" radius="100" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="100" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="100" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="100" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1641,1797" radius="100" map="3" z="-110" />
+	</spawnregion>
+
+	<spawnregion id="malas_gibberling_3_74">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="75" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="gibberling"><npcwander type="circle" radius="15" /></npc>
+		<circle center="953,1047" radius="15" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_elfbrigandcamp_elfbrigand_3_76">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="elfbrigandcamp"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elf_brigand"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1590,1281" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_gypsy_2_77">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="gypsy"><npcwander type="circle" radius="25" /></npc>
+		<circle center="795,1449" radius="25" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_jedah_quest_79">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="jedah_entille" />
+		<point pos="404,1093,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_kirin_82">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="75" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="kirin"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2179,124" radius="10" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_spawner_84">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="deadly_imp" />
+		<point pos="342,736,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_7_90">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1980,660" radius="40" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_99">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="419,1102,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_gibberling_2_101">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="75" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="gibberling"><npcwander type="circle" radius="15" /></npc>
+		<circle center="962,743" radius="15" map="3" z="-83" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_103">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="397,749,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_17_104">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="sheep"><npcwander type="circle" radius="130" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="130" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="130" /></npc>
+		<circle center="1347,1739" radius="130" map="3" z="-110" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_105">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="403,1110,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_14_107">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="70" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="70" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="70" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="70" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="70" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="70" /></npc>
+		<circle center="2030,500" radius="70" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_110">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="398,748,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_15_111">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="60" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="60" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="60" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="60" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="60" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="60" /></npc>
+		<circle center="1482,347" radius="60" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_116">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="418,1103,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_3_118">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="crystal_elemental"><npcwander type="circle" radius="70" /></npc>
+		<npc id="skittering_hopper"><npcwander type="circle" radius="70" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="70" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="70" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="70" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="70" /></npc>
+		<circle center="920,356" radius="70" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_enshrouded_figure_quest_122">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="enshrouded_figure" />
+		<point pos="403,1094,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_relnia_quest_123">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="relnia" />
+		<point pos="379,710,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_14_125">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="evil_healer"><npcwander type="circle" radius="100" /></npc>
+		<circle center="743,1280" radius="100" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_2_128">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="crystal_elemental"><npcwander type="circle" radius="120" /></npc>
+		<npc id="skittering_hopper"><npcwander type="circle" radius="120" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="120" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="120" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="120" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="120" /></npc>
+		<circle center="1194,638" radius="120" map="3" z="-84" />
+	</spawnregion>
+
+	<spawnregion id="malas_reptalons_130">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="100" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="reptalon"><npcwander type="circle" radius="5" /></npc>
+		<circle center="337,1893" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_8_132">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="60" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="60" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="60" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="60" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="60" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="60" /></npc>
+		<circle center="2233,555" radius="60" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_6_136">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="mummy"><npcwander type="circle" radius="100" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="100" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="100" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="100" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="100" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="100" /></npc>
+		<circle center="1837,1803" radius="100" map="3" z="-110" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_5_143">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1869,480" radius="40" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_151">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="380,727,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_spawner_157">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="5" /></npc>
+		<npc id="squirrel"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1558,168" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_pixie_2_162">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="pixie"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1265,1744" radius="3" map="3" z="-91" />
+	</spawnregion>
+
+	<spawnregion id="malas_valhalla_cat_167">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="cat"><npcwander type="circle" radius="5" /></npc>
+		<circle center="652,1434" radius="3" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_169">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="403,1103,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_elfbrigandcamp_elfbrigand_4_171">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="elfbrigandcamp"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elf_brigand"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2403,630" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_1_173">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="crystal_elemental"><npcwander type="circle" radius="120" /></npc>
+		<npc id="skittering_hopper"><npcwander type="circle" radius="120" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="120" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="120" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="120" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="120" /></npc>
+		<circle center="1434,607" radius="120" map="3" z="-89" />
+	</spawnregion>
+
+	<spawnregion id="malas_zoel_quest_186">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="zoel" />
+		<point pos="388,817,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_13_187">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1206,191" radius="40" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_16_188">
+		<active />
+		<maxnpcamount>29</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hind"><npcwander type="circle" radius="220" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="220" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="220" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="220" /></npc>
+		<circle center="771,1277" radius="220" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_4_190">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="20" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1659,112" radius="20" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_11_192">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1710,403" radius="40" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_195">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="367,750,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_9_196">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1137,223" radius="40" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_205">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="392,739,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_horus_quest_206">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="horus" />
+		<point pos="1192,513,-90,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_11_209">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="pixie"><npcwander type="circle" radius="30" /></npc>
+		<circle center="881,927" radius="30" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_211">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="392,731,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_elfbrigandcamp_elfbrigand_5_214">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="elfbrigandcamp"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elf_brigand"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1668,1512" radius="5" map="3" z="-110" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_216">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="367,749,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_7_218">
+		<active />
+		<maxnpcamount>33</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="mongbat"><npcwander type="circle" radius="160" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="160" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="160" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="160" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="160" /></npc>
+		<circle center="2231,1605" radius="160" map="3" z="-95" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_10_223">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1381,340" radius="40" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_225">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochi" />
+		<point pos="377,742,1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_0_231">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="cat"><npcwander type="circle" radius="180" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="180" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="180" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="180" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="180" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="180" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="180" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="180" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="180" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="180" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="180" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="180" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="180" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="180" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="180" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="180" /></npc>
+		<circle center="2267,1218" radius="180" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_12_233">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="20" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="20" /></npc>
+		<circle center="766,114" radius="20" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_234">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="367,729,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_237">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="418,1120,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_6_241">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="20" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="20" /></npc>
+		<circle center="2121,597" radius="20" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_dragonflame_1_242">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="dragons_flame_grand_mage"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="140,1946" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_12_243">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="titan"><npcwander type="circle" radius="220" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="220" /></npc>
+		<circle center="769,1277" radius="220" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_19_246">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="unicorn"><npcwander type="circle" radius="50" /></npc>
+		<circle center="2205,145" radius="50" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_5_247">
+		<active />
+		<maxnpcamount>26</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="gazer"><npcwander type="circle" radius="180" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="180" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="180" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="180" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="180" /></npc>
+		<npc id="treefellow"><npcwander type="circle" radius="180" /></npc>
+		<circle center="1471,1357" radius="180" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_249">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="379,727,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_gibberling_4_253">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="gibberling"><npcwander type="circle" radius="5" /></npc>
+		<circle center="986,891" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_263">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="392,730,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_0_264">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="crystal_elemental"><npcwander type="circle" radius="120" /></npc>
+		<npc id="skittering_hopper"><npcwander type="circle" radius="120" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="120" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="120" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="120" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="120" /></npc>
+		<circle center="1674,659" radius="120" map="3" z="-84" />
+	</spawnregion>
+
+	<spawnregion id="malas_spawner_269">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="5" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="5" /></npc>
+		<npc id="squirrel"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1540,153" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_hidden_figure_quest_271">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="hidden_figure" />
+		<point pos="405,1118,0,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_quest_272">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="367,730,-1,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_north_18_274">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="white_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ice_snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1587,386" radius="40" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_13_278">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="eagle"><npcwander type="circle" radius="200" /></npc>
+		<circle center="761,1283" radius="200" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_1_283">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="180" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="180" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="180" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="180" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="180" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="180" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="180" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="180" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="180" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="180" /></npc>
+		<circle center="2267,1218" radius="180" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_haochi_s_quest_287">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>wilderness</group>
+		<npc id="haochis_guardsman" />
+		<point pos="367,740,-1,3" />
+	</spawnregion>
 
 </definitions>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<item id="0x0f6c" hue="0x4f2">
+		<pos x="344" y="138" z="1" map="5" />
+		<pos x="344" y="180" z="1" map="5" />
+	</item>
+	<item id="0x375a" hue="0x487">
+		<pos x="771" y="899" z="20" map="5" />
+		<pos x="771" y="955" z="18" map="5" />
+	</item>
+	<item id="0x375a">
+		<pos x="344" y="146" z="5" map="5" />
+		<pos x="317" y="136" z="65" map="5" />
+		<pos x="345" y="131" z="85" map="5" />
+		<pos x="344" y="172" z="5" map="5" />
+		<pos x="317" y="182" z="65" map="5" />
+		<pos x="346" y="192" z="105" map="5" />
+	</item>
+	<item id="0x1bc3">
+		<pos x="88" y="362" z="0" map="5" />
+		<pos x="88" y="560" z="0" map="5" />
+		<pos x="88" y="768" z="0" map="5" />
+		<pos x="840" y="1264" z="-5" map="5" />
+		<pos x="840" y="1094" z="-5" map="5" />
+		<pos x="840" y="927" z="-5" map="5" />
+	</item>
+	<item id="0x3779">
+		<pos x="79" y="379" z="5" map="5" />
+		<pos x="52" y="389" z="65" map="5" />
+		<pos x="52" y="343" z="65" map="5" />
+		<pos x="80" y="338" z="85" map="5" />
+		<pos x="45" y="366" z="85" map="5" />
+		<pos x="81" y="399" z="105" map="5" />
+		<pos x="40" y="366" z="105" map="5" />
+		<pos x="79" y="353" z="5" map="5" />
+		<pos x="79" y="577" z="5" map="5" />
+		<pos x="52" y="587" z="65" map="5" />
+		<pos x="52" y="541" z="65" map="5" />
+		<pos x="80" y="536" z="85" map="5" />
+		<pos x="45" y="564" z="85" map="5" />
+		<pos x="81" y="597" z="105" map="5" />
+		<pos x="40" y="564" z="105" map="5" />
+		<pos x="79" y="551" z="5" map="5" />
+		<pos x="79" y="785" z="5" map="5" />
+		<pos x="52" y="795" z="65" map="5" />
+		<pos x="52" y="749" z="65" map="5" />
+		<pos x="80" y="744" z="85" map="5" />
+		<pos x="45" y="772" z="85" map="5" />
+		<pos x="81" y="805" z="105" map="5" />
+		<pos x="40" y="772" z="105" map="5" />
+		<pos x="79" y="759" z="5" map="5" />
+	</item>
+	<item id="0x0004">
+		<pos x="79" y="345" z="1" map="5" />
+		<pos x="79" y="543" z="1" map="5" />
+		<pos x="79" y="751" z="1" map="5" />
+	</item>
+	<item id="0x0003">
+		<pos x="841" y="1264" z="-5" map="5" />
+		<pos x="841" y="1094" z="-5" map="5" />
+		<pos x="841" y="927" z="-5" map="5" />
+	</item>
+</decoration>

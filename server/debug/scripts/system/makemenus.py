@@ -82,7 +82,7 @@ class MakeAction:
 	def __init__(self, parent, title):
 		assert(parent)
 		self.parent = parent
-		self.title = unicode(title)
+		self.title = str(title)
 		self.parent.subactions.append(self)
 		self.hasdetails = 0
 
@@ -115,7 +115,7 @@ class MakeAction:
 			historyname = 'makehistory'
 		identifier = '%s:%u' % (self.parent.id, self.index)
 		if player.hastag(historyname):
-			history = unicode(player.gettag(historyname)).split(';')
+			history = str(player.gettag(historyname)).split(';')
 			if identifier in history:
 				history.remove(identifier)
 
@@ -822,8 +822,10 @@ def craft_timer(player, arguments):
 # Internal function for sorting a list of
 # objects with a title property.
 #
-def comparetitle(a, b):
-	return cmp(a.title.lower(), b.title.lower())
+def comparetitle(a, b=None):
+	if b is not None:
+		return (str(a.title).lower() > str(b.title).lower()) - (str(a.title).lower() < str(b.title).lower())
+	return str(a.title).lower()
 
 #
 # MakeMenu Gump Response Handler
@@ -835,7 +837,7 @@ def MakeMenuResponse(player, arguments, response):
 
 	global menus
 	if not menu in menus:
-		raise RuntimeError, "Unknown makemenu: %s" % menu
+		raise RuntimeError( "Unknown makemenu: %s" % menu )
 	else:
 		menus[menu].response(player, response, arguments)
 
@@ -850,7 +852,7 @@ def MakeMenuTarget(player, arguments, target):
 
 	global menus
 	if not menu in menus:
-		raise RuntimeError, "Unknown makemenu: %s." % menu
+		raise RuntimeError( "Unknown makemenu: %s." % menu )
 	else:
 		if action == 1:
 			menus[menu].repair(player, arguments, target)
@@ -859,7 +861,7 @@ def MakeMenuTarget(player, arguments, target):
 		elif action == 3:
 			menus[menu].smelt(player, arguments, target)
 		else:
-			raise RuntimeError, "Unknown subaction: %u." % action
+			raise RuntimeError( "Unknown subaction: %u." % action )
 
 #
 # This class encapsulates all functionality for a single
@@ -878,7 +880,7 @@ class MakeMenu:
 		self.parent = parent
 		self.submenus = []
 		self.subactions = []
-		self.title = unicode(title)
+		self.title = str(title)
 		self.gumptype = 0
 		self.name_makelast = tr("Make Last")
 		self.delay = 0 # Delay in ms until item is crafted.
@@ -914,7 +916,7 @@ class MakeMenu:
 
 		# Ssee if the parent has the correct type
 		if self.parent and not isinstance(parent, MakeMenu):
-			raise TypeError, "MakeMenu %s has an invalid parent of type %s." % (self.id, type(parent).__name__)
+			raise TypeError( "MakeMenu %s has an invalid parent of type %s." % (self.id, type(parent).__name__) )
 
 		if self.parent:
 			self.parent.submenus.append(self)
@@ -922,12 +924,12 @@ class MakeMenu:
 		# See if all submenus have the correct type
 		for menu in self.submenus:
 			if not isinstance(menu, MakeMenu):
-				raise TypeError, "MakeMenu %s has an invalid submenu of type %s." % (self.id, type(menu).__name__)
+				raise TypeError( "MakeMenu %s has an invalid submenu of type %s." % (self.id, type(menu).__name__) )
 
 		# See if all subactions have the correct type
 		for action in self.subactions:
 			if not isinstance(menu, MakeAction):
-				raise TypeError, "MakeMenu %s has an invalid subaction of type %s." % (self.id, type(action).__name__)
+				raise TypeError( "MakeMenu %s has an invalid subaction of type %s." % (self.id, type(action).__name__) )
 
 	#
 	# Get topmost menu
@@ -998,7 +1000,7 @@ class MakeMenu:
 		# we show the history. So we don't need a huge iteration
 		# here.
 		if player.hastag(historyname):
-			history = unicode(player.gettag(historyname)).split(';')[:10]
+			history = str(player.gettag(historyname)).split(';')[:10]
 			yoffset = 60
 			j = 0
 			for item in history:
@@ -1503,7 +1505,7 @@ class MakeMenu:
 			historyname = 'makehistory'
 
 		if player.hastag(historyname):
-			history = unicode(player.gettag(historyname)).split(';')
+			history = str(player.gettag(historyname)).split(';')
 			if len(history) > 0:
 				(menu, action) = history[0].split(":")
 				global menus
@@ -1520,6 +1522,7 @@ class MakeMenu:
 	# Handle a response to this makemenu.
 	#
 	def response(self, player, response, arguments):
+		global menus
 		if self.requiretool and not self.checktool(player, wolfpack.finditem(arguments[0])):
 			return
 
@@ -1623,11 +1626,10 @@ class MakeMenu:
 
 			subaction = response.button & ~ 0x10000000
 			if player.hastag(historyname):
-				history = unicode(player.gettag(historyname)).split(';')
+				history = str(player.gettag(historyname)).split(';')
 				if subaction < len(history):
 					(menu, action) = history[subaction].split(':')
 					action = int(action)
-					global menus
 					if menu in menus and action < len(menus[menu].subactions):
 						menus[menu].subactions[action].make(player, arguments)
 
@@ -1640,11 +1642,10 @@ class MakeMenu:
 
 			subaction = response.button & ~ 0x08000000
 			if player.hastag(historyname):
-				history = unicode(player.gettag(historyname)).split(';')
+				history = str(player.gettag(historyname)).split(';')
 				if subaction < len(history):
 					(menu, action) = history[subaction].split(':')
 					action = int(action)
-					global menus
 					if menu in menus and action < len(menus[menu].subactions):
 						menus[menu].subactions[action].details(player, arguments)
 
@@ -1678,8 +1679,8 @@ class MakeMenu:
 	# Sort all subactions and submenus.
 	#
 	def sort(self):
-		self.submenus.sort(comparetitle)
-		self.subactions.sort(comparetitle)
+		self.submenus.sort(key=comparetitle)
+		self.subactions.sort(key=comparetitle)
 
 		# Assign ids to every subaction
 		for i in range(0, len(self.subactions)):

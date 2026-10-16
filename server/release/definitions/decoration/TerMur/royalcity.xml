@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<item id="0x4256">
+		<pos x="817" y="3417" z="0" map="5" />
+	</item>
+	<item id="0x0faf">
+		<pos x="820" y="3417" z="0" map="5" />
+		<pos x="811" y="3417" z="0" map="5" />
+	</item>
+	<item id="0x4257">
+		<pos x="818" y="3417" z="0" map="5" />
+	</item>
+	<item id="0x197e">
+		<pos x="814" y="3417" z="0" map="5" />
+	</item>
+	<item id="0x4255">
+		<pos x="808" y="3422" z="0" map="5" />
+	</item>
+	<item id="0x1982">
+		<pos x="815" y="3417" z="0" map="5" />
+	</item>
+	<item id="0x4254">
+		<pos x="808" y="3421" z="0" map="5" />
+	</item>
+	<item id="0x197a">
+		<pos x="813" y="3417" z="0" map="5" />
+	</item>
+	<item id="0x1061">
+		<pos x="804" y="3394" z="0" map="5" />
+	</item>
+	<item id="0x1062">
+		<pos x="805" y="3394" z="0" map="5" />
+	</item>
+	<item id="0x1015">
+		<pos x="807" y="3394" z="0" map="5" />
+	</item>
+	<item id="0x4277">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="795" y="3430" z="-10" map="5" />
+	</item>
+	<item id="0x4278">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="796" y="3430" z="-10" map="5" />
+	</item>
+	<item id="0x4279">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="797" y="3430" z="-10" map="5" />
+	</item>
+	<item id="0x427a">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="798" y="3430" z="-10" map="5" />
+	</item>
+	<item id="0x427b">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="795" y="3431" z="-10" map="5" />
+	</item>
+	<item id="0x427c">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="796" y="3431" z="-10" map="5" />
+	</item>
+	<item id="0x427d">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="797" y="3431" z="-10" map="5" />
+	</item>
+	<item id="0x427e">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="798" y="3431" z="-10" map="5" />
+	</item>
+	<item id="0x427f">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="795" y="3432" z="-10" map="5" />
+	</item>
+	<item id="0x4280">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="796" y="3432" z="-10" map="5" />
+	</item>
+	<item id="0x4281">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="797" y="3432" z="-10" map="5" />
+	</item>
+	<item id="0x4282">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="798" y="3432" z="-10" map="5" />
+	</item>
+	<item id="0x4283">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="795" y="3433" z="-10" map="5" />
+	</item>
+	<item id="0x4284">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="796" y="3433" z="-10" map="5" />
+	</item>
+	<item id="0x4285">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="797" y="3433" z="-10" map="5" />
+	</item>
+	<item id="0x4286">
+		<attribute key="name" value="Royal Soul Forge" />
+		<pos x="798" y="3433" z="-10" map="5" />
+	</item>
+	<item id="0x4263">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="747" y="3373" z="-65" map="5" />
+	</item>
+	<item id="0x4264">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="748" y="3373" z="-65" map="5" />
+	</item>
+	<item id="0x4265">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="749" y="3373" z="-65" map="5" />
+	</item>
+	<item id="0x4266">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="750" y="3373" z="-65" map="5" />
+	</item>
+	<item id="0x4267">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="747" y="3374" z="-65" map="5" />
+	</item>
+	<item id="0x4268">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="748" y="3374" z="-65" map="5" />
+	</item>
+	<item id="0x4269">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="749" y="3374" z="-65" map="5" />
+	</item>
+	<item id="0x426a">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="750" y="3374" z="-65" map="5" />
+	</item>
+	<item id="0x426b">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="747" y="3375" z="-65" map="5" />
+	</item>
+	<item id="0x426c">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="748" y="3375" z="-65" map="5" />
+	</item>
+	<item id="0x426d">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="749" y="3375" z="-65" map="5" />
+	</item>
+	<item id="0x426e">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="750" y="3375" z="-65" map="5" />
+	</item>
+	<item id="0x426f">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="747" y="3376" z="-65" map="5" />
+	</item>
+	<item id="0x4270">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="748" y="3376" z="-65" map="5" />
+	</item>
+	<item id="0x4271">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="749" y="3376" z="-65" map="5" />
+	</item>
+	<item id="0x4272">
+		<attribute key="name" value="Soul Forge" />
+		<pos x="750" y="3376" z="-65" map="5" />
+	</item>
+</decoration>

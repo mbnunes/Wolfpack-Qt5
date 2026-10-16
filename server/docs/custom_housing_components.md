@@ -21,7 +21,7 @@ Os arquivos XML presentes em `definitions/` (como `definitions/items/buildings/w
 
 ## 2. Componentes de Custom Housing em .txt (`data/components/`)
 
-Os arquivos em `data/components/` (`walls.txt`, `floors.txt`, `doors.txt`, `roof.txt`, `stairs.txt`, `suppinfo.txt`, `teleprts.txt`) vêm do sistema oficial de **Custom Housing (AOS / High Seas)** e são mantidos como padrão de mercado (compatíveis com ServUO e RunUO):
+Os arquivos em `data/components/` (`walls.txt`, `floors.txt`, `doors.txt`, `roof.txt`, `stairs.txt`, `suppinfo.txt`, `teleprts.txt`) vêm do sistema oficial de **Custom Housing (AOS / High Seas)** e são mantidos como padrão oficial (compatíveis com as expansões Broadsword e EA):
 
 - **O que representam**: O **catálogo dimensional e as matrizes de regras estruturais** utilizadas pelo cliente do UO na ferramenta de arquitetura (*Custom Housing Designer*).
 - **Por que são tabelas relacionais em texto**:
@@ -46,7 +46,7 @@ Os arquivos em `data/components/` (`walls.txt`, `floors.txt`, `doors.txt`, `roof
 Embora seja tecnicamente viável converter essas matrizes para tags XML do Wolfpack, a decisão de mantê-las em `.txt` traz três grandes vantagens técnicas:
 
 1. **Interoperabilidade e Atualização Imediata com Expansões do UO**:
-   - A comunidade do ServUO / RunUO mantém essas matrizes rigorosamente atualizadas com cada nova expansão oficial da Broadsword / EA (como *Time of Legends*, novos temas de casas, *High Seas*).
+   - A comunidade internacional de UO mantém essas matrizes rigorosamente atualizadas com cada nova expansão oficial da Broadsword / EA (como *Time of Legends*, novos temas de casas, *High Seas*).
    - Quando novos tiles são lançados, basta atualizar os arquivos `.txt` diretamente a partir do repositório de dados oficial, sem precisar reescrever e validar manualmente milhares de linhas de tags XML proprietárias.
 
 2. **Desempenho e Consumo de Memória no Boot**:

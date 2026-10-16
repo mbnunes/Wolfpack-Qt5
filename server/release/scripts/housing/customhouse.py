@@ -9,7 +9,7 @@ from wolfpack.gumps import cGump
 import wolfpack.utilities
 
 #
-# Custom Housing System based on ServUO
+# Custom Housing System
 #
 
 # Global cache of active design sessions:
@@ -132,23 +132,34 @@ def get_foundation_dimensions(foundation_id):
 	x_max = max(xs)
 	y_min = min(ys)
 	y_max = max(ys)
-	# ServUO resizes height + 1 for foundation walkway
+	# Resizes height + 1 for foundation walkway
 	width = (x_max - x_min) + 1
 	height = (y_max - y_min) + 2
 	y_max += 1
 	return (x_min, y_min, x_max, y_max, width, height)
 
+FOUNDATION_GRAPHICS = {
+	0: (0x0015, 0x0016, 0x0017, 0x0014), # DarkWood
+	1: (0x00BE, 0x00BF, 0x00C0, 0x00BD), # LightWood
+	2: (0x02FF, 0x02FE, 0x0300, 0x02FD), # Dungeon
+	3: (0x0043, 0x0042, 0x0044, 0x0041), # Brick
+	4: (0x0064, 0x0063, 0x0066, 0x0065), # Stone
+	5: (0x2DF9, 0x2DFA, 0x2DF8, 0x2DF7), # ElvenGrey
+	6: (0x2DFD, 0x2DFE, 0x2DFC, 0x2DFB), # ElvenNatural
+	7: (0x2CEF, 0x2CF0, 0x2BC8, 0x2BC7), # SimpleMarble
+	8: (0x2DCF, 0x2DD0, 0x2DC6, 0x2DC3), # PlainMarble
+	9: (0x2BB9, 0x2BBA, 0x2BB0, 0x2BAD), # OrnateMarble
+	10: (0x3671, 0x3670, 0x3673, 0x3672), # Crystal
+	11: (0x3675, 0x3674, 0x3677, 0x3676), # Shadow
+	12: (0x41A8, 0x41A7, 0x419E, 0x41A6), # GargishGreenMarble
+	13: (0x4166, 0x4167, 0x415F, 0x415C), # GargishTwoToneStone
+	14: (0x4B00, 0x4AFA, 0x4B06, 0x4B08), # Gothic
+	15: (0x9AC0, 0x9ABF, 0x9AC1, 0x9ABE), # Brick1
+	16: (0x9BD2, 0x9BD1, 0x9BD3, 0x9BD0), # Brick2
+}
+
 def get_empty_foundation_tiles(foundation_id, f_type=0):
-	# Graphic corners and sides matching ServUO
-	# DarkWood=0, LightWood=1, Dungeon=2, Brick=3, Stone=4
-	graphics = {
-		0: (0x0015, 0x0016, 0x0017, 0x0014),
-		1: (0x00BE, 0x00BF, 0x00C0, 0x00BD),
-		2: (0x02FF, 0x02FE, 0x0300, 0x02FD),
-		3: (0x0043, 0x0042, 0x0044, 0x0041),
-		4: (0x0064, 0x0063, 0x0066, 0x0065),
-	}
-	east, south, post, corner = graphics.get(f_type, graphics[0])
+	east, south, post, corner = FOUNDATION_GRAPHICS.get(f_type, FOUNDATION_GRAPHICS[0])
 	
 	comps = load_multi_components(foundation_id)
 	xs = [it[1] for it in comps] if comps else [-3, 3]
@@ -680,6 +691,43 @@ def commit_gump_callback(player, args, target):
 	
 	player.socket.sysmessage("House design committed successfully!")
 	end_customizing(player, multi, commit=True)
+
+#
+# Foundation style change
+#
+def apply_foundation_change(multi, new_type):
+	multi.settag('foundation_type', new_type)
+	design = get_or_create_design(multi)
+	f_id = multi.id
+	
+	new_base_tiles = get_empty_foundation_tiles(f_id, new_type)
+	new_border_map = {(t[1], t[2], t[3]): t[0] for t in new_base_tiles if t[3] == 0 and t[0] != 0x751}
+	
+	for state_name in ('current', 'design', 'backup'):
+		old_list = design.get(state_name, [])
+		updated_list = []
+		for it in old_list:
+			pos_key = (it[1], it[2], it[3])
+			if pos_key in new_border_map:
+				updated_list.append((new_border_map[pos_key], it[1], it[2], it[3]))
+			else:
+				updated_list.append(it)
+		existing_border_keys = {(it[1], it[2], it[3]) for it in updated_list}
+		for pos_key, item_id in new_border_map.items():
+			if pos_key not in existing_border_keys:
+				updated_list.append((item_id, pos_key[0], pos_key[1], pos_key[2]))
+		design[state_name] = updated_list
+		
+	design['revision'] += 1
+	multi.settag('ch_revision', design['revision'])
+	multi.settag('ch_current', json.dumps(design['current']))
+	
+	rev_pkt = build_revision_packet(multi.serial, design['revision'])
+	d8_pkt = build_d8_packet(multi.serial, design['revision'], False, design['bounds'], design['current'])
+	for char in wolfpack.chars(multi.pos, 30):
+		if char.player and char.socket:
+			char.socket.sendpacket(rev_pkt)
+			char.socket.sendpacket(d8_pkt)
 
 # Register global events
 def onLoad():

@@ -967,7 +967,20 @@ void cWorld::loadSQL( QList<PersistentObject*>& objects )
 
 	// Get Database Version (Since Version 7 SQL has it)
 	QString db_version;
-	getOption( "db_version", db_version, "7" );
+	getOption( "db_version", db_version, "" );
+	if ( db_version.isEmpty() || db_version.toInt() <= 2 )
+	{
+		setOption( "db_version", WP_DATABASE_VERSION );
+		db_version = WP_DATABASE_VERSION;
+		if ( Config::instance()->databaseDriver() == "mysql" )
+		{
+			PersistentBroker::instance()->executeQuery( QString("REPLACE INTO `settings` (`option`, `value`) VALUES ('db_version', '%1');").arg( WP_DATABASE_VERSION ) );
+		}
+		else
+		{
+			PersistentBroker::instance()->executeQuery( QString("REPLACE INTO settings (option, value) VALUES ('db_version', '%1');").arg( WP_DATABASE_VERSION ) );
+		}
+	}
 
 	if ( db_version.toInt() != DATABASE_VERSION )
 	{
@@ -1325,27 +1338,32 @@ void cWorld::save()
 				Console::instance()->log( LOG_ERROR, tr( "Couldn't open the database: %1\n" ).arg( e.error() ) );
 				return;
 			}
-			QSqlQuery query;
-			unsigned int i = 0;
-
-			while ( tableInfo[i].name )
+			static bool tablesChecked = false;
+			if ( !tablesChecked )
 			{
-				if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
-				{
-					// get create statement for database type
-					const char * create;
-					if ( Config::instance()->databaseDriver() == "mysql" )
-					{
-						create = tableInfo[i].mysqlcreate;
-					}
-					else
-					{
-						create = tableInfo[i].create;
-					}
-					query.exec( create );
-				}
+				QSqlQuery chkQuery;
+				unsigned int i = 0;
 
-				++i;
+				while ( tableInfo[i].name )
+				{
+					if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
+					{
+						// get create statement for database type
+						const char * create;
+						if ( Config::instance()->databaseDriver() == "mysql" )
+						{
+							create = tableInfo[i].mysqlcreate;
+						}
+						else
+						{
+							create = tableInfo[i].create;
+						}
+						chkQuery.exec( create );
+					}
+
+					++i;
+				}
+				tablesChecked = true;
 			}
 
 			// Try to Benchmark
@@ -1358,6 +1376,7 @@ void cWorld::save()
 			PersistentBroker::instance()->truncateTable("spawnregions");
 
 			PersistentBroker::instance()->prepareQueries();
+			QSqlQuery query;
 			query.prepare( "INSERT INTO spawnregions VALUES(?,?)" );
 
 			cItemIterator iItems;
@@ -1390,16 +1409,17 @@ void cWorld::save()
 
 			Guilds::instance()->save();
 
-			// Write Options
-			PersistentBroker::instance()->truncateTable( "settings" );
+			// Write Options (preserve acct_db_version if shared settings table)
+			PersistentBroker::instance()->executeQuery( "DELETE FROM `settings` WHERE `option` != 'acct_db_version';" );
 
+			QSqlQuery optQuery;
+			optQuery.prepare( "REPLACE INTO settings (option, value) VALUES (?, ?)" );
 			QMap<QString, QString>::iterator oit;
 			for ( oit = options.begin(); oit != options.end(); ++oit )
 			{
-				QString sql = QString( "INSERT INTO settings VALUES('%1','%2');" )
-				.arg( PersistentBroker::instance()->quoteString( oit.key() ) )
-				.arg( PersistentBroker::instance()->quoteString( oit.value() ) );
-				PersistentBroker::instance()->executeQuery( sql );
+				optQuery.addBindValue( oit.key() );
+				optQuery.addBindValue( oit.value() );
+				optQuery.exec();
 			}
 
 			PersistentBroker::instance()->commitTransaction();

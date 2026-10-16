@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<item id="0x06c9" hue="0x455">
+		<pos x="984" y="1116" z="-42" map="5" />
+		<pos x="984" y="1102" z="-42" map="5" />
+		<pos x="984" y="1090" z="-42" map="5" />
+		<pos x="984" y="1072" z="-42" map="5" />
+	</item>
+	<item id="0x06cb" hue="0x455">
+		<pos x="985" y="1116" z="-42" map="5" />
+		<pos x="985" y="1102" z="-42" map="5" />
+		<pos x="985" y="1090" z="-42" map="5" />
+		<pos x="985" y="1072" z="-42" map="5" />
+	</item>
+	<item id="0x06c9">
+		<pos x="1097" y="1174" z="1" map="5" />
+	</item>
+	<item id="0x06cb">
+		<pos x="1098" y="1174" z="1" map="5" />
+	</item>
+	<item id="0x0057">
+		<pos x="1007" y="1119" z="-42" map="5" />
+	</item>
+	<item id="0x4780">
+		<pos x="18" y="99" z="0" map="5" />
+		<pos x="52" y="99" z="0" map="5" />
+	</item>
+	<item id="0x0675" hue="0x6f3">
+		<pos x="519" y="2188" z="25" map="5" />
+		<pos x="519" y="2192" z="25" map="5" />
+	</item>
+	<item id="0x0677" hue="0x6f3">
+		<pos x="519" y="2189" z="25" map="5" />
+		<pos x="519" y="2193" z="25" map="5" />
+	</item>
+</decoration>

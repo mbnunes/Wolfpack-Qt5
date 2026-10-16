@@ -1,4 +1,396 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_sorcerers_15_0">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<npc id="blood_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="278,53" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_11_2">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="balron"><npcwander type="circle" radius="10" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<circle center="238,48" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_31_7">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="133,114" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_17_21">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="20" /></npc>
+		<circle center="310,92" radius="20" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_8_47">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="skeleton"><npcwander type="circle" radius="15" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="15" /></npc>
+		<circle center="427,95" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_3_73">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="25" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="25" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<circle center="447,19" radius="25" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_24_74">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="20" /></npc>
+		<circle center="143,70" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_26_77">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="balron"><npcwander type="circle" radius="15" /></npc>
+		<npc id="elder_gazer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="155,21" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_2_82">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="shade"><npcwander type="circle" radius="15" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="15" /></npc>
+		<circle center="394,69" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_12_108">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="imp"><npcwander type="circle" radius="40" /></npc>
+		<circle center="214,67" radius="40" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_9_115">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="254,20" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_19_169">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<circle center="336,37" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_1_175">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="10" /></npc>
+		<npc id="blood_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="455,70" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_0_207">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<circle center="427,67" radius="25" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_14_214">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="15" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="15" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="15" /></npc>
+		<circle center="262,84" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_25_231">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="160,59" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_30_237">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<circle center="133,114" radius="25" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_28_246">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="bone_magi"><npcwander type="circle" radius="20" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="20" /></npc>
+		<circle center="109,44" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_21_249">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="lich"><npcwander type="circle" radius="15" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="15" /></npc>
+		<circle center="336,42" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_7_285">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="383,29" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_23_288">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="146,83" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_18_301">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="blood_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="311,91" radius="20" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_22_302">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="350,42" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_29_305">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="15" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="15" /></npc>
+		<circle center="67,70" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_10_312">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gazer_larva"><npcwander type="circle" radius="15" /></npc>
+		<circle center="281,20" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_27_322">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="efreet"><npcwander type="circle" radius="5" /></npc>
+		<circle center="160,9" radius="5" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_4_350">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="headless_one"><npcwander type="circle" radius="15" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="15" /></npc>
+		<circle center="431,16" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_13_361">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="25" /></npc>
+		<circle center="262,84" radius="25" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_5_366">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="headless_one"><npcwander type="circle" radius="15" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="15" /></npc>
+		<circle center="462,16" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_6_437">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="462,16" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_20_450">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<circle center="336,48" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers_16_456">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="305,20" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_sorcerers2_5_459">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="25" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>sorcerers</group>
+		<npc id="bone_knight"><npcwander type="circle" radius="5" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="5" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="235,128" radius="5" map="2" z="-28" />
+	</spawnregion>
 
 </definitions>

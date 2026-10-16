@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<include file="definitions/decoration/TerMur/royalcity.xml"/>
+	<include file="definitions/decoration/TerMur/termur.xml"/>
+	<include file="definitions/decoration/TerMur/tomb_of_kings.xml"/>
+	<include file="definitions/decoration/TerMur/underworld.xml"/>
+	<include file="definitions/decoration/TerMur/stygian_abyss.xml"/>
+	<include file="definitions/decoration/TerMur/shadowguard.xml"/>
+	<include file="definitions/decoration/TerMur/signs.xml"/>
+	<include file="definitions/decoration/TerMur/doors.xml"/>
+</decoration>

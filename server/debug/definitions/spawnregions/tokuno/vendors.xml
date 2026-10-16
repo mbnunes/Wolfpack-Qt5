@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="tokuno_winterspurhealer_6">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="934,173" radius="5" map="4" z="34" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_44_7">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1152,936" radius="3" map="4" z="65" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_41_16">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1111,495" radius="3" map="4" z="18" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_mtshohealer_25">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1214,786" radius="5" map="4" z="11" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_yamotsu_mine_healer_29">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="253,791" radius="5" map="4" z="63" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_tokchamphealer_47">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="952,472" radius="5" map="4" z="11" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_marshhealer_54">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="168,989" radius="5" map="4" z="12" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_36_59">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="399,549" radius="3" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_33_74">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="558,534" radius="3" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_34_100">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="502,589" radius="3" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_42_108">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1221,494" radius="3" map="4" z="27" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_healerisamu_148">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1019,536" radius="5" map="4" z="28" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_43_153">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="895,519" radius="2" map="4" z="53" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_46_156">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="248,1089" radius="3" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_penisulahealer_160">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="279,1193" radius="5" map="4" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_45_162">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="979,238" radius="5" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_39_202">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="371,431" radius="5" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_kitsunehealer_244">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="536,536" radius="5" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_spiderhealer_258">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1060,818" radius="5" map="4" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_32_263">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1166,802" radius="3" map="4" z="27" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_makentohealer_305">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="722,1054" radius="5" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_38_308">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="297,637" radius="2" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_37_375">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="226,786" radius="3" map="4" z="57" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_40_384">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="763,247" radius="3" map="4" z="71" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_stormpointhealer_385">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1189,1115" radius="5" map="4" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_homarehealer_456">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="308,412" radius="5" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_35_464">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1177,985" radius="3" map="4" z="38" />
+	</spawnregion>
+
+</definitions>

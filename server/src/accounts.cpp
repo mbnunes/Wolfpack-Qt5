@@ -755,32 +755,63 @@ void cAccounts::load()
 			if ( Config::instance()->accountsDriver() == "mysql" )
 			{
 				execAccountsSql( db, createMySqlSettings );
-				execAccountsSql( db, QString("insert into `settings` (`option`, `value`) values ('db_version',%1);").arg( db_version ) );
+				execAccountsSql( db, QString("insert into `settings` (`option`, `value`) values ('acct_db_version',%1);").arg( ACCT_DATABASE_VERSION ) );
 			}
 			else
 			{
 				execAccountsSql( db, createSqlSettings );
-				execAccountsSql( db, QString("insert into settings (option, value) values ('db_version',%1);").arg( db_version ) );
+				execAccountsSql( db, QString("insert into settings (option, value) values ('acct_db_version',%1);").arg( ACCT_DATABASE_VERSION ) );
 			}
+			db_version = ACCT_DATABASE_VERSION;
 		}
 		else
 		{
-			// Load DB Version
+			// Load DB Version: check for 'acct_db_version' first to support shared database with world
 			QString settingsSql;
 			if ( Config::instance()->accountsDriver() == "mysql" )
 			{
-				settingsSql = "SELECT `value` FROM `settings` WHERE `option` = 'db_version';";
+				settingsSql = "SELECT `value` FROM `settings` WHERE `option` = 'acct_db_version';";
 			}
 			else
 			{
-				settingsSql = "SELECT value FROM settings WHERE option = 'db_version';";
+				settingsSql = "SELECT value FROM settings WHERE option = 'acct_db_version';";
 			}
 			QSqlQuery acctquery ( db );
 			acctquery.exec( settingsSql );
-			acctquery.first();
-
-			// Get Database Version
-			db_version = acctquery.value( 0 ).toInt();
+			if ( acctquery.first() )
+			{
+				db_version = acctquery.value( 0 ).toInt();
+			}
+			else
+			{
+				// Fallback: check if legacy 'db_version' exists and is for accounts (<= ACCT_DATABASE_VERSION)
+				if ( Config::instance()->accountsDriver() == "mysql" )
+				{
+					settingsSql = "SELECT `value` FROM `settings` WHERE `option` = 'db_version';";
+				}
+				else
+				{
+					settingsSql = "SELECT value FROM settings WHERE option = 'db_version';";
+				}
+				acctquery.exec( settingsSql );
+				if ( acctquery.first() && acctquery.value( 0 ).toInt() <= ACCT_DATABASE_VERSION )
+				{
+					db_version = acctquery.value( 0 ).toInt();
+				}
+				else
+				{
+					db_version = ACCT_DATABASE_VERSION;
+				}
+				// Save as acct_db_version so it doesn't collide with world db_version
+				if ( Config::instance()->accountsDriver() == "mysql" )
+				{
+					execAccountsSql( db, QString("REPLACE INTO `settings` (`option`, `value`) VALUES ('acct_db_version', '%1');").arg( db_version ) );
+				}
+				else
+				{
+					execAccountsSql( db, QString("REPLACE INTO settings (option, value) VALUES ('acct_db_version', '%1');").arg( db_version ) );
+				}
+			}
 		}
 
 		if ( db_version != ACCT_DATABASE_VERSION )

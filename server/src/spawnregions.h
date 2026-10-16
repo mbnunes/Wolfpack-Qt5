@@ -113,6 +113,8 @@ public:
 		return groups_;
 	}
 
+	bool isTown() const;
+
 	bool active() const
 	{
 		return active_;
@@ -192,6 +194,10 @@ public:
 	bool reSpawnToMaxGroup( const QString& group );
 	void deSpawn( void );
 	bool deSpawnGroup( const QString& group );
+
+	int reSpawnTowns();
+	int reSpawnToMaxTowns();
+	int deSpawnTowns();
 
 	ushort npcs( void )
 	{

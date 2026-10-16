@@ -144,8 +144,8 @@ def applyKeys( plank1, plank2, hold, deed ):
 #
 def createBoat( player, deed, pos ):
 	boat = wolfpack.addmulti(str(deed.gettag('multisection')))
-        if boat == None:
-                player.socket.sysmessage(tr('This deed is broken. Failed to create boat'))
+	if boat == None:
+		player.socket.sysmessage(tr('This deed is broken. Failed to create boat'))
 
 	boat.owner = player
 	boat.settag( 'boat_anchored', 1 )
@@ -161,39 +161,80 @@ def createBoat( player, deed, pos ):
 	splank = None
 	pplank = None
 
-        # Create special items
-        node = wolfpack.getdefinition(WPDT_MULTI, str(deed.gettag('multisection')) )
+	# Create special items
+	node = wolfpack.getdefinition(WPDT_MULTI, str(deed.gettag('multisection')) )
 	count = node.childcount
 	for i in range(0, count):
 		subnode = node.getchild(i)
 		if subnode.name == 'ids':
-                    boat.settag('boat_id_north', hex2dec( subnode.getattribute( 'north', '0' ) ) )
-                    boat.settag('boat_id_east', hex2dec( subnode.getattribute( 'east', '0' ) ) )                               
-                    boat.settag('boat_id_south', hex2dec( subnode.getattribute( 'south', '0' ) ) )                               
-                    boat.settag('boat_id_west', hex2dec( subnode.getattribute( 'west', '0' ) ) )                               
+			boat.settag('boat_id_north', hex2dec( subnode.getattribute( 'north', '0' ) ) )
+			boat.settag('boat_id_east', hex2dec( subnode.getattribute( 'east', '0' ) ) )
+			boat.settag('boat_id_south', hex2dec( subnode.getattribute( 'south', '0' ) ) )
+			boat.settag('boat_id_west', hex2dec( subnode.getattribute( 'west', '0' ) ) )
 		elif subnode.name == 'special_items': # Found section
-                        subsubnode = subnode.findchild('tillerman')
-                        if subsubnode != None:
-                                tillerman = createBoatSpecialItem( '3e4e', subsubnode, boat )
-                                boat.settag('boat_tillerman', tillerman.serial)
+			subsubnode = subnode.findchild('tillerman')
+			if subsubnode != None:
+				tillerman = createBoatSpecialItem( '3e4e', subsubnode, boat )
+				boat.settag('boat_tillerman', tillerman.serial)
 				if deed.hastag('hasname'):
 					tillerman.name = 'Tillerman of ' + boat.name
-                        subsubnode = subnode.findchild('hold')
-                        if subsubnode != None:
-                                hold = createBoatSpecialItem( '3eae', subsubnode, boat )
-                        subsubnode = subnode.findchild('planks')
-                        if subsubnode != None:
-                                portclosed = subsubnode.findchild('port_closed')
-                                pplank = createBoatSpecialItem( '3eb1', portclosed, boat )
-                                starclosed = subsubnode.findchild('star_closed')
-                                splank = createBoatSpecialItem( '3eb2', starclosed, boat )
-                                splank.settag('plank_starboard', 1)
+			subsubnode = subnode.findchild('hold')
+			if subsubnode != None:
+				hold = createBoatSpecialItem( '3eae', subsubnode, boat )
+			subsubnode = subnode.findchild('planks')
+			if subsubnode != None:
+				portclosed = subsubnode.findchild('port_closed')
+				pplank = createBoatSpecialItem( '3eb1', portclosed, boat )
+				starclosed = subsubnode.findchild('star_closed')
+				splank = createBoatSpecialItem( '3eb2', starclosed, boat )
+				splank.settag('plank_starboard', 1)
 
 	if not deed.hastag('lock'):
 		createKeys( splank, pplank, hold, boat, player )
 	else:
 		applyKeys( splank, pplank, hold, deed )
-                                
+
+	# Initialize Hit Points and Security
+	from boats import damage
+	damage.init_boat_hp( boat )
+	boat.settag( 'boat_owner', player.serial )
+
+	# High Seas fixtures (Wheel, Mooring Line, Pilot)
+	section = str( deed.gettag( 'multisection' ) or '' )
+	is_galleon = ( 'galleon' in section or 'britannian' in section )
+
+	# Mooring line for boarding
+	m_line = wolfpack.additem( 'mooring_line' )
+	if m_line:
+		z_off = 5 if is_galleon else 3
+		m_line.moveto( wolfpack.coord( boat.pos.x - 2, boat.pos.y, boat.pos.z + z_off, boat.pos.map ) )
+		m_line.update()
+		m_line.decay = 0
+		m_line.settag( 'boat_serial', boat.serial )
+		i = int( boat.gettag( 'boat_part_count' ) or 0 ) + 1
+		boat.settag( 'boat_part_count', i )
+		boat.settag( 'boat_part%i' % i, m_line.serial )
+
+	# Galleon specific fixtures
+	if is_galleon:
+		wheel = wolfpack.additem( 'shipwheel' )
+		if wheel:
+			wheel.moveto( wolfpack.coord( boat.pos.x, boat.pos.y + 4, boat.pos.z + 5, boat.pos.map ) )
+			wheel.update()
+			wheel.decay = 0
+			wheel.settag( 'boat_serial', boat.serial )
+			i = int( boat.gettag( 'boat_part_count' ) or 0 ) + 1
+			boat.settag( 'boat_part_count', i )
+			boat.settag( 'boat_part%i' % i, wheel.serial )
+
+		pilot = wolfpack.addnpc( 'galleon_pilot', wolfpack.coord( boat.pos.x, boat.pos.y + 5, boat.pos.z + 5, boat.pos.map ) )
+		if pilot:
+			pilot.settag( 'boat_serial', boat.serial )
+			pilot.update()
+			i = int( boat.gettag( 'boat_part_count' ) or 0 ) + 1
+			boat.settag( 'boat_part_count', i )
+			boat.settag( 'boat_part%i' % i, pilot.serial )
+
 #
 # Target
 #
@@ -202,20 +243,20 @@ def placement(player, arguments, target):
 	(dispid, xoffset, yoffset, zoffset) = arguments[1:] # Get the rest of the arguments
 
 	if not checkDeed(player, deed):
-		return	
+		return
 
-        region = wolfpack.region( target.pos.x, target.pos.y, target.map )
-        if region.cave:
+	region = wolfpack.region( target.pos.x, target.pos.y, target.map )
+	if region.cave:
 		player.socket.clilocmessage( 502488 ) # You can not place a ship inside a dungeon.
 		return
-                
+
 	(canplace, moveout) = wolfpack.canplaceboat(target.pos, dispid - 0x4000)
 
 	if not canplace or player.pos.distance( target.pos ) > 30:
 		player.socket.clilocmessage( 1043284 ) # A ship can not be created here.
 		return
 
-        createBoat( player, deed, target.pos )
+	createBoat( player, deed, target.pos )
 	deed.delete()
 
 	for obj in moveout:

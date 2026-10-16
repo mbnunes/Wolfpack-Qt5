@@ -187,6 +187,59 @@ def isPublic(house):
 			return True
 	return False
 
+def setPublic(house, public):
+	if not house:
+		return
+	if public:
+		house.settag('security_level', 3)
+	else:
+		house.settag('security_level', 1)
+
+#
+# Ban management
+#
+def getBans(house):
+	if not house:
+		return []
+	bans = []
+	if house.hastag('bans'):
+		bans = str(house.gettag('bans')).split(',')
+	return bans
+
+def addBan(house, banned):
+	if not banned or not house:
+		return
+	bans = getBans(house)
+	serial = str(banned.serial)
+	if serial not in bans:
+		bans.append(serial)
+		house.settag('bans', ','.join(bans))
+
+def removeBan(house, banned):
+	if not house or not banned:
+		return
+	bans = getBans(house)
+	serial = str(banned.serial)
+	changed = False
+	while serial in bans:
+		bans.remove(serial)
+		changed = True
+	if changed:
+		if len(bans) == 0:
+			house.deltag('bans')
+		else:
+			house.settag('bans', ','.join(bans))
+
+def removeAllBans(house):
+	if not house:
+		return
+	house.deltag('bans')
+
+def isBanned(player, house):
+	if not player or not house:
+		return False
+	return str(player.serial) in getBans(house)
+
 #
 # Register house on load
 #

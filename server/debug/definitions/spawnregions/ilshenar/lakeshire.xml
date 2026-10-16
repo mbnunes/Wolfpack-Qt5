@@ -1,4 +1,100 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_towns_20_57">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lakeshire</group>
+		<npc id="bird"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1110,542" radius="25" map="2" z="-77" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_23_72">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lakeshire</group>
+		<npc id="hind"><npcwander type="circle" radius="25" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="25" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="25" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1108,492" radius="25" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_17_93">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lakeshire</group>
+		<npc id="savage_rider"><npcwander type="circle" radius="15" /></npc>
+		<npc id="savage"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1046,517" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_21_112">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lakeshire</group>
+		<npc id="bird"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1108,492" radius="25" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_19_185">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lakeshire</group>
+		<npc id="savage"><npcwander type="circle" radius="15" /></npc>
+		<npc id="savage_ridgeback"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1116,527" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_22_243">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lakeshire</group>
+		<npc id="hind"><npcwander type="circle" radius="25" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="25" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="25" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1110,542" radius="25" map="2" z="-77" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_18_391">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lakeshire</group>
+		<npc id="savage_shaman"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1046,517" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ridgeback_442">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="59" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lakeshire</group>
+		<npc id="ridgeback"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1103,514" radius="40" map="2" z="-80" />
+	</spawnregion>
 
 </definitions>

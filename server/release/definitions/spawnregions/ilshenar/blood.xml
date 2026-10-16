@@ -1,4 +1,195 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_blood_13_22">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="daemon"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2114,951" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_9_31">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="32" /></npc>
+		<circle center="2170,920" radius="32" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_14_90">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="daemon"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2146,951" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_0_119">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="imp"><npcwander type="circle" radius="30" /></npc>
+		<circle center="2114,846" radius="30" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_1_128">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="imp"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2051,837" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_10_144">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="2058,907" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_7_150">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="7" /></npc>
+		<circle center="2138,868" radius="7" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_4_193">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="imp"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2177,836" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_2_251">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="hellcat"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2050,859" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_6_270">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="imp"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2138,868" radius="15" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_15_276">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="succubus"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="2113,1017" radius="30" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_3_343">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="hellcat"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2090,868" radius="15" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_8_384">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="balron"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2115,917" radius="15" map="2" z="-23" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_11_403">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="2058,932" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_12_436">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="daemon"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2083,951" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_5_445">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="imp"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2177,858" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_blood_poisonele_lich_lichlord_451">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>blood</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="15" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="15" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="15" /></npc>
+		<circle center="313,91" radius="15" map="2" z="-18" />
+	</spawnregion>
 
 </definitions>

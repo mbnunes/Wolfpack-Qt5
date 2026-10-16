@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="termur_abyss_snake_3_6">
+		<active />
+		<maxnpcamount>25</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="silver_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="coral_snake"><npcwander type="circle" radius="5" /></npc>
+		<circle center="816,658" radius="5" map="5" z="22" />
+	</spawnregion>
+
+	<spawnregion id="termur_abyss_lava_1_10">
+		<active />
+		<maxnpcamount>71</maxnpcamount>
+		<delay min="50" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lava_lizard"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fire_ant"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_elemental"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fire_daemon"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fire_daemon_renowned"><npcwander type="circle" radius="5" /></npc>
+		<circle center="581,898" radius="5" map="5" z="-73" />
+	</spawnregion>
+
+	<spawnregion id="termur_lava_elemental_2_12">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lava_elemental"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="5" /></npc>
+		<circle center="452,3133" radius="5" map="5" z="38" />
+	</spawnregion>
+
+	<spawnregion id="termur_lava_elemental_1_14">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="75" max="100" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lava_elemental"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fire_daemon"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="399,3128" radius="5" map="5" z="37" />
+	</spawnregion>
+
+	<spawnregion id="termur_abyss_hounds_1_15">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="5" /></npc>
+		<circle center="689,485" radius="5" map="5" z="-15" />
+	</spawnregion>
+
+	<spawnregion id="termur_abyss_coil_snakes_1_19">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="coil"><npcwander type="circle" radius="5" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="5" /></npc>
+		<circle center="698,773" radius="5" map="5" z="28" />
+	</spawnregion>
+
+	<spawnregion id="termur_abyss_undead_1_21">
+		<active />
+		<maxnpcamount>81</maxnpcamount>
+		<delay min="125" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="5" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="5" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletal_lich"><npcwander type="circle" radius="5" /></npc>
+		<npc id="skeletal_dragon_renowned"><npcwander type="circle" radius="5" /></npc>
+		<circle center="676,831" radius="5" map="5" z="-109" />
+	</spawnregion>
+
+	<spawnregion id="termur_abyss_maddening_horrow_snake_1_22">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="50" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="hydra"><npcwander type="circle" radius="5" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="5" /></npc>
+		<circle center="764,746" radius="5" map="5" z="23" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_fire_elemental_lavasnake_33">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="20" /></npc>
+		<circle center="432,3071" radius="20" map="5" z="39" />
+	</spawnregion>
+
+	<spawnregion id="termur_lava_4_37">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_daemon"><npcwander type="circle" radius="5" /></npc>
+		<circle center="507,2938" radius="5" map="5" z="33" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_lavaelemental_fire_lava_snake_40">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lava_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="20" /></npc>
+		<circle center="416,2939" radius="20" map="5" z="36" />
+	</spawnregion>
+
+	<spawnregion id="termur_lava_elemental_3_56">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="ortanord"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="5" /></npc>
+		<circle center="511,3042" radius="5" map="5" z="38" />
+	</spawnregion>
+
+	<spawnregion id="termur_abyss_snakes_2_63">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="giant_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="coral_snake"><npcwander type="circle" radius="5" /></npc>
+		<circle center="735,687" radius="5" map="5" z="-47" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_abyss_hydra_silverserpent_66">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="50" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="hydra"><npcwander type="circle" radius="5" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="5" /></npc>
+		<circle center="795,759" radius="5" map="5" z="23" />
+	</spawnregion>
+
+	<spawnregion id="termur_abyss_lava_2_82">
+		<active />
+		<maxnpcamount>21</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="coral_snake"><npcwander type="circle" radius="5" /></npc>
+		<circle center="649,703" radius="5" map="5" z="13" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_efreet_lava_elemental_phoenix_firegargoyle_85">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="efreet"><npcwander type="circle" radius="25" /></npc>
+		<npc id="lava_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="phoenix"><npcwander type="circle" radius="25" /></npc>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="25" /></npc>
+		<circle center="386,3062" radius="25" map="5" z="29" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_lavaelemental_lizard_snake_106">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lava_elemental"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_snake"><npcwander type="circle" radius="5" /></npc>
+		<circle center="418,2982" radius="5" map="5" z="26" />
+	</spawnregion>
+
+</definitions>

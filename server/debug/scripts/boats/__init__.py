@@ -6,3 +6,5 @@
 #===============================================================#
 # Boats module initialization				        #
 #===============================================================#
+
+from boats import deed, tillerman, plank, security, damage, wheel, mooring, cannons, pilot, tracking, runes

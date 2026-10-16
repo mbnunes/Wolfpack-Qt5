@@ -5,152 +5,179 @@ import wolfpack.sockets
 import wolfpack.accounts
 import wolfpack.time
 
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Wolfpack Status</title>
-<style type="text/css">
-<!--
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #FFFFFF;
-}
-body,td,th {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10pt;
-}
-.maintitle {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 16px;
-	font-weight: bold;
-	color: #336633;
-}
-
-.smalltext {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 10px;
-	color: #999999;
-}
-
-.sectiontitle {
-
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 14px;
-	font-weight: bold;
-	color: #666666;
-}
-
-.text {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 12px;
-}
-
-img {
-	border: 0;
-}
-
-a {
-	color: #0000FF;
-	text-decoration: none;
-}
-
-a:hover {
-	color: #FF0000;
-}
-
--->
-</style></head>
-
-<body>
-<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-	<td bgcolor="#004026"><img src="top_logo.jpg" width="586" height="87" /></td>
-  </tr>
-  <tr>
-	<td bgcolor="#DDDDDD" height="2"><img src="spacer.gif" width="1" height="2" /></td>
-  </tr>
-</table>
-<div align="center"><br />
-<span class="maintitle">SERVERSTATUS</span>  </div>
-<table width="530"  border="0" align="center" cellpadding="5" cellspacing="0">
-  <tr>
-<%
 socket = wolfpack.sockets.first()
 nextsocket = wolfpack.sockets.next()
 count_players = 0
 while socket:
-	if( socket.player and not socket.player.invisible ):
-		count_players+=1
+	if socket.player and not socket.player.invisible:
+		count_players += 1
 	socket = nextsocket
 	nextsocket = wolfpack.sockets.next()
 %>
-	<td width="520"><strong>Connected Accounts:</strong> <%=count_players%> of <%=wolfpack.accounts.count()%><br />
-	  <br />
-	  <strong>Player Characters:</strong> <%=count_players%> <br />
-	  <strong>NPCs:</strong> <%=wolfpack.npccount()%> <br />
-	  <strong>Items:</strong> <%=wolfpack.itemcount()%> <br />
-	  <strong>Ingame Time:</strong> Day <%=wolfpack.time.days()%>, <%=wolfpack.time.hour()%>:<%="%02u" % wolfpack.time.minute()%> <br /> <br />
-	  <strong>Connected Players:</strong><br>
-	  <table width="100%" border="0" cellspacing="1" cellpadding="0">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wolfpack Shard Status</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/custom.css" />
+
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-size: 0.92rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .wp-header {
+      background-color: #004026;
+      border-bottom: 2px solid #002b1a;
+      height: 64px;
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+  <!-- Header com Banner / Logo Wolfpack -->
+  <header class="wp-header shadow-sm">
+    <div class="container px-3 px-md-4 d-flex align-items-center justify-content-between h-100">
+      <img src="images/top_logo.jpg" alt="Wolfpack Logo" class="img-fluid" style="max-height: 48px;" />
+      <span class="badge bg-success-subtle text-success border border-success px-3 py-2 rounded-pill">
+        <span class="spinner-grow spinner-grow-sm me-1" role="status" aria-hidden="true" style="width: 0.5rem; height: 0.5rem;"></span>
+        Online
+      </span>
+    </div>
+  </header>
+
+  <!-- Conteúdo Principal -->
+  <main class="container my-4 flex-grow-1">
+    
+    <div class="text-center mb-4">
+      <h3 class="fw-bold mb-1" style="color: #004026;">Status do Servidor</h3>
+      <p class="text-secondary small">Estatísticas públicas e jogadores online em Britannia.</p>
+    </div>
+
+    <!-- Cards de Métricas -->
+    <div class="row g-3 mb-4">
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 border border-light-subtle shadow-sm">
+          <div class="card-body">
+            <span class="text-secondary small fw-semibold text-uppercase">Jogadores Online</span>
+            <div class="d-flex align-items-baseline gap-2 mt-2">
+              <h2 class="fw-bold text-dark mb-0"><%=count_players%></h2>
+              <span class="text-secondary small">/ <%=wolfpack.accounts.count()%> contas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 border border-light-subtle shadow-sm">
+          <div class="card-body">
+            <span class="text-secondary small fw-semibold text-uppercase">NPCs Vivos</span>
+            <div class="d-flex align-items-baseline gap-2 mt-2">
+              <h2 class="fw-bold text-dark mb-0"><%=wolfpack.npccount()%></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 border border-light-subtle shadow-sm">
+          <div class="card-body">
+            <span class="text-secondary small fw-semibold text-uppercase">Itens no Mundo</span>
+            <div class="d-flex align-items-baseline gap-2 mt-2">
+              <h2 class="fw-bold text-dark mb-0"><%=wolfpack.itemcount()%></h2>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-lg-3">
+        <div class="card h-100 border border-light-subtle shadow-sm">
+          <div class="card-body">
+            <span class="text-secondary small fw-semibold text-uppercase">Horário In-game</span>
+            <div class="d-flex align-items-baseline gap-2 mt-2">
+              <h2 class="fw-bold text-dark mb-0 font-monospace"><%=wolfpack.time.hour()%>:<%="%02u" % wolfpack.time.minute()%></h2>
+              <span class="text-secondary small">Dia <%=wolfpack.time.days()%></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabela de Jogadores Conectados -->
+    <div class="card border border-light-subtle shadow-sm">
+      <div class="card-header bg-white py-3">
+        <h6 class="fw-bold text-dark mb-0">Jogadores Conectados Recentemente</h6>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle mb-0">
+          <thead class="table-light small text-uppercase text-secondary">
+            <tr>
+              <th scope="col" class="ps-3">Personagem</th>
+              <th scope="col">Notoriedade</th>
+              <th scope="col">Localização</th>
+            </tr>
+          </thead>
+          <tbody>
 <%
 socket = wolfpack.sockets.first()
 nextsocket = wolfpack.sockets.next()
-while socket:
-	if( socket.player and not socket.player.invisible ):
-		%>
-		<tr>
-		<%
-		notoriety = socket.player.notoriety()
-		NOTOCOLORS = {
-			1: "#0000DD",
-			2: "#10d010",
-			3: "#d0d0d0",
-			4: "#d0d0d0",
-			5: "#ff9900",
-			6: "#d01010",
-		}
-		
-		BODYIMGS = {
-			0x190: 'gender_male.gif',
-			0x191: 'gender_female.gif',
-			0x192: 'gender_male.gif',
-			0x193: 'gender_female.gif',			
-		}
-		
-		print '<td width="16" valign="middle">'
-		if BODYIMGS.has_key(socket.player.id):
-			print '<div align="center"><img src="%s"></div>' % BODYIMGS[socket.player.id]
-		else:
-			print '<img src="spacer.gif" width="14">'
-		print '</td><td valign="middle">'
-		
-		if NOTOCOLORS.has_key(notoriety):
-			print '<font color="%s" face="Georgia"><b>%s</b></font>' % (NOTOCOLORS[notoriety], unicode(socket.player.name))
-		else:
-			print '<b>%s</b>' % socket.player.name
+has_players = False
 
-	  	if socket.player.region and len(socket.player.region.name) > 0:
-	  		print ' (%s)' % unicode(socket.player.region.name)
-	  		
-	  	print '</td></tr>'
-		%></tr>
-<%
-		if( nextsocket and nextsocket.player and not nextsocket.player.invisible ):
-			%>
-		<tr><td colspan="2" bgcolor="#DDDDDD"><img src="spacer.gif" width="1" height="1"></td></tr>
-			
-<%
+NOTOCOLORS = {
+	1: "#0d6efd",
+	2: "#198754",
+	3: "#6c757d",
+	4: "#6c757d",
+	5: "#fd7e14",
+	6: "#dc3545",
+}
+
+while socket:
+	if socket.player and not socket.player.invisible:
+		has_players = True
+		notoriety = socket.player.notoriety()
+		color = NOTOCOLORS.get(notoriety, "#212529")
+		region_txt = str(socket.player.region.name) if (socket.player.region and len(socket.player.region.name) > 0) else "Desconhecido"
+		gender_icon = "&#9792;" if socket.player.id in [0x191, 0x193] else "&#9794;"
+
+		sys.stdout.write(f'''
+		<tr>
+			<td class="ps-3">
+				<span class="text-secondary me-1">{gender_icon}</span>
+				<strong style="color: {color};">{str(socket.player.name)}</strong>
+			</td>
+			<td>
+				<span class="badge border" style="color: {color}; border-color: {color} !important;">
+					Notoriety #{notoriety}
+				</span>
+			</td>
+			<td class="text-secondary">{region_txt}</td>
+		</tr>
+		''')
 	socket = nextsocket
 	nextsocket = wolfpack.sockets.next()
+
+if not has_players:
+	sys.stdout.write('<tr><td colspan="3" class="text-center py-4 text-muted">Nenhum jogador conectado no momento.</td></tr>')
 %>
-		</table>
-	  </td>
-  </tr>
-</table>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="py-3 bg-white border-top text-center text-secondary small">
+    Wolfpack Shard Server &bull; Status
+  </footer>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

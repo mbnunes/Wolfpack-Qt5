@@ -80,7 +80,7 @@ def showWhoGump(player, page):
 	for char in wholist:
 		gump.addButton( 20, 40 + offset, 0xFA5, 0xFA7, 2 + char.serial )
 		gump.addText( 54, 40 + offset, tr("%s [%s]") % ( char.name, char.account.name ), 0x834 )
-		gump.addText( 257, 40 + offset, unicode(char.socket.address), 0x834 )
+		gump.addText( 257, 40 + offset, str(char.socket.address), 0x834 )
 		offset += 24
 
 	gump.setArgs( [ current_page ] )

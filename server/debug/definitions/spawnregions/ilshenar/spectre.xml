@@ -1,4 +1,18 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_spectre_0_458">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>spectre</group>
+		<npc id="shade"><npcwander type="circle" radius="40" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="40" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1981,1059" radius="40" map="2" z="-28" />
+	</spawnregion>
 
 </definitions>

@@ -1,153 +1,723 @@
-<!--
-=================================================================
-|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: Ripper                        |
-|   )).-' {{ ;'`   | Revised by: Dreoth                         |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
-=================================================================
--->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
-	<spawnregion id="Zento_vendor">
-		<inactive />
+	<spawnregion id="tokuno_vendors_18_12">
+		<active />
 		<maxnpcamount>1</maxnpcamount>
-		<delay value="3600" />
+		<delay min="125" max="250" />
 		<npcspercycle>1</npcspercycle>
-		<group>vendors</group>
-		<group>Zento_vendors</group>
-		<group>Zento_cove</group>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="herbalist_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="683,1298" radius="4" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_1">
+	<spawnregion id="tokuno_spawner_41">
 		<active />
-		<npc id="sebanker_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="sebanker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="735,1255,30,4" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="civilist_base_male" />
+		<point pos="678,1277,47,4" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_2">
+	<spawnregion id="tokuno_vendors_29_44">
 		<active />
-		<npc id="seleatherworker_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="seleatherworker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="727,1213,25,4" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="weaver"><npcwander type="circle" radius="5" /></npc>
+		<circle center="744,1210" radius="4" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_3">
+	<spawnregion id="tokuno_vendors_14_58">
 		<active />
-		<npc id="setanner_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="setanner_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="742,1216,25,4" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tailor_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="744,1219" radius="4" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_4">
+	<spawnregion id="tokuno_vendors_26_62">
 		<active />
-		<npc id="setinker_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="setinker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="724,1221,45,4" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="806,1308" radius="4" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_5">
+	<spawnregion id="tokuno_vendors_3_65">
 		<active />
-		<npc id="secarpenter_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="secarpenter_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="746,1222,45,4" />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="baker"><npcwander type="circle" radius="10" /></npc>
+		<npc id="butcher_male"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cook_male"><npcwander type="circle" radius="10" /></npc>
+		<circle center="703,1262" radius="10" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_6">
+	<spawnregion id="tokuno_townslife_0_67">
 		<active />
-		<npc id="searchitect_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="searchitect_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="747,1206,45,4" />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="667,1343" radius="20" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_7">
+	<spawnregion id="tokuno_townslife_14_68">
 		<active />
-		<npc id="seinnkeeper_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="seinnkeeper_female"><npcwander type="circle" radius="10" /></npc>
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<circle center="628,1272" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_8_70">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="713,1351" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_9_73">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="animal_trainer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="789,1278" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_21_84">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="807,1287" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_0_88">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bard_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="668,1254" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_23_91">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="834,1351" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_20_92">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mage_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="695,1297" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_21_93">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="jeweler_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="724,1297" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_27_99">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<circle center="711,1322" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_20_105">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="812,1222" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_1_119">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="756,1236" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_10_121">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="636,1331" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_19_122">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="alchemist_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="702,1298" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_22_124">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="provisioner_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="730,1282" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_7_126">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="740,1284" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_4_136">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="679,1224" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_16_139">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<circle center="857,1166" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_17_146">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<circle center="853,1287" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_4_147">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="shipwright_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="669,1266" radius="4" map="4" z="47" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_12_150">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="innkeeper_male" />
 		<point pos="679,1207,25,4" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_8">
+	<spawnregion id="tokuno_townslife_22_155">
 		<active />
-		<npc id="sebutcher_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="sebutcher_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="702,1248,25,4" />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<circle center="844,1318" radius="20" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_9">
+	<spawnregion id="tokuno_vendors_31_159">
 		<active />
-		<npc id="sebaker_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="sebaker_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="705,1274,25,4" />
+		<maxnpcamount>30</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="noble"><npcwander type="circle" radius="80" /></npc>
+		<npc id="peasant"><npcwander type="circle" radius="80" /></npc>
+		<npc id="hire_beggar"><npcwander type="circle" radius="80" /></npc>
+		<npc id="samurai"><npcwander type="circle" radius="80" /></npc>
+		<npc id="ninja"><npcwander type="circle" radius="80" /></npc>
+		<circle center="735,1256" radius="80" map="4" z="30" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_10">
+	<spawnregion id="tokuno_ansella_quest_163">
 		<active />
-		<npc id="sealchemist_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="sealchemist_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="685,1300,25,4" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="civilist_base_male" />
+		<point pos="761,1200,25,4" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_11">
+	<spawnregion id="tokuno_townslife_26_180">
 		<active />
-		<npc id="sejeweler_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="sejeweler_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="727,1300,25,4" />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="744,1347" radius="20" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_12">
+	<spawnregion id="tokuno_vendors_7_181">
 		<active />
-		<npc id="sestablemaster_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="sestablemaster_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="779,1276,25,4" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="civilist_base_male" />
+		<point pos="732,1256,30,4" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_13">
+	<spawnregion id="tokuno_vendors_1_189">
 		<active />
-		<npc id="seblacksmith_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="seblacksmith_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="769,1256,25,4" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="blacksmith_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="773,1248" radius="4" map="4" z="26" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_14">
+	<spawnregion id="tokuno_townslife_12_194">
 		<active />
-		<npc id="seweaponsmith_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="seweaponsmith_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="768,1247,26,4" />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="625,1317" radius="20" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_15">
+	<spawnregion id="tokuno_townslife_25_196">
 		<active />
-		<npc id="searmorer_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="searmorer_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="779,1257,26,4" />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="20" /></npc>
+		<circle center="770,1344" radius="20" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_16">
+	<spawnregion id="tokuno_vendors_13_207">
 		<active />
-		<npc id="sehealer_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="sehealer_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="781,1219,25,4" />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tinker_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="720,1213" radius="4" map="4" z="45" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_17">
+	<spawnregion id="tokuno_vendors_27_223">
 		<active />
-		<npc id="seherbalist_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="seherbalist_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="699,1298,25,4" />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="armorer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="749,1303" radius="4" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_18">
+	<spawnregion id="tokuno_townslife_28_229">
 		<active />
-		<npc id="seweaver_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="seweaver_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="745,1223,25,4" />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="690,1288" radius="20" map="4" z="25" />
 	</spawnregion>
 
-	<spawnregion inherit="Zento_vendor" id="Zento_vendor_19">
+	<spawnregion id="tokuno_townslife_24_232">
 		<active />
-		<npc id="setailor_male"><npcwander type="circle" radius="10" /></npc>
-		<npc id="setailor_female"><npcwander type="circle" radius="10" /></npc>
-		<point pos="745,1204,25,4" />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="803,1338" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_18_265">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<circle center="843,1247" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_6_280">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="721,1274" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_16_293">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bard"><npcwander type="circle" radius="5" /></npc>
+		<circle center="675,1265" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_6_307">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="carpenter_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="739,1223" radius="4" map="4" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_8_318">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bowyer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="781,1301" radius="4" map="4" z="26" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_11_324">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="692,1213" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_13_331">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="630,1225" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_15_336">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<circle center="768,1192" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_11_356">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="628,1310" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_9_363">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="710,1350" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_3_367">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="683,1231" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_5_370">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tanner_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="720,1211" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_15_392">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mapmaker"><npcwander type="circle" radius="5" /></npc>
+		<circle center="691,1264" radius="4" map="4" z="47" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_2_417">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="712,1238" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_tok_fisherman_guildmaster_butcher_425">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="fisherman_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fisher_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<npc id="shipwright_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="716,1350" radius="5" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_23_426">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="781,1219" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_30_430">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="779,1259" radius="4" map="4" z="26" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_24_431">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="banker_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="729,1249" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_vendors_28_438">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="blacksmith_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="661,1209" radius="4" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_19_443">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<circle center="844,1198" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_townslife_5_451">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="706,1208" radius="20" map="4" z="25" />
 	</spawnregion>
 
 </definitions>

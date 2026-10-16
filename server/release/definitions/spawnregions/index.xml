@@ -4,4 +4,5 @@
 	<include file="definitions/spawnregions/ilshenar/index.xml" />
 	<include file="definitions/spawnregions/malas/index.xml" />
 	<include file="definitions/spawnregions/tokuno/index.xml" />
+	<include file="definitions/spawnregions/termur/index.xml" />
 </definitions>

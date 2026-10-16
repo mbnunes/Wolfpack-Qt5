@@ -1,0 +1,79 @@
+/* Paleta Oficial Wolfpack */
+:root {
+    --wp-green-dark: #004026;
+    --wp-green-medium: #1b3819;
+    --wp-green-light: #c6dbbf;
+    --wp-green-hover: #eaf2e8;
+}
+
+/* Tipografia e Base */
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #212529;
+}
+
+/* Header */
+.wp-header {
+    background-color: var(--wp-green-dark);
+    border-bottom: 2px solid #002b1a;
+}
+
+.wp-userbar {
+    background-color: #e9ecef;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 0.85rem;
+}
+
+.wp-title {
+    color: var(--wp-green-dark);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Sidebar */
+.wp-sidebar-card {
+    border-color: #bcd0b5;
+    background-color: #ffffff;
+}
+
+.wp-sidebar-header {
+    background-color: var(--wp-green-light);
+    color: var(--wp-green-medium);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.list-group-item-action:hover {
+    background-color: var(--wp-green-hover);
+    color: var(--wp-green-dark);
+}
+
+/* Reset dos cards para garantir fundo branco legível */
+.card {
+    background-color: #ffffff !important;
+    border: 1px solid #e2e8f0;
+}
+
+/* Botões com o Verde Wolfpack */
+.btn-wolfpack {
+    background-color: var(--wp-green-dark);
+    color: #ffffff;
+    border: none;
+}
+
+.btn-wolfpack:hover,
+.btn-wolfpack:focus {
+    background-color: #002d1b;
+    color: #ffffff;
+}
+
+.btn-outline-wolfpack {
+    border-color: var(--wp-green-dark);
+    color: var(--wp-green-dark);
+}
+
+.btn-outline-wolfpack:hover {
+    background-color: var(--wp-green-dark);
+    color: #ffffff;
+}

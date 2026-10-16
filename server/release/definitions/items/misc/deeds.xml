@@ -477,5 +477,146 @@
 		<tag name="carpentry_type" value="brocade_square_goza_south" />
 		<category>Professions\Tailorer\Deeds\Brocade square goza (south)</category>
 	</item>
+<!-- ================= CONTEST CASTLES & KEEPS DEEDS ================= -->
+
+	<item id="foundation_3_23x23_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>23x23 3-Story Customizable Keep Deed</name>
+		<tag name="section" value="foundation_3_23x23" />
+		<category>Deeds\Houses\23x23 3-Story Customizable Keep</category>
+	</item>
+
+	<item id="foundation_3_32x32_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>32x32 3-Story Customizable Castle Deed</name>
+		<tag name="section" value="foundation_3_32x32" />
+		<category>Deeds\Houses\32x32 3-Story Customizable Castle</category>
+	</item>
+
+	<item id="trinsic_keep_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Trinsic Keep Deed</name>
+		<tag name="section" value="trinsic_keep" />
+		<category>Deeds\Houses\Trinsic Keep</category>
+	</item>
+
+	<item id="gothic_rose_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Gothic Rose Castle Deed</name>
+		<tag name="section" value="gothic_rose_castle" />
+		<category>Deeds\Houses\Gothic Rose Castle</category>
+	</item>
+
+	<item id="elsa_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Elsa Castle Deed</name>
+		<tag name="section" value="elsa_castle" />
+		<category>Deeds\Houses\Elsa Castle</category>
+	</item>
+
+	<item id="spires_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Spires Castle Deed</name>
+		<tag name="section" value="spires_castle" />
+		<category>Deeds\Houses\Spires Castle</category>
+	</item>
+
+	<item id="castle_of_oceania_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Castle Of Oceania Deed</name>
+		<tag name="section" value="castle_of_oceania" />
+		<category>Deeds\Houses\Castle Of Oceania</category>
+	</item>
+
+	<item id="feudal_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Feudal Castle Deed</name>
+		<tag name="section" value="feudal_castle" />
+		<category>Deeds\Houses\Feudal Castle</category>
+	</item>
+
+	<item id="robins_nest_keep_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Robin's Nest Keep Deed</name>
+		<tag name="section" value="robins_nest_keep" />
+		<category>Deeds\Houses\Robin's Nest Keep</category>
+	</item>
+
+	<item id="traditional_keep_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Traditional Keep Deed</name>
+		<tag name="section" value="traditional_keep" />
+		<category>Deeds\Houses\Traditional Keep</category>
+	</item>
+
+	<item id="villa_crowley_keep_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Villa Crowley Keep Deed</name>
+		<tag name="section" value="villa_crowley_keep" />
+		<category>Deeds\Houses\Villa Crowley Keep</category>
+	</item>
+
+	<item id="darkthorn_keep_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Darkthorn Keep Deed</name>
+		<tag name="section" value="darkthorn_keep" />
+		<category>Deeds\Houses\Darkthorn Keep</category>
+	</item>
+
+	<item id="sandalwood_keep_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Sandalwood Keep Deed</name>
+		<tag name="section" value="sandalwood_keep" />
+		<category>Deeds\Houses\Sandalwood Keep</category>
+	</item>
+
+	<item id="casa_moga_keep_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Casa Moga Keep Deed</name>
+		<tag name="section" value="casa_moga_keep" />
+		<category>Deeds\Houses\Casa Moga Keep</category>
+	</item>
+
+	<item id="robins_roost_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Robin's Roost Castle Deed</name>
+		<tag name="section" value="robins_roost_castle" />
+		<category>Deeds\Houses\Robin's Roost Castle</category>
+	</item>
+
+	<item id="camelot_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Camelot Castle Deed</name>
+		<tag name="section" value="camelot_castle" />
+		<category>Deeds\Houses\Camelot Castle</category>
+	</item>
+
+	<item id="lacrimae_in_caelo_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Lacrimae In Caelo Castle Deed</name>
+		<tag name="section" value="lacrimae_in_caelo_castle" />
+		<category>Deeds\Houses\Lacrimae In Caelo Castle</category>
+	</item>
+
+	<item id="okinawa_sweet_dream_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Okinawa Sweet Dream Castle Deed</name>
+		<tag name="section" value="okinawa_sweet_dream_castle" />
+		<category>Deeds\Houses\Okinawa Sweet Dream Castle</category>
+	</item>
+
+	<item id="sandstone_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>The Sandstone Castle Deed</name>
+		<tag name="section" value="sandstone_castle" />
+		<category>Deeds\Houses\The Sandstone Castle</category>
+	</item>
+
+	<item id="grimswind_sisters_castle_deed" inherit="house_deed">
+		<id>0x14f0</id>
+		<name>Grimswind Sisters Castle Deed</name>
+		<tag name="section" value="grimswind_sisters_castle" />
+		<category>Deeds\Houses\Grimswind Sisters Castle</category>
+	</item>
 
 </definitions>

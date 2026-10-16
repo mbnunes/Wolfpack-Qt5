@@ -1,4 +1,551 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="malas_doom_9_3">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<circle center="479,168" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_19_13">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="vampire_bat"><npcwander type="circle" radius="8" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="8" /></npc>
+		<circle center="356,40" radius="8" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_doom_lich_patchwork_skellie_25">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich"><npcwander type="circle" radius="5" /></npc>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="5" /></npc>
+		<circle center="400,174" radius="5" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_27_53">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich"><npcwander type="circle" radius="15" /></npc>
+		<circle center="330,136" radius="15" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_11_55">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="8" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="8" /></npc>
+		<circle center="487,118" radius="8" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_23_75">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="10" /></npc>
+		<circle center="309,15" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_29_80">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="35" /></npc>
+		<npc id="vampire_bat"><npcwander type="circle" radius="35" /></npc>
+		<circle center="325,172" radius="35" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_43_81">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="vampire_bat"><npcwander type="circle" radius="40" /></npc>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="40" /></npc>
+		<circle center="287,81" radius="40" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_3_85">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="30" /></npc>
+		<npc id="vampire_bat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="442,205" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_7_86">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="12" /></npc>
+		<circle center="493,202" radius="12" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_20_93">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="gibberling"><npcwander type="circle" radius="10" /></npc>
+		<circle center="305,28" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_10_94">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich"><npcwander type="circle" radius="6" /></npc>
+		<circle center="468,141" radius="6" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_28_95">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="5" /></npc>
+		<circle center="330,136" radius="4" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_18_100">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="vampire_bat"><npcwander type="circle" radius="8" /></npc>
+		<circle center="395,33" radius="8" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_45_113">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="vampire_bat"><npcwander type="circle" radius="40" /></npc>
+		<circle center="382,82" radius="40" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_16_117">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="20" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="20" /></npc>
+		<circle center="470,30" radius="20" map="3" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_32_119">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="30" /></npc>
+		<npc id="vampire_bat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="278,233" radius="30" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_12_126">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="8" /></npc>
+		<circle center="496,75" radius="8" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_15_127">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich"><npcwander type="circle" radius="15" /></npc>
+		<circle center="447,25" radius="15" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_30_142">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="5" /></npc>
+		<circle center="289,154" radius="5" map="3" z="5" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_22_144">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="8" /></npc>
+		<circle center="266,26" radius="8" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_2_153">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="500" max="1000" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="bone_demon"><npcwander type="circle" radius="30" /></npc>
+		<circle center="442,205" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_44_154">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="30" /></npc>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="30" /></npc>
+		<circle center="441,78" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_healer_155">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2355,1276" radius="3" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_17_156">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="flesh_golem"><npcwander type="circle" radius="15" /></npc>
+		<npc id="devourer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="456,48" radius="15" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_6_163">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<circle center="480,227" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_4_179">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="75" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich"><npcwander type="circle" radius="20" /></npc>
+		<circle center="480,227" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_5_182">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="20" /></npc>
+		<circle center="480,227" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_25_184">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="zombie"><npcwander type="circle" radius="35" /></npc>
+		<circle center="320,114" radius="35" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_40_185">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="40" /></npc>
+		<npc id="vampire_bat"><npcwander type="circle" radius="40" /></npc>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="40" /></npc>
+		<circle center="443,128" radius="40" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_26_191">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="mummy"><npcwander type="circle" radius="25" /></npc>
+		<circle center="320,114" radius="25" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_0_198">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="40" /></npc>
+		<npc id="vampire_bat"><npcwander type="circle" radius="40" /></npc>
+		<circle center="379,147" radius="40" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_1_200">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="372,201" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_24_202">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="40" /></npc>
+		<npc id="patchwork_skeleton"><npcwander type="circle" radius="40" /></npc>
+		<circle center="323,90" radius="40" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_41_207">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich"><npcwander type="circle" radius="5" /></npc>
+		<circle center="400,174" radius="5" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_37_226">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="30" /></npc>
+		<npc id="restless_soul"><npcwander type="circle" radius="30" /></npc>
+		<circle center="427,256" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_39_227">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="20" /></npc>
+		<circle center="478,206" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_42_230">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="30" /></npc>
+		<circle center="287,81" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_21_235">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="gore_fiend"><npcwander type="circle" radius="10" /></npc>
+		<circle center="290,28" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_14_248">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<circle center="447,25" radius="10" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_33_250">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="lich"><npcwander type="circle" radius="15" /></npc>
+		<circle center="320,207" radius="15" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_13_252">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="vampire_bat"><npcwander type="circle" radius="10" /></npc>
+		<circle center="496,75" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_38_254">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="30" /></npc>
+		<circle center="427,256" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_8_262">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="devourer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="479,168" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_36_266">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="devourer"><npcwander type="circle" radius="8" /></npc>
+		<circle center="378,236" radius="8" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_35_267">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="devourer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="356,234" radius="15" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_34_275">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<circle center="356,234" radius="10" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_doom_31_290">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>doom</group>
+		<npc id="devourer"><npcwander type="circle" radius="35" /></npc>
+		<circle center="278,233" radius="35" map="3" z="0" />
+	</spawnregion>
 
 </definitions>

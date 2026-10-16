@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Bulk Order System Core (ServUO / OSI Compatible)             #
+# Bulk Order System Core (Enhanced / OSI Compatible)             #
 #===============================================================#
 
 import random
@@ -140,7 +140,7 @@ TAILOR_SETS = {
 }
 
 #
-# Points Computation (ServUO standard)
+# Points Computation (Standard)
 #
 def compute_points(bod_type, quantity, exceptional, material_idx, is_large=False, set_name=None):
 	points = 0

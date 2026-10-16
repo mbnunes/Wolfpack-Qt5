@@ -1,0 +1,1225 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Expansion Items
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Rarewood Chest -->
+	<item id="2df1">
+		<id>0x2df1</id>
+		<name>Rarewood Chest</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Rarewood Chest</category>
+	</item>
+
+	<!-- Secret Shadow Wall NS -->
+	<item id="363a">
+		<id>0x363a</id>
+		<name>Secret Shadow Wall NS</name>
+		<decay />
+		<nodye />
+		<color>0x2e8</color>
+		<weight>1.0</weight>
+		<category>Decorative\Secret Shadow Wall NS</category>
+	</item>
+
+	<!-- Halloween Guillotine -->
+	<item id="3f27">
+		<id>0x3f27</id>
+		<name>Halloween Guillotine</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Halloween Guillotine</category>
+	</item>
+
+	<!-- Giant Replica Acorn -->
+	<item id="2d4a">
+		<id>0x2d4a</id>
+		<name>Giant Replica Acorn</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Giant Replica Acorn</category>
+	</item>
+
+	<!-- Spiked Egg Nog -->
+	<item id="3bba">
+		<id>0x3bba</id>
+		<name>Spiked Egg Nog</name>
+		<decay />
+		<nodye />
+		<color>0xa97</color>
+		<weight>1.0</weight>
+		<category>Decorative\Spiked Egg Nog</category>
+	</item>
+
+	<!-- Snowy Tree -->
+	<item id="2377">
+		<id>0x2377</id>
+		<name>Snowy Tree</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Snowy Tree</category>
+	</item>
+
+	<!-- Gargoyle Vase -->
+	<item id="4042">
+		<id>0x4042</id>
+		<name>Gargoyle Vase</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Gargoyle Vase</category>
+	</item>
+
+	<!-- Cupid Statue -->
+	<item id="4f7c">
+		<id>0x4f7c</id>
+		<name>Cupid Statue</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Cupid Statue</category>
+	</item>
+
+	<!-- Deco Flower -->
+	<item id="18da">
+		<id>0x18da</id>
+		<name>Deco Flower</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Deco Flower</category>
+	</item>
+
+	<!-- Light Of The Winter Solstice -->
+	<item id="236e">
+		<id>0x236e</id>
+		<name>Light Of The Winter Solstice</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Light Of The Winter Solstice</category>
+	</item>
+
+	<!-- Valentines Table -->
+	<item id="a004">
+		<id>0xa004</id>
+		<name>Valentines Table</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Valentines Table</category>
+	</item>
+
+	<!-- Valentines Table -->
+	<item id="a05c">
+		<id>0xa05c</id>
+		<name>Valentines Table</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Valentines Table</category>
+	</item>
+
+	<!-- Decorative Vines -->
+	<item id="2cf9">
+		<id>0x2cf9</id>
+		<name>Decorative Vines</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Decorative Vines</category>
+	</item>
+
+	<!-- Rocking Horse -->
+	<item id="4214">
+		<id>0x4214</id>
+		<name>Rocking Horse</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Rocking Horse</category>
+	</item>
+
+	<!-- Snow Statue Pegasus -->
+	<item id="456e">
+		<id>0x456e</id>
+		<name>Snow Statue Pegasus</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Snow Statue Pegasus</category>
+	</item>
+
+	<!-- Snow Statue Pegasus -->
+	<item id="4578">
+		<id>0x4578</id>
+		<name>Snow Statue Pegasus</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Snow Statue Pegasus</category>
+	</item>
+
+	<!-- Snow Statue Pegasus -->
+	<item id="457a">
+		<id>0x457a</id>
+		<name>Snow Statue Pegasus</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Snow Statue Pegasus</category>
+	</item>
+
+	<!-- Snow Statue Pegasus -->
+	<item id="457c">
+		<id>0x457c</id>
+		<name>Snow Statue Pegasus</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Snow Statue Pegasus</category>
+	</item>
+
+	<!-- Dragon Lamp -->
+	<item id="4c4c">
+		<id>0x4c4c</id>
+		<name>Dragon Lamp</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Dragon Lamp</category>
+	</item>
+
+	<!-- Crystal Skull -->
+	<item id="9a1a">
+		<id>0x9a1a</id>
+		<name>Crystal Skull</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Crystal Skull</category>
+	</item>
+
+	<!-- Gargish Banner -->
+	<item id="4037">
+		<id>0x4037</id>
+		<name>Gargish Banner</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Gargish Banner</category>
+	</item>
+
+	<!-- Tattered Wall Map South -->
+	<item id="2d74">
+		<id>0x2d74</id>
+		<name>Tattered Wall Map South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Tattered Wall Map South</category>
+	</item>
+
+	<!-- Tattered Wall Map South -->
+	<item id="2d73">
+		<id>0x2d73</id>
+		<name>Tattered Wall Map South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Tattered Wall Map South</category>
+	</item>
+
+	<!-- Thorvalds Medallion -->
+	<item id="2aaa">
+		<id>0x2aaa</id>
+		<name>Thorvalds Medallion</name>
+		<decay />
+		<nodye />
+		<color>0x47f</color>
+		<weight>1.0</weight>
+		<category>Decorative\Thorvalds Medallion</category>
+	</item>
+
+	<!-- Staghorn Fern Addon -->
+	<item id="9965">
+		<id>0x9965</id>
+		<name>Staghorn Fern Addon</name>
+		<decay />
+		<nodye />
+		<category>Decorative\Staghorn Fern Addon</category>
+	</item>
+
+	<!-- Gargoyle Floor Mirror -->
+	<item id="403a">
+		<id>0x403a</id>
+		<name>Gargoyle Floor Mirror</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Gargoyle Floor Mirror</category>
+	</item>
+
+	<!-- Origami Paper -->
+	<item id="4b1c">
+		<id>0x4b1c</id>
+		<name>Origami Paper</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Origami Paper</category>
+	</item>
+
+	<!-- Origami Paper -->
+	<item id="4b1f">
+		<id>0x4b1f</id>
+		<name>Origami Paper</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Origami Paper</category>
+	</item>
+
+	<!-- Lodestone -->
+	<item id="5739">
+		<id>0x5739</id>
+		<name>Lodestone</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Lodestone</category>
+	</item>
+
+	<!-- Decorative Topiary -->
+	<item id="2378">
+		<id>0x2378</id>
+		<name>Decorative Topiary</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Decorative Topiary</category>
+	</item>
+
+	<!-- Gargoyle Candelabra -->
+	<item id="4039">
+		<id>0x4039</id>
+		<name>Gargoyle Candelabra</name>
+		<decay />
+		<nodye />
+		<weight>3.0</weight>
+		<category>Decorative\Gargoyle Candelabra</category>
+	</item>
+
+	<!-- Gargoyle Chair -->
+	<item id="4023">
+		<id>0x4023</id>
+		<name>Gargoyle Chair</name>
+		<decay />
+		<nodye />
+		<weight>6.0</weight>
+		<category>Decorative\Gargoyle Chair</category>
+	</item>
+
+	<!-- Icicle Large South -->
+	<item id="4572">
+		<id>0x4572</id>
+		<name>Icicle Large South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Icicle Large South</category>
+	</item>
+
+	<!-- Icicle Large South -->
+	<item id="4573">
+		<id>0x4573</id>
+		<name>Icicle Large South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Icicle Large South</category>
+	</item>
+
+	<!-- Icicle Large South -->
+	<item id="4574">
+		<id>0x4574</id>
+		<name>Icicle Large South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Icicle Large South</category>
+	</item>
+
+	<!-- Icicle Large South -->
+	<item id="4575">
+		<id>0x4575</id>
+		<name>Icicle Large South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Icicle Large South</category>
+	</item>
+
+	<!-- Icicle Large South -->
+	<item id="4576">
+		<id>0x4576</id>
+		<name>Icicle Large South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Icicle Large South</category>
+	</item>
+
+	<!-- Icicle Large South -->
+	<item id="4577">
+		<id>0x4577</id>
+		<name>Icicle Large South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Icicle Large South</category>
+	</item>
+
+	<!-- Pumpkin Definition -->
+	<item id="992d">
+		<id>0x992d</id>
+		<name>Pumpkin Definition</name>
+		<decay />
+		<nodye />
+		<color>0x4ea</color>
+		<weight>1.0</weight>
+		<category>Decorative\Pumpkin Definition</category>
+	</item>
+
+	<!-- Pumpkin Definition -->
+	<item id="992f">
+		<id>0x992f</id>
+		<name>Pumpkin Definition</name>
+		<decay />
+		<nodye />
+		<color>0x4ea</color>
+		<weight>1.0</weight>
+		<category>Decorative\Pumpkin Definition</category>
+	</item>
+
+	<!-- Pumpkin Definition -->
+	<item id="9d22">
+		<id>0x9d22</id>
+		<name>Pumpkin Definition</name>
+		<decay />
+		<nodye />
+		<color>0x4ea</color>
+		<weight>1.0</weight>
+		<category>Decorative\Pumpkin Definition</category>
+	</item>
+
+	<!-- Pumpkin Definition -->
+	<item id="9f51">
+		<id>0x9f51</id>
+		<name>Pumpkin Definition</name>
+		<decay />
+		<nodye />
+		<color>0x4ea</color>
+		<weight>1.0</weight>
+		<category>Decorative\Pumpkin Definition</category>
+	</item>
+
+	<!-- Painted Evil Clown Mask -->
+	<item id="4a90">
+		<id>0x4a90</id>
+		<name>Painted Evil Clown Mask</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Painted Evil Clown Mask</category>
+	</item>
+
+	<!-- Gargoyle Painting -->
+	<item id="403d">
+		<id>0x403d</id>
+		<name>Gargoyle Painting</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Gargoyle Painting</category>
+	</item>
+
+	<!-- Gargoyle Wall Mirror -->
+	<item id="4044">
+		<id>0x4044</id>
+		<name>Gargoyle Wall Mirror</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Gargoyle Wall Mirror</category>
+	</item>
+
+	<!-- Holiday Wreath -->
+	<item id="a12e">
+		<id>0xa12e</id>
+		<name>Holiday Wreath</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Holiday Wreath</category>
+	</item>
+
+	<!-- Base Holiday Wall Art -->
+	<item id="a4b3">
+		<id>0xa4b3</id>
+		<name>Base Holiday Wall Art</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Base Holiday Wall Art</category>
+	</item>
+
+	<!-- Base Holiday Wall Art -->
+	<item id="a4b7">
+		<id>0xa4b7</id>
+		<name>Base Holiday Wall Art</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Base Holiday Wall Art</category>
+	</item>
+
+	<!-- Base Holiday Wall Art -->
+	<item id="a4ad">
+		<id>0xa4ad</id>
+		<name>Base Holiday Wall Art</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Base Holiday Wall Art</category>
+	</item>
+
+	<!-- Countertop -->
+	<item id="a2da">
+		<id>0xa2da</id>
+		<name>Countertop</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Countertop</category>
+	</item>
+
+	<!-- Dove Cage -->
+	<item id="a4b2">
+		<id>0xa4b2</id>
+		<name>Dove Cage</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Dove Cage</category>
+	</item>
+
+	<!-- Upholstered Chair Component -->
+	<item id="4c80">
+		<id>0x4c80</id>
+		<name>Upholstered Chair Component</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Upholstered Chair Component</category>
+	</item>
+
+	<!-- Mounted Dread Horn -->
+	<item id="3158">
+		<id>0x3158</id>
+		<name>Mounted Dread Horn</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Mounted Dread Horn</category>
+	</item>
+
+	<!-- Fur -->
+	<item id="1875">
+		<id>0x1875</id>
+		<name>Fur</name>
+		<decay />
+		<nodye />
+		<color>0x0</color>
+		<weight>1.0</weight>
+		<category>Decorative\Fur</category>
+	</item>
+
+	<!-- Rose In A Vase -->
+	<item id="eb0">
+		<id>0xeb0</id>
+		<name>Rose In A Vase</name>
+		<decay />
+		<nodye />
+		<color>0x20</color>
+		<weight>1.0</weight>
+		<category>Decorative\Rose In A Vase</category>
+	</item>
+
+	<!-- Horn Abyssal Inferno -->
+	<item id="2db7">
+		<id>0x2db7</id>
+		<name>Horn Abyssal Inferno</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Horn Abyssal Inferno</category>
+	</item>
+
+	<!-- Painted Plague Mask -->
+	<item id="4a8e">
+		<id>0x4a8e</id>
+		<name>Painted Plague Mask</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Painted Plague Mask</category>
+	</item>
+
+	<!-- Deco Flower2 -->
+	<item id="18d9">
+		<id>0x18d9</id>
+		<name>Deco Flower2</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Deco Flower2</category>
+	</item>
+
+	<!-- Statue South -->
+	<item id="494e">
+		<id>0x494e</id>
+		<name>Statue South</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Statue South</category>
+	</item>
+
+	<!-- Statue South -->
+	<item id="494d">
+		<id>0x494d</id>
+		<name>Statue South</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Statue South</category>
+	</item>
+
+	<!-- Statue South -->
+	<item id="493c">
+		<id>0x493c</id>
+		<name>Statue South</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Statue South</category>
+	</item>
+
+	<!-- Statue South -->
+	<item id="493b">
+		<id>0x493b</id>
+		<name>Statue South</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Statue South</category>
+	</item>
+
+	<!-- Obsidian Skull -->
+	<item id="9a1e">
+		<id>0x9a1e</id>
+		<name>Obsidian Skull</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Obsidian Skull</category>
+	</item>
+
+	<!-- Skulls On Pike -->
+	<item id="42b5">
+		<id>0x42b5</id>
+		<name>Skulls On Pike</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Skulls On Pike</category>
+	</item>
+
+	<!-- Festive Cactus -->
+	<item id="2376">
+		<id>0x2376</id>
+		<name>Festive Cactus</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Festive Cactus</category>
+	</item>
+
+	<!-- Customizable Wall Sign -->
+	<item id="4b20">
+		<id>0x4b20</id>
+		<name>Customizable Wall Sign</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Customizable Wall Sign</category>
+	</item>
+
+	<!-- Tall Double Lamp -->
+	<item id="4c56">
+		<id>0x4c56</id>
+		<name>Tall Double Lamp</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Tall Double Lamp</category>
+	</item>
+
+	<!-- SA Shadow Wall1 South -->
+	<item id="363b">
+		<id>0x363b</id>
+		<name>SA Shadow Wall1 South</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\SA Shadow Wall1 South</category>
+	</item>
+
+	<!-- Jade Skull -->
+	<item id="9a1c">
+		<id>0x9a1c</id>
+		<name>Jade Skull</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Jade Skull</category>
+	</item>
+
+	<!-- Painted Porcelain Mask -->
+	<item id="4ba7">
+		<id>0x4ba7</id>
+		<name>Painted Porcelain Mask</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Painted Porcelain Mask</category>
+	</item>
+
+	<!-- Flaming Scarecrow -->
+	<item id="9f33">
+		<id>0x9f33</id>
+		<name>Flaming Scarecrow</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Flaming Scarecrow</category>
+	</item>
+
+	<!-- Customizable Rounded Door Mat -->
+	<item id="4790">
+		<id>0x4790</id>
+		<name>Customizable Rounded Door Mat</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Customizable Rounded Door Mat</category>
+	</item>
+
+	<!-- Ancient Weapon1 -->
+	<item id="a33b">
+		<id>0xa33b</id>
+		<name>Ancient Weapon1</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Ancient Weapon1</category>
+	</item>
+
+	<!-- Ancient Weapon1 -->
+	<item id="a33d">
+		<id>0xa33d</id>
+		<name>Ancient Weapon1</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Ancient Weapon1</category>
+	</item>
+
+	<!-- Ancient Weapon1 -->
+	<item id="a33f">
+		<id>0xa33f</id>
+		<name>Ancient Weapon1</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Ancient Weapon1</category>
+	</item>
+
+	<!-- Angel Decoration -->
+	<item id="46fa">
+		<id>0x46fa</id>
+		<name>Angel Decoration</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Angel Decoration</category>
+	</item>
+
+	<!-- Grim Warning -->
+	<item id="42bd">
+		<id>0x42bd</id>
+		<name>Grim Warning</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Grim Warning</category>
+	</item>
+
+	<!-- Order Banner -->
+	<item id="42cd">
+		<id>0x42cd</id>
+		<name>Order Banner</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Order Banner</category>
+	</item>
+
+	<!-- Order Banner -->
+	<item id="42cb">
+		<id>0x42cb</id>
+		<name>Order Banner</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Order Banner</category>
+	</item>
+
+	<!-- Chair In A Ghost Costume -->
+	<item id="3f26">
+		<id>0x3f26</id>
+		<name>Chair In A Ghost Costume</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Chair In A Ghost Costume</category>
+	</item>
+
+	<!-- Excellent Iron Maiden -->
+	<item id="3f15">
+		<id>0x3f15</id>
+		<name>Excellent Iron Maiden</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Excellent Iron Maiden</category>
+	</item>
+
+	<!-- Ultima Banner -->
+	<item id="42c9">
+		<id>0x42c9</id>
+		<name>Ultima Banner</name>
+		<decay />
+		<nodye />
+		<weight>2.0</weight>
+		<category>Decorative\Ultima Banner</category>
+	</item>
+
+	<!-- Stained Glass Lamp -->
+	<item id="4c50">
+		<id>0x4c50</id>
+		<name>Stained Glass Lamp</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Stained Glass Lamp</category>
+	</item>
+
+	<!-- Decorative Hourglass -->
+	<item id="a339">
+		<id>0xa339</id>
+		<name>Decorative Hourglass</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Decorative Hourglass</category>
+	</item>
+
+	<!-- Gargish Sculpture -->
+	<item id="403f">
+		<id>0x403f</id>
+		<name>Gargish Sculpture</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Gargish Sculpture</category>
+	</item>
+
+	<!-- Painted Daemon Mask -->
+	<item id="4a92">
+		<id>0x4a92</id>
+		<name>Painted Daemon Mask</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Painted Daemon Mask</category>
+	</item>
+
+	<!-- Enchanted Wheelbarrow -->
+	<item id="a0e6">
+		<id>0xa0e6</id>
+		<name>Enchanted Wheelbarrow</name>
+		<decay />
+		<nodye />
+		<weight>5.0</weight>
+		<category>Decorative\Enchanted Wheelbarrow</category>
+	</item>
+
+	<!-- Enchanted Wheelbarrow -->
+	<item id="a0dd">
+		<id>0xa0dd</id>
+		<name>Enchanted Wheelbarrow</name>
+		<decay />
+		<nodye />
+		<weight>5.0</weight>
+		<category>Decorative\Enchanted Wheelbarrow</category>
+	</item>
+
+	<!-- Enchanted Wheelbarrow -->
+	<item id="a0df">
+		<id>0xa0df</id>
+		<name>Enchanted Wheelbarrow</name>
+		<decay />
+		<nodye />
+		<weight>5.0</weight>
+		<category>Decorative\Enchanted Wheelbarrow</category>
+	</item>
+
+	<!-- Enchanted Wheelbarrow -->
+	<item id="a11d">
+		<id>0xa11d</id>
+		<name>Enchanted Wheelbarrow</name>
+		<decay />
+		<nodye />
+		<weight>5.0</weight>
+		<category>Decorative\Enchanted Wheelbarrow</category>
+	</item>
+
+	<!-- Enchanted Wheelbarrow -->
+	<item id="a126">
+		<id>0xa126</id>
+		<name>Enchanted Wheelbarrow</name>
+		<decay />
+		<nodye />
+		<weight>5.0</weight>
+		<category>Decorative\Enchanted Wheelbarrow</category>
+	</item>
+
+	<!-- Enchanted Wheelbarrow -->
+	<item id="a129">
+		<id>0xa129</id>
+		<name>Enchanted Wheelbarrow</name>
+		<decay />
+		<nodye />
+		<weight>5.0</weight>
+		<category>Decorative\Enchanted Wheelbarrow</category>
+	</item>
+
+	<!-- Painted Evil Jester Mask -->
+	<item id="4ba5">
+		<id>0x4ba5</id>
+		<name>Painted Evil Jester Mask</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Painted Evil Jester Mask</category>
+	</item>
+
+	<!-- Mangled Head Of Dreadhorn -->
+	<item id="3156">
+		<id>0x3156</id>
+		<name>Mangled Head Of Dreadhorn</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Mangled Head Of Dreadhorn</category>
+	</item>
+
+	<!-- Mistletoe Addon -->
+	<item id="2375">
+		<id>0x2375</id>
+		<name>Mistletoe Addon</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Mistletoe Addon</category>
+	</item>
+
+	<!-- Holidays Sign -->
+	<item id="a130">
+		<id>0xa130</id>
+		<name>Holidays Sign</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Holidays Sign</category>
+	</item>
+
+	<!-- Elegant Low Table -->
+	<item id="4041">
+		<id>0x4041</id>
+		<name>Elegant Low Table</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Elegant Low Table</category>
+	</item>
+
+	<!-- Gypsy Wagon Lamp -->
+	<item id="9d36">
+		<id>0x9d36</id>
+		<name>Gypsy Wagon Lamp</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Gypsy Wagon Lamp</category>
+	</item>
+
+	<!-- Butcher Block -->
+	<item id="a2a3">
+		<id>0xa2a3</id>
+		<name>Butcher Block</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Butcher Block</category>
+	</item>
+
+	<!-- Sculpture Wood Scept -->
+	<item id="a4a8">
+		<id>0xa4a8</id>
+		<name>Sculpture Wood Scept</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Sculpture Wood Scept</category>
+	</item>
+
+	<!-- Painting Masks -->
+	<item id="a48f">
+		<id>0xa48f</id>
+		<name>Painting Masks</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Painting Masks</category>
+	</item>
+
+	<!-- Lantern Broken Shield -->
+	<item id="a469">
+		<id>0xa469</id>
+		<name>Lantern Broken Shield</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Lantern Broken Shield</category>
+	</item>
+
+	<!-- Pillow Moon -->
+	<item id="a495">
+		<id>0xa495</id>
+		<name>Pillow Moon</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Pillow Moon</category>
+	</item>
+
+	<!-- Pillow Skull -->
+	<item id="a497">
+		<id>0xa497</id>
+		<name>Pillow Skull</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Pillow Skull</category>
+	</item>
+
+	<!-- Lantern Uneven Scales -->
+	<item id="a479">
+		<id>0xa479</id>
+		<name>Lantern Uneven Scales</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Lantern Uneven Scales</category>
+	</item>
+
+	<!-- Sculpture Wood Coin -->
+	<item id="a493">
+		<id>0xa493</id>
+		<name>Sculpture Wood Coin</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Sculpture Wood Coin</category>
+	</item>
+
+	<!-- Painting Ankh -->
+	<item id="a48d">
+		<id>0xa48d</id>
+		<name>Painting Ankh</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Painting Ankh</category>
+	</item>
+
+	<!-- Painting Sword -->
+	<item id="a48b">
+		<id>0xa48b</id>
+		<name>Painting Sword</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Painting Sword</category>
+	</item>
+
+	<!-- Lantern Heart -->
+	<item id="a481">
+		<id>0xa481</id>
+		<name>Lantern Heart</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Lantern Heart</category>
+	</item>
+
+	<!-- Sculpture Wood Even -->
+	<item id="a499">
+		<id>0xa499</id>
+		<name>Sculpture Wood Even</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Sculpture Wood Even</category>
+	</item>
+
+	<!-- Painting Axe -->
+	<item id="a489">
+		<id>0xa489</id>
+		<name>Painting Axe</name>
+		<decay />
+		<nodye />
+		<weight>10.0</weight>
+		<category>Decorative\Painting Axe</category>
+	</item>
+
+	<!-- Lantern Hand -->
+	<item id="a471">
+		<id>0xa471</id>
+		<name>Lantern Hand</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Lantern Hand</category>
+	</item>
+
+	<!-- Sculpture Wood Canes -->
+	<item id="a49e">
+		<id>0xa49e</id>
+		<name>Sculpture Wood Canes</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Sculpture Wood Canes</category>
+	</item>
+
+	<!-- Pillow Chalice -->
+	<item id="a491">
+		<id>0xa491</id>
+		<name>Pillow Chalice</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Pillow Chalice</category>
+	</item>
+
+	<!-- Cow Pie -->
+	<item id="a4e5">
+		<id>0xa4e5</id>
+		<name>Cow Pie</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Cow Pie</category>
+	</item>
+
+	<!-- Cow Statue -->
+	<item id="a50f">
+		<id>0xa50f</id>
+		<name>Cow Statue</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Cow Statue</category>
+	</item>
+
+	<!-- Chicken Statue -->
+	<item id="a513">
+		<id>0xa513</id>
+		<name>Chicken Statue</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Chicken Statue</category>
+	</item>
+
+	<!-- Feedbag -->
+	<item id="a4e3">
+		<id>0xa4e3</id>
+		<name>Feedbag</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<category>Decorative\Feedbag</category>
+	</item>
+<!-- Spike Head -->
+	<item id="9955">
+		<id>0x9955</id>
+		<name>Spike Head</name>
+		<decay />
+		<weight>5.0</weight>
+		<category>Decorative\Halloween\Spike Head</category>
+	</item>
+
+	<!-- Halloween Pumpkin -->
+	<item id="4691">
+		<id>0x4691</id>
+		<name>Halloween Pumpkin</name>
+		<decay />
+		<weight>4.0</weight>
+		<category>Decorative\Halloween\Halloween Pumpkin</category>
+	</item>
+
+	<!-- Polished Meteorite -->
+	<item id="a1ce">
+		<id>0xa1ce</id>
+		<name>Polished Meteorite</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Resources\Polished Meteorite</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="ilsh_twistedwealdtrigger1_479">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="30" max="120" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>twisted_weald</group>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2137,1216" radius="5" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_twistedwealdtrigger3_480">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>twisted_weald</group>
+		<npc id="malefic"><npcwander type="circle" radius="10" /></npc>
+		<npc id="virulent"><npcwander type="circle" radius="10" /></npc>
+		<circle center="2170,1247" radius="10" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_twistedwealdtrigger2_481">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="30" max="90" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>twisted_weald</group>
+		<npc id="silk"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2177,1229" radius="5" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_twistedwealdtrigger4_482">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>twisted_weald</group>
+		<npc id="malefic"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2167,1266" radius="5" map="2" z="-60" />
+	</spawnregion>
+
+</definitions>

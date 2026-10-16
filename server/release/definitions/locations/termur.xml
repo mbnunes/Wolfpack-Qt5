@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions>
+	<!-- Ter Mur (Map 5) Locations Expansion Pack Data -->
+
+	<!-- Towns -->
+	<location id="termur royal city royal city moongate" category="Ter Mur\Towns\Royal City\Royal City Moongate">855,3526,-43,5</location>
+	<location id="termur holy city holy city moongate" category="Ter Mur\Towns\Holy City\Holy City Moongate">928,3989,-40,5</location>
+	<location id="termur dugan" category="Ter Mur\Towns\Dugan\Dugan">1107,1131,-52,5</location>
+
+	<!-- Dungeons -->
+	<location id="termur tomb of kings entrance" category="Ter Mur\Dungeons\Tomb of Kings\Entrance">997,3843,-41,5</location>
+	<location id="termur tomb of kings gate to stygian abyss" category="Ter Mur\Dungeons\Tomb of Kings\Gate to Stygian Abyss">38,29,0,5</location>
+	<location id="termur stygian abyss exit to tomb of kings" category="Ter Mur\Dungeons\Stygian Abyss\Exit to Tomb of Kings">946,71,72,5</location>
+	<location id="termur stygian abyss exit to underworld" category="Ter Mur\Dungeons\Stygian Abyss\Exit to Underworld">521,921,36,5</location>
+	<location id="termur stygian abyss abyssal lair entrance" category="Ter Mur\Dungeons\Stygian Abyss\Abyssal Lair Entrance">985,366,-11,5</location>
+	<location id="termur stygian abyss cavern of the discarded" category="Ter Mur\Dungeons\Stygian Abyss\Cavern of the Discarded">912,501,-12,5</location>
+	<location id="termur stygian abyss clan scratch" category="Ter Mur\Dungeons\Stygian Abyss\Clan Scratch">959,548,-14,5</location>
+	<location id="termur stygian abyss crimson veins" category="Ter Mur\Dungeons\Stygian Abyss\Crimson Veins">974,164,-11,5</location>
+	<location id="termur stygian abyss enslaved goblins" category="Ter Mur\Dungeons\Stygian Abyss\Enslaved Goblins">581,815,-45,5</location>
+	<location id="termur stygian abyss fairy dragon lair" category="Ter Mur\Dungeons\Stygian Abyss\Fairy Dragon Lair">888,277,3,5</location>
+	<location id="termur stygian abyss fire temple ruins" category="Ter Mur\Dungeons\Stygian Abyss\Fire Temple Ruins">519,765,-92,5</location>
+	<location id="termur stygian abyss hydra" category="Ter Mur\Dungeons\Stygian Abyss\Hydra">793,753,53,5</location>
+	<location id="termur stygian abyss lands of the lich" category="Ter Mur\Dungeons\Stygian Abyss\Lands of the Lich">538,656,8,5</location>
+	<location id="termur stygian abyss lava caldera" category="Ter Mur\Dungeons\Stygian Abyss\Lava Caldera">587,895,-73,5</location>
+	<location id="termur stygian abyss medusa s lair" category="Ter Mur\Dungeons\Stygian Abyss\Medusa's Lair">818,755,50,5</location>
+	<location id="termur stygian abyss passage of tears" category="Ter Mur\Dungeons\Stygian Abyss\Passage of Tears">685,579,-15,5</location>
+	<location id="termur stygian abyss secret garden" category="Ter Mur\Dungeons\Stygian Abyss\Secret Garden">462,719,22,5</location>
+	<location id="termur stygian abyss serpent lair" category="Ter Mur\Dungeons\Stygian Abyss\Serpent Lair">711,720,-11,5</location>
+	<location id="termur stygian abyss silver sapling" category="Ter Mur\Dungeons\Stygian Abyss\Silver Sapling">341,619,26,5</location>
+	<location id="termur stygian abyss stygian dragon lair entrance" category="Ter Mur\Dungeons\Stygian Abyss\Stygian Dragon Lair Entrance">851,279,-12,5</location>
+	<location id="termur stygian abyss sutek the mage" category="Ter Mur\Dungeons\Stygian Abyss\Sutek the Mage">924,595,-14,5</location>
+	<location id="termur underworld entrance" category="Ter Mur\Dungeons\Underworld\Entrance">1128,1211,-2,5</location>
+
+	<!-- Sites -->
+	<location id="termur sites regions atoll bend" category="Ter Mur\Sites\Regions\Atoll Bend">1118,3408,-42,5</location>
+	<location id="termur sites regions chicken chase" category="Ter Mur\Sites\Regions\Chicken Chase">560,3412,37,5</location>
+	<location id="termur sites regions city residential" category="Ter Mur\Sites\Regions\City Residential">952,3531,-43,5</location>
+	<location id="termur sites regions coral desert" category="Ter Mur\Sites\Regions\Coral Desert">1047,2980,62,5</location>
+	<location id="termur sites regions fishermans reach" category="Ter Mur\Sites\Regions\Fishermans Reach">631,3035,36,5</location>
+	<location id="termur sites regions gated isle" category="Ter Mur\Sites\Regions\Gated Isle">703,3934,-31,5</location>
+	<location id="termur sites regions high plain" category="Ter Mur\Sites\Regions\High Plain">863,2931,38,5</location>
+	<location id="termur sites regions holy city island" category="Ter Mur\Sites\Regions\Holy City Island">996,3905,-42,5</location>
+	<location id="termur sites regions kepetch waste" category="Ter Mur\Sites\Regions\Kepetch Waste">447,3188,20,5</location>
+	<location id="termur sites regions lava lake" category="Ter Mur\Sites\Regions\Lava Lake">407,3010,-24,5</location>
+	<location id="termur sites regions lavapit pyramid" category="Ter Mur\Sites\Regions\Lavapit Pyramid">740,3691,-43,5</location>
+	<location id="termur sites regions lost settlement" category="Ter Mur\Sites\Regions\Lost Settlement">526,3822,-44,5</location>
+	<location id="termur sites regions northern steppes" category="Ter Mur\Sites\Regions\Northern Steppes">822,3063,61,5</location>
+	<location id="termur sites regions raptor island" category="Ter Mur\Sites\Regions\Raptor Island">816,3778,-42,5</location>
+	<location id="termur sites regions royal park" category="Ter Mur\Sites\Regions\Royal Park">711,3255,38,5</location>
+	<location id="termur sites regions shrine of singularity" category="Ter Mur\Sites\Regions\Shrine of Singularity">995,3814,-23,5</location>
+	<location id="termur sites regions slith valley" category="Ter Mur\Sites\Regions\Slith Valley">1078,3331,-42,5</location>
+	<location id="termur sites regions spider island" category="Ter Mur\Sites\Regions\Spider Island">1115,3730,-42,5</location>
+	<location id="termur sites regions spiders guarde" category="Ter Mur\Sites\Regions\Spiders Guarde">1109,3606,-45,5</location>
+	<location id="termur sites regions talon point" category="Ter Mur\Sites\Regions\Talon Point">676,3831,-39,5</location>
+	<location id="termur sites regions treefellow course" category="Ter Mur\Sites\Regions\Treefellow Course">570,2936,39,5</location>
+	<location id="termur sites regions void isle" category="Ter Mur\Sites\Regions\Void Isle">440,3577,38,5</location>
+	<location id="termur sites regions walled circus" category="Ter Mur\Sites\Regions\Walled Circus">370,3273,0,5</location>
+	<location id="termur sites regions waterfall point" category="Ter Mur\Sites\Regions\Waterfall Point">661,2894,39,5</location>
+</definitions>

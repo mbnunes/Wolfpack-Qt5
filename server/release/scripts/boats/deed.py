@@ -194,6 +194,47 @@ def createBoat( player, deed, pos ):
 	else:
 		applyKeys( splank, pplank, hold, deed )
 
+	# Initialize Hit Points and Security
+	from boats import damage
+	damage.init_boat_hp( boat )
+	boat.settag( 'boat_owner', player.serial )
+
+	# High Seas fixtures (Wheel, Mooring Line, Pilot)
+	section = str( deed.gettag( 'multisection' ) or '' )
+	is_galleon = ( 'galleon' in section or 'britannian' in section )
+
+	# Mooring line for boarding
+	m_line = wolfpack.additem( 'mooring_line' )
+	if m_line:
+		z_off = 5 if is_galleon else 3
+		m_line.moveto( wolfpack.coord( boat.pos.x - 2, boat.pos.y, boat.pos.z + z_off, boat.pos.map ) )
+		m_line.update()
+		m_line.decay = 0
+		m_line.settag( 'boat_serial', boat.serial )
+		i = int( boat.gettag( 'boat_part_count' ) or 0 ) + 1
+		boat.settag( 'boat_part_count', i )
+		boat.settag( 'boat_part%i' % i, m_line.serial )
+
+	# Galleon specific fixtures
+	if is_galleon:
+		wheel = wolfpack.additem( 'shipwheel' )
+		if wheel:
+			wheel.moveto( wolfpack.coord( boat.pos.x, boat.pos.y + 4, boat.pos.z + 5, boat.pos.map ) )
+			wheel.update()
+			wheel.decay = 0
+			wheel.settag( 'boat_serial', boat.serial )
+			i = int( boat.gettag( 'boat_part_count' ) or 0 ) + 1
+			boat.settag( 'boat_part_count', i )
+			boat.settag( 'boat_part%i' % i, wheel.serial )
+
+		pilot = wolfpack.addnpc( 'galleon_pilot', wolfpack.coord( boat.pos.x, boat.pos.y + 5, boat.pos.z + 5, boat.pos.map ) )
+		if pilot:
+			pilot.settag( 'boat_serial', boat.serial )
+			pilot.update()
+			i = int( boat.gettag( 'boat_part_count' ) or 0 ) + 1
+			boat.settag( 'boat_part_count', i )
+			boat.settag( 'boat_part%i' % i, pilot.serial )
+
 #
 # Target
 #

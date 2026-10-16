@@ -25,17 +25,17 @@
 	<include file="definitions/items/misc/testing.xml"/>
 	<include file="definitions/items/misc/plantgrowing.xml"/>
 
-	<!-- ServUO Containers -->
-	<include file="definitions/items/misc/servuo_containers.xml"/>
+	<!-- Expansion Containers -->
+	<include file="definitions/items/misc/expansion_containers.xml"/>
 
-	<!-- ServUO Resources -->
-	<include file="definitions/items/misc/servuo_resources.xml"/>
+	<!-- Expansion Resources -->
+	<include file="definitions/items/misc/expansion_resources.xml"/>
 
-	<!-- ServUO Tools -->
-	<include file="definitions/items/misc/servuo_tools.xml"/>
+	<!-- Expansion Tools -->
+	<include file="definitions/items/misc/expansion_tools.xml"/>
 
-	<!-- ServUO Decorative -->
-	<include file="definitions/items/misc/servuo_decorative.xml"/>
+	<!-- Expansion Decorative -->
+	<include file="definitions/items/misc/expansion_decorative.xml"/>
 
 	<!-- Power Scrolls -->
 	<include file="definitions/items/misc/powerscroll.xml"/>
@@ -51,4 +51,11 @@
 
 	<!-- Peerless Boss System -->
 	<include file="definitions/items/misc/peerless.xml"/>
+
+	<!-- Expansion Consumables -->
+	<include file="definitions/items/misc/expansion_consumables.xml"/>
+
+	<!-- High Seas Boat Equipment & Cannons -->
+	<include file="definitions/items/misc/boat_equipment.xml"/>
+
 </definitions>

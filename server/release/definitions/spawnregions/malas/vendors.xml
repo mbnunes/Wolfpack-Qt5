@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="malas_mal_banker_18">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="banker_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1095,1419" radius="5" map="3" z="-83" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_34_20">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="waiter"><npcwander type="circle" radius="5" /></npc>
+		<npc id="cook_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="barkeeper"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1051,1434" radius="5" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_ruinshealer_43">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2194,346" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_animalbreeder_trainer_chicken_48">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="animal_trainer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1041,1443" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_innkeeper_51">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1056,1434" radius="5" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_corruptedforesthealer_83">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2161,1161" radius="5" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_deserthealer_88">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1597,1854" radius="5" map="3" z="-96" />
+	</spawnregion>
+
+	<spawnregion id="malas_pyramidhealer_138">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1839,1805" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_wandering_healer_174">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2144,586" radius="5" map="3" z="-55" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_33_181">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1056,1434" radius="5" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_arenahealer_276">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2351,1146" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_malasforthealer_286">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>vendors</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1356,1269" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+</definitions>

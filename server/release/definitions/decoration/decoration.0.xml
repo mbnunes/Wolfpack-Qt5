@@ -49,4 +49,5 @@
 	<include file="definitions/decoration/Felucca/Felucca/yew.xml"/>
 	<include file="definitions/decoration/Felucca/Wrong/WrongMaze.xml"/>
 	<include file="definitions/decoration/Felucca/signs.xml"/>
+	<include file="definitions/decoration/Felucca/doors.xml"/>
 </decoration>

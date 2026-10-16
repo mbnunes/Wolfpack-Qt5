@@ -1,0 +1,1555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="termur_percolem_the_hunter_0">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="percolem"><npcwander type="circle" radius="5" /></npc>
+		<circle center="708,3425" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_1">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="tailor_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="laifem"><npcwander type="circle" radius="5" /></npc>
+		<circle center="805,3398" radius="5" map="5" z="0" />
+	</spawnregion>
+
+	<spawnregion id="termur_beninort_2">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="beninort" />
+		<point pos="792,3436,-10,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_ansikart_3">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="ansikart" />
+		<point pos="801,3436,-10,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_termur_wildlife_1_4">
+		<active />
+		<maxnpcamount>34</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="bird"><npcwander type="circle" radius="5" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="5" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="5" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="5" /></npc>
+		<circle center="851,3635" radius="5" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_lowland_2_5">
+		<active />
+		<maxnpcamount>24</maxnpcamount>
+		<delay min="75" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lowland_boura"><npcwander type="circle" radius="5" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="greater_mongbat"><npcwander type="circle" radius="5" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1128,3479" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_ruddy_boura_3_7">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="ruddy_boura"><npcwander type="circle" radius="15" /></npc>
+		<circle center="771,3058" radius="15" map="5" z="37" />
+	</spawnregion>
+
+	<spawnregion id="termur_voidmanifestationspawn_2_8">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="30" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gargoyle_warrior"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1020,223" radius="15" map="5" z="-12" />
+	</spawnregion>
+
+	<spawnregion id="termur_ruddy_boura_1_9">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="ruddy_boura"><npcwander type="circle" radius="15" /></npc>
+		<circle center="919,3108" radius="15" map="5" z="61" />
+	</spawnregion>
+
+	<spawnregion id="termur_silver_sapling_3_11">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="pixie"><npcwander type="circle" radius="5" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="5" /></npc>
+		<circle center="344,618" radius="5" map="5" z="26" />
+	</spawnregion>
+
+	<spawnregion id="termur_termur_3_16">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="carpenter_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="817,3428" radius="5" map="5" z="0" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_18">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="784,3490" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_raptor_island_2_23">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="raptor"><npcwander type="circle" radius="20" /></npc>
+		<circle center="833,3731" radius="20" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_fishingville_npcs_24">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="655,3013" radius="5" map="5" z="49" />
+	</spawnregion>
+
+	<spawnregion id="termur_korpre_6_25">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="toxic_slith"><npcwander type="circle" radius="5" /></npc>
+		<npc id="greater_mongbat"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1152,3640" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_skree_4_26">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="skree"><npcwander type="circle" radius="5" /></npc>
+		<npc id="stone_slith"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1172,3603" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_stone_slith_1_27">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="stone_slith"><npcwander type="circle" radius="5" /></npc>
+		<circle center="492,3139" radius="5" map="5" z="38" />
+	</spawnregion>
+
+	<spawnregion id="termur_termur_mystic_28">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="mage_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="772,3486" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_toxicslith_1_30">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="toxic_slith"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1082,3325" radius="15" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_termur_1_winemaker_gardener_32">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="farmer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="791,3448" radius="5" map="5" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="termur_termur_mastercook_juicer_brewer_34">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="cook_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="baker"><npcwander type="circle" radius="5" /></npc>
+		<circle center="806,3491" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_high_plains_1_35">
+		<active />
+		<maxnpcamount>19</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="high_plains_boura"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="20" /></npc>
+		<circle center="586,3283" radius="20" map="5" z="37" />
+	</spawnregion>
+
+	<spawnregion id="termur_coraldesert_5_36">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="coral_snake"><npcwander type="circle" radius="30" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kepetch_ambusher"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="toxic_slith"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1035,2993" radius="30" map="5" z="50" />
+	</spawnregion>
+
+	<spawnregion id="termur_raptor_island_3_38">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="trapdoor_spider"><npcwander type="circle" radius="5" /></npc>
+		<circle center="888,3715" radius="5" map="5" z="-44" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_39">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="provisioner_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="793,3491" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_singularity_quest_1_41">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="naxatilor"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1016,3935" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_42">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="alchemist_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="thepem"><npcwander type="circle" radius="5" /></npc>
+		<npc id="zosilem"><npcwander type="circle" radius="5" /></npc>
+		<circle center="771,3475" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_jeweler_43">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="jeweler_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="778,3430" radius="5" map="5" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="termur_coraldesert_0_44">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="coral_snake"><npcwander type="circle" radius="30" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kepetch_ambusher"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="toxic_slith"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1055,2987" radius="30" map="5" z="62" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_firegargoyle_fireant_elemental_45">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="25" /></npc>
+		<npc id="fire_ant"><npcwander type="circle" radius="25" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="365,2952" radius="25" map="5" z="40" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_47">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="blacksmith_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="815,3420" radius="5" map="5" z="0" />
+	</spawnregion>
+
+	<spawnregion id="termur_medusasnest1_48">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="75" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="giant_serpent"><npcwander type="circle" radius="5" /></npc>
+		<circle center="775,770" radius="5" map="5" z="23" />
+	</spawnregion>
+
+	<spawnregion id="termur_raptor_island_trapdoor_2_49">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="trapdoor_spider"><npcwander type="circle" radius="5" /></npc>
+		<circle center="726,3786" radius="5" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_headless_one_1_50">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="headless_one"><npcwander type="circle" radius="5" /></npc>
+		<circle center="365,3138" radius="5" map="5" z="36" />
+	</spawnregion>
+
+	<spawnregion id="termur_coraldesert_2_52">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="coral_snake"><npcwander type="circle" radius="30" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kepetch_ambusher"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="toxic_slith"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1074,3008" radius="30" map="5" z="63" />
+	</spawnregion>
+
+	<spawnregion id="termur_medusasnest3_54">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="75" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="giant_serpent"><npcwander type="circle" radius="5" /></npc>
+		<circle center="806,734" radius="5" map="5" z="22" />
+	</spawnregion>
+
+	<spawnregion id="termur_quest_gatheringproof_55">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="prassel"><npcwander type="circle" radius="5" /></npc>
+		<circle center="739,3357" radius="5" map="5" z="55" />
+	</spawnregion>
+
+	<spawnregion id="termur_coraldesert_1_57">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="coral_snake"><npcwander type="circle" radius="30" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kepetch_ambusher"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="toxic_slith"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1040,3004" radius="30" map="5" z="50" />
+	</spawnregion>
+
+	<spawnregion id="termur_korpre_1_58">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="kepetch"><npcwander type="circle" radius="5" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="5" /></npc>
+		<npc id="stone_slith"><npcwander type="circle" radius="5" /></npc>
+		<circle center="475,3188" radius="5" map="5" z="37" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_59">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="tinker_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="aliabeth"><npcwander type="circle" radius="5" /></npc>
+		<circle center="816,3438" radius="5" map="5" z="0" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_fireant_bat_60">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_ant"><npcwander type="circle" radius="20" /></npc>
+		<circle center="436,3021" radius="20" map="5" z="17" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_61">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="sliem" />
+		<point pos="645,3333,39,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_lowland_1_64">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="75" max="100" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="ruddy_boura"><npcwander type="circle" radius="5" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="greater_mongbat"><npcwander type="circle" radius="5" /></npc>
+		<npc id="toxic_slith"><npcwander type="circle" radius="5" /></npc>
+		<npc id="slith"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1165,3366" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_ruddy_boura_2_65">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="ruddy_boura"><npcwander type="circle" radius="15" /></npc>
+		<circle center="872,3073" radius="15" map="5" z="38" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_firedaemon_efreet_67">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_daemon"><npcwander type="circle" radius="15" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="15" /></npc>
+		<circle center="465,3042" radius="15" map="5" z="19" />
+	</spawnregion>
+
+	<spawnregion id="termur_quest_zhah_68">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="queen_zhah"><npcwander type="circle" radius="5" /></npc>
+		<circle center="749,3347" radius="5" map="5" z="61" />
+	</spawnregion>
+
+	<spawnregion id="termur_rumors_abound_quest_69">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="egwexem"><npcwander type="circle" radius="10" /></npc>
+		<circle center="837,3512" radius="10" map="5" z="-47" />
+	</spawnregion>
+
+	<spawnregion id="termur_axem_the_curator_70">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="axem"><npcwander type="circle" radius="5" /></npc>
+		<circle center="657,3416" radius="5" map="5" z="12" />
+	</spawnregion>
+
+	<spawnregion id="termur_treefellow_1_72">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="treefellow_guardian"><npcwander type="circle" radius="20" /></npc>
+		<npc id="kepetch"><npcwander type="circle" radius="20" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="555,3495" radius="20" map="5" z="38" />
+	</spawnregion>
+
+	<spawnregion id="termur_newchartermurarmorquest_73">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="chicken_lizard"><npcwander type="circle" radius="5" /></npc>
+		<circle center="879,3562" radius="5" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_chicken_lizard_1_74">
+		<active />
+		<maxnpcamount>48</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="chicken_lizard"><npcwander type="circle" radius="5" /></npc>
+		<npc id="silver_serpent"><npcwander type="circle" radius="5" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="5" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="5" /></npc>
+		<circle center="534,3421" radius="5" map="5" z="37" />
+	</spawnregion>
+
+	<spawnregion id="termur_wildlife_3_75">
+		<active />
+		<maxnpcamount>35</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="horse"><npcwander type="circle" radius="5" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="5" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="5" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="5" /></npc>
+		<circle center="808,3228" radius="5" map="5" z="40" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_firebat_elemental_lave_elemental_lizard_76">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="465,2977" radius="30" map="5" z="34" />
+	</spawnregion>
+
+	<spawnregion id="termur_sa_spider_isle_trapdoor_2_77">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="trapdoor_spider"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1080,3752" radius="5" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_minionofscelestus_2_78">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="25" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="minion_of_scelestus"><npcwander type="circle" radius="50" /></npc>
+		<circle center="495,3831" radius="50" map="5" z="-34" />
+	</spawnregion>
+
+	<spawnregion id="termur_coraldesert_4_79">
+		<active />
+		<maxnpcamount>13</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="coral_snake"><npcwander type="circle" radius="30" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kepetch_ambusher"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="toxic_slith"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1030,2959" radius="30" map="5" z="61" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_80">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="agralem" />
+		<point pos="808,3425,0,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_medusasnest_81">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="50" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="giant_serpent"><npcwander type="circle" radius="5" /></npc>
+		<circle center="795,771" radius="5" map="5" z="22" />
+	</spawnregion>
+
+	<spawnregion id="termur_ancient_hellhound_83">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_daemon"><npcwander type="circle" radius="15" /></npc>
+		<circle center="394,3008" radius="15" map="5" z="-30" />
+	</spawnregion>
+
+	<spawnregion id="termur_slasher1_84">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="slasher_of_veils"><npcwander type="circle" radius="25" /></npc>
+		<circle center="749,475" radius="25" map="5" z="-17" />
+	</spawnregion>
+
+	<spawnregion id="termur_coraldesert_3_86">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="coral_snake"><npcwander type="circle" radius="30" /></npc>
+		<npc id="desert_ostard"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kepetch_ambusher"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="toxic_slith"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1089,2979" radius="30" map="5" z="51" />
+	</spawnregion>
+
+	<spawnregion id="termur_raptor_island_1_88">
+		<active />
+		<maxnpcamount>85</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="trapdoor_spider"><npcwander type="circle" radius="75" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="75" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="75" /></npc>
+		<npc id="raptor"><npcwander type="circle" radius="75" /></npc>
+		<npc id="skree"><npcwander type="circle" radius="75" /></npc>
+		<npc id="toxic_slith"><npcwander type="circle" radius="75" /></npc>
+		<circle center="810,3800" radius="75" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_minionofscelestus_1_89">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="minion_of_scelestus"><npcwander type="circle" radius="35" /></npc>
+		<circle center="546,3821" radius="35" map="5" z="-53" />
+	</spawnregion>
+
+	<spawnregion id="termur_agralem1_90">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="agralem"><npcwander type="circle" radius="5" /></npc>
+		<circle center="801,3427" radius="5" map="5" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="termur_voidmanifestationspawn_3_91">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="30" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gargoyle_warrior"><npcwander type="circle" radius="15" /></npc>
+		<circle center="970,291" radius="15" map="5" z="-12" />
+	</spawnregion>
+
+	<spawnregion id="termur_refugee_noble_92">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="872,3488" radius="20" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_voidmanifestationspawn_1_93">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="30" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gargoyle_warrior"><npcwander type="circle" radius="15" /></npc>
+		<circle center="485,859" radius="15" map="5" z="-61" />
+	</spawnregion>
+
+	<spawnregion id="termur_medusasnest2_94">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="75" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="giant_serpent"><npcwander type="circle" radius="5" /></npc>
+		<circle center="778,732" radius="5" map="5" z="23" />
+	</spawnregion>
+
+	<spawnregion id="termur_aurvidlem_95">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="aurvidlem" />
+		<point pos="792,3427,-10,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_quest_gatheringevidence_96">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="xeninlor"><npcwander type="circle" radius="5" /></npc>
+		<circle center="758,3356" radius="5" map="5" z="55" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_98">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="farmernash" />
+		<point pos="946,3858,-40,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_sa_spider_isle_101">
+		<active />
+		<maxnpcamount>50</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="5" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1111,3733" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_102">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="tanner_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="806,3387" radius="5" map="5" z="0" />
+	</spawnregion>
+
+	<spawnregion id="termur_refugee_2_104">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="817,3546" radius="5" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_mysticism_scrolls_1_105">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_daemon"><npcwander type="circle" radius="5" /></npc>
+		<circle center="657,2906" radius="5" map="5" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="termur_ter_firegargoyle_107">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_gargoyle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="375,2999" radius="5" map="5" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="termur_fishingville_npcs_2_108">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="619,3000" radius="5" map="5" z="36" />
+	</spawnregion>
+
+	<spawnregion id="termur_spawner_109">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="butcher_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="911,3998" radius="5" map="5" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="termur_sa_spider_isle_trapdoor_1_111">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="trapdoor_spider"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1145,3712" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_lifestealer1_112">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lifestealer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="483,3117" radius="5" map="5" z="38" />
+	</spawnregion>
+
+	<spawnregion id="termur_lifestealer2_113">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lifestealer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="417,3133" radius="5" map="5" z="38" />
+	</spawnregion>
+
+	<spawnregion id="termur_lifestealer3_114">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="lifestealer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="451,3133" radius="5" map="5" z="38" />
+	</spawnregion>
+
+	<spawnregion id="termur_greengoblindinnerroom_115">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="green_goblin_alchemist"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1016,1022" radius="15" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_hallwayworms_116">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="blood_worm"><npcwander type="circle" radius="25" /></npc>
+		<npc id="rotworm"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1060,1159" radius="25" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_tyball_sshadow_117">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="shade"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1180,863" radius="15" map="5" z="0" />
+	</spawnregion>
+
+	<spawnregion id="termur_barreraakquestgiver_118">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="barreraak" />
+		<point pos="1189,989,-27,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_ironbeetles_119">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="iron_beetle"><npcwander type="circle" radius="16" /></npc>
+		<circle center="1145,999" radius="16" map="5" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="termur_rotworm2_120">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="rotworm"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1038,1180" radius="12" map="5" z="-52" />
+	</spawnregion>
+
+	<spawnregion id="termur_xenrrquestgiver_121">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="xenrr" />
+		<point pos="1014,1000,-43,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_elder_dugan_122">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="dugan" />
+		<point pos="1104,1128,-52,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_ruinstotyball_123">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="tangling_roots"><npcwander type="circle" radius="15" /></npc>
+		<npc id="water_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1197,1186" radius="15" map="5" z="-78" />
+	</spawnregion>
+
+	<spawnregion id="termur_rotworm1_124">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="rotworm"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1040,1196" radius="10" map="5" z="-46" />
+	</spawnregion>
+
+	<spawnregion id="termur_slimesentrance2_125">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="slime"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1111,1173" radius="2" map="5" z="-29" />
+	</spawnregion>
+
+	<spawnregion id="termur_slimesentrance1_126">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="slime"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1113,1164" radius="1" map="5" z="-18" />
+	</spawnregion>
+
+	<spawnregion id="termur_gretchen_127">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gretchen" />
+		<point pos="1089,1128,-42,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_garamon_128">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="garamon" />
+		<point pos="1128,1165,-12,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_barreraakroom_129">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gray_goblin"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gray_goblin_mage"><npcwander type="circle" radius="15" /></npc>
+		<npc id="wolf_spider"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1180,978" radius="15" map="5" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="termur_bloodelementalspidermountain_130">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1111,1022" radius="12" map="5" z="-48" />
+	</spawnregion>
+
+	<spawnregion id="termur_tanglingrootspit1_131">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="tangling_roots"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1096,1072" radius="7" map="5" z="-70" />
+	</spawnregion>
+
+	<spawnregion id="termur_undeadteleroom_132">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="15" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="bone_magi"><npcwander type="circle" radius="20" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="20" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="20" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1018,1116" radius="20" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_navreyentrance_133">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="wolf_spider"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1082,988" radius="12" map="5" z="-22" />
+	</spawnregion>
+
+	<spawnregion id="termur_rotwormgroup_134">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="rotworm"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1147,1189" radius="10" map="5" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="termur_rotwormbogpit_135">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="rotworm"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1025,1018" radius="12" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_bloodworm3_136">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="blood_worm"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1035,1175" radius="15" map="5" z="-52" />
+	</spawnregion>
+
+	<spawnregion id="termur_greaterposionele_137">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="120" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="greater_poison_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1041,1074" radius="5" map="5" z="-33" />
+	</spawnregion>
+
+	<spawnregion id="termur_acidslugpit_138">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="acid_slug"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1099,1189" radius="7" map="5" z="-36" />
+	</spawnregion>
+
+	<spawnregion id="termur_goblinfoodroom_139">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="green_goblin"><npcwander type="circle" radius="15" /></npc>
+		<npc id="green_goblin_scout"><npcwander type="circle" radius="15" /></npc>
+		<npc id="green_goblin_alchemist"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1033,1004" radius="15" map="5" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="termur_goblinroom1_140">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gray_goblin"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gray_goblin_mage"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1193,1023" radius="20" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_quartermasterflint_141">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="quartermasterflint" />
+		<point pos="1135,1132,-42,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_undeadmummyroommummys_142">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="mummy"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1219,1075" radius="15" map="5" z="-52" />
+	</spawnregion>
+
+	<spawnregion id="termur_goblinspiderroom_143">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="30" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="wolf_spider"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gray_goblin"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gray_goblin_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gray_goblin_keeper"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1215,984" radius="20" map="5" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="termur_bloodworm1_144">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="blood_worm"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1037,1199" radius="15" map="5" z="-46" />
+	</spawnregion>
+
+	<spawnregion id="termur_flintslogbookroom_145">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="green_goblin"><npcwander type="circle" radius="20" /></npc>
+		<npc id="green_goblin_alchemist"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1040,976" radius="20" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_wolfspidermountains_146">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="wolf_spider"><npcwander type="circle" radius="22" /></npc>
+		<circle center="1126,1007" radius="22" map="5" z="-41" />
+	</spawnregion>
+
+	<spawnregion id="termur_tanglingrootspit2_147">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="tangling_roots"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1105,1086" radius="7" map="5" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="termur_sentinelspidersnavreyentrance_148">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="120" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="sentinel_spider"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1081,988" radius="12" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_jacarquestgiver_149">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="jaacar" />
+		<point pos="1204,1041,-42,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_kraken2_150">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="kraken"><npcwander type="circle" radius="35" /></npc>
+		<circle center="1076,1117" radius="35" map="5" z="-65" />
+	</spawnregion>
+
+	<spawnregion id="termur_rotwormsolo_151">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="rotworm"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1148,1166" radius="10" map="5" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="termur_fiddling_tobin_152">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="tobin" />
+		<point pos="1121,1132,-42,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_wolfspidercorner2_153">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="wolf_spider"><npcwander type="circle" radius="18" /></npc>
+		<npc id="gray_goblin_keeper"><npcwander type="circle" radius="18" /></npc>
+		<circle center="1163,985" radius="18" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_vernixquestgiver_154">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="vernix" />
+		<point pos="1015,976,-27,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_goblinhallway_155">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gray_goblin"><npcwander type="circle" radius="12" /></npc>
+		<npc id="gray_goblin_mage"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1198,1052" radius="12" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_undeadmummyroomghouls_156">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="shade"><npcwander type="circle" radius="15" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="15" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1218,1075" radius="15" map="5" z="-52" />
+	</spawnregion>
+
+	<spawnregion id="termur_greengoblinhallway1_157">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="25" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="green_goblin"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1054,1044" radius="15" map="5" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="termur_kraken1_158">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="30" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="kraken"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1031,1152" radius="30" map="5" z="-65" />
+	</spawnregion>
+
+	<spawnregion id="termur_undeadmummyroomrottings_159">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1217,1075" radius="15" map="5" z="-52" />
+	</spawnregion>
+
+	<spawnregion id="termur_greengoblinalchbunkers_160">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="green_goblin_alchemist"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1048,1027" radius="15" map="5" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="termur_magickey_161">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="30" max="45" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="magickey" />
+		<point pos="1109,1150,-12,5" />
+	</spawnregion>
+
+	<spawnregion id="termur_navery_nighteyes_2_162">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1053,864" radius="5" map="5" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="termur_treasuresofkotl1_163">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="5" /></npc>
+		<circle center="541,2406" radius="5" map="5" z="10" />
+	</spawnregion>
+
+	<spawnregion id="termur_treasuresofkotl6_164">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="ignisfatalis"><npcwander type="circle" radius="5" /></npc>
+		<circle center="597,2397" radius="5" map="5" z="0" />
+	</spawnregion>
+
+</definitions>

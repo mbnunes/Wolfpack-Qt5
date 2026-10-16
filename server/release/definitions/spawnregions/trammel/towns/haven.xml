@@ -212,7 +212,7 @@
 	<!-- Fisher -->
 	<spawnregion inherit="haven_vendor" id="haven_vendor_25">
 		<active />
-		<npc id="fisher_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fisherman_male"><npcwander type="circle" radius="5" /></npc>
 		<point pos="3504,2612,0,1" />
 	</spawnregion>
 

@@ -3,6 +3,8 @@ import wolfpack
 from wolfpack import time
 from wolfpack.utilities import hex2dec
 from wolfpack.gumps import cGump
+import commands.commands
+import commands.respawntowns
 
 def season( socket, command, arguments ):
 	packet = [ 0xbc, int(arguments), 0x01 ]
@@ -36,7 +38,7 @@ def nudgetarget(player, arguments, target):
 	else:
 		player.socket.sysmessage('You have to target an item or character.')
 
-"""
+r"""
 	\command nudgedown
 	\usage - <code>nudgedown</code>
 	- <code>nudgedown amount</code>
@@ -53,7 +55,7 @@ def nudgedown(socket, command, arguments):
 
 	socket.attachtarget('commands.nudgetarget', [- amount])
 
-"""
+r"""
 	\command nudgeup
 	\usage - <code>nudgeup</code>
 	- <code>nudgeup amount</code>
@@ -78,7 +80,7 @@ def resendtooltiptarget(player, arguments, target):
 	else:
 		player.socket.sysmessage('You have to target either a character or item.')
 
-"""
+r"""
 	\command resendtooltip
 	\description Resend the tooltip of an object. This is mainly for debugging purposes.
 """
@@ -100,7 +102,7 @@ def nightsight(socket, command, arguments):
 		player.lightbonus = 127
 	socket.updatelightlevel()
 
-"""
+r"""
 	\command multigems
 	\description Toggle the multigems flag for the current account.
 	If this flag is on, multis will be sent as worldgems instead
@@ -117,7 +119,7 @@ def multigems(socket, command, arguments):
 
 	socket.resendworld()
 
-"""
+r"""
 	\command goname
 	\usage - <code>goname name</code>
 	\description Go to the characters found with the given name.
@@ -172,7 +174,7 @@ def goname(socket, command, arguments):
 			socket.player.update()
 			socket.resendworld()
 
-"""
+r"""
 	\command goitem
 	\usage - <code>goitem name</code>
 	\description Go to the item found with the given name.
@@ -226,7 +228,7 @@ def goitem(socket, command, arguments):
 			if item.container.isitem():
 				socket.sendcontainer(item.container)
 
-"""
+r"""
 	\command gobaseid
 	\usage - <code>gobaseid baseid</code>
 	\description Go to the item found with the given baseid.
@@ -307,7 +309,7 @@ def gobaseid(socket, command, arguments):
 		socket.player.update()
 		socket.resendworld()
 
-"""
+r"""
 	\command gouid
 	\usage - <code>gouid serial</code>
 	\description Find an object with the given serial and move to it.
@@ -367,7 +369,7 @@ def gouid(socket, command, arguments):
 
 	socket.sysmessage('You specified an invalid serial: 0x%x.' % uid)
 
-"""
+r"""
 	\command followers
 	\description Show the names and serials of the followers of the
 	targetted character.
@@ -422,22 +424,22 @@ def onLoad():
 	wolfpack.registercommand("goitem", goitem)
 	wolfpack.registercommand("gobaseid", gobaseid)
 
-"""
+r"""
 	\command nightsight
 	\description Toggle gamemaster nightsight.
 """
 
-"""
+r"""
 	\command time
 	\description Show the current ingame time and the current lightlevel.
 """
 
-"""
+r"""
 	\command updateplayer
 	\description Resends your character to your socket.
 """
 
-"""
+r"""
 	\command season
 	\description Sends a season change to the current client.
 	\usage - <code>season id</code>

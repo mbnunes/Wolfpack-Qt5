@@ -10,4 +10,5 @@
 	<include file="definitions/decoration/Malas/Malas/markcontainers.xml"/>
 	<include file="definitions/decoration/Malas/Malas/summoning_quest.xml"/>
 	<include file="definitions/decoration/Malas/signs.xml"/>
+	<include file="definitions/decoration/Malas/doors.xml"/>
 </decoration>

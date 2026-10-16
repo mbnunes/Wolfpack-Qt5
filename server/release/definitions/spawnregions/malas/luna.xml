@@ -1,4 +1,190 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="malas_vendors_1_15">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="blacksmith_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="blacksmith_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="976,512" radius="5" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_8_35">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="991,527" radius="5" map="3" z="-30" />
+	</spawnregion>
+
+	<spawnregion id="malas_malas_animal_trainer_60">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="animal_trainer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1027,494" radius="5" map="3" z="-70" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_7_62">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="provisioner_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="cobbler_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="jeweler_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="993,511" radius="5" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_9_129">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="animal_trainer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1027,494" radius="5" map="3" z="-70" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_2_140">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="tailor_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="weaver"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tailor_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tanner_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="furtrader"><npcwander type="circle" radius="5" /></npc>
+		<circle center="976,527" radius="5" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_3_146">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="keeper_of_chivalry"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1016,514" radius="5" map="3" z="-70" />
+	</spawnregion>
+
+	<spawnregion id="malas_healer_176">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="951,521" radius="5" map="3" z="-55" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_10_177">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="veterinarian_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1027,498" radius="5" map="3" z="-70" />
+	</spawnregion>
+
+	<spawnregion id="malas_healer_183">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1030,520" radius="5" map="3" z="-55" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_4_239">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="keeper_of_chivalry"><npcwander type="circle" radius="5" /></npc>
+		<circle center="961,517" radius="3" map="3" z="-70" />
+	</spawnregion>
+
+	<spawnregion id="malas_spawner_279">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="gorrow"><npcwander type="circle" radius="5" /></npc>
+		<npc id="banker_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="minter"><npcwander type="circle" radius="5" /></npc>
+		<circle center="989,519" radius="4" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_5_281">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="holy_mage"><npcwander type="circle" radius="5" /></npc>
+		<npc id="herbalist_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="alchemist_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="custom_hairstylist"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1004,527" radius="5" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_malas_22_289">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="tinker_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="carpenter_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="architect"><npcwander type="circle" radius="5" /></npc>
+		<npc id="stone_crafter"><npcwander type="circle" radius="5" /></npc>
+		<npc id="bowyer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1003,513" radius="5" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_lunamagetower_291">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>luna</group>
+		<npc id="mage_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="alchemist_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="herbalist_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="mapmaker"><npcwander type="circle" radius="5" /></npc>
+		<circle center="907,452" radius="5" map="3" z="-50" />
+	</spawnregion>
 
 </definitions>

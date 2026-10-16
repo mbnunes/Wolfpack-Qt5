@@ -24,6 +24,6 @@
 	<include file="definitions/items/weaponry/artifacts/titans_hammer.xml"/>
 	<include file="definitions/items/weaponry/artifacts/zyronic_claw.xml"/>
 
-	<!-- ServUO Artifacts -->
-	<include file="definitions/items/weaponry/artifacts/servuo_artifacts.xml"/>
+	<!-- Expansion Artifacts -->
+	<include file="definitions/items/weaponry/artifacts/expansion_artifacts.xml"/>
 </definitions>

@@ -19,6 +19,14 @@
 	<script>boats.deed</script>
 	<script>boats.tillerman</script>
 	<script>boats.plank</script>
+	<script>boats.security</script>
+	<script>boats.damage</script>
+	<script>boats.wheel</script>
+	<script>boats.mooring</script>
+	<script>boats.cannons</script>
+	<script>boats.pilot</script>
+	<script>boats.tracking</script>
+	<script>boats.runes</script>
 
 	<!-- Housing -->
 	<script>housing</script>
@@ -145,6 +153,7 @@
 
 	<!-- Commands -->
 	<script>commands</script>
+	<script>commands.commands</script>
 	<script>commands.account</script>
 	<script>commands.action</script>
 	<script>commands.add</script>

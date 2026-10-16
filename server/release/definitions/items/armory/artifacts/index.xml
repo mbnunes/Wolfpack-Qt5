@@ -18,6 +18,6 @@
 	<include file="definitions/items/armory/artifacts/hat_of_the_magi.xml"/>
 	<include file="definitions/items/armory/artifacts/hunters_headdress.xml"/>
 
-	<!-- ServUO Artifacts -->
-	<include file="definitions/items/armory/artifacts/servuo_artifacts.xml"/>
+	<!-- Expansion Artifacts -->
+	<include file="definitions/items/armory/artifacts/expansion_artifacts.xml"/>
 </definitions>

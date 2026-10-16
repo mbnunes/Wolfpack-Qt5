@@ -1,97 +1,140 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Wolfpack Administration</title>
-<style type="text/css">
-<!--
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-color: #FFFFFF;
-}
-body,td,th {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10pt;
-}
-.maintitle {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 16px;
-	font-weight: bold;
-	color: #336633;
-}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wolfpack Administration</title>
 
-.smalltext {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 10px;
-	color: #999999;
-}
+  <!-- Bootstrap 5 CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/custom.css" />
 
-.sectiontitle {
+  <style>
+    body {
+      background-color: #f8fafc;
+      font-size: 0.9rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
 
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 14px;
-	font-weight: bold;
-	color: #666666;
-}
+    /* Topbar Verde Oficial Wolfpack com Logo */
+    .wp-header {
+      background-color: #004026;
+      border-bottom: 2px solid #002b1a;
+      height: 60px;
+    }
 
-.text {
-	font-family: "Trebuchet MS", Arial, Helvetica;
-	font-size: 12px;
-}
+    /* Layout principal */
+    .wp-layout-wrapper {
+      display: flex;
+      flex: 1;
+      min-height: calc(100vh - 60px);
+    }
 
-img {
-	border: 0;
-}
+    /* Sidebar Estreita e Moderna */
+    .wp-sidebar-slim {
+      width: 195px;
+      min-width: 195px;
+      background-color: #ffffff;
+      border-right: 1px solid #e2e8f0;
+      display: flex;
+      flex-direction: column;
+    }
 
-a {
-	color: #0000FF;
-	text-decoration: none;
-}
+    .wp-sidebar-slim .nav-link {
+      color: #475569;
+      font-weight: 500;
+      font-size: 0.85rem;
+      padding: 0.55rem 0.85rem;
+      border-radius: 6px;
+      margin: 0.15rem 0.5rem;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-a:hover {
-	color: #FF0000;
-}
-.Stil4 {font-size: 9pt}
+    .wp-sidebar-slim .nav-link:hover {
+      background-color: #eaf2e8;
+      color: #004026;
+    }
 
--->
-</style></head>
+    .wp-sidebar-slim .nav-link.active {
+      background-color: #004026;
+      color: #ffffff !important;
+      font-weight: 600;
+    }
 
+    /* Avatar Redondo do Perfil */
+    .wp-avatar-circle {
+      width: 34px;
+      height: 34px;
+      background-color: #c6dbbf;
+      color: #004026;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    /* Área de Conteúdo 100% Fluida */
+    .wp-content-area {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background-color: #f8fafc;
+    }
+  </style>
+</head>
 <body>
-<table width="100%"  border="0" cellspacing="0" cellpadding="0">
-  <tr>
-	<td bgcolor="#004026"><img src="top_logo.jpg" width="586" height="87" /></td>
-  </tr>
-  <tr>
-	<td bgcolor="#DDDDDD" height="2"><img src="spacer.gif" width="1" height="2" /></td>
-  </tr>
-</table>
-%USERNAME%
-<div align="center"><br />
-</div>
-<table width="750"  border="0" align="center" cellpadding="2" cellspacing="0">
-  <tr>
-	<td colspan="2" valign="top"><div align="center">
-        <p><strong>        <span class="maintitle">Wolfpack Remote Administration</span></strong></p>
-        </div></td>
-  </tr>
-  <tr>
-    <td width="185" valign="top">      <table width="170"  border="0" cellspacing="0" cellpadding="0">
-        <tr>
-          <td width="1" bgcolor="#004026"><img src="spacer.gif" width="1" height="1" /></td>
-          <td bgcolor="#C6DBBF"><table width="100%"  border="0" cellspacing="0" cellpadding="3">
-              <tr>
-                <td><span class="Stil4"><strong>Remote Administration</strong><br />
-%NAVBAR%<br />
-                </span></td>
-              </tr>
-          </table></td>
-        </tr>
-      </table></td>
-    <td width="527" valign="top"><span class="Stil4">%CONTENT%</span></td>
-  </tr>
-</table>
+
+  <!-- Top Header com Logo Oficial e Submenu de Perfil à Direita -->
+  <header class="wp-header shadow-sm">
+    <div class="container-fluid px-3 px-md-4 d-flex align-items-center justify-content-between h-100">
+      
+      <!-- Logo Wolfpack -->
+      <div class="d-flex align-items-center">
+        <a href="main.py" class="d-flex align-items-center text-decoration-none">
+          <img src="images/top_logo.jpg" alt="Wolfpack Logo" class="img-fluid" style="max-height: 48px;" />
+        </a>
+      </div>
+
+      <!-- Menu Profile / Dropdown de Usuário -->
+      <div>
+        %USERNAME%
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Estrutura Principal -->
+  <div class="wp-layout-wrapper">
+    
+    <!-- Sidebar Estreita à Esquerda -->
+    %NAVBAR%
+
+    <!-- Conteúdo Fluido -->
+    <main class="wp-content-area p-3 p-md-4">
+      <div class="card shadow-sm p-3 p-md-4 bg-white border-0 h-100">
+        %CONTENT%
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Rodapé Fino -->
+  <footer class="py-2 px-4 bg-white border-top text-secondary small text-end">
+    Wolfpack-Qt5 &bull; Remote Administration Console
+  </footer>
+
+  <!-- Bootstrap 5 JS (Necessário para abrir o dropdown de perfil) -->
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

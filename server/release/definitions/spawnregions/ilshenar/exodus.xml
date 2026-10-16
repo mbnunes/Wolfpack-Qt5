@@ -1,4 +1,453 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_exodus_19_50">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1931,67" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_7_51">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exodus_overseer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="exodus_minion"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1979,192" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_9_65">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="gargoyle_enforcer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2032,184" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodushealer_110">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="838,813" radius="5" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_17_117">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1995,67" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_14_129">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exodus_minion"><npcwander type="circle" radius="15" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2044,87" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_15_134">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="gargoyle_enforcer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2031,48" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_1_155">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exodus_minion"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1939,116" radius="25" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_3_158">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1964,164" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_21_164">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="20" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1932,35" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_18_200">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exodus_overseer"><npcwander type="circle" radius="15" /></npc>
+		<npc id="exodus_minion"><npcwander type="circle" radius="15" /></npc>
+		<npc id="golem_controller"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1980,39" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_20_202">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="gargoyle_destroyer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1896,72" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_6_203">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="gargoyle_destroyer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1895,160" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_8_226">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1996,164" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_2_236">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="30" /></npc>
+		<npc id="exodus_overseer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1894,116" radius="30" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_11_313">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="gargoyle_enforcer"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gargoyle_destroyer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2058,163" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_5_314">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="20" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1932,196" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_12_317">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="15" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="15" /></npc>
+		<npc id="exodus_minion"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2044,143" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_4_399">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1932,164" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_13_406">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="15" /></npc>
+		<npc id="exodus_overseer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2071,116" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_10_414">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="gargoyle_enforcer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2063,183" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_0_416">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="enslaved_gargoyle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="golem_controller"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1980,116" radius="40" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_16_455">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="gargoyle_destroyer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2038,67" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_dungeon_483">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exodusjuggernaut"><npcwander type="circle" radius="40" /></npc>
+		<npc id="exodus_minion_lord"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1859,115" radius="40" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_dungeon_484">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="paladin_guard"><npcwander type="circle" radius="200" /></npc>
+		<npc id="exodusdrone"><npcwander type="circle" radius="200" /></npc>
+		<npc id="exodussentinel"><npcwander type="circle" radius="200" /></npc>
+		<npc id="exoduszealot"><npcwander type="circle" radius="200" /></npc>
+		<circle center="1969,114" radius="200" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_dungeon_485">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="paladin_guard"><npcwander type="circle" radius="200" /></npc>
+		<npc id="exodusdrone"><npcwander type="circle" radius="200" /></npc>
+		<npc id="exodussentinel"><npcwander type="circle" radius="200" /></npc>
+		<npc id="exoduszealot"><npcwander type="circle" radius="200" /></npc>
+		<circle center="1969,114" radius="200" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exodus_dungeon_486">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exodusjuggernaut"><npcwander type="circle" radius="40" /></npc>
+		<npc id="exodus_minion_lord"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1859,115" radius="40" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_488">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1985,116" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_489">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="2036,176" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_490">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1892,107" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_491">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1996,164" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_492">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="2051,140" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_493">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1932,53" radius="50" map="2" z="-26" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_494">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1933,163" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_495">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="2071,106" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_496">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="2019,105" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_497">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1972,59" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_498">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="2044,65" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_exoduschest_499">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>exodus</group>
+		<npc id="exoduschest"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1933,91" radius="50" map="2" z="-28" />
+	</spawnregion>
 
 </definitions>

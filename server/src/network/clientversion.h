@@ -46,7 +46,7 @@ public:
 	bool operator>=( const ClientVersion& o ) const;
 };
 
-// Protocol feature flags dynamically determined by ClientVersion (derived from ServUO ProtocolChanges)
+// Protocol feature flags dynamically determined by ClientVersion (derived from ProtocolChanges)
 enum ProtocolChange
 {
 	ProtocolNone                      = 0,

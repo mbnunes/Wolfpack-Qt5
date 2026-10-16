@@ -1023,7 +1023,7 @@
                 <rectangle from="2147,1318" to="2204,1404" map="1" />
 	</spawnregion>
 
-	<!-- New Haven Mountain Ettins (ServUO Accurate) -->
+	<!-- New Haven Mountain Ettins -->
 	<spawnregion inherit="trammel_Area_Light" id="trammel_haven_ettin_1">
 		<active />
 		<maxnpcamount>3</maxnpcamount>
@@ -1040,7 +1040,7 @@
 		<circle center="3465,2736" radius="25" map="1" z="48" />
 	</spawnregion>
 
-	<!-- New Haven Coastal Brigands (ServUO Accurate) -->
+	<!-- New Haven Coastal Brigands -->
 	<spawnregion inherit="trammel_Area_Light" id="trammel_haven_brigands_1">
 		<active />
 		<maxnpcamount>3</maxnpcamount>
@@ -1059,7 +1059,7 @@
 		<circle center="3709,2629" radius="15" map="1" z="20" />
 	</spawnregion>
 
-	<!-- Old Haven Ruins Undead (ServUO Accurate) -->
+	<!-- Old Haven Ruins Undead -->
 	<spawnregion inherit="trammel_Area_Light" id="trammel_old_haven_undead">
 		<active />
 		<maxnpcamount>15</maxnpcamount>

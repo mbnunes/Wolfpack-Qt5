@@ -57,5 +57,5 @@
 	<include file="definitions/items/armory/gargish/gargish.xml"/>
 
 	<!-- Other Armor -->
-	<include file="definitions/items/armory/other/servuo_armor.xml"/>
+	<include file="definitions/items/armory/other/expansion_armor.xml"/>
 </definitions>

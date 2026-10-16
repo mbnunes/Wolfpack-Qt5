@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="tokuno_citadel_healer_140">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1353,769" radius="3" map="4" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_fandancersdojo_0_409">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="fan_dancer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="977,218" radius="15" map="4" z="23" />
+	</spawnregion>
+
+</definitions>

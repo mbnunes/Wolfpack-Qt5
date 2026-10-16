@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Peerless Boss System Definitions & Data (ServUO Compatible)   #
+# Peerless Boss System Definitions & Data   #
 #===============================================================#
 
 import random

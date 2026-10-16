@@ -1,0 +1,1327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="malas_labyrinth_10_0">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="bird"><npcwander type="circle" radius="12" /></npc>
+		<npc id="minotaur_scout"><npcwander type="circle" radius="12" /></npc>
+		<circle center="346,1910" radius="12" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_labyrinth_grim_squirrel_1">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="grim"><npcwander type="circle" radius="5" /></npc>
+		<npc id="squirrel"><npcwander type="circle" radius="5" /></npc>
+		<circle center="382,1932" radius="5" map="3" z="10" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_8_4">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="fire_beetle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="107,23" radius="5" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_13_5">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="horde_minion"><npcwander type="circle" radius="10" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="10" /></npc>
+		<circle center="111,352" radius="10" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_16_7">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="horde_minion"><npcwander type="circle" radius="20" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="balron"><npcwander type="circle" radius="20" /></npc>
+		<circle center="175,660" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_3_10">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="fan_dancer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ronin"><npcwander type="circle" radius="20" /></npc>
+		<circle center="96,540" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_11_17">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="fan_dancer"><npcwander type="circle" radius="20" /></npc>
+		<circle center="88,332" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_1_23">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="minotaur"><npcwander type="circle" radius="10" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="10" /></npc>
+		<circle center="384,1932" radius="10" map="3" z="10" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_11_24">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="5" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="81,1892" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_9_26">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="reptalon"><npcwander type="circle" radius="20" /></npc>
+		<npc id="minotaur"><npcwander type="circle" radius="20" /></npc>
+		<circle center="355,1918" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_2_27">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="20" /></npc>
+		<circle center="162,1899" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_5_30">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="master_mikael"><npcwander type="circle" radius="10" /></npc>
+		<circle center="108,1670" radius="10" map="3" z="1" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_9_31">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="375" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1205,700" radius="15" map="3" z="-88" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_3_32">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gibberling"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gore_fiend"><npcwander type="circle" radius="15" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="15" /></npc>
+		<circle center="99,1651" radius="15" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_1_33">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="250" max="500" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orcish_lord"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1346,1225" radius="25" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_12_34">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<circle center="82,1875" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_3_39">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="10" /></npc>
+		<circle center="155,1869" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_0_41">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="10" /></npc>
+		<circle center="179,1869" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_4_42">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_priest"><npcwander type="circle" radius="30" /></npc>
+		<circle center="83,114" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_19_46">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="fan_dancer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="balron"><npcwander type="circle" radius="10" /></npc>
+		<circle center="110,649" radius="10" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_4_50">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="375" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc"><npcwander type="circle" radius="15" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="15" /></npc>
+		<circle center="911,194" radius="15" map="3" z="-79" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_2_52">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="10" /></npc>
+		<circle center="155,1869" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_7_54">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="375" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1364,596" radius="15" map="3" z="-86" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_9_56">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="8" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="8" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="8" /></npc>
+		<circle center="140,1974" radius="8" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_15_57">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="headless_one"><npcwander type="circle" radius="5" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="147,646" radius="5" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_0_58">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="drake"><npcwander type="circle" radius="20" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="20" /></npc>
+		<circle center="366,1928" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_8_61">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="5" /></npc>
+		<npc id="serpents_fang_high_executioner"><npcwander type="circle" radius="5" /></npc>
+		<circle center="170,1974" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_6_64">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_priest"><npcwander type="circle" radius="30" /></npc>
+		<circle center="116,61" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_labyrinth_miasma_65">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="miasma"><npcwander type="circle" radius="5" /></npc>
+		<circle center="335,1919" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_2_66">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="miasma"><npcwander type="circle" radius="5" /></npc>
+		<circle center="335,1920" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_7_67">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="5" /></npc>
+		<npc id="serpents_fang_high_executioner"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<circle center="168,1972" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_8_70">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="master_jonath"><npcwander type="circle" radius="11" /></npc>
+		<circle center="116,1675" radius="11" map="3" z="1" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_7_71">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="8" /></npc>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="8" /></npc>
+		<npc id="dragons_flame_grand_mage"><npcwander type="circle" radius="8" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="8" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="8" /></npc>
+		<circle center="139,1868" radius="8" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_4_72">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="10" /></npc>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="10" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="10" /></npc>
+		<circle center="179,1869" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_2_73">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_priest"><npcwander type="circle" radius="30" /></npc>
+		<circle center="71,29" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_6_78">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="20" /></npc>
+		<circle center="183,1961" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_8_87">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="375" max="625" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc_brute"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1364,596" radius="30" map="3" z="-86" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_5_91">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="375" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1665,356" radius="25" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_quest_gnosos_92">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="gnosos"><npcwander type="circle" radius="5" /></npc>
+		<circle center="82,1649" radius="2" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_2_96">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="20" /></npc>
+		<circle center="182,1897" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_8_97">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="8" /></npc>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="8" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="8" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="8" /></npc>
+		<circle center="139,1868" radius="8" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_3_98">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_priest"><npcwander type="circle" radius="30" /></npc>
+		<circle center="54,67" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_1_102">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_priest"><npcwander type="circle" radius="30" /></npc>
+		<circle center="25,19" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_quest_cohenn_106">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="civilist_base_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="88,1645" radius="2" map="3" z="20" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_14_108">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="horde_minion"><npcwander type="circle" radius="20" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="oni"><npcwander type="circle" radius="20" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<circle center="173,615" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_11_109">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="5" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<circle center="81,1892" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_4_112">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="20" /></npc>
+		<circle center="100,499" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_10_114">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="375" max="625" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc_brute"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1205,700" radius="20" map="3" z="-88" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_10_120">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="129,1945" radius="7" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_7_121">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="lady_marai"><npcwander type="circle" radius="11" /></npc>
+		<circle center="104,1659" radius="11" map="3" z="1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_20_124">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="fan_dancer"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="5" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="5" /></npc>
+		<circle center="134,651" radius="5" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_0_131">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_priest"><npcwander type="circle" radius="30" /></npc>
+		<circle center="16,56" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_9_133">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="headless_one"><npcwander type="circle" radius="10" /></npc>
+		<circle center="123,387" radius="10" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_11_134">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="minotaur"><npcwander type="circle" radius="15" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="15" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="15" /></npc>
+		<circle center="427,1923" radius="15" map="3" z="5" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_18_135">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="20" /></npc>
+		<npc id="succubus"><npcwander type="circle" radius="20" /></npc>
+		<circle center="106,685" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_7_139">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="horde_minion"><npcwander type="circle" radius="10" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="10" /></npc>
+		<circle center="120,415" radius="10" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_141">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="minotaur"><npcwander type="circle" radius="50" /></npc>
+		<npc id="minotaur_scout"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="minotaur_captain"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="397,1906" radius="50" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_12_147">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="375" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1598,1819" radius="25" map="3" z="-110" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_1_148">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_grand_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="185,1920" radius="7" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_1_149">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="daemon"><npcwander type="circle" radius="15" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="15" /></npc>
+		<npc id="succubus"><npcwander type="circle" radius="15" /></npc>
+		<circle center="78,546" radius="15" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_6_152">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="185,1920" radius="7" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_4_159">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="lady_jennifyr"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gibberling"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gore_fiend"><npcwander type="circle" radius="15" /></npc>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="15" /></npc>
+		<circle center="81,1667" radius="15" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_9_161">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_grand_mage"><npcwander type="circle" radius="8" /></npc>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="8" /></npc>
+		<circle center="140,1974" radius="8" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_7_164">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_priest"><npcwander type="circle" radius="30" /></npc>
+		<circle center="111,20" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_3_165">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="healer_male"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1740,990" radius="15" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_bedlam_pyre_168">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="pyre"><npcwander type="circle" radius="5" /></npc>
+		<npc id="rend"><npcwander type="circle" radius="5" /></npc>
+		<circle center="377,1909" radius="5" map="3" z="5" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_quest_kia_170">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="kia"><npcwander type="circle" radius="5" /></npc>
+		<circle center="118,1666" radius="4" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_10_172">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_grand_mage"><npcwander type="circle" radius="7" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="134,1947" radius="7" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_2_178">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="sir_patrick"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gibberling"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gore_fiend"><npcwander type="circle" radius="15" /></npc>
+		<circle center="99,1661" radius="15" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_2_180">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="625" max="875" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc_brute"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1346,1225" radius="25" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_6_189">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="250" max="375" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orcish_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1665,356" radius="10" map="3" z="-50" />
+	</spawnregion>
+
+	<spawnregion id="malas_mal_labyrinth_mistral_flurry_tempest_193">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="mistral"><npcwander type="circle" radius="5" /></npc>
+		<npc id="flurry"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tempest"><npcwander type="circle" radius="5" /></npc>
+		<circle center="381,1882" radius="5" map="3" z="3" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_12_194">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="bird"><npcwander type="circle" radius="15" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="15" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="15" /></npc>
+		<npc id="minotaur"><npcwander type="circle" radius="15" /></npc>
+		<circle center="348,1948" radius="15" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_4_197">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="20" /></npc>
+		<circle center="174,1900" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_1_201">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="25" /></npc>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="25" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="25" /></npc>
+		<circle center="145,1898" radius="25" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_quest_emerillo_203">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="emerillo"><npcwander type="circle" radius="5" /></npc>
+		<circle center="89,1639" radius="2" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_12_204">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tigers_claw_master"><npcwander type="circle" radius="5" /></npc>
+		<circle center="142,1921" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_14_208">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="flurry"><npcwander type="circle" radius="20" /></npc>
+		<npc id="grim"><npcwander type="circle" radius="20" /></npc>
+		<npc id="mistral"><npcwander type="circle" radius="20" /></npc>
+		<npc id="tempest"><npcwander type="circle" radius="20" /></npc>
+		<circle center="361,1906" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_5_210">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="5" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="5" /></npc>
+		<circle center="181,1883" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_5_212">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="rend"><npcwander type="circle" radius="10" /></npc>
+		<circle center="336,1888" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_14_215">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<circle center="82,1875" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_13_219">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="pyre"><npcwander type="circle" radius="5" /></npc>
+		<circle center="415,1897" radius="5" map="3" z="5" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_6_220">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horde_minion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="30" /></npc>
+		<circle center="70,376" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_6_221">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="master_theophilus"><npcwander type="circle" radius="6" /></npc>
+		<circle center="89,1627" radius="6" map="3" z="1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_10_222">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="headless_one"><npcwander type="circle" radius="10" /></npc>
+		<circle center="79,521" radius="10" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_10_224">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="131,1955" radius="7" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_5_228">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="daemon"><npcwander type="circle" radius="20" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="20" /></npc>
+		<npc id="horde_minion"><npcwander type="circle" radius="20" /></npc>
+		<circle center="64,488" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_3_229">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="375" max="625" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc_bomber"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1346,1225" radius="25" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_0_236">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="125" max="375" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc"><npcwander type="circle" radius="25" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1346,1225" radius="25" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_0_238">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="red_death"><npcwander type="circle" radius="5" /></npc>
+		<circle center="110,1643" radius="4" map="3" z="1" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_3_244">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="25" /></npc>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="25" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="25" /></npc>
+		<circle center="145,1898" radius="25" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_7_255">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="minotaur"><npcwander type="circle" radius="20" /></npc>
+		<npc id="minotaur_scout"><npcwander type="circle" radius="20" /></npc>
+		<npc id="squirrel"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="392,1917" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_0_256">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="20" /></npc>
+		<circle center="183,1961" radius="20" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_8_257">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="eagle"><npcwander type="circle" radius="10" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="10" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="10" /></npc>
+		<npc id="minotaur_scout"><npcwander type="circle" radius="10" /></npc>
+		<circle center="390,1883" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_17_258">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="fan_dancer"><npcwander type="circle" radius="20" /></npc>
+		<circle center="142,692" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_8_259">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="headless_one"><npcwander type="circle" radius="10" /></npc>
+		<circle center="99,387" radius="10" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_thecitadel_12_260">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="20" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tigers_claw_master"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<circle center="142,1921" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_4_261">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="scorpion"><npcwander type="circle" radius="12" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="12" /></npc>
+		<circle center="1742,990" radius="12" map="3" z="-84" />
+	</spawnregion>
+
+	<spawnregion id="malas_bedlam_1_265">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="gibberling"><npcwander type="circle" radius="15" /></npc>
+		<npc id="gore_fiend"><npcwander type="circle" radius="15" /></npc>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="15" /></npc>
+		<circle center="87,1617" radius="15" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinth_6_268">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="squirrel"><npcwander type="circle" radius="10" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="10" /></npc>
+		<circle center="346,1959" radius="10" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_2_270">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="daemon"><npcwander type="circle" radius="15" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="15" /></npc>
+		<npc id="succubus"><npcwander type="circle" radius="15" /></npc>
+		<circle center="110,540" radius="15" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_fandancersdojo_12_273">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="horde_minion"><npcwander type="circle" radius="20" /></npc>
+		<npc id="headless_one"><npcwander type="circle" radius="20" /></npc>
+		<npc id="succubus"><npcwander type="circle" radius="20" /></npc>
+		<circle center="97,467" radius="20" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_5_277">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="serpents_fang_assassin"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tigers_claw_thief"><npcwander type="circle" radius="5" /></npc>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<circle center="181,1883" radius="5" map="3" z="0" />
+	</spawnregion>
+
+	<spawnregion id="malas_labyrinthhealer_280">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1727,982" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_yomutsomines_5_282">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_priest"><npcwander type="circle" radius="30" /></npc>
+		<circle center="102,84" radius="30" map="3" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="malas_orcforts_11_284">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="375" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="orc"><npcwander type="circle" radius="15" /></npc>
+		<npc id="orcish_lord"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1257,1328" radius="15" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_citadel_13_288">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>dungeons</group>
+		<npc id="dragons_flame_mage"><npcwander type="circle" radius="5" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="5" /></npc>
+		<circle center="77,1883" radius="5" map="3" z="0" />
+	</spawnregion>
+
+</definitions>

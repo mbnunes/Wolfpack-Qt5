@@ -1,0 +1,382 @@
+<decoration>
+	<!-- barred metal door -->
+	<item id="0x1ff7">
+		<pos x="2046" y="835" z="-28" map="2" />
+		<pos x="2046" y="841" z="-28" map="2" />
+		<pos x="231" y="138" z="-28" map="2" />
+		<pos x="231" y="131" z="-28" map="2" />
+		<pos x="231" y="122" z="-28" map="2" />
+		<pos x="231" y="116" z="-28" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x1fef">
+		<pos x="2048" y="832" z="-28" map="2" />
+		<pos x="2052" y="832" z="-28" map="2" />
+		<pos x="2056" y="832" z="-28" map="2" />
+		<pos x="2172" y="832" z="-28" map="2" />
+		<pos x="2176" y="832" z="-28" map="2" />
+		<pos x="2180" y="832" z="-28" map="2" />
+		<pos x="2184" y="832" z="-28" map="2" />
+		<pos x="162" y="14" z="-28" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x693">
+		<pos x="15" y="1315" z="-28" map="2" />
+		<pos x="15" y="1291" z="-28" map="2" />
+		<pos x="15" y="1299" z="-28" map="2" />
+		<pos x="15" y="1307" z="-28" map="2" />
+		<pos x="55" y="1331" z="-28" map="2" />
+		<pos x="55" y="1339" z="-28" map="2" />
+		<pos x="127" y="1523" z="-28" map="2" />
+		<pos x="127" y="1531" z="-28" map="2" />
+		<pos x="127" y="1539" z="-28" map="2" />
+		<pos x="127" y="1547" z="-28" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x689">
+		<pos x="35" y="1311" z="-28" map="2" />
+		<pos x="67" y="1311" z="-28" map="2" />
+		<pos x="67" y="1527" z="-28" map="2" />
+		<pos x="67" y="1551" z="-28" map="2" />
+		<pos x="75" y="1311" z="-28" map="2" />
+		<pos x="75" y="1527" z="-28" map="2" />
+		<pos x="75" y="1551" z="-28" map="2" />
+		<pos x="139" y="1527" z="-28" map="2" />
+		<pos x="147" y="1527" z="-28" map="2" />
+		<pos x="155" y="1527" z="-28" map="2" />
+		<pos x="163" y="1527" z="-28" map="2" />
+		<pos x="171" y="1527" z="-28" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x685">
+		<pos x="43" y="1303" z="-28" map="2" />
+		<pos x="59" y="1263" z="-28" map="2" />
+		<pos x="67" y="1263" z="-28" map="2" />
+		<pos x="67" y="1303" z="-28" map="2" />
+		<pos x="67" y="1543" z="-28" map="2" />
+		<pos x="75" y="1263" z="-28" map="2" />
+		<pos x="75" y="1303" z="-28" map="2" />
+		<pos x="75" y="1543" z="-28" map="2" />
+		<pos x="147" y="1519" z="-28" map="2" />
+		<pos x="155" y="1519" z="-28" map="2" />
+		<pos x="163" y="1519" z="-28" map="2" />
+		<pos x="171" y="1519" z="-28" map="2" />
+		<pos x="35" y="1303" z="-28" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6ed">
+		<pos x="41" y="1412" z="-28" map="2" />
+		<pos x="39" y="1356" z="-28" map="2" />
+		<pos x="51" y="1492" z="-28" map="2" />
+		<pos x="111" y="1522" z="-28" map="2" />
+		<pos x="264" y="96" z="-28" map="2" />
+		<pos x="1565" y="1047" z="-7" map="2" />
+		<pos x="799" y="1059" z="-10" map="2" />
+		<pos x="803" y="1092" z="-30" map="2" />
+		<pos x="803" y="1104" z="-30" map="2" />
+		<pos x="807" y="1067" z="-30" map="2" />
+		<pos x="807" y="1084" z="-30" map="2" />
+		<pos x="815" y="1060" z="-30" map="2" />
+		<pos x="847" y="1060" z="-30" map="2" />
+		<pos x="847" y="1096" z="-30" map="2" />
+		<pos x="863" y="1052" z="-30" map="2" />
+		<pos x="867" y="1044" z="-10" map="2" />
+		<pos x="867" y="1060" z="-10" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6ef">
+		<pos x="39" y="1355" z="-28" map="2" />
+		<pos x="41" y="1411" z="-28" map="2" />
+		<pos x="51" y="1491" z="-28" map="2" />
+		<pos x="111" y="1521" z="-28" map="2" />
+		<pos x="264" y="95" z="-28" map="2" />
+		<pos x="1565" y="1046" z="-7" map="2" />
+		<pos x="803" y="1091" z="-30" map="2" />
+		<pos x="803" y="1103" z="-30" map="2" />
+		<pos x="807" y="1066" z="-30" map="2" />
+		<pos x="807" y="1083" z="-30" map="2" />
+		<pos x="815" y="1059" z="-30" map="2" />
+		<pos x="847" y="1059" z="-30" map="2" />
+		<pos x="847" y="1095" z="-30" map="2" />
+		<pos x="863" y="1051" z="-30" map="2" />
+		<pos x="867" y="1043" z="-10" map="2" />
+		<pos x="867" y="1059" z="-10" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6e9">
+		<pos x="35" y="1451" z="-28" map="2" />
+		<pos x="59" y="1499" z="-28" map="2" />
+		<pos x="115" y="1499" z="-28" map="2" />
+		<pos x="51" y="1349" z="-28" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6eb">
+		<pos x="36" y="1451" z="-28" map="2" />
+		<pos x="60" y="1499" z="-28" map="2" />
+		<pos x="116" y="1499" z="-28" map="2" />
+		<pos x="52" y="1349" z="-28" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6e5">
+		<pos x="51" y="1385" z="-28" map="2" />
+		<pos x="59" y="1483" z="-28" map="2" />
+		<pos x="83" y="1483" z="-28" map="2" />
+		<pos x="107" y="1487" z="-28" map="2" />
+		<pos x="272" y="87" z="-28" map="2" />
+		<pos x="266" y="87" z="-28" map="2" />
+		<pos x="779" y="1071" z="-30" map="2" />
+		<pos x="779" y="1111" z="-30" map="2" />
+		<pos x="796" y="1071" z="-30" map="2" />
+		<pos x="835" y="1071" z="-30" map="2" />
+		<pos x="849" y="1087" z="-10" map="2" />
+		<pos x="861" y="1088" z="-10" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6e7">
+		<pos x="52" y="1385" z="-28" map="2" />
+		<pos x="60" y="1483" z="-28" map="2" />
+		<pos x="84" y="1483" z="-28" map="2" />
+		<pos x="108" y="1487" z="-28" map="2" />
+		<pos x="267" y="87" z="-28" map="2" />
+		<pos x="273" y="87" z="-28" map="2" />
+		<pos x="780" y="1071" z="-30" map="2" />
+		<pos x="780" y="1111" z="-30" map="2" />
+		<pos x="795" y="1063" z="-10" map="2" />
+		<pos x="797" y="1071" z="-30" map="2" />
+		<pos x="836" y="1071" z="-30" map="2" />
+		<pos x="850" y="1087" z="-10" map="2" />
+		<pos x="862" y="1088" z="-10" map="2" />
+		<pos x="646" y="816" z="-44" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x68d">
+		<pos x="55" y="1515" z="-28" map="2" />
+		<pos x="55" y="1523" z="-28" map="2" />
+		<pos x="95" y="1291" z="-28" map="2" />
+		<pos x="95" y="1299" z="-28" map="2" />
+		<pos x="95" y="1307" z="-28" map="2" />
+		<pos x="95" y="1315" z="-28" map="2" />
+		<pos x="111" y="1539" z="-28" map="2" />
+		<pos x="111" y="1547" z="-28" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6f3">
+		<pos x="63" y="1292" z="-28" map="2" />
+		<pos x="63" y="1355" z="-28" map="2" />
+		<pos x="57" y="1411" z="-28" map="2" />
+		<pos x="127" y="1563" z="-28" map="2" />
+		<pos x="55" y="1443" z="-28" map="2" />
+		<pos x="863" y="1095" z="-30" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6f1">
+		<pos x="63" y="1293" z="-28" map="2" />
+		<pos x="63" y="1356" z="-28" map="2" />
+		<pos x="57" y="1412" z="-28" map="2" />
+		<pos x="127" y="1564" z="-28" map="2" />
+		<pos x="55" y="1444" z="-28" map="2" />
+		<pos x="863" y="1096" z="-30" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x675" hue="0x8ab">
+		<pos x="83" y="1384" z="-28" map="2" />
+		<pos x="478" y="1527" z="-27" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x675">
+		<pos x="248" y="80" z="-28" map="2" />
+		<pos x="103" y="35" z="-28" map="2" />
+		<pos x="642" y="843" z="-54" map="2" />
+		<pos x="645" y="830" z="-44" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x675" hue="0x451">
+		<pos x="659" y="1535" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x675" hue="0x89d">
+		<pos x="851" y="1559" z="-28" map="2" />
+		<pos x="907" y="1464" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x677" hue="0x8ab">
+		<pos x="84" y="1384" z="-28" map="2" />
+		<pos x="479" y="1527" z="-27" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x677">
+		<pos x="104" y="35" z="-28" map="2" />
+		<pos x="249" y="80" z="-28" map="2" />
+		<pos x="637" y="816" z="-44" map="2" />
+		<pos x="643" y="843" z="-54" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x677" hue="0x451">
+		<pos x="660" y="1535" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x677" hue="0x89d">
+		<pos x="908" y="1464" z="-28" map="2" />
+		<pos x="852" y="1559" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x679" hue="0x58b">
+		<pos x="83" y="1436" z="-28" map="2" />
+		<pos x="99" y="1421" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x679" hue="0x482">
+		<pos x="699" y="1527" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67b" hue="0x58b">
+		<pos x="84" y="1436" z="-28" map="2" />
+		<pos x="100" y="1421" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67b" hue="0x482">
+		<pos x="700" y="1527" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x683" hue="0x58b">
+		<pos x="89" y="1411" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x683" hue="0x482">
+		<pos x="703" y="1571" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x681" hue="0x58b">
+		<pos x="89" y="1412" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x681" hue="0x482">
+		<pos x="703" y="1572" z="-28" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x86e">
+		<pos x="1311" y="1325" z="-14" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x86c">
+		<pos x="1328" y="1321" z="-14" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x1ff5">
+		<pos x="418" y="28" z="-28" map="2" />
+		<pos x="474" y="29" z="-28" map="2" />
+		<pos x="106" y="31" z="-28" map="2" />
+		<pos x="231" y="139" z="-28" map="2" />
+		<pos x="231" y="132" z="-28" map="2" />
+		<pos x="231" y="123" z="-28" map="2" />
+		<pos x="231" y="117" z="-28" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x1fed">
+		<pos x="100" y="29" z="-28" map="2" />
+		<pos x="161" y="14" z="-27" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x1ffb">
+		<pos x="240" y="138" z="-28" map="2" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x1ff9">
+		<pos x="240" y="139" z="-28" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6a7">
+		<pos x="1549" y="1048" z="13" map="2" />
+		<pos x="1556" y="1048" z="13" map="2" />
+		<pos x="1562" y="1048" z="13" map="2" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6ab">
+		<pos x="1556" y="1043" z="13" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x839">
+		<pos x="1234" y="543" z="-6" map="2" />
+		<pos x="1253" y="588" z="-11" map="2" />
+		<pos x="1400" y="433" z="-6" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x83b">
+		<pos x="1235" y="543" z="-6" map="2" />
+		<pos x="1254" y="588" z="-11" map="2" />
+		<pos x="1401" y="433" z="-6" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x841">
+		<pos x="1227" y="555" z="-11" map="2" />
+		<pos x="1395" y="441" z="13" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x843">
+		<pos x="1227" y="554" z="-11" map="2" />
+		<pos x="1395" y="440" z="13" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x872">
+		<pos x="1229" y="563" z="-19" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x866">
+		<pos x="1390" y="432" z="-16" map="2" />
+		<pos x="1219" y="1158" z="-26" map="2" />
+		<pos x="1221" y="1158" z="-26" map="2" />
+		<pos x="1223" y="1158" z="-26" map="2" />
+		<pos x="768" y="1156" z="-29" map="2" />
+		<pos x="771" y="1156" z="-30" map="2" />
+		<pos x="774" y="1156" z="-30" map="2" />
+		<pos x="777" y="1156" z="-30" map="2" />
+	</item>
+	<!-- wooden gate -->
+	<item id="0x86a">
+		<pos x="1219" y="1161" z="-26" map="2" />
+		<pos x="1222" y="1161" z="-26" map="2" />
+		<pos x="762" y="1164" z="-30" map="2" />
+		<pos x="765" y="1164" z="-30" map="2" />
+		<pos x="768" y="1164" z="-30" map="2" />
+		<pos x="771" y="1164" z="-30" map="2" />
+		<pos x="774" y="1164" z="-30" map="2" />
+		<pos x="777" y="1164" z="-30" map="2" />
+		<pos x="780" y="1164" z="-30" map="2" />
+	</item>
+	<!-- rattan door -->
+	<item id="0x697">
+		<pos x="646" y="830" z="-44" map="2" />
+	</item>
+	<!-- stone wall -->
+	<item id="0xf6" hue="0x96f">
+		<pos x="752" y="1549" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67d" hue="0x89d">
+		<pos x="824" y="1475" z="-28" map="2" />
+		<pos x="872" y="1476" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67d" hue="0x901">
+		<pos x="872" y="1508" z="2" map="2" />
+		<pos x="879" y="1532" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67d" hue="0x89e">
+		<pos x="848" y="1476" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67f" hue="0x89d">
+		<pos x="872" y="1475" z="-28" map="2" />
+		<pos x="824" y="1474" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67f" hue="0x901">
+		<pos x="872" y="1507" z="2" map="2" />
+		<pos x="879" y="1531" z="-28" map="2" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67f" hue="0x89e">
+		<pos x="848" y="1475" z="-28" map="2" />
+	</item>
+</decoration>

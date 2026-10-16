@@ -1,4 +1,223 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_towns_40_3">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1262,758" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_36_23">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1292,755" radius="4" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_39_39">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="savage_shaman"><npcwander type="circle" radius="10" /></npc>
+		<npc id="savage_rider"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1243,732" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_25_54">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1181,691" radius="4" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_24_118">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1161,668" radius="5" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_26_147">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1187,685" radius="4" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_39_149">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_beast"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1160,681" radius="30" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_31_168">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="savage_rider"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1213,719" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_34_191">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1251,703" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_38_195">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="ridgeback"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1279,781" radius="5" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_30_205">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage_shaman"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1234,760" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_27_222">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1191,696" radius="7" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_29_287">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1203,762" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_35_296">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1274,728" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_38_321">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="sewerrat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bogling"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="alligator"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1160,681" radius="30" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_28_364">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage_rider"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1191,696" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_37_400">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1280,770" radius="7" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_32_423">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1214,744" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_33_452">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>gargoyle_city</group>
+		<npc id="savage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="savage_shaman"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1231,694" radius="10" map="2" z="-80" />
+	</spawnregion>
 
 </definitions>

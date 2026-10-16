@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Added savedoors         #
 #===============================================================#
 
-"""
+r"""
 	\command decoration
 	\description Places decoration read from a xml template found
 	in wolfpack's data folder.
@@ -13,15 +13,15 @@
 	- <code>decoration savedoors</code>
 	- <code>decoration load &lt;map&gt;</code>
 	
-	Where map is the map you want to decorate (0-4).
+	Where map is the map you want to decorate (0-5).
 	\notes The decoration will be read from a XML files called
 	'data\decoration.?.xml, where ? is the map number'.
-"""
+r"""
 
 import wolfpack
 from wolfpack.utilities import hex2dec
 from wolfpack import tr, console
-from wolfpack.consts import LOG_ERROR
+from wolfpack.consts import LOG_ERROR, LOG_MESSAGE, WPDT_MULTI
 import os
 import xml.sax
 from xml.sax.handler import *
@@ -54,10 +54,20 @@ class DecorationHandler( ContentHandler ):
 			if "value" in atts and "key" in atts:
 				self.statements.append( str(atts.getValue("key")) + "," + type + ","+ str(atts.getValue("value")) )
 		elif name == "pos":
-			if int(hex2dec( self.itemid )) >= 0x4000:
-				item = wolfpack.addmulti( "%x" %  hex2dec( self.itemid ) )
+			try:
+				dec_id = hex2dec( self.itemid )
+				if dec_id <= 0:
+					return
+			except:
+				return
+
+			hex_id = "%x" % dec_id
+			if wolfpack.getdefinition( WPDT_MULTI, hex_id ):
+				item = wolfpack.addmulti( hex_id )
 			else:
-				item = wolfpack.additem( "%x" %  hex2dec( self.itemid ) )
+				item = wolfpack.additem( hex_id )
+				if not item and dec_id >= 0x4000:
+					item = wolfpack.addmulti( hex_id )
 
 			if not item or item == None:
 				return
@@ -82,6 +92,15 @@ class DecorationHandler( ContentHandler ):
 			item.movable = 3 # not movable
 			item.decay = 0 # no decay
 			item.update()
+
+			if item.hasscript("door"):
+				nearby = wolfpack.items(x, y, map, 1)
+				for other in nearby:
+					if other != item and other.hasscript("door") and other.pos.z == item.pos.z:
+						if not item.hastag("link") and not other.hastag("link"):
+							item.settag("link", other.serial)
+							other.settag("link", item.serial)
+							break
 		elif name == "include":
 			path = atts.getValue("file")
 			if not os.path.isfile(path):
@@ -186,6 +205,33 @@ class DoorSaveHandler:
 
 
 
+def load_decoration(map_id, socket=None):
+	if not wolfpack.hasmap(map_id):
+		msg = tr("Map %i does not exist.") % map_id
+		console.log(LOG_ERROR, msg + "\n")
+		if socket:
+			socket.sysmessage(msg)
+		return
+	filename = "definitions/decoration/decoration.%i.xml" % map_id
+	if not os.path.isfile(filename):
+		msg = tr("Decoration file '%s' not found.") % filename
+		console.log(LOG_ERROR, msg + "\n")
+		if socket:
+			socket.sysmessage(msg)
+		return
+	msg = tr("Decorating map %i, please wait...") % map_id
+	console.log(LOG_MESSAGE, msg + "\n")
+	if socket:
+		socket.sysmessage(msg)
+	parser = xml.sax.make_parser()
+	handler = DecorationHandler()
+	parser.setContentHandler(handler)
+	parser.parse(filename)
+	done_msg = tr("Done decorating map %i.") % map_id
+	console.log(LOG_MESSAGE, done_msg + "\n")
+	if socket:
+		socket.sysmessage(done_msg)
+
 def decoration( socket, command, arguments ):
 	if len(arguments) > 0:
 		args = str(arguments.split()[0])
@@ -204,21 +250,17 @@ def decoration( socket, command, arguments ):
 			saveObject.save()
 			socket.sysmessage(tr("Done."))
 		elif args == 'load':
-			parser = xml.sax.make_parser()
-			handler = DecorationHandler()
-			parser.setContentHandler(handler)
 			maps = []
 			try:
 				maponly = int(arguments.split()[1])
 				maps.append(maponly)
-			except ValueError:
-				maps = [0, 1, 2, 3, 4]
+			except (ValueError, IndexError):
+				maps = [1, 0, 2, 3, 4, 5]
 				pass
 		
-			for map in maps:
-				if wolfpack.hasmap(map):
-					socket.sysmessage(tr("Decorating map %i, please wait...") % map)
-					parser.parse("definitions/decoration/decoration.%i.xml" % map)
+			for m in maps:
+				if wolfpack.hasmap(m):
+					load_decoration(m, socket)
 		else:
 			socket.sysmessage( tr('Usage: decoration save|savedoors|load') )
 	else:

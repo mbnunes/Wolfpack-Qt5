@@ -149,7 +149,7 @@ def onUpdateDatabase(current, version):
 		try:
 			if not updates[i]():
 				return False
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_ERROR, str(e) + "\n")
 			return False
 
@@ -159,7 +159,7 @@ def onUpdateDatabase(current, version):
 				database.execute("REPLACE INTO `settings` VALUES('db_version', '%u');" % (i + 1))
 			else:
 				database.execute("REPLACE INTO settings VALUES('db_version', '%u');" % (i + 1))
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_WARNING, "Unable to update database version to %u:\n%s\n" % (i + 1, str(e)))
 
 	return True
@@ -174,11 +174,11 @@ def onUpdateDatabase(current, version):
 def updateacctversion(version, driver):
 	try:
 		if driver == 'mysql':
-			database.execute("REPLACE INTO `settings` VALUES('db_version', '%u');" % version)
+			database.execute("REPLACE INTO `settings` VALUES('acct_db_version', '%u');" % version)
 		else:
-			database.execute("REPLACE INTO settings VALUES('db_version', '%u');" % version)
-	except Exception, e:
-		console.log(LOG_WARNING, "Unable to update account database version to %u:\n%s\n" % (i + 1, str(e)))
+			database.execute("REPLACE INTO settings VALUES('acct_db_version', '%u');" % version)
+	except Exception as e:
+		console.log(LOG_WARNING, "Unable to update account database version to %u:\n%s\n" % (version, str(e)))
 
 #
 # MySQL
@@ -268,7 +268,7 @@ def onUpdateAcctDatabase(current, version):
 			if not updates[i]():
 				database.close(ACCOUNTS)
 				return False
-		except Exception, e:
+		except Exception as e:
 			console.log(LOG_ERROR, str(e) + "\n")
 			database.close(ACCOUNTS)
 			return False

@@ -1,14 +1,6 @@
-<!--
-/*=========================================================
- *   )      (\_     | WOLFPACK 13.0.0 Scripts
- *  ((    _/{  "-;  | Created by: Dreoth
- *   )).-' {{ ;'`   |
- *  ( (  ;._ \\     |
- *=======================================================*/
--->
-
 <definitions>
-	<!-- Town Spawns -->
 	<include file="definitions/spawnregions/tokuno/towns/zento.xml" />
-	
+	<include file="definitions/spawnregions/tokuno/dungeons.xml" />
+	<include file="definitions/spawnregions/tokuno/vendors.xml" />
+	<include file="definitions/spawnregions/tokuno/wilderness.xml" />
 </definitions>

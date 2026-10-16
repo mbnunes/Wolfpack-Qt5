@@ -1,4 +1,341 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_ankh_8_28">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="11" /></npc>
+		<circle center="31,1410" radius="11" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_27_43">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="pixie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="438,1552" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_29_55">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="serpentine_dragon"><npcwander type="circle" radius="20" /></npc>
+		<circle center="473,1552" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_15_66">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="skeleton"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<circle center="55,1303" radius="30" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_24_69">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="108,1110" radius="30" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_5_85">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="blood_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="34,1462" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_21_103">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="dragon"><npcwander type="circle" radius="35" /></npc>
+		<circle center="29,1009" radius="35" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_4_143">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<circle center="39,1491" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_19_152">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="102,959" radius="20" map="2" z="-43" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_11_153">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="lich"><npcwander type="circle" radius="15" /></npc>
+		<circle center="124,1436" radius="15" map="2" z="-16" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_12_160">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<circle center="107,1390" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_7_165">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="62,1446" radius="7" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_13_177">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rotting_corpse"><npcwander type="circle" radius="20" /></npc>
+		<circle center="131,1331" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_2_182">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="87,1471" radius="7" map="2" z="-22" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_1_194">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="40" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="40" /></npc>
+		<circle center="71,1521" radius="40" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_3_225">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="evil_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="63,1471" radius="7" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_14_250">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="132,1332" radius="20" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_6_292">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="imp"><npcwander type="circle" radius="7" /></npc>
+		<circle center="15,1503" radius="7" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_17_294">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="poison_elemental"><npcwander type="circle" radius="12" /></npc>
+		<circle center="49,846" radius="12" map="2" z="-30" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_22_309">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="drake"><npcwander type="circle" radius="35" /></npc>
+		<circle center="29,1016" radius="35" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_0_346">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="ratman"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ratman_mage"><npcwander type="circle" radius="40" /></npc>
+		<circle center="129,1530" radius="40" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_26_347">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="nightmare"><npcwander type="circle" radius="10" /></npc>
+		<circle center="66,1171" radius="10" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_9_368">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="mummy"><npcwander type="circle" radius="15" /></npc>
+		<circle center="86,1447" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_28_374">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="wisp"><npcwander type="circle" radius="25" /></npc>
+		<circle center="451,1552" radius="25" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_23_377">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="35" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="35" /></npc>
+		<circle center="87,1051" radius="35" map="2" z="-29" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_10_393">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="20" /></npc>
+		<circle center="124,1435" radius="20" map="2" z="-16" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_18_412">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="114,908" radius="25" map="2" z="-26" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_20_415">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="kirin"><npcwander type="circle" radius="15" /></npc>
+		<circle center="148,953" radius="15" map="2" z="-29" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_16_417">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="45,905" radius="30" map="2" z="-29" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ankh_25_430">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>ankh</group>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="99,1158" radius="10" map="2" z="-23" />
+	</spawnregion>
 
 </definitions>

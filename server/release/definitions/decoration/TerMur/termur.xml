@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decoration>
+	<item id="0x373a">
+		<pos x="644" y="3857" z="-42" map="5" />
+		<pos x="594" y="3846" z="-30" map="5" />
+	</item>
+	<item id="0x0fef" hue="0x8a2">
+		<attribute key="name" value="Book of Circles" />
+		<pos x="1000" y="3991" z="-33" map="5" />
+	</item>
+	<item id="0x0fef" hue="0x8a2">
+		<attribute key="name" value="Shrine Mantra" />
+		<pos x="994" y="3991" z="-33" map="5" />
+	</item>
+</decoration>

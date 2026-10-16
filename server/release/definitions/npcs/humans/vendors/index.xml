@@ -46,6 +46,6 @@
 	<include file="definitions/npcs/humans/vendors/weaver.xml"/>
 
 
-	<!-- ServUO Vendors -->
-	<include file="definitions/npcs/humans/vendors/servuo_vendors.xml"/>
+	<!-- Expansion Vendors -->
+	<include file="definitions/npcs/humans/vendors/expansion_vendors.xml"/>
 </definitions>

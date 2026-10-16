@@ -141,6 +141,45 @@ classical = [
 [ 1, 1, 0x7c, "stone_keep", 572750 ],
 [ 1, 1, 0x7e, "castle", 865250 ]]
 
+# Broadsword Contest Keeps & Castles
+contest_houses = [
+	[ 1, 1, 0x147C, "stone_and_timber_castle", 1024000, "Stone and Timber Castle", 4043, 2021 ],
+	[ 1, 1, 0x147D, "gothic_rose_castle", 1024000, "Gothic Rose Castle", 4043, 2021 ],
+	[ 1, 1, 0x147E, "castle_of_fire_and_ice", 1024000, "Castle of Fire and Ice", 4043, 2021 ],
+	[ 1, 1, 0x147F, "castle_of_the_black_thorn", 1024000, "Castle of the Black Thorn", 4043, 2021 ],
+	[ 1, 1, 0x1480, "fortress_castle", 1024000, "The Fortress Castle", 4043, 2021 ],
+	[ 1, 1, 0x1481, "spires_castle", 1024000, "Spires Castle", 4043, 2021 ],
+	[ 1, 1, 0x1482, "castle_of_oceania", 1024000, "Castle of Oceania", 4043, 2021 ],
+	[ 1, 1, 0x1483, "feudal_castle", 1024000, "Feudal Castle", 4043, 2021 ],
+	[ 1, 1, 0x1484, "robins_nest_keep", 665000, "Robin's Nest Keep", 2625, 1312 ],
+	[ 1, 1, 0x1485, "traditional_keep", 665000, "Traditional Keep", 2625, 1312 ],
+	[ 1, 1, 0x1486, "villa_crowley_keep", 665000, "Villa Crowley Keep", 2625, 1312 ],
+	[ 1, 1, 0x1487, "darkthorn_keep", 665000, "Darkthorn Keep", 2625, 1312 ],
+	[ 1, 1, 0x1488, "sandalwood_keep", 665000, "Sandalwood Keep", 2625, 1312 ],
+	[ 1, 1, 0x1489, "casa_moga_keep", 665000, "Casa Moga Keep", 2625, 1312 ],
+	[ 1, 1, 0x148A, "robins_roost_castle", 1024000, "Robin's Roost Castle", 4043, 2021 ],
+	[ 1, 1, 0x148B, "camelot_castle", 1024000, "Camelot Castle", 4043, 2021 ],
+	[ 1, 1, 0x148C, "lacrimae_in_caelo_castle", 1024000, "Lacrimae In Caelo Castle", 4043, 2021 ],
+	[ 1, 1, 0x148D, "okinawa_sweet_dream_castle", 1024000, "Okinawa Sweet Dream Castle", 4043, 2021 ],
+	[ 1, 1, 0x148E, "sandstone_castle", 1024000, "The Sandstone Castle", 4043, 2021 ],
+	[ 1, 1, 0x148F, "grimswind_sisters_castle", 1024000, "Grimswind Sisters Castle", 4043, 2021 ],
+]
+
+# Ships & Galleons list
+boats_list = [
+	[ "boat_small", 12500, "Small Ship", "Classic small sailing boat" ],
+	[ "dragonboat_small", 12500, "Small Dragon Ship", "Small sailing boat with dragon head" ],
+	[ "boat_medium", 15000, "Medium Ship", "Classic medium sailing boat" ],
+	[ "dragonboat_medium", 15000, "Medium Dragon Ship", "Medium sailing boat with dragon head" ],
+	[ "boat_large", 19000, "Large Ship", "Classic large three-mast sailing ship" ],
+	[ "dragonboat_large", 19000, "Large Dragon Ship", "Large sailing ship with dragon head" ],
+	[ "rowboat", 6250, "Rowboat", "Light High Seas wooden rowboat" ],
+	[ "tokuno_galleon", 150000, "Tokuno Galleon", "Oriental style High Seas war galleon" ],
+	[ "gargish_galleon", 200000, "Gargish Galleon", "Winged gargoyle High Seas war galleon" ],
+	[ "orcish_galleon", 200000, "Orcish Galleon", "Armored orcish High Seas war galleon" ],
+	[ "britannian_ship", 250000, "Britannian Ship", "Massive Britannian royal High Seas ship" ],
+]
+
 #buttons
 button_ok = 1
 button_cancel = 0
@@ -149,7 +188,7 @@ def onUse( char, item ):
 	gump0( char, gump0callback )
 	return 1
 
-# Selection of custom house type ( 2-story / 3-story )
+# Selection of custom house type ( 2-story / 3-story / contest / boats )
 # Its the first gump with Classical, 2-story and 3-story selection... accessed when use the dclick
 def gump0callback( char, args, target ):
 	button = target.button
@@ -158,11 +197,17 @@ def gump0callback( char, args, target ):
 	if button == 1:
 		gump4( char, gump3callback, classical )
 	#2-Story houses
-	if button == 2:
+	elif button == 2:
 		gump1( char, gump1callback, ch2story )
 	#3-Story houses
-	if button == 3:
+	elif button == 3:
 		gump3( char, gump1callback, ch3story )
+	#Contest Castles & Keeps
+	elif button == 4:
+		gump_contest( char, gump_contest_callback, contest_houses )
+	#Ships & Galleons
+	elif button == 5:
+		gump_boats( char, gump_boats_callback, boats_list )
 
 #Selection of 2-story / 3-story size
 def gump1callback( char, args, target ):
@@ -190,6 +235,61 @@ def gump4callback( char, args, target ):
 	button = target.button
 	if button == 1:
 		placement( char, args[1], args[0][3], args[0][2], args[0][4] )
+
+
+#Contest House selection callback
+def gump_contest_callback( char, args, target ):
+	button = target.button
+	if button > 0 and button <= len(args[0]):
+		entry = args[0][button-1]
+		char.socket.attachmultitarget( "deeds.multideed.response2", entry[2], entry, 0, 0, 0 )
+
+
+#Ships & Galleons selection callback
+def gump_boats_callback( char, args, target ):
+	button = target.button
+	if button > 0 and button <= len(args[0]):
+		boat_data = args[0][button-1]
+		buy_boat_deed( char, boat_data )
+
+
+# Purchase boat deed directly from tool
+def buy_boat_deed( player, boat_data ):
+	deed_id, price, name, desc = boat_data
+	bank = player.getbankbox()
+	gold = bank.countresource( 0xEED, 0x0 ) if bank else 0
+
+	if not player.gm and gold < price:
+		player.socket.sysmessage( "You do not have enough gold in your bank box (%d needed)." % price )
+		return
+
+	backpack = player.getbackpack()
+	if not backpack:
+		player.socket.sysmessage( "You have no backpack." )
+		return
+
+	# Deduct gold if not GM
+	if not player.gm:
+		bank.useresource( price, 0xEED )
+
+	# Create deed
+	deed = wolfpack.additem( deed_id )
+	if not deed:
+		player.socket.sysmessage( "Failed to create boat deed." )
+		return
+
+	if not backpack.cancontain( deed ):
+		if bank:
+			bank.additem( deed )
+			player.socket.sysmessage( "Your backpack was full. The %s deed has been placed in your bank box." % name )
+		else:
+			deed.moveto( player.pos )
+			deed.update()
+			player.socket.sysmessage( "The %s deed was dropped at your feet." % name )
+	else:
+		backpack.additem( deed )
+		player.socket.sysmessage( "You purchased a %s deed for %d gold. It has been placed in your backpack." % ( name, price ) )
+	deed.update()
 
 
 # Response for a Custom House
@@ -399,22 +499,28 @@ def foundation( player, target, width, height, id, multiid, value ):
 			obj.socket.resendworld()
 
 
-#House type selection common/2-story/3-story
+#House type selection common/2-story/3-story/contest/boats
 def gump0( char, callback ):
 	mygump = cGump()
 	mygump.addRawLayout( "{page 0}" )
-	mygump.addRawLayout( "{resizepic 0 0 5054 270 145}" )
-	mygump.addRawLayout( "{gumppictiled 10 10 250 125 2624}" )
-	mygump.addRawLayout( "{checkertrans 10 10 250 125}" )
-	mygump.addRawLayout( "{xmfhtmlgumpcolor 10 10 250 20 1060239 0 0 32767}" )
-	mygump.addRawLayout( "{button 10 110 4017 4019 1 0 0}" )
-	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 110 150 20 3000363 0 0 32767}" )
-	mygump.addRawLayout( "{button 10 40 4005 4007 1 0 1}" )
-	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 40 200 20 1060390 0 0 32767}" )
-	mygump.addRawLayout( "{button 10 60 4005 4007 1 0 2}" )
-	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 60 200 20 1060391 0 0 32767}" )
-	mygump.addRawLayout( "{button 10 80 4005 4007 1 0 3}" )
-	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 80 200 20 1060392 0 0 32767}" )
+	mygump.addRawLayout( "{resizepic 0 0 5054 290 190}" )
+	mygump.addRawLayout( "{gumppictiled 10 10 270 170 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 10 270 170}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 10 10 270 20 1060239 0 0 32767}" )
+	mygump.addRawLayout( "{button 10 38 4005 4007 1 0 1}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 38 220 20 1060390 0 0 32767}" )
+	mygump.addRawLayout( "{button 10 58 4005 4007 1 0 2}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 58 220 20 1060391 0 0 32767}" )
+	mygump.addRawLayout( "{button 10 78 4005 4007 1 0 3}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 78 220 20 1060392 0 0 32767}" )
+	mygump.addRawLayout( "{button 10 98 4005 4007 1 0 4}" )
+	mygump.addRawLayout( "{text 45 98 1152 0}" )
+	mygump.addRawLayout( "{button 10 118 4005 4007 1 0 5}" )
+	mygump.addRawLayout( "{text 45 118 1152 1}" )
+	mygump.addRawLayout( "{button 10 150 4017 4019 1 0 0}" )
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 150 150 20 3000363 0 0 32767}" )
+	mygump.addRawText( "Contest Keeps & Castles" )
+	mygump.addRawText( "Ships & Galleons" )
 	mygump.setCallback( callback )
 	mygump.send( char )
 
@@ -1326,3 +1432,163 @@ def gump4( char, callback, chsizes ):
 	mygump.setArgs( [chsizes] )
 	mygump.setCallback( callback )
 	mygump.send( char )
+
+# Broadsword Contest Keeps & Castles multi-page selection gump
+def gump_contest( char, callback, entries ):
+	bank = char.getbankbox()
+	gold = bank.countresource( 0xEED, 0x0 ) if bank else 0
+
+	mygump = cGump()
+	mygump.addRawLayout( "{page 0}" )
+	mygump.addRawLayout( "{resizepic 0 0 5054 550 440}" )
+	mygump.addRawLayout( "{gumppictiled 10 10 530 25 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 10 530 25}" )
+	mygump.addRawLayout( "{croppedtext 15 12 300 20 1152 0}" ) # Title
+
+	# Table Headers
+	mygump.addRawLayout( "{gumppictiled 10 40 530 22 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 40 530 22}" )
+	mygump.addRawLayout( "{croppedtext 50 42 220 20 1152 1}" ) # House Name
+	mygump.addRawLayout( "{croppedtext 275 42 75 20 1152 2}" ) # Storage
+	mygump.addRawLayout( "{croppedtext 355 42 75 20 1152 3}" ) # Lockdowns
+	mygump.addRawLayout( "{croppedtext 435 42 90 20 1152 4}" ) # Cost
+
+	# Content area background
+	mygump.addRawLayout( "{gumppictiled 10 65 530 300 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 65 530 300}" )
+
+	# Bank Gold display
+	mygump.addRawLayout( "{gumppictiled 10 370 530 25 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 370 530 25}" )
+	mygump.addRawLayout( "{croppedtext 15 372 200 20 1152 5}" )
+	mygump.addRawLayout( "{croppedtext 120 372 150 20 68 6}" )
+
+	# Close button
+	mygump.addRawLayout( "{gumppictiled 10 400 530 25 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 400 530 25}" )
+	mygump.addRawLayout( "{button 15 403 4017 4019 1 0 0}" )
+	mygump.addRawLayout( "{croppedtext 50 404 100 20 1152 7}" )
+
+	texts = [
+		"Contest Castles & Keeps",
+		"Structure Name",
+		"Storage",
+		"Lockdowns",
+		"Cost (Gold)",
+		"Bank Gold:",
+		f"{gold:,}",
+		"Close"
+	]
+
+	per_page = 11
+	total = len( entries )
+	pages = ( total + per_page - 1 ) // per_page
+
+	btn_idx = 1
+	for p in range( pages ):
+		page_num = p + 1
+		mygump.addRawLayout( f"{{page {page_num}}}" )
+
+		# Pagination controls
+		if p > 0:
+			mygump.addRawLayout( f"{{button 250 403 4014 4016 0 {page_num - 1} 0}}" )
+			prev_txt_idx = len( texts )
+			texts.append( "Prev" )
+			mygump.addRawLayout( f"{{croppedtext 290 404 50 20 1152 {prev_txt_idx}}}" )
+		if p < pages - 1:
+			mygump.addRawLayout( f"{{button 420 403 4005 4007 0 {page_num + 1} 0}}" )
+			next_txt_idx = len( texts )
+			texts.append( "Next" )
+			mygump.addRawLayout( f"{{croppedtext 460 404 50 20 1152 {next_txt_idx}}}" )
+
+		start = p * per_page
+		end = min( start + per_page, total )
+		for i in range( start, end ):
+			entry = entries[i]
+			y = 70 + ( i - start ) * 24
+			mygump.addRawLayout( f"{{button 15 {y + 2} 4005 4007 1 0 {btn_idx}}}" )
+
+			name_idx = len( texts ); texts.append( entry[5] )
+			stor_idx = len( texts ); texts.append( str( entry[6] ) )
+			lock_idx = len( texts ); texts.append( str( entry[7] ) )
+			cost_idx = len( texts ); texts.append( f"{entry[4]:,}" )
+
+			mygump.addRawLayout( f"{{croppedtext 50 {y} 220 20 1152 {name_idx}}}" )
+			mygump.addRawLayout( f"{{croppedtext 275 {y} 75 20 1152 {stor_idx}}}" )
+			mygump.addRawLayout( f"{{croppedtext 355 {y} 75 20 1152 {lock_idx}}}" )
+			mygump.addRawLayout( f"{{croppedtext 435 {y} 90 20 68 {cost_idx}}}" )
+			btn_idx += 1
+
+	for t in texts:
+		mygump.addRawText( t )
+
+	mygump.setArgs( [entries] )
+	mygump.setCallback( callback )
+	mygump.send( char )
+
+# Ships & Galleons purchase gump
+def gump_boats( char, callback, entries ):
+	bank = char.getbankbox()
+	gold = bank.countresource( 0xEED, 0x0 ) if bank else 0
+
+	mygump = cGump()
+	mygump.addRawLayout( "{page 0}" )
+	mygump.addRawLayout( "{resizepic 0 0 5054 550 440}" )
+	mygump.addRawLayout( "{gumppictiled 10 10 530 25 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 10 530 25}" )
+	mygump.addRawLayout( "{croppedtext 15 12 300 20 1152 0}" ) # Title
+
+	# Table Headers
+	mygump.addRawLayout( "{gumppictiled 10 40 530 22 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 40 530 22}" )
+	mygump.addRawLayout( "{croppedtext 50 42 160 20 1152 1}" ) # Vessel Name
+	mygump.addRawLayout( "{croppedtext 215 42 220 20 1152 2}" ) # Description
+	mygump.addRawLayout( "{croppedtext 440 42 90 20 1152 3}" ) # Cost
+
+	# Content area background
+	mygump.addRawLayout( "{gumppictiled 10 65 530 300 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 65 530 300}" )
+
+	# Bank Gold display
+	mygump.addRawLayout( "{gumppictiled 10 370 530 25 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 370 530 25}" )
+	mygump.addRawLayout( "{croppedtext 15 372 200 20 1152 4}" )
+	mygump.addRawLayout( "{croppedtext 120 372 150 20 68 5}" )
+
+	# Close button
+	mygump.addRawLayout( "{gumppictiled 10 400 530 25 2624}" )
+	mygump.addRawLayout( "{checkertrans 10 400 530 25}" )
+	mygump.addRawLayout( "{button 15 403 4017 4019 1 0 0}" )
+	mygump.addRawLayout( "{croppedtext 50 404 100 20 1152 6}" )
+
+	texts = [
+		"Ships & Galleons",
+		"Vessel Name",
+		"Description",
+		"Cost (Gold)",
+		"Bank Gold:",
+		f"{gold:,}",
+		"Close"
+	]
+
+	mygump.addRawLayout( "{page 1}" )
+	for i, entry in enumerate( entries ):
+		btn_idx = i + 1
+		y = 70 + i * 24
+		mygump.addRawLayout( f"{{button 15 {y + 2} 4005 4007 1 0 {btn_idx}}}" )
+
+		name_idx = len( texts ); texts.append( entry[2] )
+		desc_idx = len( texts ); texts.append( entry[3] )
+		cost_idx = len( texts ); texts.append( f"{entry[1]:,}" )
+
+		mygump.addRawLayout( f"{{croppedtext 50 {y} 160 20 1152 {name_idx}}}" )
+		mygump.addRawLayout( f"{{croppedtext 215 {y} 220 20 1152 {desc_idx}}}" )
+		mygump.addRawLayout( f"{{croppedtext 440 {y} 90 20 68 {cost_idx}}}" )
+
+	for t in texts:
+		mygump.addRawText( t )
+
+	mygump.setArgs( [entries] )
+	mygump.setCallback( callback )
+	mygump.send( char )
+

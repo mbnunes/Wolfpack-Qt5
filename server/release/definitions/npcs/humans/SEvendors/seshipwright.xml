@@ -14,6 +14,7 @@
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
 		<category>Vendors\SE Shipwright (Male)</category>
+		<inherit id="shipwright_inventory" />
 	</npc>
 	
 	<npc id="seshipwright_female" inherit="vendor_female">
@@ -22,6 +23,7 @@
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
 		<category>Vendors\SE Shipwright (Female)</category>
+		<inherit id="shipwright_inventory" />
 	</npc>
 
 </definitions>

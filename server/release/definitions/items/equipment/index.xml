@@ -33,5 +33,5 @@
 	<include file="definitions/items/equipment/gargish_clothes.xml"/>
 
 	<!-- Other Equipment -->
-	<include file="definitions/items/equipment/servuo_equipment.xml"/>
+	<include file="definitions/items/equipment/expansion_equipment.xml"/>
 </definitions>

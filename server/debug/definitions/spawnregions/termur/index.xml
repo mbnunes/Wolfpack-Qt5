@@ -1,0 +1,8 @@
+<definitions>
+	<include file="definitions/spawnregions/termur/royal_city.xml" />
+	<include file="definitions/spawnregions/termur/tomb_of_kings.xml" />
+	<include file="definitions/spawnregions/termur/underworld.xml" />
+	<include file="definitions/spawnregions/termur/abyss.xml" />
+	<include file="definitions/spawnregions/termur/vendors.xml" />
+	<include file="definitions/spawnregions/termur/wilderness.xml" />
+</definitions>

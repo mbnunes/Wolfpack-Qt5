@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="termur_gargish_bazaar2_13">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="715,3423" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_gargish_bazaar1_20">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="tailor_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="702,3434" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_holy_city_29">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="baker"><npcwander type="circle" radius="5" /></npc>
+		<circle center="974,3881" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_gargish_bazaar5_31">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="farmer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="716,3445" radius="5" map="5" z="-19" />
+	</spawnregion>
+
+	<spawnregion id="termur_gargish_healer_1_46">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargish_wandering_healer"><npcwander type="circle" radius="5" /></npc>
+		<circle center="996,3922" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_royal_palace_1_51">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="gargish_warrior"><npcwander type="circle" radius="5" /></npc>
+		<circle center="749,3365" radius="5" map="5" z="-65" />
+	</spawnregion>
+
+	<spawnregion id="termur_gargish_bazaar3_53">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="barkeeper"><npcwander type="circle" radius="5" /></npc>
+		<circle center="713,3438" radius="5" map="5" z="-19" />
+	</spawnregion>
+
+	<spawnregion id="termur_gargish_bazaar8_71">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="weaponsmith_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="726,3427" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_gargish_bazaar6_87">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="carpenter_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="728,3445" radius="5" map="5" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="termur_holy_city_blacksmith_97">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="blacksmith_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="armorer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1012,3881" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_holy_city_wildlife_99">
+		<active />
+		<maxnpcamount>30</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="bird"><npcwander type="circle" radius="5" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="5" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="5" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="5" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="5" /></npc>
+		<npc id="greater_mongbat"><npcwander type="circle" radius="5" /></npc>
+		<circle center="997,3904" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_holy_city_100">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1018,3907" radius="5" map="5" z="-42" />
+	</spawnregion>
+
+	<spawnregion id="termur_champtermerhealer_103">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>termur</group>
+		<group>termur</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="487,3748" radius="5" map="5" z="-32" />
+	</spawnregion>
+
+</definitions>

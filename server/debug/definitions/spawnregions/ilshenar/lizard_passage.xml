@@ -1,4 +1,27 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_fireele_lavalizard_25">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lizard_passage</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="5" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="5" /></npc>
+		<circle center="78,688" radius="5" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_lizardmanforthealer_392">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>lizard_passage</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="312,1388" radius="5" map="2" z="-15" />
+	</spawnregion>
 
 </definitions>

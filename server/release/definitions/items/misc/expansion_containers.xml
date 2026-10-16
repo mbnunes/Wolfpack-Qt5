@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Expansion Items
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Creature Backpack -->
+	<item id="2256">
+		<id>0x2256</id>
+		<name>Creature Backpack</name>
+		<decay />
+		<nodye />
+		<color>0x5</color>
+		<weight>3.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Creature Backpack</category>
+	</item>
+
+	<!-- Creature Backpack -->
+	<item id="2257">
+		<id>0x2257</id>
+		<name>Creature Backpack</name>
+		<decay />
+		<nodye />
+		<color>0x5</color>
+		<weight>3.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Creature Backpack</category>
+	</item>
+
+	<!-- Creature Backpack -->
+	<item id="4026">
+		<id>0x4026</id>
+		<name>Creature Backpack</name>
+		<decay />
+		<nodye />
+		<color>0x5</color>
+		<weight>3.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Creature Backpack</category>
+	</item>
+
+	<!-- Creature Backpack -->
+	<item id="a0db">
+		<id>0xa0db</id>
+		<name>Creature Backpack</name>
+		<decay />
+		<nodye />
+		<color>0x5</color>
+		<weight>3.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Creature Backpack</category>
+	</item>
+
+	<!-- Furniture Container -->
+	<item id="a29f">
+		<id>0xa29f</id>
+		<name>Furniture Container</name>
+		<decay />
+		<nodye />
+		<color>0x1c0</color>
+		<weight>1.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Furniture Container</category>
+	</item>
+
+	<!-- Furniture Container -->
+	<item id="a29b">
+		<id>0xa29b</id>
+		<name>Furniture Container</name>
+		<decay />
+		<nodye />
+		<color>0x1c0</color>
+		<weight>1.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Furniture Container</category>
+	</item>
+
+	<!-- Gift Box Hues -->
+	<item id="46a2">
+		<id>0x46a2</id>
+		<name>Gift Box Hues</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Gift Box Hues</category>
+	</item>
+
+	<!-- Gift Box Hues -->
+	<item id="46a3">
+		<id>0x46a3</id>
+		<name>Gift Box Hues</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Gift Box Hues</category>
+	</item>
+
+	<!-- Gift Box Hues -->
+	<item id="46a4">
+		<id>0x46a4</id>
+		<name>Gift Box Hues</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Gift Box Hues</category>
+	</item>
+
+	<!-- Gift Box Hues -->
+	<item id="46a7">
+		<id>0x46a7</id>
+		<name>Gift Box Hues</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Gift Box Hues</category>
+	</item>
+
+	<!-- Gargoyle Wooden Chest -->
+	<item id="4025">
+		<id>0x4025</id>
+		<name>Gargoyle Wooden Chest</name>
+		<decay />
+		<nodye />
+		<weight>2.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Gargoyle Wooden Chest</category>
+	</item>
+
+	<!-- Default Entry -->
+	<item id="1812">
+		<id>0x1812</id>
+		<name>Default Entry</name>
+		<decay />
+		<nodye />
+		<weight>5.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Default Entry</category>
+	</item>
+
+	<!-- Heart Shaped Box -->
+	<item id="49cc">
+		<id>0x49cc</id>
+		<name>Heart Shaped Box</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Heart Shaped Box</category>
+	</item>
+
+	<!-- Decorative Box -->
+	<item id="2df3">
+		<id>0x2df3</id>
+		<name>Decorative Box</name>
+		<decay />
+		<nodye />
+		<weight>1.0</weight>
+		<type>1</type>
+		<basescripts>containers</basescripts>
+		<category>Containers\Decorative Box</category>
+	</item>
+
+</definitions>

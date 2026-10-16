@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Expansion Consumables
+ *   )).-' {{ ;'`   | Auto-generated definition file
+ *  ( (  ;._ \\     |
+ *=======================================================*/
+-->
+<definitions>
+	<!-- Parrot Wafer -->
+	<item id="2fd6">
+		<id>0x2fd6</id>
+		<name>Parrot Wafer</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Parrot Wafer</category>
+	</item>
+
+	<!-- Lollipops -->
+	<item id="468d">
+		<id>0x468d</id>
+		<name>Lollipops</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Lollipops</category>
+	</item>
+
+	<!-- Fruit Bowl -->
+	<item id="2d4f">
+		<id>0x2d4f</id>
+		<name>Fruit Bowl</name>
+		<decay />
+		<weight>3.0</weight>
+		<category>Consumables\Food\Fruit Bowl</category>
+	</item>
+
+	<!-- Gold Foil -->
+	<item id="9c48">
+		<id>0x9c48</id>
+		<name>Gold Foil</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Holiday\Gold Foil</category>
+	</item>
+
+	<!-- Nougat Swirl -->
+	<item id="4690">
+		<id>0x4690</id>
+		<name>Nougat Swirl</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Nougat Swirl</category>
+	</item>
+
+	<!-- Sweet Potato Pie -->
+	<item id="4c0d">
+		<id>0x4c0d</id>
+		<name>Sweet Potato Pie</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Sweet Potato Pie</category>
+	</item>
+
+	<!-- Runed Switch -->
+	<item id="2f61">
+		<id>0x2f61</id>
+		<name>Runed Switch</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Misc\Runed Switch</category>
+	</item>
+
+	<!-- Grapes of Wrath -->
+	<item id="2fd7">
+		<id>0x2fd7</id>
+		<name>Grapes of Wrath</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Grapes of Wrath</category>
+	</item>
+
+	<!-- Chocolate Nutcracker -->
+	<item id="9c10">
+		<id>0x9c10</id>
+		<name>Chocolate Nutcracker</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Holiday\Chocolate Nutcracker</category>
+	</item>
+
+	<!-- Healing Stone -->
+	<item id="4078">
+		<id>0x4078</id>
+		<name>Healing Stone</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Mysticism\Healing Stone</category>
+	</item>
+
+	<!-- Holiday Gift Giver / Token -->
+	<item id="a094">
+		<id>0xa094</id>
+		<name>Holiday Gift Token</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Holiday\Holiday Gift Token</category>
+	</item>
+
+	<!-- Enchanted Apple -->
+	<item id="2fd8">
+		<id>0x2fd8</id>
+		<name>Enchanted Apple</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Enchanted Apple</category>
+	</item>
+
+	<!-- Smoke Bomb -->
+	<item id="2808">
+		<id>0x2808</id>
+		<name>Smoke Bomb</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Ninja\Smoke Bomb</category>
+	</item>
+
+	<!-- Jelly Beans -->
+	<item id="468c">
+		<id>0x468c</id>
+		<name>Jelly Beans</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Jelly Beans</category>
+	</item>
+
+	<!-- Taffy -->
+	<item id="469d">
+		<id>0x469d</id>
+		<name>Taffy</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Taffy</category>
+	</item>
+
+	<!-- Embroidery Tool -->
+	<item id="a20a">
+		<id>0xa20a</id>
+		<name>Embroidery Tool</name>
+		<decay />
+		<weight>2.0</weight>
+		<category>Tools\Tailoring\Embroidery Tool</category>
+	</item>
+
+	<!-- Heritage Token -->
+	<item id="367a">
+		<id>0x367a</id>
+		<name>Heritage Token</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Holiday\Heritage Token</category>
+	</item>
+
+	<!-- Cleansing Winds Scroll -->
+	<item id="2af">
+		<id>0x2af</id>
+		<name>Cleansing Winds Scroll</name>
+		<decay />
+		<weight>1.0</weight>
+		<type>1012</type>
+		<category>Magic\Mysticism\Cleansing Winds Scroll</category>
+	</item>
+
+	<!-- Fukiya Darts -->
+	<item id="2806">
+		<id>0x2806</id>
+		<name>Fukiya Darts</name>
+		<decay />
+		<weight>0.1</weight>
+		<category>Base Weapons\Samurai\Fukiya Darts</category>
+	</item>
+
+	<!-- Wrapped Candy -->
+	<item id="469e">
+		<id>0x469e</id>
+		<name>Wrapped Candy</name>
+		<decay />
+		<weight>1.0</weight>
+		<category>Consumables\Food\Wrapped Candy</category>
+	</item>
+</definitions>

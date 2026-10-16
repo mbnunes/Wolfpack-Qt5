@@ -54,4 +54,5 @@
 	<include file="definitions/decoration/Trammel/Trammel/yew.xml"/>
 	<include file="definitions/decoration/Trammel/Wrong/WrongMaze.xml"/>
 	<include file="definitions/decoration/Trammel/signs.xml"/>
+	<include file="definitions/decoration/Trammel/doors.xml"/>
 </decoration>

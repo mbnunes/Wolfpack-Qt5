@@ -1346,5 +1346,206 @@
 		<placement xoffset="0" yoffset="0" zoffset="0" />
 		<category>Special Large Tower</category>
 	</multi>
+<!-- ================= CONTEST CASTLES & KEEPS ================= -->
+
+	<multi id="foundation_3_23x23">
+		<name>23x23 3-Story Customizable Keep</name>
+		<id>0x547c</id>
+		<nodecay />
+		<sign x="0" y="12" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Keeps</category>
+	</multi>
+
+	<multi id="foundation_3_32x32">
+		<name>32x32 3-Story Customizable Castle</name>
+		<id>0x547d</id>
+		<nodecay />
+		<sign x="0" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="trinsic_keep">
+		<name>Trinsic Keep</name>
+		<id>0x547e</id>
+		<nodecay />
+		<sign x="-11" y="13" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Keeps</category>
+	</multi>
+
+	<multi id="gothic_rose_castle">
+		<name>Gothic Rose Castle</name>
+		<id>0x547f</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="elsa_castle">
+		<name>Elsa Castle</name>
+		<id>0x5480</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="spires_castle">
+		<name>Spires Castle</name>
+		<id>0x5481</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="castle_of_oceania">
+		<name>Castle Of Oceania</name>
+		<id>0x5482</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="feudal_castle">
+		<name>Feudal Castle</name>
+		<id>0x5483</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="robins_nest_keep">
+		<name>Robin's Nest Keep</name>
+		<id>0x5484</id>
+		<nodecay />
+		<sign x="-11" y="13" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Keeps</category>
+	</multi>
+
+	<multi id="traditional_keep">
+		<name>Traditional Keep</name>
+		<id>0x5485</id>
+		<nodecay />
+		<sign x="-11" y="13" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Keeps</category>
+	</multi>
+
+	<multi id="villa_crowley_keep">
+		<name>Villa Crowley Keep</name>
+		<id>0x5486</id>
+		<nodecay />
+		<sign x="-11" y="13" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Keeps</category>
+	</multi>
+
+	<multi id="darkthorn_keep">
+		<name>Darkthorn Keep</name>
+		<id>0x5487</id>
+		<nodecay />
+		<sign x="-11" y="13" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Keeps</category>
+	</multi>
+
+	<multi id="sandalwood_keep">
+		<name>Sandalwood Keep</name>
+		<id>0x5488</id>
+		<nodecay />
+		<sign x="-11" y="13" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Keeps</category>
+	</multi>
+
+	<multi id="casa_moga_keep">
+		<name>Casa Moga Keep</name>
+		<id>0x5489</id>
+		<nodecay />
+		<sign x="-11" y="13" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Keeps</category>
+	</multi>
+
+	<multi id="robins_roost_castle">
+		<name>Robin's Roost Castle</name>
+		<id>0x548a</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="camelot_castle">
+		<name>Camelot Castle</name>
+		<id>0x548b</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="lacrimae_in_caelo_castle">
+		<name>Lacrimae In Caelo Castle</name>
+		<id>0x548c</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="okinawa_sweet_dream_castle">
+		<name>Okinawa Sweet Dream Castle</name>
+		<id>0x548d</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="sandstone_castle">
+		<name>The Sandstone Castle</name>
+		<id>0x548e</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
+
+	<multi id="grimswind_sisters_castle">
+		<name>Grimswind Sisters Castle</name>
+		<id>0x548f</id>
+		<nodecay />
+		<sign x="-15" y="16" z="7" id="0xbd0" />
+		<scripts>housing.house</scripts>
+		<placement xoffset="0" yoffset="0" zoffset="0" />
+		<category>Contest Castles</category>
+	</multi>
 
 </definitions>

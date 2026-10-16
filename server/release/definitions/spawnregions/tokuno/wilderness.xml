@@ -1,0 +1,4994 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
+<definitions>
+	<spawnregion id="tokuno_wildlife_164_0">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="939,1199" radius="20" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_57_1">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<circle center="527,393" radius="30" map="4" z="53" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_34_2">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="181,588" radius="40" map="4" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_136_3">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="724,831" radius="20" map="4" z="34" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_5_4">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1197,851" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_0_5">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1215,1086" radius="30" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_36_8">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<circle center="200,803" radius="30" map="4" z="62" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_150_9">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="794,890" radius="20" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_0_10">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1177,1002" radius="30" map="4" z="34" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_145_11">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="20" /></npc>
+		<circle center="727,1071" radius="20" map="4" z="39" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_169_13">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1207,1037" radius="30" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_149_14">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1064,1029" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_66_15">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="425,443" radius="40" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_4_17">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="30" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<circle center="623,551" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_140_18">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="685,891" radius="20" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_148_19">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="20" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="20" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="775,1127" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_35_20">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="192,1014" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_104_21">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="687,439" radius="30" map="4" z="26" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_129_22">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="20" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="550,1092" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_dolphins3_23">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dolphin"><npcwander type="circle" radius="5" /></npc>
+		<circle center="375,1357" radius="5" map="4" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_93_24">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="907,394" radius="40" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_106_26">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1265,927" radius="30" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_3_27">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1184,837" radius="30" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_104_28">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="918,439" radius="40" map="4" z="14" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_69_30">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="358,396" radius="40" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_89_31">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="911,643" radius="40" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_125_32">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="llama"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<circle center="580,1170" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_28_33">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="raiju"><npcwander type="circle" radius="20" /></npc>
+		<circle center="374,820" radius="20" map="4" z="34" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_14_34">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1311,777" radius="30" map="4" z="9" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_38_35">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1021,297" radius="30" map="4" z="28" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_170_36">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1178,1076" radius="30" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_124_37">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1181,484" radius="30" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_74_38">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<circle center="192,770" radius="40" map="4" z="56" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_197_39">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="794,890" radius="20" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_166_40">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="562,984" radius="20" map="4" z="43" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_67_42">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1074,529" radius="40" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_73_43">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="30" /></npc>
+		<circle center="773,229" radius="30" map="4" z="64" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_100_45">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1088,980" radius="30" map="4" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_92_46">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="862,490" radius="30" map="4" z="54" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_46_48">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1016,292" radius="30" map="4" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_168_49">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="524,934" radius="20" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_86_50">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="892,391" radius="40" map="4" z="14" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_100_51">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1036,366" radius="30" map="4" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_85_52">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="566,430" radius="30" map="4" z="35" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_60_53">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="elite_ninja"><npcwander type="circle" radius="40" /></npc>
+		<circle center="289,477" radius="40" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_44_55">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="221,968" radius="30" map="4" z="34" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_21_56">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="364,565" radius="30" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_120_57">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1214,531" radius="30" map="4" z="28" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_47_60">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="232,1116" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_155_61">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="20" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="879,1038" radius="20" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_94_63">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1065,708" radius="20" map="4" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_24_64">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="159,688" radius="40" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_42_66">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="208,936" radius="30" map="4" z="43" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_199_69">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="770,875" radius="20" map="4" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_123_71">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1058,799" radius="30" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_148_72">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1052,976" radius="30" map="4" z="26" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_110_75">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="988,335" radius="40" map="4" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_117_76">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bullfrog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_toad"><npcwander type="circle" radius="30" /></npc>
+		<circle center="210,1085" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_77_77">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="454,374" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_67_78">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="40" /></npc>
+		<circle center="472,433" radius="40" map="4" z="27" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_2_79">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="615,556" radius="30" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_41_80">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="261,1186" radius="30" map="4" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_72_81">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1105,539" radius="40" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_71_82">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="30" /></npc>
+		<circle center="769,152" radius="30" map="4" z="12" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_179_83">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="725,823" radius="20" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_190_85">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<circle center="680,956" radius="20" map="4" z="44" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_158_86">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="elite_ninja"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1321,847" radius="30" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_153_87">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="874,971" radius="20" map="4" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_1_89">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="643,540" radius="30" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_2_90">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1198,941" radius="30" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_71_94">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="949,589" radius="40" map="4" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_51_95">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="785,303" radius="40" map="4" z="41" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_112_96">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yamandon"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1084,464" radius="20" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_21_97">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="elite_ninja"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1354,700" radius="30" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_194_98">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="803,961" radius="20" map="4" z="14" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_206_101">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ice_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ice_serpent"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lady_of_the_snow"><npcwander type="circle" radius="30" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="947,103" radius="30" map="4" z="46" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_22_102">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="273,606" radius="30" map="4" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_63_103">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="360,466" radius="40" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_136_104">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1006,857" radius="30" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_154_106">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="911,1025" radius="20" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_202_107">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1105,855" radius="30" map="4" z="50" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_98_109">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1092,1024" radius="30" map="4" z="34" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_48_110">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="356,403" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_82_111">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1134,705" radius="30" map="4" z="72" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_32_112">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<circle center="356,722" radius="30" map="4" z="54" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_76_113">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1184,616" radius="10" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_51_114">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="251,1074" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_132_115">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1134,705" radius="30" map="4" z="72" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_31_116">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="146,109" radius="30" map="4" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_184_117">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="667,943" radius="20" map="4" z="43" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_139_118">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="683,857" radius="20" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_92_120">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<npc id="oni"><npcwander type="circle" radius="30" /></npc>
+		<circle center="677,446" radius="30" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_22_123">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="404,592" radius="30" map="4" z="26" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_33_125">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="208,936" radius="30" map="4" z="43" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_7_127">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1255,866" radius="30" map="4" z="12" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_8_128">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1230,822" radius="30" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_24_129">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="58,104" radius="30" map="4" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_9_130">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1289,843" radius="30" map="4" z="4" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_198_131">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="20" /></npc>
+		<circle center="819,902" radius="20" map="4" z="27" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_158_132">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="916,1120" radius="20" map="4" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_174_133">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="601,930" radius="20" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_146_134">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="grey_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="20" /></npc>
+		<circle center="710,1115" radius="20" map="4" z="41" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_29_135">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<circle center="258,709" radius="30" map="4" z="41" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_54_137">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="30" /></npc>
+		<circle center="899,271" radius="30" map="4" z="34" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_83_138">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="540,343" radius="30" map="4" z="8" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_205_141">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ice_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ice_serpent"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lady_of_the_snow"><npcwander type="circle" radius="30" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="914,55" radius="30" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_145_142">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1012,631" radius="30" map="4" z="11" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_15_143">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="elite_ninja"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1336,810" radius="30" map="4" z="9" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_116_144">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="reaper"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1062,564" radius="3" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_131_145">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="504,1042" radius="20" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_134_149">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="612,857" radius="20" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_49_151">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1011,509" radius="40" map="4" z="26" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_57_152">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="824,280" radius="30" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_167_154">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1139,999" radius="30" map="4" z="48" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_175_157">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="638,866" radius="20" map="4" z="23" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_108_158">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="960,293" radius="30" map="4" z="29" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_130_161">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="524,1054" radius="20" map="4" z="18" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_37_164">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bullfrog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_toad"><npcwander type="circle" radius="30" /></npc>
+		<circle center="232,1116" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_152_165">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="637,357" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_108_166">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="983,448" radius="40" map="4" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_101_167">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1091,897" radius="30" map="4" z="69" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_123_168">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="goat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="572,1211" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_114_169">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="288,652" radius="40" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_88_170">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="956,705" radius="40" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_56_171">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="905,331" radius="40" map="4" z="8" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_160_172">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<circle center="294,748" radius="30" map="4" z="55" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_75_173">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1181,547" radius="40" map="4" z="23" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_118_174">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1146,516" radius="30" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_70_175">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="30" /></npc>
+		<circle center="725,246" radius="30" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_75_176">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="40" /></npc>
+		<circle center="789,276" radius="40" map="4" z="56" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_159_177">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1343,654" radius="30" map="4" z="35" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_105_178">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="951,467" radius="40" map="4" z="12" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_189_179">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="20" /></npc>
+		<circle center="688,979" radius="20" map="4" z="44" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_62_182">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="656,411" radius="30" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_17_183">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1345,775" radius="30" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_106_184">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="kappa"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1150,1072" radius="40" map="4" z="14" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_tok_hiryu_185">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1197,813" radius="30" map="4" z="27" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_1_186">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="30" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<circle center="629,510" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_oni_187">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="30" max="45" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="oni"><npcwander type="circle" radius="30" /></npc>
+		<circle center="700,443" radius="30" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_10_188">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1377,882" radius="30" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_54_190">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="472,336" radius="30" map="4" z="38" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_tok_animals_2_191">
+		<active />
+		<maxnpcamount>52</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cow"><npcwander type="circle" radius="50" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bull"><npcwander type="circle" radius="50" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="50" /></npc>
+		<circle center="884,1122" radius="50" map="4" z="18" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_58_192">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="284,423" radius="40" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_77_193">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1235,506" radius="40" map="4" z="28" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_30_195">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="307,572" radius="30" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_8_197">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lava_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1377,882" radius="30" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_138_198">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="892,652" radius="30" map="4" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_160_199">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="837,1075" radius="20" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_6_200">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1247,791" radius="30" map="4" z="6" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_36_201">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1008,260" radius="30" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_95_203">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1227,1082" radius="30" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_149_204">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="792,920" radius="20" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_87_205">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="40" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="40" /></npc>
+		<circle center="873,326" radius="40" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_103_206">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<circle center="143,131" radius="30" map="4" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_97_208">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1052,1030" radius="30" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_52_209">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="454,374" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_152_210">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="770,875" radius="20" map="4" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_164_211">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="20" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="581,953" radius="20" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_188_212">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="20" /></npc>
+		<circle center="668,986" radius="20" map="4" z="46" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_35_213">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bone_magi"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="30" /></npc>
+		<circle center="180,586" radius="30" map="4" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_27_214">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="186,534" radius="40" map="4" z="41" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_193_215">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="771,979" radius="20" map="4" z="29" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_151_216">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1086,910" radius="30" map="4" z="61" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_113_217">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1255,804" radius="30" map="4" z="5" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_32_218">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="206,891" radius="30" map="4" z="56" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_102_219">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="980,278" radius="30" map="4" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_85_220">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1028,818" radius="30" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_137_221">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="30" /></npc>
+		<circle center="980,815" radius="30" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_68_222">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1062,469" radius="20" map="4" z="8" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_91_224">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="889,516" radius="30" map="4" z="47" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_133_225">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="526,889" radius="20" map="4" z="11" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_15_226">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="30" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<circle center="551,544" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_25_227">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bone_magi"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="30" /></npc>
+		<circle center="157,685" radius="30" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_90_228">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<circle center="868,660" radius="40" map="4" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_66_230">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<circle center="935,521" radius="20" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_74_231">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="415,351" radius="40" map="4" z="28" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_113_233">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="40" /></npc>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="40" /></npc>
+		<circle center="999,580" radius="40" map="4" z="14" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_207_234">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ice_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ice_serpent"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lady_of_the_snow"><npcwander type="circle" radius="30" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="976,144" radius="30" map="4" z="35" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_3_235">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1141,894" radius="30" map="4" z="57" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_16_236">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1344,774" radius="30" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_23_237">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<circle center="518,477" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_20_238">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="30" /></npc>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1291,695" radius="30" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_168_239">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1133,1036" radius="30" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_122_240">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lava_serpent"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1184,616" radius="10" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_25_241">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="356,705" radius="30" map="4" z="50" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_135_242">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<circle center="931,833" radius="30" map="4" z="23" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_170_243">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="526,889" radius="20" map="4" z="11" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_81_245">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="40" /></npc>
+		<circle center="907,292" radius="40" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_180_246">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="771,824" radius="20" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_26_247">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<circle center="190,856" radius="30" map="4" z="52" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_56_248">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<npc id="kappa"><npcwander type="circle" radius="20" /></npc>
+		<circle center="248,525" radius="20" map="4" z="41" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_143_249">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="680,987" radius="20" map="4" z="47" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_29_250">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<circle center="381,511" radius="30" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_39_251">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bullfrog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_toad"><npcwander type="circle" radius="30" /></npc>
+		<circle center="285,1156" radius="30" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_61_252">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="326,454" radius="40" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_89_253">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="861,335" radius="40" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_26_254">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<circle center="246,768" radius="30" map="4" z="55" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_171_255">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="fire_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1144,669" radius="30" map="4" z="78" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_46_256">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="384,460" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_94_257">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="927,451" radius="40" map="4" z="14" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_173_259">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="570,840" radius="20" map="4" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_177_260">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<circle center="700,826" radius="20" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_95_261">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="932,364" radius="40" map="4" z="3" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_96_262">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="930,405" radius="40" map="4" z="11" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_107_264">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="419,529" radius="30" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_10_266">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="30" /></npc>
+		<circle center="582,505" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_171_267">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="20" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="573,933" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_18_268">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="oni"><npcwander type="circle" radius="10" /></npc>
+		<circle center="502,553" radius="10" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_84_269">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="527,393" radius="30" map="4" z="53" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_23_270">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="377,635" radius="30" map="4" z="50" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_126_271">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="reaper"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1258,531" radius="30" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_17_272">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="10" /></npc>
+		<circle center="528,552" radius="10" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_115_273">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="reaper"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1042,559" radius="3" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_88_274">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="594,362" radius="30" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_87_275">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="967,755" radius="40" map="4" z="3" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_161_276">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="198,924" radius="30" map="4" z="42" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_61_277">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="565,447" radius="30" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_78_278">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1258,531" radius="30" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_43_279">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="248,928" radius="30" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_45_281">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="30" /></npc>
+		<circle center="192,1014" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_13_282">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1263,754" radius="30" map="4" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_91_283">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="raiju"><npcwander type="circle" radius="30" /></npc>
+		<circle center="649,409" radius="30" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_115_284">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<circle center="459,483" radius="30" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_204_285">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ice_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ice_serpent"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lady_of_the_snow"><npcwander type="circle" radius="30" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="879,128" radius="30" map="4" z="44" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_81_286">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1144,667" radius="30" map="4" z="70" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_48_287">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="30" /></npc>
+		<circle center="948,247" radius="30" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_141_288">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="932,685" radius="30" map="4" z="12" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_139_289">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="968,753" radius="30" map="4" z="3" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_167_290">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="511,956" radius="20" map="4" z="27" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_157_291">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="913,1055" radius="20" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_162_292">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<circle center="907,1143" radius="20" map="4" z="11" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_144_294">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="883,604" radius="30" map="4" z="39" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_79_295">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="472,336" radius="30" map="4" z="38" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_126_296">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="20" /></npc>
+		<circle center="567,1160" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_105_297">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="823,279" radius="30" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_119_298">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mongbat"><npcwander type="circle" radius="40" /></npc>
+		<circle center="192,770" radius="40" map="4" z="56" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_150_299">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1092,980" radius="30" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_109_300">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1051,473" radius="20" map="4" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_70_301">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1027,562" radius="40" map="4" z="29" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_142_302">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="591,1010" radius="20" map="4" z="58" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_50_303">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<circle center="261,1186" radius="30" map="4" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_79_304">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1307,559" radius="40" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_53_306">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="30" /></npc>
+		<circle center="916,225" radius="30" map="4" z="23" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_33_309">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<circle center="201,731" radius="30" map="4" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_142_310">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="30" /></npc>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1120,1099" radius="30" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_155_311">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="742,1012" radius="20" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_60_312">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="40" /></npc>
+		<circle center="861,335" radius="40" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_44_313">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="15" /></npc>
+		<circle center="243,563" radius="15" map="4" z="42" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_40_314">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1008,246" radius="30" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_63_315">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="857,376" radius="40" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_127_316">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ridable_llama"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="563,1133" radius="20" map="4" z="43" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_176_317">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="666,896" radius="20" map="4" z="28" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_124_319">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="goat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="20" /></npc>
+		<circle center="600,1198" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_182_320">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="709,877" radius="20" map="4" z="18" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_80_321">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1176,701" radius="30" map="4" z="72" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_187_322">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="644,1005" radius="20" map="4" z="55" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_98_323">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="997,407" radius="40" map="4" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_107_325">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="979,477" radius="40" map="4" z="2" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_128_326">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1321,619" radius="30" map="4" z="38" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_78_327">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="40" /></npc>
+		<circle center="798,377" radius="40" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_144_328">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="722,916" radius="20" map="4" z="40" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_183_329">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<circle center="683,857" radius="20" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_165_330">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="533,991" radius="20" map="4" z="53" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_47_332">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="418,463" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_165_333">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="934,1233" radius="20" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_156_334">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<circle center="662,495" radius="30" map="4" z="28" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_tok_animals_335">
+		<active />
+		<maxnpcamount>35</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="cow"><npcwander type="circle" radius="50" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="50" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="50" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bull"><npcwander type="circle" radius="50" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="50" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="50" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="chicken"><npcwander type="circle" radius="50" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="50" /></npc>
+		<circle center="557,1211" radius="50" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_157_337">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1293,864" radius="30" map="4" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_116_338">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="185,1046" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_12_339">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<circle center="518,329" radius="30" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_6_340">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1230,895" radius="30" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_84_341">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<circle center="955,828" radius="30" map="4" z="27" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_203_342">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ice_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ice_serpent"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lady_of_the_snow"><npcwander type="circle" radius="30" /></npc>
+		<npc id="polar_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="walrus"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_leopard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="926,145" radius="30" map="4" z="49" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_31_343">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bone_magi"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="30" /></npc>
+		<circle center="123,647" radius="30" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_121_344">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="reaper"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1172,535" radius="30" map="4" z="23" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_140_345">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="938,722" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_178_346">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<circle center="715,831" radius="20" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_191_347">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="722,916" radius="20" map="4" z="40" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_114_348">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<circle center="921,593" radius="30" map="4" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_16_349">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="30" /></npc>
+		<npc id="great_hart"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<circle center="502,532" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_200_350">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="760,941" radius="20" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_162_351">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<circle center="185,1046" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_37_352">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yamandon"><npcwander type="circle" radius="40" /></npc>
+		<circle center="166,583" radius="40" map="4" z="49" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_132_353">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="533,991" radius="20" map="4" z="53" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_147_354">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1055,887" radius="30" map="4" z="38" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_151_355">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="833,908" radius="20" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_133_357">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hellcat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1105,753" radius="30" map="4" z="44" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_58_358">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<circle center="566,430" radius="30" map="4" z="35" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_43_359">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="901,264" radius="30" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_201_360">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="874,971" radius="20" map="4" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_64_361">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="10" /></npc>
+		<circle center="702,419" radius="10" map="4" z="18" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_18_362">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1312,704" radius="30" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_135_364">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="558,862" radius="20" map="4" z="6" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_19_365">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<circle center="517,513" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_118_366">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<npc id="goat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="596,1289" radius="20" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_141_368">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="635,966" radius="20" map="4" z="44" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_117_369">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1092,563" radius="30" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_86_371">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1101,832" radius="30" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_128_372">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="grey_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="20" /></npc>
+		<circle center="561,1101" radius="20" map="4" z="33" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_30_373">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="124,646" radius="40" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_192_374">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="729,934" radius="20" map="4" z="42" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_134_376">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1021,802" radius="30" map="4" z="0" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_153_377">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="oni"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1282,898" radius="30" map="4" z="12" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_55_378">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="819,208" radius="30" map="4" z="38" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_14_379">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<npc id="hellcat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="526,556" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_101_380">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1034,293" radius="30" map="4" z="21" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_tok_eliteninja_381">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="elite_ninja"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1233,762" radius="15" map="4" z="4" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_52_382">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="30" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="30" /></npc>
+		<circle center="962,203" radius="30" map="4" z="23" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_49_383">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="285,1156" radius="30" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_125_386">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="reaper"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1196,507" radius="30" map="4" z="26" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_163_387">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<circle center="942,1170" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_137_388">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="771,824" radius="20" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_109_389">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bullfrog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_toad"><npcwander type="circle" radius="30" /></npc>
+		<circle center="243,1031" radius="30" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_138_390">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<circle center="746,814" radius="20" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_65_391">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="955,391" radius="40" map="4" z="4" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_59_393">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="elite_ninja"><npcwander type="circle" radius="40" /></npc>
+		<circle center="265,406" radius="40" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_83_394">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1074,806" radius="30" map="4" z="23" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_38_395">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yomotsu_warrior"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="190,856" radius="30" map="4" z="52" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_76_396">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="493,378" radius="30" map="4" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_186_397">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="588,1012" radius="20" map="4" z="62" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_195_398">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="orc"><npcwander type="circle" radius="20" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="20" /></npc>
+		<circle center="819,944" radius="20" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_96_399">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1039,952" radius="30" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_62_400">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="30" /></npc>
+		<circle center="765,189" radius="30" map="4" z="42" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_119_401">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="566,1287" radius="20" map="4" z="22" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_42_402">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bullfrog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_toad"><npcwander type="circle" radius="30" /></npc>
+		<circle center="251,1074" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_4_403">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="lesser_hiryu"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<npc id="oni"><npcwander type="circle" radius="30" /></npc>
+		<circle center="499,530" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_19_404">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="273,606" radius="30" map="4" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_181_405">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="737,853" radius="20" map="4" z="35" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_64_406">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="384,460" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_129_407">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1214,652" radius="30" map="4" z="90" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_131_408">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1144,667" radius="30" map="4" z="70" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_169_410">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="535,918" radius="20" map="4" z="14" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_5_411">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1197,813" radius="30" map="4" z="27" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_28_412">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="327,604" radius="30" map="4" z="15" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_59_413">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="497,453" radius="30" map="4" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_147_414">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="20" /></npc>
+		<circle center="644,1142" radius="20" map="4" z="28" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_154_415">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="243,1031" radius="30" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_68_416">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="407,399" radius="40" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_65_418">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="418,463" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_tok_hiryu_2_419">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hiryu"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1311,776" radius="15" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_110_420">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="20" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1062,469" radius="20" map="4" z="8" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_39_421">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="206,891" radius="30" map="4" z="56" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_99_422">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="30" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1133,957" radius="30" map="4" z="64" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_161_423">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="20" /></npc>
+		<npc id="pig"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="884,1152" radius="20" map="4" z="29" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_166_424">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="goat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="20" /></npc>
+		<circle center="887,1286" radius="20" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_40_427">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="941,206" radius="30" map="4" z="17" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_172_428">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="20" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="20" /></npc>
+		<circle center="612,888" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_41_429">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bone_magi"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="revenant_lion"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="30" /></npc>
+		<circle center="212,646" radius="30" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_80_432">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="rune_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="40" /></npc>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="40" /></npc>
+		<npc id="fan_dancer"><npcwander type="circle" radius="40" /></npc>
+		<circle center="841,326" radius="40" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_7_433">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1345,881" radius="30" map="4" z="13" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_111_434">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="771,228" radius="40" map="4" z="63" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_130_435">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hell_hound"><npcwander type="circle" radius="30" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1176,701" radius="30" map="4" z="72" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_45_436">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="812,218" radius="30" map="4" z="41" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_11_437">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1299,814" radius="30" map="4" z="9" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_82_439">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="yamandon"><npcwander type="circle" radius="30" /></npc>
+		<circle center="526,299" radius="30" map="4" z="26" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_12_440">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<circle center="554,476" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_156_441">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<circle center="887,1072" radius="20" map="4" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_93_442">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="998,656" radius="40" map="4" z="11" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_122_444">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="20" /></npc>
+		<circle center="534,1189" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_27_445">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="324,664" radius="30" map="4" z="29" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_103_446">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="30" /></npc>
+		<circle center="948,522" radius="30" map="4" z="7" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_111_447">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="rune_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1086,452" radius="40" map="4" z="14" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_72_448">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="323,374" radius="40" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_9_449">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="208,641" radius="40" map="4" z="36" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_90_450">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ronin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="853,386" radius="40" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_163_452">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kappa"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="30" /></npc>
+		<circle center="210,1085" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_102_453">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1056,904" radius="30" map="4" z="23" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_50_454">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="crane"><npcwander type="circle" radius="30" /></npc>
+		<circle center="493,378" radius="30" map="4" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_53_455">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="793,368" radius="40" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_127_457">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="tsuki_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1285,573" radius="30" map="4" z="30" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_121_458">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bird"><npcwander type="circle" radius="20" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="20" /></npc>
+		<npc id="cat"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<circle center="547,1240" radius="20" map="4" z="25" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_99_459">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="951,409" radius="40" map="4" z="9" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_11_460">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="hiryu"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1311,776" radius="30" map="4" z="10" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_20_461">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<circle center="505,474" radius="30" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_143_462">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<npc id="elite_ninja"><npcwander type="circle" radius="30" /></npc>
+		<circle center="840,714" radius="30" map="4" z="16" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_13_463">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="bake_kitsune"><npcwander type="circle" radius="30" /></npc>
+		<npc id="kaze_kemono"><npcwander type="circle" radius="30" /></npc>
+		<circle center="571,550" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_120_465">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="crane"><npcwander type="circle" radius="20" /></npc>
+		<npc id="rabbit"><npcwander type="circle" radius="20" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="20" /></npc>
+		<circle center="525,1263" radius="20" map="4" z="24" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_55_466">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="horse"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="40" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="40" /></npc>
+		<circle center="856,324" radius="40" map="4" z="37" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_112_467">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="30" /></npc>
+		<circle center="443,402" radius="30" map="4" z="32" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_97_468">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="40" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="40" /></npc>
+		<circle center="992,383" radius="40" map="4" z="5" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_185_469">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<npc id="deathwatch_beetle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="619,981" radius="20" map="4" z="45" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_69_470">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="40" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1122,501" radius="40" map="4" z="19" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_196_471">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="deathwatch_beetle_hatchling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="792,920" radius="20" map="4" z="31" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_outdoors_146_472">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1076,864" radius="30" map="4" z="56" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_73_473">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="mountain_goat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="sheep"><npcwander type="circle" radius="30" /></npc>
+		<circle center="921,593" radius="30" map="4" z="20" />
+	</spawnregion>
+
+	<spawnregion id="tokuno_wildlife_34_474">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>tokuno</group>
+		<group>tokuno</group>
+		<npc id="gaman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="30" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="brown_bear"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="30" /></npc>
+		<npc id="llama"><npcwander type="circle" radius="30" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ridable_llama"><npcwander type="circle" radius="30" /></npc>
+		<circle center="221,968" radius="30" map="4" z="34" />
+	</spawnregion>
+
+</definitions>

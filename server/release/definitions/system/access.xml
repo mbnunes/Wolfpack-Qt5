@@ -120,6 +120,8 @@
 			<action name="RESENDTOOLTIP" permit="true" />
 			<action name="RESTORE" permit="true" />
 			<action name="RESURRECT" permit="true" />
+			<action name="RESPAWN" permit="true" />
+			<action name="RESPAWNTOWNS" permit="true" />
 			<action name="SAY" permit="true" />
 			<action name="SEND" permit="true" />
 			<action name="SET" permit="true" />
@@ -130,6 +132,7 @@
 			<action name="SKILLHEAR" permit="true" />
 			<action name="SKILLINFO" permit="true" />
 			<action name="SOUND" permit="true" />
+			<action name="SPAWNREGION" permit="true" />
 			<action name="STAFF" permit="true" />
 			<action name="STATIC" permit="true" />
 			<action name="TAGINFO" permit="true" />
@@ -139,6 +142,8 @@
 			<action name="WHERE" permit="true" />
 			<action name="WHO" permit="true" />
 			<action name="TURNITEM" permit="true" />
+			<action name="COMMANDS" permit="true" />
+			<action name="CMD" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
@@ -150,7 +155,6 @@
 			<action name="ACTION" permit="true" />
 			<action name="FIX" permit="true" />
 			<action name="GO" permit="true" />
-			<action name="FIX" permit="true" />
 			<action name="PAGENOTIFY" permit="true" />
 			<action name="PAGES" permit="true" />
 			<action name="PASSWORD" permit="true" />
@@ -164,6 +168,8 @@
 			<action name="WHERE" permit="true" />
 			<action name="WHO" permit="true" />
 			<action name="TURNITEM" permit="true" />
+			<action name="COMMANDS" permit="true" />
+			<action name="CMD" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>
@@ -184,6 +190,8 @@
 			<action name="TURNITEM" permit="true" />
 			<action name="SHOWSKILLTITLES" permit="true" />
 			<action name="HIDESKILLTITLE" permit="true" />
+			<action name="COMMANDS" permit="true" />
+			<action name="CMD" permit="true" />
 		</group>
 		<group name="multi"></group>
 	</acl>

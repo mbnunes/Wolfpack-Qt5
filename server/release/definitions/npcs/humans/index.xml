@@ -26,6 +26,9 @@
 	<!-- Playervendors -->
 	<include file="definitions/npcs/humans/playervendors.xml"/>
 
-	<!-- ServUO Townfolk -->
-	<include file="definitions/npcs/humans/servuo_townfolk.xml"/>
+	<!-- Expansion Townfolk -->
+	<include file="definitions/npcs/humans/expansion_townfolk.xml"/>
+
+	<!-- Galleon Pilots -->
+	<include file="definitions/npcs/humans/galleon_pilot.xml"/>
 </definitions>

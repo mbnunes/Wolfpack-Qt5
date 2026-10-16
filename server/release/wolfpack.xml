@@ -64,13 +64,13 @@
   This group configures access to the worldsave database.
   -->
   <group name="Database">
-    <option key="Database Driver" value="binary"/>
-    <option key="Database Host" value=""/>
-    <option key="Database Name" value="world.db"/>
-    <option key="Database Password" value=""/>
+    <option key="Database Driver" value="mysql"/>
+    <option key="Database Host" value="localhost"/>
+    <option key="Database Name" value="wolfpack"/>
+    <option key="Database Password" value="wolfpack123"/>
     <option key="Database Port" value="3306"/>
-    <option key="Database Username" value=""/>
-    <option key="Use Transactions" value="false"/>
+    <option key="Database Username" value="wolfpack"/>
+    <option key="Use Transactions" value="true"/>
   </group>
 
   <!--

@@ -14,7 +14,8 @@ Esta versão representa a modernização completa do projeto a partir de sua bas
 
 ## 📋 Sumário
 
-- [Destaques da Modernização](#-destaques-da-modernização)
+- [Principais Recursos e Capacidades](#-principais-recursos-e-capacidades)
+- [Changelog (Histórico)](CHANGELOG.md)
 - [Requisitos do Sistema](#-requisitos-do-sistema)
 - [Instalação de Dependências](#-instalação-de-dependências)
 - [Como Compilar](#-como-compilar)
@@ -26,52 +27,30 @@ Esta versão representa a modernização completa do projeto a partir de sua bas
 
 ---
 
-## 🚀 Destaques da Modernização
+## 🚀 Principais Recursos e Capacidades
 
-- **Migração para Qt 6**: Atualização do núcleo de rede, sockets, eventos e interface gráfica para Qt 6.10+, eliminando dependências obsoletas de Qt 4/5.
-- **Python 3 Embutido (CPython C-API + Boost.Python)**:
-  - Suporte completo a Python 3.10 até Python 3.14+.
-  - Modernização das definições de `PyTypeObject` com slots de comparação rica (`tp_richcompare`) e métodos dinâmicos (`tp_methods`).
-  - Registro unificado de submódulos C++ (`_wolfpack.console`, `_wolfpack.time`, `_wolfpack.settings`, `_wolfpack.database`, `_wolfpack.sockets`, `_wolfpack.accounts`).
-  - Compatibilidade transparente para construções clássicas de scripts (`unicode = str`, `xrange = range`, comparadores, tipos de dados).
-- **Modernização e Unificação de Banco de Dados (SQLite 3 & MariaDB / MySQL)**:
-  - **SQLite 3.x Moderno**: PRAGMAs de alta performance ativos (`journal_mode=WAL`, `synchronous=NORMAL`, `foreign_keys=ON`, `busy_timeout=5000`, `temp_store=MEMORY`).
-  - **MariaDB 11.8+ / MySQL 8.x**: DDL integralmente modernizado para `ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`, eliminando erros de sintaxe antiga (`TYPE=MYISAM`) e prevenindo timeouts com `MYSQL_OPT_RECONNECT`.
-  - **Unificação de Banco de Dados**: Suporte à opção `Database Driver = "same"`, permitindo que todas as tabelas de contas e do mundo compartilhem o mesmo schema SQL.
-  - **Salvamento Incremental com Upsert (`REPLACE INTO`)**: Eliminação de truncamento destrutivo de tabelas e reuso contínuo de conexões abertas, acelerando os ciclos de autosave.
-  - **Migração Automática de Contas**: Importação transparente de contas de bases legadas `accounts.db` para o novo banco unificado no primeiro boot, com criação automática de backup `accounts.db.imported`.
-- **Segurança Moderna de Senhas (SHA-512 Nativo & Auto-Upgrade)**:
-  - Substituição do algoritmo legado e vulnerável MD5 por **SHA-512** (128 caracteres hexadecimais), ativado por padrão (`Use Password Hashing = true`).
-  - Coluna `password` na tabela `accounts` expandida automaticamente para `varchar(128)`.
-  - **Migração Transparente e Sem Atrito**: Contas legadas salvas em texto puro ou em MD5 continuam autenticando normalmente e são automaticamente convertidas para hashes SHA-512 no momento do primeiro login do jogador.
-- **Suporte Moderno a Custom Housing (AoS / High Seas)**:
-  - Otimização do leitor de `multi.idx` / `multi.mul` para carregar em memória em <5ms (eliminando congelamentos de I/O).
-  - Correção do pacote de mira `0x99` (30 bytes com suporte a clientes High Seas e campo Hue).
-  - Sistema completo de Custom Housing integrado: pacote de revisão `0xBF 0x1D`, requisição `0xBF 0x1E`, pacote comprimido `0xD8` e comandos do designer `0xD7`.
-- **Estabilidade de Encerramento e Recarregamento de Scripts**:
-  - Eliminação de falhas de segmentação ao executar `reload scripts` no console através de limpeza sincronizada de referências em `PythonFunction`.
-  - Resolução de avisos de `QMutex` e eliminação de crashes ao encerrar o servidor com limpeza antecipada de timers antes de `Py_Finalize()`.
-- **Correção do Carregador de Mundo Binário (`world.bin`)**: Ajuste na desserialização de nomes de tipos (`QString`) que continham terminação nula residual (`\0`), garantindo 100% de integridade no carregamento de todos os **32.998+ objetos salvos**.
-- **Ajuste de Spawns com Precisão ServUO & Proteção de Cidades Guardadas**:
-  - Resolução de spawn incorreto de monstros agressivos (orcs, trolls, espectros) no centro de New Haven e outras cidades guardadas, ajustando as regiões para bater 1:1 com os dados de respawn do ServUO (ruínas de Old Haven, ettins nas montanhas e brigands na costa).
-  - Trava nativa na engine C++ impedindo criação de monstros agressivos em territórios com proteção de guardas (`isGuarded`).
-  - Limpeza automática e segura durante o carregamento de saves legados (`world.bin` / SQL) de monstros hostis que estavam residindo indevidamente dentro de cidades guardadas.
-- **Correção e Imunidade Completa para o Comando `'staff`**:
-  - Comando `'staff [1|0]`' corrigido para habilitar/desabilitar modo staff explicitamente ou alternar (toggle).
-  - Ao entrar em modo staff, o personagem recebe invulnerabilidade ativa (`setInvulnerable(true)`) e todo combate em andamento contra ele é cancelado imediatamente.
-  - Monstros e NPCs (`AbstractAI`) ignoram completamente membros da staff, prevenindo qualquer agressão espontânea.
-  - Engine de combate (`cBaseChar::fight` e `cBaseChar::damage`) bloqueia ataques e zera dano contra administradores/GMs.
-- **Compatibilidade de Livros de Magia (Spellbooks) com Clientes Modernos / High Seas**:
-  - Correção de desconexão (*connection lost* / *desync*) ao abrir livros de magias (`spellbook`, `necrospellbook`, `chivalry`, `bushido`, `ninjitsu`, `mysticism` e `arcanist`).
-  - Envio adaptativo do pacote `0x24 Display Spellbook` (9 bytes com sub-tipo `0x007D` para clientes High Seas / 7.0.9+, e 7 bytes para clientes clássicos) e correção dos offsets do pacote de conteúdo `0xBF 0x1B`.
-- **Proteção de Rede & Correção de Criptografia Twofish para Arquiteturas 64-bit**:
-  - Correção de estouro de pilha (*stack buffer overflow* / `__stack_chk_fail`) no algoritmo Twofish (`cGameEncryption`): definição de `DWORD` corrigida de `unsigned long` (8 bytes em Linux x86_64) para `quint32` (4 bytes exatos), restaurando blocos criptográficos de 128 bits.
-  - Proteção nativa nos sockets do GameServer (`2592`) e LoginServer (`2593`) contra tráfego não-UO (requisições HTTP/navegadores, scanners ou bots), desconectando de forma graciosa sem abortar o processo.
-  - Servidor web administrativo embutido (*Remote Admin*) opera com segurança na porta dedicada `2594` (`http://127.0.0.1:2594`).
-- **Novo Sistema de Build com CMake**:
-  - Geração nativa de build com `CMakeLists.txt`.
-  - Cabeçalhos pré-compilados (`wolfpack_pch.h`) para compilação rápida.
-  - Geração simultânea do executável com interface gráfica (`wolfpack`) e do servidor dedicado para terminal/servidores headless (`wolfpack-console`).
+- **Core Modernizado**: Totalmente portado para **Qt 6.10+**, **Python 3.10 a 3.14+**, **C++20** e sistema de build automatizado com **CMake**.
+- **Alta Performance de Banco de Dados**:
+  - Suporte completo a **MariaDB 11.8+ / MySQL 8.x** (InnoDB utf8mb4) e **SQLite 3** de alta velocidade (WAL mode).
+  - Unificação de schemas (`Database Driver = "same"`) e salvamento com upsert incremental (`REPLACE INTO`).
+  - Segurança moderna de senhas em **SHA-512** nativo com migração transparente e sem atrito no login.
+- **Sistema Naval Completo (High Seas)**:
+  - Navegação contínua por timão com mouse (**Ship's Wheel / Helm Gump**).
+  - Artilharia naval completa com canhões pesados/leves, munições, estopins e mira balística.
+  - Danos estruturais ao casco, estados de avaria e reparos de emergência com madeira/kits.
+  - Cabos de amarração (**Mooring Lines**) para embarque/desembarque rápido sem pranchas.
+  - Piloto de galeão NPC e sistema de patentes de tripulação em 5 níveis (manifesto de bordo).
+  - Radar marítimo via luneta (200 tiles) e runas de teleporte naval (*Ship Runes*).
+- **Custom Housing & Castelos Broadsword**:
+  - Sistema completo de Custom Housing integrado com leitura em cache (<5ms) de `multi.idx` / `multi.mul`.
+  - Suporte nativo ao formato `MultiCollection.uop` com os **20 novos castelos e fortalezas** do contest oficial.
+  - Ferramenta de construção ("A Luneta") com paginação dinâmica e compra direta de barcos.
+- **Rede, Segurança e Estabilidade**:
+  - Algoritmo Twofish corrigido para 64-bit e proteção nativa de sockets contra requisições web/scanners.
+  - Modo staff com invulnerabilidade e trégua automática de combate.
+  - Spawns mundiais calibrados com precisão 1:1 ao Expans�es Oficiais e proteção nativa de cidades guardadas.
+
+> 📄 **Histórico de Atualizações**: Para conferir a lista completa e detalhada de todas as melhorias, correções e novidades, consulte o [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -260,6 +239,8 @@ Para tutoriais complementares, criação de scripts customizados, novos comandos
 - [Como Compilar o Wolfpack (Wiki)](https://github.com/mbnunes/Wolfpack-Qt5/wiki/Como-compilar-o-Wolfpack)
 - [How to Compile Wolfpack (English)](https://github.com/mbnunes/Wolfpack-Qt5/wiki/Compile-Instructions)
 - [Começando com o Wolfpack](https://github.com/mbnunes/Wolfpack-Qt5/wiki/Come%C3%A7ando-com-o-Wolfpack)
+- [Guia do Sistema Naval e Navegação High Seas](server/docs/sistema_de_navegacao.md)
+- [Guia Completo de Comandos (In-Game, Console e Web)](server/docs/commands_guide.md)
 - [Adicionando um Novo Comando](https://github.com/mbnunes/Wolfpack-Qt5/wiki/Adicionando-um-novo-comando)
 - [Arquitetura de Dados: XML vs. Componentes (.txt)](server/docs/custom_housing_components.md)
 

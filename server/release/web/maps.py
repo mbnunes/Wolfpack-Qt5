@@ -16,6 +16,25 @@ if session is None:
 	sys.exit()
 
 username = session['username']
+user_acc = None
+try:
+	import wolfpack.accounts
+	user_acc = wolfpack.accounts.find(username)
+except Exception:
+	pass
+
+if not user_acc or not user_acc.authorized('RemoteAccess', 'login'):
+	content = f"""
+	<div class="alert alert-danger border shadow-sm my-4">
+		<h5 class="alert-heading fw-bold">&#128683; Acesso Negado</h5>
+		<p class="mb-0">O rastreamento de jogadores nos mapas é restrito a administradores.</p>
+		<div class="mt-3">
+			<a href="main.py?session={session_id}&view=player" class="btn btn-outline-danger btn-sm">&larr; Voltar ao Meu Painel</a>
+		</div>
+	</div>
+	"""
+	web.template.output("Acesso Negado", username, 1, content, session_id)
+	sys.exit()
 
 maps_list = [
 	("Trammel", "map_trammel.py", "images/map_trammel.jpg", "Faseta pacífica de Britannia"),

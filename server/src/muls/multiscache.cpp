@@ -257,27 +257,27 @@ void cMultiCache::load()
 		}
 		Console::instance()->log( LOG_NOTICE, tr( "Loaded %1 multis from multi.idx/multi.mul.\n" ).arg( multis.size() ) );
 	}
-	else
+
+	// Check for MultiCollection.uop to supplement with modern expansion multis
+	QDir baseFolder( basePath );
+	QStringList files = baseFolder.entryList();
+	QString uopFileName;
+	for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
 	{
-		// Fallback to MultiCollection.uop
-		QDir baseFolder( basePath );
-		QStringList files = baseFolder.entryList();
-		QString uopFileName;
-		for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+		if ( ( *it ).toLower() == "multicollection.uop" )
 		{
-			if ( ( *it ).toLower() == "multicollection.uop" )
-			{
-				uopFileName = *it;
-				break;
-			}
+			uopFileName = *it;
+			break;
 		}
+	}
 
-		if ( uopFileName.isEmpty() )
-		{
-			throw wpException( QString( "Error opening multi.idx / multi.mul or MultiCollection.uop in %1." ).arg( basePath ) );
-		}
-
+	if ( !uopFileName.isEmpty() )
+	{
 		loadUOP( basePath + uopFileName );
+	}
+	else if ( multis.empty() )
+	{
+		throw wpException( QString( "Error opening multi.idx / multi.mul or MultiCollection.uop in %1." ).arg( basePath ) );
 	}
 
 	cComponent::load();
@@ -333,6 +333,9 @@ void cMultiCache::loadUOP( const QString& uopPath )
 				continue;
 
 			ushort multiId = hashToId.value( fileHash );
+			if ( multis.contains( multiId ) )
+				continue;
+
 			qint64 savedPos = file.pos();
 
 			QByteArray data = cUOPIndex::extractEntry( &file, offset + headerLength, compressedLength, decompressedLength, flag );
@@ -381,7 +384,7 @@ void cMultiCache::loadUOP( const QString& uopPath )
 		nextTable = nextBlock;
 	}
 
-	Console::instance()->log( LOG_NOTICE, tr( "Loaded %1 multis from MultiCollection.uop.\n" ).arg( multis.size() ) );
+	Console::instance()->log( LOG_NOTICE, tr( "Total %1 multis loaded (supplemented by MultiCollection.uop).\n" ).arg( multis.size() ) );
 }
 
 /*!

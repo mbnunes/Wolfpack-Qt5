@@ -48,6 +48,11 @@
 	<include file="definitions/spawnregions/felucca/dungeons/terathan_keep.xml" />
 	<include file="definitions/spawnregions/felucca/dungeons/trinsic_passage.xml" />
 	<include file="definitions/spawnregions/felucca/dungeons/wrong.xml" />
+	<include file="definitions/spawnregions/felucca/dungeons/mondains_legacy.xml" />
 	<!-- Wilderness Spawns -->
 	<include file="definitions/spawnregions/felucca/wilderness.xml" />
+	<include file="definitions/spawnregions/felucca/expansion_sealife.xml" />
+	<include file="definitions/spawnregions/felucca/expansion_lostlands.xml" />
+	<include file="definitions/spawnregions/felucca/expansion_wilderness.xml" />
+	<include file="definitions/spawnregions/felucca/expansion_dungeons.xml" />
 </definitions>

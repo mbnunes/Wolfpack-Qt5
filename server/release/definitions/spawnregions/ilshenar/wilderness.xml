@@ -1,4 +1,2813 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_outdoors_153_1">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lich"><npcwander type="circle" radius="7" /></npc>
+		<circle center="366,881" radius="7" map="2" z="-73" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_22_5">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="15" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="15" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="15" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="15" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1400,572" radius="15" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_25_8">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1319,560" radius="15" map="2" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_92_9">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="wyvern"><npcwander type="circle" radius="15" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="15" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="15" /></npc>
+		<circle center="409,264" radius="15" map="2" z="-44" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_67_11">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="25" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1084,652" radius="25" map="2" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_186_12">
+		<active />
+		<maxnpcamount>25</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="110" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="110" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="110" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="110" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="110" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="110" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="110" /></npc>
+		<circle center="630,828" radius="110" map="2" z="-55" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_171_13">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="water_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="913,935" radius="10" map="2" z="-34" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_61_18">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_warrior"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juggernaut"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1088,661" radius="10" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_43_20">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="5" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1098,698" radius="5" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_24">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="150" max="600" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="tinker_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1253,588" radius="5" map="2" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_75_27">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="10" /></npc>
+		<circle center="748,492" radius="10" map="2" z="-64" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_84_33">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="wyvern"><npcwander type="circle" radius="40" /></npc>
+		<circle center="638,555" radius="40" map="2" z="-75" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_golden_bronze_ele_36">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="golden_elemental"><npcwander type="circle" radius="5" /></npc>
+		<npc id="bronze_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1309,1525" radius="5" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_37_40">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_beast"><npcwander type="circle" radius="30" /></npc>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bog_thing"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1135,743" radius="30" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_36_41">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="sewerrat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bogling"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="alligator"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1135,743" radius="30" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_60_45">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="betrayer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1083,675" radius="15" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_139_46">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="troll"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1360,888" radius="40" map="2" z="-21" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_150_49">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="jwilson"><npcwander type="circle" radius="40" /></npc>
+		<circle center="487,890" radius="40" map="2" z="-82" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_107_53">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="10" /></npc>
+		<circle center="808,781" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_unicorn_59">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="unicorn"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1571,1195" radius="40" map="2" z="-22" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_178_61">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="65" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="65" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="65" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="65" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="65" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="65" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="65" /></npc>
+		<circle center="564,1142" radius="65" map="2" z="-99" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_40_62">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="7" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1097,702" radius="7" map="2" z="-79" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_121_64">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ratman_mage"><npcwander type="circle" radius="15" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="15" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1059,1153" radius="15" map="2" z="-24" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_76_67">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="25" /></npc>
+		<circle center="783,448" radius="25" map="2" z="-47" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_137_68">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="40" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="40" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1436,960" radius="40" map="2" z="-22" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ridgeback_2_70">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="59" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ridgeback"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1082,432" radius="25" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_93_71">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="wyvern"><npcwander type="circle" radius="15" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="15" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="15" /></npc>
+		<circle center="449,264" radius="15" map="2" z="-57" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_9_76">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="desert_ostard"><npcwander type="circle" radius="30" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="30" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="30" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1593,602" radius="30" map="2" z="7" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_83_78">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="brigand"><npcwander type="circle" radius="25" /></npc>
+		<npc id="evil_mage"><npcwander type="circle" radius="25" /></npc>
+		<circle center="511,545" radius="25" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_136_79">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="giant_rat"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1585,990" radius="10" map="2" z="20" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_54_80">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_lord"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1083,664" radius="5" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_111_84">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="chaos_daemon"><npcwander type="circle" radius="17" /></npc>
+		<npc id="moloch"><npcwander type="circle" radius="17" /></npc>
+		<circle center="858,799" radius="17" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_91_86">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="wyvern"><npcwander type="circle" radius="15" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="15" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="15" /></npc>
+		<circle center="370,264" radius="15" map="2" z="-52" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_173_88">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="headless_one"><npcwander type="circle" radius="40" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="40" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="40" /></npc>
+		<circle center="935,1159" radius="40" map="2" z="13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_108_94">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="quagmire"><npcwander type="circle" radius="17" /></npc>
+		<circle center="853,762" radius="17" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_112_95">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="chaos_daemon"><npcwander type="circle" radius="10" /></npc>
+		<circle center="879,781" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_18_96">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="frost_troll"><npcwander type="circle" radius="22" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="22" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="22" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="22" /></npc>
+		<circle center="1352,667" radius="22" map="2" z="111" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_157_98">
+		<active />
+		<maxnpcamount>40</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="60" /></npc>
+		<npc id="giant_toad"><npcwander type="circle" radius="60" /></npc>
+		<npc id="alligator"><npcwander type="circle" radius="60" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="60" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="60" /></npc>
+		<circle center="430,1176" radius="60" map="2" z="-68" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_56_99">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_mage"><npcwander type="circle" radius="7" /></npc>
+		<npc id="juka_warrior"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1070,650" radius="7" map="2" z="-79" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_71_100">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dread_spider"><npcwander type="circle" radius="25" /></npc>
+		<npc id="poison_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1041,272" radius="25" map="2" z="56" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_28_102">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="troll"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1445,384" radius="30" map="2" z="22" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_168_104">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="438,1431" radius="30" map="2" z="15" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_scorcersdungeon_106">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="555,464" radius="5" map="2" z="-55" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_161_107">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<circle center="295,1348" radius="30" map="2" z="-26" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_arielle_109">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="arielle"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1553,1191" radius="5" map="2" z="-25" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_133_113">
+		<active />
+		<maxnpcamount>11</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1747,1221" radius="25" map="2" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_115_116">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="50" /></npc>
+		<circle center="275,453" radius="50" map="2" z="-53" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_140_122">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dread_spider"><npcwander type="circle" radius="45" /></npc>
+		<circle center="1817,976" radius="45" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_155_124">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="20" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="20" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<circle center="353,1140" radius="20" map="2" z="-54" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_87_125">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dragon"><npcwander type="circle" radius="30" /></npc>
+		<circle center="385,421" radius="30" map="2" z="-62" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_88_127">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dragon"><npcwander type="circle" radius="30" /></npc>
+		<circle center="447,425" radius="30" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_109_130">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="chaos_daemon"><npcwander type="circle" radius="17" /></npc>
+		<npc id="moloch"><npcwander type="circle" radius="17" /></npc>
+		<npc id="doppleganger"><npcwander type="circle" radius="17" /></npc>
+		<circle center="821,758" radius="17" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_shadowironele_132">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="shadow_iron_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1336,1488" radius="5" map="2" z="17" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_49_133">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1075,628" radius="7" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_160_137">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<circle center="291,1313" radius="30" map="2" z="-25" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_serpentinedrag_138">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="45" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="serpentine_dragon"><npcwander type="circle" radius="5" /></npc>
+		<circle center="474,1552" radius="5" map="2" z="-27" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_kirin_pass_greaterdragon_139">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="greater_dragon"><npcwander type="circle" radius="5" /></npc>
+		<circle center="123,902" radius="5" map="2" z="-29" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_170_140">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="20" /></npc>
+		<circle center="722,1354" radius="20" map="2" z="-61" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_17_141">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="harpy"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1400,687" radius="25" map="2" z="32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_kirin_142">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="25" max="50" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="kirin"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1624,1180" radius="50" map="2" z="-12" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_154_145">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="7" /></npc>
+		<circle center="338,863" radius="7" map="2" z="-72" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_154">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ethereal_warrior"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1362,1073" radius="5" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_valor__greaterdragon_156">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="100" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="greater_dragon"><npcwander type="circle" radius="20" /></npc>
+		<circle center="372,410" radius="20" map="2" z="-61" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_dullcopper_ele_159">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dull_copper_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1340,1502" radius="5" map="2" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_70_161">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="20" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="20" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="20" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="20" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="20" /></npc>
+		<circle center="855,464" radius="20" map="2" z="-2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_99_162">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="exodus_overseer"><npcwander type="circle" radius="10" /></npc>
+		<circle center="963,456" radius="10" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_180_163">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="65" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="65" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="65" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="65" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="65" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="65" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="65" /></npc>
+		<circle center="703,984" radius="65" map="2" z="-68" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_141_167">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="giant_spider"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1504,878" radius="20" map="2" z="10" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_35_172">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lizardman"><npcwander type="circle" radius="30" /></npc>
+		<npc id="plague_beast"><npcwander type="circle" radius="30" /></npc>
+		<npc id="toxic_elemental"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1070,750" radius="30" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_148_173">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="magecamp" />
+		<point pos="830,1206,-70,2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_16_174">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ethereal_warrior"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1363,1046" radius="30" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_29_176">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ancient_wyrm"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1416,317" radius="7" map="2" z="74" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_167_178">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="25" /></npc>
+		<circle center="350,1441" radius="25" map="2" z="17" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_94_179">
+		<active />
+		<maxnpcamount>22</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="50" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="50" /></npc>
+		<npc id="sand_vortex"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ridgeback"><npcwander type="circle" radius="50" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="50" /></npc>
+		<circle center="964,638" radius="50" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_52_180">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_mage"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1095,638" radius="5" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_176_181">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="50" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="50" /></npc>
+		<circle center="646,1209" radius="50" map="2" z="-93" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_127_183">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="pixie"><npcwander type="circle" radius="70" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="70" /></npc>
+		<circle center="1480,1207" radius="70" map="2" z="-18" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_64_184">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="betrayer"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1060,652" radius="15" map="2" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_187">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="speckled_scorpion"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1588,610" radius="5" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_65_188">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="betrayer"><npcwander type="circle" radius="25" /></npc>
+		<npc id="golem_controller"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1083,651" radius="25" map="2" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_117_189">
+		<active />
+		<maxnpcamount>60</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="170" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="170" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="170" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="170" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="170" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="170" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="170" /></npc>
+		<circle center="685,340" radius="170" map="2" z="-64" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_5_190">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="air_elemental"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1775,530" radius="10" map="2" z="66" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_145_192">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ratman_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="25" /></npc>
+		<circle center="644,819" radius="25" map="2" z="-44" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_agapite_ele_196">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="agapite_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1318,1511" radius="5" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_120_197">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="healer_male"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1083,968" radius="30" map="2" z="-38" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_97_198">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lava_lizard"><npcwander type="circle" radius="15" /></npc>
+		<circle center="973,460" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_199">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="150" max="600" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="tinker_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1253,588" radius="5" map="2" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_172_204">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="reaper"><npcwander type="circle" radius="40" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="40" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="40" /></npc>
+		<circle center="963,1028" radius="40" map="2" z="-31" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_47_208">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1060,659" radius="7" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_24_211">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="healercamp" />
+		<point pos="1358,498,3,2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_177_212">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="55" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="55" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="55" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="55" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="55" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="55" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="55" /></npc>
+		<circle center="605,1061" radius="55" map="2" z="-84" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_98_213">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="964,456" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_146_216">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bankercamp" />
+		<point pos="961,924,-37,2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_166_217">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="fire_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="25" /></npc>
+		<circle center="314,1436" radius="25" map="2" z="16" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_66_218">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juggernaut"><npcwander type="circle" radius="25" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1083,651" radius="25" map="2" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_135_219">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="evil_mage_lord"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1674,1074" radius="5" map="2" z="32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_118_220">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="75" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="75" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="75" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="75" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="75" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="75" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="75" /></npc>
+		<circle center="460,469" radius="75" map="2" z="-49" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_174_223">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ettin"><npcwander type="circle" radius="25" /></npc>
+		<circle center="822,1324" radius="25" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_7_224">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="orccamp" />
+		<point pos="1717,606,17,2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_130_227">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="10" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1183,1287" radius="10" map="2" z="-30" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_147_228">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="magecamp" />
+		<point pos="567,807,-74,2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_69_230">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="meer_warrior"><npcwander type="circle" radius="25" /></npc>
+		<npc id="meer_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="meer_captain"><npcwander type="circle" radius="25" /></npc>
+		<npc id="meer_eternal"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1803,66" radius="25" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_valorite_ele_232">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="valorite_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1299,1498" radius="5" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_162_233">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lizardman"><npcwander type="circle" radius="15" /></npc>
+		<circle center="302,1580" radius="15" map="2" z="-29" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_23_234">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="orc"><npcwander type="circle" radius="40" /></npc>
+		<npc id="orc_captain"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="40" /></npc>
+		<npc id="troll"><npcwander type="circle" radius="40" /></npc>
+		<npc id="orcish_mage"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1421,517" radius="40" map="2" z="1" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_183_238">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="65" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="65" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="65" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="65" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="65" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="65" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="65" /></npc>
+		<circle center="733,1238" radius="65" map="2" z="-68" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_executioner_241">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="executioner"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2091,55" radius="5" map="2" z="-32" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_swampdrag_242">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="25" max="40" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="swamp_dragon"><npcwander type="circle" radius="25" /></npc>
+		<circle center="645,1220" radius="25" map="2" z="-91" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_110_244">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="quagmire"><npcwander type="circle" radius="17" /></npc>
+		<npc id="doppleganger"><npcwander type="circle" radius="17" /></npc>
+		<npc id="arcane_daemon"><npcwander type="circle" radius="17" /></npc>
+		<circle center="821,802" radius="17" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_63_245">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_warrior"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1088,637" radius="10" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_132_247">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1733,1161" radius="30" map="2" z="-5" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_106_248">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="imp"><npcwander type="circle" radius="15" /></npc>
+		<circle center="930,519" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_45_254">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_mage"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1084,675" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_62_255">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="betrayer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_lord"><npcwander type="circle" radius="10" /></npc>
+		<npc id="juka_warrior"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1090,646" radius="10" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_verite_ele_258">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="verite_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1307,1505" radius="5" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_163_259">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lizardman"><npcwander type="circle" radius="15" /></npc>
+		<circle center="325,1576" radius="15" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_74_261">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1000,272" radius="25" map="2" z="56" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_143_262">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ratman_archer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<circle center="664,665" radius="10" map="2" z="-15" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_104_264">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="960,524" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_266">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="speckled_scorpion"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1546,631" radius="5" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_169_267">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="mongbat"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wisp"><npcwander type="circle" radius="25" /></npc>
+		<npc id="imp"><npcwander type="circle" radius="25" /></npc>
+		<circle center="648,1321" radius="25" map="2" z="-57" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_116_271">
+		<active />
+		<maxnpcamount>20</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="75" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="75" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="75" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="75" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="75" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="75" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="75" /></npc>
+		<circle center="652,555" radius="75" map="2" z="-72" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_187_272">
+		<active />
+		<maxnpcamount>25</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="100" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="100" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="100" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="100" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="100" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="100" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="100" /></npc>
+		<circle center="588,674" radius="100" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_152_273">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lich"><npcwander type="circle" radius="10" /></npc>
+		<circle center="325,893" radius="10" map="2" z="-72" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_96_274">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="imp"><npcwander type="circle" radius="15" /></npc>
+		<npc id="golem_controller"><npcwander type="circle" radius="15" /></npc>
+		<circle center="978,471" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_53_275">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1095,664" radius="5" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_rcentaur_278">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="centaur"><npcwander type="circle" radius="5" /></npc>
+		<circle center="440,1564" radius="5" map="2" z="-29" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_279">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="petrus"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1420,407" radius="4" map="2" z="9" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_101_280">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="gargoyle"><npcwander type="circle" radius="15" /></npc>
+		<circle center="946,430" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_102_284">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lich"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="20" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="20" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="20" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="20" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="20" /></npc>
+		<circle center="878,527" radius="20" map="2" z="-77" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_113_286">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="907,780" radius="20" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_6_297">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="wyvern"><npcwander type="circle" radius="40" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1828,601" radius="40" map="2" z="38" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_20_298">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="frost_troll"><npcwander type="circle" radius="30" /></npc>
+		<npc id="snow_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1316,633" radius="30" map="2" z="106" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_185_299">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="50" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="50" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="50" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="50" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="50" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="50" /></npc>
+		<circle center="468,874" radius="50" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_181_300">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="65" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="65" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="65" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="65" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="65" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="65" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="65" /></npc>
+		<circle center="605,973" radius="65" map="2" z="-82" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_158_303">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="40" /></npc>
+		<npc id="giant_toad"><npcwander type="circle" radius="40" /></npc>
+		<npc id="alligator"><npcwander type="circle" radius="40" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="40" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="40" /></npc>
+		<circle center="350,1204" radius="40" map="2" z="-38" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_119_304">
+		<active />
+		<maxnpcamount>35</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="150" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="150" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="150" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="150" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="150" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="150" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="150" /></npc>
+		<circle center="377,340" radius="150" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_50_306">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1092,628" radius="7" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_16_308">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="imp"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1445,681" radius="20" map="2" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_0_311">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dragon"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1763,344" radius="30" map="2" z="52" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_85_318">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="wyvern"><npcwander type="circle" radius="40" /></npc>
+		<circle center="565,343" radius="40" map="2" z="-77" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_114_319">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="20" /></npc>
+		<circle center="987,791" radius="20" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_182_324">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="40" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="40" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="40" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="40" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="40" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="40" /></npc>
+		<circle center="514,1225" radius="40" map="2" z="-66" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_19_325">
+		<active />
+		<maxnpcamount>9</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="frost_troll"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ice_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="ice_serpent"><npcwander type="circle" radius="30" /></npc>
+		<npc id="frost_spider"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1372,623" radius="30" map="2" z="111" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_134_326">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="harpy"><npcwander type="circle" radius="15" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1678,971" radius="15" map="2" z="10" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_327">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="arielles_bauble"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1595,1209" radius="10" map="2" z="-16" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_165_329">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="efreet"><npcwander type="circle" radius="10" /></npc>
+		<circle center="278,1440" radius="10" map="2" z="15" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_72_332">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lich"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1041,272" radius="25" map="2" z="56" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_125_333">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="pixie"><npcwander type="circle" radius="70" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="70" /></npc>
+		<circle center="1592,1191" radius="70" map="2" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_334">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="speckled_scorpion"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1600,629" radius="5" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_144_335">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ratman_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<circle center="664,665" radius="10" map="2" z="-35" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_4_338">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="brigand"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1856,517" radius="30" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_339">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="yorus"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1390,423" radius="4" map="2" z="-24" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ahnkdungeon_341">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="575,1142" radius="5" map="2" z="-100" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_131_345">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="sheep"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1319,1331" radius="10" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_scorp_348">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="50" max="75" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="terathan_warrior"><npcwander type="circle" radius="45" /></npc>
+		<circle center="1809,966" radius="45" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_184_352">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="70" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="70" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="70" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="70" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="70" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="70" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="70" /></npc>
+		<circle center="397,958" radius="70" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_46_355">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1059,675" radius="7" map="2" z="-79" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_48_356">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1060,643" radius="7" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_1_357">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1790,435" radius="25" map="2" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_44_358">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="golem"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1091,702" radius="10" map="2" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ariellesbauble_359">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="arielles_bauble"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1543,1188" radius="5" map="2" z="-25" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_13_360">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1534,631" radius="15" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_21_362">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="15" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="15" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="15" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="15" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="15" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1442,576" radius="15" map="2" z="-11" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_3_363">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1852,484" radius="20" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_126_367">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="unicorn"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1592,1191" radius="50" map="2" z="-20" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_159_369">
+		<active />
+		<maxnpcamount>18</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="swamp_tentacle"><npcwander type="circle" radius="70" /></npc>
+		<npc id="giant_toad"><npcwander type="circle" radius="70" /></npc>
+		<npc id="lizardman"><npcwander type="circle" radius="70" /></npc>
+		<npc id="alligator"><npcwander type="circle" radius="70" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="70" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="70" /></npc>
+		<circle center="400,1334" radius="70" map="2" z="-37" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_68_370">
+		<active />
+		<maxnpcamount>8</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="meer_warrior"><npcwander type="circle" radius="25" /></npc>
+		<npc id="meer_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="meer_captain"><npcwander type="circle" radius="25" /></npc>
+		<npc id="meer_eternal"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1772,67" radius="25" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_26_371">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ratman"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="20" /></npc>
+		<npc id="ratman_mage"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1237,473" radius="20" map="2" z="-4" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_129_372">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="pixie"><npcwander type="circle" radius="50" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1318,1246" radius="50" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_128_375">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="unicorn"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1480,1207" radius="50" map="2" z="-18" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_86_376">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="elder_gazer"><npcwander type="circle" radius="25" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="25" /></npc>
+		<circle center="489,488" radius="25" map="2" z="-62" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_100_379">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="imp"><npcwander type="circle" radius="10" /></npc>
+		<circle center="941,471" radius="10" map="2" z="-38" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_149_381">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ratman"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ratman_mage"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="40" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="40" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="40" /></npc>
+		<npc id="slime"><npcwander type="circle" radius="40" /></npc>
+		<circle center="485,891" radius="40" map="2" z="-82" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_2_383">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="mongbat"><npcwander type="circle" radius="50" /></npc>
+		<npc id="air_elemental"><npcwander type="circle" radius="50" /></npc>
+		<npc id="giant_spider"><npcwander type="circle" radius="50" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="50" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1805,469" radius="50" map="2" z="-9" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_142_385">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ratman_mage"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="10" /></npc>
+		<npc id="ratman"><npcwander type="circle" radius="10" /></npc>
+		<circle center="664,668" radius="10" map="2" z="5" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_27_386">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="drake"><npcwander type="circle" radius="40" /></npc>
+		<npc id="harpy"><npcwander type="circle" radius="40" /></npc>
+		<circle center="1275,401" radius="40" map="2" z="-1" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_95_387">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="981,470" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_81_388">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="cyclops"><npcwander type="circle" radius="35" /></npc>
+		<npc id="titan"><npcwander type="circle" radius="35" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="35" /></npc>
+		<circle center="739,264" radius="35" map="2" z="-54" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_73_389">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dread_spider"><npcwander type="circle" radius="25" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="elder_gazer"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1000,272" radius="25" map="2" z="56" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_41_396">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="7" /></npc>
+		<npc id="golem"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1087,698" radius="7" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_34_397">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="sewerrat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="corpser"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bogling"><npcwander type="circle" radius="30" /></npc>
+		<npc id="giant_rat"><npcwander type="circle" radius="30" /></npc>
+		<npc id="alligator"><npcwander type="circle" radius="30" /></npc>
+		<npc id="mongbat"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1070,750" radius="30" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_124_404">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="healercamp" />
+		<point pos="1519,1019,-6,2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_55_405">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_lord"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1070,639" radius="5" map="2" z="-79" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_79_407">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lich"><npcwander type="circle" radius="25" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="25" /></npc>
+		<circle center="742,440" radius="25" map="2" z="-59" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_175_408">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="titan"><npcwander type="circle" radius="40" /></npc>
+		<npc id="cyclops"><npcwander type="circle" radius="40" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="40" /></npc>
+		<circle center="902,1308" radius="40" map="2" z="-71" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_90_409">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dragon"><npcwander type="circle" radius="30" /></npc>
+		<circle center="445,318" radius="30" map="2" z="-64" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_57_410">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="6" /></npc>
+		<circle center="1072,651" radius="6" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_151_418">
+		<active />
+		<maxnpcamount>17</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="25" /></npc>
+		<circle center="330,881" radius="25" map="2" z="-73" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_80_420">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="cyclops"><npcwander type="circle" radius="10" /></npc>
+		<circle center="756,208" radius="10" map="2" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_77_421">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lich"><npcwander type="circle" radius="25" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="25" /></npc>
+		<circle center="783,448" radius="25" map="2" z="-47" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_8_424">
+		<active />
+		<maxnpcamount>12</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="desert_ostard"><npcwander type="circle" radius="30" /></npc>
+		<npc id="stone_harpy"><npcwander type="circle" radius="30" /></npc>
+		<npc id="gargoyle"><npcwander type="circle" radius="30" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="30" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lich_lord"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1647,602" radius="30" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_14_425">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1530,667" radius="15" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_dread_giant_426">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="100" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="giant_black_widow"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1789,977" radius="50" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_51_428">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1083,638" radius="5" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_138_429">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="pixie"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1249,957" radius="10" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_164_433">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ancient_wyrm"><npcwander type="circle" radius="20" /></npc>
+		<npc id="wyvern"><npcwander type="circle" radius="20" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="20" /></npc>
+		<circle center="223,1360" radius="20" map="2" z="-15" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_103_434">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="imp"><npcwander type="circle" radius="15" /></npc>
+		<circle center="938,453" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_42_435">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="golem_controller"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1086,702" radius="5" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_105_438">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="15" /></npc>
+		<circle center="911,502" radius="15" map="2" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_179_439">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="bird"><npcwander type="circle" radius="65" /></npc>
+		<npc id="boar"><npcwander type="circle" radius="65" /></npc>
+		<npc id="snake"><npcwander type="circle" radius="65" /></npc>
+		<npc id="giant_serpent"><npcwander type="circle" radius="65" /></npc>
+		<npc id="forest_ostard"><npcwander type="circle" radius="65" /></npc>
+		<npc id="gorilla"><npcwander type="circle" radius="65" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="65" /></npc>
+		<circle center="681,1125" radius="65" map="2" z="-73" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_78_440">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="25" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="25" /></npc>
+		<circle center="742,440" radius="25" map="2" z="-59" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_copper_ele_443">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="copper_elemental"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1327,1536" radius="5" map="2" z="-3" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_58_444">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_warrior"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1083,628" radius="15" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_82_449">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="cyclops"><npcwander type="circle" radius="35" /></npc>
+		<npc id="titan"><npcwander type="circle" radius="35" /></npc>
+		<npc id="ettin"><npcwander type="circle" radius="35" /></npc>
+		<circle center="778,264" radius="35" map="2" z="-38" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_89_453">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dragon"><npcwander type="circle" radius="30" /></npc>
+		<circle center="445,366" radius="30" map="2" z="-66" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_59_457">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="juka_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1107,627" radius="7" map="2" z="-59" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_gnawdirewolves_460">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="15" max="60" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="8" /></npc>
+		<circle center="2131,1173" radius="8" map="2" z="-46" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_swoop_461">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="swoop"><npcwander type="circle" radius="8" /></npc>
+		<circle center="2222,1222" radius="8" map="2" z="9" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_tentacles_462">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="corpser"><npcwander type="circle" radius="25" /></npc>
+		<npc id="whipping_vine"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2166,1235" radius="25" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_cusidhe_463">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="cu_sidhe"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2210,1192" radius="15" map="2" z="-35" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_irk_464">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="irk"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2158,1224" radius="25" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_gnaw_465">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="50" max="125" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="8" /></npc>
+		<circle center="2130,1174" radius="8" map="2" z="-46" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_quagmire_466">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="quagmire"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2158,1217" radius="25" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_corpser1_467">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="corpser"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2137,1216" radius="5" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawn_468">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ml_dryad"><npcwander type="circle" radius="20" /></npc>
+		<circle center="2200,1192" radius="20" map="2" z="-35" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_changeling_469">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="changeling"><npcwander type="circle" radius="25" /></npc>
+		<circle center="2193,1170" radius="25" map="2" z="-36" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_dryad2_470">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="ml_dryad"><npcwander type="circle" radius="12" /></npc>
+		<circle center="2211,1169" radius="12" map="2" z="-37" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_lady_sabrix_471">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lady_sabrix"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2179,1214" radius="15" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_changeling2_472">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="changeling"><npcwander type="circle" radius="20" /></npc>
+		<circle center="2150,1188" radius="20" map="2" z="-46" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_satyr_473">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="satyr"><npcwander type="circle" radius="20" /></npc>
+		<circle center="2207,1191" radius="20" map="2" z="-36" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_guile_474">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="changeling"><npcwander type="circle" radius="30" /></npc>
+		<circle center="2173,1213" radius="30" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_direwolf_475">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="dire_wolf"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2160,1178" radius="15" map="2" z="-40" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_whippingvine_476">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="whipping_vine"><npcwander type="circle" radius="18" /></npc>
+		<circle center="2141,1209" radius="18" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_lady_lissith_477">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="lady_lissith"><npcwander type="circle" radius="15" /></npc>
+		<circle center="2174,1203" radius="15" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spite_478">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="15" max="180" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="changeling"><npcwander type="circle" radius="30" /></npc>
+		<circle center="2174,1213" radius="30" map="2" z="-60" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_arch_zealot_487">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>wilderness</group>
+		<npc id="exodusarchzealot" />
+		<point pos="946,641,-79,2" />
+	</spawnregion>
 
 </definitions>

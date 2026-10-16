@@ -37,6 +37,19 @@ except:
 	pass
 
 username = session['username']
+user_acc = wolfpack.accounts.find(username)
+if not user_acc or not user_acc.authorized('RemoteAccess', 'login'):
+	content = f"""
+	<div class="alert alert-danger border shadow-sm my-4">
+		<h5 class="alert-heading fw-bold">&#128683; Acesso Negado</h5>
+		<p class="mb-0">O console do servidor é restrito a administradores.</p>
+		<div class="mt-3">
+			<a href="main.py?session={session_id}&view=player" class="btn btn-outline-danger btn-sm">&larr; Voltar ao Meu Painel</a>
+		</div>
+	</div>
+	"""
+	web.template.output("Acesso Negado", username, 1, content, session_id)
+	sys.exit()
 
 if action == 1:
 	print("Content-type: text/html; charset=utf-8\n\n")

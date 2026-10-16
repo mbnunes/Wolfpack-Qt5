@@ -19,4 +19,96 @@
 		<pos x="999" y="527" z="-50" map="3" />
 		<pos x="999" y="512" z="-50" map="3" />
 	</item>
+
+	<!-- wooden door -->
+	<item id="0x6eb" hue="0x497">
+		<pos x="2038" y="1320" z="-85" map="3" />
+		<pos x="2041" y="1321" z="-85" map="3" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6ef" hue="0x497">
+		<pos x="2036" y="1317" z="-85" map="3" />
+		<pos x="2036" y="1323" z="-65" map="3" />
+	</item>
+	<!-- wooden door -->
+	<item id="0x6e5" hue="0x497">
+		<pos x="2035" y="1315" z="-65" map="3" />
+		<pos x="2040" y="1315" z="-65" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x6c7">
+		<pos x="2368" y="1100" z="-92" map="3" />
+		<pos x="2368" y="1143" z="-92" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x6c5">
+		<pos x="2367" y="1100" z="-92" map="3" />
+		<pos x="2367" y="1143" z="-92" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x6c9">
+		<pos x="2367" y="1111" z="-92" map="3" />
+		<pos x="2367" y="1155" z="-92" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x6cb">
+		<pos x="2368" y="1111" z="-92" map="3" />
+		<pos x="2368" y="1155" z="-92" map="3" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x689">
+		<pos x="2367" y="1103" z="-92" map="3" />
+		<pos x="2367" y="1151" z="-92" map="3" />
+	</item>
+	<!-- barred metal door -->
+	<item id="0x68b">
+		<pos x="2368" y="1103" z="-92" map="3" />
+		<pos x="2368" y="1151" z="-92" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x6d1">
+		<pos x="2350" y="1128" z="-92" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x6d3">
+		<pos x="2350" y="1127" z="-92" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67d">
+		<pos x="269" y="74" z="-1" map="3" />
+		<pos x="278" y="96" z="-1" map="3" />
+		<pos x="334" y="15" z="-1" map="3" />
+		<pos x="344" y="15" z="-1" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67f">
+		<pos x="269" y="73" z="-1" map="3" />
+		<pos x="278" y="95" z="-1" map="3" />
+		<pos x="334" y="14" z="-1" map="3" />
+		<pos x="344" y="14" z="-1" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x67f" hue="0x455">
+		<pos x="2333" y="1268" z="-110" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x675">
+		<pos x="308" y="88" z="-1" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x677">
+		<pos x="309" y="88" z="-1" map="3" />
+	</item>
+	<!-- metal door -->
+	<item id="0x681" hue="0x455">
+		<pos x="2333" y="1269" z="-110" map="3" />
+	</item>
+	<!-- iron gate -->
+	<item id="0x82c">
+		<pos x="351" y="40" z="-1" map="3" />
+	</item>
+	<!-- iron gate -->
+	<item id="0x84c">
+		<pos x="391" y="29" z="-1" map="3" />
+	</item>
 </decoration>

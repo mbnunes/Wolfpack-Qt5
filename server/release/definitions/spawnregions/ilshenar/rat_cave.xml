@@ -1,4 +1,54 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_ratmancave_3_146">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rat_cave</group>
+		<npc id="skeletal_dragon"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1181,1512" radius="10" map="2" z="-68" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ratmancave_2_151">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rat_cave</group>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1224,1494" radius="30" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ratmancave_1_354">
+		<active />
+		<maxnpcamount>10</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rat_cave</group>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1224,1524" radius="30" map="2" z="-28" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_ratmancave_0_448">
+		<active />
+		<maxnpcamount>21</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>rat_cave</group>
+		<npc id="ratman"><npcwander type="circle" radius="50" /></npc>
+		<npc id="ratman_mage"><npcwander type="circle" radius="50" /></npc>
+		<npc id="earth_elemental"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1310,1519" radius="50" map="2" z="-28" />
+	</spawnregion>
 
 </definitions>

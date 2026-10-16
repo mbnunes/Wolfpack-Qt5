@@ -1,4 +1,260 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="ilsh_towns_1_6">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="spectre"><npcwander type="circle" radius="30" /></npc>
+		<npc id="shade"><npcwander type="circle" radius="30" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1517,552" radius="30" map="2" z="10" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_32_17">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="ettin"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1503,239" radius="20" map="2" z="-7" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_31_35">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="ettin"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1464,241" radius="20" map="2" z="2" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_2_38">
+		<active />
+		<maxnpcamount>7</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="ghoul"><npcwander type="circle" radius="35" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="35" /></npc>
+		<circle center="1516,557" radius="35" map="2" z="4" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_4_56">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="lich"><npcwander type="circle" radius="20" /></npc>
+		<circle center="1517,541" radius="20" map="2" z="11" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_15_60">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="balron"><npcwander type="circle" radius="15" /></npc>
+		<circle center="1701,185" radius="15" map="2" z="108" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_14_75">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="stone_harpy"><npcwander type="circle" radius="10" /></npc>
+		<npc id="stone_gargoyle"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1715,228" radius="10" map="2" z="78" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_12_89">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="ratman"><npcwander type="circle" radius="7" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="7" /></npc>
+		<npc id="ratman_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1580,554" radius="7" map="2" z="-13" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_3_97">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="skeletal_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_knight"><npcwander type="circle" radius="30" /></npc>
+		<npc id="skeletal_mage"><npcwander type="circle" radius="30" /></npc>
+		<npc id="bone_magi"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1517,552" radius="30" map="2" z="10" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_105">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="speckled_scorpion"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1576,597" radius="5" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_5_111">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="lich_lord"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1517,541" radius="10" map="2" z="61" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_10_269">
+		<active />
+		<maxnpcamount>14</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="30" /></npc>
+		<npc id="scorpion"><npcwander type="circle" radius="30" /></npc>
+		<circle center="1700,546" radius="30" map="2" z="5" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_spawner_290">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="speckled_scorpion"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1607,598" radius="5" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_11_295">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="ratman"><npcwander type="circle" radius="7" /></npc>
+		<npc id="ratman_archer"><npcwander type="circle" radius="7" /></npc>
+		<npc id="ratman_mage"><npcwander type="circle" radius="7" /></npc>
+		<circle center="1580,538" radius="7" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_11_320">
+		<active />
+		<maxnpcamount>21</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="phoenix"><npcwander type="circle" radius="50" /></npc>
+		<npc id="fire_elemental"><npcwander type="circle" radius="50" /></npc>
+		<npc id="hell_hound"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lava_serpent"><npcwander type="circle" radius="50" /></npc>
+		<npc id="lava_lizard"><npcwander type="circle" radius="50" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1643,310" radius="50" map="2" z="48" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_12_340">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="succubus"><npcwander type="circle" radius="50" /></npc>
+		<npc id="efreet"><npcwander type="circle" radius="50" /></npc>
+		<circle center="1643,310" radius="50" map="2" z="48" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_30_351">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="imp"><npcwander type="circle" radius="10" /></npc>
+		<npc id="daemon"><npcwander type="circle" radius="10" /></npc>
+		<circle center="1496,280" radius="10" map="2" z="-10" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_13_380">
+		<active />
+		<maxnpcamount>5</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="earth_elemental"><npcwander type="circle" radius="25" /></npc>
+		<npc id="drake"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1665,244" radius="25" map="2" z="93" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_33_402">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="imp"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1571,253" radius="25" map="2" z="14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_outdoors_15_441">
+		<active />
+		<maxnpcamount>16</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="shade"><npcwander type="circle" radius="25" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="25" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="25" /></npc>
+		<npc id="skeleton"><npcwander type="circle" radius="25" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="25" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="25" /></npc>
+		<circle center="1534,600" radius="25" map="2" z="-14" />
+	</spawnregion>
+
+	<spawnregion id="ilsh_towns_0_446">
+		<active />
+		<maxnpcamount>6</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>ilshenar</group>
+		<group>montor</group>
+		<npc id="skeleton"><npcwander type="circle" radius="35" /></npc>
+		<circle center="1517,558" radius="35" map="2" z="5" />
+	</spawnregion>
 
 </definitions>

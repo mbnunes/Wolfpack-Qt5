@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Paragon System & Minor Artifact Drops (ServUO Compatible)     #
+# Paragon System & Minor Artifact Drops     #
 #===============================================================#
 
 import random

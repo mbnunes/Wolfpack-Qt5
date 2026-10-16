@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Expansion NPC Aliases Auto-generated for Wolfpack -->
+<definitions>
+	<!-- Base Civilist Templates -->
+	<npc id="civilist_base_male" inherit="base_male">
+		<name><random list="NAMES_MALE" /></name>
+	</npc>
+	<npc id="civilist_base_female" inherit="base_female">
+		<name><random list="NAMES_FEMALE" /></name>
+	</npc>
+
+	<!-- Missing & Case-Mismatch Aliases -->
+	<npc id="fisher_male" inherit="fisherman_male">
+		<name>fisher</name>
+	</npc>
+	<npc id="corrosiveslime" inherit="CorrosiveSlime">
+		<name>corrosive slime</name>
+	</npc>
+	<npc id="bulbousputrification" inherit="BulbousPutrification">
+		<name>bulbous putrification</name>
+	</npc>
+	<npc id="troglodyte" inherit="Troglodyte">
+		<name>troglodyte</name>
+	</npc>
+	<npc id="lurg" inherit="Lurg">
+		<name>lurg</name>
+	</npc>
+
+	<!-- Missing Vendors, Guards & Monsters -->
+	<npc id="animal_trainer_male" inherit="animal_trainer">
+		<name><random list="NAMES_MALE" /></name>
+	</npc>
+	<npc id="thief_male" inherit="thief">
+		<name><random list="NAMES_MALE" /></name>
+	</npc>
+	<npc id="gypsy_female" inherit="gypsy_maiden">
+		<name><random list="NAMES_FEMALE" /></name>
+	</npc>
+	<npc id="paladin_guard" inherit="male_guard">
+		<name><random list="NAMES_MALE" /></name>
+	</npc>
+	<npc id="gargoyle_warrior" inherit="gargoyle">
+		<name>gargoyle warrior</name>
+	</npc>
+	<npc id="exodusarchzealot" inherit="exodus_daemon">
+		<name>exodus arch zealot</name>
+	</npc>
+	<npc id="exoduschest" inherit="exodus_overseer">
+		<name>exodus chest</name>
+	</npc>
+	<npc id="exodusdrone" inherit="exodus_minion">
+		<name>exodus drone</name>
+	</npc>
+	<npc id="exodusjuggernaut" inherit="exodus_minion_lord">
+		<name>exodus juggernaut</name>
+	</npc>
+	<npc id="exodussentinel" inherit="exodus_overseer">
+		<name>exodus sentinel</name>
+	</npc>
+	<npc id="exoduszealot" inherit="exodus_daemon">
+		<name>exodus zealot</name>
+	</npc>
+	<npc id="orccamp" inherit="orc">
+		<name>orc</name>
+	</npc>
+	<npc id="bankercamp" inherit="banker">
+		<name>banker</name>
+	</npc>
+	<npc id="elfbrigandcamp" inherit="brigand">
+		<name>brigand</name>
+	</npc>
+	<npc id="healercamp" inherit="healer">
+		<name>healer</name>
+	</npc>
+	<npc id="magecamp" inherit="mage">
+		<name>mage</name>
+	</npc>
+
+	<!-- Quest & Named NPCs -->
+	<npc id="agralem" inherit="civilist_base_male"><name>agralem</name></npc>
+	<npc id="aliabeth" inherit="civilist_base_female"><name>aliabeth</name></npc>
+	<npc id="axem" inherit="civilist_base_male"><name>axem the curator</name></npc>
+	<npc id="barreraak" inherit="civilist_base_male"><name>barreraak</name></npc>
+	<npc id="egwexem" inherit="civilist_base_male"><name>egwexem</name></npc>
+	<npc id="emerillo" inherit="civilist_base_male"><name>emerillo</name></npc>
+	<npc id="farmernash" inherit="civilist_base_male"><name>farmer nash</name></npc>
+	<npc id="gnosos" inherit="civilist_base_male"><name>gnosos</name></npc>
+	<npc id="gorrow" inherit="civilist_base_male"><name>gorrow</name></npc>
+	<npc id="gretchen" inherit="civilist_base_female"><name>gretchen</name></npc>
+	<npc id="ignisfatalis" inherit="fire_elemental"><name>ignis fatalis</name></npc>
+	<npc id="jelrice" inherit="civilist_base_male"><name>jelrice</name></npc>
+	<npc id="kia" inherit="civilist_base_female"><name>kia</name></npc>
+	<npc id="laifem" inherit="civilist_base_male"><name>laifem</name></npc>
+	<npc id="magickey" inherit="civilist_base_male"><name>magickey</name></npc>
+	<npc id="naxatilor" inherit="civilist_base_male"><name>naxatilor</name></npc>
+	<npc id="prassel" inherit="civilist_base_male"><name>prassel</name></npc>
+	<npc id="quartermasterflint" inherit="civilist_base_male"><name>quartermaster flint</name></npc>
+	<npc id="tobin" inherit="civilist_base_male"><name>tobin</name></npc>
+	<npc id="vernix" inherit="civilist_base_male"><name>vernix</name></npc>
+	<npc id="xeninlor" inherit="civilist_base_male"><name>xeninlor</name></npc>
+	<npc id="xenrr" inherit="civilist_base_male"><name>xenrr</name></npc>
+	<npc id="yorus" inherit="civilist_base_male"><name>yorus</name></npc>
+
+	<npc id="acob" inherit="civilist_base_male">
+		<name>acob</name>
+	</npc>
+	<npc id="aelorn" inherit="civilist_base_male">
+		<name>aelorn</name>
+	</npc>
+	<npc id="ahie" inherit="civilist_base_male">
+		<name>ahie</name>
+	</npc>
+	<npc id="aldenarmstrong" inherit="civilist_base_male">
+		<name>aldenarmstrong</name>
+	</npc>
+	<npc id="alefian" inherit="civilist_base_male">
+		<name>alefian</name>
+	</npc>
+	<npc id="alejaha" inherit="civilist_base_male">
+		<name>alejaha</name>
+	</npc>
+	<npc id="amelia" inherit="civilist_base_male">
+		<name>amelia</name>
+	</npc>
+	<npc id="andreasvesalius" inherit="civilist_base_male">
+		<name>andreasvesalius</name>
+	</npc>
+	<npc id="andric" inherit="civilist_base_male">
+		<name>andric</name>
+	</npc>
+	<npc id="aniel" inherit="civilist_base_male">
+		<name>aniel</name>
+	</npc>
+	<npc id="anolly" inherit="civilist_base_male">
+		<name>anolly</name>
+	</npc>
+	<npc id="asandos" inherit="civilist_base_male">
+		<name>asandos</name>
+	</npc>
+	<npc id="aulan" inherit="civilist_base_male">
+		<name>aulan</name>
+	</npc>
+	<npc id="avicenna" inherit="civilist_base_male">
+		<name>avicenna</name>
+	</npc>
+	<npc id="beotham" inherit="civilist_base_male">
+		<name>beotham</name>
+	</npc>
+	<npc id="braen" inherit="civilist_base_male">
+		<name>braen</name>
+	</npc>
+	<npc id="brigandcamp" inherit="brigand">
+		<name>brigandcamp</name>
+	</npc>
+	<npc id="brinnae" inherit="civilist_base_male">
+		<name>brinnae</name>
+	</npc>
+	<npc id="caelas" inherit="civilist_base_male">
+		<name>caelas</name>
+	</npc>
+	<npc id="cailla" inherit="civilist_base_male">
+		<name>cailla</name>
+	</npc>
+	<npc id="calendor" inherit="civilist_base_male">
+		<name>calendor</name>
+	</npc>
+	<npc id="cillitha" inherit="civilist_base_male">
+		<name>cillitha</name>
+	</npc>
+	<npc id="clehin" inherit="civilist_base_male">
+		<name>clehin</name>
+	</npc>
+	<npc id="cloorne" inherit="civilist_base_male">
+		<name>cloorne</name>
+	</npc>
+	<npc id="despiseunicorn" inherit="civilist_base_male">
+		<name>despiseunicorn</name>
+	</npc>
+	<npc id="dimethro" inherit="civilist_base_male">
+		<name>dimethro</name>
+	</npc>
+	<npc id="divineguardian" inherit="civilist_base_male">
+		<name>divineguardian</name>
+	</npc>
+	<npc id="echidnite" inherit="civilist_base_male">
+		<name>echidnite</name>
+	</npc>
+	<npc id="eggs" inherit="civilist_base_male">
+		<name>eggs</name>
+	</npc>
+	<npc id="escortablehealer" inherit="civilist_base_male">
+		<name>escortablehealer</name>
+	</npc>
+	<npc id="fabrizio" inherit="civilist_base_male">
+		<name>fabrizio</name>
+	</npc>
+	<npc id="fairy" inherit="civilist_base_male">
+		<name>fairy</name>
+	</npc>
+	<npc id="farmablecotton" inherit="civilist_base_male">
+		<name>farmablecotton</name>
+	</npc>
+	<npc id="farmableflax" inherit="civilist_base_male">
+		<name>farmableflax</name>
+	</npc>
+	<npc id="forestnymph" inherit="civilist_base_male">
+		<name>forestnymph</name>
+	</npc>
+	<npc id="frazer" inherit="civilist_base_male">
+		<name>frazer</name>
+	</npc>
+	<npc id="frighteneddryad" inherit="civilist_base_male">
+		<name>frighteneddryad</name>
+	</npc>
+	<npc id="georgehephaestus" inherit="civilist_base_male">
+		<name>georgehephaestus</name>
+	</npc>
+	<npc id="gervis" inherit="civilist_base_male">
+		<name>gervis</name>
+	</npc>
+	<npc id="gustar" inherit="civilist_base_male">
+		<name>gustar</name>
+	</npc>
+	<npc id="hamato" inherit="civilist_base_male">
+		<name>hamato</name>
+	</npc>
+	<npc id="hargrove" inherit="civilist_base_male">
+		<name>hargrove</name>
+	</npc>
+	<npc id="hellion" inherit="civilist_base_male">
+		<name>hellion</name>
+	</npc>
+	<npc id="ioseph" inherit="civilist_base_male">
+		<name>ioseph</name>
+	</npc>
+	<npc id="jacob" inherit="civilist_base_male">
+		<name>jacob</name>
+	</npc>
+	<npc id="jillian" inherit="civilist_base_male">
+		<name>jillian</name>
+	</npc>
+	<npc id="jockles" inherit="civilist_base_male">
+		<name>jockles</name>
+	</npc>
+	<npc id="jun" inherit="civilist_base_male">
+		<name>jun</name>
+	</npc>
+	<npc id="kaelynna" inherit="civilist_base_male">
+		<name>kaelynna</name>
+	</npc>
+	<npc id="kashiel" inherit="civilist_base_male">
+		<name>kashiel</name>
+	</npc>
+	<npc id="koole" inherit="civilist_base_male">
+		<name>koole</name>
+	</npc>
+	<npc id="lefty" inherit="civilist_base_male">
+		<name>lefty</name>
+	</npc>
+	<npc id="lenley" inherit="civilist_base_male">
+		<name>lenley</name>
+	</npc>
+	<npc id="lizardmencamp" inherit="civilist_base_male">
+		<name>lizardmencamp</name>
+	</npc>
+	<npc id="lohn" inherit="civilist_base_male">
+		<name>lohn</name>
+	</npc>
+	<npc id="lowel" inherit="civilist_base_male">
+		<name>lowel</name>
+	</npc>
+	<npc id="lucius" inherit="civilist_base_male">
+		<name>lucius</name>
+	</npc>
+	<npc id="lyle" inherit="civilist_base_male">
+		<name>lyle</name>
+	</npc>
+	<npc id="miniaturemushroom" inherit="civilist_base_male">
+		<name>miniaturemushroom</name>
+	</npc>
+	<npc id="mithneral" inherit="civilist_base_male">
+		<name>mithneral</name>
+	</npc>
+	<npc id="mugg" inherit="civilist_base_male">
+		<name>mugg</name>
+	</npc>
+	<npc id="mulcivikh" inherit="civilist_base_male">
+		<name>mulcivikh</name>
+	</npc>
+	<npc id="naba" inherit="civilist_base_male">
+		<name>naba</name>
+	</npc>
+	<npc id="natalie" inherit="civilist_base_male">
+		<name>natalie</name>
+	</npc>
+	<npc id="neil" inherit="civilist_base_male">
+		<name>neil</name>
+	</npc>
+	<npc id="nillaen" inherit="civilist_base_male">
+		<name>nillaen</name>
+	</npc>
+	<npc id="norton" inherit="civilist_base_male">
+		<name>norton</name>
+	</npc>
+	<npc id="onallan" inherit="civilist_base_male">
+		<name>onallan</name>
+	</npc>
+	<npc id="oolua" inherit="civilist_base_male">
+		<name>oolua</name>
+	</npc>
+	<npc id="patricus" inherit="civilist_base_male">
+		<name>patricus</name>
+	</npc>
+	<npc id="prisonercamp" inherit="civilist_base_male">
+		<name>prisonercamp</name>
+	</npc>
+	<npc id="prometheoid" inherit="civilist_base_male">
+		<name>prometheoid</name>
+	</npc>
+	<npc id="pumpkin" inherit="civilist_base_male">
+		<name>pumpkin</name>
+	</npc>
+	<npc id="ratcamp" inherit="civilist_base_male">
+		<name>ratcamp</name>
+	</npc>
+	<npc id="recaro" inherit="civilist_base_male">
+		<name>recaro</name>
+	</npc>
+	<npc id="robyn" inherit="civilist_base_male">
+		<name>robyn</name>
+	</npc>
+	<npc id="rollarn" inherit="civilist_base_male">
+		<name>rollarn</name>
+	</npc>
+	<npc id="ryal" inherit="civilist_base_male">
+		<name>ryal</name>
+	</npc>
+	<npc id="ryuichi" inherit="civilist_base_male">
+		<name>ryuichi</name>
+	</npc>
+	<npc id="sagittarri" inherit="civilist_base_male">
+		<name>sagittarri</name>
+	</npc>
+	<npc id="salaenih" inherit="civilist_base_male">
+		<name>salaenih</name>
+	</npc>
+	<npc id="sarakki" inherit="civilist_base_male">
+		<name>sarakki</name>
+	</npc>
+	<npc id="saril" inherit="civilist_base_male">
+		<name>saril</name>
+	</npc>
+	<npc id="sarsmeasmythe" inherit="civilist_base_male">
+		<name>sarsmeasmythe</name>
+	</npc>
+	<npc id="siarra" inherit="civilist_base_male">
+		<name>siarra</name>
+	</npc>
+	<npc id="sirberran" inherit="civilist_base_male">
+		<name>sirberran</name>
+	</npc>
+	<npc id="sirfelean" inherit="civilist_base_male">
+		<name>sirfelean</name>
+	</npc>
+	<npc id="sirhareus" inherit="civilist_base_male">
+		<name>sirhareus</name>
+	</npc>
+	<npc id="skeletrex" inherit="civilist_base_male">
+		<name>skeletrex</name>
+	</npc>
+	<npc id="sleen" inherit="civilist_base_male">
+		<name>sleen</name>
+	</npc>
+	<npc id="tallinin" inherit="civilist_base_male">
+		<name>tallinin</name>
+	</npc>
+	<npc id="thallary" inherit="civilist_base_male">
+		<name>thallary</name>
+	</npc>
+	<npc id="tholef" inherit="civilist_base_male">
+		<name>tholef</name>
+	</npc>
+	<npc id="tiana" inherit="civilist_base_male">
+		<name>tiana</name>
+	</npc>
+	<npc id="tylariadne" inherit="civilist_base_male">
+		<name>tylariadne</name>
+	</npc>
+	<npc id="ursadane" inherit="civilist_base_male">
+		<name>ursadane</name>
+	</npc>
+	<npc id="walker" inherit="civilist_base_male">
+		<name>walker</name>
+	</npc>
+</definitions>

@@ -1,4 +1,252 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<!-- World Spawns Auto-generated for Wolfpack-Qt5 -->
 <definitions>
+	<spawnregion id="malas_mordoth_quest_40">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="mardoth" />
+		<point pos="2110,1306,-50,3" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_2_44">
+		<active />
+		<maxnpcamount>15</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="cat"><npcwander type="circle" radius="180" /></npc>
+		<npc id="dog"><npcwander type="circle" radius="180" /></npc>
+		<npc id="jack_rabbit"><npcwander type="circle" radius="180" /></npc>
+		<npc id="rat"><npcwander type="circle" radius="180" /></npc>
+		<npc id="dread_spider"><npcwander type="circle" radius="180" /></npc>
+		<npc id="gazer"><npcwander type="circle" radius="180" /></npc>
+		<npc id="ghoul"><npcwander type="circle" radius="180" /></npc>
+		<npc id="lich"><npcwander type="circle" radius="180" /></npc>
+		<npc id="mummy"><npcwander type="circle" radius="180" /></npc>
+		<npc id="ogre"><npcwander type="circle" radius="180" /></npc>
+		<npc id="reaper"><npcwander type="circle" radius="180" /></npc>
+		<npc id="spectre"><npcwander type="circle" radius="180" /></npc>
+		<npc id="wraith"><npcwander type="circle" radius="180" /></npc>
+		<npc id="zombie"><npcwander type="circle" radius="180" /></npc>
+		<npc id="hind"><npcwander type="circle" radius="180" /></npc>
+		<npc id="horse"><npcwander type="circle" radius="180" /></npc>
+		<circle center="1943,1270" radius="180" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_25_89">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="jeweler_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2045,1397" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_21_115">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="mage_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="alchemist_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="mage_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2023,1379" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_17_137">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="animal_trainer_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1992,1315" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_19_145">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="baker"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2017,1356" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_29_150">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="carpenter_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="architect"><npcwander type="circle" radius="5" /></npc>
+		<npc id="real_estate_broker"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2060,1283" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_31_158">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="tanner_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="furtrader"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2078,1327" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_30_160">
+		<active />
+		<maxnpcamount>3</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="tailor_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="weaver"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tailor_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2083,1322" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_16_166">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="blacksmith_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="blacksmith_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1977,1365" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_32_175">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="healer_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="healer_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2068,1372" radius="5" map="3" z="-75" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_26_199">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="banker_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="minter"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2048,1343" radius="5" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_20_213">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="waiter"><npcwander type="circle" radius="5" /></npc>
+		<npc id="cook_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="barkeeper"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2027,1353" radius="5" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_south_3_217">
+		<active />
+		<maxnpcamount>4</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="brown_bear"><npcwander type="circle" radius="180" /></npc>
+		<npc id="grizzly_bear"><npcwander type="circle" radius="180" /></npc>
+		<npc id="black_bear"><npcwander type="circle" radius="180" /></npc>
+		<npc id="cougar"><npcwander type="circle" radius="180" /></npc>
+		<npc id="panther"><npcwander type="circle" radius="180" /></npc>
+		<npc id="dire_wolf"><npcwander type="circle" radius="180" /></npc>
+		<npc id="timber_wolf"><npcwander type="circle" radius="180" /></npc>
+		<npc id="grey_wolf"><npcwander type="circle" radius="180" /></npc>
+		<npc id="bird"><npcwander type="circle" radius="180" /></npc>
+		<npc id="eagle"><npcwander type="circle" radius="180" /></npc>
+		<circle center="1943,1270" radius="180" map="3" z="-90" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_27_232">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="innkeeper_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2037,1311" radius="5" map="3" z="-85" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_28_240">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="tinker_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="tinker_guildmaster"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2066,1282" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_vendors_18_245">
+		<active />
+		<maxnpcamount>2</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="provisioner_male"><npcwander type="circle" radius="5" /></npc>
+		<npc id="cobbler_male"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2011,1326" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_spawner_251">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="drithen"><npcwander type="circle" radius="5" /></npc>
+		<circle center="1984,1364" radius="5" map="3" z="-80" />
+	</spawnregion>
+
+	<spawnregion id="malas_spawner_285">
+		<active />
+		<maxnpcamount>1</maxnpcamount>
+		<delay min="125" max="250" />
+		<npcspercycle>1</npcspercycle>
+		<group>malas</group>
+		<group>umbra</group>
+		<npc id="aernya"><npcwander type="circle" radius="5" /></npc>
+		<circle center="2103,1376" radius="5" map="3" z="-90" />
+	</spawnregion>
 
 </definitions>

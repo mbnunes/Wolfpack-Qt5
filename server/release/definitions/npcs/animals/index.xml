@@ -24,6 +24,6 @@
 	<include file="definitions/npcs/animals/sea/index.xml" />
 
 
-	<!-- ServUO Animals -->
-	<include file="definitions/npcs/animals/servuo_animals.xml"/>
+	<!-- Expansion Animals -->
+	<include file="definitions/npcs/animals/expansion_animals.xml"/>
 </definitions>

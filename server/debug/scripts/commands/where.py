@@ -7,7 +7,7 @@
 # .where Command                                                #
 #===============================================================#
 
-"""
+r"""
 	\command where
 	\description Shows your current position.
 """
@@ -39,6 +39,10 @@ def where( socket, command, arguments ):
 		map = 'Ilshenar'
 	elif pos.map == 3:
 		map = 'Malas'
+	elif pos.map == 4:
+		map = 'Tokuno Islands'
+	elif pos.map == 5:
+		map = 'Ter Mur'
 	else:
 		map = 'Map %d' % pos.map
 

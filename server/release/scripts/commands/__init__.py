@@ -3,6 +3,8 @@ import wolfpack
 from wolfpack import time
 from wolfpack.utilities import hex2dec
 from wolfpack.gumps import cGump
+import commands.commands
+import commands.respawntowns
 
 def season( socket, command, arguments ):
 	packet = [ 0xbc, int(arguments), 0x01 ]
