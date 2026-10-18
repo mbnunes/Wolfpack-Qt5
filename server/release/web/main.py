@@ -129,6 +129,14 @@ if not is_admin or view == 'player':
 		gender_icon = '&#9792; Mulher' if getattr(char, 'id', 0) in [0x191, 0x193] else '&#9794; Homem'
 		status_badge = '<span class="badge bg-success-subtle text-success border border-success">Online</span>' if is_online else '<span class="badge bg-secondary-subtle text-secondary border">Offline</span>'
 
+		# Paperdoll Preview
+		doll_url = None
+		try:
+			import web.uo_assets
+			doll_url = web.uo_assets.get_character_paperdoll(char)
+		except Exception:
+			doll_url = None
+
 		char_cards.append(f"""
 		<div class="col-12 col-md-6 col-xl-4">
 			<div class="card h-100 border border-light-subtle shadow-sm">
@@ -143,50 +151,59 @@ if not is_admin or view == 'player':
 					</div>
 				</div>
 				<div class="card-body">
-					<!-- Vitals Bars -->
-					<div class="mb-2">
-						<div class="d-flex justify-content-between small text-secondary mb-1">
-							<span>HP:</span>
-							<span class="font-monospace fw-semibold text-dark">{hp_cur} / {hp_max}</span>
+					<div class="d-flex gap-3 mb-3">
+						<!-- Paperdoll Preview Thumbnail -->
+						<div style="flex-shrink: 0; width: 84px; text-align: center;">
+							{'<img src="' + doll_url + '" style="width: 84px; height: 104px; object-fit: cover; object-position: top center; border-radius: 6px; border: 1px solid #ced4da; box-shadow: 0 1px 3px rgba(0,0,0,0.1); background: #000; display: block;" alt="Paperdoll" />' if doll_url else '<div class="bg-secondary-subtle border rounded" style="width: 84px; height: 104px; line-height: 104px; font-size: 26px;">&#129497;</div>'}
+							<span class="badge bg-light text-secondary border mt-1 font-monospace" style="font-size: 0.65rem;">{gender_icon}</span>
 						</div>
-						<div class="progress" style="height: 6px;">
-							<div class="progress-bar bg-danger" style="width: {hp_pct}%;"></div>
-						</div>
-					</div>
 
-					<div class="mb-2">
-						<div class="d-flex justify-content-between small text-secondary mb-1">
-							<span>Stamina:</span>
-							<span class="font-monospace fw-semibold text-dark">{stam_cur} / {stam_max}</span>
-						</div>
-						<div class="progress" style="height: 6px;">
-							<div class="progress-bar bg-warning" style="width: {stam_pct}%;"></div>
-						</div>
-					</div>
+						<!-- Vitals Bars & Atributos -->
+						<div class="flex-grow-1">
+							<div class="mb-2">
+								<div class="d-flex justify-content-between small text-secondary mb-1">
+									<span style="font-size: 0.75rem;">HP:</span>
+									<span class="font-monospace fw-semibold text-dark" style="font-size: 0.75rem;">{hp_cur} / {hp_max}</span>
+								</div>
+								<div class="progress" style="height: 5px;">
+									<div class="progress-bar bg-danger" style="width: {hp_pct}%;"></div>
+								</div>
+							</div>
 
-					<div class="mb-3">
-						<div class="d-flex justify-content-between small text-secondary mb-1">
-							<span>Mana:</span>
-							<span class="font-monospace fw-semibold text-dark">{mana_cur} / {mana_max}</span>
-						</div>
-						<div class="progress" style="height: 6px;">
-							<div class="progress-bar bg-primary" style="width: {mana_pct}%;"></div>
-						</div>
-					</div>
+							<div class="mb-2">
+								<div class="d-flex justify-content-between small text-secondary mb-1">
+									<span style="font-size: 0.75rem;">Stamina:</span>
+									<span class="font-monospace fw-semibold text-dark" style="font-size: 0.75rem;">{stam_cur} / {stam_max}</span>
+								</div>
+								<div class="progress" style="height: 5px;">
+									<div class="progress-bar bg-warning" style="width: {stam_pct}%;"></div>
+								</div>
+							</div>
 
-					<!-- Atributos -->
-					<div class="row text-center py-2 bg-light rounded g-1 mb-3">
-						<div class="col-4">
-							<span class="text-muted d-block" style="font-size: 0.7rem;">STR</span>
-							<strong class="text-dark small">{s_str}</strong>
-						</div>
-						<div class="col-4">
-							<span class="text-muted d-block" style="font-size: 0.7rem;">DEX</span>
-							<strong class="text-dark small">{s_dex}</strong>
-						</div>
-						<div class="col-4">
-							<span class="text-muted d-block" style="font-size: 0.7rem;">INT</span>
-							<strong class="text-dark small">{s_int}</strong>
+							<div class="mb-2">
+								<div class="d-flex justify-content-between small text-secondary mb-1">
+									<span style="font-size: 0.75rem;">Mana:</span>
+									<span class="font-monospace fw-semibold text-dark" style="font-size: 0.75rem;">{mana_cur} / {mana_max}</span>
+								</div>
+								<div class="progress" style="height: 5px;">
+									<div class="progress-bar bg-primary" style="width: {mana_pct}%;"></div>
+								</div>
+							</div>
+
+							<div class="row text-center py-1 bg-light rounded g-1 mt-1">
+								<div class="col-4">
+									<span class="text-muted d-block" style="font-size: 0.65rem;">STR</span>
+									<strong class="text-dark" style="font-size: 0.75rem;">{s_str}</strong>
+								</div>
+								<div class="col-4">
+									<span class="text-muted d-block" style="font-size: 0.65rem;">DEX</span>
+									<strong class="text-dark" style="font-size: 0.75rem;">{s_dex}</strong>
+								</div>
+								<div class="col-4">
+									<span class="text-muted d-block" style="font-size: 0.65rem;">INT</span>
+									<strong class="text-dark" style="font-size: 0.75rem;">{s_int}</strong>
+								</div>
+							</div>
 						</div>
 					</div>
 

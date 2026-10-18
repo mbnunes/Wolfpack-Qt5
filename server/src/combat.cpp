@@ -31,6 +31,9 @@
 #include "npc.h"
 #include "basics.h"
 #include "serverconfig.h"
+#include "mapobjects.h"
+#include "server.h"
+#include "ai/ai.h"
 #include <QString>
 
 /*!
@@ -88,6 +91,25 @@ void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord& pos )
 	{
 		QString guardsect = pRegion->getGuardSect();
 
+		// Check if an existing guard is already nearby and idle
+		MapCharsIterator cIter = MapObjects::instance()->listCharsInCircle( pOffender->pos(), 10 );
+		for ( P_CHAR pNear = cIter.first(); pNear; pNear = cIter.next() )
+		{
+			if ( pNear && !pNear->free && !pNear->isDead() )
+			{
+				P_NPC pNearNpc = dynamic_cast<P_NPC>( pNear );
+				if ( pNearNpc && pNearNpc->ai() && QString( pNearNpc->ai()->name() ).startsWith( "Human_Guard" ) )
+				{
+					if ( !pNearNpc->attackTarget() || pNearNpc->attackTarget()->isDead() )
+					{
+						pNearNpc->talk( 500131 ); // "Thou wilt regret thine actions, swine!"
+						pNearNpc->fight( pOffender );
+						return;
+					}
+				}
+			}
+		}
+
 		P_NPC pGuard = ( guardsect.isNull() ? NULL : cNPC::createFromScript( guardsect, pos ) );
 
 		if ( !pGuard )
@@ -97,8 +119,10 @@ void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord& pos )
 		pGuard->resend( false );
 		pGuard->soundEffect( 0x1FE );
 		pGuard->effect( 0x372A, 0x09, 0x06 );
-		pOffender->kill( pGuard );
-		//pGuard->fight( pOffender );
+		pGuard->talk( 500131 ); // "Thou wilt regret thine actions, swine!"
+		pGuard->setSummonTime( Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
+		pGuard->setSummoned( true );
+		pGuard->fight( pOffender );
 	}
 }
 

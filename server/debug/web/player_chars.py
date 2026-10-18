@@ -70,11 +70,26 @@ for char in chars:
 
 	status_badge = '<span class="badge bg-success-subtle text-success border border-success">Online</span>' if is_online else '<span class="badge bg-secondary-subtle text-secondary border">Offline</span>'
 
+	# Paperdoll Avatar Preview
+	doll_url = None
+	try:
+		import web.uo_assets
+		doll_url = web.uo_assets.get_character_paperdoll(char)
+	except Exception:
+		doll_url = None
+
+	char_avatar = f'<img src="{doll_url}" style="width: 40px; height: 50px; object-fit: cover; object-position: top center; border-radius: 4px; border: 1px solid #ced4da; background: #000; flex-shrink: 0;" alt="Avatar" />' if doll_url else '<div class="bg-secondary-subtle border rounded text-center" style="width: 40px; height: 50px; line-height: 50px; flex-shrink: 0;">&#129497;</div>'
+
 	char_rows.append(f"""
 	<tr>
 		<td class="ps-3">
-			<div class="fw-bold text-dark">{cgi.escape(str(c_name))}</div>
-			<div class="small text-muted">{cgi.escape(str(c_title)) if c_title else 'Aventureiro'}</div>
+			<div class="d-flex align-items-center gap-2">
+				{char_avatar}
+				<div>
+					<div class="fw-bold text-dark">{cgi.escape(str(c_name))}</div>
+					<div class="small text-muted">{cgi.escape(str(c_title)) if c_title else 'Aventureiro'}</div>
+				</div>
+			</div>
 		</td>
 		<td>{status_badge}</td>
 		<td class="font-monospace small text-secondary">0x{c_serial:x}</td>

@@ -1,9 +1,21 @@
 # Detailed Character Sheet - Paperdoll, Status, Skills, Bank Box e Propriedades
 
+import sys, os
+
+for _p in [
+	'/usr/lib/python3/dist-packages',
+	'/usr/local/lib/python3.14/dist-packages',
+	'/usr/lib/python3.14/dist-packages',
+	'/usr/local/lib/python3/dist-packages',
+	'/usr/lib/python3.13/dist-packages',
+	'/usr/lib/python3.12/dist-packages',
+]:
+	if os.path.isdir(_p) and _p not in sys.path:
+		sys.path.append(_p)
+
 import web.sessions
 import web.template
 import cgi
-import sys
 import wolfpack
 import wolfpack.accounts
 import urllib.parse
@@ -135,6 +147,17 @@ char_title = getattr(char, 'title', '')
 char_gender = 'Mulher' if getattr(char, 'id', 0) in [0x191, 0x193] else 'Homem'
 char_body_hex = f"0x{getattr(char, 'id', 0):04x}"
 
+# Raça e Gênero
+char_body_id = getattr(char, 'id', 0x190)
+if char_body_id in [0x25D, 0x25E, 605, 606]:
+	char_race = 'Elfo'
+elif char_body_id in [0x29A, 0x29B, 666, 667]:
+	char_race = 'Gárgula'
+else:
+	char_race = 'Humano'
+
+char_skin_color = getattr(char, 'skin', 0) or getattr(char, 'color', 0) or getattr(char, 'skincolor', 0)
+
 char_pos = getattr(char, 'pos', None)
 map_id = getattr(char_pos, 'map', 0) if char_pos else 0
 map_name = MAP_NAMES.get(map_id, f"Map {map_id}")
@@ -174,6 +197,103 @@ try:
 	char_gold = char.countresource(0xEED)
 except Exception:
 	char_gold = 0
+
+# Armadura e Resistências
+armor_val = 0
+res_fire = 0
+res_cold = 0
+res_poison = 0
+res_energy = 0
+try:
+	from wolfpack.consts import RESISTANCE_PHYSICAL, RESISTANCE_FIRE, RESISTANCE_COLD, RESISTANCE_POISON, RESISTANCE_ENERGY
+	from wolfpack import properties
+	armor_val = properties.fromchar(char, RESISTANCE_PHYSICAL)
+	res_fire = properties.fromchar(char, RESISTANCE_FIRE)
+	res_cold = properties.fromchar(char, RESISTANCE_COLD)
+	res_poison = properties.fromchar(char, RESISTANCE_POISON)
+	res_energy = properties.fromchar(char, RESISTANCE_ENERGY)
+except Exception:
+	armor_val = getattr(char, 'defense', 0)
+
+# Propriedades do Gump 10860 (Modern Status Window)
+luck_val = 0
+dmg_min = 0
+dmg_max = 0
+hci_val = 0
+dci_val = 0
+lmc_val = 0
+lrc_val = 0
+fc_val = 0
+fcr_val = 0
+
+try:
+	from wolfpack.consts import (
+		LUCK, MINDAMAGE, MAXDAMAGE, HITBONUS, DEFENSEBONUS,
+		LOWERMANACOST, LOWERREAGENTCOST, CASTSPEEDBONUS, CASTRECOVERYBONUS
+	)
+	from wolfpack import properties
+	luck_val = properties.fromchar(char, LUCK)
+	hci_val = properties.fromchar(char, HITBONUS)
+	dci_val = properties.fromchar(char, DEFENSEBONUS)
+	lmc_val = properties.fromchar(char, LOWERMANACOST)
+	lrc_val = properties.fromchar(char, LOWERREAGENTCOST)
+	fc_val = properties.fromchar(char, CASTSPEEDBONUS)
+	fcr_val = properties.fromchar(char, CASTRECOVERYBONUS)
+
+	weapon = None
+	if hasattr(char, 'getweapon'):
+		weapon = char.getweapon()
+	if weapon:
+		dmg_min = properties.fromitem(weapon, MINDAMAGE)
+		dmg_max = properties.fromitem(weapon, MAXDAMAGE)
+	else:
+		dmg_min = max(1, int(str_val / 10))
+		dmg_max = max(4, int(str_val / 5) + 2)
+except Exception:
+	luck_val = getattr(char, 'luck', 0)
+	dmg_min = max(1, int(str_val / 10))
+	dmg_max = max(4, int(str_val / 5) + 2)
+
+# Montarias e Seguidores (Followers)
+followers_cur = 0
+followers_max = getattr(char, 'maxfollowers', 5)
+try:
+	f_list = getattr(char, 'followers', ())
+	followers_cur = len(f_list) if isinstance(f_list, (list, tuple)) else int(f_list or 0)
+except Exception:
+	followers_cur = 0
+
+# Pontos de Dízimo (Tithing Points)
+tithing_val = getattr(char, 'tithing', 0) or getattr(char, 'tithingpoints', 0)
+
+# Limites de Resistência (Caps)
+res_phys_max = 70
+res_fire_max = 70
+res_cold_max = 70
+res_poison_max = 70
+res_energy_max = 70
+
+# Paperdoll Composited (Gump 2001 - Direto do UOP / MUL)
+paperdoll_url = None
+try:
+	import importlib
+	import web.uo_assets
+	if not hasattr(web.uo_assets, 'get_character_paperdoll'):
+		importlib.reload(web.uo_assets)
+	paperdoll_url = web.uo_assets.get_character_paperdoll(char)
+except Exception as e:
+	try:
+		import traceback, os
+		os.makedirs('logs', exist_ok=True)
+		with open('logs/paperdoll_debug.log', 'a') as f:
+			f.write(f"Error loading paperdoll for serial 0x{serial_int:x}: {e}\n")
+			traceback.print_exc(file=f)
+	except Exception:
+		pass
+	paperdoll_url = None
+
+if not paperdoll_url:
+	paperdoll_url = "images/gumps/gump_2001_0.png"
 
 # ==============================================================================
 # COFRE BANCÁRIO (BANK BOX) - ITENS E OURO
@@ -231,20 +351,28 @@ total_wealth = char_gold + bank_gold
 # ==============================================================================
 PAPERDOLL_LAYERS = [
 	(1,  "Mão Principal (Arma)"),
-	(2,  "Mão Secundária (Escudo)"),
-	(6,  "Cabeça (Elmo/Chapéu)"),
-	(10, "Pescoço (Gargantilha)"),
-	(13, "Torso (Armadura/Túnica)"),
-	(17, "Costas (Manto/Capa)"),
-	(7,  "Braços"),
-	(8,  "Mãos (Luvas)"),
-	(4,  "Pernas"),
-	(3,  "Pés (Botas/Sapatos)"),
-	(14, "Cintura (Cinto)"),
-	(9,  "Dedo (Anel)"),
-	(18, "Pulso (Bracelete)"),
+	(2,  "Mão Secundária (Escudo / Arma 2M)"),
+	(6,  "Cabeça (Elmo / Chapéu)"),
+	(10, "Pescoço (Gargantilha / Colar)"),
+	(5,  "Torso Interior (Camisa)"),
+	(13, "Torso Superior (Armadura / Peitoral)"),
+	(17, "Torso Médio (Sobretúnica / Túnica)"),
+	(22, "Torso Exterior (Robe / Vestido)"),
+	(19, "Braços (Mangas / Braçadeiras)"),
+	(7,  "Mãos (Luvas)"),
+	(4,  "Pernas Interiores (Calças)"),
+	(23, "Pernas Exteriores (Saia / Kilt)"),
+	(24, "Pernas / Perneiras"),
+	(3,  "Pés (Botas / Sapatos)"),
+	(20, "Costas (Capa / Manto)"),
+	(12, "Cintura (Cinto / Avental)"),
+	(14, "Pulso (Bracelete)"),
+	(8,  "Dedo (Anel)"),
+	(18, "Orelhas (Brincos)"),
+	(9,  "Talismã"),
 	(11, "Cabelo"),
-	(16, "Barba")
+	(16, "Barba / Pêlo Facial"),
+	(25, "Montaria")
 ]
 
 equipped_rows = []
@@ -266,12 +394,171 @@ for layer_id, layer_name in PAPERDOLL_LAYERS:
 		item_color = getattr(item, 'color', 0)
 		color_text = f" &bull; Hue: 0x{item_color:04x}" if item_color else ""
 
+		# Imagem do Item extraída do art.mul
+		art_url = None
+		try:
+			import web.uo_assets
+			_, art_url = web.uo_assets.get_item_art(item_id, item_color)
+		except Exception:
+			art_url = None
+
+		# Estatísticas e Propriedades do Item
+		stats_badges = []
+
+		# Durabilidade (HP / Max HP)
+		hp = getattr(item, 'health', 0)
+		maxhp = getattr(item, 'maxhealth', 0)
+		if maxhp > 0:
+			hp_pct = (hp / maxhp) * 100 if maxhp else 100
+			hp_color = "success" if hp_pct > 60 else ("warning" if hp_pct > 25 else "danger")
+			stats_badges.append(f'<span class="badge bg-{hp_color}-subtle text-{hp_color}-emphasis border border-{hp_color}-subtle" title="Durabilidade">&#128737; Durabilidade: {hp}/{maxhp}</span>')
+
+		# Dano (Armas)
+		min_dmg = 0
+		max_dmg = 0
+		try:
+			if hasattr(item, 'hastag') and item.hastag('mindamage'):
+				min_dmg = int(item.gettag('mindamage'))
+			elif hasattr(item, 'getintproperty'):
+				min_dmg = item.getintproperty('mindamage', 0)
+			if hasattr(item, 'hastag') and item.hastag('maxdamage'):
+				max_dmg = int(item.gettag('maxdamage'))
+			elif hasattr(item, 'getintproperty'):
+				max_dmg = item.getintproperty('maxdamage', 0)
+		except Exception:
+			pass
+		if max_dmg > 0:
+			stats_badges.append(f'<span class="badge bg-danger-subtle text-danger border border-danger-subtle" title="Dano">&#9876; Dano: {min_dmg}-{max_dmg}</span>')
+
+		# Velocidade de Ataque (Speed)
+		speed = 0
+		try:
+			if hasattr(item, 'hastag') and item.hastag('speed'):
+				speed = int(item.gettag('speed'))
+			elif hasattr(item, 'getintproperty'):
+				speed = item.getintproperty('speed', 0)
+		except Exception:
+			pass
+		if speed > 0:
+			stats_badges.append(f'<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle" title="Velocidade de Ataque">&#9889; Vel: {speed}</span>')
+
+		# Defesa / Armadura
+		defense = 0
+		try:
+			if hasattr(item, 'hastag') and item.hastag('defense'):
+				defense = int(item.gettag('defense'))
+			elif hasattr(item, 'getintproperty'):
+				defense = item.getintproperty('defense', 0)
+			if not defense:
+				if hasattr(item, 'hastag') and item.hastag('armor'):
+					defense = int(item.gettag('armor'))
+				elif hasattr(item, 'getintproperty'):
+					defense = item.getintproperty('armor', 0)
+		except Exception:
+			pass
+		if defense > 0:
+			stats_badges.append(f'<span class="badge bg-primary-subtle text-primary border border-primary-subtle" title="Defesa">&#128737; Defesa: +{defense}</span>')
+
+		# Resistências Elementais
+		for r_prop, r_name, r_icon, r_color in [
+			('res_physical', 'Físico', '&#128737;', '#495057'),
+			('res_fire', 'Fogo', '&#128293;', '#dc3545'),
+			('res_cold', 'Frio', '&#10052;', '#0dcaf0'),
+			('res_poison', 'Veneno', '&#9760;', '#198754'),
+			('res_energy', 'Energia', '&#9889;', '#fd7e14')
+		]:
+			r_val = 0
+			try:
+				if hasattr(item, 'hastag') and item.hastag(r_prop):
+					r_val = int(item.gettag(r_prop))
+				elif hasattr(item, 'getintproperty'):
+					r_val = int(item.getintproperty(r_prop, 0))
+			except Exception:
+				pass
+			if r_val > 0:
+				stats_badges.append(f'<span class="badge border" style="background-color: #f8f9fa; color: {r_color}; border-color: {r_color}40 !important;" title="Resistência {r_name}">{r_icon} {r_val}%</span>')
+
+		# Requisito de Força (req_strength)
+		req_str = 0
+		try:
+			if hasattr(item, 'hastag') and item.hastag('req_strength'):
+				req_str = int(item.gettag('req_strength'))
+			elif hasattr(item, 'getintproperty'):
+				req_str = item.getintproperty('req_strength', 0)
+		except Exception:
+			pass
+		if req_str > 0:
+			stats_badges.append(f'<span class="badge bg-light text-secondary border" title="Força Necessária">&#128170; Req. STR: {req_str}</span>')
+
+		# Peso
+		weight = getattr(item, 'weight', 0)
+		if weight > 0:
+			w_str = f"{weight:.1f}" if isinstance(weight, float) else str(weight)
+			stats_badges.append(f'<span class="badge bg-light text-muted border" title="Peso">&#9878; {w_str} st</span>')
+
+		# Duas Mãos
+		if getattr(item, 'twohanded', False):
+			stats_badges.append('<span class="badge bg-secondary text-white" title="Arma de Duas Mãos">&#9874; 2 Mãos</span>')
+
+		# Blessed / Newbie
+		is_blessed = False
+		try:
+			is_blessed = bool(getattr(item, 'newbie', False) or (hasattr(item, 'isblessed') and item.isblessed()))
+		except Exception:
+			pass
+		if is_blessed:
+			stats_badges.append('<span class="badge bg-warning text-dark" title="Item Abençoado">&#10024; Blessed</span>')
+
+		# Meditação
+		if getattr(item, 'allowmeditation', False):
+			stats_badges.append('<span class="badge bg-info-subtle text-info-emphasis border border-info-subtle" title="Permite Meditação">&#129496; Meditação</span>')
+
+		# Recurso / Material (ex: iron, leather, shadow...)
+		resname = ''
+		try:
+			if hasattr(item, 'hastag') and item.hastag('resname'):
+				resname = str(item.gettag('resname'))
+		except Exception:
+			pass
+		if resname:
+			stats_badges.append(f'<span class="badge bg-light text-secondary border text-capitalize">&#128296; {resname}</span>')
+
+		# Slayer
+		slayer = ''
+		try:
+			if hasattr(item, 'hastag') and item.hastag('slayer'):
+				slayer = str(item.gettag('slayer'))
+		except Exception:
+			pass
+		if slayer:
+			stats_badges.append(f'<span class="badge bg-danger text-white" title="Slayer">&#9760; {slayer} Slayer</span>')
+
+		# Artifact Rarity
+		rarity = 0
+		try:
+			if hasattr(item, 'getintproperty'):
+				rarity = item.getintproperty('artifact_rarity', 0)
+		except Exception:
+			pass
+		if rarity > 0:
+			stats_badges.append(f'<span class="badge bg-primary text-white" title="Raridade">&#11088; Rarity {rarity}</span>')
+
+		img_html = f'''<div class="d-flex align-items-center justify-content-center bg-dark-subtle rounded border me-3 flex-shrink-0" style="width: 44px; height: 44px; overflow: hidden;"><img src="{art_url}" alt="{cgi.escape(str(item_name))}" style="max-width: 40px; max-height: 40px; object-fit: contain; image-rendering: pixelated;" /></div>''' if art_url else f'''<div class="d-flex align-items-center justify-content-center bg-light rounded border me-3 flex-shrink-0" style="width: 44px; height: 44px;"><span class="text-muted" style="font-size: 1.2rem;">&#128085;</span></div>'''
+
+		stats_html = f'''<div class="d-flex flex-wrap gap-1 mt-1">{''.join(stats_badges)}</div>''' if stats_badges else ''
+
 		equipped_rows.append(f"""
-		<li class="list-group-item d-flex justify-content-between align-items-center py-2 px-3 bg-light border-light-subtle">
-			<span class="small fw-semibold text-secondary">{layer_name}:</span>
-			<div class="text-end">
-				<span class="small fw-bold text-dark d-block">{cgi.escape(str(item_name))}</span>
-				<span class="font-monospace text-muted" style="font-size: 0.72rem;">0x{item_id:04x}{color_text}</span>
+		<li class="list-group-item d-flex align-items-center py-2 px-3 bg-light border-light-subtle">
+			{img_html}
+			<div class="flex-grow-1 min-w-0">
+				<div class="d-flex justify-content-between align-items-center mb-1">
+					<span class="small fw-bold text-dark text-truncate me-2">{cgi.escape(str(item_name))}</span>
+					<span class="badge bg-secondary-subtle text-secondary-emphasis border font-monospace" style="font-size: 0.72rem;">{layer_name}</span>
+				</div>
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="font-monospace text-muted" style="font-size: 0.72rem;">0x{item_id:04x}{color_text}</span>
+				</div>
+				{stats_html}
 			</div>
 		</li>
 		""")
@@ -284,9 +571,11 @@ if not equipped_rows:
 # ==============================================================================
 skill_cards_learned = []
 skill_cards_all = []
+scroll_rows = []
 total_skills = 0.0
 
 LOCK_ICONS = {0: '&#9650; Sobe', 1: '&#9660; Desce', 2: '&#128274; Trancada'}
+ACTIVE_SKILLS = {1, 2, 3, 4, 6, 9, 12, 14, 15, 16, 19, 20, 21, 22, 23, 30, 32, 33, 35, 36, 38, 46, 47, 48}
 
 for i in range(0, ALLSKILLS):
 	try:
@@ -309,6 +598,7 @@ for i in range(0, ALLSKILLS):
 	pct = min(100, int((val / max(1.0, cap)) * 100))
 	lock_label = LOCK_ICONS.get(lock, '&#9650;')
 
+	# Card HTML para Grid Moderna
 	card_html = f"""
 	<div class="col-12 col-md-6 col-xl-4">
 		<div class="p-2 border rounded bg-light-subtle">
@@ -328,6 +618,30 @@ for i in range(0, ALLSKILLS):
 	skill_cards_all.append(card_html)
 	if val > 0.0:
 		skill_cards_learned.append(card_html)
+
+	# Linha do Pergaminho Oficial In-Game
+	is_active = i in ACTIVE_SKILLS
+	btn_html = '<img src="images/gumps/gump_2084_0.png" width="20" height="15" alt="Active" style="vertical-align: middle;" title="Habilidade Ativável" />' if is_active else '<span style="display:inline-block; width:20px; height:15px;"></span>'
+
+	if lock == 1:
+		lock_img = '<img src="images/gumps/gump_2436_0.png" width="9" height="11" alt="Down" title="Desce (Down)" style="vertical-align: middle;" />'
+	elif lock == 2:
+		lock_img = '<img src="images/gumps/gump_2437_0.png" width="9" height="11" alt="Lock" title="Trancada (Locked)" style="vertical-align: middle;" />'
+	else:
+		lock_img = '<img src="images/gumps/gump_2435_0.png" width="9" height="11" alt="Up" title="Sobe (Up)" style="vertical-align: middle;" />'
+
+	scroll_rows.append(f"""
+	<div class="d-flex justify-content-between align-items-center py-1 px-1 border-bottom skill-scroll-row" data-learned="{'1' if val > 0 else '0'}" style="border-color: rgba(110, 80, 50, 0.2) !important;">
+		<div class="d-flex align-items-center gap-1 text-truncate" style="max-width: 155px;">
+			{btn_html}
+			<span class="text-truncate fw-semibold" style="color: #2b1704; font-size: 11.5px; font-family: 'Cinzel', 'Georgia', serif;" title="{cgi.escape(str(s_name))}">{cgi.escape(str(s_name))}</span>
+		</div>
+		<div class="d-flex align-items-center gap-1 font-monospace text-end">
+			<span class="fw-bold" style="color: #1a0e02; font-size: 11.5px;">{val:.1f}%</span>
+			{lock_img}
+		</div>
+	</div>
+	""")
 
 # ==============================================================================
 # PROPRIEDADES (CASAS) DESTE PERSONAGEM
@@ -496,112 +810,262 @@ content = f"""
 	</div>
 </div>
 
-<!-- Linha 2: Status Vital e Paperdoll -->
+<!-- Linha 2: Paperdoll (Gump 2001) e Status Gump Oficial (Gump 10860) -->
 <div class="row g-4 mb-4">
-	<!-- Coluna Esquerda: Status Vital & Atributos -->
-	<div class="col-12 col-lg-6">
-		<div class="card border border-light-subtle shadow-sm h-100">
-			<div class="card-header bg-white py-2">
-				<span class="fw-semibold text-secondary small text-uppercase">Status Vital & Atributos</span>
-			</div>
-			<div class="card-body">
-				<div class="mb-3">
-					<div class="d-flex justify-content-between small text-secondary mb-1">
-						<span class="fw-semibold">Pontos de Vida (HP):</span>
-						<span class="font-monospace fw-bold text-dark">{hp_cur} / {hp_max}</span>
-					</div>
-					<div class="progress" style="height: 10px;">
-						<div class="progress-bar bg-danger" role="progressbar" style="width: {hp_pct}%;"></div>
-					</div>
-				</div>
-
-				<div class="mb-3">
-					<div class="d-flex justify-content-between small text-secondary mb-1">
-						<span class="fw-semibold">Stamina:</span>
-						<span class="font-monospace fw-bold text-dark">{stam_cur} / {stam_max}</span>
-					</div>
-					<div class="progress" style="height: 10px;">
-						<div class="progress-bar bg-warning" role="progressbar" style="width: {stam_pct}%;"></div>
-					</div>
-				</div>
-
-				<div class="mb-3">
-					<div class="d-flex justify-content-between small text-secondary mb-1">
-						<span class="fw-semibold">Mana:</span>
-						<span class="font-monospace fw-bold text-dark">{mana_cur} / {mana_max}</span>
-					</div>
-					<div class="progress" style="height: 10px;">
-						<div class="progress-bar bg-primary" role="progressbar" style="width: {mana_pct}%;"></div>
-					</div>
-				</div>
-
-				<div class="row text-center pt-3 border-top g-2 mt-2">
-					<div class="col-4">
-						<span class="text-secondary small d-block">FORÇA (STR)</span>
-						<span class="fs-4 fw-bold text-dark">{str_val}</span>
-					</div>
-					<div class="col-4">
-						<span class="text-secondary small d-block">DESTREZA (DEX)</span>
-						<span class="fs-4 fw-bold text-dark">{dex_val}</span>
-					</div>
-					<div class="col-4">
-						<span class="text-secondary small d-block">INTELIGÊNCIA (INT)</span>
-						<span class="fs-4 fw-bold text-dark">{int_val}</span>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Coluna Direita: Paperdoll (Equipamentos) -->
-	<div class="col-12 col-lg-6">
+	<!-- Coluna 1: Boneco e Paperdoll (Gump 2001) -->
+	<div class="col-12 col-xl-4">
 		<div class="card border border-light-subtle shadow-sm h-100">
 			<div class="card-header bg-white py-2 d-flex justify-content-between align-items-center">
-				<span class="fw-semibold text-secondary small text-uppercase">Equipamentos em Uso (Paperdoll)</span>
-				<span class="badge bg-dark-subtle text-dark font-monospace">{len(equipped_rows)} camadas</span>
+				<span class="fw-semibold text-secondary small text-uppercase">&#129497; Boneco & Paperdoll</span>
+				<span class="badge bg-secondary-subtle text-dark border font-monospace">{char_race} &bull; {char_gender}</span>
 			</div>
-			<ul class="list-group list-group-flush overflow-auto" style="max-height: 380px;">
-				{''.join(equipped_rows)}
-			</ul>
+			<div class="card-body text-center p-2">
+				<div class="d-inline-block p-1 bg-dark rounded shadow-sm mb-2" style="max-width: 270px; position: relative;">
+					<img src="{paperdoll_url}" alt="Paperdoll {cgi.escape(str(char_name))}" style="width: 262px; height: 324px; image-rendering: pixelated; display: block;" />
+					<!-- Nome do Personagem no Paperdoll -->
+					<div style="position: absolute; left: 15%; right: 50px; bottom: 40px; height: 22px; line-height: 22px; text-align: left; color: #fffffa; font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; font-weight: bold; text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+						{cgi.escape(str(char_name))}
+					</div>
+					<!-- Título do Personagem no Paperdoll (Logo Abaixo do Nome) -->
+					{f'''<div style="position: absolute; left: 15%; right: 50px; bottom: 20px; height: 18px; line-height: 18px; text-align: left; color: #eedcb2; font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; font-weight: normal; text-shadow: 1px 1px 2px #000; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{cgi.escape(str(char_title))}</div>''' if char_title else ''}
+				</div>
+				<div class="d-flex justify-content-center gap-2 mb-3">
+					<span class="badge bg-light text-dark border">{char_race}</span>
+					<span class="badge bg-light text-dark border">{char_gender}</span>
+					<span class="badge bg-light text-secondary border font-monospace">Skin: 0x{char_skin_color:04x}</span>
+				</div>
+
+				<!-- Equipamentos em Uso (Acordeão) -->
+				<div class="accordion accordion-flush text-start border rounded" id="accordionEquipment">
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingEq">
+							<button class="accordion-button collapsed py-2 px-3 small fw-semibold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEq" aria-expanded="false" aria-controls="collapseEq">
+								&#128087; Equipamentos Vestidos ({len(equipped_rows)} itens equipados &bull; {len(PAPERDOLL_LAYERS)} camadas disponíveis)
+							</button>
+						</h2>
+						<div id="collapseEq" class="accordion-collapse collapse" aria-labelledby="headingEq" data-bs-parent="#accordionEquipment">
+							<div class="accordion-body p-0">
+								<ul class="list-group list-group-flush overflow-auto" style="max-height: 380px;">
+									{''.join(equipped_rows)}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Coluna 2: Gump de Status Oficial (Gump 10860) com Todos os Atributos -->
+	<div class="col-12 col-xl-8">
+		<div class="card border border-light-subtle shadow-sm h-100">
+			<div class="card-header bg-white py-2 d-flex justify-content-between align-items-center">
+				<span class="fw-semibold text-secondary small text-uppercase">&#128737; Gump de Status Oficial do Jogo</span>
+				<span class="badge bg-light text-secondary border font-monospace">Gump 10860</span>
+			</div>
+			<div class="card-body p-3 d-flex flex-column align-items-center">
+				<!-- Gump 10860 Stone Status Window (577x216) -->
+				<div class="table-responsive w-100 d-flex justify-content-center py-1" style="overflow-x: auto;">
+					<div style="position: relative; width: 577px; height: 216px; background: url('images/gumps/gump_10860_0.png') no-repeat center center; user-select: none; font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; font-weight: bold; flex-shrink: 0;">
+						<!-- Linha 0 (y=71px): STR, DEX, INT, Stat Cap, HP, Stam -->
+						<div style="position: absolute; left: 72px; top: 71px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Força (STR)">{str_val}</div>
+						<div style="position: absolute; left: 154px; top: 71px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Destreza (DEX)">{dex_val}</div>
+						<div style="position: absolute; left: 236px; top: 71px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Inteligência (INT)">{int_val}</div>
+						<div style="position: absolute; left: 318px; top: 71px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Limite Total de Atributos (Stat Cap)">{statcap}</div>
+						<div style="position: absolute; left: 400px; top: 71px; width: 50px; text-align: center; color: #000000; font-weight: bold; font-size: 10px;" title="Pontos de Vida (HP Cur/Max)">{hp_cur}/{hp_max}</div>
+						<div style="position: absolute; left: 482px; top: 71px; width: 50px; text-align: center; color: #000000; font-weight: bold; font-size: 10px;" title="Vigor (Stamina Cur/Max)">{stam_cur}/{stam_max}</div>
+
+						<!-- Linha 1 (y=99px): Mana, Followers (Montarias), Peso, Ouro, Res Fís, Res Fogo -->
+						<div style="position: absolute; left: 72px; top: 99px; width: 50px; text-align: center; color: #000000; font-weight: bold; font-size: 10px;" title="Mana (Cur/Max)">{mana_cur}/{mana_max}</div>
+						<div style="position: absolute; left: 154px; top: 99px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Montarias e Seguidores (Cur/Max)">{followers_cur}/{followers_max}</div>
+						<div style="position: absolute; left: 236px; top: 99px; width: 50px; text-align: center; color: #000000; font-weight: bold; font-size: 10px;" title="Carga / Peso (Cur/Max)">{weight_cur}/{weight_max}</div>
+						<div style="position: absolute; left: 318px; top: 99px; width: 50px; text-align: center; color: #000000; font-weight: bold; font-size: 10px;" title="Ouro na Mochila">{char_gold:,}</div>
+						<div style="position: absolute; left: 400px; top: 99px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Resistência Física / Máximo">{armor_val}/{res_phys_max}</div>
+						<div style="position: absolute; left: 482px; top: 99px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Resistência a Fogo / Máximo">{res_fire}/{res_fire_max}</div>
+
+						<!-- Linha 2 (y=127px): Res Frio, Res Veneno, Res Energia, Sorte, Dano, Dízimo -->
+						<div style="position: absolute; left: 72px; top: 127px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Resistência a Frio / Máximo">{res_cold}/{res_cold_max}</div>
+						<div style="position: absolute; left: 154px; top: 127px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Resistência a Veneno / Máximo">{res_poison}/{res_poison_max}</div>
+						<div style="position: absolute; left: 236px; top: 127px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Resistência a Energia / Máximo">{res_energy}/{res_energy_max}</div>
+						<div style="position: absolute; left: 318px; top: 127px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Sorte (Luck)">{luck_val}</div>
+						<div style="position: absolute; left: 400px; top: 127px; width: 50px; text-align: center; color: #000000; font-weight: bold; font-size: 10px;" title="Dano de Arma (Min - Max)">{dmg_min}-{dmg_max}</div>
+						<div style="position: absolute; left: 482px; top: 127px; width: 50px; text-align: center; color: #000000; font-weight: bold; font-size: 10px;" title="Pontos de Dízimo (Tithing Points)">{tithing_val:,}</div>
+
+						<!-- Linha 3 (y=155px): Propriedades de Combate e Conjuração -->
+						<div style="position: absolute; left: 72px; top: 155px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Aumento de Chance de Acerto (Hit Chance Increase)">{hci_val}%</div>
+						<div style="position: absolute; left: 154px; top: 155px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Aumento de Chance de Defesa (Defense Chance Increase)">{dci_val}%</div>
+						<div style="position: absolute; left: 236px; top: 155px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Redução de Custo de Mana (Lower Mana Cost)">{lmc_val}%</div>
+						<div style="position: absolute; left: 318px; top: 155px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Redução de Custo de Reagentes (Lower Reagent Cost)">{lrc_val}%</div>
+						<div style="position: absolute; left: 400px; top: 155px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Velocidade de Conjuração (Faster Casting)">{fc_val}</div>
+						<div style="position: absolute; left: 482px; top: 155px; width: 50px; text-align: center; color: #000000; font-weight: bold;" title="Recuperação de Conjuração (Faster Cast Recovery)">{fcr_val}</div>
+					</div>
+				</div>
+
+				<!-- Barras de Vigor e Medidores -->
+				<div class="w-100 px-3 mt-3 pt-2 border-top">
+					<div class="row g-2">
+						<div class="col-12 col-md-4">
+							<div class="d-flex justify-content-between small text-secondary mb-1">
+								<span class="fw-semibold text-danger">&#10084; Vida (HP):</span>
+								<span class="font-monospace fw-bold text-dark">{hp_cur} / {hp_max}</span>
+							</div>
+							<div class="progress" style="height: 7px;">
+								<div class="progress-bar bg-danger" role="progressbar" style="width: {hp_pct}%;"></div>
+							</div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="d-flex justify-content-between small text-secondary mb-1">
+								<span class="fw-semibold text-warning">&#9889; Vigor (Stamina):</span>
+								<span class="font-monospace fw-bold text-dark">{stam_cur} / {stam_max}</span>
+							</div>
+							<div class="progress" style="height: 7px;">
+								<div class="progress-bar bg-warning" role="progressbar" style="width: {stam_pct}%;"></div>
+							</div>
+						</div>
+						<div class="col-12 col-md-4">
+							<div class="d-flex justify-content-between small text-secondary mb-1">
+								<span class="fw-semibold text-primary">&#128302; Mana:</span>
+								<span class="font-monospace fw-bold text-dark">{mana_cur} / {mana_max}</span>
+							</div>
+							<div class="progress" style="height: 7px;">
+								<div class="progress-bar bg-primary" role="progressbar" style="width: {mana_pct}%;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
 
-<!-- Seção 3: Propriedades / Casas -->
-{house_section}
+<!-- Linha 3: Pergaminho de Perícias (Skills) e Banco / Propriedades -->
+<div class="row g-4 mb-4">
+	<!-- Coluna Esquerda: Pergaminho Oficial de Perícias -->
+	<div class="col-12 col-xl-4">
+		<div class="card border border-light-subtle shadow-sm h-100">
+			<div class="card-header bg-white py-2 d-flex justify-content-between align-items-center">
+				<span class="fw-semibold text-secondary small text-uppercase">&#128220; Pergaminho de Perícias</span>
+				<span class="badge bg-dark-subtle text-dark font-monospace">{total_skills:.1f} / 700.0%</span>
+			</div>
+			<div class="card-body p-2 d-flex flex-column align-items-center">
+				<!-- Botões de Filtro -->
+				<div class="btn-group btn-group-sm mb-2 w-100" role="group">
+					<button type="button" class="btn btn-secondary active py-1" id="btn-filter-all" onclick="toggleSkillFilter('all')">Todas as Perícias ({len(skill_cards_all)})</button>
+					<button type="button" class="btn btn-outline-secondary py-1" id="btn-filter-learned" onclick="toggleSkillFilter('learned')">Aprendidas ({len(skill_cards_learned)})</button>
+				</div>
 
-<!-- Seção 4: Cofre Bancário (Itens Guardados no Banco) -->
-<div class="card border border-light-subtle shadow-sm mb-4">
-	<div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-		<div>
-			<h6 class="fw-bold text-dark mb-0">&#128176; Cofre Bancário (Bank Box)</h6>
-			<small class="text-muted">Total de Itens: <strong>{bank_items_count}</strong> &bull; Saldo de Ouro: <strong class="text-success">{bank_gold:,} gps</strong></small>
+				<!-- Estrutura Gráfica do Pergaminho UO -->
+				<div style="width: 100%; max-width: 300px; margin: 0 auto; user-select: none;">
+					<!-- Rolo Superior (Gump 2080) -->
+					<img src="images/gumps/gump_2080_0.png" style="display: block; width: 300px; height: 37px; margin: 0 auto;" alt="Topo do Pergaminho" />
+
+					<!-- Corpo Central de Pergaminho Repetido (Gump 2081) -->
+					<div id="skills-scroll-container" style="width: 263px; margin: 0 auto; background: #e3cca6 url('images/gumps/gump_2081_0.png') repeat-y center top; max-height: 380px; overflow-y: auto; padding: 6px 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.18); border-left: 1px solid #b79c73; border-right: 1px solid #b79c73;">
+						{''.join(scroll_rows)}
+						<div id="no-learned-skills-msg" class="d-none text-center py-4 px-2" style="color: #5c3a21; font-family: 'Cinzel', 'Georgia', serif; font-size: 12px; font-style: italic;">
+							Nenhuma perícia aprendida (&gt; 0.0%) neste personagem.
+						</div>
+					</div>
+
+					<!-- Rolo Inferior (Gump 2083) -->
+					<img src="images/gumps/gump_2083_0.png" style="display: block; width: 273px; height: 34px; margin: 0 auto;" alt="Fundo do Pergaminho" />
+				</div>
+
+				<script>
+				function toggleSkillFilter(mode) {{
+					var rows = document.querySelectorAll('#skills-scroll-container .skill-scroll-row');
+					var bAll = document.getElementById('btn-filter-all');
+					var bLearned = document.getElementById('btn-filter-learned');
+					var noMsg = document.getElementById('no-learned-skills-msg');
+
+					if (mode === 'learned') {{
+						bLearned.classList.add('active', 'btn-secondary');
+						bLearned.classList.remove('btn-outline-secondary');
+						bAll.classList.remove('active', 'btn-secondary');
+						bAll.classList.add('btn-outline-secondary');
+
+						var visibleCount = 0;
+						rows.forEach(function(r) {{
+							if (r.getAttribute('data-learned') === '1') {{
+								r.classList.remove('d-none');
+								r.style.setProperty('display', 'flex', 'important');
+								visibleCount++;
+							}} else {{
+								r.classList.add('d-none');
+								r.style.setProperty('display', 'none', 'important');
+							}}
+						}});
+
+						if (noMsg) {{
+							if (visibleCount === 0) {{
+								noMsg.classList.remove('d-none');
+								noMsg.style.setProperty('display', 'block', 'important');
+							}} else {{
+								noMsg.classList.add('d-none');
+								noMsg.style.setProperty('display', 'none', 'important');
+							}}
+						}}
+					}} else {{
+						bAll.classList.add('active', 'btn-secondary');
+						bAll.classList.remove('btn-outline-secondary');
+						bLearned.classList.remove('active', 'btn-secondary');
+						bLearned.classList.add('btn-outline-secondary');
+
+						rows.forEach(function(r) {{
+							r.classList.remove('d-none');
+							r.style.setProperty('display', 'flex', 'important');
+						}});
+
+						if (noMsg) {{
+							noMsg.classList.add('d-none');
+							noMsg.style.setProperty('display', 'none', 'important');
+						}}
+					}}
+				}}
+				</script>
+			</div>
 		</div>
-		<span class="badge bg-success-subtle text-success border border-success">Seguro na Cidade</span>
 	</div>
-	<div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-		<table class="table table-hover table-striped align-middle mb-0">
-			<thead class="table-light small text-uppercase text-secondary sticky-top">
-				<tr>
-					<th scope="col" class="ps-3">Item</th>
-					<th scope="col">Quantidade</th>
-					<th scope="col">Graphic ID</th>
-					<th scope="col">Cor (Hue)</th>
-					<th scope="col" class="pe-3 text-end">Serial</th>
-				</tr>
-			</thead>
-			<tbody>
-				{''.join(bank_rows) if bank_rows else '<tr><td colspan="5" class="text-center py-4 text-muted">O cofre bancário deste personagem está vazio no momento.</td></tr>'}
-			</tbody>
-		</table>
+
+	<!-- Coluna Direita: Cofre Bancário e Propriedades -->
+	<div class="col-12 col-xl-8">
+		<!-- Propriedades / Casas -->
+		{house_section}
+
+		<!-- Cofre Bancário (Itens Guardados no Banco) -->
+		<div class="card border border-light-subtle shadow-sm mb-4">
+			<div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+				<div>
+					<h6 class="fw-bold text-dark mb-0">&#128176; Cofre Bancário (Bank Box)</h6>
+					<small class="text-muted">Total de Itens: <strong>{bank_items_count}</strong> &bull; Saldo de Ouro: <strong class="text-success">{bank_gold:,} gps</strong></small>
+				</div>
+				<span class="badge bg-success-subtle text-success border border-success">Seguro na Cidade</span>
+			</div>
+			<div class="table-responsive" style="max-height: 340px; overflow-y: auto;">
+				<table class="table table-hover table-striped align-middle mb-0">
+					<thead class="table-light small text-uppercase text-secondary sticky-top">
+						<tr>
+							<th scope="col" class="ps-3">Item</th>
+							<th scope="col">Quantidade</th>
+							<th scope="col">Graphic ID</th>
+							<th scope="col">Cor (Hue)</th>
+							<th scope="col" class="pe-3 text-end">Serial</th>
+						</tr>
+					</thead>
+					<tbody>
+						{''.join(bank_rows) if bank_rows else '<tr><td colspan="5" class="text-center py-4 text-muted">O cofre bancário deste personagem está vazio no momento.</td></tr>'}
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </div>
 
-<!-- Seção 5: Perícias (Skills) -->
+<!-- Seção 4: Grade Expandida de Habilidades (Skills) -->
 <div class="card border border-light-subtle shadow-sm mb-4">
 	<div class="card-header bg-white py-3 d-flex flex-wrap justify-content-between align-items-center gap-2">
 		<div>
-			<h6 class="fw-bold text-dark mb-0">&#128218; Grade de Habilidades (Skills)</h6>
+			<h6 class="fw-bold text-dark mb-0">&#128218; Grade Completa de Habilidades (Skills)</h6>
 			<small class="text-muted">Total de Pontos: <strong class="text-success font-monospace">{total_skills:.1f}%</strong></small>
 		</div>
 		<div>

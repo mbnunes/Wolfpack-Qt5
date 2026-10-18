@@ -102,7 +102,7 @@ QHostAddress internetAddress()
 	return result;
 }
 
-cConfig::cConfig() : Preferences( "wolfpack.xml", "Wolfpack", "1.0" )
+cConfig::cConfig() : Preferences( "wolfpack.xml", "Wolfpack", "1.0" ), guardDispelTime_( 30 )
 {
 }
 
@@ -250,6 +250,7 @@ void cConfig::readData()
 	attack_distance_ = getNumber( "Combat", "Attack Distance", 13, true );
 	showdamagedone_ = getBool( "Combat", "Show Damage Done", true, true );
 	showdamagereceived_ = getBool( "Combat", "Show Damage Received", true, true );
+	guardDispelTime_ = getNumber( "Combat", "Guard Dispel Time", 30, true );
 
 	// Light
 	worldBrightLevel_ = getNumber( "Light", "World Bright Level", 1, true );

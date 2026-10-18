@@ -810,6 +810,7 @@ protected:
 public:
 	Human_Guard_Called( P_NPC npc );
 	virtual void init( P_NPC npc );
+	virtual void check();
 
 	static void registerInFactory();
 	virtual QString name() const

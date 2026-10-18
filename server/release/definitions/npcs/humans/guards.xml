@@ -67,9 +67,14 @@
 		<equipped>
 			<item id="e75" /> <!-- Backpack -->
 			<item id="143f" /> <!-- Halberd -->
-			<item id="1f7b" /> <!-- Doublet -->
+			<item id="1415" /> <!-- Plate Chest -->
 			<item id="1410" /> <!-- Plate Arms -->
 			<item id="1411" /> <!-- Plate Legs -->
+			<item id="1414" /> <!-- Plate Gloves -->
+			<item id="1413" /> <!-- Plate Gorget -->
+			<item id="1412" /> <!-- Plate Helm -->
+			<item id="1f7b" /> <!-- Doublet -->
+			<item id="170b" /> <!-- Leather Boots -->
 		</equipped>
 	</npc>
 
@@ -111,6 +116,13 @@
 			<item id="e75" /> <!-- Backpack -->
 			<item id="143f" /> <!-- Halberd -->
 			<item id="1c04" /> <!-- Female Plate -->
+			<item id="1410" /> <!-- Plate Arms -->
+			<item id="1411" /> <!-- Plate Legs -->
+			<item id="1414" /> <!-- Plate Gloves -->
+			<item id="1413" /> <!-- Plate Gorget -->
+			<item id="1412" /> <!-- Plate Helm -->
+			<item id="1f7b" /> <!-- Doublet -->
+			<item id="170b" /> <!-- Leather Boots -->
 		</equipped>
 	</npc>
 

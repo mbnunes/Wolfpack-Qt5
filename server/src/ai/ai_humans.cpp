@@ -245,7 +245,7 @@ Human_Guard_Called::Human_Guard_Called( P_NPC npc ) : AbstractAI( npc )
 	notorietyOverride_ = 1;
 	m_actions.append( new Human_Guard_Called_Fight( npc, this ) );
 	m_actions.append( new Human_Guard_Called_TeleToTarget( npc, this ) );
-	m_actions.append( new Human_Guard_Called_Disappear( npc, this ) );
+	m_actions.append( new Action_Wander( npc, this ) );
 }
 
 void Human_Guard_Called::init( P_NPC npc )
@@ -255,23 +255,73 @@ void Human_Guard_Called::init( P_NPC npc )
 	AbstractAI::init( npc );
 }
 
-void Human_Guard_Called_Fight::execute()
+void Human_Guard_Called::check()
 {
-	// talk only in about every 10th check
-	switch ( RandomNum( 0, 20 ) )
+	if ( !m_npc->attackTarget() || m_npc->attackTarget()->isDead() )
 	{
-	case 0:
-		m_npc->talk( 500131 ); // Thou wilt regret thine actions, swine!
-		break;
-	case 1:
-		m_npc->talk( 1008011 ); // Beware, all, whilst I dispose of this evildoer.
-		break;
+		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( m_npc->pos(), 10 );
+		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
+		{
+			if ( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() && !pChar->inSafeArea() )
+			{
+				P_NPC pNpc = dynamic_cast<P_NPC>( pChar );
+				if ( pNpc )
+				{
+					if ( pNpc->isTamed() && pNpc->owner() )
+					{
+						if ( pNpc->owner()->isInnocent() || pNpc->owner()->isGMorCounselor() )
+							continue;
+					}
+					else
+					{
+						Monster_Aggressive *npcai = dynamic_cast<Monster_Aggressive*>( pNpc->ai() );
+						if ( !npcai )
+							continue;
+					}
+				}
+				else
+				{
+					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
+					if ( pPlayer && ( pPlayer->isInnocent() || pPlayer->isGMorCounselor() ) )
+						continue;
+				}
+
+				m_npc->talk( 500131 ); // "Thou wilt regret thine actions, swine!"
+				m_npc->fight( pChar );
+				break;
+			}
+		}
 	}
 
-	m_npc->setSummonTime( Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
-	m_npc->setSummoned( true );
+	AbstractAI::check();
+}
 
-	// Fighting is handled within combat..
+void Human_Guard_Called_Fight::execute()
+{
+	P_CHAR pTarget = m_npc->attackTarget();
+	if ( pTarget && !pTarget->isDead() )
+	{
+		// Lightning bolt effect and sound
+		pTarget->lightning( 0 );
+		pTarget->soundEffect( 0x29 );
+
+		// Weapon attack animation
+		m_npc->action( 0x0C );
+
+		// Execute target with damage and kill
+		pTarget->damage( (eDamageType)0, pTarget->maxHitpoints(), m_npc );
+		pTarget->kill( m_npc );
+
+		// Punishment sentence
+		m_npc->talk( "Thou hast suffered thy punishment, scoundrel." );
+
+		// Clear attack target so guard remains on patrol
+		m_npc->fight( 0 );
+
+		// Reset patrol timer to full duration
+		m_npc->setSummonTime( Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
+		m_npc->setSummoned( true );
+	}
 }
 
 float Human_Guard_Called_Fight::preCondition()
@@ -294,19 +344,35 @@ float Human_Guard_Called_Fight::postCondition()
 
 void Human_Guard_Called_TeleToTarget::execute()
 {
-	m_npc->setSummonTime( Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
-	m_npc->setSummoned( true );
-
-	// Teleports the guard towards the target
 	P_CHAR pTarget = m_npc->attackTarget();
-	if ( pTarget )
+	if ( pTarget && !pTarget->isDead() )
 	{
+		// Teleports the guard towards the target
 		m_npc->moveTo( pTarget->pos() );
 		m_npc->soundEffect( 0x1FE );
 		m_npc->effect( 0x372A, 0x09, 0x06 );
-
 		m_npc->resend( false );
+
+		// Lightning bolt effect and sound
+		pTarget->lightning( 0 );
+		pTarget->soundEffect( 0x29 );
+
+		// Weapon attack animation
+		m_npc->action( 0x0C );
+
+		// Execute target with damage and kill
+		pTarget->damage( (eDamageType)0, pTarget->maxHitpoints(), m_npc );
 		pTarget->kill( m_npc );
+
+		// Punishment sentence
+		m_npc->talk( "Thou hast suffered thy punishment, scoundrel." );
+
+		// Clear attack target so guard remains on patrol
+		m_npc->fight( 0 );
+
+		// Reset patrol timer to full duration
+		m_npc->setSummonTime( Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
+		m_npc->setSummoned( true );
 	}
 }
 
@@ -334,16 +400,12 @@ void Human_Guard_Called_Disappear::execute()
 
 float Human_Guard_Called_Disappear::preCondition()
 {
-	P_CHAR pTarget = m_npc->attackTarget();
-	if ( !pTarget || pTarget->isDead() || pTarget->isInnocent() || pTarget->region() != m_npc->region() )
-		return 1.0f;
-
 	return 0.0f;
 }
 
 float Human_Guard_Called_Disappear::postCondition()
 {
-	return 1.0f - preCondition();
+	return 1.0f;
 }
 
 void Human_Guard::registerInFactory()

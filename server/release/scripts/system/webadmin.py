@@ -10,6 +10,18 @@
 from wolfpack.consts import *
 from threading import Thread, Event
 import os, sys, time, socket
+
+for _p in [
+	'/usr/lib/python3/dist-packages',
+	'/usr/local/lib/python3.14/dist-packages',
+	'/usr/lib/python3.14/dist-packages',
+	'/usr/local/lib/python3/dist-packages',
+	'/usr/lib/python3.13/dist-packages',
+	'/usr/lib/python3.12/dist-packages',
+]:
+	if os.path.isdir(_p) and _p not in sys.path:
+		sys.path.append(_p)
+
 import urllib.parse
 from http.server import CGIHTTPRequestHandler, HTTPServer
 from socketserver import BaseServer
