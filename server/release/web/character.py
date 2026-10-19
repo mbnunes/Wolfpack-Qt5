@@ -15,6 +15,10 @@ for _p in [
 
 import web.sessions
 import web.template
+try:
+	import web.uo_assets
+except Exception:
+	pass
 import cgi
 import wolfpack
 import wolfpack.accounts
@@ -319,23 +323,68 @@ if bank:
 	bank_items_count = len(raw_content)
 
 	for b_item in raw_content:
-		i_name = getattr(b_item, 'name', '')
 		i_id = getattr(b_item, 'id', 0)
-		if not i_name:
-			i_name = f"Item 0x{i_id:04x}"
+		i_name = getattr(b_item, 'name', '')
+		if not i_name or str(i_name).lower().startswith('item 0x') or str(i_name).lower() == 'item':
+			if i_id in (0x0EED, 0x0EEE, 0x0EEF):
+				i_name = "Moedas de Ouro (Gold)"
+			else:
+				t_name = ""
+				if hasattr(web, 'uo_assets') and hasattr(web.uo_assets, 'get_item_anim_id'):
+					try:
+						_, _, t_name = web.uo_assets.get_item_anim_id(i_id)
+						t_name = ''.join(c for c in str(t_name) if c.isprintable()).strip()
+						t_name = t_name.strip().replace('%s%', '').replace('%/s', '').replace('%', '').strip()
+					except Exception:
+						t_name = ""
+				if t_name:
+					if t_name.lower() == 'book':
+						i_name = "Livro (Book)"
+					elif t_name.lower() == 'spellbook':
+						i_name = "Livro de Magia (Spellbook)"
+					else:
+						i_name = t_name.title()
+				elif getattr(b_item, 'baseid', ''):
+					b_id_str = str(b_item.baseid).strip()
+					if b_id_str in ('fef', 'ff0', 'ff1', 'ff2', 'ff3', 'ff4', 'fbd', 'fbe'):
+						i_name = "Livro (Book)"
+					else:
+						i_name = b_id_str.replace('_', ' ').strip().title()
+				else:
+					i_name = f"Item 0x{i_id:04x}"
+
 		i_amount = getattr(b_item, 'amount', 1)
 		i_serial = getattr(b_item, 'serial', 0)
 		i_color = getattr(b_item, 'color', 0)
 		i_color_str = f"0x{i_color:04x}" if i_color else "Padrão"
 
 		is_subcontainer = bool(getattr(b_item, 'iscontainer', lambda: False)())
-		sub_badge = '<span class="badge bg-info-subtle text-info-emphasis border border-info-subtle ms-1">Recipiente</span>' if is_subcontainer else ''
+		sub_badge = '<span class="badge bg-info-subtle text-info-emphasis border border-info-subtle ms-1" style="font-size: 0.7rem;">Recipiente</span>' if is_subcontainer else ''
+
+		# Resolve Item Artwork (com crop para ajuste perfeito ao thumbnail)
+		item_art_url = None
+		if hasattr(web, 'uo_assets') and hasattr(web.uo_assets, 'get_item_art'):
+			try:
+				_, item_art_url = web.uo_assets.get_item_art(i_id, i_color, crop=True)
+			except Exception:
+				item_art_url = None
+
+		escaped_name = cgi.escape(str(i_name))
+		if item_art_url:
+			img_cell = f'''<div class="d-inline-flex align-items-center justify-content-center bg-white rounded border shadow-sm p-1" style="width: 44px; height: 44px; min-width: 44px;" title="{escaped_name}"><img src="{item_art_url}" alt="{escaped_name}" title="{escaped_name}" style="max-width: 38px; max-height: 38px; object-fit: contain; image-rendering: pixelated; cursor: pointer;" /></div>'''
+		else:
+			img_cell = f'''<div class="d-inline-flex align-items-center justify-content-center bg-light rounded border p-1" style="width: 44px; height: 44px; min-width: 44px;" title="{escaped_name}"><span class="text-secondary" style="font-size: 1.2rem;">&#128230;</span></div>'''
 
 		bank_rows.append(f"""
 		<tr>
-			<td class="ps-3">
-				<span class="fw-semibold text-dark">{cgi.escape(str(i_name))}</span>
-				{sub_badge}
+			<td class="ps-3 py-2">
+				<div class="d-flex align-items-center gap-2">
+					{img_cell}
+					<div>
+						<div class="fw-semibold text-dark small">{escaped_name}</div>
+						{sub_badge}
+					</div>
+				</div>
 			</td>
 			<td class="font-monospace fw-bold text-success">{i_amount:,}</td>
 			<td class="font-monospace small text-muted">0x{i_id:04x}</td>
@@ -343,6 +392,7 @@ if bank:
 			<td class="font-monospace small text-muted pe-3 text-end">0x{i_serial:x}</td>
 		</tr>
 		""")
+
 
 total_wealth = char_gold + bank_gold
 
@@ -655,8 +705,23 @@ if housing:
 			h_dict = housing.getHouses()
 			if serial_int in h_dict:
 				char_house = wolfpack.finditem(h_dict[serial_int])
+		if not char_house:
+			it = wolfpack.itemiterator()
+			item = getattr(it, 'first', None)
+			while item:
+				is_multi = (getattr(item, 'objects', None) is not None) or (getattr(item, 'id', 0) >= 0x4000)
+				if is_multi:
+					owner_val = getattr(item, 'owner', None) or getattr(item, 'ownerserial', 0)
+					o_serial = int(getattr(owner_val, 'serial', owner_val) or 0)
+					if o_serial == serial_int:
+						char_house = item
+						if hasattr(housing, 'registerHouse'):
+							housing.registerHouse(item)
+						break
+				item = getattr(it, 'next', None)
 	except Exception:
 		char_house = None
+
 
 house_section = ""
 if char_house:
@@ -685,6 +750,23 @@ if char_house:
 
 	pub_badge = '<span class="badge bg-success-subtle text-success border border-success">Pública</span>' if is_pub else '<span class="badge bg-secondary-subtle text-secondary border">Privada</span>'
 
+
+	# Resolve House Art & Model Info
+	ch_h_img = "images/items/item_8900_0.png"
+	ch_h_title = "Estrutura Residencial"
+	ch_h_cat = "Propriedade"
+	try:
+		import web.uo_assets as _uo_assets
+		_, rel_p, m_title, m_cat = _uo_assets.get_house_image(char_house)
+		if rel_p:
+			ch_h_img = rel_p
+		if m_title:
+			ch_h_title = m_title
+		if m_cat:
+			ch_h_cat = m_cat
+	except Exception:
+		pass
+
 	house_section = f"""
 	<div class="card border border-light-subtle shadow-sm mb-4">
 		<div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
@@ -692,23 +774,35 @@ if char_house:
 			<a href="properties.py?session={session_id}" class="btn btn-sm btn-outline-success">Gerenciar Propriedades &rarr;</a>
 		</div>
 		<div class="card-body">
-			<div class="row g-3">
-				<div class="col-12 col-md-4">
-					<div class="text-secondary small">Nome da Placa:</div>
+			<div class="d-flex flex-column flex-md-row gap-3 align-items-md-center mb-3 pb-3 border-bottom">
+				<a href="{ch_h_img}" target="_blank" title="Clique para ampliar a residência" class="d-flex align-items-center justify-content-center bg-light rounded border shadow-sm p-1 text-decoration-none" style="width: 72px; height: 72px; min-width: 72px; cursor: pointer;">
+					<img src="{ch_h_img}" alt="{cgi.escape(str(ch_h_title))}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+				</a>
+				<div class="flex-grow-1 overflow-hidden">
+					<div class="d-flex align-items-center gap-2 mb-1">
+						<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle">{cgi.escape(str(ch_h_cat))}</span>
+						<span class="small text-muted font-monospace">Multi: 0x{getattr(char_house, 'serial', 0):x}</span>
+					</div>
 					<h5 class="fw-bold text-dark mb-0">{cgi.escape(str(h_title))}</h5>
+					<small class="text-secondary">Modelo: <strong>{cgi.escape(str(ch_h_title))}</strong></small>
 				</div>
-				<div class="col-12 col-md-4">
-					<div class="text-secondary small">Localização:</div>
+				<div class="text-md-end">
+					{pub_badge}
+				</div>
+			</div>
+
+			<div class="row g-3">
+				<div class="col-12 col-md-6">
+					<div class="text-secondary small">Localização / Mundo:</div>
 					<div class="fw-semibold text-dark">{h_map} <span class="font-monospace text-muted small">({h_coords})</span></div>
 				</div>
-				<div class="col-12 col-md-4">
-					<div class="text-secondary small">Acesso & Segurança:</div>
-					<div>{pub_badge}</div>
-				</div>
-				<div class="col-12 pt-2 border-top">
-					<span class="small text-secondary me-3">Co-proprietários: <strong>{len(coowner_list)}</strong></span>
-					<span class="small text-secondary me-3">Amigos: <strong>{len(friends_list)}</strong></span>
-					<span class="small text-secondary">Banidos: <strong>{len(bans_list)}</strong></span>
+				<div class="col-12 col-md-6">
+					<div class="text-secondary small">Acesso & Moradores:</div>
+					<div>
+						<span class="small text-secondary me-3">Co-proprietários: <strong>{len(coowner_list)}</strong></span>
+						<span class="small text-secondary me-3">Amigos: <strong>{len(friends_list)}</strong></span>
+						<span class="small text-secondary">Banidos: <strong>{len(bans_list)}</strong></span>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -218,7 +218,7 @@ bool ClientVersion::operator>=( const ClientVersion& o ) const
 
 quint32 protocolChangesForVersion( const ClientVersion& v )
 {
-	if ( v >= Version70610 )
+	if ( v.type == ClientSA || v >= Version70610 )
 		return ProtocolVersion70610;
 	if ( v >= Version70500 )
 		return ProtocolVersion70500;

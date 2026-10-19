@@ -1016,7 +1016,7 @@ uint cAccounts::count()
 */
 cAccount* cAccounts::getRecord( const QString& login )
 {
-	iterator it = accounts.find( login );
+	iterator it = accounts.find( login.toLower() );
 	if ( it == accounts.end() )
 		return 0;
 	else

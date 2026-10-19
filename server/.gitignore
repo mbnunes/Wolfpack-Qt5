@@ -12,10 +12,13 @@ release/world.bin
 release/wolfpack.sh
 .vscode/
 
-# Web dynamic cache images (gumps, items, paperdolls)
+# Web dynamic cache images (gumps, items, paperdolls, houses)
 release/web/images/gumps/*.png
 debug/web/images/gumps/*.png
 release/web/images/items/*.png
 debug/web/images/items/*.png
 release/web/images/paperdolls/*.png
 debug/web/images/paperdolls/*.png
+release/web/images/houses/*.png
+debug/web/images/houses/*.png
+

@@ -237,7 +237,7 @@ void cMultiCache::load()
 				if ( is16Byte )
 				{
 					quint16 flags = *reinterpret_cast<const quint16*>( itemPtr + 8 );
-					item.visible = ( flags != 0 || tileVal != 1 );
+					item.visible = ( flags != 0 );
 				}
 				else
 				{
@@ -365,7 +365,7 @@ void cMultiCache::loadUOP( const QString& uopPath )
 				item.x = x;
 				item.y = y;
 				item.z = static_cast<qint8>( z );
-				item.visible = true;
+				item.visible = ( flagg != 1 );
 
 				for ( quint32 c = 0; c < clilocsCount; ++c )
 				{
@@ -373,7 +373,10 @@ void cMultiCache::loadUOP( const QString& uopPath )
 					dataStream >> cliloc;
 				}
 
-				items.push_back( item );
+				if ( item.visible && item.tile != 1 )
+				{
+					items.push_back( item );
+				}
 			}
 
 			MultiDefinition* multi = new MultiDefinition;

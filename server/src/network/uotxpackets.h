@@ -262,6 +262,11 @@ public:
 		( *this )[5] = 2;
 	}
 
+	void setType( unsigned char data )
+	{
+		( *this )[5] = data;
+	}
+
 	void setSerial( unsigned int data )
 	{
 		setInt( 6, data );
@@ -1112,25 +1117,66 @@ public:
 	cUOTxSendStats() : cUOPacket( 0x11, 0x2B )
 	{
 		setShort( 1, 0x2B );
+		( *this )[42] = 0x00;
+	}
+
+	unsigned char type() const
+	{
+		return ( *this )[42];
+	}
+
+	void setType( unsigned char t, bool isEnhanced = false )
+	{
+		unsigned short sz = 0x2B;
+		if ( t == 6 )
+		{
+			sz = isEnhanced ? 149 : 121;
+		}
+		else if ( t == 5 )
+		{
+			sz = 91;
+		}
+		else if ( t == 4 )
+		{
+			sz = 88;
+		}
+		else if ( t == 1 )
+		{
+			sz = 66;
+		}
+		resize( sz );
+		for ( int i = 43; i < sz; ++i )
+		{
+			( *this )[i] = 0;
+		}
+		setShort( 1, sz );
+		( *this )[42] = t;
+
+		if ( t == 6 )
+		{
+			// Default max resistances = 70
+			setShort( 91, 70 ); // Max Physical
+			setShort( 93, 70 ); // Max Fire
+			setShort( 95, 70 ); // Max Cold
+			setShort( 97, 70 ); // Max Poison
+			setShort( 99, 70 ); // Max Energy
+			setShort( 103, 45 ); // Max DCI
+		}
 	}
 
 	void setFullMode( bool mode, bool extended = false )
 	{
 		if ( extended )
 		{
-			resize( 0x58 );
-			setShort( 1, 0x58 );
-			( *this )[42] = 0x04;
+			setType( 4 );
 		}
 		else if ( mode )
 		{
-			resize( 0x42 );
-			setShort( 1, 0x42 );
-			( *this )[42] = 0x01;
+			setType( 1 );
 		}
 		else
 		{
-			( *this )[42] = 0x00;
+			setType( 0 );
 		}
 	}
 
@@ -1159,63 +1205,172 @@ public:
 		setShort( 39, data );
 	}
 
-	void setSex( bool male )
+	void setSex( unsigned char data )
 	{
-		( *this )[43] = male ? 0 : 1;
+		if ( size() > 43 )
+		{
+			( *this )[43] = data; // 0 = male, 1 = female
+		}
 	}
 
 	void setStrength( unsigned short data )
 	{
-		setShort( 44, data );
+		if ( size() > 45 )
+			setShort( 44, data );
 	}
 	void setDexterity( unsigned short data )
 	{
-		setShort( 46, data );
+		if ( size() > 47 )
+			setShort( 46, data );
 	}
 	void setIntelligence( unsigned short data )
 	{
-		setShort( 48, data );
+		if ( size() > 49 )
+			setShort( 48, data );
 	}
 	void setStamina( unsigned short data )
 	{
-		setShort( 50, data );
+		if ( size() > 51 )
+			setShort( 50, data );
 	}
 	void setMaxStamina( unsigned short data )
 	{
-		setShort( 52, data );
+		if ( size() > 53 )
+			setShort( 52, data );
 	}
 	void setMana( unsigned short data )
 	{
-		setShort( 54, data );
+		if ( size() > 55 )
+			setShort( 54, data );
 	}
 	void setMaxMana( unsigned short data )
 	{
-		setShort( 56, data );
+		if ( size() > 57 )
+			setShort( 56, data );
 	}
 	void setGold( unsigned int data )
 	{
-		setInt( 58, data );
+		if ( size() > 61 )
+			setInt( 58, data );
 	}
 	void setArmor( unsigned short data )
 	{
-		setShort( 62, data );
+		if ( size() > 63 )
+			setShort( 62, data );
 	}
 	void setWeight( unsigned short data )
 	{
-		setShort( 64, data );
+		if ( size() > 65 )
+			setShort( 64, data );
 	}
-	// extended for newer clients
+
+	void setMaxWeight( unsigned short data )
+	{
+		if ( type() >= 5 && size() > 67 )
+		{
+			setShort( 66, data );
+		}
+	}
+
+	void setRace( unsigned char data )
+	{
+		if ( type() >= 5 && size() > 68 )
+		{
+			( *this )[68] = data; // 1 = Human, 2 = Elf, 3 = Gargoyle
+		}
+	}
+
 	void setStatCap( unsigned short data )
 	{
-		setShort( 66, data );
+		if ( type() >= 5 && size() > 70 )
+		{
+			setShort( 69, data );
+		}
+		else if ( type() == 4 && size() > 67 )
+		{
+			setShort( 66, data );
+		}
 	}
+
 	void setPets( unsigned char data )
 	{
-		( *this )[68] = data;
+		if ( type() >= 5 && size() > 71 )
+		{
+			( *this )[71] = data;
+		}
+		else if ( type() == 4 && size() > 68 )
+		{
+			( *this )[68] = data;
+		}
 	}
+
 	void setMaxPets( unsigned char data )
 	{
-		( *this )[69] = data;
+		if ( type() >= 5 && size() > 72 )
+		{
+			( *this )[72] = data;
+		}
+		else if ( type() == 4 && size() > 69 )
+		{
+			( *this )[69] = data;
+		}
+	}
+
+	void setFireResistance( unsigned short data )
+	{
+		if ( type() >= 5 && size() > 74 )
+			setShort( 73, data );
+		else if ( type() == 4 && size() > 71 )
+			setShort( 70, data );
+	}
+	void setColdResistance( unsigned short data )
+	{
+		if ( type() >= 5 && size() > 76 )
+			setShort( 75, data );
+		else if ( type() == 4 && size() > 73 )
+			setShort( 72, data );
+	}
+	void setPoisonResistance( unsigned short data )
+	{
+		if ( type() >= 5 && size() > 78 )
+			setShort( 77, data );
+		else if ( type() == 4 && size() > 75 )
+			setShort( 74, data );
+	}
+	void setEnergyResistance( unsigned short data )
+	{
+		if ( type() >= 5 && size() > 80 )
+			setShort( 79, data );
+		else if ( type() == 4 && size() > 77 )
+			setShort( 76, data );
+	}
+	void setLuck( unsigned short data )
+	{
+		if ( type() >= 5 && size() > 82 )
+			setShort( 81, data );
+		else if ( type() == 4 && size() > 79 )
+			setShort( 78, data );
+	}
+	void setDamageMin( unsigned short data )
+	{
+		if ( type() >= 5 && size() > 84 )
+			setShort( 83, data );
+		else if ( type() == 4 && size() > 81 )
+			setShort( 80, data );
+	}
+	void setDamageMax( unsigned short data )
+	{
+		if ( type() >= 5 && size() > 86 )
+			setShort( 85, data );
+		else if ( type() == 4 && size() > 83 )
+			setShort( 82, data );
+	}
+	void setTithingPoints( unsigned int data )
+	{
+		if ( type() >= 5 && size() > 90 )
+			setInt( 87, data );
+		else if ( type() == 4 && size() > 87 )
+			setInt( 84, data );
 	}
 };
 
@@ -2618,10 +2773,18 @@ public:
 	cUOTxCustomHouse() : cUOPacket( 0xD8, 0x11 )
 	{
 		setShort( 1, 0x11 );
+		( *this )[3] = 0; // compression none
+		( *this )[4] = 1; // response flag
+		setShort( 13, 0 ); // tiles count
+		setShort( 15, 0 ); // buffer length
 	}
 	void setCompression( unsigned char data )
 	{
 		( *this )[3] = data;
+	}
+	void setResponse( unsigned char data )
+	{
+		( *this )[4] = data;
 	}
 	void setSerial( unsigned int data )
 	{

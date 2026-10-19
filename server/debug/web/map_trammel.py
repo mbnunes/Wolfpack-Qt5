@@ -39,20 +39,46 @@ socket = wolfpack.sockets.first()
 nextsocket = wolfpack.sockets.next()
 while socket:
 	if socket.player and socket.player.pos.map == 1 and not socket.player.invisible:
-		p_name = str(socket.player.name)
-		raw_x = socket.player.pos.x
-		raw_y = socket.player.pos.y
+		p_player = socket.player
+		p_name = str(p_player.name)
+		raw_x = p_player.pos.x
+		raw_y = p_player.pos.y
 		
 		# Converte para pixels da imagem
 		px = raw_x * SCALE_X
 		py = raw_y * SCALE_Y
 
+		p_serial = f"0x{int(p_player.serial):x}"
+
+		# Vitals
+		hp = int(getattr(p_player, 'hitpoints', 0))
+		max_hp = max(1, int(getattr(p_player, 'maxhitpoints', 1)))
+		hp_pct = max(0, min(100, int((hp / max_hp) * 100)))
+
+		mana = int(getattr(p_player, 'mana', 0))
+		max_mana = max(1, int(getattr(p_player, 'maxmana', 1)))
+		mana_pct = max(0, min(100, int((mana / max_mana) * 100)))
+
+		stam = int(getattr(p_player, 'stamina', 0))
+		max_stam = max(1, int(getattr(p_player, 'maxstamina', 1)))
+		stam_pct = max(0, min(100, int((stam / max_stam) * 100)))
+
 		players_data.append({
 			"name": p_name,
+			"serial": p_serial,
 			"raw_x": raw_x,
 			"raw_y": raw_y,
 			"px": px,
-			"py": py
+			"py": py,
+			"hp": hp,
+			"max_hp": max_hp,
+			"hp_pct": hp_pct,
+			"mana": mana,
+			"max_mana": max_mana,
+			"mana_pct": mana_pct,
+			"stam": stam,
+			"max_stam": max_stam,
+			"stam_pct": stam_pct,
 		})
 
 	socket = nextsocket
@@ -65,7 +91,10 @@ players_json = json.dumps(players_data)
 if players_data:
 	player_items = "".join([
 		f'''<li class="list-group-item d-flex justify-content-between align-items-center small py-2">
-			<a href="#" onclick="focusPlayer({p['px']}, {p['py']}); return false;" class="text-decoration-none fw-semibold text-success">{p['name']}</a>
+			<div class="d-flex align-items-center text-truncate me-2">
+				<a href="#" onclick="focusPlayer({p['px']}, {p['py']}, '{p['serial']}'); return false;" class="text-decoration-none fw-semibold text-success text-truncate" title="Focar e ver detalhes">{p['name']}</a>
+				<a href="character.py?session={session_id}&serial={p['serial']}" class="btn btn-sm btn-outline-secondary py-0 px-1 ms-2 border-0" title="Ver ficha e propriedades de {p['name']}" target="_blank" style="font-size: 1.05rem; line-height: 1;">&#128065;</a>
+			</div>
 			<span class="badge bg-secondary-subtle text-dark border font-monospace">X:{p['raw_x']} Y:{p['raw_y']}</span>
 		</li>''' for p in players_data
 	])
@@ -150,6 +179,8 @@ content = f"""
 		popupAnchor: [0, -6]
 	}});
 
+	const playerMarkers = {{}};
+
 	// 3. Adiciona marcadores de jogadores
 	players.forEach(p => {{
 		// Inverte o Y porque a coordenada 0 de imagem é no topo, e no Leaflet o Y cresce para cima
@@ -157,13 +188,66 @@ content = f"""
 		const mapX = p.px;
 
 		const marker = L.marker([mapY, mapX], {{ icon: playerIcon }}).addTo(map);
-		marker.bindPopup(`<strong>${{p.name}}</strong><br>X: ${{p.raw_x}} | Y: ${{p.raw_y}}`);
+		const popupHtml = `
+		<div style="min-width: 175px;">
+			<div class="d-flex justify-content-between align-items-center mb-1">
+				<strong style="font-size: 0.95rem;">${{p.name}}</strong>
+			</div>
+			<div class="text-muted small mb-2" style="font-size: 0.72rem;">
+				Posição: <strong>X:${{p.raw_x}} Y:${{p.raw_y}}</strong>
+			</div>
+
+			<!-- Health Bar -->
+			<div class="mb-1">
+				<div class="d-flex justify-content-between" style="font-size: 0.72rem; line-height: 1.1;">
+					<span style="font-weight: 600; color: #dc3545;">HP:</span>
+					<span style="font-family: monospace;">${{p.hp}} / ${{p.max_hp}}</span>
+				</div>
+				<div style="background-color: #e9ecef; border-radius: 3px; height: 6px; overflow: hidden; margin-top: 2px;">
+					<div style="background-color: #dc3545; height: 100%; width: ${{p.hp_pct}}%;"></div>
+				</div>
+			</div>
+
+			<!-- Mana Bar -->
+			<div class="mb-1">
+				<div class="d-flex justify-content-between" style="font-size: 0.72rem; line-height: 1.1;">
+					<span style="font-weight: 600; color: #0d6efd;">Mana:</span>
+					<span style="font-family: monospace;">${{p.mana}} / ${{p.max_mana}}</span>
+				</div>
+				<div style="background-color: #e9ecef; border-radius: 3px; height: 6px; overflow: hidden; margin-top: 2px;">
+					<div style="background-color: #0d6efd; height: 100%; width: ${{p.mana_pct}}%;"></div>
+				</div>
+			</div>
+
+			<!-- Stamina Bar -->
+			<div class="mb-2">
+				<div class="d-flex justify-content-between" style="font-size: 0.72rem; line-height: 1.1;">
+					<span style="font-weight: 600; color: #ffc107;">Stam:</span>
+					<span style="font-family: monospace;">${{p.stam}} / ${{p.max_stam}}</span>
+				</div>
+				<div style="background-color: #e9ecef; border-radius: 3px; height: 6px; overflow: hidden; margin-top: 2px;">
+					<div style="background-color: #ffc107; height: 100%; width: ${{p.stam_pct}}%;"></div>
+				</div>
+			</div>
+
+			<div class="pt-2 border-top text-center">
+				<a href="character.py?session={session_id}&serial=${{p.serial}}" target="_blank" class="btn btn-sm btn-success py-0 px-2 text-white w-100" style="font-size: 0.75rem;">&#128065; Ver Ficha do Char</a>
+			</div>
+		</div>
+		`;
+		marker.bindPopup(popupHtml);
+		if (p.serial) {{
+			playerMarkers[p.serial] = marker;
+		}}
 	}});
 
 	// Função para focar e dar zoom no jogador ao clicar no nome na lista lateral
-	window.focusPlayer = function(px, py) {{
+	window.focusPlayer = function(px, py, serial) {{
 		const mapY = imgH - py;
 		map.setView([mapY, px], 0);
+		if (serial && playerMarkers[serial]) {{
+			playerMarkers[serial].openPopup();
+		}}
 	}};
 </script>
 """

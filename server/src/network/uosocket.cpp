@@ -119,7 +119,7 @@ const quint16 packetLengths[256] =
 		0x0000, 0x010C, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xD8
 		0xFFFF, 0x0000, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xE0 (0xE1: ClientType dynamic)
 		0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, 0x0000, 0x0000, 0xFFFF, 0x0015, // 0xE8 (0xEC/0xED: Equip/Unequip dynamic, 0xEF: Seed 21)
-		0xFFFF, 0xFFFF, 0xFFFF, 0x001A, 0x0000, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF0 (0xF3: 26 bytes, 0xF4: Crash dynamic)
+		0x0000, 0x0009, 0xFFFF, 0x001A, 0x0000, 0x0015, 0x0000, 0x0000, // 0xF0 (0xF0: dynamic, 0xF1: 9 bytes, 0xF3: 26 bytes, 0xF4: Crash dynamic, 0xF5: 21 bytes, 0xF6/0xF7: dynamic)
 		0x006A, 0xFFFF, 0x0001, 0x0002, 0xFFFF, 0xFFFF, 0xFFFF, 0xFFFF, // 0xF8 (0xF8: CharCreate 106, 0xFA: UltimaStore 1, 0xFB: House 2)
 };
 
@@ -187,6 +187,7 @@ cUOSocket::~cUOSocket( void )
 
 void cUOSocket::disconnectedImplementation()
 {
+	log( LOG_NOTICE, tr( "Client socket disconnected at transport level (remote peer closed connection)\n" ) );
 	QObject::disconnect( this, SLOT(disconnectedImplementation()) ); // Ensure it's only called once.
 	disconnect();
 }
@@ -351,6 +352,11 @@ void cUOSocket::buildPackets()
 		}
 
 		if (size == 0xFFFF) {
+			log( LOG_WARNING, tr( "DISCONNECT due to unknown packet ID: 0x%1 (dec %2), buffer remaining: %3, hex: %4\n" )
+				.arg( QString::number( packetId, 16 ) )
+				.arg( (int)packetId )
+				.arg( incomingBuffer.size() )
+				.arg( QString( incomingBuffer.left( 32 ).toHex() ) ) );
 			// Tell the client that it has been disconnected
 			cUOTxDenyLogin deny;
 			deny.setReason(cUOTxDenyLogin::DL_BADCOMMUNICATION);
@@ -361,6 +367,9 @@ void cUOSocket::buildPackets()
 		} else if (size == 0 && incomingBuffer.size() >= 3) {
 			unsigned short dynamicSize = ((incomingBuffer[1] & 0xFF) << 8) | (unsigned char)incomingBuffer[2];
 			if (dynamicSize < 3) {
+				log( LOG_WARNING, tr( "DISCONNECT due to invalid dynamic size for packet 0x%1: dynamicSize=%2\n" )
+					.arg( QString::number( packetId, 16 ) )
+					.arg( dynamicSize ) );
 				disconnect();
 				break;
 			}
@@ -522,6 +531,13 @@ void cUOSocket::receive()
 		_rxBytes += packet->size();
 
 		unsigned char packetId = ( *packet )[0];
+		if ( _player )
+		{
+			log( LOG_NOTICE, tr( "Player '%1' Rx Packet: 0x%2 (size: %3)\n" )
+				.arg( _player->name() )
+				.arg( QString::number( packetId, 16 ) )
+				.arg( packet->size() ) );
+		}
 
 		if (packetId != 0xEF) {
 			// Disconnect harmful clients
@@ -546,7 +562,7 @@ void cUOSocket::receive()
 		// Check for a list of packets that may be sent while no player has been selected
 		if ( !_player )
 		{
-            if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0xF8 && packetId != 0x8D && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xC9 && packetId != 0xCA && packetId != 0xCF && packetId != 0xD9 && packetId != 0xE1 && packetId != 0xEF && packetId != 0xF4 && packetId != 0xFA && packetId != 0xFB )
+            if ( packetId != 0 && packetId != 0x5D && packetId != 0x73 && packetId != 0x80 && packetId != 0xF8 && packetId != 0x8D && packetId != 0x83 && packetId != 0x91 && packetId != 0xA0 && packetId != 0xA4 && packetId != 0xBD && packetId != 0xBF && packetId != 0xC8 && packetId != 0xC9 && packetId != 0xCA && packetId != 0xCF && packetId != 0xD9 && packetId != 0xE1 && packetId != 0xEF && packetId != 0xF0 && packetId != 0xF1 && packetId != 0xF4 && packetId != 0xFA && packetId != 0xFB )
 			{
 				return;
 			}
@@ -774,6 +790,12 @@ void cUOSocket::receive()
 				handleNewSetVersion( static_cast<cUORxNewSetVersion*>( packet ) );
 				isNewVersion = true;
 				break;
+			case 0xF0:
+				// Krrios / Assistant extended packet
+				break;
+			case 0xF1:
+				// Enhanced Client Time Sync / Ping (9 bytes: 0xF1 + 8 bytes timestamp)
+				break;
 			case 0xF8:
 				handleCreateCharNew(static_cast<cUORxCreateCharNew*>(packet));
 				break;
@@ -886,6 +908,10 @@ void cUOSocket::disconnect()
 {
 	if ( _state == Disconnected ) // Already disconnected
 		return;
+
+	log( LOG_NOTICE, tr( "cUOSocket::disconnect() called for '%1' (account: '%2')\n" )
+		.arg( _player ? _player->name() : "no player" )
+		.arg( _account ? _account->login() : "no account" ) );
 
 	if ( _account )
 		_account->setInUse( false );
@@ -1032,10 +1058,10 @@ void cUOSocket::sendCharList(const uint maxChars)
 	// NOTE:
 	// Send the server/account features here as well
 	// Modern clients (>= 6.0.14.2 / AoS 32-bit flags) expect 5 bytes.
-	// Default to extended (5 bytes) if client version has not been explicitly negotiated.
 	bool extended = ( clientVersion_.major == 0 ) || hasExtendedSupportedFeatures();
 	cUOTxClientFeatures clientFeatures( extended );
-	unsigned int flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 | 0x40 | 0x80 | 0x100 | 0x200 | 0x400 | 0x800 | 0x1000 | 0x2000 | 0x4000 | 0x8000 | 0x10000 | 0x20000 | 0x40000 | 0x80000 | 0x100000 | 0x200000 | 0x400000 | 0x800000;
+	// Exclude 0x4000 (New Movement Packets 0xF0..0xF2) so modern clients use standard 0x02 walk packets
+	unsigned int flags = 0x01 | 0x02 | 0x04 | 0x08 | 0x10 | 0x20 | 0x40 | 0x80 | 0x100 | 0x200 | 0x400 | 0x800 | 0x1000 | 0x2000 | 0x8000 | 0x10000 | 0x20000 | 0x40000 | 0x80000 | 0x100000 | 0x200000 | 0x400000 | 0x800000;
 
 	clientFeatures.setFlags( flags );
 	send( &clientFeatures );
@@ -3353,15 +3379,28 @@ void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest* packet )
 	if ( !_player || !packet ) return;
 	SERIAL serial = packet->serial();
 	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( serial ) );
-	log( tr( "CustomHouseRequest (0xBF 0x1E) from '%1' for serial 0x%2 (found multi=%3).\n" )
+	ushort multiModel = pMulti ? ( pMulti->id() & 0x3FFF ) : 0;
+	bool isCustom = pMulti && ( pMulti->hasTag( "ch_revision" ) || pMulti->hasTag( "custom" ) || ( multiModel >= 0x13EC && multiModel <= 0x147F ) );
+
+	log( tr( "CustomHouseRequest (0xBF 0x1E) from '%1' for serial 0x%2 (found multi=%3, custom=%4).\n" )
 		.arg( _player->name() )
 		.arg( QString::number( serial, 16 ) )
-		.arg( pMulti ? "yes" : "no" ) );
-	if ( pMulti )
+		.arg( pMulti ? "yes" : "no" )
+		.arg( isCustom ? "yes" : "no" ) );
+	if ( pMulti && isCustom )
 	{
 		PyObject* args = Py_BuildValue( "OO", _player->getPyObject(), pMulti->getPyObject() );
 		_player->callEventHandler( EVENT_CHQUERY, args );
 		Py_DECREF( args );
+	}
+	else
+	{
+		cUOTxCustomHouse emptyHouse;
+		emptyHouse.setSerial( serial );
+		emptyHouse.setRevision( pMulti && pMulti->hasTag( "ch_revision" ) ? pMulti->getTag( "ch_revision" ).toInt() : 1 );
+		emptyHouse.setCompression( 0 );
+		emptyHouse.setResponse( 1 );
+		send( &emptyHouse );
 	}
 }
 
@@ -3791,6 +3830,24 @@ void cUOSocket::sendPaperdoll( P_CHAR pChar )
 	cUOTxOpenPaperdoll oPaperdoll;
 	oPaperdoll.fromChar( pChar, _player );
 	send( &oPaperdoll );
+
+	if ( pChar )
+	{
+		sendStatWindow( pChar );
+
+		cBaseChar::ItemContainer content = pChar->content();
+		for ( cBaseChar::ItemContainer::const_iterator it = content.begin(); it != content.end(); ++it )
+		{
+			P_ITEM item = it.value();
+			if ( item && item->layer() <= 0x19 )
+			{
+				cUOTxCharEquipment equip;
+				equip.fromItem( item );
+				send( &equip );
+				item->sendTooltip( this );
+			}
+		}
+	}
 }
 
 /*!
@@ -4577,148 +4634,188 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	if ( !pChar )
 		return;
 
-	// For other chars we only send the basic stats
 	cUOTxSendStats sendStats;
-
-	// TODO: extended packet information
-	sendStats.setFullMode( pChar == _player, true );
-
-	// Dont allow rename-self
-	sendStats.setAllowRename( ( ( pChar->objectType() == enNPC && dynamic_cast<P_NPC>( pChar )->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) && ( _player != pChar ) );
-
-	sendStats.setName( makeAscii( pChar->name() ) );
-	sendStats.setSerial( pChar->serial() );
 
 	if ( pChar != _player )
 	{
-		float factor = pChar->hitpoints() / ( float ) pChar->maxHitpoints();
+		// Basic status (type 0) for other mobiles
+		sendStats.setType( 0 );
+		sendStats.setAllowRename( ( ( pChar->objectType() == enNPC && dynamic_cast<P_NPC>( pChar )->owner() == _player && !pChar->isHuman() ) || _player->isGM() ) );
+		sendStats.setName( makeAscii( pChar->name() ) );
+		sendStats.setSerial( pChar->serial() );
+
+		float factor = pChar->maxHitpoints() > 0 ? ( pChar->hitpoints() / ( float ) pChar->maxHitpoints() ) : 0.0f;
 		unsigned short max = 256;
 		unsigned short cur = ( unsigned short ) ( factor * max );
 		sendStats.setMaxHp( max );
 		sendStats.setHp( cur );
+
+		send( &sendStats );
+		return;
+	}
+
+	// For self, choose the best status packet type
+	bool isEnhanced = isEnhancedClient();
+	if ( hasExtendedStatus() )
+	{
+		sendStats.setType( 6, isEnhanced );
+	}
+	else if ( hasProtocol( ProtocolNewHaven ) )
+	{
+		sendStats.setType( 5 );
 	}
 	else
 	{
-		sendStats.setMaxHp( pChar->maxHitpoints() );
-		sendStats.setHp( pChar->hitpoints() );
-		sendStats.setStamina( _player->stamina() );
-		sendStats.setMaxStamina( _player->maxStamina() );
-		sendStats.setMana( _player->mana() );
-		sendStats.setMaxMana( _player->maxMana() );
-		sendStats.setStrength( _player->strength() );
-		sendStats.setDexterity( _player->dexterity() );
-		sendStats.setIntelligence( _player->intelligence() );
-		sendStats.setWeight( ( short unsigned int ) _player->weight() );
+		sendStats.setType( 4 );
+	}
 
-		// use a different method of counting gold here. (not recursive)
-		unsigned int gold = 0;
-		ContainerIterator it(_player->getBackpack());
+	sendStats.setAllowRename( false );
+	sendStats.setName( makeAscii( _player->name() ) );
+	sendStats.setSerial( _player->serial() );
+	sendStats.setMaxHp( _player->maxHitpoints() );
+	sendStats.setHp( _player->hitpoints() );
+	sendStats.setStamina( _player->stamina() );
+	sendStats.setMaxStamina( _player->maxStamina() );
+	sendStats.setMana( _player->mana() );
+	sendStats.setMaxMana( _player->maxMana() );
+	sendStats.setStrength( _player->strength() );
+	sendStats.setDexterity( _player->dexterity() );
+	sendStats.setIntelligence( _player->intelligence() );
+	sendStats.setWeight( ( unsigned short ) _player->weight() );
+	sendStats.setMaxWeight( ( unsigned short ) _player->maxWeight() );
 
-		// New Monetary?
-		if (Config::instance()->usenewmonetary()) {
+	// Gender: 0 = male, 1 = female
+	unsigned char gender = ( _player->gender() || _player->isFemale() ) ? 1 : 0;
+	sendStats.setSex( gender );
 
-			// Lets Assign Region
-			cTerritory* Region = pChar->region();
+	// Race: 1 = Human, 2 = Elf, 3 = Gargoyle
+	unsigned char race = 1;
+	if ( _player->isGargoyle() )
+	{
+		race = 3;
+	}
+	else if ( _player->isElf() )
+	{
+		race = 2;
+	}
+	sendStats.setRace( race );
 
-			// Lets Assign the IDs
-			QString idfirst = Config::instance()->defaultFirstCoin();
-			QString idsecond = Config::instance()->defaultSecondCoin();
-			QString idthird = Config::instance()->defaultThirdCoin();
+	sendStats.setPets( _player->controlslots() );
+	sendStats.setMaxPets( _player->maxControlSlots() );
+	sendStats.setStatCap( Config::instance()->statcap() );
 
-			// Lets try to find the IDs ahn?
-			if ( Region )
-			{
-				idfirst = Region->firstcoin();
-				idsecond = Region->secondcoin();
-				idthird = Region->thirdcoin();
-			}
+	// use a different method of counting gold here. (not recursive)
+	unsigned int gold = 0;
+	ContainerIterator it(_player->getBackpack());
 
-			// Reversed Valuable
-			if (Config::instance()->usereversedvaluable()) {
-				while (!it.atEnd()) {
-					if ((*it)->baseid() == idfirst) {
-						gold += (*it)->amount() * 100;
-					}
-					if ((*it)->baseid() == idsecond) {
-						gold += (*it)->amount() * 10;
-					}
-					if ((*it)->baseid() == idthird) {
-						gold += (*it)->amount();
-					}
-					++it;
-				}
-			}
-			// Normal Valuable
-			else
-			{
-				unsigned int fc = 0;
-				unsigned int sc = 0;
-				unsigned int tc = 0;
+	// New Monetary?
+	if (Config::instance()->usenewmonetary()) {
 
-				while (!it.atEnd()) {
-					if ((*it)->baseid() == idfirst) {
-						fc += (*it)->amount();
-					}
-					if ((*it)->baseid() == idsecond) {
-						sc += (*it)->amount();
-					}
-					if ((*it)->baseid() == idthird) {
-						tc += (*it)->amount();
-					}
-					++it;
-				}
-				gold += ( fc + sc/10 + tc/100 );
-			}
-		}
-		// Normal Monetary
-		else
+		// Lets Assign Region
+		cTerritory* Region = pChar->region();
+
+		// Lets Assign the IDs
+		QString idfirst = Config::instance()->defaultFirstCoin();
+		QString idsecond = Config::instance()->defaultSecondCoin();
+		QString idthird = Config::instance()->defaultThirdCoin();
+
+		// Lets try to find the IDs ahn?
+		if ( Region )
 		{
+			idfirst = Region->firstcoin();
+			idsecond = Region->secondcoin();
+			idthird = Region->thirdcoin();
+		}
+
+		// Reversed Valuable
+		if (Config::instance()->usereversedvaluable()) {
 			while (!it.atEnd()) {
-				if ((*it)->id() == 0xeed && (*it)->color() == 0) {
+				if ((*it)->baseid() == idfirst) {
+					gold += (*it)->amount() * 100;
+				}
+				if ((*it)->baseid() == idsecond) {
+					gold += (*it)->amount() * 10;
+				}
+				if ((*it)->baseid() == idthird) {
 					gold += (*it)->amount();
 				}
 				++it;
 			}
 		}
-
-		sendStats.setGold(gold);
-		sendStats.setSex( _player->gender() );
-		sendStats.setPets( _player->controlslots() );
-		sendStats.setMaxPets( _player->maxControlSlots() );
-		sendStats.setStatCap( Config::instance()->statcap() );
-
-		// Call the callback to insert additional aos combat related info
-		cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWSTATUS );
-
-		if ( global )
+		// Normal Valuable
+		else
 		{
-			PyObject* args = Py_BuildValue( "NN", PyGetCharObject( _player ), CreatePyPacket( &sendStats ) );
-			global->callEvent( EVENT_SHOWSTATUS, args );
-			Py_DECREF( args );
+			unsigned int fc = 0;
+			unsigned int sc = 0;
+			unsigned int tc = 0;
+
+			while (!it.atEnd()) {
+				if ((*it)->baseid() == idfirst) {
+					fc += (*it)->amount();
+				}
+				if ((*it)->baseid() == idsecond) {
+					sc += (*it)->amount();
+				}
+				if ((*it)->baseid() == idthird) {
+					tc += (*it)->amount();
+				}
+				++it;
+			}
+			gold += ( fc + sc/10 + tc/100 );
 		}
+	}
+	// Normal Monetary
+	else
+	{
+		while (!it.atEnd()) {
+			if ((*it)->id() == 0xeed && (*it)->color() == 0) {
+				gold += (*it)->amount();
+			}
+			++it;
+		}
+	}
+
+	sendStats.setGold(gold);
+	sendStats.setDamageMin( 1 );
+	sendStats.setDamageMax( 4 );
+
+	// Call the callback to insert additional aos combat related info
+	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWSTATUS );
+
+	if ( global )
+	{
+		PyObject* args = Py_BuildValue( "NN", PyGetCharObject( _player ), CreatePyPacket( &sendStats ) );
+		global->callEvent( EVENT_SHOWSTATUS, args );
+		Py_DECREF( args );
 	}
 
 	send( &sendStats );
 
 	// Send Statlocks
-	if ( pChar == _player )
+	cUOTxExtendedStats stats;
+	stats.setType( isEnhancedClient() ? 5 : 2 );
+	stats.setSerial( _player->serial() );
+	stats.setLocks( _player->strengthLock(), _player->dexterityLock(), _player->intelligenceLock() );
+	send( &stats );
+
+	// Send basic status to our party members
+	if ( _player->party() )
 	{
-		cUOTxExtendedStats stats;
-		stats.setSerial( _player->serial() );
-		stats.setLocks( _player->strengthLock(), _player->dexterityLock(), _player->intelligenceLock() );
-		send( &stats );
+		QList<cPlayer*> members = _player->party()->members();
 
-		// Send the packet to our party members too
-		if ( _player->party() )
+		foreach ( P_PLAYER member, members )
 		{
-			QList<cPlayer*> members = _player->party()->members();
-
-			foreach ( P_PLAYER member, members )
+			if ( member->socket() && member != _player )
 			{
-				if ( member->socket() && member != _player )
-				{
-					member->socket()->send( &sendStats );
-				}
+				cUOTxSendStats partyStats;
+				partyStats.setType( 0 );
+				partyStats.setAllowRename( false );
+				partyStats.setName( makeAscii( _player->name() ) );
+				partyStats.setSerial( _player->serial() );
+				float factor = _player->maxHitpoints() > 0 ? ( _player->hitpoints() / ( float ) _player->maxHitpoints() ) : 0.0f;
+				partyStats.setMaxHp( 256 );
+				partyStats.setHp( ( unsigned short ) ( factor * 256 ) );
+				member->socket()->send( &partyStats );
 			}
 		}
 	}

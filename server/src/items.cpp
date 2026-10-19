@@ -405,6 +405,15 @@ void cItem::postload( unsigned int /*version*/ )
 
 	if ( !container_ && !pos_.isInternalMap() )
 	{
+		if ( !multi_ )
+		{
+			cMulti* multi = cMulti::find( pos_ );
+			if ( multi && multi != this )
+			{
+				multi_ = multi;
+				multi->addObject( this );
+			}
+		}
 		MapObjects::instance()->add( this );
 	}
 }
@@ -2179,6 +2188,11 @@ PyObject* cItem::getProperty( const QString& name, uint hash )
 	if ( !hash )
 		hash = elfHash( name.toLatin1() );
 
+	if ( name == "ownerserial" )
+	{
+		return createPyObject( ( int ) ownserial_ );
+	}
+
 	switch ( hash )
 	{
 	case 0x6f4: // id
@@ -2239,7 +2253,19 @@ PyObject* cItem::getProperty( const QString& name, uint hash )
 	case 0xeeb1028: // maxhealth
 		return createPyObject( maxhp_ );
 	case 0x76e4c2: // owner
-		return createPyObject( owner() );
+		if ( owner() )
+		{
+			return createPyObject( owner() );
+		}
+		else if ( ownserial_ != INVALID_SERIAL && ownserial_ != 0 )
+		{
+			return createPyObject( ( int ) ownserial_ );
+		}
+		else
+		{
+			Py_RETURN_NONE;
+		}
+
 	case 0x3a09774: // totalweight
 		return createPyObject( totalweight_ );
 	case 0x5a7aea2: // container

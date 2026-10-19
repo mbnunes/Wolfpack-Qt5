@@ -26,6 +26,12 @@ r"""
 	returns an object if either is found. Otherwise it returns None.
 """
 def findobject(serial):
+	if serial is None or serial == -1 or serial == 0:
+		return None
+	try:
+		serial = int(serial)
+	except (ValueError, TypeError):
+		return None
 	if serial == -1 or serial == 0:
 		return None
 	elif serial >= 0x40000000:

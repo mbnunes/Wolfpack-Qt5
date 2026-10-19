@@ -14,6 +14,14 @@ try:
 except Exception:
 	housing = None
 
+try:
+	import web.uo_assets as uo_assets
+except Exception:
+	try:
+		import uo_assets
+	except Exception:
+		uo_assets = None
+
 MAP_NAMES = {
 	0: "Felucca",
 	1: "Trammel",
@@ -66,6 +74,27 @@ if housing and hasattr(housing, 'getHouses'):
 				all_houses.append((owner_char, house_item))
 	except Exception:
 		pass
+
+# Fallback scan across all world items if no houses were found in registry
+if not all_houses:
+	try:
+		it = wolfpack.itemiterator()
+		item = getattr(it, 'first', None)
+		while item:
+			is_multi = (getattr(item, 'objects', None) is not None) or (getattr(item, 'id', 0) >= 0x4000)
+			if is_multi:
+				owner_val = getattr(item, 'owner', None) or getattr(item, 'ownerserial', 0)
+				o_serial = int(getattr(owner_val, 'serial', owner_val) or 0)
+				if o_serial:
+					if (is_admin and show_all == '1') or (o_serial in user_char_serials):
+						o_char = wolfpack.findchar(o_serial)
+						all_houses.append((o_char, item))
+					if housing and hasattr(housing, 'registerHouse'):
+						housing.registerHouse(item)
+			item = getattr(it, 'next', None)
+	except Exception:
+		pass
+
 
 # Monta Cards de Propriedades
 cards_html = []
@@ -121,6 +150,22 @@ for owner_char, house in all_houses:
 		except Exception:
 			friend_names.append(s)
 
+	# Resolve House Art & Model Info
+	h_img_url = "images/items/item_8900_0.png"
+	h_model_title = "Estrutura Residencial"
+	h_model_category = "Propriedade"
+	if uo_assets and hasattr(uo_assets, 'get_house_image'):
+		try:
+			_, rel_p, m_title, m_cat = uo_assets.get_house_image(house)
+			if rel_p:
+				h_img_url = rel_p
+			if m_title:
+				h_model_title = m_title
+			if m_cat:
+				h_model_category = m_cat
+		except Exception:
+			pass
+
 	cards_html.append(f"""
 	<div class="col-12 col-lg-6">
 		<div class="card h-100 border border-light-subtle shadow-sm">
@@ -135,6 +180,17 @@ for owner_char, house in all_houses:
 				</div>
 			</div>
 			<div class="card-body">
+				<div class="d-flex align-items-center gap-3 mb-3 p-2 bg-light rounded border border-light-subtle">
+					<a href="{h_img_url}" target="_blank" title="Clique para ampliar a residência" class="d-flex align-items-center justify-content-center bg-white rounded border shadow-sm p-1 text-decoration-none" style="width: 72px; height: 72px; min-width: 72px; cursor: pointer;">
+						<img src="{h_img_url}" alt="{cgi.escape(str(h_model_title))}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
+					</a>
+					<div class="flex-grow-1 overflow-hidden">
+						<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle mb-1">{cgi.escape(str(h_model_category))}</span>
+						<h6 class="fw-bold text-dark mb-0 text-truncate">{cgi.escape(str(h_model_title))}</h6>
+						<small class="text-muted font-monospace">Multi ID: 0x{((getattr(house, 'id', 0) - 0x4000) if getattr(house, 'id', 0) >= 0x4000 else getattr(house, 'id', 0)):x}</small>
+					</div>
+				</div>
+
 				<div class="row g-2 mb-3">
 					<div class="col-6">
 						<span class="text-secondary small d-block">Mundo / Mapa:</span>

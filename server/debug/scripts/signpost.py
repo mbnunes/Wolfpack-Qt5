@@ -32,6 +32,18 @@ POST_NUMBERS = [
 
 HOUSE_SIGNS = [2980 + (i * 2) for i in range(54)] + [2966, 3140]
 
+def get_house(item):
+	if not item:
+		return None
+	multi = getattr(item, 'multi', None)
+	if not multi and hasattr(item, 'hastag') and item.hastag('house'):
+		multi = wolfpack.findobject(item.gettag('house'))
+	if not multi and hasattr(item, 'pos'):
+		multi = wolfpack.findmulti(item.pos)
+		if multi and hasattr(item, 'settag'):
+			item.settag('house', multi.serial)
+	return multi
+
 # Register as a global script
 def onLoad():
 	wolfpack.registerglobal( EVENT_CHLEVELCHANGE, "signpost" )
@@ -95,7 +107,7 @@ def get_or_find_post(sign):
 # Page 0: Information Page
 #
 def gump0( char, callback, item ):
-	multi = item.multi or wolfpack.findobject( item.gettag( 'house' ) )
+	multi = get_house(item)
 	if not multi:
 		return
 	builton = str(multi.gettag('builton') or '')
@@ -183,7 +195,7 @@ def gump0( char, callback, item ):
 # Page 1: Security Page
 #
 def gump1( char, callback, item ):
-	multi = item.multi or wolfpack.findobject( item.gettag( 'house' ) )
+	multi = get_house(item)
 	if not multi:
 		return
 	is_owner = checkAccess(char, multi, ACCESS_OWNER)
@@ -338,7 +350,7 @@ def gump2( char, callback, item ):
 # Page 3: Customization Page
 #
 def gump3( char, callback, item ):
-	multi = item.multi or wolfpack.findobject( item.gettag( 'house' ) )
+	multi = get_house(item)
 	if not multi:
 		return
 	is_owner = checkAccess(char, multi, ACCESS_OWNER)
@@ -451,7 +463,7 @@ def gump3( char, callback, item ):
 # Page 4: Ownership Page
 #
 def gump4( char, callback, item ):
-	multi = item.multi or wolfpack.findobject( item.gettag( 'house' ) )
+	multi = get_house(item)
 	if not multi:
 		return
 	is_owner = checkAccess(char, multi, ACCESS_OWNER)
@@ -511,7 +523,7 @@ def gump4( char, callback, item ):
 #
 def gump10( char, callback, item ):
 	# List Co-owners
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	gump_params = ["a house", "sign"]
 	mygump = cGump()
 	mygump.addRawLayout( "{page 0}" )
@@ -553,7 +565,7 @@ def gump10( char, callback, item ):
 
 def gump11( char, callback, item ):
 	# Remove Co-owner
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	gump_params = ["a house", "sign"]
 	mygump = cGump()
 	mygump.addRawLayout( "{page 0}" )
@@ -595,7 +607,7 @@ def gump11( char, callback, item ):
 
 def gump12( char, callback, item ):
 	# List Friends
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	gump_params = ["a house", "sign"]
 	mygump = cGump()
 	mygump.addRawLayout( "{page 0}" )
@@ -637,7 +649,7 @@ def gump12( char, callback, item ):
 
 def gump13( char, callback, item ):
 	# Remove Friend
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	gump_params = ["a house", "sign"]
 	mygump = cGump()
 	mygump.addRawLayout( "{page 0}" )
@@ -681,7 +693,7 @@ def gump13( char, callback, item ):
 # Ban List Gump
 #
 def gump_ban_list( char, callback, item ):
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	bans = getBans(multi)
 	gump_params = ["a house", "sign"]
 	mygump = cGump()
@@ -725,7 +737,7 @@ def gump_ban_list( char, callback, item ):
 # Access List Gump
 #
 def gump_access_list( char, callback, item ):
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	guests = getGuests(multi)
 	gump_params = ["a house", "sign"]
 	mygump = cGump()
@@ -985,7 +997,7 @@ def change_foundation_callback( char, args, choice ):
 		return
 	index = button - 1
 	if 0 <= index < len(FOUNDATION_NUMBERS):
-		multi = item.multi or wolfpack.findobject(item.gettag("house"))
+		multi = get_house(item)
 		if multi:
 			import housing.customhouse as ch
 			ch.apply_foundation_change(multi, index)
@@ -1014,7 +1026,7 @@ def rename_house_callback( char, args, target ):
 		if len(new_name) > 0:
 			item.name = new_name
 			item.resendtooltip()
-			multi = item.multi or wolfpack.findobject(item.gettag("house"))
+			multi = get_house(item)
 			if multi:
 				multi.name = new_name
 			char.socket.sysmessage("House has been renamed to '%s'." % new_name)
@@ -1026,7 +1038,7 @@ def callback_remove_ban( char, args, choice ):
 	if serial == 0:
 		gump1( char, gumpcallback, item )
 		return
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	banned_char = wolfpack.findchar(serial)
 	if banned_char:
 		removeBan(multi, banned_char)
@@ -1046,7 +1058,7 @@ def callback_remove_access( char, args, choice ):
 	if serial == 0:
 		gump1( char, gumpcallback, item )
 		return
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	guest_char = wolfpack.findchar(serial)
 	if guest_char:
 		removeGuest(multi, guest_char)
@@ -1068,7 +1080,7 @@ def callbackremovecoowner( char, args, choice ):
 		return
 	player = wolfpack.findchar(serial)
 	if player:
-		removeCoOwner((item.multi or wolfpack.findobject(item.gettag("house"))), player)
+		removeCoOwner(get_house(item), player)
 		char.socket.sysmessage('You have just removed %s from the co-owners list' % player.name)
 	gump11( char, gumpcallback, item )
 
@@ -1080,7 +1092,7 @@ def callbackremovefriend( char, args, choice ):
 		return
 	player = wolfpack.findchar(serial)
 	if player:
-		removeFriend((item.multi or wolfpack.findobject(item.gettag("house"))), player)
+		removeFriend(get_house(item), player)
 		char.socket.sysmessage('You have just removed %s from the friends list' % player.name)
 	gump13( char, gumpcallback, item )
 
@@ -1092,21 +1104,21 @@ def addcoown_target(char, arguments, target):
 	if not target.char or not target.char.player:
 		char.socket.sysmessage('You must target a player.')
 		return
-	addCoOwner((item.multi or wolfpack.findobject(item.gettag("house"))), target.char)
+	addCoOwner(get_house(item), target.char)
 	char.socket.sysmessage('You added %s as a new co-owner.' % target.char.name)
 
 def addcoown( char, item ):
-	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
+	if not checkAccess(char, get_house(item), ACCESS_OWNER):
 		char.socket.sysmessage('You are not the owner of this house.')
 		return
 	char.socket.sysmessage('Who do you want to add as co-owner?')
 	char.socket.attachtarget("signpost.addcoown_target", [item])
 
 def removeallcoown(char, item):
-	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_OWNER):
+	if not checkAccess(char, get_house(item), ACCESS_OWNER):
 		char.socket.sysmessage('You are not the owner of this house.')
 		return
-	removeAllCoOwner((item.multi or wolfpack.findobject(item.gettag("house"))))
+	removeAllCoOwner(get_house(item))
 	char.socket.sysmessage('You have just removed all co-owners.')
 	gump1( char, gumpcallback, item )
 
@@ -1115,21 +1127,21 @@ def addfriend_target(char, arguments, target):
 	if not target.char or not target.char.player:
 		char.socket.sysmessage('You must target a player.')
 		return
-	addFriend((item.multi or wolfpack.findobject(item.gettag("house"))), target.char)
+	addFriend(get_house(item), target.char)
 	char.socket.sysmessage('You added %s as a new friend.' % target.char.name)
 
 def addfriend( char, item ):
-	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
+	if not checkAccess(char, get_house(item), ACCESS_COOWNER):
 		char.socket.sysmessage('You are not authorized to add friends.')
 		return
 	char.socket.sysmessage('Who do you want to add as friend?')
 	char.socket.attachtarget("signpost.addfriend_target", [item])
 
 def removeallfriend(char, item):
-	if not checkAccess(char, (item.multi or wolfpack.findobject(item.gettag("house"))), ACCESS_COOWNER):
+	if not checkAccess(char, get_house(item), ACCESS_COOWNER):
 		char.socket.sysmessage('You are not authorized to remove friends.')
 		return
-	removeAllFriend((item.multi or wolfpack.findobject(item.gettag("house"))))
+	removeAllFriend(get_house(item))
 	char.socket.sysmessage('You have just removed all friends.')
 	gump1( char, gumpcallback, item )
 
@@ -1138,12 +1150,12 @@ def grant_access_target(char, arguments, target):
 	if not target.char or not target.char.player:
 		char.socket.sysmessage('You must target a player.')
 		return
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	addGuest(multi, target.char)
 	char.socket.sysmessage('You granted access to %s.' % target.char.name)
 
 def grant_access(char, item):
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	if not checkAccess(char, multi, ACCESS_COOWNER):
 		char.socket.sysmessage('You are not authorized to grant access.')
 		return
@@ -1155,12 +1167,12 @@ def revoke_access_target(char, arguments, target):
 	if not target.char or not target.char.player:
 		char.socket.sysmessage('You must target a player.')
 		return
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	removeGuest(multi, target.char)
 	char.socket.sysmessage('You revoked access from %s.' % target.char.name)
 
 def revoke_access(char, item):
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	if not checkAccess(char, multi, ACCESS_COOWNER):
 		char.socket.sysmessage('You are not authorized to revoke access.')
 		return
@@ -1168,7 +1180,7 @@ def revoke_access(char, item):
 	char.socket.attachtarget("signpost.revoke_access_target", [item])
 
 def toggle_public_private(char, item):
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	if not checkAccess(char, multi, ACCESS_OWNER):
 		char.socket.sysmessage('You are not the owner of this house.')
 		return
@@ -1192,7 +1204,7 @@ def trade_house_target(char, arguments, target):
 	if not char.canreach(target.char.pos, 5):
 		char.socket.sysmessage('The player must be near you to transfer the house.')
 		return
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	multi.owner = target.char
 	item.resendtooltip()
 	char.socket.sysmessage('You have transferred ownership of the house to %s.' % target.char.name)
@@ -1200,7 +1212,7 @@ def trade_house_target(char, arguments, target):
 		target.char.socket.sysmessage('%s has transferred ownership of this house to you.' % char.name)
 
 def trade_house(char, item):
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	if not checkAccess(char, multi, ACCESS_OWNER):
 		char.socket.sysmessage('You are not the owner of this house.')
 		return
@@ -1208,7 +1220,7 @@ def trade_house(char, item):
 	char.socket.attachtarget("signpost.trade_house_target", [item])
 
 def relocate_moving_crate(char, item):
-	multi = item.multi or wolfpack.findobject(item.gettag("house"))
+	multi = get_house(item)
 	if not checkAccess(char, multi, ACCESS_OWNER):
 		char.socket.sysmessage('You are not the owner of this house.')
 		return
@@ -1222,7 +1234,7 @@ def relocate_moving_crate(char, item):
 	char.socket.sysmessage('There is no moving crate for this house.')
 
 def customize( char, item ):
-	multi = item.multi or wolfpack.findobject( item.gettag( 'house' ) )
+	multi = get_house(item)
 	if not multi:
 		return
 	if not checkAccess(char, multi, ACCESS_OWNER):
@@ -1233,7 +1245,7 @@ def customize( char, item ):
 	return 1
 
 def demolish( char, item ):
-	multi = item.multi or wolfpack.findobject( item.gettag( 'house' ) )
+	multi = get_house(item)
 	if not multi:
 		return
 	if not checkAccess(char, multi, ACCESS_OWNER):

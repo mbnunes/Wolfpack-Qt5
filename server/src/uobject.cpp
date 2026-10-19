@@ -52,6 +52,7 @@
 #include "serverconfig.h"
 #include "basics.h"
 #include "world.h"
+#include "timing.h"
 #include "typedefs.h"
 
 #include <QByteArray>
@@ -127,15 +128,35 @@ void cUObject::moveTo( const Coord& newpos )
 		return;
 	}
 
+	// Determine multi for the new position before sector update
+	cMulti* newMulti = 0;
+	if ( !newpos.isInternalMap() )
+	{
+		newMulti = cMulti::find( newpos );
+		if ( newMulti == this )
+		{
+			newMulti = 0;
+		}
+	}
+
+	// Update multi tracking before adding to sectors so decay checks see multi_
+	if ( multi_ != newMulti )
+	{
+		if ( multi_ )
+		{
+			multi_->removeObject( this );
+		}
+		if ( newMulti )
+		{
+			newMulti->addObject( this );
+		}
+		multi_ = newMulti;
+	}
+
 	// We're moved to the internal map although we're not on the internal map
 	if ( newpos.isInternalMap() && !pos_.isInternalMap() )
 	{
 		MapObjects::instance()->remove( this ); // Remove from the sectors
-		if ( multi_ )
-		{
-			multi_->removeObject( this );
-			multi_ = 0;
-		}
 	}
 	else if ( pos_.isInternalMap() && !newpos.isInternalMap() )
 	{
@@ -150,25 +171,23 @@ void cUObject::moveTo( const Coord& newpos )
 	pos_ = newpos;
 	changed_ = true;
 
-	// We're not on an internal map
-	if ( !pos_.isInternalMap() )
+	// Manage decay timer based on multi status
+	if ( isItemSerial( serial_ ) )
 	{
-		// Position Changed
-		cMulti* multi = cMulti::find( newpos );
-		// Don't put multis into themselves
-		if ( multi != this && multi_ != multi )
+		P_ITEM item = reinterpret_cast<P_ITEM>( this );
+		if ( multi_ )
 		{
-			if ( multi_ )
+			if ( !item->corpse() )
 			{
-				multi_->removeObject( this );
+				Timing::instance()->removeDecayItem( item );
 			}
-
-			if ( multi )
+		}
+		else if ( !pos_.isInternalMap() && !item->container() )
+		{
+			if ( item->decayDelay() )
 			{
-				multi->addObject( this );
+				Timing::instance()->addDecayItem( item );
 			}
-
-			multi_ = multi;
 		}
 	}
 }

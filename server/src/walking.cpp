@@ -240,6 +240,12 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord& pos )
 			}
 		}
 
+		// Open doors never block movement
+		if ( pItem->hasTag( "opened" ) )
+		{
+			continue;
+		}
+
 		const tile_st &tTile = TileCache::instance()->getTile( pItem->id() );
 
 		// See above for what the flags mean

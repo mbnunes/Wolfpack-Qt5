@@ -45,6 +45,7 @@ typedef struct
 {
 	PyObject_HEAD;
 	cItemIterator* iter;
+	bool started;
 } wpItemIterator;
 
 static void wpItemIteratorDealloc( PyObject* self )
@@ -71,18 +72,50 @@ static PyObject* wpItemIterator_getAttr( wpItemIterator* self, char* name )
 	Py_RETURN_FALSE;
 }
 
+static PyObject* wpItemIterator_iter( PyObject* self )
+{
+	wpItemIterator* it = ( wpItemIterator * ) self;
+	it->started = false;
+	Py_INCREF( self );
+	return self;
+}
+
+static PyObject* wpItemIterator_iternext( PyObject* self )
+{
+	wpItemIterator* it = ( wpItemIterator * ) self;
+	P_ITEM item = 0;
+	if ( !it->started )
+	{
+		it->started = true;
+		item = it->iter->first();
+	}
+	else
+	{
+		item = it->iter->next();
+	}
+
+	if ( !item )
+	{
+		return NULL;
+	}
+	return PyGetItemObject( item );
+}
+
 static PyTypeObject wpItemIteratorType = {
 	PyVarObject_HEAD_INIT( NULL, 0 )
 	.tp_name = "wolfpack.itemiterator",
 	.tp_basicsize = sizeof( wpItemIterator ),
 	.tp_dealloc = wpItemIteratorDealloc,
 	.tp_getattr = ( getattrfunc ) wpItemIterator_getAttr,
+	.tp_iter = wpItemIterator_iter,
+	.tp_iternext = wpItemIterator_iternext,
 };
 
 PyObject* PyGetItemIterator()
 {
 	wpItemIterator* returnVal = PyObject_New( wpItemIterator, &wpItemIteratorType );
 	returnVal->iter = new cItemIterator;
+	returnVal->started = false;
 
 	return ( PyObject * ) returnVal;
 }
@@ -107,6 +140,7 @@ typedef struct
 {
 	PyObject_HEAD;
 	cCharIterator* iter;
+	bool started;
 } wpCharIterator;
 
 static void wpCharIteratorDealloc( PyObject* self )
@@ -133,18 +167,50 @@ static PyObject* wpCharIterator_getAttr( wpCharIterator* self, char* name )
 	Py_RETURN_FALSE;
 }
 
+static PyObject* wpCharIterator_iter( PyObject* self )
+{
+	wpCharIterator* it = ( wpCharIterator * ) self;
+	it->started = false;
+	Py_INCREF( self );
+	return self;
+}
+
+static PyObject* wpCharIterator_iternext( PyObject* self )
+{
+	wpCharIterator* it = ( wpCharIterator * ) self;
+	P_CHAR chr = 0;
+	if ( !it->started )
+	{
+		it->started = true;
+		chr = it->iter->first();
+	}
+	else
+	{
+		chr = it->iter->next();
+	}
+
+	if ( !chr )
+	{
+		return NULL;
+	}
+	return PyGetCharObject( chr );
+}
+
 static PyTypeObject wpCharIteratorType = {
 	PyVarObject_HEAD_INIT( NULL, 0 )
 	.tp_name = "wolfpack.chariterator",
 	.tp_basicsize = sizeof( wpCharIterator ),
 	.tp_dealloc = wpCharIteratorDealloc,
 	.tp_getattr = ( getattrfunc ) wpCharIterator_getAttr,
+	.tp_iter = wpCharIterator_iter,
+	.tp_iternext = wpCharIterator_iternext,
 };
 
 PyObject* PyGetCharIterator()
 {
 	wpCharIterator* returnVal = PyObject_New( wpCharIterator, &wpCharIteratorType );
 	returnVal->iter = new cCharIterator;
+	returnVal->started = false;
 
 	return ( PyObject * ) returnVal;
 }

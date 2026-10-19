@@ -126,6 +126,11 @@ void cMulti::removeObject( cUObject* object )
 
 bool cMulti::inMulti( const Coord& pos )
 {
+	if ( pos.map != pos_.map )
+	{
+		return false;
+	}
+
 	short x1t,y1t,x2t,y2t;
 	ushort h;
 
@@ -156,7 +161,7 @@ bool cMulti::inMulti( const Coord& pos )
 			continue;
 		}
 
-		if ( pos_.z + it->z >= pos.z - 6 && pos_.z + it->z <= pos.z + 6 )
+		if ( pos.z >= pos_.z + it->z - 6 && pos.z <= pos_.z + it->z + 20 )
 		{
 			return true;
 		}
@@ -172,6 +177,20 @@ bool cMulti::inMulti( const Coord& pos )
 		}
 	}
 
+	// Check custom house foundation / perimeter bounding box
+	if ( this->hasTag( "ch_revision" ) || this->hasTag( "custom" ) || ( id_ >= 0x53ec && id_ <= 0x545f ) )
+	{
+		int minX = pos_.x + multi->getLeft();
+		int maxX = pos_.x + multi->getRight();
+		int minY = pos_.y + multi->getTop();
+		int maxY = pos_.y + multi->getBottom();
+
+		if ( pos.x >= minX && pos.x <= maxX && pos.y >= minY && pos.y <= maxY && pos.z >= pos_.z - 6 && pos.z <= pos_.z + 65 )
+		{
+			return true;
+		}
+	}
+
 	// I'm not in a multi, but I could be in a extended area...
 	// If there is a rectangles set we could be in a Multi area.
 	for(int i = 0; i < this->rectangles_.count(); i++)
@@ -182,7 +201,7 @@ bool cMulti::inMulti( const Coord& pos )
 		y2t = pos_.y + this->rectangles_.at(i).y2;
 		h = this->rectangles_.at(i).height;
 					
-		if ( ( ( pos.x >= x1t && pos.x <= x2t )	|| ( pos.x >= x2t && pos.x <= x2t ) ) 
+		if ( ( ( pos.x >= x1t && pos.x <= x2t ) || ( pos.x >= x2t && pos.x <= x1t ) ) 
 			&& ( ( pos.y >= y1t && pos.y <= y2t ) 
 			|| ( pos.y >= y2t && pos.y <= y1t ) ) 
 			&& ((pos.z <= (h + 6 )) && (pos.z >= (pos_.z - 6))) ) 

@@ -195,8 +195,8 @@ void cUOTxCharTownList::compile(void)
 		offset += 89;
 	}
 
-	//To run Old Clients the flags = 0x1A8
-	unsigned int flags = 0xFFFB;
+	// To run Old Clients the flags = 0x1A8. Exclude 0x4000 (New Movement Packets 0xF0..0xF2)
+	unsigned int flags = 0xFFFB & ~0x4000;
 
 	// if (charLimit > 6) {
 	// 	flags |= 0x1000 | 0x40;
@@ -383,7 +383,6 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	else
 	{
 		setBody( pChar->body() );
-
 		setHue( pChar->skin() );
 	}
 
@@ -472,15 +471,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar, bool newMobileIncoming )
 	else
 	{
 		setModel( pChar->body() );
-
-		if ( !newMobileIncoming && pChar->isHuman() && pChar->skin() > 0 && !pChar->isUnderwearDisabled() )
-		{
-			setColor( pChar->skin() | 0x8000 );
-		}
-		else
-		{
-			setColor( pChar->skin() );
-		}
+		setColor( pChar->skin() );
 	}
 
 	setX( pChar->pos().x );
@@ -577,7 +568,6 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	else
 	{
 		setBody( pChar->body() );
-
 		setSkin( pChar->skin() );
 	}
 
@@ -761,8 +751,8 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 		flags |= 0x01;
 	}
 	P_PLAYER origin = dynamic_cast<P_PLAYER>(pOrigin);
-	if (origin && origin->isGM()) {
-		flags |= 0x02; // May Equip...
+	if ( ( origin && origin->isGM() ) || pChar == pOrigin ) {
+		flags |= 0x02; // May Equip / Can Alter Paperdoll
 	}
 
 	setFlag(flags);

@@ -21,12 +21,17 @@ for _p in [
 
 import struct
 import zlib
+import json
+import re
 from PIL import Image, ImageDraw, ImageFont
 
 _MUL_PATH = None
 _UOP_INDEX = None
+_MULTICOLLECTION_UOP_INDEX = None
 _TILEDATA_CACHE = {}
+_STATIC_FLAGS_CACHE = {}
 _HUE_CACHE = {}
+
 
 # Paperdoll Drawing Layer Order (bottom to top)
 PAPERDOLL_LAYER_ORDER = [
@@ -320,7 +325,8 @@ def get_item_anim_id(item_id):
 			f.seek(offset)
 			record = f.read(41)
 			flags, weight, layer, count, anim, hue, light, height, name = struct.unpack('<QBBiHHBB20s', record[:40])
-			name_str = name.split(b'\x00')[0].decode('latin1', errors='ignore').strip()
+			raw_str = name.split(b'\x00')[0].decode('latin1', errors='ignore')
+			name_str = ''.join(c for c in raw_str if c.isprintable()).strip()
 			# In 7.0.9.0+, anim is stored in count for equipment animations, or anim for hair
 			anim_val = anim if anim > 0 else count
 			res = (layer, anim_val, name_str)
@@ -463,12 +469,13 @@ def decode_static_art(data, hue_table=None):
 			x += x_run
 	return img
 
-def get_item_art(item_id, hue=0):
+def get_item_art(item_id, hue=0, crop=False):
 	"""Extracts static item tile art from art.mul/artidx.mul and caches as PNG.
 	Returns (Image, rel_path).
 	"""
 	web_dir = os.path.dirname(os.path.abspath(__file__))
-	item_filename = f"item_{item_id}_{hue}.png"
+	suffix = "_crop" if crop else ""
+	item_filename = f"item_{item_id}_{hue}{suffix}.png"
 	item_rel_path = f"images/items/{item_filename}"
 	item_abs_path = os.path.join(web_dir, "images", "items", item_filename)
 
@@ -504,6 +511,10 @@ def get_item_art(item_id, hue=0):
 		hue_table = load_hue_table(hue) if hue > 0 else None
 		img = decode_static_art(data, hue_table)
 		if img:
+			if crop:
+				bbox = img.getbbox()
+				if bbox:
+					img = img.crop(bbox)
 			os.makedirs(os.path.dirname(item_abs_path), exist_ok=True)
 			img.save(item_abs_path)
 			# Mirror to debug directory
@@ -655,3 +666,466 @@ def ensure_core_gumps():
 		_, rel = get_gump(gid, 0)
 		results[gid] = rel
 	return results
+
+# House multi ID mappings: (item_tile_art_id, fallback_gump_id, display_name, category)
+HOUSE_ART_MAP = {
+	# Classic Houses
+	0x64: (0x22C4, 2275, "Small Stone and Plaster House", "Casa Clássica"),
+	0x65: (0x22C4, 2275, "Small Stone and Plaster House", "Casa Clássica"),
+	0x66: (0x22C9, 2276, "Small Fieldstone House", "Casa Clássica"),
+	0x67: (0x22C9, 2276, "Small Fieldstone House", "Casa Clássica"),
+	0x68: (0x22CA, 2277, "Small Brick House", "Casa Clássica"),
+	0x69: (0x22CA, 2277, "Small Brick House", "Casa Clássica"),
+	0x6A: (0x22CB, 2278, "Small Wood House", "Casa Clássica"),
+	0x6B: (0x22CB, 2278, "Small Wood House", "Casa Clássica"),
+	0x6C: (0x22CC, 2279, "Small Wood and Plaster House", "Casa Clássica"),
+	0x6D: (0x22CC, 2279, "Small Wood and Plaster House", "Casa Clássica"),
+	0x6E: (0x22CD, 2280, "Small Thatched Roof Cottage", "Casa Clássica"),
+	0x6F: (0x22CD, 2280, "Small Thatched Roof Cottage", "Casa Clássica"),
+	0x70: (0x22CE, 2281, "Blue Tent", "Tenda Clássica"),
+	0x72: (0x22CF, 2282, "Green Tent", "Tenda Clássica"),
+	0x74: (0x22D0, 2283, "Three-Room Wood and Plaster House", "Casa Clássica"),
+	0x75: (0x22D0, 2283, "Three-Room Wood and Plaster House", "Casa Clássica"),
+	0x76: (0x22D1, 2284, "Two-Story Wood and Plaster House", "Casa Clássica"),
+	0x77: (0x22D1, 2284, "Two-Story Wood and Plaster House", "Casa Clássica"),
+	0x78: (0x22D2, 2285, "Two-Story Stone and Plaster House", "Casa Clássica"),
+	0x79: (0x22D2, 2285, "Two-Story Stone and Plaster House", "Casa Clássica"),
+	0x7A: (0x22D3, 2286, "Large Tower", "Torre e Castelo"),
+	0x7B: (0x22D3, 2286, "Large Tower", "Torre e Castelo"),
+	0x7C: (0x22D4, 2287, "Stone Keep", "Torre e Castelo"),
+	0x7D: (0x22D4, 2287, "Stone Keep", "Torre e Castelo"),
+	0x7E: (0x22D5, 2288, "Castle", "Torre e Castelo"),
+	0x7F: (0x22D5, 2288, "Castle", "Torre e Castelo"),
+	0x8D: (0x22D6, 2289, "Large Patio House", "Casa Clássica"),
+	0x8E: (0x22D6, 2289, "Large Patio House", "Casa Clássica"),
+	0x96: (0x22D8, 2290, "Large Marble Patio House", "Casa Clássica"),
+	0x97: (0x22D8, 2290, "Large Marble Patio House", "Casa Clássica"),
+	0x98: (0x22D9, 2295, "Small Tower", "Torre e Castelo"),
+	0x99: (0x22D9, 2295, "Small Tower", "Torre e Castelo"),
+	0x9A: (0x22DA, 2293, "Log Cabin", "Casa Clássica"),
+	0x9B: (0x22DA, 2293, "Log Cabin", "Casa Clássica"),
+	0x9C: (0x22DB, 2294, "Sandstone Patio House", "Casa Clássica"),
+	0x9D: (0x22DB, 2294, "Sandstone Patio House", "Casa Clássica"),
+	0x9E: (0x22D7, 2291, "Two-Story Villa", "Casa Clássica"),
+	0x9F: (0x22D7, 2291, "Two-Story Villa", "Casa Clássica"),
+	0xA0: (0x22DD, 2296, "Small Stone Workshop", "Oficina Clássica"),
+	0xA1: (0x22DD, 2296, "Small Stone Workshop", "Oficina Clássica"),
+	0xA2: (0x22DE, 2297, "Small Marble Workshop", "Oficina Clássica"),
+	0xA3: (0x22DE, 2297, "Small Marble Workshop", "Oficina Clássica"),
+
+	# Contest Castles & Keeps
+	0x147C: (0x22D5, 2288, "Stone and Timber Castle", "Castelo Especial"),
+	0x147D: (0x22D5, 2288, "Gothic Rose Castle", "Castelo Especial"),
+	0x147E: (0x22D5, 2288, "Castle of Fire and Ice", "Castelo Especial"),
+	0x147F: (0x22D5, 2288, "Castle of the Black Thorn", "Castelo Especial"),
+	0x1480: (0x22D5, 2288, "The Fortress Castle", "Castelo Especial"),
+	0x1481: (0x22D5, 2288, "Spires Castle", "Castelo Especial"),
+	0x1482: (0x22D5, 2288, "Castle of Oceania", "Castelo Especial"),
+	0x1483: (0x22D5, 2288, "Feudal Castle", "Castelo Especial"),
+	0x1484: (0x22D4, 2287, "Robin's Nest Keep", "Fortaleza Especial"),
+	0x1485: (0x22D4, 2287, "Traditional Keep", "Fortaleza Especial"),
+	0x1486: (0x22D4, 2287, "Villa Crowley Keep", "Fortaleza Especial"),
+	0x1487: (0x22D4, 2287, "Darkthorn Keep", "Fortaleza Especial"),
+	0x1488: (0x22D4, 2287, "Sandalwood Keep", "Fortaleza Especial"),
+	0x1489: (0x22D4, 2287, "Casa Moga Keep", "Fortaleza Especial"),
+	0x148A: (0x22D5, 2288, "Robin's Roost Castle", "Castelo Especial"),
+	0x148B: (0x22D5, 2288, "Camelot Castle", "Castelo Especial"),
+	0x148C: (0x22D5, 2288, "Lacrimae In Caelo Castle", "Castelo Especial"),
+	0x148D: (0x22D5, 2288, "Okinawa Sweet Dream Castle", "Castelo Especial"),
+	0x148E: (0x22D5, 2288, "The Sandstone Castle", "Castelo Especial"),
+	0x148F: (0x22D5, 2288, "Grimswind Sisters Castle", "Castelo Especial"),
+}
+
+HOUSE_BASEID_MAP = {
+	"small_stone_and_plaster_house": 0x64,
+	"small_fieldstone_house": 0x66,
+	"small_brick_house": 0x68,
+	"small_wood_house": 0x6A,
+	"small_wood_and_plaster_house": 0x6C,
+	"small_thatched_roof_cottage": 0x6E,
+	"three_room_wood_and_plaster_house": 0x74,
+	"two_story_wood_and_plaster_house": 0x76,
+	"two_story_stone_and_plaster_house": 0x78,
+	"large_tower": 0x7A,
+	"stone_keep": 0x7C,
+	"castle": 0x7E,
+	"large_patio_house": 0x8D,
+	"large_marble_patio_house": 0x96,
+	"large_marbel_patio_house": 0x96,
+	"small_tower": 0x98,
+	"log_cabin": 0x9A,
+	"sandstone_patio_house": 0x9C,
+	"two_story_villa": 0x9E,
+	"small_stone_workshop": 0xA0,
+	"small_marble_workshop": 0xA2,
+	"stone_and_timber_castle": 0x147C,
+	"gothic_rose_castle": 0x147D,
+	"castle_of_fire_and_ice": 0x147E,
+	"castle_of_the_black_thorn": 0x147F,
+	"fortress_castle": 0x1480,
+	"spires_castle": 0x1481,
+	"castle_of_oceania": 0x1482,
+	"feudal_castle": 0x1483,
+	"robins_nest_keep": 0x1484,
+	"traditional_keep": 0x1485,
+	"villa_crowley_keep": 0x1486,
+	"darkthorn_keep": 0x1487,
+	"sandalwood_keep": 0x1488,
+	"casa_moga_keep": 0x1489,
+	"robins_roost_castle": 0x148A,
+	"camelot_castle": 0x148B,
+	"lacrimae_in_caelo_castle": 0x148C,
+	"okinawa_sweet_dream_castle": 0x148D,
+	"sandstone_castle": 0x148E,
+	"grimswind_sisters_castle": 0x148F,
+}
+
+def get_static_tile_info(tile_id):
+	"""Returns (flags, height) from tiledata.mul for static tile."""
+	global _STATIC_FLAGS_CACHE
+	tile_id = int(tile_id) & 0xFFFF
+	if tile_id in _STATIC_FLAGS_CACHE:
+		return _STATIC_FLAGS_CACHE[tile_id]
+	tiledata_path = os.path.join(get_mul_path(), 'tiledata.mul')
+	if not os.path.exists(tiledata_path):
+		return (0, 0)
+	try:
+		block = tile_id // 32
+		entry = tile_id % 32
+		# 7.0.9.0+ tiledata format: land block size 964, static block size 1316 (4 + 32*41)
+		offset = 493568 + block * 1316 + 4 + entry * 41
+		with open(tiledata_path, 'rb') as f:
+			f.seek(offset)
+			record = f.read(41)
+			flags = struct.unpack('<Q', record[:8])[0]
+			height = record[20]
+			res = (flags, height)
+			_STATIC_FLAGS_CACHE[tile_id] = res
+			return res
+	except Exception:
+		return (0, 0)
+
+def _load_multicollection_uop_index():
+	global _MULTICOLLECTION_UOP_INDEX
+	if _MULTICOLLECTION_UOP_INDEX is not None:
+		return _MULTICOLLECTION_UOP_INDEX
+	_MULTICOLLECTION_UOP_INDEX = {}
+	base_path = get_mul_path()
+	uop_file = os.path.join(base_path, 'MultiCollection.uop')
+	if not os.path.exists(uop_file):
+		return _MULTICOLLECTION_UOP_INDEX
+	try:
+		with open(uop_file, 'rb') as f:
+			f.seek(40)
+			file_count, next_block = struct.unpack('<IQ', f.read(12))
+			while True:
+				for _ in range(file_count):
+					offset, hlen, c_len, d_len, hash_val, adler, c_type = struct.unpack('<QIIIQIH', f.read(34))
+					if offset > 0 and c_len > 0:
+						_MULTICOLLECTION_UOP_INDEX[hash_val] = (offset + hlen, c_len, d_len, c_type)
+				if next_block == 0 or next_block >= os.path.getsize(uop_file):
+					break
+				f.seek(next_block)
+				file_count, next_block = struct.unpack('<IQ', f.read(12))
+	except Exception:
+		pass
+	return _MULTICOLLECTION_UOP_INDEX
+
+def load_multi_components(multi_id):
+	"""Loads multi components from multi.idx/multi.mul or MultiCollection.uop.
+	Returns list of (tile, x, y, z).
+	"""
+	multi_id = int(multi_id) & 0x3FFF
+	mul_path = get_mul_path()
+	idx_path = os.path.join(mul_path, 'multi.idx')
+	data_path = os.path.join(mul_path, 'multi.mul')
+
+	candidates = [multi_id]
+	if multi_id > 0 and (multi_id - 1) not in candidates:
+		candidates.append(multi_id - 1)
+	if (multi_id + 1) not in candidates:
+		candidates.append(multi_id + 1)
+
+	# 1. Try multi.idx / multi.mul
+	if os.path.exists(idx_path) and os.path.exists(data_path):
+		try:
+			idx_size = os.path.getsize(idx_path)
+			with open(idx_path, 'rb') as f_idx, open(data_path, 'rb') as f_mul:
+				for mid in candidates:
+					if mid * 12 + 12 > idx_size:
+						continue
+					f_idx.seek(mid * 12)
+					rec = f_idx.read(12)
+					if len(rec) < 12:
+						continue
+					start, length, extra = struct.unpack('<iii', rec)
+					if start < 0 or length <= 0:
+						continue
+					f_mul.seek(start)
+					data = f_mul.read(length)
+					rec_size = 16 if (length % 16 == 0) else 12
+					count = length // rec_size
+					items = []
+					for i in range(count):
+						item_data = data[i * rec_size : (i + 1) * rec_size]
+						tile, x, y, z = struct.unpack('<hhhh', item_data[:8])
+						if tile > 1:
+							items.append((tile, x, y, z))
+					if items:
+						return items
+		except Exception:
+			pass
+
+	# 2. Try MultiCollection.uop
+	uop_file = os.path.join(mul_path, 'MultiCollection.uop')
+	if os.path.exists(uop_file):
+		uop_idx = _load_multicollection_uop_index()
+		for mid in candidates:
+			pattern = f"build/multicollection/{mid:06d}.bin"
+			h = hash_little2(pattern)
+			if h in uop_idx:
+				pos, clen, dlen, ctype = uop_idx[h]
+				try:
+					with open(uop_file, 'rb') as f:
+						f.seek(pos)
+						cdata = f.read(clen)
+						ddata = zlib.decompress(cdata)
+						if len(ddata) >= 8:
+							unknown, count = struct.unpack('<II', ddata[:8])
+							offset = 8
+							items = []
+							for _ in range(count):
+								if offset + 14 > len(ddata):
+									break
+								tile, x, y, z, flagg, clilocsCount = struct.unpack('<hhhhhI', ddata[offset:offset+14])
+								offset += 14 + clilocsCount * 4
+								if tile > 1:
+									items.append((tile, x, y, z))
+							if items:
+								return items
+				except Exception:
+					pass
+
+	return []
+
+def render_multi_to_image(items):
+	"""Renders a list of (tile, x, y, z) into a high quality PIL RGBA Image."""
+	if not items:
+		return None
+
+	decorated_items = []
+	for it in items:
+		tile, x, y, z = it[0], it[1], it[2], it[3]
+		if tile <= 1:
+			continue
+		flags, height = get_static_tile_info(tile)
+		is_surface = bool(flags & 0x200 or height == 0)
+		is_roof = bool(flags & 0x10000000)
+		layer_priority = 0 if is_surface else (2 if is_roof else 1)
+		decorated_items.append((tile, x, y, z, layer_priority))
+
+	if not decorated_items:
+		return None
+
+	# Isometric painter algorithm:
+	# 1. x + y (north to south depth)
+	# 2. z (elevation from floor to roof)
+	# 3. layer_priority (surfaces before walls before roofs)
+	# 4. x - y (west to east)
+	decorated_items.sort(key=lambda it: (it[1] + it[2], it[3], it[4], it[1] - it[2]))
+
+	coords = []
+	loaded_tiles = []
+	for tile, x, y, z, _ in decorated_items:
+		img, _ = get_item_art(tile)
+		if not img:
+			continue
+		w, h = img.size
+		sx = (x - y) * 22
+		sy = (x + y) * 22 - (z * 4)
+		px = sx - (w // 2)
+		py = sy - h + 44
+		coords.append((px, py, px + w, py + h))
+		loaded_tiles.append((img, px, py))
+
+	if not loaded_tiles:
+		return None
+
+	min_x = min(c[0] for c in coords)
+	min_y = min(c[1] for c in coords)
+	max_x = max(c[2] for c in coords)
+	max_y = max(c[3] for c in coords)
+
+	pad = 8
+	width = max_x - min_x + pad * 2
+	height = max_y - min_y + pad * 2
+
+	canvas = Image.new('RGBA', (width, height), (0, 0, 0, 0))
+	for img, px, py in loaded_tiles:
+		canvas.paste(img, (px - min_x + pad, py - min_y + pad), img)
+
+	return canvas
+
+def get_house_multi_image(multi_id, house_obj=None):
+	"""Renders or retrieves cached isometric PNG for a house multi or custom house.
+	Returns (Image, rel_path) or (None, None).
+	"""
+	web_dir = os.path.dirname(os.path.abspath(__file__))
+	houses_dir = os.path.join(web_dir, "images", "houses")
+	os.makedirs(houses_dir, exist_ok=True)
+
+	# Check for customized house
+	is_custom = False
+	custom_tiles = None
+	rev = 1
+	if house_obj is not None and hasattr(house_obj, 'hastag'):
+		try:
+			if house_obj.hastag('ch_current'):
+				tag_val = house_obj.gettag('ch_current')
+				if tag_val:
+					custom_tiles = json.loads(tag_val)
+					is_custom = True
+					if house_obj.hastag('ch_revision'):
+						rev = int(house_obj.gettag('ch_revision'))
+		except Exception:
+			pass
+
+	if is_custom and custom_tiles and hasattr(house_obj, 'serial'):
+		cache_name = f"house_custom_{house_obj.serial}_{rev}.png"
+		abs_p = os.path.join(houses_dir, cache_name)
+		rel_p = f"images/houses/{cache_name}"
+		if os.path.exists(abs_p):
+			try:
+				return Image.open(abs_p), rel_p
+			except Exception:
+				pass
+		img = render_multi_to_image(custom_tiles)
+		if img:
+			try:
+				img.save(abs_p)
+				return img, rel_p
+			except Exception:
+				return img, rel_p
+
+	# Standard multi
+	if multi_id > 0:
+		cache_name = f"house_0x{multi_id:04x}.png"
+		abs_p = os.path.join(houses_dir, cache_name)
+		rel_p = f"images/houses/{cache_name}"
+		if os.path.exists(abs_p):
+			try:
+				return Image.open(abs_p), rel_p
+			except Exception:
+				pass
+
+		comps = load_multi_components(multi_id)
+		if comps:
+			img = render_multi_to_image(comps)
+			if img:
+				try:
+					img.save(abs_p)
+					return img, rel_p
+				except Exception:
+					return img, rel_p
+
+	return None, None
+
+def get_house_image(house_or_id, prefer_gump=False):
+	"""Retrieves artwork (isometric house render, item miniature or gump) and metadata for a house or foundation.
+	Returns (Image, rel_path, title, category).
+	"""
+	multi_id = 0
+	baseid_str = ""
+	house_obj_name = ""
+	house_obj = None
+
+	if isinstance(house_or_id, (int, float)):
+		val = int(house_or_id)
+		multi_id = (val - 0x4000) if val >= 0x4000 else val
+	elif isinstance(house_or_id, str):
+		baseid_str = house_or_id.lower().strip()
+		if baseid_str.startswith('0x'):
+			try:
+				val = int(baseid_str, 16)
+				multi_id = (val - 0x4000) if val >= 0x4000 else val
+			except Exception:
+				pass
+		elif baseid_str.isdigit():
+			val = int(baseid_str)
+			multi_id = (val - 0x4000) if val >= 0x4000 else val
+	elif house_or_id is not None:
+		house_obj = house_or_id
+		# Wolfpack Item / Multi object
+		if hasattr(house_or_id, 'baseid') and house_or_id.baseid:
+			baseid_str = str(house_or_id.baseid).lower().strip()
+		if hasattr(house_or_id, 'id'):
+			try:
+				val = int(house_or_id.id)
+				multi_id = (val - 0x4000) if val >= 0x4000 else val
+			except Exception:
+				pass
+		if hasattr(house_or_id, 'name') and house_or_id.name:
+			house_obj_name = str(house_or_id.name).strip()
+
+	if baseid_str in HOUSE_BASEID_MAP:
+		multi_id = HOUSE_BASEID_MAP[baseid_str]
+
+	# Check for Custom Foundations
+	is_foundation_2 = False
+	is_foundation_3 = False
+	foundation_dimensions = ""
+
+	m = re.search(r'foundation_([23])_(\d+)x(\d+)', baseid_str)
+	if m:
+		stories = int(m.group(1))
+		w, h = m.group(2), m.group(3)
+		foundation_dimensions = f"{w}x{h}"
+		if stories == 3:
+			is_foundation_3 = True
+		else:
+			is_foundation_2 = True
+	elif (0x13EC <= multi_id <= 0x143A) or baseid_str.startswith('foundation_2'):
+		is_foundation_2 = True
+	elif (0x140B <= multi_id <= 0x147B) or baseid_str.startswith('foundation_3'):
+		is_foundation_3 = True
+
+	if is_foundation_3:
+		dim_label = f" ({foundation_dimensions})" if foundation_dimensions else ""
+		title = f"Fundação Customizável 3 Andares{dim_label}"
+		category = "Fundação Custom"
+		item_art_id = 0x22E3
+		gump_id = 5528
+	elif is_foundation_2:
+		dim_label = f" ({foundation_dimensions})" if foundation_dimensions else ""
+		title = f"Fundação Customizável 2 Andares{dim_label}"
+		category = "Fundação Custom"
+		item_art_id = 0x22E2
+		gump_id = 5528
+	elif multi_id in HOUSE_ART_MAP:
+		item_art_id, gump_id, title, category = HOUSE_ART_MAP[multi_id]
+	else:
+		title = house_obj_name or (f"Multi 0x{multi_id:x}" if multi_id > 0 else "Propriedade")
+		category = "Estrutura Residencial"
+		item_art_id = 0x22C4
+		gump_id = 2275
+
+	# 1. Primary: Try full isometric multi render
+	img, rel_path = get_house_multi_image(multi_id, house_obj)
+	if img and rel_path:
+		return (img, rel_path, title, category)
+
+	# 2. Fallback: item tile art or gump
+	if prefer_gump:
+		img, rel_path = get_gump(gump_id)
+		if not img:
+			img, rel_path = get_item_art(item_art_id)
+	else:
+		img, rel_path = get_item_art(item_art_id)
+		if not img:
+			img, rel_path = get_gump(gump_id)
+
+	if not rel_path:
+		rel_path = "images/items/item_8900_0.png"
+
+	return (img, rel_path, title, category)
+

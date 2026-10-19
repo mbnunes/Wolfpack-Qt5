@@ -56,6 +56,7 @@
   -->
   <group name="Combat">
     <option key="Attack Distance" value="13"/>
+    <option key="Guard Dispel Time" value="30"/>
     <option key="Show Damage Done" value="true"/>
     <option key="Show Damage Received" value="true"/>
   </group>

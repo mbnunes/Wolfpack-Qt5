@@ -218,6 +218,7 @@ public:
 	bool hasExtendedStatus() const { return hasProtocol( ProtocolExtendedStatus ); }
 	bool hasBuffIcon() const { return hasProtocol( ProtocolBuffIcon ); }
 	bool hasNewMobileIncoming() const { return ( clientVersion_.major == 0 ) || hasProtocol( ProtocolNewMobileIncoming ); }
+	bool isEnhancedClient() const { return clientVersion_.type == ClientSA || clientVersion_.major >= 60; }
 	void sendDamage( unsigned int serial, unsigned short amount );
 
 	QByteArray lang( void ) const;

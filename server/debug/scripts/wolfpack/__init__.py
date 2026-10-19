@@ -5,7 +5,7 @@
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
 
-"""
+r"""
 	\library wolfpack
 	\description Contains several server functions.
 """
@@ -15,9 +15,10 @@ from types import *
 
 d = globals()
 for (name, obj) in _wolfpack.__dict__.items():
-	d[name] = obj
+	if not name.startswith('__'):
+		d[name] = obj
 	
-"""
+r"""
 	\function wolfpack.findobject
 	\param serial The serial number of the object.
 	\return An <object id="item">item</object>, <object id="char">char</object>, or None object.
@@ -25,6 +26,12 @@ for (name, obj) in _wolfpack.__dict__.items():
 	returns an object if either is found. Otherwise it returns None.
 """
 def findobject(serial):
+	if serial is None or serial == -1 or serial == 0:
+		return None
+	try:
+		serial = int(serial)
+	except (ValueError, TypeError):
+		return None
 	if serial == -1 or serial == 0:
 		return None
 	elif serial >= 0x40000000:

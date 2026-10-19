@@ -15,14 +15,14 @@ import wolfpack.accounts
 import re
 from urllib.parse import quote
 
-validletters = "abcdefghijklmnopqrstuvwxyz0123456789._"
+validletters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._-"
 letters = "#abcdefghijklmnopqrstuvwxyz"
 message = None
 is_error = False
 
 form = cgi.FieldStorage()
 session_id = form.getvalue( 'session', '' )
-letter = form.getvalue( 'letter', '#' )
+letter = form.getvalue( 'letter', '#' ).lower()
 
 web.sessions.check_timeouts()
 session = web.sessions.get_session( session_id )
@@ -48,53 +48,60 @@ if not user_acc or not user_acc.authorized('RemoteAccess', 'login'):
 
 # Try to add an account
 if 'add' in form:
-	name = form.getvalue( 'add', '' )
+	name = form.getvalue( 'add', '' ).strip()
 	password1 = form.getvalue( 'password1', '' )
 	password2 = form.getvalue( 'password2', '' )
 	acl = form.getvalue( 'acl', '' )
 
 	record = wolfpack.accounts.find( name )
 	if record:
-		message = "The account '%s' already exists." % name
+		message = "A conta '%s' já existe." % name
 		is_error = True
 	elif ( len( name ) < 1 ) or ( len( name ) > 30 ):
-		message = "The account name '%s' is too short (min. 1 character) or too long (max. 30 characters)." % name
+		message = "O nome da conta '%s' é muito curto (mín. 1 caractere) ou muito longo (máx. 30 caracteres)." % name
 		is_error = True
 	elif ( len( password1 ) < 1 ) or ( len( password1 ) > 30 ):
-		message = "The given password is too short (min 1. character) or too long (max. 30 characters)."
+		message = "A senha informada é muito curta (mín. 1 caractere) ou muito longa (máx. 30 caracteres)."
 		is_error = True
 	elif( password1 != password2 ):
-		message = "The passwords don't match. Please enter the desired password twice."
+		message = "As senhas não coincidem. Por favor digite a senha desejada duas vezes."
 		is_error = True
 	else:
 		for l in name:
 			if not l in validletters:
-				message = "The account name '%s' contains invalid characters (%s)." % ( name, l )
+				message = "O nome da conta '%s' contém caracteres inválidos (%s)." % ( name, l )
 				is_error = True
 				break
 
 		if not message:
 			record = wolfpack.accounts.add( name, password1 )
-			record.acl = acl
-			message = "The account '%s' has been successfully added." % name
+			if record:
+				if acl:
+					record.acl = acl
+				wolfpack.accounts.save()
+				message = "A conta '%s' foi criada com sucesso." % name
+			else:
+				message = "Não foi possível criar a conta '%s'." % name
+				is_error = True
 
 # Try to delete an account
 if 'delete' in form:
-	record = wolfpack.accounts.find( form.getvalue( 'delete', '' ) )
+	del_name = form.getvalue( 'delete', '' ).strip()
+	record = wolfpack.accounts.find( del_name )
 
-	if form[ 'delete' ] == username:
-		message = "You can't delete your own account."
+	if del_name.lower() == username.lower():
+		message = "Você não pode excluir sua própria conta."
 		is_error = True
 	elif not record:
-		message = "The account does not exist."
+		message = "A conta não existe."
 		is_error = True
 	elif record.inuse:
-		message = "The account is currently in use."
+		message = "A conta está atualmente em uso no jogo."
 		is_error = True
 	else:
 		record.delete()
 		wolfpack.accounts.save()
-		message = "The account has been deleted."
+		message = "A conta foi excluída com sucesso."
 
 # Alertas
 alert_html = ""
@@ -212,7 +219,7 @@ content = f"""
 		<h6 class="fw-bold text-dark mb-0">Criar Nova Conta</h6>
 	</div>
 	<div class="card-body">
-		<form action="accounts.py" method="GET" class="row g-3">
+		<form action="accounts.py" method="POST" class="row g-3">
 			<input type="hidden" name="session" value="{session_id}" />
 			<input type="hidden" name="letter" value="{quote(letter)}" />
 

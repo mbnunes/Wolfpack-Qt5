@@ -5,10 +5,11 @@ from housing.consts import *
 from wolfpack.utilities import hex2dec
 
 #
-# Security settings can only be changed by the house owner
+# Security settings can be changed by the house owner and co-owners
 #
 def onContextCheckVisible(player, item, tag):
-	return checkAccess(player, item.multi, ACCESS_OWNER)
+	multi = item.multi or wolfpack.findmulti(item.pos)
+	return checkAccess(player, multi, ACCESS_COOWNER)
 
 #
 # Show the security setting gump
@@ -17,7 +18,8 @@ def onContextEntry(player, item, entry):
 	if entry != 67:
 		return False
 
-	if not checkAccess(player, item.multi, ACCESS_OWNER):
+	multi = item.multi or wolfpack.findmulti(item.pos)
+	if not checkAccess(player, multi, ACCESS_COOWNER):
 		return False
 
 	showGump(player, item)
@@ -31,18 +33,18 @@ def onContextEntry(player, item, entry):
 # 3 Anyone
 #
 def getLevel(item):
-	house = wolfpack.findmulti(item.pos)
-	if house and house.hastag('security_level'):
-		return int(house.gettag('security_level'))
-	return 0
+	if item and item.hastag('security_level'):
+		return int(item.gettag('security_level'))
+	return 1 # Default to Co-Owners
 
 #
 # Show the gump for a given securable item
 #
 def showGump(player, item):
-	if not item.multi:
+	multi = item.multi or wolfpack.findmulti(item.pos)
+	if not multi:
 		return
-	owner = item.multi.owner
+	owner = multi.owner
 	level = getLevel(item)		
 	
 	dialog = wolfpack.gumps.cGump()
@@ -105,22 +107,22 @@ def callback(player, arguments, response):
 
 	item = wolfpack.finditem(arguments[0])
 	if item and item.hasscript('housing.security'):
-		house = wolfpack.findmulti(item.pos)		
+		house = item.multi or wolfpack.findmulti(item.pos)		
 		level = response.button - 1
 		current_level = getLevel(item)
 		
 		if level == current_level:
 			player.socket.clilocmessage(1061281)
 		else:				
-			if level == 0:
-				#item.deltag('security_level')
-				house.deltag('security_level')
+			if level == 1:
+				item.deltag('security_level')
 			else:
-				#item.settag('security_level', level)
-				house.settag('security_level', level)
+				item.settag('security_level', level)
 			player.socket.clilocmessage(1061280)
+			item.resendtooltip()
 			
 			# search for the housesign and resend the tooltip
-			for sign in house.objects:
-				if sign.hasscript('housing.sign'):
-					sign.resendtooltip()
+			if house and hasattr(house, 'objects'):
+				for sign in house.objects:
+					if sign.hasscript('housing.sign'):
+						sign.resendtooltip()

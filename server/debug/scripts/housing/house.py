@@ -333,33 +333,81 @@ def buildHouse(house, definition):
 # Check if access in this house is allowed to the given item
 #
 def onCheckSecurity(player, house, item):
-	#if not item.hasscript('housing.security'):
-	#	return False
-	#else:
-	level = housing.security.getLevel(item)
+	if not player or not house or not item:
+		return False
+
+	# GMs bypass house security
+	if player.gm:
+		return False
+
+	# If the player is banned from this house, reject everything immediately
+	if isBanned(player, house) and not isOwner(player, house):
+		player.socket.clilocmessage(1061637) # It's not accessable
+		return True # Access Denied
+
+	# Check if this item is a door (house door or any door inside the house)
+	is_door = False
+	try:
+		if item.hasscript('door') or item.type == 12:
+			is_door = True
+		else:
+			from door import doors as _door_defs
+			is_door = any(item.id == d[0] or item.id == d[1] for d in _door_defs)
+	except Exception:
+		pass
+
+	if is_door:
+		# If the house is open to the public:
+		if isPublic(house):
+			return False # Allow access to anyone not banned
+
+		# In a private house:
+		# Owner, Co-Owners, Friends, and Guests (Grant Access) have full door access
+		if isOwner(player, house) or isCoOwner(player, house) or isFriend(player, house) or isGuest(player, house):
+			return False # Allow access
+
+		# Otherwise, denied!
+		player.socket.clilocmessage(1061637) # It's not accessable
+		return True # Access Denied
+
+	# For other items inside the house (containers, securables):
+	if item.hastag('security_level'):
+		level = int(item.gettag('security_level'))
+	else:
+		# Default security for items in house: Co-Owner access
+		level = ACCESS_COOWNER
 
 	if not checkAccess(player, house, level):
 		if item.type == 1: # Container
 			player.socket.clilocmessage(501647) # It's secure
 		else:
 			player.socket.clilocmessage(1061637) # It's not accessable
+		return True # Access Denied
 
-		return True
-			
-	return False
+	return False # Access Allowed
 
 #
 # Checks if the given player is an owner of the given house
 # NOTE: This does not check higher access levels.
 #
 def isOwner(player, house):
-	return player == house.owner
+	if not player or not house:
+		return False
+	h_owner = getattr(house, 'owner', None)
+	if h_owner:
+		if hasattr(h_owner, 'serial'):
+			return player.serial == h_owner.serial
+		elif isinstance(h_owner, (int, str)):
+			return str(player.serial) == str(h_owner)
+	return False
 
 #
 # Checks if the given player is an co-owner of the given house
 # NOTE: This does not check higher access levels.
 #
 def isCoOwner(player, house):
+	if not player or not house:
+		return False
 	coowners = getCoOwners(house)
 	serial = str(player.serial)
 	return serial in coowners
@@ -369,9 +417,21 @@ def isCoOwner(player, house):
 # NOTE: This does not check higher access levels.
 #
 def isFriend(player, house):
+	if not player or not house:
+		return False
 	friends = getFriends(house)
 	serial = str(player.serial)
 	return serial in friends
+
+#
+# Checks if the given player has been granted access (guest) to the house.
+#
+def isGuest(player, house):
+	if not player or not house:
+		return False
+	guests = getGuests(house)
+	serial = str(player.serial)
+	return serial in guests
 
 #
 # Check the access level of the given char for this house
@@ -380,14 +440,22 @@ def checkAccess(player, house, level):
 	if not player or not house or level < 0 or level > 3:
 		return False # Error Checks
 
-	if player.gm or level == ACCESS_ANYONE:
+	if player.gm:
 		return True
 
-	if level >= ACCESS_OWNER and isOwner(player, house):
+	if isBanned(player, house) and not isOwner(player, house):
+		return False
+
+	if isOwner(player, house):
 		return True
-	elif level >= ACCESS_COOWNER and isCoOwner(player, house):
+
+	if level >= ACCESS_COOWNER and isCoOwner(player, house):
 		return True
-	elif level >= ACCESS_FRIEND and isFriend(player, house):
+
+	if level >= ACCESS_FRIEND and isFriend(player, house):
+		return True
+
+	if level >= ACCESS_ANYONE:
 		return True
 
 	return False
@@ -413,17 +481,18 @@ def commandunlockthis(socket, cmd, args ):
 	return
 
 def locktarget(char, arguments, target):
-	if not target.item.isitem :
+	if not target.item or not target.item.isitem:
 		char.socket.sysmessage('You have to target an item.')
 		return
-	if not target.item.multi:
+	multi = target.item.multi or wolfpack.findmulti(target.item.pos)
+	if not multi:
 		char.socket.sysmessage('You are not in a house.')
 		return
-	if not checkAccess(char, target.item.multi, ACCESS_COOWNER) :
+	if not checkAccess(char, multi, ACCESS_COOWNER):
 		char.socket.sysmessage("You can't do that, ask a co-owner or the owner.")
 		return		
 	# the item is not locked
-	if not target.item.lockeddown : 
+	if not target.item.lockeddown: 
 		target.item.lockeddown = 1
 		target.item.movable = 3
 		char.socket.sysmessage('You lock %s' % (target.item.name))
@@ -432,3 +501,6 @@ def locktarget(char, arguments, target):
 		target.item.movable = 1
 		char.socket.sysmessage('You unlock %s' % (target.item.name))
 	return
+
+def onServerStart():
+	housing.refreshHouses()

@@ -93,6 +93,7 @@ if save == 1:
 		if form.getvalue('email', '') != '':
 			record.email = form.getvalue('email', '')
 
+		wolfpack.accounts.save()
 		message = "Os dados da conta foram atualizados com sucesso."
 
 alert_html = ""

@@ -204,7 +204,19 @@ def get_empty_foundation_tiles(foundation_id, f_type=0):
 			
 	return tiles
 
+def is_custom_house(multi):
+	if not multi:
+		return False
+	if multi.hastag('ch_revision') or multi.hastag('custom'):
+		return True
+	model = multi.id & 0x3FFF
+	if 0x13EC <= model <= 0x147F:
+		return True
+	return False
+
 def get_or_create_design(multi):
+	if not is_custom_house(multi):
+		return None
 	serial = multi.serial
 	if serial in DESIGNS:
 		return DESIGNS[serial]
@@ -406,7 +418,11 @@ def end_customizing(player, multi, commit=False):
 def send_detailed_state(player, multi, response=True):
 	if not multi or not player or not player.socket:
 		return
+	if not is_custom_house(multi):
+		return
 	design = get_or_create_design(multi)
+	if not design:
+		return
 	state_tiles = design['design'] if (player.serial in SESSIONS and SESSIONS[player.serial]['multi_serial'] == multi.serial) else design['current']
 	d8_packet = build_d8_packet(multi.serial, design['revision'], response, design['bounds'], state_tiles)
 	player.socket.sendpacket(d8_packet)
@@ -414,16 +430,26 @@ def send_detailed_state(player, multi, response=True):
 def send_general_state(player, multi):
 	if not multi or not player or not player.socket:
 		return
+	if not is_custom_house(multi):
+		return
 	design = get_or_create_design(multi)
+	if not design:
+		return
 	rev_pkt = build_revision_packet(multi.serial, design['revision'])
 	player.socket.sendpacket(rev_pkt)
+
+def build_empty_d8_packet(serial, revision=1):
+	return [0xD8, 0x00, 0x11, 0x00, 0x01] + list(struct.pack('>IIHH', serial, revision, 0, 0))
 
 #
 # Event Handlers
 #
 
 def onCHQuery(player, multi):
-	if not multi:
+	if not multi or not player or not player.socket:
+		return
+	if not is_custom_house(multi):
+		player.socket.sendpacket(build_empty_d8_packet(multi.serial))
 		return
 	send_detailed_state(player, multi, response=True)
 
