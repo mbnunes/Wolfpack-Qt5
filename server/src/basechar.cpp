@@ -853,12 +853,13 @@ bool cBaseChar::resurrect( cUObject* source )
 	{
 		SERIAL hairSerial = corpse->getEquipment(Hair);
 		SERIAL beardSerial = corpse->getEquipment(FacialHair);
+		SERIAL faceSerial = corpse->getEquipment(Face);
 
 		// Move all items from the corpse to the backpack and then look for
 		// previous equipment
 		for ( ContainerCopyIterator it( corpse ); !it.atEnd(); ++it )
 		{
-			if ((*it)->serial() != hairSerial && (*it)->serial() != beardSerial) {
+			if ((*it)->serial() != hairSerial && (*it)->serial() != beardSerial && (*it)->serial() != faceSerial) {
 				backpack->addItem( *it, false );
 				( *it )->update();
 			}
@@ -866,7 +867,7 @@ bool cBaseChar::resurrect( cUObject* source )
 
 		for ( unsigned char layer = SingleHandedWeapon; layer < Mount; layer++ )
 		{
-			if ( layer != Backpack && layer != Hair && layer != FacialHair )
+			if ( layer != Backpack && layer != Hair && layer != FacialHair && layer != Face )
 			{
 				P_ITEM item = atLayer( ( enLayer ) layer );
 
@@ -3460,7 +3461,7 @@ bool cBaseChar::kill( cUObject* source )
 
 			if ( item )
 			{
-				if ( layer == Hair || layer == FacialHair ) {
+				if ( layer == Hair || layer == FacialHair || layer == Face ) {
 					// Dupe the item and put it on the corpse
 					P_ITEM pNewItem = item->dupe();
 					corpse->addItem( pNewItem );

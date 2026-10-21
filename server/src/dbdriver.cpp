@@ -149,6 +149,10 @@ static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name )
 
 PyObject* getPyObjectFromQSqlQuery( QSqlQuery& t )
 {
+	if ( !( wpDbResultType.tp_flags & Py_TPFLAGS_READY ) )
+	{
+		PyType_Ready( &wpDbResultType );
+	}
 	wpDbResult* returnVal = PyObject_New( wpDbResult, &wpDbResultType );
 	new (&returnVal->result) QSqlQuery( t );
 	return ( PyObject * ) returnVal;

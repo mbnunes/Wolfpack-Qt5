@@ -1940,6 +1940,48 @@ static PyObject* wpChar_ismounted( wpChar* self, PyObject* args )
 }
 
 /*
+	\method char.isgargoyle
+	\description Check if the character is a gargoyle.
+	\return True if the character is a gargoyle, false otherwise.
+*/
+static PyObject* wpChar_isgargoyle( wpChar* self, PyObject* args )
+{
+	Q_UNUSED( args );
+	if ( !self->pChar || self->pChar->free )
+		Py_RETURN_FALSE;
+
+	return self->pChar->isGargoyle() ? PyTrue() : PyFalse();
+}
+
+/*
+	\method char.iself
+	\description Check if the character is an elf.
+	\return True if the character is an elf, false otherwise.
+*/
+static PyObject* wpChar_iself( wpChar* self, PyObject* args )
+{
+	Q_UNUSED( args );
+	if ( !self->pChar || self->pChar->free )
+		Py_RETURN_FALSE;
+
+	return self->pChar->isElf() ? PyTrue() : PyFalse();
+}
+
+/*
+	\method char.ishuman
+	\description Check if the character is a human.
+	\return True if the character is a human, false otherwise.
+*/
+static PyObject* wpChar_ishuman( wpChar* self, PyObject* args )
+{
+	Q_UNUSED( args );
+	if ( !self->pChar || self->pChar->free )
+		Py_RETURN_FALSE;
+
+	return self->pChar->isHuman() ? PyTrue() : PyFalse();
+}
+
+/*
 	\method char.ismurderer
 	\description Check if the character is a murderer.
 	\return True if the character is a murderer, false otherwise.
@@ -2800,6 +2842,9 @@ static PyMethodDef wpCharMethods[] =
 { "unmount",		( getattrofunc ) wpChar_unmount,			METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
 { "mount",			( getattrofunc ) wpChar_mount,				METH_VARARGS, "Mounts this on a specific mount." },
 { "ismounted",	( getattrofunc ) wpChar_ismounted,		METH_VARARGS, "Is this char mounted." },
+{ "isgargoyle",	( getattrofunc ) wpChar_isgargoyle,		METH_VARARGS, "Is this char a gargoyle." },
+{ "iself",		( getattrofunc ) wpChar_iself,			METH_VARARGS, "Is this char an elf." },
+{ "ishuman",	( getattrofunc ) wpChar_ishuman,		METH_VARARGS, "Is this char a human." },
 
 // Effects
 { "movingeffect",	( getattrofunc ) wpChar_movingeffect,		METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },

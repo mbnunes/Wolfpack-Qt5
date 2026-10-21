@@ -381,6 +381,7 @@ private:
 	void handleBandageTarget( cUORxBandageTarget* packet );
 	void handleTargetedSpell( cUORxTargetedSpell* packet );
 	void handleTargetedSkillUse( cUORxTargetedSkillUse* packet );
+	void handleTargetByResourceMacro( cUORxTargetByResourceMacro* packet );
 	void handleToggleFlying( cUORxToggleFlying* packet );
 
 private slots:

@@ -91,6 +91,7 @@ public:
 		Waist,
 		InnerTorso,
 		Bracelet,
+		Face						= 0xF,
 		FacialHair					= 0x10,
 		MiddleTorso,
 		Earrings,
@@ -1618,7 +1619,7 @@ inline void cBaseChar::setGargoyle(bool data)
 
 inline bool cBaseChar::isGargoyle() const
 {
-	return (propertyFlags_ & 0x1000000) != 0 || body_ == 0x29a || body_ == 0x29b || body_ == 0x2b6 || body_ == 0x2b7;
+	return (propertyFlags_ & 0x1000000) != 0 || body_ == 0x299 || body_ == 0x29a || body_ == 0x29b || body_ == 0x2b6 || body_ == 0x2b7;
 }
 
 inline cBaseChar::CharContainer cBaseChar::guardedby() const
@@ -1633,7 +1634,7 @@ inline cBaseChar::ItemContainer cBaseChar::content() const
 
 inline bool cBaseChar::isFemale() const
 {
-	return ( body_ == 0x191 || body_ == 0x193 || body_ == 0x25e || body_ == 0x260 || body_ == 0x29a || body_ == 0x2b6 );
+	return ( body_ == 0x191 || body_ == 0x193 || body_ == 0x25e || body_ == 0x260 || body_ == 0x299 || body_ == 0x29b || body_ == 0x2b7 );
 }
 
 inline bool cBaseChar::isHuman() const

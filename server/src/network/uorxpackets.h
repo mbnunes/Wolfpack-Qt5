@@ -1258,6 +1258,7 @@ public:
 		bandageTarget									= 0x2c,
 		targetedSpell									= 0x2d,
 		targetedSkillUse								= 0x2e,
+		targetByResourceMacro							= 0x30,
 		toggleFlying									= 0x32
 	};
 
@@ -1435,6 +1436,23 @@ public:
 	uint targetSerial() const
 	{
 		return getInt( 7 );
+	}
+};
+
+// 0xBF 0x30 Target By Resource Macro
+class cUORxTargetByResourceMacro : public cUORxMultiPurpose
+{
+public:
+	cUORxTargetByResourceMacro( const QByteArray& data ) : cUORxMultiPurpose( data )
+	{
+	}
+	SERIAL toolSerial() const
+	{
+		return getInt( 5 );
+	}
+	quint16 resourceType() const
+	{
+		return getShort( 9 );
 	}
 };
 

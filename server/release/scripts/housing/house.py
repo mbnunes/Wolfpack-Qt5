@@ -6,6 +6,50 @@ import housing
 from housing.consts import *
 
 #
+# Helper: Get character name safely from char object or integer/string serial
+#
+def getCharName(serial_or_char):
+	if not serial_or_char:
+		return "nobody"
+	if hasattr(serial_or_char, 'name') and serial_or_char.name:
+		return str(serial_or_char.name)
+	if hasattr(serial_or_char, 'orgname') and serial_or_char.orgname:
+		return str(serial_or_char.orgname)
+	serial = None
+	if isinstance(serial_or_char, int):
+		serial = serial_or_char
+	elif isinstance(serial_or_char, str) and serial_or_char.isdigit():
+		serial = int(serial_or_char)
+	elif hasattr(serial_or_char, 'serial'):
+		serial = int(serial_or_char.serial)
+	if serial:
+		char = wolfpack.findchar(serial)
+		if char and hasattr(char, 'name') and char.name:
+			return str(char.name)
+		try:
+			res = wolfpack.database.query("SELECT name FROM characters WHERE serial = %d" % int(serial))
+			if res and res.fetchrow():
+				name = res.getstring(0)
+				if name:
+					return str(name)
+		except:
+			pass
+	return "nobody"
+
+def getHouseOwnerName(multi):
+	if not multi:
+		return "nobody"
+	if hasattr(multi, 'hastag') and multi.hastag('owner_name'):
+		name = str(multi.gettag('owner_name')).strip()
+		if name and name != "nobody":
+			return name
+	owner = getattr(multi, 'owner', None)
+	name = getCharName(owner)
+	if name and name != "nobody" and hasattr(multi, 'settag'):
+		multi.settag('owner_name', name)
+	return name
+
+#
 # CoOwner management
 # Get a list of character STRINGS(!) 
 # Serials that are coowners of the house
@@ -42,7 +86,7 @@ def removeCoOwner(house, coowner):
 		return
 
 	coowners = getCoOwners(house)
-	serial = str(coowner.serial)
+	serial = str(coowner.serial) if hasattr(coowner, 'serial') else str(coowner)
 	changed = False
 
 	while serial in coowners:
@@ -98,7 +142,7 @@ def removeFriend(house, friend):
 		return
 
 	friends = getFriends(house)
-	serial = str(friend.serial)
+	serial = str(friend.serial) if hasattr(friend, 'serial') else str(friend)
 	changed = False
 
 	while serial in friends:
@@ -156,7 +200,7 @@ def removeGuest(house, guest):
 		return
 
 	guests = getGuests(house)
-	serial = str(guest.serial)
+	serial = str(guest.serial) if hasattr(guest, 'serial') else str(guest)
 	changed = False
 
 	while serial in guests:
@@ -219,7 +263,7 @@ def removeBan(house, banned):
 	if not house or not banned:
 		return
 	bans = getBans(house)
-	serial = str(banned.serial)
+	serial = str(banned.serial) if hasattr(banned, 'serial') else str(banned)
 	changed = False
 	while serial in bans:
 		bans.remove(serial)

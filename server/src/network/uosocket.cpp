@@ -305,21 +305,27 @@ void cUOSocket::send( cGump* gump )
 		++it;
 	}
 
-	if (gumpsize >= 0x8000) {
-		sysMessage("Gump exceeds maximum packet size.");
-		return;
+	if ( isEnhancedClient() || clientVersion_.major >= 4 || ( clientVersion_.major == 3 && clientVersion_.minor > 0 ) )
+	{
+		cUOTxCompressedGumpDialog uoPacket;
+		uoPacket.setGump( gump->serial(), gump->type(), gump->x(), gump->y(), layout, text );
+		send( &uoPacket );
 	}
+	else
+	{
+		if ( gumpsize >= 0x8000 ) {
+			sysMessage( "Gump exceeds maximum packet size." );
+			return;
+		}
 
-
-	cUOTxGumpDialog uoPacket( gumpsize );
-
-	uoPacket.setSerial( gump->serial() );
-	uoPacket.setType( gump->type() );
-	uoPacket.setX( gump->x() );
-	uoPacket.setY( gump->y() );
-	uoPacket.setContent( layout, text );
-
-	send( &uoPacket );
+		cUOTxGumpDialog uoPacket( gumpsize );
+		uoPacket.setSerial( gump->serial() );
+		uoPacket.setType( gump->type() );
+		uoPacket.setX( gump->x() );
+		uoPacket.setY( gump->y() );
+		uoPacket.setContent( layout, text );
+		send( &uoPacket );
+	}
 }
 
 /*!
@@ -575,7 +581,7 @@ void cUOSocket::receive()
 			{
 				// There are two different delays for mounted and unmounted players
 				unsigned int delay;
-				if ( !_player->atLayer( cBaseChar::Mount ) )
+				if ( !_player->atLayer( cBaseChar::Mount ) && !_player->hasTag( "flying" ) )
 				{
 					delay = Config::instance()->antiSpeedHackDelay();
 				}
@@ -2077,7 +2083,7 @@ void cUOSocket::handleCreateCharNew(cUORxCreateCharNew* packet)
 	}
 	else // Its a Gargoyle
 	{
-		pChar->setBody((tGender) ? 0x29a : 0x29b);
+		pChar->setBody((tGender) ? 0x299 : 0x29a);
 	}
 
 	pChar->setOrgBody(pChar->body());
@@ -2498,7 +2504,7 @@ void cUOSocket::handleCreateChar3D(cUORxCreateCharacter3D* packet)
     }
     else // Its a Gargoyle
     {
-        pChar->setBody((tGender) ? 0x29a : 0x29b);
+        pChar->setBody((tGender) ? 0x299 : 0x29a);
     }
 
     pChar->setOrgBody(pChar->body());
@@ -2623,6 +2629,17 @@ void cUOSocket::handleCreateChar3D(cUORxCreateCharacter3D* packet)
             pItem->setNewbie(true);
             pItem->setColor(packet->beardColor());
             pChar->addItem(cBaseChar::FacialHair, pItem);
+        }
+    }
+
+    if (packet->faceStyle())
+    {
+        pItem = cItem::createFromScript(QString("%1").arg(packet->faceStyle(), 0, 16));
+        if (pItem)
+        {
+            pItem->setNewbie(true);
+            pItem->setColor(packet->faceColor());
+            pChar->addItem(cBaseChar::Face, pItem);
         }
     }
 
@@ -2984,10 +3001,46 @@ void cUOSocket::handleTargetedSkillUse( cUORxTargetedSkillUse* packet )
 	}
 }
 
+void cUOSocket::handleTargetByResourceMacro( cUORxTargetByResourceMacro* packet )
+{
+	if ( !_player || !packet )
+		return;
+
+	P_ITEM tool = World::instance()->findItem( packet->toolSerial() );
+	if ( tool )
+	{
+		useItem( tool );
+	}
+}
+
 void cUOSocket::handleToggleFlying( cUORxToggleFlying* /*packet*/ )
 {
 	if ( !_player )
 		return;
+
+	if ( !_player->isGargoyle() )
+		return;
+
+	if ( _player->hasTag( "flying" ) )
+	{
+		_player->removeTag( "flying" );
+		if ( hasBuffIcon() )
+		{
+			cUOTxRemoveBuff removeBuff( _player->serial(), 0x41E );
+			send( &removeBuff );
+		}
+		sysMessage( tr( "You land." ) );
+	}
+	else
+	{
+		_player->setTag( "flying", 1 );
+		if ( hasBuffIcon() )
+		{
+			cUOTxAddBuff addBuff( _player->serial(), 0x41E, 0, 1112193, 1112567 );
+			send( &addBuff );
+		}
+		sysMessage( tr( "You are flying." ) );
+	}
 
 	_player->resend();
 }
@@ -3103,6 +3156,10 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose* packet )
 
 		case cUORxMultiPurpose::targetedSkillUse:
 			handleTargetedSkillUse( dynamic_cast<cUORxTargetedSkillUse*>( packet ) );
+			return;
+
+		case cUORxMultiPurpose::targetByResourceMacro:
+			handleTargetByResourceMacro( dynamic_cast<cUORxTargetByResourceMacro*>( packet ) );
 			return;
 
 		case cUORxMultiPurpose::toggleFlying:
@@ -3334,43 +3391,136 @@ void cUOSocket::handleCloseQuestArrow( cUORxCloseQuestArrow* /*packet*/ )
 
 void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection* packet )
 {
-	if (_player->isJailed()) {
+	if ( !_player || _player->isJailed() ) {
 		return; // Don't show context menus to jailed players
 	}
 
-	P_CHAR pChar;
-	P_ITEM pItem;
+	P_ITEM pItem = FindItemBySerial( packet->serial() );
+	P_CHAR pChar = pItem ? 0 : FindCharBySerial( packet->serial() );
+	cUObject* target = pItem ? static_cast<cUObject*>( pItem ) : static_cast<cUObject*>( pChar );
 
-	if ( contextMenu_.isEmpty() )
+	if ( !target )
 		return;
+
+	// If contextMenu_ is empty (e.g. EC direct status bar / target button click), populate from target's bindmenu
+	if ( contextMenu_.isEmpty() && !target->bindmenu().isEmpty() )
+	{
+		QList<QByteArray> bindMenus = target->bindmenu().split( ',' );
+		foreach ( const QByteArray& menuIt, bindMenus )
+		{
+			cContextMenu* m = ContextMenus::instance()->getMenu( menuIt );
+			if ( m )
+				contextMenu_.append( m );
+		}
+	}
 
 	quint16 Tag = packet->entryTag();
 	bool found = false;
-	cContextMenu* menu;
-	foreach( menu, contextMenu_ )
+	cContextMenu* menu = 0;
+
+	// Enhanced Client direct action buttons (tags >= 0x64)
+	if ( Tag >= 0x64 )
 	{
-		if ( Tag >= menu->count() )
-			Tag -= menu->count();
-		else
+		quint32 targetCliloc = 0;
+		switch ( Tag )
 		{
-			found = true;
-			break;
+			case 0x006E: targetCliloc = 6103; break; // Vendor Buy (3006103)
+			case 0x006F: targetCliloc = 6104; break; // Vendor Sell (3006104)
+			case 0x0078: targetCliloc = 6105; break; // Bank (3006105)
+			case 0x0082: targetCliloc = 6107; break; // Command: Guard (3006107)
+			case 0x0083: targetCliloc = 6108; break; // Command: Follow (3006108)
+			case 0x0086: targetCliloc = 6111; break; // Command: Kill (3006111)
+			case 0x0087: targetCliloc = 6114; break; // Command: Stay (3006114)
+			case 0x0089: targetCliloc = 6112; break; // Command: Stop (3006112)
+			case 0x012D: targetCliloc = 6130; break; // Tame (3006130)
+			case 0x0134: targetCliloc = 6157; break; // Cancel Protection (3006157)
+			case 0x0140: targetCliloc = 1113797; break; // Enable PVP Warning
+			case 0x0193: targetCliloc = 6152; break; // Bulk Order Info (3006152)
+			case 0x0194: targetCliloc = 6154; break; // View Quest Log (3006154)
+			case 0x0195: targetCliloc = 6155; break; // Cancel Quest (3006155)
+			case 0x0196: targetCliloc = 6156; break; // Quest Conversation (3006156)
+			case 0x01A0: targetCliloc = 1114299; break; // Open Item Insurance Menu
+			case 0x01A2: targetCliloc = 6201; break; // Toggle Item Insurance (3006201)
+			case 0x01A3: targetCliloc = 1152294; break; // Bribe
+			case 0x0208: targetCliloc = 6123; break; // Open Paperdoll (3006123)
+			case 0x025A: targetCliloc = 6205; break; // Release Co-Ownership (3006205)
+			case 0x025C: targetCliloc = 6207; break; // Leave House (3006207)
+			case 0x0321: targetCliloc = 6169; break; // Toggle Quest Item (3006169)
+			case 0x032A: targetCliloc = 197; break;  // Add Party Member (3000197)
+			case 0x032B: targetCliloc = 198; break;  // Remove Party Member (3000198)
+			case 0x0334: targetCliloc = 6168; break; // Siege Bless Item (3006168)
+			case 0x0393: targetCliloc = 1049594; break; // Loyalty Rating
+			case 0x0396: targetCliloc = 1115022; break; // Open Titles Menu
+			case 0x03F2: targetCliloc = 1152531; break; // Void Pool
+			case 0x03F5: targetCliloc = 1154112; break; // Allow Trades
+			case 0x03F6: targetCliloc = 1154113; break; // Refuse Trades
+			default: break;
+		}
+
+		if ( targetCliloc != 0 )
+		{
+			foreach ( cContextMenu* m, contextMenu_ )
+			{
+				uint entryIdx = 0;
+				for ( cContextMenu::const_iterator it = m->begin(); it != m->end(); ++it, ++entryIdx )
+				{
+					if ( (*it)->cliloc() == targetCliloc || (targetCliloc >= 3000000 && (*it)->cliloc() == (targetCliloc - 3000000)) )
+					{
+						menu = m;
+						Tag = entryIdx;
+						found = true;
+						break;
+					}
+				}
+				if ( found )
+					break;
+			}
+		}
+
+		// Fallback for special direct actions if not mapped in an explicit menu:
+		if ( !found )
+		{
+			if ( Tag == 0x0078 ) // Bank
+			{
+				P_ITEM bank = _player->getBankbox();
+				if ( bank )
+					sendContainer( bank );
+				return;
+			}
+			else if ( Tag == 0x0208 && pChar ) // Paperdoll
+			{
+				sendPaperdoll( pChar );
+				return;
+			}
 		}
 	}
 
 	if ( !found )
+	{
+		if ( contextMenu_.isEmpty() )
+			return;
+
+		foreach( menu, contextMenu_ )
+		{
+			if ( Tag >= menu->count() )
+				Tag -= menu->count();
+			else
+			{
+				found = true;
+				break;
+			}
+		}
+	}
+
+	if ( !found || !menu )
 		return;
 
-	pItem = FindItemBySerial( packet->serial() );
 	if ( pItem )
 	{
 		menu->onContextEntry( this->player(), pItem, Tag );
 	}
-	else
+	else if ( pChar )
 	{
-		pChar = FindCharBySerial( packet->serial() );
-		if ( !pChar )
-			return;
 		menu->onContextEntry( this->player(), pChar, Tag );
 	}
 }
@@ -5360,7 +5510,7 @@ void cUOSocket::clilocMessageAffix( const quint32 MsgID, const QString& params, 
 
 	msg.setMsgNum( MsgID );
 
-	msg.setParams( affix, params );
+	msg.setParams( affix, params, isEnhancedClient() );
 
 	send( &msg );
 }

@@ -112,7 +112,7 @@ def gump0( char, callback, item ):
 		return
 	builton = str(multi.gettag('builton') or '')
 	mvalue = str(multi.gettag('value') or '0')
-	owner_name = str(multi.owner.name if multi.owner else "nobody")
+	owner_name = str(getHouseOwnerName(multi))
 
 	gump_params = [
 		"a house",
@@ -546,10 +546,10 @@ def gump10( char, callback, item ):
 	members = getCoOwners(multi)
 	for memberserial in members:
 		try:
-			member = wolfpack.findchar(int(memberserial))
-			if member:
+			name = getCharName(int(memberserial))
+			if name and name != "nobody":
 				mygump.addText( 15 + offsety, 150 + offsetx, ' *', 1152 )
-				mygump.addText( 49 + offsety, 150 + offsetx, str(member.name), 1152 )
+				mygump.addText( 49 + offsety, 150 + offsetx, name, 1152 )
 				if offsetx == 192:
 					offsetx = 0
 					offsety += 200
@@ -588,10 +588,10 @@ def gump11( char, callback, item ):
 	members = getCoOwners(multi)
 	for memberserial in members:
 		try:
-			member = wolfpack.findchar(int(memberserial))
-			if member:
-				mygump.addButton( 15 + offsety, 150 + offsetx, 0xFA5, 0xFA7, member.serial )
-				mygump.addText( 49 + offsety, 150 + offsetx, str(member.name), 1152 )
+			name = getCharName(int(memberserial))
+			if name and name != "nobody":
+				mygump.addButton( 15 + offsety, 150 + offsetx, 0xFA5, 0xFA7, int(memberserial) )
+				mygump.addText( 49 + offsety, 150 + offsetx, name, 1152 )
 				if offsetx == 192:
 					offsetx = 0
 					offsety += 200
@@ -630,10 +630,10 @@ def gump12( char, callback, item ):
 	members = getFriends(multi)
 	for memberserial in members:
 		try:
-			member = wolfpack.findchar(int(memberserial))
-			if member:
+			name = getCharName(int(memberserial))
+			if name and name != "nobody":
 				mygump.addText( 15 + offsety, 150 + offsetx, ' *', 1152 )
-				mygump.addText( 49 + offsety, 150 + offsetx, str(member.name), 1152 )
+				mygump.addText( 49 + offsety, 150 + offsetx, name, 1152 )
 				if offsetx == 192:
 					offsetx = 0
 					offsety += 200
@@ -672,10 +672,10 @@ def gump13( char, callback, item ):
 	members = getFriends(multi)
 	for memberserial in members:
 		try:
-			member = wolfpack.findchar(int(memberserial))
-			if member:
-				mygump.addButton( 15 + offsety, 150 + offsetx, 0xFA5, 0xFA7, member.serial )
-				mygump.addText( 49 + offsety, 150 + offsetx, str(member.name), 1152 )
+			name = getCharName(int(memberserial))
+			if name and name != "nobody":
+				mygump.addButton( 15 + offsety, 150 + offsetx, 0xFA5, 0xFA7, int(memberserial) )
+				mygump.addText( 49 + offsety, 150 + offsetx, name, 1152 )
 				if offsetx == 192:
 					offsetx = 0
 					offsety += 200
@@ -710,16 +710,16 @@ def gump_ban_list( char, callback, item ):
 	mygump.addRawLayout( "{gumppic 10 10 100}" )
 	mygump.addRawLayout( "{text 62 43 0 0}" )
 	mygump.addRawLayout( "{text 74 57 0 1}" )
-	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 130 240 20 1060733 0 0 32767}" ) # BAN LIST
+	mygump.addRawLayout( "{xmfhtmlgumpcolor 45 130 240 20 1060734 0 0 32767}" ) # BAN LIST
 
 	offsetx = 0
 	offsety = 0
 	for serial_str in bans:
 		try:
-			member = wolfpack.findchar(int(serial_str))
-			if member:
-				mygump.addButton( 15 + offsety, 150 + offsetx, 0xFA5, 0xFA7, member.serial )
-				mygump.addText( 49 + offsety, 150 + offsetx, str(member.name), 1152 )
+			name = getCharName(int(serial_str))
+			if name and name != "nobody":
+				mygump.addButton( 15 + offsety, 150 + offsetx, 0xFA5, 0xFA7, int(serial_str) )
+				mygump.addText( 49 + offsety, 150 + offsetx, name, 1152 )
 				if offsetx == 192:
 					offsetx = 0
 					offsety += 200
@@ -760,10 +760,10 @@ def gump_access_list( char, callback, item ):
 	offsety = 0
 	for serial_str in guests:
 		try:
-			member = wolfpack.findchar(int(serial_str))
-			if member:
-				mygump.addButton( 15 + offsety, 150 + offsetx, 0xFA5, 0xFA7, member.serial )
-				mygump.addText( 49 + offsety, 150 + offsetx, str(member.name), 1152 )
+			name = getCharName(int(serial_str))
+			if name and name != "nobody":
+				mygump.addButton( 15 + offsety, 150 + offsetx, 0xFA5, 0xFA7, int(serial_str) )
+				mygump.addText( 49 + offsety, 150 + offsetx, name, 1152 )
 				if offsetx == 192:
 					offsetx = 0
 					offsety += 200
@@ -1078,10 +1078,9 @@ def callbackremovecoowner( char, args, choice ):
 	if serial == 0:
 		gump1( char, gumpcallback, item )
 		return
-	player = wolfpack.findchar(serial)
-	if player:
-		removeCoOwner(get_house(item), player)
-		char.socket.sysmessage('You have just removed %s from the co-owners list' % player.name)
+	name = getCharName(serial)
+	removeCoOwner(get_house(item), serial)
+	char.socket.sysmessage('You have just removed %s from the co-owners list' % name)
 	gump11( char, gumpcallback, item )
 
 def callbackremovefriend( char, args, choice ):
@@ -1090,10 +1089,9 @@ def callbackremovefriend( char, args, choice ):
 	if serial == 0:
 		gump1( char, gumpcallback, item )
 		return
-	player = wolfpack.findchar(serial)
-	if player:
-		removeFriend(get_house(item), player)
-		char.socket.sysmessage('You have just removed %s from the friends list' % player.name)
+	name = getCharName(serial)
+	removeFriend(get_house(item), serial)
+	char.socket.sysmessage('You have just removed %s from the friends list' % name)
 	gump13( char, gumpcallback, item )
 
 #

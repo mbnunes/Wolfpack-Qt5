@@ -22,11 +22,8 @@ def onShowTooltip(player, sign, tooltip):
 		name = escapeHtml(sign.name)
 	tooltip.add(1061639, name)
 		
-	owner = sign.multi.owner
-	if not owner:
-		tooltip.add(1061640, "nobody")
-	else:
-		tooltip.add(1061640, owner.orgname)
+	owner_name = housing.house.getHouseOwnerName(sign.multi)
+	tooltip.add(1061640, owner_name)
 		
 	public = housing.house.isPublic(sign.multi)
 	if public:

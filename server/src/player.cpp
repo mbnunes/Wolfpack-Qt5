@@ -1171,6 +1171,21 @@ bool cPlayer::onPickup( P_ITEM pItem )
 
 bool cPlayer::onLogin()
 {
+	// Auto-correct inverted Gargoyle bodies if needed
+	if ( isGargoyle() )
+	{
+		if ( !gender() && ( body_ == 0x299 || body_ == 0x29b ) )
+		{
+			setBody( 0x29a );
+			setOrgBody( 0x29a );
+		}
+		else if ( gender() && ( body_ == 0x29a || body_ == 0x29b ) )
+		{
+			setBody( 0x299 );
+			setOrgBody( 0x299 );
+		}
+	}
+
 	// move the char from the offline to the online chars structure
 	MapObjects::instance()->updateOnlineStatus( this, true );
 

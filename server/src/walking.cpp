@@ -416,10 +416,10 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 		// Lets check if there is enough space ABOVE that position (at least 15 z units)
 		// If there is ANY impassable object between pos.z and pos.z + 15 we can't walk here
 		stBlockItem item = blockList[i];
-		qint8 itemTop = ( item.z + item.height );
+		qint32 itemTop = ( item.z + item.height );
 
-		// If the item is below what we step on, ignore it
-		if ( itemTop <= pos.z )
+		// Walkable items (surfaces/floors/stairs) and items below what we step on do not block headroom
+		if ( item.walkable || itemTop <= pos.z )
 		{
 			continue;
 		}
@@ -910,7 +910,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	// Calculate the stones we weight too much
 	int overWeight = ( int ) ( pChar->weight() - pChar->maxWeight() );
 	int Weightpercent = ( int ) ( ( pChar->weight() * 100 ) / pChar->maxWeight() );
-	bool mounted = pChar->atLayer( cBaseChar::Mount ) != 0;
+	bool mounted = ( pChar->atLayer( cBaseChar::Mount ) != 0 ) || pChar->hasTag( "flying" );
 	bool update = false;
 
 	// Handling onStepWeightPercent

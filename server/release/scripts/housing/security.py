@@ -61,10 +61,9 @@ def showGump(player, item):
 	dialog.addXmfHtmlGump( 10, 10, 200, 20, 1061276, False, False, 32767 )
 	dialog.addXmfHtmlGump( 10, 40, 100, 20, 1041474, False, False, 32767 )
 
-	if not owner:
-		dialog.addText( 110, 40, "", 1152 )
-	else:
-		dialog.addText( 110, 40, owner.name, 1152 )
+	from housing.house import getHouseOwnerName
+	owner_name = getHouseOwnerName(multi)
+	dialog.addText( 110, 40, owner_name if owner_name != "nobody" else "", 1152 )
 				
 	if level == 0:
 		dialog.addButton( 10, 70, 4006, 4007, 1 )

@@ -179,6 +179,8 @@ cUOPacket* cUORxMultiPurpose::packet( const QByteArray& data )
 		return new cUORxTargetedSpell( data );
 	case targetedSkillUse:
 		return new cUORxTargetedSkillUse( data );
+	case targetByResourceMacro:
+		return new cUORxTargetByResourceMacro( data );
 	case toggleFlying:
 		return new cUORxToggleFlying( data );
 	default:

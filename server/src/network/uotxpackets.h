@@ -2095,6 +2095,16 @@ public:
 	void setContent( const QString& layout, const QStringList& text );
 };
 
+// 0xDD Compressed Gump Dialog
+class cUOTxCompressedGumpDialog : public cUOPacket
+{
+public:
+	cUOTxCompressedGumpDialog() : cUOPacket( 0xDD, 24 )
+	{
+	}
+	void setGump( unsigned int serial, unsigned int type, int x, int y, const QString& layout, const QStringList& text );
+};
+
 // 0x70 OldEffect
 class cUOTxOldEffect : public cUOPacket
 {
@@ -2382,13 +2392,13 @@ public:
 	{
 		this->setAsciiString( 19, data.left( 29 ).toLatin1(), wpMin<uint>( data.length() + 1, 30 ) );
 	}
-	void setParams( const QString& affix, const QString& params )
+	void setParams( const QString& affix, const QString& params, bool swapbytes = false )
 	{
 		// Resize first
 		resize( PacketLen + affix.length() + params.length() * 2 + 2 );
 		setShort( 1, PacketLen + affix.length() + params.length() * 2 + 2 );
 		setAsciiString( 49, affix.toLatin1(), affix.length() + 1 );
-		setUnicodeString( 50 + affix.length(), params, params.length() * 2 + 2 );
+		setUnicodeString( 50 + affix.length(), params, params.length() * 2 + 2, swapbytes );
 	}
 };
 

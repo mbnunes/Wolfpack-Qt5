@@ -41,6 +41,7 @@
 // Library Includes
 #include <QStringList>
 #include <QByteArray>
+#include <zlib.h>
 
 void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, unsigned char serverFull, char serverTimeZone, unsigned int serverIp )
 {
@@ -264,7 +265,11 @@ void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 {
 	if ( pChar->isDead() )
 	{
-		if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
+		if ( pChar->isGargoyle() )
+		{
+			setBody( pChar->gender() ? 0x2b7 : 0x2b6 );
+		}
+		else if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
 		{
 			setBody( pChar->gender() ? 0x260 : 0x25f );
 		}
@@ -370,7 +375,11 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 
 	if ( pChar->isDead() )
 	{
-		if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
+		if ( pChar->isGargoyle() )
+		{
+			setBody( pChar->gender() ? 0x2b7 : 0x2b6 );
+		}
+		else if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
 		{
 			setBody( pChar->gender() ? 0x260 : 0x25f );
 		}
@@ -458,7 +467,11 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar, bool newMobileIncoming )
 
 	if ( pChar->isDead() )
 	{
-		if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
+		if ( pChar->isGargoyle() )
+		{
+			setModel( pChar->gender() ? 0x2b7 : 0x2b6 );
+		}
+		else if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
 		{
 			setModel( pChar->gender() ? 0x260 : 0x25f );
 		}
@@ -497,7 +510,9 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar, bool newMobileIncoming )
 	if ( pChar->isDead() && !pChar->isAtWar() )
 		setFlag( flag() | 0x80 );
 
-	if ( pChar->poison() >= 0 )
+	if ( pChar->hasTag( "flying" ) )
+		setFlag( flag() | 0x04 );
+	else if ( pChar->poison() >= 0 )
 		setFlag( flag() | 0x04 );
 
 	// Add our equipment
@@ -556,7 +571,11 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 
 	if ( pChar->isDead() )
 	{
-		if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
+		if ( pChar->isGargoyle() )
+		{
+			setBody( pChar->gender() ? 0x2b7 : 0x2b6 );
+		}
+		else if ( pChar->body() == 0x25d || pChar->body() == 0x25e )
 		{
 			setBody( pChar->gender() ? 0x260 : 0x25f );
 		}
@@ -590,7 +609,9 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	if ( pChar->isDead() && !pChar->isAtWar() )
 		setFlag( flag() | 0x80 );
 
-	if ( pChar->poison() >= 0 )
+	if ( pChar->hasTag( "flying" ) )
+		setFlag( flag() | 0x04 );
+	else if ( pChar->poison() >= 0 )
 		setFlag( flag() | 0x04 );
 
 	setX( pChar->pos().x );
@@ -870,6 +891,83 @@ void cUOTxGumpDialog::setContent( const QString& layout, const QStringList& text
 		setUnicodeString( offset + 2, line, line.length() * 2 );
 		offset += line.length() * 2 + 2;
 		it++;
+	}
+}
+
+void cUOTxCompressedGumpDialog::setGump( unsigned int serial, unsigned int type, int x, int y, const QString& layout, const QStringList& text )
+{
+	// Layout must be null-terminated ASCII string
+	QByteArray layoutBytes = layout.toLatin1();
+	layoutBytes.append( '\0' );
+	uLong uncompressedLayoutLen = layoutBytes.size();
+	uLongf compressedLayoutLen = compressBound( uncompressedLayoutLen );
+	QByteArray compressedLayout( compressedLayoutLen, 0 );
+	::compress( reinterpret_cast<Bytef*>( compressedLayout.data() ), &compressedLayoutLen, reinterpret_cast<const Bytef*>( layoutBytes.constData() ), uncompressedLayoutLen );
+	compressedLayout.resize( compressedLayoutLen );
+
+	// Build raw strings buffer
+	QByteArray stringsBytes;
+	for ( const QString& str : text )
+	{
+		quint16 charLen = str.length();
+		stringsBytes.append( ( charLen >> 8 ) & 0xFF );
+		stringsBytes.append( charLen & 0xFF );
+		const QChar* unicodeData = str.unicode();
+		for ( int i = 0; i < charLen; ++i )
+		{
+			ushort u = unicodeData[i].unicode();
+			stringsBytes.append( ( u >> 8 ) & 0xFF );
+			stringsBytes.append( u & 0xFF );
+		}
+	}
+
+	uLong uncompressedStringsLen = stringsBytes.size();
+	QByteArray compressedStrings;
+	uLongf compressedStringsLen = 0;
+	if ( uncompressedStringsLen > 0 )
+	{
+		compressedStringsLen = compressBound( uncompressedStringsLen );
+		compressedStrings.resize( compressedStringsLen );
+		::compress( reinterpret_cast<Bytef*>( compressedStrings.data() ), &compressedStringsLen, reinterpret_cast<const Bytef*>( stringsBytes.constData() ), uncompressedStringsLen );
+		compressedStrings.resize( compressedStringsLen );
+	}
+
+	unsigned short packetSize = 27 + compressedLayoutLen + 4;
+	if ( uncompressedStringsLen == 0 )
+	{
+		packetSize += 4;
+	}
+	else
+	{
+		packetSize += 8 + compressedStringsLen;
+	}
+
+	resize( packetSize );
+	( *this )[0] = 0xDD;
+	setShort( 1, packetSize );
+	setInt( 3, serial );
+	setInt( 7, type );
+	setInt( 11, x );
+	setInt( 15, y );
+
+	// Layout compressed
+	setInt( 19, 4 + compressedLayoutLen );
+	setInt( 23, uncompressedLayoutLen );
+	setRawData( 27, compressedLayout.constData(), compressedLayoutLen );
+
+	int offset = 27 + compressedLayoutLen;
+	setInt( offset, text.count() );
+	offset += 4;
+
+	if ( uncompressedStringsLen == 0 )
+	{
+		setInt( offset, 0 );
+	}
+	else
+	{
+		setInt( offset, 4 + compressedStringsLen );
+		setInt( offset + 4, uncompressedStringsLen );
+		setRawData( offset + 8, compressedStrings.constData(), compressedStringsLen );
 	}
 }
 

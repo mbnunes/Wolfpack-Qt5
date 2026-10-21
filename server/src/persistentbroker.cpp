@@ -37,6 +37,7 @@
 #include "skills.h"
 
 #include "log.h"
+#include "serverconfig.h"
 
 // Qt Includes
 #include <QString>
@@ -170,6 +171,15 @@ bool cPersistentBroker::deleteObject( PersistentObject* object )
 bool cPersistentBroker::executeQuery( const QString& query )
 {
 	if ( !d->connection.isValid() )
+	{
+		openDriver( Config::instance()->databaseDriver() );
+	}
+	if ( !d->connection.isOpen() )
+	{
+		connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword(), Config::instance()->databasePort() );
+	}
+
+	if ( !d->connection.isValid() || !d->connection.isOpen() )
 		throw wpException( tr( "PersistentBroker not connected to database." ) );
 
 	QSqlQuery q( d->connection );
@@ -184,6 +194,15 @@ bool cPersistentBroker::executeQuery( const QString& query )
 QSqlQuery cPersistentBroker::query( const QString& query )
 {
 	if ( !d->connection.isValid() )
+	{
+		openDriver( Config::instance()->databaseDriver() );
+	}
+	if ( !d->connection.isOpen() )
+	{
+		connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword(), Config::instance()->databasePort() );
+	}
+
+	if ( !d->connection.isValid() || !d->connection.isOpen() )
 		throw wpException( QString( "PersistentBroker not connected to database." ) );
 
 	QSqlQuery q( d->connection );

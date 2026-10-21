@@ -92,7 +92,7 @@ cUOPacket::cUOPacket( qint32 size ) : rawPacket( size, 0 ), haveCompressed( fals
   with 0's in all positions except for the first byte which contains
   the packet type.
 */
-cUOPacket::cUOPacket( quint8 packetId, qint32 size ) : rawPacket( size, 0 ), haveCompressed( false )
+cUOPacket::cUOPacket( quint8 packetId, qint32 size ) : rawPacket( size > 0 ? size : 1, 0 ), haveCompressed( false )
 {
 	init();
 	rawPacket.fill( ( char ) 0 );
